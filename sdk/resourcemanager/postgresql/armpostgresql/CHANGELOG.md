@@ -1,5 +1,15 @@
 # Release History
 
+## 0.4.0 (2022-04-08)
+### Breaking Changes
+
+- Type of `Operation.Properties` has been changed from `map[string]map[string]interface{}` to `map[string]interface{}`
+- Function `ErrorResponse.MarshalJSON` has been removed
+- Struct `CloudError` has been removed
+- Struct `ErrorAdditionalInfo` has been removed
+- Struct `ErrorResponse` has been removed
+
+
 ## 0.3.1 (2022-02-22)
 
 ### Other Changes
