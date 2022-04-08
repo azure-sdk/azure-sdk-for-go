@@ -1,5 +1,27 @@
 # Release History
 
+## 0.4.0 (2022-04-08)
+### Breaking Changes
+
+- Struct `DownloadProperties` has been removed
+- Struct `ErrorDetails` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `HighCasedErrorDetails` has been removed
+- Struct `HighCasedErrorResponse` has been removed
+- Field `Not` of struct `BudgetFilter` has been removed
+
+### Features Added
+
+- New function `*LotsClientListByCustomerPager.Err() error`
+- New function `*LotsClientListByCustomerPager.NextPage(context.Context) bool`
+- New function `*LotsClient.ListByCustomer(string, string, *LotsClientListByCustomerOptions) *LotsClientListByCustomerPager`
+- New function `*LotsClientListByCustomerPager.PageResponse() LotsClientListByCustomerResponse`
+- New struct `LotsClientListByCustomerOptions`
+- New struct `LotsClientListByCustomerPager`
+- New struct `LotsClientListByCustomerResponse`
+- New struct `LotsClientListByCustomerResult`
+
+
 ## 0.3.1 (2022-02-22)
 
 ### Other Changes

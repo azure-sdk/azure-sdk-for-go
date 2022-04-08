@@ -172,6 +172,18 @@ type LotsClientListByBillingProfileResult struct {
 	Lots
 }
 
+// LotsClientListByCustomerResponse contains the response from method LotsClient.ListByCustomer.
+type LotsClientListByCustomerResponse struct {
+	LotsClientListByCustomerResult
+	// RawResponse contains the underlying HTTP response.
+	RawResponse *http.Response
+}
+
+// LotsClientListByCustomerResult contains the result from method LotsClient.ListByCustomer.
+type LotsClientListByCustomerResult struct {
+	Lots
+}
+
 // MarketplacesClientListResponse contains the response from method MarketplacesClient.List.
 type MarketplacesClientListResponse struct {
 	MarketplacesClientListResult

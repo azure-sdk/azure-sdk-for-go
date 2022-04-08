@@ -32,23 +32,22 @@ type LotsClient struct {
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
 func NewLotsClient(credential azcore.TokenCredential, options *arm.ClientOptions) *LotsClient {
-	cp := arm.ClientOptions{}
-	if options != nil {
-		cp = *options
+	if options == nil {
+		options = &arm.ClientOptions{}
 	}
-	if len(cp.Endpoint) == 0 {
-		cp.Endpoint = arm.AzurePublicCloud
+	ep := options.Endpoint
+	if len(ep) == 0 {
+		ep = arm.AzurePublicCloud
 	}
 	client := &LotsClient{
-		host: string(cp.Endpoint),
-		pl:   armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, &cp),
+		host: string(ep),
+		pl:   armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options),
 	}
 	return client
 }
 
-// ListByBillingAccount - Lists all Azure credits and Microsoft Azure consumption commitments for a billing account or a billing
-// profile. Microsoft Azure consumption commitments are only supported for the billing account
-// scope.
+// ListByBillingAccount - Lists all Microsoft Azure consumption commitments for a billing account. The API is only supported
+// for Microsoft Customer Agreements (MCA) and Direct Enterprise Agreement (EA) billing accounts.
 // If the operation fails it returns an *azcore.ResponseError type.
 // billingAccountID - BillingAccount ID
 // options - LotsClientListByBillingAccountOptions contains the optional parameters for the LotsClient.ListByBillingAccount
@@ -95,9 +94,8 @@ func (client *LotsClient) listByBillingAccountHandleResponse(resp *http.Response
 	return result, nil
 }
 
-// ListByBillingProfile - Lists all Azure credits and Microsoft Azure consumption commitments for a billing account or a billing
-// profile. Microsoft Azure consumption commitments are only supported for the billing account
-// scope.
+// ListByBillingProfile - Lists all Azure credits for a billing account or a billing profile. The API is only supported for
+// Microsoft Customer Agreements (MCA) billing accounts.
 // If the operation fails it returns an *azcore.ResponseError type.
 // billingAccountID - BillingAccount ID
 // billingProfileID - Azure Billing Profile ID.
@@ -142,6 +140,58 @@ func (client *LotsClient) listByBillingProfileHandleResponse(resp *http.Response
 	result := LotsClientListByBillingProfileResponse{RawResponse: resp}
 	if err := runtime.UnmarshalAsJSON(resp, &result.Lots); err != nil {
 		return LotsClientListByBillingProfileResponse{}, err
+	}
+	return result, nil
+}
+
+// ListByCustomer - Lists all Azure credits for a customer. The API is only supported for Microsoft Partner Agreements (MPA)
+// billing accounts.
+// If the operation fails it returns an *azcore.ResponseError type.
+// billingAccountID - BillingAccount ID
+// customerID - Customer ID
+// options - LotsClientListByCustomerOptions contains the optional parameters for the LotsClient.ListByCustomer method.
+func (client *LotsClient) ListByCustomer(billingAccountID string, customerID string, options *LotsClientListByCustomerOptions) *LotsClientListByCustomerPager {
+	return &LotsClientListByCustomerPager{
+		client: client,
+		requester: func(ctx context.Context) (*policy.Request, error) {
+			return client.listByCustomerCreateRequest(ctx, billingAccountID, customerID, options)
+		},
+		advancer: func(ctx context.Context, resp LotsClientListByCustomerResponse) (*policy.Request, error) {
+			return runtime.NewRequest(ctx, http.MethodGet, *resp.Lots.NextLink)
+		},
+	}
+}
+
+// listByCustomerCreateRequest creates the ListByCustomer request.
+func (client *LotsClient) listByCustomerCreateRequest(ctx context.Context, billingAccountID string, customerID string, options *LotsClientListByCustomerOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}/providers/Microsoft.Consumption/lots"
+	if billingAccountID == "" {
+		return nil, errors.New("parameter billingAccountID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{billingAccountId}", url.PathEscape(billingAccountID))
+	if customerID == "" {
+		return nil, errors.New("parameter customerID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{customerId}", url.PathEscape(customerID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-10-01")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, nil
+}
+
+// listByCustomerHandleResponse handles the ListByCustomer response.
+func (client *LotsClient) listByCustomerHandleResponse(resp *http.Response) (LotsClientListByCustomerResponse, error) {
+	result := LotsClientListByCustomerResponse{RawResponse: resp}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Lots); err != nil {
+		return LotsClientListByCustomerResponse{}, err
 	}
 	return result, nil
 }

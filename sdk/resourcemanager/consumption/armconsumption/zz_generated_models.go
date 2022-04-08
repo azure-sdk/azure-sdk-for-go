@@ -231,9 +231,6 @@ type BudgetFilter struct {
 	// Has comparison expression for a dimension
 	Dimensions *BudgetComparisonExpression `json:"dimensions,omitempty"`
 
-	// The logical "NOT" expression.
-	Not *BudgetFilterProperties `json:"not,omitempty"`
-
 	// Has comparison expression for a tag
 	Tags *BudgetComparisonExpression `json:"tags,omitempty"`
 }
@@ -243,7 +240,6 @@ func (b BudgetFilter) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "and", b.And)
 	populate(objectMap, "dimensions", b.Dimensions)
-	populate(objectMap, "not", b.Not)
 	populate(objectMap, "tags", b.Tags)
 	return json.Marshal(objectMap)
 }
@@ -545,38 +541,6 @@ type CurrentSpend struct {
 	Unit *string `json:"unit,omitempty" azure:"ro"`
 }
 
-// DownloadProperties - The properties of the price sheet download.
-type DownloadProperties struct {
-	// READ-ONLY; The link (url) to download the pricesheet.
-	DownloadURL *string `json:"downloadUrl,omitempty" azure:"ro"`
-
-	// READ-ONLY; Download link validity.
-	ValidTill *string `json:"validTill,omitempty" azure:"ro"`
-}
-
-// ErrorDetails - The details of the error.
-type ErrorDetails struct {
-	// READ-ONLY; Error code.
-	Code *string `json:"code,omitempty" azure:"ro"`
-
-	// READ-ONLY; Error message indicating why the operation failed.
-	Message *string `json:"message,omitempty" azure:"ro"`
-}
-
-// ErrorResponse - Error response indicates that the service is not able to process the incoming request. The reason is provided
-// in the error message.
-// Some Error responses:
-// * 429 TooManyRequests - Request is throttled. Retry after waiting for the time specified in the "x-ms-ratelimit-microsoft.consumption-retry-after"
-// header.
-//
-//
-// * 503 ServiceUnavailable - Service is temporarily unavailable. Retry after waiting for the time specified in the "Retry-After"
-// header.
-type ErrorResponse struct {
-	// The details of the error.
-	Error *ErrorDetails `json:"error,omitempty"`
-}
-
 // EventProperties - The event properties.
 type EventProperties struct {
 	// Identifies the type of the event.
@@ -824,29 +788,6 @@ type ForecastSpend struct {
 
 	// READ-ONLY; The unit of measure for the budget amount.
 	Unit *string `json:"unit,omitempty" azure:"ro"`
-}
-
-// HighCasedErrorDetails - The details of the error.
-type HighCasedErrorDetails struct {
-	// READ-ONLY; Error code.
-	Code *string `json:"code,omitempty" azure:"ro"`
-
-	// READ-ONLY; Error message indicating why the operation failed.
-	Message *string `json:"message,omitempty" azure:"ro"`
-}
-
-// HighCasedErrorResponse - Error response indicates that the service is not able to process the incoming request. The reason
-// is provided in the error message.
-// Some Error responses:
-// * 429 TooManyRequests - Request is throttled. Retry after waiting for the time specified in the "x-ms-ratelimit-microsoft.consumption-retry-after"
-// header.
-//
-//
-// * 503 ServiceUnavailable - Service is temporarily unavailable. Retry after waiting for the time specified in the "Retry-After"
-// header.
-type HighCasedErrorResponse struct {
-	// The details of the error.
-	Error *HighCasedErrorDetails `json:"error,omitempty"`
 }
 
 // LegacyChargeSummary - Legacy charge summary.
@@ -2350,6 +2291,14 @@ type LotsClientListByBillingAccountOptions struct {
 // LotsClientListByBillingProfileOptions contains the optional parameters for the LotsClient.ListByBillingProfile method.
 type LotsClientListByBillingProfileOptions struct {
 	// placeholder for future optional parameters
+}
+
+// LotsClientListByCustomerOptions contains the optional parameters for the LotsClient.ListByCustomer method.
+type LotsClientListByCustomerOptions struct {
+	// May be used to filter the lots by Status, Source etc. The filter supports 'eq', 'lt', 'gt', 'le', 'ge', and 'and'. Tag
+	// filter is a key value pair string where key and value is separated by a colon
+	// (:).
+	Filter *string
 }
 
 // ManagementGroupAggregatedCostProperties - The properties of the Management Group Aggregated Cost.

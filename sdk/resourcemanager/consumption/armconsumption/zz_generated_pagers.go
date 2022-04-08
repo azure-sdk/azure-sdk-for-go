@@ -286,6 +286,60 @@ func (p *LotsClientListByBillingProfilePager) PageResponse() LotsClientListByBil
 	return p.current
 }
 
+// LotsClientListByCustomerPager provides operations for iterating over paged responses.
+type LotsClientListByCustomerPager struct {
+	client    *LotsClient
+	current   LotsClientListByCustomerResponse
+	err       error
+	requester func(context.Context) (*policy.Request, error)
+	advancer  func(context.Context, LotsClientListByCustomerResponse) (*policy.Request, error)
+}
+
+// Err returns the last error encountered while paging.
+func (p *LotsClientListByCustomerPager) Err() error {
+	return p.err
+}
+
+// NextPage returns true if the pager advanced to the next page.
+// Returns false if there are no more pages or an error occurred.
+func (p *LotsClientListByCustomerPager) NextPage(ctx context.Context) bool {
+	var req *policy.Request
+	var err error
+	if !reflect.ValueOf(p.current).IsZero() {
+		if p.current.Lots.NextLink == nil || len(*p.current.Lots.NextLink) == 0 {
+			return false
+		}
+		req, err = p.advancer(ctx, p.current)
+	} else {
+		req, err = p.requester(ctx)
+	}
+	if err != nil {
+		p.err = err
+		return false
+	}
+	resp, err := p.client.pl.Do(req)
+	if err != nil {
+		p.err = err
+		return false
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		p.err = runtime.NewResponseError(resp)
+		return false
+	}
+	result, err := p.client.listByCustomerHandleResponse(resp)
+	if err != nil {
+		p.err = err
+		return false
+	}
+	p.current = result
+	return true
+}
+
+// PageResponse returns the current LotsClientListByCustomerResponse page.
+func (p *LotsClientListByCustomerPager) PageResponse() LotsClientListByCustomerResponse {
+	return p.current
+}
+
 // MarketplacesClientListPager provides operations for iterating over paged responses.
 type MarketplacesClientListPager struct {
 	client    *MarketplacesClient
