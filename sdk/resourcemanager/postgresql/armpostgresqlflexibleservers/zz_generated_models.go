@@ -122,13 +122,6 @@ type CheckNameAvailabilityClientExecuteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudError - An error response from the Batch service.
-type CloudError struct {
-	// Common error response for all Azure Resource Manager APIs to return error details for failed operations. (This also follows
-	// the OData error response format.)
-	Error *ErrorResponse `json:"error,omitempty"`
-}
-
 // Configuration - Represents a Configuration.
 type Configuration struct {
 	// The properties of a configuration.
@@ -302,45 +295,6 @@ type DelegatedSubnetUsage struct {
 
 	// READ-ONLY; Number of used delegated subnets
 	Usage *int64 `json:"usage,omitempty" azure:"ro"`
-}
-
-// ErrorAdditionalInfo - The resource management error additional info.
-type ErrorAdditionalInfo struct {
-	// READ-ONLY; The additional info.
-	Info map[string]interface{} `json:"info,omitempty" azure:"ro"`
-
-	// READ-ONLY; The additional info type.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
-// (This also follows the OData error response format.)
-type ErrorResponse struct {
-	// READ-ONLY; The error additional info.
-	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
-
-	// READ-ONLY; The error code.
-	Code *string `json:"code,omitempty" azure:"ro"`
-
-	// READ-ONLY; The error details.
-	Details []*ErrorResponse `json:"details,omitempty" azure:"ro"`
-
-	// READ-ONLY; The error message.
-	Message *string `json:"message,omitempty" azure:"ro"`
-
-	// READ-ONLY; The error target.
-	Target *string `json:"target,omitempty" azure:"ro"`
-}
-
-// MarshalJSON implements the json.Marshaller interface for type ErrorResponse.
-func (e ErrorResponse) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "additionalInfo", e.AdditionalInfo)
-	populate(objectMap, "code", e.Code)
-	populate(objectMap, "details", e.Details)
-	populate(objectMap, "message", e.Message)
-	populate(objectMap, "target", e.Target)
-	return json.Marshal(objectMap)
 }
 
 // FirewallRule - Represents a server firewall rule.
@@ -567,7 +521,7 @@ type Operation struct {
 	Origin *OperationOrigin `json:"origin,omitempty" azure:"ro"`
 
 	// READ-ONLY; Additional descriptions for the operation.
-	Properties map[string]map[string]interface{} `json:"properties,omitempty" azure:"ro"`
+	Properties map[string]interface{} `json:"properties,omitempty" azure:"ro"`
 }
 
 // MarshalJSON implements the json.Marshaller interface for type Operation.
