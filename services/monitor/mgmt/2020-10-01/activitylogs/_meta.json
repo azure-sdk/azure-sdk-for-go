@@ -1,5 +1,5 @@
 {
-  "commit": "a1a224b54f05debfa94fd19477ed820c64f0f9fc",
+  "commit": "f568cbae6e06f4cb0fea84a9f1f511f30c24bfef",
   "readme": "/_/azure-rest-api-specs/specification/monitor/resource-manager/readme.md",
   "tag": "package-2020-10-activityLogs",
   "use": "@microsoft.azure/autorest.go@2.1.187",
