@@ -1,0 +1,11 @@
+{
+  "commit": "115259ccb64043eaa4ba23e466d7f72c81f033b7",
+  "readme": "/_/azure-rest-api-specs/specification/postgresqlhsc/resource-manager/readme.md",
+  "tag": "package-2020-10-05-privatepreview",
+  "use": "@microsoft.azure/autorest.go@2.1.187",
+  "repository_url": "https://github.com/Azure/azure-rest-api-specs.git",
+  "autorest_command": "autorest --use=@microsoft.azure/autorest.go@2.1.187 --tag=package-2020-10-05-privatepreview --go-sdk-folder=/_/azure-sdk-for-go --go --verbose --use-onever --version=2.0.4421 --go.license-header=MICROSOFT_MIT_NO_VERSION /_/azure-rest-api-specs/specification/postgresqlhsc/resource-manager/readme.md",
+  "additional_properties": {
+    "additional_options": "--go --verbose --use-onever --version=2.0.4421 --go.license-header=MICROSOFT_MIT_NO_VERSION"
+  }
+}
