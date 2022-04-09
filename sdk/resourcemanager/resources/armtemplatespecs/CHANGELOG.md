@@ -1,5 +1,88 @@
 # Release History
 
+## 0.3.0 (2022-04-09)
+### Breaking Changes
+
+- Function `NewTemplateSpecVersionsClient` return value(s) have been changed from `(*TemplateSpecVersionsClient)` to `(*TemplateSpecVersionsClient, error)`
+- Function `*TemplateSpecVersionsClient.List` return value(s) have been changed from `(*TemplateSpecVersionsClientListPager)` to `(*runtime.Pager[TemplateSpecVersionsClientListResponse])`
+- Function `NewClient` return value(s) have been changed from `(*Client)` to `(*Client, error)`
+- Function `*Client.ListByResourceGroup` return value(s) have been changed from `(*ClientListByResourceGroupPager)` to `(*runtime.Pager[ClientListByResourceGroupResponse])`
+- Function `*Client.ListBySubscription` return value(s) have been changed from `(*ClientListBySubscriptionPager)` to `(*runtime.Pager[ClientListBySubscriptionResponse])`
+- Type of `LinkedTemplateArtifact.Template` has been changed from `map[string]interface{}` to `interface{}`
+- Type of `TemplateSpecProperties.Metadata` has been changed from `map[string]interface{}` to `interface{}`
+- Type of `ErrorAdditionalInfo.Info` has been changed from `map[string]interface{}` to `interface{}`
+- Type of `TemplateSpecVersionProperties.UIFormDefinition` has been changed from `map[string]interface{}` to `interface{}`
+- Type of `TemplateSpecVersionProperties.MainTemplate` has been changed from `map[string]interface{}` to `interface{}`
+- Type of `TemplateSpecVersionProperties.Metadata` has been changed from `map[string]interface{}` to `interface{}`
+- Function `*ClientListBySubscriptionPager.Err` has been removed
+- Function `CreatedByType.ToPtr` has been removed
+- Function `*ClientListByResourceGroupPager.NextPage` has been removed
+- Function `TemplateSpecExpandKind.ToPtr` has been removed
+- Function `*ClientListByResourceGroupPager.Err` has been removed
+- Function `*ClientListBySubscriptionPager.NextPage` has been removed
+- Function `*TemplateSpecVersionsClientListPager.PageResponse` has been removed
+- Function `*TemplateSpecVersionsClientListPager.Err` has been removed
+- Function `*TemplateSpecVersionsClientListPager.NextPage` has been removed
+- Function `*ClientListByResourceGroupPager.PageResponse` has been removed
+- Function `*ClientListBySubscriptionPager.PageResponse` has been removed
+- Struct `ClientCreateOrUpdateResult` has been removed
+- Struct `ClientGetResult` has been removed
+- Struct `ClientListByResourceGroupPager` has been removed
+- Struct `ClientListByResourceGroupResult` has been removed
+- Struct `ClientListBySubscriptionPager` has been removed
+- Struct `ClientListBySubscriptionResult` has been removed
+- Struct `ClientUpdateResult` has been removed
+- Struct `TemplateSpecVersionsClientCreateOrUpdateResult` has been removed
+- Struct `TemplateSpecVersionsClientGetResult` has been removed
+- Struct `TemplateSpecVersionsClientListPager` has been removed
+- Struct `TemplateSpecVersionsClientListResult` has been removed
+- Struct `TemplateSpecVersionsClientUpdateResult` has been removed
+- Field `ClientListBySubscriptionResult` of struct `ClientListBySubscriptionResponse` has been removed
+- Field `RawResponse` of struct `ClientListBySubscriptionResponse` has been removed
+- Field `RawResponse` of struct `TemplateSpecVersionsClientDeleteResponse` has been removed
+- Field `TemplateSpecVersionsClientListResult` of struct `TemplateSpecVersionsClientListResponse` has been removed
+- Field `RawResponse` of struct `TemplateSpecVersionsClientListResponse` has been removed
+- Field `TemplateSpecVersionsClientCreateOrUpdateResult` of struct `TemplateSpecVersionsClientCreateOrUpdateResponse` has been removed
+- Field `RawResponse` of struct `TemplateSpecVersionsClientCreateOrUpdateResponse` has been removed
+- Field `RawResponse` of struct `ClientDeleteResponse` has been removed
+- Field `TemplateSpecVersionsClientGetResult` of struct `TemplateSpecVersionsClientGetResponse` has been removed
+- Field `RawResponse` of struct `TemplateSpecVersionsClientGetResponse` has been removed
+- Field `ClientListByResourceGroupResult` of struct `ClientListByResourceGroupResponse` has been removed
+- Field `RawResponse` of struct `ClientListByResourceGroupResponse` has been removed
+- Field `ClientUpdateResult` of struct `ClientUpdateResponse` has been removed
+- Field `RawResponse` of struct `ClientUpdateResponse` has been removed
+- Field `TemplateSpecVersionsClientUpdateResult` of struct `TemplateSpecVersionsClientUpdateResponse` has been removed
+- Field `RawResponse` of struct `TemplateSpecVersionsClientUpdateResponse` has been removed
+- Field `ClientCreateOrUpdateResult` of struct `ClientCreateOrUpdateResponse` has been removed
+- Field `RawResponse` of struct `ClientCreateOrUpdateResponse` has been removed
+- Field `ClientGetResult` of struct `ClientGetResponse` has been removed
+- Field `RawResponse` of struct `ClientGetResponse` has been removed
+
+### Features Added
+
+- New function `*TemplateSpecVersionsClient.GetBuiltIn(context.Context, string, string, *TemplateSpecVersionsClientGetBuiltInOptions) (TemplateSpecVersionsClientGetBuiltInResponse, error)`
+- New function `*Client.ListBuiltIns(*ClientListBuiltInsOptions) *runtime.Pager[ClientListBuiltInsResponse]`
+- New function `*Client.GetBuiltIn(context.Context, string, *ClientGetBuiltInOptions) (ClientGetBuiltInResponse, error)`
+- New function `*TemplateSpecVersionsClient.ListBuiltIns(string, *TemplateSpecVersionsClientListBuiltInsOptions) *runtime.Pager[TemplateSpecVersionsClientListBuiltInsResponse]`
+- New struct `ClientGetBuiltInOptions`
+- New struct `ClientGetBuiltInResponse`
+- New struct `ClientListBuiltInsOptions`
+- New struct `ClientListBuiltInsResponse`
+- New struct `TemplateSpecVersionsClientGetBuiltInOptions`
+- New struct `TemplateSpecVersionsClientGetBuiltInResponse`
+- New struct `TemplateSpecVersionsClientListBuiltInsOptions`
+- New struct `TemplateSpecVersionsClientListBuiltInsResponse`
+- New anonymous field `ListResult` in struct `ClientListBySubscriptionResponse`
+- New anonymous field `TemplateSpec` in struct `ClientCreateOrUpdateResponse`
+- New anonymous field `TemplateSpecVersionsListResult` in struct `TemplateSpecVersionsClientListResponse`
+- New anonymous field `TemplateSpecVersion` in struct `TemplateSpecVersionsClientUpdateResponse`
+- New anonymous field `TemplateSpec` in struct `ClientUpdateResponse`
+- New anonymous field `TemplateSpecVersion` in struct `TemplateSpecVersionsClientGetResponse`
+- New anonymous field `ListResult` in struct `ClientListByResourceGroupResponse`
+- New anonymous field `TemplateSpec` in struct `ClientGetResponse`
+- New anonymous field `TemplateSpecVersion` in struct `TemplateSpecVersionsClientCreateOrUpdateResponse`
+
+
 ## 0.2.1 (2022-02-22)
 
 ### Other Changes
