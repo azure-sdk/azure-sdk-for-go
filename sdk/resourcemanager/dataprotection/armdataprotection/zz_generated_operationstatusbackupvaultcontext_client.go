@@ -22,19 +22,19 @@ import (
 	"strings"
 )
 
-// ExportJobsOperationResultClient contains the methods for the ExportJobsOperationResult group.
-// Don't use this type directly, use NewExportJobsOperationResultClient() instead.
-type ExportJobsOperationResultClient struct {
+// OperationStatusBackupVaultContextClient contains the methods for the OperationStatusBackupVaultContext group.
+// Don't use this type directly, use NewOperationStatusBackupVaultContextClient() instead.
+type OperationStatusBackupVaultContextClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewExportJobsOperationResultClient creates a new instance of ExportJobsOperationResultClient with the specified values.
+// NewOperationStatusBackupVaultContextClient creates a new instance of OperationStatusBackupVaultContextClient with the specified values.
 // subscriptionID - The subscription Id.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewExportJobsOperationResultClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExportJobsOperationResultClient, error) {
+func NewOperationStatusBackupVaultContextClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OperationStatusBackupVaultContextClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -46,7 +46,7 @@ func NewExportJobsOperationResultClient(subscriptionID string, credential azcore
 	if err != nil {
 		return nil, err
 	}
-	client := &ExportJobsOperationResultClient{
+	client := &OperationStatusBackupVaultContextClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -54,33 +54,30 @@ func NewExportJobsOperationResultClient(subscriptionID string, credential azcore
 	return client, nil
 }
 
-// Get - Gets the operation result of operation triggered by Export Jobs API. If the operation is successful, then it also
-// contains URL of a Blob and a SAS key to access the same. The blob contains exported
-// jobs in JSON serialized format.
+// Get - Gets the operation status for an operation over a BackupVault's context.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group where the backup vault is present.
 // vaultName - The name of the backup vault.
-// operationID - OperationID which represents the export job.
-// options - ExportJobsOperationResultClientGetOptions contains the optional parameters for the ExportJobsOperationResultClient.Get
+// options - OperationStatusBackupVaultContextClientGetOptions contains the optional parameters for the OperationStatusBackupVaultContextClient.Get
 // method.
-func (client *ExportJobsOperationResultClient) Get(ctx context.Context, resourceGroupName string, vaultName string, operationID string, options *ExportJobsOperationResultClientGetOptions) (ExportJobsOperationResultClientGetResponse, error) {
+func (client *OperationStatusBackupVaultContextClient) Get(ctx context.Context, resourceGroupName string, vaultName string, operationID string, options *OperationStatusBackupVaultContextClientGetOptions) (OperationStatusBackupVaultContextClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, vaultName, operationID, options)
 	if err != nil {
-		return ExportJobsOperationResultClientGetResponse{}, err
+		return OperationStatusBackupVaultContextClientGetResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return ExportJobsOperationResultClientGetResponse{}, err
+		return OperationStatusBackupVaultContextClientGetResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
-		return ExportJobsOperationResultClientGetResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return OperationStatusBackupVaultContextClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *ExportJobsOperationResultClient) getCreateRequest(ctx context.Context, resourceGroupName string, vaultName string, operationID string, options *ExportJobsOperationResultClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataProtection/backupVaults/{vaultName}/backupJobs/operations/{operationId}"
+func (client *OperationStatusBackupVaultContextClient) getCreateRequest(ctx context.Context, resourceGroupName string, vaultName string, operationID string, options *OperationStatusBackupVaultContextClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataProtection/backupVaults/{vaultName}/operationStatus/{operationId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -109,10 +106,10 @@ func (client *ExportJobsOperationResultClient) getCreateRequest(ctx context.Cont
 }
 
 // getHandleResponse handles the Get response.
-func (client *ExportJobsOperationResultClient) getHandleResponse(resp *http.Response) (ExportJobsOperationResultClientGetResponse, error) {
-	result := ExportJobsOperationResultClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ExportJobsResult); err != nil {
-		return ExportJobsOperationResultClientGetResponse{}, err
+func (client *OperationStatusBackupVaultContextClient) getHandleResponse(resp *http.Response) (OperationStatusBackupVaultContextClientGetResponse, error) {
+	result := OperationStatusBackupVaultContextClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.OperationResource); err != nil {
+		return OperationStatusBackupVaultContextClientGetResponse{}, err
 	}
 	return result, nil
 }
