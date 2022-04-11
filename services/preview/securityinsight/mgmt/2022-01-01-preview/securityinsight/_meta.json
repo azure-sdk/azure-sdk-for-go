@@ -1,5 +1,5 @@
 {
-  "commit": "162460648e39b3cd20ef3d302008add138e90223",
+  "commit": "882ee2419b69e23a0f1697416f356347d12bbdcf",
   "readme": "/_/azure-rest-api-specs/specification/securityinsights/resource-manager/readme.md",
   "tag": "package-preview-2022-01",
   "use": "@microsoft.azure/autorest.go@2.1.187",
