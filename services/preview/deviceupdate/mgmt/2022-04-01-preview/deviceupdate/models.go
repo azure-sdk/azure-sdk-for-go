@@ -19,7 +19,7 @@ import (
 )
 
 // The package's fully qualified name.
-const fqdn = "github.com/Azure/azure-sdk-for-go/services/preview/deviceupdate/mgmt/2020-03-01-preview/deviceupdate"
+const fqdn = "github.com/Azure/azure-sdk-for-go/services/preview/deviceupdate/mgmt/2022-04-01-preview/deviceupdate"
 
 // Account device Update account details.
 type Account struct {
@@ -312,8 +312,14 @@ type AccountProperties struct {
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
 	// HostName - READ-ONLY; API host name.
 	HostName *string `json:"hostName,omitempty"`
-	// PublicNetworkAccess - Whether or not public network access is allowed for the container registry. Possible values include: 'Enabled', 'Disabled'
+	// PublicNetworkAccess - Whether or not public network access is allowed for the account. Possible values include: 'Enabled', 'Disabled'
 	PublicNetworkAccess PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
+	// PrivateEndpointConnections - List of private endpoint connections associated with the account.
+	PrivateEndpointConnections *[]PrivateEndpointConnection `json:"privateEndpointConnections,omitempty"`
+	// Sku - Device Update Sku. Possible values include: 'Free', 'Standard'
+	Sku SKU `json:"sku,omitempty"`
+	// Locations - READ-ONLY; Device Update account primary and failover location details
+	Locations *[]Location `json:"locations,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for AccountProperties.
@@ -321,6 +327,12 @@ func (a AccountProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	if a.PublicNetworkAccess != "" {
 		objectMap["publicNetworkAccess"] = a.PublicNetworkAccess
+	}
+	if a.PrivateEndpointConnections != nil {
+		objectMap["privateEndpointConnections"] = a.PrivateEndpointConnections
+	}
+	if a.Sku != "" {
+		objectMap["sku"] = a.Sku
 	}
 	return json.Marshal(objectMap)
 }
@@ -512,6 +524,26 @@ type CheckNameAvailabilityResponse struct {
 	Message *string `json:"message,omitempty"`
 }
 
+// ConnectionDetails private endpoint connection proxy object properties.
+type ConnectionDetails struct {
+	// ID - READ-ONLY; Connection details ID.
+	ID *string `json:"id,omitempty"`
+	// PrivateIPAddress - READ-ONLY; Private IP address.
+	PrivateIPAddress *string `json:"privateIpAddress,omitempty"`
+	// LinkIdentifier - READ-ONLY; Link ID.
+	LinkIdentifier *string `json:"linkIdentifier,omitempty"`
+	// GroupID - READ-ONLY; Group ID.
+	GroupID *string `json:"groupId,omitempty"`
+	// MemberName - READ-ONLY; Member name.
+	MemberName *string `json:"memberName,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for ConnectionDetails.
+func (cd ConnectionDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	return json.Marshal(objectMap)
+}
+
 // DiagnosticStorageProperties customer-initiated diagnostic log collection storage properties
 type DiagnosticStorageProperties struct {
 	// AuthenticationType - Authentication Type
@@ -561,6 +593,37 @@ func (ed ErrorDetail) MarshalJSON() ([]byte, error) {
 type ErrorResponse struct {
 	// Error - The error object.
 	Error *ErrorDetail `json:"error,omitempty"`
+}
+
+// GroupConnectivityInformation group connectivity details.
+type GroupConnectivityInformation struct {
+	// GroupID - READ-ONLY; Group ID.
+	GroupID *string `json:"groupId,omitempty"`
+	// MemberName - READ-ONLY; Member name.
+	MemberName *string `json:"memberName,omitempty"`
+	// CustomerVisibleFqdns - List of customer visible FQDNs.
+	CustomerVisibleFqdns *[]string `json:"customerVisibleFqdns,omitempty"`
+	// InternalFqdn - READ-ONLY; Internal FQDN.
+	InternalFqdn *string `json:"internalFqdn,omitempty"`
+	// RedirectMapID - Redirect map ID.
+	RedirectMapID *string `json:"redirectMapId,omitempty"`
+	// PrivateLinkServiceArmRegion - PrivateLinkService ARM region.
+	PrivateLinkServiceArmRegion *string `json:"privateLinkServiceArmRegion,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for GroupConnectivityInformation.
+func (gci GroupConnectivityInformation) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if gci.CustomerVisibleFqdns != nil {
+		objectMap["customerVisibleFqdns"] = gci.CustomerVisibleFqdns
+	}
+	if gci.RedirectMapID != nil {
+		objectMap["redirectMapId"] = gci.RedirectMapID
+	}
+	if gci.PrivateLinkServiceArmRegion != nil {
+		objectMap["privateLinkServiceArmRegion"] = gci.PrivateLinkServiceArmRegion
+	}
+	return json.Marshal(objectMap)
 }
 
 // GroupInformation the group information for creating a private endpoint on an Account
@@ -1051,10 +1114,13 @@ func (future *InstancesDeleteFuture) result(client InstancesClient) (ar autorest
 type IotHubSettings struct {
 	// ResourceID - IoTHub resource ID
 	ResourceID *string `json:"resourceId,omitempty"`
-	// IoTHubConnectionString - IoTHub connection string.
-	IoTHubConnectionString *string `json:"ioTHubConnectionString,omitempty"`
-	// EventHubConnectionString - EventHub connection string.
-	EventHubConnectionString *string `json:"eventHubConnectionString,omitempty"`
+}
+
+// Location ...
+type Location struct {
+	Name *string `json:"name,omitempty"`
+	// Role - Whether the location is primary or failover. Possible values include: 'Primary', 'Failover'
+	Role Role `json:"role,omitempty"`
 }
 
 // ManagedServiceIdentity managed service identity (system assigned and/or user assigned identities)
@@ -1397,8 +1463,207 @@ type PrivateEndpointConnectionProperties struct {
 	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
 	// PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer and provider.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
+	// GroupIds - Array of group IDs.
+	GroupIds *[]string `json:"groupIds,omitempty"`
 	// ProvisioningState - The provisioning state of the private endpoint connection resource. Possible values include: 'PrivateEndpointConnectionProvisioningStateSucceeded', 'PrivateEndpointConnectionProvisioningStateCreating', 'PrivateEndpointConnectionProvisioningStateDeleting', 'PrivateEndpointConnectionProvisioningStateFailed'
 	ProvisioningState PrivateEndpointConnectionProvisioningState `json:"provisioningState,omitempty"`
+}
+
+// PrivateEndpointConnectionProxiesCreateOrUpdateFuture an abstraction for monitoring and retrieving the
+// results of a long-running operation.
+type PrivateEndpointConnectionProxiesCreateOrUpdateFuture struct {
+	azure.FutureAPI
+	// Result returns the result of the asynchronous operation.
+	// If the operation has not completed it will return an error.
+	Result func(PrivateEndpointConnectionProxiesClient) (PrivateEndpointConnectionProxy, error)
+}
+
+// UnmarshalJSON is the custom unmarshaller for CreateFuture.
+func (future *PrivateEndpointConnectionProxiesCreateOrUpdateFuture) UnmarshalJSON(body []byte) error {
+	var azFuture azure.Future
+	if err := json.Unmarshal(body, &azFuture); err != nil {
+		return err
+	}
+	future.FutureAPI = &azFuture
+	future.Result = future.result
+	return nil
+}
+
+// result is the default implementation for PrivateEndpointConnectionProxiesCreateOrUpdateFuture.Result.
+func (future *PrivateEndpointConnectionProxiesCreateOrUpdateFuture) result(client PrivateEndpointConnectionProxiesClient) (pecp PrivateEndpointConnectionProxy, err error) {
+	var done bool
+	done, err = future.DoneWithContext(context.Background(), client)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "deviceupdate.PrivateEndpointConnectionProxiesCreateOrUpdateFuture", "Result", future.Response(), "Polling failure")
+		return
+	}
+	if !done {
+		pecp.Response.Response = future.Response()
+		err = azure.NewAsyncOpIncompleteError("deviceupdate.PrivateEndpointConnectionProxiesCreateOrUpdateFuture")
+		return
+	}
+	sender := autorest.DecorateSender(client, autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	if pecp.Response.Response, err = future.GetResult(sender); err == nil && pecp.Response.Response.StatusCode != http.StatusNoContent {
+		pecp, err = client.CreateOrUpdateResponder(pecp.Response.Response)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "deviceupdate.PrivateEndpointConnectionProxiesCreateOrUpdateFuture", "Result", pecp.Response.Response, "Failure responding to request")
+		}
+	}
+	return
+}
+
+// PrivateEndpointConnectionProxiesDeleteFuture an abstraction for monitoring and retrieving the results of
+// a long-running operation.
+type PrivateEndpointConnectionProxiesDeleteFuture struct {
+	azure.FutureAPI
+	// Result returns the result of the asynchronous operation.
+	// If the operation has not completed it will return an error.
+	Result func(PrivateEndpointConnectionProxiesClient) (autorest.Response, error)
+}
+
+// UnmarshalJSON is the custom unmarshaller for CreateFuture.
+func (future *PrivateEndpointConnectionProxiesDeleteFuture) UnmarshalJSON(body []byte) error {
+	var azFuture azure.Future
+	if err := json.Unmarshal(body, &azFuture); err != nil {
+		return err
+	}
+	future.FutureAPI = &azFuture
+	future.Result = future.result
+	return nil
+}
+
+// result is the default implementation for PrivateEndpointConnectionProxiesDeleteFuture.Result.
+func (future *PrivateEndpointConnectionProxiesDeleteFuture) result(client PrivateEndpointConnectionProxiesClient) (ar autorest.Response, err error) {
+	var done bool
+	done, err = future.DoneWithContext(context.Background(), client)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "deviceupdate.PrivateEndpointConnectionProxiesDeleteFuture", "Result", future.Response(), "Polling failure")
+		return
+	}
+	if !done {
+		ar.Response = future.Response()
+		err = azure.NewAsyncOpIncompleteError("deviceupdate.PrivateEndpointConnectionProxiesDeleteFuture")
+		return
+	}
+	ar.Response = future.Response()
+	return
+}
+
+// PrivateEndpointConnectionProxy private endpoint connection proxy details.
+type PrivateEndpointConnectionProxy struct {
+	autorest.Response `json:"-"`
+	// ETag - READ-ONLY; ETag from NRP.
+	ETag *string `json:"eTag,omitempty"`
+	// RemotePrivateEndpoint - Remote private endpoint details.
+	RemotePrivateEndpoint *RemotePrivateEndpoint `json:"remotePrivateEndpoint,omitempty"`
+	// Status - Operation status.
+	Status *string `json:"status,omitempty"`
+	// PrivateEndpointConnectionProxyProperties - Private endpoint connection proxy object property bag.
+	*PrivateEndpointConnectionProxyProperties `json:"properties,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for PrivateEndpointConnectionProxy.
+func (pecp PrivateEndpointConnectionProxy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if pecp.RemotePrivateEndpoint != nil {
+		objectMap["remotePrivateEndpoint"] = pecp.RemotePrivateEndpoint
+	}
+	if pecp.Status != nil {
+		objectMap["status"] = pecp.Status
+	}
+	if pecp.PrivateEndpointConnectionProxyProperties != nil {
+		objectMap["properties"] = pecp.PrivateEndpointConnectionProxyProperties
+	}
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON is the custom unmarshaler for PrivateEndpointConnectionProxy struct.
+func (pecp *PrivateEndpointConnectionProxy) UnmarshalJSON(body []byte) error {
+	var m map[string]*json.RawMessage
+	err := json.Unmarshal(body, &m)
+	if err != nil {
+		return err
+	}
+	for k, v := range m {
+		switch k {
+		case "eTag":
+			if v != nil {
+				var eTag string
+				err = json.Unmarshal(*v, &eTag)
+				if err != nil {
+					return err
+				}
+				pecp.ETag = &eTag
+			}
+		case "remotePrivateEndpoint":
+			if v != nil {
+				var remotePrivateEndpoint RemotePrivateEndpoint
+				err = json.Unmarshal(*v, &remotePrivateEndpoint)
+				if err != nil {
+					return err
+				}
+				pecp.RemotePrivateEndpoint = &remotePrivateEndpoint
+			}
+		case "status":
+			if v != nil {
+				var status string
+				err = json.Unmarshal(*v, &status)
+				if err != nil {
+					return err
+				}
+				pecp.Status = &status
+			}
+		case "properties":
+			if v != nil {
+				var privateEndpointConnectionProxyProperties PrivateEndpointConnectionProxyProperties
+				err = json.Unmarshal(*v, &privateEndpointConnectionProxyProperties)
+				if err != nil {
+					return err
+				}
+				pecp.PrivateEndpointConnectionProxyProperties = &privateEndpointConnectionProxyProperties
+			}
+		}
+	}
+
+	return nil
+}
+
+// PrivateEndpointConnectionProxyListResult the available private endpoint connection proxies for an
+// Account (not to be used by anyone, here because of ARM requirements)
+type PrivateEndpointConnectionProxyListResult struct {
+	autorest.Response `json:"-"`
+	// Value - The list of available private endpoint connection proxies for an Account
+	Value *[]PrivateEndpointConnectionProxy `json:"value,omitempty"`
+	// NextLink - The URI that can be used to request the next list of private endpoint connection proxies.
+	NextLink *string `json:"nextLink,omitempty"`
+}
+
+// PrivateEndpointConnectionProxyProperties private endpoint connection proxy object property bag.
+type PrivateEndpointConnectionProxyProperties struct {
+	// ProvisioningState - The provisioning state of the private endpoint connection proxy resource. Possible values include: 'PrivateEndpointConnectionProxyProvisioningStateSucceeded', 'PrivateEndpointConnectionProxyProvisioningStateCreating', 'PrivateEndpointConnectionProxyProvisioningStateDeleting', 'PrivateEndpointConnectionProxyProvisioningStateFailed'
+	ProvisioningState PrivateEndpointConnectionProxyProvisioningState `json:"provisioningState,omitempty"`
+}
+
+// PrivateEndpointConnectionProxyPropertiesModel private endpoint connection proxy object properties.
+type PrivateEndpointConnectionProxyPropertiesModel struct {
+	// ETag - READ-ONLY; ETag from NRP.
+	ETag *string `json:"eTag,omitempty"`
+	// RemotePrivateEndpoint - Remote private endpoint details.
+	RemotePrivateEndpoint *RemotePrivateEndpoint `json:"remotePrivateEndpoint,omitempty"`
+	// Status - Operation status.
+	Status *string `json:"status,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for PrivateEndpointConnectionProxyPropertiesModel.
+func (pecppm PrivateEndpointConnectionProxyPropertiesModel) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if pecppm.RemotePrivateEndpoint != nil {
+		objectMap["remotePrivateEndpoint"] = pecppm.RemotePrivateEndpoint
+	}
+	if pecppm.Status != nil {
+		objectMap["status"] = pecppm.Status
+	}
+	return json.Marshal(objectMap)
 }
 
 // PrivateEndpointConnectionsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results
@@ -1481,6 +1746,20 @@ func (future *PrivateEndpointConnectionsDeleteFuture) result(client PrivateEndpo
 	return
 }
 
+// PrivateEndpointUpdate private endpoint update details.
+type PrivateEndpointUpdate struct {
+	// ID - Remote endpoint resource ID.
+	ID *string `json:"id,omitempty"`
+	// Location - ARM location of the remote private endpoint.
+	Location *string `json:"location,omitempty"`
+	// ImmutableSubscriptionID - Original subscription ID needed by Microsoft.Network.
+	ImmutableSubscriptionID *string `json:"immutableSubscriptionId,omitempty"`
+	// ImmutableResourceID - Original resource ID needed by Microsoft.Network.
+	ImmutableResourceID *string `json:"immutableResourceId,omitempty"`
+	// VnetTrafficTag - Virtual network traffic tag.
+	VnetTrafficTag *string `json:"vnetTrafficTag,omitempty"`
+}
+
 // PrivateLinkResourceListResult the available private link resources for an Account
 type PrivateLinkResourceListResult struct {
 	autorest.Response `json:"-"`
@@ -1509,6 +1788,16 @@ func (plrp PrivateLinkResourceProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// PrivateLinkServiceConnection private link service connection details.
+type PrivateLinkServiceConnection struct {
+	// Name - Private link service connection name.
+	Name *string `json:"name,omitempty"`
+	// GroupIds - List of group IDs.
+	GroupIds *[]string `json:"groupIds,omitempty"`
+	// RequestMessage - Request message.
+	RequestMessage *string `json:"requestMessage,omitempty"`
+}
+
 // PrivateLinkServiceConnectionState a collection of information about the state of the connection between
 // service consumer and provider.
 type PrivateLinkServiceConnectionState struct {
@@ -1518,6 +1807,30 @@ type PrivateLinkServiceConnectionState struct {
 	Description *string `json:"description,omitempty"`
 	// ActionsRequired - A message indicating if changes on the service provider require any updates on the consumer.
 	ActionsRequired *string `json:"actionsRequired,omitempty"`
+}
+
+// PrivateLinkServiceProxy private link service proxy details.
+type PrivateLinkServiceProxy struct {
+	// ID - NRP resource ID.
+	ID *string `json:"id,omitempty"`
+	// RemotePrivateLinkServiceConnectionState - Remote private link service connection state
+	RemotePrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"remotePrivateLinkServiceConnectionState,omitempty"`
+	// RemotePrivateEndpointConnection - Remote private endpoint connection details.
+	RemotePrivateEndpointConnection *PrivateLinkServiceProxyRemotePrivateEndpointConnection `json:"remotePrivateEndpointConnection,omitempty"`
+	// GroupConnectivityInformation - Group connectivity information.
+	GroupConnectivityInformation *[]GroupConnectivityInformation `json:"groupConnectivityInformation,omitempty"`
+}
+
+// PrivateLinkServiceProxyRemotePrivateEndpointConnection remote private endpoint connection details.
+type PrivateLinkServiceProxyRemotePrivateEndpointConnection struct {
+	// ID - READ-ONLY; Remote private endpoint connection ID.
+	ID *string `json:"id,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for PrivateLinkServiceProxyRemotePrivateEndpointConnection.
+func (plspPec PrivateLinkServiceProxyRemotePrivateEndpointConnection) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	return json.Marshal(objectMap)
 }
 
 // ProxyResource the resource model definition for a Azure Resource Manager proxy resource. It will not
@@ -1535,6 +1848,40 @@ type ProxyResource struct {
 
 // MarshalJSON is the custom marshaler for ProxyResource.
 func (pr ProxyResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	return json.Marshal(objectMap)
+}
+
+// RemotePrivateEndpoint remote private endpoint details.
+type RemotePrivateEndpoint struct {
+	// ID - Remote endpoint resource ID.
+	ID *string `json:"id,omitempty"`
+	// Location - ARM location of the remote private endpoint.
+	Location *string `json:"location,omitempty"`
+	// ImmutableSubscriptionID - Original subscription ID needed by Microsoft.Network.
+	ImmutableSubscriptionID *string `json:"immutableSubscriptionId,omitempty"`
+	// ImmutableResourceID - Original resource ID needed by Microsoft.Network.
+	ImmutableResourceID *string `json:"immutableResourceId,omitempty"`
+	// VnetTrafficTag - Virtual network traffic tag.
+	VnetTrafficTag *string `json:"vnetTrafficTag,omitempty"`
+	// ManualPrivateLinkServiceConnections - List of private link service connections that need manual approval.
+	ManualPrivateLinkServiceConnections *[]PrivateLinkServiceConnection `json:"manualPrivateLinkServiceConnections,omitempty"`
+	// PrivateLinkServiceConnections - List of automatically approved private link service connections.
+	PrivateLinkServiceConnections *[]PrivateLinkServiceConnection `json:"privateLinkServiceConnections,omitempty"`
+	// PrivateLinkServiceProxies - List of private link service proxies.
+	PrivateLinkServiceProxies *[]PrivateLinkServiceProxy `json:"privateLinkServiceProxies,omitempty"`
+	// ConnectionDetails - List of connection details.
+	ConnectionDetails *[]ConnectionDetails `json:"connectionDetails,omitempty"`
+}
+
+// RemotePrivateEndpointConnection remote private endpoint connection details.
+type RemotePrivateEndpointConnection struct {
+	// ID - READ-ONLY; Remote private endpoint connection ID.
+	ID *string `json:"id,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for RemotePrivateEndpointConnection.
+func (rpec RemotePrivateEndpointConnection) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	return json.Marshal(objectMap)
 }

@@ -126,6 +126,26 @@ func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpoin
 	return []PrivateEndpointConnectionProvisioningState{PrivateEndpointConnectionProvisioningStateCreating, PrivateEndpointConnectionProvisioningStateDeleting, PrivateEndpointConnectionProvisioningStateFailed, PrivateEndpointConnectionProvisioningStateSucceeded}
 }
 
+// PrivateEndpointConnectionProxyProvisioningState enumerates the values for private endpoint connection proxy
+// provisioning state.
+type PrivateEndpointConnectionProxyProvisioningState string
+
+const (
+	// PrivateEndpointConnectionProxyProvisioningStateCreating ...
+	PrivateEndpointConnectionProxyProvisioningStateCreating PrivateEndpointConnectionProxyProvisioningState = "Creating"
+	// PrivateEndpointConnectionProxyProvisioningStateDeleting ...
+	PrivateEndpointConnectionProxyProvisioningStateDeleting PrivateEndpointConnectionProxyProvisioningState = "Deleting"
+	// PrivateEndpointConnectionProxyProvisioningStateFailed ...
+	PrivateEndpointConnectionProxyProvisioningStateFailed PrivateEndpointConnectionProxyProvisioningState = "Failed"
+	// PrivateEndpointConnectionProxyProvisioningStateSucceeded ...
+	PrivateEndpointConnectionProxyProvisioningStateSucceeded PrivateEndpointConnectionProxyProvisioningState = "Succeeded"
+)
+
+// PossiblePrivateEndpointConnectionProxyProvisioningStateValues returns an array of possible values for the PrivateEndpointConnectionProxyProvisioningState const type.
+func PossiblePrivateEndpointConnectionProxyProvisioningStateValues() []PrivateEndpointConnectionProxyProvisioningState {
+	return []PrivateEndpointConnectionProxyProvisioningState{PrivateEndpointConnectionProxyProvisioningStateCreating, PrivateEndpointConnectionProxyProvisioningStateDeleting, PrivateEndpointConnectionProxyProvisioningStateFailed, PrivateEndpointConnectionProxyProvisioningStateSucceeded}
+}
+
 // PrivateEndpointServiceConnectionStatus enumerates the values for private endpoint service connection status.
 type PrivateEndpointServiceConnectionStatus string
 
@@ -179,4 +199,34 @@ const (
 // PossiblePublicNetworkAccessValues returns an array of possible values for the PublicNetworkAccess const type.
 func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{Disabled, Enabled}
+}
+
+// Role enumerates the values for role.
+type Role string
+
+const (
+	// Failover ...
+	Failover Role = "Failover"
+	// Primary ...
+	Primary Role = "Primary"
+)
+
+// PossibleRoleValues returns an array of possible values for the Role const type.
+func PossibleRoleValues() []Role {
+	return []Role{Failover, Primary}
+}
+
+// SKU enumerates the values for sku.
+type SKU string
+
+const (
+	// Free ...
+	Free SKU = "Free"
+	// Standard ...
+	Standard SKU = "Standard"
+)
+
+// PossibleSKUValues returns an array of possible values for the SKU const type.
+func PossibleSKUValues() []SKU {
+	return []SKU{Free, Standard}
 }
