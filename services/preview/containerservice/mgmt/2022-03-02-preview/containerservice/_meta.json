@@ -1,0 +1,11 @@
+{
+  "commit": "9b5719762c0250cca63d84098c4554fca23206fa",
+  "readme": "/_/azure-rest-api-specs/specification/containerservice/resource-manager/readme.md",
+  "tag": "package-preview-2022-03",
+  "use": "@microsoft.azure/autorest.go@2.1.187",
+  "repository_url": "https://github.com/Azure/azure-rest-api-specs.git",
+  "autorest_command": "autorest --use=@microsoft.azure/autorest.go@2.1.187 --tag=package-preview-2022-03 --go-sdk-folder=/_/azure-sdk-for-go --go --verbose --use-onever --version=2.0.4421 --go.license-header=MICROSOFT_MIT_NO_VERSION /_/azure-rest-api-specs/specification/containerservice/resource-manager/readme.md",
+  "additional_properties": {
+    "additional_options": "--go --verbose --use-onever --version=2.0.4421 --go.license-header=MICROSOFT_MIT_NO_VERSION"
+  }
+}
