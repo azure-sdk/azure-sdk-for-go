@@ -1,5 +1,5 @@
 {
-  "commit": "25a8355d4094595edf9b58b13e8c95b0b0c9c50c",
+  "commit": "059db31045333f590916444b41d26b54c9b2db66",
   "readme": "/_/azure-rest-api-specs/specification/datamigration/resource-manager/readme.md",
   "tag": "package-preview-2021-10",
   "use": "@microsoft.azure/autorest.go@2.1.187",
