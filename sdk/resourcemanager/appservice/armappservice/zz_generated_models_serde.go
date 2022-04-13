@@ -369,8 +369,13 @@ func (a AseV3NetworkingConfigurationProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "allowNewPrivateEndpointConnections", a.AllowNewPrivateEndpointConnections)
 	populate(objectMap, "externalInboundIpAddresses", a.ExternalInboundIPAddresses)
+	populate(objectMap, "ftpEnabled", a.FtpEnabled)
+	populate(objectMap, "inboundIpAddressOverride", a.InboundIPAddressOverride)
 	populate(objectMap, "internalInboundIpAddresses", a.InternalInboundIPAddresses)
 	populate(objectMap, "linuxOutboundIpAddresses", a.LinuxOutboundIPAddresses)
+	populate(objectMap, "numberOfOutboundIpAddresses", a.NumberOfOutboundIPAddresses)
+	populate(objectMap, "remoteDebugEnabled", a.RemoteDebugEnabled)
+	populate(objectMap, "targetNumberOfOutboundIpAddresses", a.TargetNumberOfOutboundIPAddresses)
 	populate(objectMap, "windowsOutboundIpAddresses", a.WindowsOutboundIPAddresses)
 	return json.Marshal(objectMap)
 }
@@ -635,16 +640,16 @@ func (c *CertificateDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type CertificateEmailProperties.
-func (c CertificateEmailProperties) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type CertificateEmail.
+func (c CertificateEmail) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "emailId", c.EmailID)
 	populateTimeRFC3339(objectMap, "timeStamp", c.TimeStamp)
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type CertificateEmailProperties.
-func (c *CertificateEmailProperties) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type CertificateEmail.
+func (c *CertificateEmail) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return err
@@ -679,16 +684,16 @@ func (c CertificateOrder) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// MarshalJSON implements the json.Marshaller interface for type CertificateOrderActionProperties.
-func (c CertificateOrderActionProperties) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type CertificateOrderAction.
+func (c CertificateOrderAction) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "actionType", c.ActionType)
 	populateTimeRFC3339(objectMap, "createdAt", c.CreatedAt)
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type CertificateOrderActionProperties.
-func (c *CertificateOrderActionProperties) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type CertificateOrderAction.
+func (c *CertificateOrderAction) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return err
@@ -2003,6 +2008,7 @@ func (e Environment) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maximumNumberOfMachines", e.MaximumNumberOfMachines)
 	populate(objectMap, "multiRoleCount", e.MultiRoleCount)
 	populate(objectMap, "multiSize", e.MultiSize)
+	populate(objectMap, "networkingConfiguration", e.NetworkingConfiguration)
 	populate(objectMap, "provisioningState", e.ProvisioningState)
 	populate(objectMap, "status", e.Status)
 	populate(objectMap, "suspended", e.Suspended)
@@ -4624,6 +4630,9 @@ func (s SiteProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "trafficManagerHostNames", s.TrafficManagerHostNames)
 	populate(objectMap, "usageState", s.UsageState)
 	populate(objectMap, "virtualNetworkSubnetId", s.VirtualNetworkSubnetID)
+	populate(objectMap, "vnetContentShareEnabled", s.VnetContentShareEnabled)
+	populate(objectMap, "vnetImagePullEnabled", s.VnetImagePullEnabled)
+	populate(objectMap, "vnetRouteAllEnabled", s.VnetRouteAllEnabled)
 	return json.Marshal(objectMap)
 }
 
@@ -4758,6 +4767,15 @@ func (s *SiteProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "virtualNetworkSubnetId":
 			err = unpopulate(val, &s.VirtualNetworkSubnetID)
+			delete(rawMsg, key)
+		case "vnetContentShareEnabled":
+			err = unpopulate(val, &s.VnetContentShareEnabled)
+			delete(rawMsg, key)
+		case "vnetImagePullEnabled":
+			err = unpopulate(val, &s.VnetImagePullEnabled)
+			delete(rawMsg, key)
+		case "vnetRouteAllEnabled":
+			err = unpopulate(val, &s.VnetRouteAllEnabled)
 			delete(rawMsg, key)
 		}
 		if err != nil {

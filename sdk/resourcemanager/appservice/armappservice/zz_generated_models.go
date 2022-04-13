@@ -533,6 +533,18 @@ type AseV3NetworkingConfigurationProperties struct {
 	// Property to enable and disable new private endpoint connection creation on ASE
 	AllowNewPrivateEndpointConnections *bool `json:"allowNewPrivateEndpointConnections,omitempty"`
 
+	// Property to enable and disable FTP on ASEV3
+	FtpEnabled *bool `json:"ftpEnabled,omitempty"`
+
+	// Customer provided Inbound IP Address
+	InboundIPAddressOverride *string `json:"inboundIpAddressOverride,omitempty"`
+
+	// Property to set the number of outbound ips on AseV3
+	NumberOfOutboundIPAddresses *int32 `json:"numberOfOutboundIpAddresses,omitempty"`
+
+	// Property to enable and disable Remote Debug on ASEV3
+	RemoteDebugEnabled *bool `json:"remoteDebugEnabled,omitempty"`
+
 	// READ-ONLY
 	ExternalInboundIPAddresses []*string `json:"externalInboundIpAddresses,omitempty" azure:"ro"`
 
@@ -541,6 +553,9 @@ type AseV3NetworkingConfigurationProperties struct {
 
 	// READ-ONLY
 	LinuxOutboundIPAddresses []*string `json:"linuxOutboundIpAddresses,omitempty" azure:"ro"`
+
+	// READ-ONLY
+	TargetNumberOfOutboundIPAddresses *int32 `json:"targetNumberOfOutboundIpAddresses,omitempty" azure:"ro"`
 
 	// READ-ONLY
 	WindowsOutboundIPAddresses []*string `json:"windowsOutboundIpAddresses,omitempty" azure:"ro"`
@@ -1029,24 +1044,6 @@ type CertificateDetails struct {
 
 // CertificateEmail - SSL certificate email.
 type CertificateEmail struct {
-	// Kind of resource.
-	Kind *string `json:"kind,omitempty"`
-
-	// CertificateEmail resource specific properties
-	Properties *CertificateEmailProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource Name.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// CertificateEmailProperties - CertificateEmail resource specific properties
-type CertificateEmailProperties struct {
 	// Email id.
 	EmailID *string `json:"emailId,omitempty"`
 
@@ -1080,24 +1077,6 @@ type CertificateOrder struct {
 
 // CertificateOrderAction - Certificate order action.
 type CertificateOrderAction struct {
-	// Kind of resource.
-	Kind *string `json:"kind,omitempty"`
-
-	// CertificateOrderAction resource specific properties
-	Properties *CertificateOrderActionProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource Name.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// CertificateOrderActionProperties - CertificateOrderAction resource specific properties
-type CertificateOrderActionProperties struct {
 	// READ-ONLY; Action type.
 	ActionType *CertificateOrderActionType `json:"actionType,omitempty" azure:"ro"`
 
@@ -1163,7 +1142,7 @@ type CertificateOrderPatchResourceProperties struct {
 	ValidityInYears *int32 `json:"validityInYears,omitempty"`
 
 	// READ-ONLY; Reasons why App Service Certificate is not renewable at the current moment.
-	AppServiceCertificateNotRenewableReasons []*AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem `json:"appServiceCertificateNotRenewableReasons,omitempty" azure:"ro"`
+	AppServiceCertificateNotRenewableReasons []*ResourceNotRenewableReason `json:"appServiceCertificateNotRenewableReasons,omitempty" azure:"ro"`
 
 	// READ-ONLY; Contact info
 	Contact *CertificateOrderContact `json:"contact,omitempty" azure:"ro"`
@@ -1226,7 +1205,7 @@ type CertificateOrderProperties struct {
 	ValidityInYears *int32 `json:"validityInYears,omitempty"`
 
 	// READ-ONLY; Reasons why App Service Certificate is not renewable at the current moment.
-	AppServiceCertificateNotRenewableReasons []*AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem `json:"appServiceCertificateNotRenewableReasons,omitempty" azure:"ro"`
+	AppServiceCertificateNotRenewableReasons []*ResourceNotRenewableReason `json:"appServiceCertificateNotRenewableReasons,omitempty" azure:"ro"`
 
 	// READ-ONLY; Contact info
 	Contact *CertificateOrderContact `json:"contact,omitempty" azure:"ro"`
@@ -3105,7 +3084,7 @@ type DomainPatchResourceProperties struct {
 	CreatedTime *time.Time `json:"createdTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; Reasons why domain is not renewable.
-	DomainNotRenewableReasons []*DomainPatchResourcePropertiesDomainNotRenewableReasonsItem `json:"domainNotRenewableReasons,omitempty" azure:"ro"`
+	DomainNotRenewableReasons []*ResourceNotRenewableReason `json:"domainNotRenewableReasons,omitempty" azure:"ro"`
 
 	// READ-ONLY; Domain expiration timestamp.
 	ExpirationTime *time.Time `json:"expirationTime,omitempty" azure:"ro"`
@@ -3168,7 +3147,7 @@ type DomainProperties struct {
 	CreatedTime *time.Time `json:"createdTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; Reasons why domain is not renewable.
-	DomainNotRenewableReasons []*DomainPropertiesDomainNotRenewableReasonsItem `json:"domainNotRenewableReasons,omitempty" azure:"ro"`
+	DomainNotRenewableReasons []*ResourceNotRenewableReason `json:"domainNotRenewableReasons,omitempty" azure:"ro"`
 
 	// READ-ONLY; Domain expiration timestamp.
 	ExpirationTime *time.Time `json:"expirationTime,omitempty" azure:"ro"`
@@ -3366,6 +3345,9 @@ type Environment struct {
 
 	// Front-end VM size, e.g. "Medium", "Large".
 	MultiSize *string `json:"multiSize,omitempty"`
+
+	// Full view of networking configuration for an ASE.
+	NetworkingConfiguration *AseV3NetworkingConfiguration `json:"networkingConfiguration,omitempty"`
 
 	// User added ip ranges to whitelist on ASE db
 	UserWhitelistedIPRanges []*string `json:"userWhitelistedIpRanges,omitempty"`
@@ -6292,39 +6274,39 @@ type ProcessThreadInfoProperties struct {
 // ProviderClientGetAvailableStacksOnPremOptions contains the optional parameters for the ProviderClient.GetAvailableStacksOnPrem
 // method.
 type ProviderClientGetAvailableStacksOnPremOptions struct {
-	OSTypeSelected *Enum20
+	OSTypeSelected *Enum17
 }
 
 // ProviderClientGetAvailableStacksOptions contains the optional parameters for the ProviderClient.GetAvailableStacks method.
 type ProviderClientGetAvailableStacksOptions struct {
-	OSTypeSelected *Enum15
+	OSTypeSelected *Enum12
 }
 
 // ProviderClientGetFunctionAppStacksForLocationOptions contains the optional parameters for the ProviderClient.GetFunctionAppStacksForLocation
 // method.
 type ProviderClientGetFunctionAppStacksForLocationOptions struct {
 	// Stack OS Type
-	StackOsType *Enum17
+	StackOsType *Enum14
 }
 
 // ProviderClientGetFunctionAppStacksOptions contains the optional parameters for the ProviderClient.GetFunctionAppStacks
 // method.
 type ProviderClientGetFunctionAppStacksOptions struct {
 	// Stack OS Type
-	StackOsType *Enum16
+	StackOsType *Enum13
 }
 
 // ProviderClientGetWebAppStacksForLocationOptions contains the optional parameters for the ProviderClient.GetWebAppStacksForLocation
 // method.
 type ProviderClientGetWebAppStacksForLocationOptions struct {
 	// Stack OS Type
-	StackOsType *Enum18
+	StackOsType *Enum15
 }
 
 // ProviderClientGetWebAppStacksOptions contains the optional parameters for the ProviderClient.GetWebAppStacks method.
 type ProviderClientGetWebAppStacksOptions struct {
 	// Stack OS Type
-	StackOsType *Enum19
+	StackOsType *Enum16
 }
 
 // ProviderClientListOperationsOptions contains the optional parameters for the ProviderClient.ListOperations method.
@@ -8426,6 +8408,16 @@ type SiteProperties struct {
 	// the form
 	// /subscriptions/{subscriptionName}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
 	VirtualNetworkSubnetID *string `json:"virtualNetworkSubnetId,omitempty"`
+
+	// To enable accessing content over virtual network
+	VnetContentShareEnabled *bool `json:"vnetContentShareEnabled,omitempty"`
+
+	// To enable pulling image over Virtual Network
+	VnetImagePullEnabled *bool `json:"vnetImagePullEnabled,omitempty"`
+
+	// Virtual Network Route All enabled. This causes all outbound traffic to have Virtual Network Security Groups and User Defined
+	// Routes applied.
+	VnetRouteAllEnabled *bool `json:"vnetRouteAllEnabled,omitempty"`
 
 	// READ-ONLY; Management information availability state for the app.
 	AvailabilityState *SiteAvailabilityState `json:"availabilityState,omitempty" azure:"ro"`

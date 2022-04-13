@@ -10,7 +10,7 @@ package armappservice
 
 const (
 	moduleName    = "armappservice"
-	moduleVersion = "v0.3.0"
+	moduleVersion = "v0.4.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -28,40 +28,6 @@ func PossibleActiveRevisionsModeValues() []ActiveRevisionsMode {
 	return []ActiveRevisionsMode{
 		ActiveRevisionsModeMultiple,
 		ActiveRevisionsModeSingle,
-	}
-}
-
-type AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem string
-
-const (
-	AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange          AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem = "ExpirationNotInRenewalTimeRange"
-	AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem = "RegistrationStatusNotSupportedForRenewal"
-	AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive                    AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem = "SubscriptionNotActive"
-)
-
-// PossibleAppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemValues returns the possible values for the AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem const type.
-func PossibleAppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemValues() []AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem {
-	return []AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem{
-		AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange,
-		AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal,
-		AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive,
-	}
-}
-
-type AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem string
-
-const (
-	AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange          AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem = "ExpirationNotInRenewalTimeRange"
-	AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem = "RegistrationStatusNotSupportedForRenewal"
-	AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive                    AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem = "SubscriptionNotActive"
-)
-
-// PossibleAppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemValues returns the possible values for the AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem const type.
-func PossibleAppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemValues() []AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem {
-	return []AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem{
-		AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange,
-		AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal,
-		AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive,
 	}
 }
 
@@ -561,6 +527,7 @@ const (
 	CustomDomainStatusFailed                    CustomDomainStatus = "Failed"
 	CustomDomainStatusReady                     CustomDomainStatus = "Ready"
 	CustomDomainStatusRetrievingValidationToken CustomDomainStatus = "RetrievingValidationToken"
+	CustomDomainStatusUnhealthy                 CustomDomainStatus = "Unhealthy"
 	CustomDomainStatusValidating                CustomDomainStatus = "Validating"
 )
 
@@ -572,6 +539,7 @@ func PossibleCustomDomainStatusValues() []CustomDomainStatus {
 		CustomDomainStatusFailed,
 		CustomDomainStatusReady,
 		CustomDomainStatusRetrievingValidationToken,
+		CustomDomainStatusUnhealthy,
 		CustomDomainStatusValidating,
 	}
 }
@@ -661,40 +629,6 @@ func PossibleDetectorTypeValues() []DetectorType {
 		DetectorTypeDetector,
 		DetectorTypeAnalysis,
 		DetectorTypeCategoryOverview,
-	}
-}
-
-type DomainPatchResourcePropertiesDomainNotRenewableReasonsItem string
-
-const (
-	DomainPatchResourcePropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange          DomainPatchResourcePropertiesDomainNotRenewableReasonsItem = "ExpirationNotInRenewalTimeRange"
-	DomainPatchResourcePropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal DomainPatchResourcePropertiesDomainNotRenewableReasonsItem = "RegistrationStatusNotSupportedForRenewal"
-	DomainPatchResourcePropertiesDomainNotRenewableReasonsItemSubscriptionNotActive                    DomainPatchResourcePropertiesDomainNotRenewableReasonsItem = "SubscriptionNotActive"
-)
-
-// PossibleDomainPatchResourcePropertiesDomainNotRenewableReasonsItemValues returns the possible values for the DomainPatchResourcePropertiesDomainNotRenewableReasonsItem const type.
-func PossibleDomainPatchResourcePropertiesDomainNotRenewableReasonsItemValues() []DomainPatchResourcePropertiesDomainNotRenewableReasonsItem {
-	return []DomainPatchResourcePropertiesDomainNotRenewableReasonsItem{
-		DomainPatchResourcePropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange,
-		DomainPatchResourcePropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal,
-		DomainPatchResourcePropertiesDomainNotRenewableReasonsItemSubscriptionNotActive,
-	}
-}
-
-type DomainPropertiesDomainNotRenewableReasonsItem string
-
-const (
-	DomainPropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange          DomainPropertiesDomainNotRenewableReasonsItem = "ExpirationNotInRenewalTimeRange"
-	DomainPropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal DomainPropertiesDomainNotRenewableReasonsItem = "RegistrationStatusNotSupportedForRenewal"
-	DomainPropertiesDomainNotRenewableReasonsItemSubscriptionNotActive                    DomainPropertiesDomainNotRenewableReasonsItem = "SubscriptionNotActive"
-)
-
-// PossibleDomainPropertiesDomainNotRenewableReasonsItemValues returns the possible values for the DomainPropertiesDomainNotRenewableReasonsItem const type.
-func PossibleDomainPropertiesDomainNotRenewableReasonsItemValues() []DomainPropertiesDomainNotRenewableReasonsItem {
-	return []DomainPropertiesDomainNotRenewableReasonsItem{
-		DomainPropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange,
-		DomainPropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal,
-		DomainPropertiesDomainNotRenewableReasonsItemSubscriptionNotActive,
 	}
 }
 
@@ -789,14 +723,67 @@ func PossibleEnterpriseGradeCdnStatusValues() []EnterpriseGradeCdnStatus {
 	}
 }
 
+type Enum12 string
+
+const (
+	Enum12All              Enum12 = "All"
+	Enum12Linux            Enum12 = "Linux"
+	Enum12LinuxFunctions   Enum12 = "LinuxFunctions"
+	Enum12Windows          Enum12 = "Windows"
+	Enum12WindowsFunctions Enum12 = "WindowsFunctions"
+)
+
+// PossibleEnum12Values returns the possible values for the Enum12 const type.
+func PossibleEnum12Values() []Enum12 {
+	return []Enum12{
+		Enum12All,
+		Enum12Linux,
+		Enum12LinuxFunctions,
+		Enum12Windows,
+		Enum12WindowsFunctions,
+	}
+}
+
+type Enum13 string
+
+const (
+	Enum13All     Enum13 = "All"
+	Enum13Linux   Enum13 = "Linux"
+	Enum13Windows Enum13 = "Windows"
+)
+
+// PossibleEnum13Values returns the possible values for the Enum13 const type.
+func PossibleEnum13Values() []Enum13 {
+	return []Enum13{
+		Enum13All,
+		Enum13Linux,
+		Enum13Windows,
+	}
+}
+
+type Enum14 string
+
+const (
+	Enum14All     Enum14 = "All"
+	Enum14Linux   Enum14 = "Linux"
+	Enum14Windows Enum14 = "Windows"
+)
+
+// PossibleEnum14Values returns the possible values for the Enum14 const type.
+func PossibleEnum14Values() []Enum14 {
+	return []Enum14{
+		Enum14All,
+		Enum14Linux,
+		Enum14Windows,
+	}
+}
+
 type Enum15 string
 
 const (
-	Enum15All              Enum15 = "All"
-	Enum15Linux            Enum15 = "Linux"
-	Enum15LinuxFunctions   Enum15 = "LinuxFunctions"
-	Enum15Windows          Enum15 = "Windows"
-	Enum15WindowsFunctions Enum15 = "WindowsFunctions"
+	Enum15All     Enum15 = "All"
+	Enum15Linux   Enum15 = "Linux"
+	Enum15Windows Enum15 = "Windows"
 )
 
 // PossibleEnum15Values returns the possible values for the Enum15 const type.
@@ -804,9 +791,7 @@ func PossibleEnum15Values() []Enum15 {
 	return []Enum15{
 		Enum15All,
 		Enum15Linux,
-		Enum15LinuxFunctions,
 		Enum15Windows,
-		Enum15WindowsFunctions,
 	}
 }
 
@@ -830,9 +815,11 @@ func PossibleEnum16Values() []Enum16 {
 type Enum17 string
 
 const (
-	Enum17All     Enum17 = "All"
-	Enum17Linux   Enum17 = "Linux"
-	Enum17Windows Enum17 = "Windows"
+	Enum17All              Enum17 = "All"
+	Enum17Linux            Enum17 = "Linux"
+	Enum17LinuxFunctions   Enum17 = "LinuxFunctions"
+	Enum17Windows          Enum17 = "Windows"
+	Enum17WindowsFunctions Enum17 = "WindowsFunctions"
 )
 
 // PossibleEnum17Values returns the possible values for the Enum17 const type.
@@ -840,62 +827,9 @@ func PossibleEnum17Values() []Enum17 {
 	return []Enum17{
 		Enum17All,
 		Enum17Linux,
+		Enum17LinuxFunctions,
 		Enum17Windows,
-	}
-}
-
-type Enum18 string
-
-const (
-	Enum18All     Enum18 = "All"
-	Enum18Linux   Enum18 = "Linux"
-	Enum18Windows Enum18 = "Windows"
-)
-
-// PossibleEnum18Values returns the possible values for the Enum18 const type.
-func PossibleEnum18Values() []Enum18 {
-	return []Enum18{
-		Enum18All,
-		Enum18Linux,
-		Enum18Windows,
-	}
-}
-
-type Enum19 string
-
-const (
-	Enum19All     Enum19 = "All"
-	Enum19Linux   Enum19 = "Linux"
-	Enum19Windows Enum19 = "Windows"
-)
-
-// PossibleEnum19Values returns the possible values for the Enum19 const type.
-func PossibleEnum19Values() []Enum19 {
-	return []Enum19{
-		Enum19All,
-		Enum19Linux,
-		Enum19Windows,
-	}
-}
-
-type Enum20 string
-
-const (
-	Enum20All              Enum20 = "All"
-	Enum20Linux            Enum20 = "Linux"
-	Enum20LinuxFunctions   Enum20 = "LinuxFunctions"
-	Enum20Windows          Enum20 = "Windows"
-	Enum20WindowsFunctions Enum20 = "WindowsFunctions"
-)
-
-// PossibleEnum20Values returns the possible values for the Enum20 const type.
-func PossibleEnum20Values() []Enum20 {
-	return []Enum20{
-		Enum20All,
-		Enum20Linux,
-		Enum20LinuxFunctions,
-		Enum20Windows,
-		Enum20WindowsFunctions,
+		Enum17WindowsFunctions,
 	}
 }
 
@@ -1536,6 +1470,23 @@ func PossibleResolveStatusValues() []ResolveStatus {
 		ResolveStatusOtherReasons,
 		ResolveStatusFetchTimedOut,
 		ResolveStatusUnauthorizedClient,
+	}
+}
+
+type ResourceNotRenewableReason string
+
+const (
+	ResourceNotRenewableReasonExpirationNotInRenewalTimeRange          ResourceNotRenewableReason = "ExpirationNotInRenewalTimeRange"
+	ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal ResourceNotRenewableReason = "RegistrationStatusNotSupportedForRenewal"
+	ResourceNotRenewableReasonSubscriptionNotActive                    ResourceNotRenewableReason = "SubscriptionNotActive"
+)
+
+// PossibleResourceNotRenewableReasonValues returns the possible values for the ResourceNotRenewableReason const type.
+func PossibleResourceNotRenewableReasonValues() []ResourceNotRenewableReason {
+	return []ResourceNotRenewableReason{
+		ResourceNotRenewableReasonExpirationNotInRenewalTimeRange,
+		ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal,
+		ResourceNotRenewableReasonSubscriptionNotActive,
 	}
 }
 
