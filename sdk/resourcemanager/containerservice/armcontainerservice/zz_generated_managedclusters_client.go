@@ -110,7 +110,7 @@ func (client *ManagedClustersClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -171,7 +171,7 @@ func (client *ManagedClustersClient) deleteCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -217,7 +217,7 @@ func (client *ManagedClustersClient) getCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -280,7 +280,7 @@ func (client *ManagedClustersClient) getAccessProfileCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -341,7 +341,7 @@ func (client *ManagedClustersClient) getCommandResultCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -392,7 +392,7 @@ func (client *ManagedClustersClient) getOSOptionsCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	if options != nil && options.ResourceType != nil {
 		reqQP.Set("resource-type", *options.ResourceType)
 	}
@@ -451,7 +451,7 @@ func (client *ManagedClustersClient) getUpgradeProfileCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -509,7 +509,7 @@ func (client *ManagedClustersClient) listCreateRequest(ctx context.Context, opti
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -573,7 +573,7 @@ func (client *ManagedClustersClient) listByResourceGroupCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -629,7 +629,7 @@ func (client *ManagedClustersClient) listClusterAdminCredentialsCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	if options != nil && options.ServerFqdn != nil {
 		reqQP.Set("server-fqdn", *options.ServerFqdn)
 	}
@@ -688,7 +688,7 @@ func (client *ManagedClustersClient) listClusterMonitoringUserCredentialsCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	if options != nil && options.ServerFqdn != nil {
 		reqQP.Set("server-fqdn", *options.ServerFqdn)
 	}
@@ -747,7 +747,7 @@ func (client *ManagedClustersClient) listClusterUserCredentialsCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	if options != nil && options.ServerFqdn != nil {
 		reqQP.Set("server-fqdn", *options.ServerFqdn)
 	}
@@ -823,7 +823,7 @@ func (client *ManagedClustersClient) listOutboundNetworkDependenciesEndpointsCre
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -894,7 +894,7 @@ func (client *ManagedClustersClient) resetAADProfileCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -956,7 +956,7 @@ func (client *ManagedClustersClient) resetServicePrincipalProfileCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -1019,7 +1019,68 @@ func (client *ManagedClustersClient) rotateClusterCertificatesCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, nil
+}
+
+// BeginRotateServiceAccountSigningKeys - Rotates the service account signing keys of a managed cluster.
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// resourceName - The name of the managed cluster resource.
+// options - ManagedClustersClientBeginRotateServiceAccountSigningKeysOptions contains the optional parameters for the ManagedClustersClient.BeginRotateServiceAccountSigningKeys
+// method.
+func (client *ManagedClustersClient) BeginRotateServiceAccountSigningKeys(ctx context.Context, resourceGroupName string, resourceName string, options *ManagedClustersClientBeginRotateServiceAccountSigningKeysOptions) (*armruntime.Poller[ManagedClustersClientRotateServiceAccountSigningKeysResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.rotateServiceAccountSigningKeys(ctx, resourceGroupName, resourceName, options)
+		if err != nil {
+			return nil, err
+		}
+		return armruntime.NewPoller[ManagedClustersClientRotateServiceAccountSigningKeysResponse](resp, client.pl, nil)
+	} else {
+		return armruntime.NewPollerFromResumeToken[ManagedClustersClientRotateServiceAccountSigningKeysResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// RotateServiceAccountSigningKeys - Rotates the service account signing keys of a managed cluster.
+// If the operation fails it returns an *azcore.ResponseError type.
+func (client *ManagedClustersClient) rotateServiceAccountSigningKeys(ctx context.Context, resourceGroupName string, resourceName string, options *ManagedClustersClientBeginRotateServiceAccountSigningKeysOptions) (*http.Response, error) {
+	req, err := client.rotateServiceAccountSigningKeysCreateRequest(ctx, resourceGroupName, resourceName, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusAccepted, http.StatusNoContent) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// rotateServiceAccountSigningKeysCreateRequest creates the RotateServiceAccountSigningKeys request.
+func (client *ManagedClustersClient) rotateServiceAccountSigningKeysCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *ManagedClustersClientBeginRotateServiceAccountSigningKeysOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/rotateServiceAccountSigningKeys"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if resourceName == "" {
+		return nil, errors.New("parameter resourceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1085,7 +1146,7 @@ func (client *ManagedClustersClient) runCommandCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, requestPayload)
@@ -1148,7 +1209,7 @@ func (client *ManagedClustersClient) startCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1215,7 +1276,7 @@ func (client *ManagedClustersClient) stopCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1277,7 +1338,7 @@ func (client *ManagedClustersClient) updateTagsCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-03-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, parameters)
