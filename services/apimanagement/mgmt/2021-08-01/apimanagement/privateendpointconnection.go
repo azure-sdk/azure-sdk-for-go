@@ -116,7 +116,7 @@ func (client PrivateEndpointConnectionClient) CreateOrUpdateSender(req *http.Req
 func (client PrivateEndpointConnectionClient) CreateOrUpdateResponder(resp *http.Response) (result PrivateEndpointConnection, err error) {
 	err = autorest.Respond(
 		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
