@@ -1,5 +1,22 @@
 # Release History
 
+## 0.5.0 (2022-04-14)
+### Breaking Changes
+
+- Function `Resource.MarshalJSON` has been removed
+- Field `Location` of struct `Resource` has been removed
+- Field `Tags` of struct `Resource` has been removed
+
+### Features Added
+
+- New function `TrackedResource.MarshalJSON() ([]byte, error)`
+- New struct `ManagedClusterStorageProfile`
+- New struct `ManagedClusterStorageProfileDiskCSIDriver`
+- New struct `ManagedClusterStorageProfileFileCSIDriver`
+- New struct `ManagedClusterStorageProfileSnapshotController`
+- New struct `TrackedResource`
+
+
 ## 0.4.0 (2022-04-11)
 ### Breaking Changes
 
