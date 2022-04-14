@@ -1,5 +1,22 @@
 # Release History
 
+## 0.4.0 (2022-04-14)
+### Breaking Changes
+
+- Type of `ValidationResultItem.Result` has been changed from `*ValidationItemResult` to `*ValidationResultStatus`
+- Const `ValidationItemResultSuccess` has been removed
+- Const `ValidationItemResultFailed` has been removed
+- Const `ValidationItemResultWarning` has been removed
+- Function `PossibleValidationItemResultValues` has been removed
+
+### Features Added
+
+- New const `ValidationResultStatusWarning`
+- New const `ValidationResultStatusSuccess`
+- New const `ValidationResultStatusFailed`
+- New function `PossibleValidationResultStatusValues() []ValidationResultStatus`
+
+
 ## 0.3.0 (2022-04-13)
 ### Breaking Changes
 
