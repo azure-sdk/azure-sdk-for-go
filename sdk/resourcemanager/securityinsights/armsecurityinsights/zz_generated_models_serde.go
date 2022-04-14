@@ -979,6 +979,148 @@ func (a *Anomalies) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// GetSecurityMLAnalyticsSetting implements the SecurityMLAnalyticsSettingClassification interface for type AnomalySecurityMLAnalyticsSettings.
+func (a *AnomalySecurityMLAnalyticsSettings) GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting {
+	return &SecurityMLAnalyticsSetting{
+		Kind:       a.Kind,
+		Etag:       a.Etag,
+		ID:         a.ID,
+		Name:       a.Name,
+		Type:       a.Type,
+		SystemData: a.SystemData,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AnomalySecurityMLAnalyticsSettings.
+func (a AnomalySecurityMLAnalyticsSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "etag", a.Etag)
+	populate(objectMap, "id", a.ID)
+	objectMap["kind"] = SecurityMLAnalyticsSettingsKindAnomaly
+	populate(objectMap, "name", a.Name)
+	populate(objectMap, "properties", a.Properties)
+	populate(objectMap, "systemData", a.SystemData)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AnomalySecurityMLAnalyticsSettings.
+func (a *AnomalySecurityMLAnalyticsSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "etag":
+			err = unpopulate(val, &a.Etag)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, &a.ID)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, &a.Kind)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, &a.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, &a.Properties)
+			delete(rawMsg, key)
+		case "systemData":
+			err = unpopulate(val, &a.SystemData)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AnomalySecurityMLAnalyticsSettingsProperties.
+func (a AnomalySecurityMLAnalyticsSettingsProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "anomalySettingsVersion", a.AnomalySettingsVersion)
+	populate(objectMap, "anomalyVersion", a.AnomalyVersion)
+	populate(objectMap, "customizableObservations", &a.CustomizableObservations)
+	populate(objectMap, "description", a.Description)
+	populate(objectMap, "displayName", a.DisplayName)
+	populate(objectMap, "enabled", a.Enabled)
+	populate(objectMap, "frequency", a.Frequency)
+	populate(objectMap, "isDefaultSettings", a.IsDefaultSettings)
+	populateTimeRFC3339(objectMap, "lastModifiedUtc", a.LastModifiedUTC)
+	populate(objectMap, "requiredDataConnectors", a.RequiredDataConnectors)
+	populate(objectMap, "settingsDefinitionId", a.SettingsDefinitionID)
+	populate(objectMap, "settingsStatus", a.SettingsStatus)
+	populate(objectMap, "tactics", a.Tactics)
+	populate(objectMap, "techniques", a.Techniques)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AnomalySecurityMLAnalyticsSettingsProperties.
+func (a *AnomalySecurityMLAnalyticsSettingsProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "anomalySettingsVersion":
+			err = unpopulate(val, &a.AnomalySettingsVersion)
+			delete(rawMsg, key)
+		case "anomalyVersion":
+			err = unpopulate(val, &a.AnomalyVersion)
+			delete(rawMsg, key)
+		case "customizableObservations":
+			err = unpopulate(val, &a.CustomizableObservations)
+			delete(rawMsg, key)
+		case "description":
+			err = unpopulate(val, &a.Description)
+			delete(rawMsg, key)
+		case "displayName":
+			err = unpopulate(val, &a.DisplayName)
+			delete(rawMsg, key)
+		case "enabled":
+			err = unpopulate(val, &a.Enabled)
+			delete(rawMsg, key)
+		case "frequency":
+			err = unpopulate(val, &a.Frequency)
+			delete(rawMsg, key)
+		case "isDefaultSettings":
+			err = unpopulate(val, &a.IsDefaultSettings)
+			delete(rawMsg, key)
+		case "lastModifiedUtc":
+			err = unpopulateTimeRFC3339(val, &a.LastModifiedUTC)
+			delete(rawMsg, key)
+		case "requiredDataConnectors":
+			err = unpopulate(val, &a.RequiredDataConnectors)
+			delete(rawMsg, key)
+		case "settingsDefinitionId":
+			err = unpopulate(val, &a.SettingsDefinitionID)
+			delete(rawMsg, key)
+		case "settingsStatus":
+			err = unpopulate(val, &a.SettingsStatus)
+			delete(rawMsg, key)
+		case "tactics":
+			err = unpopulate(val, &a.Tactics)
+			delete(rawMsg, key)
+		case "techniques":
+			err = unpopulate(val, &a.Techniques)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // GetAutomationRuleAction implements the AutomationRuleActionClassification interface for type AutomationRuleAction.
 func (a *AutomationRuleAction) GetAutomationRuleAction() *AutomationRuleAction { return a }
 
@@ -3001,6 +3143,89 @@ func (f FileHashEntityProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "friendlyName", f.FriendlyName)
 	populate(objectMap, "hashValue", f.HashValue)
 	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FileImportList.
+func (f FileImportList) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", f.NextLink)
+	populate(objectMap, "value", f.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FileImportProperties.
+func (f FileImportProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "contentType", f.ContentType)
+	populateTimeRFC3339(objectMap, "createdTimeUTC", f.CreatedTimeUTC)
+	populate(objectMap, "errorFile", f.ErrorFile)
+	populate(objectMap, "errorsPreview", f.ErrorsPreview)
+	populateTimeRFC3339(objectMap, "filesValidUntilTimeUTC", f.FilesValidUntilTimeUTC)
+	populate(objectMap, "importFile", f.ImportFile)
+	populateTimeRFC3339(objectMap, "importValidUntilTimeUTC", f.ImportValidUntilTimeUTC)
+	populate(objectMap, "ingestedRecordCount", f.IngestedRecordCount)
+	populate(objectMap, "ingestionMode", f.IngestionMode)
+	populate(objectMap, "source", f.Source)
+	populate(objectMap, "state", f.State)
+	populate(objectMap, "totalRecordCount", f.TotalRecordCount)
+	populate(objectMap, "validRecordCount", f.ValidRecordCount)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FileImportProperties.
+func (f *FileImportProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "contentType":
+			err = unpopulate(val, &f.ContentType)
+			delete(rawMsg, key)
+		case "createdTimeUTC":
+			err = unpopulateTimeRFC3339(val, &f.CreatedTimeUTC)
+			delete(rawMsg, key)
+		case "errorFile":
+			err = unpopulate(val, &f.ErrorFile)
+			delete(rawMsg, key)
+		case "errorsPreview":
+			err = unpopulate(val, &f.ErrorsPreview)
+			delete(rawMsg, key)
+		case "filesValidUntilTimeUTC":
+			err = unpopulateTimeRFC3339(val, &f.FilesValidUntilTimeUTC)
+			delete(rawMsg, key)
+		case "importFile":
+			err = unpopulate(val, &f.ImportFile)
+			delete(rawMsg, key)
+		case "importValidUntilTimeUTC":
+			err = unpopulateTimeRFC3339(val, &f.ImportValidUntilTimeUTC)
+			delete(rawMsg, key)
+		case "ingestedRecordCount":
+			err = unpopulate(val, &f.IngestedRecordCount)
+			delete(rawMsg, key)
+		case "ingestionMode":
+			err = unpopulate(val, &f.IngestionMode)
+			delete(rawMsg, key)
+		case "source":
+			err = unpopulate(val, &f.Source)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, &f.State)
+			delete(rawMsg, key)
+		case "totalRecordCount":
+			err = unpopulate(val, &f.TotalRecordCount)
+			delete(rawMsg, key)
+		case "validRecordCount":
+			err = unpopulate(val, &f.ValidRecordCount)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // GetAlertRule implements the AlertRuleClassification interface for type FusionAlertRule.
@@ -7553,6 +7778,50 @@ func (s SecurityGroupEntityProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// GetSecurityMLAnalyticsSetting implements the SecurityMLAnalyticsSettingClassification interface for type SecurityMLAnalyticsSetting.
+func (s *SecurityMLAnalyticsSetting) GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting {
+	return s
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SecurityMLAnalyticsSettingsDataSource.
+func (s SecurityMLAnalyticsSettingsDataSource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "connectorId", s.ConnectorID)
+	populate(objectMap, "dataTypes", s.DataTypes)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SecurityMLAnalyticsSettingsList.
+func (s SecurityMLAnalyticsSettingsList) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", s.NextLink)
+	populate(objectMap, "value", s.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SecurityMLAnalyticsSettingsList.
+func (s *SecurityMLAnalyticsSettingsList) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, &s.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			s.Value, err = unmarshalSecurityMLAnalyticsSettingClassificationArray(val)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type SentinelOnboardingStatesList.
 func (s SentinelOnboardingStatesList) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -8730,6 +8999,14 @@ func (u *Ueba) UnmarshalJSON(data []byte) error {
 func (u UebaProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dataSources", u.DataSources)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ValidationError.
+func (v ValidationError) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "errorMessages", v.ErrorMessages)
+	populate(objectMap, "recordIndex", v.RecordIndex)
 	return json.Marshal(objectMap)
 }
 

@@ -721,6 +721,76 @@ type AnomaliesSettingsProperties struct {
 	IsEnabled *bool `json:"isEnabled,omitempty" azure:"ro"`
 }
 
+// AnomalySecurityMLAnalyticsSettings - Represents Anomaly Security ML Analytics Settings
+type AnomalySecurityMLAnalyticsSettings struct {
+	// REQUIRED; The kind of security ML Analytics Settings
+	Kind *SecurityMLAnalyticsSettingsKind `json:"kind,omitempty"`
+
+	// Etag of the azure resource
+	Etag *string `json:"etag,omitempty"`
+
+	// Anomaly Security ML Analytics Settings properties
+	Properties *AnomalySecurityMLAnalyticsSettingsProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// AnomalySecurityMLAnalyticsSettingsProperties - AnomalySecurityMLAnalytics settings base property bag.
+type AnomalySecurityMLAnalyticsSettingsProperties struct {
+	// REQUIRED; The anomaly version of the AnomalySecurityMLAnalyticsSettings.
+	AnomalyVersion *string `json:"anomalyVersion,omitempty"`
+
+	// REQUIRED; The display name for settings created by this SecurityMLAnalyticsSettings.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// REQUIRED; Determines whether this settings is enabled or disabled.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// REQUIRED; The frequency that this SecurityMLAnalyticsSettings will be run.
+	Frequency *string `json:"frequency,omitempty"`
+
+	// REQUIRED; Determines whether this anomaly security ml analytics settings is a default settings
+	IsDefaultSettings *bool `json:"isDefaultSettings,omitempty"`
+
+	// REQUIRED; The anomaly SecurityMLAnalyticsSettings status
+	SettingsStatus *SettingsStatus `json:"settingsStatus,omitempty"`
+
+	// The anomaly settings version of the Anomaly security ml analytics settings that dictates whether job version gets updated
+	// or not.
+	AnomalySettingsVersion *int32 `json:"anomalySettingsVersion,omitempty"`
+
+	// The customizable observations of the AnomalySecurityMLAnalyticsSettings.
+	CustomizableObservations interface{} `json:"customizableObservations,omitempty"`
+
+	// The description of the SecurityMLAnalyticsSettings.
+	Description *string `json:"description,omitempty"`
+
+	// The required data sources for this SecurityMLAnalyticsSettings
+	RequiredDataConnectors []*SecurityMLAnalyticsSettingsDataSource `json:"requiredDataConnectors,omitempty"`
+
+	// The anomaly settings definition Id
+	SettingsDefinitionID *string `json:"settingsDefinitionId,omitempty"`
+
+	// The tactics of the SecurityMLAnalyticsSettings
+	Tactics []*AttackTactic `json:"tactics,omitempty"`
+
+	// The techniques of the SecurityMLAnalyticsSettings
+	Techniques []*string `json:"techniques,omitempty"`
+
+	// READ-ONLY; The last time that this SecurityMLAnalyticsSettings has been modified.
+	LastModifiedUTC *time.Time `json:"lastModifiedUtc,omitempty" azure:"ro"`
+}
+
 type AutomationRule struct {
 	// REQUIRED; Automation rule properties
 	Properties *AutomationRuleProperties `json:"properties,omitempty"`
@@ -2745,6 +2815,123 @@ type FileHashEntityProperties struct {
 
 	// READ-ONLY; The file hash value.
 	HashValue *string `json:"hashValue,omitempty" azure:"ro"`
+}
+
+// FileImport - Represents a file import in Azure Security Insights.
+type FileImport struct {
+	// File import properties
+	Properties *FileImportProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// FileImportList - List all the file imports.
+type FileImportList struct {
+	// REQUIRED; Array of file imports.
+	Value []*FileImport `json:"value,omitempty"`
+
+	// READ-ONLY; URL to fetch the next set of file imports.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// FileImportProperties - Describes the FileImport's properties
+type FileImportProperties struct {
+	// REQUIRED; The content type of this file.
+	ContentType *FileImportContentType `json:"contentType,omitempty"`
+
+	// REQUIRED; Represents the imported file.
+	ImportFile *FileMetadata `json:"importFile,omitempty"`
+
+	// REQUIRED; Describes how to ingest the records in the file.
+	IngestionMode *IngestionMode `json:"ingestionMode,omitempty"`
+
+	// REQUIRED; The source for the data in the file.
+	Source *string `json:"source,omitempty"`
+
+	// READ-ONLY; The time the file was imported.
+	CreatedTimeUTC *time.Time `json:"createdTimeUTC,omitempty" azure:"ro"`
+
+	// READ-ONLY; Represents the error file (if the import was ingested with errors or failed the validation).
+	ErrorFile *FileMetadata `json:"errorFile,omitempty" azure:"ro"`
+
+	// READ-ONLY; An ordered list of some of the errors that were encountered during validation.
+	ErrorsPreview []*ValidationError `json:"errorsPreview,omitempty" azure:"ro"`
+
+	// READ-ONLY; The time the files associated with this import are deleted from the storage account.
+	FilesValidUntilTimeUTC *time.Time `json:"filesValidUntilTimeUTC,omitempty" azure:"ro"`
+
+	// READ-ONLY; The time the file import record is soft deleted from the database and history.
+	ImportValidUntilTimeUTC *time.Time `json:"importValidUntilTimeUTC,omitempty" azure:"ro"`
+
+	// READ-ONLY; The number of records that have been successfully ingested.
+	IngestedRecordCount *int32 `json:"ingestedRecordCount,omitempty" azure:"ro"`
+
+	// READ-ONLY; The state of the file import.
+	State *FileImportState `json:"state,omitempty" azure:"ro"`
+
+	// READ-ONLY; The number of records in the file.
+	TotalRecordCount *int32 `json:"totalRecordCount,omitempty" azure:"ro"`
+
+	// READ-ONLY; The number of records that have passed validation.
+	ValidRecordCount *int32 `json:"validRecordCount,omitempty" azure:"ro"`
+}
+
+// FileImportsClientBeginDeleteOptions contains the optional parameters for the FileImportsClient.BeginDelete method.
+type FileImportsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FileImportsClientCreateOptions contains the optional parameters for the FileImportsClient.Create method.
+type FileImportsClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FileImportsClientGetOptions contains the optional parameters for the FileImportsClient.Get method.
+type FileImportsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FileImportsClientListOptions contains the optional parameters for the FileImportsClient.List method.
+type FileImportsClientListOptions struct {
+	// Filters the results, based on a Boolean condition. Optional.
+	Filter *string
+	// Sorts the results. Optional.
+	Orderby *string
+	// Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skiptoken parameter that
+	// specifies a starting point to use for subsequent calls. Optional.
+	SkipToken *string
+	// Returns only the first n results. Optional.
+	Top *int32
+}
+
+// FileMetadata - Represents a file.
+type FileMetadata struct {
+	// The format of the file
+	FileFormat *FileFormat `json:"fileFormat,omitempty"`
+
+	// The name of the file.
+	FileName *string `json:"fileName,omitempty"`
+
+	// The size of the file.
+	FileSize *int32 `json:"fileSize,omitempty"`
+
+	// READ-ONLY; Indicates whether the file was deleted from the storage account.
+	DeleteStatus *DeleteStatus `json:"deleteStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; A URI with a valid SAS token to allow uploading / downloading the file.
+	FileContentURI *string `json:"fileContentUri,omitempty" azure:"ro"`
 }
 
 // FusionAlertRule - Represents Fusion alert rule.
@@ -6254,6 +6441,78 @@ type SecurityGroupEntityProperties struct {
 	Sid *string `json:"sid,omitempty" azure:"ro"`
 }
 
+// SecurityMLAnalyticsSettingClassification provides polymorphic access to related types.
+// Call the interface's GetSecurityMLAnalyticsSetting() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AnomalySecurityMLAnalyticsSettings, *SecurityMLAnalyticsSetting
+type SecurityMLAnalyticsSettingClassification interface {
+	// GetSecurityMLAnalyticsSetting returns the SecurityMLAnalyticsSetting content of the underlying type.
+	GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting
+}
+
+// SecurityMLAnalyticsSetting - Security ML Analytics Setting
+type SecurityMLAnalyticsSetting struct {
+	// REQUIRED; The kind of security ML Analytics Settings
+	Kind *SecurityMLAnalyticsSettingsKind `json:"kind,omitempty"`
+
+	// Etag of the azure resource
+	Etag *string `json:"etag,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.CreateOrUpdate
+// method.
+type SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientDeleteOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Delete
+// method.
+type SecurityMLAnalyticsSettingsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientGetOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Get
+// method.
+type SecurityMLAnalyticsSettingsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientListOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.List
+// method.
+type SecurityMLAnalyticsSettingsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsDataSource - security ml analytics settings data sources
+type SecurityMLAnalyticsSettingsDataSource struct {
+	// The connector id that provides the following data types
+	ConnectorID *string `json:"connectorId,omitempty"`
+
+	// The data types used by the security ml analytics settings
+	DataTypes []*string `json:"dataTypes,omitempty"`
+}
+
+// SecurityMLAnalyticsSettingsList - List all the SecurityMLAnalyticsSettings
+type SecurityMLAnalyticsSettingsList struct {
+	// REQUIRED; Array of SecurityMLAnalyticsSettings
+	Value []SecurityMLAnalyticsSettingClassification `json:"value,omitempty"`
+
+	// READ-ONLY; URL to fetch the next set of SecurityMLAnalyticsSettings.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
 // SentinelOnboardingState - Sentinel onboarding state
 type SentinelOnboardingState struct {
 	// Etag of the azure resource
@@ -7298,6 +7557,15 @@ type UserInfo struct {
 
 	// READ-ONLY; The name of the user.
 	Name *string `json:"name,omitempty" azure:"ro"`
+}
+
+// ValidationError - Describes an error encountered in the file during validation.
+type ValidationError struct {
+	// The number of the record that has the error.
+	RecordIndex *int32 `json:"recordIndex,omitempty"`
+
+	// READ-ONLY; A list of descriptions of the error.
+	ErrorMessages []*string `json:"errorMessages,omitempty" azure:"ro"`
 }
 
 // Watchlist - Represents a Watchlist in Azure Security Insights.

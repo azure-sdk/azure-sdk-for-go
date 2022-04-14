@@ -10,7 +10,7 @@ package armsecurityinsights
 
 const (
 	moduleName    = "armsecurityinsights"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v0.3.0"
 )
 
 // ActionType - The type of the automation rule action
@@ -655,6 +655,27 @@ func PossibleDataTypeStateValues() []DataTypeState {
 	}
 }
 
+// DeleteStatus - Indicates whether the file was deleted from the storage account.
+type DeleteStatus string
+
+const (
+	// DeleteStatusDeleted - The file was deleted.
+	DeleteStatusDeleted DeleteStatus = "Deleted"
+	// DeleteStatusNotDeleted - The file was not deleted.
+	DeleteStatusNotDeleted DeleteStatus = "NotDeleted"
+	// DeleteStatusUnspecified - Unspecified
+	DeleteStatusUnspecified DeleteStatus = "Unspecified"
+)
+
+// PossibleDeleteStatusValues returns the possible values for the DeleteStatus const type.
+func PossibleDeleteStatusValues() []DeleteStatus {
+	return []DeleteStatus{
+		DeleteStatusDeleted,
+		DeleteStatusNotDeleted,
+		DeleteStatusUnspecified,
+	}
+}
+
 // DeliveryAction - The delivery action of this mail message like Delivered, Blocked, Replaced etc
 type DeliveryAction string
 
@@ -1141,6 +1162,27 @@ func PossibleEventGroupingAggregationKindValues() []EventGroupingAggregationKind
 	}
 }
 
+// FileFormat - The format of the file
+type FileFormat string
+
+const (
+	// FileFormatCSV - A CSV file.
+	FileFormatCSV FileFormat = "CSV"
+	// FileFormatJSON - A JSON file.
+	FileFormatJSON FileFormat = "JSON"
+	// FileFormatUnspecified - A file of other format.
+	FileFormatUnspecified FileFormat = "Unspecified"
+)
+
+// PossibleFileFormatValues returns the possible values for the FileFormat const type.
+func PossibleFileFormatValues() []FileFormat {
+	return []FileFormat{
+		FileFormatCSV,
+		FileFormatJSON,
+		FileFormatUnspecified,
+	}
+}
+
 // FileHashAlgorithm - The hash algorithm type.
 type FileHashAlgorithm string
 
@@ -1165,6 +1207,61 @@ func PossibleFileHashAlgorithmValues() []FileHashAlgorithm {
 		FileHashAlgorithmSHA256,
 		FileHashAlgorithmSHA256AC,
 		FileHashAlgorithmUnknown,
+	}
+}
+
+// FileImportContentType - The content type of this file.
+type FileImportContentType string
+
+const (
+	// FileImportContentTypeBasicIndicator - File containing records with the core fields of an indicator, plus the observables
+	// to construct the STIX pattern.
+	FileImportContentTypeBasicIndicator FileImportContentType = "BasicIndicator"
+	// FileImportContentTypeStixIndicator - File containing STIX indicators.
+	FileImportContentTypeStixIndicator FileImportContentType = "StixIndicator"
+	// FileImportContentTypeUnspecified - File containing other records.
+	FileImportContentTypeUnspecified FileImportContentType = "Unspecified"
+)
+
+// PossibleFileImportContentTypeValues returns the possible values for the FileImportContentType const type.
+func PossibleFileImportContentTypeValues() []FileImportContentType {
+	return []FileImportContentType{
+		FileImportContentTypeBasicIndicator,
+		FileImportContentTypeStixIndicator,
+		FileImportContentTypeUnspecified,
+	}
+}
+
+// FileImportState - The state of the file import.
+type FileImportState string
+
+const (
+	// FileImportStateFatalError - A fatal error has occurred while ingesting the file.
+	FileImportStateFatalError FileImportState = "FatalError"
+	// FileImportStateInProgress - The file ingestion is in progress.
+	FileImportStateInProgress FileImportState = "InProgress"
+	// FileImportStateIngested - The file has been ingested.
+	FileImportStateIngested FileImportState = "Ingested"
+	// FileImportStateIngestedWithErrors - The file has been ingested with errors.
+	FileImportStateIngestedWithErrors FileImportState = "IngestedWithErrors"
+	// FileImportStateInvalid - The file is invalid.
+	FileImportStateInvalid FileImportState = "Invalid"
+	// FileImportStateUnspecified - Unspecified state.
+	FileImportStateUnspecified FileImportState = "Unspecified"
+	// FileImportStateWaitingForUpload - Waiting for the file to be uploaded.
+	FileImportStateWaitingForUpload FileImportState = "WaitingForUpload"
+)
+
+// PossibleFileImportStateValues returns the possible values for the FileImportState const type.
+func PossibleFileImportStateValues() []FileImportState {
+	return []FileImportState{
+		FileImportStateFatalError,
+		FileImportStateInProgress,
+		FileImportStateIngested,
+		FileImportStateIngestedWithErrors,
+		FileImportStateInvalid,
+		FileImportStateUnspecified,
+		FileImportStateWaitingForUpload,
 	}
 }
 
@@ -1290,6 +1387,27 @@ func PossibleIncidentStatusValues() []IncidentStatus {
 		IncidentStatusActive,
 		IncidentStatusClosed,
 		IncidentStatusNew,
+	}
+}
+
+// IngestionMode - Describes how to ingest the records in the file.
+type IngestionMode string
+
+const (
+	// IngestionModeIngestAnyValidRecords - Valid records should still be ingested when invalid records are detected.
+	IngestionModeIngestAnyValidRecords IngestionMode = "IngestAnyValidRecords"
+	// IngestionModeIngestOnlyIfAllAreValid - No records should be ingested when invalid records are detected.
+	IngestionModeIngestOnlyIfAllAreValid IngestionMode = "IngestOnlyIfAllAreValid"
+	// IngestionModeUnspecified - Unspecified
+	IngestionModeUnspecified IngestionMode = "Unspecified"
+)
+
+// PossibleIngestionModeValues returns the possible values for the IngestionMode const type.
+func PossibleIngestionModeValues() []IngestionMode {
+	return []IngestionMode{
+		IngestionModeIngestAnyValidRecords,
+		IngestionModeIngestOnlyIfAllAreValid,
+		IngestionModeUnspecified,
 	}
 }
 
@@ -1734,6 +1852,20 @@ func PossibleSKUKindValues() []SKUKind {
 	}
 }
 
+// SecurityMLAnalyticsSettingsKind - The kind of security ML analytics settings
+type SecurityMLAnalyticsSettingsKind string
+
+const (
+	SecurityMLAnalyticsSettingsKindAnomaly SecurityMLAnalyticsSettingsKind = "Anomaly"
+)
+
+// PossibleSecurityMLAnalyticsSettingsKindValues returns the possible values for the SecurityMLAnalyticsSettingsKind const type.
+func PossibleSecurityMLAnalyticsSettingsKindValues() []SecurityMLAnalyticsSettingsKind {
+	return []SecurityMLAnalyticsSettingsKind{
+		SecurityMLAnalyticsSettingsKindAnomaly,
+	}
+}
+
 // SettingKind - The kind of the setting
 type SettingKind string
 
@@ -1769,6 +1901,24 @@ func PossibleSettingTypeValues() []SettingType {
 		SettingTypeCopyableLabel,
 		SettingTypeInfoMessage,
 		SettingTypeInstructionStepsGroup,
+	}
+}
+
+// SettingsStatus - The anomaly SecurityMLAnalyticsSettings status
+type SettingsStatus string
+
+const (
+	// SettingsStatusFlighting - Anomaly settings status in Flighting mode
+	SettingsStatusFlighting SettingsStatus = "Flighting"
+	// SettingsStatusProduction - Anomaly settings status in Production mode
+	SettingsStatusProduction SettingsStatus = "Production"
+)
+
+// PossibleSettingsStatusValues returns the possible values for the SettingsStatus const type.
+func PossibleSettingsStatusValues() []SettingsStatus {
+	return []SettingsStatus{
+		SettingsStatusFlighting,
+		SettingsStatusProduction,
 	}
 }
 

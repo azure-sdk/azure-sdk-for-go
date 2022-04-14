@@ -1,5 +1,92 @@
 # Release History
 
+## 0.3.0 (2022-04-14)
+### Features Added
+
+- New const `FileFormatCSV`
+- New const `SettingsStatusFlighting`
+- New const `FileImportStateInvalid`
+- New const `SecurityMLAnalyticsSettingsKindAnomaly`
+- New const `FileFormatUnspecified`
+- New const `IngestionModeUnspecified`
+- New const `IngestionModeIngestAnyValidRecords`
+- New const `DeleteStatusNotDeleted`
+- New const `FileImportStateIngested`
+- New const `FileImportStateWaitingForUpload`
+- New const `FileImportStateInProgress`
+- New const `FileImportContentTypeBasicIndicator`
+- New const `SettingsStatusProduction`
+- New const `IngestionModeIngestOnlyIfAllAreValid`
+- New const `FileImportStateFatalError`
+- New const `FileImportStateIngestedWithErrors`
+- New const `DeleteStatusDeleted`
+- New const `FileFormatJSON`
+- New const `FileImportContentTypeStixIndicator`
+- New const `FileImportStateUnspecified`
+- New const `FileImportContentTypeUnspecified`
+- New const `DeleteStatusUnspecified`
+- New function `SecurityMLAnalyticsSettingsDataSource.MarshalJSON() ([]byte, error)`
+- New function `PossibleDeleteStatusValues() []DeleteStatus`
+- New function `*AnomalySecurityMLAnalyticsSettingsProperties.UnmarshalJSON([]byte) error`
+- New function `*SecurityMLAnalyticsSettingsClient.Get(context.Context, string, string, string, *SecurityMLAnalyticsSettingsClientGetOptions) (SecurityMLAnalyticsSettingsClientGetResponse, error)`
+- New function `*AnomalySecurityMLAnalyticsSettings.UnmarshalJSON([]byte) error`
+- New function `PossibleFileFormatValues() []FileFormat`
+- New function `*SecurityMLAnalyticsSettingsClient.Delete(context.Context, string, string, string, *SecurityMLAnalyticsSettingsClientDeleteOptions) (SecurityMLAnalyticsSettingsClientDeleteResponse, error)`
+- New function `*SecurityMLAnalyticsSetting.GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting`
+- New function `*AnomalySecurityMLAnalyticsSettings.GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting`
+- New function `*SecurityMLAnalyticsSettingsClientGetResponse.UnmarshalJSON([]byte) error`
+- New function `*SecurityMLAnalyticsSettingsList.UnmarshalJSON([]byte) error`
+- New function `PossibleSettingsStatusValues() []SettingsStatus`
+- New function `AnomalySecurityMLAnalyticsSettingsProperties.MarshalJSON() ([]byte, error)`
+- New function `FileImportList.MarshalJSON() ([]byte, error)`
+- New function `*FileImportProperties.UnmarshalJSON([]byte) error`
+- New function `*FileImportsClient.List(string, string, *FileImportsClientListOptions) *runtime.Pager[FileImportsClientListResponse]`
+- New function `ValidationError.MarshalJSON() ([]byte, error)`
+- New function `PossibleFileImportContentTypeValues() []FileImportContentType`
+- New function `*FileImportsClient.Get(context.Context, string, string, string, *FileImportsClientGetOptions) (FileImportsClientGetResponse, error)`
+- New function `SecurityMLAnalyticsSettingsList.MarshalJSON() ([]byte, error)`
+- New function `PossibleSecurityMLAnalyticsSettingsKindValues() []SecurityMLAnalyticsSettingsKind`
+- New function `*FileImportsClient.BeginDelete(context.Context, string, string, string, *FileImportsClientBeginDeleteOptions) (*armruntime.Poller[FileImportsClientDeleteResponse], error)`
+- New function `PossibleFileImportStateValues() []FileImportState`
+- New function `*SecurityMLAnalyticsSettingsClient.List(string, string, *SecurityMLAnalyticsSettingsClientListOptions) *runtime.Pager[SecurityMLAnalyticsSettingsClientListResponse]`
+- New function `*SecurityMLAnalyticsSettingsClient.CreateOrUpdate(context.Context, string, string, string, SecurityMLAnalyticsSettingClassification, *SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions) (SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse, error)`
+- New function `*FileImportsClient.Create(context.Context, string, string, string, FileImport, *FileImportsClientCreateOptions) (FileImportsClientCreateResponse, error)`
+- New function `NewSecurityMLAnalyticsSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecurityMLAnalyticsSettingsClient, error)`
+- New function `PossibleIngestionModeValues() []IngestionMode`
+- New function `FileImportProperties.MarshalJSON() ([]byte, error)`
+- New function `*SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse.UnmarshalJSON([]byte) error`
+- New function `AnomalySecurityMLAnalyticsSettings.MarshalJSON() ([]byte, error)`
+- New function `NewFileImportsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FileImportsClient, error)`
+- New struct `AnomalySecurityMLAnalyticsSettings`
+- New struct `AnomalySecurityMLAnalyticsSettingsProperties`
+- New struct `FileImport`
+- New struct `FileImportList`
+- New struct `FileImportProperties`
+- New struct `FileImportsClient`
+- New struct `FileImportsClientBeginDeleteOptions`
+- New struct `FileImportsClientCreateOptions`
+- New struct `FileImportsClientCreateResponse`
+- New struct `FileImportsClientDeleteResponse`
+- New struct `FileImportsClientGetOptions`
+- New struct `FileImportsClientGetResponse`
+- New struct `FileImportsClientListOptions`
+- New struct `FileImportsClientListResponse`
+- New struct `FileMetadata`
+- New struct `SecurityMLAnalyticsSetting`
+- New struct `SecurityMLAnalyticsSettingsClient`
+- New struct `SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions`
+- New struct `SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse`
+- New struct `SecurityMLAnalyticsSettingsClientDeleteOptions`
+- New struct `SecurityMLAnalyticsSettingsClientDeleteResponse`
+- New struct `SecurityMLAnalyticsSettingsClientGetOptions`
+- New struct `SecurityMLAnalyticsSettingsClientGetResponse`
+- New struct `SecurityMLAnalyticsSettingsClientListOptions`
+- New struct `SecurityMLAnalyticsSettingsClientListResponse`
+- New struct `SecurityMLAnalyticsSettingsDataSource`
+- New struct `SecurityMLAnalyticsSettingsList`
+- New struct `ValidationError`
+
+
 ## 0.2.0 (2022-04-13)
 ### Breaking Changes
 
