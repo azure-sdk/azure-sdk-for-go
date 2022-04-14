@@ -1597,6 +1597,58 @@ type CodelessUIDataConnector struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// ConfidentialWatchlistItemsClientCreateOrUpdateOptions contains the optional parameters for the ConfidentialWatchlistItemsClient.CreateOrUpdate
+// method.
+type ConfidentialWatchlistItemsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfidentialWatchlistItemsClientDeleteOptions contains the optional parameters for the ConfidentialWatchlistItemsClient.Delete
+// method.
+type ConfidentialWatchlistItemsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfidentialWatchlistItemsClientGetOptions contains the optional parameters for the ConfidentialWatchlistItemsClient.Get
+// method.
+type ConfidentialWatchlistItemsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfidentialWatchlistItemsClientListOptions contains the optional parameters for the ConfidentialWatchlistItemsClient.List
+// method.
+type ConfidentialWatchlistItemsClientListOptions struct {
+	// Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skiptoken parameter that
+	// specifies a starting point to use for subsequent calls. Optional.
+	SkipToken *string
+}
+
+// ConfidentialWatchlistsClientCreateOrUpdateOptions contains the optional parameters for the ConfidentialWatchlistsClient.CreateOrUpdate
+// method.
+type ConfidentialWatchlistsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfidentialWatchlistsClientDeleteOptions contains the optional parameters for the ConfidentialWatchlistsClient.Delete
+// method.
+type ConfidentialWatchlistsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfidentialWatchlistsClientGetOptions contains the optional parameters for the ConfidentialWatchlistsClient.Get method.
+type ConfidentialWatchlistsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfidentialWatchlistsClientListOptions contains the optional parameters for the ConfidentialWatchlistsClient.List method.
+type ConfidentialWatchlistsClientListOptions struct {
+	// Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skiptoken parameter that
+	// specifies a starting point to use for subsequent calls. Optional.
+	SkipToken *string
+}
+
 // ConnectedEntity - Expansion result connected entities
 type ConnectedEntity struct {
 	// key-value pairs for a connected entity mapping
@@ -7300,7 +7352,7 @@ type UserInfo struct {
 	Name *string `json:"name,omitempty" azure:"ro"`
 }
 
-// Watchlist - Represents a Watchlist in Azure Security Insights.
+// Watchlist - Represents a (Confidential) Watchlist in Azure Security Insights.
 type Watchlist struct {
 	// Etag of the azure resource
 	Etag *string `json:"etag,omitempty"`
@@ -7458,6 +7510,10 @@ type WatchlistProperties struct {
 	// file that will parsed by the endpoint
 	RawContent *string `json:"rawContent,omitempty"`
 
+	// The Shared Access Signature (SAS) URI under which the large csv watchlist file is located and from which the watchlist
+	// and its items will be created
+	SasURI *string `json:"sasUri,omitempty"`
+
 	// The filename of the watchlist, called 'source'
 	Source *string `json:"source,omitempty"`
 
@@ -7485,6 +7541,12 @@ type WatchlistProperties struct {
 
 	// The type of the watchlist
 	WatchlistType *string `json:"watchlistType,omitempty"`
+
+	// READ-ONLY; The provisioning state of the watchlist resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; The watchlist category (normal or confidential). It's read only property, calculated by the API during PUT operation
+	WatchlistCategory *string `json:"watchlistCategory,omitempty" azure:"ro"`
 }
 
 // WatchlistsClientCreateOrUpdateOptions contains the optional parameters for the WatchlistsClient.CreateOrUpdate method.

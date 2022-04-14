@@ -1,5 +1,53 @@
 # Release History
 
+## 0.3.0 (2022-04-14)
+### Breaking Changes
+
+- Const `SourceTypeLocalFile` has been removed
+- Const `SourceTypeRemoteStorage` has been removed
+
+### Features Added
+
+- New const `SourceTypeAzureStorage`
+- New const `ProvisioningStateInProgress`
+- New const `ProvisioningStateFailed`
+- New const `ProvisioningStateCanceled`
+- New const `SourceTypeLocal`
+- New const `ProvisioningStateSucceeded`
+- New function `*ConfidentialWatchlistsClient.Delete(context.Context, string, string, string, *ConfidentialWatchlistsClientDeleteOptions) (ConfidentialWatchlistsClientDeleteResponse, error)`
+- New function `PossibleProvisioningStateValues() []ProvisioningState`
+- New function `*ConfidentialWatchlistItemsClient.CreateOrUpdate(context.Context, string, string, string, string, WatchlistItem, *ConfidentialWatchlistItemsClientCreateOrUpdateOptions) (ConfidentialWatchlistItemsClientCreateOrUpdateResponse, error)`
+- New function `*ConfidentialWatchlistsClient.Get(context.Context, string, string, string, *ConfidentialWatchlistsClientGetOptions) (ConfidentialWatchlistsClientGetResponse, error)`
+- New function `NewConfidentialWatchlistItemsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConfidentialWatchlistItemsClient, error)`
+- New function `NewConfidentialWatchlistsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConfidentialWatchlistsClient, error)`
+- New function `*ConfidentialWatchlistItemsClient.Delete(context.Context, string, string, string, string, *ConfidentialWatchlistItemsClientDeleteOptions) (ConfidentialWatchlistItemsClientDeleteResponse, error)`
+- New function `*ConfidentialWatchlistItemsClient.List(string, string, string, *ConfidentialWatchlistItemsClientListOptions) *runtime.Pager[ConfidentialWatchlistItemsClientListResponse]`
+- New function `*ConfidentialWatchlistsClient.List(string, string, *ConfidentialWatchlistsClientListOptions) *runtime.Pager[ConfidentialWatchlistsClientListResponse]`
+- New function `*ConfidentialWatchlistItemsClient.Get(context.Context, string, string, string, string, *ConfidentialWatchlistItemsClientGetOptions) (ConfidentialWatchlistItemsClientGetResponse, error)`
+- New function `*ConfidentialWatchlistsClient.CreateOrUpdate(context.Context, string, string, string, Watchlist, *ConfidentialWatchlistsClientCreateOrUpdateOptions) (ConfidentialWatchlistsClientCreateOrUpdateResponse, error)`
+- New struct `ConfidentialWatchlistItemsClient`
+- New struct `ConfidentialWatchlistItemsClientCreateOrUpdateOptions`
+- New struct `ConfidentialWatchlistItemsClientCreateOrUpdateResponse`
+- New struct `ConfidentialWatchlistItemsClientDeleteOptions`
+- New struct `ConfidentialWatchlistItemsClientDeleteResponse`
+- New struct `ConfidentialWatchlistItemsClientGetOptions`
+- New struct `ConfidentialWatchlistItemsClientGetResponse`
+- New struct `ConfidentialWatchlistItemsClientListOptions`
+- New struct `ConfidentialWatchlistItemsClientListResponse`
+- New struct `ConfidentialWatchlistsClient`
+- New struct `ConfidentialWatchlistsClientCreateOrUpdateOptions`
+- New struct `ConfidentialWatchlistsClientCreateOrUpdateResponse`
+- New struct `ConfidentialWatchlistsClientDeleteOptions`
+- New struct `ConfidentialWatchlistsClientDeleteResponse`
+- New struct `ConfidentialWatchlistsClientGetOptions`
+- New struct `ConfidentialWatchlistsClientGetResponse`
+- New struct `ConfidentialWatchlistsClientListOptions`
+- New struct `ConfidentialWatchlistsClientListResponse`
+- New field `ProvisioningState` in struct `WatchlistProperties`
+- New field `SasURI` in struct `WatchlistProperties`
+- New field `WatchlistCategory` in struct `WatchlistProperties`
+
+
 ## 0.2.0 (2022-04-13)
 ### Breaking Changes
 

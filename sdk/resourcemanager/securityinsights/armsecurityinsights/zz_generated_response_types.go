@@ -154,6 +154,49 @@ type BookmarksClientListResponse struct {
 	BookmarkList
 }
 
+// ConfidentialWatchlistItemsClientCreateOrUpdateResponse contains the response from method ConfidentialWatchlistItemsClient.CreateOrUpdate.
+type ConfidentialWatchlistItemsClientCreateOrUpdateResponse struct {
+	WatchlistItem
+}
+
+// ConfidentialWatchlistItemsClientDeleteResponse contains the response from method ConfidentialWatchlistItemsClient.Delete.
+type ConfidentialWatchlistItemsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ConfidentialWatchlistItemsClientGetResponse contains the response from method ConfidentialWatchlistItemsClient.Get.
+type ConfidentialWatchlistItemsClientGetResponse struct {
+	WatchlistItem
+}
+
+// ConfidentialWatchlistItemsClientListResponse contains the response from method ConfidentialWatchlistItemsClient.List.
+type ConfidentialWatchlistItemsClientListResponse struct {
+	WatchlistItemList
+}
+
+// ConfidentialWatchlistsClientCreateOrUpdateResponse contains the response from method ConfidentialWatchlistsClient.CreateOrUpdate.
+type ConfidentialWatchlistsClientCreateOrUpdateResponse struct {
+	Watchlist
+	// AzureAsyncOperation contains the information returned from the Azure-AsyncOperation header response.
+	AzureAsyncOperation *string
+}
+
+// ConfidentialWatchlistsClientDeleteResponse contains the response from method ConfidentialWatchlistsClient.Delete.
+type ConfidentialWatchlistsClientDeleteResponse struct {
+	// AzureAsyncOperation contains the information returned from the Azure-AsyncOperation header response.
+	AzureAsyncOperation *string
+}
+
+// ConfidentialWatchlistsClientGetResponse contains the response from method ConfidentialWatchlistsClient.Get.
+type ConfidentialWatchlistsClientGetResponse struct {
+	Watchlist
+}
+
+// ConfidentialWatchlistsClientListResponse contains the response from method ConfidentialWatchlistsClient.List.
+type ConfidentialWatchlistsClientListResponse struct {
+	WatchlistList
+}
+
 // DataConnectorsCheckRequirementsClientPostResponse contains the response from method DataConnectorsCheckRequirementsClient.Post.
 type DataConnectorsCheckRequirementsClientPostResponse struct {
 	DataConnectorRequirementsState

@@ -8826,7 +8826,9 @@ func (w WatchlistProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "labels", w.Labels)
 	populate(objectMap, "numberOfLinesToSkip", w.NumberOfLinesToSkip)
 	populate(objectMap, "provider", w.Provider)
+	populate(objectMap, "provisioningState", w.ProvisioningState)
 	populate(objectMap, "rawContent", w.RawContent)
+	populate(objectMap, "sasUri", w.SasURI)
 	populate(objectMap, "source", w.Source)
 	populate(objectMap, "sourceType", w.SourceType)
 	populate(objectMap, "tenantId", w.TenantID)
@@ -8834,6 +8836,7 @@ func (w WatchlistProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "updatedBy", w.UpdatedBy)
 	populate(objectMap, "uploadStatus", w.UploadStatus)
 	populate(objectMap, "watchlistAlias", w.WatchlistAlias)
+	populate(objectMap, "watchlistCategory", w.WatchlistCategory)
 	populate(objectMap, "watchlistId", w.WatchlistID)
 	populate(objectMap, "watchlistType", w.WatchlistType)
 	return json.Marshal(objectMap)
@@ -8881,8 +8884,14 @@ func (w *WatchlistProperties) UnmarshalJSON(data []byte) error {
 		case "provider":
 			err = unpopulate(val, &w.Provider)
 			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, &w.ProvisioningState)
+			delete(rawMsg, key)
 		case "rawContent":
 			err = unpopulate(val, &w.RawContent)
+			delete(rawMsg, key)
+		case "sasUri":
+			err = unpopulate(val, &w.SasURI)
 			delete(rawMsg, key)
 		case "source":
 			err = unpopulate(val, &w.Source)
@@ -8904,6 +8913,9 @@ func (w *WatchlistProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "watchlistAlias":
 			err = unpopulate(val, &w.WatchlistAlias)
+			delete(rawMsg, key)
+		case "watchlistCategory":
+			err = unpopulate(val, &w.WatchlistCategory)
 			delete(rawMsg, key)
 		case "watchlistId":
 			err = unpopulate(val, &w.WatchlistID)

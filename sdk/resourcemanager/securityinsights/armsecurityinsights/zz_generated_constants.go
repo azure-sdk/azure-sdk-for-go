@@ -10,7 +10,7 @@ package armsecurityinsights
 
 const (
 	moduleName    = "armsecurityinsights"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v0.3.0"
 )
 
 // ActionType - The type of the automation rule action
@@ -1623,6 +1623,26 @@ func PossibleProviderNameValues() []ProviderName {
 	}
 }
 
+// ProvisioningState - The current provisioning state.
+type ProvisioningState string
+
+const (
+	ProvisioningStateCanceled   ProvisioningState = "Canceled"
+	ProvisioningStateFailed     ProvisioningState = "Failed"
+	ProvisioningStateInProgress ProvisioningState = "InProgress"
+	ProvisioningStateSucceeded  ProvisioningState = "Succeeded"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateFailed,
+		ProvisioningStateInProgress,
+		ProvisioningStateSucceeded,
+	}
+}
+
 // RegistryHive - the hive that holds the registry key.
 type RegistryHive string
 
@@ -1796,15 +1816,15 @@ func PossibleSourceKindValues() []SourceKind {
 type SourceType string
 
 const (
-	SourceTypeLocalFile     SourceType = "Local file"
-	SourceTypeRemoteStorage SourceType = "Remote storage"
+	SourceTypeAzureStorage SourceType = "AzureStorage"
+	SourceTypeLocal        SourceType = "Local"
 )
 
 // PossibleSourceTypeValues returns the possible values for the SourceType const type.
 func PossibleSourceTypeValues() []SourceType {
 	return []SourceType{
-		SourceTypeLocalFile,
-		SourceTypeRemoteStorage,
+		SourceTypeAzureStorage,
+		SourceTypeLocal,
 	}
 }
 

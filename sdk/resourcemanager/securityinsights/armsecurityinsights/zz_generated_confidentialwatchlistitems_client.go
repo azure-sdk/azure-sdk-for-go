@@ -22,19 +22,19 @@ import (
 	"strings"
 )
 
-// WatchlistItemsClient contains the methods for the WatchlistItems group.
-// Don't use this type directly, use NewWatchlistItemsClient() instead.
-type WatchlistItemsClient struct {
+// ConfidentialWatchlistItemsClient contains the methods for the ConfidentialWatchlistItems group.
+// Don't use this type directly, use NewConfidentialWatchlistItemsClient() instead.
+type ConfidentialWatchlistItemsClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewWatchlistItemsClient creates a new instance of WatchlistItemsClient with the specified values.
+// NewConfidentialWatchlistItemsClient creates a new instance of ConfidentialWatchlistItemsClient with the specified values.
 // subscriptionID - The ID of the target subscription.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewWatchlistItemsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*WatchlistItemsClient, error) {
+func NewConfidentialWatchlistItemsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConfidentialWatchlistItemsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -46,7 +46,7 @@ func NewWatchlistItemsClient(subscriptionID string, credential azcore.TokenCrede
 	if err != nil {
 		return nil, err
 	}
-	client := &WatchlistItemsClient{
+	client := &ConfidentialWatchlistItemsClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -61,26 +61,26 @@ func NewWatchlistItemsClient(subscriptionID string, credential azcore.TokenCrede
 // watchlistAlias - Watchlist Alias
 // watchlistItemID - Watchlist Item Id (GUID)
 // watchlistItem - The watchlist item
-// options - WatchlistItemsClientCreateOrUpdateOptions contains the optional parameters for the WatchlistItemsClient.CreateOrUpdate
+// options - ConfidentialWatchlistItemsClientCreateOrUpdateOptions contains the optional parameters for the ConfidentialWatchlistItemsClient.CreateOrUpdate
 // method.
-func (client *WatchlistItemsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, watchlistItem WatchlistItem, options *WatchlistItemsClientCreateOrUpdateOptions) (WatchlistItemsClientCreateOrUpdateResponse, error) {
+func (client *ConfidentialWatchlistItemsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, watchlistItem WatchlistItem, options *ConfidentialWatchlistItemsClientCreateOrUpdateOptions) (ConfidentialWatchlistItemsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, watchlistAlias, watchlistItemID, watchlistItem, options)
 	if err != nil {
-		return WatchlistItemsClientCreateOrUpdateResponse{}, err
+		return ConfidentialWatchlistItemsClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return WatchlistItemsClientCreateOrUpdateResponse{}, err
+		return ConfidentialWatchlistItemsClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
-		return WatchlistItemsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
+		return ConfidentialWatchlistItemsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.createOrUpdateHandleResponse(resp)
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *WatchlistItemsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, watchlistItem WatchlistItem, options *WatchlistItemsClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/watchlists/{watchlistAlias}/watchlistItems/{watchlistItemId}"
+func (client *ConfidentialWatchlistItemsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, watchlistItem WatchlistItem, options *ConfidentialWatchlistItemsClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/confidentialWatchlists/{watchlistAlias}/watchlistItems/{watchlistItemId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -113,39 +113,40 @@ func (client *WatchlistItemsClient) createOrUpdateCreateRequest(ctx context.Cont
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *WatchlistItemsClient) createOrUpdateHandleResponse(resp *http.Response) (WatchlistItemsClientCreateOrUpdateResponse, error) {
-	result := WatchlistItemsClientCreateOrUpdateResponse{}
+func (client *ConfidentialWatchlistItemsClient) createOrUpdateHandleResponse(resp *http.Response) (ConfidentialWatchlistItemsClientCreateOrUpdateResponse, error) {
+	result := ConfidentialWatchlistItemsClientCreateOrUpdateResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.WatchlistItem); err != nil {
-		return WatchlistItemsClientCreateOrUpdateResponse{}, err
+		return ConfidentialWatchlistItemsClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete a watchlist item.
+// Delete - Delete a confidential watchlist item.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // watchlistAlias - Watchlist Alias
 // watchlistItemID - Watchlist Item Id (GUID)
-// options - WatchlistItemsClientDeleteOptions contains the optional parameters for the WatchlistItemsClient.Delete method.
-func (client *WatchlistItemsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, options *WatchlistItemsClientDeleteOptions) (WatchlistItemsClientDeleteResponse, error) {
+// options - ConfidentialWatchlistItemsClientDeleteOptions contains the optional parameters for the ConfidentialWatchlistItemsClient.Delete
+// method.
+func (client *ConfidentialWatchlistItemsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, options *ConfidentialWatchlistItemsClientDeleteOptions) (ConfidentialWatchlistItemsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, watchlistAlias, watchlistItemID, options)
 	if err != nil {
-		return WatchlistItemsClientDeleteResponse{}, err
+		return ConfidentialWatchlistItemsClientDeleteResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return WatchlistItemsClientDeleteResponse{}, err
+		return ConfidentialWatchlistItemsClientDeleteResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
-		return WatchlistItemsClientDeleteResponse{}, runtime.NewResponseError(resp)
+		return ConfidentialWatchlistItemsClientDeleteResponse{}, runtime.NewResponseError(resp)
 	}
-	return WatchlistItemsClientDeleteResponse{}, nil
+	return ConfidentialWatchlistItemsClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *WatchlistItemsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, options *WatchlistItemsClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/watchlists/{watchlistAlias}/watchlistItems/{watchlistItemId}"
+func (client *ConfidentialWatchlistItemsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, options *ConfidentialWatchlistItemsClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/confidentialWatchlists/{watchlistAlias}/watchlistItems/{watchlistItemId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -177,31 +178,32 @@ func (client *WatchlistItemsClient) deleteCreateRequest(ctx context.Context, res
 	return req, nil
 }
 
-// Get - Gets a watchlist, without its watchlist items.
+// Get - Gets a confidential watchlist item.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // watchlistAlias - Watchlist Alias
 // watchlistItemID - Watchlist Item Id (GUID)
-// options - WatchlistItemsClientGetOptions contains the optional parameters for the WatchlistItemsClient.Get method.
-func (client *WatchlistItemsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, options *WatchlistItemsClientGetOptions) (WatchlistItemsClientGetResponse, error) {
+// options - ConfidentialWatchlistItemsClientGetOptions contains the optional parameters for the ConfidentialWatchlistItemsClient.Get
+// method.
+func (client *ConfidentialWatchlistItemsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, options *ConfidentialWatchlistItemsClientGetOptions) (ConfidentialWatchlistItemsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, watchlistAlias, watchlistItemID, options)
 	if err != nil {
-		return WatchlistItemsClientGetResponse{}, err
+		return ConfidentialWatchlistItemsClientGetResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return WatchlistItemsClientGetResponse{}, err
+		return ConfidentialWatchlistItemsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return WatchlistItemsClientGetResponse{}, runtime.NewResponseError(resp)
+		return ConfidentialWatchlistItemsClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *WatchlistItemsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, options *WatchlistItemsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/watchlists/{watchlistAlias}/watchlistItems/{watchlistItemId}"
+func (client *ConfidentialWatchlistItemsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, watchlistItemID string, options *ConfidentialWatchlistItemsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/confidentialWatchlists/{watchlistAlias}/watchlistItems/{watchlistItemId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -234,26 +236,27 @@ func (client *WatchlistItemsClient) getCreateRequest(ctx context.Context, resour
 }
 
 // getHandleResponse handles the Get response.
-func (client *WatchlistItemsClient) getHandleResponse(resp *http.Response) (WatchlistItemsClientGetResponse, error) {
-	result := WatchlistItemsClientGetResponse{}
+func (client *ConfidentialWatchlistItemsClient) getHandleResponse(resp *http.Response) (ConfidentialWatchlistItemsClientGetResponse, error) {
+	result := ConfidentialWatchlistItemsClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.WatchlistItem); err != nil {
-		return WatchlistItemsClientGetResponse{}, err
+		return ConfidentialWatchlistItemsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// List - Gets all watchlist Items.
+// List - Gets all confidential watchlist Items.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // watchlistAlias - Watchlist Alias
-// options - WatchlistItemsClientListOptions contains the optional parameters for the WatchlistItemsClient.List method.
-func (client *WatchlistItemsClient) List(resourceGroupName string, workspaceName string, watchlistAlias string, options *WatchlistItemsClientListOptions) *runtime.Pager[WatchlistItemsClientListResponse] {
-	return runtime.NewPager(runtime.PageProcessor[WatchlistItemsClientListResponse]{
-		More: func(page WatchlistItemsClientListResponse) bool {
+// options - ConfidentialWatchlistItemsClientListOptions contains the optional parameters for the ConfidentialWatchlistItemsClient.List
+// method.
+func (client *ConfidentialWatchlistItemsClient) List(resourceGroupName string, workspaceName string, watchlistAlias string, options *ConfidentialWatchlistItemsClientListOptions) *runtime.Pager[ConfidentialWatchlistItemsClientListResponse] {
+	return runtime.NewPager(runtime.PageProcessor[ConfidentialWatchlistItemsClientListResponse]{
+		More: func(page ConfidentialWatchlistItemsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *WatchlistItemsClientListResponse) (WatchlistItemsClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *ConfidentialWatchlistItemsClientListResponse) (ConfidentialWatchlistItemsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -262,14 +265,14 @@ func (client *WatchlistItemsClient) List(resourceGroupName string, workspaceName
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return WatchlistItemsClientListResponse{}, err
+				return ConfidentialWatchlistItemsClientListResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return WatchlistItemsClientListResponse{}, err
+				return ConfidentialWatchlistItemsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return WatchlistItemsClientListResponse{}, runtime.NewResponseError(resp)
+				return ConfidentialWatchlistItemsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -277,8 +280,8 @@ func (client *WatchlistItemsClient) List(resourceGroupName string, workspaceName
 }
 
 // listCreateRequest creates the List request.
-func (client *WatchlistItemsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, options *WatchlistItemsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/watchlists/{watchlistAlias}/watchlistItems"
+func (client *ConfidentialWatchlistItemsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, watchlistAlias string, options *ConfidentialWatchlistItemsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/confidentialWatchlists/{watchlistAlias}/watchlistItems"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -310,10 +313,10 @@ func (client *WatchlistItemsClient) listCreateRequest(ctx context.Context, resou
 }
 
 // listHandleResponse handles the List response.
-func (client *WatchlistItemsClient) listHandleResponse(resp *http.Response) (WatchlistItemsClientListResponse, error) {
-	result := WatchlistItemsClientListResponse{}
+func (client *ConfidentialWatchlistItemsClient) listHandleResponse(resp *http.Response) (ConfidentialWatchlistItemsClientListResponse, error) {
+	result := ConfidentialWatchlistItemsClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.WatchlistItemList); err != nil {
-		return WatchlistItemsClientListResponse{}, err
+		return ConfidentialWatchlistItemsClientListResponse{}, err
 	}
 	return result, nil
 }
