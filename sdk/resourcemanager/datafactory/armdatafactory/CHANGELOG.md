@@ -1,5 +1,56 @@
 # Release History
 
+## 0.5.0 (2022-04-14)
+### Features Added
+
+- New function `*TwilioLinkedService.UnmarshalJSON([]byte) error`
+- New function `*AppFiguresLinkedService.GetLinkedService() *LinkedService`
+- New function `TwilioLinkedServiceTypeProperties.MarshalJSON() ([]byte, error)`
+- New function `*GlobalParametersClient.Delete(context.Context, string, string, string, *GlobalParametersClientDeleteOptions) (GlobalParametersClientDeleteResponse, error)`
+- New function `DataworldLinkedServiceTypeProperties.MarshalJSON() ([]byte, error)`
+- New function `*AppFiguresLinkedServiceTypeProperties.UnmarshalJSON([]byte) error`
+- New function `*AsanaLinkedServiceTypeProperties.UnmarshalJSON([]byte) error`
+- New function `*AppFiguresLinkedService.UnmarshalJSON([]byte) error`
+- New function `AppFiguresLinkedService.MarshalJSON() ([]byte, error)`
+- New function `*DataworldLinkedService.UnmarshalJSON([]byte) error`
+- New function `GlobalParameterResource.MarshalJSON() ([]byte, error)`
+- New function `*GlobalParametersClient.ListByFactory(string, string, *GlobalParametersClientListByFactoryOptions) *runtime.Pager[GlobalParametersClientListByFactoryResponse]`
+- New function `*TwilioLinkedService.GetLinkedService() *LinkedService`
+- New function `*GlobalParametersClient.Get(context.Context, string, string, string, *GlobalParametersClientGetOptions) (GlobalParametersClientGetResponse, error)`
+- New function `*GlobalParametersClient.CreateOrUpdate(context.Context, string, string, string, GlobalParameterResource, *GlobalParametersClientCreateOrUpdateOptions) (GlobalParametersClientCreateOrUpdateResponse, error)`
+- New function `*AsanaLinkedService.GetLinkedService() *LinkedService`
+- New function `AsanaLinkedService.MarshalJSON() ([]byte, error)`
+- New function `AsanaLinkedServiceTypeProperties.MarshalJSON() ([]byte, error)`
+- New function `TwilioLinkedService.MarshalJSON() ([]byte, error)`
+- New function `*AsanaLinkedService.UnmarshalJSON([]byte) error`
+- New function `DataworldLinkedService.MarshalJSON() ([]byte, error)`
+- New function `*TwilioLinkedServiceTypeProperties.UnmarshalJSON([]byte) error`
+- New function `GlobalParameterListResponse.MarshalJSON() ([]byte, error)`
+- New function `*DataworldLinkedService.GetLinkedService() *LinkedService`
+- New function `NewGlobalParametersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GlobalParametersClient, error)`
+- New function `AppFiguresLinkedServiceTypeProperties.MarshalJSON() ([]byte, error)`
+- New function `*DataworldLinkedServiceTypeProperties.UnmarshalJSON([]byte) error`
+- New struct `AppFiguresLinkedService`
+- New struct `AppFiguresLinkedServiceTypeProperties`
+- New struct `AsanaLinkedService`
+- New struct `AsanaLinkedServiceTypeProperties`
+- New struct `DataworldLinkedService`
+- New struct `DataworldLinkedServiceTypeProperties`
+- New struct `GlobalParameterListResponse`
+- New struct `GlobalParameterResource`
+- New struct `GlobalParametersClient`
+- New struct `GlobalParametersClientCreateOrUpdateOptions`
+- New struct `GlobalParametersClientCreateOrUpdateResponse`
+- New struct `GlobalParametersClientDeleteOptions`
+- New struct `GlobalParametersClientDeleteResponse`
+- New struct `GlobalParametersClientGetOptions`
+- New struct `GlobalParametersClientGetResponse`
+- New struct `GlobalParametersClientListByFactoryOptions`
+- New struct `GlobalParametersClientListByFactoryResponse`
+- New struct `TwilioLinkedService`
+- New struct `TwilioLinkedServiceTypeProperties`
+
+
 ## 0.4.0 (2022-04-11)
 ### Breaking Changes
 
