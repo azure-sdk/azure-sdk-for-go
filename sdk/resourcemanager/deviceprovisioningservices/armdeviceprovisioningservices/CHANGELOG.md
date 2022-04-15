@@ -1,5 +1,27 @@
 # Release History
 
+## 0.4.0 (2022-04-15)
+### Breaking Changes
+
+- Function `*DpsCertificateClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, CertificateBodyDescription, *DpsCertificateClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, CertificateResponse, *DpsCertificateClientCreateOrUpdateOptions)`
+- Type of `AsyncOperationResult.Error` has been changed from `*ErrorMesssage` to `*ErrorMessage`
+- Function `*IotDpsResourceClient.ListValidSKUs` has been removed
+- Function `*IotDpsResourceClient.ListBySubscription` has been removed
+- Function `*OperationsClient.List` has been removed
+- Function `*IotDpsResourceClient.ListByResourceGroup` has been removed
+- Function `*IotDpsResourceClient.ListKeys` has been removed
+- Struct `ErrorMesssage` has been removed
+
+### Features Added
+
+- New function `*IotDpsResourceClient.NewListByResourceGroupPager(string, *IotDpsResourceClientListByResourceGroupOptions) *runtime.Pager[IotDpsResourceClientListByResourceGroupResponse]`
+- New function `*IotDpsResourceClient.NewListKeysPager(string, string, *IotDpsResourceClientListKeysOptions) *runtime.Pager[IotDpsResourceClientListKeysResponse]`
+- New function `*IotDpsResourceClient.NewListValidSKUsPager(string, string, *IotDpsResourceClientListValidSKUsOptions) *runtime.Pager[IotDpsResourceClientListValidSKUsResponse]`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New function `*IotDpsResourceClient.NewListBySubscriptionPager(*IotDpsResourceClientListBySubscriptionOptions) *runtime.Pager[IotDpsResourceClientListBySubscriptionResponse]`
+- New struct `ErrorMessage`
+
+
 ## 0.3.0 (2022-04-11)
 ### Breaking Changes
 
