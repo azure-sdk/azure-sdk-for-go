@@ -119,7 +119,7 @@ func (client *SensitivityLabelsClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2020-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -197,7 +197,7 @@ func (client *SensitivityLabelsClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2020-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -265,7 +265,7 @@ func (client *SensitivityLabelsClient) disableRecommendationCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2020-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -334,7 +334,7 @@ func (client *SensitivityLabelsClient) enableRecommendationCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2020-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -405,7 +405,7 @@ func (client *SensitivityLabelsClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2020-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -420,85 +420,7 @@ func (client *SensitivityLabelsClient) getHandleResponse(resp *http.Response) (S
 	return result, nil
 }
 
-// ListByDatabase - Gets the sensitivity labels of a given database
-// If the operation fails it returns an *azcore.ResponseError type.
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serverName - The name of the server.
-// databaseName - The name of the database.
-// options - SensitivityLabelsClientListByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.ListByDatabase
-// method.
-func (client *SensitivityLabelsClient) ListByDatabase(resourceGroupName string, serverName string, databaseName string, options *SensitivityLabelsClientListByDatabaseOptions) *runtime.Pager[SensitivityLabelsClientListByDatabaseResponse] {
-	return runtime.NewPager(runtime.PageProcessor[SensitivityLabelsClientListByDatabaseResponse]{
-		More: func(page SensitivityLabelsClientListByDatabaseResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *SensitivityLabelsClientListByDatabaseResponse) (SensitivityLabelsClientListByDatabaseResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByDatabaseCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
-			}
-			if err != nil {
-				return SensitivityLabelsClientListByDatabaseResponse{}, err
-			}
-			resp, err := client.pl.Do(req)
-			if err != nil {
-				return SensitivityLabelsClientListByDatabaseResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return SensitivityLabelsClientListByDatabaseResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listByDatabaseHandleResponse(resp)
-		},
-	})
-}
-
-// listByDatabaseCreateRequest creates the ListByDatabase request.
-func (client *SensitivityLabelsClient) listByDatabaseCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *SensitivityLabelsClientListByDatabaseOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/sensitivityLabels"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverName == "" {
-		return nil, errors.New("parameter serverName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverName}", url.PathEscape(serverName))
-	if databaseName == "" {
-		return nil, errors.New("parameter databaseName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	if options != nil && options.Filter != nil {
-		reqQP.Set("$filter", *options.Filter)
-	}
-	reqQP.Set("api-version", "2021-11-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header.Set("Accept", "application/json")
-	return req, nil
-}
-
-// listByDatabaseHandleResponse handles the ListByDatabase response.
-func (client *SensitivityLabelsClient) listByDatabaseHandleResponse(resp *http.Response) (SensitivityLabelsClientListByDatabaseResponse, error) {
-	result := SensitivityLabelsClientListByDatabaseResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SensitivityLabelListResult); err != nil {
-		return SensitivityLabelsClientListByDatabaseResponse{}, err
-	}
-	return result, nil
-}
-
-// ListCurrentByDatabase - Gets the sensitivity labels of a given database
+// NewListCurrentByDatabasePager - Gets the sensitivity labels of a given database
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
@@ -506,7 +428,7 @@ func (client *SensitivityLabelsClient) listByDatabaseHandleResponse(resp *http.R
 // databaseName - The name of the database.
 // options - SensitivityLabelsClientListCurrentByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.ListCurrentByDatabase
 // method.
-func (client *SensitivityLabelsClient) ListCurrentByDatabase(resourceGroupName string, serverName string, databaseName string, options *SensitivityLabelsClientListCurrentByDatabaseOptions) *runtime.Pager[SensitivityLabelsClientListCurrentByDatabaseResponse] {
+func (client *SensitivityLabelsClient) NewListCurrentByDatabasePager(resourceGroupName string, serverName string, databaseName string, options *SensitivityLabelsClientListCurrentByDatabaseOptions) *runtime.Pager[SensitivityLabelsClientListCurrentByDatabaseResponse] {
 	return runtime.NewPager(runtime.PageProcessor[SensitivityLabelsClientListCurrentByDatabaseResponse]{
 		More: func(page SensitivityLabelsClientListCurrentByDatabaseResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -567,7 +489,7 @@ func (client *SensitivityLabelsClient) listCurrentByDatabaseCreateRequest(ctx co
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2020-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -582,7 +504,7 @@ func (client *SensitivityLabelsClient) listCurrentByDatabaseHandleResponse(resp 
 	return result, nil
 }
 
-// ListRecommendedByDatabase - Gets the sensitivity labels of a given database
+// NewListRecommendedByDatabasePager - Gets the sensitivity labels of a given database
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
@@ -590,7 +512,7 @@ func (client *SensitivityLabelsClient) listCurrentByDatabaseHandleResponse(resp 
 // databaseName - The name of the database.
 // options - SensitivityLabelsClientListRecommendedByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.ListRecommendedByDatabase
 // method.
-func (client *SensitivityLabelsClient) ListRecommendedByDatabase(resourceGroupName string, serverName string, databaseName string, options *SensitivityLabelsClientListRecommendedByDatabaseOptions) *runtime.Pager[SensitivityLabelsClientListRecommendedByDatabaseResponse] {
+func (client *SensitivityLabelsClient) NewListRecommendedByDatabasePager(resourceGroupName string, serverName string, databaseName string, options *SensitivityLabelsClientListRecommendedByDatabaseOptions) *runtime.Pager[SensitivityLabelsClientListRecommendedByDatabaseResponse] {
 	return runtime.NewPager(runtime.PageProcessor[SensitivityLabelsClientListRecommendedByDatabaseResponse]{
 		More: func(page SensitivityLabelsClientListRecommendedByDatabaseResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -651,7 +573,7 @@ func (client *SensitivityLabelsClient) listRecommendedByDatabaseCreateRequest(ct
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2020-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -713,7 +635,7 @@ func (client *SensitivityLabelsClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2020-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
