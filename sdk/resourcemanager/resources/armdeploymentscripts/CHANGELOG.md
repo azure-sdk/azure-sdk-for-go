@@ -1,5 +1,17 @@
 # Release History
 
+## 0.5.0 (2022-04-18)
+### Breaking Changes
+
+- Function `*Client.ListBySubscription` has been removed
+- Function `*Client.ListByResourceGroup` has been removed
+
+### Features Added
+
+- New function `*Client.NewListByResourceGroupPager(string, *ClientListByResourceGroupOptions) *runtime.Pager[ClientListByResourceGroupResponse]`
+- New function `*Client.NewListBySubscriptionPager(*ClientListBySubscriptionOptions) *runtime.Pager[ClientListBySubscriptionResponse]`
+
+
 ## 0.4.0 (2022-04-14)
 ### Breaking Changes
 
