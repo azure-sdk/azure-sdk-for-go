@@ -1,5 +1,35 @@
 # Release History
 
+## 0.5.0 (2022-04-18)
+### Breaking Changes
+
+- Type of `PatchSettings.AssessmentMode` has been changed from `*string` to `*AssessmentModeTypes`
+- Type of `PatchSettings.PatchMode` has been changed from `*string` to `*PatchModeTypes`
+
+### Features Added
+
+- New const `PatchModeTypesImageDefault`
+- New const `PatchModeTypesManual`
+- New const `AssessmentModeTypesImageDefault`
+- New const `PatchModeTypesAutomaticByOS`
+- New const `AssessmentModeTypesAutomaticByPlatform`
+- New const `PatchModeTypesAutomaticByPlatform`
+- New function `PossiblePatchModeTypesValues() []PatchModeTypes`
+- New function `PrivateEndpointConnectionProperties.MarshalJSON() ([]byte, error)`
+- New function `PossibleAssessmentModeTypesValues() []AssessmentModeTypes`
+- New struct `ConfigurationExtension`
+- New struct `ServiceStatus`
+- New struct `ServiceStatuses`
+- New field `GroupIDs` in struct `PrivateEndpointConnectionProperties`
+- New field `IsDataAction` in struct `OperationValue`
+- New field `ExtensionsAllowList` in struct `AgentConfiguration`
+- New field `ExtensionsBlockList` in struct `AgentConfiguration`
+- New field `ExtensionsEnabled` in struct `AgentConfiguration`
+- New field `GuestConfigurationEnabled` in struct `AgentConfiguration`
+- New field `ProxyBypass` in struct `AgentConfiguration`
+- New field `ServiceStatuses` in struct `MachineProperties`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
