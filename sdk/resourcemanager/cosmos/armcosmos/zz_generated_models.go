@@ -1464,11 +1464,14 @@ type DataTransferJobProperties struct {
 	// READ-ONLY; Last Updated Time (ISO-8601 format).
 	LastUpdatedUTCTime *time.Time `json:"lastUpdatedUtcTime,omitempty" azure:"ro"`
 
-	// READ-ONLY; Percentage of completion.
-	PercentageComplete *float32 `json:"percentageComplete,omitempty" azure:"ro"`
+	// READ-ONLY; Processed Count
+	ProcessedCount *float32 `json:"processedCount,omitempty" azure:"ro"`
 
 	// READ-ONLY; Job Status
 	Status *string `json:"status,omitempty" azure:"ro"`
+
+	// READ-ONLY; Total Count
+	TotalCount *float32 `json:"totalCount,omitempty" azure:"ro"`
 }
 
 // DataTransferJobsClientCreateOptions contains the optional parameters for the DataTransferJobsClient.Create method.

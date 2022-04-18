@@ -1,5 +1,16 @@
 # Release History
 
+## 0.6.0 (2022-04-18)
+### Breaking Changes
+
+- Field `PercentageComplete` of struct `DataTransferJobProperties` has been removed
+
+### Features Added
+
+- New field `ProcessedCount` in struct `DataTransferJobProperties`
+- New field `TotalCount` in struct `DataTransferJobProperties`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 

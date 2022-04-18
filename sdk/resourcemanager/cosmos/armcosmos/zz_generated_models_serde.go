@@ -592,9 +592,10 @@ func (d DataTransferJobProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "error", d.Error)
 	populate(objectMap, "jobName", d.JobName)
 	populateTimeRFC3339(objectMap, "lastUpdatedUtcTime", d.LastUpdatedUTCTime)
-	populate(objectMap, "percentageComplete", d.PercentageComplete)
+	populate(objectMap, "processedCount", d.ProcessedCount)
 	populate(objectMap, "source", d.Source)
 	populate(objectMap, "status", d.Status)
+	populate(objectMap, "totalCount", d.TotalCount)
 	populate(objectMap, "workerCount", d.WorkerCount)
 	return json.Marshal(objectMap)
 }
@@ -620,14 +621,17 @@ func (d *DataTransferJobProperties) UnmarshalJSON(data []byte) error {
 		case "lastUpdatedUtcTime":
 			err = unpopulateTimeRFC3339(val, &d.LastUpdatedUTCTime)
 			delete(rawMsg, key)
-		case "percentageComplete":
-			err = unpopulate(val, &d.PercentageComplete)
+		case "processedCount":
+			err = unpopulate(val, &d.ProcessedCount)
 			delete(rawMsg, key)
 		case "source":
 			d.Source, err = unmarshalDataTransferDataSourceSinkClassification(val)
 			delete(rawMsg, key)
 		case "status":
 			err = unpopulate(val, &d.Status)
+			delete(rawMsg, key)
+		case "totalCount":
+			err = unpopulate(val, &d.TotalCount)
 			delete(rawMsg, key)
 		case "workerCount":
 			err = unpopulate(val, &d.WorkerCount)
