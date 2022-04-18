@@ -102,6 +102,10 @@ type AutomaticOSUpgradePolicy struct {
 	// [https://docs.microsoft.com/dotnet/api/microsoft.azure.management.compute.models.windowsconfiguration.enableautomaticupdates?view=azure-dotnet]
 	// is automatically set to false and cannot be set to true.
 	EnableAutomaticOSUpgrade *bool `json:"enableAutomaticOSUpgrade,omitempty"`
+
+	// Indicates whether rolling upgrade policy should be used during Auto OS Upgrade. Default value is false. Auto OS Upgrade
+	// will fallback to the default policy if no policy is defined on the VMSS.
+	UseRollingUpgradePolicy *bool `json:"useRollingUpgradePolicy,omitempty"`
 }
 
 // AutomaticOSUpgradeProperties - Describes automatic OS upgrade properties on the image.
@@ -517,7 +521,7 @@ type CapacityReservationProperties struct {
 	ReservationID *string `json:"reservationId,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Capacity Reservation resource was created.
-	// Minimum api-version: 2021-11-01.
+	// Minimum api-version: 2022-03-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; A list of all virtual machine resource ids that are associated with the capacity reservation.
@@ -1397,6 +1401,10 @@ type DedicatedHostGroupProperties struct {
 	// REQUIRED; Number of fault domains that the host group can span.
 	PlatformFaultDomainCount *int32 `json:"platformFaultDomainCount,omitempty"`
 
+	// Enables or disables a capability on the dedicated host group.
+	// Minimum api-version: 2022-03-01.
+	AdditionalCapabilities *DedicatedHostGroupPropertiesAdditionalCapabilities `json:"additionalCapabilities,omitempty"`
+
 	// Specifies whether virtual machines or virtual machine scale sets can be placed automatically on the dedicated host group.
 	// Automatic placement means resources are allocated on dedicated hosts, that are
 	// chosen by Azure, under the dedicated host group. The value is defaulted to 'false' when not provided.
@@ -1409,6 +1417,19 @@ type DedicatedHostGroupProperties struct {
 	// READ-ONLY; The dedicated host group instance view, which has the list of instance view of the dedicated hosts under the
 	// dedicated host group.
 	InstanceView *DedicatedHostGroupInstanceView `json:"instanceView,omitempty" azure:"ro"`
+}
+
+// DedicatedHostGroupPropertiesAdditionalCapabilities - Enables or disables a capability on the dedicated host group.
+// Minimum api-version: 2022-03-01.
+type DedicatedHostGroupPropertiesAdditionalCapabilities struct {
+	// The flag that enables or disables a capability to have UltraSSD Enabled Virtual Machines on Dedicated Hosts of the Dedicated
+	// Host Group. For the Virtual Machines to be UltraSSD Enabled,
+	// UltraSSDEnabled flag for the resoure needs to be set true as well. The value is defaulted to 'false' when not provided.
+	// Please refer to
+	// https://docs.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd for more details on Ultra SSD feature.
+	// NOTE: The ultraSSDEnabled setting can only be enabled for Host Groups that are created as zonal.
+	// Minimum api-version: 2022-03-01.
+	UltraSSDEnabled *bool `json:"ultraSSDEnabled,omitempty"`
 }
 
 // DedicatedHostGroupUpdate - Specifies information about the dedicated host group that the dedicated host should be assigned
@@ -1530,7 +1551,7 @@ type DedicatedHostProperties struct {
 	ProvisioningTime *time.Time `json:"provisioningTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Dedicated Host resource was created.
-	// Minimum api-version: 2021-11-01.
+	// Minimum api-version: 2022-03-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; A list of references to all virtual machines in the Dedicated Host.
@@ -1941,9 +1962,6 @@ type DiskProperties struct {
 	// Percentage complete for the background copy when a resource is created via the CopyStart operation.
 	CompletionPercent *float32 `json:"completionPercent,omitempty"`
 
-	// Additional authentication requirements when exporting or uploading to a disk or snapshot.
-	DataAccessAuthMode *DataAccessAuthMode `json:"dataAccessAuthMode,omitempty"`
-
 	// ARM id of the DiskAccess resource for using private endpoints on disks.
 	DiskAccessID *string `json:"diskAccessId,omitempty"`
 
@@ -2125,7 +2143,7 @@ type DiskRestorePointProperties struct {
 	// Purchase plan information for the the image from which the OS disk was created.
 	PurchasePlan *DiskPurchasePlan `json:"purchasePlan,omitempty"`
 
-	// List of supported capabilities for the image from which the OS disk was created.
+	// List of supported capabilities (like accelerated networking) for the image from which the OS disk was created.
 	SupportedCapabilities *SupportedCapabilities `json:"supportedCapabilities,omitempty"`
 
 	// Indicates the OS on a disk supports hibernation.
@@ -2198,9 +2216,6 @@ type DiskUpdateProperties struct {
 	// Does not apply to Ultra disks.
 	BurstingEnabled *bool `json:"burstingEnabled,omitempty"`
 
-	// Additional authentication requirements when exporting or uploading to a disk or snapshot.
-	DataAccessAuthMode *DataAccessAuthMode `json:"dataAccessAuthMode,omitempty"`
-
 	// ARM id of the DiskAccess resource for using private endpoints on disks.
 	DiskAccessID *string `json:"diskAccessId,omitempty"`
 
@@ -2247,7 +2262,7 @@ type DiskUpdateProperties struct {
 	// Purchase plan information to be added on the OS disk
 	PurchasePlan *DiskPurchasePlan `json:"purchasePlan,omitempty"`
 
-	// List of supported capabilities to be added on the OS disk.
+	// List of supported capabilities (like accelerated networking) to be added on the OS disk.
 	SupportedCapabilities *SupportedCapabilities `json:"supportedCapabilities,omitempty"`
 
 	// Indicates the OS on a disk supports hibernation.
@@ -3654,6 +3669,9 @@ type LinuxPatchSettings struct {
 	// AutomaticByPlatform - The platform will trigger periodic patch assessments. The property provisionVMAgent must be true.
 	AssessmentMode *LinuxPatchAssessmentMode `json:"assessmentMode,omitempty"`
 
+	// Specifies additional settings for patch mode AutomaticByPlatform in VM Guest Patching on Linux.
+	AutomaticByPlatformSettings *LinuxVMGuestPatchAutomaticByPlatformSettings `json:"automaticByPlatformSettings,omitempty"`
+
 	// Specifies the mode of VM Guest Patching to IaaS virtual machine or virtual machines associated to virtual machine scale
 	// set with OrchestrationMode as Flexible.
 	// Possible values are:
@@ -3661,6 +3679,13 @@ type LinuxPatchSettings struct {
 	// AutomaticByPlatform - The virtual machine will be automatically updated by the platform. The property provisionVMAgent
 	// must be true
 	PatchMode *LinuxVMGuestPatchMode `json:"patchMode,omitempty"`
+}
+
+// LinuxVMGuestPatchAutomaticByPlatformSettings - Specifies additional settings to be applied when patch mode AutomaticByPlatform
+// is selected in Linux patch settings.
+type LinuxVMGuestPatchAutomaticByPlatformSettings struct {
+	// Specifies the reboot setting for all AutomaticByPlatform patch installation operations.
+	RebootSetting *LinuxVMGuestPatchAutomaticByPlatformRebootSetting `json:"rebootSetting,omitempty"`
 }
 
 // ListUsagesResult - The List Usages operation response.
@@ -4181,6 +4206,9 @@ type PatchSettings struct {
 	// AutomaticByPlatform - The platform will trigger periodic patch assessments. The property provisionVMAgent must be true.
 	AssessmentMode *WindowsPatchAssessmentMode `json:"assessmentMode,omitempty"`
 
+	// Specifies additional settings for patch mode AutomaticByPlatform in VM Guest Patching on Windows.
+	AutomaticByPlatformSettings *WindowsVMGuestPatchAutomaticByPlatformSettings `json:"automaticByPlatformSettings,omitempty"`
+
 	// Enables customers to patch their Azure VMs without requiring a reboot. For enableHotpatching, the 'provisionVMAgent' must
 	// be set to true and 'patchMode' must be set to 'AutomaticByPlatform'.
 	EnableHotpatching *bool `json:"enableHotpatching,omitempty"`
@@ -4358,6 +4386,10 @@ type ProximityPlacementGroup struct {
 	// Resource tags
 	Tags map[string]*string `json:"tags,omitempty"`
 
+	// Specifies the Availability Zone where virtual machine, virtual machine scale set or availability set associated with the
+	// proximity placement group can be created.
+	Zones []*string `json:"zones,omitempty"`
+
 	// READ-ONLY; Resource Id
 	ID *string `json:"id,omitempty" azure:"ro"`
 
@@ -4382,6 +4414,9 @@ type ProximityPlacementGroupProperties struct {
 	// Describes colocation status of the Proximity Placement Group.
 	ColocationStatus *InstanceViewStatus `json:"colocationStatus,omitempty"`
 
+	// Specifies the user intent of the proximity placement group.
+	Intent *ProximityPlacementGroupPropertiesIntent `json:"intent,omitempty"`
+
 	// Specifies the type of the proximity placement group.
 	// Possible values are:
 	// Standard : Co-locate resources within an Azure region or Availability Zone.
@@ -4396,6 +4431,12 @@ type ProximityPlacementGroupProperties struct {
 
 	// READ-ONLY; A list of references to all virtual machines in the proximity placement group.
 	VirtualMachines []*SubResourceWithColocationStatus `json:"virtualMachines,omitempty" azure:"ro"`
+}
+
+// ProximityPlacementGroupPropertiesIntent - Specifies the user intent of the proximity placement group.
+type ProximityPlacementGroupPropertiesIntent struct {
+	// Specifies possible sizes of virtual machines that can be created in the proximity placement group.
+	VMSizes []*string `json:"vmSizes,omitempty"`
 }
 
 // ProximityPlacementGroupUpdate - Specifies information about the proximity placement group.
@@ -5745,9 +5786,6 @@ type SnapshotProperties struct {
 	// Percentage complete for the background copy when a resource is created via the CopyStart operation.
 	CompletionPercent *float32 `json:"completionPercent,omitempty"`
 
-	// Additional authentication requirements when exporting or uploading to a disk or snapshot.
-	DataAccessAuthMode *DataAccessAuthMode `json:"dataAccessAuthMode,omitempty"`
-
 	// ARM id of the DiskAccess resource for using private endpoints on disks.
 	DiskAccessID *string `json:"diskAccessId,omitempty"`
 
@@ -5784,7 +5822,8 @@ type SnapshotProperties struct {
 	// Contains the security related information for the resource.
 	SecurityProfile *DiskSecurityProfile `json:"securityProfile,omitempty"`
 
-	// List of supported capabilities for the image from which the source disk from the snapshot was originally created.
+	// List of supported capabilities (like Accelerated Networking) for the image from which the source disk from the snapshot
+	// was originally created.
 	SupportedCapabilities *SupportedCapabilities `json:"supportedCapabilities,omitempty"`
 
 	// Indicates the OS on a snapshot supports hibernation.
@@ -5833,9 +5872,6 @@ type SnapshotUpdate struct {
 
 // SnapshotUpdateProperties - Snapshot resource update properties.
 type SnapshotUpdateProperties struct {
-	// Additional authentication requirements when exporting or uploading to a disk or snapshot.
-	DataAccessAuthMode *DataAccessAuthMode `json:"dataAccessAuthMode,omitempty"`
-
 	// ARM id of the DiskAccess resource for using private endpoints on disks.
 	DiskAccessID *string `json:"diskAccessId,omitempty"`
 
@@ -5859,7 +5895,7 @@ type SnapshotUpdateProperties struct {
 	// Policy for controlling export on the disk.
 	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 
-	// List of supported capabilities for the image from which the OS disk was created.
+	// List of supported capabilities (like accelerated networking) for the image from which the OS disk was created.
 	SupportedCapabilities *SupportedCapabilities `json:"supportedCapabilities,omitempty"`
 
 	// Indicates the OS on a snapshot supports hibernation.
@@ -5979,13 +6015,11 @@ type SubResourceWithColocationStatus struct {
 	ID *string `json:"id,omitempty"`
 }
 
-// SupportedCapabilities - List of supported capabilities persisted on the disk resource for VM use.
+// SupportedCapabilities - List of supported capabilities (like accelerated networking) persisted on the disk resource for
+// VM use.
 type SupportedCapabilities struct {
 	// True if the image from which the OS disk is created supports accelerated networking.
 	AcceleratedNetwork *bool `json:"acceleratedNetwork,omitempty"`
-
-	// CPU architecture supported by an OS disk.
-	Architecture *Architecture `json:"architecture,omitempty"`
 }
 
 // TargetRegion - Describes the target region information.
@@ -6727,9 +6761,6 @@ type VirtualMachineImageFeature struct {
 
 // VirtualMachineImageProperties - Describes the properties of a Virtual Machine Image.
 type VirtualMachineImageProperties struct {
-	// Specifies the Architecture Type
-	Architecture *ArchitectureTypes `json:"architecture,omitempty"`
-
 	// Describes automatic OS upgrade properties on the image.
 	AutomaticOSUpgradeProperties *AutomaticOSUpgradeProperties `json:"automaticOSUpgradeProperties,omitempty"`
 	DataDiskImages               []*DataDiskImage              `json:"dataDiskImages,omitempty"`
@@ -7169,7 +7200,7 @@ type VirtualMachineProperties struct {
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Virtual Machine resource was created.
-	// Minimum api-version: 2021-11-01.
+	// Minimum api-version: 2022-03-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the VM unique ID which is a 128-bits identifier that is encoded and stored in all Azure IaaS VMs SMBIOS
@@ -7603,7 +7634,7 @@ type VirtualMachineScaleSetExtensionsClientListOptions struct {
 
 // VirtualMachineScaleSetHardwareProfile - Specifies the hardware settings for the virtual machine scale set.
 type VirtualMachineScaleSetHardwareProfile struct {
-	// Specifies the properties for customizing the size of the virtual machine. Minimum api-version: 2021-11-01.
+	// Specifies the properties for customizing the size of the virtual machine. Minimum api-version: 2022-03-01.
 	// Please follow the instructions in VM Customization [https://aka.ms/vmcustomization] for more details.
 	VMSizeProperties *VMSizeProperties `json:"vmSizeProperties,omitempty"`
 }
@@ -7990,7 +8021,7 @@ type VirtualMachineScaleSetProperties struct {
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Virtual Machine Scale Set resource was created.
-	// Minimum api-version: 2021-11-01.
+	// Minimum api-version: 2022-03-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the ID which uniquely identifies a Virtual Machine Scale Set.
@@ -8609,7 +8640,7 @@ type VirtualMachineScaleSetVMProfile struct {
 	ExtensionProfile *VirtualMachineScaleSetExtensionProfile `json:"extensionProfile,omitempty"`
 
 	// Specifies the hardware profile related details of a scale set.
-	// Minimum api-version: 2021-11-01.
+	// Minimum api-version: 2022-03-01.
 	HardwareProfile *VirtualMachineScaleSetHardwareProfile `json:"hardwareProfile,omitempty"`
 
 	// Specifies that the image or disk that is being used was licensed on-premises.
@@ -9426,4 +9457,11 @@ type WindowsParameters struct {
 
 	// This is used to install patches that were published on or before this given max published date.
 	MaxPatchPublishDate *time.Time `json:"maxPatchPublishDate,omitempty"`
+}
+
+// WindowsVMGuestPatchAutomaticByPlatformSettings - Specifies additional settings to be applied when patch mode AutomaticByPlatform
+// is selected in Windows patch settings.
+type WindowsVMGuestPatchAutomaticByPlatformSettings struct {
+	// Specifies the reboot setting for all AutomaticByPlatform patch installation operations.
+	RebootSetting *WindowsVMGuestPatchAutomaticByPlatformRebootSetting `json:"rebootSetting,omitempty"`
 }
