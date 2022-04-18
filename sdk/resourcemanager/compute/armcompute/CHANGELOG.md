@@ -1,5 +1,13 @@
 # Release History
 
+## 0.8.0 (2022-04-18)
+### Features Added
+
+- New struct `UserArtifactSettings`
+- New field `AdvancedSettings` in struct `GalleryApplicationVersionPublishingProfile`
+- New field `Settings` in struct `GalleryApplicationVersionPublishingProfile`
+
+
 ## 0.7.0 (2022-04-15)
 ### Breaking Changes
 

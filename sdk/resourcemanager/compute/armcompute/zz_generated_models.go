@@ -2593,6 +2593,9 @@ type GalleryApplicationVersionPublishingProfile struct {
 	// REQUIRED; The source image from which the Image Version is going to be created.
 	Source *UserArtifactSource `json:"source,omitempty"`
 
+	// Optional. Additional settings to pass to the VMApp extension. For advanced used only.
+	AdvancedSettings map[string]*string `json:"advancedSettings,omitempty"`
+
 	// Optional. Whether or not this application reports health.
 	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
 
@@ -2609,7 +2612,8 @@ type GalleryApplicationVersionPublishingProfile struct {
 	ReplicaCount *int32 `json:"replicaCount,omitempty"`
 
 	// Optional parameter which specifies the mode to be used for replication. This property is not updatable.
-	ReplicationMode *ReplicationMode `json:"replicationMode,omitempty"`
+	ReplicationMode *ReplicationMode      `json:"replicationMode,omitempty"`
+	Settings        *UserArtifactSettings `json:"settings,omitempty"`
 
 	// Specifies the storage account type to be used to store the image. This property is not updatable.
 	StorageAccountType *StorageAccountType `json:"storageAccountType,omitempty"`
@@ -6189,6 +6193,16 @@ type UserArtifactManage struct {
 	// command on the previous version and install command on the current version
 	// of the gallery application. This is limited to 4096 characters.
 	Update *string `json:"update,omitempty"`
+}
+
+type UserArtifactSettings struct {
+	// Optional. The file to rename the downloaded config to on the VM. If not present, then the file will be called _config.
+	// This is limited to 4096 characters.
+	ConfigFileName *string `json:"configFileName,omitempty"`
+
+	// Optional. The file to rename the downloaded package to on the VM. If not present, then the file will be called . This is
+	// limited to 4096 characters.
+	PackageFileName *string `json:"packageFileName,omitempty"`
 }
 
 // UserArtifactSource - The source image from which the Image Version is going to be created.

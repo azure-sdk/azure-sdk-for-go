@@ -1194,6 +1194,7 @@ func (g GalleryApplicationVersionList) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type GalleryApplicationVersionPublishingProfile.
 func (g GalleryApplicationVersionPublishingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "advancedSettings", g.AdvancedSettings)
 	populate(objectMap, "enableHealthCheck", g.EnableHealthCheck)
 	populateTimeRFC3339(objectMap, "endOfLifeDate", g.EndOfLifeDate)
 	populate(objectMap, "excludeFromLatest", g.ExcludeFromLatest)
@@ -1201,6 +1202,7 @@ func (g GalleryApplicationVersionPublishingProfile) MarshalJSON() ([]byte, error
 	populateTimeRFC3339(objectMap, "publishedDate", g.PublishedDate)
 	populate(objectMap, "replicaCount", g.ReplicaCount)
 	populate(objectMap, "replicationMode", g.ReplicationMode)
+	populate(objectMap, "settings", g.Settings)
 	populate(objectMap, "source", g.Source)
 	populate(objectMap, "storageAccountType", g.StorageAccountType)
 	populate(objectMap, "targetExtendedLocations", g.TargetExtendedLocations)
@@ -1217,6 +1219,9 @@ func (g *GalleryApplicationVersionPublishingProfile) UnmarshalJSON(data []byte) 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "advancedSettings":
+			err = unpopulate(val, &g.AdvancedSettings)
+			delete(rawMsg, key)
 		case "enableHealthCheck":
 			err = unpopulate(val, &g.EnableHealthCheck)
 			delete(rawMsg, key)
@@ -1237,6 +1242,9 @@ func (g *GalleryApplicationVersionPublishingProfile) UnmarshalJSON(data []byte) 
 			delete(rawMsg, key)
 		case "replicationMode":
 			err = unpopulate(val, &g.ReplicationMode)
+			delete(rawMsg, key)
+		case "settings":
+			err = unpopulate(val, &g.Settings)
 			delete(rawMsg, key)
 		case "source":
 			err = unpopulate(val, &g.Source)
