@@ -10570,15 +10570,15 @@ func (ovd OperationValueDisplay) MarshalJSON() ([]byte, error) {
 
 // OrchestrationServiceStateInput the input for OrchestrationServiceState
 type OrchestrationServiceStateInput struct {
-	// ServiceName - The name of the service. Possible values include: 'OrchestrationServiceNamesAutomaticRepairs'
-	ServiceName OrchestrationServiceNames `json:"serviceName,omitempty"`
+	// ServiceName - The name of the service.
+	ServiceName *string `json:"serviceName,omitempty"`
 	// Action - The action to be performed. Possible values include: 'OrchestrationServiceStateActionResume', 'OrchestrationServiceStateActionSuspend'
 	Action OrchestrationServiceStateAction `json:"action,omitempty"`
 }
 
 // OrchestrationServiceSummary summary for an orchestration service of a virtual machine scale set.
 type OrchestrationServiceSummary struct {
-	// ServiceName - READ-ONLY; The name of the service. Possible values include: 'OrchestrationServiceNamesAutomaticRepairs', 'OrchestrationServiceNamesDummyOrchestrationServiceName'
+	// ServiceName - READ-ONLY; The name of the service. Possible values include: 'OrchestrationServiceNamesAutomaticRepairs'
 	ServiceName OrchestrationServiceNames `json:"serviceName,omitempty"`
 	// ServiceState - READ-ONLY; The current state of the service. Possible values include: 'OrchestrationServiceStateNotRunning', 'OrchestrationServiceStateRunning', 'OrchestrationServiceStateSuspended'
 	ServiceState OrchestrationServiceState `json:"serviceState,omitempty"`
