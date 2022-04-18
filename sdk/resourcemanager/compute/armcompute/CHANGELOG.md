@@ -1,5 +1,34 @@
 # Release History
 
+## 0.8.0 (2022-04-18)
+### Breaking Changes
+
+- Type of `DiskRestorePointReplicationStatus.Status` has been changed from `interface{}` to `*InstanceViewStatus`
+- Type of `DiskRestorePointInstanceView.ReplicationStatus` has been changed from `interface{}` to `*DiskRestorePointReplicationStatus`
+- Const `ArchitectureTypesArm64` has been removed
+- Const `DataAccessAuthModeAzureActiveDirectory` has been removed
+- Const `ArchitectureTypesX64` has been removed
+- Const `DataAccessAuthModeNone` has been removed
+- Function `PossibleDataAccessAuthModeValues` has been removed
+- Function `PossibleArchitectureTypesValues` has been removed
+- Field `Architecture` of struct `SupportedCapabilities` has been removed
+- Field `DataAccessAuthMode` of struct `SnapshotProperties` has been removed
+- Field `Architecture` of struct `VirtualMachineImageProperties` has been removed
+- Field `DataAccessAuthMode` of struct `DiskUpdateProperties` has been removed
+- Field `DataAccessAuthMode` of struct `DiskProperties` has been removed
+- Field `DataAccessAuthMode` of struct `SnapshotUpdateProperties` has been removed
+
+### Features Added
+
+- New function `ProximityPlacementGroupPropertiesIntent.MarshalJSON() ([]byte, error)`
+- New struct `DedicatedHostGroupPropertiesAdditionalCapabilities`
+- New struct `ProximityPlacementGroupPropertiesIntent`
+- New field `AdditionalCapabilities` in struct `DedicatedHostGroupProperties`
+- New field `Zones` in struct `ProximityPlacementGroup`
+- New field `Intent` in struct `ProximityPlacementGroupProperties`
+- New field `CompletionPercent` in struct `DiskRestorePointReplicationStatus`
+
+
 ## 0.7.0 (2022-04-15)
 ### Breaking Changes
 
