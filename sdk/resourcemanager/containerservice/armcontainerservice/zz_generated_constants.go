@@ -10,7 +10,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "armcontainerservice"
-	moduleVersion = "v0.5.0"
+	moduleVersion = "v0.6.0"
 )
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
@@ -745,6 +745,9 @@ const (
 	// NetworkPluginKubenet - Use the Kubenet network plugin. See [Kubenet (basic) networking](https://docs.microsoft.com/azure/aks/concepts-network#kubenet-basic-networking)
 	// for more information.
 	NetworkPluginKubenet NetworkPlugin = "kubenet"
+	// NetworkPluginNone - Do not use a network plugin. A custom CNI will need to be installed after cluster creation for networking
+	// functionality.
+	NetworkPluginNone NetworkPlugin = "none"
 )
 
 // PossibleNetworkPluginValues returns the possible values for the NetworkPlugin const type.
@@ -752,6 +755,7 @@ func PossibleNetworkPluginValues() []NetworkPlugin {
 	return []NetworkPlugin{
 		NetworkPluginAzure,
 		NetworkPluginKubenet,
+		NetworkPluginNone,
 	}
 }
 
@@ -986,6 +990,8 @@ func PossibleScaleSetPriorityValues() []ScaleSetPriority {
 type SnapshotType string
 
 const (
+	// SnapshotTypeManagedCluster - The snapshot is a snapshot of a managed cluster.
+	SnapshotTypeManagedCluster SnapshotType = "ManagedCluster"
 	// SnapshotTypeNodePool - The snapshot is a snapshot of a node pool.
 	SnapshotTypeNodePool SnapshotType = "NodePool"
 )
@@ -993,6 +999,7 @@ const (
 // PossibleSnapshotTypeValues returns the possible values for the SnapshotType const type.
 func PossibleSnapshotTypeValues() []SnapshotType {
 	return []SnapshotType{
+		SnapshotTypeManagedCluster,
 		SnapshotTypeNodePool,
 	}
 }
