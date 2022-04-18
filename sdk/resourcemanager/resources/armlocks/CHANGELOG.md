@@ -1,5 +1,23 @@
 # Release History
 
+## 0.4.0 (2022-04-18)
+### Breaking Changes
+
+- Function `*ManagementLocksClient.ListByScope` has been removed
+- Function `*AuthorizationOperationsClient.List` has been removed
+- Function `*ManagementLocksClient.ListAtResourceGroupLevel` has been removed
+- Function `*ManagementLocksClient.ListAtSubscriptionLevel` has been removed
+- Function `*ManagementLocksClient.ListAtResourceLevel` has been removed
+
+### Features Added
+
+- New function `*ManagementLocksClient.NewListByScopePager(string, *ManagementLocksClientListByScopeOptions) *runtime.Pager[ManagementLocksClientListByScopeResponse]`
+- New function `*ManagementLocksClient.NewListAtResourceGroupLevelPager(string, *ManagementLocksClientListAtResourceGroupLevelOptions) *runtime.Pager[ManagementLocksClientListAtResourceGroupLevelResponse]`
+- New function `*AuthorizationOperationsClient.NewListPager(*AuthorizationOperationsClientListOptions) *runtime.Pager[AuthorizationOperationsClientListResponse]`
+- New function `*ManagementLocksClient.NewListAtResourceLevelPager(string, string, string, string, string, *ManagementLocksClientListAtResourceLevelOptions) *runtime.Pager[ManagementLocksClientListAtResourceLevelResponse]`
+- New function `*ManagementLocksClient.NewListAtSubscriptionLevelPager(*ManagementLocksClientListAtSubscriptionLevelOptions) *runtime.Pager[ManagementLocksClientListAtSubscriptionLevelResponse]`
+
+
 ## 0.3.0 (2022-04-14)
 ### Breaking Changes
 
