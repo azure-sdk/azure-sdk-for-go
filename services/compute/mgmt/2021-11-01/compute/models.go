@@ -7398,7 +7398,10 @@ type GalleryApplicationVersionPublishingProfile struct {
 	Source        *UserArtifactSource `json:"source,omitempty"`
 	ManageActions *UserArtifactManage `json:"manageActions,omitempty"`
 	// EnableHealthCheck - Optional. Whether or not this application reports health.
-	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
+	EnableHealthCheck *bool                 `json:"enableHealthCheck,omitempty"`
+	Settings          *UserArtifactSettings `json:"settings,omitempty"`
+	// AdvancedSettings - Optional. Additional settings to pass to the VMApp extension. For advanced used only.
+	AdvancedSettings map[string]*string `json:"advancedSettings"`
 	// TargetRegions - The target regions where the Image Version is going to be replicated to. This property is updatable.
 	TargetRegions *[]TargetRegion `json:"targetRegions,omitempty"`
 	// ReplicaCount - The number of replicas of the Image Version to be created per region. This property would take effect for a region when regionalReplicaCount is not specified. This property is updatable.
@@ -7428,6 +7431,12 @@ func (gavpp GalleryApplicationVersionPublishingProfile) MarshalJSON() ([]byte, e
 	}
 	if gavpp.EnableHealthCheck != nil {
 		objectMap["enableHealthCheck"] = gavpp.EnableHealthCheck
+	}
+	if gavpp.Settings != nil {
+		objectMap["settings"] = gavpp.Settings
+	}
+	if gavpp.AdvancedSettings != nil {
+		objectMap["advancedSettings"] = gavpp.AdvancedSettings
 	}
 	if gavpp.TargetRegions != nil {
 		objectMap["targetRegions"] = gavpp.TargetRegions
@@ -16229,6 +16238,14 @@ type UserArtifactManage struct {
 	Remove *string `json:"remove,omitempty"`
 	// Update - Optional. The path and arguments to update the gallery application. If not present, then update operation will invoke remove command on the previous version and install command on the current version of the gallery application. This is limited to 4096 characters.
 	Update *string `json:"update,omitempty"`
+}
+
+// UserArtifactSettings ...
+type UserArtifactSettings struct {
+	// PackageFileName - Optional. The file to rename the downloaded package to on the VM. If not present, then the file will be called <appname>. This is limited to 4096 characters.
+	PackageFileName *string `json:"packageFileName,omitempty"`
+	// ConfigFileName - Optional. The file to rename the downloaded config to on the VM. If not present, then the file will be called <appname>_config. This is limited to 4096 characters.
+	ConfigFileName *string `json:"configFileName,omitempty"`
 }
 
 // UserArtifactSource the source image from which the Image Version is going to be created.
