@@ -750,9 +750,9 @@ type AutomationRuleActionClassification interface {
 	GetAutomationRuleAction() *AutomationRuleAction
 }
 
-// AutomationRuleAction - Describes an automation rule action
+// AutomationRuleAction - Describes an automation rule action.
 type AutomationRuleAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType `json:"actionType,omitempty"`
 
 	// REQUIRED
@@ -762,13 +762,13 @@ type AutomationRuleAction struct {
 // AutomationRuleConditionClassification provides polymorphic access to related types.
 // Call the interface's GetAutomationRuleCondition() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AutomationRuleCondition, *PropertyConditionProperties
+// - *AutomationRuleCondition, *PropertyArrayChangedConditionProperties, *PropertyChangedConditionProperties, *PropertyConditionProperties
 type AutomationRuleConditionClassification interface {
 	// GetAutomationRuleCondition returns the AutomationRuleCondition content of the underlying type.
 	GetAutomationRuleCondition() *AutomationRuleCondition
 }
 
-// AutomationRuleCondition - Describes an automation rule condition
+// AutomationRuleCondition - Describes an automation rule condition.
 type AutomationRuleCondition struct {
 	// REQUIRED
 	ConditionType *ConditionType `json:"conditionType,omitempty"`
@@ -776,7 +776,7 @@ type AutomationRuleCondition struct {
 
 // AutomationRuleModifyPropertiesAction - Describes an automation rule action to modify an object's properties
 type AutomationRuleModifyPropertiesAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType `json:"actionType,omitempty"`
 
 	// REQUIRED
@@ -786,42 +786,54 @@ type AutomationRuleModifyPropertiesAction struct {
 
 // AutomationRuleProperties - Automation rule properties
 type AutomationRuleProperties struct {
-	// REQUIRED; The actions to execute when the automation rule is triggered
+	// REQUIRED; The actions to execute when the automation rule is triggered.
 	Actions []AutomationRuleActionClassification `json:"actions,omitempty"`
 
-	// REQUIRED; The display name of the automation rule
+	// REQUIRED; The display name of the automation rule.
 	DisplayName *string `json:"displayName,omitempty"`
 
-	// REQUIRED; The order of execution of the automation rule
+	// REQUIRED; The order of execution of the automation rule.
 	Order *int32 `json:"order,omitempty"`
 
-	// REQUIRED; Describes automation rule triggering logic
+	// REQUIRED; Describes automation rule triggering logic.
 	TriggeringLogic *AutomationRuleTriggeringLogic `json:"triggeringLogic,omitempty"`
 
 	// READ-ONLY; Information on the client (user or application) that made some action
 	CreatedBy *ClientInfo `json:"createdBy,omitempty" azure:"ro"`
 
-	// READ-ONLY; The time the automation rule was created
+	// READ-ONLY; The time the automation rule was created.
 	CreatedTimeUTC *time.Time `json:"createdTimeUtc,omitempty" azure:"ro"`
 
 	// READ-ONLY; Information on the client (user or application) that made some action
 	LastModifiedBy *ClientInfo `json:"lastModifiedBy,omitempty" azure:"ro"`
 
-	// READ-ONLY; The last time the automation rule was updated
+	// READ-ONLY; The last time the automation rule was updated.
 	LastModifiedTimeUTC *time.Time `json:"lastModifiedTimeUtc,omitempty" azure:"ro"`
+}
+
+type AutomationRulePropertyArrayChangedValuesCondition struct {
+	ArrayType  *AutomationRulePropertyArrayChangedConditionSupportedArrayType  `json:"arrayType,omitempty"`
+	ChangeType *AutomationRulePropertyArrayChangedConditionSupportedChangeType `json:"changeType,omitempty"`
+}
+
+type AutomationRulePropertyValuesChangedCondition struct {
+	ChangeType     *AutomationRulePropertyChangedConditionSupportedChangedType  `json:"changeType,omitempty"`
+	Operator       *AutomationRulePropertyConditionSupportedOperator            `json:"operator,omitempty"`
+	PropertyName   *AutomationRulePropertyChangedConditionSupportedPropertyType `json:"propertyName,omitempty"`
+	PropertyValues []*string                                                    `json:"propertyValues,omitempty"`
 }
 
 type AutomationRulePropertyValuesCondition struct {
 	Operator *AutomationRulePropertyConditionSupportedOperator `json:"operator,omitempty"`
 
-	// The property to evaluate in an automation rule property condition
+	// The property to evaluate in an automation rule property condition.
 	PropertyName   *AutomationRulePropertyConditionSupportedProperty `json:"propertyName,omitempty"`
 	PropertyValues []*string                                         `json:"propertyValues,omitempty"`
 }
 
 // AutomationRuleRunPlaybookAction - Describes an automation rule action to run a playbook
 type AutomationRuleRunPlaybookAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType `json:"actionType,omitempty"`
 
 	// REQUIRED
@@ -829,9 +841,9 @@ type AutomationRuleRunPlaybookAction struct {
 	ActionConfiguration *PlaybookActionProperties `json:"actionConfiguration,omitempty"`
 }
 
-// AutomationRuleTriggeringLogic - Describes automation rule triggering logic
+// AutomationRuleTriggeringLogic - Describes automation rule triggering logic.
 type AutomationRuleTriggeringLogic struct {
-	// REQUIRED; Determines whether the automation rule is enabled or disabled
+	// REQUIRED; Determines whether the automation rule is enabled or disabled.
 	IsEnabled *bool `json:"isEnabled,omitempty"`
 
 	// REQUIRED
@@ -840,7 +852,7 @@ type AutomationRuleTriggeringLogic struct {
 	// REQUIRED
 	TriggersWhen *TriggersWhen `json:"triggersWhen,omitempty"`
 
-	// The conditions to evaluate to determine if the automation rule should be triggered on a given object
+	// The conditions to evaluate to determine if the automation rule should be triggered on a given object.
 	Conditions []AutomationRuleConditionClassification `json:"conditions,omitempty"`
 
 	// Determines when the automation rule should automatically expire and be disabled.
@@ -3492,13 +3504,13 @@ type IncidentPropertiesAction struct {
 	// The reason the incident was closed
 	Classification *IncidentClassification `json:"classification,omitempty"`
 
-	// Describes the reason the incident was closed
+	// Describes the reason the incident was closed.
 	ClassificationComment *string `json:"classificationComment,omitempty"`
 
 	// The classification reason the incident was closed with
 	ClassificationReason *IncidentClassificationReason `json:"classificationReason,omitempty"`
 
-	// List of labels to add to the incident
+	// List of labels to add to the incident.
 	Labels []*IncidentLabel `json:"labels,omitempty"`
 
 	// Information on the user an incident is assigned to
@@ -5484,10 +5496,10 @@ type PermissionsResourceProviderItem struct {
 }
 
 type PlaybookActionProperties struct {
-	// The resource id of the playbook resource
+	// The resource id of the playbook resource.
 	LogicAppResourceID *string `json:"logicAppResourceId,omitempty"`
 
-	// The tenant id of the playbook resource
+	// The tenant id of the playbook resource.
 	TenantID *string `json:"tenantId,omitempty"`
 }
 
@@ -5567,6 +5579,21 @@ type ProductSettingsClientListOptions struct {
 // ProductSettingsClientUpdateOptions contains the optional parameters for the ProductSettingsClient.Update method.
 type ProductSettingsClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// PropertyArrayChangedConditionProperties - Describes an automation rule condition that evaluates an array property's value
+// change
+type PropertyArrayChangedConditionProperties struct {
+	// REQUIRED
+	ConditionType       *ConditionType                                     `json:"conditionType,omitempty"`
+	ConditionProperties *AutomationRulePropertyArrayChangedValuesCondition `json:"conditionProperties,omitempty"`
+}
+
+// PropertyChangedConditionProperties - Describes an automation rule condition that evaluates a property's value change
+type PropertyChangedConditionProperties struct {
+	// REQUIRED
+	ConditionType       *ConditionType                                `json:"conditionType,omitempty"`
+	ConditionProperties *AutomationRulePropertyValuesChangedCondition `json:"conditionProperties,omitempty"`
 }
 
 // PropertyConditionProperties - Describes an automation rule condition that evaluates a property's value

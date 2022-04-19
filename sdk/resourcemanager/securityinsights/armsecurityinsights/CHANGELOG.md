@@ -1,5 +1,38 @@
 # Release History
 
+## 0.4.0 (2022-04-19)
+### Features Added
+
+- New const `AutomationRulePropertyArrayChangedConditionSupportedArrayTypeAlerts`
+- New const `ConditionTypePropertyArrayChanged`
+- New const `AutomationRulePropertyArrayChangedConditionSupportedArrayTypeComments`
+- New const `AutomationRulePropertyArrayChangedConditionSupportedArrayTypeLabels`
+- New const `AutomationRulePropertyChangedConditionSupportedChangedTypeChangedFrom`
+- New const `AutomationRulePropertyChangedConditionSupportedChangedTypeChangedTo`
+- New const `AutomationRulePropertyArrayChangedConditionSupportedArrayTypeTactics`
+- New const `ConditionTypePropertyChanged`
+- New const `AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentStatus`
+- New const `AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentSeverity`
+- New const `AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentOwner`
+- New const `AutomationRulePropertyArrayChangedConditionSupportedChangeTypeAdded`
+- New const `TriggersWhenUpdated`
+- New function `AutomationRulePropertyValuesChangedCondition.MarshalJSON() ([]byte, error)`
+- New function `*PropertyChangedConditionProperties.GetAutomationRuleCondition() *AutomationRuleCondition`
+- New function `PossibleAutomationRulePropertyArrayChangedConditionSupportedArrayTypeValues() []AutomationRulePropertyArrayChangedConditionSupportedArrayType`
+- New function `PossibleAutomationRulePropertyArrayChangedConditionSupportedChangeTypeValues() []AutomationRulePropertyArrayChangedConditionSupportedChangeType`
+- New function `PossibleAutomationRulePropertyChangedConditionSupportedPropertyTypeValues() []AutomationRulePropertyChangedConditionSupportedPropertyType`
+- New function `PossibleAutomationRulePropertyChangedConditionSupportedChangedTypeValues() []AutomationRulePropertyChangedConditionSupportedChangedType`
+- New function `PropertyChangedConditionProperties.MarshalJSON() ([]byte, error)`
+- New function `*PropertyArrayChangedConditionProperties.GetAutomationRuleCondition() *AutomationRuleCondition`
+- New function `*PropertyArrayChangedConditionProperties.UnmarshalJSON([]byte) error`
+- New function `PropertyArrayChangedConditionProperties.MarshalJSON() ([]byte, error)`
+- New function `*PropertyChangedConditionProperties.UnmarshalJSON([]byte) error`
+- New struct `AutomationRulePropertyArrayChangedValuesCondition`
+- New struct `AutomationRulePropertyValuesChangedCondition`
+- New struct `PropertyArrayChangedConditionProperties`
+- New struct `PropertyChangedConditionProperties`
+
+
 ## 0.3.0 (2022-04-18)
 ### Breaking Changes
 

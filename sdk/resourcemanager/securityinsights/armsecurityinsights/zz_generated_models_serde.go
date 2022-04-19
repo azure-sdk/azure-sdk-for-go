@@ -1083,6 +1083,16 @@ func (a *AutomationRuleProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AutomationRulePropertyValuesChangedCondition.
+func (a AutomationRulePropertyValuesChangedCondition) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "changeType", a.ChangeType)
+	populate(objectMap, "operator", a.Operator)
+	populate(objectMap, "propertyName", a.PropertyName)
+	populate(objectMap, "propertyValues", a.PropertyValues)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AutomationRulePropertyValuesCondition.
 func (a AutomationRulePropertyValuesCondition) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -6645,6 +6655,82 @@ func (p *ProcessEntityProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "processId":
 			err = unpopulate(val, &p.ProcessID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// GetAutomationRuleCondition implements the AutomationRuleConditionClassification interface for type PropertyArrayChangedConditionProperties.
+func (p *PropertyArrayChangedConditionProperties) GetAutomationRuleCondition() *AutomationRuleCondition {
+	return &AutomationRuleCondition{
+		ConditionType: p.ConditionType,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PropertyArrayChangedConditionProperties.
+func (p PropertyArrayChangedConditionProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "conditionProperties", p.ConditionProperties)
+	objectMap["conditionType"] = ConditionTypePropertyArrayChanged
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PropertyArrayChangedConditionProperties.
+func (p *PropertyArrayChangedConditionProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "conditionProperties":
+			err = unpopulate(val, &p.ConditionProperties)
+			delete(rawMsg, key)
+		case "conditionType":
+			err = unpopulate(val, &p.ConditionType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// GetAutomationRuleCondition implements the AutomationRuleConditionClassification interface for type PropertyChangedConditionProperties.
+func (p *PropertyChangedConditionProperties) GetAutomationRuleCondition() *AutomationRuleCondition {
+	return &AutomationRuleCondition{
+		ConditionType: p.ConditionType,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PropertyChangedConditionProperties.
+func (p PropertyChangedConditionProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "conditionProperties", p.ConditionProperties)
+	objectMap["conditionType"] = ConditionTypePropertyChanged
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PropertyChangedConditionProperties.
+func (p *PropertyChangedConditionProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "conditionProperties":
+			err = unpopulate(val, &p.ConditionProperties)
+			delete(rawMsg, key)
+		case "conditionType":
+			err = unpopulate(val, &p.ConditionType)
 			delete(rawMsg, key)
 		}
 		if err != nil {

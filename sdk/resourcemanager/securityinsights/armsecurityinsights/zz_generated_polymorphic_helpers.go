@@ -155,6 +155,10 @@ func unmarshalAutomationRuleConditionClassification(rawMsg json.RawMessage) (Aut
 	switch m["conditionType"] {
 	case string(ConditionTypeProperty):
 		b = &PropertyConditionProperties{}
+	case string(ConditionTypePropertyArrayChanged):
+		b = &PropertyArrayChangedConditionProperties{}
+	case string(ConditionTypePropertyChanged):
+		b = &PropertyChangedConditionProperties{}
 	default:
 		b = &AutomationRuleCondition{}
 	}

@@ -10,10 +10,10 @@ package armsecurityinsights
 
 const (
 	moduleName    = "armsecurityinsights"
-	moduleVersion = "v0.3.0"
+	moduleVersion = "v0.4.0"
 )
 
-// ActionType - The type of the automation rule action
+// ActionType - The type of the automation rule action.
 type ActionType string
 
 const (
@@ -194,6 +194,82 @@ func PossibleAttackTacticValues() []AttackTactic {
 	}
 }
 
+type AutomationRulePropertyArrayChangedConditionSupportedArrayType string
+
+const (
+	// AutomationRulePropertyArrayChangedConditionSupportedArrayTypeAlerts - Evaluate the condition on the alerts
+	AutomationRulePropertyArrayChangedConditionSupportedArrayTypeAlerts AutomationRulePropertyArrayChangedConditionSupportedArrayType = "Alerts"
+	// AutomationRulePropertyArrayChangedConditionSupportedArrayTypeComments - Evaluate the condition on the comments
+	AutomationRulePropertyArrayChangedConditionSupportedArrayTypeComments AutomationRulePropertyArrayChangedConditionSupportedArrayType = "Comments"
+	// AutomationRulePropertyArrayChangedConditionSupportedArrayTypeLabels - Evaluate the condition on the labels
+	AutomationRulePropertyArrayChangedConditionSupportedArrayTypeLabels AutomationRulePropertyArrayChangedConditionSupportedArrayType = "Labels"
+	// AutomationRulePropertyArrayChangedConditionSupportedArrayTypeTactics - Evaluate the condition on the tactics
+	AutomationRulePropertyArrayChangedConditionSupportedArrayTypeTactics AutomationRulePropertyArrayChangedConditionSupportedArrayType = "Tactics"
+)
+
+// PossibleAutomationRulePropertyArrayChangedConditionSupportedArrayTypeValues returns the possible values for the AutomationRulePropertyArrayChangedConditionSupportedArrayType const type.
+func PossibleAutomationRulePropertyArrayChangedConditionSupportedArrayTypeValues() []AutomationRulePropertyArrayChangedConditionSupportedArrayType {
+	return []AutomationRulePropertyArrayChangedConditionSupportedArrayType{
+		AutomationRulePropertyArrayChangedConditionSupportedArrayTypeAlerts,
+		AutomationRulePropertyArrayChangedConditionSupportedArrayTypeComments,
+		AutomationRulePropertyArrayChangedConditionSupportedArrayTypeLabels,
+		AutomationRulePropertyArrayChangedConditionSupportedArrayTypeTactics,
+	}
+}
+
+type AutomationRulePropertyArrayChangedConditionSupportedChangeType string
+
+const (
+	// AutomationRulePropertyArrayChangedConditionSupportedChangeTypeAdded - Evaluate the condition on items added to the array
+	AutomationRulePropertyArrayChangedConditionSupportedChangeTypeAdded AutomationRulePropertyArrayChangedConditionSupportedChangeType = "Added"
+)
+
+// PossibleAutomationRulePropertyArrayChangedConditionSupportedChangeTypeValues returns the possible values for the AutomationRulePropertyArrayChangedConditionSupportedChangeType const type.
+func PossibleAutomationRulePropertyArrayChangedConditionSupportedChangeTypeValues() []AutomationRulePropertyArrayChangedConditionSupportedChangeType {
+	return []AutomationRulePropertyArrayChangedConditionSupportedChangeType{
+		AutomationRulePropertyArrayChangedConditionSupportedChangeTypeAdded,
+	}
+}
+
+type AutomationRulePropertyChangedConditionSupportedChangedType string
+
+const (
+	// AutomationRulePropertyChangedConditionSupportedChangedTypeChangedFrom - Evaluate the condition on the previous value of
+	// the property
+	AutomationRulePropertyChangedConditionSupportedChangedTypeChangedFrom AutomationRulePropertyChangedConditionSupportedChangedType = "ChangedFrom"
+	// AutomationRulePropertyChangedConditionSupportedChangedTypeChangedTo - Evaluate the condition on the updated value of the
+	// property
+	AutomationRulePropertyChangedConditionSupportedChangedTypeChangedTo AutomationRulePropertyChangedConditionSupportedChangedType = "ChangedTo"
+)
+
+// PossibleAutomationRulePropertyChangedConditionSupportedChangedTypeValues returns the possible values for the AutomationRulePropertyChangedConditionSupportedChangedType const type.
+func PossibleAutomationRulePropertyChangedConditionSupportedChangedTypeValues() []AutomationRulePropertyChangedConditionSupportedChangedType {
+	return []AutomationRulePropertyChangedConditionSupportedChangedType{
+		AutomationRulePropertyChangedConditionSupportedChangedTypeChangedFrom,
+		AutomationRulePropertyChangedConditionSupportedChangedTypeChangedTo,
+	}
+}
+
+type AutomationRulePropertyChangedConditionSupportedPropertyType string
+
+const (
+	// AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentOwner - Evaluate the condition on the incident owner
+	AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentOwner AutomationRulePropertyChangedConditionSupportedPropertyType = "IncidentOwner"
+	// AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentSeverity - Evaluate the condition on the incident severity
+	AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentSeverity AutomationRulePropertyChangedConditionSupportedPropertyType = "IncidentSeverity"
+	// AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentStatus - Evaluate the condition on the incident status
+	AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentStatus AutomationRulePropertyChangedConditionSupportedPropertyType = "IncidentStatus"
+)
+
+// PossibleAutomationRulePropertyChangedConditionSupportedPropertyTypeValues returns the possible values for the AutomationRulePropertyChangedConditionSupportedPropertyType const type.
+func PossibleAutomationRulePropertyChangedConditionSupportedPropertyTypeValues() []AutomationRulePropertyChangedConditionSupportedPropertyType {
+	return []AutomationRulePropertyChangedConditionSupportedPropertyType{
+		AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentOwner,
+		AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentSeverity,
+		AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentStatus,
+	}
+}
+
 type AutomationRulePropertyConditionSupportedOperator string
 
 const (
@@ -236,7 +312,7 @@ func PossibleAutomationRulePropertyConditionSupportedOperatorValues() []Automati
 	}
 }
 
-// AutomationRulePropertyConditionSupportedProperty - The property to evaluate in an automation rule property condition
+// AutomationRulePropertyConditionSupportedProperty - The property to evaluate in an automation rule property condition.
 type AutomationRulePropertyConditionSupportedProperty string
 
 const (
@@ -415,12 +491,18 @@ type ConditionType string
 const (
 	// ConditionTypeProperty - Evaluate an object property value
 	ConditionTypeProperty ConditionType = "Property"
+	// ConditionTypePropertyArrayChanged - Evaluate an object array property changed value
+	ConditionTypePropertyArrayChanged ConditionType = "PropertyArrayChanged"
+	// ConditionTypePropertyChanged - Evaluate an object property changed value
+	ConditionTypePropertyChanged ConditionType = "PropertyChanged"
 )
 
 // PossibleConditionTypeValues returns the possible values for the ConditionType const type.
 func PossibleConditionTypeValues() []ConditionType {
 	return []ConditionType{
 		ConditionTypeProperty,
+		ConditionTypePropertyArrayChanged,
+		ConditionTypePropertyChanged,
 	}
 }
 
@@ -1919,12 +2001,15 @@ type TriggersWhen string
 const (
 	// TriggersWhenCreated - Trigger on created objects
 	TriggersWhenCreated TriggersWhen = "Created"
+	// TriggersWhenUpdated - Trigger on updated objects
+	TriggersWhenUpdated TriggersWhen = "Updated"
 )
 
 // PossibleTriggersWhenValues returns the possible values for the TriggersWhen const type.
 func PossibleTriggersWhenValues() []TriggersWhen {
 	return []TriggersWhen{
 		TriggersWhenCreated,
+		TriggersWhenUpdated,
 	}
 }
 
