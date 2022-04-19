@@ -1,5 +1,5 @@
 {
-  "commit": "3c764635e7d442b3e74caf593029fcd440b3ef82",
+  "commit": "5910063a8a79a47c71de647b5b3d335300d1b7f2",
   "readme": "/_/azure-rest-api-specs/specification/compute/resource-manager/readme.md",
   "tag": "package-container-service-2016-09",
   "use": "@microsoft.azure/autorest.go@2.1.187",
