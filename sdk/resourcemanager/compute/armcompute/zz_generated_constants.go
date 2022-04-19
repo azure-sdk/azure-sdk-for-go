@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.8.0"
 )
 
 type AccessLevel string
@@ -63,22 +63,6 @@ func PossibleArchitectureValues() []Architecture {
 	return []Architecture{
 		ArchitectureArm64,
 		ArchitectureX64,
-	}
-}
-
-// ArchitectureTypes - Specifies the Architecture Type
-type ArchitectureTypes string
-
-const (
-	ArchitectureTypesArm64 ArchitectureTypes = "Arm64"
-	ArchitectureTypesX64   ArchitectureTypes = "x64"
-)
-
-// PossibleArchitectureTypesValues returns the possible values for the ArchitectureTypes const type.
-func PossibleArchitectureTypesValues() []ArchitectureTypes {
-	return []ArchitectureTypes{
-		ArchitectureTypesArm64,
-		ArchitectureTypesX64,
 	}
 }
 
@@ -208,25 +192,6 @@ func PossibleConsistencyModeTypesValues() []ConsistencyModeTypes {
 		ConsistencyModeTypesApplicationConsistent,
 		ConsistencyModeTypesCrashConsistent,
 		ConsistencyModeTypesFileSystemConsistent,
-	}
-}
-
-// DataAccessAuthMode - Additional authentication requirements when exporting or uploading to a disk or snapshot.
-type DataAccessAuthMode string
-
-const (
-	// DataAccessAuthModeAzureActiveDirectory - When export/upload URL is used, the system checks if the user has an identity
-	// in Azure Active Directory and has necessary permissions to export/upload the data. Please refer to aka.ms/DisksAzureADAuth.
-	DataAccessAuthModeAzureActiveDirectory DataAccessAuthMode = "AzureActiveDirectory"
-	// DataAccessAuthModeNone - No additional authentication would be performed when accessing export/upload URL.
-	DataAccessAuthModeNone DataAccessAuthMode = "None"
-)
-
-// PossibleDataAccessAuthModeValues returns the possible values for the DataAccessAuthMode const type.
-func PossibleDataAccessAuthModeValues() []DataAccessAuthMode {
-	return []DataAccessAuthMode{
-		DataAccessAuthModeAzureActiveDirectory,
-		DataAccessAuthModeNone,
 	}
 }
 
@@ -1434,9 +1399,9 @@ func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	}
 }
 
-// ResourceIdentityType - The type of identity used for the virtual machine. The type 'SystemAssigned, UserAssigned' includes
-// both an implicitly created identity and a set of user assigned identities. The type 'None' will
-// remove any identities from the virtual machine.
+// ResourceIdentityType - The type of identity used for the virtual machine scale set. The type 'SystemAssigned, UserAssigned'
+// includes both an implicitly created identity and a set of user assigned identities. The type 'None'
+// will remove any identities from the virtual machine scale set.
 type ResourceIdentityType string
 
 const (

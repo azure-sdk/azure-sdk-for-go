@@ -526,6 +526,7 @@ func (d DedicatedHostGroupListResult) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type DedicatedHostGroupProperties.
 func (d DedicatedHostGroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "additionalCapabilities", d.AdditionalCapabilities)
 	populate(objectMap, "hosts", d.Hosts)
 	populate(objectMap, "instanceView", d.InstanceView)
 	populate(objectMap, "platformFaultDomainCount", d.PlatformFaultDomainCount)
@@ -776,7 +777,6 @@ func (d DiskProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "burstingEnabled", d.BurstingEnabled)
 	populate(objectMap, "completionPercent", d.CompletionPercent)
 	populate(objectMap, "creationData", d.CreationData)
-	populate(objectMap, "dataAccessAuthMode", d.DataAccessAuthMode)
 	populate(objectMap, "diskAccessId", d.DiskAccessID)
 	populate(objectMap, "diskIOPSReadOnly", d.DiskIOPSReadOnly)
 	populate(objectMap, "diskIOPSReadWrite", d.DiskIOPSReadWrite)
@@ -822,9 +822,6 @@ func (d *DiskProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "creationData":
 			err = unpopulate(val, &d.CreationData)
-			delete(rawMsg, key)
-		case "dataAccessAuthMode":
-			err = unpopulate(val, &d.DataAccessAuthMode)
 			delete(rawMsg, key)
 		case "diskAccessId":
 			err = unpopulate(val, &d.DiskAccessID)
@@ -1939,6 +1936,7 @@ func (p ProximityPlacementGroup) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "properties", p.Properties)
 	populate(objectMap, "tags", p.Tags)
 	populate(objectMap, "type", p.Type)
+	populate(objectMap, "zones", p.Zones)
 	return json.Marshal(objectMap)
 }
 
@@ -1955,9 +1953,17 @@ func (p ProximityPlacementGroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "availabilitySets", p.AvailabilitySets)
 	populate(objectMap, "colocationStatus", p.ColocationStatus)
+	populate(objectMap, "intent", p.Intent)
 	populate(objectMap, "proximityPlacementGroupType", p.ProximityPlacementGroupType)
 	populate(objectMap, "virtualMachineScaleSets", p.VirtualMachineScaleSets)
 	populate(objectMap, "virtualMachines", p.VirtualMachines)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ProximityPlacementGroupPropertiesIntent.
+func (p ProximityPlacementGroupPropertiesIntent) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "vmSizes", p.VMSizes)
 	return json.Marshal(objectMap)
 }
 
@@ -2617,7 +2623,6 @@ func (s SnapshotProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "completionPercent", s.CompletionPercent)
 	populate(objectMap, "creationData", s.CreationData)
-	populate(objectMap, "dataAccessAuthMode", s.DataAccessAuthMode)
 	populate(objectMap, "diskAccessId", s.DiskAccessID)
 	populate(objectMap, "diskSizeBytes", s.DiskSizeBytes)
 	populate(objectMap, "diskSizeGB", s.DiskSizeGB)
@@ -2653,9 +2658,6 @@ func (s *SnapshotProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "creationData":
 			err = unpopulate(val, &s.CreationData)
-			delete(rawMsg, key)
-		case "dataAccessAuthMode":
-			err = unpopulate(val, &s.DataAccessAuthMode)
 			delete(rawMsg, key)
 		case "diskAccessId":
 			err = unpopulate(val, &s.DiskAccessID)
@@ -3027,7 +3029,6 @@ func (v VirtualMachineImage) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineImageProperties.
 func (v VirtualMachineImageProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "architecture", v.Architecture)
 	populate(objectMap, "automaticOSUpgradeProperties", v.AutomaticOSUpgradeProperties)
 	populate(objectMap, "dataDiskImages", v.DataDiskImages)
 	populate(objectMap, "disallowed", v.Disallowed)
@@ -3831,6 +3832,7 @@ func (v VirtualMachineScaleSetUpdateStorageProfile) MarshalJSON() ([]byte, error
 func (v VirtualMachineScaleSetVM) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "id", v.ID)
+	populate(objectMap, "identity", v.Identity)
 	populate(objectMap, "instanceId", v.InstanceID)
 	populate(objectMap, "location", v.Location)
 	populate(objectMap, "name", v.Name)
