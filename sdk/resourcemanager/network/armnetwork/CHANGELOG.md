@@ -1,5 +1,135 @@
 # Release History
 
+## 0.6.0 (2022-04-19)
+### Breaking Changes
+
+- Type of `OrderBy.Order` has been changed from `*OrderByOrder` to `*FirewallPolicyIDPSQuerySortOrder`
+- Type of `SingleQueryResult.Direction` has been changed from `*SingleQueryResultDirection` to `*FirewallPolicyIDPSSignatureDirection`
+- Type of `SingleQueryResult.Mode` has been changed from `*SingleQueryResultMode` to `*FirewallPolicyIDPSSignatureMode`
+- Type of `SingleQueryResult.Severity` has been changed from `*SingleQueryResultSeverity` to `*FirewallPolicyIDPSSignatureSeverity`
+- Const `SingleQueryResultSeverityTwo` has been removed
+- Const `SingleQueryResultModeOne` has been removed
+- Const `SingleQueryResultModeZero` has been removed
+- Const `SingleQueryResultSeverityThree` has been removed
+- Const `SingleQueryResultDirectionTwo` has been removed
+- Const `OrderByOrderAscending` has been removed
+- Const `SingleQueryResultDirectionZero` has been removed
+- Const `SingleQueryResultSeverityOne` has been removed
+- Const `OrderByOrderDescending` has been removed
+- Const `SingleQueryResultModeTwo` has been removed
+- Const `SingleQueryResultDirectionOne` has been removed
+- Function `PossibleSingleQueryResultModeValues` has been removed
+- Function `PossibleSingleQueryResultSeverityValues` has been removed
+- Function `PossibleOrderByOrderValues` has been removed
+- Function `PossibleSingleQueryResultDirectionValues` has been removed
+
+### Features Added
+
+- New const `FirewallPolicyIDPSQuerySortOrderDescending`
+- New const `FirewallPolicyIDPSSignatureModeOne`
+- New const `HubRoutingPreferenceExpressRoute`
+- New const `FirewallPolicyIDPSSignatureDirectionOne`
+- New const `LoadBalancerBackendAddressAdminStateUp`
+- New const `FirewallPolicyIDPSSignatureDirectionTwo`
+- New const `FirewallPolicyIDPSSignatureModeZero`
+- New const `NetworkInterfaceAuxiliaryModeNone`
+- New const `ExpressRoutePortAuthorizationUseStatusInUse`
+- New const `VPNPolicyMemberAttributeTypeCertificateGroupID`
+- New const `LoadBalancerBackendAddressAdminStateDrain`
+- New const `NetworkInterfaceAuxiliaryModeMaxConnections`
+- New const `FirewallPolicyIDPSSignatureDirectionZero`
+- New const `ApplicationGatewayProtocolTCP`
+- New const `LoadBalancerBackendAddressAdminStateNone`
+- New const `FirewallPolicyIDPSQuerySortOrderAscending`
+- New const `HubRoutingPreferenceASPath`
+- New const `LoadBalancerBackendAddressAdminStateDown`
+- New const `ExpressRoutePortAuthorizationUseStatusAvailable`
+- New const `FirewallPolicyIDPSSignatureSeverityTwo`
+- New const `FirewallPolicyIDPSSignatureSeverityThree`
+- New const `HubRoutingPreferenceVPNGateway`
+- New const `FirewallPolicyIDPSSignatureModeTwo`
+- New const `NetworkInterfaceAuxiliaryModeFloating`
+- New const `VPNPolicyMemberAttributeTypeAADGroupID`
+- New const `ApplicationGatewayProtocolTLS`
+- New const `VPNPolicyMemberAttributeTypeRadiusAzureGroupID`
+- New const `FirewallPolicyIDPSSignatureSeverityOne`
+- New function `PossibleLoadBalancerBackendAddressAdminStateValues() []LoadBalancerBackendAddressAdminState`
+- New function `PossibleFirewallPolicyIDPSSignatureDirectionValues() []FirewallPolicyIDPSSignatureDirection`
+- New function `*ExpressRoutePortAuthorizationsClient.BeginDelete(context.Context, string, string, string, *ExpressRoutePortAuthorizationsClientBeginDeleteOptions) (*armruntime.Poller[ExpressRoutePortAuthorizationsClientDeleteResponse], error)`
+- New function `*ExpressRoutePortAuthorizationsClient.Get(context.Context, string, string, string, *ExpressRoutePortAuthorizationsClientGetOptions) (ExpressRoutePortAuthorizationsClientGetResponse, error)`
+- New function `PossibleNetworkInterfaceAuxiliaryModeValues() []NetworkInterfaceAuxiliaryMode`
+- New function `*ConfigurationPolicyGroupsClient.BeginCreateOrUpdate(context.Context, string, string, string, VPNServerConfigurationPolicyGroup, *ConfigurationPolicyGroupsClientBeginCreateOrUpdateOptions) (*armruntime.Poller[ConfigurationPolicyGroupsClientCreateOrUpdateResponse], error)`
+- New function `VPNServerConfigurationPolicyGroupProperties.MarshalJSON() ([]byte, error)`
+- New function `ApplicationGatewayBackendSettingsPropertiesFormat.MarshalJSON() ([]byte, error)`
+- New function `PossibleFirewallPolicyIDPSSignatureSeverityValues() []FirewallPolicyIDPSSignatureSeverity`
+- New function `PossibleExpressRoutePortAuthorizationUseStatusValues() []ExpressRoutePortAuthorizationUseStatus`
+- New function `PossibleFirewallPolicyIDPSQuerySortOrderValues() []FirewallPolicyIDPSQuerySortOrder`
+- New function `P2SConnectionConfigurationProperties.MarshalJSON() ([]byte, error)`
+- New function `NewExpressRoutePortAuthorizationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ExpressRoutePortAuthorizationsClient, error)`
+- New function `*ExpressRoutePortAuthorizationsClient.BeginCreateOrUpdate(context.Context, string, string, string, ExpressRoutePortAuthorization, *ExpressRoutePortAuthorizationsClientBeginCreateOrUpdateOptions) (*armruntime.Poller[ExpressRoutePortAuthorizationsClientCreateOrUpdateResponse], error)`
+- New function `PossibleVPNPolicyMemberAttributeTypeValues() []VPNPolicyMemberAttributeType`
+- New function `*ExpressRoutePortAuthorizationsClient.NewListPager(string, string, *ExpressRoutePortAuthorizationsClientListOptions) *runtime.Pager[ExpressRoutePortAuthorizationsClientListResponse]`
+- New function `NewConfigurationPolicyGroupsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConfigurationPolicyGroupsClient, error)`
+- New function `*FirewallPoliciesClient.UpdateTags(context.Context, string, string, TagsObject, *FirewallPoliciesClientUpdateTagsOptions) (FirewallPoliciesClientUpdateTagsResponse, error)`
+- New function `ExpressRoutePortAuthorizationListResult.MarshalJSON() ([]byte, error)`
+- New function `PossibleHubRoutingPreferenceValues() []HubRoutingPreference`
+- New function `PossibleFirewallPolicyIDPSSignatureModeValues() []FirewallPolicyIDPSSignatureMode`
+- New function `ListVPNServerConfigurationPolicyGroupsResult.MarshalJSON() ([]byte, error)`
+- New function `*ConfigurationPolicyGroupsClient.BeginDelete(context.Context, string, string, string, *ConfigurationPolicyGroupsClientBeginDeleteOptions) (*armruntime.Poller[ConfigurationPolicyGroupsClientDeleteResponse], error)`
+- New function `*ConfigurationPolicyGroupsClient.Get(context.Context, string, string, string, *ConfigurationPolicyGroupsClientGetOptions) (ConfigurationPolicyGroupsClientGetResponse, error)`
+- New function `*ConfigurationPolicyGroupsClient.NewListByVPNServerConfigurationPager(string, string, *ConfigurationPolicyGroupsClientListByVPNServerConfigurationOptions) *runtime.Pager[ConfigurationPolicyGroupsClientListByVPNServerConfigurationResponse]`
+- New struct `ApplicationGatewayBackendSettings`
+- New struct `ApplicationGatewayBackendSettingsPropertiesFormat`
+- New struct `ApplicationGatewayListener`
+- New struct `ApplicationGatewayListenerPropertiesFormat`
+- New struct `ApplicationGatewayRoutingRule`
+- New struct `ApplicationGatewayRoutingRulePropertiesFormat`
+- New struct `ConfigurationPolicyGroupsClient`
+- New struct `ConfigurationPolicyGroupsClientBeginCreateOrUpdateOptions`
+- New struct `ConfigurationPolicyGroupsClientBeginDeleteOptions`
+- New struct `ConfigurationPolicyGroupsClientCreateOrUpdateResponse`
+- New struct `ConfigurationPolicyGroupsClientDeleteResponse`
+- New struct `ConfigurationPolicyGroupsClientGetOptions`
+- New struct `ConfigurationPolicyGroupsClientGetResponse`
+- New struct `ConfigurationPolicyGroupsClientListByVPNServerConfigurationOptions`
+- New struct `ConfigurationPolicyGroupsClientListByVPNServerConfigurationResponse`
+- New struct `ExpressRoutePortAuthorization`
+- New struct `ExpressRoutePortAuthorizationListResult`
+- New struct `ExpressRoutePortAuthorizationPropertiesFormat`
+- New struct `ExpressRoutePortAuthorizationsClient`
+- New struct `ExpressRoutePortAuthorizationsClientBeginCreateOrUpdateOptions`
+- New struct `ExpressRoutePortAuthorizationsClientBeginDeleteOptions`
+- New struct `ExpressRoutePortAuthorizationsClientCreateOrUpdateResponse`
+- New struct `ExpressRoutePortAuthorizationsClientDeleteResponse`
+- New struct `ExpressRoutePortAuthorizationsClientGetOptions`
+- New struct `ExpressRoutePortAuthorizationsClientGetResponse`
+- New struct `ExpressRoutePortAuthorizationsClientListOptions`
+- New struct `ExpressRoutePortAuthorizationsClientListResponse`
+- New struct `FirewallPoliciesClientUpdateTagsOptions`
+- New struct `FirewallPoliciesClientUpdateTagsResponse`
+- New struct `GatewayCustomBgpIPAddressIPConfiguration`
+- New struct `ListVPNServerConfigurationPolicyGroupsResult`
+- New struct `VPNServerConfigurationPolicyGroup`
+- New struct `VPNServerConfigurationPolicyGroupMember`
+- New struct `VPNServerConfigurationPolicyGroupProperties`
+- New field `HubRoutingPreference` in struct `VirtualHubProperties`
+- New field `AdminState` in struct `LoadBalancerBackendAddressPropertiesFormat`
+- New field `PickHostNameFromBackendSettings` in struct `ApplicationGatewayProbePropertiesFormat`
+- New field `BackendSettingsCollection` in struct `ApplicationGatewayPropertiesFormat`
+- New field `RoutingRules` in struct `ApplicationGatewayPropertiesFormat`
+- New field `Listeners` in struct `ApplicationGatewayPropertiesFormat`
+- New field `VPNGatewayCustomBgpAddresses` in struct `VPNSiteLinkConnectionProperties`
+- New field `AuthorizationKey` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `GatewayCustomBgpIPAddresses` in struct `VirtualNetworkGatewayConnectionPropertiesFormat`
+- New field `GatewayCustomBgpIPAddresses` in struct `VirtualNetworkGatewayConnectionListEntityPropertiesFormat`
+- New field `DrainPeriodInSeconds` in struct `BackendAddressPoolPropertiesFormat`
+- New field `PreviousConfigurationPolicyGroupAssociations` in struct `P2SConnectionConfigurationProperties`
+- New field `ConfigurationPolicyGroupAssociations` in struct `P2SConnectionConfigurationProperties`
+- New field `PrivateRanges` in struct `FirewallPolicyIntrusionDetectionConfiguration`
+- New field `AuxiliaryMode` in struct `InterfacePropertiesFormat`
+- New field `ConfigurationPolicyGroups` in struct `VPNServerConfigurationProperties`
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 
