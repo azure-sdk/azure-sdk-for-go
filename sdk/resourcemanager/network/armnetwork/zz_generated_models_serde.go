@@ -125,6 +125,20 @@ func (a ApplicationGatewayBackendHealthPool) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ApplicationGatewayBackendSettingsPropertiesFormat.
+func (a ApplicationGatewayBackendSettingsPropertiesFormat) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "hostName", a.HostName)
+	populate(objectMap, "pickHostNameFromBackendAddress", a.PickHostNameFromBackendAddress)
+	populate(objectMap, "port", a.Port)
+	populate(objectMap, "probe", a.Probe)
+	populate(objectMap, "protocol", a.Protocol)
+	populate(objectMap, "provisioningState", a.ProvisioningState)
+	populate(objectMap, "timeout", a.Timeout)
+	populate(objectMap, "trustedRootCertificates", a.TrustedRootCertificates)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ApplicationGatewayFirewallDisabledRuleGroup.
 func (a ApplicationGatewayFirewallDisabledRuleGroup) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -260,6 +274,7 @@ func (a ApplicationGatewayPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "autoscaleConfiguration", a.AutoscaleConfiguration)
 	populate(objectMap, "backendAddressPools", a.BackendAddressPools)
 	populate(objectMap, "backendHttpSettingsCollection", a.BackendHTTPSettingsCollection)
+	populate(objectMap, "backendSettingsCollection", a.BackendSettingsCollection)
 	populate(objectMap, "customErrorConfigurations", a.CustomErrorConfigurations)
 	populate(objectMap, "enableFips", a.EnableFips)
 	populate(objectMap, "enableHttp2", a.EnableHTTP2)
@@ -270,6 +285,7 @@ func (a ApplicationGatewayPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "gatewayIPConfigurations", a.GatewayIPConfigurations)
 	populate(objectMap, "globalConfiguration", a.GlobalConfiguration)
 	populate(objectMap, "httpListeners", a.HTTPListeners)
+	populate(objectMap, "listeners", a.Listeners)
 	populate(objectMap, "loadDistributionPolicies", a.LoadDistributionPolicies)
 	populate(objectMap, "operationalState", a.OperationalState)
 	populate(objectMap, "privateEndpointConnections", a.PrivateEndpointConnections)
@@ -280,6 +296,7 @@ func (a ApplicationGatewayPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "requestRoutingRules", a.RequestRoutingRules)
 	populate(objectMap, "resourceGuid", a.ResourceGUID)
 	populate(objectMap, "rewriteRuleSets", a.RewriteRuleSets)
+	populate(objectMap, "routingRules", a.RoutingRules)
 	populate(objectMap, "sku", a.SKU)
 	populate(objectMap, "sslCertificates", a.SSLCertificates)
 	populate(objectMap, "sslPolicy", a.SSLPolicy)
@@ -844,6 +861,7 @@ func (b BackendAddressInboundNatRulePortMappings) MarshalJSON() ([]byte, error) 
 func (b BackendAddressPoolPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "backendIPConfigurations", b.BackendIPConfigurations)
+	populate(objectMap, "drainPeriodInSeconds", b.DrainPeriodInSeconds)
 	populate(objectMap, "inboundNatRules", b.InboundNatRules)
 	populate(objectMap, "loadBalancerBackendAddresses", b.LoadBalancerBackendAddresses)
 	populate(objectMap, "loadBalancingRules", b.LoadBalancingRules)
@@ -1620,6 +1638,7 @@ func (e ExpressRouteCircuitPeeringPropertiesFormat) MarshalJSON() ([]byte, error
 func (e ExpressRouteCircuitPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "allowClassicOperations", e.AllowClassicOperations)
+	populate(objectMap, "authorizationKey", e.AuthorizationKey)
 	populate(objectMap, "authorizations", e.Authorizations)
 	populate(objectMap, "bandwidthInGbps", e.BandwidthInGbps)
 	populate(objectMap, "circuitProvisioningState", e.CircuitProvisioningState)
@@ -1769,6 +1788,14 @@ func (e ExpressRoutePort) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "properties", e.Properties)
 	populate(objectMap, "tags", e.Tags)
 	populate(objectMap, "type", e.Type)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ExpressRoutePortAuthorizationListResult.
+func (e ExpressRoutePortAuthorizationListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", e.NextLink)
+	populate(objectMap, "value", e.Value)
 	return json.Marshal(objectMap)
 }
 
@@ -1948,6 +1975,7 @@ func (f FirewallPolicyIntrusionDetectionBypassTrafficSpecifications) MarshalJSON
 func (f FirewallPolicyIntrusionDetectionConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "bypassTrafficSettings", f.BypassTrafficSettings)
+	populate(objectMap, "privateRanges", f.PrivateRanges)
 	populate(objectMap, "signatureOverrides", f.SignatureOverrides)
 	return json.Marshal(objectMap)
 }
@@ -2437,6 +2465,7 @@ func (i InterfaceLoadBalancerListResult) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type InterfacePropertiesFormat.
 func (i InterfacePropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "auxiliaryMode", i.AuxiliaryMode)
 	populate(objectMap, "dnsSettings", i.DNSSettings)
 	populate(objectMap, "dscpConfiguration", i.DscpConfiguration)
 	populate(objectMap, "enableAcceleratedNetworking", i.EnableAcceleratedNetworking)
@@ -2517,6 +2546,14 @@ func (l ListVPNGatewayNatRulesResult) MarshalJSON() ([]byte, error) {
 
 // MarshalJSON implements the json.Marshaller interface for type ListVPNGatewaysResult.
 func (l ListVPNGatewaysResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", l.NextLink)
+	populate(objectMap, "value", l.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ListVPNServerConfigurationPolicyGroupsResult.
+func (l ListVPNServerConfigurationPolicyGroupsResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "nextLink", l.NextLink)
 	populate(objectMap, "value", l.Value)
@@ -2629,6 +2666,7 @@ func (l LoadBalancerBackendAddressPoolListResult) MarshalJSON() ([]byte, error) 
 // MarshalJSON implements the json.Marshaller interface for type LoadBalancerBackendAddressPropertiesFormat.
 func (l LoadBalancerBackendAddressPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "adminState", l.AdminState)
 	populate(objectMap, "ipAddress", l.IPAddress)
 	populate(objectMap, "inboundNatRulesPortMapping", l.InboundNatRulesPortMapping)
 	populate(objectMap, "loadBalancerFrontendIPConfiguration", l.LoadBalancerFrontendIPConfiguration)
@@ -2953,6 +2991,18 @@ func (o OwaspCrsExclusionEntry) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "matchVariable", o.MatchVariable)
 	populate(objectMap, "selector", o.Selector)
 	populate(objectMap, "selectorMatchOperator", o.SelectorMatchOperator)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type P2SConnectionConfigurationProperties.
+func (p P2SConnectionConfigurationProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "configurationPolicyGroupAssociations", p.ConfigurationPolicyGroupAssociations)
+	populate(objectMap, "enableInternetSecurity", p.EnableInternetSecurity)
+	populate(objectMap, "previousConfigurationPolicyGroupAssociations", p.PreviousConfigurationPolicyGroupAssociations)
+	populate(objectMap, "provisioningState", p.ProvisioningState)
+	populate(objectMap, "routingConfiguration", p.RoutingConfiguration)
+	populate(objectMap, "vpnClientAddressPool", p.VPNClientAddressPool)
 	return json.Marshal(objectMap)
 }
 
@@ -4228,10 +4278,22 @@ func (v VPNServerConfiguration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type VPNServerConfigurationPolicyGroupProperties.
+func (v VPNServerConfigurationPolicyGroupProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "isDefault", v.IsDefault)
+	populate(objectMap, "p2SConnectionConfigurations", v.P2SConnectionConfigurations)
+	populate(objectMap, "policyMembers", v.PolicyMembers)
+	populate(objectMap, "priority", v.Priority)
+	populate(objectMap, "provisioningState", v.ProvisioningState)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type VPNServerConfigurationProperties.
 func (v VPNServerConfigurationProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "aadAuthenticationParameters", v.AADAuthenticationParameters)
+	populate(objectMap, "configurationPolicyGroups", v.ConfigurationPolicyGroups)
 	populate(objectMap, "etag", v.Etag)
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "p2SVpnGateways", v.P2SVPNGateways)
@@ -4287,6 +4349,7 @@ func (v VPNSiteLinkConnectionProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "useLocalAzureIpAddress", v.UseLocalAzureIPAddress)
 	populate(objectMap, "usePolicyBasedTrafficSelectors", v.UsePolicyBasedTrafficSelectors)
 	populate(objectMap, "vpnConnectionProtocolType", v.VPNConnectionProtocolType)
+	populate(objectMap, "vpnGatewayCustomBgpAddresses", v.VPNGatewayCustomBgpAddresses)
 	populate(objectMap, "vpnLinkConnectionMode", v.VPNLinkConnectionMode)
 	populate(objectMap, "vpnSiteLink", v.VPNSiteLink)
 	return json.Marshal(objectMap)
@@ -4426,6 +4489,7 @@ func (v VirtualHubProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "azureFirewall", v.AzureFirewall)
 	populate(objectMap, "bgpConnections", v.BgpConnections)
 	populate(objectMap, "expressRouteGateway", v.ExpressRouteGateway)
+	populate(objectMap, "hubRoutingPreference", v.HubRoutingPreference)
 	populate(objectMap, "ipConfigurations", v.IPConfigurations)
 	populate(objectMap, "p2SVpnGateway", v.P2SVPNGateway)
 	populate(objectMap, "preferredRoutingGateway", v.PreferredRoutingGateway)
@@ -4542,6 +4606,7 @@ func (v VirtualNetworkGatewayConnectionListEntityPropertiesFormat) MarshalJSON()
 	populate(objectMap, "egressBytesTransferred", v.EgressBytesTransferred)
 	populate(objectMap, "enableBgp", v.EnableBgp)
 	populate(objectMap, "expressRouteGatewayBypass", v.ExpressRouteGatewayBypass)
+	populate(objectMap, "gatewayCustomBgpIpAddresses", v.GatewayCustomBgpIPAddresses)
 	populate(objectMap, "ipsecPolicies", v.IPSecPolicies)
 	populate(objectMap, "ingressBytesTransferred", v.IngressBytesTransferred)
 	populate(objectMap, "localNetworkGateway2", v.LocalNetworkGateway2)
@@ -4579,6 +4644,7 @@ func (v VirtualNetworkGatewayConnectionPropertiesFormat) MarshalJSON() ([]byte, 
 	populate(objectMap, "egressNatRules", v.EgressNatRules)
 	populate(objectMap, "enableBgp", v.EnableBgp)
 	populate(objectMap, "expressRouteGatewayBypass", v.ExpressRouteGatewayBypass)
+	populate(objectMap, "gatewayCustomBgpIpAddresses", v.GatewayCustomBgpIPAddresses)
 	populate(objectMap, "ipsecPolicies", v.IPSecPolicies)
 	populate(objectMap, "ingressBytesTransferred", v.IngressBytesTransferred)
 	populate(objectMap, "ingressNatRules", v.IngressNatRules)
