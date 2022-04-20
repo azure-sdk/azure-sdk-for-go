@@ -1,5 +1,40 @@
 # Release History
 
+## 0.5.0 (2022-04-20)
+### Breaking Changes
+
+- Field `Name` of struct `BranchStatus` has been removed
+- Field `ID` of struct `BranchStatus` has been removed
+- Field `ID` of struct `StepStatus` has been removed
+- Field `Name` of struct `StepStatus` has been removed
+- Field `ID` of struct `ActionStatus` has been removed
+- Field `Name` of struct `ActionStatus` has been removed
+- Field `CompletedDateUTC` of struct `ExperimentExecutionActionTargetDetailsProperties` has been removed
+- Field `FailedDateUTC` of struct `ExperimentExecutionActionTargetDetailsProperties` has been removed
+- Field `StartDateUTC` of struct `ExperimentExecutionDetailsProperties` has been removed
+- Field `StopDateUTC` of struct `ExperimentExecutionDetailsProperties` has been removed
+- Field `CreatedDateUTC` of struct `ExperimentExecutionDetailsProperties` has been removed
+- Field `LastActionDateUTC` of struct `ExperimentExecutionDetailsProperties` has been removed
+
+### Features Added
+
+- New function `*ActionStatus.UnmarshalJSON([]byte) error`
+- New field `BranchName` in struct `BranchStatus`
+- New field `BranchID` in struct `BranchStatus`
+- New field `StepID` in struct `StepStatus`
+- New field `StepName` in struct `StepStatus`
+- New field `ActionID` in struct `ActionStatus`
+- New field `ActionName` in struct `ActionStatus`
+- New field `EndTime` in struct `ActionStatus`
+- New field `StartTime` in struct `ActionStatus`
+- New field `TargetFailedTime` in struct `ExperimentExecutionActionTargetDetailsProperties`
+- New field `TargetCompletedTime` in struct `ExperimentExecutionActionTargetDetailsProperties`
+- New field `StartDateTime` in struct `ExperimentExecutionDetailsProperties`
+- New field `StopDateTime` in struct `ExperimentExecutionDetailsProperties`
+- New field `CreatedDateTime` in struct `ExperimentExecutionDetailsProperties`
+- New field `LastActionDateTime` in struct `ExperimentExecutionDetailsProperties`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 

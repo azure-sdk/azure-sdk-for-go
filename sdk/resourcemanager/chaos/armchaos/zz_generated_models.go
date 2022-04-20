@@ -31,10 +31,16 @@ type Action struct {
 // ActionStatus - Model that represents the an action and its status.
 type ActionStatus struct {
 	// READ-ONLY; The id of the action status.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ActionID *string `json:"actionId,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the action status.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	ActionName *string `json:"actionName,omitempty" azure:"ro"`
+
+	// READ-ONLY; String that represents the end time of the action.
+	EndTime *time.Time `json:"endTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; String that represents the start time of the action.
+	StartTime *time.Time `json:"startTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; The status of the action.
 	Status *string `json:"status,omitempty" azure:"ro"`
@@ -58,10 +64,10 @@ type BranchStatus struct {
 	Actions []*ActionStatus `json:"actions,omitempty" azure:"ro"`
 
 	// READ-ONLY; The id of the branch status.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	BranchID *string `json:"branchId,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the branch status.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	BranchName *string `json:"branchName,omitempty" azure:"ro"`
 
 	// READ-ONLY; The status of the branch.
 	Status *string `json:"status,omitempty" azure:"ro"`
@@ -322,20 +328,20 @@ type ExperimentExecutionActionTargetDetailsError struct {
 // ExperimentExecutionActionTargetDetailsProperties - Model that represents the Experiment action target details properties
 // model.
 type ExperimentExecutionActionTargetDetailsProperties struct {
-	// READ-ONLY; String that represents the completed date time.
-	CompletedDateUTC *time.Time `json:"completedDateUtc,omitempty" azure:"ro"`
-
 	// READ-ONLY; The error of the action.
 	Error *ExperimentExecutionActionTargetDetailsError `json:"error,omitempty" azure:"ro"`
-
-	// READ-ONLY; String that represents the failed date time.
-	FailedDateUTC *time.Time `json:"failedDateUtc,omitempty" azure:"ro"`
 
 	// READ-ONLY; The status of the execution.
 	Status *string `json:"status,omitempty" azure:"ro"`
 
 	// READ-ONLY; The target for the action.
 	Target *string `json:"target,omitempty" azure:"ro"`
+
+	// READ-ONLY; String that represents the completed date time.
+	TargetCompletedTime *time.Time `json:"targetCompletedTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; String that represents the failed date time.
+	TargetFailedTime *time.Time `json:"targetFailedTime,omitempty" azure:"ro"`
 }
 
 // ExperimentExecutionDetails - Model that represents the execution details of a Experiment.
@@ -365,7 +371,7 @@ type ExperimentExecutionDetailsListResult struct {
 // ExperimentExecutionDetailsProperties - Model that represents the Experiment execution details properties model.
 type ExperimentExecutionDetailsProperties struct {
 	// READ-ONLY; String that represents the created date time.
-	CreatedDateUTC *time.Time `json:"createdDateUtc,omitempty" azure:"ro"`
+	CreatedDateTime *time.Time `json:"createdDateTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; The id of the experiment.
 	ExperimentID *string `json:"experimentId,omitempty" azure:"ro"`
@@ -374,19 +380,19 @@ type ExperimentExecutionDetailsProperties struct {
 	FailureReason *string `json:"failureReason,omitempty" azure:"ro"`
 
 	// READ-ONLY; String that represents the last action date time.
-	LastActionDateUTC *time.Time `json:"lastActionDateUtc,omitempty" azure:"ro"`
+	LastActionDateTime *time.Time `json:"lastActionDateTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; The information of the experiment run.
 	RunInformation *ExperimentExecutionDetailsPropertiesRunInformation `json:"runInformation,omitempty" azure:"ro"`
 
 	// READ-ONLY; String that represents the start date time.
-	StartDateUTC *time.Time `json:"startDateUtc,omitempty" azure:"ro"`
+	StartDateTime *time.Time `json:"startDateTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; The value of the status of the experiment execution.
 	Status *string `json:"status,omitempty" azure:"ro"`
 
 	// READ-ONLY; String that represents the stop date time.
-	StopDateUTC *time.Time `json:"stopDateUtc,omitempty" azure:"ro"`
+	StopDateTime *time.Time `json:"stopDateTime,omitempty" azure:"ro"`
 }
 
 // ExperimentExecutionDetailsPropertiesRunInformation - The information of the experiment run.
@@ -642,14 +648,14 @@ type StepStatus struct {
 	// READ-ONLY; The array of branches.
 	Branches []*BranchStatus `json:"branches,omitempty" azure:"ro"`
 
-	// READ-ONLY; The id of the step.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the step.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
 	// READ-ONLY; The value of the status of the step.
 	Status *string `json:"status,omitempty" azure:"ro"`
+
+	// READ-ONLY; The id of the step.
+	StepID *string `json:"stepId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the step.
+	StepName *string `json:"stepName,omitempty" azure:"ro"`
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.

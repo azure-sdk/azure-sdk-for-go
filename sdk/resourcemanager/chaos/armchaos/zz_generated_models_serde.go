@@ -20,11 +20,48 @@ func (a *Action) GetAction() *Action { return a }
 // MarshalJSON implements the json.Marshaller interface for type ActionStatus.
 func (a ActionStatus) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "id", a.ID)
-	populate(objectMap, "name", a.Name)
+	populate(objectMap, "actionId", a.ActionID)
+	populate(objectMap, "actionName", a.ActionName)
+	populateTimeRFC3339(objectMap, "endTime", a.EndTime)
+	populateTimeRFC3339(objectMap, "startTime", a.StartTime)
 	populate(objectMap, "status", a.Status)
 	populate(objectMap, "targets", a.Targets)
 	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ActionStatus.
+func (a *ActionStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "actionId":
+			err = unpopulate(val, &a.ActionID)
+			delete(rawMsg, key)
+		case "actionName":
+			err = unpopulate(val, &a.ActionName)
+			delete(rawMsg, key)
+		case "endTime":
+			err = unpopulateTimeRFC3339(val, &a.EndTime)
+			delete(rawMsg, key)
+		case "startTime":
+			err = unpopulateTimeRFC3339(val, &a.StartTime)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, &a.Status)
+			delete(rawMsg, key)
+		case "targets":
+			err = unpopulate(val, &a.Targets)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // MarshalJSON implements the json.Marshaller interface for type Branch.
@@ -62,8 +99,8 @@ func (b *Branch) UnmarshalJSON(data []byte) error {
 func (b BranchStatus) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "actions", b.Actions)
-	populate(objectMap, "id", b.ID)
-	populate(objectMap, "name", b.Name)
+	populate(objectMap, "branchId", b.BranchID)
+	populate(objectMap, "branchName", b.BranchName)
 	populate(objectMap, "status", b.Status)
 	return json.Marshal(objectMap)
 }
@@ -253,11 +290,11 @@ func (e Experiment) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type ExperimentExecutionActionTargetDetailsProperties.
 func (e ExperimentExecutionActionTargetDetailsProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populateTimeRFC3339(objectMap, "completedDateUtc", e.CompletedDateUTC)
 	populate(objectMap, "error", e.Error)
-	populateTimeRFC3339(objectMap, "failedDateUtc", e.FailedDateUTC)
 	populate(objectMap, "status", e.Status)
 	populate(objectMap, "target", e.Target)
+	populateTimeRFC3339(objectMap, "targetCompletedTime", e.TargetCompletedTime)
+	populateTimeRFC3339(objectMap, "targetFailedTime", e.TargetFailedTime)
 	return json.Marshal(objectMap)
 }
 
@@ -270,20 +307,20 @@ func (e *ExperimentExecutionActionTargetDetailsProperties) UnmarshalJSON(data []
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "completedDateUtc":
-			err = unpopulateTimeRFC3339(val, &e.CompletedDateUTC)
-			delete(rawMsg, key)
 		case "error":
 			err = unpopulate(val, &e.Error)
-			delete(rawMsg, key)
-		case "failedDateUtc":
-			err = unpopulateTimeRFC3339(val, &e.FailedDateUTC)
 			delete(rawMsg, key)
 		case "status":
 			err = unpopulate(val, &e.Status)
 			delete(rawMsg, key)
 		case "target":
 			err = unpopulate(val, &e.Target)
+			delete(rawMsg, key)
+		case "targetCompletedTime":
+			err = unpopulateTimeRFC3339(val, &e.TargetCompletedTime)
+			delete(rawMsg, key)
+		case "targetFailedTime":
+			err = unpopulateTimeRFC3339(val, &e.TargetFailedTime)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -304,14 +341,14 @@ func (e ExperimentExecutionDetailsListResult) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type ExperimentExecutionDetailsProperties.
 func (e ExperimentExecutionDetailsProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populateTimeRFC3339(objectMap, "createdDateUtc", e.CreatedDateUTC)
+	populateTimeRFC3339(objectMap, "createdDateTime", e.CreatedDateTime)
 	populate(objectMap, "experimentId", e.ExperimentID)
 	populate(objectMap, "failureReason", e.FailureReason)
-	populateTimeRFC3339(objectMap, "lastActionDateUtc", e.LastActionDateUTC)
+	populateTimeRFC3339(objectMap, "lastActionDateTime", e.LastActionDateTime)
 	populate(objectMap, "runInformation", e.RunInformation)
-	populateTimeRFC3339(objectMap, "startDateUtc", e.StartDateUTC)
+	populateTimeRFC3339(objectMap, "startDateTime", e.StartDateTime)
 	populate(objectMap, "status", e.Status)
-	populateTimeRFC3339(objectMap, "stopDateUtc", e.StopDateUTC)
+	populateTimeRFC3339(objectMap, "stopDateTime", e.StopDateTime)
 	return json.Marshal(objectMap)
 }
 
@@ -324,8 +361,8 @@ func (e *ExperimentExecutionDetailsProperties) UnmarshalJSON(data []byte) error 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "createdDateUtc":
-			err = unpopulateTimeRFC3339(val, &e.CreatedDateUTC)
+		case "createdDateTime":
+			err = unpopulateTimeRFC3339(val, &e.CreatedDateTime)
 			delete(rawMsg, key)
 		case "experimentId":
 			err = unpopulate(val, &e.ExperimentID)
@@ -333,20 +370,20 @@ func (e *ExperimentExecutionDetailsProperties) UnmarshalJSON(data []byte) error 
 		case "failureReason":
 			err = unpopulate(val, &e.FailureReason)
 			delete(rawMsg, key)
-		case "lastActionDateUtc":
-			err = unpopulateTimeRFC3339(val, &e.LastActionDateUTC)
+		case "lastActionDateTime":
+			err = unpopulateTimeRFC3339(val, &e.LastActionDateTime)
 			delete(rawMsg, key)
 		case "runInformation":
 			err = unpopulate(val, &e.RunInformation)
 			delete(rawMsg, key)
-		case "startDateUtc":
-			err = unpopulateTimeRFC3339(val, &e.StartDateUTC)
+		case "startDateTime":
+			err = unpopulateTimeRFC3339(val, &e.StartDateTime)
 			delete(rawMsg, key)
 		case "status":
 			err = unpopulate(val, &e.Status)
 			delete(rawMsg, key)
-		case "stopDateUtc":
-			err = unpopulateTimeRFC3339(val, &e.StopDateUTC)
+		case "stopDateTime":
+			err = unpopulateTimeRFC3339(val, &e.StopDateTime)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -452,9 +489,9 @@ func (s Step) MarshalJSON() ([]byte, error) {
 func (s StepStatus) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "branches", s.Branches)
-	populate(objectMap, "id", s.ID)
-	populate(objectMap, "name", s.Name)
 	populate(objectMap, "status", s.Status)
+	populate(objectMap, "stepId", s.StepID)
+	populate(objectMap, "stepName", s.StepName)
 	return json.Marshal(objectMap)
 }
 
