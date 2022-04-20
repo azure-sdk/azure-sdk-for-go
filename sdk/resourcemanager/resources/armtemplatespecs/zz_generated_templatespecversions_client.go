@@ -101,7 +101,7 @@ func (client *TemplateSpecVersionsClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, templateSpecVersionModel)
@@ -162,7 +162,7 @@ func (client *TemplateSpecVersionsClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -214,7 +214,7 @@ func (client *TemplateSpecVersionsClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -225,6 +225,58 @@ func (client *TemplateSpecVersionsClient) getHandleResponse(resp *http.Response)
 	result := TemplateSpecVersionsClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.TemplateSpecVersion); err != nil {
 		return TemplateSpecVersionsClientGetResponse{}, err
+	}
+	return result, nil
+}
+
+// GetBuiltIn - Gets a Template Spec version from a specific built-in Template Spec.
+// If the operation fails it returns an *azcore.ResponseError type.
+// templateSpecName - Name of the Template Spec.
+// templateSpecVersion - The version of the Template Spec.
+// options - TemplateSpecVersionsClientGetBuiltInOptions contains the optional parameters for the TemplateSpecVersionsClient.GetBuiltIn
+// method.
+func (client *TemplateSpecVersionsClient) GetBuiltIn(ctx context.Context, templateSpecName string, templateSpecVersion string, options *TemplateSpecVersionsClientGetBuiltInOptions) (TemplateSpecVersionsClientGetBuiltInResponse, error) {
+	req, err := client.getBuiltInCreateRequest(ctx, templateSpecName, templateSpecVersion, options)
+	if err != nil {
+		return TemplateSpecVersionsClientGetBuiltInResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return TemplateSpecVersionsClientGetBuiltInResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return TemplateSpecVersionsClientGetBuiltInResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getBuiltInHandleResponse(resp)
+}
+
+// getBuiltInCreateRequest creates the GetBuiltIn request.
+func (client *TemplateSpecVersionsClient) getBuiltInCreateRequest(ctx context.Context, templateSpecName string, templateSpecVersion string, options *TemplateSpecVersionsClientGetBuiltInOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Resources/builtInTemplateSpecs/{templateSpecName}/versions/{templateSpecVersion}"
+	if templateSpecName == "" {
+		return nil, errors.New("parameter templateSpecName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{templateSpecName}", url.PathEscape(templateSpecName))
+	if templateSpecVersion == "" {
+		return nil, errors.New("parameter templateSpecVersion cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{templateSpecVersion}", url.PathEscape(templateSpecVersion))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-02-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, nil
+}
+
+// getBuiltInHandleResponse handles the GetBuiltIn response.
+func (client *TemplateSpecVersionsClient) getBuiltInHandleResponse(resp *http.Response) (TemplateSpecVersionsClientGetBuiltInResponse, error) {
+	result := TemplateSpecVersionsClientGetBuiltInResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.TemplateSpecVersion); err != nil {
+		return TemplateSpecVersionsClientGetBuiltInResponse{}, err
 	}
 	return result, nil
 }
@@ -283,7 +335,7 @@ func (client *TemplateSpecVersionsClient) listCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -294,6 +346,66 @@ func (client *TemplateSpecVersionsClient) listHandleResponse(resp *http.Response
 	result := TemplateSpecVersionsClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.TemplateSpecVersionsListResult); err != nil {
 		return TemplateSpecVersionsClientListResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListBuiltInsPager - Lists all the Template Spec versions in the specified built-in Template Spec.
+// If the operation fails it returns an *azcore.ResponseError type.
+// templateSpecName - Name of the Template Spec.
+// options - TemplateSpecVersionsClientListBuiltInsOptions contains the optional parameters for the TemplateSpecVersionsClient.ListBuiltIns
+// method.
+func (client *TemplateSpecVersionsClient) NewListBuiltInsPager(templateSpecName string, options *TemplateSpecVersionsClientListBuiltInsOptions) *runtime.Pager[TemplateSpecVersionsClientListBuiltInsResponse] {
+	return runtime.NewPager(runtime.PageProcessor[TemplateSpecVersionsClientListBuiltInsResponse]{
+		More: func(page TemplateSpecVersionsClientListBuiltInsResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *TemplateSpecVersionsClientListBuiltInsResponse) (TemplateSpecVersionsClientListBuiltInsResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listBuiltInsCreateRequest(ctx, templateSpecName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return TemplateSpecVersionsClientListBuiltInsResponse{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return TemplateSpecVersionsClientListBuiltInsResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return TemplateSpecVersionsClientListBuiltInsResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listBuiltInsHandleResponse(resp)
+		},
+	})
+}
+
+// listBuiltInsCreateRequest creates the ListBuiltIns request.
+func (client *TemplateSpecVersionsClient) listBuiltInsCreateRequest(ctx context.Context, templateSpecName string, options *TemplateSpecVersionsClientListBuiltInsOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Resources/builtInTemplateSpecs/{templateSpecName}/versions"
+	if templateSpecName == "" {
+		return nil, errors.New("parameter templateSpecName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{templateSpecName}", url.PathEscape(templateSpecName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-02-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, nil
+}
+
+// listBuiltInsHandleResponse handles the ListBuiltIns response.
+func (client *TemplateSpecVersionsClient) listBuiltInsHandleResponse(resp *http.Response) (TemplateSpecVersionsClientListBuiltInsResponse, error) {
+	result := TemplateSpecVersionsClientListBuiltInsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.TemplateSpecVersionsListResult); err != nil {
+		return TemplateSpecVersionsClientListBuiltInsResponse{}, err
 	}
 	return result, nil
 }
@@ -344,7 +456,7 @@ func (client *TemplateSpecVersionsClient) updateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	if options != nil && options.TemplateSpecVersionUpdateModel != nil {

@@ -95,7 +95,7 @@ func (client *Client) createOrUpdateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, templateSpec)
@@ -150,7 +150,7 @@ func (client *Client) deleteCreateRequest(ctx context.Context, resourceGroupName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -199,7 +199,7 @@ func (client *Client) getCreateRequest(ctx context.Context, resourceGroupName st
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -210,6 +210,112 @@ func (client *Client) getHandleResponse(resp *http.Response) (ClientGetResponse,
 	result := ClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.TemplateSpec); err != nil {
 		return ClientGetResponse{}, err
+	}
+	return result, nil
+}
+
+// GetBuiltIn - Gets a built-in Template Spec with a given name.
+// If the operation fails it returns an *azcore.ResponseError type.
+// templateSpecName - Name of the Template Spec.
+// options - ClientGetBuiltInOptions contains the optional parameters for the Client.GetBuiltIn method.
+func (client *Client) GetBuiltIn(ctx context.Context, templateSpecName string, options *ClientGetBuiltInOptions) (ClientGetBuiltInResponse, error) {
+	req, err := client.getBuiltInCreateRequest(ctx, templateSpecName, options)
+	if err != nil {
+		return ClientGetBuiltInResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ClientGetBuiltInResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ClientGetBuiltInResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getBuiltInHandleResponse(resp)
+}
+
+// getBuiltInCreateRequest creates the GetBuiltIn request.
+func (client *Client) getBuiltInCreateRequest(ctx context.Context, templateSpecName string, options *ClientGetBuiltInOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Resources/builtInTemplateSpecs/{templateSpecName}"
+	if templateSpecName == "" {
+		return nil, errors.New("parameter templateSpecName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{templateSpecName}", url.PathEscape(templateSpecName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Expand != nil {
+		reqQP.Set("$expand", string(*options.Expand))
+	}
+	reqQP.Set("api-version", "2022-02-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, nil
+}
+
+// getBuiltInHandleResponse handles the GetBuiltIn response.
+func (client *Client) getBuiltInHandleResponse(resp *http.Response) (ClientGetBuiltInResponse, error) {
+	result := ClientGetBuiltInResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.TemplateSpec); err != nil {
+		return ClientGetBuiltInResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListBuiltInsPager - Lists built-in Template Specs.
+// If the operation fails it returns an *azcore.ResponseError type.
+// options - ClientListBuiltInsOptions contains the optional parameters for the Client.ListBuiltIns method.
+func (client *Client) NewListBuiltInsPager(options *ClientListBuiltInsOptions) *runtime.Pager[ClientListBuiltInsResponse] {
+	return runtime.NewPager(runtime.PageProcessor[ClientListBuiltInsResponse]{
+		More: func(page ClientListBuiltInsResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ClientListBuiltInsResponse) (ClientListBuiltInsResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listBuiltInsCreateRequest(ctx, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ClientListBuiltInsResponse{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return ClientListBuiltInsResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ClientListBuiltInsResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listBuiltInsHandleResponse(resp)
+		},
+	})
+}
+
+// listBuiltInsCreateRequest creates the ListBuiltIns request.
+func (client *Client) listBuiltInsCreateRequest(ctx context.Context, options *ClientListBuiltInsOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Resources/builtInTemplateSpecs/"
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	if options != nil && options.Expand != nil {
+		reqQP.Set("$expand", string(*options.Expand))
+	}
+	reqQP.Set("api-version", "2022-02-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, nil
+}
+
+// listBuiltInsHandleResponse handles the ListBuiltIns response.
+func (client *Client) listBuiltInsHandleResponse(resp *http.Response) (ClientListBuiltInsResponse, error) {
+	result := ClientListBuiltInsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ListResult); err != nil {
+		return ClientListBuiltInsResponse{}, err
 	}
 	return result, nil
 }
@@ -265,7 +371,7 @@ func (client *Client) listByResourceGroupCreateRequest(ctx context.Context, reso
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -326,7 +432,7 @@ func (client *Client) listBySubscriptionCreateRequest(ctx context.Context, optio
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -381,7 +487,7 @@ func (client *Client) updateCreateRequest(ctx context.Context, resourceGroupName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	if options != nil && options.TemplateSpec != nil {
