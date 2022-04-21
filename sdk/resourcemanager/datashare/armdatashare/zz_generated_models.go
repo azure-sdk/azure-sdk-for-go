@@ -937,9 +937,10 @@ type DataSetMappingList struct {
 	NextLink *string `json:"nextLink,omitempty"`
 }
 
-// DataSetMappingsClientCreateOptions contains the optional parameters for the DataSetMappingsClient.Create method.
-type DataSetMappingsClientCreateOptions struct {
-	// placeholder for future optional parameters
+// DataSetMappingsClientBeginCreateOptions contains the optional parameters for the DataSetMappingsClient.BeginCreate method.
+type DataSetMappingsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // DataSetMappingsClientDeleteOptions contains the optional parameters for the DataSetMappingsClient.Delete method.

@@ -1,5 +1,17 @@
 # Release History
 
+## 0.5.0 (2022-04-21)
+### Breaking Changes
+
+- Function `*DataSetMappingsClient.Create` has been removed
+- Struct `DataSetMappingsClientCreateOptions` has been removed
+
+### Features Added
+
+- New function `*DataSetMappingsClient.BeginCreate(context.Context, string, string, string, string, DataSetMappingClassification, *DataSetMappingsClientBeginCreateOptions) (*armruntime.Poller[DataSetMappingsClientCreateResponse], error)`
+- New struct `DataSetMappingsClientBeginCreateOptions`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
