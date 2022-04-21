@@ -604,9 +604,19 @@ type MongoDBResourcesClientMigrateMongoDBDatabaseToManualThroughputResponse stru
 	ThroughputSettingsGetResults
 }
 
+// MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse contains the response from method MongoDBResourcesClient.MongoDBContainerRedistributeThroughput.
+type MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse struct {
+	// placeholder for future response values
+}
+
 // MongoDBResourcesClientRetrieveContinuousBackupInformationResponse contains the response from method MongoDBResourcesClient.RetrieveContinuousBackupInformation.
 type MongoDBResourcesClientRetrieveContinuousBackupInformationResponse struct {
 	BackupInformation
+}
+
+// MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse contains the response from method MongoDBResourcesClient.SQLContainerRetrieveThroughputDistribution.
+type MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse struct {
+	// placeholder for future response values
 }
 
 // MongoDBResourcesClientUpdateMongoDBCollectionThroughputResponse contains the response from method MongoDBResourcesClient.UpdateMongoDBCollectionThroughput.
@@ -977,6 +987,16 @@ type SQLResourcesClientMigrateSQLDatabaseToManualThroughputResponse struct {
 // SQLResourcesClientRetrieveContinuousBackupInformationResponse contains the response from method SQLResourcesClient.RetrieveContinuousBackupInformation.
 type SQLResourcesClientRetrieveContinuousBackupInformationResponse struct {
 	BackupInformation
+}
+
+// SQLResourcesClientSQLContainerRedistributeThroughputResponse contains the response from method SQLResourcesClient.SQLContainerRedistributeThroughput.
+type SQLResourcesClientSQLContainerRedistributeThroughputResponse struct {
+	// placeholder for future response values
+}
+
+// SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse contains the response from method SQLResourcesClient.SQLContainerRetrieveThroughputDistribution.
+type SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse struct {
+	// placeholder for future response values
 }
 
 // SQLResourcesClientUpdateSQLContainerThroughputResponse contains the response from method SQLResourcesClient.UpdateSQLContainerThroughput.

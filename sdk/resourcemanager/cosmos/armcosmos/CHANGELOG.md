@@ -1,5 +1,38 @@
 # Release History
 
+## 0.6.0 (2022-04-21)
+### Features Added
+
+- New const `ThroughputPolicyTypeEqual`
+- New const `ThroughputPolicyTypeCustom`
+- New const `ThroughputPolicyTypeNone`
+- New function `*MongoDBResourcesClient.BeginSQLContainerRetrieveThroughputDistribution(context.Context, string, string, string, string, RetrieveThroughputParameters, *MongoDBResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*armruntime.Poller[MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse], error)`
+- New function `*MongoDBResourcesClient.BeginMongoDBContainerRedistributeThroughput(context.Context, string, string, string, string, RedistributeThroughputParameters, *MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions) (*armruntime.Poller[MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse], error)`
+- New function `RedistributeThroughputParameters.MarshalJSON() ([]byte, error)`
+- New function `*SQLResourcesClient.BeginSQLContainerRedistributeThroughput(context.Context, string, string, string, string, RedistributeThroughputParameters, *SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions) (*armruntime.Poller[SQLResourcesClientSQLContainerRedistributeThroughputResponse], error)`
+- New function `RetrieveThroughputPropertiesResource.MarshalJSON() ([]byte, error)`
+- New function `RetrieveThroughputParameters.MarshalJSON() ([]byte, error)`
+- New function `PossibleThroughputPolicyTypeValues() []ThroughputPolicyType`
+- New function `*SQLResourcesClient.BeginSQLContainerRetrieveThroughputDistribution(context.Context, string, string, string, string, RetrieveThroughputParameters, *SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*armruntime.Poller[SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse], error)`
+- New function `RedistributeThroughputPropertiesResource.MarshalJSON() ([]byte, error)`
+- New struct `MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions`
+- New struct `MongoDBResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions`
+- New struct `MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse`
+- New struct `MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse`
+- New struct `PhysicalPartitionID`
+- New struct `PhysicalPartitionThroughputInfoResource`
+- New struct `RedistributeThroughputParameters`
+- New struct `RedistributeThroughputProperties`
+- New struct `RedistributeThroughputPropertiesResource`
+- New struct `RetrieveThroughputParameters`
+- New struct `RetrieveThroughputProperties`
+- New struct `RetrieveThroughputPropertiesResource`
+- New struct `SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions`
+- New struct `SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions`
+- New struct `SQLResourcesClientSQLContainerRedistributeThroughputResponse`
+- New struct `SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 
