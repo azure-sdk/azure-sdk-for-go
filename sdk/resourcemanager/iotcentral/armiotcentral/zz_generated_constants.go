@@ -10,7 +10,7 @@ package armiotcentral
 
 const (
 	moduleName    = "armiotcentral"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.4.1"
 )
 
 // AppSKU - The name of the SKU.
