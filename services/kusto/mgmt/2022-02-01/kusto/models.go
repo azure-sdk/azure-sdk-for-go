@@ -2261,7 +2261,7 @@ type EventGridConnectionProperties struct {
 	IgnoreFirstRecord *bool `json:"ignoreFirstRecord,omitempty"`
 	// BlobStorageEventType - The name of blob storage event type to process. Possible values include: 'BlobStorageEventTypeMicrosoftStorageBlobCreated', 'BlobStorageEventTypeMicrosoftStorageBlobRenamed'
 	BlobStorageEventType BlobStorageEventType `json:"blobStorageEventType,omitempty"`
-	// ManagedIdentityResourceID - The resource ID of a managed identity (system or user assigned) to be used to authenticate with event hub and storage account.
+	// ManagedIdentityResourceID - Empty for non-managed identity based data connection. For system assigned identity, provide cluster resource Id.  For user assigned identity (UAI) provide the UAI resource Id.
 	ManagedIdentityResourceID *string `json:"managedIdentityResourceId,omitempty"`
 	// ManagedIdentityObjectID - READ-ONLY; The object ID of managedIdentityResourceId
 	ManagedIdentityObjectID *string `json:"managedIdentityObjectId,omitempty"`
