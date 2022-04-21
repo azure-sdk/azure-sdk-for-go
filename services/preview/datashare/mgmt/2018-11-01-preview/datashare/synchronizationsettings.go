@@ -31,7 +31,7 @@ func NewSynchronizationSettingsClientWithBaseURI(baseURI string, subscriptionID 
 	return SynchronizationSettingsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// Create create or update a synchronizationSetting
+// Create create a synchronizationSetting
 // Parameters:
 // resourceGroupName - the resource group name.
 // accountName - the name of the share account.

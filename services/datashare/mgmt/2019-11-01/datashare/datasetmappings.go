@@ -37,13 +37,13 @@ func NewDataSetMappingsClientWithBaseURI(baseURI string, subscriptionID string) 
 // shareSubscriptionName - the name of the share subscription which will hold the data set sink.
 // dataSetMappingName - the name of the data set mapping to be created.
 // dataSetMapping - destination data set configuration details.
-func (client DataSetMappingsClient) Create(ctx context.Context, resourceGroupName string, accountName string, shareSubscriptionName string, dataSetMappingName string, dataSetMapping BasicDataSetMapping) (result DataSetMappingModel, err error) {
+func (client DataSetMappingsClient) Create(ctx context.Context, resourceGroupName string, accountName string, shareSubscriptionName string, dataSetMappingName string, dataSetMapping BasicDataSetMapping) (result DataSetMappingsCreateFuture, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/DataSetMappingsClient.Create")
 		defer func() {
 			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
+			if result.FutureAPI != nil && result.FutureAPI.Response() != nil {
+				sc = result.FutureAPI.Response().StatusCode
 			}
 			tracing.EndSpan(ctx, sc, err)
 		}()
@@ -54,16 +54,9 @@ func (client DataSetMappingsClient) Create(ctx context.Context, resourceGroupNam
 		return
 	}
 
-	resp, err := client.CreateSender(req)
+	result, err = client.CreateSender(req)
 	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "datashare.DataSetMappingsClient", "Create", resp, "Failure sending request")
-		return
-	}
-
-	result, err = client.CreateResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "datashare.DataSetMappingsClient", "Create", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "datashare.DataSetMappingsClient", "Create", result.Response(), "Failure sending request")
 		return
 	}
 
@@ -97,8 +90,18 @@ func (client DataSetMappingsClient) CreatePreparer(ctx context.Context, resource
 
 // CreateSender sends the Create request. The method will close the
 // http.Response Body if it receives an error.
-func (client DataSetMappingsClient) CreateSender(req *http.Request) (*http.Response, error) {
-	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+func (client DataSetMappingsClient) CreateSender(req *http.Request) (future DataSetMappingsCreateFuture, err error) {
+	var resp *http.Response
+	future.FutureAPI = &azure.Future{}
+	resp, err = client.Send(req, azure.DoRetryWithRegistration(client.Client))
+	if err != nil {
+		return
+	}
+	var azf azure.Future
+	azf, err = azure.NewFutureFromResponse(resp)
+	future.FutureAPI = &azf
+	future.Result = future.result
+	return
 }
 
 // CreateResponder handles the response to the Create request. The method always
@@ -106,8 +109,8 @@ func (client DataSetMappingsClient) CreateSender(req *http.Request) (*http.Respo
 func (client DataSetMappingsClient) CreateResponder(resp *http.Response) (result DataSetMappingModel, err error) {
 	err = autorest.Respond(
 		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
-		autorest.ByUnmarshallingJSON(&result),
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated, http.StatusAccepted),
+		autorest.ByUnmarshallingJSON(&result.Value),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return

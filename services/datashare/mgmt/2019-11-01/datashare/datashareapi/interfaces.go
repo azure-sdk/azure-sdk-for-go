@@ -49,7 +49,7 @@ var _ DataSetsClientAPI = (*datashare.DataSetsClient)(nil)
 
 // DataSetMappingsClientAPI contains the set of methods on the DataSetMappingsClient type.
 type DataSetMappingsClientAPI interface {
-	Create(ctx context.Context, resourceGroupName string, accountName string, shareSubscriptionName string, dataSetMappingName string, dataSetMapping datashare.BasicDataSetMapping) (result datashare.DataSetMappingModel, err error)
+	Create(ctx context.Context, resourceGroupName string, accountName string, shareSubscriptionName string, dataSetMappingName string, dataSetMapping datashare.BasicDataSetMapping) (result datashare.DataSetMappingsCreateFuture, err error)
 	Delete(ctx context.Context, resourceGroupName string, accountName string, shareSubscriptionName string, dataSetMappingName string) (result autorest.Response, err error)
 	Get(ctx context.Context, resourceGroupName string, accountName string, shareSubscriptionName string, dataSetMappingName string) (result datashare.DataSetMappingModel, err error)
 	ListByShareSubscription(ctx context.Context, resourceGroupName string, accountName string, shareSubscriptionName string, skipToken string, filter string, orderby string) (result datashare.DataSetMappingListPage, err error)
@@ -57,6 +57,14 @@ type DataSetMappingsClientAPI interface {
 }
 
 var _ DataSetMappingsClientAPI = (*datashare.DataSetMappingsClient)(nil)
+
+// EmailRegistrationsClientAPI contains the set of methods on the EmailRegistrationsClient type.
+type EmailRegistrationsClientAPI interface {
+	ActivateEmail(ctx context.Context, location string, emailRegistration datashare.EmailRegistration) (result datashare.EmailRegistration, err error)
+	RegisterEmail(ctx context.Context, location string) (result datashare.EmailRegistration, err error)
+}
+
+var _ EmailRegistrationsClientAPI = (*datashare.EmailRegistrationsClient)(nil)
 
 // InvitationsClientAPI contains the set of methods on the InvitationsClient type.
 type InvitationsClientAPI interface {
