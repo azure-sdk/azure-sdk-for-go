@@ -10,7 +10,7 @@ package armmariadb
 
 const (
 	moduleName    = "armmariadb"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.4.1"
 )
 
 // CreateMode - The mode to create a new server.
