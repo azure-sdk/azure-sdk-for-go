@@ -10,7 +10,7 @@ package armbilling
 
 const (
 	moduleName    = "armbilling"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.4.1"
 )
 
 // AcceptanceMode - The mode of acceptance for an agreement.
