@@ -10,7 +10,7 @@ package armmediaservices
 
 const (
 	moduleName    = "armmediaservices"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
 
 // AacAudioProfile - The encoding profile to be used when encoding audio with AAC.
@@ -31,39 +31,6 @@ func PossibleAacAudioProfileValues() []AacAudioProfile {
 		AacAudioProfileAacLc,
 		AacAudioProfileHeAacV1,
 		AacAudioProfileHeAacV2,
-	}
-}
-
-// AccountEncryptionKeyType - The type of key used to encrypt the Account Key.
-type AccountEncryptionKeyType string
-
-const (
-	// AccountEncryptionKeyTypeCustomerKey - The Account Key is encrypted with a Customer Key.
-	AccountEncryptionKeyTypeCustomerKey AccountEncryptionKeyType = "CustomerKey"
-	// AccountEncryptionKeyTypeSystemKey - The Account Key is encrypted with a System Key.
-	AccountEncryptionKeyTypeSystemKey AccountEncryptionKeyType = "SystemKey"
-)
-
-// PossibleAccountEncryptionKeyTypeValues returns the possible values for the AccountEncryptionKeyType const type.
-func PossibleAccountEncryptionKeyTypeValues() []AccountEncryptionKeyType {
-	return []AccountEncryptionKeyType{
-		AccountEncryptionKeyTypeCustomerKey,
-		AccountEncryptionKeyTypeSystemKey,
-	}
-}
-
-// ActionType - Indicates the action type.
-type ActionType string
-
-const (
-	// ActionTypeInternal - An internal action.
-	ActionTypeInternal ActionType = "Internal"
-)
-
-// PossibleActionTypeValues returns the possible values for the ActionType const type.
-func PossibleActionTypeValues() []ActionType {
-	return []ActionType{
-		ActionTypeInternal,
 	}
 }
 
@@ -409,24 +376,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
-	}
-}
-
-// DefaultAction - The behavior for IP access control in Key Delivery.
-type DefaultAction string
-
-const (
-	// DefaultActionAllow - All public IP addresses are allowed.
-	DefaultActionAllow DefaultAction = "Allow"
-	// DefaultActionDeny - Public IP addresses are blocked.
-	DefaultActionDeny DefaultAction = "Deny"
-)
-
-// PossibleDefaultActionValues returns the possible values for the DefaultAction const type.
-func PossibleDefaultActionValues() []DefaultAction {
-	return []DefaultAction{
-		DefaultActionAllow,
-		DefaultActionDeny,
 	}
 }
 
@@ -1090,48 +1039,6 @@ func PossibleLiveOutputResourceStateValues() []LiveOutputResourceState {
 	}
 }
 
-// MetricAggregationType - The metric aggregation type
-type MetricAggregationType string
-
-const (
-	// MetricAggregationTypeAverage - The average.
-	MetricAggregationTypeAverage MetricAggregationType = "Average"
-	// MetricAggregationTypeCount - The count of a number of items, usually requests.
-	MetricAggregationTypeCount MetricAggregationType = "Count"
-	// MetricAggregationTypeTotal - The sum.
-	MetricAggregationTypeTotal MetricAggregationType = "Total"
-)
-
-// PossibleMetricAggregationTypeValues returns the possible values for the MetricAggregationType const type.
-func PossibleMetricAggregationTypeValues() []MetricAggregationType {
-	return []MetricAggregationType{
-		MetricAggregationTypeAverage,
-		MetricAggregationTypeCount,
-		MetricAggregationTypeTotal,
-	}
-}
-
-// MetricUnit - The metric unit
-type MetricUnit string
-
-const (
-	// MetricUnitBytes - The number of bytes.
-	MetricUnitBytes MetricUnit = "Bytes"
-	// MetricUnitCount - The count.
-	MetricUnitCount MetricUnit = "Count"
-	// MetricUnitMilliseconds - The number of milliseconds.
-	MetricUnitMilliseconds MetricUnit = "Milliseconds"
-)
-
-// PossibleMetricUnitValues returns the possible values for the MetricUnit const type.
-func PossibleMetricUnitValues() []MetricUnit {
-	return []MetricUnit{
-		MetricUnitBytes,
-		MetricUnitCount,
-		MetricUnitMilliseconds,
-	}
-}
-
 // OnErrorType - A Transform can define more than one outputs. This property defines what the service should do when one output
 // fails - either continue to produce other outputs, or, stop the other outputs. The overall
 // Job state will not reflect failures of outputs that are specified with 'ContinueJob'. The default is 'StopProcessingJob'.
@@ -1176,44 +1083,6 @@ func PossiblePriorityValues() []Priority {
 	}
 }
 
-// PrivateEndpointConnectionProvisioningState - The current provisioning state.
-type PrivateEndpointConnectionProvisioningState string
-
-const (
-	PrivateEndpointConnectionProvisioningStateCreating  PrivateEndpointConnectionProvisioningState = "Creating"
-	PrivateEndpointConnectionProvisioningStateDeleting  PrivateEndpointConnectionProvisioningState = "Deleting"
-	PrivateEndpointConnectionProvisioningStateFailed    PrivateEndpointConnectionProvisioningState = "Failed"
-	PrivateEndpointConnectionProvisioningStateSucceeded PrivateEndpointConnectionProvisioningState = "Succeeded"
-)
-
-// PossiblePrivateEndpointConnectionProvisioningStateValues returns the possible values for the PrivateEndpointConnectionProvisioningState const type.
-func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpointConnectionProvisioningState {
-	return []PrivateEndpointConnectionProvisioningState{
-		PrivateEndpointConnectionProvisioningStateCreating,
-		PrivateEndpointConnectionProvisioningStateDeleting,
-		PrivateEndpointConnectionProvisioningStateFailed,
-		PrivateEndpointConnectionProvisioningStateSucceeded,
-	}
-}
-
-// PrivateEndpointServiceConnectionStatus - The private endpoint connection status.
-type PrivateEndpointServiceConnectionStatus string
-
-const (
-	PrivateEndpointServiceConnectionStatusApproved PrivateEndpointServiceConnectionStatus = "Approved"
-	PrivateEndpointServiceConnectionStatusPending  PrivateEndpointServiceConnectionStatus = "Pending"
-	PrivateEndpointServiceConnectionStatusRejected PrivateEndpointServiceConnectionStatus = "Rejected"
-)
-
-// PossiblePrivateEndpointServiceConnectionStatusValues returns the possible values for the PrivateEndpointServiceConnectionStatus const type.
-func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointServiceConnectionStatus {
-	return []PrivateEndpointServiceConnectionStatus{
-		PrivateEndpointServiceConnectionStatusApproved,
-		PrivateEndpointServiceConnectionStatusPending,
-		PrivateEndpointServiceConnectionStatusRejected,
-	}
-}
-
 // ProvisioningState - Provisioning state of the asset track.
 type ProvisioningState string
 
@@ -1232,24 +1101,6 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateFailed,
 		ProvisioningStateInProgress,
 		ProvisioningStateSucceeded,
-	}
-}
-
-// PublicNetworkAccess - Whether or not public network access is allowed for resources under the Media Services account.
-type PublicNetworkAccess string
-
-const (
-	// PublicNetworkAccessDisabled - Public network access is disabled.
-	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
-	// PublicNetworkAccessEnabled - Public network access is enabled.
-	PublicNetworkAccessEnabled PublicNetworkAccess = "Enabled"
-)
-
-// PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
-func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
-	return []PublicNetworkAccess{
-		PublicNetworkAccessDisabled,
-		PublicNetworkAccessEnabled,
 	}
 }
 
@@ -1280,41 +1131,6 @@ func PossibleRotationValues() []Rotation {
 		RotationRotate180,
 		RotationRotate270,
 		RotationRotate90,
-	}
-}
-
-// StorageAccountType - The type of the storage account.
-type StorageAccountType string
-
-const (
-	// StorageAccountTypePrimary - The primary storage account for the Media Services account.
-	StorageAccountTypePrimary StorageAccountType = "Primary"
-	// StorageAccountTypeSecondary - A secondary storage account for the Media Services account.
-	StorageAccountTypeSecondary StorageAccountType = "Secondary"
-)
-
-// PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
-func PossibleStorageAccountTypeValues() []StorageAccountType {
-	return []StorageAccountType{
-		StorageAccountTypePrimary,
-		StorageAccountTypeSecondary,
-	}
-}
-
-type StorageAuthentication string
-
-const (
-	// StorageAuthenticationManagedIdentity - Managed Identity authentication.
-	StorageAuthenticationManagedIdentity StorageAuthentication = "ManagedIdentity"
-	// StorageAuthenticationSystem - System authentication.
-	StorageAuthenticationSystem StorageAuthentication = "System"
-)
-
-// PossibleStorageAuthenticationValues returns the possible values for the StorageAuthentication const type.
-func PossibleStorageAuthenticationValues() []StorageAuthentication {
-	return []StorageAuthentication{
-		StorageAuthenticationManagedIdentity,
-		StorageAuthenticationSystem,
 	}
 }
 

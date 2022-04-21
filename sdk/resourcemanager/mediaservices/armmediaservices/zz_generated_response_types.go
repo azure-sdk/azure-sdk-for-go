@@ -98,46 +98,6 @@ type AssetsClientUpdateResponse struct {
 	Asset
 }
 
-// ClientCreateOrUpdateResponse contains the response from method Client.CreateOrUpdate.
-type ClientCreateOrUpdateResponse struct {
-	MediaService
-}
-
-// ClientDeleteResponse contains the response from method Client.Delete.
-type ClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// ClientGetResponse contains the response from method Client.Get.
-type ClientGetResponse struct {
-	MediaService
-}
-
-// ClientListBySubscriptionResponse contains the response from method Client.ListBySubscription.
-type ClientListBySubscriptionResponse struct {
-	MediaServiceCollection
-}
-
-// ClientListEdgePoliciesResponse contains the response from method Client.ListEdgePolicies.
-type ClientListEdgePoliciesResponse struct {
-	EdgePolicies
-}
-
-// ClientListResponse contains the response from method Client.List.
-type ClientListResponse struct {
-	MediaServiceCollection
-}
-
-// ClientSyncStorageKeysResponse contains the response from method Client.SyncStorageKeys.
-type ClientSyncStorageKeysResponse struct {
-	// placeholder for future response values
-}
-
-// ClientUpdateResponse contains the response from method Client.Update.
-type ClientUpdateResponse struct {
-	MediaService
-}
-
 // ContentKeyPoliciesClientCreateOrUpdateResponse contains the response from method ContentKeyPoliciesClient.CreateOrUpdate.
 type ContentKeyPoliciesClientCreateOrUpdateResponse struct {
 	ContentKeyPolicy
@@ -263,11 +223,6 @@ type LiveOutputsClientListResponse struct {
 	LiveOutputListResult
 }
 
-// LocationsClientCheckNameAvailabilityResponse contains the response from method LocationsClient.CheckNameAvailability.
-type LocationsClientCheckNameAvailabilityResponse struct {
-	EntityNameAvailabilityCheckOutput
-}
-
 // OperationResultsClientGetResponse contains the response from method OperationResultsClient.Get.
 type OperationResultsClientGetResponse struct {
 	AssetTrack
@@ -284,41 +239,6 @@ type OperationResultsClientGetResponse struct {
 // OperationStatusesClientGetResponse contains the response from method OperationStatusesClient.Get.
 type OperationStatusesClientGetResponse struct {
 	AssetTrackOperationStatus
-}
-
-// OperationsClientListResponse contains the response from method OperationsClient.List.
-type OperationsClientListResponse struct {
-	OperationCollection
-}
-
-// PrivateEndpointConnectionsClientCreateOrUpdateResponse contains the response from method PrivateEndpointConnectionsClient.CreateOrUpdate.
-type PrivateEndpointConnectionsClientCreateOrUpdateResponse struct {
-	PrivateEndpointConnection
-}
-
-// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.Delete.
-type PrivateEndpointConnectionsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// PrivateEndpointConnectionsClientGetResponse contains the response from method PrivateEndpointConnectionsClient.Get.
-type PrivateEndpointConnectionsClientGetResponse struct {
-	PrivateEndpointConnection
-}
-
-// PrivateEndpointConnectionsClientListResponse contains the response from method PrivateEndpointConnectionsClient.List.
-type PrivateEndpointConnectionsClientListResponse struct {
-	PrivateEndpointConnectionListResult
-}
-
-// PrivateLinkResourcesClientGetResponse contains the response from method PrivateLinkResourcesClient.Get.
-type PrivateLinkResourcesClientGetResponse struct {
-	PrivateLinkResource
-}
-
-// PrivateLinkResourcesClientListResponse contains the response from method PrivateLinkResourcesClient.List.
-type PrivateLinkResourcesClientListResponse struct {
-	PrivateLinkResourceListResult
 }
 
 // StreamingEndpointsClientCreateResponse contains the response from method StreamingEndpointsClient.Create.

@@ -119,14 +119,6 @@ func (a *AbsoluteClipTime) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type AccessControl.
-func (a AccessControl) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "defaultAction", a.DefaultAction)
-	populate(objectMap, "ipAllowList", a.IPAllowList)
-	return json.Marshal(objectMap)
-}
-
 // MarshalJSON implements the json.Marshaller interface for type AccountFilter.
 func (a AccountFilter) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -3001,77 +2993,6 @@ func (m MediaFilterProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// MarshalJSON implements the json.Marshaller interface for type MediaService.
-func (m MediaService) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "id", m.ID)
-	populate(objectMap, "identity", m.Identity)
-	populate(objectMap, "location", m.Location)
-	populate(objectMap, "name", m.Name)
-	populate(objectMap, "properties", m.Properties)
-	populate(objectMap, "systemData", m.SystemData)
-	populate(objectMap, "tags", m.Tags)
-	populate(objectMap, "type", m.Type)
-	return json.Marshal(objectMap)
-}
-
-// MarshalJSON implements the json.Marshaller interface for type MediaServiceCollection.
-func (m MediaServiceCollection) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "@odata.nextLink", m.ODataNextLink)
-	populate(objectMap, "value", m.Value)
-	return json.Marshal(objectMap)
-}
-
-// MarshalJSON implements the json.Marshaller interface for type MediaServiceIdentity.
-func (m MediaServiceIdentity) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "principalId", m.PrincipalID)
-	populate(objectMap, "tenantId", m.TenantID)
-	populate(objectMap, "type", m.Type)
-	populate(objectMap, "userAssignedIdentities", m.UserAssignedIdentities)
-	return json.Marshal(objectMap)
-}
-
-// MarshalJSON implements the json.Marshaller interface for type MediaServiceProperties.
-func (m MediaServiceProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "encryption", m.Encryption)
-	populate(objectMap, "keyDelivery", m.KeyDelivery)
-	populate(objectMap, "mediaServiceId", m.MediaServiceID)
-	populate(objectMap, "publicNetworkAccess", m.PublicNetworkAccess)
-	populate(objectMap, "storageAccounts", m.StorageAccounts)
-	populate(objectMap, "storageAuthentication", m.StorageAuthentication)
-	return json.Marshal(objectMap)
-}
-
-// MarshalJSON implements the json.Marshaller interface for type MediaServiceUpdate.
-func (m MediaServiceUpdate) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "identity", m.Identity)
-	populate(objectMap, "properties", m.Properties)
-	populate(objectMap, "tags", m.Tags)
-	return json.Marshal(objectMap)
-}
-
-// MarshalJSON implements the json.Marshaller interface for type MetricSpecification.
-func (m MetricSpecification) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "aggregationType", m.AggregationType)
-	populate(objectMap, "dimensions", m.Dimensions)
-	populate(objectMap, "displayDescription", m.DisplayDescription)
-	populate(objectMap, "displayName", m.DisplayName)
-	populate(objectMap, "enableRegionalMdmAccount", m.EnableRegionalMdmAccount)
-	populate(objectMap, "lockAggregationType", m.LockAggregationType)
-	populate(objectMap, "name", m.Name)
-	populate(objectMap, "sourceMdmAccount", m.SourceMdmAccount)
-	populate(objectMap, "sourceMdmNamespace", m.SourceMdmNamespace)
-	populate(objectMap, "supportedAggregationTypes", m.SupportedAggregationTypes)
-	populate(objectMap, "supportedTimeGrainTypes", m.SupportedTimeGrainTypes)
-	populate(objectMap, "unit", m.Unit)
-	return json.Marshal(objectMap)
-}
-
 // GetFormat implements the FormatClassification interface for type Mp4Format.
 func (m *Mp4Format) GetFormat() *Format {
 	return &Format{
@@ -3168,13 +3089,6 @@ func (m *MultiBitrateFormat) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type OperationCollection.
-func (o OperationCollection) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "value", o.Value)
-	return json.Marshal(objectMap)
 }
 
 // MarshalJSON implements the json.Marshaller interface for type OutputFile.
@@ -3328,29 +3242,6 @@ func (p *PNGImage) UnmarshalJSON(data []byte) error {
 
 // GetPreset implements the PresetClassification interface for type Preset.
 func (p *Preset) GetPreset() *Preset { return p }
-
-// MarshalJSON implements the json.Marshaller interface for type PrivateEndpointConnectionListResult.
-func (p PrivateEndpointConnectionListResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "value", p.Value)
-	return json.Marshal(objectMap)
-}
-
-// MarshalJSON implements the json.Marshaller interface for type PrivateLinkResourceListResult.
-func (p PrivateLinkResourceListResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "value", p.Value)
-	return json.Marshal(objectMap)
-}
-
-// MarshalJSON implements the json.Marshaller interface for type PrivateLinkResourceProperties.
-func (p PrivateLinkResourceProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "groupId", p.GroupID)
-	populate(objectMap, "requiredMembers", p.RequiredMembers)
-	populate(objectMap, "requiredZoneNames", p.RequiredZoneNames)
-	return json.Marshal(objectMap)
-}
 
 // GetAudioTrackDescriptor implements the AudioTrackDescriptorClassification interface for type SelectAudioTrackByAttribute.
 func (s *SelectAudioTrackByAttribute) GetAudioTrackDescriptor() *AudioTrackDescriptor {
@@ -3556,14 +3447,6 @@ func (s *SelectVideoTrackByID) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type ServiceSpecification.
-func (s ServiceSpecification) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "logSpecifications", s.LogSpecifications)
-	populate(objectMap, "metricSpecifications", s.MetricSpecifications)
-	return json.Marshal(objectMap)
 }
 
 // GetPreset implements the PresetClassification interface for type StandardEncoderPreset.

@@ -42,29 +42,6 @@ type AbsoluteClipTime struct {
 	Time *string `json:"time,omitempty"`
 }
 
-type AccessControl struct {
-	// The behavior for IP access control in Key Delivery.
-	DefaultAction *DefaultAction `json:"defaultAction,omitempty"`
-
-	// The IP allow list for access control in Key Delivery. If the default action is set to 'Allow', the IP allow list must be
-	// empty.
-	IPAllowList []*string `json:"ipAllowList,omitempty"`
-}
-
-type AccountEncryption struct {
-	// REQUIRED; The type of key used to encrypt the Account Key.
-	Type *AccountEncryptionKeyType `json:"type,omitempty"`
-
-	// The Key Vault identity.
-	Identity *ResourceIdentity `json:"identity,omitempty"`
-
-	// The properties of the key used to encrypt the account.
-	KeyVaultProperties *KeyVaultProperties `json:"keyVaultProperties,omitempty"`
-
-	// READ-ONLY; The current status of the Key Vault mapping.
-	Status *string `json:"status,omitempty" azure:"ro"`
-}
-
 // AccountFilter - An Account Filter.
 type AccountFilter struct {
 	// The Media Filter properties.
@@ -581,55 +558,6 @@ type CencDrmConfiguration struct {
 	Widevine *StreamingPolicyWidevineConfiguration `json:"widevine,omitempty"`
 }
 
-// CheckNameAvailabilityInput - The input to the check name availability request.
-type CheckNameAvailabilityInput struct {
-	// The account name.
-	Name *string `json:"name,omitempty"`
-
-	// The account type. For a Media Services account, this should be 'MediaServices'.
-	Type *string `json:"type,omitempty"`
-}
-
-// ClientCreateOrUpdateOptions contains the optional parameters for the Client.CreateOrUpdate method.
-type ClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ClientDeleteOptions contains the optional parameters for the Client.Delete method.
-type ClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ClientGetOptions contains the optional parameters for the Client.Get method.
-type ClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ClientListBySubscriptionOptions contains the optional parameters for the Client.ListBySubscription method.
-type ClientListBySubscriptionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ClientListEdgePoliciesOptions contains the optional parameters for the Client.ListEdgePolicies method.
-type ClientListEdgePoliciesOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ClientListOptions contains the optional parameters for the Client.List method.
-type ClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ClientSyncStorageKeysOptions contains the optional parameters for the Client.SyncStorageKeys method.
-type ClientSyncStorageKeysOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ClientUpdateOptions contains the optional parameters for the Client.Update method.
-type ClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ClipTimeClassification provides polymorphic access to related types.
 // Call the interface's GetClipTime() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -958,9 +886,6 @@ type ContentKeyPolicyPlayReadyPlayRight struct {
 	// Configures the Serial Copy Management System (SCMS) in the license. Must be between 0 and 3 inclusive.
 	ScmsRestriction *int32 `json:"scmsRestriction,omitempty"`
 
-	// Specifies the output protection level for uncompressed digital audio.
-	UncompressedDigitalAudioOpl *int32 `json:"uncompressedDigitalAudioOpl,omitempty"`
-
 	// Specifies the output protection level for uncompressed digital video.
 	UncompressedDigitalVideoOpl *int32 `json:"uncompressedDigitalVideoOpl,omitempty"`
 }
@@ -1149,35 +1074,6 @@ type Deinterlace struct {
 	Parity *DeinterlaceParity `json:"parity,omitempty"`
 }
 
-type EdgePolicies struct {
-	UsageDataCollectionPolicy *EdgeUsageDataCollectionPolicy `json:"usageDataCollectionPolicy,omitempty"`
-}
-
-type EdgeUsageDataCollectionPolicy struct {
-	// Usage data collection frequency in ISO 8601 duration format e.g. PT10M , PT5H.
-	DataCollectionFrequency *string `json:"dataCollectionFrequency,omitempty"`
-
-	// Usage data reporting frequency in ISO 8601 duration format e.g. PT10M , PT5H.
-	DataReportingFrequency *string `json:"dataReportingFrequency,omitempty"`
-
-	// Details of Event Hub where the usage will be reported.
-	EventHubDetails *EdgeUsageDataEventHub `json:"eventHubDetails,omitempty"`
-
-	// Maximum time for which the functionality of the device will not be hampered for not reporting the usage data.
-	MaxAllowedUnreportedUsageDuration *string `json:"maxAllowedUnreportedUsageDuration,omitempty"`
-}
-
-type EdgeUsageDataEventHub struct {
-	// Name of the Event Hub where usage will be reported.
-	Name *string `json:"name,omitempty"`
-
-	// Namespace of the Event Hub where usage will be reported.
-	Namespace *string `json:"namespace,omitempty"`
-
-	// SAS token needed to interact with Event Hub.
-	Token *string `json:"token,omitempty"`
-}
-
 // EnabledProtocols - Class to specify which protocols are enabled
 type EnabledProtocols struct {
 	// REQUIRED; Enable DASH protocol or not
@@ -1191,18 +1087,6 @@ type EnabledProtocols struct {
 
 	// REQUIRED; Enable SmoothStreaming protocol or not
 	SmoothStreaming *bool `json:"smoothStreaming,omitempty"`
-}
-
-// EntityNameAvailabilityCheckOutput - The response from the check name availability request.
-type EntityNameAvailabilityCheckOutput struct {
-	// REQUIRED; Specifies if the name is available.
-	NameAvailable *bool `json:"nameAvailable,omitempty"`
-
-	// Specifies the detailed reason if the name is not available.
-	Message *string `json:"message,omitempty"`
-
-	// Specifies the reason if the name is not available.
-	Reason *string `json:"reason,omitempty"`
 }
 
 // EnvelopeEncryption - Class for EnvelopeEncryption encryption scheme
@@ -2201,21 +2085,6 @@ type JpgLayer struct {
 	Width *string `json:"width,omitempty"`
 }
 
-type KeyDelivery struct {
-	// The access control properties for Key Delivery.
-	AccessControl *AccessControl `json:"accessControl,omitempty"`
-}
-
-type KeyVaultProperties struct {
-	// The URL of the Key Vault key used to encrypt the account. The key may either be versioned (for example https://vault/keys/mykey/version1)
-	// or reference a key without a version (for example
-	// https://vault/keys/mykey).
-	KeyIdentifier *string `json:"keyIdentifier,omitempty"`
-
-	// READ-ONLY; The current key used to encrypt the Media Services account, including the key version.
-	CurrentKeyIdentifier *string `json:"currentKeyIdentifier,omitempty" azure:"ro"`
-}
-
 // Layer - The encoder can be configured to produce video and/or images (thumbnails) at different resolutions, by specifying
 // a layer for each desired resolution. A layer represents the properties for the video
 // or image at a resolution.
@@ -2246,11 +2115,6 @@ type ListContainerSasInput struct {
 type ListContentKeysResponse struct {
 	// ContentKeys used by current Streaming Locator
 	ContentKeys []*StreamingLocatorContentKey `json:"contentKeys,omitempty"`
-}
-
-type ListEdgePoliciesInput struct {
-	// Unique identifier of the edge device.
-	DeviceID *string `json:"deviceId,omitempty"`
 }
 
 // ListPathsResponse - Class of response for listPaths action
@@ -2631,24 +2495,6 @@ type LiveOutputsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LocationsClientCheckNameAvailabilityOptions contains the optional parameters for the LocationsClient.CheckNameAvailability
-// method.
-type LocationsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// LogSpecification - A diagnostic log emitted by service.
-type LogSpecification struct {
-	// READ-ONLY; The time range for requests in each blob.
-	BlobDuration *string `json:"blobDuration,omitempty" azure:"ro"`
-
-	// READ-ONLY; The diagnostic log category display name.
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
-
-	// READ-ONLY; The diagnostic log category name.
-	Name *string `json:"name,omitempty" azure:"ro"`
-}
-
 // MediaFilterProperties - The Media Filter properties.
 type MediaFilterProperties struct {
 	// The first quality.
@@ -2659,138 +2505,6 @@ type MediaFilterProperties struct {
 
 	// The tracks selection conditions.
 	Tracks []*FilterTrackSelection `json:"tracks,omitempty"`
-}
-
-// MediaService - A Media Services account.
-type MediaService struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-
-	// The Managed Identity for the Media Services account.
-	Identity *MediaServiceIdentity `json:"identity,omitempty"`
-
-	// The resource properties.
-	Properties *MediaServiceProperties `json:"properties,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The system metadata relating to this resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// MediaServiceCollection - A collection of MediaService items.
-type MediaServiceCollection struct {
-	// A link to the next page of the collection (when the collection contains too many results to return in one response).
-	ODataNextLink *string `json:"@odata.nextLink,omitempty"`
-
-	// A collection of MediaService items.
-	Value []*MediaService `json:"value,omitempty"`
-}
-
-type MediaServiceIdentity struct {
-	// REQUIRED; The identity type.
-	Type *string `json:"type,omitempty"`
-
-	// The user assigned managed identities.
-	UserAssignedIdentities map[string]*UserAssignedManagedIdentity `json:"userAssignedIdentities,omitempty"`
-
-	// READ-ONLY; The Principal ID of the identity.
-	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The Tenant ID of the identity.
-	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
-}
-
-// MediaServiceProperties - Properties of the Media Services account.
-type MediaServiceProperties struct {
-	// The account encryption properties.
-	Encryption *AccountEncryption `json:"encryption,omitempty"`
-
-	// The Key Delivery properties for Media Services account.
-	KeyDelivery *KeyDelivery `json:"keyDelivery,omitempty"`
-
-	// Whether or not public network access is allowed for resources under the Media Services account.
-	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
-
-	// The storage accounts for this resource.
-	StorageAccounts       []*StorageAccount      `json:"storageAccounts,omitempty"`
-	StorageAuthentication *StorageAuthentication `json:"storageAuthentication,omitempty"`
-
-	// READ-ONLY; The Media Services account ID.
-	MediaServiceID *string `json:"mediaServiceId,omitempty" azure:"ro"`
-}
-
-// MediaServiceUpdate - A Media Services account update.
-type MediaServiceUpdate struct {
-	// The Managed Identity for the Media Services account.
-	Identity *MediaServiceIdentity `json:"identity,omitempty"`
-
-	// The resource properties.
-	Properties *MediaServiceProperties `json:"properties,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-}
-
-// MetricDimension - A metric dimension.
-type MetricDimension struct {
-	// READ-ONLY; The display name for the dimension.
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
-
-	// READ-ONLY; The metric dimension name.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Whether to export metric to shoebox.
-	ToBeExportedForShoebox *bool `json:"toBeExportedForShoebox,omitempty" azure:"ro"`
-}
-
-// MetricSpecification - A metric emitted by service.
-type MetricSpecification struct {
-	// Supported aggregation types.
-	SupportedAggregationTypes []*string `json:"supportedAggregationTypes,omitempty"`
-
-	// READ-ONLY; The metric aggregation type
-	AggregationType *MetricAggregationType `json:"aggregationType,omitempty" azure:"ro"`
-
-	// READ-ONLY; The metric dimensions.
-	Dimensions []*MetricDimension `json:"dimensions,omitempty" azure:"ro"`
-
-	// READ-ONLY; The metric display description.
-	DisplayDescription *string `json:"displayDescription,omitempty" azure:"ro"`
-
-	// READ-ONLY; The metric display name.
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
-
-	// READ-ONLY; Indicates whether regional MDM account is enabled.
-	EnableRegionalMdmAccount *bool `json:"enableRegionalMdmAccount,omitempty" azure:"ro"`
-
-	// READ-ONLY; The metric lock aggregation type
-	LockAggregationType *MetricAggregationType `json:"lockAggregationType,omitempty" azure:"ro"`
-
-	// READ-ONLY; The metric name.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The source MDM account.
-	SourceMdmAccount *string `json:"sourceMdmAccount,omitempty" azure:"ro"`
-
-	// READ-ONLY; The source MDM namespace.
-	SourceMdmNamespace *string `json:"sourceMdmNamespace,omitempty" azure:"ro"`
-
-	// READ-ONLY; The supported time grain types.
-	SupportedTimeGrainTypes []*string `json:"supportedTimeGrainTypes,omitempty" azure:"ro"`
-
-	// READ-ONLY; The metric unit
-	Unit *MetricUnit `json:"unit,omitempty" azure:"ro"`
 }
 
 // Mp4Format - Describes the properties for an output ISO MP4 file.
@@ -2853,48 +2567,6 @@ type NoEncryption struct {
 	EnabledProtocols *EnabledProtocols `json:"enabledProtocols,omitempty"`
 }
 
-// Operation - An operation.
-type Operation struct {
-	// REQUIRED; The operation name.
-	Name *string `json:"name,omitempty"`
-
-	// Indicates the action type.
-	ActionType *ActionType `json:"actionType,omitempty"`
-
-	// The operation display name.
-	Display *OperationDisplay `json:"display,omitempty"`
-
-	// Whether the operation applies to data-plane.
-	IsDataAction *bool `json:"isDataAction,omitempty"`
-
-	// Origin of the operation.
-	Origin *string `json:"origin,omitempty"`
-
-	// Operation properties format.
-	Properties *Properties `json:"properties,omitempty"`
-}
-
-// OperationCollection - A collection of Operation items.
-type OperationCollection struct {
-	// A collection of Operation items.
-	Value []*Operation `json:"value,omitempty"`
-}
-
-// OperationDisplay - Operation details.
-type OperationDisplay struct {
-	// The operation description.
-	Description *string `json:"description,omitempty"`
-
-	// The operation type.
-	Operation *string `json:"operation,omitempty"`
-
-	// The service provider.
-	Provider *string `json:"provider,omitempty"`
-
-	// Resource on which the operation is performed.
-	Resource *string `json:"resource,omitempty"`
-}
-
 // OperationResultsClientGetOptions contains the optional parameters for the OperationResultsClient.Get method.
 type OperationResultsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -2902,11 +2574,6 @@ type OperationResultsClientGetOptions struct {
 
 // OperationStatusesClientGetOptions contains the optional parameters for the OperationStatusesClient.Get method.
 type OperationStatusesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
-type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3117,131 +2784,6 @@ type PresetConfigurations struct {
 	MinHeight *int32 `json:"minHeight,omitempty"`
 }
 
-// PrivateEndpoint - The Private Endpoint resource.
-type PrivateEndpoint struct {
-	// READ-ONLY; The ARM identifier for Private Endpoint
-	ID *string `json:"id,omitempty" azure:"ro"`
-}
-
-// PrivateEndpointConnection - The Private Endpoint Connection resource.
-type PrivateEndpointConnection struct {
-	// Resource properties.
-	Properties *PrivateEndpointConnectionProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// PrivateEndpointConnectionListResult - List of private endpoint connection associated with the specified storage account
-type PrivateEndpointConnectionListResult struct {
-	// Array of private endpoint connections
-	Value []*PrivateEndpointConnection `json:"value,omitempty"`
-}
-
-// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
-type PrivateEndpointConnectionProperties struct {
-	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
-	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
-
-	// The resource of private end point.
-	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
-
-	// READ-ONLY; The provisioning state of the private endpoint connection resource.
-	ProvisioningState *PrivateEndpointConnectionProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// PrivateEndpointConnectionsClientCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.CreateOrUpdate
-// method.
-type PrivateEndpointConnectionsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
-// method.
-type PrivateEndpointConnectionsClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
-// method.
-type PrivateEndpointConnectionsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
-// method.
-type PrivateEndpointConnectionsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateLinkResource - A private link resource
-type PrivateLinkResource struct {
-	// Resource properties.
-	Properties *PrivateLinkResourceProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// PrivateLinkResourceListResult - A list of private link resources
-type PrivateLinkResourceListResult struct {
-	// Array of private link resources
-	Value []*PrivateLinkResource `json:"value,omitempty"`
-}
-
-// PrivateLinkResourceProperties - Properties of a private link resource.
-type PrivateLinkResourceProperties struct {
-	// The private link resource Private link DNS zone name.
-	RequiredZoneNames []*string `json:"requiredZoneNames,omitempty"`
-
-	// READ-ONLY; The private link resource group id.
-	GroupID *string `json:"groupId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The private link resource required member names.
-	RequiredMembers []*string `json:"requiredMembers,omitempty" azure:"ro"`
-}
-
-// PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get method.
-type PrivateLinkResourcesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.List method.
-type PrivateLinkResourcesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer
-// and provider.
-type PrivateLinkServiceConnectionState struct {
-	// A message indicating if changes on the service provider require any updates on the consumer.
-	ActionsRequired *string `json:"actionsRequired,omitempty"`
-
-	// The reason for approval/rejection of the connection.
-	Description *string `json:"description,omitempty"`
-
-	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
-	Status *PrivateEndpointServiceConnectionStatus `json:"status,omitempty"`
-}
-
-// Properties - The service specification property.
-type Properties struct {
-	// READ-ONLY; The service specifications.
-	ServiceSpecification *ServiceSpecification `json:"serviceSpecification,omitempty" azure:"ro"`
-}
-
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -3284,14 +2826,6 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-type ResourceIdentity struct {
-	// REQUIRED; Indicates whether to use System Assigned Managed Identity. Mutual exclusive with User Assigned Managed Identity.
-	UseSystemAssignedIdentity *bool `json:"useSystemAssignedIdentity,omitempty"`
-
-	// The user assigned managed identity's ARM ID to use when accessing a resource.
-	UserAssignedIdentity *string `json:"userAssignedIdentity,omitempty"`
 }
 
 // SelectAudioTrackByAttribute - Select audio tracks from the input by specifying an attribute and an attribute filter.
@@ -3352,15 +2886,6 @@ type SelectVideoTrackByID struct {
 	TrackID *int64 `json:"trackId,omitempty"`
 }
 
-// ServiceSpecification - The service metric specifications.
-type ServiceSpecification struct {
-	// READ-ONLY; List of log specifications.
-	LogSpecifications []*LogSpecification `json:"logSpecifications,omitempty" azure:"ro"`
-
-	// READ-ONLY; List of metric specifications.
-	MetricSpecifications []*MetricSpecification `json:"metricSpecifications,omitempty" azure:"ro"`
-}
-
 // StandardEncoderPreset - Describes all the settings to be used when encoding the input video with the Standard Encoder.
 type StandardEncoderPreset struct {
 	// REQUIRED; The list of codecs to be used when encoding the input video.
@@ -3374,23 +2899,6 @@ type StandardEncoderPreset struct {
 
 	// One or more filtering operations that are applied to the input media before encoding.
 	Filters *Filters `json:"filters,omitempty"`
-}
-
-// StorageAccount - The storage account details.
-type StorageAccount struct {
-	// REQUIRED; The type of the storage account.
-	Type *StorageAccountType `json:"type,omitempty"`
-
-	// The ID of the storage account resource. Media Services relies on tables and queues as well as blobs, so the primary storage
-	// account must be a Standard Storage account (either Microsoft.ClassicStorage
-	// or Microsoft.Storage). Blob only storage accounts can be added as secondary storage accounts.
-	ID *string `json:"id,omitempty"`
-
-	// The storage account identity.
-	Identity *ResourceIdentity `json:"identity,omitempty"`
-
-	// READ-ONLY; The current status of the storage account mapping.
-	Status *string `json:"status,omitempty" azure:"ro"`
 }
 
 // StorageEncryptedAssetDecryptionData - Data needed to decrypt asset files encrypted with legacy storage encryption.
@@ -3838,12 +3346,6 @@ type StreamingPolicyWidevineConfiguration struct {
 	CustomLicenseAcquisitionURLTemplate *string `json:"customLicenseAcquisitionUrlTemplate,omitempty"`
 }
 
-// SyncStorageKeysInput - The input to the sync storage keys request.
-type SyncStorageKeysInput struct {
-	// The ID of the storage account resource.
-	ID *string `json:"id,omitempty"`
-}
-
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -4111,14 +3613,6 @@ type UTCClipTime struct {
 
 	// REQUIRED; The time position on the timeline of the input media based on Utc time.
 	Time *time.Time `json:"time,omitempty"`
-}
-
-type UserAssignedManagedIdentity struct {
-	// READ-ONLY; The client ID.
-	ClientID *string `json:"clientId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The principal ID.
-	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
 }
 
 // VideoClassification provides polymorphic access to related types.
