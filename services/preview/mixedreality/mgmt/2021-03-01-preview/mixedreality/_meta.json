@@ -1,5 +1,5 @@
 {
-  "commit": "92ab22b49bd085116af0c61fada2c6c360702e9e",
+  "commit": "5d11d1154ee96a9233a38d6bf0013b97f172c806",
   "readme": "/_/azure-rest-api-specs/specification/mixedreality/resource-manager/readme.md",
   "tag": "package-2021-03-01-preview",
   "use": "@microsoft.azure/autorest.go@2.1.187",
