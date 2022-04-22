@@ -76,3 +76,11 @@ type ReportsClientAPI interface {
 }
 
 var _ ReportsClientAPI = (*automanage.ReportsClient)(nil)
+
+// ServicePrincipalsClientAPI contains the set of methods on the ServicePrincipalsClient type.
+type ServicePrincipalsClientAPI interface {
+	Get(ctx context.Context) (result automanage.ServicePrincipal, err error)
+	ListBySubscription(ctx context.Context) (result automanage.ServicePrincipalListResult, err error)
+}
+
+var _ ServicePrincipalsClientAPI = (*automanage.ServicePrincipalsClient)(nil)

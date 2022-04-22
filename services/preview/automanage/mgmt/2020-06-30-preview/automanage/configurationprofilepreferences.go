@@ -53,8 +53,7 @@ func (client ConfigurationProfilePreferencesClient) CreateOrUpdate(ctx context.C
 			Constraints: []validation.Constraint{{Target: "client.SubscriptionID", Name: validation.MinLength, Rule: 1, Chain: nil}}},
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}}}); err != nil {
+				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
 		return result, validation.NewError("automanage.ConfigurationProfilePreferencesClient", "CreateOrUpdate", err.Error())
 	}
 
@@ -139,8 +138,7 @@ func (client ConfigurationProfilePreferencesClient) Delete(ctx context.Context, 
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}},
+				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil}}},
 		{TargetValue: client.SubscriptionID,
 			Constraints: []validation.Constraint{{Target: "client.SubscriptionID", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
 		return result, validation.NewError("automanage.ConfigurationProfilePreferencesClient", "Delete", err.Error())
@@ -226,8 +224,7 @@ func (client ConfigurationProfilePreferencesClient) Get(ctx context.Context, con
 			Constraints: []validation.Constraint{{Target: "client.SubscriptionID", Name: validation.MinLength, Rule: 1, Chain: nil}}},
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}}}); err != nil {
+				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
 		return result, validation.NewError("automanage.ConfigurationProfilePreferencesClient", "Get", err.Error())
 	}
 
@@ -311,8 +308,7 @@ func (client ConfigurationProfilePreferencesClient) ListByResourceGroup(ctx cont
 			Constraints: []validation.Constraint{{Target: "client.SubscriptionID", Name: validation.MinLength, Rule: 1, Chain: nil}}},
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}}}); err != nil {
+				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
 		return result, validation.NewError("automanage.ConfigurationProfilePreferencesClient", "ListByResourceGroup", err.Error())
 	}
 
@@ -444,95 +440,6 @@ func (client ConfigurationProfilePreferencesClient) ListBySubscriptionSender(req
 // ListBySubscriptionResponder handles the response to the ListBySubscription request. The method always
 // closes the http.Response Body.
 func (client ConfigurationProfilePreferencesClient) ListBySubscriptionResponder(resp *http.Response) (result ConfigurationProfilePreferenceList, err error) {
-	err = autorest.Respond(
-		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
-		autorest.ByUnmarshallingJSON(&result),
-		autorest.ByClosing())
-	result.Response = autorest.Response{Response: resp}
-	return
-}
-
-// Update updates a configuration profile preference
-// Parameters:
-// configurationProfilePreferenceName - name of the configuration profile preference.
-// resourceGroupName - the name of the resource group. The name is case insensitive.
-// parameters - parameters supplied to create or update configuration profile preference.
-func (client ConfigurationProfilePreferencesClient) Update(ctx context.Context, configurationProfilePreferenceName string, resourceGroupName string, parameters ConfigurationProfilePreferenceUpdate) (result ConfigurationProfilePreference, err error) {
-	if tracing.IsEnabled() {
-		ctx = tracing.StartSpan(ctx, fqdn+"/ConfigurationProfilePreferencesClient.Update")
-		defer func() {
-			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
-			}
-			tracing.EndSpan(ctx, sc, err)
-		}()
-	}
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: client.SubscriptionID,
-			Constraints: []validation.Constraint{{Target: "client.SubscriptionID", Name: validation.MinLength, Rule: 1, Chain: nil}}},
-		{TargetValue: resourceGroupName,
-			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}}}); err != nil {
-		return result, validation.NewError("automanage.ConfigurationProfilePreferencesClient", "Update", err.Error())
-	}
-
-	req, err := client.UpdatePreparer(ctx, configurationProfilePreferenceName, resourceGroupName, parameters)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "automanage.ConfigurationProfilePreferencesClient", "Update", nil, "Failure preparing request")
-		return
-	}
-
-	resp, err := client.UpdateSender(req)
-	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "automanage.ConfigurationProfilePreferencesClient", "Update", resp, "Failure sending request")
-		return
-	}
-
-	result, err = client.UpdateResponder(resp)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "automanage.ConfigurationProfilePreferencesClient", "Update", resp, "Failure responding to request")
-		return
-	}
-
-	return
-}
-
-// UpdatePreparer prepares the Update request.
-func (client ConfigurationProfilePreferencesClient) UpdatePreparer(ctx context.Context, configurationProfilePreferenceName string, resourceGroupName string, parameters ConfigurationProfilePreferenceUpdate) (*http.Request, error) {
-	pathParameters := map[string]interface{}{
-		"configurationProfilePreferenceName": autorest.Encode("path", configurationProfilePreferenceName),
-		"resourceGroupName":                  autorest.Encode("path", resourceGroupName),
-		"subscriptionId":                     autorest.Encode("path", client.SubscriptionID),
-	}
-
-	const APIVersion = "2020-06-30-preview"
-	queryParameters := map[string]interface{}{
-		"api-version": APIVersion,
-	}
-
-	preparer := autorest.CreatePreparer(
-		autorest.AsContentType("application/json; charset=utf-8"),
-		autorest.AsPatch(),
-		autorest.WithBaseURL(client.BaseURI),
-		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automanage/configurationProfilePreferences/{configurationProfilePreferenceName}", pathParameters),
-		autorest.WithJSON(parameters),
-		autorest.WithQueryParameters(queryParameters))
-	return preparer.Prepare((&http.Request{}).WithContext(ctx))
-}
-
-// UpdateSender sends the Update request. The method will close the
-// http.Response Body if it receives an error.
-func (client ConfigurationProfilePreferencesClient) UpdateSender(req *http.Request) (*http.Response, error) {
-	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
-}
-
-// UpdateResponder handles the response to the Update request. The method always
-// closes the http.Response Body.
-func (client ConfigurationProfilePreferencesClient) UpdateResponder(resp *http.Response) (result ConfigurationProfilePreference, err error) {
 	err = autorest.Respond(
 		resp,
 		azure.WithErrorUnlessStatusCode(http.StatusOK),

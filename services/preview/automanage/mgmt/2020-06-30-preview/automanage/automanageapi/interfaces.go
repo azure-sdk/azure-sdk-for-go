@@ -19,7 +19,6 @@ type AccountsClientAPI interface {
 	Get(ctx context.Context, accountName string, resourceGroupName string) (result automanage.Account, err error)
 	ListByResourceGroup(ctx context.Context, resourceGroupName string) (result automanage.AccountList, err error)
 	ListBySubscription(ctx context.Context) (result automanage.AccountList, err error)
-	Update(ctx context.Context, accountName string, resourceGroupName string, parameters automanage.AccountUpdate) (result automanage.Account, err error)
 }
 
 var _ AccountsClientAPI = (*automanage.AccountsClient)(nil)
@@ -42,7 +41,6 @@ type ConfigurationProfilePreferencesClientAPI interface {
 	Get(ctx context.Context, configurationProfilePreferenceName string, resourceGroupName string) (result automanage.ConfigurationProfilePreference, err error)
 	ListByResourceGroup(ctx context.Context, resourceGroupName string) (result automanage.ConfigurationProfilePreferenceList, err error)
 	ListBySubscription(ctx context.Context) (result automanage.ConfigurationProfilePreferenceList, err error)
-	Update(ctx context.Context, configurationProfilePreferenceName string, resourceGroupName string, parameters automanage.ConfigurationProfilePreferenceUpdate) (result automanage.ConfigurationProfilePreference, err error)
 }
 
 var _ ConfigurationProfilePreferencesClientAPI = (*automanage.ConfigurationProfilePreferencesClient)(nil)
