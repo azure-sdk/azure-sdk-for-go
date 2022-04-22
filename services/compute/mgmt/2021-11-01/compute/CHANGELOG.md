@@ -1,69 +1,67 @@
-# Change History
-
-## Breaking Changes
-
-### Signature Changes
-
-#### Funcs
-
-1. GalleriesClient.Get
-	- Params
-		- From: context.Context, string, string, SelectPermissions
-		- To: context.Context, string, string, SelectPermissions, GalleryExpandParams
-1. GalleriesClient.GetPreparer
-	- Params
-		- From: context.Context, string, string, SelectPermissions
-		- To: context.Context, string, string, SelectPermissions, GalleryExpandParams
+# Unreleased
 
 ## Additive Changes
 
-### New Constants
-
-1. Architecture.ArchitectureArm64
-1. Architecture.ArchitectureX64
-1. ArchitectureTypes.ArchitectureTypesArm64
-1. ArchitectureTypes.ArchitectureTypesX64
-1. ConfidentialVMEncryptionType.ConfidentialVMEncryptionTypeEncryptedVMGuestStateOnlyWithPmk
-1. ConfidentialVMEncryptionType.ConfidentialVMEncryptionTypeEncryptedWithCmk
-1. ConfidentialVMEncryptionType.ConfidentialVMEncryptionTypeEncryptedWithPmk
-1. GalleryExpandParams.GalleryExpandParamsSharingProfileGroups
-1. GalleryExtendedLocationType.GalleryExtendedLocationTypeEdgeZone
-1. GalleryExtendedLocationType.GalleryExtendedLocationTypeUnknown
-1. SharingProfileGroupTypes.SharingProfileGroupTypesCommunity
-1. SharingState.SharingStateFailed
-1. SharingState.SharingStateInProgress
-1. SharingState.SharingStateSucceeded
-1. SharingState.SharingStateUnknown
-1. SharingUpdateOperationTypes.SharingUpdateOperationTypesEnableCommunity
-
 ### New Funcs
 
-1. CommunityGalleryInfo.MarshalJSON() ([]byte, error)
-1. PossibleArchitectureTypesValues() []ArchitectureTypes
-1. PossibleArchitectureValues() []Architecture
-1. PossibleConfidentialVMEncryptionTypeValues() []ConfidentialVMEncryptionType
-1. PossibleGalleryExpandParamsValues() []GalleryExpandParams
-1. PossibleGalleryExtendedLocationTypeValues() []GalleryExtendedLocationType
-1. PossibleSharingStateValues() []SharingState
+1. *CommunityGalleryImageListIterator.Next() error
+1. *CommunityGalleryImageListIterator.NextWithContext(context.Context) error
+1. *CommunityGalleryImageListPage.Next() error
+1. *CommunityGalleryImageListPage.NextWithContext(context.Context) error
+1. *CommunityGalleryImageVersionListIterator.Next() error
+1. *CommunityGalleryImageVersionListIterator.NextWithContext(context.Context) error
+1. *CommunityGalleryImageVersionListPage.Next() error
+1. *CommunityGalleryImageVersionListPage.NextWithContext(context.Context) error
+1. CommunityGalleryDataDiskImage.MarshalJSON() ([]byte, error)
+1. CommunityGalleryDiskImage.MarshalJSON() ([]byte, error)
+1. CommunityGalleryImageList.IsEmpty() bool
+1. CommunityGalleryImageListIterator.NotDone() bool
+1. CommunityGalleryImageListIterator.Response() CommunityGalleryImageList
+1. CommunityGalleryImageListIterator.Value() CommunityGalleryImage
+1. CommunityGalleryImageListPage.NotDone() bool
+1. CommunityGalleryImageListPage.Response() CommunityGalleryImageList
+1. CommunityGalleryImageListPage.Values() []CommunityGalleryImage
+1. CommunityGalleryImageVersionList.IsEmpty() bool
+1. CommunityGalleryImageVersionListIterator.NotDone() bool
+1. CommunityGalleryImageVersionListIterator.Response() CommunityGalleryImageVersionList
+1. CommunityGalleryImageVersionListIterator.Value() CommunityGalleryImageVersion
+1. CommunityGalleryImageVersionListPage.NotDone() bool
+1. CommunityGalleryImageVersionListPage.Response() CommunityGalleryImageVersionList
+1. CommunityGalleryImageVersionListPage.Values() []CommunityGalleryImageVersion
+1. CommunityGalleryImageVersionsClient.List(context.Context, string, string, string) (CommunityGalleryImageVersionListPage, error)
+1. CommunityGalleryImageVersionsClient.ListComplete(context.Context, string, string, string) (CommunityGalleryImageVersionListIterator, error)
+1. CommunityGalleryImageVersionsClient.ListPreparer(context.Context, string, string, string) (*http.Request, error)
+1. CommunityGalleryImageVersionsClient.ListResponder(*http.Response) (CommunityGalleryImageVersionList, error)
+1. CommunityGalleryImageVersionsClient.ListSender(*http.Request) (*http.Response, error)
+1. CommunityGalleryImagesClient.List(context.Context, string, string) (CommunityGalleryImageListPage, error)
+1. CommunityGalleryImagesClient.ListComplete(context.Context, string, string) (CommunityGalleryImageListIterator, error)
+1. CommunityGalleryImagesClient.ListPreparer(context.Context, string, string) (*http.Request, error)
+1. CommunityGalleryImagesClient.ListResponder(*http.Response) (CommunityGalleryImageList, error)
+1. CommunityGalleryImagesClient.ListSender(*http.Request) (*http.Response, error)
+1. CommunityGalleryOSDiskImage.MarshalJSON() ([]byte, error)
+1. NewCommunityGalleryImageListIterator(CommunityGalleryImageListPage) CommunityGalleryImageListIterator
+1. NewCommunityGalleryImageListPage(CommunityGalleryImageList, func(context.Context, CommunityGalleryImageList) (CommunityGalleryImageList, error)) CommunityGalleryImageListPage
+1. NewCommunityGalleryImageVersionListIterator(CommunityGalleryImageVersionListPage) CommunityGalleryImageVersionListIterator
+1. NewCommunityGalleryImageVersionListPage(CommunityGalleryImageVersionList, func(context.Context, CommunityGalleryImageVersionList) (CommunityGalleryImageVersionList, error)) CommunityGalleryImageVersionListPage
 
 ### Struct Changes
 
 #### New Structs
 
-1. CommunityGalleryInfo
-1. GalleryExtendedLocation
-1. GalleryTargetExtendedLocation
-1. OSDiskImageSecurityProfile
-1. RegionalSharingStatus
-1. SharingStatus
+1. CommunityGalleryDataDiskImage
+1. CommunityGalleryDiskImage
+1. CommunityGalleryImageList
+1. CommunityGalleryImageListIterator
+1. CommunityGalleryImageListPage
+1. CommunityGalleryImageVersionList
+1. CommunityGalleryImageVersionListIterator
+1. CommunityGalleryImageVersionListPage
+1. CommunityGalleryImageVersionStorageProfile
+1. CommunityGalleryOSDiskImage
 
 #### New Struct Fields
 
-1. GalleryApplicationVersionPublishingProfile.TargetExtendedLocations
-1. GalleryArtifactPublishingProfileBase.TargetExtendedLocations
-1. GalleryImageProperties.Architecture
-1. GalleryImageVersionPublishingProfile.TargetExtendedLocations
-1. GalleryProperties.SharingStatus
-1. OSDiskImageEncryption.SecurityProfile
-1. SharingProfile.CommunityGalleryInfo
-1. VirtualMachineImageProperties.Architecture
+1. CommunityGalleryImageProperties.Eula
+1. CommunityGalleryImageProperties.PrivacyStatementURI
+1. CommunityGalleryImageVersionProperties.ExcludeFromLatest
+1. CommunityGalleryImageVersionProperties.StorageProfile

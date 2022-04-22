@@ -2682,6 +2682,45 @@ func (cg *CommunityGallery) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
+// CommunityGalleryDataDiskImage this is the data disk image.
+type CommunityGalleryDataDiskImage struct {
+	// Lun - This property specifies the logical unit number of the data disk. This value is used to identify data disks within the Virtual Machine and therefore must be unique for each data disk attached to the Virtual Machine.
+	Lun *int32 `json:"lun,omitempty"`
+	// SizeInGB - READ-ONLY; This property indicates the size of the VHD to be created.
+	SizeInGB *int32 `json:"sizeInGB,omitempty"`
+	// HostCaching - The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'. Possible values include: 'HostCachingNone', 'HostCachingReadOnly', 'HostCachingReadWrite'
+	HostCaching HostCaching `json:"hostCaching,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for CommunityGalleryDataDiskImage.
+func (cgddi CommunityGalleryDataDiskImage) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if cgddi.Lun != nil {
+		objectMap["lun"] = cgddi.Lun
+	}
+	if cgddi.HostCaching != "" {
+		objectMap["hostCaching"] = cgddi.HostCaching
+	}
+	return json.Marshal(objectMap)
+}
+
+// CommunityGalleryDiskImage this is the disk image base class.
+type CommunityGalleryDiskImage struct {
+	// SizeInGB - READ-ONLY; This property indicates the size of the VHD to be created.
+	SizeInGB *int32 `json:"sizeInGB,omitempty"`
+	// HostCaching - The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'. Possible values include: 'HostCachingNone', 'HostCachingReadOnly', 'HostCachingReadWrite'
+	HostCaching HostCaching `json:"hostCaching,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for CommunityGalleryDiskImage.
+func (cgdi CommunityGalleryDiskImage) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if cgdi.HostCaching != "" {
+		objectMap["hostCaching"] = cgdi.HostCaching
+	}
+	return json.Marshal(objectMap)
+}
+
 // CommunityGalleryIdentifier the identifier information of community gallery.
 type CommunityGalleryIdentifier struct {
 	// UniqueID - The unique id of this community gallery.
@@ -2774,6 +2813,165 @@ func (cgiVar *CommunityGalleryImage) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
+// CommunityGalleryImageList the List Community Gallery Images operation response.
+type CommunityGalleryImageList struct {
+	autorest.Response `json:"-"`
+	// Value - A list of community gallery images.
+	Value *[]CommunityGalleryImage `json:"value,omitempty"`
+	// NextLink - The uri to fetch the next page of community gallery images. Call ListNext() with this to fetch the next page of community gallery images.
+	NextLink *string `json:"nextLink,omitempty"`
+}
+
+// CommunityGalleryImageListIterator provides access to a complete listing of CommunityGalleryImage values.
+type CommunityGalleryImageListIterator struct {
+	i    int
+	page CommunityGalleryImageListPage
+}
+
+// NextWithContext advances to the next value.  If there was an error making
+// the request the iterator does not advance and the error is returned.
+func (iter *CommunityGalleryImageListIterator) NextWithContext(ctx context.Context) (err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/CommunityGalleryImageListIterator.NextWithContext")
+		defer func() {
+			sc := -1
+			if iter.Response().Response.Response != nil {
+				sc = iter.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	iter.i++
+	if iter.i < len(iter.page.Values()) {
+		return nil
+	}
+	err = iter.page.NextWithContext(ctx)
+	if err != nil {
+		iter.i--
+		return err
+	}
+	iter.i = 0
+	return nil
+}
+
+// Next advances to the next value.  If there was an error making
+// the request the iterator does not advance and the error is returned.
+// Deprecated: Use NextWithContext() instead.
+func (iter *CommunityGalleryImageListIterator) Next() error {
+	return iter.NextWithContext(context.Background())
+}
+
+// NotDone returns true if the enumeration should be started or is not yet complete.
+func (iter CommunityGalleryImageListIterator) NotDone() bool {
+	return iter.page.NotDone() && iter.i < len(iter.page.Values())
+}
+
+// Response returns the raw server response from the last page request.
+func (iter CommunityGalleryImageListIterator) Response() CommunityGalleryImageList {
+	return iter.page.Response()
+}
+
+// Value returns the current value or a zero-initialized value if the
+// iterator has advanced beyond the end of the collection.
+func (iter CommunityGalleryImageListIterator) Value() CommunityGalleryImage {
+	if !iter.page.NotDone() {
+		return CommunityGalleryImage{}
+	}
+	return iter.page.Values()[iter.i]
+}
+
+// Creates a new instance of the CommunityGalleryImageListIterator type.
+func NewCommunityGalleryImageListIterator(page CommunityGalleryImageListPage) CommunityGalleryImageListIterator {
+	return CommunityGalleryImageListIterator{page: page}
+}
+
+// IsEmpty returns true if the ListResult contains no values.
+func (cgil CommunityGalleryImageList) IsEmpty() bool {
+	return cgil.Value == nil || len(*cgil.Value) == 0
+}
+
+// hasNextLink returns true if the NextLink is not empty.
+func (cgil CommunityGalleryImageList) hasNextLink() bool {
+	return cgil.NextLink != nil && len(*cgil.NextLink) != 0
+}
+
+// communityGalleryImageListPreparer prepares a request to retrieve the next set of results.
+// It returns nil if no more results exist.
+func (cgil CommunityGalleryImageList) communityGalleryImageListPreparer(ctx context.Context) (*http.Request, error) {
+	if !cgil.hasNextLink() {
+		return nil, nil
+	}
+	return autorest.Prepare((&http.Request{}).WithContext(ctx),
+		autorest.AsJSON(),
+		autorest.AsGet(),
+		autorest.WithBaseURL(to.String(cgil.NextLink)))
+}
+
+// CommunityGalleryImageListPage contains a page of CommunityGalleryImage values.
+type CommunityGalleryImageListPage struct {
+	fn   func(context.Context, CommunityGalleryImageList) (CommunityGalleryImageList, error)
+	cgil CommunityGalleryImageList
+}
+
+// NextWithContext advances to the next page of values.  If there was an error making
+// the request the page does not advance and the error is returned.
+func (page *CommunityGalleryImageListPage) NextWithContext(ctx context.Context) (err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/CommunityGalleryImageListPage.NextWithContext")
+		defer func() {
+			sc := -1
+			if page.Response().Response.Response != nil {
+				sc = page.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	for {
+		next, err := page.fn(ctx, page.cgil)
+		if err != nil {
+			return err
+		}
+		page.cgil = next
+		if !next.hasNextLink() || !next.IsEmpty() {
+			break
+		}
+	}
+	return nil
+}
+
+// Next advances to the next page of values.  If there was an error making
+// the request the page does not advance and the error is returned.
+// Deprecated: Use NextWithContext() instead.
+func (page *CommunityGalleryImageListPage) Next() error {
+	return page.NextWithContext(context.Background())
+}
+
+// NotDone returns true if the page enumeration should be started or is not yet complete.
+func (page CommunityGalleryImageListPage) NotDone() bool {
+	return !page.cgil.IsEmpty()
+}
+
+// Response returns the raw server response from the last page request.
+func (page CommunityGalleryImageListPage) Response() CommunityGalleryImageList {
+	return page.cgil
+}
+
+// Values returns the slice of values for the current page or nil if there are no values.
+func (page CommunityGalleryImageListPage) Values() []CommunityGalleryImage {
+	if page.cgil.IsEmpty() {
+		return nil
+	}
+	return *page.cgil.Value
+}
+
+// Creates a new instance of the CommunityGalleryImageListPage type.
+func NewCommunityGalleryImageListPage(cur CommunityGalleryImageList, getNextPage func(context.Context, CommunityGalleryImageList) (CommunityGalleryImageList, error)) CommunityGalleryImageListPage {
+	return CommunityGalleryImageListPage{
+		fn:   getNextPage,
+		cgil: cur,
+	}
+}
+
 // CommunityGalleryImageProperties describes the properties of a gallery image definition.
 type CommunityGalleryImageProperties struct {
 	// OsType - This property allows you to specify the type of the OS that is included in the disk when creating a VM from a managed image. <br><br> Possible values are: <br><br> **Windows** <br><br> **Linux**. Possible values include: 'OperatingSystemTypesWindows', 'OperatingSystemTypesLinux'
@@ -2790,6 +2988,10 @@ type CommunityGalleryImageProperties struct {
 	// Features - A list of gallery image features.
 	Features     *[]GalleryImageFeature `json:"features,omitempty"`
 	PurchasePlan *ImagePurchasePlan     `json:"purchasePlan,omitempty"`
+	// PrivacyStatementURI - The uri to describe the privacy statement issued from community gallery publisher.
+	PrivacyStatementURI *string `json:"privacyStatementUri,omitempty"`
+	// Eula - The uri to describe the eula issued from community gallery publisher.
+	Eula *string `json:"eula,omitempty"`
 }
 
 // CommunityGalleryImageVersion specifies information about the gallery image version that you want to
@@ -2878,12 +3080,233 @@ func (cgiv *CommunityGalleryImageVersion) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
+// CommunityGalleryImageVersionList the List Community Gallery Image versions operation response.
+type CommunityGalleryImageVersionList struct {
+	autorest.Response `json:"-"`
+	// Value - A list of community gallery image versions.
+	Value *[]CommunityGalleryImageVersion `json:"value,omitempty"`
+	// NextLink - The uri to fetch the next page of community gallery image versions. Call ListNext() with this to fetch the next page of community gallery image versions.
+	NextLink *string `json:"nextLink,omitempty"`
+}
+
+// CommunityGalleryImageVersionListIterator provides access to a complete listing of
+// CommunityGalleryImageVersion values.
+type CommunityGalleryImageVersionListIterator struct {
+	i    int
+	page CommunityGalleryImageVersionListPage
+}
+
+// NextWithContext advances to the next value.  If there was an error making
+// the request the iterator does not advance and the error is returned.
+func (iter *CommunityGalleryImageVersionListIterator) NextWithContext(ctx context.Context) (err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/CommunityGalleryImageVersionListIterator.NextWithContext")
+		defer func() {
+			sc := -1
+			if iter.Response().Response.Response != nil {
+				sc = iter.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	iter.i++
+	if iter.i < len(iter.page.Values()) {
+		return nil
+	}
+	err = iter.page.NextWithContext(ctx)
+	if err != nil {
+		iter.i--
+		return err
+	}
+	iter.i = 0
+	return nil
+}
+
+// Next advances to the next value.  If there was an error making
+// the request the iterator does not advance and the error is returned.
+// Deprecated: Use NextWithContext() instead.
+func (iter *CommunityGalleryImageVersionListIterator) Next() error {
+	return iter.NextWithContext(context.Background())
+}
+
+// NotDone returns true if the enumeration should be started or is not yet complete.
+func (iter CommunityGalleryImageVersionListIterator) NotDone() bool {
+	return iter.page.NotDone() && iter.i < len(iter.page.Values())
+}
+
+// Response returns the raw server response from the last page request.
+func (iter CommunityGalleryImageVersionListIterator) Response() CommunityGalleryImageVersionList {
+	return iter.page.Response()
+}
+
+// Value returns the current value or a zero-initialized value if the
+// iterator has advanced beyond the end of the collection.
+func (iter CommunityGalleryImageVersionListIterator) Value() CommunityGalleryImageVersion {
+	if !iter.page.NotDone() {
+		return CommunityGalleryImageVersion{}
+	}
+	return iter.page.Values()[iter.i]
+}
+
+// Creates a new instance of the CommunityGalleryImageVersionListIterator type.
+func NewCommunityGalleryImageVersionListIterator(page CommunityGalleryImageVersionListPage) CommunityGalleryImageVersionListIterator {
+	return CommunityGalleryImageVersionListIterator{page: page}
+}
+
+// IsEmpty returns true if the ListResult contains no values.
+func (cgivl CommunityGalleryImageVersionList) IsEmpty() bool {
+	return cgivl.Value == nil || len(*cgivl.Value) == 0
+}
+
+// hasNextLink returns true if the NextLink is not empty.
+func (cgivl CommunityGalleryImageVersionList) hasNextLink() bool {
+	return cgivl.NextLink != nil && len(*cgivl.NextLink) != 0
+}
+
+// communityGalleryImageVersionListPreparer prepares a request to retrieve the next set of results.
+// It returns nil if no more results exist.
+func (cgivl CommunityGalleryImageVersionList) communityGalleryImageVersionListPreparer(ctx context.Context) (*http.Request, error) {
+	if !cgivl.hasNextLink() {
+		return nil, nil
+	}
+	return autorest.Prepare((&http.Request{}).WithContext(ctx),
+		autorest.AsJSON(),
+		autorest.AsGet(),
+		autorest.WithBaseURL(to.String(cgivl.NextLink)))
+}
+
+// CommunityGalleryImageVersionListPage contains a page of CommunityGalleryImageVersion values.
+type CommunityGalleryImageVersionListPage struct {
+	fn    func(context.Context, CommunityGalleryImageVersionList) (CommunityGalleryImageVersionList, error)
+	cgivl CommunityGalleryImageVersionList
+}
+
+// NextWithContext advances to the next page of values.  If there was an error making
+// the request the page does not advance and the error is returned.
+func (page *CommunityGalleryImageVersionListPage) NextWithContext(ctx context.Context) (err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/CommunityGalleryImageVersionListPage.NextWithContext")
+		defer func() {
+			sc := -1
+			if page.Response().Response.Response != nil {
+				sc = page.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	for {
+		next, err := page.fn(ctx, page.cgivl)
+		if err != nil {
+			return err
+		}
+		page.cgivl = next
+		if !next.hasNextLink() || !next.IsEmpty() {
+			break
+		}
+	}
+	return nil
+}
+
+// Next advances to the next page of values.  If there was an error making
+// the request the page does not advance and the error is returned.
+// Deprecated: Use NextWithContext() instead.
+func (page *CommunityGalleryImageVersionListPage) Next() error {
+	return page.NextWithContext(context.Background())
+}
+
+// NotDone returns true if the page enumeration should be started or is not yet complete.
+func (page CommunityGalleryImageVersionListPage) NotDone() bool {
+	return !page.cgivl.IsEmpty()
+}
+
+// Response returns the raw server response from the last page request.
+func (page CommunityGalleryImageVersionListPage) Response() CommunityGalleryImageVersionList {
+	return page.cgivl
+}
+
+// Values returns the slice of values for the current page or nil if there are no values.
+func (page CommunityGalleryImageVersionListPage) Values() []CommunityGalleryImageVersion {
+	if page.cgivl.IsEmpty() {
+		return nil
+	}
+	return *page.cgivl.Value
+}
+
+// Creates a new instance of the CommunityGalleryImageVersionListPage type.
+func NewCommunityGalleryImageVersionListPage(cur CommunityGalleryImageVersionList, getNextPage func(context.Context, CommunityGalleryImageVersionList) (CommunityGalleryImageVersionList, error)) CommunityGalleryImageVersionListPage {
+	return CommunityGalleryImageVersionListPage{
+		fn:    getNextPage,
+		cgivl: cur,
+	}
+}
+
 // CommunityGalleryImageVersionProperties describes the properties of a gallery image version.
 type CommunityGalleryImageVersionProperties struct {
 	// PublishedDate - The published date of the gallery image version Definition. This property can be used for decommissioning purposes. This property is updatable.
 	PublishedDate *date.Time `json:"publishedDate,omitempty"`
 	// EndOfLifeDate - The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This property is updatable.
 	EndOfLifeDate *date.Time `json:"endOfLifeDate,omitempty"`
+	// ExcludeFromLatest - If set to true, Virtual Machines deployed from the latest version of the Image Definition won't use this Image Version.
+	ExcludeFromLatest *bool                                       `json:"excludeFromLatest,omitempty"`
+	StorageProfile    *CommunityGalleryImageVersionStorageProfile `json:"storageProfile,omitempty"`
+}
+
+// CommunityGalleryImageVersionStorageProfile this is the storage profile of a Gallery Image Version.
+type CommunityGalleryImageVersionStorageProfile struct {
+	OsDiskImage *CommunityGalleryOSDiskImage `json:"osDiskImage,omitempty"`
+	// DataDiskImages - A list of data disk images.
+	DataDiskImages *[]CommunityGalleryDataDiskImage `json:"dataDiskImages,omitempty"`
+}
+
+// CommunityGalleryInfo information of community gallery if current gallery is shared to community
+type CommunityGalleryInfo struct {
+	// PublisherURI - The link to the publisher website. Visible to all users.
+	PublisherURI *string `json:"publisherUri,omitempty"`
+	// PublisherContact - Community gallery publisher support email. The email address of the publisher. Visible to all users.
+	PublisherContact *string `json:"publisherContact,omitempty"`
+	// Eula - Community gallery publisher eula.
+	Eula *string `json:"eula,omitempty"`
+	// PublicNamePrefix - The prefix of the gallery name that will be displayed publicly. Visible to all users.
+	PublicNamePrefix *string `json:"publicNamePrefix,omitempty"`
+	// CommunityGalleryEnabled - READ-ONLY; Contains info about whether community gallery sharing is enabled.
+	CommunityGalleryEnabled *bool `json:"communityGalleryEnabled,omitempty"`
+	// PublicNames - READ-ONLY; Community gallery public name list.
+	PublicNames *[]string `json:"publicNames,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for CommunityGalleryInfo.
+func (cgiVar CommunityGalleryInfo) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if cgiVar.PublisherURI != nil {
+		objectMap["publisherUri"] = cgiVar.PublisherURI
+	}
+	if cgiVar.PublisherContact != nil {
+		objectMap["publisherContact"] = cgiVar.PublisherContact
+	}
+	if cgiVar.Eula != nil {
+		objectMap["eula"] = cgiVar.Eula
+	}
+	if cgiVar.PublicNamePrefix != nil {
+		objectMap["publicNamePrefix"] = cgiVar.PublicNamePrefix
+	}
+	return json.Marshal(objectMap)
+}
+
+// CommunityGalleryOSDiskImage this is the OS disk image.
+type CommunityGalleryOSDiskImage struct {
+	// SizeInGB - READ-ONLY; This property indicates the size of the VHD to be created.
+	SizeInGB *int32 `json:"sizeInGB,omitempty"`
+	// HostCaching - The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'. Possible values include: 'HostCachingNone', 'HostCachingReadOnly', 'HostCachingReadWrite'
+	HostCaching HostCaching `json:"hostCaching,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for CommunityGalleryOSDiskImage.
+func (cgodi CommunityGalleryOSDiskImage) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if cgodi.HostCaching != "" {
+		objectMap["hostCaching"] = cgodi.HostCaching
+	}
+	return json.Marshal(objectMap)
 }
 
 // CreationData data used when creating a disk.
@@ -8967,6 +9390,8 @@ type GalleryProperties struct {
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
 	SharingProfile    *SharingProfile   `json:"sharingProfile,omitempty"`
 	SoftDeletePolicy  *SoftDeletePolicy `json:"softDeletePolicy,omitempty"`
+	// SharingStatus - READ-ONLY
+	SharingStatus *SharingStatus `json:"sharingStatus,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for GalleryProperties.
@@ -10489,8 +10914,18 @@ type OSDiskImage struct {
 
 // OSDiskImageEncryption contains encryption settings for an OS disk image.
 type OSDiskImageEncryption struct {
+	// SecurityProfile - This property specifies the security profile of an OS disk image.
+	SecurityProfile *OSDiskImageSecurityProfile `json:"securityProfile,omitempty"`
 	// DiskEncryptionSetID - A relative URI containing the resource ID of the disk encryption set.
 	DiskEncryptionSetID *string `json:"diskEncryptionSetId,omitempty"`
+}
+
+// OSDiskImageSecurityProfile contains security profile for an OS disk image.
+type OSDiskImageSecurityProfile struct {
+	// Type - all types of security profile. Possible values include: 'SecurityProfileTypeEncryptedVMGuestStateOnlyWithPmk', 'SecurityProfileTypeEncryptedWithPmk', 'SecurityProfileTypeEncryptedWithCmk'
+	Type SecurityProfileType `json:"type,omitempty"`
+	// SecureVMDiskEncryptionSetID - secure VM disk encryption set id
+	SecureVMDiskEncryptionSetID *string `json:"secureVMDiskEncryptionSetId,omitempty"`
 }
 
 // OSFamily describes a cloud service OS family.
@@ -11907,6 +12342,16 @@ type RegionalReplicationStatus struct {
 func (rrs RegionalReplicationStatus) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	return json.Marshal(objectMap)
+}
+
+// RegionalSharingStatus gallery regional sharing status
+type RegionalSharingStatus struct {
+	// Region - Region name
+	Region *string `json:"region,omitempty"`
+	// State - Gallery sharing state in current region. Possible values include: 'StateSucceeded', 'StateInProgress', 'StateFailed', 'StateUnknown'
+	State State `json:"state,omitempty"`
+	// Details - Details of gallery regional sharing failure.
+	Details *string `json:"details,omitempty"`
 }
 
 // ReplicationStatus this is the replication status of the gallery image version.
@@ -14519,10 +14964,12 @@ func (sie ShareInfoElement) MarshalJSON() ([]byte, error) {
 
 // SharingProfile profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
-	// Permissions - This property allows you to specify the permission of sharing gallery. <br><br> Possible values are: <br><br> **Private** <br><br> **Groups**. Possible values include: 'GallerySharingPermissionTypesPrivate', 'GallerySharingPermissionTypesGroups'
+	// Permissions - This property allows you to specify the permission of sharing gallery. <br><br> Possible values are: <br><br> **Private** <br><br> **Groups** <br><br> **Community**. Possible values include: 'GallerySharingPermissionTypesPrivate', 'GallerySharingPermissionTypesGroups', 'GallerySharingPermissionTypesCommunity'
 	Permissions GallerySharingPermissionTypes `json:"permissions,omitempty"`
 	// Groups - READ-ONLY; A list of sharing profile groups.
 	Groups *[]SharingProfileGroup `json:"groups,omitempty"`
+	// CommunityGalleryInfo - Information of community gallery if current gallery is shared to community.
+	CommunityGalleryInfo interface{} `json:"communityGalleryInfo,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for SharingProfile.
@@ -14530,6 +14977,9 @@ func (sp SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	if sp.Permissions != "" {
 		objectMap["permissions"] = sp.Permissions
+	}
+	if sp.CommunityGalleryInfo != nil {
+		objectMap["communityGalleryInfo"] = sp.CommunityGalleryInfo
 	}
 	return json.Marshal(objectMap)
 }
@@ -14542,10 +14992,18 @@ type SharingProfileGroup struct {
 	Ids *[]string `json:"ids,omitempty"`
 }
 
+// SharingStatus sharing status of current gallery.
+type SharingStatus struct {
+	// AggregatedState - Aggregated sharing state of current gallery. Possible values include: 'AggregatedStateSucceeded', 'AggregatedStateInProgress', 'AggregatedStateFailed', 'AggregatedStateUnknown'
+	AggregatedState AggregatedState `json:"aggregatedState,omitempty"`
+	// Summary - Summary of all regional sharing status.
+	Summary *[]RegionalSharingStatus `json:"summary,omitempty"`
+}
+
 // SharingUpdate specifies information about the gallery sharing profile update.
 type SharingUpdate struct {
 	autorest.Response `json:"-"`
-	// OperationType - This property allows you to specify the operation type of gallery sharing update. <br><br> Possible values are: <br><br> **Add** <br><br> **Remove** <br><br> **Reset**. Possible values include: 'SharingUpdateOperationTypesAdd', 'SharingUpdateOperationTypesRemove', 'SharingUpdateOperationTypesReset'
+	// OperationType - This property allows you to specify the operation type of gallery sharing update. <br><br> Possible values are: <br><br> **Add** <br><br> **Remove** <br><br> **Reset**. Possible values include: 'SharingUpdateOperationTypesAdd', 'SharingUpdateOperationTypesRemove', 'SharingUpdateOperationTypesReset', 'SharingUpdateOperationTypesEnableCommunity'
 	OperationType SharingUpdateOperationTypes `json:"operationType,omitempty"`
 	// Groups - A list of sharing profile groups.
 	Groups *[]SharingProfileGroup `json:"groups,omitempty"`

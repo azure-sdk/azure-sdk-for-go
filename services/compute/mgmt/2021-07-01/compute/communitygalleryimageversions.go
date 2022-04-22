@@ -112,3 +112,123 @@ func (client CommunityGalleryImageVersionsClient) GetResponder(resp *http.Respon
 	result.Response = autorest.Response{Response: resp}
 	return
 }
+
+// List list community gallery image versions inside an image.
+// Parameters:
+// location - resource location.
+// publicGalleryName - the public name of the community gallery.
+// galleryImageName - the name of the community gallery image definition.
+func (client CommunityGalleryImageVersionsClient) List(ctx context.Context, location string, publicGalleryName string, galleryImageName string) (result CommunityGalleryImageVersionListPage, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/CommunityGalleryImageVersionsClient.List")
+		defer func() {
+			sc := -1
+			if result.cgivl.Response.Response != nil {
+				sc = result.cgivl.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	result.fn = client.listNextResults
+	req, err := client.ListPreparer(ctx, location, publicGalleryName, galleryImageName)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "compute.CommunityGalleryImageVersionsClient", "List", nil, "Failure preparing request")
+		return
+	}
+
+	resp, err := client.ListSender(req)
+	if err != nil {
+		result.cgivl.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "compute.CommunityGalleryImageVersionsClient", "List", resp, "Failure sending request")
+		return
+	}
+
+	result.cgivl, err = client.ListResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "compute.CommunityGalleryImageVersionsClient", "List", resp, "Failure responding to request")
+		return
+	}
+	if result.cgivl.hasNextLink() && result.cgivl.IsEmpty() {
+		err = result.NextWithContext(ctx)
+		return
+	}
+
+	return
+}
+
+// ListPreparer prepares the List request.
+func (client CommunityGalleryImageVersionsClient) ListPreparer(ctx context.Context, location string, publicGalleryName string, galleryImageName string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"galleryImageName":  autorest.Encode("path", galleryImageName),
+		"location":          autorest.Encode("path", location),
+		"publicGalleryName": autorest.Encode("path", publicGalleryName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
+
+	const APIVersion = "2021-07-01"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
+
+	preparer := autorest.CreatePreparer(
+		autorest.AsGet(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/communityGalleries/{publicGalleryName}/images/{galleryImageName}/versions", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
+
+// ListSender sends the List request. The method will close the
+// http.Response Body if it receives an error.
+func (client CommunityGalleryImageVersionsClient) ListSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
+
+// ListResponder handles the response to the List request. The method always
+// closes the http.Response Body.
+func (client CommunityGalleryImageVersionsClient) ListResponder(resp *http.Response) (result CommunityGalleryImageVersionList, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}
+
+// listNextResults retrieves the next set of results, if any.
+func (client CommunityGalleryImageVersionsClient) listNextResults(ctx context.Context, lastResults CommunityGalleryImageVersionList) (result CommunityGalleryImageVersionList, err error) {
+	req, err := lastResults.communityGalleryImageVersionListPreparer(ctx)
+	if err != nil {
+		return result, autorest.NewErrorWithError(err, "compute.CommunityGalleryImageVersionsClient", "listNextResults", nil, "Failure preparing next results request")
+	}
+	if req == nil {
+		return
+	}
+	resp, err := client.ListSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "compute.CommunityGalleryImageVersionsClient", "listNextResults", resp, "Failure sending next results request")
+	}
+	result, err = client.ListResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "compute.CommunityGalleryImageVersionsClient", "listNextResults", resp, "Failure responding to next results request")
+	}
+	return
+}
+
+// ListComplete enumerates all values, automatically crossing page boundaries as required.
+func (client CommunityGalleryImageVersionsClient) ListComplete(ctx context.Context, location string, publicGalleryName string, galleryImageName string) (result CommunityGalleryImageVersionListIterator, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/CommunityGalleryImageVersionsClient.List")
+		defer func() {
+			sc := -1
+			if result.Response().Response.Response != nil {
+				sc = result.page.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	result.page, err = client.List(ctx, location, publicGalleryName, galleryImageName)
+	return
+}

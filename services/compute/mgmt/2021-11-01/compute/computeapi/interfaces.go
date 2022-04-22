@@ -562,6 +562,8 @@ var _ CommunityGalleriesClientAPI = (*compute.CommunityGalleriesClient)(nil)
 // CommunityGalleryImagesClientAPI contains the set of methods on the CommunityGalleryImagesClient type.
 type CommunityGalleryImagesClientAPI interface {
 	Get(ctx context.Context, location string, publicGalleryName string, galleryImageName string) (result compute.CommunityGalleryImage, err error)
+	List(ctx context.Context, location string, publicGalleryName string) (result compute.CommunityGalleryImageListPage, err error)
+	ListComplete(ctx context.Context, location string, publicGalleryName string) (result compute.CommunityGalleryImageListIterator, err error)
 }
 
 var _ CommunityGalleryImagesClientAPI = (*compute.CommunityGalleryImagesClient)(nil)
@@ -569,6 +571,8 @@ var _ CommunityGalleryImagesClientAPI = (*compute.CommunityGalleryImagesClient)(
 // CommunityGalleryImageVersionsClientAPI contains the set of methods on the CommunityGalleryImageVersionsClient type.
 type CommunityGalleryImageVersionsClientAPI interface {
 	Get(ctx context.Context, location string, publicGalleryName string, galleryImageName string, galleryImageVersionName string) (result compute.CommunityGalleryImageVersion, err error)
+	List(ctx context.Context, location string, publicGalleryName string, galleryImageName string) (result compute.CommunityGalleryImageVersionListPage, err error)
+	ListComplete(ctx context.Context, location string, publicGalleryName string, galleryImageName string) (result compute.CommunityGalleryImageVersionListIterator, err error)
 }
 
 var _ CommunityGalleryImageVersionsClientAPI = (*compute.CommunityGalleryImageVersionsClient)(nil)
