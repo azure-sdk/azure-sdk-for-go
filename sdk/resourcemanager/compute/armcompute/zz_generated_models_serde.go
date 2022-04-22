@@ -373,16 +373,27 @@ func (c CloudServiceVaultSecretGroup) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageList.
+func (c CommunityGalleryImageList) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", c.NextLink)
+	populate(objectMap, "value", c.Value)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageProperties.
 func (c CommunityGalleryImageProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "architecture", c.Architecture)
 	populate(objectMap, "disallowed", c.Disallowed)
 	populateTimeRFC3339(objectMap, "endOfLifeDate", c.EndOfLifeDate)
+	populate(objectMap, "eula", c.Eula)
 	populate(objectMap, "features", c.Features)
 	populate(objectMap, "hyperVGeneration", c.HyperVGeneration)
 	populate(objectMap, "identifier", c.Identifier)
 	populate(objectMap, "osState", c.OSState)
 	populate(objectMap, "osType", c.OSType)
+	populate(objectMap, "privacyStatementUri", c.PrivacyStatementURI)
 	populate(objectMap, "purchasePlan", c.PurchasePlan)
 	populate(objectMap, "recommended", c.Recommended)
 	return json.Marshal(objectMap)
@@ -397,11 +408,17 @@ func (c *CommunityGalleryImageProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "architecture":
+			err = unpopulate(val, &c.Architecture)
+			delete(rawMsg, key)
 		case "disallowed":
 			err = unpopulate(val, &c.Disallowed)
 			delete(rawMsg, key)
 		case "endOfLifeDate":
 			err = unpopulateTimeRFC3339(val, &c.EndOfLifeDate)
+			delete(rawMsg, key)
+		case "eula":
+			err = unpopulate(val, &c.Eula)
 			delete(rawMsg, key)
 		case "features":
 			err = unpopulate(val, &c.Features)
@@ -418,6 +435,9 @@ func (c *CommunityGalleryImageProperties) UnmarshalJSON(data []byte) error {
 		case "osType":
 			err = unpopulate(val, &c.OSType)
 			delete(rawMsg, key)
+		case "privacyStatementUri":
+			err = unpopulate(val, &c.PrivacyStatementURI)
+			delete(rawMsg, key)
 		case "purchasePlan":
 			err = unpopulate(val, &c.PurchasePlan)
 			delete(rawMsg, key)
@@ -432,11 +452,21 @@ func (c *CommunityGalleryImageProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageVersionList.
+func (c CommunityGalleryImageVersionList) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", c.NextLink)
+	populate(objectMap, "value", c.Value)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type CommunityGalleryImageVersionProperties.
 func (c CommunityGalleryImageVersionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populateTimeRFC3339(objectMap, "endOfLifeDate", c.EndOfLifeDate)
+	populate(objectMap, "excludeFromLatest", c.ExcludeFromLatest)
 	populateTimeRFC3339(objectMap, "publishedDate", c.PublishedDate)
+	populate(objectMap, "storageProfile", c.StorageProfile)
 	return json.Marshal(objectMap)
 }
 
@@ -452,8 +482,14 @@ func (c *CommunityGalleryImageVersionProperties) UnmarshalJSON(data []byte) erro
 		case "endOfLifeDate":
 			err = unpopulateTimeRFC3339(val, &c.EndOfLifeDate)
 			delete(rawMsg, key)
+		case "excludeFromLatest":
+			err = unpopulate(val, &c.ExcludeFromLatest)
+			delete(rawMsg, key)
 		case "publishedDate":
 			err = unpopulateTimeRFC3339(val, &c.PublishedDate)
+			delete(rawMsg, key)
+		case "storageProfile":
+			err = unpopulate(val, &c.StorageProfile)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2453,6 +2489,7 @@ func (s SharedGalleryImageList) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type SharedGalleryImageProperties.
 func (s SharedGalleryImageProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "architecture", s.Architecture)
 	populate(objectMap, "disallowed", s.Disallowed)
 	populateTimeRFC3339(objectMap, "endOfLifeDate", s.EndOfLifeDate)
 	populate(objectMap, "features", s.Features)
@@ -2474,6 +2511,9 @@ func (s *SharedGalleryImageProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "architecture":
+			err = unpopulate(val, &s.Architecture)
+			delete(rawMsg, key)
 		case "disallowed":
 			err = unpopulate(val, &s.Disallowed)
 			delete(rawMsg, key)
@@ -2521,7 +2561,9 @@ func (s SharedGalleryImageVersionList) MarshalJSON() ([]byte, error) {
 func (s SharedGalleryImageVersionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populateTimeRFC3339(objectMap, "endOfLifeDate", s.EndOfLifeDate)
+	populate(objectMap, "excludeFromLatest", s.ExcludeFromLatest)
 	populateTimeRFC3339(objectMap, "publishedDate", s.PublishedDate)
+	populate(objectMap, "storageProfile", s.StorageProfile)
 	return json.Marshal(objectMap)
 }
 
@@ -2537,8 +2579,14 @@ func (s *SharedGalleryImageVersionProperties) UnmarshalJSON(data []byte) error {
 		case "endOfLifeDate":
 			err = unpopulateTimeRFC3339(val, &s.EndOfLifeDate)
 			delete(rawMsg, key)
+		case "excludeFromLatest":
+			err = unpopulate(val, &s.ExcludeFromLatest)
+			delete(rawMsg, key)
 		case "publishedDate":
 			err = unpopulateTimeRFC3339(val, &s.PublishedDate)
+			delete(rawMsg, key)
+		case "storageProfile":
+			err = unpopulate(val, &s.StorageProfile)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2546,6 +2594,14 @@ func (s *SharedGalleryImageVersionProperties) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SharedGalleryImageVersionStorageProfile.
+func (s SharedGalleryImageVersionStorageProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "dataDiskImages", s.DataDiskImages)
+	populate(objectMap, "osDiskImage", s.OSDiskImage)
+	return json.Marshal(objectMap)
 }
 
 // MarshalJSON implements the json.Marshaller interface for type SharedGalleryList.
