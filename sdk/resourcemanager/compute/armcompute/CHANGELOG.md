@@ -1,5 +1,29 @@
 # Release History
 
+## 0.8.0 (2022-04-22)
+### Features Added
+
+- New function `*CommunityGalleryImagesClient.NewListPager(string, string, *CommunityGalleryImagesClientListOptions) *runtime.Pager[CommunityGalleryImagesClientListResponse]`
+- New function `CommunityGalleryImageVersionList.MarshalJSON() ([]byte, error)`
+- New function `CommunityGalleryImageList.MarshalJSON() ([]byte, error)`
+- New function `*CommunityGalleryImageVersionsClient.NewListPager(string, string, string, *CommunityGalleryImageVersionsClientListOptions) *runtime.Pager[CommunityGalleryImageVersionsClientListResponse]`
+- New function `CommunityGalleryImageVersionStorageProfile.MarshalJSON() ([]byte, error)`
+- New struct `CommunityGalleryDataDiskImage`
+- New struct `CommunityGalleryDiskImage`
+- New struct `CommunityGalleryImageList`
+- New struct `CommunityGalleryImageVersionList`
+- New struct `CommunityGalleryImageVersionStorageProfile`
+- New struct `CommunityGalleryImageVersionsClientListOptions`
+- New struct `CommunityGalleryImageVersionsClientListResponse`
+- New struct `CommunityGalleryImagesClientListOptions`
+- New struct `CommunityGalleryImagesClientListResponse`
+- New struct `CommunityGalleryOSDiskImage`
+- New field `ExcludeFromLatest` in struct `CommunityGalleryImageVersionProperties`
+- New field `StorageProfile` in struct `CommunityGalleryImageVersionProperties`
+- New field `Eula` in struct `CommunityGalleryImageProperties`
+- New field `PrivacyStatementURI` in struct `CommunityGalleryImageProperties`
+
+
 ## 0.7.0 (2022-04-15)
 ### Breaking Changes
 

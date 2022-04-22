@@ -1057,6 +1057,29 @@ type CommunityGallery struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// CommunityGalleryDataDiskImage - This is the data disk image.
+type CommunityGalleryDataDiskImage struct {
+	// REQUIRED; This property specifies the logical unit number of the data disk. This value is used to identify data disks within
+	// the Virtual Machine and therefore must be unique for each data disk attached to the
+	// Virtual Machine.
+	Lun *int32 `json:"lun,omitempty"`
+
+	// The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'
+	HostCaching *HostCaching `json:"hostCaching,omitempty"`
+
+	// READ-ONLY; This property indicates the size of the VHD to be created.
+	SizeInGB *int32 `json:"sizeInGB,omitempty" azure:"ro"`
+}
+
+// CommunityGalleryDiskImage - This is the disk image base class.
+type CommunityGalleryDiskImage struct {
+	// The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'
+	HostCaching *HostCaching `json:"hostCaching,omitempty"`
+
+	// READ-ONLY; This property indicates the size of the VHD to be created.
+	SizeInGB *int32 `json:"sizeInGB,omitempty" azure:"ro"`
+}
+
 // CommunityGalleryIdentifier - The identifier information of community gallery.
 type CommunityGalleryIdentifier struct {
 	// The unique id of this community gallery.
@@ -1079,6 +1102,16 @@ type CommunityGalleryImage struct {
 
 	// READ-ONLY; Resource type
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// CommunityGalleryImageList - The List Community Gallery Images operation response.
+type CommunityGalleryImageList struct {
+	// REQUIRED; A list of community gallery images.
+	Value []*CommunityGalleryImage `json:"value,omitempty"`
+
+	// The uri to fetch the next page of community gallery images. Call ListNext() with this to fetch the next page of community
+	// gallery images.
+	NextLink *string `json:"nextLink,omitempty"`
 }
 
 // CommunityGalleryImageProperties - Describes the properties of a gallery image definition.
@@ -1104,11 +1137,17 @@ type CommunityGalleryImageProperties struct {
 	// is updatable.
 	EndOfLifeDate *time.Time `json:"endOfLifeDate,omitempty"`
 
+	// The uri to describe the eula issued from community gallery publisher.
+	Eula *string `json:"eula,omitempty"`
+
 	// A list of gallery image features.
 	Features []*GalleryImageFeature `json:"features,omitempty"`
 
 	// The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
 	HyperVGeneration *HyperVGeneration `json:"hyperVGeneration,omitempty"`
+
+	// The uri to describe the privacy statement issued from community gallery publisher.
+	PrivacyStatementURI *string `json:"privacyStatementUri,omitempty"`
 
 	// Describes the gallery image definition purchase plan. This is used by marketplace images.
 	PurchasePlan *ImagePurchasePlan `json:"purchasePlan,omitempty"`
@@ -1135,15 +1174,40 @@ type CommunityGalleryImageVersion struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// CommunityGalleryImageVersionList - The List Community Gallery Image versions operation response.
+type CommunityGalleryImageVersionList struct {
+	// REQUIRED; A list of community gallery image versions.
+	Value []*CommunityGalleryImageVersion `json:"value,omitempty"`
+
+	// The uri to fetch the next page of community gallery image versions. Call ListNext() with this to fetch the next page of
+	// community gallery image versions.
+	NextLink *string `json:"nextLink,omitempty"`
+}
+
 // CommunityGalleryImageVersionProperties - Describes the properties of a gallery image version.
 type CommunityGalleryImageVersionProperties struct {
 	// The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This
 	// property is updatable.
 	EndOfLifeDate *time.Time `json:"endOfLifeDate,omitempty"`
 
+	// If set to true, Virtual Machines deployed from the latest version of the Image Definition won't use this Image Version.
+	ExcludeFromLatest *bool `json:"excludeFromLatest,omitempty"`
+
 	// The published date of the gallery image version Definition. This property can be used for decommissioning purposes. This
 	// property is updatable.
 	PublishedDate *time.Time `json:"publishedDate,omitempty"`
+
+	// This is the storage profile of a Gallery Image Version.
+	StorageProfile *CommunityGalleryImageVersionStorageProfile `json:"storageProfile,omitempty"`
+}
+
+// CommunityGalleryImageVersionStorageProfile - This is the storage profile of a Gallery Image Version.
+type CommunityGalleryImageVersionStorageProfile struct {
+	// A list of data disk images.
+	DataDiskImages []*CommunityGalleryDataDiskImage `json:"dataDiskImages,omitempty"`
+
+	// This is the OS disk image.
+	OSDiskImage *CommunityGalleryOSDiskImage `json:"osDiskImage,omitempty"`
 }
 
 // CommunityGalleryImageVersionsClientGetOptions contains the optional parameters for the CommunityGalleryImageVersionsClient.Get
@@ -1152,8 +1216,19 @@ type CommunityGalleryImageVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// CommunityGalleryImageVersionsClientListOptions contains the optional parameters for the CommunityGalleryImageVersionsClient.List
+// method.
+type CommunityGalleryImageVersionsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CommunityGalleryImagesClientGetOptions contains the optional parameters for the CommunityGalleryImagesClient.Get method.
 type CommunityGalleryImagesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CommunityGalleryImagesClientListOptions contains the optional parameters for the CommunityGalleryImagesClient.List method.
+type CommunityGalleryImagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -1176,6 +1251,15 @@ type CommunityGalleryInfo struct {
 
 	// READ-ONLY; Community gallery public name list.
 	PublicNames []*string `json:"publicNames,omitempty" azure:"ro"`
+}
+
+// CommunityGalleryOSDiskImage - This is the OS disk image.
+type CommunityGalleryOSDiskImage struct {
+	// The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'
+	HostCaching *HostCaching `json:"hostCaching,omitempty"`
+
+	// READ-ONLY; This property indicates the size of the VHD to be created.
+	SizeInGB *int32 `json:"sizeInGB,omitempty" azure:"ro"`
 }
 
 // CreationData - Data used when creating a disk.
