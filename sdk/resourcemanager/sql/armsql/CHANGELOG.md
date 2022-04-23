@@ -1,5 +1,48 @@
 # Release History
 
+## 0.6.0 (2022-04-23)
+### Breaking Changes
+
+- Function `*ManagedDatabaseSensitivityLabelsClient.NewListByDatabasePager` has been removed
+- Function `*ManagedServerDNSAliasesClient.BeginCreateOrUpdate` has been removed
+- Function `*ManagedServerDNSAliasesClient.Get` has been removed
+- Function `NewManagedServerDNSAliasesClient` has been removed
+- Function `*ManagedServerDNSAliasesClient.BeginDelete` has been removed
+- Function `*ManagedServerDNSAliasesClient.BeginAcquire` has been removed
+- Function `*ManagedServerDNSAliasesClient.NewListByManagedInstancePager` has been removed
+- Function `*SensitivityLabelsClient.NewListByDatabasePager` has been removed
+- Function `ManagedServerDNSAliasListResult.MarshalJSON` has been removed
+- Struct `ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions` has been removed
+- Struct `ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse` has been removed
+- Struct `ManagedServerDNSAlias` has been removed
+- Struct `ManagedServerDNSAliasAcquisition` has been removed
+- Struct `ManagedServerDNSAliasCreation` has been removed
+- Struct `ManagedServerDNSAliasListResult` has been removed
+- Struct `ManagedServerDNSAliasProperties` has been removed
+- Struct `ManagedServerDNSAliasesClient` has been removed
+- Struct `ManagedServerDNSAliasesClientAcquireResponse` has been removed
+- Struct `ManagedServerDNSAliasesClientBeginAcquireOptions` has been removed
+- Struct `ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions` has been removed
+- Struct `ManagedServerDNSAliasesClientBeginDeleteOptions` has been removed
+- Struct `ManagedServerDNSAliasesClientCreateOrUpdateResponse` has been removed
+- Struct `ManagedServerDNSAliasesClientDeleteResponse` has been removed
+- Struct `ManagedServerDNSAliasesClientGetOptions` has been removed
+- Struct `ManagedServerDNSAliasesClientGetResponse` has been removed
+- Struct `ManagedServerDNSAliasesClientListByManagedInstanceOptions` has been removed
+- Struct `ManagedServerDNSAliasesClientListByManagedInstanceResponse` has been removed
+- Struct `SensitivityLabelsClientListByDatabaseOptions` has been removed
+- Struct `SensitivityLabelsClientListByDatabaseResponse` has been removed
+- Field `ReplicationLink` of struct `ReplicationLinksClientFailoverAllowDataLossResponse` has been removed
+- Field `ReplicationLink` of struct `ReplicationLinksClientFailoverResponse` has been removed
+
+### Features Added
+
+- New function `*ReplicationLinksClient.BeginUnlink(context.Context, string, string, string, string, UnlinkParameters, *ReplicationLinksClientBeginUnlinkOptions) (*armruntime.Poller[ReplicationLinksClientUnlinkResponse], error)`
+- New struct `ReplicationLinksClientBeginUnlinkOptions`
+- New struct `ReplicationLinksClientUnlinkResponse`
+- New struct `UnlinkParameters`
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 
