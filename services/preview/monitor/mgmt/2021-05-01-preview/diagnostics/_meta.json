@@ -1,5 +1,5 @@
 {
-  "commit": "9d8640319ef481ae301b67b033d6ae0bd30422c3",
+  "commit": "c19417722a770493527aa72300d470a096af1687",
   "readme": "/_/azure-rest-api-specs/specification/monitor/resource-manager/readme.md",
   "tag": "package-2021-05-preview-diagnostics",
   "use": "@microsoft.azure/autorest.go@2.1.187",
