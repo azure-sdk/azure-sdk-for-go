@@ -1,5 +1,12 @@
 # Release History
 
+## 0.6.0 (2022-04-24)
+### Features Added
+
+- New struct `PrivateEndpoint`
+- New field `PrivateEndpoint` in struct `PrivateLinkConnectionApprovalRequest`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 

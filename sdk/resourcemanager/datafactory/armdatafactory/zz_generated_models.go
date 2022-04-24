@@ -16200,6 +16200,12 @@ type PrivateEndPointConnectionsClientListByFactoryOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PrivateEndpoint - Private endpoint which a connection belongs to.
+type PrivateEndpoint struct {
+	// The resource Id for private endpoint
+	ID *string `json:"id,omitempty"`
+}
+
 // PrivateEndpointConnectionClientCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionClient.CreateOrUpdate
 // method.
 type PrivateEndpointConnectionClientCreateOrUpdateOptions struct {
@@ -16251,6 +16257,9 @@ type PrivateEndpointConnectionResource struct {
 
 // PrivateLinkConnectionApprovalRequest - A request to approve or reject a private endpoint connection
 type PrivateLinkConnectionApprovalRequest struct {
+	// The resource of private endpoint.
+	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
+
 	// The state of a private link connection
 	PrivateLinkServiceConnectionState *PrivateLinkConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
 }
