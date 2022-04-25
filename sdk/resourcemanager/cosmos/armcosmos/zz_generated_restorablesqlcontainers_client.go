@@ -104,7 +104,7 @@ func (client *RestorableSQLContainersClient) listCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	if options != nil && options.RestorableSQLDatabaseRid != nil {
 		reqQP.Set("restorableSqlDatabaseRid", *options.RestorableSQLDatabaseRid)
 	}

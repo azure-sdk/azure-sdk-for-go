@@ -115,7 +115,7 @@ func (client *NotebookWorkspacesClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, notebookCreateUpdateParameters)
@@ -181,7 +181,7 @@ func (client *NotebookWorkspacesClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -232,7 +232,7 @@ func (client *NotebookWorkspacesClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -295,7 +295,7 @@ func (client *NotebookWorkspacesClient) listByDatabaseAccountCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -356,7 +356,7 @@ func (client *NotebookWorkspacesClient) listConnectionInfoCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -431,7 +431,7 @@ func (client *NotebookWorkspacesClient) regenerateAuthTokenCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -497,7 +497,7 @@ func (client *NotebookWorkspacesClient) startCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil

@@ -105,7 +105,7 @@ func (client *PercentileClient) listMetricsCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	reqQP.Set("$filter", filter)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")

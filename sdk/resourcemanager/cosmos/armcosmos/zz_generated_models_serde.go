@@ -593,8 +593,10 @@ func (d DataTransferJobProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "jobName", d.JobName)
 	populateTimeRFC3339(objectMap, "lastUpdatedUtcTime", d.LastUpdatedUTCTime)
 	populate(objectMap, "percentageComplete", d.PercentageComplete)
+	populate(objectMap, "processedCount", d.ProcessedCount)
 	populate(objectMap, "source", d.Source)
 	populate(objectMap, "status", d.Status)
+	populate(objectMap, "totalCount", d.TotalCount)
 	populate(objectMap, "workerCount", d.WorkerCount)
 	return json.Marshal(objectMap)
 }
@@ -623,11 +625,17 @@ func (d *DataTransferJobProperties) UnmarshalJSON(data []byte) error {
 		case "percentageComplete":
 			err = unpopulate(val, &d.PercentageComplete)
 			delete(rawMsg, key)
+		case "processedCount":
+			err = unpopulate(val, &d.ProcessedCount)
+			delete(rawMsg, key)
 		case "source":
 			d.Source, err = unmarshalDataTransferDataSourceSinkClassification(val)
 			delete(rawMsg, key)
 		case "status":
 			err = unpopulate(val, &d.Status)
+			delete(rawMsg, key)
+		case "totalCount":
+			err = unpopulate(val, &d.TotalCount)
 			delete(rawMsg, key)
 		case "workerCount":
 			err = unpopulate(val, &d.WorkerCount)
@@ -2117,6 +2125,28 @@ func (p Privilege) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type RedistributeThroughputParameters.
+func (r RedistributeThroughputParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", r.ID)
+	populate(objectMap, "identity", r.Identity)
+	populate(objectMap, "location", r.Location)
+	populate(objectMap, "name", r.Name)
+	populate(objectMap, "properties", r.Properties)
+	populate(objectMap, "tags", r.Tags)
+	populate(objectMap, "type", r.Type)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RedistributeThroughputPropertiesResource.
+func (r RedistributeThroughputPropertiesResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "sourcePhysicalPartitionThroughputInfo", r.SourcePhysicalPartitionThroughputInfo)
+	populate(objectMap, "targetPhysicalPartitionThroughputInfo", r.TargetPhysicalPartitionThroughputInfo)
+	populate(objectMap, "throughputPolicy", r.ThroughputPolicy)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type RestorableDatabaseAccountProperties.
 func (r RestorableDatabaseAccountProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -2332,6 +2362,26 @@ func (r *RestoreParameters) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RetrieveThroughputParameters.
+func (r RetrieveThroughputParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", r.ID)
+	populate(objectMap, "identity", r.Identity)
+	populate(objectMap, "location", r.Location)
+	populate(objectMap, "name", r.Name)
+	populate(objectMap, "properties", r.Properties)
+	populate(objectMap, "tags", r.Tags)
+	populate(objectMap, "type", r.Type)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RetrieveThroughputPropertiesResource.
+func (r RetrieveThroughputPropertiesResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "physicalPartitionIds", r.PhysicalPartitionIDs)
+	return json.Marshal(objectMap)
 }
 
 // MarshalJSON implements the json.Marshaller interface for type SQLContainerCreateUpdateParameters.

@@ -115,7 +115,7 @@ func (client *TableResourcesClient) createUpdateTableCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateTableParameters)
@@ -181,7 +181,7 @@ func (client *TableResourcesClient) deleteTableCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -231,7 +231,7 @@ func (client *TableResourcesClient) getTableCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -293,7 +293,7 @@ func (client *TableResourcesClient) getTableThroughputCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -356,7 +356,7 @@ func (client *TableResourcesClient) listTablesCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -431,7 +431,7 @@ func (client *TableResourcesClient) migrateTableToAutoscaleCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -497,7 +497,7 @@ func (client *TableResourcesClient) migrateTableToManualThroughputCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -566,7 +566,7 @@ func (client *TableResourcesClient) retrieveContinuousBackupInformationCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, location)
@@ -633,7 +633,7 @@ func (client *TableResourcesClient) updateTableThroughputCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, updateThroughputParameters)

@@ -122,7 +122,7 @@ func (client *SQLResourcesClient) createUpdateClientEncryptionKeyCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateClientEncryptionKeyParameters)
@@ -194,7 +194,7 @@ func (client *SQLResourcesClient) createUpdateSQLContainerCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateSQLContainerParameters)
@@ -261,7 +261,7 @@ func (client *SQLResourcesClient) createUpdateSQLDatabaseCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateSQLDatabaseParameters)
@@ -328,7 +328,7 @@ func (client *SQLResourcesClient) createUpdateSQLRoleAssignmentCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateSQLRoleAssignmentParameters)
@@ -395,7 +395,7 @@ func (client *SQLResourcesClient) createUpdateSQLRoleDefinitionCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateSQLRoleDefinitionParameters)
@@ -472,7 +472,7 @@ func (client *SQLResourcesClient) createUpdateSQLStoredProcedureCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateSQLStoredProcedureParameters)
@@ -549,7 +549,7 @@ func (client *SQLResourcesClient) createUpdateSQLTriggerCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateSQLTriggerParameters)
@@ -626,7 +626,7 @@ func (client *SQLResourcesClient) createUpdateSQLUserDefinedFunctionCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateSQLUserDefinedFunctionParameters)
@@ -697,7 +697,7 @@ func (client *SQLResourcesClient) deleteSQLContainerCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -762,7 +762,7 @@ func (client *SQLResourcesClient) deleteSQLDatabaseCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -827,7 +827,7 @@ func (client *SQLResourcesClient) deleteSQLRoleAssignmentCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -893,7 +893,7 @@ func (client *SQLResourcesClient) deleteSQLRoleDefinitionCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -969,7 +969,7 @@ func (client *SQLResourcesClient) deleteSQLStoredProcedureCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -1044,7 +1044,7 @@ func (client *SQLResourcesClient) deleteSQLTriggerCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -1119,7 +1119,7 @@ func (client *SQLResourcesClient) deleteSQLUserDefinedFunctionCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -1175,7 +1175,7 @@ func (client *SQLResourcesClient) getClientEncryptionKeyCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1241,7 +1241,7 @@ func (client *SQLResourcesClient) getSQLContainerCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1307,7 +1307,7 @@ func (client *SQLResourcesClient) getSQLContainerThroughputCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1368,7 +1368,7 @@ func (client *SQLResourcesClient) getSQLDatabaseCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1430,7 +1430,7 @@ func (client *SQLResourcesClient) getSQLDatabaseThroughputCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1491,7 +1491,7 @@ func (client *SQLResourcesClient) getSQLRoleAssignmentCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1552,7 +1552,7 @@ func (client *SQLResourcesClient) getSQLRoleDefinitionCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1623,7 +1623,7 @@ func (client *SQLResourcesClient) getSQLStoredProcedureCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1694,7 +1694,7 @@ func (client *SQLResourcesClient) getSQLTriggerCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1765,7 +1765,7 @@ func (client *SQLResourcesClient) getSQLUserDefinedFunctionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1833,7 +1833,7 @@ func (client *SQLResourcesClient) listClientEncryptionKeysCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1916,7 +1916,7 @@ func (client *SQLResourcesClient) listSQLContainerPartitionMergeCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, mergeParameters)
@@ -1975,7 +1975,7 @@ func (client *SQLResourcesClient) listSQLContainersCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2038,7 +2038,7 @@ func (client *SQLResourcesClient) listSQLDatabasesCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2101,7 +2101,7 @@ func (client *SQLResourcesClient) listSQLRoleAssignmentsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2164,7 +2164,7 @@ func (client *SQLResourcesClient) listSQLRoleDefinitionsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2237,7 +2237,7 @@ func (client *SQLResourcesClient) listSQLStoredProceduresCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2310,7 +2310,7 @@ func (client *SQLResourcesClient) listSQLTriggersCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2383,7 +2383,7 @@ func (client *SQLResourcesClient) listSQLUserDefinedFunctionsCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2463,7 +2463,7 @@ func (client *SQLResourcesClient) migrateSQLContainerToAutoscaleCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2534,7 +2534,7 @@ func (client *SQLResourcesClient) migrateSQLContainerToManualThroughputCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2600,7 +2600,7 @@ func (client *SQLResourcesClient) migrateSQLDatabaseToAutoscaleCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2666,7 +2666,7 @@ func (client *SQLResourcesClient) migrateSQLDatabaseToManualThroughputCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -2740,10 +2740,158 @@ func (client *SQLResourcesClient) retrieveContinuousBackupInformationCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, location)
+}
+
+// BeginSQLContainerRedistributeThroughput - Redistribute throughput for an Azure Cosmos DB SQL container
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// accountName - Cosmos DB database account name.
+// databaseName - Cosmos DB database name.
+// containerName - Cosmos DB container name.
+// redistributeThroughputParameters - The parameters to provide for redistributing throughput for the current SQL container.
+// options - SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions contains the optional parameters for the SQLResourcesClient.BeginSQLContainerRedistributeThroughput
+// method.
+func (client *SQLResourcesClient) BeginSQLContainerRedistributeThroughput(ctx context.Context, resourceGroupName string, accountName string, databaseName string, containerName string, redistributeThroughputParameters RedistributeThroughputParameters, options *SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions) (*armruntime.Poller[SQLResourcesClientSQLContainerRedistributeThroughputResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.sQLContainerRedistributeThroughput(ctx, resourceGroupName, accountName, databaseName, containerName, redistributeThroughputParameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return armruntime.NewPoller(resp, client.pl, &armruntime.NewPollerOptions[SQLResourcesClientSQLContainerRedistributeThroughputResponse]{
+			FinalStateVia: armruntime.FinalStateViaLocation,
+		})
+	} else {
+		return armruntime.NewPollerFromResumeToken[SQLResourcesClientSQLContainerRedistributeThroughputResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// SQLContainerRedistributeThroughput - Redistribute throughput for an Azure Cosmos DB SQL container
+// If the operation fails it returns an *azcore.ResponseError type.
+func (client *SQLResourcesClient) sQLContainerRedistributeThroughput(ctx context.Context, resourceGroupName string, accountName string, databaseName string, containerName string, redistributeThroughputParameters RedistributeThroughputParameters, options *SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions) (*http.Response, error) {
+	req, err := client.sqlContainerRedistributeThroughputCreateRequest(ctx, resourceGroupName, accountName, databaseName, containerName, redistributeThroughputParameters, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// sqlContainerRedistributeThroughputCreateRequest creates the SQLContainerRedistributeThroughput request.
+func (client *SQLResourcesClient) sqlContainerRedistributeThroughputCreateRequest(ctx context.Context, resourceGroupName string, accountName string, databaseName string, containerName string, redistributeThroughputParameters RedistributeThroughputParameters, options *SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/sqlDatabases/{databaseName}/containers/{containerName}/throughputSettings/default/redistributeThroughput"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if accountName == "" {
+		return nil, errors.New("parameter accountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if databaseName == "" {
+		return nil, errors.New("parameter databaseName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
+	if containerName == "" {
+		return nil, errors.New("parameter containerName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-04-15-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, runtime.MarshalAsJSON(req, redistributeThroughputParameters)
+}
+
+// BeginSQLContainerRetrieveThroughputDistribution - Retrieve throughput distribution for an Azure Cosmos DB SQL container
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// accountName - Cosmos DB database account name.
+// databaseName - Cosmos DB database name.
+// containerName - Cosmos DB container name.
+// retrieveThroughputParameters - The parameters to provide for retrieving throughput distribution for the current SQL container.
+// options - SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions contains the optional parameters for
+// the SQLResourcesClient.BeginSQLContainerRetrieveThroughputDistribution method.
+func (client *SQLResourcesClient) BeginSQLContainerRetrieveThroughputDistribution(ctx context.Context, resourceGroupName string, accountName string, databaseName string, containerName string, retrieveThroughputParameters RetrieveThroughputParameters, options *SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*armruntime.Poller[SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.sQLContainerRetrieveThroughputDistribution(ctx, resourceGroupName, accountName, databaseName, containerName, retrieveThroughputParameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return armruntime.NewPoller(resp, client.pl, &armruntime.NewPollerOptions[SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse]{
+			FinalStateVia: armruntime.FinalStateViaLocation,
+		})
+	} else {
+		return armruntime.NewPollerFromResumeToken[SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// SQLContainerRetrieveThroughputDistribution - Retrieve throughput distribution for an Azure Cosmos DB SQL container
+// If the operation fails it returns an *azcore.ResponseError type.
+func (client *SQLResourcesClient) sQLContainerRetrieveThroughputDistribution(ctx context.Context, resourceGroupName string, accountName string, databaseName string, containerName string, retrieveThroughputParameters RetrieveThroughputParameters, options *SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*http.Response, error) {
+	req, err := client.sqlContainerRetrieveThroughputDistributionCreateRequest(ctx, resourceGroupName, accountName, databaseName, containerName, retrieveThroughputParameters, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// sqlContainerRetrieveThroughputDistributionCreateRequest creates the SQLContainerRetrieveThroughputDistribution request.
+func (client *SQLResourcesClient) sqlContainerRetrieveThroughputDistributionCreateRequest(ctx context.Context, resourceGroupName string, accountName string, databaseName string, containerName string, retrieveThroughputParameters RetrieveThroughputParameters, options *SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/sqlDatabases/{databaseName}/containers/{containerName}/throughputSettings/default/retrieveThroughputDistribution"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if accountName == "" {
+		return nil, errors.New("parameter accountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if databaseName == "" {
+		return nil, errors.New("parameter databaseName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
+	if containerName == "" {
+		return nil, errors.New("parameter containerName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-04-15-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, runtime.MarshalAsJSON(req, retrieveThroughputParameters)
 }
 
 // BeginUpdateSQLContainerThroughput - Update RUs per second of an Azure Cosmos DB SQL container
@@ -2812,7 +2960,7 @@ func (client *SQLResourcesClient) updateSQLContainerThroughputCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, updateThroughputParameters)
@@ -2879,7 +3027,7 @@ func (client *SQLResourcesClient) updateSQLDatabaseThroughputCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, updateThroughputParameters)

@@ -120,7 +120,7 @@ func (client *MongoDBResourcesClient) createUpdateMongoDBCollectionCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateMongoDBCollectionParameters)
@@ -187,7 +187,7 @@ func (client *MongoDBResourcesClient) createUpdateMongoDBDatabaseCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateMongoDBDatabaseParameters)
@@ -254,7 +254,7 @@ func (client *MongoDBResourcesClient) createUpdateMongoRoleDefinitionCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateMongoRoleDefinitionParameters)
@@ -321,7 +321,7 @@ func (client *MongoDBResourcesClient) createUpdateMongoUserDefinitionCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, createUpdateMongoUserDefinitionParameters)
@@ -392,7 +392,7 @@ func (client *MongoDBResourcesClient) deleteMongoDBCollectionCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -457,7 +457,7 @@ func (client *MongoDBResourcesClient) deleteMongoDBDatabaseCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -522,7 +522,7 @@ func (client *MongoDBResourcesClient) deleteMongoRoleDefinitionCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -588,7 +588,7 @@ func (client *MongoDBResourcesClient) deleteMongoUserDefinitionCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -645,7 +645,7 @@ func (client *MongoDBResourcesClient) getMongoDBCollectionCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -712,7 +712,7 @@ func (client *MongoDBResourcesClient) getMongoDBCollectionThroughputCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -773,7 +773,7 @@ func (client *MongoDBResourcesClient) getMongoDBDatabaseCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -835,7 +835,7 @@ func (client *MongoDBResourcesClient) getMongoDBDatabaseThroughputCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -896,7 +896,7 @@ func (client *MongoDBResourcesClient) getMongoRoleDefinitionCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -957,7 +957,7 @@ func (client *MongoDBResourcesClient) getMongoUserDefinitionCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1040,7 +1040,7 @@ func (client *MongoDBResourcesClient) listMongoDBCollectionPartitionMergeCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, mergeParameters)
@@ -1099,7 +1099,7 @@ func (client *MongoDBResourcesClient) listMongoDBCollectionsCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1162,7 +1162,7 @@ func (client *MongoDBResourcesClient) listMongoDBDatabasesCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1225,7 +1225,7 @@ func (client *MongoDBResourcesClient) listMongoRoleDefinitionsCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1288,7 +1288,7 @@ func (client *MongoDBResourcesClient) listMongoUserDefinitionsCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1368,7 +1368,7 @@ func (client *MongoDBResourcesClient) migrateMongoDBCollectionToAutoscaleCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1440,7 +1440,7 @@ func (client *MongoDBResourcesClient) migrateMongoDBCollectionToManualThroughput
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1506,7 +1506,7 @@ func (client *MongoDBResourcesClient) migrateMongoDBDatabaseToAutoscaleCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -1572,10 +1572,84 @@ func (client *MongoDBResourcesClient) migrateMongoDBDatabaseToManualThroughputCr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
+}
+
+// BeginMongoDBContainerRedistributeThroughput - Redistribute throughput for an Azure Cosmos DB MongoDB container
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// accountName - Cosmos DB database account name.
+// databaseName - Cosmos DB database name.
+// collectionName - Cosmos DB collection name.
+// redistributeThroughputParameters - The parameters to provide for redistributing throughput for the current MongoDB container.
+// options - MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions contains the optional parameters for
+// the MongoDBResourcesClient.BeginMongoDBContainerRedistributeThroughput method.
+func (client *MongoDBResourcesClient) BeginMongoDBContainerRedistributeThroughput(ctx context.Context, resourceGroupName string, accountName string, databaseName string, collectionName string, redistributeThroughputParameters RedistributeThroughputParameters, options *MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions) (*armruntime.Poller[MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.mongoDBContainerRedistributeThroughput(ctx, resourceGroupName, accountName, databaseName, collectionName, redistributeThroughputParameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return armruntime.NewPoller(resp, client.pl, &armruntime.NewPollerOptions[MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse]{
+			FinalStateVia: armruntime.FinalStateViaLocation,
+		})
+	} else {
+		return armruntime.NewPollerFromResumeToken[MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// MongoDBContainerRedistributeThroughput - Redistribute throughput for an Azure Cosmos DB MongoDB container
+// If the operation fails it returns an *azcore.ResponseError type.
+func (client *MongoDBResourcesClient) mongoDBContainerRedistributeThroughput(ctx context.Context, resourceGroupName string, accountName string, databaseName string, collectionName string, redistributeThroughputParameters RedistributeThroughputParameters, options *MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions) (*http.Response, error) {
+	req, err := client.mongoDBContainerRedistributeThroughputCreateRequest(ctx, resourceGroupName, accountName, databaseName, collectionName, redistributeThroughputParameters, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// mongoDBContainerRedistributeThroughputCreateRequest creates the MongoDBContainerRedistributeThroughput request.
+func (client *MongoDBResourcesClient) mongoDBContainerRedistributeThroughputCreateRequest(ctx context.Context, resourceGroupName string, accountName string, databaseName string, collectionName string, redistributeThroughputParameters RedistributeThroughputParameters, options *MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/mongodbDatabases/{databaseName}/collections/{collectionName}/throughputSettings/default/redistributeThroughput"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if accountName == "" {
+		return nil, errors.New("parameter accountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if databaseName == "" {
+		return nil, errors.New("parameter databaseName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
+	if collectionName == "" {
+		return nil, errors.New("parameter collectionName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{collectionName}", url.PathEscape(collectionName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-04-15-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, runtime.MarshalAsJSON(req, redistributeThroughputParameters)
 }
 
 // BeginRetrieveContinuousBackupInformation - Retrieves continuous backup information for a Mongodb collection.
@@ -1646,10 +1720,85 @@ func (client *MongoDBResourcesClient) retrieveContinuousBackupInformationCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, location)
+}
+
+// BeginSQLContainerRetrieveThroughputDistribution - Retrieve throughput distribution for an Azure Cosmos DB MongoDB container
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// accountName - Cosmos DB database account name.
+// databaseName - Cosmos DB database name.
+// collectionName - Cosmos DB collection name.
+// retrieveThroughputParameters - The parameters to provide for retrieving throughput distribution for the current MongoDB
+// container.
+// options - MongoDBResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions contains the optional parameters
+// for the MongoDBResourcesClient.BeginSQLContainerRetrieveThroughputDistribution method.
+func (client *MongoDBResourcesClient) BeginSQLContainerRetrieveThroughputDistribution(ctx context.Context, resourceGroupName string, accountName string, databaseName string, collectionName string, retrieveThroughputParameters RetrieveThroughputParameters, options *MongoDBResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*armruntime.Poller[MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.sQLContainerRetrieveThroughputDistribution(ctx, resourceGroupName, accountName, databaseName, collectionName, retrieveThroughputParameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return armruntime.NewPoller(resp, client.pl, &armruntime.NewPollerOptions[MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse]{
+			FinalStateVia: armruntime.FinalStateViaLocation,
+		})
+	} else {
+		return armruntime.NewPollerFromResumeToken[MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// SQLContainerRetrieveThroughputDistribution - Retrieve throughput distribution for an Azure Cosmos DB MongoDB container
+// If the operation fails it returns an *azcore.ResponseError type.
+func (client *MongoDBResourcesClient) sQLContainerRetrieveThroughputDistribution(ctx context.Context, resourceGroupName string, accountName string, databaseName string, collectionName string, retrieveThroughputParameters RetrieveThroughputParameters, options *MongoDBResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*http.Response, error) {
+	req, err := client.sqlContainerRetrieveThroughputDistributionCreateRequest(ctx, resourceGroupName, accountName, databaseName, collectionName, retrieveThroughputParameters, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// sqlContainerRetrieveThroughputDistributionCreateRequest creates the SQLContainerRetrieveThroughputDistribution request.
+func (client *MongoDBResourcesClient) sqlContainerRetrieveThroughputDistributionCreateRequest(ctx context.Context, resourceGroupName string, accountName string, databaseName string, collectionName string, retrieveThroughputParameters RetrieveThroughputParameters, options *MongoDBResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/databaseAccounts/{accountName}/mongodbDatabases/{databaseName}/collections/{collectionName}/throughputSettings/default/retrieveThroughputDistribution"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if accountName == "" {
+		return nil, errors.New("parameter accountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if databaseName == "" {
+		return nil, errors.New("parameter databaseName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
+	if collectionName == "" {
+		return nil, errors.New("parameter collectionName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{collectionName}", url.PathEscape(collectionName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-04-15-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, runtime.MarshalAsJSON(req, retrieveThroughputParameters)
 }
 
 // BeginUpdateMongoDBCollectionThroughput - Update the RUs per second of an Azure Cosmos DB MongoDB collection
@@ -1718,7 +1867,7 @@ func (client *MongoDBResourcesClient) updateMongoDBCollectionThroughputCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, updateThroughputParameters)
@@ -1785,7 +1934,7 @@ func (client *MongoDBResourcesClient) updateMongoDBDatabaseThroughputCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, updateThroughputParameters)

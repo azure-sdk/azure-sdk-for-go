@@ -103,7 +103,7 @@ func (client *RestorableTablesClient) listCreateRequest(ctx context.Context, loc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	if options != nil && options.StartTime != nil {
 		reqQP.Set("startTime", *options.StartTime)
 	}

@@ -104,7 +104,7 @@ func (client *RestorableMongodbResourcesClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	if options != nil && options.RestoreLocation != nil {
 		reqQP.Set("restoreLocation", *options.RestoreLocation)
 	}

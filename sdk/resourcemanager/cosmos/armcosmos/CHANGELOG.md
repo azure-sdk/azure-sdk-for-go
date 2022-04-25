@@ -1,5 +1,49 @@
 # Release History
 
+## 0.6.0 (2022-04-25)
+### Features Added
+
+- New const `ThroughputPolicyTypeNone`
+- New const `ThroughputPolicyTypeEqual`
+- New const `ThroughputPolicyTypeCustom`
+- New function `RedistributeThroughputPropertiesResource.MarshalJSON() ([]byte, error)`
+- New function `*DataTransferJobsClient.Cancel(context.Context, string, string, string, *DataTransferJobsClientCancelOptions) (DataTransferJobsClientCancelResponse, error)`
+- New function `RetrieveThroughputParameters.MarshalJSON() ([]byte, error)`
+- New function `RetrieveThroughputPropertiesResource.MarshalJSON() ([]byte, error)`
+- New function `*MongoDBResourcesClient.BeginMongoDBContainerRedistributeThroughput(context.Context, string, string, string, string, RedistributeThroughputParameters, *MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions) (*armruntime.Poller[MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse], error)`
+- New function `RedistributeThroughputParameters.MarshalJSON() ([]byte, error)`
+- New function `PossibleThroughputPolicyTypeValues() []ThroughputPolicyType`
+- New function `*DataTransferJobsClient.Resume(context.Context, string, string, string, *DataTransferJobsClientResumeOptions) (DataTransferJobsClientResumeResponse, error)`
+- New function `*DataTransferJobsClient.Pause(context.Context, string, string, string, *DataTransferJobsClientPauseOptions) (DataTransferJobsClientPauseResponse, error)`
+- New function `*SQLResourcesClient.BeginSQLContainerRedistributeThroughput(context.Context, string, string, string, string, RedistributeThroughputParameters, *SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions) (*armruntime.Poller[SQLResourcesClientSQLContainerRedistributeThroughputResponse], error)`
+- New function `*MongoDBResourcesClient.BeginSQLContainerRetrieveThroughputDistribution(context.Context, string, string, string, string, RetrieveThroughputParameters, *MongoDBResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*armruntime.Poller[MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse], error)`
+- New function `*SQLResourcesClient.BeginSQLContainerRetrieveThroughputDistribution(context.Context, string, string, string, string, RetrieveThroughputParameters, *SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*armruntime.Poller[SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse], error)`
+- New struct `DataTransferJobsClientCancelOptions`
+- New struct `DataTransferJobsClientCancelResponse`
+- New struct `DataTransferJobsClientPauseOptions`
+- New struct `DataTransferJobsClientPauseResponse`
+- New struct `DataTransferJobsClientResumeOptions`
+- New struct `DataTransferJobsClientResumeResponse`
+- New struct `MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions`
+- New struct `MongoDBResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions`
+- New struct `MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse`
+- New struct `MongoDBResourcesClientSQLContainerRetrieveThroughputDistributionResponse`
+- New struct `PhysicalPartitionID`
+- New struct `PhysicalPartitionThroughputInfoResource`
+- New struct `RedistributeThroughputParameters`
+- New struct `RedistributeThroughputProperties`
+- New struct `RedistributeThroughputPropertiesResource`
+- New struct `RetrieveThroughputParameters`
+- New struct `RetrieveThroughputProperties`
+- New struct `RetrieveThroughputPropertiesResource`
+- New struct `SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions`
+- New struct `SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions`
+- New struct `SQLResourcesClientSQLContainerRedistributeThroughputResponse`
+- New struct `SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse`
+- New field `TotalCount` in struct `DataTransferJobProperties`
+- New field `ProcessedCount` in struct `DataTransferJobProperties`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 

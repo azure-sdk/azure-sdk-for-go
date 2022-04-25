@@ -104,7 +104,7 @@ func (client *RestorableMongodbCollectionsClient) listCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-15-preview")
+	reqQP.Set("api-version", "2022-04-15-preview")
 	if options != nil && options.RestorableMongodbDatabaseRid != nil {
 		reqQP.Set("restorableMongodbDatabaseRid", *options.RestorableMongodbDatabaseRid)
 	}
