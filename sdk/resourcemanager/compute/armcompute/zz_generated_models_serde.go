@@ -526,6 +526,7 @@ func (d DedicatedHostGroupListResult) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type DedicatedHostGroupProperties.
 func (d DedicatedHostGroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "additionalCapabilities", d.AdditionalCapabilities)
 	populate(objectMap, "hosts", d.Hosts)
 	populate(objectMap, "instanceView", d.InstanceView)
 	populate(objectMap, "platformFaultDomainCount", d.PlatformFaultDomainCount)
@@ -1939,6 +1940,7 @@ func (p ProximityPlacementGroup) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "properties", p.Properties)
 	populate(objectMap, "tags", p.Tags)
 	populate(objectMap, "type", p.Type)
+	populate(objectMap, "zones", p.Zones)
 	return json.Marshal(objectMap)
 }
 
@@ -1955,9 +1957,17 @@ func (p ProximityPlacementGroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "availabilitySets", p.AvailabilitySets)
 	populate(objectMap, "colocationStatus", p.ColocationStatus)
+	populate(objectMap, "intent", p.Intent)
 	populate(objectMap, "proximityPlacementGroupType", p.ProximityPlacementGroupType)
 	populate(objectMap, "virtualMachineScaleSets", p.VirtualMachineScaleSets)
 	populate(objectMap, "virtualMachines", p.VirtualMachines)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ProximityPlacementGroupPropertiesIntent.
+func (p ProximityPlacementGroupPropertiesIntent) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "vmSizes", p.VMSizes)
 	return json.Marshal(objectMap)
 }
 
@@ -2158,6 +2168,17 @@ func (r ResourceURIList) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "nextLink", r.NextLink)
 	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ResourceWithOptionalLocation.
+func (r ResourceWithOptionalLocation) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", r.ID)
+	populate(objectMap, "location", r.Location)
+	populate(objectMap, "name", r.Name)
+	populate(objectMap, "tags", r.Tags)
+	populate(objectMap, "type", r.Type)
 	return json.Marshal(objectMap)
 }
 
@@ -3603,6 +3624,7 @@ func (v VirtualMachineScaleSetOSDisk) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "caching", v.Caching)
 	populate(objectMap, "createOption", v.CreateOption)
+	populate(objectMap, "deleteOption", v.DeleteOption)
 	populate(objectMap, "diffDiskSettings", v.DiffDiskSettings)
 	populate(objectMap, "diskSizeGB", v.DiskSizeGB)
 	populate(objectMap, "image", v.Image)
@@ -3800,6 +3822,7 @@ func (v VirtualMachineScaleSetUpdateNetworkProfile) MarshalJSON() ([]byte, error
 func (v VirtualMachineScaleSetUpdateOSDisk) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "caching", v.Caching)
+	populate(objectMap, "deleteOption", v.DeleteOption)
 	populate(objectMap, "diskSizeGB", v.DiskSizeGB)
 	populate(objectMap, "image", v.Image)
 	populate(objectMap, "managedDisk", v.ManagedDisk)
@@ -3831,6 +3854,7 @@ func (v VirtualMachineScaleSetUpdateStorageProfile) MarshalJSON() ([]byte, error
 func (v VirtualMachineScaleSetVM) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "id", v.ID)
+	populate(objectMap, "identity", v.Identity)
 	populate(objectMap, "instanceId", v.InstanceID)
 	populate(objectMap, "location", v.Location)
 	populate(objectMap, "name", v.Name)

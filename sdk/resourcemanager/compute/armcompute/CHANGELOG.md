@@ -1,5 +1,46 @@
 # Release History
 
+## 0.8.0 (2022-04-25)
+### Breaking Changes
+
+- Type of `DiskRestorePointInstanceView.ReplicationStatus` has been changed from `interface{}` to `*DiskRestorePointReplicationStatus`
+- Type of `DiskRestorePointReplicationStatus.Status` has been changed from `interface{}` to `*InstanceViewStatus`
+
+### Features Added
+
+- New const `LinuxVMGuestPatchAutomaticByPlatformRebootSettingIfRequired`
+- New const `WindowsVMGuestPatchAutomaticByPlatformRebootSettingUnknown`
+- New const `LinuxVMGuestPatchAutomaticByPlatformRebootSettingAlways`
+- New const `WindowsVMGuestPatchAutomaticByPlatformRebootSettingNever`
+- New const `LinuxVMGuestPatchAutomaticByPlatformRebootSettingUnknown`
+- New const `WindowsVMGuestPatchAutomaticByPlatformRebootSettingIfRequired`
+- New const `StorageAccountTypesPremiumV2LRS`
+- New const `LinuxVMGuestPatchAutomaticByPlatformRebootSettingNever`
+- New const `WindowsVMGuestPatchAutomaticByPlatformRebootSettingAlways`
+- New function `PossibleWindowsVMGuestPatchAutomaticByPlatformRebootSettingValues() []WindowsVMGuestPatchAutomaticByPlatformRebootSetting`
+- New function `ResourceWithOptionalLocation.MarshalJSON() ([]byte, error)`
+- New function `ProximityPlacementGroupPropertiesIntent.MarshalJSON() ([]byte, error)`
+- New function `PossibleLinuxVMGuestPatchAutomaticByPlatformRebootSettingValues() []LinuxVMGuestPatchAutomaticByPlatformRebootSetting`
+- New struct `DedicatedHostGroupPropertiesAdditionalCapabilities`
+- New struct `LinuxVMGuestPatchAutomaticByPlatformSettings`
+- New struct `ProximityPlacementGroupPropertiesIntent`
+- New struct `ResourceWithOptionalLocation`
+- New struct `WindowsVMGuestPatchAutomaticByPlatformSettings`
+- New field `Intent` in struct `ProximityPlacementGroupProperties`
+- New field `UseRollingUpgradePolicy` in struct `AutomaticOSUpgradePolicy`
+- New field `CompletionPercent` in struct `DiskRestorePointReplicationStatus`
+- New field `AutomaticByPlatformSettings` in struct `PatchSettings`
+- New field `Zones` in struct `ProximityPlacementGroup`
+- New field `AutomaticByPlatformSettings` in struct `LinuxPatchSettings`
+- New field `TreatFailureAsDeploymentFailure` in struct `VMGalleryApplication`
+- New field `EnableAutomaticUpgrade` in struct `VMGalleryApplication`
+- New field `DeleteOption` in struct `VirtualMachineScaleSetOSDisk`
+- New field `AdditionalCapabilities` in struct `DedicatedHostGroupProperties`
+- New field `DeleteOption` in struct `VirtualMachineScaleSetDataDisk`
+- New field `Identity` in struct `VirtualMachineScaleSetVM`
+- New field `DeleteOption` in struct `VirtualMachineScaleSetUpdateOSDisk`
+
+
 ## 0.7.0 (2022-04-15)
 ### Breaking Changes
 
