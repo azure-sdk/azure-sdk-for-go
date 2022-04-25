@@ -401,6 +401,67 @@ func (client *ServerGroupsClient) listByResourceGroupHandleResponse(resp *http.R
 	return result, nil
 }
 
+// BeginPromote - Promotes the replica server group.
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// serverGroupName - The name of the server group.
+// options - ServerGroupsClientBeginPromoteOptions contains the optional parameters for the ServerGroupsClient.BeginPromote
+// method.
+func (client *ServerGroupsClient) BeginPromote(ctx context.Context, resourceGroupName string, serverGroupName string, options *ServerGroupsClientBeginPromoteOptions) (*armruntime.Poller[ServerGroupsClientPromoteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.promote(ctx, resourceGroupName, serverGroupName, options)
+		if err != nil {
+			return nil, err
+		}
+		return armruntime.NewPoller[ServerGroupsClientPromoteResponse](resp, client.pl, nil)
+	} else {
+		return armruntime.NewPollerFromResumeToken[ServerGroupsClientPromoteResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// Promote - Promotes the replica server group.
+// If the operation fails it returns an *azcore.ResponseError type.
+func (client *ServerGroupsClient) promote(ctx context.Context, resourceGroupName string, serverGroupName string, options *ServerGroupsClientBeginPromoteOptions) (*http.Response, error) {
+	req, err := client.promoteCreateRequest(ctx, resourceGroupName, serverGroupName, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// promoteCreateRequest creates the Promote request.
+func (client *ServerGroupsClient) promoteCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, options *ServerGroupsClientBeginPromoteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/promote"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serverGroupName == "" {
+		return nil, errors.New("parameter serverGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, nil
+}
+
 // BeginRestart - Restarts the server group.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.

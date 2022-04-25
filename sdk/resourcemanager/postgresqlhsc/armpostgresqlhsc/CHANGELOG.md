@@ -1,5 +1,15 @@
 # Release History
 
+## 0.5.0 (2022-04-25)
+### Features Added
+
+- New const `ServerHaStateNeedsAttention`
+- New const `ServerStateNeedsAttention`
+- New function `*ServerGroupsClient.BeginPromote(context.Context, string, string, *ServerGroupsClientBeginPromoteOptions) (*armruntime.Poller[ServerGroupsClientPromoteResponse], error)`
+- New struct `ServerGroupsClientBeginPromoteOptions`
+- New struct `ServerGroupsClientPromoteResponse`
+
+
 ## 0.4.0 (2022-04-18)
 ### Breaking Changes
 

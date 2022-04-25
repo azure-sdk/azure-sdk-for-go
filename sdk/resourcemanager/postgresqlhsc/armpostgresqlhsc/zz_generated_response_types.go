@@ -98,6 +98,11 @@ type ServerGroupsClientListResponse struct {
 	ServerGroupListResult
 }
 
+// ServerGroupsClientPromoteResponse contains the response from method ServerGroupsClient.Promote.
+type ServerGroupsClientPromoteResponse struct {
+	// placeholder for future response values
+}
+
 // ServerGroupsClientRestartResponse contains the response from method ServerGroupsClient.Restart.
 type ServerGroupsClientRestartResponse struct {
 	// placeholder for future response values

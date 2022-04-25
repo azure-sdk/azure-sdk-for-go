@@ -10,7 +10,7 @@ package armpostgresqlhsc
 
 const (
 	moduleName    = "armpostgresqlhsc"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.5.0"
 )
 
 // CitusVersion - The Citus version.
@@ -170,6 +170,7 @@ const (
 	ServerHaStateCreatingStandby ServerHaState = "CreatingStandby"
 	ServerHaStateFailingOver     ServerHaState = "FailingOver"
 	ServerHaStateHealthy         ServerHaState = "Healthy"
+	ServerHaStateNeedsAttention  ServerHaState = "NeedsAttention"
 	ServerHaStateNotEnabled      ServerHaState = "NotEnabled"
 	ServerHaStateNotSync         ServerHaState = "NotSync"
 	ServerHaStateRemovingStandby ServerHaState = "RemovingStandby"
@@ -182,6 +183,7 @@ func PossibleServerHaStateValues() []ServerHaState {
 		ServerHaStateCreatingStandby,
 		ServerHaStateFailingOver,
 		ServerHaStateHealthy,
+		ServerHaStateNeedsAttention,
 		ServerHaStateNotEnabled,
 		ServerHaStateNotSync,
 		ServerHaStateRemovingStandby,
@@ -209,14 +211,15 @@ func PossibleServerRoleValues() []ServerRole {
 type ServerState string
 
 const (
-	ServerStateDisabled     ServerState = "Disabled"
-	ServerStateDropping     ServerState = "Dropping"
-	ServerStateProvisioning ServerState = "Provisioning"
-	ServerStateReady        ServerState = "Ready"
-	ServerStateStarting     ServerState = "Starting"
-	ServerStateStopped      ServerState = "Stopped"
-	ServerStateStopping     ServerState = "Stopping"
-	ServerStateUpdating     ServerState = "Updating"
+	ServerStateDisabled       ServerState = "Disabled"
+	ServerStateDropping       ServerState = "Dropping"
+	ServerStateNeedsAttention ServerState = "NeedsAttention"
+	ServerStateProvisioning   ServerState = "Provisioning"
+	ServerStateReady          ServerState = "Ready"
+	ServerStateStarting       ServerState = "Starting"
+	ServerStateStopped        ServerState = "Stopped"
+	ServerStateStopping       ServerState = "Stopping"
+	ServerStateUpdating       ServerState = "Updating"
 )
 
 // PossibleServerStateValues returns the possible values for the ServerState const type.
@@ -224,6 +227,7 @@ func PossibleServerStateValues() []ServerState {
 	return []ServerState{
 		ServerStateDisabled,
 		ServerStateDropping,
+		ServerStateNeedsAttention,
 		ServerStateProvisioning,
 		ServerStateReady,
 		ServerStateStarting,

@@ -606,6 +606,12 @@ type ServerGroupsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// ServerGroupsClientBeginPromoteOptions contains the optional parameters for the ServerGroupsClient.BeginPromote method.
+type ServerGroupsClientBeginPromoteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ServerGroupsClientBeginRestartOptions contains the optional parameters for the ServerGroupsClient.BeginRestart method.
 type ServerGroupsClientBeginRestartOptions struct {
 	// Resumes the LRO from the provided token.
