@@ -1,5 +1,5 @@
 {
-  "commit": "bb4175d29020cfff55f1d9087c2a5a89765067dc",
+  "commit": "b7666d30a3b6db5c0cda3248872218e0e8baef00",
   "readme": "/_/azure-rest-api-specs/specification/cosmos-db/resource-manager/readme.md",
   "tag": "package-preview-2021-11",
   "use": "@microsoft.azure/autorest.go@2.1.187",
