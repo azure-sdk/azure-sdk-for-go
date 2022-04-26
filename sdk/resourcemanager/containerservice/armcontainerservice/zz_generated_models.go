@@ -606,11 +606,13 @@ type ManagedClusterAgentPoolProfile struct {
 	// The operating system type. The default is Linux.
 	OSType *OSType `json:"osType,omitempty"`
 
-	// As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes version. The node pool version
-	// must have the same major version as the control plane. The node pool minor
-	// version must be within two minor versions of the control plane version. The node pool version cannot be greater than the
-	// control plane version. For more information see upgrading a node pool
-	// [https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool].
+	// Both patch version (e.g. 1.20.13) and (e.g. 1.20) are supported. When is specified, the latest supported GA patch version
+	// is chosen automatically. Updating the cluster with the same once it has been
+	// created (e.g. 1.14.x -> 1.14) will not trigger an upgrade, even if a newer patch version is available. As a best practice,
+	// you should upgrade all node pools in an AKS cluster to the same Kubernetes
+	// version. The node pool version must have the same major version as the control plane. The node pool minor version must
+	// be within two minor versions of the control plane version. The node pool version
+	// cannot be greater than the control plane version. For more information see upgrading a node pool [https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool].
 	OrchestratorVersion *string `json:"orchestratorVersion,omitempty"`
 
 	// If omitted, pod IPs are statically assigned on the node subnet (see vnetSubnetID for more details). This is of the form:
@@ -660,6 +662,10 @@ type ManagedClusterAgentPoolProfile struct {
 
 	// Determines the type of workload a node can run.
 	WorkloadRuntime *WorkloadRuntime `json:"workloadRuntime,omitempty"`
+
+	// READ-ONLY; If orchestratorVersion is a fully specified version , this field will be exactly equal to it. If orchestratorVersion
+	// is , this field will contain the full version being used.
+	CurrentOrchestratorVersion *string `json:"currentOrchestratorVersion,omitempty" azure:"ro"`
 
 	// READ-ONLY; The version of node image
 	NodeImageVersion *string `json:"nodeImageVersion,omitempty" azure:"ro"`
@@ -750,11 +756,13 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// The operating system type. The default is Linux.
 	OSType *OSType `json:"osType,omitempty"`
 
-	// As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes version. The node pool version
-	// must have the same major version as the control plane. The node pool minor
-	// version must be within two minor versions of the control plane version. The node pool version cannot be greater than the
-	// control plane version. For more information see upgrading a node pool
-	// [https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool].
+	// Both patch version (e.g. 1.20.13) and (e.g. 1.20) are supported. When is specified, the latest supported GA patch version
+	// is chosen automatically. Updating the cluster with the same once it has been
+	// created (e.g. 1.14.x -> 1.14) will not trigger an upgrade, even if a newer patch version is available. As a best practice,
+	// you should upgrade all node pools in an AKS cluster to the same Kubernetes
+	// version. The node pool version must have the same major version as the control plane. The node pool minor version must
+	// be within two minor versions of the control plane version. The node pool version
+	// cannot be greater than the control plane version. For more information see upgrading a node pool [https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool].
 	OrchestratorVersion *string `json:"orchestratorVersion,omitempty"`
 
 	// If omitted, pod IPs are statically assigned on the node subnet (see vnetSubnetID for more details). This is of the form:
@@ -804,6 +812,10 @@ type ManagedClusterAgentPoolProfileProperties struct {
 
 	// Determines the type of workload a node can run.
 	WorkloadRuntime *WorkloadRuntime `json:"workloadRuntime,omitempty"`
+
+	// READ-ONLY; If orchestratorVersion is a fully specified version , this field will be exactly equal to it. If orchestratorVersion
+	// is , this field will contain the full version being used.
+	CurrentOrchestratorVersion *string `json:"currentOrchestratorVersion,omitempty" azure:"ro"`
 
 	// READ-ONLY; The version of node image
 	NodeImageVersion *string `json:"nodeImageVersion,omitempty" azure:"ro"`
@@ -1106,6 +1118,9 @@ type ManagedClusterProperties struct {
 
 	// Information about a service principal identity for the cluster to use for manipulating Azure APIs.
 	ServicePrincipalProfile *ManagedClusterServicePrincipalProfile `json:"servicePrincipalProfile,omitempty"`
+
+	// Storage profile for the managed cluster.
+	StorageProfile *ManagedClusterStorageProfile `json:"storageProfile,omitempty"`
 
 	// The profile for Windows VMs in the Managed Cluster.
 	WindowsProfile *ManagedClusterWindowsProfile `json:"windowsProfile,omitempty"`

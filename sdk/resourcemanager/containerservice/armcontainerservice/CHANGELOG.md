@@ -1,5 +1,13 @@
 # Release History
 
+## 0.6.0 (2022-04-26)
+### Features Added
+
+- New field `CurrentOrchestratorVersion` in struct `ManagedClusterAgentPoolProfile`
+- New field `StorageProfile` in struct `ManagedClusterProperties`
+- New field `CurrentOrchestratorVersion` in struct `ManagedClusterAgentPoolProfileProperties`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 
