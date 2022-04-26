@@ -1076,10 +1076,13 @@ type ManagedClusterProperties struct {
 	// Identities associated with the cluster.
 	IdentityProfile map[string]*UserAssignedIdentity `json:"identityProfile,omitempty"`
 
-	// When you upgrade a supported AKS cluster, Kubernetes minor versions cannot be skipped. All upgrades must be performed sequentially
-	// by major version number. For example, upgrades between 1.14.x ->
-	// 1.15.x or 1.15.x -> 1.16.x are allowed, however 1.14.x -> 1.16.x is not allowed. See upgrading an AKS cluster [https://docs.microsoft.com/azure/aks/upgrade-cluster]
-	// for more details.
+	// Both patch version (e.g. 1.20.13) and (e.g. 1.20) are supported. When is specified, the latest supported GA patch version
+	// is chosen automatically. Updating the cluster with the same once it has been
+	// created (e.g. 1.14.x -> 1.14) will not trigger an upgrade, even if a newer patch version is available. When you upgrade
+	// a supported AKS cluster, Kubernetes minor versions cannot be skipped. All
+	// upgrades must be performed sequentially by major version number. For example, upgrades between 1.14.x -> 1.15.x or 1.15.x
+	// -> 1.16.x are allowed, however 1.14.x -> 1.16.x is not allowed. See upgrading
+	// an AKS cluster [https://docs.microsoft.com/azure/aks/upgrade-cluster] for more details.
 	KubernetesVersion *string `json:"kubernetesVersion,omitempty"`
 
 	// The profile for Linux VMs in the Managed Cluster.
@@ -1107,6 +1110,9 @@ type ManagedClusterProperties struct {
 	// Information about a service principal identity for the cluster to use for manipulating Azure APIs.
 	ServicePrincipalProfile *ManagedClusterServicePrincipalProfile `json:"servicePrincipalProfile,omitempty"`
 
+	// Storage profile for the managed cluster.
+	StorageProfile *ManagedClusterStorageProfile `json:"storageProfile,omitempty"`
+
 	// The profile for Windows VMs in the Managed Cluster.
 	WindowsProfile *ManagedClusterWindowsProfile `json:"windowsProfile,omitempty"`
 
@@ -1114,6 +1120,10 @@ type ManagedClusterProperties struct {
 	// which Kubernetes APIServer doesn't handle by default. This special FQDN supports CORS,
 	// allowing the Azure Portal to function properly.
 	AzurePortalFQDN *string `json:"azurePortalFQDN,omitempty" azure:"ro"`
+
+	// READ-ONLY; If kubernetesVersion was a fully specified version , this field will be exactly equal to it. If kubernetesVersion
+	// was , this field will contain the full version being used.
+	CurrentKubernetesVersion *string `json:"currentKubernetesVersion,omitempty" azure:"ro"`
 
 	// READ-ONLY; The FQDN of the master pool.
 	Fqdn *string `json:"fqdn,omitempty" azure:"ro"`

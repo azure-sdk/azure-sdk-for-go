@@ -469,6 +469,7 @@ func (m ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "autoScalerProfile", m.AutoScalerProfile)
 	populate(objectMap, "autoUpgradeProfile", m.AutoUpgradeProfile)
 	populate(objectMap, "azurePortalFQDN", m.AzurePortalFQDN)
+	populate(objectMap, "currentKubernetesVersion", m.CurrentKubernetesVersion)
 	populate(objectMap, "dnsPrefix", m.DNSPrefix)
 	populate(objectMap, "disableLocalAccounts", m.DisableLocalAccounts)
 	populate(objectMap, "diskEncryptionSetID", m.DiskEncryptionSetID)
@@ -491,6 +492,7 @@ func (m ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publicNetworkAccess", m.PublicNetworkAccess)
 	populate(objectMap, "securityProfile", m.SecurityProfile)
 	populate(objectMap, "servicePrincipalProfile", m.ServicePrincipalProfile)
+	populate(objectMap, "storageProfile", m.StorageProfile)
 	populate(objectMap, "windowsProfile", m.WindowsProfile)
 	return json.Marshal(objectMap)
 }
