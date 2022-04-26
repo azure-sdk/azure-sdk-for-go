@@ -2317,6 +2317,8 @@ type ManagedClusterProperties struct {
 	HTTPProxyConfig *ManagedClusterHTTPProxyConfig `json:"httpProxyConfig,omitempty"`
 	// SecurityProfile - Security profile for the managed cluster.
 	SecurityProfile *ManagedClusterSecurityProfile `json:"securityProfile,omitempty"`
+	// StorageProfile - Storage profile for the managed cluster.
+	StorageProfile *ManagedClusterStorageProfile `json:"storageProfile,omitempty"`
 	// IngressProfile - Ingress profile for the managed cluster.
 	IngressProfile *ManagedClusterIngressProfile `json:"ingressProfile,omitempty"`
 	// PublicNetworkAccess - Allow or deny public network access for AKS. Possible values include: 'PublicNetworkAccessEnabled', 'PublicNetworkAccessDisabled'
@@ -2403,6 +2405,9 @@ func (mcp ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	}
 	if mcp.SecurityProfile != nil {
 		objectMap["securityProfile"] = mcp.SecurityProfile
+	}
+	if mcp.StorageProfile != nil {
+		objectMap["storageProfile"] = mcp.StorageProfile
 	}
 	if mcp.IngressProfile != nil {
 		objectMap["ingressProfile"] = mcp.IngressProfile
