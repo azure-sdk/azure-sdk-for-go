@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.8.0"
 )
 
 type AccessLevel string
@@ -529,6 +529,9 @@ const (
 	// DiskStorageAccountTypesPremiumLRS - Premium SSD locally redundant storage. Best for production and performance sensitive
 	// workloads.
 	DiskStorageAccountTypesPremiumLRS DiskStorageAccountTypes = "Premium_LRS"
+	// DiskStorageAccountTypesPremiumV2LRS - PremiumV2 locally redundant storage. Best for IO-intensive workloads such as SAP
+	// HANA, top tier databases (for example, SQL, Oracle), and other transaction-heavy workloads.
+	DiskStorageAccountTypesPremiumV2LRS DiskStorageAccountTypes = "PremiumV2_LRS"
 	// DiskStorageAccountTypesPremiumZRS - Premium SSD zone redundant storage. Best for the production workloads that need storage
 	// resiliency against zone failures.
 	DiskStorageAccountTypesPremiumZRS DiskStorageAccountTypes = "Premium_ZRS"
@@ -550,6 +553,7 @@ const (
 func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 	return []DiskStorageAccountTypes{
 		DiskStorageAccountTypesPremiumLRS,
+		DiskStorageAccountTypesPremiumV2LRS,
 		DiskStorageAccountTypesPremiumZRS,
 		DiskStorageAccountTypesStandardLRS,
 		DiskStorageAccountTypesStandardSSDLRS,

@@ -2616,6 +2616,7 @@ func (s SnapshotList) MarshalJSON() ([]byte, error) {
 func (s SnapshotProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "completionPercent", s.CompletionPercent)
+	populate(objectMap, "copyCompletionError", s.CopyCompletionError)
 	populate(objectMap, "creationData", s.CreationData)
 	populate(objectMap, "dataAccessAuthMode", s.DataAccessAuthMode)
 	populate(objectMap, "diskAccessId", s.DiskAccessID)
@@ -2650,6 +2651,9 @@ func (s *SnapshotProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "completionPercent":
 			err = unpopulate(val, &s.CompletionPercent)
+			delete(rawMsg, key)
+		case "copyCompletionError":
+			err = unpopulate(val, &s.CopyCompletionError)
 			delete(rawMsg, key)
 		case "creationData":
 			err = unpopulate(val, &s.CreationData)

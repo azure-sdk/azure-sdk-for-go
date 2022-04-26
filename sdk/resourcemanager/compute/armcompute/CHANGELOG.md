@@ -1,5 +1,13 @@
 # Release History
 
+## 0.8.0 (2022-04-26)
+### Features Added
+
+- New const `DiskStorageAccountTypesPremiumV2LRS`
+- New struct `CopyCompletionError`
+- New field `CopyCompletionError` in struct `SnapshotProperties`
+
+
 ## 0.7.0 (2022-04-15)
 ### Breaking Changes
 

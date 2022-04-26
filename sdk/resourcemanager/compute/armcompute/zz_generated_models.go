@@ -1178,6 +1178,16 @@ type CommunityGalleryInfo struct {
 	PublicNames []*string `json:"publicNames,omitempty" azure:"ro"`
 }
 
+// CopyCompletionError - Indicates the error details if the background copy of a resource created via the CopyStart operation
+// fails.
+type CopyCompletionError struct {
+	// REQUIRED; Indicates the error code if the background copy of a resource created via the CopyStart operation fails.
+	ErrorCode *string `json:"errorCode,omitempty"`
+
+	// REQUIRED; Indicates the error message if the background copy of a resource created via the CopyStart operation fails.
+	ErrorMessage *string `json:"errorMessage,omitempty"`
+}
+
 // CreationData - Data used when creating a disk.
 type CreationData struct {
 	// REQUIRED; This enumerates the possible sources of a disk's creation.
@@ -1187,7 +1197,7 @@ type CreationData struct {
 	// version from which to create a disk.
 	GalleryImageReference *ImageDiskReference `json:"galleryImageReference,omitempty"`
 
-	// Disk source information.
+	// Disk source information for PIR or user images.
 	ImageReference *ImageDiskReference `json:"imageReference,omitempty"`
 
 	// Logical sector size in bytes for Ultra disks. Supported values are 512 ad 4096. 4096 is the default.
@@ -1636,7 +1646,7 @@ type Disk struct {
 	// Disk resource properties.
 	Properties *DiskProperties `json:"properties,omitempty"`
 
-	// The disks sku name. Can be StandardLRS, PremiumLRS, StandardSSDLRS, UltraSSDLRS, PremiumZRS, or StandardSSDZRS.
+	// The disks sku name. Can be StandardLRS, PremiumLRS, StandardSSDLRS, UltraSSDLRS, PremiumZRS, StandardSSDZRS, or PremiumV2_LRS.
 	SKU *DiskSKU `json:"sku,omitempty"`
 
 	// Resource tags
@@ -2162,7 +2172,8 @@ type DiskRestorePointReplicationStatus struct {
 	Status interface{} `json:"status,omitempty"`
 }
 
-// DiskSKU - The disks sku name. Can be StandardLRS, PremiumLRS, StandardSSDLRS, UltraSSDLRS, PremiumZRS, or StandardSSDZRS.
+// DiskSKU - The disks sku name. Can be StandardLRS, PremiumLRS, StandardSSDLRS, UltraSSDLRS, PremiumZRS, StandardSSDZRS,
+// or PremiumV2_LRS.
 type DiskSKU struct {
 	// The sku name.
 	Name *DiskStorageAccountTypes `json:"name,omitempty"`
@@ -2185,7 +2196,7 @@ type DiskUpdate struct {
 	// Disk resource update properties.
 	Properties *DiskUpdateProperties `json:"properties,omitempty"`
 
-	// The disks sku name. Can be StandardLRS, PremiumLRS, StandardSSDLRS, UltraSSDLRS, PremiumZRS, or StandardSSDZRS.
+	// The disks sku name. Can be StandardLRS, PremiumLRS, StandardSSDLRS, UltraSSDLRS, PremiumZRS, StandardSSDZRS, or PremiumV2_LRS.
 	SKU *DiskSKU `json:"sku,omitempty"`
 
 	// Resource tags
@@ -5744,6 +5755,9 @@ type SnapshotProperties struct {
 
 	// Percentage complete for the background copy when a resource is created via the CopyStart operation.
 	CompletionPercent *float32 `json:"completionPercent,omitempty"`
+
+	// Indicates the error details if the background copy of a resource created via the CopyStart operation fails.
+	CopyCompletionError *CopyCompletionError `json:"copyCompletionError,omitempty"`
 
 	// Additional authentication requirements when exporting or uploading to a disk or snapshot.
 	DataAccessAuthMode *DataAccessAuthMode `json:"dataAccessAuthMode,omitempty"`
