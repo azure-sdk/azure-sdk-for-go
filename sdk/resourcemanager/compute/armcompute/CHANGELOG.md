@@ -1,5 +1,11 @@
 # Release History
 
+## 0.8.0 (2022-04-26)
+### Features Added
+
+- New field `SecurityProfile` in struct `DiskRestorePointProperties`
+
+
 ## 0.7.0 (2022-04-15)
 ### Breaking Changes
 

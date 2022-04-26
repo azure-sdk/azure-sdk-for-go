@@ -930,6 +930,7 @@ func (d DiskRestorePointProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publicNetworkAccess", d.PublicNetworkAccess)
 	populate(objectMap, "purchasePlan", d.PurchasePlan)
 	populate(objectMap, "replicationState", d.ReplicationState)
+	populate(objectMap, "securityProfile", d.SecurityProfile)
 	populate(objectMap, "sourceResourceId", d.SourceResourceID)
 	populate(objectMap, "sourceResourceLocation", d.SourceResourceLocation)
 	populate(objectMap, "sourceUniqueId", d.SourceUniqueID)
@@ -977,6 +978,9 @@ func (d *DiskRestorePointProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "replicationState":
 			err = unpopulate(val, &d.ReplicationState)
+			delete(rawMsg, key)
+		case "securityProfile":
+			err = unpopulate(val, &d.SecurityProfile)
 			delete(rawMsg, key)
 		case "sourceResourceId":
 			err = unpopulate(val, &d.SourceResourceID)

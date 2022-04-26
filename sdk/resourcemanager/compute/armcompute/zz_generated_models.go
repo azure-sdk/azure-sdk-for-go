@@ -1187,7 +1187,7 @@ type CreationData struct {
 	// version from which to create a disk.
 	GalleryImageReference *ImageDiskReference `json:"galleryImageReference,omitempty"`
 
-	// Disk source information.
+	// Disk source information for PIR or user images.
 	ImageReference *ImageDiskReference `json:"imageReference,omitempty"`
 
 	// Logical sector size in bytes for Ultra disks. Supported values are 512 ad 4096. 4096 is the default.
@@ -2124,6 +2124,9 @@ type DiskRestorePointProperties struct {
 
 	// Purchase plan information for the the image from which the OS disk was created.
 	PurchasePlan *DiskPurchasePlan `json:"purchasePlan,omitempty"`
+
+	// Contains the security related information for the resource.
+	SecurityProfile *DiskSecurityProfile `json:"securityProfile,omitempty"`
 
 	// List of supported capabilities for the image from which the OS disk was created.
 	SupportedCapabilities *SupportedCapabilities `json:"supportedCapabilities,omitempty"`
