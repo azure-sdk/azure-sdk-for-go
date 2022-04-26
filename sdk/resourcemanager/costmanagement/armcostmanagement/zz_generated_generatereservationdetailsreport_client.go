@@ -52,7 +52,8 @@ func NewGenerateReservationDetailsReportClient(credential azcore.TokenCredential
 }
 
 // BeginByBillingAccountID - Generates the reservations details report for provided date range asynchronously based on enrollment
-// id.
+// id. The Reservation usage details can be viewed only by certain enterprise roles. For more details
+// on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles#usage-and-costs-access-by-role
 // If the operation fails it returns an *azcore.ResponseError type.
 // billingAccountID - Enrollment ID (Legacy BillingAccount ID)
 // startDate - Start Date
@@ -74,7 +75,8 @@ func (client *GenerateReservationDetailsReportClient) BeginByBillingAccountID(ct
 }
 
 // ByBillingAccountID - Generates the reservations details report for provided date range asynchronously based on enrollment
-// id.
+// id. The Reservation usage details can be viewed only by certain enterprise roles. For more details
+// on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles#usage-and-costs-access-by-role
 // If the operation fails it returns an *azcore.ResponseError type.
 func (client *GenerateReservationDetailsReportClient) byBillingAccountID(ctx context.Context, billingAccountID string, startDate string, endDate string, options *GenerateReservationDetailsReportClientBeginByBillingAccountIDOptions) (*http.Response, error) {
 	req, err := client.byBillingAccountIDCreateRequest(ctx, billingAccountID, startDate, endDate, options)
@@ -112,6 +114,8 @@ func (client *GenerateReservationDetailsReportClient) byBillingAccountIDCreateRe
 }
 
 // BeginByBillingProfileID - Generates the reservations details report for provided date range asynchronously by billing profile.
+// The Reservation usage details can be viewed by only certain enterprise roles by default. For more
+// details on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-utilization#view-utilization-in-the-azure-portal-with-azure-rbac-access
 // If the operation fails it returns an *azcore.ResponseError type.
 // billingAccountID - BillingAccount ID
 // billingProfileID - BillingProfile ID
@@ -134,6 +138,8 @@ func (client *GenerateReservationDetailsReportClient) BeginByBillingProfileID(ct
 }
 
 // ByBillingProfileID - Generates the reservations details report for provided date range asynchronously by billing profile.
+// The Reservation usage details can be viewed by only certain enterprise roles by default. For more
+// details on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-utilization#view-utilization-in-the-azure-portal-with-azure-rbac-access
 // If the operation fails it returns an *azcore.ResponseError type.
 func (client *GenerateReservationDetailsReportClient) byBillingProfileID(ctx context.Context, billingAccountID string, billingProfileID string, startDate string, endDate string, options *GenerateReservationDetailsReportClientBeginByBillingProfileIDOptions) (*http.Response, error) {
 	req, err := client.byBillingProfileIDCreateRequest(ctx, billingAccountID, billingProfileID, startDate, endDate, options)
