@@ -491,6 +491,7 @@ func (m ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publicNetworkAccess", m.PublicNetworkAccess)
 	populate(objectMap, "securityProfile", m.SecurityProfile)
 	populate(objectMap, "servicePrincipalProfile", m.ServicePrincipalProfile)
+	populate(objectMap, "storageProfile", m.StorageProfile)
 	populate(objectMap, "windowsProfile", m.WindowsProfile)
 	return json.Marshal(objectMap)
 }

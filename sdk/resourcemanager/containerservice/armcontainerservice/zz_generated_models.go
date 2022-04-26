@@ -1107,6 +1107,9 @@ type ManagedClusterProperties struct {
 	// Information about a service principal identity for the cluster to use for manipulating Azure APIs.
 	ServicePrincipalProfile *ManagedClusterServicePrincipalProfile `json:"servicePrincipalProfile,omitempty"`
 
+	// Storage profile for the managed cluster.
+	StorageProfile *ManagedClusterStorageProfile `json:"storageProfile,omitempty"`
+
 	// The profile for Windows VMs in the Managed Cluster.
 	WindowsProfile *ManagedClusterWindowsProfile `json:"windowsProfile,omitempty"`
 
