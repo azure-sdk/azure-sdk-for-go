@@ -3032,8 +3032,6 @@ func (mcsp ModernChargeSummaryProperties) MarshalJSON() ([]byte, error) {
 type ModernReservationRecommendation struct {
 	// ModernReservationRecommendationProperties - Properties for modern reservation recommendation
 	*ModernReservationRecommendationProperties `json:"properties,omitempty"`
-	// ETag - READ-ONLY; Resource eTag.
-	ETag *string `json:"eTag,omitempty"`
 	// ID - READ-ONLY; Resource Id.
 	ID *string `json:"id,omitempty"`
 	// Name - READ-ONLY; Resource name.
@@ -3102,15 +3100,6 @@ func (mrr *ModernReservationRecommendation) UnmarshalJSON(body []byte) error {
 					return err
 				}
 				mrr.ModernReservationRecommendationProperties = &modernReservationRecommendationProperties
-			}
-		case "eTag":
-			if v != nil {
-				var eTag string
-				err = json.Unmarshal(*v, &eTag)
-				if err != nil {
-					return err
-				}
-				mrr.ETag = &eTag
 			}
 		case "id":
 			if v != nil {
@@ -4622,9 +4611,7 @@ type ReservationRecommendationDetailsModel struct {
 	// Location - Resource Location.
 	Location *string `json:"location,omitempty"`
 	// Sku - Resource sku
-	Sku *string `json:"sku,omitempty"`
-	// ETag - Resource eTag.
-	ETag                                        *string `json:"eTag,omitempty"`
+	Sku                                         *string `json:"sku,omitempty"`
 	*ReservationRecommendationDetailsProperties `json:"properties,omitempty"`
 	// ID - READ-ONLY; Resource Id.
 	ID *string `json:"id,omitempty"`
@@ -4646,9 +4633,6 @@ func (rrdm ReservationRecommendationDetailsModel) MarshalJSON() ([]byte, error) 
 	}
 	if rrdm.Sku != nil {
 		objectMap["sku"] = rrdm.Sku
-	}
-	if rrdm.ETag != nil {
-		objectMap["eTag"] = rrdm.ETag
 	}
 	if rrdm.ReservationRecommendationDetailsProperties != nil {
 		objectMap["properties"] = rrdm.ReservationRecommendationDetailsProperties
@@ -4682,15 +4666,6 @@ func (rrdm *ReservationRecommendationDetailsModel) UnmarshalJSON(body []byte) er
 					return err
 				}
 				rrdm.Sku = &sku
-			}
-		case "eTag":
-			if v != nil {
-				var eTag string
-				err = json.Unmarshal(*v, &eTag)
-				if err != nil {
-					return err
-				}
-				rrdm.ETag = &eTag
 			}
 		case "properties":
 			if v != nil {
