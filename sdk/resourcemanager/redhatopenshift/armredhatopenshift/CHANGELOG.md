@@ -1,5 +1,44 @@
 # Release History
 
+## 0.5.0 (2022-04-27)
+### Breaking Changes
+
+- Type of `WorkerProfile.VMSize` has been changed from `*VMSize` to `*string`
+- Type of `MasterProfile.VMSize` has been changed from `*VMSize` to `*string`
+- Const `VMSizeStandardD8SV3` has been removed
+- Const `VMSizeStandardD2SV3` has been removed
+- Const `VMSizeStandardD4SV3` has been removed
+- Function `PossibleVMSizeValues` has been removed
+
+### Features Added
+
+- New const `EncryptionAtHostEnabled`
+- New const `CreatedByTypeKey`
+- New const `FipsValidatedModulesDisabled`
+- New const `CreatedByTypeApplication`
+- New const `EncryptionAtHostDisabled`
+- New const `CreatedByTypeManagedIdentity`
+- New const `FipsValidatedModulesEnabled`
+- New const `CreatedByTypeUser`
+- New function `SystemData.MarshalJSON() ([]byte, error)`
+- New function `PossibleCreatedByTypeValues() []CreatedByType`
+- New function `PossibleEncryptionAtHostValues() []EncryptionAtHost`
+- New function `*OpenShiftClustersClient.ListAdminCredentials(context.Context, string, string, *OpenShiftClustersClientListAdminCredentialsOptions) (OpenShiftClustersClientListAdminCredentialsResponse, error)`
+- New function `*SystemData.UnmarshalJSON([]byte) error`
+- New function `PossibleFipsValidatedModulesValues() []FipsValidatedModules`
+- New struct `OpenShiftClusterAdminKubeconfig`
+- New struct `OpenShiftClustersClientListAdminCredentialsOptions`
+- New struct `OpenShiftClustersClientListAdminCredentialsResponse`
+- New struct `SystemData`
+- New field `SystemData` in struct `OpenShiftCluster`
+- New field `FipsValidatedModules` in struct `ClusterProfile`
+- New field `SystemData` in struct `OpenShiftClusterUpdate`
+- New field `EncryptionAtHost` in struct `WorkerProfile`
+- New field `DiskEncryptionSetID` in struct `WorkerProfile`
+- New field `DiskEncryptionSetID` in struct `MasterProfile`
+- New field `EncryptionAtHost` in struct `MasterProfile`
+
+
 ## 0.4.0 (2022-04-18)
 ### Breaking Changes
 
