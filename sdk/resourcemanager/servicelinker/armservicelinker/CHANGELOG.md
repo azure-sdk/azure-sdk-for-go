@@ -1,5 +1,30 @@
 # Release History
 
+## 0.5.0 (2022-04-27)
+### Breaking Changes
+
+- Type of `ConfluentSchemaRegistry.Type` has been changed from `*Type` to `*TargetServiceType`
+- Type of `TargetServiceBase.Type` has been changed from `*Type` to `*TargetServiceType`
+- Type of `AzureKeyVaultProperties.Type` has been changed from `*Type` to `*AzureResourceType`
+- Type of `AzureResource.Type` has been changed from `*Type` to `*TargetServiceType`
+- Type of `AzureResourcePropertiesBase.Type` has been changed from `*Type` to `*AzureResourceType`
+- Type of `ConfluentBootstrapServer.Type` has been changed from `*Type` to `*TargetServiceType`
+- Const `TypeAzureResource` has been removed
+- Const `TypeConfluentSchemaRegistry` has been removed
+- Const `TypeKeyVault` has been removed
+- Const `TypeConfluentBootstrapServer` has been removed
+- Function `PossibleTypeValues` has been removed
+
+### Features Added
+
+- New const `TargetServiceTypeConfluentSchemaRegistry`
+- New const `TargetServiceTypeAzureResource`
+- New const `AzureResourceTypeKeyVault`
+- New const `TargetServiceTypeConfluentBootstrapServer`
+- New function `PossibleAzureResourceTypeValues() []AzureResourceType`
+- New function `PossibleTargetServiceTypeValues() []TargetServiceType`
+
+
 ## 0.4.0 (2022-04-18)
 ### Breaking Changes
 
