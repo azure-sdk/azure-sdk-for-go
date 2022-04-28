@@ -1,5 +1,5 @@
 {
-  "commit": "61218420e95ad3435a029144877b110b56418958",
+  "commit": "cce35c855d02833e1bae6bfaf0b5741e9f763cec",
   "readme": "/_/azure-rest-api-specs/specification/hardwaresecuritymodules/resource-manager/readme.md",
   "tag": "package-2021-11",
   "use": "@microsoft.azure/autorest.go@2.1.187",
