@@ -1,5 +1,84 @@
 # Release History
 
+## 0.8.0 (2022-04-28)
+### Breaking Changes
+
+- Type of `GalleryImageProperties.ProvisioningState` has been changed from `*GalleryImagePropertiesProvisioningState` to `*GalleryProvisioningState`
+- Type of `GalleryApplicationVersionProperties.ProvisioningState` has been changed from `*GalleryApplicationVersionPropertiesProvisioningState` to `*GalleryProvisioningState`
+- Type of `GalleryProperties.ProvisioningState` has been changed from `*GalleryPropertiesProvisioningState` to `*GalleryProvisioningState`
+- Type of `GalleryImageVersionProperties.ProvisioningState` has been changed from `*GalleryImageVersionPropertiesProvisioningState` to `*GalleryProvisioningState`
+- Const `GalleryApplicationVersionPropertiesProvisioningStateMigrating` has been removed
+- Const `GalleryApplicationVersionPropertiesProvisioningStateUpdating` has been removed
+- Const `SharingProfileGroupTypesCommunity` has been removed
+- Const `GalleryPropertiesProvisioningStateFailed` has been removed
+- Const `GalleryPropertiesProvisioningStateSucceeded` has been removed
+- Const `GalleryImagePropertiesProvisioningStateUpdating` has been removed
+- Const `GalleryPropertiesProvisioningStateMigrating` has been removed
+- Const `GalleryImageVersionPropertiesProvisioningStateFailed` has been removed
+- Const `GalleryApplicationVersionPropertiesProvisioningStateCreating` has been removed
+- Const `GalleryPropertiesProvisioningStateDeleting` has been removed
+- Const `GalleryApplicationVersionPropertiesProvisioningStateDeleting` has been removed
+- Const `GalleryImageVersionPropertiesProvisioningStateDeleting` has been removed
+- Const `GalleryPropertiesProvisioningStateUpdating` has been removed
+- Const `GalleryApplicationVersionPropertiesProvisioningStateSucceeded` has been removed
+- Const `GalleryImagePropertiesProvisioningStateMigrating` has been removed
+- Const `GalleryImageVersionPropertiesProvisioningStateUpdating` has been removed
+- Const `GalleryImageVersionPropertiesProvisioningStateMigrating` has been removed
+- Const `GalleryApplicationVersionPropertiesProvisioningStateFailed` has been removed
+- Const `GalleryImageVersionPropertiesProvisioningStateSucceeded` has been removed
+- Const `GalleryPropertiesProvisioningStateCreating` has been removed
+- Const `GalleryImagePropertiesProvisioningStateFailed` has been removed
+- Const `GalleryImagePropertiesProvisioningStateCreating` has been removed
+- Const `GalleryImageVersionPropertiesProvisioningStateCreating` has been removed
+- Const `GalleryImagePropertiesProvisioningStateDeleting` has been removed
+- Const `GalleryImagePropertiesProvisioningStateSucceeded` has been removed
+- Function `PossibleGalleryPropertiesProvisioningStateValues` has been removed
+- Function `PossibleGalleryImagePropertiesProvisioningStateValues` has been removed
+- Function `PossibleGalleryApplicationVersionPropertiesProvisioningStateValues` has been removed
+- Function `PossibleGalleryImageVersionPropertiesProvisioningStateValues` has been removed
+
+### Features Added
+
+- New const `GalleryProvisioningStateDeleting`
+- New const `GalleryProvisioningStateMigrating`
+- New const `SharedGalleryHostCachingReadOnly`
+- New const `SharedGalleryHostCachingNone`
+- New const `GalleryProvisioningStateCreating`
+- New const `GallerySharingPermissionTypesCommunity`
+- New const `GalleryProvisioningStateUpdating`
+- New const `GalleryProvisioningStateFailed`
+- New const `GalleryProvisioningStateSucceeded`
+- New const `SharedGalleryHostCachingReadWrite`
+- New function `*CommunityGalleryImagesClient.NewListPager(string, string, *CommunityGalleryImagesClientListOptions) *runtime.Pager[CommunityGalleryImagesClientListResponse]`
+- New function `SharedGalleryImageVersionStorageProfile.MarshalJSON() ([]byte, error)`
+- New function `PossibleGalleryProvisioningStateValues() []GalleryProvisioningState`
+- New function `PossibleSharedGalleryHostCachingValues() []SharedGalleryHostCaching`
+- New function `*CommunityGalleryImageVersionsClient.NewListPager(string, string, string, *CommunityGalleryImageVersionsClientListOptions) *runtime.Pager[CommunityGalleryImageVersionsClientListResponse]`
+- New function `CommunityGalleryImageList.MarshalJSON() ([]byte, error)`
+- New function `CommunityGalleryImageVersionList.MarshalJSON() ([]byte, error)`
+- New struct `CommunityGalleryImageList`
+- New struct `CommunityGalleryImageVersionList`
+- New struct `CommunityGalleryImageVersionsClientListOptions`
+- New struct `CommunityGalleryImageVersionsClientListResponse`
+- New struct `CommunityGalleryImagesClientListOptions`
+- New struct `CommunityGalleryImagesClientListResponse`
+- New struct `SharedGalleryDataDiskImage`
+- New struct `SharedGalleryDiskImage`
+- New struct `SharedGalleryImageVersionStorageProfile`
+- New struct `SharedGalleryOSDiskImage`
+- New struct `UserArtifactSettings`
+- New field `ExcludeFromLatest` in struct `SharedGalleryImageVersionProperties`
+- New field `StorageProfile` in struct `SharedGalleryImageVersionProperties`
+- New field `AdvancedSettings` in struct `GalleryApplicationVersionPublishingProfile`
+- New field `Settings` in struct `GalleryApplicationVersionPublishingProfile`
+- New field `Architecture` in struct `SharedGalleryImageProperties`
+- New field `Architecture` in struct `CommunityGalleryImageProperties`
+- New field `Eula` in struct `CommunityGalleryImageProperties`
+- New field `PrivacyStatementURI` in struct `CommunityGalleryImageProperties`
+- New field `StorageProfile` in struct `CommunityGalleryImageVersionProperties`
+- New field `ExcludeFromLatest` in struct `CommunityGalleryImageVersionProperties`
+
+
 ## 0.7.0 (2022-04-15)
 ### Breaking Changes
 
