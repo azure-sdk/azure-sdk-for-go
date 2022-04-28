@@ -1,5 +1,54 @@
 # Release History
 
+## 0.4.0 (2022-04-28)
+### Breaking Changes
+
+- Type of `GetInsightsResultsMetadata.Errors` has been changed from `[]*GetInsightsError` to `[]*GetInsightsErrorKind`
+- Const `GetInsightsErrorKindInsight` has been removed
+- Function `PossibleGetInsightsErrorKindValues` has been removed
+- Struct `GetInsightsError` has been removed
+
+### Features Added
+
+- New const `GetInsightsErrorInsight`
+- New const `SettingsStatusProduction`
+- New const `EntityTimelineKindAnomaly`
+- New const `SettingsStatusFlighting`
+- New const `SecurityMLAnalyticsSettingsKindAnomaly`
+- New function `AnomalyTimelineItem.MarshalJSON() ([]byte, error)`
+- New function `PossibleSecurityMLAnalyticsSettingsKindValues() []SecurityMLAnalyticsSettingsKind`
+- New function `*AnomalySecurityMLAnalyticsSettings.UnmarshalJSON([]byte) error`
+- New function `PossibleGetInsightsErrorValues() []GetInsightsError`
+- New function `SecurityMLAnalyticsSettingsList.MarshalJSON() ([]byte, error)`
+- New function `*AnomalySecurityMLAnalyticsSettings.GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting`
+- New function `*SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse.UnmarshalJSON([]byte) error`
+- New function `*SecurityMLAnalyticsSettingsClientGetResponse.UnmarshalJSON([]byte) error`
+- New function `*SecurityMLAnalyticsSettingsList.UnmarshalJSON([]byte) error`
+- New function `*AnomalyTimelineItem.GetEntityTimelineItem() *EntityTimelineItem`
+- New function `AnomalySecurityMLAnalyticsSettings.MarshalJSON() ([]byte, error)`
+- New function `SecurityMLAnalyticsSettingsDataSource.MarshalJSON() ([]byte, error)`
+- New function `*SecurityMLAnalyticsSetting.GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting`
+- New function `PossibleSettingsStatusValues() []SettingsStatus`
+- New function `*AnomalySecurityMLAnalyticsSettingsProperties.UnmarshalJSON([]byte) error`
+- New function `AnomalySecurityMLAnalyticsSettingsProperties.MarshalJSON() ([]byte, error)`
+- New function `*AnomalyTimelineItem.UnmarshalJSON([]byte) error`
+- New struct `AnomalySecurityMLAnalyticsSettings`
+- New struct `AnomalySecurityMLAnalyticsSettingsProperties`
+- New struct `AnomalyTimelineItem`
+- New struct `GetInsightsErrorKind`
+- New struct `SecurityMLAnalyticsSetting`
+- New struct `SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions`
+- New struct `SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse`
+- New struct `SecurityMLAnalyticsSettingsClientDeleteOptions`
+- New struct `SecurityMLAnalyticsSettingsClientDeleteResponse`
+- New struct `SecurityMLAnalyticsSettingsClientGetOptions`
+- New struct `SecurityMLAnalyticsSettingsClientGetResponse`
+- New struct `SecurityMLAnalyticsSettingsClientListOptions`
+- New struct `SecurityMLAnalyticsSettingsClientListResponse`
+- New struct `SecurityMLAnalyticsSettingsDataSource`
+- New struct `SecurityMLAnalyticsSettingsList`
+
+
 ## 0.3.0 (2022-04-18)
 ### Breaking Changes
 
