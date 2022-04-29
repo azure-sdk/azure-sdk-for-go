@@ -1,5 +1,25 @@
 # Release History
 
+## 0.5.0 (2022-04-29)
+### Breaking Changes
+
+- Function `*ClustersClient.Delete` has been removed
+- Struct `ClustersClientDeleteOptions` has been removed
+
+### Features Added
+
+- New function `*ClustersClient.BeginDelete(context.Context, string, string, *ClustersClientBeginDeleteOptions) (*armruntime.Poller[ClustersClientDeleteResponse], error)`
+- New function `*ArcSettingsClient.Update(context.Context, string, string, string, ArcSettingsPatch, *ArcSettingsClientUpdateOptions) (ArcSettingsClientUpdateResponse, error)`
+- New function `ArcSettingsPatch.MarshalJSON() ([]byte, error)`
+- New struct `ArcConnectivityProperties`
+- New struct `ArcSettingsClientUpdateOptions`
+- New struct `ArcSettingsClientUpdateResponse`
+- New struct `ArcSettingsPatch`
+- New struct `ArcSettingsPatchProperties`
+- New struct `ClustersClientBeginDeleteOptions`
+- New field `ConnectivityProperties` in struct `ArcSettingProperties`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 

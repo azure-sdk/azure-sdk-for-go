@@ -100,7 +100,7 @@ func (client *ArcSettingsClient) createCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, arcSetting)
@@ -177,7 +177,7 @@ func (client *ArcSettingsClient) createIdentityCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -244,7 +244,7 @@ func (client *ArcSettingsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -296,7 +296,7 @@ func (client *ArcSettingsClient) generatePasswordCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -356,7 +356,7 @@ func (client *ArcSettingsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -425,7 +425,7 @@ func (client *ArcSettingsClient) listByClusterCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -436,6 +436,67 @@ func (client *ArcSettingsClient) listByClusterHandleResponse(resp *http.Response
 	result := ArcSettingsClientListByClusterResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ArcSettingList); err != nil {
 		return ArcSettingsClientListByClusterResponse{}, err
+	}
+	return result, nil
+}
+
+// Update - Update ArcSettings for HCI cluster.
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// clusterName - The name of the cluster.
+// arcSettingName - The name of the proxy resource holding details of HCI ArcSetting information.
+// arcSetting - ArcSettings parameters that needs to be updated
+// options - ArcSettingsClientUpdateOptions contains the optional parameters for the ArcSettingsClient.Update method.
+func (client *ArcSettingsClient) Update(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, arcSetting ArcSettingsPatch, options *ArcSettingsClientUpdateOptions) (ArcSettingsClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, arcSettingName, arcSetting, options)
+	if err != nil {
+		return ArcSettingsClientUpdateResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ArcSettingsClientUpdateResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ArcSettingsClientUpdateResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.updateHandleResponse(resp)
+}
+
+// updateCreateRequest creates the Update request.
+func (client *ArcSettingsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, arcSettingName string, arcSetting ArcSettingsPatch, options *ArcSettingsClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AzureStackHCI/clusters/{clusterName}/arcSettings/{arcSettingName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if arcSettingName == "" {
+		return nil, errors.New("parameter arcSettingName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{arcSettingName}", url.PathEscape(arcSettingName))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-05-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, runtime.MarshalAsJSON(req, arcSetting)
+}
+
+// updateHandleResponse handles the Update response.
+func (client *ArcSettingsClient) updateHandleResponse(resp *http.Response) (ArcSettingsClientUpdateResponse, error) {
+	result := ArcSettingsClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ArcSetting); err != nil {
+		return ArcSettingsClientUpdateResponse{}, err
 	}
 	return result, nil
 }

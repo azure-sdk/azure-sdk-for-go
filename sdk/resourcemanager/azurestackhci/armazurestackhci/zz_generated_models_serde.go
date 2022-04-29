@@ -31,8 +31,17 @@ func (a ArcSettingProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "arcApplicationTenantId", a.ArcApplicationTenantID)
 	populate(objectMap, "arcInstanceResourceGroup", a.ArcInstanceResourceGroup)
 	populate(objectMap, "arcServicePrincipalObjectId", a.ArcServicePrincipalObjectID)
+	populate(objectMap, "connectivityProperties", &a.ConnectivityProperties)
 	populate(objectMap, "perNodeDetails", a.PerNodeDetails)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ArcSettingsPatch.
+func (a ArcSettingsPatch) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "properties", a.Properties)
+	populate(objectMap, "tags", a.Tags)
 	return json.Marshal(objectMap)
 }
 
