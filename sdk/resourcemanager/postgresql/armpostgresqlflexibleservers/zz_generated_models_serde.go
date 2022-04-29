@@ -63,6 +63,7 @@ func (c CapabilityProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "geoBackupSupported", c.GeoBackupSupported)
 	populate(objectMap, "status", c.Status)
 	populate(objectMap, "supportedFlexibleServerEditions", c.SupportedFlexibleServerEditions)
+	populate(objectMap, "supportedHAMode", c.SupportedHAMode)
 	populate(objectMap, "supportedHyperscaleNodeEditions", c.SupportedHyperscaleNodeEditions)
 	populate(objectMap, "zone", c.Zone)
 	populate(objectMap, "zoneRedundantHaAndGeoBackupSupported", c.ZoneRedundantHaAndGeoBackupSupported)
@@ -351,6 +352,8 @@ func (t TrackedResource) MarshalJSON() ([]byte, error) {
 func (v VirtualNetworkSubnetUsageResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "delegatedSubnetsUsage", v.DelegatedSubnetsUsage)
+	populate(objectMap, "location", v.Location)
+	populate(objectMap, "subscriptionId", v.SubscriptionID)
 	return json.Marshal(objectMap)
 }
 

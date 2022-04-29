@@ -1,5 +1,13 @@
 # Release History
 
+## 0.6.0 (2022-04-29)
+### Features Added
+
+- New field `Location` in struct `VirtualNetworkSubnetUsageResult`
+- New field `SubscriptionID` in struct `VirtualNetworkSubnetUsageResult`
+- New field `SupportedHAMode` in struct `CapabilityProperties`
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 
