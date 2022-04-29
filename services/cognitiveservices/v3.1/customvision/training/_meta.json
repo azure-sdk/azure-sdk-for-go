@@ -1,0 +1,11 @@
+{
+  "commit": "2fe4dff1ebbc8237102f4e036ce1730f3c22ce9f",
+  "readme": "/_/azure-rest-api-specs/specification/cognitiveservices/data-plane/CustomVision/Training/readme.md",
+  "tag": "release_3_1",
+  "use": "@microsoft.azure/autorest.go@2.1.187",
+  "repository_url": "https://github.com/Azure/azure-rest-api-specs.git",
+  "autorest_command": "autorest --use=@microsoft.azure/autorest.go@2.1.187 --tag=release_3_1 --go-sdk-folder=/_/azure-sdk-for-go --go --verbose --use-onever --version=2.0.4421 --go.license-header=MICROSOFT_MIT_NO_VERSION /_/azure-rest-api-specs/specification/cognitiveservices/data-plane/CustomVision/Training/readme.md",
+  "additional_properties": {
+    "additional_options": "--go --verbose --use-onever --version=2.0.4421 --go.license-header=MICROSOFT_MIT_NO_VERSION"
+  }
+}
