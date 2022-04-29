@@ -53,11 +53,7 @@ func NewQuotaClient(credential azcore.TokenCredential, options *arm.ClientOption
 
 // BeginCreateOrUpdate - Create or update the quota (service limits) of a resource to the requested value. Steps:
 // 1. Make the Get request to get the quota information for specific resource.
-//
-//
 // 2. To increase the quota, update the limit field in the response from Get request to new value.
-//
-//
 // 3. Submit the JSON to the quota request API to update the quota. The Create quota request may be constructed as follows.
 // The PUT operation can be used to update the quota.
 // If the operation fails it returns an *azcore.ResponseError type.
@@ -85,11 +81,7 @@ func (client *QuotaClient) BeginCreateOrUpdate(ctx context.Context, subscription
 
 // CreateOrUpdate - Create or update the quota (service limits) of a resource to the requested value. Steps:
 // 1. Make the Get request to get the quota information for specific resource.
-//
-//
 // 2. To increase the quota, update the limit field in the response from Get request to new value.
-//
-//
 // 3. Submit the JSON to the quota request API to update the quota. The Create quota request may be constructed as follows.
 // The PUT operation can be used to update the quota.
 // If the operation fails it returns an *azcore.ResponseError type.
@@ -277,11 +269,10 @@ func (client *QuotaClient) listHandleResponse(resp *http.Response) (QuotaClientL
 	return result, nil
 }
 
-// BeginUpdate - Update the quota (service limits) of this resource to the requested value.
-// • To get the quota information for specific resource, send a GET request.
-// • To increase the quota, update the limit field from the GET response to a new value.
-// • To update the quota value, submit the JSON response to the quota request API to update the quota. • To update the quota.
-// use the PATCH operation.
+// BeginUpdate - Update the quota (service limits) of this resource to the requested value. • To get the quota information
+// for specific resource, send a GET request. • To increase the quota, update the limit field
+// from the GET response to a new value. • To update the quota value, submit the JSON response to the quota request API to
+// update the quota. • To update the quota. use the PATCH operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 // subscriptionID - Azure subscription ID.
 // providerID - Azure resource provider ID.
@@ -304,11 +295,10 @@ func (client *QuotaClient) BeginUpdate(ctx context.Context, subscriptionID strin
 	}
 }
 
-// Update - Update the quota (service limits) of this resource to the requested value.
-// • To get the quota information for specific resource, send a GET request.
-// • To increase the quota, update the limit field from the GET response to a new value.
-// • To update the quota value, submit the JSON response to the quota request API to update the quota. • To update the quota.
-// use the PATCH operation.
+// Update - Update the quota (service limits) of this resource to the requested value. • To get the quota information for
+// specific resource, send a GET request. • To increase the quota, update the limit field
+// from the GET response to a new value. • To update the quota value, submit the JSON response to the quota request API to
+// update the quota. • To update the quota. use the PATCH operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 func (client *QuotaClient) update(ctx context.Context, subscriptionID string, providerID string, location string, resourceName string, createQuotaRequest CurrentQuotaLimitBase, options *QuotaClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, subscriptionID, providerID, location, resourceName, createQuotaRequest, options)

@@ -10,7 +10,7 @@ package armreservations
 
 const (
 	moduleName    = "armreservations"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.4.1"
 )
 
 // AppliedScopeType - Type of the Applied Scope.
