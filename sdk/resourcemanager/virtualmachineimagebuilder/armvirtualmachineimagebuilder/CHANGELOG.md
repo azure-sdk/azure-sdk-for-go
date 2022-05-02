@@ -1,5 +1,38 @@
 # Release History
 
+## 0.5.0 (2022-05-02)
+### Breaking Changes
+
+- Const `CreatedByTypeManagedIdentity` has been removed
+- Const `CreatedByTypeApplication` has been removed
+- Const `CreatedByTypeUser` has been removed
+- Const `CreatedByTypeKey` has been removed
+- Function `CloudErrorBody.MarshalJSON` has been removed
+- Function `*SystemData.UnmarshalJSON` has been removed
+- Function `ImageTemplateVMProfile.MarshalJSON` has been removed
+- Function `PossibleCreatedByTypeValues` has been removed
+- Function `SystemData.MarshalJSON` has been removed
+- Function `TrackedResource.MarshalJSON` has been removed
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+- Struct `SystemData` has been removed
+- Struct `TrackedResource` has been removed
+- Field `SystemData` of struct `ImageTemplate` has been removed
+- Field `UserAssignedIdentities` of struct `ImageTemplateVMProfile` has been removed
+- Field `ExactVersion` of struct `ImageTemplatePlatformImageSource` has been removed
+- Field `ProxyVMSize` of struct `VirtualNetworkConfig` has been removed
+
+### Features Added
+
+- New function `Resource.MarshalJSON() ([]byte, error)`
+- New function `APIError.MarshalJSON() ([]byte, error)`
+- New struct `APIError`
+- New struct `APIErrorBase`
+- New struct `InnerError`
+- New field `Location` in struct `Resource`
+- New field `Tags` in struct `Resource`
+
+
 ## 0.4.0 (2022-04-18)
 ### Breaking Changes
 

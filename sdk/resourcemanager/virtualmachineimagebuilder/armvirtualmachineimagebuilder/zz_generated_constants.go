@@ -10,28 +10,8 @@ package armvirtualmachineimagebuilder
 
 const (
 	moduleName    = "armvirtualmachineimagebuilder"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.5.0"
 )
-
-// CreatedByType - The type of identity that created the resource.
-type CreatedByType string
-
-const (
-	CreatedByTypeApplication     CreatedByType = "Application"
-	CreatedByTypeKey             CreatedByType = "Key"
-	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
-	CreatedByTypeUser            CreatedByType = "User"
-)
-
-// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
-func PossibleCreatedByTypeValues() []CreatedByType {
-	return []CreatedByType{
-		CreatedByTypeApplication,
-		CreatedByTypeKey,
-		CreatedByTypeManagedIdentity,
-		CreatedByTypeUser,
-	}
-}
 
 // ProvisioningErrorCode - Error code of the provisioning failure
 type ProvisioningErrorCode string

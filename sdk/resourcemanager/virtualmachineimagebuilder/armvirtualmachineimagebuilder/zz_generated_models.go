@@ -10,24 +10,33 @@ package armvirtualmachineimagebuilder
 
 import "time"
 
-// CloudError - An error response from the Azure VM Image Builder service.
-type CloudError struct {
-	// Details about the error.
-	Error *CloudErrorBody `json:"error,omitempty"`
-}
-
-// CloudErrorBody - An error response from the Azure VM Image Builder service.
-type CloudErrorBody struct {
-	// An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
+// APIError - Api error.
+type APIError struct {
+	// The error code.
 	Code *string `json:"code,omitempty"`
 
-	// A list of additional details about the error.
-	Details []*CloudErrorBody `json:"details,omitempty"`
+	// The Api error details
+	Details []*APIErrorBase `json:"details,omitempty"`
 
-	// A message describing the error, intended to be suitable for display in a user interface.
+	// The Api inner error
+	InnerError *InnerError `json:"innerError,omitempty"`
+
+	// The error message.
 	Message *string `json:"message,omitempty"`
 
-	// The target of the particular error. For example, the name of the property in error.
+	// The target of the particular error.
+	Target *string `json:"target,omitempty"`
+}
+
+// APIErrorBase - Api error base.
+type APIErrorBase struct {
+	// The error code.
+	Code *string `json:"code,omitempty"`
+
+	// The error message.
+	Message *string `json:"message,omitempty"`
+
+	// The target of the particular error.
 	Target *string `json:"target,omitempty"`
 }
 
@@ -44,25 +53,22 @@ type ImageTemplate struct {
 	// REQUIRED; The identity of the image template, if configured.
 	Identity *ImageTemplateIdentity `json:"identity,omitempty"`
 
-	// REQUIRED; The geo-location where the resource lives
+	// REQUIRED; Resource location
 	Location *string `json:"location,omitempty"`
 
 	// The properties of the image template
 	Properties *ImageTemplateProperties `json:"properties,omitempty"`
 
-	// Resource tags.
+	// Resource tags
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Resource Id
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource
+	// READ-ONLY; Resource name
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	// READ-ONLY; Resource type
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -209,13 +215,9 @@ type ImageTemplatePlatformImageSource struct {
 
 	// Image version from the Azure Gallery Images [https://docs.microsoft.com/en-us/rest/api/compute/virtualmachineimages]. If
 	// 'latest' is specified here, the version is evaluated when the image build takes
-	// place, not when the template is submitted.
+	// place, not when the template is submitted. Specifying 'latest' could cause ROUNDTRIPINCONSISTENTPROPERTY issue which will
+	// be fixed.
 	Version *string `json:"version,omitempty"`
-
-	// READ-ONLY; Image version from the Azure Gallery Images [https://docs.microsoft.com/en-us/rest/api/compute/virtualmachineimages].
-	// This readonly field differs from 'version', only if the value specified in
-	// 'version' field is 'latest'.
-	ExactVersion *string `json:"exactVersion,omitempty" azure:"ro"`
 }
 
 // ImageTemplatePowerShellCustomizer - Runs the specified PowerShell on the VM (Windows). Corresponds to Packer powershell
@@ -374,12 +376,8 @@ type ImageTemplateVMProfile struct {
 	// Size of the OS disk in GB. Omit or specify 0 to use Azure's default OS disk size.
 	OSDiskSizeGB *int32 `json:"osDiskSizeGB,omitempty"`
 
-	// Optional array of resource IDs of user assigned managed identities to be configured on the build VM. This may include the
-	// identity of the image template.
-	UserAssignedIdentities []*string `json:"userAssignedIdentities,omitempty"`
-
 	// Size of the virtual machine used to build, customize and capture images. Omit or specify empty string to use the default
-	// (StandardD2dsv4).
+	// (StandardD1v2 for Gen1 images and StandardD2dsv4 for Gen2 images).
 	VMSize *string `json:"vmSize,omitempty"`
 
 	// Optional configuration of the virtual network to use to deploy the build virtual machine in. Omit if no specific virtual
@@ -417,6 +415,15 @@ type ImageTemplateWindowsUpdateCustomizer struct {
 
 	// Maximum number of updates to apply at a time. Omit or specify 0 to use the default (1000)
 	UpdateLimit *int32 `json:"updateLimit,omitempty"`
+}
+
+// InnerError - Inner error details.
+type InnerError struct {
+	// The internal error message or exception dump.
+	ErrorDetail *string `json:"errorDetail,omitempty"`
+
+	// The exception type.
+	ExceptionType *string `json:"exceptionType,omitempty"`
 }
 
 // Operation - A REST API operation
@@ -488,15 +495,21 @@ type ProvisioningError struct {
 	ProvisioningErrorCode *ProvisioningErrorCode `json:"provisioningErrorCode,omitempty"`
 }
 
-// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+// Resource - The Resource model definition.
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// REQUIRED; Resource location
+	Location *string `json:"location,omitempty"`
+
+	// Resource tags
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Resource Id
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource
+	// READ-ONLY; Resource name
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	// READ-ONLY; Resource type
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -545,46 +558,6 @@ type SubResource struct {
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource type
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// SystemData - Metadata pertaining to creation and last modification of the resource.
-type SystemData struct {
-	// The timestamp of resource creation (UTC).
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-
-	// The identity that created the resource.
-	CreatedBy *string `json:"createdBy,omitempty"`
-
-	// The type of identity that created the resource.
-	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
-
-	// The timestamp of resource last modification (UTC)
-	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty"`
-
-	// The identity that last modified the resource.
-	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
-
-	// The type of identity that last modified the resource.
-	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
-}
-
-// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
-// and a 'location'
-type TrackedResource struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -655,10 +628,6 @@ type VirtualMachineImageTemplatesClientListRunOutputsOptions struct {
 
 // VirtualNetworkConfig - Virtual Network configuration.
 type VirtualNetworkConfig struct {
-	// Size of the virtual machine used to build, customize and capture images. Omit or specify empty string to use the default
-	// (StandardD1v2 for Gen1 images and StandardD2dsv4 for Gen2 images).
-	ProxyVMSize *string `json:"proxyVmSize,omitempty"`
-
 	// Resource id of a pre-existing subnet.
 	SubnetID *string `json:"subnetId,omitempty"`
 }
