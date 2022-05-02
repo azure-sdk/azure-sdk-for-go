@@ -14,6 +14,17 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type CorsConfiguration.
+func (c CorsConfiguration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "allowCredentials", c.AllowCredentials)
+	populate(objectMap, "headers", c.Headers)
+	populate(objectMap, "maxAge", c.MaxAge)
+	populate(objectMap, "methods", c.Methods)
+	populate(objectMap, "origins", c.Origins)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type DicomService.
 func (d DicomService) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -57,6 +68,7 @@ func (d DicomServicePatchResource) MarshalJSON() ([]byte, error) {
 func (d DicomServiceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "authenticationConfiguration", d.AuthenticationConfiguration)
+	populate(objectMap, "corsConfiguration", d.CorsConfiguration)
 	populate(objectMap, "privateEndpointConnections", d.PrivateEndpointConnections)
 	populate(objectMap, "provisioningState", d.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", d.PublicNetworkAccess)

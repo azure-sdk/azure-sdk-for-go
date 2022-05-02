@@ -19,6 +19,24 @@ type CheckNameAvailabilityParameters struct {
 	Type *string `json:"type,omitempty"`
 }
 
+// CorsConfiguration - The settings for the CORS configuration of the service instance.
+type CorsConfiguration struct {
+	// If credentials are allowed via CORS.
+	AllowCredentials *bool `json:"allowCredentials,omitempty"`
+
+	// The headers to be allowed via CORS.
+	Headers []*string `json:"headers,omitempty"`
+
+	// The max age to be allowed via CORS.
+	MaxAge *int32 `json:"maxAge,omitempty"`
+
+	// The methods to be allowed via CORS.
+	Methods []*string `json:"methods,omitempty"`
+
+	// The origins to be allowed via CORS.
+	Origins []*string `json:"origins,omitempty"`
+}
+
 // DicomService - The description of Dicom Service
 type DicomService struct {
 	// An etag associated with the resource, used for optimistic concurrency when editing it.
@@ -80,6 +98,9 @@ type DicomServicePatchResource struct {
 type DicomServiceProperties struct {
 	// Dicom Service authentication configuration.
 	AuthenticationConfiguration *DicomServiceAuthenticationConfiguration `json:"authenticationConfiguration,omitempty"`
+
+	// Dicom Service Cors configuration.
+	CorsConfiguration *CorsConfiguration `json:"corsConfiguration,omitempty"`
 
 	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
 	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
