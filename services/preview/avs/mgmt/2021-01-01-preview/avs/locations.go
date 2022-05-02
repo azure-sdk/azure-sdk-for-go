@@ -80,7 +80,7 @@ func (client LocationsClient) CheckQuotaAvailabilityPreparer(ctx context.Context
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2021-12-01"
+	const APIVersion = "2021-01-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -114,8 +114,7 @@ func (client LocationsClient) CheckQuotaAvailabilityResponder(resp *http.Respons
 // CheckTrialAvailability return trial status for subscription by region
 // Parameters:
 // location - azure region
-// sku - the name of the SKU.
-func (client LocationsClient) CheckTrialAvailability(ctx context.Context, location string, sku string) (result Trial, err error) {
+func (client LocationsClient) CheckTrialAvailability(ctx context.Context, location string) (result Trial, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/LocationsClient.CheckTrialAvailability")
 		defer func() {
@@ -132,7 +131,7 @@ func (client LocationsClient) CheckTrialAvailability(ctx context.Context, locati
 		return result, validation.NewError("avs.LocationsClient", "CheckTrialAvailability", err.Error())
 	}
 
-	req, err := client.CheckTrialAvailabilityPreparer(ctx, location, sku)
+	req, err := client.CheckTrialAvailabilityPreparer(ctx, location)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "avs.LocationsClient", "CheckTrialAvailability", nil, "Failure preparing request")
 		return
@@ -155,18 +154,15 @@ func (client LocationsClient) CheckTrialAvailability(ctx context.Context, locati
 }
 
 // CheckTrialAvailabilityPreparer prepares the CheckTrialAvailability request.
-func (client LocationsClient) CheckTrialAvailabilityPreparer(ctx context.Context, location string, sku string) (*http.Request, error) {
+func (client LocationsClient) CheckTrialAvailabilityPreparer(ctx context.Context, location string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"location":       autorest.Encode("path", location),
 		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2021-12-01"
+	const APIVersion = "2021-01-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
-	}
-	if len(sku) > 0 {
-		queryParameters["sku"] = autorest.Encode("query", sku)
 	}
 
 	preparer := autorest.CreatePreparer(
