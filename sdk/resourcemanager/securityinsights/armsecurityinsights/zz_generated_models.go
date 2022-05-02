@@ -721,6 +721,115 @@ type AnomaliesSettingsProperties struct {
 	IsEnabled *bool `json:"isEnabled,omitempty" azure:"ro"`
 }
 
+// AnomalySecurityMLAnalyticsSettings - Represents Anomaly Security ML Analytics Settings
+type AnomalySecurityMLAnalyticsSettings struct {
+	// REQUIRED; The kind of security ML Analytics Settings
+	Kind *SecurityMLAnalyticsSettingsKind `json:"kind,omitempty"`
+
+	// Etag of the azure resource
+	Etag *string `json:"etag,omitempty"`
+
+	// Anomaly Security ML Analytics Settings properties
+	Properties *AnomalySecurityMLAnalyticsSettingsProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// AnomalySecurityMLAnalyticsSettingsProperties - AnomalySecurityMLAnalytics settings base property bag.
+type AnomalySecurityMLAnalyticsSettingsProperties struct {
+	// REQUIRED; The anomaly version of the AnomalySecurityMLAnalyticsSettings.
+	AnomalyVersion *string `json:"anomalyVersion,omitempty"`
+
+	// REQUIRED; The display name for settings created by this SecurityMLAnalyticsSettings.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// REQUIRED; Determines whether this settings is enabled or disabled.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// REQUIRED; The frequency that this SecurityMLAnalyticsSettings will be run.
+	Frequency *string `json:"frequency,omitempty"`
+
+	// REQUIRED; Determines whether this anomaly security ml analytics settings is a default settings
+	IsDefaultSettings *bool `json:"isDefaultSettings,omitempty"`
+
+	// REQUIRED; The anomaly SecurityMLAnalyticsSettings status
+	SettingsStatus *SettingsStatus `json:"settingsStatus,omitempty"`
+
+	// The anomaly settings version of the Anomaly security ml analytics settings that dictates whether job version gets updated
+	// or not.
+	AnomalySettingsVersion *int32 `json:"anomalySettingsVersion,omitempty"`
+
+	// The customizable observations of the AnomalySecurityMLAnalyticsSettings.
+	CustomizableObservations interface{} `json:"customizableObservations,omitempty"`
+
+	// The description of the SecurityMLAnalyticsSettings.
+	Description *string `json:"description,omitempty"`
+
+	// The required data sources for this SecurityMLAnalyticsSettings
+	RequiredDataConnectors []*SecurityMLAnalyticsSettingsDataSource `json:"requiredDataConnectors,omitempty"`
+
+	// The anomaly settings definition Id
+	SettingsDefinitionID *string `json:"settingsDefinitionId,omitempty"`
+
+	// The tactics of the SecurityMLAnalyticsSettings
+	Tactics []*AttackTactic `json:"tactics,omitempty"`
+
+	// The techniques of the SecurityMLAnalyticsSettings
+	Techniques []*string `json:"techniques,omitempty"`
+
+	// READ-ONLY; The last time that this SecurityMLAnalyticsSettings has been modified.
+	LastModifiedUTC *time.Time `json:"lastModifiedUtc,omitempty" azure:"ro"`
+}
+
+// AnomalyTimelineItem - Represents anomaly timeline item.
+type AnomalyTimelineItem struct {
+	// REQUIRED; The anomaly azure resource id.
+	AzureResourceID *string `json:"azureResourceId,omitempty"`
+
+	// REQUIRED; The anomaly name.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// REQUIRED; The anomaly end time.
+	EndTimeUTC *time.Time `json:"endTimeUtc,omitempty"`
+
+	// REQUIRED; The entity query kind type.
+	Kind *EntityTimelineKind `json:"kind,omitempty"`
+
+	// REQUIRED; The anomaly start time.
+	StartTimeUTC *time.Time `json:"startTimeUtc,omitempty"`
+
+	// REQUIRED; The anomaly generated time.
+	TimeGenerated *time.Time `json:"timeGenerated,omitempty"`
+
+	// The anomaly description.
+	Description *string `json:"description,omitempty"`
+
+	// The intent of the anomaly.
+	Intent *string `json:"intent,omitempty"`
+
+	// The anomaly product name.
+	ProductName *string `json:"productName,omitempty"`
+
+	// The reasons that cause the anomaly.
+	Reasons []*string `json:"reasons,omitempty"`
+
+	// The techniques of the anomaly.
+	Techniques []*string `json:"techniques,omitempty"`
+
+	// The name of the anomaly vendor.
+	Vendor *string `json:"vendor,omitempty"`
+}
+
 type AutomationRule struct {
 	// REQUIRED; Automation rule properties
 	Properties *AutomationRuleProperties `json:"properties,omitempty"`
@@ -2520,7 +2629,7 @@ type EntityRelationsClientGetRelationOptions struct {
 // EntityTimelineItemClassification provides polymorphic access to related types.
 // Call the interface's GetEntityTimelineItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *ActivityTimelineItem, *BookmarkTimelineItem, *EntityTimelineItem, *SecurityAlertTimelineItem
+// - *ActivityTimelineItem, *AnomalyTimelineItem, *BookmarkTimelineItem, *EntityTimelineItem, *SecurityAlertTimelineItem
 type EntityTimelineItemClassification interface {
 	// GetEntityTimelineItem returns the EntityTimelineItem content of the underlying type.
 	GetEntityTimelineItem() *EntityTimelineItem
@@ -2975,13 +3084,13 @@ type GeoLocation struct {
 	State *string `json:"state,omitempty" azure:"ro"`
 }
 
-// GetInsightsError - GetInsights Query Errors.
-type GetInsightsError struct {
+// GetInsightsErrorKind - GetInsights Query Errors.
+type GetInsightsErrorKind struct {
 	// REQUIRED; the error message
 	ErrorMessage *string `json:"errorMessage,omitempty"`
 
 	// REQUIRED; the query kind
-	Kind *GetInsightsErrorKind `json:"kind,omitempty"`
+	Kind *GetInsightsError `json:"kind,omitempty"`
 
 	// the query id
 	QueryID *string `json:"queryId,omitempty"`
@@ -2993,7 +3102,7 @@ type GetInsightsResultsMetadata struct {
 	TotalCount *int32 `json:"totalCount,omitempty"`
 
 	// information about the failed queries
-	Errors []*GetInsightsError `json:"errors,omitempty"`
+	Errors []*GetInsightsErrorKind `json:"errors,omitempty"`
 }
 
 // GetQueriesResponse - Retrieve queries for entity result operation response.
@@ -5840,15 +5949,6 @@ type ResourceWithEtag struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// SKU - The pricing tier of the solution
-type SKU struct {
-	// The amount of reservation level
-	CapacityReservationLevel *int32 `json:"capacityReservationLevel,omitempty"`
-
-	// The kind of the tier
-	Name *SKUKind `json:"name,omitempty"`
-}
-
 // SampleQueries - The sample queries for the connector
 type SampleQueries struct {
 	// The sample query description
@@ -6252,6 +6352,78 @@ type SecurityGroupEntityProperties struct {
 
 	// READ-ONLY; The SID attribute is a single-value attribute that specifies the security identifier (SID) of the group
 	Sid *string `json:"sid,omitempty" azure:"ro"`
+}
+
+// SecurityMLAnalyticsSettingClassification provides polymorphic access to related types.
+// Call the interface's GetSecurityMLAnalyticsSetting() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AnomalySecurityMLAnalyticsSettings, *SecurityMLAnalyticsSetting
+type SecurityMLAnalyticsSettingClassification interface {
+	// GetSecurityMLAnalyticsSetting returns the SecurityMLAnalyticsSetting content of the underlying type.
+	GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting
+}
+
+// SecurityMLAnalyticsSetting - Security ML Analytics Setting
+type SecurityMLAnalyticsSetting struct {
+	// REQUIRED; The kind of security ML Analytics Settings
+	Kind *SecurityMLAnalyticsSettingsKind `json:"kind,omitempty"`
+
+	// Etag of the azure resource
+	Etag *string `json:"etag,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.CreateOrUpdate
+// method.
+type SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientDeleteOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Delete
+// method.
+type SecurityMLAnalyticsSettingsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientGetOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Get
+// method.
+type SecurityMLAnalyticsSettingsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientListOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.List
+// method.
+type SecurityMLAnalyticsSettingsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsDataSource - security ml analytics settings data sources
+type SecurityMLAnalyticsSettingsDataSource struct {
+	// The connector id that provides the following data types
+	ConnectorID *string `json:"connectorId,omitempty"`
+
+	// The data types used by the security ml analytics settings
+	DataTypes []*string `json:"dataTypes,omitempty"`
+}
+
+// SecurityMLAnalyticsSettingsList - List all the SecurityMLAnalyticsSettings
+type SecurityMLAnalyticsSettingsList struct {
+	// REQUIRED; Array of SecurityMLAnalyticsSettings
+	Value []SecurityMLAnalyticsSettingClassification `json:"value,omitempty"`
+
+	// READ-ONLY; URL to fetch the next set of SecurityMLAnalyticsSettings.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
 // SentinelOnboardingState - Sentinel onboarding state

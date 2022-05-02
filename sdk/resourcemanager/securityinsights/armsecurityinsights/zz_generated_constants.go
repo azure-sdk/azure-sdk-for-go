@@ -10,7 +10,7 @@ package armsecurityinsights
 
 const (
 	moduleName    = "armsecurityinsights"
-	moduleVersion = "v0.3.0"
+	moduleVersion = "v0.4.0"
 )
 
 // ActionType - The type of the automation rule action
@@ -1007,6 +1007,8 @@ type EntityTimelineKind string
 const (
 	// EntityTimelineKindActivity - activity
 	EntityTimelineKindActivity EntityTimelineKind = "Activity"
+	// EntityTimelineKindAnomaly - anomaly
+	EntityTimelineKindAnomaly EntityTimelineKind = "Anomaly"
 	// EntityTimelineKindBookmark - bookmarks
 	EntityTimelineKindBookmark EntityTimelineKind = "Bookmark"
 	// EntityTimelineKindSecurityAlert - security alerts
@@ -1017,6 +1019,7 @@ const (
 func PossibleEntityTimelineKindValues() []EntityTimelineKind {
 	return []EntityTimelineKind{
 		EntityTimelineKindActivity,
+		EntityTimelineKindAnomaly,
 		EntityTimelineKindBookmark,
 		EntityTimelineKindSecurityAlert,
 	}
@@ -1168,17 +1171,17 @@ func PossibleFileHashAlgorithmValues() []FileHashAlgorithm {
 	}
 }
 
-// GetInsightsErrorKind - the query kind
-type GetInsightsErrorKind string
+// GetInsightsError - the query kind
+type GetInsightsError string
 
 const (
-	GetInsightsErrorKindInsight GetInsightsErrorKind = "Insight"
+	GetInsightsErrorInsight GetInsightsError = "Insight"
 )
 
-// PossibleGetInsightsErrorKindValues returns the possible values for the GetInsightsErrorKind const type.
-func PossibleGetInsightsErrorKindValues() []GetInsightsErrorKind {
-	return []GetInsightsErrorKind{
-		GetInsightsErrorKindInsight,
+// PossibleGetInsightsErrorValues returns the possible values for the GetInsightsError const type.
+func PossibleGetInsightsErrorValues() []GetInsightsError {
+	return []GetInsightsError{
+		GetInsightsErrorInsight,
 	}
 }
 
@@ -1718,19 +1721,17 @@ func PossibleRepoTypeValues() []RepoType {
 	}
 }
 
-// SKUKind - The kind of the tier
-type SKUKind string
+// SecurityMLAnalyticsSettingsKind - The kind of security ML analytics settings
+type SecurityMLAnalyticsSettingsKind string
 
 const (
-	SKUKindCapacityReservation SKUKind = "CapacityReservation"
-	SKUKindPerGB               SKUKind = "PerGB"
+	SecurityMLAnalyticsSettingsKindAnomaly SecurityMLAnalyticsSettingsKind = "Anomaly"
 )
 
-// PossibleSKUKindValues returns the possible values for the SKUKind const type.
-func PossibleSKUKindValues() []SKUKind {
-	return []SKUKind{
-		SKUKindCapacityReservation,
-		SKUKindPerGB,
+// PossibleSecurityMLAnalyticsSettingsKindValues returns the possible values for the SecurityMLAnalyticsSettingsKind const type.
+func PossibleSecurityMLAnalyticsSettingsKindValues() []SecurityMLAnalyticsSettingsKind {
+	return []SecurityMLAnalyticsSettingsKind{
+		SecurityMLAnalyticsSettingsKindAnomaly,
 	}
 }
 
@@ -1769,6 +1770,24 @@ func PossibleSettingTypeValues() []SettingType {
 		SettingTypeCopyableLabel,
 		SettingTypeInfoMessage,
 		SettingTypeInstructionStepsGroup,
+	}
+}
+
+// SettingsStatus - The anomaly SecurityMLAnalyticsSettings status
+type SettingsStatus string
+
+const (
+	// SettingsStatusFlighting - Anomaly settings status in Flighting mode
+	SettingsStatusFlighting SettingsStatus = "Flighting"
+	// SettingsStatusProduction - Anomaly settings status in Production mode
+	SettingsStatusProduction SettingsStatus = "Production"
+)
+
+// PossibleSettingsStatusValues returns the possible values for the SettingsStatus const type.
+func PossibleSettingsStatusValues() []SettingsStatus {
+	return []SettingsStatus{
+		SettingsStatusFlighting,
+		SettingsStatusProduction,
 	}
 }
 

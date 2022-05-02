@@ -457,6 +457,8 @@ func unmarshalEntityTimelineItemClassification(rawMsg json.RawMessage) (EntityTi
 	switch m["kind"] {
 	case string(EntityTimelineKindActivity):
 		b = &ActivityTimelineItem{}
+	case string(EntityTimelineKindAnomaly):
+		b = &AnomalyTimelineItem{}
 	case string(EntityTimelineKindBookmark):
 		b = &BookmarkTimelineItem{}
 	case string(EntityTimelineKindSecurityAlert):
@@ -478,6 +480,43 @@ func unmarshalEntityTimelineItemClassificationArray(rawMsg json.RawMessage) ([]E
 	fArray := make([]EntityTimelineItemClassification, len(rawMessages))
 	for index, rawMessage := range rawMessages {
 		f, err := unmarshalEntityTimelineItemClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
+func unmarshalSecurityMLAnalyticsSettingClassification(rawMsg json.RawMessage) (SecurityMLAnalyticsSettingClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b SecurityMLAnalyticsSettingClassification
+	switch m["kind"] {
+	case string(SecurityMLAnalyticsSettingsKindAnomaly):
+		b = &AnomalySecurityMLAnalyticsSettings{}
+	default:
+		b = &SecurityMLAnalyticsSetting{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalSecurityMLAnalyticsSettingClassificationArray(rawMsg json.RawMessage) ([]SecurityMLAnalyticsSettingClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]SecurityMLAnalyticsSettingClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalSecurityMLAnalyticsSettingClassification(rawMessage)
 		if err != nil {
 			return nil, err
 		}
