@@ -685,7 +685,8 @@ type LocationsClientCheckQuotaAvailabilityOptions struct {
 // LocationsClientCheckTrialAvailabilityOptions contains the optional parameters for the LocationsClient.CheckTrialAvailability
 // method.
 type LocationsClientCheckTrialAvailabilityOptions struct {
-	// placeholder for future optional parameters
+	// The name of the SKU.
+	SKU *string
 }
 
 // LogSpecification - Specifications of the Log for Azure Monitoring

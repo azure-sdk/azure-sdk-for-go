@@ -1,5 +1,11 @@
 # Release History
 
+## 0.5.0 (2022-05-02)
+### Features Added
+
+- New field `SKU` in struct `LocationsClientCheckTrialAvailabilityOptions`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
