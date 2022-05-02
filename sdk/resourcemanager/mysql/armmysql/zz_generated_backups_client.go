@@ -22,19 +22,19 @@ import (
 	"strings"
 )
 
-// TopQueryStatisticsClient contains the methods for the TopQueryStatistics group.
-// Don't use this type directly, use NewTopQueryStatisticsClient() instead.
-type TopQueryStatisticsClient struct {
+// BackupsClient contains the methods for the Backups group.
+// Don't use this type directly, use NewBackupsClient() instead.
+type BackupsClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewTopQueryStatisticsClient creates a new instance of TopQueryStatisticsClient with the specified values.
+// NewBackupsClient creates a new instance of BackupsClient with the specified values.
 // subscriptionID - The ID of the target subscription.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewTopQueryStatisticsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TopQueryStatisticsClient, error) {
+func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BackupsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -46,7 +46,7 @@ func NewTopQueryStatisticsClient(subscriptionID string, credential azcore.TokenC
 	if err != nil {
 		return nil, err
 	}
-	client := &TopQueryStatisticsClient{
+	client := &BackupsClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -54,30 +54,30 @@ func NewTopQueryStatisticsClient(subscriptionID string, credential azcore.TokenC
 	return client, nil
 }
 
-// Get - Retrieve the query statistic for specified identifier.
+// Get - List all the backups for a given server.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // serverName - The name of the server.
-// queryStatisticID - The Query Statistic identifier.
-// options - TopQueryStatisticsClientGetOptions contains the optional parameters for the TopQueryStatisticsClient.Get method.
-func (client *TopQueryStatisticsClient) Get(ctx context.Context, resourceGroupName string, serverName string, queryStatisticID string, options *TopQueryStatisticsClientGetOptions) (TopQueryStatisticsClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, queryStatisticID, options)
+// backupName - The name of the backup.
+// options - BackupsClientGetOptions contains the optional parameters for the BackupsClient.Get method.
+func (client *BackupsClient) Get(ctx context.Context, resourceGroupName string, serverName string, backupName string, options *BackupsClientGetOptions) (BackupsClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, backupName, options)
 	if err != nil {
-		return TopQueryStatisticsClientGetResponse{}, err
+		return BackupsClientGetResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return TopQueryStatisticsClientGetResponse{}, err
+		return BackupsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return TopQueryStatisticsClientGetResponse{}, runtime.NewResponseError(resp)
+		return BackupsClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *TopQueryStatisticsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, queryStatisticID string, options *TopQueryStatisticsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/topQueryStatistics/{queryStatisticId}"
+func (client *BackupsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, backupName string, options *BackupsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/backups/{backupName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -90,59 +90,57 @@ func (client *TopQueryStatisticsClient) getCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter serverName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serverName}", url.PathEscape(serverName))
-	if queryStatisticID == "" {
-		return nil, errors.New("parameter queryStatisticID cannot be empty")
+	if backupName == "" {
+		return nil, errors.New("parameter backupName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{queryStatisticId}", url.PathEscape(queryStatisticID))
+	urlPath = strings.ReplaceAll(urlPath, "{backupName}", url.PathEscape(backupName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
 }
 
 // getHandleResponse handles the Get response.
-func (client *TopQueryStatisticsClient) getHandleResponse(resp *http.Response) (TopQueryStatisticsClientGetResponse, error) {
-	result := TopQueryStatisticsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.QueryStatistic); err != nil {
-		return TopQueryStatisticsClientGetResponse{}, err
+func (client *BackupsClient) getHandleResponse(resp *http.Response) (BackupsClientGetResponse, error) {
+	result := BackupsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ServerBackup); err != nil {
+		return BackupsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByServerPager - Retrieve the Query-Store top queries for specified metric and aggregation.
+// NewListByServerPager - List all the backups for a given server.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // serverName - The name of the server.
-// parameters - The required parameters for retrieving top query statistics.
-// options - TopQueryStatisticsClientListByServerOptions contains the optional parameters for the TopQueryStatisticsClient.ListByServer
-// method.
-func (client *TopQueryStatisticsClient) NewListByServerPager(resourceGroupName string, serverName string, parameters TopQueryStatisticsInput, options *TopQueryStatisticsClientListByServerOptions) *runtime.Pager[TopQueryStatisticsClientListByServerResponse] {
-	return runtime.NewPager(runtime.PageProcessor[TopQueryStatisticsClientListByServerResponse]{
-		More: func(page TopQueryStatisticsClientListByServerResponse) bool {
+// options - BackupsClientListByServerOptions contains the optional parameters for the BackupsClient.ListByServer method.
+func (client *BackupsClient) NewListByServerPager(resourceGroupName string, serverName string, options *BackupsClientListByServerOptions) *runtime.Pager[BackupsClientListByServerResponse] {
+	return runtime.NewPager(runtime.PageProcessor[BackupsClientListByServerResponse]{
+		More: func(page BackupsClientListByServerResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *TopQueryStatisticsClientListByServerResponse) (TopQueryStatisticsClientListByServerResponse, error) {
+		Fetcher: func(ctx context.Context, page *BackupsClientListByServerResponse) (BackupsClientListByServerResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, serverName, parameters, options)
+				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return TopQueryStatisticsClientListByServerResponse{}, err
+				return BackupsClientListByServerResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return TopQueryStatisticsClientListByServerResponse{}, err
+				return BackupsClientListByServerResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return TopQueryStatisticsClientListByServerResponse{}, runtime.NewResponseError(resp)
+				return BackupsClientListByServerResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByServerHandleResponse(resp)
 		},
@@ -150,8 +148,8 @@ func (client *TopQueryStatisticsClient) NewListByServerPager(resourceGroupName s
 }
 
 // listByServerCreateRequest creates the ListByServer request.
-func (client *TopQueryStatisticsClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverName string, parameters TopQueryStatisticsInput, options *TopQueryStatisticsClientListByServerOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/topQueryStatistics"
+func (client *BackupsClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *BackupsClientListByServerOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/backups"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -169,17 +167,17 @@ func (client *TopQueryStatisticsClient) listByServerCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, nil
 }
 
 // listByServerHandleResponse handles the ListByServer response.
-func (client *TopQueryStatisticsClient) listByServerHandleResponse(resp *http.Response) (TopQueryStatisticsClientListByServerResponse, error) {
-	result := TopQueryStatisticsClientListByServerResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.TopQueryStatisticsResultList); err != nil {
-		return TopQueryStatisticsClientListByServerResponse{}, err
+func (client *BackupsClient) listByServerHandleResponse(resp *http.Response) (BackupsClientListByServerResponse, error) {
+	result := BackupsClientListByServerResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ServerBackupListResult); err != nil {
+		return BackupsClientListByServerResponse{}, err
 	}
 	return result, nil
 }

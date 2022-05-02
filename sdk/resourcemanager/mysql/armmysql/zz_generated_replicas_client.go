@@ -62,10 +62,16 @@ func NewReplicasClient(subscriptionID string, credential azcore.TokenCredential,
 func (client *ReplicasClient) NewListByServerPager(resourceGroupName string, serverName string, options *ReplicasClientListByServerOptions) *runtime.Pager[ReplicasClientListByServerResponse] {
 	return runtime.NewPager(runtime.PageProcessor[ReplicasClientListByServerResponse]{
 		More: func(page ReplicasClientListByServerResponse) bool {
-			return false
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ReplicasClientListByServerResponse) (ReplicasClientListByServerResponse, error) {
-			req, err := client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
 			if err != nil {
 				return ReplicasClientListByServerResponse{}, err
 			}
@@ -83,7 +89,7 @@ func (client *ReplicasClient) NewListByServerPager(resourceGroupName string, ser
 
 // listByServerCreateRequest creates the ListByServer request.
 func (client *ReplicasClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *ReplicasClientListByServerOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/replicas"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/replicas"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -101,7 +107,7 @@ func (client *ReplicasClient) listByServerCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil

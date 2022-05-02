@@ -54,30 +54,31 @@ func NewConfigurationsClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Updates a configuration of a server.
+// BeginBatchUpdate - Update a list of configurations in a given server.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // serverName - The name of the server.
-// configurationName - The name of the server configuration.
-// parameters - The required parameters for updating a server configuration.
-// options - ConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the ConfigurationsClient.BeginCreateOrUpdate
+// parameters - The parameters for updating a list of server configuration.
+// options - ConfigurationsClientBeginBatchUpdateOptions contains the optional parameters for the ConfigurationsClient.BeginBatchUpdate
 // method.
-func (client *ConfigurationsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serverName string, configurationName string, parameters Configuration, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*armruntime.Poller[ConfigurationsClientCreateOrUpdateResponse], error) {
+func (client *ConfigurationsClient) BeginBatchUpdate(ctx context.Context, resourceGroupName string, serverName string, parameters ConfigurationListForBatchUpdate, options *ConfigurationsClientBeginBatchUpdateOptions) (*armruntime.Poller[ConfigurationsClientBatchUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, serverName, configurationName, parameters, options)
+		resp, err := client.batchUpdate(ctx, resourceGroupName, serverName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		return armruntime.NewPoller[ConfigurationsClientCreateOrUpdateResponse](resp, client.pl, nil)
+		return armruntime.NewPoller(resp, client.pl, &armruntime.NewPollerOptions[ConfigurationsClientBatchUpdateResponse]{
+			FinalStateVia: armruntime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
-		return armruntime.NewPollerFromResumeToken[ConfigurationsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
+		return armruntime.NewPollerFromResumeToken[ConfigurationsClientBatchUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
 }
 
-// CreateOrUpdate - Updates a configuration of a server.
+// BatchUpdate - Update a list of configurations in a given server.
 // If the operation fails it returns an *azcore.ResponseError type.
-func (client *ConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverName string, configurationName string, parameters Configuration, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverName, configurationName, parameters, options)
+func (client *ConfigurationsClient) batchUpdate(ctx context.Context, resourceGroupName string, serverName string, parameters ConfigurationListForBatchUpdate, options *ConfigurationsClientBeginBatchUpdateOptions) (*http.Response, error) {
+	req, err := client.batchUpdateCreateRequest(ctx, resourceGroupName, serverName, parameters, options)
 	if err != nil {
 		return nil, err
 	}
@@ -91,9 +92,9 @@ func (client *ConfigurationsClient) createOrUpdate(ctx context.Context, resource
 	return resp, nil
 }
 
-// createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ConfigurationsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, configurationName string, parameters Configuration, options *ConfigurationsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/configurations/{configurationName}"
+// batchUpdateCreateRequest creates the BatchUpdate request.
+func (client *ConfigurationsClient) batchUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, parameters ConfigurationListForBatchUpdate, options *ConfigurationsClientBeginBatchUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/updateConfigurations"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -106,16 +107,12 @@ func (client *ConfigurationsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter serverName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{serverName}", url.PathEscape(serverName))
-	if configurationName == "" {
-		return nil, errors.New("parameter configurationName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -144,7 +141,7 @@ func (client *ConfigurationsClient) Get(ctx context.Context, resourceGroupName s
 
 // getCreateRequest creates the Get request.
 func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, configurationName string, options *ConfigurationsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/configurations/{configurationName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/configurations/{configurationName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -166,7 +163,7 @@ func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -190,10 +187,16 @@ func (client *ConfigurationsClient) getHandleResponse(resp *http.Response) (Conf
 func (client *ConfigurationsClient) NewListByServerPager(resourceGroupName string, serverName string, options *ConfigurationsClientListByServerOptions) *runtime.Pager[ConfigurationsClientListByServerResponse] {
 	return runtime.NewPager(runtime.PageProcessor[ConfigurationsClientListByServerResponse]{
 		More: func(page ConfigurationsClientListByServerResponse) bool {
-			return false
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *ConfigurationsClientListByServerResponse) (ConfigurationsClientListByServerResponse, error) {
-			req, err := client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
 			if err != nil {
 				return ConfigurationsClientListByServerResponse{}, err
 			}
@@ -211,7 +214,7 @@ func (client *ConfigurationsClient) NewListByServerPager(resourceGroupName strin
 
 // listByServerCreateRequest creates the ListByServer request.
 func (client *ConfigurationsClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *ConfigurationsClientListByServerOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/configurations"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/configurations"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -229,7 +232,7 @@ func (client *ConfigurationsClient) listByServerCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -242,4 +245,71 @@ func (client *ConfigurationsClient) listByServerHandleResponse(resp *http.Respon
 		return ConfigurationsClientListByServerResponse{}, err
 	}
 	return result, nil
+}
+
+// BeginUpdate - Updates a configuration of a server.
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// serverName - The name of the server.
+// configurationName - The name of the server configuration.
+// parameters - The required parameters for updating a server configuration.
+// options - ConfigurationsClientBeginUpdateOptions contains the optional parameters for the ConfigurationsClient.BeginUpdate
+// method.
+func (client *ConfigurationsClient) BeginUpdate(ctx context.Context, resourceGroupName string, serverName string, configurationName string, parameters Configuration, options *ConfigurationsClientBeginUpdateOptions) (*armruntime.Poller[ConfigurationsClientUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.update(ctx, resourceGroupName, serverName, configurationName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return armruntime.NewPoller[ConfigurationsClientUpdateResponse](resp, client.pl, nil)
+	} else {
+		return armruntime.NewPollerFromResumeToken[ConfigurationsClientUpdateResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// Update - Updates a configuration of a server.
+// If the operation fails it returns an *azcore.ResponseError type.
+func (client *ConfigurationsClient) update(ctx context.Context, resourceGroupName string, serverName string, configurationName string, parameters Configuration, options *ConfigurationsClientBeginUpdateOptions) (*http.Response, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, serverName, configurationName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// updateCreateRequest creates the Update request.
+func (client *ConfigurationsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, configurationName string, parameters Configuration, options *ConfigurationsClientBeginUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/configurations/{configurationName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if serverName == "" {
+		return nil, errors.New("parameter serverName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{serverName}", url.PathEscape(serverName))
+	if configurationName == "" {
+		return nil, errors.New("parameter configurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, runtime.MarshalAsJSON(req, parameters)
 }

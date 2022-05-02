@@ -93,7 +93,7 @@ func (client *DatabasesClient) createOrUpdate(ctx context.Context, resourceGroup
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *DatabasesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters Database, options *DatabasesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/databases/{databaseName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/databases/{databaseName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -115,7 +115,7 @@ func (client *DatabasesClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -158,7 +158,7 @@ func (client *DatabasesClient) deleteOperation(ctx context.Context, resourceGrou
 
 // deleteCreateRequest creates the Delete request.
 func (client *DatabasesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/databases/{databaseName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/databases/{databaseName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -180,7 +180,7 @@ func (client *DatabasesClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -209,7 +209,7 @@ func (client *DatabasesClient) Get(ctx context.Context, resourceGroupName string
 
 // getCreateRequest creates the Get request.
 func (client *DatabasesClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/databases/{databaseName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/databases/{databaseName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -231,7 +231,7 @@ func (client *DatabasesClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -254,10 +254,16 @@ func (client *DatabasesClient) getHandleResponse(resp *http.Response) (Databases
 func (client *DatabasesClient) NewListByServerPager(resourceGroupName string, serverName string, options *DatabasesClientListByServerOptions) *runtime.Pager[DatabasesClientListByServerResponse] {
 	return runtime.NewPager(runtime.PageProcessor[DatabasesClientListByServerResponse]{
 		More: func(page DatabasesClientListByServerResponse) bool {
-			return false
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *DatabasesClientListByServerResponse) (DatabasesClientListByServerResponse, error) {
-			req, err := client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, serverName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
 			if err != nil {
 				return DatabasesClientListByServerResponse{}, err
 			}
@@ -275,7 +281,7 @@ func (client *DatabasesClient) NewListByServerPager(resourceGroupName string, se
 
 // listByServerCreateRequest creates the ListByServer request.
 func (client *DatabasesClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverName string, options *DatabasesClientListByServerOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/servers/{serverName}/databases"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/databases"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -293,7 +299,7 @@ func (client *DatabasesClient) listByServerCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil

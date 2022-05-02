@@ -10,10 +10,26 @@ package armmysql
 
 const (
 	moduleName    = "armmysql"
-	moduleVersion = "v0.5.0"
+	moduleVersion = "v0.7.0"
 )
 
-// CreateMode - The mode to create a new server.
+// ConfigurationSource - Source of the configuration.
+type ConfigurationSource string
+
+const (
+	ConfigurationSourceSystemDefault ConfigurationSource = "system-default"
+	ConfigurationSourceUserOverride  ConfigurationSource = "user-override"
+)
+
+// PossibleConfigurationSourceValues returns the possible values for the ConfigurationSource const type.
+func PossibleConfigurationSourceValues() []ConfigurationSource {
+	return []ConfigurationSource{
+		ConfigurationSourceSystemDefault,
+		ConfigurationSourceUserOverride,
+	}
+}
+
+// CreateMode - The mode to create a new MySQL server.
 type CreateMode string
 
 const (
@@ -33,188 +49,155 @@ func PossibleCreateModeValues() []CreateMode {
 	}
 }
 
-// GeoRedundantBackup - Enable Geo-redundant or not for server backup.
-type GeoRedundantBackup string
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
 
 const (
-	GeoRedundantBackupDisabled GeoRedundantBackup = "Disabled"
-	GeoRedundantBackupEnabled  GeoRedundantBackup = "Enabled"
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
 )
 
-// PossibleGeoRedundantBackupValues returns the possible values for the GeoRedundantBackup const type.
-func PossibleGeoRedundantBackupValues() []GeoRedundantBackup {
-	return []GeoRedundantBackup{
-		GeoRedundantBackupDisabled,
-		GeoRedundantBackupEnabled,
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
-// IdentityType - The identity type. Set this to 'SystemAssigned' in order to automatically create and assign an Azure Active
-// Directory principal for the resource.
-type IdentityType string
+// EnableStatusEnum - Enum to indicate whether value is 'Enabled' or 'Disabled'
+type EnableStatusEnum string
 
 const (
-	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
+	EnableStatusEnumDisabled EnableStatusEnum = "Disabled"
+	EnableStatusEnumEnabled  EnableStatusEnum = "Enabled"
 )
 
-// PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
-func PossibleIdentityTypeValues() []IdentityType {
-	return []IdentityType{
-		IdentityTypeSystemAssigned,
+// PossibleEnableStatusEnumValues returns the possible values for the EnableStatusEnum const type.
+func PossibleEnableStatusEnumValues() []EnableStatusEnum {
+	return []EnableStatusEnum{
+		EnableStatusEnumDisabled,
+		EnableStatusEnumEnabled,
 	}
 }
 
-// InfrastructureEncryption - Add a second layer of encryption for your data using new encryption algorithm which gives additional
-// data protection. Value is optional but if passed in, must be 'Disabled' or 'Enabled'.
-type InfrastructureEncryption string
+// HighAvailabilityMode - High availability mode for a server.
+type HighAvailabilityMode string
 
 const (
-	// InfrastructureEncryptionDisabled - Additional (2nd) layer of encryption for data at rest
-	InfrastructureEncryptionDisabled InfrastructureEncryption = "Disabled"
-	// InfrastructureEncryptionEnabled - Default value for single layer of encryption for data at rest.
-	InfrastructureEncryptionEnabled InfrastructureEncryption = "Enabled"
+	HighAvailabilityModeDisabled      HighAvailabilityMode = "Disabled"
+	HighAvailabilityModeEnabled       HighAvailabilityMode = "Enabled"
+	HighAvailabilityModeSameZone      HighAvailabilityMode = "SameZone"
+	HighAvailabilityModeZoneRedundant HighAvailabilityMode = "ZoneRedundant"
 )
 
-// PossibleInfrastructureEncryptionValues returns the possible values for the InfrastructureEncryption const type.
-func PossibleInfrastructureEncryptionValues() []InfrastructureEncryption {
-	return []InfrastructureEncryption{
-		InfrastructureEncryptionDisabled,
-		InfrastructureEncryptionEnabled,
+// PossibleHighAvailabilityModeValues returns the possible values for the HighAvailabilityMode const type.
+func PossibleHighAvailabilityModeValues() []HighAvailabilityMode {
+	return []HighAvailabilityMode{
+		HighAvailabilityModeDisabled,
+		HighAvailabilityModeEnabled,
+		HighAvailabilityModeSameZone,
+		HighAvailabilityModeZoneRedundant,
 	}
 }
 
-// MinimalTLSVersionEnum - Enforce a minimal Tls version for the server.
-type MinimalTLSVersionEnum string
+// HighAvailabilityState - The state of server high availability.
+type HighAvailabilityState string
 
 const (
-	MinimalTLSVersionEnumTLS10                  MinimalTLSVersionEnum = "TLS1_0"
-	MinimalTLSVersionEnumTLS11                  MinimalTLSVersionEnum = "TLS1_1"
-	MinimalTLSVersionEnumTLS12                  MinimalTLSVersionEnum = "TLS1_2"
-	MinimalTLSVersionEnumTLSEnforcementDisabled MinimalTLSVersionEnum = "TLSEnforcementDisabled"
+	HighAvailabilityStateCreatingStandby HighAvailabilityState = "CreatingStandby"
+	HighAvailabilityStateFailingOver     HighAvailabilityState = "FailingOver"
+	HighAvailabilityStateHealthy         HighAvailabilityState = "Healthy"
+	HighAvailabilityStateNotEnabled      HighAvailabilityState = "NotEnabled"
+	HighAvailabilityStateRemovingStandby HighAvailabilityState = "RemovingStandby"
 )
 
-// PossibleMinimalTLSVersionEnumValues returns the possible values for the MinimalTLSVersionEnum const type.
-func PossibleMinimalTLSVersionEnumValues() []MinimalTLSVersionEnum {
-	return []MinimalTLSVersionEnum{
-		MinimalTLSVersionEnumTLS10,
-		MinimalTLSVersionEnumTLS11,
-		MinimalTLSVersionEnumTLS12,
-		MinimalTLSVersionEnumTLSEnforcementDisabled,
+// PossibleHighAvailabilityStateValues returns the possible values for the HighAvailabilityState const type.
+func PossibleHighAvailabilityStateValues() []HighAvailabilityState {
+	return []HighAvailabilityState{
+		HighAvailabilityStateCreatingStandby,
+		HighAvailabilityStateFailingOver,
+		HighAvailabilityStateHealthy,
+		HighAvailabilityStateNotEnabled,
+		HighAvailabilityStateRemovingStandby,
 	}
 }
 
-// OperationOrigin - The intended executor of the operation.
-type OperationOrigin string
+// IsConfigPendingRestart - If is the configuration pending restart or not.
+type IsConfigPendingRestart string
 
 const (
-	OperationOriginNotSpecified OperationOrigin = "NotSpecified"
-	OperationOriginSystem       OperationOrigin = "system"
-	OperationOriginUser         OperationOrigin = "user"
+	IsConfigPendingRestartFalse IsConfigPendingRestart = "False"
+	IsConfigPendingRestartTrue  IsConfigPendingRestart = "True"
 )
 
-// PossibleOperationOriginValues returns the possible values for the OperationOrigin const type.
-func PossibleOperationOriginValues() []OperationOrigin {
-	return []OperationOrigin{
-		OperationOriginNotSpecified,
-		OperationOriginSystem,
-		OperationOriginUser,
+// PossibleIsConfigPendingRestartValues returns the possible values for the IsConfigPendingRestart const type.
+func PossibleIsConfigPendingRestartValues() []IsConfigPendingRestart {
+	return []IsConfigPendingRestart{
+		IsConfigPendingRestartFalse,
+		IsConfigPendingRestartTrue,
 	}
 }
 
-// PrivateEndpointProvisioningState - State of the private endpoint connection.
-type PrivateEndpointProvisioningState string
+// IsDynamicConfig - If is the configuration dynamic.
+type IsDynamicConfig string
 
 const (
-	PrivateEndpointProvisioningStateApproving PrivateEndpointProvisioningState = "Approving"
-	PrivateEndpointProvisioningStateDropping  PrivateEndpointProvisioningState = "Dropping"
-	PrivateEndpointProvisioningStateFailed    PrivateEndpointProvisioningState = "Failed"
-	PrivateEndpointProvisioningStateReady     PrivateEndpointProvisioningState = "Ready"
-	PrivateEndpointProvisioningStateRejecting PrivateEndpointProvisioningState = "Rejecting"
+	IsDynamicConfigFalse IsDynamicConfig = "False"
+	IsDynamicConfigTrue  IsDynamicConfig = "True"
 )
 
-// PossiblePrivateEndpointProvisioningStateValues returns the possible values for the PrivateEndpointProvisioningState const type.
-func PossiblePrivateEndpointProvisioningStateValues() []PrivateEndpointProvisioningState {
-	return []PrivateEndpointProvisioningState{
-		PrivateEndpointProvisioningStateApproving,
-		PrivateEndpointProvisioningStateDropping,
-		PrivateEndpointProvisioningStateFailed,
-		PrivateEndpointProvisioningStateReady,
-		PrivateEndpointProvisioningStateRejecting,
+// PossibleIsDynamicConfigValues returns the possible values for the IsDynamicConfig const type.
+func PossibleIsDynamicConfigValues() []IsDynamicConfig {
+	return []IsDynamicConfig{
+		IsDynamicConfigFalse,
+		IsDynamicConfigTrue,
 	}
 }
 
-// PrivateLinkServiceConnectionStateActionsRequire - The actions required for private link service connection.
-type PrivateLinkServiceConnectionStateActionsRequire string
+// IsReadOnly - If is the configuration read only.
+type IsReadOnly string
 
 const (
-	PrivateLinkServiceConnectionStateActionsRequireNone PrivateLinkServiceConnectionStateActionsRequire = "None"
+	IsReadOnlyFalse IsReadOnly = "False"
+	IsReadOnlyTrue  IsReadOnly = "True"
 )
 
-// PossiblePrivateLinkServiceConnectionStateActionsRequireValues returns the possible values for the PrivateLinkServiceConnectionStateActionsRequire const type.
-func PossiblePrivateLinkServiceConnectionStateActionsRequireValues() []PrivateLinkServiceConnectionStateActionsRequire {
-	return []PrivateLinkServiceConnectionStateActionsRequire{
-		PrivateLinkServiceConnectionStateActionsRequireNone,
+// PossibleIsReadOnlyValues returns the possible values for the IsReadOnly const type.
+func PossibleIsReadOnlyValues() []IsReadOnly {
+	return []IsReadOnly{
+		IsReadOnlyFalse,
+		IsReadOnlyTrue,
 	}
 }
 
-// PrivateLinkServiceConnectionStateStatus - The private link service connection status.
-type PrivateLinkServiceConnectionStateStatus string
+// ReplicationRole - The replication role.
+type ReplicationRole string
 
 const (
-	PrivateLinkServiceConnectionStateStatusApproved     PrivateLinkServiceConnectionStateStatus = "Approved"
-	PrivateLinkServiceConnectionStateStatusDisconnected PrivateLinkServiceConnectionStateStatus = "Disconnected"
-	PrivateLinkServiceConnectionStateStatusPending      PrivateLinkServiceConnectionStateStatus = "Pending"
-	PrivateLinkServiceConnectionStateStatusRejected     PrivateLinkServiceConnectionStateStatus = "Rejected"
+	ReplicationRoleNone    ReplicationRole = "None"
+	ReplicationRoleReplica ReplicationRole = "Replica"
+	ReplicationRoleSource  ReplicationRole = "Source"
 )
 
-// PossiblePrivateLinkServiceConnectionStateStatusValues returns the possible values for the PrivateLinkServiceConnectionStateStatus const type.
-func PossiblePrivateLinkServiceConnectionStateStatusValues() []PrivateLinkServiceConnectionStateStatus {
-	return []PrivateLinkServiceConnectionStateStatus{
-		PrivateLinkServiceConnectionStateStatusApproved,
-		PrivateLinkServiceConnectionStateStatusDisconnected,
-		PrivateLinkServiceConnectionStateStatusPending,
-		PrivateLinkServiceConnectionStateStatusRejected,
+// PossibleReplicationRoleValues returns the possible values for the ReplicationRole const type.
+func PossibleReplicationRoleValues() []ReplicationRole {
+	return []ReplicationRole{
+		ReplicationRoleNone,
+		ReplicationRoleReplica,
+		ReplicationRoleSource,
 	}
 }
 
-// PublicNetworkAccessEnum - Whether or not public network access is allowed for this server. Value is optional but if passed
-// in, must be 'Enabled' or 'Disabled'
-type PublicNetworkAccessEnum string
-
-const (
-	PublicNetworkAccessEnumDisabled PublicNetworkAccessEnum = "Disabled"
-	PublicNetworkAccessEnumEnabled  PublicNetworkAccessEnum = "Enabled"
-)
-
-// PossiblePublicNetworkAccessEnumValues returns the possible values for the PublicNetworkAccessEnum const type.
-func PossiblePublicNetworkAccessEnumValues() []PublicNetworkAccessEnum {
-	return []PublicNetworkAccessEnum{
-		PublicNetworkAccessEnumDisabled,
-		PublicNetworkAccessEnumEnabled,
-	}
-}
-
-// QueryPerformanceInsightResetDataResultState - Indicates result of the operation.
-type QueryPerformanceInsightResetDataResultState string
-
-const (
-	QueryPerformanceInsightResetDataResultStateFailed    QueryPerformanceInsightResetDataResultState = "Failed"
-	QueryPerformanceInsightResetDataResultStateSucceeded QueryPerformanceInsightResetDataResultState = "Succeeded"
-)
-
-// PossibleQueryPerformanceInsightResetDataResultStateValues returns the possible values for the QueryPerformanceInsightResetDataResultState const type.
-func PossibleQueryPerformanceInsightResetDataResultStateValues() []QueryPerformanceInsightResetDataResultState {
-	return []QueryPerformanceInsightResetDataResultState{
-		QueryPerformanceInsightResetDataResultStateFailed,
-		QueryPerformanceInsightResetDataResultStateSucceeded,
-	}
-}
-
-// SKUTier - The tier of the particular SKU, e.g. Basic.
+// SKUTier - The tier of the particular SKU, e.g. GeneralPurpose.
 type SKUTier string
 
 const (
-	SKUTierBasic           SKUTier = "Basic"
+	SKUTierBurstable       SKUTier = "Burstable"
 	SKUTierGeneralPurpose  SKUTier = "GeneralPurpose"
 	SKUTierMemoryOptimized SKUTier = "MemoryOptimized"
 )
@@ -222,79 +205,23 @@ const (
 // PossibleSKUTierValues returns the possible values for the SKUTier const type.
 func PossibleSKUTierValues() []SKUTier {
 	return []SKUTier{
-		SKUTierBasic,
+		SKUTierBurstable,
 		SKUTierGeneralPurpose,
 		SKUTierMemoryOptimized,
 	}
 }
 
-// SSLEnforcementEnum - Enable ssl enforcement or not when connect to server.
-type SSLEnforcementEnum string
-
-const (
-	SSLEnforcementEnumEnabled  SSLEnforcementEnum = "Enabled"
-	SSLEnforcementEnumDisabled SSLEnforcementEnum = "Disabled"
-)
-
-// PossibleSSLEnforcementEnumValues returns the possible values for the SSLEnforcementEnum const type.
-func PossibleSSLEnforcementEnumValues() []SSLEnforcementEnum {
-	return []SSLEnforcementEnum{
-		SSLEnforcementEnumEnabled,
-		SSLEnforcementEnumDisabled,
-	}
-}
-
-type SecurityAlertPolicyName string
-
-const (
-	SecurityAlertPolicyNameDefault SecurityAlertPolicyName = "Default"
-)
-
-// PossibleSecurityAlertPolicyNameValues returns the possible values for the SecurityAlertPolicyName const type.
-func PossibleSecurityAlertPolicyNameValues() []SecurityAlertPolicyName {
-	return []SecurityAlertPolicyName{
-		SecurityAlertPolicyNameDefault,
-	}
-}
-
-// ServerKeyType - The key type like 'AzureKeyVault'.
-type ServerKeyType string
-
-const (
-	ServerKeyTypeAzureKeyVault ServerKeyType = "AzureKeyVault"
-)
-
-// PossibleServerKeyTypeValues returns the possible values for the ServerKeyType const type.
-func PossibleServerKeyTypeValues() []ServerKeyType {
-	return []ServerKeyType{
-		ServerKeyTypeAzureKeyVault,
-	}
-}
-
-// ServerSecurityAlertPolicyState - Specifies the state of the policy, whether it is enabled or disabled.
-type ServerSecurityAlertPolicyState string
-
-const (
-	ServerSecurityAlertPolicyStateEnabled  ServerSecurityAlertPolicyState = "Enabled"
-	ServerSecurityAlertPolicyStateDisabled ServerSecurityAlertPolicyState = "Disabled"
-)
-
-// PossibleServerSecurityAlertPolicyStateValues returns the possible values for the ServerSecurityAlertPolicyState const type.
-func PossibleServerSecurityAlertPolicyStateValues() []ServerSecurityAlertPolicyState {
-	return []ServerSecurityAlertPolicyState{
-		ServerSecurityAlertPolicyStateEnabled,
-		ServerSecurityAlertPolicyStateDisabled,
-	}
-}
-
-// ServerState - A state of a server that is visible to user.
+// ServerState - The state of a server.
 type ServerState string
 
 const (
-	ServerStateDisabled     ServerState = "Disabled"
-	ServerStateDropping     ServerState = "Dropping"
-	ServerStateInaccessible ServerState = "Inaccessible"
-	ServerStateReady        ServerState = "Ready"
+	ServerStateDisabled ServerState = "Disabled"
+	ServerStateDropping ServerState = "Dropping"
+	ServerStateReady    ServerState = "Ready"
+	ServerStateStarting ServerState = "Starting"
+	ServerStateStopped  ServerState = "Stopped"
+	ServerStateStopping ServerState = "Stopping"
+	ServerStateUpdating ServerState = "Updating"
 )
 
 // PossibleServerStateValues returns the possible values for the ServerState const type.
@@ -302,8 +229,11 @@ func PossibleServerStateValues() []ServerState {
 	return []ServerState{
 		ServerStateDisabled,
 		ServerStateDropping,
-		ServerStateInaccessible,
 		ServerStateReady,
+		ServerStateStarting,
+		ServerStateStopped,
+		ServerStateStopping,
+		ServerStateUpdating,
 	}
 }
 
@@ -311,54 +241,14 @@ func PossibleServerStateValues() []ServerState {
 type ServerVersion string
 
 const (
-	ServerVersionEight0 ServerVersion = "8.0"
-	ServerVersionFive6  ServerVersion = "5.6"
-	ServerVersionFive7  ServerVersion = "5.7"
+	ServerVersionEight021 ServerVersion = "8.0.21"
+	ServerVersionFive7    ServerVersion = "5.7"
 )
 
 // PossibleServerVersionValues returns the possible values for the ServerVersion const type.
 func PossibleServerVersionValues() []ServerVersion {
 	return []ServerVersion{
-		ServerVersionEight0,
-		ServerVersionFive6,
+		ServerVersionEight021,
 		ServerVersionFive7,
-	}
-}
-
-// StorageAutogrow - Enable Storage Auto Grow.
-type StorageAutogrow string
-
-const (
-	StorageAutogrowDisabled StorageAutogrow = "Disabled"
-	StorageAutogrowEnabled  StorageAutogrow = "Enabled"
-)
-
-// PossibleStorageAutogrowValues returns the possible values for the StorageAutogrow const type.
-func PossibleStorageAutogrowValues() []StorageAutogrow {
-	return []StorageAutogrow{
-		StorageAutogrowDisabled,
-		StorageAutogrowEnabled,
-	}
-}
-
-// VirtualNetworkRuleState - Virtual Network Rule State
-type VirtualNetworkRuleState string
-
-const (
-	VirtualNetworkRuleStateDeleting     VirtualNetworkRuleState = "Deleting"
-	VirtualNetworkRuleStateInProgress   VirtualNetworkRuleState = "InProgress"
-	VirtualNetworkRuleStateInitializing VirtualNetworkRuleState = "Initializing"
-	VirtualNetworkRuleStateReady        VirtualNetworkRuleState = "Ready"
-	VirtualNetworkRuleStateUnknown      VirtualNetworkRuleState = "Unknown"
-)
-
-// PossibleVirtualNetworkRuleStateValues returns the possible values for the VirtualNetworkRuleState const type.
-func PossibleVirtualNetworkRuleStateValues() []VirtualNetworkRuleState {
-	return []VirtualNetworkRuleState{
-		VirtualNetworkRuleStateDeleting,
-		VirtualNetworkRuleStateInProgress,
-		VirtualNetworkRuleStateInitializing,
-		VirtualNetworkRuleStateReady,
-		VirtualNetworkRuleStateUnknown,
 	}
 }

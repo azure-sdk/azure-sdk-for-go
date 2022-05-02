@@ -48,22 +48,35 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 	return client, nil
 }
 
-// List - Lists all of the available REST API operations.
+// NewListPager - Lists all of the available REST API operations.
 // If the operation fails it returns an *azcore.ResponseError type.
 // options - OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
-func (client *OperationsClient) List(ctx context.Context, options *OperationsClientListOptions) (OperationsClientListResponse, error) {
-	req, err := client.listCreateRequest(ctx, options)
-	if err != nil {
-		return OperationsClientListResponse{}, err
-	}
-	resp, err := client.pl.Do(req)
-	if err != nil {
-		return OperationsClientListResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return OperationsClientListResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.listHandleResponse(resp)
+func (client *OperationsClient) NewListPager(options *OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse] {
+	return runtime.NewPager(runtime.PageProcessor[OperationsClientListResponse]{
+		More: func(page OperationsClientListResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *OperationsClientListResponse) (OperationsClientListResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listCreateRequest(ctx, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return OperationsClientListResponse{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return OperationsClientListResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return OperationsClientListResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listHandleResponse(resp)
+		},
+	})
 }
 
 // listCreateRequest creates the List request.
@@ -74,7 +87,7 @@ func (client *OperationsClient) listCreateRequest(ctx context.Context, options *
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2017-12-01")
+	reqQP.Set("api-version", "2022-02-10-privatepreview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil

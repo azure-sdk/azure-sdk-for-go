@@ -1,5 +1,499 @@
 # Release History
 
+## 0.7.0 (2022-05-02)
+### Breaking Changes
+
+- Function `*ServersClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, ServerUpdateParameters, *ServersClientBeginUpdateOptions)` to `(context.Context, string, string, ServerForUpdate, *ServersClientBeginUpdateOptions)`
+- Function `*ServersClient.BeginRestart` parameter(s) have been changed from `(context.Context, string, string, *ServersClientBeginRestartOptions)` to `(context.Context, string, string, ServerRestartParameter, *ServersClientBeginRestartOptions)`
+- Function `*CheckNameAvailabilityClient.Execute` parameter(s) have been changed from `(context.Context, NameAvailabilityRequest, *CheckNameAvailabilityClientExecuteOptions)` to `(context.Context, string, NameAvailabilityRequest, *CheckNameAvailabilityClientExecuteOptions)`
+- Function `*ServersClient.BeginCreate` parameter(s) have been changed from `(context.Context, string, string, ServerForCreate, *ServersClientBeginCreateOptions)` to `(context.Context, string, string, Server, *ServersClientBeginCreateOptions)`
+- Type of `Operation.Origin` has been changed from `*OperationOrigin` to `*string`
+- Type of `Server.Identity` has been changed from `*ResourceIdentity` to `*Identity`
+- Type of `ServerProperties.ReplicationRole` has been changed from `*string` to `*ReplicationRole`
+- Type of `ConfigurationProperties.Source` has been changed from `*string` to `*ConfigurationSource`
+- Const `PrivateLinkServiceConnectionStateStatusDisconnected` has been removed
+- Const `GeoRedundantBackupDisabled` has been removed
+- Const `MinimalTLSVersionEnumTLS10` has been removed
+- Const `ServerStateInaccessible` has been removed
+- Const `ServerKeyTypeAzureKeyVault` has been removed
+- Const `PrivateLinkServiceConnectionStateStatusPending` has been removed
+- Const `ServerSecurityAlertPolicyStateEnabled` has been removed
+- Const `VirtualNetworkRuleStateDeleting` has been removed
+- Const `QueryPerformanceInsightResetDataResultStateSucceeded` has been removed
+- Const `PrivateEndpointProvisioningStateRejecting` has been removed
+- Const `StorageAutogrowEnabled` has been removed
+- Const `VirtualNetworkRuleStateReady` has been removed
+- Const `PrivateLinkServiceConnectionStateActionsRequireNone` has been removed
+- Const `PrivateLinkServiceConnectionStateStatusApproved` has been removed
+- Const `OperationOriginSystem` has been removed
+- Const `MinimalTLSVersionEnumTLS11` has been removed
+- Const `IdentityTypeSystemAssigned` has been removed
+- Const `PrivateLinkServiceConnectionStateStatusRejected` has been removed
+- Const `SSLEnforcementEnumEnabled` has been removed
+- Const `ServerVersionEight0` has been removed
+- Const `MinimalTLSVersionEnumTLSEnforcementDisabled` has been removed
+- Const `PrivateEndpointProvisioningStateApproving` has been removed
+- Const `PrivateEndpointProvisioningStateDropping` has been removed
+- Const `SecurityAlertPolicyNameDefault` has been removed
+- Const `StorageAutogrowDisabled` has been removed
+- Const `GeoRedundantBackupEnabled` has been removed
+- Const `VirtualNetworkRuleStateInProgress` has been removed
+- Const `MinimalTLSVersionEnumTLS12` has been removed
+- Const `OperationOriginUser` has been removed
+- Const `PublicNetworkAccessEnumDisabled` has been removed
+- Const `VirtualNetworkRuleStateInitializing` has been removed
+- Const `QueryPerformanceInsightResetDataResultStateFailed` has been removed
+- Const `OperationOriginNotSpecified` has been removed
+- Const `InfrastructureEncryptionEnabled` has been removed
+- Const `PrivateEndpointProvisioningStateReady` has been removed
+- Const `SKUTierBasic` has been removed
+- Const `VirtualNetworkRuleStateUnknown` has been removed
+- Const `ServerSecurityAlertPolicyStateDisabled` has been removed
+- Const `PrivateEndpointProvisioningStateFailed` has been removed
+- Const `PublicNetworkAccessEnumEnabled` has been removed
+- Const `ServerVersionFive6` has been removed
+- Const `InfrastructureEncryptionDisabled` has been removed
+- Const `SSLEnforcementEnumDisabled` has been removed
+- Function `*ServerPropertiesForDefaultCreate.GetServerPropertiesForCreate` has been removed
+- Function `*WaitStatisticProperties.UnmarshalJSON` has been removed
+- Function `*QueryStatisticProperties.UnmarshalJSON` has been removed
+- Function `QueryStatisticProperties.MarshalJSON` has been removed
+- Function `*ServerKeysClient.BeginDelete` has been removed
+- Function `PrivateEndpointConnectionListResult.MarshalJSON` has been removed
+- Function `ServerPropertiesForRestore.MarshalJSON` has been removed
+- Function `NewServerBasedPerformanceTierClient` has been removed
+- Function `*AdvisorsClient.NewListByServerPager` has been removed
+- Function `RecommendedActionSessionsOperationStatus.MarshalJSON` has been removed
+- Function `LogFileListResult.MarshalJSON` has been removed
+- Function `*PrivateEndpointConnectionsClient.BeginCreateOrUpdate` has been removed
+- Function `*RecommendationActionProperties.UnmarshalJSON` has been removed
+- Function `NewServerAdministratorsClient` has been removed
+- Function `*TopQueryStatisticsClient.NewListByServerPager` has been removed
+- Function `*ServersClient.BeginUpgrade` has been removed
+- Function `ServerPropertiesForReplica.MarshalJSON` has been removed
+- Function `PossibleStorageAutogrowValues` has been removed
+- Function `NewRecommendedActionsClient` has been removed
+- Function `*ServerKeysClient.BeginCreateOrUpdate` has been removed
+- Function `RecommendationActionProperties.MarshalJSON` has been removed
+- Function `NewLocationBasedRecommendedActionSessionsOperationStatusClient` has been removed
+- Function `TopQueryStatisticsResultList.MarshalJSON` has been removed
+- Function `ServerAdministratorResourceListResult.MarshalJSON` has been removed
+- Function `PossiblePublicNetworkAccessEnumValues` has been removed
+- Function `NewLogFilesClient` has been removed
+- Function `*VirtualNetworkRulesClient.BeginCreateOrUpdate` has been removed
+- Function `PerformanceTierListResult.MarshalJSON` has been removed
+- Function `*RecommendedActionSessionsOperationStatus.UnmarshalJSON` has been removed
+- Function `*PrivateLinkResourcesClient.Get` has been removed
+- Function `*VirtualNetworkRulesClient.Get` has been removed
+- Function `PossiblePrivateLinkServiceConnectionStateActionsRequireValues` has been removed
+- Function `*ManagementClient.BeginCreateRecommendedActionSession` has been removed
+- Function `*WaitStatisticsClient.NewListByServerPager` has been removed
+- Function `NewAdvisorsClient` has been removed
+- Function `TopQueryStatisticsInputProperties.MarshalJSON` has been removed
+- Function `*LocationBasedPerformanceTierClient.NewListPager` has been removed
+- Function `*VirtualNetworkRulesClient.NewListByServerPager` has been removed
+- Function `*TopQueryStatisticsInputProperties.UnmarshalJSON` has been removed
+- Function `*LocationBasedRecommendedActionSessionsOperationStatusClient.Get` has been removed
+- Function `*LocationBasedRecommendedActionSessionsResultClient.NewListPager` has been removed
+- Function `PrivateLinkResourceListResult.MarshalJSON` has been removed
+- Function `*ServerPropertiesForRestore.GetServerPropertiesForCreate` has been removed
+- Function `*VirtualNetworkRulesClient.BeginDelete` has been removed
+- Function `*QueryTextsClient.Get` has been removed
+- Function `NewLocationBasedRecommendedActionSessionsResultClient` has been removed
+- Function `PossibleQueryPerformanceInsightResetDataResultStateValues` has been removed
+- Function `NewServerParametersClient` has been removed
+- Function `VirtualNetworkRuleListResult.MarshalJSON` has been removed
+- Function `PossiblePrivateEndpointProvisioningStateValues` has been removed
+- Function `QueryTextsResultList.MarshalJSON` has been removed
+- Function `NewPrivateLinkResourcesClient` has been removed
+- Function `PossibleSecurityAlertPolicyNameValues` has been removed
+- Function `*ServerPropertiesForDefaultCreate.UnmarshalJSON` has been removed
+- Function `NewPrivateEndpointConnectionsClient` has been removed
+- Function `PossibleGeoRedundantBackupValues` has been removed
+- Function `PossibleServerSecurityAlertPolicyStateValues` has been removed
+- Function `*PrivateEndpointConnectionsClient.Get` has been removed
+- Function `*ServerAdministratorsClient.BeginDelete` has been removed
+- Function `*ServerKeyProperties.UnmarshalJSON` has been removed
+- Function `*ServerKeysClient.Get` has been removed
+- Function `PrivateLinkResourceProperties.MarshalJSON` has been removed
+- Function `*ServerSecurityAlertPoliciesClient.Get` has been removed
+- Function `*ServerPropertiesForReplica.UnmarshalJSON` has been removed
+- Function `*PrivateEndpointConnectionsClient.NewListByServerPager` has been removed
+- Function `*ServerPropertiesForCreate.GetServerPropertiesForCreate` has been removed
+- Function `PossibleMinimalTLSVersionEnumValues` has been removed
+- Function `PossibleOperationOriginValues` has been removed
+- Function `*ServerPropertiesForRestore.UnmarshalJSON` has been removed
+- Function `*ServerAdministratorsClient.Get` has been removed
+- Function `*ConfigurationsClient.BeginCreateOrUpdate` has been removed
+- Function `PossiblePrivateLinkServiceConnectionStateStatusValues` has been removed
+- Function `NewVirtualNetworkRulesClient` has been removed
+- Function `LogFileProperties.MarshalJSON` has been removed
+- Function `*ServerPropertiesForGeoRestore.UnmarshalJSON` has been removed
+- Function `*ServerSecurityAlertPoliciesClient.BeginCreateOrUpdate` has been removed
+- Function `*PrivateEndpointConnectionsClient.BeginDelete` has been removed
+- Function `*TopQueryStatisticsClient.Get` has been removed
+- Function `PossibleIdentityTypeValues` has been removed
+- Function `*RecoverableServersClient.Get` has been removed
+- Function `*RecommendedActionsClient.Get` has been removed
+- Function `*ServerAdministratorsClient.BeginCreateOrUpdate` has been removed
+- Function `*PrivateEndpointConnectionsClient.BeginUpdateTags` has been removed
+- Function `*WaitStatisticsInputProperties.UnmarshalJSON` has been removed
+- Function `*RecommendedActionsClient.NewListByServerPager` has been removed
+- Function `NewRecoverableServersClient` has been removed
+- Function `TagsObject.MarshalJSON` has been removed
+- Function `*WaitStatisticsClient.Get` has been removed
+- Function `ServerPropertiesForDefaultCreate.MarshalJSON` has been removed
+- Function `ServerKeyListResult.MarshalJSON` has been removed
+- Function `WaitStatisticProperties.MarshalJSON` has been removed
+- Function `NewWaitStatisticsClient` has been removed
+- Function `NewTopQueryStatisticsClient` has been removed
+- Function `*ServerSecurityAlertPoliciesClient.NewListByServerPager` has been removed
+- Function `NewLocationBasedPerformanceTierClient` has been removed
+- Function `ServerUpdateParameters.MarshalJSON` has been removed
+- Function `AdvisorsResultList.MarshalJSON` has been removed
+- Function `WaitStatisticsResultList.MarshalJSON` has been removed
+- Function `NewServerSecurityAlertPoliciesClient` has been removed
+- Function `RecommendationActionsResultList.MarshalJSON` has been removed
+- Function `*LogFileProperties.UnmarshalJSON` has been removed
+- Function `*OperationsClient.List` has been removed
+- Function `*ServerKeysClient.NewListPager` has been removed
+- Function `*ServerAdministratorsClient.NewListPager` has been removed
+- Function `*QueryTextsClient.NewListByServerPager` has been removed
+- Function `PossibleInfrastructureEncryptionValues` has been removed
+- Function `ServerForCreate.MarshalJSON` has been removed
+- Function `PossibleServerKeyTypeValues` has been removed
+- Function `PossibleVirtualNetworkRuleStateValues` has been removed
+- Function `NewQueryTextsClient` has been removed
+- Function `NewServerKeysClient` has been removed
+- Function `ServerSecurityAlertPolicyListResult.MarshalJSON` has been removed
+- Function `*ServerParametersClient.BeginListUpdateConfigurations` has been removed
+- Function `*ServerForCreate.UnmarshalJSON` has been removed
+- Function `SecurityAlertPolicyProperties.MarshalJSON` has been removed
+- Function `*ManagementClient.ResetQueryPerformanceInsightData` has been removed
+- Function `*PrivateLinkResourcesClient.NewListByServerPager` has been removed
+- Function `*LogFilesClient.NewListByServerPager` has been removed
+- Function `PerformanceTierProperties.MarshalJSON` has been removed
+- Function `*ServerPropertiesForGeoRestore.GetServerPropertiesForCreate` has been removed
+- Function `NewManagementClient` has been removed
+- Function `*ServerBasedPerformanceTierClient.NewListPager` has been removed
+- Function `*AdvisorsClient.Get` has been removed
+- Function `ServerPropertiesForGeoRestore.MarshalJSON` has been removed
+- Function `WaitStatisticsInputProperties.MarshalJSON` has been removed
+- Function `PossibleSSLEnforcementEnumValues` has been removed
+- Function `ServerKeyProperties.MarshalJSON` has been removed
+- Function `*ServerPropertiesForReplica.GetServerPropertiesForCreate` has been removed
+- Struct `Advisor` has been removed
+- Struct `AdvisorsClient` has been removed
+- Struct `AdvisorsClientGetOptions` has been removed
+- Struct `AdvisorsClientGetResponse` has been removed
+- Struct `AdvisorsClientListByServerOptions` has been removed
+- Struct `AdvisorsClientListByServerResponse` has been removed
+- Struct `AdvisorsResultList` has been removed
+- Struct `ConfigurationsClientBeginCreateOrUpdateOptions` has been removed
+- Struct `ConfigurationsClientCreateOrUpdateResponse` has been removed
+- Struct `LocationBasedPerformanceTierClient` has been removed
+- Struct `LocationBasedPerformanceTierClientListOptions` has been removed
+- Struct `LocationBasedPerformanceTierClientListResponse` has been removed
+- Struct `LocationBasedRecommendedActionSessionsOperationStatusClient` has been removed
+- Struct `LocationBasedRecommendedActionSessionsOperationStatusClientGetOptions` has been removed
+- Struct `LocationBasedRecommendedActionSessionsOperationStatusClientGetResponse` has been removed
+- Struct `LocationBasedRecommendedActionSessionsResultClient` has been removed
+- Struct `LocationBasedRecommendedActionSessionsResultClientListOptions` has been removed
+- Struct `LocationBasedRecommendedActionSessionsResultClientListResponse` has been removed
+- Struct `LogFile` has been removed
+- Struct `LogFileListResult` has been removed
+- Struct `LogFileProperties` has been removed
+- Struct `LogFilesClient` has been removed
+- Struct `LogFilesClientListByServerOptions` has been removed
+- Struct `LogFilesClientListByServerResponse` has been removed
+- Struct `ManagementClient` has been removed
+- Struct `ManagementClientBeginCreateRecommendedActionSessionOptions` has been removed
+- Struct `ManagementClientCreateRecommendedActionSessionResponse` has been removed
+- Struct `ManagementClientResetQueryPerformanceInsightDataOptions` has been removed
+- Struct `ManagementClientResetQueryPerformanceInsightDataResponse` has been removed
+- Struct `PerformanceTierListResult` has been removed
+- Struct `PerformanceTierProperties` has been removed
+- Struct `PerformanceTierServiceLevelObjectives` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionListResult` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateEndpointConnectionsClient` has been removed
+- Struct `PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions` has been removed
+- Struct `PrivateEndpointConnectionsClientBeginDeleteOptions` has been removed
+- Struct `PrivateEndpointConnectionsClientBeginUpdateTagsOptions` has been removed
+- Struct `PrivateEndpointConnectionsClientCreateOrUpdateResponse` has been removed
+- Struct `PrivateEndpointConnectionsClientDeleteResponse` has been removed
+- Struct `PrivateEndpointConnectionsClientGetOptions` has been removed
+- Struct `PrivateEndpointConnectionsClientGetResponse` has been removed
+- Struct `PrivateEndpointConnectionsClientListByServerOptions` has been removed
+- Struct `PrivateEndpointConnectionsClientListByServerResponse` has been removed
+- Struct `PrivateEndpointConnectionsClientUpdateTagsResponse` has been removed
+- Struct `PrivateEndpointProperty` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceListResult` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkResourcesClient` has been removed
+- Struct `PrivateLinkResourcesClientGetOptions` has been removed
+- Struct `PrivateLinkResourcesClientGetResponse` has been removed
+- Struct `PrivateLinkResourcesClientListByServerOptions` has been removed
+- Struct `PrivateLinkResourcesClientListByServerResponse` has been removed
+- Struct `PrivateLinkServiceConnectionStateProperty` has been removed
+- Struct `QueryPerformanceInsightResetDataResult` has been removed
+- Struct `QueryStatistic` has been removed
+- Struct `QueryStatisticProperties` has been removed
+- Struct `QueryText` has been removed
+- Struct `QueryTextProperties` has been removed
+- Struct `QueryTextsClient` has been removed
+- Struct `QueryTextsClientGetOptions` has been removed
+- Struct `QueryTextsClientGetResponse` has been removed
+- Struct `QueryTextsClientListByServerOptions` has been removed
+- Struct `QueryTextsClientListByServerResponse` has been removed
+- Struct `QueryTextsResultList` has been removed
+- Struct `RecommendationAction` has been removed
+- Struct `RecommendationActionProperties` has been removed
+- Struct `RecommendationActionsResultList` has been removed
+- Struct `RecommendedActionSessionsOperationStatus` has been removed
+- Struct `RecommendedActionsClient` has been removed
+- Struct `RecommendedActionsClientGetOptions` has been removed
+- Struct `RecommendedActionsClientGetResponse` has been removed
+- Struct `RecommendedActionsClientListByServerOptions` has been removed
+- Struct `RecommendedActionsClientListByServerResponse` has been removed
+- Struct `RecoverableServerProperties` has been removed
+- Struct `RecoverableServerResource` has been removed
+- Struct `RecoverableServersClient` has been removed
+- Struct `RecoverableServersClientGetOptions` has been removed
+- Struct `RecoverableServersClientGetResponse` has been removed
+- Struct `ResourceIdentity` has been removed
+- Struct `SecurityAlertPolicyProperties` has been removed
+- Struct `ServerAdministratorProperties` has been removed
+- Struct `ServerAdministratorResource` has been removed
+- Struct `ServerAdministratorResourceListResult` has been removed
+- Struct `ServerAdministratorsClient` has been removed
+- Struct `ServerAdministratorsClientBeginCreateOrUpdateOptions` has been removed
+- Struct `ServerAdministratorsClientBeginDeleteOptions` has been removed
+- Struct `ServerAdministratorsClientCreateOrUpdateResponse` has been removed
+- Struct `ServerAdministratorsClientDeleteResponse` has been removed
+- Struct `ServerAdministratorsClientGetOptions` has been removed
+- Struct `ServerAdministratorsClientGetResponse` has been removed
+- Struct `ServerAdministratorsClientListOptions` has been removed
+- Struct `ServerAdministratorsClientListResponse` has been removed
+- Struct `ServerBasedPerformanceTierClient` has been removed
+- Struct `ServerBasedPerformanceTierClientListOptions` has been removed
+- Struct `ServerBasedPerformanceTierClientListResponse` has been removed
+- Struct `ServerForCreate` has been removed
+- Struct `ServerKey` has been removed
+- Struct `ServerKeyListResult` has been removed
+- Struct `ServerKeyProperties` has been removed
+- Struct `ServerKeysClient` has been removed
+- Struct `ServerKeysClientBeginCreateOrUpdateOptions` has been removed
+- Struct `ServerKeysClientBeginDeleteOptions` has been removed
+- Struct `ServerKeysClientCreateOrUpdateResponse` has been removed
+- Struct `ServerKeysClientDeleteResponse` has been removed
+- Struct `ServerKeysClientGetOptions` has been removed
+- Struct `ServerKeysClientGetResponse` has been removed
+- Struct `ServerKeysClientListOptions` has been removed
+- Struct `ServerKeysClientListResponse` has been removed
+- Struct `ServerParametersClient` has been removed
+- Struct `ServerParametersClientBeginListUpdateConfigurationsOptions` has been removed
+- Struct `ServerParametersClientListUpdateConfigurationsResponse` has been removed
+- Struct `ServerPrivateEndpointConnection` has been removed
+- Struct `ServerPrivateEndpointConnectionProperties` has been removed
+- Struct `ServerPrivateLinkServiceConnectionStateProperty` has been removed
+- Struct `ServerPropertiesForCreate` has been removed
+- Struct `ServerPropertiesForDefaultCreate` has been removed
+- Struct `ServerPropertiesForGeoRestore` has been removed
+- Struct `ServerPropertiesForReplica` has been removed
+- Struct `ServerPropertiesForRestore` has been removed
+- Struct `ServerSecurityAlertPoliciesClient` has been removed
+- Struct `ServerSecurityAlertPoliciesClientBeginCreateOrUpdateOptions` has been removed
+- Struct `ServerSecurityAlertPoliciesClientCreateOrUpdateResponse` has been removed
+- Struct `ServerSecurityAlertPoliciesClientGetOptions` has been removed
+- Struct `ServerSecurityAlertPoliciesClientGetResponse` has been removed
+- Struct `ServerSecurityAlertPoliciesClientListByServerOptions` has been removed
+- Struct `ServerSecurityAlertPoliciesClientListByServerResponse` has been removed
+- Struct `ServerSecurityAlertPolicy` has been removed
+- Struct `ServerSecurityAlertPolicyListResult` has been removed
+- Struct `ServerUpdateParameters` has been removed
+- Struct `ServerUpdateParametersProperties` has been removed
+- Struct `ServerUpgradeParameters` has been removed
+- Struct `ServerUpgradeParametersProperties` has been removed
+- Struct `ServersClientBeginUpgradeOptions` has been removed
+- Struct `ServersClientUpgradeResponse` has been removed
+- Struct `StorageProfile` has been removed
+- Struct `TagsObject` has been removed
+- Struct `TopQueryStatisticsClient` has been removed
+- Struct `TopQueryStatisticsClientGetOptions` has been removed
+- Struct `TopQueryStatisticsClientGetResponse` has been removed
+- Struct `TopQueryStatisticsClientListByServerOptions` has been removed
+- Struct `TopQueryStatisticsClientListByServerResponse` has been removed
+- Struct `TopQueryStatisticsInput` has been removed
+- Struct `TopQueryStatisticsInputProperties` has been removed
+- Struct `TopQueryStatisticsResultList` has been removed
+- Struct `VirtualNetworkRule` has been removed
+- Struct `VirtualNetworkRuleListResult` has been removed
+- Struct `VirtualNetworkRuleProperties` has been removed
+- Struct `VirtualNetworkRulesClient` has been removed
+- Struct `VirtualNetworkRulesClientBeginCreateOrUpdateOptions` has been removed
+- Struct `VirtualNetworkRulesClientBeginDeleteOptions` has been removed
+- Struct `VirtualNetworkRulesClientCreateOrUpdateResponse` has been removed
+- Struct `VirtualNetworkRulesClientDeleteResponse` has been removed
+- Struct `VirtualNetworkRulesClientGetOptions` has been removed
+- Struct `VirtualNetworkRulesClientGetResponse` has been removed
+- Struct `VirtualNetworkRulesClientListByServerOptions` has been removed
+- Struct `VirtualNetworkRulesClientListByServerResponse` has been removed
+- Struct `WaitStatistic` has been removed
+- Struct `WaitStatisticProperties` has been removed
+- Struct `WaitStatisticsClient` has been removed
+- Struct `WaitStatisticsClientGetOptions` has been removed
+- Struct `WaitStatisticsClientGetResponse` has been removed
+- Struct `WaitStatisticsClientListByServerOptions` has been removed
+- Struct `WaitStatisticsClientListByServerResponse` has been removed
+- Struct `WaitStatisticsInput` has been removed
+- Struct `WaitStatisticsInputProperties` has been removed
+- Struct `WaitStatisticsResultList` has been removed
+- Field `SSLEnforcement` of struct `ServerProperties` has been removed
+- Field `EarliestRestoreDate` of struct `ServerProperties` has been removed
+- Field `ByokEnforcement` of struct `ServerProperties` has been removed
+- Field `InfrastructureEncryption` of struct `ServerProperties` has been removed
+- Field `MasterServerID` of struct `ServerProperties` has been removed
+- Field `MinimalTLSVersion` of struct `ServerProperties` has been removed
+- Field `UserVisibleState` of struct `ServerProperties` has been removed
+- Field `PrivateEndpointConnections` of struct `ServerProperties` has been removed
+- Field `PublicNetworkAccess` of struct `ServerProperties` has been removed
+- Field `StorageProfile` of struct `ServerProperties` has been removed
+- Field `Capacity` of struct `SKU` has been removed
+- Field `Family` of struct `SKU` has been removed
+- Field `Size` of struct `SKU` has been removed
+
+### Features Added
+
+- New const `HighAvailabilityStateCreatingStandby`
+- New const `HighAvailabilityModeZoneRedundant`
+- New const `ConfigurationSourceSystemDefault`
+- New const `ServerStateStopping`
+- New const `ReplicationRoleNone`
+- New const `HighAvailabilityModeEnabled`
+- New const `CreatedByTypeUser`
+- New const `HighAvailabilityStateFailingOver`
+- New const `EnableStatusEnumEnabled`
+- New const `HighAvailabilityStateHealthy`
+- New const `ServerStateUpdating`
+- New const `ReplicationRoleReplica`
+- New const `ReplicationRoleSource`
+- New const `HighAvailabilityStateNotEnabled`
+- New const `HighAvailabilityModeDisabled`
+- New const `CreatedByTypeApplication`
+- New const `IsReadOnlyFalse`
+- New const `HighAvailabilityModeSameZone`
+- New const `IsDynamicConfigFalse`
+- New const `IsReadOnlyTrue`
+- New const `EnableStatusEnumDisabled`
+- New const `ServerStateStopped`
+- New const `ServerStateStarting`
+- New const `ServerVersionEight021`
+- New const `SKUTierBurstable`
+- New const `IsConfigPendingRestartFalse`
+- New const `IsConfigPendingRestartTrue`
+- New const `IsDynamicConfigTrue`
+- New const `HighAvailabilityStateRemovingStandby`
+- New const `CreatedByTypeManagedIdentity`
+- New const `ConfigurationSourceUserOverride`
+- New const `CreatedByTypeKey`
+- New function `PossibleHighAvailabilityStateValues() []HighAvailabilityState`
+- New function `*ConfigurationsClient.BeginBatchUpdate(context.Context, string, string, ConfigurationListForBatchUpdate, *ConfigurationsClientBeginBatchUpdateOptions) (*armruntime.Poller[ConfigurationsClientBatchUpdateResponse], error)`
+- New function `ServerVersionCapability.MarshalJSON() ([]byte, error)`
+- New function `ServerEditionCapability.MarshalJSON() ([]byte, error)`
+- New function `PossibleIsReadOnlyValues() []IsReadOnly`
+- New function `VirtualNetworkSubnetUsageResult.MarshalJSON() ([]byte, error)`
+- New function `*ServerBackupProperties.UnmarshalJSON([]byte) error`
+- New function `*ServersClient.BeginFailover(context.Context, string, string, *ServersClientBeginFailoverOptions) (*armruntime.Poller[ServersClientFailoverResponse], error)`
+- New function `CapabilitiesListResult.MarshalJSON() ([]byte, error)`
+- New function `Configuration.MarshalJSON() ([]byte, error)`
+- New function `PossibleIsDynamicConfigValues() []IsDynamicConfig`
+- New function `Backup.MarshalJSON() ([]byte, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New function `PossibleEnableStatusEnumValues() []EnableStatusEnum`
+- New function `ServerBackupListResult.MarshalJSON() ([]byte, error)`
+- New function `*ConfigurationsClient.BeginUpdate(context.Context, string, string, string, Configuration, *ConfigurationsClientBeginUpdateOptions) (*armruntime.Poller[ConfigurationsClientUpdateResponse], error)`
+- New function `PossibleIsConfigPendingRestartValues() []IsConfigPendingRestart`
+- New function `*SystemData.UnmarshalJSON([]byte) error`
+- New function `ServerForUpdate.MarshalJSON() ([]byte, error)`
+- New function `*Backup.UnmarshalJSON([]byte) error`
+- New function `PossibleCreatedByTypeValues() []CreatedByType`
+- New function `ConfigurationListForBatchUpdate.MarshalJSON() ([]byte, error)`
+- New function `PossibleHighAvailabilityModeValues() []HighAvailabilityMode`
+- New function `CapabilityProperties.MarshalJSON() ([]byte, error)`
+- New function `ServerBackupProperties.MarshalJSON() ([]byte, error)`
+- New function `SystemData.MarshalJSON() ([]byte, error)`
+- New function `PossibleConfigurationSourceValues() []ConfigurationSource`
+- New function `PossibleReplicationRoleValues() []ReplicationRole`
+- New struct `Backup`
+- New struct `BackupsClientGetOptions`
+- New struct `BackupsClientGetResponse`
+- New struct `BackupsClientListByServerOptions`
+- New struct `BackupsClientListByServerResponse`
+- New struct `CapabilitiesListResult`
+- New struct `CapabilityProperties`
+- New struct `CheckVirtualNetworkSubnetUsageClientExecuteOptions`
+- New struct `CheckVirtualNetworkSubnetUsageClientExecuteResponse`
+- New struct `ConfigurationForBatchUpdate`
+- New struct `ConfigurationForBatchUpdateProperties`
+- New struct `ConfigurationListForBatchUpdate`
+- New struct `ConfigurationsClientBatchUpdateResponse`
+- New struct `ConfigurationsClientBeginBatchUpdateOptions`
+- New struct `ConfigurationsClientBeginUpdateOptions`
+- New struct `ConfigurationsClientUpdateResponse`
+- New struct `DelegatedSubnetUsage`
+- New struct `GetPrivateDNSZoneSuffixClientExecuteOptions`
+- New struct `GetPrivateDNSZoneSuffixClientExecuteResponse`
+- New struct `GetPrivateDNSZoneSuffixResponse`
+- New struct `HighAvailability`
+- New struct `Identity`
+- New struct `LocationBasedCapabilitiesClientListOptions`
+- New struct `LocationBasedCapabilitiesClientListResponse`
+- New struct `MaintenanceWindow`
+- New struct `Network`
+- New struct `SKUCapability`
+- New struct `ServerBackup`
+- New struct `ServerBackupListResult`
+- New struct `ServerBackupProperties`
+- New struct `ServerEditionCapability`
+- New struct `ServerForUpdate`
+- New struct `ServerPropertiesForUpdate`
+- New struct `ServerRestartParameter`
+- New struct `ServerVersionCapability`
+- New struct `ServersClientBeginFailoverOptions`
+- New struct `ServersClientFailoverResponse`
+- New struct `Storage`
+- New struct `StorageEditionCapability`
+- New struct `SystemData`
+- New struct `VirtualNetworkSubnetUsageParameter`
+- New struct `VirtualNetworkSubnetUsageResult`
+- New field `RestorePointInTime` in struct `ServerProperties`
+- New field `MaintenanceWindow` in struct `ServerProperties`
+- New field `Network` in struct `ServerProperties`
+- New field `CreateMode` in struct `ServerProperties`
+- New field `HighAvailability` in struct `ServerProperties`
+- New field `AvailabilityZone` in struct `ServerProperties`
+- New field `Backup` in struct `ServerProperties`
+- New field `Storage` in struct `ServerProperties`
+- New field `State` in struct `ServerProperties`
+- New field `AdministratorLoginPassword` in struct `ServerProperties`
+- New field `SourceServerResourceID` in struct `ServerProperties`
+- New field `SystemData` in struct `Server`
+- New field `NextLink` in struct `ServerListResult`
+- New field `SystemData` in struct `Database`
+- New field `NextLink` in struct `ConfigurationListResult`
+- New field `IsReadOnly` in struct `ConfigurationProperties`
+- New field `IsConfigPendingRestart` in struct `ConfigurationProperties`
+- New field `IsDynamicConfig` in struct `ConfigurationProperties`
+- New field `NextLink` in struct `FirewallRuleListResult`
+- New field `NextLink` in struct `OperationListResult`
+- New field `SystemData` in struct `FirewallRule`
+- New field `NextLink` in struct `DatabaseListResult`
+- New field `SystemData` in struct `Configuration`
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 
