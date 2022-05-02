@@ -1,5 +1,24 @@
 # Release History
 
+## 0.5.0 (2022-05-02)
+### Features Added
+
+- New const `AutoHealStatusOff`
+- New const `AutoHealStatusOn`
+- New function `*KubernetesStorageClassRestoreCriteria.GetItemLevelRestoreCriteria() *ItemLevelRestoreCriteria`
+- New function `*KubernetesStorageClassRestoreCriteria.UnmarshalJSON([]byte) error`
+- New function `*KubernetesPVRestoreCriteria.UnmarshalJSON([]byte) error`
+- New function `*KubernetesPVRestoreCriteria.GetItemLevelRestoreCriteria() *ItemLevelRestoreCriteria`
+- New function `KubernetesPVRestoreCriteria.MarshalJSON() ([]byte, error)`
+- New function `PossibleAutoHealStatusValues() []AutoHealStatus`
+- New function `KubernetesStorageClassRestoreCriteria.MarshalJSON() ([]byte, error)`
+- New struct `AutoHealSettings`
+- New struct `BackupInstancesExtensionRoutingClientListOptions`
+- New struct `BackupInstancesExtensionRoutingClientListResponse`
+- New struct `KubernetesPVRestoreCriteria`
+- New struct `KubernetesStorageClassRestoreCriteria`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
