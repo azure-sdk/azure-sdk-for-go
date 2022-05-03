@@ -1,5 +1,16 @@
 # Release History
 
+## 0.6.0 (2022-05-03)
+### Features Added
+
+- New field `Filter` in struct `TopicEventSubscriptionsClientListOptions`
+- New field `Top` in struct `TopicEventSubscriptionsClientListOptions`
+- New field `Filter` in struct `DomainTopicEventSubscriptionsClientListOptions`
+- New field `Top` in struct `DomainTopicEventSubscriptionsClientListOptions`
+- New field `Top` in struct `DomainEventSubscriptionsClientListOptions`
+- New field `Filter` in struct `DomainEventSubscriptionsClientListOptions`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 

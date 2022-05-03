@@ -352,7 +352,16 @@ type DomainEventSubscriptionsClientGetOptions struct {
 // DomainEventSubscriptionsClientListOptions contains the optional parameters for the DomainEventSubscriptionsClient.List
 // method.
 type DomainEventSubscriptionsClientListOptions struct {
-	// placeholder for future optional parameters
+	// The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and
+	// with limited number of OData operations. These operations are: the 'contains'
+	// function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic
+	// operations are supported. The following is a valid filter example:
+	// $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location
+	// eq 'westus'.
+	Filter *string
+	// The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified,
+	// the default number of results to be returned is 20 items per page.
+	Top *int32
 }
 
 // DomainProperties - Properties of the Event Grid Domain Resource.
@@ -490,7 +499,16 @@ type DomainTopicEventSubscriptionsClientGetOptions struct {
 // DomainTopicEventSubscriptionsClientListOptions contains the optional parameters for the DomainTopicEventSubscriptionsClient.List
 // method.
 type DomainTopicEventSubscriptionsClientListOptions struct {
-	// placeholder for future optional parameters
+	// The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and
+	// with limited number of OData operations. These operations are: the 'contains'
+	// function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic
+	// operations are supported. The following is a valid filter example:
+	// $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location
+	// eq 'westus'.
+	Filter *string
+	// The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified,
+	// the default number of results to be returned is 20 items per page.
+	Top *int32
 }
 
 // DomainTopicProperties - Properties of the Domain Topic.
@@ -3094,7 +3112,16 @@ type TopicEventSubscriptionsClientGetOptions struct {
 
 // TopicEventSubscriptionsClientListOptions contains the optional parameters for the TopicEventSubscriptionsClient.List method.
 type TopicEventSubscriptionsClientListOptions struct {
-	// placeholder for future optional parameters
+	// The query used to filter the search results using OData syntax. Filtering is permitted on the 'name' property only and
+	// with limited number of OData operations. These operations are: the 'contains'
+	// function as well as the following logical operations: not, and, or, eq (for equal), and ne (for not equal). No arithmetic
+	// operations are supported. The following is a valid filter example:
+	// $filter=contains(namE, 'PATTERN') and name ne 'PATTERN-1'. The following is not a valid filter example: $filter=location
+	// eq 'westus'.
+	Filter *string
+	// The number of results to return per page for the list operation. Valid range for top parameter is 1 to 100. If not specified,
+	// the default number of results to be returned is 20 items per page.
+	Top *int32
 }
 
 // TopicProperties - Properties of the Topic.

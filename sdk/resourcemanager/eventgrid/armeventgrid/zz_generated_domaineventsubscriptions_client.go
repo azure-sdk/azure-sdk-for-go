@@ -19,6 +19,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -382,10 +383,16 @@ func (client *DomainEventSubscriptionsClient) getFullURLHandleResponse(resp *htt
 func (client *DomainEventSubscriptionsClient) NewListPager(resourceGroupName string, domainName string, options *DomainEventSubscriptionsClientListOptions) *runtime.Pager[DomainEventSubscriptionsClientListResponse] {
 	return runtime.NewPager(runtime.PageProcessor[DomainEventSubscriptionsClientListResponse]{
 		More: func(page DomainEventSubscriptionsClientListResponse) bool {
-			return false
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *DomainEventSubscriptionsClientListResponse) (DomainEventSubscriptionsClientListResponse, error) {
-			req, err := client.listCreateRequest(ctx, resourceGroupName, domainName, options)
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listCreateRequest(ctx, resourceGroupName, domainName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
 			if err != nil {
 				return DomainEventSubscriptionsClientListResponse{}, err
 			}
@@ -422,6 +429,12 @@ func (client *DomainEventSubscriptionsClient) listCreateRequest(ctx context.Cont
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2021-10-15-preview")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	if options != nil && options.Top != nil {
+		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
