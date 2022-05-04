@@ -193,6 +193,7 @@ func (s SBNamespaceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "disableLocalAuth", s.DisableLocalAuth)
 	populate(objectMap, "encryption", s.Encryption)
 	populate(objectMap, "metricId", s.MetricID)
+	populate(objectMap, "minimumTlsVersion", s.MinimumTLSVersion)
 	populate(objectMap, "privateEndpointConnections", s.PrivateEndpointConnections)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
 	populate(objectMap, "serviceBusEndpoint", s.ServiceBusEndpoint)
@@ -225,6 +226,9 @@ func (s *SBNamespaceProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "metricId":
 			err = unpopulate(val, &s.MetricID)
+			delete(rawMsg, key)
+		case "minimumTlsVersion":
+			err = unpopulate(val, &s.MinimumTLSVersion)
 			delete(rawMsg, key)
 		case "privateEndpointConnections":
 			err = unpopulate(val, &s.PrivateEndpointConnections)
