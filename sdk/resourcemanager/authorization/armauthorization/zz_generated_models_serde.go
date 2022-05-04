@@ -531,11 +531,1327 @@ func (a AccessReviewScheduleDefinitionProperties) MarshalJSON() ([]byte, error) 
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ApprovalSettings.
+func (a ApprovalSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "approvalMode", a.ApprovalMode)
+	populate(objectMap, "approvalStages", a.ApprovalStages)
+	populate(objectMap, "isApprovalRequired", a.IsApprovalRequired)
+	populate(objectMap, "isApprovalRequiredForExtension", a.IsApprovalRequiredForExtension)
+	populate(objectMap, "isRequestorJustificationRequired", a.IsRequestorJustificationRequired)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ApprovalStage.
+func (a ApprovalStage) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "approvalStageTimeOutInDays", a.ApprovalStageTimeOutInDays)
+	populate(objectMap, "escalationApprovers", a.EscalationApprovers)
+	populate(objectMap, "escalationTimeInMinutes", a.EscalationTimeInMinutes)
+	populate(objectMap, "isApproverJustificationRequired", a.IsApproverJustificationRequired)
+	populate(objectMap, "isEscalationEnabled", a.IsEscalationEnabled)
+	populate(objectMap, "primaryApprovers", a.PrimaryApprovers)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DenyAssignmentListResult.
+func (d DenyAssignmentListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", d.NextLink)
+	populate(objectMap, "value", d.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DenyAssignmentPermission.
+func (d DenyAssignmentPermission) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "actions", d.Actions)
+	populate(objectMap, "dataActions", d.DataActions)
+	populate(objectMap, "notActions", d.NotActions)
+	populate(objectMap, "notDataActions", d.NotDataActions)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DenyAssignmentProperties.
+func (d DenyAssignmentProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "denyAssignmentName", d.DenyAssignmentName)
+	populate(objectMap, "description", d.Description)
+	populate(objectMap, "doNotApplyToChildScopes", d.DoNotApplyToChildScopes)
+	populate(objectMap, "excludePrincipals", d.ExcludePrincipals)
+	populate(objectMap, "isSystemProtected", d.IsSystemProtected)
+	populate(objectMap, "permissions", d.Permissions)
+	populate(objectMap, "principals", d.Principals)
+	populate(objectMap, "scope", d.Scope)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type EligibleChildResourcesListResult.
+func (e EligibleChildResourcesListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", e.NextLink)
+	populate(objectMap, "value", e.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ErrorDetail.
+func (e ErrorDetail) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "additionalInfo", e.AdditionalInfo)
+	populate(objectMap, "code", e.Code)
+	populate(objectMap, "details", e.Details)
+	populate(objectMap, "message", e.Message)
+	populate(objectMap, "target", e.Target)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type OperationListResult.
 func (o OperationListResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "nextLink", o.NextLink)
 	populate(objectMap, "value", o.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type Permission.
+func (p Permission) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "actions", p.Actions)
+	populate(objectMap, "dataActions", p.DataActions)
+	populate(objectMap, "notActions", p.NotActions)
+	populate(objectMap, "notDataActions", p.NotDataActions)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PermissionGetResult.
+func (p PermissionGetResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", p.NextLink)
+	populate(objectMap, "value", p.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PolicyAssignmentPropertiesPolicy.
+func (p PolicyAssignmentPropertiesPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", p.ID)
+	populate(objectMap, "lastModifiedBy", p.LastModifiedBy)
+	populateTimeRFC3339(objectMap, "lastModifiedDateTime", p.LastModifiedDateTime)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PolicyAssignmentPropertiesPolicy.
+func (p *PolicyAssignmentPropertiesPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, &p.ID)
+			delete(rawMsg, key)
+		case "lastModifiedBy":
+			err = unpopulate(val, &p.LastModifiedBy)
+			delete(rawMsg, key)
+		case "lastModifiedDateTime":
+			err = unpopulateTimeRFC3339(val, &p.LastModifiedDateTime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ProviderOperationsMetadata.
+func (p ProviderOperationsMetadata) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "displayName", p.DisplayName)
+	populate(objectMap, "id", p.ID)
+	populate(objectMap, "name", p.Name)
+	populate(objectMap, "operations", p.Operations)
+	populate(objectMap, "resourceTypes", p.ResourceTypes)
+	populate(objectMap, "type", p.Type)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ProviderOperationsMetadataListResult.
+func (p ProviderOperationsMetadataListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", p.NextLink)
+	populate(objectMap, "value", p.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ResourceType.
+func (r ResourceType) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "displayName", r.DisplayName)
+	populate(objectMap, "name", r.Name)
+	populate(objectMap, "operations", r.Operations)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentListResult.
+func (r RoleAssignmentListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentProperties.
+func (r RoleAssignmentProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "condition", r.Condition)
+	populate(objectMap, "conditionVersion", r.ConditionVersion)
+	populate(objectMap, "createdBy", r.CreatedBy)
+	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
+	populate(objectMap, "delegatedManagedIdentityResourceId", r.DelegatedManagedIdentityResourceID)
+	populate(objectMap, "description", r.Description)
+	populate(objectMap, "principalId", r.PrincipalID)
+	populate(objectMap, "principalType", r.PrincipalType)
+	populate(objectMap, "roleDefinitionId", r.RoleDefinitionID)
+	populate(objectMap, "scope", r.Scope)
+	populate(objectMap, "updatedBy", r.UpdatedBy)
+	populateTimeRFC3339(objectMap, "updatedOn", r.UpdatedOn)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleAssignmentProperties.
+func (r *RoleAssignmentProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "condition":
+			err = unpopulate(val, &r.Condition)
+			delete(rawMsg, key)
+		case "conditionVersion":
+			err = unpopulate(val, &r.ConditionVersion)
+			delete(rawMsg, key)
+		case "createdBy":
+			err = unpopulate(val, &r.CreatedBy)
+			delete(rawMsg, key)
+		case "createdOn":
+			err = unpopulateTimeRFC3339(val, &r.CreatedOn)
+			delete(rawMsg, key)
+		case "delegatedManagedIdentityResourceId":
+			err = unpopulate(val, &r.DelegatedManagedIdentityResourceID)
+			delete(rawMsg, key)
+		case "description":
+			err = unpopulate(val, &r.Description)
+			delete(rawMsg, key)
+		case "principalId":
+			err = unpopulate(val, &r.PrincipalID)
+			delete(rawMsg, key)
+		case "principalType":
+			err = unpopulate(val, &r.PrincipalType)
+			delete(rawMsg, key)
+		case "roleDefinitionId":
+			err = unpopulate(val, &r.RoleDefinitionID)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, &r.Scope)
+			delete(rawMsg, key)
+		case "updatedBy":
+			err = unpopulate(val, &r.UpdatedBy)
+			delete(rawMsg, key)
+		case "updatedOn":
+			err = unpopulateTimeRFC3339(val, &r.UpdatedOn)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentScheduleInstanceListResult.
+func (r RoleAssignmentScheduleInstanceListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentScheduleInstanceProperties.
+func (r RoleAssignmentScheduleInstanceProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "assignmentType", r.AssignmentType)
+	populate(objectMap, "condition", r.Condition)
+	populate(objectMap, "conditionVersion", r.ConditionVersion)
+	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
+	populateTimeRFC3339(objectMap, "endDateTime", r.EndDateTime)
+	populate(objectMap, "expandedProperties", r.ExpandedProperties)
+	populate(objectMap, "linkedRoleEligibilityScheduleId", r.LinkedRoleEligibilityScheduleID)
+	populate(objectMap, "linkedRoleEligibilityScheduleInstanceId", r.LinkedRoleEligibilityScheduleInstanceID)
+	populate(objectMap, "memberType", r.MemberType)
+	populate(objectMap, "originRoleAssignmentId", r.OriginRoleAssignmentID)
+	populate(objectMap, "principalId", r.PrincipalID)
+	populate(objectMap, "principalType", r.PrincipalType)
+	populate(objectMap, "roleAssignmentScheduleId", r.RoleAssignmentScheduleID)
+	populate(objectMap, "roleDefinitionId", r.RoleDefinitionID)
+	populate(objectMap, "scope", r.Scope)
+	populateTimeRFC3339(objectMap, "startDateTime", r.StartDateTime)
+	populate(objectMap, "status", r.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleAssignmentScheduleInstanceProperties.
+func (r *RoleAssignmentScheduleInstanceProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "assignmentType":
+			err = unpopulate(val, &r.AssignmentType)
+			delete(rawMsg, key)
+		case "condition":
+			err = unpopulate(val, &r.Condition)
+			delete(rawMsg, key)
+		case "conditionVersion":
+			err = unpopulate(val, &r.ConditionVersion)
+			delete(rawMsg, key)
+		case "createdOn":
+			err = unpopulateTimeRFC3339(val, &r.CreatedOn)
+			delete(rawMsg, key)
+		case "endDateTime":
+			err = unpopulateTimeRFC3339(val, &r.EndDateTime)
+			delete(rawMsg, key)
+		case "expandedProperties":
+			err = unpopulate(val, &r.ExpandedProperties)
+			delete(rawMsg, key)
+		case "linkedRoleEligibilityScheduleId":
+			err = unpopulate(val, &r.LinkedRoleEligibilityScheduleID)
+			delete(rawMsg, key)
+		case "linkedRoleEligibilityScheduleInstanceId":
+			err = unpopulate(val, &r.LinkedRoleEligibilityScheduleInstanceID)
+			delete(rawMsg, key)
+		case "memberType":
+			err = unpopulate(val, &r.MemberType)
+			delete(rawMsg, key)
+		case "originRoleAssignmentId":
+			err = unpopulate(val, &r.OriginRoleAssignmentID)
+			delete(rawMsg, key)
+		case "principalId":
+			err = unpopulate(val, &r.PrincipalID)
+			delete(rawMsg, key)
+		case "principalType":
+			err = unpopulate(val, &r.PrincipalType)
+			delete(rawMsg, key)
+		case "roleAssignmentScheduleId":
+			err = unpopulate(val, &r.RoleAssignmentScheduleID)
+			delete(rawMsg, key)
+		case "roleDefinitionId":
+			err = unpopulate(val, &r.RoleDefinitionID)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, &r.Scope)
+			delete(rawMsg, key)
+		case "startDateTime":
+			err = unpopulateTimeRFC3339(val, &r.StartDateTime)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, &r.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentScheduleListResult.
+func (r RoleAssignmentScheduleListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentScheduleProperties.
+func (r RoleAssignmentScheduleProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "assignmentType", r.AssignmentType)
+	populate(objectMap, "condition", r.Condition)
+	populate(objectMap, "conditionVersion", r.ConditionVersion)
+	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
+	populateTimeRFC3339(objectMap, "endDateTime", r.EndDateTime)
+	populate(objectMap, "expandedProperties", r.ExpandedProperties)
+	populate(objectMap, "linkedRoleEligibilityScheduleId", r.LinkedRoleEligibilityScheduleID)
+	populate(objectMap, "memberType", r.MemberType)
+	populate(objectMap, "principalId", r.PrincipalID)
+	populate(objectMap, "principalType", r.PrincipalType)
+	populate(objectMap, "roleAssignmentScheduleRequestId", r.RoleAssignmentScheduleRequestID)
+	populate(objectMap, "roleDefinitionId", r.RoleDefinitionID)
+	populate(objectMap, "scope", r.Scope)
+	populateTimeRFC3339(objectMap, "startDateTime", r.StartDateTime)
+	populate(objectMap, "status", r.Status)
+	populateTimeRFC3339(objectMap, "updatedOn", r.UpdatedOn)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleAssignmentScheduleProperties.
+func (r *RoleAssignmentScheduleProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "assignmentType":
+			err = unpopulate(val, &r.AssignmentType)
+			delete(rawMsg, key)
+		case "condition":
+			err = unpopulate(val, &r.Condition)
+			delete(rawMsg, key)
+		case "conditionVersion":
+			err = unpopulate(val, &r.ConditionVersion)
+			delete(rawMsg, key)
+		case "createdOn":
+			err = unpopulateTimeRFC3339(val, &r.CreatedOn)
+			delete(rawMsg, key)
+		case "endDateTime":
+			err = unpopulateTimeRFC3339(val, &r.EndDateTime)
+			delete(rawMsg, key)
+		case "expandedProperties":
+			err = unpopulate(val, &r.ExpandedProperties)
+			delete(rawMsg, key)
+		case "linkedRoleEligibilityScheduleId":
+			err = unpopulate(val, &r.LinkedRoleEligibilityScheduleID)
+			delete(rawMsg, key)
+		case "memberType":
+			err = unpopulate(val, &r.MemberType)
+			delete(rawMsg, key)
+		case "principalId":
+			err = unpopulate(val, &r.PrincipalID)
+			delete(rawMsg, key)
+		case "principalType":
+			err = unpopulate(val, &r.PrincipalType)
+			delete(rawMsg, key)
+		case "roleAssignmentScheduleRequestId":
+			err = unpopulate(val, &r.RoleAssignmentScheduleRequestID)
+			delete(rawMsg, key)
+		case "roleDefinitionId":
+			err = unpopulate(val, &r.RoleDefinitionID)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, &r.Scope)
+			delete(rawMsg, key)
+		case "startDateTime":
+			err = unpopulateTimeRFC3339(val, &r.StartDateTime)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, &r.Status)
+			delete(rawMsg, key)
+		case "updatedOn":
+			err = unpopulateTimeRFC3339(val, &r.UpdatedOn)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentScheduleRequestListResult.
+func (r RoleAssignmentScheduleRequestListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentScheduleRequestProperties.
+func (r RoleAssignmentScheduleRequestProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "approvalId", r.ApprovalID)
+	populate(objectMap, "condition", r.Condition)
+	populate(objectMap, "conditionVersion", r.ConditionVersion)
+	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
+	populate(objectMap, "expandedProperties", r.ExpandedProperties)
+	populate(objectMap, "justification", r.Justification)
+	populate(objectMap, "linkedRoleEligibilityScheduleId", r.LinkedRoleEligibilityScheduleID)
+	populate(objectMap, "principalId", r.PrincipalID)
+	populate(objectMap, "principalType", r.PrincipalType)
+	populate(objectMap, "requestType", r.RequestType)
+	populate(objectMap, "requestorId", r.RequestorID)
+	populate(objectMap, "roleDefinitionId", r.RoleDefinitionID)
+	populate(objectMap, "scheduleInfo", r.ScheduleInfo)
+	populate(objectMap, "scope", r.Scope)
+	populate(objectMap, "status", r.Status)
+	populate(objectMap, "targetRoleAssignmentScheduleId", r.TargetRoleAssignmentScheduleID)
+	populate(objectMap, "targetRoleAssignmentScheduleInstanceId", r.TargetRoleAssignmentScheduleInstanceID)
+	populate(objectMap, "ticketInfo", r.TicketInfo)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleAssignmentScheduleRequestProperties.
+func (r *RoleAssignmentScheduleRequestProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "approvalId":
+			err = unpopulate(val, &r.ApprovalID)
+			delete(rawMsg, key)
+		case "condition":
+			err = unpopulate(val, &r.Condition)
+			delete(rawMsg, key)
+		case "conditionVersion":
+			err = unpopulate(val, &r.ConditionVersion)
+			delete(rawMsg, key)
+		case "createdOn":
+			err = unpopulateTimeRFC3339(val, &r.CreatedOn)
+			delete(rawMsg, key)
+		case "expandedProperties":
+			err = unpopulate(val, &r.ExpandedProperties)
+			delete(rawMsg, key)
+		case "justification":
+			err = unpopulate(val, &r.Justification)
+			delete(rawMsg, key)
+		case "linkedRoleEligibilityScheduleId":
+			err = unpopulate(val, &r.LinkedRoleEligibilityScheduleID)
+			delete(rawMsg, key)
+		case "principalId":
+			err = unpopulate(val, &r.PrincipalID)
+			delete(rawMsg, key)
+		case "principalType":
+			err = unpopulate(val, &r.PrincipalType)
+			delete(rawMsg, key)
+		case "requestType":
+			err = unpopulate(val, &r.RequestType)
+			delete(rawMsg, key)
+		case "requestorId":
+			err = unpopulate(val, &r.RequestorID)
+			delete(rawMsg, key)
+		case "roleDefinitionId":
+			err = unpopulate(val, &r.RoleDefinitionID)
+			delete(rawMsg, key)
+		case "scheduleInfo":
+			err = unpopulate(val, &r.ScheduleInfo)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, &r.Scope)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, &r.Status)
+			delete(rawMsg, key)
+		case "targetRoleAssignmentScheduleId":
+			err = unpopulate(val, &r.TargetRoleAssignmentScheduleID)
+			delete(rawMsg, key)
+		case "targetRoleAssignmentScheduleInstanceId":
+			err = unpopulate(val, &r.TargetRoleAssignmentScheduleInstanceID)
+			delete(rawMsg, key)
+		case "ticketInfo":
+			err = unpopulate(val, &r.TicketInfo)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentScheduleRequestPropertiesScheduleInfo.
+func (r RoleAssignmentScheduleRequestPropertiesScheduleInfo) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "expiration", r.Expiration)
+	populateTimeRFC3339(objectMap, "startDateTime", r.StartDateTime)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleAssignmentScheduleRequestPropertiesScheduleInfo.
+func (r *RoleAssignmentScheduleRequestPropertiesScheduleInfo) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "expiration":
+			err = unpopulate(val, &r.Expiration)
+			delete(rawMsg, key)
+		case "startDateTime":
+			err = unpopulateTimeRFC3339(val, &r.StartDateTime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration.
+func (r RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "duration", r.Duration)
+	populateTimeRFC3339(objectMap, "endDateTime", r.EndDateTime)
+	populate(objectMap, "type", r.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration.
+func (r *RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "duration":
+			err = unpopulate(val, &r.Duration)
+			delete(rawMsg, key)
+		case "endDateTime":
+			err = unpopulateTimeRFC3339(val, &r.EndDateTime)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, &r.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleDefinitionListResult.
+func (r RoleDefinitionListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleDefinitionProperties.
+func (r RoleDefinitionProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "assignableScopes", r.AssignableScopes)
+	populate(objectMap, "description", r.Description)
+	populate(objectMap, "permissions", r.Permissions)
+	populate(objectMap, "roleName", r.RoleName)
+	populate(objectMap, "type", r.RoleType)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleEligibilityScheduleInstanceListResult.
+func (r RoleEligibilityScheduleInstanceListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleEligibilityScheduleInstanceProperties.
+func (r RoleEligibilityScheduleInstanceProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "condition", r.Condition)
+	populate(objectMap, "conditionVersion", r.ConditionVersion)
+	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
+	populateTimeRFC3339(objectMap, "endDateTime", r.EndDateTime)
+	populate(objectMap, "expandedProperties", r.ExpandedProperties)
+	populate(objectMap, "memberType", r.MemberType)
+	populate(objectMap, "principalId", r.PrincipalID)
+	populate(objectMap, "principalType", r.PrincipalType)
+	populate(objectMap, "roleDefinitionId", r.RoleDefinitionID)
+	populate(objectMap, "roleEligibilityScheduleId", r.RoleEligibilityScheduleID)
+	populate(objectMap, "scope", r.Scope)
+	populateTimeRFC3339(objectMap, "startDateTime", r.StartDateTime)
+	populate(objectMap, "status", r.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleEligibilityScheduleInstanceProperties.
+func (r *RoleEligibilityScheduleInstanceProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "condition":
+			err = unpopulate(val, &r.Condition)
+			delete(rawMsg, key)
+		case "conditionVersion":
+			err = unpopulate(val, &r.ConditionVersion)
+			delete(rawMsg, key)
+		case "createdOn":
+			err = unpopulateTimeRFC3339(val, &r.CreatedOn)
+			delete(rawMsg, key)
+		case "endDateTime":
+			err = unpopulateTimeRFC3339(val, &r.EndDateTime)
+			delete(rawMsg, key)
+		case "expandedProperties":
+			err = unpopulate(val, &r.ExpandedProperties)
+			delete(rawMsg, key)
+		case "memberType":
+			err = unpopulate(val, &r.MemberType)
+			delete(rawMsg, key)
+		case "principalId":
+			err = unpopulate(val, &r.PrincipalID)
+			delete(rawMsg, key)
+		case "principalType":
+			err = unpopulate(val, &r.PrincipalType)
+			delete(rawMsg, key)
+		case "roleDefinitionId":
+			err = unpopulate(val, &r.RoleDefinitionID)
+			delete(rawMsg, key)
+		case "roleEligibilityScheduleId":
+			err = unpopulate(val, &r.RoleEligibilityScheduleID)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, &r.Scope)
+			delete(rawMsg, key)
+		case "startDateTime":
+			err = unpopulateTimeRFC3339(val, &r.StartDateTime)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, &r.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleEligibilityScheduleListResult.
+func (r RoleEligibilityScheduleListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleEligibilityScheduleProperties.
+func (r RoleEligibilityScheduleProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "condition", r.Condition)
+	populate(objectMap, "conditionVersion", r.ConditionVersion)
+	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
+	populateTimeRFC3339(objectMap, "endDateTime", r.EndDateTime)
+	populate(objectMap, "expandedProperties", r.ExpandedProperties)
+	populate(objectMap, "memberType", r.MemberType)
+	populate(objectMap, "principalId", r.PrincipalID)
+	populate(objectMap, "principalType", r.PrincipalType)
+	populate(objectMap, "roleDefinitionId", r.RoleDefinitionID)
+	populate(objectMap, "roleEligibilityScheduleRequestId", r.RoleEligibilityScheduleRequestID)
+	populate(objectMap, "scope", r.Scope)
+	populateTimeRFC3339(objectMap, "startDateTime", r.StartDateTime)
+	populate(objectMap, "status", r.Status)
+	populateTimeRFC3339(objectMap, "updatedOn", r.UpdatedOn)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleEligibilityScheduleProperties.
+func (r *RoleEligibilityScheduleProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "condition":
+			err = unpopulate(val, &r.Condition)
+			delete(rawMsg, key)
+		case "conditionVersion":
+			err = unpopulate(val, &r.ConditionVersion)
+			delete(rawMsg, key)
+		case "createdOn":
+			err = unpopulateTimeRFC3339(val, &r.CreatedOn)
+			delete(rawMsg, key)
+		case "endDateTime":
+			err = unpopulateTimeRFC3339(val, &r.EndDateTime)
+			delete(rawMsg, key)
+		case "expandedProperties":
+			err = unpopulate(val, &r.ExpandedProperties)
+			delete(rawMsg, key)
+		case "memberType":
+			err = unpopulate(val, &r.MemberType)
+			delete(rawMsg, key)
+		case "principalId":
+			err = unpopulate(val, &r.PrincipalID)
+			delete(rawMsg, key)
+		case "principalType":
+			err = unpopulate(val, &r.PrincipalType)
+			delete(rawMsg, key)
+		case "roleDefinitionId":
+			err = unpopulate(val, &r.RoleDefinitionID)
+			delete(rawMsg, key)
+		case "roleEligibilityScheduleRequestId":
+			err = unpopulate(val, &r.RoleEligibilityScheduleRequestID)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, &r.Scope)
+			delete(rawMsg, key)
+		case "startDateTime":
+			err = unpopulateTimeRFC3339(val, &r.StartDateTime)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, &r.Status)
+			delete(rawMsg, key)
+		case "updatedOn":
+			err = unpopulateTimeRFC3339(val, &r.UpdatedOn)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleEligibilityScheduleRequestListResult.
+func (r RoleEligibilityScheduleRequestListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleEligibilityScheduleRequestProperties.
+func (r RoleEligibilityScheduleRequestProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "approvalId", r.ApprovalID)
+	populate(objectMap, "condition", r.Condition)
+	populate(objectMap, "conditionVersion", r.ConditionVersion)
+	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
+	populate(objectMap, "expandedProperties", r.ExpandedProperties)
+	populate(objectMap, "justification", r.Justification)
+	populate(objectMap, "principalId", r.PrincipalID)
+	populate(objectMap, "principalType", r.PrincipalType)
+	populate(objectMap, "requestType", r.RequestType)
+	populate(objectMap, "requestorId", r.RequestorID)
+	populate(objectMap, "roleDefinitionId", r.RoleDefinitionID)
+	populate(objectMap, "scheduleInfo", r.ScheduleInfo)
+	populate(objectMap, "scope", r.Scope)
+	populate(objectMap, "status", r.Status)
+	populate(objectMap, "targetRoleEligibilityScheduleId", r.TargetRoleEligibilityScheduleID)
+	populate(objectMap, "targetRoleEligibilityScheduleInstanceId", r.TargetRoleEligibilityScheduleInstanceID)
+	populate(objectMap, "ticketInfo", r.TicketInfo)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleEligibilityScheduleRequestProperties.
+func (r *RoleEligibilityScheduleRequestProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "approvalId":
+			err = unpopulate(val, &r.ApprovalID)
+			delete(rawMsg, key)
+		case "condition":
+			err = unpopulate(val, &r.Condition)
+			delete(rawMsg, key)
+		case "conditionVersion":
+			err = unpopulate(val, &r.ConditionVersion)
+			delete(rawMsg, key)
+		case "createdOn":
+			err = unpopulateTimeRFC3339(val, &r.CreatedOn)
+			delete(rawMsg, key)
+		case "expandedProperties":
+			err = unpopulate(val, &r.ExpandedProperties)
+			delete(rawMsg, key)
+		case "justification":
+			err = unpopulate(val, &r.Justification)
+			delete(rawMsg, key)
+		case "principalId":
+			err = unpopulate(val, &r.PrincipalID)
+			delete(rawMsg, key)
+		case "principalType":
+			err = unpopulate(val, &r.PrincipalType)
+			delete(rawMsg, key)
+		case "requestType":
+			err = unpopulate(val, &r.RequestType)
+			delete(rawMsg, key)
+		case "requestorId":
+			err = unpopulate(val, &r.RequestorID)
+			delete(rawMsg, key)
+		case "roleDefinitionId":
+			err = unpopulate(val, &r.RoleDefinitionID)
+			delete(rawMsg, key)
+		case "scheduleInfo":
+			err = unpopulate(val, &r.ScheduleInfo)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, &r.Scope)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, &r.Status)
+			delete(rawMsg, key)
+		case "targetRoleEligibilityScheduleId":
+			err = unpopulate(val, &r.TargetRoleEligibilityScheduleID)
+			delete(rawMsg, key)
+		case "targetRoleEligibilityScheduleInstanceId":
+			err = unpopulate(val, &r.TargetRoleEligibilityScheduleInstanceID)
+			delete(rawMsg, key)
+		case "ticketInfo":
+			err = unpopulate(val, &r.TicketInfo)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleEligibilityScheduleRequestPropertiesScheduleInfo.
+func (r RoleEligibilityScheduleRequestPropertiesScheduleInfo) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "expiration", r.Expiration)
+	populateTimeRFC3339(objectMap, "startDateTime", r.StartDateTime)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleEligibilityScheduleRequestPropertiesScheduleInfo.
+func (r *RoleEligibilityScheduleRequestPropertiesScheduleInfo) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "expiration":
+			err = unpopulate(val, &r.Expiration)
+			delete(rawMsg, key)
+		case "startDateTime":
+			err = unpopulateTimeRFC3339(val, &r.StartDateTime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration.
+func (r RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "duration", r.Duration)
+	populateTimeRFC3339(objectMap, "endDateTime", r.EndDateTime)
+	populate(objectMap, "type", r.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration.
+func (r *RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "duration":
+			err = unpopulate(val, &r.Duration)
+			delete(rawMsg, key)
+		case "endDateTime":
+			err = unpopulateTimeRFC3339(val, &r.EndDateTime)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, &r.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicy.
+func (r RoleManagementPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", r.ID)
+	populate(objectMap, "name", r.Name)
+	populate(objectMap, "properties", r.Properties)
+	populate(objectMap, "type", r.Type)
+	return json.Marshal(objectMap)
+}
+
+// GetRoleManagementPolicyRule implements the RoleManagementPolicyRuleClassification interface for type RoleManagementPolicyApprovalRule.
+func (r *RoleManagementPolicyApprovalRule) GetRoleManagementPolicyRule() *RoleManagementPolicyRule {
+	return &RoleManagementPolicyRule{
+		ID:       r.ID,
+		RuleType: r.RuleType,
+		Target:   r.Target,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyApprovalRule.
+func (r RoleManagementPolicyApprovalRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", r.ID)
+	objectMap["ruleType"] = RoleManagementPolicyRuleTypeRoleManagementPolicyApprovalRule
+	populate(objectMap, "setting", r.Setting)
+	populate(objectMap, "target", r.Target)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleManagementPolicyApprovalRule.
+func (r *RoleManagementPolicyApprovalRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, &r.ID)
+			delete(rawMsg, key)
+		case "ruleType":
+			err = unpopulate(val, &r.RuleType)
+			delete(rawMsg, key)
+		case "setting":
+			err = unpopulate(val, &r.Setting)
+			delete(rawMsg, key)
+		case "target":
+			err = unpopulate(val, &r.Target)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyAssignmentListResult.
+func (r RoleManagementPolicyAssignmentListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// GetRoleManagementPolicyRule implements the RoleManagementPolicyRuleClassification interface for type RoleManagementPolicyAuthenticationContextRule.
+func (r *RoleManagementPolicyAuthenticationContextRule) GetRoleManagementPolicyRule() *RoleManagementPolicyRule {
+	return &RoleManagementPolicyRule{
+		ID:       r.ID,
+		RuleType: r.RuleType,
+		Target:   r.Target,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyAuthenticationContextRule.
+func (r RoleManagementPolicyAuthenticationContextRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "claimValue", r.ClaimValue)
+	populate(objectMap, "id", r.ID)
+	populate(objectMap, "isEnabled", r.IsEnabled)
+	objectMap["ruleType"] = RoleManagementPolicyRuleTypeRoleManagementPolicyAuthenticationContextRule
+	populate(objectMap, "target", r.Target)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleManagementPolicyAuthenticationContextRule.
+func (r *RoleManagementPolicyAuthenticationContextRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "claimValue":
+			err = unpopulate(val, &r.ClaimValue)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, &r.ID)
+			delete(rawMsg, key)
+		case "isEnabled":
+			err = unpopulate(val, &r.IsEnabled)
+			delete(rawMsg, key)
+		case "ruleType":
+			err = unpopulate(val, &r.RuleType)
+			delete(rawMsg, key)
+		case "target":
+			err = unpopulate(val, &r.Target)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// GetRoleManagementPolicyRule implements the RoleManagementPolicyRuleClassification interface for type RoleManagementPolicyEnablementRule.
+func (r *RoleManagementPolicyEnablementRule) GetRoleManagementPolicyRule() *RoleManagementPolicyRule {
+	return &RoleManagementPolicyRule{
+		ID:       r.ID,
+		RuleType: r.RuleType,
+		Target:   r.Target,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyEnablementRule.
+func (r RoleManagementPolicyEnablementRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "enabledRules", r.EnabledRules)
+	populate(objectMap, "id", r.ID)
+	objectMap["ruleType"] = RoleManagementPolicyRuleTypeRoleManagementPolicyEnablementRule
+	populate(objectMap, "target", r.Target)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleManagementPolicyEnablementRule.
+func (r *RoleManagementPolicyEnablementRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enabledRules":
+			err = unpopulate(val, &r.EnabledRules)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, &r.ID)
+			delete(rawMsg, key)
+		case "ruleType":
+			err = unpopulate(val, &r.RuleType)
+			delete(rawMsg, key)
+		case "target":
+			err = unpopulate(val, &r.Target)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// GetRoleManagementPolicyRule implements the RoleManagementPolicyRuleClassification interface for type RoleManagementPolicyExpirationRule.
+func (r *RoleManagementPolicyExpirationRule) GetRoleManagementPolicyRule() *RoleManagementPolicyRule {
+	return &RoleManagementPolicyRule{
+		ID:       r.ID,
+		RuleType: r.RuleType,
+		Target:   r.Target,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyExpirationRule.
+func (r RoleManagementPolicyExpirationRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", r.ID)
+	populate(objectMap, "isExpirationRequired", r.IsExpirationRequired)
+	populate(objectMap, "maximumDuration", r.MaximumDuration)
+	objectMap["ruleType"] = RoleManagementPolicyRuleTypeRoleManagementPolicyExpirationRule
+	populate(objectMap, "target", r.Target)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleManagementPolicyExpirationRule.
+func (r *RoleManagementPolicyExpirationRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, &r.ID)
+			delete(rawMsg, key)
+		case "isExpirationRequired":
+			err = unpopulate(val, &r.IsExpirationRequired)
+			delete(rawMsg, key)
+		case "maximumDuration":
+			err = unpopulate(val, &r.MaximumDuration)
+			delete(rawMsg, key)
+		case "ruleType":
+			err = unpopulate(val, &r.RuleType)
+			delete(rawMsg, key)
+		case "target":
+			err = unpopulate(val, &r.Target)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyListResult.
+func (r RoleManagementPolicyListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// GetRoleManagementPolicyRule implements the RoleManagementPolicyRuleClassification interface for type RoleManagementPolicyNotificationRule.
+func (r *RoleManagementPolicyNotificationRule) GetRoleManagementPolicyRule() *RoleManagementPolicyRule {
+	return &RoleManagementPolicyRule{
+		ID:       r.ID,
+		RuleType: r.RuleType,
+		Target:   r.Target,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyNotificationRule.
+func (r RoleManagementPolicyNotificationRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", r.ID)
+	populate(objectMap, "isDefaultRecipientsEnabled", r.IsDefaultRecipientsEnabled)
+	populate(objectMap, "notificationLevel", r.NotificationLevel)
+	populate(objectMap, "notificationRecipients", r.NotificationRecipients)
+	populate(objectMap, "notificationType", r.NotificationType)
+	populate(objectMap, "recipientType", r.RecipientType)
+	objectMap["ruleType"] = RoleManagementPolicyRuleTypeRoleManagementPolicyNotificationRule
+	populate(objectMap, "target", r.Target)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleManagementPolicyNotificationRule.
+func (r *RoleManagementPolicyNotificationRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, &r.ID)
+			delete(rawMsg, key)
+		case "isDefaultRecipientsEnabled":
+			err = unpopulate(val, &r.IsDefaultRecipientsEnabled)
+			delete(rawMsg, key)
+		case "notificationLevel":
+			err = unpopulate(val, &r.NotificationLevel)
+			delete(rawMsg, key)
+		case "notificationRecipients":
+			err = unpopulate(val, &r.NotificationRecipients)
+			delete(rawMsg, key)
+		case "notificationType":
+			err = unpopulate(val, &r.NotificationType)
+			delete(rawMsg, key)
+		case "recipientType":
+			err = unpopulate(val, &r.RecipientType)
+			delete(rawMsg, key)
+		case "ruleType":
+			err = unpopulate(val, &r.RuleType)
+			delete(rawMsg, key)
+		case "target":
+			err = unpopulate(val, &r.Target)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyProperties.
+func (r RoleManagementPolicyProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "description", r.Description)
+	populate(objectMap, "displayName", r.DisplayName)
+	populate(objectMap, "effectiveRules", r.EffectiveRules)
+	populate(objectMap, "isOrganizationDefault", r.IsOrganizationDefault)
+	populate(objectMap, "lastModifiedBy", r.LastModifiedBy)
+	populateTimeRFC3339(objectMap, "lastModifiedDateTime", r.LastModifiedDateTime)
+	populate(objectMap, "policyProperties", r.PolicyProperties)
+	populate(objectMap, "rules", r.Rules)
+	populate(objectMap, "scope", r.Scope)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RoleManagementPolicyProperties.
+func (r *RoleManagementPolicyProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "description":
+			err = unpopulate(val, &r.Description)
+			delete(rawMsg, key)
+		case "displayName":
+			err = unpopulate(val, &r.DisplayName)
+			delete(rawMsg, key)
+		case "effectiveRules":
+			r.EffectiveRules, err = unmarshalRoleManagementPolicyRuleClassificationArray(val)
+			delete(rawMsg, key)
+		case "isOrganizationDefault":
+			err = unpopulate(val, &r.IsOrganizationDefault)
+			delete(rawMsg, key)
+		case "lastModifiedBy":
+			err = unpopulate(val, &r.LastModifiedBy)
+			delete(rawMsg, key)
+		case "lastModifiedDateTime":
+			err = unpopulateTimeRFC3339(val, &r.LastModifiedDateTime)
+			delete(rawMsg, key)
+		case "policyProperties":
+			err = unpopulate(val, &r.PolicyProperties)
+			delete(rawMsg, key)
+		case "rules":
+			r.Rules, err = unmarshalRoleManagementPolicyRuleClassificationArray(val)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, &r.Scope)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// GetRoleManagementPolicyRule implements the RoleManagementPolicyRuleClassification interface for type RoleManagementPolicyRule.
+func (r *RoleManagementPolicyRule) GetRoleManagementPolicyRule() *RoleManagementPolicyRule { return r }
+
+// MarshalJSON implements the json.Marshaller interface for type RoleManagementPolicyRuleTarget.
+func (r RoleManagementPolicyRuleTarget) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "caller", r.Caller)
+	populate(objectMap, "enforcedSettings", r.EnforcedSettings)
+	populate(objectMap, "inheritableSettings", r.InheritableSettings)
+	populate(objectMap, "level", r.Level)
+	populate(objectMap, "operations", r.Operations)
+	populate(objectMap, "targetObjects", r.TargetObjects)
 	return json.Marshal(objectMap)
 }
 

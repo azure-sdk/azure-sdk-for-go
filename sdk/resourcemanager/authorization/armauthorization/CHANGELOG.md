@@ -1,5 +1,348 @@
 # Release History
 
+## 0.6.0 (2022-05-04)
+### Features Added
+
+- New const `RoleManagementPolicyRuleTypeRoleManagementPolicyNotificationRule`
+- New const `StatusPendingExternalProvisioning`
+- New const `EnablementRulesMultiFactorAuthentication`
+- New const `NotificationLevelCritical`
+- New const `RequestTypeSelfRenew`
+- New const `PrincipalTypeDevice`
+- New const `EnablementRulesTicketing`
+- New const `TypeNoExpiration`
+- New const `StatusFailedAsResourceIsLocked`
+- New const `NotificationLevelAll`
+- New const `RequestTypeAdminRenew`
+- New const `RecipientTypeAdmin`
+- New const `MemberTypeInherited`
+- New const `StatusRevoked`
+- New const `RequestTypeSelfExtend`
+- New const `PrincipalTypeUser`
+- New const `StatusPendingScheduleCreation`
+- New const `ApprovalModeParallel`
+- New const `StatusAccepted`
+- New const `StatusCanceled`
+- New const `NotificationLevelNone`
+- New const `RequestTypeAdminExtend`
+- New const `RequestTypeAdminAssign`
+- New const `AssignmentTypeActivated`
+- New const `StatusDenied`
+- New const `StatusPendingAdminDecision`
+- New const `UserTypeUser`
+- New const `ApprovalModeSingleStage`
+- New const `StatusFailed`
+- New const `PrincipalTypeGroup`
+- New const `PrincipalTypeForeignGroup`
+- New const `RecipientTypeRequestor`
+- New const `RequestTypeAdminUpdate`
+- New const `ApprovalModeSerial`
+- New const `StatusPendingRevocation`
+- New const `StatusAdminDenied`
+- New const `StatusGranted`
+- New const `StatusInvalid`
+- New const `RequestTypeSelfActivate`
+- New const `RoleManagementPolicyRuleTypeRoleManagementPolicyApprovalRule`
+- New const `UserTypeGroup`
+- New const `RequestTypeAdminRemove`
+- New const `PrincipalTypeServicePrincipal`
+- New const `TypeAfterDateTime`
+- New const `RequestTypeSelfDeactivate`
+- New const `StatusTimedOut`
+- New const `NotificationDeliveryMechanismEmail`
+- New const `StatusScheduleCreated`
+- New const `MemberTypeDirect`
+- New const `StatusProvisioningStarted`
+- New const `StatusPendingEvaluation`
+- New const `RoleManagementPolicyRuleTypeRoleManagementPolicyEnablementRule`
+- New const `MemberTypeGroup`
+- New const `TypeAfterDuration`
+- New const `RecipientTypeApprover`
+- New const `AssignmentTypeAssigned`
+- New const `StatusAdminApproved`
+- New const `EnablementRulesJustification`
+- New const `StatusProvisioned`
+- New const `StatusPendingApprovalProvisioning`
+- New const `RoleManagementPolicyRuleTypeRoleManagementPolicyAuthenticationContextRule`
+- New const `RoleManagementPolicyRuleTypeRoleManagementPolicyExpirationRule`
+- New const `ApprovalModeNoApproval`
+- New const `StatusPendingProvisioning`
+- New const `StatusPendingApproval`
+- New function `*RoleAssignmentScheduleRequestPropertiesScheduleInfo.UnmarshalJSON([]byte) error`
+- New function `RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration.MarshalJSON() ([]byte, error)`
+- New function `RoleAssignmentScheduleListResult.MarshalJSON() ([]byte, error)`
+- New function `Permission.MarshalJSON() ([]byte, error)`
+- New function `PossibleApprovalModeValues() []ApprovalMode`
+- New function `PossibleNotificationDeliveryMechanismValues() []NotificationDeliveryMechanism`
+- New function `RoleEligibilityScheduleInstanceListResult.MarshalJSON() ([]byte, error)`
+- New function `*RoleEligibilityScheduleProperties.UnmarshalJSON([]byte) error`
+- New function `DenyAssignmentProperties.MarshalJSON() ([]byte, error)`
+- New function `PossibleNotificationLevelValues() []NotificationLevel`
+- New function `PossibleTypeValues() []Type`
+- New function `RoleAssignmentScheduleRequestPropertiesScheduleInfo.MarshalJSON() ([]byte, error)`
+- New function `PossibleAssignmentTypeValues() []AssignmentType`
+- New function `*RoleAssignmentProperties.UnmarshalJSON([]byte) error`
+- New function `PossibleStatusValues() []Status`
+- New function `PossibleMemberTypeValues() []MemberType`
+- New function `*RoleEligibilityScheduleRequestProperties.UnmarshalJSON([]byte) error`
+- New function `RoleManagementPolicyRuleTarget.MarshalJSON() ([]byte, error)`
+- New function `ErrorDetail.MarshalJSON() ([]byte, error)`
+- New function `PolicyAssignmentPropertiesPolicy.MarshalJSON() ([]byte, error)`
+- New function `RoleManagementPolicy.MarshalJSON() ([]byte, error)`
+- New function `*RoleAssignmentScheduleRequestProperties.UnmarshalJSON([]byte) error`
+- New function `*RoleManagementPolicyExpirationRule.GetRoleManagementPolicyRule() *RoleManagementPolicyRule`
+- New function `RoleManagementPolicyExpirationRule.MarshalJSON() ([]byte, error)`
+- New function `*RoleManagementPolicyNotificationRule.UnmarshalJSON([]byte) error`
+- New function `PossibleUserTypeValues() []UserType`
+- New function `ApprovalStage.MarshalJSON() ([]byte, error)`
+- New function `DenyAssignmentListResult.MarshalJSON() ([]byte, error)`
+- New function `RoleManagementPolicyListResult.MarshalJSON() ([]byte, error)`
+- New function `ResourceType.MarshalJSON() ([]byte, error)`
+- New function `PossibleRoleManagementPolicyRuleTypeValues() []RoleManagementPolicyRuleType`
+- New function `*RoleManagementPolicyApprovalRule.GetRoleManagementPolicyRule() *RoleManagementPolicyRule`
+- New function `DenyAssignmentPermission.MarshalJSON() ([]byte, error)`
+- New function `RoleEligibilityScheduleInstanceProperties.MarshalJSON() ([]byte, error)`
+- New function `RoleAssignmentScheduleInstanceProperties.MarshalJSON() ([]byte, error)`
+- New function `*RoleManagementPolicyExpirationRule.UnmarshalJSON([]byte) error`
+- New function `*RoleManagementPolicyRule.GetRoleManagementPolicyRule() *RoleManagementPolicyRule`
+- New function `RoleEligibilityScheduleRequestPropertiesScheduleInfo.MarshalJSON() ([]byte, error)`
+- New function `RoleManagementPolicyAssignmentListResult.MarshalJSON() ([]byte, error)`
+- New function `*RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration.UnmarshalJSON([]byte) error`
+- New function `RoleManagementPolicyProperties.MarshalJSON() ([]byte, error)`
+- New function `RoleManagementPolicyAuthenticationContextRule.MarshalJSON() ([]byte, error)`
+- New function `RoleDefinitionProperties.MarshalJSON() ([]byte, error)`
+- New function `ProviderOperationsMetadataListResult.MarshalJSON() ([]byte, error)`
+- New function `PossibleRecipientTypeValues() []RecipientType`
+- New function `*RoleEligibilityScheduleRequestPropertiesScheduleInfo.UnmarshalJSON([]byte) error`
+- New function `PossibleRequestTypeValues() []RequestType`
+- New function `*RoleAssignmentScheduleInstanceProperties.UnmarshalJSON([]byte) error`
+- New function `*RoleEligibilityScheduleInstanceProperties.UnmarshalJSON([]byte) error`
+- New function `RoleEligibilityScheduleProperties.MarshalJSON() ([]byte, error)`
+- New function `RoleAssignmentListResult.MarshalJSON() ([]byte, error)`
+- New function `RoleAssignmentScheduleRequestProperties.MarshalJSON() ([]byte, error)`
+- New function `RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration.MarshalJSON() ([]byte, error)`
+- New function `*RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration.UnmarshalJSON([]byte) error`
+- New function `RoleManagementPolicyEnablementRule.MarshalJSON() ([]byte, error)`
+- New function `*RoleManagementPolicyNotificationRule.GetRoleManagementPolicyRule() *RoleManagementPolicyRule`
+- New function `EligibleChildResourcesListResult.MarshalJSON() ([]byte, error)`
+- New function `PossibleEnablementRulesValues() []EnablementRules`
+- New function `*RoleManagementPolicyProperties.UnmarshalJSON([]byte) error`
+- New function `ProviderOperationsMetadata.MarshalJSON() ([]byte, error)`
+- New function `RoleEligibilityScheduleListResult.MarshalJSON() ([]byte, error)`
+- New function `PossiblePrincipalTypeValues() []PrincipalType`
+- New function `*RoleManagementPolicyEnablementRule.GetRoleManagementPolicyRule() *RoleManagementPolicyRule`
+- New function `RoleEligibilityScheduleRequestProperties.MarshalJSON() ([]byte, error)`
+- New function `*RoleManagementPolicyAuthenticationContextRule.UnmarshalJSON([]byte) error`
+- New function `*RoleManagementPolicyEnablementRule.UnmarshalJSON([]byte) error`
+- New function `RoleAssignmentProperties.MarshalJSON() ([]byte, error)`
+- New function `*RoleManagementPolicyAuthenticationContextRule.GetRoleManagementPolicyRule() *RoleManagementPolicyRule`
+- New function `*PolicyAssignmentPropertiesPolicy.UnmarshalJSON([]byte) error`
+- New function `RoleAssignmentScheduleInstanceListResult.MarshalJSON() ([]byte, error)`
+- New function `PermissionGetResult.MarshalJSON() ([]byte, error)`
+- New function `RoleDefinitionListResult.MarshalJSON() ([]byte, error)`
+- New function `RoleEligibilityScheduleRequestListResult.MarshalJSON() ([]byte, error)`
+- New function `RoleAssignmentScheduleRequestListResult.MarshalJSON() ([]byte, error)`
+- New function `*RoleAssignmentScheduleProperties.UnmarshalJSON([]byte) error`
+- New function `ApprovalSettings.MarshalJSON() ([]byte, error)`
+- New function `*RoleManagementPolicyApprovalRule.UnmarshalJSON([]byte) error`
+- New function `RoleManagementPolicyApprovalRule.MarshalJSON() ([]byte, error)`
+- New function `RoleManagementPolicyNotificationRule.MarshalJSON() ([]byte, error)`
+- New function `RoleAssignmentScheduleProperties.MarshalJSON() ([]byte, error)`
+- New struct `ApprovalSettings`
+- New struct `ApprovalStage`
+- New struct `CloudError`
+- New struct `CloudErrorBody`
+- New struct `DenyAssignment`
+- New struct `DenyAssignmentFilter`
+- New struct `DenyAssignmentListResult`
+- New struct `DenyAssignmentPermission`
+- New struct `DenyAssignmentProperties`
+- New struct `DenyAssignmentsClientGetByIDOptions`
+- New struct `DenyAssignmentsClientGetByIDResponse`
+- New struct `DenyAssignmentsClientGetOptions`
+- New struct `DenyAssignmentsClientGetResponse`
+- New struct `DenyAssignmentsClientListForResourceGroupOptions`
+- New struct `DenyAssignmentsClientListForResourceGroupResponse`
+- New struct `DenyAssignmentsClientListForResourceOptions`
+- New struct `DenyAssignmentsClientListForResourceResponse`
+- New struct `DenyAssignmentsClientListForScopeOptions`
+- New struct `DenyAssignmentsClientListForScopeResponse`
+- New struct `DenyAssignmentsClientListOptions`
+- New struct `DenyAssignmentsClientListResponse`
+- New struct `EligibleChildResource`
+- New struct `EligibleChildResourcesClientGetOptions`
+- New struct `EligibleChildResourcesClientGetResponse`
+- New struct `EligibleChildResourcesListResult`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `ExpandedProperties`
+- New struct `ExpandedPropertiesPrincipal`
+- New struct `ExpandedPropertiesRoleDefinition`
+- New struct `ExpandedPropertiesScope`
+- New struct `Permission`
+- New struct `PermissionGetResult`
+- New struct `PermissionsClientListForResourceGroupOptions`
+- New struct `PermissionsClientListForResourceGroupResponse`
+- New struct `PermissionsClientListForResourceOptions`
+- New struct `PermissionsClientListForResourceResponse`
+- New struct `PolicyAssignmentProperties`
+- New struct `PolicyAssignmentPropertiesPolicy`
+- New struct `PolicyAssignmentPropertiesRoleDefinition`
+- New struct `PolicyAssignmentPropertiesScope`
+- New struct `PolicyProperties`
+- New struct `PolicyPropertiesScope`
+- New struct `Principal`
+- New struct `ProviderOperation`
+- New struct `ProviderOperationsMetadata`
+- New struct `ProviderOperationsMetadataClientGetOptions`
+- New struct `ProviderOperationsMetadataClientGetResponse`
+- New struct `ProviderOperationsMetadataClientListOptions`
+- New struct `ProviderOperationsMetadataClientListResponse`
+- New struct `ProviderOperationsMetadataListResult`
+- New struct `ResourceType`
+- New struct `RoleAssignment`
+- New struct `RoleAssignmentCreateParameters`
+- New struct `RoleAssignmentFilter`
+- New struct `RoleAssignmentListResult`
+- New struct `RoleAssignmentMetricsClientGetMetricsForSubscriptionOptions`
+- New struct `RoleAssignmentMetricsClientGetMetricsForSubscriptionResponse`
+- New struct `RoleAssignmentMetricsResult`
+- New struct `RoleAssignmentProperties`
+- New struct `RoleAssignmentSchedule`
+- New struct `RoleAssignmentScheduleFilter`
+- New struct `RoleAssignmentScheduleInstance`
+- New struct `RoleAssignmentScheduleInstanceFilter`
+- New struct `RoleAssignmentScheduleInstanceListResult`
+- New struct `RoleAssignmentScheduleInstanceProperties`
+- New struct `RoleAssignmentScheduleInstancesClientGetOptions`
+- New struct `RoleAssignmentScheduleInstancesClientGetResponse`
+- New struct `RoleAssignmentScheduleInstancesClientListForScopeOptions`
+- New struct `RoleAssignmentScheduleInstancesClientListForScopeResponse`
+- New struct `RoleAssignmentScheduleListResult`
+- New struct `RoleAssignmentScheduleProperties`
+- New struct `RoleAssignmentScheduleRequest`
+- New struct `RoleAssignmentScheduleRequestFilter`
+- New struct `RoleAssignmentScheduleRequestListResult`
+- New struct `RoleAssignmentScheduleRequestProperties`
+- New struct `RoleAssignmentScheduleRequestPropertiesScheduleInfo`
+- New struct `RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration`
+- New struct `RoleAssignmentScheduleRequestPropertiesTicketInfo`
+- New struct `RoleAssignmentScheduleRequestsClientCancelOptions`
+- New struct `RoleAssignmentScheduleRequestsClientCancelResponse`
+- New struct `RoleAssignmentScheduleRequestsClientCreateOptions`
+- New struct `RoleAssignmentScheduleRequestsClientCreateResponse`
+- New struct `RoleAssignmentScheduleRequestsClientGetOptions`
+- New struct `RoleAssignmentScheduleRequestsClientGetResponse`
+- New struct `RoleAssignmentScheduleRequestsClientListForScopeOptions`
+- New struct `RoleAssignmentScheduleRequestsClientListForScopeResponse`
+- New struct `RoleAssignmentSchedulesClientGetOptions`
+- New struct `RoleAssignmentSchedulesClientGetResponse`
+- New struct `RoleAssignmentSchedulesClientListForScopeOptions`
+- New struct `RoleAssignmentSchedulesClientListForScopeResponse`
+- New struct `RoleAssignmentsClientCreateByIDOptions`
+- New struct `RoleAssignmentsClientCreateByIDResponse`
+- New struct `RoleAssignmentsClientCreateOptions`
+- New struct `RoleAssignmentsClientCreateResponse`
+- New struct `RoleAssignmentsClientDeleteByIDOptions`
+- New struct `RoleAssignmentsClientDeleteByIDResponse`
+- New struct `RoleAssignmentsClientDeleteOptions`
+- New struct `RoleAssignmentsClientDeleteResponse`
+- New struct `RoleAssignmentsClientGetByIDOptions`
+- New struct `RoleAssignmentsClientGetByIDResponse`
+- New struct `RoleAssignmentsClientGetOptions`
+- New struct `RoleAssignmentsClientGetResponse`
+- New struct `RoleAssignmentsClientListForResourceGroupOptions`
+- New struct `RoleAssignmentsClientListForResourceGroupResponse`
+- New struct `RoleAssignmentsClientListForResourceOptions`
+- New struct `RoleAssignmentsClientListForResourceResponse`
+- New struct `RoleAssignmentsClientListForScopeOptions`
+- New struct `RoleAssignmentsClientListForScopeResponse`
+- New struct `RoleAssignmentsClientListForSubscriptionOptions`
+- New struct `RoleAssignmentsClientListForSubscriptionResponse`
+- New struct `RoleAssignmentsClientValidateByIDOptions`
+- New struct `RoleAssignmentsClientValidateByIDResponse`
+- New struct `RoleAssignmentsClientValidateOptions`
+- New struct `RoleAssignmentsClientValidateResponse`
+- New struct `RoleDefinition`
+- New struct `RoleDefinitionFilter`
+- New struct `RoleDefinitionListResult`
+- New struct `RoleDefinitionProperties`
+- New struct `RoleDefinitionsClientCreateOrUpdateOptions`
+- New struct `RoleDefinitionsClientCreateOrUpdateResponse`
+- New struct `RoleDefinitionsClientDeleteOptions`
+- New struct `RoleDefinitionsClientDeleteResponse`
+- New struct `RoleDefinitionsClientGetByIDOptions`
+- New struct `RoleDefinitionsClientGetByIDResponse`
+- New struct `RoleDefinitionsClientGetOptions`
+- New struct `RoleDefinitionsClientGetResponse`
+- New struct `RoleDefinitionsClientListOptions`
+- New struct `RoleDefinitionsClientListResponse`
+- New struct `RoleEligibilitySchedule`
+- New struct `RoleEligibilityScheduleFilter`
+- New struct `RoleEligibilityScheduleInstance`
+- New struct `RoleEligibilityScheduleInstanceFilter`
+- New struct `RoleEligibilityScheduleInstanceListResult`
+- New struct `RoleEligibilityScheduleInstanceProperties`
+- New struct `RoleEligibilityScheduleInstancesClientGetOptions`
+- New struct `RoleEligibilityScheduleInstancesClientGetResponse`
+- New struct `RoleEligibilityScheduleInstancesClientListForScopeOptions`
+- New struct `RoleEligibilityScheduleInstancesClientListForScopeResponse`
+- New struct `RoleEligibilityScheduleListResult`
+- New struct `RoleEligibilityScheduleProperties`
+- New struct `RoleEligibilityScheduleRequest`
+- New struct `RoleEligibilityScheduleRequestFilter`
+- New struct `RoleEligibilityScheduleRequestListResult`
+- New struct `RoleEligibilityScheduleRequestProperties`
+- New struct `RoleEligibilityScheduleRequestPropertiesScheduleInfo`
+- New struct `RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration`
+- New struct `RoleEligibilityScheduleRequestPropertiesTicketInfo`
+- New struct `RoleEligibilityScheduleRequestsClientCancelOptions`
+- New struct `RoleEligibilityScheduleRequestsClientCancelResponse`
+- New struct `RoleEligibilityScheduleRequestsClientCreateOptions`
+- New struct `RoleEligibilityScheduleRequestsClientCreateResponse`
+- New struct `RoleEligibilityScheduleRequestsClientGetOptions`
+- New struct `RoleEligibilityScheduleRequestsClientGetResponse`
+- New struct `RoleEligibilityScheduleRequestsClientListForScopeOptions`
+- New struct `RoleEligibilityScheduleRequestsClientListForScopeResponse`
+- New struct `RoleEligibilitySchedulesClientGetOptions`
+- New struct `RoleEligibilitySchedulesClientGetResponse`
+- New struct `RoleEligibilitySchedulesClientListForScopeOptions`
+- New struct `RoleEligibilitySchedulesClientListForScopeResponse`
+- New struct `RoleManagementPoliciesClientDeleteOptions`
+- New struct `RoleManagementPoliciesClientDeleteResponse`
+- New struct `RoleManagementPoliciesClientGetOptions`
+- New struct `RoleManagementPoliciesClientGetResponse`
+- New struct `RoleManagementPoliciesClientListForScopeOptions`
+- New struct `RoleManagementPoliciesClientListForScopeResponse`
+- New struct `RoleManagementPoliciesClientUpdateOptions`
+- New struct `RoleManagementPoliciesClientUpdateResponse`
+- New struct `RoleManagementPolicy`
+- New struct `RoleManagementPolicyApprovalRule`
+- New struct `RoleManagementPolicyAssignment`
+- New struct `RoleManagementPolicyAssignmentListResult`
+- New struct `RoleManagementPolicyAssignmentProperties`
+- New struct `RoleManagementPolicyAssignmentsClientCreateOptions`
+- New struct `RoleManagementPolicyAssignmentsClientCreateResponse`
+- New struct `RoleManagementPolicyAssignmentsClientDeleteOptions`
+- New struct `RoleManagementPolicyAssignmentsClientDeleteResponse`
+- New struct `RoleManagementPolicyAssignmentsClientGetOptions`
+- New struct `RoleManagementPolicyAssignmentsClientGetResponse`
+- New struct `RoleManagementPolicyAssignmentsClientListForScopeOptions`
+- New struct `RoleManagementPolicyAssignmentsClientListForScopeResponse`
+- New struct `RoleManagementPolicyAuthenticationContextRule`
+- New struct `RoleManagementPolicyEnablementRule`
+- New struct `RoleManagementPolicyExpirationRule`
+- New struct `RoleManagementPolicyListResult`
+- New struct `RoleManagementPolicyNotificationRule`
+- New struct `RoleManagementPolicyProperties`
+- New struct `RoleManagementPolicyRule`
+- New struct `RoleManagementPolicyRuleTarget`
+- New struct `UserSet`
+- New struct `ValidationResponse`
+- New struct `ValidationResponseErrorInfo`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 
