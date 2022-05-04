@@ -1,5 +1,60 @@
 # Release History
 
+## 0.6.0 (2022-05-04)
+### Breaking Changes
+
+- Field `PercentageComplete` of struct `DataTransferJobProperties` has been removed
+
+### Features Added
+
+- New const `ThroughputPolicyTypeCustom`
+- New const `ThroughputPolicyTypeEqual`
+- New const `ThroughputPolicyTypeNone`
+- New function `PossibleThroughputPolicyTypeValues() []ThroughputPolicyType`
+- New function `PhysicalPartitionThroughputInfoResultPropertiesResource.MarshalJSON() ([]byte, error)`
+- New function `RetrieveThroughputParameters.MarshalJSON() ([]byte, error)`
+- New function `*DataTransferJobsClient.Cancel(context.Context, string, string, string, *DataTransferJobsClientCancelOptions) (DataTransferJobsClientCancelResponse, error)`
+- New function `RedistributeThroughputParameters.MarshalJSON() ([]byte, error)`
+- New function `*SQLResourcesClient.BeginSQLContainerRetrieveThroughputDistribution(context.Context, string, string, string, string, RetrieveThroughputParameters, *SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions) (*armruntime.Poller[SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse], error)`
+- New function `*DataTransferJobsClient.Resume(context.Context, string, string, string, *DataTransferJobsClientResumeOptions) (DataTransferJobsClientResumeResponse, error)`
+- New function `RedistributeThroughputPropertiesResource.MarshalJSON() ([]byte, error)`
+- New function `*MongoDBResourcesClient.BeginMongoDBContainerRetrieveThroughputDistribution(context.Context, string, string, string, string, RetrieveThroughputParameters, *MongoDBResourcesClientBeginMongoDBContainerRetrieveThroughputDistributionOptions) (*armruntime.Poller[MongoDBResourcesClientMongoDBContainerRetrieveThroughputDistributionResponse], error)`
+- New function `*DataTransferJobsClient.Pause(context.Context, string, string, string, *DataTransferJobsClientPauseOptions) (DataTransferJobsClientPauseResponse, error)`
+- New function `PhysicalPartitionThroughputInfoProperties.MarshalJSON() ([]byte, error)`
+- New function `PhysicalPartitionThroughputInfoResult.MarshalJSON() ([]byte, error)`
+- New function `RetrieveThroughputPropertiesResource.MarshalJSON() ([]byte, error)`
+- New function `*SQLResourcesClient.BeginSQLContainerRedistributeThroughput(context.Context, string, string, string, string, RedistributeThroughputParameters, *SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions) (*armruntime.Poller[SQLResourcesClientSQLContainerRedistributeThroughputResponse], error)`
+- New function `*MongoDBResourcesClient.BeginMongoDBContainerRedistributeThroughput(context.Context, string, string, string, string, RedistributeThroughputParameters, *MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions) (*armruntime.Poller[MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse], error)`
+- New struct `DataTransferJobsClientCancelOptions`
+- New struct `DataTransferJobsClientCancelResponse`
+- New struct `DataTransferJobsClientPauseOptions`
+- New struct `DataTransferJobsClientPauseResponse`
+- New struct `DataTransferJobsClientResumeOptions`
+- New struct `DataTransferJobsClientResumeResponse`
+- New struct `MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions`
+- New struct `MongoDBResourcesClientBeginMongoDBContainerRetrieveThroughputDistributionOptions`
+- New struct `MongoDBResourcesClientMongoDBContainerRedistributeThroughputResponse`
+- New struct `MongoDBResourcesClientMongoDBContainerRetrieveThroughputDistributionResponse`
+- New struct `PhysicalPartitionID`
+- New struct `PhysicalPartitionThroughputInfoProperties`
+- New struct `PhysicalPartitionThroughputInfoResource`
+- New struct `PhysicalPartitionThroughputInfoResult`
+- New struct `PhysicalPartitionThroughputInfoResultProperties`
+- New struct `PhysicalPartitionThroughputInfoResultPropertiesResource`
+- New struct `RedistributeThroughputParameters`
+- New struct `RedistributeThroughputProperties`
+- New struct `RedistributeThroughputPropertiesResource`
+- New struct `RetrieveThroughputParameters`
+- New struct `RetrieveThroughputProperties`
+- New struct `RetrieveThroughputPropertiesResource`
+- New struct `SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions`
+- New struct `SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions`
+- New struct `SQLResourcesClientSQLContainerRedistributeThroughputResponse`
+- New struct `SQLResourcesClientSQLContainerRetrieveThroughputDistributionResponse`
+- New field `TotalCount` in struct `DataTransferJobProperties`
+- New field `ProcessedCount` in struct `DataTransferJobProperties`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 

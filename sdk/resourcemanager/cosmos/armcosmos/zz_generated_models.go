@@ -1464,11 +1464,19 @@ type DataTransferJobProperties struct {
 	// READ-ONLY; Last Updated Time (ISO-8601 format).
 	LastUpdatedUTCTime *time.Time `json:"lastUpdatedUtcTime,omitempty" azure:"ro"`
 
-	// READ-ONLY; Percentage of completion.
-	PercentageComplete *float32 `json:"percentageComplete,omitempty" azure:"ro"`
+	// READ-ONLY; Processed Count.
+	ProcessedCount *int64 `json:"processedCount,omitempty" azure:"ro"`
 
 	// READ-ONLY; Job Status
 	Status *string `json:"status,omitempty" azure:"ro"`
+
+	// READ-ONLY; Total Count.
+	TotalCount *int64 `json:"totalCount,omitempty" azure:"ro"`
+}
+
+// DataTransferJobsClientCancelOptions contains the optional parameters for the DataTransferJobsClient.Cancel method.
+type DataTransferJobsClientCancelOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DataTransferJobsClientCreateOptions contains the optional parameters for the DataTransferJobsClient.Create method.
@@ -1484,6 +1492,16 @@ type DataTransferJobsClientGetOptions struct {
 // DataTransferJobsClientListByDatabaseAccountOptions contains the optional parameters for the DataTransferJobsClient.ListByDatabaseAccount
 // method.
 type DataTransferJobsClientListByDatabaseAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataTransferJobsClientPauseOptions contains the optional parameters for the DataTransferJobsClient.Pause method.
+type DataTransferJobsClientPauseOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataTransferJobsClientResumeOptions contains the optional parameters for the DataTransferJobsClient.Resume method.
+type DataTransferJobsClientResumeOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3379,6 +3397,20 @@ type MongoDBResourcesClientBeginMigrateMongoDBDatabaseToManualThroughputOptions 
 	ResumeToken string
 }
 
+// MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions contains the optional parameters for the MongoDBResourcesClient.BeginMongoDBContainerRedistributeThroughput
+// method.
+type MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoDBResourcesClientBeginMongoDBContainerRetrieveThroughputDistributionOptions contains the optional parameters for the
+// MongoDBResourcesClient.BeginMongoDBContainerRetrieveThroughputDistribution method.
+type MongoDBResourcesClientBeginMongoDBContainerRetrieveThroughputDistributionOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // MongoDBResourcesClientBeginRetrieveContinuousBackupInformationOptions contains the optional parameters for the MongoDBResourcesClient.BeginRetrieveContinuousBackupInformation
 // method.
 type MongoDBResourcesClientBeginRetrieveContinuousBackupInformationOptions struct {
@@ -3917,6 +3949,12 @@ type Permission struct {
 	NotDataActions []*string `json:"notDataActions,omitempty"`
 }
 
+// PhysicalPartitionID - PhysicalPartitionId object
+type PhysicalPartitionID struct {
+	// REQUIRED; Id of a physical partition
+	ID *string `json:"id,omitempty"`
+}
+
 // PhysicalPartitionStorageInfo - The storage of a physical partition
 type PhysicalPartitionStorageInfo struct {
 	// READ-ONLY; The unique identifier of the partition.
@@ -3930,6 +3968,63 @@ type PhysicalPartitionStorageInfo struct {
 type PhysicalPartitionStorageInfoCollection struct {
 	// READ-ONLY; List of physical partitions and their properties.
 	PhysicalPartitionStorageInfoCollection []*PhysicalPartitionStorageInfo `json:"physicalPartitionStorageInfoCollection,omitempty" azure:"ro"`
+}
+
+// PhysicalPartitionThroughputInfoProperties - The properties of an Azure Cosmos DB PhysicalPartitionThroughputInfoProperties
+// object
+type PhysicalPartitionThroughputInfoProperties struct {
+	// Array of physical partition throughput info objects
+	PhysicalPartitionThroughputInfo []*PhysicalPartitionThroughputInfoResource `json:"physicalPartitionThroughputInfo,omitempty"`
+}
+
+// PhysicalPartitionThroughputInfoResource - PhysicalPartitionThroughputInfo object
+type PhysicalPartitionThroughputInfoResource struct {
+	// REQUIRED; Id of a physical partition
+	ID *string `json:"id,omitempty"`
+
+	// Throughput of a physical partition
+	Throughput *float64 `json:"throughput,omitempty"`
+}
+
+// PhysicalPartitionThroughputInfoResult - An Azure Cosmos DB PhysicalPartitionThroughputInfoResult object.
+type PhysicalPartitionThroughputInfoResult struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// The properties of an Azure Cosmos DB PhysicalPartitionThroughputInfoResult object
+	Properties *PhysicalPartitionThroughputInfoResultProperties `json:"properties,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PhysicalPartitionThroughputInfoResultProperties - The properties of an Azure Cosmos DB PhysicalPartitionThroughputInfoResult
+// object
+type PhysicalPartitionThroughputInfoResultProperties struct {
+	// properties of physical partition throughput info
+	Resource *PhysicalPartitionThroughputInfoResultPropertiesResource `json:"resource,omitempty"`
+}
+
+// PhysicalPartitionThroughputInfoResultPropertiesResource - properties of physical partition throughput info
+type PhysicalPartitionThroughputInfoResultPropertiesResource struct {
+	// Array of physical partition throughput info objects
+	PhysicalPartitionThroughputInfo []*PhysicalPartitionThroughputInfoResource `json:"physicalPartitionThroughputInfo,omitempty"`
 }
 
 // PrivateEndpointConnection - A private endpoint connection
@@ -4085,6 +4180,52 @@ type ProxyResource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RedistributeThroughputParameters - Cosmos DB redistribute throughput parameters object
+type RedistributeThroughputParameters struct {
+	// REQUIRED; Properties to redistribute throughput parameters object
+	Properties *RedistributeThroughputProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RedistributeThroughputProperties - Properties to redistribute throughput for Azure Cosmos DB resource.
+type RedistributeThroughputProperties struct {
+	// REQUIRED; The standard JSON format of a resource throughput
+	Resource *RedistributeThroughputPropertiesResource `json:"resource,omitempty"`
+}
+
+// RedistributeThroughputPropertiesResource - Resource to redistribute throughput for Azure Cosmos DB resource
+type RedistributeThroughputPropertiesResource struct {
+	// REQUIRED; Array of PhysicalPartitionThroughputInfoResource objects.
+	SourcePhysicalPartitionThroughputInfo []*PhysicalPartitionThroughputInfoResource `json:"sourcePhysicalPartitionThroughputInfo,omitempty"`
+
+	// REQUIRED; Array of PhysicalPartitionThroughputInfoResource objects.
+	TargetPhysicalPartitionThroughputInfo []*PhysicalPartitionThroughputInfoResource `json:"targetPhysicalPartitionThroughputInfo,omitempty"`
+
+	// REQUIRED; ThroughputPolicy to apply for throughput redistribution
+	ThroughputPolicy *ThroughputPolicyType `json:"throughputPolicy,omitempty"`
 }
 
 // RegionForOnlineOffline - Cosmos DB region to online or offline.
@@ -4721,6 +4862,46 @@ type RestoreParameters struct {
 	TablesToRestore []*string `json:"tablesToRestore,omitempty"`
 }
 
+// RetrieveThroughputParameters - Cosmos DB retrieve throughput parameters object
+type RetrieveThroughputParameters struct {
+	// REQUIRED; Properties to retrieve throughput parameters object
+	Properties *RetrieveThroughputProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RetrieveThroughputProperties - Properties to retrieve throughput for Azure Cosmos DB resource.
+type RetrieveThroughputProperties struct {
+	// REQUIRED; The standard JSON format of a resource throughput
+	Resource *RetrieveThroughputPropertiesResource `json:"resource,omitempty"`
+}
+
+// RetrieveThroughputPropertiesResource - Resource to retrieve throughput information for Cosmos DB resource
+type RetrieveThroughputPropertiesResource struct {
+	// REQUIRED; Array of PhysicalPartitionId objects.
+	PhysicalPartitionIDs []*PhysicalPartitionID `json:"physicalPartitionIds,omitempty"`
+}
+
 // Role - The set of roles permitted through this Role Definition.
 type Role struct {
 	// The database name the role is applied.
@@ -5195,6 +5376,20 @@ type SQLResourcesClientBeginMigrateSQLDatabaseToManualThroughputOptions struct {
 // SQLResourcesClientBeginRetrieveContinuousBackupInformationOptions contains the optional parameters for the SQLResourcesClient.BeginRetrieveContinuousBackupInformation
 // method.
 type SQLResourcesClientBeginRetrieveContinuousBackupInformationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions contains the optional parameters for the SQLResourcesClient.BeginSQLContainerRedistributeThroughput
+// method.
+type SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions contains the optional parameters for the SQLResourcesClient.BeginSQLContainerRetrieveThroughputDistribution
+// method.
+type SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
