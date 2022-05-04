@@ -1,5 +1,14 @@
 # Release History
 
+## 0.6.0 (2022-05-04)
+### Features Added
+
+- New struct `PrivateEndpoint`
+- New field `RejectedDataLinkedService` in struct `PowerQuerySink`
+- New field `PrivateEndpoint` in struct `PrivateLinkConnectionApprovalRequest`
+- New field `RejectedDataLinkedService` in struct `DataFlowSink`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 
