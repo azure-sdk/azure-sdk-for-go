@@ -1,5 +1,15 @@
 # Release History
 
+## 0.5.0 (2022-05-05)
+### Breaking Changes
+
+- Field `SuggestedAddresses` of struct `ValidateAddressResponse` has been removed
+
+### Features Added
+
+- New field `SuggestedAddressList` in struct `ValidateAddressResponse`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 

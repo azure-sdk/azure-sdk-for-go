@@ -1204,7 +1204,7 @@ func (t *TransactionProperties) UnmarshalJSON(data []byte) error {
 func (v ValidateAddressResponse) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "status", v.Status)
-	populate(objectMap, "suggestedAddresses", v.SuggestedAddresses)
+	populate(objectMap, "suggestedAddressList", v.SuggestedAddressList)
 	populate(objectMap, "validationMessage", v.ValidationMessage)
 	return json.Marshal(objectMap)
 }

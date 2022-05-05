@@ -2227,7 +2227,7 @@ type ValidateAddressResponse struct {
 	Status *AddressValidationStatus `json:"status,omitempty"`
 
 	// The list of suggested addresses.
-	SuggestedAddresses []*AddressDetails `json:"suggestedAddresses,omitempty"`
+	SuggestedAddressList []*AddressDetails `json:"suggestedAddressList,omitempty"`
 
 	// Validation error message.
 	ValidationMessage *string `json:"validationMessage,omitempty"`
