@@ -33,7 +33,8 @@ func NewDomainWhoisClientWithBaseURI(baseURI string, subscriptionID string) Doma
 
 // Get get whois information for a single domain name
 // Parameters:
-// resourceGroupName - the name of the resource group. The name is case insensitive.
+// resourceGroupName - the name of the resource group within the user's subscription. The name is case
+// insensitive.
 // domain - domain name to be enriched
 func (client DomainWhoisClient) Get(ctx context.Context, resourceGroupName string, domain string) (result EnrichmentDomainWhois, err error) {
 	if tracing.IsEnabled() {
@@ -48,10 +49,11 @@ func (client DomainWhoisClient) Get(ctx context.Context, resourceGroupName strin
 	}
 	if err := validation.Validate([]validation.Validation{
 		{TargetValue: client.SubscriptionID,
-			Constraints: []validation.Constraint{{Target: "client.SubscriptionID", Name: validation.MinLength, Rule: 1, Chain: nil}}},
+			Constraints: []validation.Constraint{{Target: "client.SubscriptionID", Name: validation.Pattern, Rule: `^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$`, Chain: nil}}},
 		{TargetValue: resourceGroupName,
 			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
-				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
+				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil},
+				{Target: "resourceGroupName", Name: validation.Pattern, Rule: `^[-\w\._\(\)]+$`, Chain: nil}}}}); err != nil {
 		return result, validation.NewError("securityinsight.DomainWhoisClient", "Get", err.Error())
 	}
 
@@ -84,7 +86,7 @@ func (client DomainWhoisClient) GetPreparer(ctx context.Context, resourceGroupNa
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2021-09-01-preview"
+	const APIVersion = "2019-01-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 		"domain":      autorest.Encode("query", domain),
