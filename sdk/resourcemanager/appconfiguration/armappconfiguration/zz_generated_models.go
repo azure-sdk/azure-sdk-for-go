@@ -52,7 +52,7 @@ type CheckNameAvailabilityParameters struct {
 // ConfigurationStore - The configuration store along with all resource properties. The Configuration Store will have all
 // information to begin utilizing it.
 type ConfigurationStore struct {
-	// REQUIRED; The geo-location where the resource lives
+	// REQUIRED; The location of the resource. This cannot be changed after the resource is created.
 	Location *string `json:"location,omitempty"`
 
 	// REQUIRED; The sku of the configuration store.
@@ -64,19 +64,16 @@ type ConfigurationStore struct {
 	// The properties of a configuration store.
 	Properties *ConfigurationStoreProperties `json:"properties,omitempty"`
 
-	// Resource tags.
+	// The tags of the resource.
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; The resource ID.
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource
+	// READ-ONLY; The name of the resource.
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Resource system metadata.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	// READ-ONLY; The type of the resource.
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -91,50 +88,14 @@ type ConfigurationStoreListResult struct {
 
 // ConfigurationStoreProperties - The properties of a configuration store.
 type ConfigurationStoreProperties struct {
-	// Indicates whether the configuration store need to be recovered.
-	CreateMode *CreateMode `json:"createMode,omitempty"`
-
-	// Disables all authentication methods other than AAD authentication.
-	DisableLocalAuth *bool `json:"disableLocalAuth,omitempty"`
-
-	// Property specifying whether protection against purge is enabled for this configuration store.
-	EnablePurgeProtection *bool `json:"enablePurgeProtection,omitempty"`
-
-	// The encryption settings of the configuration store.
-	Encryption *EncryptionProperties `json:"encryption,omitempty"`
-
-	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
-	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
-
-	// The amount of time in days that the configuration store will be retained when it is soft deleted.
-	SoftDeleteRetentionInDays *int32 `json:"softDeleteRetentionInDays,omitempty"`
-
 	// READ-ONLY; The creation date of configuration store.
 	CreationDate *time.Time `json:"creationDate,omitempty" azure:"ro"`
 
 	// READ-ONLY; The DNS endpoint where the configuration store API will be available.
 	Endpoint *string `json:"endpoint,omitempty" azure:"ro"`
 
-	// READ-ONLY; The list of private endpoint connections that are set up for this resource.
-	PrivateEndpointConnections []*PrivateEndpointConnectionReference `json:"privateEndpointConnections,omitempty" azure:"ro"`
-
 	// READ-ONLY; The provisioning state of the configuration store.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// ConfigurationStorePropertiesUpdateParameters - The properties for updating a configuration store.
-type ConfigurationStorePropertiesUpdateParameters struct {
-	// Disables all authentication methods other than AAD authentication.
-	DisableLocalAuth *bool `json:"disableLocalAuth,omitempty"`
-
-	// Property specifying whether protection against purge is enabled for this configuration store.
-	EnablePurgeProtection *bool `json:"enablePurgeProtection,omitempty"`
-
-	// The encryption settings of the configuration store.
-	Encryption *EncryptionProperties `json:"encryption,omitempty"`
-
-	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
-	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 }
 
 // ConfigurationStoreUpdateParameters - The parameters for updating a configuration store.
@@ -143,7 +104,7 @@ type ConfigurationStoreUpdateParameters struct {
 	Identity *ResourceIdentity `json:"identity,omitempty"`
 
 	// The properties for updating a configuration store.
-	Properties *ConfigurationStorePropertiesUpdateParameters `json:"properties,omitempty"`
+	Properties interface{} `json:"properties,omitempty"`
 
 	// The SKU of the configuration store.
 	SKU *SKU `json:"sku,omitempty"`
@@ -166,24 +127,11 @@ type ConfigurationStoresClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// ConfigurationStoresClientBeginPurgeDeletedOptions contains the optional parameters for the ConfigurationStoresClient.BeginPurgeDeleted
-// method.
-type ConfigurationStoresClientBeginPurgeDeletedOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // ConfigurationStoresClientBeginUpdateOptions contains the optional parameters for the ConfigurationStoresClient.BeginUpdate
 // method.
 type ConfigurationStoresClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
-}
-
-// ConfigurationStoresClientGetDeletedOptions contains the optional parameters for the ConfigurationStoresClient.GetDeleted
-// method.
-type ConfigurationStoresClientGetDeletedOptions struct {
-	// placeholder for future optional parameters
 }
 
 // ConfigurationStoresClientGetOptions contains the optional parameters for the ConfigurationStoresClient.Get method.
@@ -200,9 +148,9 @@ type ConfigurationStoresClientListByResourceGroupOptions struct {
 	SkipToken *string
 }
 
-// ConfigurationStoresClientListDeletedOptions contains the optional parameters for the ConfigurationStoresClient.ListDeleted
+// ConfigurationStoresClientListKeyValueOptions contains the optional parameters for the ConfigurationStoresClient.ListKeyValue
 // method.
-type ConfigurationStoresClientListDeletedOptions struct {
+type ConfigurationStoresClientListKeyValueOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -228,120 +176,20 @@ type ConfigurationStoresClientRegenerateKeyOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DeletedConfigurationStore - Deleted configuration store information with extended details.
-type DeletedConfigurationStore struct {
-	// Properties of the deleted configuration store
-	Properties *DeletedConfigurationStoreProperties `json:"properties,omitempty"`
+// Error - AppConfiguration error object.
+type Error struct {
+	// Error code.
+	Code *string `json:"code,omitempty"`
 
-	// READ-ONLY; The resource ID for the deleted configuration store.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the configuration store.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The resource type of the configuration store.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	// Error message.
+	Message *string `json:"message,omitempty"`
 }
 
-// DeletedConfigurationStoreListResult - List of deleted configuration stores
-type DeletedConfigurationStoreListResult struct {
-	// The URL to get the next set of deleted configuration stores.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// The list of deleted configuration store.
-	Value []*DeletedConfigurationStore `json:"value,omitempty"`
-}
-
-// DeletedConfigurationStoreProperties - Properties of the deleted configuration store.
-type DeletedConfigurationStoreProperties struct {
-	// READ-ONLY; The resource id of the original configuration store.
-	ConfigurationStoreID *string `json:"configurationStoreId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The deleted date.
-	DeletionDate *time.Time `json:"deletionDate,omitempty" azure:"ro"`
-
-	// READ-ONLY; The location of the original configuration store.
-	Location *string `json:"location,omitempty" azure:"ro"`
-
-	// READ-ONLY; Purge protection status of the original configuration store.
-	PurgeProtectionEnabled *bool `json:"purgeProtectionEnabled,omitempty" azure:"ro"`
-
-	// READ-ONLY; The scheduled purged date.
-	ScheduledPurgeDate *time.Time `json:"scheduledPurgeDate,omitempty" azure:"ro"`
-
-	// READ-ONLY; Tags of the original configuration store.
-	Tags map[string]*string `json:"tags,omitempty" azure:"ro"`
-}
-
-// EncryptionProperties - The encryption settings for a configuration store.
-type EncryptionProperties struct {
-	// Key vault properties.
-	KeyVaultProperties *KeyVaultProperties `json:"keyVaultProperties,omitempty"`
-}
-
-// ErrorAdditionalInfo - The resource management error additional info.
-type ErrorAdditionalInfo struct {
-	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
-
-	// READ-ONLY; The additional info type.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ErrorDetails - The details of the error.
-type ErrorDetails struct {
-	// READ-ONLY; The error additional info.
-	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
-
-	// READ-ONLY; Error code.
-	Code *string `json:"code,omitempty" azure:"ro"`
-
-	// READ-ONLY; Error message indicating why the operation failed.
-	Message *string `json:"message,omitempty" azure:"ro"`
-}
-
-// ErrorResponse - Error response indicates that the service is not able to process the incoming request. The reason is provided
-// in the error message.
-type ErrorResponse struct {
-	// The details of the error.
-	Error *ErrorDetails `json:"error,omitempty"`
-}
-
-// KeyValue - The key-value resource along with all resource properties.
+// KeyValue - The result of a request to retrieve a key-value from the specified configuration store.
 type KeyValue struct {
-	// All key-value properties.
-	Properties *KeyValueProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; The resource ID.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// KeyValueListResult - The result of a request to list key-values.
-type KeyValueListResult struct {
-	// The URI that can be used to request the next set of paged results.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// The collection value.
-	Value []*KeyValue `json:"value,omitempty"`
-}
-
-// KeyValueProperties - All key-value properties.
-type KeyValueProperties struct {
-	// The content type of the key-value's value. Providing a proper content-type can enable transformations of values when they
-	// are retrieved by applications.
-	ContentType *string `json:"contentType,omitempty"`
-
-	// A dictionary of tags that can help identify what a key-value may be applicable for.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// The value of the key-value.
-	Value *string `json:"value,omitempty"`
+	// READ-ONLY; The content type of the key-value's value. Providing a proper content-type can enable transformations of values
+	// when they are retrieved by applications.
+	ContentType *string `json:"contentType,omitempty" azure:"ro"`
 
 	// READ-ONLY; An ETag indicating the state of a key-value within a configuration store.
 	ETag *string `json:"eTag,omitempty" azure:"ro"`
@@ -357,92 +205,21 @@ type KeyValueProperties struct {
 
 	// READ-ONLY; A value indicating whether the key-value is locked. A locked key-value may not be modified until it is unlocked.
 	Locked *bool `json:"locked,omitempty" azure:"ro"`
+
+	// READ-ONLY; A dictionary of tags that can help identify what a key-value may be applicable for.
+	Tags map[string]*string `json:"tags,omitempty" azure:"ro"`
+
+	// READ-ONLY; The value of the key-value.
+	Value *string `json:"value,omitempty" azure:"ro"`
 }
 
-// KeyValuesClientBeginDeleteOptions contains the optional parameters for the KeyValuesClient.BeginDelete method.
-type KeyValuesClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
+// ListKeyValueParameters - The parameters used to list a configuration store key-value
+type ListKeyValueParameters struct {
+	// REQUIRED; The key to retrieve.
+	Key *string `json:"key,omitempty"`
 
-// KeyValuesClientCreateOrUpdateOptions contains the optional parameters for the KeyValuesClient.CreateOrUpdate method.
-type KeyValuesClientCreateOrUpdateOptions struct {
-	// The parameters for creating a key-value.
-	KeyValueParameters *KeyValue
-}
-
-// KeyValuesClientGetOptions contains the optional parameters for the KeyValuesClient.Get method.
-type KeyValuesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KeyValuesClientListByConfigurationStoreOptions contains the optional parameters for the KeyValuesClient.ListByConfigurationStore
-// method.
-type KeyValuesClientListByConfigurationStoreOptions struct {
-	// A skip token is used to continue retrieving items after an operation returns a partial result. If a previous response contains
-	// a nextLink element, the value of the nextLink element will include a
-	// skipToken parameter that specifies a starting point to use for subsequent calls.
-	SkipToken *string
-}
-
-// KeyVaultProperties - Settings concerning key vault encryption for a configuration store.
-type KeyVaultProperties struct {
-	// The client id of the identity which will be used to access key vault.
-	IdentityClientID *string `json:"identityClientId,omitempty"`
-
-	// The URI of the key vault key used to encrypt data.
-	KeyIdentifier *string `json:"keyIdentifier,omitempty"`
-}
-
-// LogSpecification - Specifications of the Log for Azure Monitoring
-type LogSpecification struct {
-	// Blob duration of the log
-	BlobDuration *string `json:"blobDuration,omitempty"`
-
-	// Localized friendly display name of the log
-	DisplayName *string `json:"displayName,omitempty"`
-
-	// Name of the log
-	Name *string `json:"name,omitempty"`
-}
-
-// MetricDimension - Specifications of the Dimension of metrics
-type MetricDimension struct {
-	// Localized friendly display name of the dimension
-	DisplayName *string `json:"displayName,omitempty"`
-
-	// Internal name of the dimension.
-	InternalName *string `json:"internalName,omitempty"`
-
-	// Name of the dimension
-	Name *string `json:"name,omitempty"`
-}
-
-// MetricSpecification - Specifications of the Metrics for Azure Monitoring
-type MetricSpecification struct {
-	// Only provide one value for this field. Valid values: Average, Minimum, Maximum, Total, Count.
-	AggregationType *string `json:"aggregationType,omitempty"`
-
-	// Dimensions of the metric
-	Dimensions []*MetricDimension `json:"dimensions,omitempty"`
-
-	// Localized friendly description of the metric
-	DisplayDescription *string `json:"displayDescription,omitempty"`
-
-	// Localized friendly display name of the metric
-	DisplayName *string `json:"displayName,omitempty"`
-
-	// Optional. If set to true, then zero will be returned for time duration where no metric is emitted/published.
-	FillGapWithZero *bool `json:"fillGapWithZero,omitempty"`
-
-	// Internal metric name.
-	InternalMetricName *string `json:"internalMetricName,omitempty"`
-
-	// Name of the metric
-	Name *string `json:"name,omitempty"`
-
-	// Unit that makes sense for the metric
-	Unit *string `json:"unit,omitempty"`
+	// The label of the key.
+	Label *string `json:"label,omitempty"`
 }
 
 // NameAvailabilityStatus - The result of a request to check the availability of a resource name.
@@ -462,17 +239,8 @@ type OperationDefinition struct {
 	// The display information for the configuration store operation.
 	Display *OperationDefinitionDisplay `json:"display,omitempty"`
 
-	// Indicates whether the operation is a data action
-	IsDataAction *bool `json:"isDataAction,omitempty"`
-
 	// Operation name: {provider}/{resource}/{operation}.
 	Name *string `json:"name,omitempty"`
-
-	// Origin of the operation
-	Origin *string `json:"origin,omitempty"`
-
-	// Properties of the operation
-	Properties *OperationProperties `json:"properties,omitempty"`
 }
 
 // OperationDefinitionDisplay - The display information for a configuration store operation.
@@ -499,12 +267,6 @@ type OperationDefinitionListResult struct {
 	Value []*OperationDefinition `json:"value,omitempty"`
 }
 
-// OperationProperties - Extra Operation properties
-type OperationProperties struct {
-	// Service specifications of the operation
-	ServiceSpecification *ServiceSpecification `json:"serviceSpecification,omitempty"`
-}
-
 // OperationsClientCheckNameAvailabilityOptions contains the optional parameters for the OperationsClient.CheckNameAvailability
 // method.
 type OperationsClientCheckNameAvailabilityOptions struct {
@@ -519,173 +281,30 @@ type OperationsClientListOptions struct {
 	SkipToken *string
 }
 
-// OperationsClientRegionalCheckNameAvailabilityOptions contains the optional parameters for the OperationsClient.RegionalCheckNameAvailability
-// method.
-type OperationsClientRegionalCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateEndpoint - Private endpoint which a connection belongs to.
-type PrivateEndpoint struct {
-	// The resource Id for private endpoint
-	ID *string `json:"id,omitempty"`
-}
-
-// PrivateEndpointConnection - A private endpoint connection
-type PrivateEndpointConnection struct {
-	// The properties of a private endpoint.
-	Properties *PrivateEndpointConnectionProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; The resource ID.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// PrivateEndpointConnectionListResult - A list of private endpoint connections
-type PrivateEndpointConnectionListResult struct {
-	// The URI that can be used to request the next set of paged results.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// The collection value.
-	Value []*PrivateEndpointConnection `json:"value,omitempty"`
-}
-
-// PrivateEndpointConnectionProperties - Properties of a private endpoint connection.
-type PrivateEndpointConnectionProperties struct {
-	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
-	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
-
-	// The resource of private endpoint.
-	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
-
-	// READ-ONLY; The provisioning status of the private endpoint connection.
-	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// PrivateEndpointConnectionReference - A reference to a related private endpoint connection.
-type PrivateEndpointConnectionReference struct {
-	// The properties of a private endpoint connection.
-	Properties *PrivateEndpointConnectionProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; The resource ID.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginCreateOrUpdate
-// method.
-type PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// PrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginDelete
-// method.
-type PrivateEndpointConnectionsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
-// method.
-type PrivateEndpointConnectionsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateEndpointConnectionsClientListByConfigurationStoreOptions contains the optional parameters for the PrivateEndpointConnectionsClient.ListByConfigurationStore
-// method.
-type PrivateEndpointConnectionsClientListByConfigurationStoreOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateLinkResource - A resource that supports private link capabilities.
-type PrivateLinkResource struct {
-	// Private link resource properties.
-	Properties *PrivateLinkResourceProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; The resource ID.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// PrivateLinkResourceListResult - A list of private link resources.
-type PrivateLinkResourceListResult struct {
-	// The URI that can be used to request the next set of paged results.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// The collection value.
-	Value []*PrivateLinkResource `json:"value,omitempty"`
-}
-
-// PrivateLinkResourceProperties - Properties of a private link resource.
-type PrivateLinkResourceProperties struct {
-	// READ-ONLY; The private link resource group id.
-	GroupID *string `json:"groupId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The private link resource required member names.
-	RequiredMembers []*string `json:"requiredMembers,omitempty" azure:"ro"`
-
-	// READ-ONLY; The list of required DNS zone names of the private link resource.
-	RequiredZoneNames []*string `json:"requiredZoneNames,omitempty" azure:"ro"`
-}
-
-// PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get method.
-type PrivateLinkResourcesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateLinkResourcesClientListByConfigurationStoreOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByConfigurationStore
-// method.
-type PrivateLinkResourcesClientListByConfigurationStoreOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PrivateLinkServiceConnectionState - The state of a private link service connection.
-type PrivateLinkServiceConnectionState struct {
-	// The private link service connection description.
-	Description *string `json:"description,omitempty"`
-
-	// The private link service connection status.
-	Status *ConnectionStatus `json:"status,omitempty"`
-
-	// READ-ONLY; Any action that is required beyond basic workflow (approve/ reject/ disconnect)
-	ActionsRequired *ActionsRequired `json:"actionsRequired,omitempty" azure:"ro"`
-}
-
 // RegenerateKeyParameters - The parameters used to regenerate an API key.
 type RegenerateKeyParameters struct {
 	// The id of the key to regenerate.
 	ID *string `json:"id,omitempty"`
 }
 
-// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+// Resource - An Azure resource.
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// REQUIRED; The location of the resource. This cannot be changed after the resource is created.
+	Location *string `json:"location,omitempty"`
+
+	// The tags of the resource.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The resource ID.
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource
+	// READ-ONLY; The name of the resource.
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	// READ-ONLY; The type of the resource.
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// ResourceIdentity - An identity that can be associated with a resource.
 type ResourceIdentity struct {
 	// The type of managed identity used. The type 'SystemAssigned, UserAssigned' includes both an implicitly created identity
 	// and a set of user-assigned identities. The type 'None' will remove any
@@ -711,56 +330,6 @@ type SKU struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// ServiceSpecification - Service specification payload
-type ServiceSpecification struct {
-	// Specifications of the Log for Azure Monitoring
-	LogSpecifications []*LogSpecification `json:"logSpecifications,omitempty"`
-
-	// Specifications of the Metrics for Azure Monitoring
-	MetricSpecifications []*MetricSpecification `json:"metricSpecifications,omitempty"`
-}
-
-// SystemData - Metadata pertaining to creation and last modification of the resource.
-type SystemData struct {
-	// The timestamp of resource creation (UTC).
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-
-	// The identity that created the resource.
-	CreatedBy *string `json:"createdBy,omitempty"`
-
-	// The type of identity that created the resource.
-	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
-
-	// The timestamp of resource last modification (UTC)
-	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty"`
-
-	// The identity that last modified the resource.
-	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
-
-	// The type of identity that last modified the resource.
-	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
-}
-
-// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
-// and a 'location'
-type TrackedResource struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// UserIdentity - A resource identity that is managed by the user of the service.
 type UserIdentity struct {
 	// READ-ONLY; The client ID of the user-assigned identity.
 	ClientID *string `json:"clientId,omitempty" azure:"ro"`

@@ -86,7 +86,7 @@ func (client *OperationsClient) checkNameAvailabilityCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityParameters)
@@ -140,7 +140,7 @@ func (client *OperationsClient) listCreateRequest(ctx context.Context, options *
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
@@ -154,58 +154,6 @@ func (client *OperationsClient) listHandleResponse(resp *http.Response) (Operati
 	result := OperationsClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.OperationDefinitionListResult); err != nil {
 		return OperationsClientListResponse{}, err
-	}
-	return result, nil
-}
-
-// RegionalCheckNameAvailability - Checks whether the configuration store name is available for use.
-// If the operation fails it returns an *azcore.ResponseError type.
-// location - The location in which uniqueness will be verified.
-// checkNameAvailabilityParameters - The object containing information for the availability request.
-// options - OperationsClientRegionalCheckNameAvailabilityOptions contains the optional parameters for the OperationsClient.RegionalCheckNameAvailability
-// method.
-func (client *OperationsClient) RegionalCheckNameAvailability(ctx context.Context, location string, checkNameAvailabilityParameters CheckNameAvailabilityParameters, options *OperationsClientRegionalCheckNameAvailabilityOptions) (OperationsClientRegionalCheckNameAvailabilityResponse, error) {
-	req, err := client.regionalCheckNameAvailabilityCreateRequest(ctx, location, checkNameAvailabilityParameters, options)
-	if err != nil {
-		return OperationsClientRegionalCheckNameAvailabilityResponse{}, err
-	}
-	resp, err := client.pl.Do(req)
-	if err != nil {
-		return OperationsClientRegionalCheckNameAvailabilityResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return OperationsClientRegionalCheckNameAvailabilityResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.regionalCheckNameAvailabilityHandleResponse(resp)
-}
-
-// regionalCheckNameAvailabilityCreateRequest creates the RegionalCheckNameAvailability request.
-func (client *OperationsClient) regionalCheckNameAvailabilityCreateRequest(ctx context.Context, location string, checkNameAvailabilityParameters CheckNameAvailabilityParameters, options *OperationsClientRegionalCheckNameAvailabilityOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AppConfiguration/locations/{location}/checkNameAvailability"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header.Set("Accept", "application/json")
-	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityParameters)
-}
-
-// regionalCheckNameAvailabilityHandleResponse handles the RegionalCheckNameAvailability response.
-func (client *OperationsClient) regionalCheckNameAvailabilityHandleResponse(resp *http.Response) (OperationsClientRegionalCheckNameAvailabilityResponse, error) {
-	result := OperationsClientRegionalCheckNameAvailabilityResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.NameAvailabilityStatus); err != nil {
-		return OperationsClientRegionalCheckNameAvailabilityResponse{}, err
 	}
 	return result, nil
 }

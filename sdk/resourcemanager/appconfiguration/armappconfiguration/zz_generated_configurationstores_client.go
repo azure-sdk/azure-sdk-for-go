@@ -110,7 +110,7 @@ func (client *ConfigurationStoresClient) createCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, configStoreCreationParameters)
@@ -171,7 +171,7 @@ func (client *ConfigurationStoresClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -217,7 +217,7 @@ func (client *ConfigurationStoresClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -228,62 +228,6 @@ func (client *ConfigurationStoresClient) getHandleResponse(resp *http.Response) 
 	result := ConfigurationStoresClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ConfigurationStore); err != nil {
 		return ConfigurationStoresClientGetResponse{}, err
-	}
-	return result, nil
-}
-
-// GetDeleted - Gets a deleted Azure app configuration store.
-// If the operation fails it returns an *azcore.ResponseError type.
-// location - The location in which uniqueness will be verified.
-// configStoreName - The name of the configuration store.
-// options - ConfigurationStoresClientGetDeletedOptions contains the optional parameters for the ConfigurationStoresClient.GetDeleted
-// method.
-func (client *ConfigurationStoresClient) GetDeleted(ctx context.Context, location string, configStoreName string, options *ConfigurationStoresClientGetDeletedOptions) (ConfigurationStoresClientGetDeletedResponse, error) {
-	req, err := client.getDeletedCreateRequest(ctx, location, configStoreName, options)
-	if err != nil {
-		return ConfigurationStoresClientGetDeletedResponse{}, err
-	}
-	resp, err := client.pl.Do(req)
-	if err != nil {
-		return ConfigurationStoresClientGetDeletedResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ConfigurationStoresClientGetDeletedResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.getDeletedHandleResponse(resp)
-}
-
-// getDeletedCreateRequest creates the GetDeleted request.
-func (client *ConfigurationStoresClient) getDeletedCreateRequest(ctx context.Context, location string, configStoreName string, options *ConfigurationStoresClientGetDeletedOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AppConfiguration/locations/{location}/deletedConfigurationStores/{configStoreName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
-	if configStoreName == "" {
-		return nil, errors.New("parameter configStoreName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{configStoreName}", url.PathEscape(configStoreName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header.Set("Accept", "application/json")
-	return req, nil
-}
-
-// getDeletedHandleResponse handles the GetDeleted response.
-func (client *ConfigurationStoresClient) getDeletedHandleResponse(resp *http.Response) (ConfigurationStoresClientGetDeletedResponse, error) {
-	result := ConfigurationStoresClientGetDeletedResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.DeletedConfigurationStore); err != nil {
-		return ConfigurationStoresClientGetDeletedResponse{}, err
 	}
 	return result, nil
 }
@@ -332,7 +276,7 @@ func (client *ConfigurationStoresClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
@@ -399,7 +343,7 @@ func (client *ConfigurationStoresClient) listByResourceGroupCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
@@ -417,61 +361,59 @@ func (client *ConfigurationStoresClient) listByResourceGroupHandleResponse(resp 
 	return result, nil
 }
 
-// NewListDeletedPager - Gets information about the deleted configuration stores in a subscription.
+// ListKeyValue - Lists a configuration store key-value.
 // If the operation fails it returns an *azcore.ResponseError type.
-// options - ConfigurationStoresClientListDeletedOptions contains the optional parameters for the ConfigurationStoresClient.ListDeleted
+// resourceGroupName - The name of the resource group to which the container registry belongs.
+// configStoreName - The name of the configuration store.
+// listKeyValueParameters - The parameters for retrieving a key-value.
+// options - ConfigurationStoresClientListKeyValueOptions contains the optional parameters for the ConfigurationStoresClient.ListKeyValue
 // method.
-func (client *ConfigurationStoresClient) NewListDeletedPager(options *ConfigurationStoresClientListDeletedOptions) *runtime.Pager[ConfigurationStoresClientListDeletedResponse] {
-	return runtime.NewPager(runtime.PageProcessor[ConfigurationStoresClientListDeletedResponse]{
-		More: func(page ConfigurationStoresClientListDeletedResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *ConfigurationStoresClientListDeletedResponse) (ConfigurationStoresClientListDeletedResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listDeletedCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
-			}
-			if err != nil {
-				return ConfigurationStoresClientListDeletedResponse{}, err
-			}
-			resp, err := client.pl.Do(req)
-			if err != nil {
-				return ConfigurationStoresClientListDeletedResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ConfigurationStoresClientListDeletedResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listDeletedHandleResponse(resp)
-		},
-	})
+func (client *ConfigurationStoresClient) ListKeyValue(ctx context.Context, resourceGroupName string, configStoreName string, listKeyValueParameters ListKeyValueParameters, options *ConfigurationStoresClientListKeyValueOptions) (ConfigurationStoresClientListKeyValueResponse, error) {
+	req, err := client.listKeyValueCreateRequest(ctx, resourceGroupName, configStoreName, listKeyValueParameters, options)
+	if err != nil {
+		return ConfigurationStoresClientListKeyValueResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ConfigurationStoresClientListKeyValueResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ConfigurationStoresClientListKeyValueResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listKeyValueHandleResponse(resp)
 }
 
-// listDeletedCreateRequest creates the ListDeleted request.
-func (client *ConfigurationStoresClient) listDeletedCreateRequest(ctx context.Context, options *ConfigurationStoresClientListDeletedOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AppConfiguration/deletedConfigurationStores"
+// listKeyValueCreateRequest creates the ListKeyValue request.
+func (client *ConfigurationStoresClient) listKeyValueCreateRequest(ctx context.Context, resourceGroupName string, configStoreName string, listKeyValueParameters ListKeyValueParameters, options *ConfigurationStoresClientListKeyValueOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/listKeyValue"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if configStoreName == "" {
+		return nil, errors.New("parameter configStoreName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{configStoreName}", url.PathEscape(configStoreName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
-	return req, nil
+	return req, runtime.MarshalAsJSON(req, listKeyValueParameters)
 }
 
-// listDeletedHandleResponse handles the ListDeleted response.
-func (client *ConfigurationStoresClient) listDeletedHandleResponse(resp *http.Response) (ConfigurationStoresClientListDeletedResponse, error) {
-	result := ConfigurationStoresClientListDeletedResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.DeletedConfigurationStoreListResult); err != nil {
-		return ConfigurationStoresClientListDeletedResponse{}, err
+// listKeyValueHandleResponse handles the ListKeyValue response.
+func (client *ConfigurationStoresClient) listKeyValueHandleResponse(resp *http.Response) (ConfigurationStoresClientListKeyValueResponse, error) {
+	result := ConfigurationStoresClientListKeyValueResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.KeyValue); err != nil {
+		return ConfigurationStoresClientListKeyValueResponse{}, err
 	}
 	return result, nil
 }
@@ -512,7 +454,7 @@ func (client *ConfigurationStoresClient) NewListKeysPager(resourceGroupName stri
 
 // listKeysCreateRequest creates the ListKeys request.
 func (client *ConfigurationStoresClient) listKeysCreateRequest(ctx context.Context, resourceGroupName string, configStoreName string, options *ConfigurationStoresClientListKeysOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/listKeys"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/ListKeys"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -530,7 +472,7 @@ func (client *ConfigurationStoresClient) listKeysCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("$skipToken", *options.SkipToken)
 	}
@@ -546,67 +488,6 @@ func (client *ConfigurationStoresClient) listKeysHandleResponse(resp *http.Respo
 		return ConfigurationStoresClientListKeysResponse{}, err
 	}
 	return result, nil
-}
-
-// BeginPurgeDeleted - Permanently deletes the specified configuration store.
-// If the operation fails it returns an *azcore.ResponseError type.
-// location - The location in which uniqueness will be verified.
-// configStoreName - The name of the configuration store.
-// options - ConfigurationStoresClientBeginPurgeDeletedOptions contains the optional parameters for the ConfigurationStoresClient.BeginPurgeDeleted
-// method.
-func (client *ConfigurationStoresClient) BeginPurgeDeleted(ctx context.Context, location string, configStoreName string, options *ConfigurationStoresClientBeginPurgeDeletedOptions) (*armruntime.Poller[ConfigurationStoresClientPurgeDeletedResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.purgeDeleted(ctx, location, configStoreName, options)
-		if err != nil {
-			return nil, err
-		}
-		return armruntime.NewPoller[ConfigurationStoresClientPurgeDeletedResponse](resp, client.pl, nil)
-	} else {
-		return armruntime.NewPollerFromResumeToken[ConfigurationStoresClientPurgeDeletedResponse](options.ResumeToken, client.pl, nil)
-	}
-}
-
-// PurgeDeleted - Permanently deletes the specified configuration store.
-// If the operation fails it returns an *azcore.ResponseError type.
-func (client *ConfigurationStoresClient) purgeDeleted(ctx context.Context, location string, configStoreName string, options *ConfigurationStoresClientBeginPurgeDeletedOptions) (*http.Response, error) {
-	req, err := client.purgeDeletedCreateRequest(ctx, location, configStoreName, options)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := client.pl.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
-		return nil, runtime.NewResponseError(resp)
-	}
-	return resp, nil
-}
-
-// purgeDeletedCreateRequest creates the PurgeDeleted request.
-func (client *ConfigurationStoresClient) purgeDeletedCreateRequest(ctx context.Context, location string, configStoreName string, options *ConfigurationStoresClientBeginPurgeDeletedOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AppConfiguration/locations/{location}/deletedConfigurationStores/{configStoreName}/purge"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
-	if configStoreName == "" {
-		return nil, errors.New("parameter configStoreName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{configStoreName}", url.PathEscape(configStoreName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header.Set("Accept", "application/json")
-	return req, nil
 }
 
 // RegenerateKey - Regenerates an access key for the specified configuration store.
@@ -633,7 +514,7 @@ func (client *ConfigurationStoresClient) RegenerateKey(ctx context.Context, reso
 
 // regenerateKeyCreateRequest creates the RegenerateKey request.
 func (client *ConfigurationStoresClient) regenerateKeyCreateRequest(ctx context.Context, resourceGroupName string, configStoreName string, regenerateKeyParameters RegenerateKeyParameters, options *ConfigurationStoresClientRegenerateKeyOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/regenerateKey"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppConfiguration/configurationStores/{configStoreName}/RegenerateKey"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -651,7 +532,7 @@ func (client *ConfigurationStoresClient) regenerateKeyCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, regenerateKeyParameters)
@@ -722,7 +603,7 @@ func (client *ConfigurationStoresClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01-preview")
+	reqQP.Set("api-version", "2020-05-05.012")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, configStoreUpdateParameters)

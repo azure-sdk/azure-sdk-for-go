@@ -18,11 +18,6 @@ type ConfigurationStoresClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// ConfigurationStoresClientGetDeletedResponse contains the response from method ConfigurationStoresClient.GetDeleted.
-type ConfigurationStoresClientGetDeletedResponse struct {
-	DeletedConfigurationStore
-}
-
 // ConfigurationStoresClientGetResponse contains the response from method ConfigurationStoresClient.Get.
 type ConfigurationStoresClientGetResponse struct {
 	ConfigurationStore
@@ -33,9 +28,9 @@ type ConfigurationStoresClientListByResourceGroupResponse struct {
 	ConfigurationStoreListResult
 }
 
-// ConfigurationStoresClientListDeletedResponse contains the response from method ConfigurationStoresClient.ListDeleted.
-type ConfigurationStoresClientListDeletedResponse struct {
-	DeletedConfigurationStoreListResult
+// ConfigurationStoresClientListKeyValueResponse contains the response from method ConfigurationStoresClient.ListKeyValue.
+type ConfigurationStoresClientListKeyValueResponse struct {
+	KeyValue
 }
 
 // ConfigurationStoresClientListKeysResponse contains the response from method ConfigurationStoresClient.ListKeys.
@@ -48,11 +43,6 @@ type ConfigurationStoresClientListResponse struct {
 	ConfigurationStoreListResult
 }
 
-// ConfigurationStoresClientPurgeDeletedResponse contains the response from method ConfigurationStoresClient.PurgeDeleted.
-type ConfigurationStoresClientPurgeDeletedResponse struct {
-	// placeholder for future response values
-}
-
 // ConfigurationStoresClientRegenerateKeyResponse contains the response from method ConfigurationStoresClient.RegenerateKey.
 type ConfigurationStoresClientRegenerateKeyResponse struct {
 	APIKey
@@ -63,26 +53,6 @@ type ConfigurationStoresClientUpdateResponse struct {
 	ConfigurationStore
 }
 
-// KeyValuesClientCreateOrUpdateResponse contains the response from method KeyValuesClient.CreateOrUpdate.
-type KeyValuesClientCreateOrUpdateResponse struct {
-	KeyValue
-}
-
-// KeyValuesClientDeleteResponse contains the response from method KeyValuesClient.Delete.
-type KeyValuesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// KeyValuesClientGetResponse contains the response from method KeyValuesClient.Get.
-type KeyValuesClientGetResponse struct {
-	KeyValue
-}
-
-// KeyValuesClientListByConfigurationStoreResponse contains the response from method KeyValuesClient.ListByConfigurationStore.
-type KeyValuesClientListByConfigurationStoreResponse struct {
-	KeyValueListResult
-}
-
 // OperationsClientCheckNameAvailabilityResponse contains the response from method OperationsClient.CheckNameAvailability.
 type OperationsClientCheckNameAvailabilityResponse struct {
 	NameAvailabilityStatus
@@ -91,39 +61,4 @@ type OperationsClientCheckNameAvailabilityResponse struct {
 // OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	OperationDefinitionListResult
-}
-
-// OperationsClientRegionalCheckNameAvailabilityResponse contains the response from method OperationsClient.RegionalCheckNameAvailability.
-type OperationsClientRegionalCheckNameAvailabilityResponse struct {
-	NameAvailabilityStatus
-}
-
-// PrivateEndpointConnectionsClientCreateOrUpdateResponse contains the response from method PrivateEndpointConnectionsClient.CreateOrUpdate.
-type PrivateEndpointConnectionsClientCreateOrUpdateResponse struct {
-	PrivateEndpointConnection
-}
-
-// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.Delete.
-type PrivateEndpointConnectionsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// PrivateEndpointConnectionsClientGetResponse contains the response from method PrivateEndpointConnectionsClient.Get.
-type PrivateEndpointConnectionsClientGetResponse struct {
-	PrivateEndpointConnection
-}
-
-// PrivateEndpointConnectionsClientListByConfigurationStoreResponse contains the response from method PrivateEndpointConnectionsClient.ListByConfigurationStore.
-type PrivateEndpointConnectionsClientListByConfigurationStoreResponse struct {
-	PrivateEndpointConnectionListResult
-}
-
-// PrivateLinkResourcesClientGetResponse contains the response from method PrivateLinkResourcesClient.Get.
-type PrivateLinkResourcesClientGetResponse struct {
-	PrivateLinkResource
-}
-
-// PrivateLinkResourcesClientListByConfigurationStoreResponse contains the response from method PrivateLinkResourcesClient.ListByConfigurationStore.
-type PrivateLinkResourcesClientListByConfigurationStoreResponse struct {
-	PrivateLinkResourceListResult
 }
