@@ -173,14 +173,6 @@ type PropertyClientAPI interface {
 
 var _ PropertyClientAPI = (*billing.PropertyClient)(nil)
 
-// OperationsClientAPI contains the set of methods on the OperationsClient type.
-type OperationsClientAPI interface {
-	List(ctx context.Context) (result billing.OperationListResultPage, err error)
-	ListComplete(ctx context.Context) (result billing.OperationListResultIterator, err error)
-}
-
-var _ OperationsClientAPI = (*billing.OperationsClient)(nil)
-
 // RoleDefinitionsClientAPI contains the set of methods on the RoleDefinitionsClient type.
 type RoleDefinitionsClientAPI interface {
 	GetByBillingAccount(ctx context.Context, billingAccountName string, billingRoleDefinitionName string) (result billing.RoleDefinition, err error)
@@ -223,6 +215,16 @@ type AgreementsClientAPI interface {
 
 var _ AgreementsClientAPI = (*billing.AgreementsClient)(nil)
 
+// ReservationsClientAPI contains the set of methods on the ReservationsClient type.
+type ReservationsClientAPI interface {
+	ListByBillingAccount(ctx context.Context, billingAccountName string, filter string, orderby string, refreshSummary string, selectedState string) (result billing.ReservationsListResultPage, err error)
+	ListByBillingAccountComplete(ctx context.Context, billingAccountName string, filter string, orderby string, refreshSummary string, selectedState string) (result billing.ReservationsListResultIterator, err error)
+	ListByBillingProfile(ctx context.Context, billingAccountName string, billingProfileName string, filter string, orderby string, refreshSummary string, selectedState string) (result billing.ReservationsListResultPage, err error)
+	ListByBillingProfileComplete(ctx context.Context, billingAccountName string, billingProfileName string, filter string, orderby string, refreshSummary string, selectedState string) (result billing.ReservationsListResultIterator, err error)
+}
+
+var _ ReservationsClientAPI = (*billing.ReservationsClient)(nil)
+
 // EnrollmentAccountsClientAPI contains the set of methods on the EnrollmentAccountsClient type.
 type EnrollmentAccountsClientAPI interface {
 	Get(ctx context.Context, name string) (result billing.EnrollmentAccountSummary, err error)
@@ -240,3 +242,11 @@ type PeriodsClientAPI interface {
 }
 
 var _ PeriodsClientAPI = (*billing.PeriodsClient)(nil)
+
+// OperationsClientAPI contains the set of methods on the OperationsClient type.
+type OperationsClientAPI interface {
+	List(ctx context.Context) (result billing.OperationListResultPage, err error)
+	ListComplete(ctx context.Context) (result billing.OperationListResultIterator, err error)
+}
+
+var _ OperationsClientAPI = (*billing.OperationsClient)(nil)
