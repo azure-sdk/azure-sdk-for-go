@@ -57,7 +57,7 @@ func NewLoadTestsClient(subscriptionID string, credential azcore.TokenCredential
 // BeginCreateOrUpdate - Create or update LoadTest resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// loadTestName - Load Test name.
+// loadTestName - Load Test resource name.
 // loadTestResource - LoadTest resource data
 // options - LoadTestsClientBeginCreateOrUpdateOptions contains the optional parameters for the LoadTestsClient.BeginCreateOrUpdate
 // method.
@@ -121,7 +121,7 @@ func (client *LoadTestsClient) createOrUpdateCreateRequest(ctx context.Context, 
 // BeginDelete - Delete a LoadTest resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// loadTestName - Load Test name.
+// loadTestName - Load Test resource name.
 // options - LoadTestsClientBeginDeleteOptions contains the optional parameters for the LoadTestsClient.BeginDelete method.
 func (client *LoadTestsClient) BeginDelete(ctx context.Context, resourceGroupName string, loadTestName string, options *LoadTestsClientBeginDeleteOptions) (*armruntime.Poller[LoadTestsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
@@ -183,7 +183,7 @@ func (client *LoadTestsClient) deleteCreateRequest(ctx context.Context, resource
 // Get - Get a LoadTest resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// loadTestName - Load Test name.
+// loadTestName - Load Test resource name.
 // options - LoadTestsClientGetOptions contains the optional parameters for the LoadTestsClient.Get method.
 func (client *LoadTestsClient) Get(ctx context.Context, resourceGroupName string, loadTestName string, options *LoadTestsClientGetOptions) (LoadTestsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, loadTestName, options)
@@ -361,7 +361,7 @@ func (client *LoadTestsClient) listBySubscriptionHandleResponse(resp *http.Respo
 // BeginUpdate - Update a loadtest resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// loadTestName - Load Test name.
+// loadTestName - Load Test resource name.
 // loadTestResourcePatchRequestBody - LoadTest resource update data
 // options - LoadTestsClientBeginUpdateOptions contains the optional parameters for the LoadTestsClient.BeginUpdate method.
 func (client *LoadTestsClient) BeginUpdate(ctx context.Context, resourceGroupName string, loadTestName string, loadTestResourcePatchRequestBody LoadTestResourcePatchRequestBody, options *LoadTestsClientBeginUpdateOptions) (*armruntime.Poller[LoadTestsClientUpdateResponse], error) {
