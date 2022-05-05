@@ -1,5 +1,30 @@
 # Release History
 
+## 0.5.0 (2022-05-05)
+### Features Added
+
+- New const `CreatedByTypeKey`
+- New const `CreatedByTypeManagedIdentity`
+- New const `CreatedByTypeApplication`
+- New const `CreatedByTypeUser`
+- New function `PossibleCreatedByTypeValues() []CreatedByType`
+- New function `SystemData.MarshalJSON() ([]byte, error)`
+- New function `*SystemData.UnmarshalJSON([]byte) error`
+- New struct `AssignmentReportsVMSSClientGetOptions`
+- New struct `AssignmentReportsVMSSClientGetResponse`
+- New struct `AssignmentReportsVMSSClientListOptions`
+- New struct `AssignmentReportsVMSSClientListResponse`
+- New struct `AssignmentsVMSSClientDeleteOptions`
+- New struct `AssignmentsVMSSClientDeleteResponse`
+- New struct `AssignmentsVMSSClientGetOptions`
+- New struct `AssignmentsVMSSClientGetResponse`
+- New struct `AssignmentsVMSSClientListOptions`
+- New struct `AssignmentsVMSSClientListResponse`
+- New struct `SystemData`
+- New field `AssignmentSource` in struct `Navigation`
+- New field `SystemData` in struct `Assignment`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
