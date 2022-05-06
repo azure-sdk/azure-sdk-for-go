@@ -179,6 +179,7 @@ func (d DatabaseBlobAuditingPolicyProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "auditActionsAndGroups", d.AuditActionsAndGroups)
 	populate(objectMap, "isAzureMonitorTargetEnabled", d.IsAzureMonitorTargetEnabled)
+	populate(objectMap, "isManagedIdentityInUse", d.IsManagedIdentityInUse)
 	populate(objectMap, "isStorageSecondaryKeyInUse", d.IsStorageSecondaryKeyInUse)
 	populate(objectMap, "queueDelayMs", d.QueueDelayMs)
 	populate(objectMap, "retentionDays", d.RetentionDays)
@@ -1239,6 +1240,7 @@ func (e ExtendedDatabaseBlobAuditingPolicyProperties) MarshalJSON() ([]byte, err
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "auditActionsAndGroups", e.AuditActionsAndGroups)
 	populate(objectMap, "isAzureMonitorTargetEnabled", e.IsAzureMonitorTargetEnabled)
+	populate(objectMap, "isManagedIdentityInUse", e.IsManagedIdentityInUse)
 	populate(objectMap, "isStorageSecondaryKeyInUse", e.IsStorageSecondaryKeyInUse)
 	populate(objectMap, "predicateExpression", e.PredicateExpression)
 	populate(objectMap, "queueDelayMs", e.QueueDelayMs)
@@ -1264,6 +1266,7 @@ func (e ExtendedServerBlobAuditingPolicyProperties) MarshalJSON() ([]byte, error
 	populate(objectMap, "auditActionsAndGroups", e.AuditActionsAndGroups)
 	populate(objectMap, "isAzureMonitorTargetEnabled", e.IsAzureMonitorTargetEnabled)
 	populate(objectMap, "isDevopsAuditEnabled", e.IsDevopsAuditEnabled)
+	populate(objectMap, "isManagedIdentityInUse", e.IsManagedIdentityInUse)
 	populate(objectMap, "isStorageSecondaryKeyInUse", e.IsStorageSecondaryKeyInUse)
 	populate(objectMap, "predicateExpression", e.PredicateExpression)
 	populate(objectMap, "queueDelayMs", e.QueueDelayMs)
@@ -2485,14 +2488,6 @@ func (m ManagedInstanceVulnerabilityAssessmentListResult) MarshalJSON() ([]byte,
 	return json.Marshal(objectMap)
 }
 
-// MarshalJSON implements the json.Marshaller interface for type ManagedServerDNSAliasListResult.
-func (m ManagedServerDNSAliasListResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "nextLink", m.NextLink)
-	populate(objectMap, "value", m.Value)
-	return json.Marshal(objectMap)
-}
-
 // MarshalJSON implements the json.Marshaller interface for type ManagedServerSecurityAlertPolicyListResult.
 func (m ManagedServerSecurityAlertPolicyListResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -3486,6 +3481,7 @@ func (s ServerBlobAuditingPolicyProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "auditActionsAndGroups", s.AuditActionsAndGroups)
 	populate(objectMap, "isAzureMonitorTargetEnabled", s.IsAzureMonitorTargetEnabled)
 	populate(objectMap, "isDevopsAuditEnabled", s.IsDevopsAuditEnabled)
+	populate(objectMap, "isManagedIdentityInUse", s.IsManagedIdentityInUse)
 	populate(objectMap, "isStorageSecondaryKeyInUse", s.IsStorageSecondaryKeyInUse)
 	populate(objectMap, "queueDelayMs", s.QueueDelayMs)
 	populate(objectMap, "retentionDays", s.RetentionDays)
