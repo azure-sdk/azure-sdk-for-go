@@ -605,10 +605,8 @@ type ChargeSummary struct {
 	Name *string `json:"name,omitempty"`
 	// Type - READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty"`
-	// Etag - READ-ONLY; Resource etag.
-	Etag *string `json:"etag,omitempty"`
-	// Tags - READ-ONLY; Resource tags.
-	Tags map[string]*string `json:"tags"`
+	// ETag - eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not.
+	ETag *string `json:"eTag,omitempty"`
 }
 
 func unmarshalBasicChargeSummary(body []byte) (BasicChargeSummary, error) {
@@ -658,6 +656,9 @@ func (cs ChargeSummary) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	if cs.Kind != "" {
 		objectMap["kind"] = cs.Kind
+	}
+	if cs.ETag != nil {
+		objectMap["eTag"] = cs.ETag
 	}
 	return json.Marshal(objectMap)
 }
@@ -710,10 +711,8 @@ type CreditSummary struct {
 	Name *string `json:"name,omitempty"`
 	// Type - READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty"`
-	// Etag - READ-ONLY; Resource etag.
-	Etag *string `json:"etag,omitempty"`
-	// Tags - READ-ONLY; Resource tags.
-	Tags map[string]*string `json:"tags"`
+	// ETag - eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not.
+	ETag *string `json:"eTag,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for CreditSummary.
@@ -721,6 +720,9 @@ func (cs CreditSummary) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	if cs.CreditSummaryProperties != nil {
 		objectMap["properties"] = cs.CreditSummaryProperties
+	}
+	if cs.ETag != nil {
+		objectMap["eTag"] = cs.ETag
 	}
 	return json.Marshal(objectMap)
 }
@@ -770,23 +772,14 @@ func (cs *CreditSummary) UnmarshalJSON(body []byte) error {
 				}
 				cs.Type = &typeVar
 			}
-		case "etag":
+		case "eTag":
 			if v != nil {
-				var etag string
-				err = json.Unmarshal(*v, &etag)
+				var eTag string
+				err = json.Unmarshal(*v, &eTag)
 				if err != nil {
 					return err
 				}
-				cs.Etag = &etag
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				cs.Tags = tags
+				cs.ETag = &eTag
 			}
 		}
 	}
@@ -1096,10 +1089,8 @@ type EventSummary struct {
 	Name *string `json:"name,omitempty"`
 	// Type - READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty"`
-	// Etag - READ-ONLY; Resource etag.
-	Etag *string `json:"etag,omitempty"`
-	// Tags - READ-ONLY; Resource tags.
-	Tags map[string]*string `json:"tags"`
+	// ETag - eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not.
+	ETag *string `json:"eTag,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for EventSummary.
@@ -1107,6 +1098,9 @@ func (es EventSummary) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	if es.EventProperties != nil {
 		objectMap["properties"] = es.EventProperties
+	}
+	if es.ETag != nil {
+		objectMap["eTag"] = es.ETag
 	}
 	return json.Marshal(objectMap)
 }
@@ -1156,23 +1150,14 @@ func (es *EventSummary) UnmarshalJSON(body []byte) error {
 				}
 				es.Type = &typeVar
 			}
-		case "etag":
+		case "eTag":
 			if v != nil {
-				var etag string
-				err = json.Unmarshal(*v, &etag)
+				var eTag string
+				err = json.Unmarshal(*v, &eTag)
 				if err != nil {
 					return err
 				}
-				es.Etag = &etag
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				es.Tags = tags
+				es.ETag = &eTag
 			}
 		}
 	}
@@ -1388,10 +1373,8 @@ type LegacyChargeSummary struct {
 	Name *string `json:"name,omitempty"`
 	// Type - READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty"`
-	// Etag - READ-ONLY; Resource etag.
-	Etag *string `json:"etag,omitempty"`
-	// Tags - READ-ONLY; Resource tags.
-	Tags map[string]*string `json:"tags"`
+	// ETag - eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not.
+	ETag *string `json:"eTag,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for LegacyChargeSummary.
@@ -1403,6 +1386,9 @@ func (lcs LegacyChargeSummary) MarshalJSON() ([]byte, error) {
 	}
 	if lcs.Kind != "" {
 		objectMap["kind"] = lcs.Kind
+	}
+	if lcs.ETag != nil {
+		objectMap["eTag"] = lcs.ETag
 	}
 	return json.Marshal(objectMap)
 }
@@ -1481,23 +1467,14 @@ func (lcs *LegacyChargeSummary) UnmarshalJSON(body []byte) error {
 				}
 				lcs.Type = &typeVar
 			}
-		case "etag":
+		case "eTag":
 			if v != nil {
-				var etag string
-				err = json.Unmarshal(*v, &etag)
+				var eTag string
+				err = json.Unmarshal(*v, &eTag)
 				if err != nil {
 					return err
 				}
-				lcs.Etag = &etag
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				lcs.Tags = tags
+				lcs.ETag = &eTag
 			}
 		}
 	}
@@ -2281,10 +2258,8 @@ type LotSummary struct {
 	Name *string `json:"name,omitempty"`
 	// Type - READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty"`
-	// Etag - READ-ONLY; Resource etag.
-	Etag *string `json:"etag,omitempty"`
-	// Tags - READ-ONLY; Resource tags.
-	Tags map[string]*string `json:"tags"`
+	// ETag - eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not.
+	ETag *string `json:"eTag,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for LotSummary.
@@ -2292,6 +2267,9 @@ func (ls LotSummary) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	if ls.LotProperties != nil {
 		objectMap["properties"] = ls.LotProperties
+	}
+	if ls.ETag != nil {
+		objectMap["eTag"] = ls.ETag
 	}
 	return json.Marshal(objectMap)
 }
@@ -2341,23 +2319,14 @@ func (ls *LotSummary) UnmarshalJSON(body []byte) error {
 				}
 				ls.Type = &typeVar
 			}
-		case "etag":
+		case "eTag":
 			if v != nil {
-				var etag string
-				err = json.Unmarshal(*v, &etag)
+				var eTag string
+				err = json.Unmarshal(*v, &eTag)
 				if err != nil {
 					return err
 				}
-				ls.Etag = &etag
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				ls.Tags = tags
+				ls.ETag = &eTag
 			}
 		}
 	}
@@ -2879,10 +2848,8 @@ type ModernChargeSummary struct {
 	Name *string `json:"name,omitempty"`
 	// Type - READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty"`
-	// Etag - READ-ONLY; Resource etag.
-	Etag *string `json:"etag,omitempty"`
-	// Tags - READ-ONLY; Resource tags.
-	Tags map[string]*string `json:"tags"`
+	// ETag - eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not.
+	ETag *string `json:"eTag,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for ModernChargeSummary.
@@ -2894,6 +2861,9 @@ func (mcs ModernChargeSummary) MarshalJSON() ([]byte, error) {
 	}
 	if mcs.Kind != "" {
 		objectMap["kind"] = mcs.Kind
+	}
+	if mcs.ETag != nil {
+		objectMap["eTag"] = mcs.ETag
 	}
 	return json.Marshal(objectMap)
 }
@@ -2972,23 +2942,14 @@ func (mcs *ModernChargeSummary) UnmarshalJSON(body []byte) error {
 				}
 				mcs.Type = &typeVar
 			}
-		case "etag":
+		case "eTag":
 			if v != nil {
-				var etag string
-				err = json.Unmarshal(*v, &etag)
+				var eTag string
+				err = json.Unmarshal(*v, &eTag)
 				if err != nil {
 					return err
 				}
-				mcs.Etag = &etag
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				mcs.Tags = tags
+				mcs.ETag = &eTag
 			}
 		}
 	}
@@ -3032,8 +2993,6 @@ func (mcsp ModernChargeSummaryProperties) MarshalJSON() ([]byte, error) {
 type ModernReservationRecommendation struct {
 	// ModernReservationRecommendationProperties - Properties for modern reservation recommendation
 	*ModernReservationRecommendationProperties `json:"properties,omitempty"`
-	// ETag - READ-ONLY; Resource eTag.
-	ETag *string `json:"eTag,omitempty"`
 	// ID - READ-ONLY; Resource Id.
 	ID *string `json:"id,omitempty"`
 	// Name - READ-ONLY; Resource name.
@@ -3102,15 +3061,6 @@ func (mrr *ModernReservationRecommendation) UnmarshalJSON(body []byte) error {
 					return err
 				}
 				mrr.ModernReservationRecommendationProperties = &modernReservationRecommendationProperties
-			}
-		case "eTag":
-			if v != nil {
-				var eTag string
-				err = json.Unmarshal(*v, &eTag)
-				if err != nil {
-					return err
-				}
-				mrr.ETag = &eTag
 			}
 		case "id":
 			if v != nil {
@@ -4622,9 +4572,7 @@ type ReservationRecommendationDetailsModel struct {
 	// Location - Resource Location.
 	Location *string `json:"location,omitempty"`
 	// Sku - Resource sku
-	Sku *string `json:"sku,omitempty"`
-	// ETag - Resource eTag.
-	ETag                                        *string `json:"eTag,omitempty"`
+	Sku                                         *string `json:"sku,omitempty"`
 	*ReservationRecommendationDetailsProperties `json:"properties,omitempty"`
 	// ID - READ-ONLY; Resource Id.
 	ID *string `json:"id,omitempty"`
@@ -4646,9 +4594,6 @@ func (rrdm ReservationRecommendationDetailsModel) MarshalJSON() ([]byte, error) 
 	}
 	if rrdm.Sku != nil {
 		objectMap["sku"] = rrdm.Sku
-	}
-	if rrdm.ETag != nil {
-		objectMap["eTag"] = rrdm.ETag
 	}
 	if rrdm.ReservationRecommendationDetailsProperties != nil {
 		objectMap["properties"] = rrdm.ReservationRecommendationDetailsProperties
@@ -4682,15 +4627,6 @@ func (rrdm *ReservationRecommendationDetailsModel) UnmarshalJSON(body []byte) er
 					return err
 				}
 				rrdm.Sku = &sku
-			}
-		case "eTag":
-			if v != nil {
-				var eTag string
-				err = json.Unmarshal(*v, &eTag)
-				if err != nil {
-					return err
-				}
-				rrdm.ETag = &eTag
 			}
 		case "properties":
 			if v != nil {

@@ -101,7 +101,7 @@ func (client CreditsClient) GetSender(req *http.Request) (*http.Response, error)
 func (client CreditsClient) GetResponder(resp *http.Response) (result CreditSummary, err error) {
 	err = autorest.Respond(
 		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusNoContent),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
