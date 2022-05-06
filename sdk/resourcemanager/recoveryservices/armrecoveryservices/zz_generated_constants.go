@@ -73,6 +73,22 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// CrossRegionRestore - Showing whether cross region restore is enabled or not
+type CrossRegionRestore string
+
+const (
+	CrossRegionRestoreDisabled CrossRegionRestore = "Disabled"
+	CrossRegionRestoreEnabled  CrossRegionRestore = "Enabled"
+)
+
+// PossibleCrossRegionRestoreValues returns the possible values for the CrossRegionRestore const type.
+func PossibleCrossRegionRestoreValues() []CrossRegionRestore {
+	return []CrossRegionRestore{
+		CrossRegionRestoreDisabled,
+		CrossRegionRestoreEnabled,
+	}
+}
+
 // InfrastructureEncryptionState - Enabling/Disabling the Double Encryption state
 type InfrastructureEncryptionState string
 
@@ -196,6 +212,24 @@ func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
 		SKUNameRS0,
 		SKUNameStandard,
+	}
+}
+
+// StandardTierStorageRedundancy - The storage redundancy setting for the Vault
+type StandardTierStorageRedundancy string
+
+const (
+	StandardTierStorageRedundancyGeoRedundant     StandardTierStorageRedundancy = "GeoRedundant"
+	StandardTierStorageRedundancyLocallyRedundant StandardTierStorageRedundancy = "LocallyRedundant"
+	StandardTierStorageRedundancyZoneRedundant    StandardTierStorageRedundancy = "ZoneRedundant"
+)
+
+// PossibleStandardTierStorageRedundancyValues returns the possible values for the StandardTierStorageRedundancy const type.
+func PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundancy {
+	return []StandardTierStorageRedundancy{
+		StandardTierStorageRedundancyGeoRedundant,
+		StandardTierStorageRedundancyLocallyRedundant,
+		StandardTierStorageRedundancyZoneRedundant,
 	}
 }
 

@@ -1,5 +1,19 @@
 # Release History
 
+## 0.5.0 (2022-05-06)
+### Features Added
+
+- New const `StandardTierStorageRedundancyGeoRedundant`
+- New const `StandardTierStorageRedundancyZoneRedundant`
+- New const `CrossRegionRestoreDisabled`
+- New const `StandardTierStorageRedundancyLocallyRedundant`
+- New const `CrossRegionRestoreEnabled`
+- New function `PossibleCrossRegionRestoreValues() []CrossRegionRestore`
+- New function `PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundancy`
+- New struct `VaultPropertiesRedundancySettings`
+- New field `RedundancySettings` in struct `VaultProperties`
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 

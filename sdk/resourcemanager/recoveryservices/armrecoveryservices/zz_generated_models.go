@@ -805,6 +805,9 @@ type VaultProperties struct {
 	// The details of the latest move operation performed on the Azure Resource
 	MoveDetails *VaultPropertiesMoveDetails `json:"moveDetails,omitempty"`
 
+	// The redundancy settings of the resource.
+	RedundancySettings *VaultPropertiesRedundancySettings `json:"redundancySettings,omitempty"`
+
 	// Details for upgrading vault.
 	UpgradeDetails *UpgradeDetails `json:"upgradeDetails,omitempty"`
 
@@ -855,6 +858,15 @@ type VaultPropertiesMoveDetails struct {
 
 	// READ-ONLY; Target Resource of the Resource Move Operation
 	TargetResourceID *string `json:"targetResourceId,omitempty" azure:"ro"`
+}
+
+// VaultPropertiesRedundancySettings - The redundancy settings of the resource.
+type VaultPropertiesRedundancySettings struct {
+	// READ-ONLY; Showing whether cross region restore is enabled or not
+	CrossRegionRestore *CrossRegionRestore `json:"crossRegionRestore,omitempty" azure:"ro"`
+
+	// READ-ONLY; The storage redundancy setting for the Vault
+	StandardTierStorageRedundancy *StandardTierStorageRedundancy `json:"standardTierStorageRedundancy,omitempty" azure:"ro"`
 }
 
 // VaultUsage - Usages of a vault.

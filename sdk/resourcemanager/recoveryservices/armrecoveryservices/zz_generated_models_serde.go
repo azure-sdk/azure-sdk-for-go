@@ -631,6 +631,7 @@ func (v VaultProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "privateEndpointStateForBackup", v.PrivateEndpointStateForBackup)
 	populate(objectMap, "privateEndpointStateForSiteRecovery", v.PrivateEndpointStateForSiteRecovery)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
+	populate(objectMap, "redundancySettings", v.RedundancySettings)
 	populate(objectMap, "upgradeDetails", v.UpgradeDetails)
 	return json.Marshal(objectMap)
 }
