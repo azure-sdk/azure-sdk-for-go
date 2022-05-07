@@ -239,7 +239,9 @@ func (m ManagedClusterAPIServerAccessProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "disableRunCommand", m.DisableRunCommand)
 	populate(objectMap, "enablePrivateCluster", m.EnablePrivateCluster)
 	populate(objectMap, "enablePrivateClusterPublicFQDN", m.EnablePrivateClusterPublicFQDN)
+	populate(objectMap, "enableVnetIntegration", m.EnableVnetIntegration)
 	populate(objectMap, "privateDNSZone", m.PrivateDNSZone)
+	populate(objectMap, "subnetId", m.SubnetID)
 	return json.Marshal(objectMap)
 }
 
@@ -269,19 +271,24 @@ func (m ManagedClusterAddonProfile) MarshalJSON() ([]byte, error) {
 func (m ManagedClusterAgentPoolProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "availabilityZones", m.AvailabilityZones)
+	populate(objectMap, "capacityReservationGroupID", m.CapacityReservationGroupID)
 	populate(objectMap, "count", m.Count)
 	populate(objectMap, "creationData", m.CreationData)
+	populate(objectMap, "currentOrchestratorVersion", m.CurrentOrchestratorVersion)
 	populate(objectMap, "enableAutoScaling", m.EnableAutoScaling)
+	populate(objectMap, "enableCustomCATrust", m.EnableCustomCATrust)
 	populate(objectMap, "enableEncryptionAtHost", m.EnableEncryptionAtHost)
 	populate(objectMap, "enableFIPS", m.EnableFIPS)
 	populate(objectMap, "enableNodePublicIP", m.EnableNodePublicIP)
 	populate(objectMap, "enableUltraSSD", m.EnableUltraSSD)
 	populate(objectMap, "gpuInstanceProfile", m.GpuInstanceProfile)
+	populate(objectMap, "hostGroupID", m.HostGroupID)
 	populate(objectMap, "kubeletConfig", m.KubeletConfig)
 	populate(objectMap, "kubeletDiskType", m.KubeletDiskType)
 	populate(objectMap, "linuxOSConfig", m.LinuxOSConfig)
 	populate(objectMap, "maxCount", m.MaxCount)
 	populate(objectMap, "maxPods", m.MaxPods)
+	populate(objectMap, "messageOfTheDay", m.MessageOfTheDay)
 	populate(objectMap, "minCount", m.MinCount)
 	populate(objectMap, "mode", m.Mode)
 	populate(objectMap, "name", m.Name)
@@ -315,19 +322,24 @@ func (m ManagedClusterAgentPoolProfile) MarshalJSON() ([]byte, error) {
 func (m ManagedClusterAgentPoolProfileProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "availabilityZones", m.AvailabilityZones)
+	populate(objectMap, "capacityReservationGroupID", m.CapacityReservationGroupID)
 	populate(objectMap, "count", m.Count)
 	populate(objectMap, "creationData", m.CreationData)
+	populate(objectMap, "currentOrchestratorVersion", m.CurrentOrchestratorVersion)
 	populate(objectMap, "enableAutoScaling", m.EnableAutoScaling)
+	populate(objectMap, "enableCustomCATrust", m.EnableCustomCATrust)
 	populate(objectMap, "enableEncryptionAtHost", m.EnableEncryptionAtHost)
 	populate(objectMap, "enableFIPS", m.EnableFIPS)
 	populate(objectMap, "enableNodePublicIP", m.EnableNodePublicIP)
 	populate(objectMap, "enableUltraSSD", m.EnableUltraSSD)
 	populate(objectMap, "gpuInstanceProfile", m.GpuInstanceProfile)
+	populate(objectMap, "hostGroupID", m.HostGroupID)
 	populate(objectMap, "kubeletConfig", m.KubeletConfig)
 	populate(objectMap, "kubeletDiskType", m.KubeletDiskType)
 	populate(objectMap, "linuxOSConfig", m.LinuxOSConfig)
 	populate(objectMap, "maxCount", m.MaxCount)
 	populate(objectMap, "maxPods", m.MaxPods)
+	populate(objectMap, "messageOfTheDay", m.MessageOfTheDay)
 	populate(objectMap, "minCount", m.MinCount)
 	populate(objectMap, "mode", m.Mode)
 	populate(objectMap, "nodeImageVersion", m.NodeImageVersion)
@@ -359,6 +371,7 @@ func (m ManagedClusterAgentPoolProfileProperties) MarshalJSON() ([]byte, error) 
 // MarshalJSON implements the json.Marshaller interface for type ManagedClusterHTTPProxyConfig.
 func (m ManagedClusterHTTPProxyConfig) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "effectiveNoProxy", m.EffectiveNoProxy)
 	populate(objectMap, "httpProxy", m.HTTPProxy)
 	populate(objectMap, "httpsProxy", m.HTTPSProxy)
 	populate(objectMap, "noProxy", m.NoProxy)
@@ -469,20 +482,25 @@ func (m ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "autoScalerProfile", m.AutoScalerProfile)
 	populate(objectMap, "autoUpgradeProfile", m.AutoUpgradeProfile)
 	populate(objectMap, "azurePortalFQDN", m.AzurePortalFQDN)
+	populate(objectMap, "creationData", m.CreationData)
+	populate(objectMap, "currentKubernetesVersion", m.CurrentKubernetesVersion)
 	populate(objectMap, "dnsPrefix", m.DNSPrefix)
 	populate(objectMap, "disableLocalAccounts", m.DisableLocalAccounts)
 	populate(objectMap, "diskEncryptionSetID", m.DiskEncryptionSetID)
+	populate(objectMap, "enableNamespaceResources", m.EnableNamespaceResources)
 	populate(objectMap, "enablePodSecurityPolicy", m.EnablePodSecurityPolicy)
 	populate(objectMap, "enableRBAC", m.EnableRBAC)
 	populate(objectMap, "fqdn", m.Fqdn)
 	populate(objectMap, "fqdnSubdomain", m.FqdnSubdomain)
 	populate(objectMap, "httpProxyConfig", m.HTTPProxyConfig)
 	populate(objectMap, "identityProfile", m.IdentityProfile)
+	populate(objectMap, "ingressProfile", m.IngressProfile)
 	populate(objectMap, "kubernetesVersion", m.KubernetesVersion)
 	populate(objectMap, "linuxProfile", m.LinuxProfile)
 	populate(objectMap, "maxAgentPools", m.MaxAgentPools)
 	populate(objectMap, "networkProfile", m.NetworkProfile)
 	populate(objectMap, "nodeResourceGroup", m.NodeResourceGroup)
+	populate(objectMap, "oidcIssuerProfile", m.OidcIssuerProfile)
 	populate(objectMap, "podIdentityProfile", m.PodIdentityProfile)
 	populate(objectMap, "powerState", m.PowerState)
 	populate(objectMap, "privateFQDN", m.PrivateFQDN)
@@ -491,7 +509,29 @@ func (m ManagedClusterProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publicNetworkAccess", m.PublicNetworkAccess)
 	populate(objectMap, "securityProfile", m.SecurityProfile)
 	populate(objectMap, "servicePrincipalProfile", m.ServicePrincipalProfile)
+	populate(objectMap, "storageProfile", m.StorageProfile)
 	populate(objectMap, "windowsProfile", m.WindowsProfile)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ManagedClusterSnapshot.
+func (m ManagedClusterSnapshot) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", m.ID)
+	populate(objectMap, "location", m.Location)
+	populate(objectMap, "name", m.Name)
+	populate(objectMap, "properties", m.Properties)
+	populate(objectMap, "systemData", m.SystemData)
+	populate(objectMap, "tags", m.Tags)
+	populate(objectMap, "type", m.Type)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ManagedClusterSnapshotListResult.
+func (m ManagedClusterSnapshotListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", m.NextLink)
+	populate(objectMap, "value", m.Value)
 	return json.Marshal(objectMap)
 }
 
@@ -514,6 +554,7 @@ func (n NetworkProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "natGatewayProfile", n.NatGatewayProfile)
 	populate(objectMap, "networkMode", n.NetworkMode)
 	populate(objectMap, "networkPlugin", n.NetworkPlugin)
+	populate(objectMap, "networkPluginMode", n.NetworkPluginMode)
 	populate(objectMap, "networkPolicy", n.NetworkPolicy)
 	populate(objectMap, "outboundType", n.OutboundType)
 	populate(objectMap, "podCidr", n.PodCidr)
@@ -709,6 +750,51 @@ func (t TrackedResource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "systemData", t.SystemData)
 	populate(objectMap, "tags", t.Tags)
 	populate(objectMap, "type", t.Type)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type TrustedAccessRole.
+func (t TrustedAccessRole) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "name", t.Name)
+	populate(objectMap, "rules", t.Rules)
+	populate(objectMap, "sourceResourceType", t.SourceResourceType)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type TrustedAccessRoleBindingListResult.
+func (t TrustedAccessRoleBindingListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", t.NextLink)
+	populate(objectMap, "value", t.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type TrustedAccessRoleBindingProperties.
+func (t TrustedAccessRoleBindingProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "provisioningState", t.ProvisioningState)
+	populate(objectMap, "roles", t.Roles)
+	populate(objectMap, "sourceResourceId", t.SourceResourceID)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type TrustedAccessRoleListResult.
+func (t TrustedAccessRoleListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", t.NextLink)
+	populate(objectMap, "value", t.Value)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type TrustedAccessRoleRule.
+func (t TrustedAccessRoleRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "apiGroups", t.APIGroups)
+	populate(objectMap, "nonResourceURLs", t.NonResourceURLs)
+	populate(objectMap, "resourceNames", t.ResourceNames)
+	populate(objectMap, "resources", t.Resources)
+	populate(objectMap, "verbs", t.Verbs)
 	return json.Marshal(objectMap)
 }
 
