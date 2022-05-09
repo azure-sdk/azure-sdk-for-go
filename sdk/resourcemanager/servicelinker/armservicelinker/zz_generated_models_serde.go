@@ -28,7 +28,7 @@ func (a *AzureKeyVaultProperties) GetAzureResourcePropertiesBase() *AzureResourc
 func (a AzureKeyVaultProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "connectAsKubernetesCsiDriver", a.ConnectAsKubernetesCsiDriver)
-	objectMap["type"] = TypeKeyVault
+	objectMap["type"] = AzureResourceTypeKeyVault
 	return json.Marshal(objectMap)
 }
 
@@ -67,7 +67,7 @@ func (a AzureResource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "id", a.ID)
 	populate(objectMap, "resourceProperties", a.ResourceProperties)
-	objectMap["type"] = TypeAzureResource
+	objectMap["type"] = TargetServiceTypeAzureResource
 	return json.Marshal(objectMap)
 }
 
@@ -113,7 +113,7 @@ func (c *ConfluentBootstrapServer) GetTargetServiceBase() *TargetServiceBase {
 func (c ConfluentBootstrapServer) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "endpoint", c.Endpoint)
-	objectMap["type"] = TypeConfluentBootstrapServer
+	objectMap["type"] = TargetServiceTypeConfluentBootstrapServer
 	return json.Marshal(objectMap)
 }
 
@@ -151,7 +151,7 @@ func (c *ConfluentSchemaRegistry) GetTargetServiceBase() *TargetServiceBase {
 func (c ConfluentSchemaRegistry) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "endpoint", c.Endpoint)
-	objectMap["type"] = TypeConfluentSchemaRegistry
+	objectMap["type"] = TargetServiceTypeConfluentSchemaRegistry
 	return json.Marshal(objectMap)
 }
 

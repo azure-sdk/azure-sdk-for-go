@@ -29,7 +29,7 @@ type AuthInfoBase struct {
 // AzureKeyVaultProperties - The resource properties when type is Azure Key Vault
 type AzureKeyVaultProperties struct {
 	// REQUIRED; The azure resource type.
-	Type *Type `json:"type,omitempty"`
+	Type *AzureResourceType `json:"type,omitempty"`
 
 	// True if connect via Kubernetes CSI Driver.
 	ConnectAsKubernetesCsiDriver *bool `json:"connectAsKubernetesCsiDriver,omitempty"`
@@ -38,7 +38,7 @@ type AzureKeyVaultProperties struct {
 // AzureResource - The azure resource info when target service type is AzureResource
 type AzureResource struct {
 	// REQUIRED; The target service type.
-	Type *Type `json:"type,omitempty"`
+	Type *TargetServiceType `json:"type,omitempty"`
 
 	// The Id of azure resource.
 	ID *string `json:"id,omitempty"`
@@ -59,13 +59,13 @@ type AzureResourcePropertiesBaseClassification interface {
 // AzureResourcePropertiesBase - The azure resource properties
 type AzureResourcePropertiesBase struct {
 	// REQUIRED; The azure resource type.
-	Type *Type `json:"type,omitempty"`
+	Type *AzureResourceType `json:"type,omitempty"`
 }
 
 // ConfluentBootstrapServer - The service properties when target service type is ConfluentBootstrapServer
 type ConfluentBootstrapServer struct {
 	// REQUIRED; The target service type.
-	Type *Type `json:"type,omitempty"`
+	Type *TargetServiceType `json:"type,omitempty"`
 
 	// The endpoint of service.
 	Endpoint *string `json:"endpoint,omitempty"`
@@ -74,7 +74,7 @@ type ConfluentBootstrapServer struct {
 // ConfluentSchemaRegistry - The service properties when target service type is ConfluentSchemaRegistry
 type ConfluentSchemaRegistry struct {
 	// REQUIRED; The target service type.
-	Type *Type `json:"type,omitempty"`
+	Type *TargetServiceType `json:"type,omitempty"`
 
 	// The endpoint of service.
 	Endpoint *string `json:"endpoint,omitempty"`
@@ -430,7 +430,7 @@ type TargetServiceBaseClassification interface {
 // TargetServiceBase - The target service properties
 type TargetServiceBase struct {
 	// REQUIRED; The target service type.
-	Type *Type `json:"type,omitempty"`
+	Type *TargetServiceType `json:"type,omitempty"`
 }
 
 // UserAssignedIdentityAuthInfo - The authentication info when authType is userAssignedIdentity
@@ -449,6 +449,18 @@ type UserAssignedIdentityAuthInfo struct {
 type VNetSolution struct {
 	// Type of VNet solution.
 	Type *VNetSolutionType `json:"type,omitempty"`
+}
+
+// ValidateOperationResult - The validation operation result for a linker.
+type ValidateOperationResult struct {
+	// The validation result detail.
+	Properties *ValidateResult `json:"properties,omitempty"`
+
+	// Validated linker id.
+	ResourceID *string `json:"resourceId,omitempty"`
+
+	// Validation operation status.
+	Status *string `json:"status,omitempty"`
 }
 
 // ValidateResult - The validation result for a linker.
