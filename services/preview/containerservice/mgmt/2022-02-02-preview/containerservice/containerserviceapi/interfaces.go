@@ -8,7 +8,7 @@ package containerserviceapi
 
 import (
 	"context"
-	"github.com/Azure/azure-sdk-for-go/services/containerservice/mgmt/2022-03-01/containerservice"
+	"github.com/Azure/azure-sdk-for-go/services/preview/containerservice/mgmt/2022-02-02-preview/containerservice"
 	"github.com/Azure/go-autorest/autorest"
 )
 
@@ -110,3 +110,17 @@ type SnapshotsClientAPI interface {
 }
 
 var _ SnapshotsClientAPI = (*containerservice.SnapshotsClient)(nil)
+
+// ManagedClusterSnapshotsClientAPI contains the set of methods on the ManagedClusterSnapshotsClient type.
+type ManagedClusterSnapshotsClientAPI interface {
+	CreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, parameters containerservice.ManagedClusterSnapshot) (result containerservice.ManagedClusterSnapshot, err error)
+	Delete(ctx context.Context, resourceGroupName string, resourceName string) (result autorest.Response, err error)
+	Get(ctx context.Context, resourceGroupName string, resourceName string) (result containerservice.ManagedClusterSnapshot, err error)
+	List(ctx context.Context) (result containerservice.ManagedClusterSnapshotListResultPage, err error)
+	ListComplete(ctx context.Context) (result containerservice.ManagedClusterSnapshotListResultIterator, err error)
+	ListByResourceGroup(ctx context.Context, resourceGroupName string) (result containerservice.ManagedClusterSnapshotListResultPage, err error)
+	ListByResourceGroupComplete(ctx context.Context, resourceGroupName string) (result containerservice.ManagedClusterSnapshotListResultIterator, err error)
+	UpdateTags(ctx context.Context, resourceGroupName string, resourceName string, parameters containerservice.TagsObject) (result containerservice.ManagedClusterSnapshot, err error)
+}
+
+var _ ManagedClusterSnapshotsClientAPI = (*containerservice.ManagedClusterSnapshotsClient)(nil)

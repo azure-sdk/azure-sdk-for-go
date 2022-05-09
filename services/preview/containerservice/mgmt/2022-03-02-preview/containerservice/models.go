@@ -1383,7 +1383,7 @@ type ManagedClusterAgentPoolProfile struct {
 	Mode AgentPoolMode `json:"mode,omitempty"`
 	// OrchestratorVersion - Both patch version <major.minor.patch> and <major.minor> are supported. When <major.minor> is specified, the latest supported patch version is chosen automatically. Updating the agent pool with the same <major.minor> once it has been created will not trigger an upgrade, even if a newer patch version is available. As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes version. The node pool version must have the same major version as the control plane. The node pool minor version must be within two minor versions of the control plane version. The node pool version cannot be greater than the control plane version. For more information see [upgrading a node pool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool).
 	OrchestratorVersion *string `json:"orchestratorVersion,omitempty"`
-	// CurrentOrchestratorVersion - If orchestratorVersion was a fully specified version <major.minor.patch>, this field will be exactly equal to it. If orchestratorVersion was <major.minor>, this field will contain the full <major.minor.patch> version being used.
+	// CurrentOrchestratorVersion - READ-ONLY; If orchestratorVersion was a fully specified version <major.minor.patch>, this field will be exactly equal to it. If orchestratorVersion was <major.minor>, this field will contain the full <major.minor.patch> version being used.
 	CurrentOrchestratorVersion *string `json:"currentOrchestratorVersion,omitempty"`
 	// NodeImageVersion - READ-ONLY; The version of node image
 	NodeImageVersion *string `json:"nodeImageVersion,omitempty"`
@@ -1496,9 +1496,6 @@ func (mcapp ManagedClusterAgentPoolProfile) MarshalJSON() ([]byte, error) {
 	if mcapp.OrchestratorVersion != nil {
 		objectMap["orchestratorVersion"] = mcapp.OrchestratorVersion
 	}
-	if mcapp.CurrentOrchestratorVersion != nil {
-		objectMap["currentOrchestratorVersion"] = mcapp.CurrentOrchestratorVersion
-	}
 	if mcapp.UpgradeSettings != nil {
 		objectMap["upgradeSettings"] = mcapp.UpgradeSettings
 	}
@@ -1604,7 +1601,7 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	Mode AgentPoolMode `json:"mode,omitempty"`
 	// OrchestratorVersion - Both patch version <major.minor.patch> and <major.minor> are supported. When <major.minor> is specified, the latest supported patch version is chosen automatically. Updating the agent pool with the same <major.minor> once it has been created will not trigger an upgrade, even if a newer patch version is available. As a best practice, you should upgrade all node pools in an AKS cluster to the same Kubernetes version. The node pool version must have the same major version as the control plane. The node pool minor version must be within two minor versions of the control plane version. The node pool version cannot be greater than the control plane version. For more information see [upgrading a node pool](https://docs.microsoft.com/azure/aks/use-multiple-node-pools#upgrade-a-node-pool).
 	OrchestratorVersion *string `json:"orchestratorVersion,omitempty"`
-	// CurrentOrchestratorVersion - If orchestratorVersion was a fully specified version <major.minor.patch>, this field will be exactly equal to it. If orchestratorVersion was <major.minor>, this field will contain the full <major.minor.patch> version being used.
+	// CurrentOrchestratorVersion - READ-ONLY; If orchestratorVersion was a fully specified version <major.minor.patch>, this field will be exactly equal to it. If orchestratorVersion was <major.minor>, this field will contain the full <major.minor.patch> version being used.
 	CurrentOrchestratorVersion *string `json:"currentOrchestratorVersion,omitempty"`
 	// NodeImageVersion - READ-ONLY; The version of node image
 	NodeImageVersion *string `json:"nodeImageVersion,omitempty"`
@@ -1713,9 +1710,6 @@ func (mcappp ManagedClusterAgentPoolProfileProperties) MarshalJSON() ([]byte, er
 	}
 	if mcappp.OrchestratorVersion != nil {
 		objectMap["orchestratorVersion"] = mcappp.OrchestratorVersion
-	}
-	if mcappp.CurrentOrchestratorVersion != nil {
-		objectMap["currentOrchestratorVersion"] = mcappp.CurrentOrchestratorVersion
 	}
 	if mcappp.UpgradeSettings != nil {
 		objectMap["upgradeSettings"] = mcappp.UpgradeSettings
