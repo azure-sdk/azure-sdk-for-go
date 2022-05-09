@@ -1,5 +1,5 @@
 {
-  "commit": "92ab22b49bd085116af0c61fada2c6c360702e9e",
+  "commit": "7b7167a8e925a22277fcac98b4819350a2b4aff9",
   "readme": "/_/azure-rest-api-specs/specification/kubernetesconfiguration/resource-manager/readme.md",
   "tag": "package-2021-03",
   "use": "@microsoft.azure/autorest.go@2.1.187",
