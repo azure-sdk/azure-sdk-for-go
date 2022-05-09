@@ -625,6 +625,7 @@ func (v VaultProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "backupStorageVersion", v.BackupStorageVersion)
 	populate(objectMap, "encryption", v.Encryption)
+	populate(objectMap, "monitoringSettings", v.MonitoringSettings)
 	populate(objectMap, "moveDetails", v.MoveDetails)
 	populate(objectMap, "moveState", v.MoveState)
 	populate(objectMap, "privateEndpointConnections", v.PrivateEndpointConnections)

@@ -1,5 +1,17 @@
 # Release History
 
+## 0.5.0 (2022-05-09)
+### Features Added
+
+- New const `AlertsStateEnabled`
+- New const `AlertsStateDisabled`
+- New function `PossibleAlertsStateValues() []AlertsState`
+- New struct `AzureMonitorAlertSettings`
+- New struct `ClassicAlertSettings`
+- New struct `MonitoringSettings`
+- New field `MonitoringSettings` in struct `VaultProperties`
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 

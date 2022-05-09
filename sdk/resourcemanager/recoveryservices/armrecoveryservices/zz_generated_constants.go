@@ -13,6 +13,21 @@ const (
 	moduleVersion = "v0.5.0"
 )
 
+type AlertsState string
+
+const (
+	AlertsStateDisabled AlertsState = "Disabled"
+	AlertsStateEnabled  AlertsState = "Enabled"
+)
+
+// PossibleAlertsStateValues returns the possible values for the AlertsState const type.
+func PossibleAlertsStateValues() []AlertsState {
+	return []AlertsState{
+		AlertsStateDisabled,
+		AlertsStateEnabled,
+	}
+}
+
 // AuthType - Specifies the authentication type.
 type AuthType string
 

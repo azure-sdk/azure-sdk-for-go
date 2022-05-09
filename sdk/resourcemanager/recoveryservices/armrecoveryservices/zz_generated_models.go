@@ -10,6 +10,11 @@ package armrecoveryservices
 
 import "time"
 
+// AzureMonitorAlertSettings - Settings for Azure Monitor based alerts
+type AzureMonitorAlertSettings struct {
+	AlertsForAllJobFailures *AlertsState `json:"alertsForAllJobFailures,omitempty"`
+}
+
 // CertificateRequest - Details of the certificate to be uploaded to the vault.
 type CertificateRequest struct {
 	// Raw certificate data.
@@ -31,6 +36,11 @@ type CheckNameAvailabilityResult struct {
 	Message       *string `json:"message,omitempty"`
 	NameAvailable *bool   `json:"nameAvailable,omitempty"`
 	Reason        *string `json:"reason,omitempty"`
+}
+
+// ClassicAlertSettings - Settings for classic alerts
+type ClassicAlertSettings struct {
+	AlertsForCriticalOperations *AlertsState `json:"alertsForCriticalOperations,omitempty"`
 }
 
 // ClientCheckNameAvailabilityOptions contains the optional parameters for the Client.CheckNameAvailability method.
@@ -178,6 +188,15 @@ type JobsSummary struct {
 
 	// Count of suspended jobs.
 	SuspendedJobs *int32 `json:"suspendedJobs,omitempty"`
+}
+
+// MonitoringSettings - Monitoring Settings of the vault
+type MonitoringSettings struct {
+	// Settings for Azure Monitor based alerts
+	AzureMonitorAlertSettings *AzureMonitorAlertSettings `json:"azureMonitorAlertSettings,omitempty"`
+
+	// Settings for classic alerts
+	ClassicAlertSettings *ClassicAlertSettings `json:"classicAlertSettings,omitempty"`
 }
 
 // MonitoringSummary - Summary of the replication monitoring data for this vault.
@@ -801,6 +820,9 @@ type VaultList struct {
 type VaultProperties struct {
 	// Customer Managed Key details of the resource.
 	Encryption *VaultPropertiesEncryption `json:"encryption,omitempty"`
+
+	// Monitoring Settings of the vault
+	MonitoringSettings *MonitoringSettings `json:"monitoringSettings,omitempty"`
 
 	// The details of the latest move operation performed on the Azure Resource
 	MoveDetails *VaultPropertiesMoveDetails `json:"moveDetails,omitempty"`
