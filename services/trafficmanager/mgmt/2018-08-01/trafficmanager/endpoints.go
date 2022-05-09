@@ -38,7 +38,7 @@ func NewEndpointsClientWithBaseURI(baseURI string, subscriptionID string) Endpoi
 // endpointType - the type of the Traffic Manager endpoint to be created or updated.
 // endpointName - the name of the Traffic Manager endpoint to be created or updated.
 // parameters - the Traffic Manager endpoint parameters supplied to the CreateOrUpdate operation.
-func (client EndpointsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string, parameters Endpoint) (result Endpoint, err error) {
+func (client EndpointsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, profileName string, endpointType EndpointType, endpointName string, parameters Endpoint) (result Endpoint, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/EndpointsClient.CreateOrUpdate")
 		defer func() {
@@ -72,7 +72,7 @@ func (client EndpointsClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 }
 
 // CreateOrUpdatePreparer prepares the CreateOrUpdate request.
-func (client EndpointsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string, parameters Endpoint) (*http.Request, error) {
+func (client EndpointsClient) CreateOrUpdatePreparer(ctx context.Context, resourceGroupName string, profileName string, endpointType EndpointType, endpointName string, parameters Endpoint) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"endpointType":      autorest.Encode("path", endpointType),
@@ -120,7 +120,7 @@ func (client EndpointsClient) CreateOrUpdateResponder(resp *http.Response) (resu
 // profileName - the name of the Traffic Manager profile.
 // endpointType - the type of the Traffic Manager endpoint to be deleted.
 // endpointName - the name of the Traffic Manager endpoint to be deleted.
-func (client EndpointsClient) Delete(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string) (result DeleteOperationResult, err error) {
+func (client EndpointsClient) Delete(ctx context.Context, resourceGroupName string, profileName string, endpointType EndpointType, endpointName string) (result DeleteOperationResult, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/EndpointsClient.Delete")
 		defer func() {
@@ -154,7 +154,7 @@ func (client EndpointsClient) Delete(ctx context.Context, resourceGroupName stri
 }
 
 // DeletePreparer prepares the Delete request.
-func (client EndpointsClient) DeletePreparer(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string) (*http.Request, error) {
+func (client EndpointsClient) DeletePreparer(ctx context.Context, resourceGroupName string, profileName string, endpointType EndpointType, endpointName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"endpointType":      autorest.Encode("path", endpointType),
@@ -200,7 +200,7 @@ func (client EndpointsClient) DeleteResponder(resp *http.Response) (result Delet
 // profileName - the name of the Traffic Manager profile.
 // endpointType - the type of the Traffic Manager endpoint.
 // endpointName - the name of the Traffic Manager endpoint.
-func (client EndpointsClient) Get(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string) (result Endpoint, err error) {
+func (client EndpointsClient) Get(ctx context.Context, resourceGroupName string, profileName string, endpointType EndpointType, endpointName string) (result Endpoint, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/EndpointsClient.Get")
 		defer func() {
@@ -234,7 +234,7 @@ func (client EndpointsClient) Get(ctx context.Context, resourceGroupName string,
 }
 
 // GetPreparer prepares the Get request.
-func (client EndpointsClient) GetPreparer(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string) (*http.Request, error) {
+func (client EndpointsClient) GetPreparer(ctx context.Context, resourceGroupName string, profileName string, endpointType EndpointType, endpointName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"endpointType":      autorest.Encode("path", endpointType),
@@ -281,7 +281,7 @@ func (client EndpointsClient) GetResponder(resp *http.Response) (result Endpoint
 // endpointType - the type of the Traffic Manager endpoint to be updated.
 // endpointName - the name of the Traffic Manager endpoint to be updated.
 // parameters - the Traffic Manager endpoint parameters supplied to the Update operation.
-func (client EndpointsClient) Update(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string, parameters Endpoint) (result Endpoint, err error) {
+func (client EndpointsClient) Update(ctx context.Context, resourceGroupName string, profileName string, endpointType EndpointType, endpointName string, parameters Endpoint) (result Endpoint, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/EndpointsClient.Update")
 		defer func() {
@@ -315,7 +315,7 @@ func (client EndpointsClient) Update(ctx context.Context, resourceGroupName stri
 }
 
 // UpdatePreparer prepares the Update request.
-func (client EndpointsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string, parameters Endpoint) (*http.Request, error) {
+func (client EndpointsClient) UpdatePreparer(ctx context.Context, resourceGroupName string, profileName string, endpointType EndpointType, endpointName string, parameters Endpoint) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"endpointName":      autorest.Encode("path", endpointName),
 		"endpointType":      autorest.Encode("path", endpointType),
