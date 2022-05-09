@@ -615,6 +615,12 @@ type EnvironmentsClientListWorkerPoolsResponse struct {
 	WorkerPoolCollection
 }
 
+// EnvironmentsClientMigrateResponse contains the response from method EnvironmentsClient.Migrate.
+type EnvironmentsClientMigrateResponse struct {
+	// Anything
+	Interface interface{}
+}
+
 // EnvironmentsClientRebootResponse contains the response from method EnvironmentsClient.Reboot.
 type EnvironmentsClientRebootResponse struct {
 	// placeholder for future response values
@@ -1072,6 +1078,26 @@ type StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteResponse struct
 	// placeholder for future response values
 }
 
+// StaticSitesClientGetLinkedBackendForBuildResponse contains the response from method StaticSitesClient.GetLinkedBackendForBuild.
+type StaticSitesClientGetLinkedBackendForBuildResponse struct {
+	StaticSiteLinkedBackendARMResource
+}
+
+// StaticSitesClientGetLinkedBackendResponse contains the response from method StaticSitesClient.GetLinkedBackend.
+type StaticSitesClientGetLinkedBackendResponse struct {
+	StaticSiteLinkedBackendARMResource
+}
+
+// StaticSitesClientGetLinkedBackendsForBuildResponse contains the response from method StaticSitesClient.GetLinkedBackendsForBuild.
+type StaticSitesClientGetLinkedBackendsForBuildResponse struct {
+	StaticSiteLinkedBackendsCollection
+}
+
+// StaticSitesClientGetLinkedBackendsResponse contains the response from method StaticSitesClient.GetLinkedBackends.
+type StaticSitesClientGetLinkedBackendsResponse struct {
+	StaticSiteLinkedBackendsCollection
+}
+
 // StaticSitesClientGetPrivateEndpointConnectionListResponse contains the response from method StaticSitesClient.GetPrivateEndpointConnectionList.
 type StaticSitesClientGetPrivateEndpointConnectionListResponse struct {
 	PrivateEndpointConnectionCollection
@@ -1130,6 +1156,16 @@ type StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteBuildResponse stru
 // StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteResponse contains the response from method StaticSitesClient.GetUserProvidedFunctionAppsForStaticSite.
 type StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteResponse struct {
 	StaticSiteUserProvidedFunctionAppsCollection
+}
+
+// StaticSitesClientLinkBackendResponse contains the response from method StaticSitesClient.LinkBackend.
+type StaticSitesClientLinkBackendResponse struct {
+	StaticSiteLinkedBackendARMResource
+}
+
+// StaticSitesClientLinkBackendToBuildResponse contains the response from method StaticSitesClient.LinkBackendToBuild.
+type StaticSitesClientLinkBackendToBuildResponse struct {
+	StaticSiteLinkedBackendARMResource
 }
 
 // StaticSitesClientListResponse contains the response from method StaticSitesClient.List.
@@ -1207,6 +1243,16 @@ type StaticSitesClientResetStaticSiteAPIKeyResponse struct {
 	// placeholder for future response values
 }
 
+// StaticSitesClientUnlinkBackendFromBuildResponse contains the response from method StaticSitesClient.UnlinkBackendFromBuild.
+type StaticSitesClientUnlinkBackendFromBuildResponse struct {
+	// placeholder for future response values
+}
+
+// StaticSitesClientUnlinkBackendResponse contains the response from method StaticSitesClient.UnlinkBackend.
+type StaticSitesClientUnlinkBackendResponse struct {
+	// placeholder for future response values
+}
+
 // StaticSitesClientUpdateStaticSiteResponse contains the response from method StaticSitesClient.UpdateStaticSite.
 type StaticSitesClientUpdateStaticSiteResponse struct {
 	StaticSiteARMResource
@@ -1215,6 +1261,16 @@ type StaticSitesClientUpdateStaticSiteResponse struct {
 // StaticSitesClientUpdateStaticSiteUserResponse contains the response from method StaticSitesClient.UpdateStaticSiteUser.
 type StaticSitesClientUpdateStaticSiteUserResponse struct {
 	StaticSiteUserARMResource
+}
+
+// StaticSitesClientValidateBackendForBuildResponse contains the response from method StaticSitesClient.ValidateBackendForBuild.
+type StaticSitesClientValidateBackendForBuildResponse struct {
+	// placeholder for future response values
+}
+
+// StaticSitesClientValidateBackendResponse contains the response from method StaticSitesClient.ValidateBackend.
+type StaticSitesClientValidateBackendResponse struct {
+	// placeholder for future response values
 }
 
 // StaticSitesClientValidateCustomDomainCanBeAddedToStaticSiteResponse contains the response from method StaticSitesClient.ValidateCustomDomainCanBeAddedToStaticSite.

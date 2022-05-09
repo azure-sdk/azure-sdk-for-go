@@ -510,6 +510,30 @@ type ArmPlan struct {
 	Version *string `json:"version,omitempty"`
 }
 
+// AseMigrationOptions - Extra options and configurations that will be applied to an ASE during migration.
+type AseMigrationOptions struct {
+	// Kind of resource.
+	Kind *string `json:"kind,omitempty"`
+
+	// AseMigrationOptions resource specific properties
+	Properties *AseMigrationOptionsProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource Name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// AseMigrationOptionsProperties - AseMigrationOptions resource specific properties
+type AseMigrationOptionsProperties struct {
+	CustomDNSSuffixConfiguration *CustomDNSSuffixConfiguration `json:"customDnsSuffixConfiguration,omitempty"`
+	ZoneRedundant                *bool                         `json:"zoneRedundant,omitempty"`
+}
+
 // AseV3NetworkingConfiguration - Full view of networking configuration for an ASE.
 type AseV3NetworkingConfiguration struct {
 	// Kind of resource.
@@ -533,6 +557,18 @@ type AseV3NetworkingConfigurationProperties struct {
 	// Property to enable and disable new private endpoint connection creation on ASE
 	AllowNewPrivateEndpointConnections *bool `json:"allowNewPrivateEndpointConnections,omitempty"`
 
+	// Property to enable and disable FTP on ASEV3
+	FtpEnabled *bool `json:"ftpEnabled,omitempty"`
+
+	// Customer provided Inbound IP Address
+	InboundIPAddressOverride *string `json:"inboundIpAddressOverride,omitempty"`
+
+	// Property to set the number of outbound ips on AseV3
+	NumberOfOutboundIPAddresses *int32 `json:"numberOfOutboundIpAddresses,omitempty"`
+
+	// Property to enable and disable Remote Debug on ASEV3
+	RemoteDebugEnabled *bool `json:"remoteDebugEnabled,omitempty"`
+
 	// READ-ONLY
 	ExternalInboundIPAddresses []*string `json:"externalInboundIpAddresses,omitempty" azure:"ro"`
 
@@ -541,6 +577,9 @@ type AseV3NetworkingConfigurationProperties struct {
 
 	// READ-ONLY
 	LinuxOutboundIPAddresses []*string `json:"linuxOutboundIpAddresses,omitempty" azure:"ro"`
+
+	// READ-ONLY
+	TargetNumberOfOutboundIPAddresses *int32 `json:"targetNumberOfOutboundIpAddresses,omitempty" azure:"ro"`
 
 	// READ-ONLY
 	WindowsOutboundIPAddresses []*string `json:"windowsOutboundIpAddresses,omitempty" azure:"ro"`
@@ -1029,24 +1068,6 @@ type CertificateDetails struct {
 
 // CertificateEmail - SSL certificate email.
 type CertificateEmail struct {
-	// Kind of resource.
-	Kind *string `json:"kind,omitempty"`
-
-	// CertificateEmail resource specific properties
-	Properties *CertificateEmailProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource Name.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// CertificateEmailProperties - CertificateEmail resource specific properties
-type CertificateEmailProperties struct {
 	// Email id.
 	EmailID *string `json:"emailId,omitempty"`
 
@@ -1080,24 +1101,6 @@ type CertificateOrder struct {
 
 // CertificateOrderAction - Certificate order action.
 type CertificateOrderAction struct {
-	// Kind of resource.
-	Kind *string `json:"kind,omitempty"`
-
-	// CertificateOrderAction resource specific properties
-	Properties *CertificateOrderActionProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Resource Id.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource Name.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource type.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// CertificateOrderActionProperties - CertificateOrderAction resource specific properties
-type CertificateOrderActionProperties struct {
 	// READ-ONLY; Action type.
 	ActionType *CertificateOrderActionType `json:"actionType,omitempty" azure:"ro"`
 
@@ -1163,7 +1166,7 @@ type CertificateOrderPatchResourceProperties struct {
 	ValidityInYears *int32 `json:"validityInYears,omitempty"`
 
 	// READ-ONLY; Reasons why App Service Certificate is not renewable at the current moment.
-	AppServiceCertificateNotRenewableReasons []*AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem `json:"appServiceCertificateNotRenewableReasons,omitempty" azure:"ro"`
+	AppServiceCertificateNotRenewableReasons []*ResourceNotRenewableReason `json:"appServiceCertificateNotRenewableReasons,omitempty" azure:"ro"`
 
 	// READ-ONLY; Contact info
 	Contact *CertificateOrderContact `json:"contact,omitempty" azure:"ro"`
@@ -1226,7 +1229,7 @@ type CertificateOrderProperties struct {
 	ValidityInYears *int32 `json:"validityInYears,omitempty"`
 
 	// READ-ONLY; Reasons why App Service Certificate is not renewable at the current moment.
-	AppServiceCertificateNotRenewableReasons []*AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem `json:"appServiceCertificateNotRenewableReasons,omitempty" azure:"ro"`
+	AppServiceCertificateNotRenewableReasons []*ResourceNotRenewableReason `json:"appServiceCertificateNotRenewableReasons,omitempty" azure:"ro"`
 
 	// READ-ONLY; Contact info
 	Contact *CertificateOrderContact `json:"contact,omitempty" azure:"ro"`
@@ -2036,6 +2039,21 @@ type CsmUsageQuotaCollection struct {
 
 	// READ-ONLY; Link to next page of resources.
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+type CustomDNSSuffixConfiguration struct {
+	CertificateURL *string `json:"certificateUrl,omitempty"`
+	DNSSuffix      *string `json:"dnsSuffix,omitempty"`
+
+	// The user-assigned identity to use for resolving the key vault certificate reference. If not specified, the system-assigned
+	// ASE identity will be used if available.
+	KeyVaultReferenceIdentity *string `json:"keyVaultReferenceIdentity,omitempty"`
+
+	// READ-ONLY
+	ProvisioningDetails *string `json:"provisioningDetails,omitempty" azure:"ro"`
+
+	// READ-ONLY
+	ProvisioningState *CustomDNSSuffixProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // CustomHostnameAnalysisResult - Custom domain analysis.
@@ -3105,7 +3123,7 @@ type DomainPatchResourceProperties struct {
 	CreatedTime *time.Time `json:"createdTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; Reasons why domain is not renewable.
-	DomainNotRenewableReasons []*DomainPatchResourcePropertiesDomainNotRenewableReasonsItem `json:"domainNotRenewableReasons,omitempty" azure:"ro"`
+	DomainNotRenewableReasons []*ResourceNotRenewableReason `json:"domainNotRenewableReasons,omitempty" azure:"ro"`
 
 	// READ-ONLY; Domain expiration timestamp.
 	ExpirationTime *time.Time `json:"expirationTime,omitempty" azure:"ro"`
@@ -3168,7 +3186,7 @@ type DomainProperties struct {
 	CreatedTime *time.Time `json:"createdTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; Reasons why domain is not renewable.
-	DomainNotRenewableReasons []*DomainPropertiesDomainNotRenewableReasonsItem `json:"domainNotRenewableReasons,omitempty" azure:"ro"`
+	DomainNotRenewableReasons []*ResourceNotRenewableReason `json:"domainNotRenewableReasons,omitempty" azure:"ro"`
 
 	// READ-ONLY; Domain expiration timestamp.
 	ExpirationTime *time.Time `json:"expirationTime,omitempty" azure:"ro"`
@@ -3366,6 +3384,9 @@ type Environment struct {
 
 	// Front-end VM size, e.g. "Medium", "Large".
 	MultiSize *string `json:"multiSize,omitempty"`
+
+	// Full view of networking configuration for an ASE.
+	NetworkingConfiguration *AseV3NetworkingConfiguration `json:"networkingConfiguration,omitempty"`
 
 	// User added ip ranges to whitelist on ASE db
 	UserWhitelistedIPRanges []*string `json:"userWhitelistedIpRanges,omitempty"`
@@ -3683,6 +3704,11 @@ type EnvironmentsClientListWorkerPoolSKUsOptions struct {
 
 // EnvironmentsClientListWorkerPoolsOptions contains the optional parameters for the EnvironmentsClient.ListWorkerPools method.
 type EnvironmentsClientListWorkerPoolsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// EnvironmentsClientMigrateOptions contains the optional parameters for the EnvironmentsClient.Migrate method.
+type EnvironmentsClientMigrateOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -6292,39 +6318,39 @@ type ProcessThreadInfoProperties struct {
 // ProviderClientGetAvailableStacksOnPremOptions contains the optional parameters for the ProviderClient.GetAvailableStacksOnPrem
 // method.
 type ProviderClientGetAvailableStacksOnPremOptions struct {
-	OSTypeSelected *Enum20
+	OSTypeSelected *Enum17
 }
 
 // ProviderClientGetAvailableStacksOptions contains the optional parameters for the ProviderClient.GetAvailableStacks method.
 type ProviderClientGetAvailableStacksOptions struct {
-	OSTypeSelected *Enum15
+	OSTypeSelected *Enum12
 }
 
 // ProviderClientGetFunctionAppStacksForLocationOptions contains the optional parameters for the ProviderClient.GetFunctionAppStacksForLocation
 // method.
 type ProviderClientGetFunctionAppStacksForLocationOptions struct {
 	// Stack OS Type
-	StackOsType *Enum17
+	StackOsType *Enum14
 }
 
 // ProviderClientGetFunctionAppStacksOptions contains the optional parameters for the ProviderClient.GetFunctionAppStacks
 // method.
 type ProviderClientGetFunctionAppStacksOptions struct {
 	// Stack OS Type
-	StackOsType *Enum16
+	StackOsType *Enum13
 }
 
 // ProviderClientGetWebAppStacksForLocationOptions contains the optional parameters for the ProviderClient.GetWebAppStacksForLocation
 // method.
 type ProviderClientGetWebAppStacksForLocationOptions struct {
 	// Stack OS Type
-	StackOsType *Enum18
+	StackOsType *Enum15
 }
 
 // ProviderClientGetWebAppStacksOptions contains the optional parameters for the ProviderClient.GetWebAppStacks method.
 type ProviderClientGetWebAppStacksOptions struct {
 	// Stack OS Type
-	StackOsType *Enum19
+	StackOsType *Enum16
 }
 
 // ProviderClientListOperationsOptions contains the optional parameters for the ProviderClient.ListOperations method.
@@ -8427,6 +8453,16 @@ type SiteProperties struct {
 	// /subscriptions/{subscriptionName}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}
 	VirtualNetworkSubnetID *string `json:"virtualNetworkSubnetId,omitempty"`
 
+	// To enable accessing content over virtual network
+	VnetContentShareEnabled *bool `json:"vnetContentShareEnabled,omitempty"`
+
+	// To enable pulling image over Virtual Network
+	VnetImagePullEnabled *bool `json:"vnetImagePullEnabled,omitempty"`
+
+	// Virtual Network Route All enabled. This causes all outbound traffic to have Virtual Network Security Groups and User Defined
+	// Routes applied.
+	VnetRouteAllEnabled *bool `json:"vnetRouteAllEnabled,omitempty"`
+
 	// READ-ONLY; Management information availability state for the app.
 	AvailabilityState *SiteAvailabilityState `json:"availabilityState,omitempty" azure:"ro"`
 
@@ -8939,6 +8975,9 @@ type StaticSite struct {
 	// READ-ONLY; Identity to use for Key Vault Reference authentication.
 	KeyVaultReferenceIdentity *string `json:"keyVaultReferenceIdentity,omitempty" azure:"ro"`
 
+	// READ-ONLY; Backends linked to the static side
+	LinkedBackends []*StaticSiteLinkedBackend `json:"linkedBackends,omitempty" azure:"ro"`
+
 	// READ-ONLY; Private endpoint connections
 	PrivateEndpointConnections []*ResponseMessageEnvelopeRemotePrivateEndpointConnection `json:"privateEndpointConnections,omitempty" azure:"ro"`
 
@@ -9007,6 +9046,9 @@ type StaticSiteBuildARMResourceProperties struct {
 
 	// READ-ONLY; When this build was updated.
 	LastUpdatedOn *time.Time `json:"lastUpdatedOn,omitempty" azure:"ro"`
+
+	// READ-ONLY; Backends linked to the static side build
+	LinkedBackends []*StaticSiteLinkedBackend `json:"linkedBackends,omitempty" azure:"ro"`
 
 	// READ-ONLY; The title of a pull request that a static site build is related to.
 	PullRequestTitle *string `json:"pullRequestTitle,omitempty" azure:"ro"`
@@ -9167,6 +9209,63 @@ type StaticSiteFunctionOverviewARMResourceProperties struct {
 type StaticSiteFunctionOverviewCollection struct {
 	// REQUIRED; Collection of resources.
 	Value []*StaticSiteFunctionOverviewARMResource `json:"value,omitempty"`
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// StaticSiteLinkedBackend - Static Site Linked Backend ARM resource.
+type StaticSiteLinkedBackend struct {
+	// The resource id of the backend linked to the static site
+	BackendResourceID *string `json:"backendResourceId,omitempty"`
+
+	// The region of the backend linked to the static site
+	Region *string `json:"region,omitempty"`
+
+	// READ-ONLY; The date and time on which the backend was linked to the static site.
+	CreatedOn *time.Time `json:"createdOn,omitempty" azure:"ro"`
+
+	// READ-ONLY; The provisioning state of the linking process.
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// StaticSiteLinkedBackendARMResource - Static Site Linked Backend ARM resource.
+type StaticSiteLinkedBackendARMResource struct {
+	// Kind of resource.
+	Kind *string `json:"kind,omitempty"`
+
+	// StaticSiteLinkedBackendARMResource resource specific properties
+	Properties *StaticSiteLinkedBackendARMResourceProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource Name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// StaticSiteLinkedBackendARMResourceProperties - StaticSiteLinkedBackendARMResource resource specific properties
+type StaticSiteLinkedBackendARMResourceProperties struct {
+	// The resource id of the backend linked to the static site
+	BackendResourceID *string `json:"backendResourceId,omitempty"`
+
+	// The region of the backend linked to the static site
+	Region *string `json:"region,omitempty"`
+
+	// READ-ONLY; The date and time on which the backend was linked to the static site.
+	CreatedOn *time.Time `json:"createdOn,omitempty" azure:"ro"`
+
+	// READ-ONLY; The provisioning state of the linking process.
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// StaticSiteLinkedBackendsCollection - Collection of static site linked backends.
+type StaticSiteLinkedBackendsCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*StaticSiteLinkedBackendARMResource `json:"value,omitempty"`
 
 	// READ-ONLY; Link to next page of resources.
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
@@ -9516,6 +9615,19 @@ type StaticSitesClientBeginDetachStaticSiteOptions struct {
 	ResumeToken string
 }
 
+// StaticSitesClientBeginLinkBackendOptions contains the optional parameters for the StaticSitesClient.BeginLinkBackend method.
+type StaticSitesClientBeginLinkBackendOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// StaticSitesClientBeginLinkBackendToBuildOptions contains the optional parameters for the StaticSitesClient.BeginLinkBackendToBuild
+// method.
+type StaticSitesClientBeginLinkBackendToBuildOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteBuildOptions contains the optional parameters for the
 // StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSiteBuild method.
 type StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteBuildOptions struct {
@@ -9532,6 +9644,20 @@ type StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteOptions 
 	// Specify true to force the update of the auth configuration on the function app even if an AzureStaticWebApps provider is
 	// already configured on the function app. The default is false.
 	IsForced *bool
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// StaticSitesClientBeginValidateBackendForBuildOptions contains the optional parameters for the StaticSitesClient.BeginValidateBackendForBuild
+// method.
+type StaticSitesClientBeginValidateBackendForBuildOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// StaticSitesClientBeginValidateBackendOptions contains the optional parameters for the StaticSitesClient.BeginValidateBackend
+// method.
+type StaticSitesClientBeginValidateBackendOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -9588,6 +9714,29 @@ type StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteBuildOptions st
 // StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteOptions contains the optional parameters for the StaticSitesClient.DetachUserProvidedFunctionAppFromStaticSite
 // method.
 type StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientGetLinkedBackendForBuildOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackendForBuild
+// method.
+type StaticSitesClientGetLinkedBackendForBuildOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientGetLinkedBackendOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackend method.
+type StaticSitesClientGetLinkedBackendOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientGetLinkedBackendsForBuildOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackendsForBuild
+// method.
+type StaticSitesClientGetLinkedBackendsForBuildOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientGetLinkedBackendsOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackends
+// method.
+type StaticSitesClientGetLinkedBackendsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -9736,6 +9885,19 @@ type StaticSitesClientPreviewWorkflowOptions struct {
 // method.
 type StaticSitesClientResetStaticSiteAPIKeyOptions struct {
 	// placeholder for future optional parameters
+}
+
+// StaticSitesClientUnlinkBackendFromBuildOptions contains the optional parameters for the StaticSitesClient.UnlinkBackendFromBuild
+// method.
+type StaticSitesClientUnlinkBackendFromBuildOptions struct {
+	// Decides if auth will be removed from backend configuration
+	IsCleaningAuthConfig *bool
+}
+
+// StaticSitesClientUnlinkBackendOptions contains the optional parameters for the StaticSitesClient.UnlinkBackend method.
+type StaticSitesClientUnlinkBackendOptions struct {
+	// Decides if Easy Auth configuration will be removed from backend configuration
+	IsCleaningAuthConfig *bool
 }
 
 // StaticSitesClientUpdateStaticSiteOptions contains the optional parameters for the StaticSitesClient.UpdateStaticSite method.
@@ -13260,7 +13422,8 @@ type WebSiteManagementClientListBillingMetersOptions struct {
 // WebSiteManagementClientListCustomHostNameSitesOptions contains the optional parameters for the WebSiteManagementClient.ListCustomHostNameSites
 // method.
 type WebSiteManagementClientListCustomHostNameSitesOptions struct {
-	// placeholder for future optional parameters
+	// Specific hostname
+	Hostname *string
 }
 
 // WebSiteManagementClientListGeoRegionsOptions contains the optional parameters for the WebSiteManagementClient.ListGeoRegions

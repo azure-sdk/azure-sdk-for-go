@@ -1,5 +1,162 @@
 # Release History
 
+## 0.5.0 (2022-05-09)
+### Breaking Changes
+
+- Type of `DomainProperties.DomainNotRenewableReasons` has been changed from `[]*DomainPropertiesDomainNotRenewableReasonsItem` to `[]*ResourceNotRenewableReason`
+- Type of `ProviderClientGetWebAppStacksOptions.StackOsType` has been changed from `*Enum19` to `*Enum16`
+- Type of `ProviderClientGetAvailableStacksOnPremOptions.OSTypeSelected` has been changed from `*Enum20` to `*Enum17`
+- Type of `ProviderClientGetFunctionAppStacksOptions.StackOsType` has been changed from `*Enum16` to `*Enum13`
+- Type of `CertificateOrderPatchResourceProperties.AppServiceCertificateNotRenewableReasons` has been changed from `[]*AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem` to `[]*ResourceNotRenewableReason`
+- Type of `ProviderClientGetFunctionAppStacksForLocationOptions.StackOsType` has been changed from `*Enum17` to `*Enum14`
+- Type of `DomainPatchResourceProperties.DomainNotRenewableReasons` has been changed from `[]*DomainPatchResourcePropertiesDomainNotRenewableReasonsItem` to `[]*ResourceNotRenewableReason`
+- Type of `ProviderClientGetWebAppStacksForLocationOptions.StackOsType` has been changed from `*Enum18` to `*Enum15`
+- Type of `ProviderClientGetAvailableStacksOptions.OSTypeSelected` has been changed from `*Enum15` to `*Enum12`
+- Type of `CertificateOrderProperties.AppServiceCertificateNotRenewableReasons` has been changed from `[]*AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem` to `[]*ResourceNotRenewableReason`
+- Const `Enum20LinuxFunctions` has been removed
+- Const `Enum19Linux` has been removed
+- Const `Enum15LinuxFunctions` has been removed
+- Const `AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal` has been removed
+- Const `DomainPatchResourcePropertiesDomainNotRenewableReasonsItemSubscriptionNotActive` has been removed
+- Const `DomainPropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal` has been removed
+- Const `DomainPropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange` has been removed
+- Const `Enum19Windows` has been removed
+- Const `Enum20WindowsFunctions` has been removed
+- Const `Enum18All` has been removed
+- Const `AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange` has been removed
+- Const `Enum15WindowsFunctions` has been removed
+- Const `Enum20Windows` has been removed
+- Const `AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal` has been removed
+- Const `AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive` has been removed
+- Const `AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive` has been removed
+- Const `Enum19All` has been removed
+- Const `Enum18Windows` has been removed
+- Const `Enum20All` has been removed
+- Const `DomainPatchResourcePropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal` has been removed
+- Const `Enum18Linux` has been removed
+- Const `DomainPatchResourcePropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange` has been removed
+- Const `Enum20Linux` has been removed
+- Const `DomainPropertiesDomainNotRenewableReasonsItemSubscriptionNotActive` has been removed
+- Const `AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange` has been removed
+- Function `CertificateEmailProperties.MarshalJSON` has been removed
+- Function `PossibleAppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemValues` has been removed
+- Function `*CertificateOrderActionProperties.UnmarshalJSON` has been removed
+- Function `CertificateOrderActionProperties.MarshalJSON` has been removed
+- Function `PossibleEnum19Values` has been removed
+- Function `PossibleEnum20Values` has been removed
+- Function `PossibleAppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemValues` has been removed
+- Function `PossibleEnum18Values` has been removed
+- Function `PossibleDomainPropertiesDomainNotRenewableReasonsItemValues` has been removed
+- Function `*CertificateEmailProperties.UnmarshalJSON` has been removed
+- Function `PossibleDomainPatchResourcePropertiesDomainNotRenewableReasonsItemValues` has been removed
+- Struct `CertificateEmailProperties` has been removed
+- Struct `CertificateOrderActionProperties` has been removed
+- Field `Kind` of struct `CertificateOrderAction` has been removed
+- Field `Properties` of struct `CertificateOrderAction` has been removed
+- Field `ID` of struct `CertificateOrderAction` has been removed
+- Field `Name` of struct `CertificateOrderAction` has been removed
+- Field `Type` of struct `CertificateOrderAction` has been removed
+- Field `Type` of struct `CertificateEmail` has been removed
+- Field `Kind` of struct `CertificateEmail` has been removed
+- Field `Properties` of struct `CertificateEmail` has been removed
+- Field `ID` of struct `CertificateEmail` has been removed
+- Field `Name` of struct `CertificateEmail` has been removed
+
+### Features Added
+
+- New const `Enum12Linux`
+- New const `Enum13Windows`
+- New const `Enum13All`
+- New const `Enum12Windows`
+- New const `Enum13Linux`
+- New const `Enum14All`
+- New const `Enum12LinuxFunctions`
+- New const `Enum12All`
+- New const `Enum14Windows`
+- New const `Enum14Linux`
+- New const `ResourceNotRenewableReasonExpirationNotInRenewalTimeRange`
+- New const `CustomDNSSuffixProvisioningStateDegraded`
+- New const `ResourceNotRenewableReasonSubscriptionNotActive`
+- New const `CustomDNSSuffixProvisioningStateSucceeded`
+- New const `Enum17LinuxFunctions`
+- New const `ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal`
+- New const `CustomDNSSuffixProvisioningStateFailed`
+- New const `CustomDomainStatusUnhealthy`
+- New const `Enum17WindowsFunctions`
+- New const `Enum12WindowsFunctions`
+- New const `CustomDNSSuffixProvisioningStateInProgress`
+- New function `StaticSiteLinkedBackendsCollection.MarshalJSON() ([]byte, error)`
+- New function `PossibleCustomDNSSuffixProvisioningStateValues() []CustomDNSSuffixProvisioningState`
+- New function `*CertificateEmail.UnmarshalJSON([]byte) error`
+- New function `*StaticSitesClient.BeginLinkBackendToBuild(context.Context, string, string, string, string, StaticSiteLinkedBackendARMResource, *StaticSitesClientBeginLinkBackendToBuildOptions) (*armruntime.Poller[StaticSitesClientLinkBackendToBuildResponse], error)`
+- New function `CertificateEmail.MarshalJSON() ([]byte, error)`
+- New function `*StaticSitesClient.NewGetLinkedBackendsForBuildPager(string, string, string, *StaticSitesClientGetLinkedBackendsForBuildOptions) *runtime.Pager[StaticSitesClientGetLinkedBackendsForBuildResponse]`
+- New function `PossibleResourceNotRenewableReasonValues() []ResourceNotRenewableReason`
+- New function `*StaticSitesClient.NewGetLinkedBackendsPager(string, string, *StaticSitesClientGetLinkedBackendsOptions) *runtime.Pager[StaticSitesClientGetLinkedBackendsResponse]`
+- New function `CertificateOrderAction.MarshalJSON() ([]byte, error)`
+- New function `StaticSiteLinkedBackendARMResourceProperties.MarshalJSON() ([]byte, error)`
+- New function `*StaticSitesClient.UnlinkBackend(context.Context, string, string, string, *StaticSitesClientUnlinkBackendOptions) (StaticSitesClientUnlinkBackendResponse, error)`
+- New function `StaticSiteLinkedBackend.MarshalJSON() ([]byte, error)`
+- New function `*StaticSitesClient.BeginValidateBackendForBuild(context.Context, string, string, string, string, StaticSiteLinkedBackendARMResource, *StaticSitesClientBeginValidateBackendForBuildOptions) (*armruntime.Poller[StaticSitesClientValidateBackendForBuildResponse], error)`
+- New function `*StaticSitesClient.GetLinkedBackend(context.Context, string, string, string, *StaticSitesClientGetLinkedBackendOptions) (StaticSitesClientGetLinkedBackendResponse, error)`
+- New function `*StaticSitesClient.GetLinkedBackendForBuild(context.Context, string, string, string, string, *StaticSitesClientGetLinkedBackendForBuildOptions) (StaticSitesClientGetLinkedBackendForBuildResponse, error)`
+- New function `*StaticSiteLinkedBackend.UnmarshalJSON([]byte) error`
+- New function `*StaticSitesClient.BeginValidateBackend(context.Context, string, string, string, StaticSiteLinkedBackendARMResource, *StaticSitesClientBeginValidateBackendOptions) (*armruntime.Poller[StaticSitesClientValidateBackendResponse], error)`
+- New function `*StaticSitesClient.BeginLinkBackend(context.Context, string, string, string, StaticSiteLinkedBackendARMResource, *StaticSitesClientBeginLinkBackendOptions) (*armruntime.Poller[StaticSitesClientLinkBackendResponse], error)`
+- New function `*EnvironmentsClient.Migrate(context.Context, string, string, string, AseMigrationOptions, *EnvironmentsClientMigrateOptions) (EnvironmentsClientMigrateResponse, error)`
+- New function `*StaticSitesClient.UnlinkBackendFromBuild(context.Context, string, string, string, string, *StaticSitesClientUnlinkBackendFromBuildOptions) (StaticSitesClientUnlinkBackendFromBuildResponse, error)`
+- New function `*StaticSiteLinkedBackendARMResourceProperties.UnmarshalJSON([]byte) error`
+- New function `PossibleEnum13Values() []Enum13`
+- New function `PossibleEnum12Values() []Enum12`
+- New function `*CertificateOrderAction.UnmarshalJSON([]byte) error`
+- New function `PossibleEnum14Values() []Enum14`
+- New struct `AseMigrationOptions`
+- New struct `AseMigrationOptionsProperties`
+- New struct `CustomDNSSuffixConfiguration`
+- New struct `EnvironmentsClientMigrateOptions`
+- New struct `EnvironmentsClientMigrateResponse`
+- New struct `StaticSiteLinkedBackend`
+- New struct `StaticSiteLinkedBackendARMResource`
+- New struct `StaticSiteLinkedBackendARMResourceProperties`
+- New struct `StaticSiteLinkedBackendsCollection`
+- New struct `StaticSitesClientBeginLinkBackendOptions`
+- New struct `StaticSitesClientBeginLinkBackendToBuildOptions`
+- New struct `StaticSitesClientBeginValidateBackendForBuildOptions`
+- New struct `StaticSitesClientBeginValidateBackendOptions`
+- New struct `StaticSitesClientGetLinkedBackendForBuildOptions`
+- New struct `StaticSitesClientGetLinkedBackendForBuildResponse`
+- New struct `StaticSitesClientGetLinkedBackendOptions`
+- New struct `StaticSitesClientGetLinkedBackendResponse`
+- New struct `StaticSitesClientGetLinkedBackendsForBuildOptions`
+- New struct `StaticSitesClientGetLinkedBackendsForBuildResponse`
+- New struct `StaticSitesClientGetLinkedBackendsOptions`
+- New struct `StaticSitesClientGetLinkedBackendsResponse`
+- New struct `StaticSitesClientLinkBackendResponse`
+- New struct `StaticSitesClientLinkBackendToBuildResponse`
+- New struct `StaticSitesClientUnlinkBackendFromBuildOptions`
+- New struct `StaticSitesClientUnlinkBackendFromBuildResponse`
+- New struct `StaticSitesClientUnlinkBackendOptions`
+- New struct `StaticSitesClientUnlinkBackendResponse`
+- New struct `StaticSitesClientValidateBackendForBuildResponse`
+- New struct `StaticSitesClientValidateBackendResponse`
+- New field `LinkedBackends` in struct `StaticSiteBuildARMResourceProperties`
+- New field `NetworkingConfiguration` in struct `Environment`
+- New field `CreatedAt` in struct `CertificateOrderAction`
+- New field `ActionType` in struct `CertificateOrderAction`
+- New field `EmailID` in struct `CertificateEmail`
+- New field `TimeStamp` in struct `CertificateEmail`
+- New field `RemoteDebugEnabled` in struct `AseV3NetworkingConfigurationProperties`
+- New field `TargetNumberOfOutboundIPAddresses` in struct `AseV3NetworkingConfigurationProperties`
+- New field `FtpEnabled` in struct `AseV3NetworkingConfigurationProperties`
+- New field `InboundIPAddressOverride` in struct `AseV3NetworkingConfigurationProperties`
+- New field `NumberOfOutboundIPAddresses` in struct `AseV3NetworkingConfigurationProperties`
+- New field `VnetContentShareEnabled` in struct `SiteProperties`
+- New field `VnetImagePullEnabled` in struct `SiteProperties`
+- New field `VnetRouteAllEnabled` in struct `SiteProperties`
+- New field `LinkedBackends` in struct `StaticSite`
+- New field `Hostname` in struct `WebSiteManagementClientListCustomHostNameSitesOptions`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
