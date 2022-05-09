@@ -1,5 +1,35 @@
 # Release History
 
+## 0.5.0 (2022-05-09)
+### Breaking Changes
+
+- Type of `AzureResourcePropertiesBase.Type` has been changed from `*Type` to `*AzureResourceType`
+- Type of `AzureKeyVaultProperties.Type` has been changed from `*Type` to `*AzureResourceType`
+- Type of `AzureResource.Type` has been changed from `*Type` to `*TargetServiceType`
+- Type of `ConfluentBootstrapServer.Type` has been changed from `*Type` to `*TargetServiceType`
+- Type of `TargetServiceBase.Type` has been changed from `*Type` to `*TargetServiceType`
+- Type of `ConfluentSchemaRegistry.Type` has been changed from `*Type` to `*TargetServiceType`
+- Const `ValidationResultStatusFailed` has been removed
+- Const `TypeAzureResource` has been removed
+- Const `TypeConfluentSchemaRegistry` has been removed
+- Const `TypeKeyVault` has been removed
+- Const `TypeConfluentBootstrapServer` has been removed
+- Function `PossibleTypeValues` has been removed
+- Field `ValidateResult` of struct `LinkerClientValidateResponse` has been removed
+
+### Features Added
+
+- New const `ValidationResultStatusFailure`
+- New const `TargetServiceTypeConfluentBootstrapServer`
+- New const `TargetServiceTypeAzureResource`
+- New const `TargetServiceTypeConfluentSchemaRegistry`
+- New const `AzureResourceTypeKeyVault`
+- New function `PossibleTargetServiceTypeValues() []TargetServiceType`
+- New function `PossibleAzureResourceTypeValues() []AzureResourceType`
+- New struct `ValidateOperationResult`
+- New anonymous field `ValidateOperationResult` in struct `LinkerClientValidateResponse`
+
+
 ## 0.4.0 (2022-04-18)
 ### Breaking Changes
 
