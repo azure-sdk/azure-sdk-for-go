@@ -2477,7 +2477,7 @@ type ServerProperties struct {
 	Version ServerVersion `json:"version,omitempty"`
 	// AvailabilityZone - availability Zone information of the server.
 	AvailabilityZone *string `json:"availabilityZone,omitempty"`
-	// CreateMode - The mode to create a new MySQL server. Possible values include: 'CreateModeDefault', 'CreateModePointInTimeRestore', 'CreateModeReplica', 'CreateModeGeoRestore'
+	// CreateMode - The mode to create a new MySQL server. Possible values include: 'CreateModeDefault', 'CreateModePointInTimeRestore', 'CreateModeReplica', 'CreateModeGeoRestore', 'CreateModeMigrate'
 	CreateMode CreateMode `json:"createMode,omitempty"`
 	// SourceServerResourceID - The source MySQL server id.
 	SourceServerResourceID *string `json:"sourceServerResourceId,omitempty"`

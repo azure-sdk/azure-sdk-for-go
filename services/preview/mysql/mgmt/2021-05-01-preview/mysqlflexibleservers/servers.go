@@ -513,7 +513,8 @@ func (client ServersClient) ListComplete(ctx context.Context) (result ServerList
 // ListByResourceGroup list all the servers in a given resource group.
 // Parameters:
 // resourceGroupName - the name of the resource group. The name is case insensitive.
-func (client ServersClient) ListByResourceGroup(ctx context.Context, resourceGroupName string) (result ServerListResultPage, err error) {
+// migrationSourceSingleServerName - source Server Name of the Single to Flex migration
+func (client ServersClient) ListByResourceGroup(ctx context.Context, resourceGroupName string, migrationSourceSingleServerName string) (result ServerListResultPage, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/ServersClient.ListByResourceGroup")
 		defer func() {
@@ -534,7 +535,7 @@ func (client ServersClient) ListByResourceGroup(ctx context.Context, resourceGro
 	}
 
 	result.fn = client.listByResourceGroupNextResults
-	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName)
+	req, err := client.ListByResourceGroupPreparer(ctx, resourceGroupName, migrationSourceSingleServerName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "mysqlflexibleservers.ServersClient", "ListByResourceGroup", nil, "Failure preparing request")
 		return
@@ -561,7 +562,7 @@ func (client ServersClient) ListByResourceGroup(ctx context.Context, resourceGro
 }
 
 // ListByResourceGroupPreparer prepares the ListByResourceGroup request.
-func (client ServersClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string) (*http.Request, error) {
+func (client ServersClient) ListByResourceGroupPreparer(ctx context.Context, resourceGroupName string, migrationSourceSingleServerName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
@@ -570,6 +571,9 @@ func (client ServersClient) ListByResourceGroupPreparer(ctx context.Context, res
 	const APIVersion = "2021-05-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
+	}
+	if len(migrationSourceSingleServerName) > 0 {
+		queryParameters["migrationSourceSingleServerName"] = autorest.Encode("query", migrationSourceSingleServerName)
 	}
 
 	preparer := autorest.CreatePreparer(
@@ -620,7 +624,7 @@ func (client ServersClient) listByResourceGroupNextResults(ctx context.Context, 
 }
 
 // ListByResourceGroupComplete enumerates all values, automatically crossing page boundaries as required.
-func (client ServersClient) ListByResourceGroupComplete(ctx context.Context, resourceGroupName string) (result ServerListResultIterator, err error) {
+func (client ServersClient) ListByResourceGroupComplete(ctx context.Context, resourceGroupName string, migrationSourceSingleServerName string) (result ServerListResultIterator, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/ServersClient.ListByResourceGroup")
 		defer func() {
@@ -631,7 +635,7 @@ func (client ServersClient) ListByResourceGroupComplete(ctx context.Context, res
 			tracing.EndSpan(ctx, sc, err)
 		}()
 	}
-	result.page, err = client.ListByResourceGroup(ctx, resourceGroupName)
+	result.page, err = client.ListByResourceGroup(ctx, resourceGroupName, migrationSourceSingleServerName)
 	return
 }
 

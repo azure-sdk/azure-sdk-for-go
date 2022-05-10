@@ -48,6 +48,8 @@ const (
 	CreateModeDefault CreateMode = "Default"
 	// CreateModeGeoRestore ...
 	CreateModeGeoRestore CreateMode = "GeoRestore"
+	// CreateModeMigrate ...
+	CreateModeMigrate CreateMode = "Migrate"
 	// CreateModePointInTimeRestore ...
 	CreateModePointInTimeRestore CreateMode = "PointInTimeRestore"
 	// CreateModeReplica ...
@@ -56,7 +58,7 @@ const (
 
 // PossibleCreateModeValues returns an array of possible values for the CreateMode const type.
 func PossibleCreateModeValues() []CreateMode {
-	return []CreateMode{CreateModeDefault, CreateModeGeoRestore, CreateModePointInTimeRestore, CreateModeReplica}
+	return []CreateMode{CreateModeDefault, CreateModeGeoRestore, CreateModeMigrate, CreateModePointInTimeRestore, CreateModeReplica}
 }
 
 // EnableStatusEnum enumerates the values for enable status enum.
