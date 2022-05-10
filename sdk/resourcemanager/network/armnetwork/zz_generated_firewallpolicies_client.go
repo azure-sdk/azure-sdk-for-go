@@ -113,7 +113,7 @@ func (client *FirewallPoliciesClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -176,7 +176,7 @@ func (client *FirewallPoliciesClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -222,7 +222,7 @@ func (client *FirewallPoliciesClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -288,7 +288,7 @@ func (client *FirewallPoliciesClient) listCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -347,7 +347,7 @@ func (client *FirewallPoliciesClient) listAllCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -358,6 +358,63 @@ func (client *FirewallPoliciesClient) listAllHandleResponse(resp *http.Response)
 	result := FirewallPoliciesClientListAllResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.FirewallPolicyListResult); err != nil {
 		return FirewallPoliciesClientListAllResponse{}, err
+	}
+	return result, nil
+}
+
+// UpdateTags - Updates tags of a Azure Firewall Policy resource.
+// If the operation fails it returns an *azcore.ResponseError type.
+// resourceGroupName - The name of the resource group.
+// firewallPolicyName - The name of the Firewall Policy.
+// parameters - Parameters supplied to update Azure Firewall Policy tags.
+// options - FirewallPoliciesClientUpdateTagsOptions contains the optional parameters for the FirewallPoliciesClient.UpdateTags
+// method.
+func (client *FirewallPoliciesClient) UpdateTags(ctx context.Context, resourceGroupName string, firewallPolicyName string, parameters TagsObject, options *FirewallPoliciesClientUpdateTagsOptions) (FirewallPoliciesClientUpdateTagsResponse, error) {
+	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, firewallPolicyName, parameters, options)
+	if err != nil {
+		return FirewallPoliciesClientUpdateTagsResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return FirewallPoliciesClientUpdateTagsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return FirewallPoliciesClientUpdateTagsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.updateTagsHandleResponse(resp)
+}
+
+// updateTagsCreateRequest creates the UpdateTags request.
+func (client *FirewallPoliciesClient) updateTagsCreateRequest(ctx context.Context, resourceGroupName string, firewallPolicyName string, parameters TagsObject, options *FirewallPoliciesClientUpdateTagsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if firewallPolicyName == "" {
+		return nil, errors.New("parameter firewallPolicyName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{firewallPolicyName}", url.PathEscape(firewallPolicyName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header.Set("Accept", "application/json")
+	return req, runtime.MarshalAsJSON(req, parameters)
+}
+
+// updateTagsHandleResponse handles the UpdateTags response.
+func (client *FirewallPoliciesClient) updateTagsHandleResponse(resp *http.Response) (FirewallPoliciesClientUpdateTagsResponse, error) {
+	result := FirewallPoliciesClientUpdateTagsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FirewallPolicy); err != nil {
+		return FirewallPoliciesClientUpdateTagsResponse{}, err
 	}
 	return result, nil
 }
