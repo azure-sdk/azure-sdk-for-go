@@ -1,5 +1,17 @@
 # Release History
 
+## 0.5.0 (2022-05-10)
+### Breaking Changes
+
+- Function `*DataControllersClient.PatchDataController` has been removed
+- Struct `DataControllersClientPatchDataControllerOptions` has been removed
+
+### Features Added
+
+- New function `*DataControllersClient.BeginPatchDataController(context.Context, string, string, DataControllerUpdate, *DataControllersClientBeginPatchDataControllerOptions) (*armruntime.Poller[DataControllersClientPatchDataControllerResponse], error)`
+- New struct `DataControllersClientBeginPatchDataControllerOptions`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
