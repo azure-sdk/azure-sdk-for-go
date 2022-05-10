@@ -1,5 +1,18 @@
 # Release History
 
+## 0.5.0 (2022-05-10)
+### Features Added
+
+- New function `*KubernetesStorageClassRestoreCriteria.UnmarshalJSON([]byte) error`
+- New function `*KubernetesPVRestoreCriteria.GetItemLevelRestoreCriteria() *ItemLevelRestoreCriteria`
+- New function `KubernetesPVRestoreCriteria.MarshalJSON() ([]byte, error)`
+- New function `KubernetesStorageClassRestoreCriteria.MarshalJSON() ([]byte, error)`
+- New function `*KubernetesPVRestoreCriteria.UnmarshalJSON([]byte) error`
+- New function `*KubernetesStorageClassRestoreCriteria.GetItemLevelRestoreCriteria() *ItemLevelRestoreCriteria`
+- New struct `KubernetesPVRestoreCriteria`
+- New struct `KubernetesStorageClassRestoreCriteria`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
