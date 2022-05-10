@@ -150,6 +150,20 @@ type ActionGroupResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions contains the optional parameters for the ActionGroupsClient.BeginCreateNotificationsAtActionGroupResourceLevel
+// method.
+type ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions contains the optional parameters for the ActionGroupsClient.BeginCreateNotificationsAtResourceGroupLevel
+// method.
+type ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ActionGroupsClientBeginPostTestNotificationsOptions contains the optional parameters for the ActionGroupsClient.BeginPostTestNotifications
 // method.
 type ActionGroupsClientBeginPostTestNotificationsOptions struct {
@@ -174,6 +188,18 @@ type ActionGroupsClientEnableReceiverOptions struct {
 
 // ActionGroupsClientGetOptions contains the optional parameters for the ActionGroupsClient.Get method.
 type ActionGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions contains the optional parameters for the ActionGroupsClient.GetTestNotificationsAtActionGroupResourceLevel
+// method.
+type ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions contains the optional parameters for the ActionGroupsClient.GetTestNotificationsAtResourceGroupLevel
+// method.
+type ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3795,18 +3821,6 @@ type TestNotificationDetailsResponse struct {
 
 	// The created time
 	CreatedTime *string `json:"CreatedTime,omitempty"`
-}
-
-// TestNotificationResponse - The response when test notification succeeded
-type TestNotificationResponse struct {
-	// REQUIRED; The correlation id
-	CorrelationID *string `json:"correlationId,omitempty"`
-
-	// REQUIRED; The created time
-	CreatedTime *string `json:"createdTime,omitempty"`
-
-	// REQUIRED; The notification id
-	NotificationID *string `json:"notificationId,omitempty"`
 }
 
 // ThresholdRuleCondition - A rule condition based on a metric crossing a threshold.
