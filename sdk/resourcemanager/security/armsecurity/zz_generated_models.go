@@ -3955,8 +3955,14 @@ type PricingProperties struct {
 	// a set of security features. When not specified, full plan is applied.
 	SubPlan *string `json:"subPlan,omitempty"`
 
+	// READ-ONLY; (optional) will return true if the pricing bundle is deprecated
+	Deprecated *bool `json:"deprecated,omitempty" azure:"ro"`
+
 	// READ-ONLY; The duration left for the subscriptions free trial period - in ISO 8601 format (e.g. P3Y6M4DT12H30M5S).
 	FreeTrialRemainingTime *string `json:"freeTrialRemainingTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; (optional) List of pricing bundles which replace the deprecated bundle, if deprecated is true
+	ReplacedBy []*string `json:"replacedBy,omitempty" azure:"ro"`
 }
 
 // PricingsClientGetOptions contains the optional parameters for the PricingsClient.Get method.

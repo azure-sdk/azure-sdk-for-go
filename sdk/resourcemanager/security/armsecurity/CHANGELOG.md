@@ -1,5 +1,13 @@
 # Release History
 
+## 0.7.0 (2022-05-10)
+### Features Added
+
+- New function `PricingProperties.MarshalJSON() ([]byte, error)`
+- New field `Deprecated` in struct `PricingProperties`
+- New field `ReplacedBy` in struct `PricingProperties`
+
+
 ## 0.6.0 (2022-04-18)
 ### Breaking Changes
 

@@ -4564,6 +4564,17 @@ func (p PricingList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type PricingProperties.
+func (p PricingProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "deprecated", p.Deprecated)
+	populate(objectMap, "freeTrialRemainingTime", p.FreeTrialRemainingTime)
+	populate(objectMap, "pricingTier", p.PricingTier)
+	populate(objectMap, "replacedBy", p.ReplacedBy)
+	populate(objectMap, "subPlan", p.SubPlan)
+	return json.Marshal(objectMap)
+}
+
 // GetAllowlistCustomAlertRule implements the AllowlistCustomAlertRuleClassification interface for type ProcessNotAllowed.
 func (p *ProcessNotAllowed) GetAllowlistCustomAlertRule() *AllowlistCustomAlertRule {
 	return &AllowlistCustomAlertRule{
