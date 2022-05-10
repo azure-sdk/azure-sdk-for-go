@@ -1,5 +1,14 @@
 # Release History
 
+## 0.6.0 (2022-05-10)
+### Features Added
+
+- New field `CurrentKubernetesVersion` in struct `ManagedClusterProperties`
+- New field `StorageProfile` in struct `ManagedClusterProperties`
+- New field `CurrentOrchestratorVersion` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `CurrentOrchestratorVersion` in struct `ManagedClusterAgentPoolProfile`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 
