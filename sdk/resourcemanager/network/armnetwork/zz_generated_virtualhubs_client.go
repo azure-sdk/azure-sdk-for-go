@@ -113,7 +113,7 @@ func (client *VirtualHubsClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, virtualHubParameters)
@@ -175,7 +175,7 @@ func (client *VirtualHubsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -221,7 +221,7 @@ func (client *VirtualHubsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -295,7 +295,7 @@ func (client *VirtualHubsClient) getEffectiveVirtualHubRoutesCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	if options != nil && options.EffectiveRoutesParameters != nil {
@@ -347,7 +347,7 @@ func (client *VirtualHubsClient) listCreateRequest(ctx context.Context, options 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -411,7 +411,7 @@ func (client *VirtualHubsClient) listByResourceGroupCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
@@ -467,7 +467,7 @@ func (client *VirtualHubsClient) updateTagsCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, runtime.MarshalAsJSON(req, virtualHubParameters)
