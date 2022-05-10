@@ -12683,6 +12683,8 @@ type ExplicitProxySettings struct {
 	HTTPPort *int32 `json:"httpPort,omitempty"`
 	// HTTPSPort - Port number for explicit proxy https protocol, cannot be greater than 64000.
 	HTTPSPort *int32 `json:"httpsPort,omitempty"`
+	// EnablePacFile - When set to true, pac file port and url needs to be provided.
+	EnablePacFile *bool `json:"enablePacFile,omitempty"`
 	// PacFilePort - Port number for firewall to serve PAC file.
 	PacFilePort *int32 `json:"pacFilePort,omitempty"`
 	// PacFile - SAS URL for PAC file.
