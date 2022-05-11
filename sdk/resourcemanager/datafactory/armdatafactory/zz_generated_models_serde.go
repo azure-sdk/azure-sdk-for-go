@@ -18673,6 +18673,7 @@ func (e ExecutePowerQueryActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "queries", e.Queries)
 	populate(objectMap, "runConcurrently", &e.RunConcurrently)
 	populate(objectMap, "sinks", e.Sinks)
+	populate(objectMap, "sourceStagingConcurrency", &e.SourceStagingConcurrency)
 	populate(objectMap, "staging", e.Staging)
 	populate(objectMap, "traceLevel", &e.TraceLevel)
 	return json.Marshal(objectMap)
@@ -19177,6 +19178,7 @@ func (f FactoryProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "globalParameters", f.GlobalParameters)
 	populate(objectMap, "provisioningState", f.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", f.PublicNetworkAccess)
+	populate(objectMap, "purviewConfiguration", f.PurviewConfiguration)
 	populate(objectMap, "repoConfiguration", f.RepoConfiguration)
 	populate(objectMap, "version", f.Version)
 	return json.Marshal(objectMap)
@@ -19205,6 +19207,9 @@ func (f *FactoryProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "publicNetworkAccess":
 			err = unpopulate(val, &f.PublicNetworkAccess)
+			delete(rawMsg, key)
+		case "purviewConfiguration":
+			err = unpopulate(val, &f.PurviewConfiguration)
 			delete(rawMsg, key)
 		case "repoConfiguration":
 			f.RepoConfiguration, err = unmarshalFactoryRepoConfigurationClassification(val)

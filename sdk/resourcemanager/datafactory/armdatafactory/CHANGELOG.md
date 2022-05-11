@@ -1,5 +1,18 @@
 # Release History
 
+## 0.6.0 (2022-05-11)
+### Features Added
+
+- New struct `PrivateEndpoint`
+- New struct `PurviewConfiguration`
+- New field `RejectedDataLinkedService` in struct `DataFlowSink`
+- New field `RejectedDataLinkedService` in struct `PowerQuerySink`
+- New field `PurviewConfiguration` in struct `FactoryProperties`
+- New field `SourceStagingConcurrency` in struct `ExecuteDataFlowActivityTypeProperties`
+- New field `PrivateEndpoint` in struct `PrivateLinkConnectionApprovalRequest`
+- New field `SourceStagingConcurrency` in struct `ExecutePowerQueryActivityTypeProperties`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 

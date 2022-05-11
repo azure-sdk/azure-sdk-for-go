@@ -6289,6 +6289,9 @@ type DataFlowSink struct {
 	// Linked service reference.
 	LinkedService *LinkedServiceReference `json:"linkedService,omitempty"`
 
+	// Rejected data linked service reference.
+	RejectedDataLinkedService *LinkedServiceReference `json:"rejectedDataLinkedService,omitempty"`
+
 	// Schema linked service reference.
 	SchemaLinkedService *LinkedServiceReference `json:"schemaLinkedService,omitempty"`
 }
@@ -8220,6 +8223,9 @@ type ExecuteDataFlowActivityTypeProperties struct {
 	// Type: boolean (or Expression with resultType boolean)
 	RunConcurrently interface{} `json:"runConcurrently,omitempty"`
 
+	// Specify number of parallel staging for sources applicable to the sink. Type: integer (or Expression with resultType integer)
+	SourceStagingConcurrency interface{} `json:"sourceStagingConcurrency,omitempty"`
+
 	// Staging info for execute data flow activity.
 	Staging *DataFlowStagingInfo `json:"staging,omitempty"`
 
@@ -8311,6 +8317,9 @@ type ExecutePowerQueryActivityTypeProperties struct {
 
 	// (Deprecated. Please use Queries). List of Power Query activity sinks mapped to a queryName.
 	Sinks map[string]*PowerQuerySink `json:"sinks,omitempty"`
+
+	// Specify number of parallel staging for sources applicable to the sink. Type: integer (or Expression with resultType integer)
+	SourceStagingConcurrency interface{} `json:"sourceStagingConcurrency,omitempty"`
 
 	// Staging info for execute data flow activity.
 	Staging *DataFlowStagingInfo `json:"staging,omitempty"`
@@ -8680,6 +8689,9 @@ type FactoryProperties struct {
 
 	// Whether or not public network access is allowed for the data factory.
 	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
+
+	// Purview information of the factory.
+	PurviewConfiguration *PurviewConfiguration `json:"purviewConfiguration,omitempty"`
 
 	// Git repo information of the factory.
 	RepoConfiguration FactoryRepoConfigurationClassification `json:"repoConfiguration,omitempty"`
@@ -15990,6 +16002,9 @@ type PowerQuerySink struct {
 	// Linked service reference.
 	LinkedService *LinkedServiceReference `json:"linkedService,omitempty"`
 
+	// Rejected data linked service reference.
+	RejectedDataLinkedService *LinkedServiceReference `json:"rejectedDataLinkedService,omitempty"`
+
 	// Schema linked service reference.
 	SchemaLinkedService *LinkedServiceReference `json:"schemaLinkedService,omitempty"`
 
@@ -16200,6 +16215,12 @@ type PrivateEndPointConnectionsClientListByFactoryOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PrivateEndpoint - Private endpoint which a connection belongs to.
+type PrivateEndpoint struct {
+	// The resource Id for private endpoint
+	ID *string `json:"id,omitempty"`
+}
+
 // PrivateEndpointConnectionClientCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionClient.CreateOrUpdate
 // method.
 type PrivateEndpointConnectionClientCreateOrUpdateOptions struct {
@@ -16251,6 +16272,9 @@ type PrivateEndpointConnectionResource struct {
 
 // PrivateLinkConnectionApprovalRequest - A request to approve or reject a private endpoint connection
 type PrivateLinkConnectionApprovalRequest struct {
+	// The resource of private endpoint.
+	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
+
 	// The state of a private link connection
 	PrivateLinkServiceConnectionState *PrivateLinkConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
 }
@@ -16324,6 +16348,12 @@ type PrivateLinkResourcesClientGetOptions struct {
 type PrivateLinkResourcesWrapper struct {
 	// REQUIRED
 	Value []*PrivateLinkResource `json:"value,omitempty"`
+}
+
+// PurviewConfiguration - Purview configuration.
+type PurviewConfiguration struct {
+	// Purview resource id.
+	PurviewResourceID *string `json:"purviewResourceId,omitempty"`
 }
 
 // QueryDataFlowDebugSessionsResponse - A list of active debug sessions.
