@@ -1,5 +1,18 @@
 # Release History
 
+## 0.5.0 (2022-05-11)
+### Features Added
+
+- New const `ReservationStatusCodeNoBenefitDueToSubscriptionDeletion`
+- New const `ReservationStatusCodeWarning`
+- New const `DisplayProvisioningStateNoBenefit`
+- New const `ReservationStatusCodeNoBenefitDueToSubscriptionTransfer`
+- New const `DisplayProvisioningStateWarning`
+- New const `ReservationStatusCodeNoBenefit`
+- New field `NoBenefitCount` in struct `ReservationSummary`
+- New field `WarningCount` in struct `ReservationSummary`
+
+
 ## 0.4.0 (2022-04-18)
 ### Breaking Changes
 

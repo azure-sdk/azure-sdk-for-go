@@ -10,7 +10,7 @@ package armreservations
 
 const (
 	moduleName    = "armreservations"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.5.0"
 )
 
 // AppliedScopeType - Type of the Applied Scope.
@@ -77,9 +77,11 @@ const (
 	DisplayProvisioningStateExpired    DisplayProvisioningState = "Expired"
 	DisplayProvisioningStateExpiring   DisplayProvisioningState = "Expiring"
 	DisplayProvisioningStateFailed     DisplayProvisioningState = "Failed"
+	DisplayProvisioningStateNoBenefit  DisplayProvisioningState = "NoBenefit"
 	DisplayProvisioningStatePending    DisplayProvisioningState = "Pending"
 	DisplayProvisioningStateProcessing DisplayProvisioningState = "Processing"
 	DisplayProvisioningStateSucceeded  DisplayProvisioningState = "Succeeded"
+	DisplayProvisioningStateWarning    DisplayProvisioningState = "Warning"
 )
 
 // PossibleDisplayProvisioningStateValues returns the possible values for the DisplayProvisioningState const type.
@@ -89,9 +91,11 @@ func PossibleDisplayProvisioningStateValues() []DisplayProvisioningState {
 		DisplayProvisioningStateExpired,
 		DisplayProvisioningStateExpiring,
 		DisplayProvisioningStateFailed,
+		DisplayProvisioningStateNoBenefit,
 		DisplayProvisioningStatePending,
 		DisplayProvisioningStateProcessing,
 		DisplayProvisioningStateSucceeded,
+		DisplayProvisioningStateWarning,
 	}
 }
 
@@ -436,16 +440,20 @@ func PossibleReservationBillingPlanValues() []ReservationBillingPlan {
 type ReservationStatusCode string
 
 const (
-	ReservationStatusCodeActive                 ReservationStatusCode = "Active"
-	ReservationStatusCodeExpired                ReservationStatusCode = "Expired"
-	ReservationStatusCodeMerged                 ReservationStatusCode = "Merged"
-	ReservationStatusCodeNone                   ReservationStatusCode = "None"
-	ReservationStatusCodePaymentInstrumentError ReservationStatusCode = "PaymentInstrumentError"
-	ReservationStatusCodePending                ReservationStatusCode = "Pending"
-	ReservationStatusCodeProcessing             ReservationStatusCode = "Processing"
-	ReservationStatusCodePurchaseError          ReservationStatusCode = "PurchaseError"
-	ReservationStatusCodeSplit                  ReservationStatusCode = "Split"
-	ReservationStatusCodeSucceeded              ReservationStatusCode = "Succeeded"
+	ReservationStatusCodeActive                             ReservationStatusCode = "Active"
+	ReservationStatusCodeExpired                            ReservationStatusCode = "Expired"
+	ReservationStatusCodeMerged                             ReservationStatusCode = "Merged"
+	ReservationStatusCodeNoBenefit                          ReservationStatusCode = "NoBenefit"
+	ReservationStatusCodeNoBenefitDueToSubscriptionDeletion ReservationStatusCode = "NoBenefitDueToSubscriptionDeletion"
+	ReservationStatusCodeNoBenefitDueToSubscriptionTransfer ReservationStatusCode = "NoBenefitDueToSubscriptionTransfer"
+	ReservationStatusCodeNone                               ReservationStatusCode = "None"
+	ReservationStatusCodePaymentInstrumentError             ReservationStatusCode = "PaymentInstrumentError"
+	ReservationStatusCodePending                            ReservationStatusCode = "Pending"
+	ReservationStatusCodeProcessing                         ReservationStatusCode = "Processing"
+	ReservationStatusCodePurchaseError                      ReservationStatusCode = "PurchaseError"
+	ReservationStatusCodeSplit                              ReservationStatusCode = "Split"
+	ReservationStatusCodeSucceeded                          ReservationStatusCode = "Succeeded"
+	ReservationStatusCodeWarning                            ReservationStatusCode = "Warning"
 )
 
 // PossibleReservationStatusCodeValues returns the possible values for the ReservationStatusCode const type.
@@ -454,6 +462,9 @@ func PossibleReservationStatusCodeValues() []ReservationStatusCode {
 		ReservationStatusCodeActive,
 		ReservationStatusCodeExpired,
 		ReservationStatusCodeMerged,
+		ReservationStatusCodeNoBenefit,
+		ReservationStatusCodeNoBenefitDueToSubscriptionDeletion,
+		ReservationStatusCodeNoBenefitDueToSubscriptionTransfer,
 		ReservationStatusCodeNone,
 		ReservationStatusCodePaymentInstrumentError,
 		ReservationStatusCodePending,
@@ -461,6 +472,7 @@ func PossibleReservationStatusCodeValues() []ReservationStatusCode {
 		ReservationStatusCodePurchaseError,
 		ReservationStatusCodeSplit,
 		ReservationStatusCodeSucceeded,
+		ReservationStatusCodeWarning,
 	}
 }
 

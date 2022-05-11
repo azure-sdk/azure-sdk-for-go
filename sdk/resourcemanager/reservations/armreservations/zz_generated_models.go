@@ -1109,6 +1109,9 @@ type ReservationSummary struct {
 	// READ-ONLY; The number of reservation in Failed state
 	FailedCount *float32 `json:"failedCount,omitempty" azure:"ro"`
 
+	// READ-ONLY; The number of reservation in NoBenefit state
+	NoBenefitCount *float32 `json:"noBenefitCount,omitempty" azure:"ro"`
+
 	// READ-ONLY; The number of reservation in Pending state
 	PendingCount *float32 `json:"pendingCount,omitempty" azure:"ro"`
 
@@ -1117,6 +1120,9 @@ type ReservationSummary struct {
 
 	// READ-ONLY; The number of reservation in Succeeded state
 	SucceededCount *float32 `json:"succeededCount,omitempty" azure:"ro"`
+
+	// READ-ONLY; The number of reservation in Warning state
+	WarningCount *float32 `json:"warningCount,omitempty" azure:"ro"`
 }
 
 // ReservationToExchange - Reservation refund details
