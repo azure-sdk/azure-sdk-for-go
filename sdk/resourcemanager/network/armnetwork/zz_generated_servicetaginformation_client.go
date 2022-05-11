@@ -107,7 +107,7 @@ func (client *ServiceTagInformationClient) listCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2021-08-01")
 	if options != nil && options.NoAddressPrefixes != nil {
 		reqQP.Set("noAddressPrefixes", strconv.FormatBool(*options.NoAddressPrefixes))
 	}
