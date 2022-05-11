@@ -18,7 +18,7 @@ import (
 )
 
 // The package's fully qualified name.
-const fqdn = "github.com/Azure/azure-sdk-for-go/services/preview/confidentialledger/mgmt/2020-12-01-preview/confidentialledger"
+const fqdn = "github.com/Azure/azure-sdk-for-go/services/preview/confidentialledger/mgmt/2021-05-13-preview/confidentialledger"
 
 // AADBasedSecurityPrincipal AAD based security principal with associated Ledger RoleName
 type AADBasedSecurityPrincipal struct {
@@ -26,7 +26,7 @@ type AADBasedSecurityPrincipal struct {
 	PrincipalID *string `json:"principalId,omitempty"`
 	// TenantID - UUID/GUID based Tenant Id of the Security Principal
 	TenantID *string `json:"tenantId,omitempty"`
-	// LedgerRoleName - Possible values include: 'LedgerRoleNameReader', 'LedgerRoleNameContributor', 'LedgerRoleNameAdministrator'
+	// LedgerRoleName - Possible values include: 'Reader', 'Contributor', 'Administrator'
 	LedgerRoleName LedgerRoleName `json:"ledgerRoleName,omitempty"`
 }
 
@@ -34,8 +34,27 @@ type AADBasedSecurityPrincipal struct {
 type CertBasedSecurityPrincipal struct {
 	// Cert - Public key of the user cert (.pem or .cer)
 	Cert *string `json:"cert,omitempty"`
-	// LedgerRoleName - Possible values include: 'LedgerRoleNameReader', 'LedgerRoleNameContributor', 'LedgerRoleNameAdministrator'
+	// LedgerRoleName - Possible values include: 'Reader', 'Contributor', 'Administrator'
 	LedgerRoleName LedgerRoleName `json:"ledgerRoleName,omitempty"`
+}
+
+// CheckNameAvailabilityRequest the check availability request body.
+type CheckNameAvailabilityRequest struct {
+	// Name - The name of the resource for which availability needs to be checked.
+	Name *string `json:"name,omitempty"`
+	// Type - The resource type.
+	Type *string `json:"type,omitempty"`
+}
+
+// CheckNameAvailabilityResponse the check availability result.
+type CheckNameAvailabilityResponse struct {
+	autorest.Response `json:"-"`
+	// NameAvailable - Indicates if the resource name is available.
+	NameAvailable *bool `json:"nameAvailable,omitempty"`
+	// Reason - The reason why the given name is not available. Possible values include: 'Invalid', 'AlreadyExists'
+	Reason CheckNameAvailabilityReason `json:"reason,omitempty"`
+	// Message - Detailed reason why the given name is available.
+	Message *string `json:"message,omitempty"`
 }
 
 // ErrorAdditionalInfo the resource management error additional info.
@@ -167,9 +186,7 @@ type LedgerProperties struct {
 	IdentityServiceURI *string `json:"identityServiceUri,omitempty"`
 	// LedgerInternalNamespace - READ-ONLY; Internal namespace for the Ledger
 	LedgerInternalNamespace *string `json:"ledgerInternalNamespace,omitempty"`
-	// LedgerStorageAccount - Name of the Blob Storage Account for saving ledger files
-	LedgerStorageAccount *string `json:"ledgerStorageAccount,omitempty"`
-	// LedgerType - Type of Confidential Ledger. Possible values include: 'LedgerTypeUnknown', 'LedgerTypePublic', 'LedgerTypePrivate'
+	// LedgerType - Type of Confidential Ledger. Possible values include: 'Unknown', 'Public', 'Private'
 	LedgerType LedgerType `json:"ledgerType,omitempty"`
 	// ProvisioningState - READ-ONLY; Provisioning state of Ledger Resource. Possible values include: 'ProvisioningStateUnknown', 'ProvisioningStateSucceeded', 'ProvisioningStateFailed', 'ProvisioningStateCanceled', 'ProvisioningStateCreating', 'ProvisioningStateDeleting', 'ProvisioningStateUpdating'
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
@@ -182,9 +199,6 @@ type LedgerProperties struct {
 // MarshalJSON is the custom marshaler for LedgerProperties.
 func (lp LedgerProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if lp.LedgerStorageAccount != nil {
-		objectMap["ledgerStorageAccount"] = lp.LedgerStorageAccount
-	}
 	if lp.LedgerType != "" {
 		objectMap["ledgerType"] = lp.LedgerType
 	}
@@ -398,12 +412,6 @@ func NewListPage(cur List, getNextPage func(context.Context, List) (List, error)
 	}
 }
 
-// Location location of the ARM Resource
-type Location struct {
-	// Location - The Azure location where the Confidential Ledger is running.
-	Location *string `json:"location,omitempty"`
-}
-
 // Model confidential Ledger. Contains the properties of Confidential Ledger Resource.
 type Model struct {
 	autorest.Response `json:"-"`
@@ -454,6 +462,12 @@ type Resource struct {
 func (r Resource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	return json.Marshal(objectMap)
+}
+
+// ResourceLocation location of the ARM Resource
+type ResourceLocation struct {
+	// Location - The Azure location where the Confidential Ledger is running.
+	Location *string `json:"location,omitempty"`
 }
 
 // ResourceProviderOperationDefinition describes the Resource Provider Operation.
@@ -648,13 +662,13 @@ func NewResourceProviderOperationListPage(cur ResourceProviderOperationList, get
 type SystemData struct {
 	// CreatedBy - The identity that created the resource.
 	CreatedBy *string `json:"createdBy,omitempty"`
-	// CreatedByType - The type of identity that created the resource. Possible values include: 'CreatedByTypeUser', 'CreatedByTypeApplication', 'CreatedByTypeManagedIdentity', 'CreatedByTypeKey'
+	// CreatedByType - The type of identity that created the resource. Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
 	CreatedByType CreatedByType `json:"createdByType,omitempty"`
 	// CreatedAt - The timestamp of resource creation (UTC).
 	CreatedAt *date.Time `json:"createdAt,omitempty"`
 	// LastModifiedBy - The identity that last modified the resource.
 	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
-	// LastModifiedByType - The type of identity that last modified the resource. Possible values include: 'CreatedByTypeUser', 'CreatedByTypeApplication', 'CreatedByTypeManagedIdentity', 'CreatedByTypeKey'
+	// LastModifiedByType - The type of identity that last modified the resource. Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
 	LastModifiedByType CreatedByType `json:"lastModifiedByType,omitempty"`
 	// LastModifiedAt - The timestamp of resource last modification (UTC)
 	LastModifiedAt *date.Time `json:"lastModifiedAt,omitempty"`

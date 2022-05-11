@@ -1,5 +1,5 @@
 {
-  "commit": "e5839301dfd424559851119c99ef0a2699fbd228",
+  "commit": "847a8481ea2f735583fb18acedb0e4dc13594257",
   "readme": "/_/azure-rest-api-specs/specification/confidentialledger/resource-manager/readme.md",
   "tag": "package-2020-12-01-preview",
   "use": "@microsoft.azure/autorest.go@2.1.187",
