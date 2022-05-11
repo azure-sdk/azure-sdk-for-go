@@ -1,5 +1,15 @@
 # Release History
 
+## 0.5.0 (2022-05-11)
+### Breaking Changes
+
+- Struct `ResourceLocation` has been removed
+
+### Features Added
+
+- New struct `Location`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 

@@ -24,7 +24,7 @@ type AADBasedSecurityPrincipal struct {
 
 // CertBasedSecurityPrincipal - Cert based security principal with Ledger RoleName
 type CertBasedSecurityPrincipal struct {
-	// Public key of the user cert (.pem or .cer)
+	// Base64 encoded public key of the user cert (.pem or .cer)
 	Cert *string `json:"cert,omitempty"`
 
 	// LedgerRole associated with the Security Principal of Ledger
@@ -186,6 +186,12 @@ type List struct {
 	Value []*ConfidentialLedger `json:"value,omitempty"`
 }
 
+// Location of the ARM Resource
+type Location struct {
+	// The Azure location where the Confidential Ledger is running.
+	Location *string `json:"location,omitempty"`
+}
+
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -204,12 +210,6 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource.
 	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ResourceLocation - Location of the ARM Resource
-type ResourceLocation struct {
-	// The Azure location where the Confidential Ledger is running.
-	Location *string `json:"location,omitempty"`
 }
 
 // ResourceProviderOperationDefinition - Describes the Resource Provider Operation.
