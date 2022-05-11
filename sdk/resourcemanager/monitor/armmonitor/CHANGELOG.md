@@ -1,5 +1,27 @@
 # Release History
 
+## 0.7.0 (2022-05-11)
+### Breaking Changes
+
+- Struct `TestNotificationResponse` has been removed
+- Field `TestNotificationResponse` of struct `ActionGroupsClientPostTestNotificationsResponse` has been removed
+
+### Features Added
+
+- New function `*ActionGroupsClient.GetTestNotificationsAtResourceGroupLevel(context.Context, string, string, *ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions) (ActionGroupsClientGetTestNotificationsAtResourceGroupLevelResponse, error)`
+- New function `*ActionGroupsClient.BeginCreateNotificationsAtResourceGroupLevel(context.Context, string, NotificationRequestBody, *ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions) (*armruntime.Poller[ActionGroupsClientCreateNotificationsAtResourceGroupLevelResponse], error)`
+- New function `*ActionGroupsClient.GetTestNotificationsAtActionGroupResourceLevel(context.Context, string, string, string, *ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions) (ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelResponse, error)`
+- New function `*ActionGroupsClient.BeginCreateNotificationsAtActionGroupResourceLevel(context.Context, string, string, NotificationRequestBody, *ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions) (*armruntime.Poller[ActionGroupsClientCreateNotificationsAtActionGroupResourceLevelResponse], error)`
+- New struct `ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions`
+- New struct `ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions`
+- New struct `ActionGroupsClientCreateNotificationsAtActionGroupResourceLevelResponse`
+- New struct `ActionGroupsClientCreateNotificationsAtResourceGroupLevelResponse`
+- New struct `ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions`
+- New struct `ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelResponse`
+- New struct `ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions`
+- New struct `ActionGroupsClientGetTestNotificationsAtResourceGroupLevelResponse`
+
+
 ## 0.6.0 (2022-04-18)
 ### Breaking Changes
 
