@@ -10570,15 +10570,15 @@ func (ovd OperationValueDisplay) MarshalJSON() ([]byte, error) {
 
 // OrchestrationServiceStateInput the input for OrchestrationServiceState
 type OrchestrationServiceStateInput struct {
-	// ServiceName - The name of the service. Possible values include: 'OrchestrationServiceNamesAutomaticRepairs'
-	ServiceName OrchestrationServiceNames `json:"serviceName,omitempty"`
+	// ServiceName - The name of the service.
+	ServiceName *string `json:"serviceName,omitempty"`
 	// Action - The action to be performed. Possible values include: 'OrchestrationServiceStateActionResume', 'OrchestrationServiceStateActionSuspend'
 	Action OrchestrationServiceStateAction `json:"action,omitempty"`
 }
 
 // OrchestrationServiceSummary summary for an orchestration service of a virtual machine scale set.
 type OrchestrationServiceSummary struct {
-	// ServiceName - READ-ONLY; The name of the service. Possible values include: 'OrchestrationServiceNamesAutomaticRepairs', 'OrchestrationServiceNamesDummyOrchestrationServiceName'
+	// ServiceName - READ-ONLY; The name of the service. Possible values include: 'OrchestrationServiceNamesAutomaticRepairs'
 	ServiceName OrchestrationServiceNames `json:"serviceName,omitempty"`
 	// ServiceState - READ-ONLY; The current state of the service. Possible values include: 'OrchestrationServiceStateNotRunning', 'OrchestrationServiceStateRunning', 'OrchestrationServiceStateSuspended'
 	ServiceState OrchestrationServiceState `json:"serviceState,omitempty"`
@@ -10857,7 +10857,7 @@ type OSProfile struct {
 	Secrets *[]VaultSecretGroup `json:"secrets,omitempty"`
 	// AllowExtensionOperations - Specifies whether extension operations should be allowed on the virtual machine. <br><br>This may only be set to False when no extensions are present on the virtual machine.
 	AllowExtensionOperations *bool `json:"allowExtensionOperations,omitempty"`
-	// RequireGuestProvisionSignal - Specifies whether the guest provision signal is required to infer provision success of the virtual machine.  **Note: This property is for private testing only, and all customers must not set the property to false.**
+	// RequireGuestProvisionSignal - Optional property which must either be set to True or omitted.
 	RequireGuestProvisionSignal *bool `json:"requireGuestProvisionSignal,omitempty"`
 }
 
