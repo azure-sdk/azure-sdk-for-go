@@ -540,7 +540,7 @@ type ExtendedErrorInfo struct {
 
 // ExtendedStatusInfo ...
 type ExtendedStatusInfo struct {
-	// StatusCode - Possible values include: 'StatusCodeNone', 'StatusCodePending', 'StatusCodeProcessing', 'StatusCodeActive', 'StatusCodePurchaseError', 'StatusCodePaymentInstrumentError', 'StatusCodeSplit', 'StatusCodeMerged', 'StatusCodeExpired', 'StatusCodeSucceeded'
+	// StatusCode - Possible values include: 'StatusCodeNone', 'StatusCodePending', 'StatusCodeProcessing', 'StatusCodeActive', 'StatusCodePurchaseError', 'StatusCodePaymentInstrumentError', 'StatusCodeSplit', 'StatusCodeMerged', 'StatusCodeExpired', 'StatusCodeSucceeded', 'StatusCodeWarning', 'StatusCodeNoBenefit', 'StatusCodeNoBenefitDueToSubscriptionTransfer', 'StatusCodeNoBenefitDueToSubscriptionDeletion'
 	StatusCode StatusCode `json:"statusCode,omitempty"`
 	// Message - The message giving detailed information about the status code.
 	Message *string `json:"message,omitempty"`
@@ -3028,6 +3028,10 @@ type Summary struct {
 	CancelledCount *float64 `json:"cancelledCount,omitempty"`
 	// ProcessingCount - READ-ONLY; The number of reservation in Processing state
 	ProcessingCount *float64 `json:"processingCount,omitempty"`
+	// WarningCount - READ-ONLY; The number of reservation in Warning state
+	WarningCount *float64 `json:"warningCount,omitempty"`
+	// NoBenefitCount - READ-ONLY; The number of reservation in NoBenefit state
+	NoBenefitCount *float64 `json:"noBenefitCount,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for Summary.
