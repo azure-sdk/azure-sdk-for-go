@@ -1,5 +1,21 @@
 # Release History
 
+## 0.6.0 (2022-05-11)
+### Breaking Changes
+
+- Type of `Encryption.KeySource` has been changed from `*string` to `*KeySource`
+
+### Features Added
+
+- New const `TLSVersionOne0`
+- New const `TLSVersionOne1`
+- New const `KeySourceMicrosoftKeyVault`
+- New const `TLSVersionOne2`
+- New function `PossibleKeySourceValues() []KeySource`
+- New function `PossibleTLSVersionValues() []TLSVersion`
+- New field `MinimumTLSVersion` in struct `SBNamespaceProperties`
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 

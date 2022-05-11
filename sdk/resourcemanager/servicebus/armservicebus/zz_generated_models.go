@@ -220,7 +220,7 @@ type DisasterRecoveryConfigsClientListOptions struct {
 // Encryption - Properties to configure Encryption
 type Encryption struct {
 	// Enumerates the possible value of keySource for Encryption
-	KeySource *string `json:"keySource,omitempty"`
+	KeySource *KeySource `json:"keySource,omitempty"`
 
 	// Properties of KeyVault
 	KeyVaultProperties []*KeyVaultProperties `json:"keyVaultProperties,omitempty"`
@@ -1004,6 +1004,9 @@ type SBNamespaceProperties struct {
 
 	// Properties of BYOK Encryption description
 	Encryption *Encryption `json:"encryption,omitempty"`
+
+	// The minimum TLS version for the cluster to support, e.g. '1.2'
+	MinimumTLSVersion *TLSVersion `json:"minimumTlsVersion,omitempty"`
 
 	// List of private endpoint connections.
 	PrivateEndpointConnections []*PrivateEndpointConnection `json:"privateEndpointConnections,omitempty"`
