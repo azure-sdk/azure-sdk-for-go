@@ -1,5 +1,24 @@
 # Release History
 
+## 0.5.0 (2022-05-11)
+### Breaking Changes
+
+- Field `EventHubConnectionString` of struct `IotHubSettings` has been removed
+- Field `IoTHubConnectionString` of struct `IotHubSettings` has been removed
+
+### Features Added
+
+- New const `SKUStandard`
+- New const `RolePrimary`
+- New const `RoleFailover`
+- New const `SKUFree`
+- New function `PossibleSKUValues() []SKU`
+- New function `PossibleRoleValues() []Role`
+- New struct `Location`
+- New field `SKU` in struct `AccountProperties`
+- New field `Locations` in struct `AccountProperties`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
