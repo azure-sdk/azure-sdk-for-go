@@ -22,20 +22,20 @@ import (
 	"strings"
 )
 
-// ServiceTagsClient contains the methods for the ServiceTags group.
-// Don't use this type directly, use NewServiceTagsClient() instead.
-type ServiceTagsClient struct {
+// ExpressRouteProviderPortsLocationClient contains the methods for the ExpressRouteProviderPortsLocation group.
+// Don't use this type directly, use NewExpressRouteProviderPortsLocationClient() instead.
+type ExpressRouteProviderPortsLocationClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewServiceTagsClient creates a new instance of ServiceTagsClient with the specified values.
+// NewExpressRouteProviderPortsLocationClient creates a new instance of ExpressRouteProviderPortsLocationClient with the specified values.
 // subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
 // ID forms part of the URI for every service call.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewServiceTagsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServiceTagsClient, error) {
+func NewExpressRouteProviderPortsLocationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExpressRouteProviderPortsLocationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -47,7 +47,7 @@ func NewServiceTagsClient(subscriptionID string, credential azcore.TokenCredenti
 	if err != nil {
 		return nil, err
 	}
-	client := &ServiceTagsClient{
+	client := &ExpressRouteProviderPortsLocationClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -55,34 +55,28 @@ func NewServiceTagsClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// List - Gets a list of service tag information resources.
+// List - Retrieves all the ExpressRouteProviderPorts in a subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// location - The location that will be used as a reference for version (not as a filter based on location, you will get the
-// list of service tags with prefix details across all regions but limited to the cloud that
-// your subscription belongs to).
-// options - ServiceTagsClientListOptions contains the optional parameters for the ServiceTagsClient.List method.
-func (client *ServiceTagsClient) List(ctx context.Context, location string, options *ServiceTagsClientListOptions) (ServiceTagsClientListResponse, error) {
-	req, err := client.listCreateRequest(ctx, location, options)
+// options - ExpressRouteProviderPortsLocationClientListOptions contains the optional parameters for the ExpressRouteProviderPortsLocationClient.List
+// method.
+func (client *ExpressRouteProviderPortsLocationClient) List(ctx context.Context, options *ExpressRouteProviderPortsLocationClientListOptions) (ExpressRouteProviderPortsLocationClientListResponse, error) {
+	req, err := client.listCreateRequest(ctx, options)
 	if err != nil {
-		return ServiceTagsClientListResponse{}, err
+		return ExpressRouteProviderPortsLocationClientListResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return ServiceTagsClientListResponse{}, err
+		return ExpressRouteProviderPortsLocationClientListResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ServiceTagsClientListResponse{}, runtime.NewResponseError(resp)
+		return ExpressRouteProviderPortsLocationClientListResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.listHandleResponse(resp)
 }
 
 // listCreateRequest creates the List request.
-func (client *ServiceTagsClient) listCreateRequest(ctx context.Context, location string, options *ServiceTagsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/serviceTags"
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+func (client *ExpressRouteProviderPortsLocationClient) listCreateRequest(ctx context.Context, options *ExpressRouteProviderPortsLocationClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/expressRouteProviderPorts"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -93,16 +87,19 @@ func (client *ServiceTagsClient) listCreateRequest(ctx context.Context, location
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2022-01-01")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
 }
 
 // listHandleResponse handles the List response.
-func (client *ServiceTagsClient) listHandleResponse(resp *http.Response) (ServiceTagsClientListResponse, error) {
-	result := ServiceTagsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServiceTagsListResult); err != nil {
-		return ServiceTagsClientListResponse{}, err
+func (client *ExpressRouteProviderPortsLocationClient) listHandleResponse(resp *http.Response) (ExpressRouteProviderPortsLocationClientListResponse, error) {
+	result := ExpressRouteProviderPortsLocationClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ExpressRouteProviderPortListResult); err != nil {
+		return ExpressRouteProviderPortsLocationClientListResponse{}, err
 	}
 	return result, nil
 }

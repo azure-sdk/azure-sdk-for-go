@@ -1,5 +1,134 @@
 # Release History
 
+## 0.6.0 (2022-05-12)
+### Breaking Changes
+
+- Type of `SingleQueryResult.Mode` has been changed from `*SingleQueryResultMode` to `*FirewallPolicyIDPSSignatureMode`
+- Type of `SingleQueryResult.Direction` has been changed from `*SingleQueryResultDirection` to `*FirewallPolicyIDPSSignatureDirection`
+- Type of `SingleQueryResult.Severity` has been changed from `*SingleQueryResultSeverity` to `*FirewallPolicyIDPSSignatureSeverity`
+- Type of `OrderBy.Order` has been changed from `*OrderByOrder` to `*FirewallPolicyIDPSQuerySortOrder`
+- Const `SingleQueryResultDirectionTwo` has been removed
+- Const `SingleQueryResultDirectionZero` has been removed
+- Const `SingleQueryResultDirectionOne` has been removed
+- Const `SingleQueryResultSeverityThree` has been removed
+- Const `SingleQueryResultModeTwo` has been removed
+- Const `SingleQueryResultModeZero` has been removed
+- Const `SingleQueryResultSeverityOne` has been removed
+- Const `SingleQueryResultModeOne` has been removed
+- Const `OrderByOrderAscending` has been removed
+- Const `SingleQueryResultSeverityTwo` has been removed
+- Const `OrderByOrderDescending` has been removed
+- Function `PossibleSingleQueryResultModeValues` has been removed
+- Function `PossibleSingleQueryResultSeverityValues` has been removed
+- Function `PossibleSingleQueryResultDirectionValues` has been removed
+- Function `PossibleOrderByOrderValues` has been removed
+
+### Features Added
+
+- New const `FirewallPolicyIDPSQuerySortOrderAscending`
+- New const `FirewallPolicyIDPSSignatureModeZero`
+- New const `LoadBalancerBackendAddressAdminStateDown`
+- New const `LoadBalancerBackendAddressAdminStateDrain`
+- New const `LoadBalancerBackendAddressAdminStateUp`
+- New const `FirewallPolicyIDPSSignatureSeverityTwo`
+- New const `HubRoutingPreferenceASPath`
+- New const `FirewallPolicyIDPSSignatureDirectionTwo`
+- New const `NetworkInterfaceAuxiliaryModeNone`
+- New const `FirewallPolicyIDPSSignatureDirectionZero`
+- New const `ApplicationGatewayProtocolTLS`
+- New const `VPNPolicyMemberAttributeTypeCertificateGroupID`
+- New const `VPNPolicyMemberAttributeTypeRadiusAzureGroupID`
+- New const `FirewallPolicyIDPSSignatureSeverityThree`
+- New const `FirewallPolicyIDPSSignatureModeOne`
+- New const `ExpressRoutePortAuthorizationUseStatusAvailable`
+- New const `NetworkInterfaceAuxiliaryModeFloating`
+- New const `ApplicationGatewayProtocolTCP`
+- New const `FirewallPolicyIDPSSignatureModeTwo`
+- New const `HubRoutingPreferenceVPNGateway`
+- New const `NetworkInterfaceAuxiliaryModeMaxConnections`
+- New const `ExpressRoutePortAuthorizationUseStatusInUse`
+- New const `FirewallPolicyIDPSQuerySortOrderDescending`
+- New const `FirewallPolicyIDPSSignatureDirectionOne`
+- New const `FirewallPolicyIDPSSignatureSeverityOne`
+- New const `LoadBalancerBackendAddressAdminStateNone`
+- New const `HubRoutingPreferenceExpressRoute`
+- New const `VPNPolicyMemberAttributeTypeAADGroupID`
+- New function `*ManagementClient.ExpressRouteProviderPort(context.Context, string, *ManagementClientExpressRouteProviderPortOptions) (ManagementClientExpressRouteProviderPortResponse, error)`
+- New function `ExpressRouteProviderPort.MarshalJSON() ([]byte, error)`
+- New function `PossibleLoadBalancerBackendAddressAdminStateValues() []LoadBalancerBackendAddressAdminState`
+- New function `*FirewallPoliciesClient.UpdateTags(context.Context, string, string, TagsObject, *FirewallPoliciesClientUpdateTagsOptions) (FirewallPoliciesClientUpdateTagsResponse, error)`
+- New function `ApplicationGatewayBackendSettingsPropertiesFormat.MarshalJSON() ([]byte, error)`
+- New function `PossibleNetworkInterfaceAuxiliaryModeValues() []NetworkInterfaceAuxiliaryMode`
+- New function `VPNServerConfigurationPolicyGroupProperties.MarshalJSON() ([]byte, error)`
+- New function `PossibleFirewallPolicyIDPSSignatureModeValues() []FirewallPolicyIDPSSignatureMode`
+- New function `PossibleVPNPolicyMemberAttributeTypeValues() []VPNPolicyMemberAttributeType`
+- New function `PossibleFirewallPolicyIDPSSignatureSeverityValues() []FirewallPolicyIDPSSignatureSeverity`
+- New function `ExpressRouteProviderPortListResult.MarshalJSON() ([]byte, error)`
+- New function `ListVPNServerConfigurationPolicyGroupsResult.MarshalJSON() ([]byte, error)`
+- New function `PossibleFirewallPolicyIDPSQuerySortOrderValues() []FirewallPolicyIDPSQuerySortOrder`
+- New function `ExpressRoutePortAuthorizationListResult.MarshalJSON() ([]byte, error)`
+- New function `PossibleExpressRoutePortAuthorizationUseStatusValues() []ExpressRoutePortAuthorizationUseStatus`
+- New function `PossibleFirewallPolicyIDPSSignatureDirectionValues() []FirewallPolicyIDPSSignatureDirection`
+- New function `PossibleHubRoutingPreferenceValues() []HubRoutingPreference`
+- New function `P2SConnectionConfigurationProperties.MarshalJSON() ([]byte, error)`
+- New struct `ApplicationGatewayBackendSettings`
+- New struct `ApplicationGatewayBackendSettingsPropertiesFormat`
+- New struct `ApplicationGatewayListener`
+- New struct `ApplicationGatewayListenerPropertiesFormat`
+- New struct `ApplicationGatewayRoutingRule`
+- New struct `ApplicationGatewayRoutingRulePropertiesFormat`
+- New struct `ConfigurationPolicyGroupsClientBeginCreateOrUpdateOptions`
+- New struct `ConfigurationPolicyGroupsClientBeginDeleteOptions`
+- New struct `ConfigurationPolicyGroupsClientCreateOrUpdateResponse`
+- New struct `ConfigurationPolicyGroupsClientDeleteResponse`
+- New struct `ConfigurationPolicyGroupsClientGetOptions`
+- New struct `ConfigurationPolicyGroupsClientGetResponse`
+- New struct `ConfigurationPolicyGroupsClientListByVPNServerConfigurationOptions`
+- New struct `ConfigurationPolicyGroupsClientListByVPNServerConfigurationResponse`
+- New struct `ExpressRoutePortAuthorization`
+- New struct `ExpressRoutePortAuthorizationListResult`
+- New struct `ExpressRoutePortAuthorizationPropertiesFormat`
+- New struct `ExpressRoutePortAuthorizationsClientBeginCreateOrUpdateOptions`
+- New struct `ExpressRoutePortAuthorizationsClientBeginDeleteOptions`
+- New struct `ExpressRoutePortAuthorizationsClientCreateOrUpdateResponse`
+- New struct `ExpressRoutePortAuthorizationsClientDeleteResponse`
+- New struct `ExpressRoutePortAuthorizationsClientGetOptions`
+- New struct `ExpressRoutePortAuthorizationsClientGetResponse`
+- New struct `ExpressRoutePortAuthorizationsClientListOptions`
+- New struct `ExpressRoutePortAuthorizationsClientListResponse`
+- New struct `ExpressRouteProviderPort`
+- New struct `ExpressRouteProviderPortListResult`
+- New struct `ExpressRouteProviderPortProperties`
+- New struct `ExpressRouteProviderPortsLocationClientListOptions`
+- New struct `ExpressRouteProviderPortsLocationClientListResponse`
+- New struct `FirewallPoliciesClientUpdateTagsOptions`
+- New struct `FirewallPoliciesClientUpdateTagsResponse`
+- New struct `GatewayCustomBgpIPAddressIPConfiguration`
+- New struct `ListVPNServerConfigurationPolicyGroupsResult`
+- New struct `ManagementClientExpressRouteProviderPortOptions`
+- New struct `ManagementClientExpressRouteProviderPortResponse`
+- New struct `VPNServerConfigurationPolicyGroup`
+- New struct `VPNServerConfigurationPolicyGroupMember`
+- New struct `VPNServerConfigurationPolicyGroupProperties`
+- New field `BackendSettingsCollection` in struct `ApplicationGatewayPropertiesFormat`
+- New field `Listeners` in struct `ApplicationGatewayPropertiesFormat`
+- New field `RoutingRules` in struct `ApplicationGatewayPropertiesFormat`
+- New field `PrivateRanges` in struct `FirewallPolicyIntrusionDetectionConfiguration`
+- New field `PickHostNameFromBackendSettings` in struct `ApplicationGatewayProbePropertiesFormat`
+- New field `HubRoutingPreference` in struct `VirtualHubProperties`
+- New field `DrainPeriodInSeconds` in struct `BackendAddressPoolPropertiesFormat`
+- New field `AuxiliaryMode` in struct `InterfacePropertiesFormat`
+- New field `ConfigurationPolicyGroups` in struct `VPNServerConfigurationProperties`
+- New field `GatewayCustomBgpIPAddresses` in struct `VirtualNetworkGatewayConnectionPropertiesFormat`
+- New field `VPNGatewayCustomBgpAddresses` in struct `VPNSiteLinkConnectionProperties`
+- New field `PreviousConfigurationPolicyGroupAssociations` in struct `P2SConnectionConfigurationProperties`
+- New field `ConfigurationPolicyGroupAssociations` in struct `P2SConnectionConfigurationProperties`
+- New field `GatewayCustomBgpIPAddresses` in struct `VirtualNetworkGatewayConnectionListEntityPropertiesFormat`
+- New field `EnablePacFile` in struct `ExplicitProxySettings`
+- New field `AuthorizationKey` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `AdminState` in struct `LoadBalancerBackendAddressPropertiesFormat`
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 
