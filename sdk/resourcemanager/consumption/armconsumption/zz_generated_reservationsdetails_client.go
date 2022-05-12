@@ -53,13 +53,13 @@ func NewReservationsDetailsClient(credential azcore.TokenCredential, options *ar
 
 // NewListPager - Lists the reservations details for the defined scope and provided date range.
 // If the operation fails it returns an *azcore.ResponseError type.
-// scope - The scope associated with reservations details operations. This includes '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
+// resourceScope - The scope associated with reservations details operations. This includes '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
 // for BillingAccount scope (legacy), and
 // '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile
 // scope (modern).
 // options - ReservationsDetailsClientListOptions contains the optional parameters for the ReservationsDetailsClient.List
 // method.
-func (client *ReservationsDetailsClient) NewListPager(scope string, options *ReservationsDetailsClientListOptions) *runtime.Pager[ReservationsDetailsClientListResponse] {
+func (client *ReservationsDetailsClient) NewListPager(resourceScope string, options *ReservationsDetailsClientListOptions) *runtime.Pager[ReservationsDetailsClientListResponse] {
 	return runtime.NewPager(runtime.PageProcessor[ReservationsDetailsClientListResponse]{
 		More: func(page ReservationsDetailsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -68,7 +68,7 @@ func (client *ReservationsDetailsClient) NewListPager(scope string, options *Res
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listCreateRequest(ctx, scope, options)
+				req, err = client.listCreateRequest(ctx, resourceScope, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
@@ -88,9 +88,9 @@ func (client *ReservationsDetailsClient) NewListPager(scope string, options *Res
 }
 
 // listCreateRequest creates the List request.
-func (client *ReservationsDetailsClient) listCreateRequest(ctx context.Context, scope string, options *ReservationsDetailsClientListOptions) (*policy.Request, error) {
-	urlPath := "/{scope}/providers/Microsoft.Consumption/reservationDetails"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+func (client *ReservationsDetailsClient) listCreateRequest(ctx context.Context, resourceScope string, options *ReservationsDetailsClientListOptions) (*policy.Request, error) {
+	urlPath := "/{resourceScope}/providers/Microsoft.Consumption/reservationDetails"
+	urlPath = strings.ReplaceAll(urlPath, "{resourceScope}", resourceScope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err

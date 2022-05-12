@@ -1,5 +1,15 @@
 # Release History
 
+## 0.6.0 (2022-05-12)
+### Breaking Changes
+
+- Function `*ReservationRecommendationDetailsClient.Get` parameter(s) have been changed from `(context.Context, string, string, Term, LookBackPeriod, string, *ReservationRecommendationDetailsClientGetOptions)` to `(context.Context, string, Scope, string, Term, LookBackPeriod, string, *ReservationRecommendationDetailsClientGetOptions)`
+
+### Features Added
+
+- New const `EventTypeCreditExpired`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 

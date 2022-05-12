@@ -53,14 +53,14 @@ func NewReservationsSummariesClient(credential azcore.TokenCredential, options *
 
 // NewListPager - Lists the reservations summaries for the defined scope daily or monthly grain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// scope - The scope associated with reservations summaries operations. This includes '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
+// resourceScope - The scope associated with reservations summaries operations. This includes '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
 // for BillingAccount scope (legacy), and
 // '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile
 // scope (modern).
 // grain - Can be daily or monthly
 // options - ReservationsSummariesClientListOptions contains the optional parameters for the ReservationsSummariesClient.List
 // method.
-func (client *ReservationsSummariesClient) NewListPager(scope string, grain Datagrain, options *ReservationsSummariesClientListOptions) *runtime.Pager[ReservationsSummariesClientListResponse] {
+func (client *ReservationsSummariesClient) NewListPager(resourceScope string, grain Datagrain, options *ReservationsSummariesClientListOptions) *runtime.Pager[ReservationsSummariesClientListResponse] {
 	return runtime.NewPager(runtime.PageProcessor[ReservationsSummariesClientListResponse]{
 		More: func(page ReservationsSummariesClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -69,7 +69,7 @@ func (client *ReservationsSummariesClient) NewListPager(scope string, grain Data
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listCreateRequest(ctx, scope, grain, options)
+				req, err = client.listCreateRequest(ctx, resourceScope, grain, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
@@ -89,9 +89,9 @@ func (client *ReservationsSummariesClient) NewListPager(scope string, grain Data
 }
 
 // listCreateRequest creates the List request.
-func (client *ReservationsSummariesClient) listCreateRequest(ctx context.Context, scope string, grain Datagrain, options *ReservationsSummariesClientListOptions) (*policy.Request, error) {
-	urlPath := "/{scope}/providers/Microsoft.Consumption/reservationSummaries"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+func (client *ReservationsSummariesClient) listCreateRequest(ctx context.Context, resourceScope string, grain Datagrain, options *ReservationsSummariesClientListOptions) (*policy.Request, error) {
+	urlPath := "/{resourceScope}/providers/Microsoft.Consumption/reservationSummaries"
+	urlPath = strings.ReplaceAll(urlPath, "{resourceScope}", resourceScope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
