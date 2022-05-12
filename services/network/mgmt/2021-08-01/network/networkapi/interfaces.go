@@ -17,6 +17,7 @@ type BaseClientAPI interface {
 	DeleteBastionShareableLink(ctx context.Context, resourceGroupName string, bastionHostName string, bslRequest network.BastionShareableLinkListRequest) (result network.DeleteBastionShareableLinkFuture, err error)
 	DisconnectActiveSessions(ctx context.Context, resourceGroupName string, bastionHostName string, sessionIds network.SessionIds) (result network.BastionSessionDeleteResultPage, err error)
 	DisconnectActiveSessionsComplete(ctx context.Context, resourceGroupName string, bastionHostName string, sessionIds network.SessionIds) (result network.BastionSessionDeleteResultIterator, err error)
+	ExpressRouteProviderPortMethod(ctx context.Context, providerport string) (result network.ExpressRouteProviderPort, err error)
 	Generatevirtualwanvpnserverconfigurationvpnprofile(ctx context.Context, resourceGroupName string, virtualWANName string, vpnClientParams network.VirtualWanVpnProfileParameters) (result network.GeneratevirtualwanvpnserverconfigurationvpnprofileFuture, err error)
 	GetActiveSessions(ctx context.Context, resourceGroupName string, bastionHostName string) (result network.GetActiveSessionsFuture, err error)
 	GetActiveSessionsComplete(ctx context.Context, resourceGroupName string, bastionHostName string) (result network.GetActiveSessionsAllFuture, err error)
@@ -1404,3 +1405,10 @@ type WebApplicationFirewallPoliciesClientAPI interface {
 }
 
 var _ WebApplicationFirewallPoliciesClientAPI = (*network.WebApplicationFirewallPoliciesClient)(nil)
+
+// ExpressRouteProviderPortsLocationClientAPI contains the set of methods on the ExpressRouteProviderPortsLocationClient type.
+type ExpressRouteProviderPortsLocationClientAPI interface {
+	List(ctx context.Context, filter string) (result network.ExpressRouteProviderPortListResult, err error)
+}
+
+var _ ExpressRouteProviderPortsLocationClientAPI = (*network.ExpressRouteProviderPortsLocationClient)(nil)

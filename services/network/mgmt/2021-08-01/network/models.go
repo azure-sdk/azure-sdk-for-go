@@ -17651,6 +17651,180 @@ func (erplpf ExpressRoutePortsLocationPropertiesFormat) MarshalJSON() ([]byte, e
 	return json.Marshal(objectMap)
 }
 
+// ExpressRouteProviderPort expressRouteProviderPort resource.
+type ExpressRouteProviderPort struct {
+	autorest.Response `json:"-"`
+	// ExpressRouteProviderPortProperties - Properties of the express route Service Provider Port.
+	*ExpressRouteProviderPortProperties `json:"properties,omitempty"`
+	// Etag - READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty"`
+	// ID - Resource ID.
+	ID *string `json:"id,omitempty"`
+	// Name - READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty"`
+	// Type - READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty"`
+	// Location - Resource location.
+	Location *string `json:"location,omitempty"`
+	// Tags - Resource tags.
+	Tags map[string]*string `json:"tags"`
+}
+
+// MarshalJSON is the custom marshaler for ExpressRouteProviderPort.
+func (erpp ExpressRouteProviderPort) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if erpp.ExpressRouteProviderPortProperties != nil {
+		objectMap["properties"] = erpp.ExpressRouteProviderPortProperties
+	}
+	if erpp.ID != nil {
+		objectMap["id"] = erpp.ID
+	}
+	if erpp.Location != nil {
+		objectMap["location"] = erpp.Location
+	}
+	if erpp.Tags != nil {
+		objectMap["tags"] = erpp.Tags
+	}
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON is the custom unmarshaler for ExpressRouteProviderPort struct.
+func (erpp *ExpressRouteProviderPort) UnmarshalJSON(body []byte) error {
+	var m map[string]*json.RawMessage
+	err := json.Unmarshal(body, &m)
+	if err != nil {
+		return err
+	}
+	for k, v := range m {
+		switch k {
+		case "properties":
+			if v != nil {
+				var expressRouteProviderPortProperties ExpressRouteProviderPortProperties
+				err = json.Unmarshal(*v, &expressRouteProviderPortProperties)
+				if err != nil {
+					return err
+				}
+				erpp.ExpressRouteProviderPortProperties = &expressRouteProviderPortProperties
+			}
+		case "etag":
+			if v != nil {
+				var etag string
+				err = json.Unmarshal(*v, &etag)
+				if err != nil {
+					return err
+				}
+				erpp.Etag = &etag
+			}
+		case "id":
+			if v != nil {
+				var ID string
+				err = json.Unmarshal(*v, &ID)
+				if err != nil {
+					return err
+				}
+				erpp.ID = &ID
+			}
+		case "name":
+			if v != nil {
+				var name string
+				err = json.Unmarshal(*v, &name)
+				if err != nil {
+					return err
+				}
+				erpp.Name = &name
+			}
+		case "type":
+			if v != nil {
+				var typeVar string
+				err = json.Unmarshal(*v, &typeVar)
+				if err != nil {
+					return err
+				}
+				erpp.Type = &typeVar
+			}
+		case "location":
+			if v != nil {
+				var location string
+				err = json.Unmarshal(*v, &location)
+				if err != nil {
+					return err
+				}
+				erpp.Location = &location
+			}
+		case "tags":
+			if v != nil {
+				var tags map[string]*string
+				err = json.Unmarshal(*v, &tags)
+				if err != nil {
+					return err
+				}
+				erpp.Tags = tags
+			}
+		}
+	}
+
+	return nil
+}
+
+// ExpressRouteProviderPortListResult response for ListExpressRouteProviderPort API service call.
+type ExpressRouteProviderPortListResult struct {
+	autorest.Response `json:"-"`
+	// Value - A list of ExpressRouteProviderPort resources.
+	Value *[]ExpressRouteProviderPort `json:"value,omitempty"`
+	// NextLink - READ-ONLY; The URL to get the next set of results.
+	NextLink *string `json:"nextLink,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for ExpressRouteProviderPortListResult.
+func (erpplr ExpressRouteProviderPortListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if erpplr.Value != nil {
+		objectMap["value"] = erpplr.Value
+	}
+	return json.Marshal(objectMap)
+}
+
+// ExpressRouteProviderPortProperties properties of ExpressRouteProviderPort.
+type ExpressRouteProviderPortProperties struct {
+	// PortPairDescriptor - READ-ONLY; The name of the port pair.
+	PortPairDescriptor *string `json:"portPairDescriptor,omitempty"`
+	// PrimaryAzurePort - READ-ONLY; The name of the primary port.
+	PrimaryAzurePort *string `json:"primaryAzurePort,omitempty"`
+	// SecondaryAzurePort - READ-ONLY; The name of the secondary port.
+	SecondaryAzurePort *string `json:"secondaryAzurePort,omitempty"`
+	// PeeringLocation - The peering location of the port pair.
+	PeeringLocation *string `json:"peeringLocation,omitempty"`
+	// OverprovisionFactor - Overprovisioning factor for the port pair.
+	OverprovisionFactor *int32 `json:"overprovisionFactor,omitempty"`
+	// PortBandwidthInMbps - Bandwidth of the port in Mbps
+	PortBandwidthInMbps *int32 `json:"portBandwidthInMbps,omitempty"`
+	// UsedBandwidthInMbps - Used Bandwidth of the port in Mbps
+	UsedBandwidthInMbps *int32 `json:"usedBandwidthInMbps,omitempty"`
+	// RemainingBandwidthInMbps - Remaining Bandwidth of the port in Mbps
+	RemainingBandwidthInMbps *int32 `json:"remainingBandwidthInMbps,omitempty"`
+}
+
+// MarshalJSON is the custom marshaler for ExpressRouteProviderPortProperties.
+func (erppp ExpressRouteProviderPortProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	if erppp.PeeringLocation != nil {
+		objectMap["peeringLocation"] = erppp.PeeringLocation
+	}
+	if erppp.OverprovisionFactor != nil {
+		objectMap["overprovisionFactor"] = erppp.OverprovisionFactor
+	}
+	if erppp.PortBandwidthInMbps != nil {
+		objectMap["portBandwidthInMbps"] = erppp.PortBandwidthInMbps
+	}
+	if erppp.UsedBandwidthInMbps != nil {
+		objectMap["usedBandwidthInMbps"] = erppp.UsedBandwidthInMbps
+	}
+	if erppp.RemainingBandwidthInMbps != nil {
+		objectMap["remainingBandwidthInMbps"] = erppp.RemainingBandwidthInMbps
+	}
+	return json.Marshal(objectMap)
+}
+
 // ExpressRouteServiceProvider a ExpressRouteResourceProvider object.
 type ExpressRouteServiceProvider struct {
 	// ExpressRouteServiceProviderPropertiesFormat - Properties of the express route service provider.

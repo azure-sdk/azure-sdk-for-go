@@ -1,4 +1,4 @@
-// Package network implements the Azure ARM Network service API version .
+// Package network implements the Azure ARM Network service API version 2021-08-01.
 //
 // Network Client
 package network
@@ -320,6 +320,80 @@ func (client BaseClient) DisconnectActiveSessionsComplete(ctx context.Context, r
 		}()
 	}
 	result.page, err = client.DisconnectActiveSessions(ctx, resourceGroupName, bastionHostName, sessionIds)
+	return
+}
+
+// ExpressRouteProviderPortMethod retrieves detail of a provider port.
+// Parameters:
+// providerport - the name of the provider port.
+func (client BaseClient) ExpressRouteProviderPortMethod(ctx context.Context, providerport string) (result ExpressRouteProviderPort, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/BaseClient.ExpressRouteProviderPortMethod")
+		defer func() {
+			sc := -1
+			if result.Response.Response != nil {
+				sc = result.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	req, err := client.ExpressRouteProviderPortMethodPreparer(ctx, providerport)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "network.BaseClient", "ExpressRouteProviderPortMethod", nil, "Failure preparing request")
+		return
+	}
+
+	resp, err := client.ExpressRouteProviderPortMethodSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "network.BaseClient", "ExpressRouteProviderPortMethod", resp, "Failure sending request")
+		return
+	}
+
+	result, err = client.ExpressRouteProviderPortMethodResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "network.BaseClient", "ExpressRouteProviderPortMethod", resp, "Failure responding to request")
+		return
+	}
+
+	return
+}
+
+// ExpressRouteProviderPortMethodPreparer prepares the ExpressRouteProviderPortMethod request.
+func (client BaseClient) ExpressRouteProviderPortMethodPreparer(ctx context.Context, providerport string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"providerport":   autorest.Encode("path", providerport),
+		"subscriptionId": autorest.Encode("path", client.SubscriptionID),
+	}
+
+	const APIVersion = "2021-08-01"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
+
+	preparer := autorest.CreatePreparer(
+		autorest.AsGet(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/providers/Microsoft.Network/expressRouteProviderPorts/{providerport}", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
+
+// ExpressRouteProviderPortMethodSender sends the ExpressRouteProviderPortMethod request. The method will close the
+// http.Response Body if it receives an error.
+func (client BaseClient) ExpressRouteProviderPortMethodSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
+
+// ExpressRouteProviderPortMethodResponder handles the response to the ExpressRouteProviderPortMethod request. The method always
+// closes the http.Response Body.
+func (client BaseClient) ExpressRouteProviderPortMethodResponder(resp *http.Response) (result ExpressRouteProviderPort, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
 	return
 }
 
