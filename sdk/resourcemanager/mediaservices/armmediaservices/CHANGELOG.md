@@ -1,5 +1,37 @@
 # Release History
 
+## 0.7.0 (2022-05-12)
+### Features Added
+
+- New const `AV1VideoProfileAuto`
+- New const `AV1ComplexitySpeed`
+- New const `AV1ComplexityQuality`
+- New const `EncoderNamedPresetAV1SingleBitrate1080P`
+- New const `EncoderNamedPresetAV1SingleBitrate4K`
+- New const `EncoderNamedPresetDDGoodQualityAudio`
+- New const `AV1ComplexityBalanced`
+- New const `JobErrorCategoryAccount`
+- New const `AV1VideoProfileMain`
+- New const `EncoderNamedPresetAV1AdaptiveStreaming`
+- New const `JobErrorCodeIdentityUnsupported`
+- New const `EncoderNamedPresetAV1ContentAwareEncoding`
+- New const `EncoderNamedPresetAV1SingleBitrate720P`
+- New function `*AV1Video.GetCodec() *Codec`
+- New function `AV1Video.MarshalJSON() ([]byte, error)`
+- New function `*DDAudio.GetCodec() *Codec`
+- New function `*AV1Video.GetVideo() *Video`
+- New function `*DDAudio.GetAudio() *Audio`
+- New function `DDAudio.MarshalJSON() ([]byte, error)`
+- New function `*AV1Video.UnmarshalJSON([]byte) error`
+- New function `PossibleAV1VideoProfileValues() []AV1VideoProfile`
+- New function `PossibleAV1ComplexityValues() []AV1Complexity`
+- New function `*DDAudio.UnmarshalJSON([]byte) error`
+- New struct `AV1Layer`
+- New struct `AV1Video`
+- New struct `AV1VideoLayer`
+- New struct `DDAudio`
+
+
 ## 0.6.0 (2022-04-18)
 ### Breaking Changes
 

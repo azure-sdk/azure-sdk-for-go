@@ -15,6 +15,80 @@ import (
 	"reflect"
 )
 
+// GetCodec implements the CodecClassification interface for type AV1Video.
+func (a *AV1Video) GetCodec() *Codec {
+	return &Codec{
+		ODataType: a.ODataType,
+		Label:     a.Label,
+	}
+}
+
+// GetVideo implements the VideoClassification interface for type AV1Video.
+func (a *AV1Video) GetVideo() *Video {
+	return &Video{
+		KeyFrameInterval: a.KeyFrameInterval,
+		StretchMode:      a.StretchMode,
+		SyncMode:         a.SyncMode,
+		ODataType:        a.ODataType,
+		Label:            a.Label,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AV1Video.
+func (a AV1Video) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "complexity", a.Complexity)
+	populate(objectMap, "keyFrameInterval", a.KeyFrameInterval)
+	populate(objectMap, "label", a.Label)
+	populate(objectMap, "layers", a.Layers)
+	objectMap["@odata.type"] = "#Microsoft.Media.AV1Video"
+	populate(objectMap, "sceneChangeDetection", a.SceneChangeDetection)
+	populate(objectMap, "stretchMode", a.StretchMode)
+	populate(objectMap, "syncMode", a.SyncMode)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AV1Video.
+func (a *AV1Video) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "complexity":
+			err = unpopulate(val, &a.Complexity)
+			delete(rawMsg, key)
+		case "keyFrameInterval":
+			err = unpopulate(val, &a.KeyFrameInterval)
+			delete(rawMsg, key)
+		case "label":
+			err = unpopulate(val, &a.Label)
+			delete(rawMsg, key)
+		case "layers":
+			err = unpopulate(val, &a.Layers)
+			delete(rawMsg, key)
+		case "@odata.type":
+			err = unpopulate(val, &a.ODataType)
+			delete(rawMsg, key)
+		case "sceneChangeDetection":
+			err = unpopulate(val, &a.SceneChangeDetection)
+			delete(rawMsg, key)
+		case "stretchMode":
+			err = unpopulate(val, &a.StretchMode)
+			delete(rawMsg, key)
+		case "syncMode":
+			err = unpopulate(val, &a.SyncMode)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // GetAudio implements the AudioClassification interface for type AacAudio.
 func (a *AacAudio) GetAudio() *Audio {
 	return &Audio{
@@ -1534,6 +1608,68 @@ func (c *CopyVideo) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "@odata.type":
 			err = unpopulate(val, &c.ODataType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// GetAudio implements the AudioClassification interface for type DDAudio.
+func (d *DDAudio) GetAudio() *Audio {
+	return &Audio{
+		Channels:     d.Channels,
+		SamplingRate: d.SamplingRate,
+		Bitrate:      d.Bitrate,
+		ODataType:    d.ODataType,
+		Label:        d.Label,
+	}
+}
+
+// GetCodec implements the CodecClassification interface for type DDAudio.
+func (d *DDAudio) GetCodec() *Codec {
+	return &Codec{
+		ODataType: d.ODataType,
+		Label:     d.Label,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DDAudio.
+func (d DDAudio) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "bitrate", d.Bitrate)
+	populate(objectMap, "channels", d.Channels)
+	populate(objectMap, "label", d.Label)
+	objectMap["@odata.type"] = "#Microsoft.Media.DDAudio"
+	populate(objectMap, "samplingRate", d.SamplingRate)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DDAudio.
+func (d *DDAudio) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "bitrate":
+			err = unpopulate(val, &d.Bitrate)
+			delete(rawMsg, key)
+		case "channels":
+			err = unpopulate(val, &d.Channels)
+			delete(rawMsg, key)
+		case "label":
+			err = unpopulate(val, &d.Label)
+			delete(rawMsg, key)
+		case "@odata.type":
+			err = unpopulate(val, &d.ODataType)
+			delete(rawMsg, key)
+		case "samplingRate":
+			err = unpopulate(val, &d.SamplingRate)
 			delete(rawMsg, key)
 		}
 		if err != nil {

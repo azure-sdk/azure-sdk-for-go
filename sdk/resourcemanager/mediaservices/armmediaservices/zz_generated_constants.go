@@ -10,8 +10,51 @@ package armmediaservices
 
 const (
 	moduleName    = "armmediaservices"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
+
+// AV1Complexity - Tells the encoder how to choose its encoding settings. Quality will provide for a higher compression ratio
+// but at a higher cost and longer compute time. Speed will produce a relatively larger file but
+// is faster and more economical. The default value is Balanced.
+type AV1Complexity string
+
+const (
+	// AV1ComplexityBalanced - Tells the encoder to use settings that achieve a balance between speed and quality.
+	AV1ComplexityBalanced AV1Complexity = "Balanced"
+	// AV1ComplexityQuality - Tells the encoder to use settings that are optimized to produce higher quality output at the expense
+	// of slower overall encode time.
+	AV1ComplexityQuality AV1Complexity = "Quality"
+	// AV1ComplexitySpeed - Tells the encoder to use settings that are optimized for faster encoding. Quality is sacrificed to
+	// decrease encoding time.
+	AV1ComplexitySpeed AV1Complexity = "Speed"
+)
+
+// PossibleAV1ComplexityValues returns the possible values for the AV1Complexity const type.
+func PossibleAV1ComplexityValues() []AV1Complexity {
+	return []AV1Complexity{
+		AV1ComplexityBalanced,
+		AV1ComplexityQuality,
+		AV1ComplexitySpeed,
+	}
+}
+
+// AV1VideoProfile - We currently support Main. Default is Auto.
+type AV1VideoProfile string
+
+const (
+	// AV1VideoProfileAuto - Tells the encoder to automatically determine the appropriate AV1 profile.
+	AV1VideoProfileAuto AV1VideoProfile = "Auto"
+	// AV1VideoProfileMain - Main profile
+	AV1VideoProfileMain AV1VideoProfile = "Main"
+)
+
+// PossibleAV1VideoProfileValues returns the possible values for the AV1VideoProfile const type.
+func PossibleAV1VideoProfileValues() []AV1VideoProfile {
+	return []AV1VideoProfile{
+		AV1VideoProfileAuto,
+		AV1VideoProfileMain,
+	}
+}
 
 // AacAudioProfile - The encoding profile to be used when encoding audio with AAC.
 type AacAudioProfile string
@@ -473,8 +516,27 @@ func PossibleDeinterlaceParityValues() []DeinterlaceParity {
 type EncoderNamedPreset string
 
 const (
-	// EncoderNamedPresetAACGoodQualityAudio - Produces a single MP4 file containing only stereo audio encoded at 192 kbps.
+	// EncoderNamedPresetAACGoodQualityAudio - Produces a single MP4 file containing only AAC stereo audio encoded at 192 kbps.
 	EncoderNamedPresetAACGoodQualityAudio EncoderNamedPreset = "AACGoodQualityAudio"
+	// EncoderNamedPresetAV1AdaptiveStreaming - Produces a set of GOP aligned MP4 files with AV1 video and stereo AAC audio. Auto-generates
+	// a bitrate ladder based on the input resolution, bitrate and frame rate. The auto-generated preset will never exceed the
+	// input resolution. For example, if the input is 720p, output will remain 720p at best.
+	EncoderNamedPresetAV1AdaptiveStreaming EncoderNamedPreset = "AV1AdaptiveStreaming"
+	// EncoderNamedPresetAV1ContentAwareEncoding - Produces a set of GOP-aligned MP4s by using content-aware encoding. Given any
+	// input content, the service performs an initial lightweight analysis of the input content, and uses the results to determine
+	// the optimal number of layers, appropriate bitrate and resolution settings for delivery by adaptive streaming. This preset
+	// is particularly effective for low and medium complexity videos, where the output files will be at lower bitrates but at
+	// a quality that still delivers a good experience to viewers. The output will contain MP4 files with video and audio interleaved.
+	EncoderNamedPresetAV1ContentAwareEncoding EncoderNamedPreset = "AV1ContentAwareEncoding"
+	// EncoderNamedPresetAV1SingleBitrate1080P - Produces an MP4 file where the video is encoded with AV1 codec at 3500 kbps and
+	// a picture height of 1080 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.
+	EncoderNamedPresetAV1SingleBitrate1080P EncoderNamedPreset = "AV1SingleBitrate1080p"
+	// EncoderNamedPresetAV1SingleBitrate4K - Produces an MP4 file where the video is encoded with AV1 codec at 9500 kbps and
+	// a picture height of 2160 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.
+	EncoderNamedPresetAV1SingleBitrate4K EncoderNamedPreset = "AV1SingleBitrate4K"
+	// EncoderNamedPresetAV1SingleBitrate720P - Produces an MP4 file where the video is encoded with AV1 codec at 1800 kbps and
+	// a picture height of 720 pixels, and the stereo audio is encoded with AAC-LC codec at 128 kbps.
+	EncoderNamedPresetAV1SingleBitrate720P EncoderNamedPreset = "AV1SingleBitrate720p"
 	// EncoderNamedPresetAdaptiveStreaming - Produces a set of GOP aligned MP4 files with H.264 video and stereo AAC audio. Auto-generates
 	// a bitrate ladder based on the input resolution, bitrate and frame rate. The auto-generated preset will never exceed the
 	// input resolution. For example, if the input is 720p, output will remain 720p at best.
@@ -494,6 +556,9 @@ const (
 	// video and audio output files. This preset can be used to clip an existing asset or convert a group of key frame (GOP) aligned
 	// MP4 files as an asset that can be streamed.
 	EncoderNamedPresetCopyAllBitrateNonInterleaved EncoderNamedPreset = "CopyAllBitrateNonInterleaved"
+	// EncoderNamedPresetDDGoodQualityAudio - Produces a single MP4 file containing only DD(Digital Dolby) stereo audio encoded
+	// at 192 kbps.
+	EncoderNamedPresetDDGoodQualityAudio EncoderNamedPreset = "DDGoodQualityAudio"
 	// EncoderNamedPresetH264MultipleBitrate1080P - Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps,
 	// and stereo AAC audio. Resolution starts at 1080p and goes down to 180p.
 	EncoderNamedPresetH264MultipleBitrate1080P EncoderNamedPreset = "H264MultipleBitrate1080p"
@@ -537,10 +602,16 @@ const (
 func PossibleEncoderNamedPresetValues() []EncoderNamedPreset {
 	return []EncoderNamedPreset{
 		EncoderNamedPresetAACGoodQualityAudio,
+		EncoderNamedPresetAV1AdaptiveStreaming,
+		EncoderNamedPresetAV1ContentAwareEncoding,
+		EncoderNamedPresetAV1SingleBitrate1080P,
+		EncoderNamedPresetAV1SingleBitrate4K,
+		EncoderNamedPresetAV1SingleBitrate720P,
 		EncoderNamedPresetAdaptiveStreaming,
 		EncoderNamedPresetContentAwareEncoding,
 		EncoderNamedPresetContentAwareEncodingExperimental,
 		EncoderNamedPresetCopyAllBitrateNonInterleaved,
+		EncoderNamedPresetDDGoodQualityAudio,
 		EncoderNamedPresetH264MultipleBitrate1080P,
 		EncoderNamedPresetH264MultipleBitrate720P,
 		EncoderNamedPresetH264MultipleBitrateSD,
@@ -844,6 +915,8 @@ func PossibleInterleaveOutputValues() []InterleaveOutput {
 type JobErrorCategory string
 
 const (
+	// JobErrorCategoryAccount - The error is related to account information.
+	JobErrorCategoryAccount JobErrorCategory = "Account"
 	// JobErrorCategoryConfiguration - The error is configuration related.
 	JobErrorCategoryConfiguration JobErrorCategory = "Configuration"
 	// JobErrorCategoryContent - The error is related to data in the input files.
@@ -859,6 +932,7 @@ const (
 // PossibleJobErrorCategoryValues returns the possible values for the JobErrorCategory const type.
 func PossibleJobErrorCategoryValues() []JobErrorCategory {
 	return []JobErrorCategory{
+		JobErrorCategoryAccount,
 		JobErrorCategoryConfiguration,
 		JobErrorCategoryContent,
 		JobErrorCategoryDownload,
@@ -886,6 +960,9 @@ const (
 	// JobErrorCodeDownloadTransientError - While trying to download the input files, there was an issue during transfer (storage
 	// service, network errors), see details and check your source.
 	JobErrorCodeDownloadTransientError JobErrorCode = "DownloadTransientError"
+	// JobErrorCodeIdentityUnsupported - There was an error verifying to the account identity. Check and fix the identity configurations
+	// and retry. If unsuccessful, please contact support.
+	JobErrorCodeIdentityUnsupported JobErrorCode = "IdentityUnsupported"
 	// JobErrorCodeServiceError - Fatal service error, please contact support.
 	JobErrorCodeServiceError JobErrorCode = "ServiceError"
 	// JobErrorCodeServiceTransientError - Transient error, please retry, if retry is unsuccessful, please contact support.
@@ -906,6 +983,7 @@ func PossibleJobErrorCodeValues() []JobErrorCode {
 		JobErrorCodeContentUnsupported,
 		JobErrorCodeDownloadNotAccessible,
 		JobErrorCodeDownloadTransientError,
+		JobErrorCodeIdentityUnsupported,
 		JobErrorCodeServiceError,
 		JobErrorCodeServiceTransientError,
 		JobErrorCodeUploadNotAccessible,
@@ -1416,8 +1494,7 @@ func PossibleStreamingPolicyStreamingProtocolValues() []StreamingPolicyStreaming
 	}
 }
 
-// StretchMode - The resizing mode - how the input video will be resized to fit the desired output resolution(s). Default
-// is AutoSize
+// StretchMode - Specifies how the input video will be resized to fit the desired output resolution(s). Default is None
 type StretchMode string
 
 const (
@@ -1430,8 +1507,8 @@ const (
 	// padding. For example, if the input is 1920x1080 and the encoding preset asks for 1280x1280, then the value in the preset
 	// is overridden, and the output will be at 1280x720, which maintains the input aspect ratio of 16:9.
 	StretchModeAutoSize StretchMode = "AutoSize"
-	// StretchModeNone - Strictly respect the output resolution without considering the pixel aspect ratio or display aspect ratio
-	// of the input video.
+	// StretchModeNone - Strictly respects the output resolution specified in the encoding preset without considering the pixel
+	// aspect ratio or display aspect ratio of the input video.
 	StretchModeNone StretchMode = "None"
 )
 

@@ -40,6 +40,8 @@ func unmarshalCodecClassification(rawMsg json.RawMessage) (CodecClassification, 
 	}
 	var b CodecClassification
 	switch m["@odata.type"] {
+	case "#Microsoft.Media.AV1Video":
+		b = &AV1Video{}
 	case "#Microsoft.Media.AacAudio":
 		b = &AacAudio{}
 	case "#Microsoft.Media.Audio":
@@ -48,6 +50,8 @@ func unmarshalCodecClassification(rawMsg json.RawMessage) (CodecClassification, 
 		b = &CopyAudio{}
 	case "#Microsoft.Media.CopyVideo":
 		b = &CopyVideo{}
+	case "#Microsoft.Media.DDAudio":
+		b = &DDAudio{}
 	case "#Microsoft.Media.H264Video":
 		b = &H264Video{}
 	case "#Microsoft.Media.H265Video":
