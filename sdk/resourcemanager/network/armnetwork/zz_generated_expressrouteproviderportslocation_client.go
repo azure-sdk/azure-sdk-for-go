@@ -22,20 +22,20 @@ import (
 	"strings"
 )
 
-// UsagesClient contains the methods for the Usages group.
-// Don't use this type directly, use NewUsagesClient() instead.
-type UsagesClient struct {
+// ExpressRouteProviderPortsLocationClient contains the methods for the ExpressRouteProviderPortsLocation group.
+// Don't use this type directly, use NewExpressRouteProviderPortsLocationClient() instead.
+type ExpressRouteProviderPortsLocationClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewUsagesClient creates a new instance of UsagesClient with the specified values.
+// NewExpressRouteProviderPortsLocationClient creates a new instance of ExpressRouteProviderPortsLocationClient with the specified values.
 // subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
 // ID forms part of the URI for every service call.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsagesClient, error) {
+func NewExpressRouteProviderPortsLocationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExpressRouteProviderPortsLocationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -47,7 +47,7 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 	if err != nil {
 		return nil, err
 	}
-	client := &UsagesClient{
+	client := &ExpressRouteProviderPortsLocationClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -55,45 +55,28 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 	return client, nil
 }
 
-// NewListPager - List network usages for a subscription.
+// List - Retrieves all the ExpressRouteProviderPorts in a subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// location - The location where resource usage is queried.
-// options - UsagesClientListOptions contains the optional parameters for the UsagesClient.List method.
-func (client *UsagesClient) NewListPager(location string, options *UsagesClientListOptions) *runtime.Pager[UsagesClientListResponse] {
-	return runtime.NewPager(runtime.PageProcessor[UsagesClientListResponse]{
-		More: func(page UsagesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *UsagesClientListResponse) (UsagesClientListResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listCreateRequest(ctx, location, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
-			}
-			if err != nil {
-				return UsagesClientListResponse{}, err
-			}
-			resp, err := client.pl.Do(req)
-			if err != nil {
-				return UsagesClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return UsagesClientListResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listHandleResponse(resp)
-		},
-	})
+// options - ExpressRouteProviderPortsLocationClientListOptions contains the optional parameters for the ExpressRouteProviderPortsLocationClient.List
+// method.
+func (client *ExpressRouteProviderPortsLocationClient) List(ctx context.Context, options *ExpressRouteProviderPortsLocationClientListOptions) (ExpressRouteProviderPortsLocationClientListResponse, error) {
+	req, err := client.listCreateRequest(ctx, options)
+	if err != nil {
+		return ExpressRouteProviderPortsLocationClientListResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ExpressRouteProviderPortsLocationClientListResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ExpressRouteProviderPortsLocationClientListResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listHandleResponse(resp)
 }
 
 // listCreateRequest creates the List request.
-func (client *UsagesClient) listCreateRequest(ctx context.Context, location string, options *UsagesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/usages"
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+func (client *ExpressRouteProviderPortsLocationClient) listCreateRequest(ctx context.Context, options *ExpressRouteProviderPortsLocationClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/expressRouteProviderPorts"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -104,16 +87,19 @@ func (client *UsagesClient) listCreateRequest(ctx context.Context, location stri
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2021-08-01")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header.Set("Accept", "application/json")
 	return req, nil
 }
 
 // listHandleResponse handles the List response.
-func (client *UsagesClient) listHandleResponse(resp *http.Response) (UsagesClientListResponse, error) {
-	result := UsagesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.UsagesListResult); err != nil {
-		return UsagesClientListResponse{}, err
+func (client *ExpressRouteProviderPortsLocationClient) listHandleResponse(resp *http.Response) (ExpressRouteProviderPortsLocationClientListResponse, error) {
+	result := ExpressRouteProviderPortsLocationClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ExpressRouteProviderPortListResult); err != nil {
+		return ExpressRouteProviderPortsLocationClientListResponse{}, err
 	}
 	return result, nil
 }
