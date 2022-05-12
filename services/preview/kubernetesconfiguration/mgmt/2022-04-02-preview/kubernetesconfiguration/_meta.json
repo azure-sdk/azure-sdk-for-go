@@ -1,5 +1,5 @@
 {
-  "commit": "9d8640319ef481ae301b67b033d6ae0bd30422c3",
+  "commit": "a3135c7bb453e456a5abdf5e111c615bd7f0d540",
   "readme": "/_/azure-rest-api-specs/specification/kubernetesconfiguration/resource-manager/readme.md",
   "tag": "package-preview-2022-04",
   "use": "@microsoft.azure/autorest.go@2.1.187",
