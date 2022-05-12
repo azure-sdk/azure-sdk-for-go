@@ -184,6 +184,9 @@ type BudgetFilter struct {
 	// Has comparison expression for a dimension
 	Dimensions *BudgetComparisonExpression `json:"dimensions,omitempty"`
 
+	// The logical "NOT" expression.
+	Not *BudgetFilterProperties `json:"not,omitempty"`
+
 	// Has comparison expression for a tag
 	Tags *BudgetComparisonExpression `json:"tags,omitempty"`
 }
@@ -934,12 +937,6 @@ type LegacyUsageDetailProperties struct {
 	// (ServiceType) or the ratio in which the reservation discount is applied.
 	AdditionalInfo *string `json:"additionalInfo,omitempty" azure:"ro"`
 
-	// READ-ONLY; Unique identifier for the applicable benefit.
-	BenefitID *string `json:"benefitId,omitempty" azure:"ro"`
-
-	// READ-ONLY; Name of the applicable benefit.
-	BenefitName *string `json:"benefitName,omitempty" azure:"ro"`
-
 	// READ-ONLY; Billing Account identifier.
 	BillingAccountID *string `json:"billingAccountId,omitempty" azure:"ro"`
 
@@ -1155,14 +1152,6 @@ type LotsClientListByBillingAccountOptions struct {
 // LotsClientListByBillingProfileOptions contains the optional parameters for the LotsClient.ListByBillingProfile method.
 type LotsClientListByBillingProfileOptions struct {
 	// placeholder for future optional parameters
-}
-
-// LotsClientListByCustomerOptions contains the optional parameters for the LotsClient.ListByCustomer method.
-type LotsClientListByCustomerOptions struct {
-	// May be used to filter the lots by Status, Source etc. The filter supports 'eq', 'lt', 'gt', 'le', 'ge', and 'and'. Tag
-	// filter is a key value pair string where key and value is separated by a colon
-	// (:).
-	Filter *string
 }
 
 // ManagementGroupAggregatedCostProperties - The properties of the Management Group Aggregated Cost.

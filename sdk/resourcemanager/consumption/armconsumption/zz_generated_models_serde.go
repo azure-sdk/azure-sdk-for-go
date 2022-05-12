@@ -61,6 +61,7 @@ func (b BudgetFilter) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "and", b.And)
 	populate(objectMap, "dimensions", b.Dimensions)
+	populate(objectMap, "not", b.Not)
 	populate(objectMap, "tags", b.Tags)
 	return json.Marshal(objectMap)
 }
@@ -912,8 +913,6 @@ func (l LegacyUsageDetailProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "accountName", l.AccountName)
 	populate(objectMap, "accountOwnerId", l.AccountOwnerID)
 	populate(objectMap, "additionalInfo", l.AdditionalInfo)
-	populate(objectMap, "benefitId", l.BenefitID)
-	populate(objectMap, "benefitName", l.BenefitName)
 	populate(objectMap, "billingAccountId", l.BillingAccountID)
 	populate(objectMap, "billingAccountName", l.BillingAccountName)
 	populate(objectMap, "billingCurrency", l.BillingCurrency)
@@ -975,12 +974,6 @@ func (l *LegacyUsageDetailProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "additionalInfo":
 			err = unpopulate(val, &l.AdditionalInfo)
-			delete(rawMsg, key)
-		case "benefitId":
-			err = unpopulate(val, &l.BenefitID)
-			delete(rawMsg, key)
-		case "benefitName":
-			err = unpopulate(val, &l.BenefitName)
 			delete(rawMsg, key)
 		case "billingAccountId":
 			err = unpopulate(val, &l.BillingAccountID)

@@ -78,11 +78,6 @@ type LotsClientListByBillingProfileResponse struct {
 	Lots
 }
 
-// LotsClientListByCustomerResponse contains the response from method LotsClient.ListByCustomer.
-type LotsClientListByCustomerResponse struct {
-	Lots
-}
-
 // MarketplacesClientListResponse contains the response from method MarketplacesClient.List.
 type MarketplacesClientListResponse struct {
 	MarketplacesListResult

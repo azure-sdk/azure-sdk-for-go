@@ -1,5 +1,20 @@
 # Release History
 
+## 0.6.0 (2022-05-12)
+### Breaking Changes
+
+- Function `*LotsClient.NewListByCustomerPager` has been removed
+- Struct `LotsClientListByCustomerOptions` has been removed
+- Struct `LotsClientListByCustomerResponse` has been removed
+- Field `BenefitName` of struct `LegacyUsageDetailProperties` has been removed
+- Field `BenefitID` of struct `LegacyUsageDetailProperties` has been removed
+
+### Features Added
+
+- New const `EventTypeCreditExpired`
+- New field `Not` in struct `BudgetFilter`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 

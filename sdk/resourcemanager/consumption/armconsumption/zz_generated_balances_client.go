@@ -123,7 +123,7 @@ func (client *BalancesClient) GetForBillingPeriodByBillingAccount(ctx context.Co
 
 // getForBillingPeriodByBillingAccountCreateRequest creates the GetForBillingPeriodByBillingAccount request.
 func (client *BalancesClient) getForBillingPeriodByBillingAccountCreateRequest(ctx context.Context, billingAccountID string, billingPeriodName string, options *BalancesClientGetForBillingPeriodByBillingAccountOptions) (*policy.Request, error) {
-	urlPath := "/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingPeriods/{billingPeriodName}/providers/Microsoft.Consumption/balances"
+	urlPath := "/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}/providers/Microsoft.Consumption/balances"
 	if billingAccountID == "" {
 		return nil, errors.New("parameter billingAccountID cannot be empty")
 	}
