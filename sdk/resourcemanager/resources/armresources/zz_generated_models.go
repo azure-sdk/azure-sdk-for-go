@@ -204,7 +204,7 @@ type ClientListOptions struct {
 	// plan and plan/publisher and plan/name, and identity and
 	// identity/principalId.
 	Filter *string
-	// The number of results to return. If null is passed, returns all resources.
+	// The number of recommendations per page if a paged version of this API is being used.
 	Top *int32
 }
 
