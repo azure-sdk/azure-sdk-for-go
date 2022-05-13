@@ -1924,10 +1924,7 @@ func (a *AzureIaaSVMProtectedItem) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AzureIaaSVMProtectedItemExtendedInfo.
 func (a AzureIaaSVMProtectedItemExtendedInfo) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populateTimeRFC3339(objectMap, "newestRecoveryPointInArchive", a.NewestRecoveryPointInArchive)
 	populateTimeRFC3339(objectMap, "oldestRecoveryPoint", a.OldestRecoveryPoint)
-	populateTimeRFC3339(objectMap, "oldestRecoveryPointInArchive", a.OldestRecoveryPointInArchive)
-	populateTimeRFC3339(objectMap, "oldestRecoveryPointInVault", a.OldestRecoveryPointInVault)
 	populate(objectMap, "policyInconsistent", a.PolicyInconsistent)
 	populate(objectMap, "recoveryPointCount", a.RecoveryPointCount)
 	return json.Marshal(objectMap)
@@ -1942,17 +1939,8 @@ func (a *AzureIaaSVMProtectedItemExtendedInfo) UnmarshalJSON(data []byte) error 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "newestRecoveryPointInArchive":
-			err = unpopulateTimeRFC3339(val, &a.NewestRecoveryPointInArchive)
-			delete(rawMsg, key)
 		case "oldestRecoveryPoint":
 			err = unpopulateTimeRFC3339(val, &a.OldestRecoveryPoint)
-			delete(rawMsg, key)
-		case "oldestRecoveryPointInArchive":
-			err = unpopulateTimeRFC3339(val, &a.OldestRecoveryPointInArchive)
-			delete(rawMsg, key)
-		case "oldestRecoveryPointInVault":
-			err = unpopulateTimeRFC3339(val, &a.OldestRecoveryPointInVault)
 			delete(rawMsg, key)
 		case "policyInconsistent":
 			err = unpopulate(val, &a.PolicyInconsistent)
@@ -1988,7 +1976,6 @@ func (a AzureIaaSVMProtectionPolicy) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "resourceGuardOperationRequests", a.ResourceGuardOperationRequests)
 	populate(objectMap, "retentionPolicy", a.RetentionPolicy)
 	populate(objectMap, "schedulePolicy", a.SchedulePolicy)
-	populate(objectMap, "tieringPolicy", a.TieringPolicy)
 	populate(objectMap, "timeZone", a.TimeZone)
 	return json.Marshal(objectMap)
 }
@@ -2025,9 +2012,6 @@ func (a *AzureIaaSVMProtectionPolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "schedulePolicy":
 			a.SchedulePolicy, err = unmarshalSchedulePolicyClassification(val)
-			delete(rawMsg, key)
-		case "tieringPolicy":
-			err = unpopulate(val, &a.TieringPolicy)
 			delete(rawMsg, key)
 		case "timeZone":
 			err = unpopulate(val, &a.TimeZone)
@@ -3314,10 +3298,7 @@ func (a *AzureVMWorkloadProtectedItem) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadProtectedItemExtendedInfo.
 func (a AzureVMWorkloadProtectedItemExtendedInfo) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populateTimeRFC3339(objectMap, "newestRecoveryPointInArchive", a.NewestRecoveryPointInArchive)
 	populateTimeRFC3339(objectMap, "oldestRecoveryPoint", a.OldestRecoveryPoint)
-	populateTimeRFC3339(objectMap, "oldestRecoveryPointInArchive", a.OldestRecoveryPointInArchive)
-	populateTimeRFC3339(objectMap, "oldestRecoveryPointInVault", a.OldestRecoveryPointInVault)
 	populate(objectMap, "policyState", a.PolicyState)
 	populate(objectMap, "recoveryModel", a.RecoveryModel)
 	populate(objectMap, "recoveryPointCount", a.RecoveryPointCount)
@@ -3333,17 +3314,8 @@ func (a *AzureVMWorkloadProtectedItemExtendedInfo) UnmarshalJSON(data []byte) er
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "newestRecoveryPointInArchive":
-			err = unpopulateTimeRFC3339(val, &a.NewestRecoveryPointInArchive)
-			delete(rawMsg, key)
 		case "oldestRecoveryPoint":
 			err = unpopulateTimeRFC3339(val, &a.OldestRecoveryPoint)
-			delete(rawMsg, key)
-		case "oldestRecoveryPointInArchive":
-			err = unpopulateTimeRFC3339(val, &a.OldestRecoveryPointInArchive)
-			delete(rawMsg, key)
-		case "oldestRecoveryPointInVault":
-			err = unpopulateTimeRFC3339(val, &a.OldestRecoveryPointInVault)
 			delete(rawMsg, key)
 		case "policyState":
 			err = unpopulate(val, &a.PolicyState)
@@ -11133,7 +11105,6 @@ func (s SubProtectionPolicy) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "policyType", s.PolicyType)
 	populate(objectMap, "retentionPolicy", s.RetentionPolicy)
 	populate(objectMap, "schedulePolicy", s.SchedulePolicy)
-	populate(objectMap, "tieringPolicy", s.TieringPolicy)
 	return json.Marshal(objectMap)
 }
 
@@ -11154,9 +11125,6 @@ func (s *SubProtectionPolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "schedulePolicy":
 			s.SchedulePolicy, err = unmarshalSchedulePolicyClassification(val)
-			delete(rawMsg, key)
-		case "tieringPolicy":
-			err = unpopulate(val, &s.TieringPolicy)
 			delete(rawMsg, key)
 		}
 		if err != nil {

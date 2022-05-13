@@ -1,5 +1,25 @@
 # Release History
 
+## 0.6.0 (2022-05-13)
+### Breaking Changes
+
+- Function `*ResourceGuardProxyClient.Put` parameter(s) have been changed from `(context.Context, string, string, string, *ResourceGuardProxyClientPutOptions)` to `(context.Context, string, string, string, ResourceGuardProxyBaseResource, *ResourceGuardProxyClientPutOptions)`
+- Const `TieringModeDoNotTier` has been removed
+- Const `TieringModeTierRecommended` has been removed
+- Const `TieringModeTierAfter` has been removed
+- Const `TieringModeInvalid` has been removed
+- Function `PossibleTieringModeValues` has been removed
+- Struct `TieringPolicy` has been removed
+- Field `OldestRecoveryPointInArchive` of struct `AzureVMWorkloadProtectedItemExtendedInfo` has been removed
+- Field `OldestRecoveryPointInVault` of struct `AzureVMWorkloadProtectedItemExtendedInfo` has been removed
+- Field `NewestRecoveryPointInArchive` of struct `AzureVMWorkloadProtectedItemExtendedInfo` has been removed
+- Field `OldestRecoveryPointInVault` of struct `AzureIaaSVMProtectedItemExtendedInfo` has been removed
+- Field `NewestRecoveryPointInArchive` of struct `AzureIaaSVMProtectedItemExtendedInfo` has been removed
+- Field `OldestRecoveryPointInArchive` of struct `AzureIaaSVMProtectedItemExtendedInfo` has been removed
+- Field `TieringPolicy` of struct `AzureIaaSVMProtectionPolicy` has been removed
+- Field `TieringPolicy` of struct `SubProtectionPolicy` has been removed
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 

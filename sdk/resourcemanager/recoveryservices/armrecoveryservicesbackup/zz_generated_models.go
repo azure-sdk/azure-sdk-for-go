@@ -887,17 +887,8 @@ type AzureIaaSVMProtectedItem struct {
 
 // AzureIaaSVMProtectedItemExtendedInfo - Additional information on Azure IaaS VM specific backup item.
 type AzureIaaSVMProtectedItemExtendedInfo struct {
-	// The latest backup copy available for this backup item in archive tier
-	NewestRecoveryPointInArchive *time.Time `json:"newestRecoveryPointInArchive,omitempty"`
-
-	// The oldest backup copy available for this backup item across all tiers.
+	// The oldest backup copy available for this backup item.
 	OldestRecoveryPoint *time.Time `json:"oldestRecoveryPoint,omitempty"`
-
-	// The oldest backup copy available for this backup item in archive tier
-	OldestRecoveryPointInArchive *time.Time `json:"oldestRecoveryPointInArchive,omitempty"`
-
-	// The oldest backup copy available for this backup item in vault tier
-	OldestRecoveryPointInVault *time.Time `json:"oldestRecoveryPointInVault,omitempty"`
 
 	// Specifies if backup policy associated with the backup item is inconsistent.
 	PolicyInconsistent *bool `json:"policyInconsistent,omitempty"`
@@ -927,10 +918,6 @@ type AzureIaaSVMProtectionPolicy struct {
 
 	// Backup schedule specified as part of backup policy.
 	SchedulePolicy SchedulePolicyClassification `json:"schedulePolicy,omitempty"`
-
-	// Tiering policy to automatically move RPs to another tier Key is Target Tier, defined in RecoveryPointTierType enum. Tiering
-	// policy specifies the criteria to move RP to the target tier.
-	TieringPolicy map[string]*TieringPolicy `json:"tieringPolicy,omitempty"`
 
 	// TimeZone optional input as string. For example: TimeZone = "Pacific Standard Time".
 	TimeZone *string `json:"timeZone,omitempty"`
@@ -1566,17 +1553,8 @@ type AzureVMWorkloadProtectedItem struct {
 
 // AzureVMWorkloadProtectedItemExtendedInfo - Additional information on Azure Workload for SQL specific backup item.
 type AzureVMWorkloadProtectedItemExtendedInfo struct {
-	// The latest backup copy available for this backup item in archive tier
-	NewestRecoveryPointInArchive *time.Time `json:"newestRecoveryPointInArchive,omitempty"`
-
-	// The oldest backup copy available for this backup item across all tiers.
+	// The oldest backup copy available for this backup item.
 	OldestRecoveryPoint *time.Time `json:"oldestRecoveryPoint,omitempty"`
-
-	// The oldest backup copy available for this backup item in archive tier
-	OldestRecoveryPointInArchive *time.Time `json:"oldestRecoveryPointInArchive,omitempty"`
-
-	// The oldest backup copy available for this backup item in vault tier
-	OldestRecoveryPointInVault *time.Time `json:"oldestRecoveryPointInVault,omitempty"`
 
 	// Indicates consistency of policy object and policy applied to this backup item.
 	PolicyState *string `json:"policyState,omitempty"`
@@ -6778,10 +6756,6 @@ type SubProtectionPolicy struct {
 
 	// Backup schedule specified as part of backup policy.
 	SchedulePolicy SchedulePolicyClassification `json:"schedulePolicy,omitempty"`
-
-	// Tiering policy to automatically move RPs to another tier. Key is Target Tier, defined in RecoveryPointTierType enum. Tiering
-	// policy specifies the criteria to move RP to the target tier.
-	TieringPolicy map[string]*TieringPolicy `json:"tieringPolicy,omitempty"`
 }
 
 // TargetAFSRestoreInfo - Target Azure File Share Info.
@@ -6806,23 +6780,6 @@ type TargetRestoreInfo struct {
 
 	// Target directory location for restore as files.
 	TargetDirectoryForFileRestore *string `json:"targetDirectoryForFileRestore,omitempty"`
-}
-
-// TieringPolicy - Tiering Policy for a target tier. If the policy is not specified for a given target tier, service retains
-// the existing configured tiering policy for that tier
-type TieringPolicy struct {
-	// Number of days/weeks/months/years to retain backups in current tier before tiering. Used only if TieringMode is set to
-	// TierAfter
-	Duration *int32 `json:"duration,omitempty"`
-
-	// Retention duration type: days/weeks/months/years Used only if TieringMode is set to TierAfter
-	DurationType *RetentionDurationType `json:"durationType,omitempty"`
-
-	// Tiering Mode to control automatic tiering of recovery points. Supported values are:
-	// 1. TierRecommended: Tier all recovery points recommended to be tiered
-	// 2. TierAfter: Tier all recovery points after a fixed period, as specified in duration + durationType below.
-	// 3. DoNotTier: Do not tier any recovery points
-	TieringMode *TieringMode `json:"tieringMode,omitempty"`
 }
 
 // TokenInformation - The token information details.
