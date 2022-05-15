@@ -136,8 +136,8 @@ type AdaptiveApplicationControlGroupData struct {
 	SourceSystem *SourceSystem `json:"sourceSystem,omitempty" azure:"ro"`
 }
 
-// AdaptiveApplicationControlGroups - Represents a list of machine groups and set of rules that are recommended by Azure Security
-// Center to be allowed
+// AdaptiveApplicationControlGroups - Represents a list of VM/server groups and set of rules that are Recommended by Microsoft
+// Defender for Cloud to be allowed
 type AdaptiveApplicationControlGroups struct {
 	Value []*AdaptiveApplicationControlGroup `json:"value,omitempty"`
 }
@@ -2590,8 +2590,8 @@ type ErrorAdditionalInfo struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// ExternalSecuritySolution - Represents a security solution external to Azure Security Center which sends information to
-// an OMS workspace and whose data is displayed by Azure Security Center.
+// ExternalSecuritySolution - Represents a security solution external to Microsoft Defender for Cloud which sends information
+// to an OMS workspace and whose data is displayed by Microsoft Defender for Cloud.
 type ExternalSecuritySolution struct {
 	// The kind of the external solution
 	Kind *ExternalSecuritySolutionKind `json:"kind,omitempty"`
