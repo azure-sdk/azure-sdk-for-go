@@ -721,6 +721,115 @@ type AnomaliesSettingsProperties struct {
 	IsEnabled *bool `json:"isEnabled,omitempty" azure:"ro"`
 }
 
+// AnomalySecurityMLAnalyticsSettings - Represents Anomaly Security ML Analytics Settings
+type AnomalySecurityMLAnalyticsSettings struct {
+	// REQUIRED; The kind of security ML Analytics Settings
+	Kind *SecurityMLAnalyticsSettingsKind `json:"kind,omitempty"`
+
+	// Etag of the azure resource
+	Etag *string `json:"etag,omitempty"`
+
+	// Anomaly Security ML Analytics Settings properties
+	Properties *AnomalySecurityMLAnalyticsSettingsProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// AnomalySecurityMLAnalyticsSettingsProperties - AnomalySecurityMLAnalytics settings base property bag.
+type AnomalySecurityMLAnalyticsSettingsProperties struct {
+	// REQUIRED; The anomaly version of the AnomalySecurityMLAnalyticsSettings.
+	AnomalyVersion *string `json:"anomalyVersion,omitempty"`
+
+	// REQUIRED; The display name for settings created by this SecurityMLAnalyticsSettings.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// REQUIRED; Determines whether this settings is enabled or disabled.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// REQUIRED; The frequency that this SecurityMLAnalyticsSettings will be run.
+	Frequency *string `json:"frequency,omitempty"`
+
+	// REQUIRED; Determines whether this anomaly security ml analytics settings is a default settings
+	IsDefaultSettings *bool `json:"isDefaultSettings,omitempty"`
+
+	// REQUIRED; The anomaly SecurityMLAnalyticsSettings status
+	SettingsStatus *SettingsStatus `json:"settingsStatus,omitempty"`
+
+	// The anomaly settings version of the Anomaly security ml analytics settings that dictates whether job version gets updated
+	// or not.
+	AnomalySettingsVersion *int32 `json:"anomalySettingsVersion,omitempty"`
+
+	// The customizable observations of the AnomalySecurityMLAnalyticsSettings.
+	CustomizableObservations interface{} `json:"customizableObservations,omitempty"`
+
+	// The description of the SecurityMLAnalyticsSettings.
+	Description *string `json:"description,omitempty"`
+
+	// The required data sources for this SecurityMLAnalyticsSettings
+	RequiredDataConnectors []*SecurityMLAnalyticsSettingsDataSource `json:"requiredDataConnectors,omitempty"`
+
+	// The anomaly settings definition Id
+	SettingsDefinitionID *string `json:"settingsDefinitionId,omitempty"`
+
+	// The tactics of the SecurityMLAnalyticsSettings
+	Tactics []*AttackTactic `json:"tactics,omitempty"`
+
+	// The techniques of the SecurityMLAnalyticsSettings
+	Techniques []*string `json:"techniques,omitempty"`
+
+	// READ-ONLY; The last time that this SecurityMLAnalyticsSettings has been modified.
+	LastModifiedUTC *time.Time `json:"lastModifiedUtc,omitempty" azure:"ro"`
+}
+
+// AnomalyTimelineItem - Represents anomaly timeline item.
+type AnomalyTimelineItem struct {
+	// REQUIRED; The anomaly azure resource id.
+	AzureResourceID *string `json:"azureResourceId,omitempty"`
+
+	// REQUIRED; The anomaly name.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// REQUIRED; The anomaly end time.
+	EndTimeUTC *time.Time `json:"endTimeUtc,omitempty"`
+
+	// REQUIRED; The entity query kind type.
+	Kind *EntityTimelineKind `json:"kind,omitempty"`
+
+	// REQUIRED; The anomaly start time.
+	StartTimeUTC *time.Time `json:"startTimeUtc,omitempty"`
+
+	// REQUIRED; The anomaly generated time.
+	TimeGenerated *time.Time `json:"timeGenerated,omitempty"`
+
+	// The anomaly description.
+	Description *string `json:"description,omitempty"`
+
+	// The intent of the anomaly.
+	Intent *string `json:"intent,omitempty"`
+
+	// The anomaly product name.
+	ProductName *string `json:"productName,omitempty"`
+
+	// The reasons that cause the anomaly.
+	Reasons []*string `json:"reasons,omitempty"`
+
+	// The techniques of the anomaly.
+	Techniques []*string `json:"techniques,omitempty"`
+
+	// The name of the anomaly vendor.
+	Vendor *string `json:"vendor,omitempty"`
+}
+
 type AutomationRule struct {
 	// REQUIRED; Automation rule properties
 	Properties *AutomationRuleProperties `json:"properties,omitempty"`
@@ -750,9 +859,9 @@ type AutomationRuleActionClassification interface {
 	GetAutomationRuleAction() *AutomationRuleAction
 }
 
-// AutomationRuleAction - Describes an automation rule action
+// AutomationRuleAction - Describes an automation rule action.
 type AutomationRuleAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType `json:"actionType,omitempty"`
 
 	// REQUIRED
@@ -762,13 +871,13 @@ type AutomationRuleAction struct {
 // AutomationRuleConditionClassification provides polymorphic access to related types.
 // Call the interface's GetAutomationRuleCondition() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AutomationRuleCondition, *PropertyConditionProperties
+// - *AutomationRuleCondition, *PropertyArrayChangedConditionProperties, *PropertyChangedConditionProperties, *PropertyConditionProperties
 type AutomationRuleConditionClassification interface {
 	// GetAutomationRuleCondition returns the AutomationRuleCondition content of the underlying type.
 	GetAutomationRuleCondition() *AutomationRuleCondition
 }
 
-// AutomationRuleCondition - Describes an automation rule condition
+// AutomationRuleCondition - Describes an automation rule condition.
 type AutomationRuleCondition struct {
 	// REQUIRED
 	ConditionType *ConditionType `json:"conditionType,omitempty"`
@@ -776,7 +885,7 @@ type AutomationRuleCondition struct {
 
 // AutomationRuleModifyPropertiesAction - Describes an automation rule action to modify an object's properties
 type AutomationRuleModifyPropertiesAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType `json:"actionType,omitempty"`
 
 	// REQUIRED
@@ -786,42 +895,54 @@ type AutomationRuleModifyPropertiesAction struct {
 
 // AutomationRuleProperties - Automation rule properties
 type AutomationRuleProperties struct {
-	// REQUIRED; The actions to execute when the automation rule is triggered
+	// REQUIRED; The actions to execute when the automation rule is triggered.
 	Actions []AutomationRuleActionClassification `json:"actions,omitempty"`
 
-	// REQUIRED; The display name of the automation rule
+	// REQUIRED; The display name of the automation rule.
 	DisplayName *string `json:"displayName,omitempty"`
 
-	// REQUIRED; The order of execution of the automation rule
+	// REQUIRED; The order of execution of the automation rule.
 	Order *int32 `json:"order,omitempty"`
 
-	// REQUIRED; Describes automation rule triggering logic
+	// REQUIRED; Describes automation rule triggering logic.
 	TriggeringLogic *AutomationRuleTriggeringLogic `json:"triggeringLogic,omitempty"`
 
 	// READ-ONLY; Information on the client (user or application) that made some action
 	CreatedBy *ClientInfo `json:"createdBy,omitempty" azure:"ro"`
 
-	// READ-ONLY; The time the automation rule was created
+	// READ-ONLY; The time the automation rule was created.
 	CreatedTimeUTC *time.Time `json:"createdTimeUtc,omitempty" azure:"ro"`
 
 	// READ-ONLY; Information on the client (user or application) that made some action
 	LastModifiedBy *ClientInfo `json:"lastModifiedBy,omitempty" azure:"ro"`
 
-	// READ-ONLY; The last time the automation rule was updated
+	// READ-ONLY; The last time the automation rule was updated.
 	LastModifiedTimeUTC *time.Time `json:"lastModifiedTimeUtc,omitempty" azure:"ro"`
+}
+
+type AutomationRulePropertyArrayChangedValuesCondition struct {
+	ArrayType  *AutomationRulePropertyArrayChangedConditionSupportedArrayType  `json:"arrayType,omitempty"`
+	ChangeType *AutomationRulePropertyArrayChangedConditionSupportedChangeType `json:"changeType,omitempty"`
+}
+
+type AutomationRulePropertyValuesChangedCondition struct {
+	ChangeType     *AutomationRulePropertyChangedConditionSupportedChangedType  `json:"changeType,omitempty"`
+	Operator       *AutomationRulePropertyConditionSupportedOperator            `json:"operator,omitempty"`
+	PropertyName   *AutomationRulePropertyChangedConditionSupportedPropertyType `json:"propertyName,omitempty"`
+	PropertyValues []*string                                                    `json:"propertyValues,omitempty"`
 }
 
 type AutomationRulePropertyValuesCondition struct {
 	Operator *AutomationRulePropertyConditionSupportedOperator `json:"operator,omitempty"`
 
-	// The property to evaluate in an automation rule property condition
+	// The property to evaluate in an automation rule property condition.
 	PropertyName   *AutomationRulePropertyConditionSupportedProperty `json:"propertyName,omitempty"`
 	PropertyValues []*string                                         `json:"propertyValues,omitempty"`
 }
 
 // AutomationRuleRunPlaybookAction - Describes an automation rule action to run a playbook
 type AutomationRuleRunPlaybookAction struct {
-	// REQUIRED; The type of the automation rule action
+	// REQUIRED; The type of the automation rule action.
 	ActionType *ActionType `json:"actionType,omitempty"`
 
 	// REQUIRED
@@ -829,9 +950,9 @@ type AutomationRuleRunPlaybookAction struct {
 	ActionConfiguration *PlaybookActionProperties `json:"actionConfiguration,omitempty"`
 }
 
-// AutomationRuleTriggeringLogic - Describes automation rule triggering logic
+// AutomationRuleTriggeringLogic - Describes automation rule triggering logic.
 type AutomationRuleTriggeringLogic struct {
-	// REQUIRED; Determines whether the automation rule is enabled or disabled
+	// REQUIRED; Determines whether the automation rule is enabled or disabled.
 	IsEnabled *bool `json:"isEnabled,omitempty"`
 
 	// REQUIRED
@@ -840,7 +961,7 @@ type AutomationRuleTriggeringLogic struct {
 	// REQUIRED
 	TriggersWhen *TriggersWhen `json:"triggersWhen,omitempty"`
 
-	// The conditions to evaluate to determine if the automation rule should be triggered on a given object
+	// The conditions to evaluate to determine if the automation rule should be triggered on a given object.
 	Conditions []AutomationRuleConditionClassification `json:"conditions,omitempty"`
 
 	// Determines when the automation rule should automatically expire and be disabled.
@@ -1771,8 +1892,18 @@ type DataConnectorConnectBody struct {
 	// The client secret of the OAuth 2.0 application.
 	ClientSecret *string `json:"clientSecret,omitempty"`
 
+	// Used in v2 logs connector. Represents the data collection ingestion endpoint in log analytics.
+	DataCollectionEndpoint *string `json:"dataCollectionEndpoint,omitempty"`
+
+	// Used in v2 logs connector. The data collection rule immutable id, the rule defines the transformation and data destination.
+	DataCollectionRuleImmutableID *string `json:"dataCollectionRuleImmutableId,omitempty"`
+
 	// The authentication kind used to poll the data
 	Kind *ConnectAuthKind `json:"kind,omitempty"`
+
+	// Used in v2 logs connector. The stream we are sending the data to, this is the name of the streamDeclarations defined in
+	// the DCR.
+	OutputStream *string `json:"outputStream,omitempty"`
 
 	// The user password in the audit log server.
 	Password                     *string       `json:"password,omitempty"`
@@ -2520,7 +2651,7 @@ type EntityRelationsClientGetRelationOptions struct {
 // EntityTimelineItemClassification provides polymorphic access to related types.
 // Call the interface's GetEntityTimelineItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *ActivityTimelineItem, *BookmarkTimelineItem, *EntityTimelineItem, *SecurityAlertTimelineItem
+// - *ActivityTimelineItem, *AnomalyTimelineItem, *BookmarkTimelineItem, *EntityTimelineItem, *SecurityAlertTimelineItem
 type EntityTimelineItemClassification interface {
 	// GetEntityTimelineItem returns the EntityTimelineItem content of the underlying type.
 	GetEntityTimelineItem() *EntityTimelineItem
@@ -2975,13 +3106,13 @@ type GeoLocation struct {
 	State *string `json:"state,omitempty" azure:"ro"`
 }
 
-// GetInsightsError - GetInsights Query Errors.
-type GetInsightsError struct {
+// GetInsightsErrorKind - GetInsights Query Errors.
+type GetInsightsErrorKind struct {
 	// REQUIRED; the error message
 	ErrorMessage *string `json:"errorMessage,omitempty"`
 
 	// REQUIRED; the query kind
-	Kind *GetInsightsErrorKind `json:"kind,omitempty"`
+	Kind *GetInsightsError `json:"kind,omitempty"`
 
 	// the query id
 	QueryID *string `json:"queryId,omitempty"`
@@ -2993,7 +3124,7 @@ type GetInsightsResultsMetadata struct {
 	TotalCount *int32 `json:"totalCount,omitempty"`
 
 	// information about the failed queries
-	Errors []*GetInsightsError `json:"errors,omitempty"`
+	Errors []*GetInsightsErrorKind `json:"errors,omitempty"`
 }
 
 // GetQueriesResponse - Retrieve queries for entity result operation response.
@@ -3492,13 +3623,13 @@ type IncidentPropertiesAction struct {
 	// The reason the incident was closed
 	Classification *IncidentClassification `json:"classification,omitempty"`
 
-	// Describes the reason the incident was closed
+	// Describes the reason the incident was closed.
 	ClassificationComment *string `json:"classificationComment,omitempty"`
 
 	// The classification reason the incident was closed with
 	ClassificationReason *IncidentClassificationReason `json:"classificationReason,omitempty"`
 
-	// List of labels to add to the incident
+	// List of labels to add to the incident.
 	Labels []*IncidentLabel `json:"labels,omitempty"`
 
 	// Information on the user an incident is assigned to
@@ -5484,10 +5615,10 @@ type PermissionsResourceProviderItem struct {
 }
 
 type PlaybookActionProperties struct {
-	// The resource id of the playbook resource
+	// The resource id of the playbook resource.
 	LogicAppResourceID *string `json:"logicAppResourceId,omitempty"`
 
-	// The tenant id of the playbook resource
+	// The tenant id of the playbook resource.
 	TenantID *string `json:"tenantId,omitempty"`
 }
 
@@ -5567,6 +5698,21 @@ type ProductSettingsClientListOptions struct {
 // ProductSettingsClientUpdateOptions contains the optional parameters for the ProductSettingsClient.Update method.
 type ProductSettingsClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// PropertyArrayChangedConditionProperties - Describes an automation rule condition that evaluates an array property's value
+// change
+type PropertyArrayChangedConditionProperties struct {
+	// REQUIRED
+	ConditionType       *ConditionType                                     `json:"conditionType,omitempty"`
+	ConditionProperties *AutomationRulePropertyArrayChangedValuesCondition `json:"conditionProperties,omitempty"`
+}
+
+// PropertyChangedConditionProperties - Describes an automation rule condition that evaluates a property's value change
+type PropertyChangedConditionProperties struct {
+	// REQUIRED
+	ConditionType       *ConditionType                                `json:"conditionType,omitempty"`
+	ConditionProperties *AutomationRulePropertyValuesChangedCondition `json:"conditionProperties,omitempty"`
 }
 
 // PropertyConditionProperties - Describes an automation rule condition that evaluates a property's value
@@ -5838,15 +5984,6 @@ type ResourceWithEtag struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// SKU - The pricing tier of the solution
-type SKU struct {
-	// The amount of reservation level
-	CapacityReservationLevel *int32 `json:"capacityReservationLevel,omitempty"`
-
-	// The kind of the tier
-	Name *SKUKind `json:"name,omitempty"`
 }
 
 // SampleQueries - The sample queries for the connector
@@ -6252,6 +6389,78 @@ type SecurityGroupEntityProperties struct {
 
 	// READ-ONLY; The SID attribute is a single-value attribute that specifies the security identifier (SID) of the group
 	Sid *string `json:"sid,omitempty" azure:"ro"`
+}
+
+// SecurityMLAnalyticsSettingClassification provides polymorphic access to related types.
+// Call the interface's GetSecurityMLAnalyticsSetting() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AnomalySecurityMLAnalyticsSettings, *SecurityMLAnalyticsSetting
+type SecurityMLAnalyticsSettingClassification interface {
+	// GetSecurityMLAnalyticsSetting returns the SecurityMLAnalyticsSetting content of the underlying type.
+	GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting
+}
+
+// SecurityMLAnalyticsSetting - Security ML Analytics Setting
+type SecurityMLAnalyticsSetting struct {
+	// REQUIRED; The kind of security ML Analytics Settings
+	Kind *SecurityMLAnalyticsSettingsKind `json:"kind,omitempty"`
+
+	// Etag of the azure resource
+	Etag *string `json:"etag,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.CreateOrUpdate
+// method.
+type SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientDeleteOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Delete
+// method.
+type SecurityMLAnalyticsSettingsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientGetOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.Get
+// method.
+type SecurityMLAnalyticsSettingsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsClientListOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.List
+// method.
+type SecurityMLAnalyticsSettingsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityMLAnalyticsSettingsDataSource - security ml analytics settings data sources
+type SecurityMLAnalyticsSettingsDataSource struct {
+	// The connector id that provides the following data types
+	ConnectorID *string `json:"connectorId,omitempty"`
+
+	// The data types used by the security ml analytics settings
+	DataTypes []*string `json:"dataTypes,omitempty"`
+}
+
+// SecurityMLAnalyticsSettingsList - List all the SecurityMLAnalyticsSettings
+type SecurityMLAnalyticsSettingsList struct {
+	// REQUIRED; Array of SecurityMLAnalyticsSettings
+	Value []SecurityMLAnalyticsSettingClassification `json:"value,omitempty"`
+
+	// READ-ONLY; URL to fetch the next set of SecurityMLAnalyticsSettings.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
 // SentinelOnboardingState - Sentinel onboarding state

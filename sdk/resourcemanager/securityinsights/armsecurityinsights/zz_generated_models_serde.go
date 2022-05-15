@@ -979,6 +979,226 @@ func (a *Anomalies) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// GetSecurityMLAnalyticsSetting implements the SecurityMLAnalyticsSettingClassification interface for type AnomalySecurityMLAnalyticsSettings.
+func (a *AnomalySecurityMLAnalyticsSettings) GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting {
+	return &SecurityMLAnalyticsSetting{
+		Kind:       a.Kind,
+		Etag:       a.Etag,
+		ID:         a.ID,
+		Name:       a.Name,
+		Type:       a.Type,
+		SystemData: a.SystemData,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AnomalySecurityMLAnalyticsSettings.
+func (a AnomalySecurityMLAnalyticsSettings) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "etag", a.Etag)
+	populate(objectMap, "id", a.ID)
+	objectMap["kind"] = SecurityMLAnalyticsSettingsKindAnomaly
+	populate(objectMap, "name", a.Name)
+	populate(objectMap, "properties", a.Properties)
+	populate(objectMap, "systemData", a.SystemData)
+	populate(objectMap, "type", a.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AnomalySecurityMLAnalyticsSettings.
+func (a *AnomalySecurityMLAnalyticsSettings) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "etag":
+			err = unpopulate(val, &a.Etag)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, &a.ID)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, &a.Kind)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, &a.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, &a.Properties)
+			delete(rawMsg, key)
+		case "systemData":
+			err = unpopulate(val, &a.SystemData)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, &a.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AnomalySecurityMLAnalyticsSettingsProperties.
+func (a AnomalySecurityMLAnalyticsSettingsProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "anomalySettingsVersion", a.AnomalySettingsVersion)
+	populate(objectMap, "anomalyVersion", a.AnomalyVersion)
+	populate(objectMap, "customizableObservations", &a.CustomizableObservations)
+	populate(objectMap, "description", a.Description)
+	populate(objectMap, "displayName", a.DisplayName)
+	populate(objectMap, "enabled", a.Enabled)
+	populate(objectMap, "frequency", a.Frequency)
+	populate(objectMap, "isDefaultSettings", a.IsDefaultSettings)
+	populateTimeRFC3339(objectMap, "lastModifiedUtc", a.LastModifiedUTC)
+	populate(objectMap, "requiredDataConnectors", a.RequiredDataConnectors)
+	populate(objectMap, "settingsDefinitionId", a.SettingsDefinitionID)
+	populate(objectMap, "settingsStatus", a.SettingsStatus)
+	populate(objectMap, "tactics", a.Tactics)
+	populate(objectMap, "techniques", a.Techniques)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AnomalySecurityMLAnalyticsSettingsProperties.
+func (a *AnomalySecurityMLAnalyticsSettingsProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "anomalySettingsVersion":
+			err = unpopulate(val, &a.AnomalySettingsVersion)
+			delete(rawMsg, key)
+		case "anomalyVersion":
+			err = unpopulate(val, &a.AnomalyVersion)
+			delete(rawMsg, key)
+		case "customizableObservations":
+			err = unpopulate(val, &a.CustomizableObservations)
+			delete(rawMsg, key)
+		case "description":
+			err = unpopulate(val, &a.Description)
+			delete(rawMsg, key)
+		case "displayName":
+			err = unpopulate(val, &a.DisplayName)
+			delete(rawMsg, key)
+		case "enabled":
+			err = unpopulate(val, &a.Enabled)
+			delete(rawMsg, key)
+		case "frequency":
+			err = unpopulate(val, &a.Frequency)
+			delete(rawMsg, key)
+		case "isDefaultSettings":
+			err = unpopulate(val, &a.IsDefaultSettings)
+			delete(rawMsg, key)
+		case "lastModifiedUtc":
+			err = unpopulateTimeRFC3339(val, &a.LastModifiedUTC)
+			delete(rawMsg, key)
+		case "requiredDataConnectors":
+			err = unpopulate(val, &a.RequiredDataConnectors)
+			delete(rawMsg, key)
+		case "settingsDefinitionId":
+			err = unpopulate(val, &a.SettingsDefinitionID)
+			delete(rawMsg, key)
+		case "settingsStatus":
+			err = unpopulate(val, &a.SettingsStatus)
+			delete(rawMsg, key)
+		case "tactics":
+			err = unpopulate(val, &a.Tactics)
+			delete(rawMsg, key)
+		case "techniques":
+			err = unpopulate(val, &a.Techniques)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// GetEntityTimelineItem implements the EntityTimelineItemClassification interface for type AnomalyTimelineItem.
+func (a *AnomalyTimelineItem) GetEntityTimelineItem() *EntityTimelineItem {
+	return &EntityTimelineItem{
+		Kind: a.Kind,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AnomalyTimelineItem.
+func (a AnomalyTimelineItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "azureResourceId", a.AzureResourceID)
+	populate(objectMap, "description", a.Description)
+	populate(objectMap, "displayName", a.DisplayName)
+	populateTimeRFC3339(objectMap, "endTimeUtc", a.EndTimeUTC)
+	populate(objectMap, "intent", a.Intent)
+	objectMap["kind"] = EntityTimelineKindAnomaly
+	populate(objectMap, "productName", a.ProductName)
+	populate(objectMap, "reasons", a.Reasons)
+	populateTimeRFC3339(objectMap, "startTimeUtc", a.StartTimeUTC)
+	populate(objectMap, "techniques", a.Techniques)
+	populateTimeRFC3339(objectMap, "timeGenerated", a.TimeGenerated)
+	populate(objectMap, "vendor", a.Vendor)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AnomalyTimelineItem.
+func (a *AnomalyTimelineItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "azureResourceId":
+			err = unpopulate(val, &a.AzureResourceID)
+			delete(rawMsg, key)
+		case "description":
+			err = unpopulate(val, &a.Description)
+			delete(rawMsg, key)
+		case "displayName":
+			err = unpopulate(val, &a.DisplayName)
+			delete(rawMsg, key)
+		case "endTimeUtc":
+			err = unpopulateTimeRFC3339(val, &a.EndTimeUTC)
+			delete(rawMsg, key)
+		case "intent":
+			err = unpopulate(val, &a.Intent)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, &a.Kind)
+			delete(rawMsg, key)
+		case "productName":
+			err = unpopulate(val, &a.ProductName)
+			delete(rawMsg, key)
+		case "reasons":
+			err = unpopulate(val, &a.Reasons)
+			delete(rawMsg, key)
+		case "startTimeUtc":
+			err = unpopulateTimeRFC3339(val, &a.StartTimeUTC)
+			delete(rawMsg, key)
+		case "techniques":
+			err = unpopulate(val, &a.Techniques)
+			delete(rawMsg, key)
+		case "timeGenerated":
+			err = unpopulateTimeRFC3339(val, &a.TimeGenerated)
+			delete(rawMsg, key)
+		case "vendor":
+			err = unpopulate(val, &a.Vendor)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // GetAutomationRuleAction implements the AutomationRuleActionClassification interface for type AutomationRuleAction.
 func (a *AutomationRuleAction) GetAutomationRuleAction() *AutomationRuleAction { return a }
 
@@ -1081,6 +1301,16 @@ func (a *AutomationRuleProperties) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AutomationRulePropertyValuesChangedCondition.
+func (a AutomationRulePropertyValuesChangedCondition) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "changeType", a.ChangeType)
+	populate(objectMap, "operator", a.Operator)
+	populate(objectMap, "propertyName", a.PropertyName)
+	populate(objectMap, "propertyValues", a.PropertyValues)
+	return json.Marshal(objectMap)
 }
 
 // MarshalJSON implements the json.Marshaller interface for type AutomationRulePropertyValuesCondition.
@@ -2024,7 +2254,10 @@ func (d DataConnectorConnectBody) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "authorizationCode", d.AuthorizationCode)
 	populate(objectMap, "clientId", d.ClientID)
 	populate(objectMap, "clientSecret", d.ClientSecret)
+	populate(objectMap, "dataCollectionEndpoint", d.DataCollectionEndpoint)
+	populate(objectMap, "dataCollectionRuleImmutableId", d.DataCollectionRuleImmutableID)
 	populate(objectMap, "kind", d.Kind)
+	populate(objectMap, "outputStream", d.OutputStream)
 	populate(objectMap, "password", d.Password)
 	populate(objectMap, "requestConfigUserInputValues", d.RequestConfigUserInputValues)
 	populate(objectMap, "userName", d.UserName)
@@ -6654,6 +6887,82 @@ func (p *ProcessEntityProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// GetAutomationRuleCondition implements the AutomationRuleConditionClassification interface for type PropertyArrayChangedConditionProperties.
+func (p *PropertyArrayChangedConditionProperties) GetAutomationRuleCondition() *AutomationRuleCondition {
+	return &AutomationRuleCondition{
+		ConditionType: p.ConditionType,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PropertyArrayChangedConditionProperties.
+func (p PropertyArrayChangedConditionProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "conditionProperties", p.ConditionProperties)
+	objectMap["conditionType"] = ConditionTypePropertyArrayChanged
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PropertyArrayChangedConditionProperties.
+func (p *PropertyArrayChangedConditionProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "conditionProperties":
+			err = unpopulate(val, &p.ConditionProperties)
+			delete(rawMsg, key)
+		case "conditionType":
+			err = unpopulate(val, &p.ConditionType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// GetAutomationRuleCondition implements the AutomationRuleConditionClassification interface for type PropertyChangedConditionProperties.
+func (p *PropertyChangedConditionProperties) GetAutomationRuleCondition() *AutomationRuleCondition {
+	return &AutomationRuleCondition{
+		ConditionType: p.ConditionType,
+	}
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PropertyChangedConditionProperties.
+func (p PropertyChangedConditionProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "conditionProperties", p.ConditionProperties)
+	objectMap["conditionType"] = ConditionTypePropertyChanged
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PropertyChangedConditionProperties.
+func (p *PropertyChangedConditionProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "conditionProperties":
+			err = unpopulate(val, &p.ConditionProperties)
+			delete(rawMsg, key)
+		case "conditionType":
+			err = unpopulate(val, &p.ConditionType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // GetAutomationRuleCondition implements the AutomationRuleConditionClassification interface for type PropertyConditionProperties.
 func (p *PropertyConditionProperties) GetAutomationRuleCondition() *AutomationRuleCondition {
 	return &AutomationRuleCondition{
@@ -7551,6 +7860,50 @@ func (s SecurityGroupEntityProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "objectGuid", s.ObjectGUID)
 	populate(objectMap, "sid", s.Sid)
 	return json.Marshal(objectMap)
+}
+
+// GetSecurityMLAnalyticsSetting implements the SecurityMLAnalyticsSettingClassification interface for type SecurityMLAnalyticsSetting.
+func (s *SecurityMLAnalyticsSetting) GetSecurityMLAnalyticsSetting() *SecurityMLAnalyticsSetting {
+	return s
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SecurityMLAnalyticsSettingsDataSource.
+func (s SecurityMLAnalyticsSettingsDataSource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "connectorId", s.ConnectorID)
+	populate(objectMap, "dataTypes", s.DataTypes)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SecurityMLAnalyticsSettingsList.
+func (s SecurityMLAnalyticsSettingsList) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", s.NextLink)
+	populate(objectMap, "value", s.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SecurityMLAnalyticsSettingsList.
+func (s *SecurityMLAnalyticsSettingsList) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return err
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, &s.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			s.Value, err = unmarshalSecurityMLAnalyticsSettingClassificationArray(val)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // MarshalJSON implements the json.Marshaller interface for type SentinelOnboardingStatesList.
