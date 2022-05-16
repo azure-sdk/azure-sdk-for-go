@@ -1,5 +1,41 @@
 # Release History
 
+## 0.5.0 (2022-05-16)
+### Breaking Changes
+
+- Type of `Workbook.Kind` has been changed from `*Kind` to `*WorkbookSharedTypeKind`
+- Type of `WorkbookUpdateParameters.Kind` has been changed from `*SharedTypeKind` to `*WorkbookUpdateSharedTypeKind`
+- Type of `WorkbookResource.Kind` has been changed from `*Kind` to `*WorkbookSharedTypeKind`
+- Const `SharedTypeKindShared` has been removed
+- Const `SharedTypeKindUser` has been removed
+- Function `ComponentAvailableFeatures.MarshalJSON` has been removed
+- Function `InnerError.MarshalJSON` has been removed
+- Function `OperationsListResult.MarshalJSON` has been removed
+- Function `InnerErrorTrace.MarshalJSON` has been removed
+- Function `MyWorkbooksListResult.MarshalJSON` has been removed
+- Function `WorkbookTemplateErrorBody.MarshalJSON` has been removed
+- Function `AnnotationsListResult.MarshalJSON` has been removed
+- Function `ComponentAPIKeyListResult.MarshalJSON` has been removed
+- Function `ComponentFeature.MarshalJSON` has been removed
+- Function `WorkbookInnerErrorTrace.MarshalJSON` has been removed
+- Function `WorkbookTemplatesListResult.MarshalJSON` has been removed
+- Function `WorkbooksListResult.MarshalJSON` has been removed
+- Function `WorkItemConfigurationsListResult.MarshalJSON` has been removed
+- Function `WebTestListResult.MarshalJSON` has been removed
+- Function `OperationListResult.MarshalJSON` has been removed
+- Function `ComponentAPIKey.MarshalJSON` has been removed
+- Function `PossibleSharedTypeKindValues` has been removed
+- Function `ComponentListResult.MarshalJSON` has been removed
+- Function `WebTestLocationsListResult.MarshalJSON` has been removed
+
+### Features Added
+
+- New const `WorkbookSharedTypeKindShared`
+- New const `WorkbookUpdateSharedTypeKindShared`
+- New function `PossibleWorkbookUpdateSharedTypeKindValues() []WorkbookUpdateSharedTypeKind`
+- New function `PossibleWorkbookSharedTypeKindValues() []WorkbookSharedTypeKind`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
