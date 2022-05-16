@@ -26,8 +26,6 @@ const (
 	ChannelNameLineChannel ChannelName = "LineChannel"
 	// ChannelNameMsTeamsChannel ...
 	ChannelNameMsTeamsChannel ChannelName = "MsTeamsChannel"
-	// ChannelNameOutlookChannel ...
-	ChannelNameOutlookChannel ChannelName = "OutlookChannel"
 	// ChannelNameSkypeChannel ...
 	ChannelNameSkypeChannel ChannelName = "SkypeChannel"
 	// ChannelNameSlackChannel ...
@@ -42,7 +40,7 @@ const (
 
 // PossibleChannelNameValues returns an array of possible values for the ChannelName const type.
 func PossibleChannelNameValues() []ChannelName {
-	return []ChannelName{ChannelNameAlexaChannel, ChannelNameDirectLineChannel, ChannelNameDirectLineSpeechChannel, ChannelNameEmailChannel, ChannelNameFacebookChannel, ChannelNameKikChannel, ChannelNameLineChannel, ChannelNameMsTeamsChannel, ChannelNameOutlookChannel, ChannelNameSkypeChannel, ChannelNameSlackChannel, ChannelNameSmsChannel, ChannelNameTelegramChannel, ChannelNameWebChatChannel}
+	return []ChannelName{ChannelNameAlexaChannel, ChannelNameDirectLineChannel, ChannelNameDirectLineSpeechChannel, ChannelNameEmailChannel, ChannelNameFacebookChannel, ChannelNameKikChannel, ChannelNameLineChannel, ChannelNameMsTeamsChannel, ChannelNameSkypeChannel, ChannelNameSlackChannel, ChannelNameSmsChannel, ChannelNameTelegramChannel, ChannelNameWebChatChannel}
 }
 
 // ChannelNameBasicChannel enumerates the values for channel name basic channel.
