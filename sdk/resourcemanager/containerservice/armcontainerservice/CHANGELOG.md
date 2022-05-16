@@ -1,5 +1,124 @@
 # Release History
 
+## 0.6.0 (2022-05-16)
+### Breaking Changes
+
+- Function `*PrivateEndpointConnectionsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error)` to `(*runtime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error)`
+- Function `*ManagedClustersClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientDeleteResponse], error)` to `(*runtime.Poller[ManagedClustersClientDeleteResponse], error)`
+- Function `*ManagedClustersClient.BeginRunCommand` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientRunCommandResponse], error)` to `(*runtime.Poller[ManagedClustersClientRunCommandResponse], error)`
+- Function `*ManagedClustersClient.BeginResetAADProfile` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientResetAADProfileResponse], error)` to `(*runtime.Poller[ManagedClustersClientResetAADProfileResponse], error)`
+- Function `*ManagedClustersClient.BeginStop` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientStopResponse], error)` to `(*runtime.Poller[ManagedClustersClientStopResponse], error)`
+- Function `*ManagedClustersClient.BeginRotateClusterCertificates` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientRotateClusterCertificatesResponse], error)` to `(*runtime.Poller[ManagedClustersClientRotateClusterCertificatesResponse], error)`
+- Function `*AgentPoolsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[AgentPoolsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[AgentPoolsClientCreateOrUpdateResponse], error)`
+- Function `*AgentPoolsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[AgentPoolsClientDeleteResponse], error)` to `(*runtime.Poller[AgentPoolsClientDeleteResponse], error)`
+- Function `*ManagedClustersClient.BeginResetServicePrincipalProfile` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientResetServicePrincipalProfileResponse], error)` to `(*runtime.Poller[ManagedClustersClientResetServicePrincipalProfileResponse], error)`
+- Function `*ManagedClustersClient.BeginStart` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientStartResponse], error)` to `(*runtime.Poller[ManagedClustersClientStartResponse], error)`
+- Function `*ManagedClustersClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedClustersClientCreateOrUpdateResponse], error)`
+- Function `*ManagedClustersClient.BeginUpdateTags` return value(s) have been changed from `(*armruntime.Poller[ManagedClustersClientUpdateTagsResponse], error)` to `(*runtime.Poller[ManagedClustersClientUpdateTagsResponse], error)`
+- Function `*AgentPoolsClient.BeginUpgradeNodeImageVersion` return value(s) have been changed from `(*armruntime.Poller[AgentPoolsClientUpgradeNodeImageVersionResponse], error)` to `(*runtime.Poller[AgentPoolsClientUpgradeNodeImageVersionResponse], error)`
+- Function `CredentialResults.MarshalJSON` has been removed
+- Function `OutboundEnvironmentEndpointCollection.MarshalJSON` has been removed
+- Function `EndpointDependency.MarshalJSON` has been removed
+- Function `CredentialResult.MarshalJSON` has been removed
+- Function `AgentPoolAvailableVersionsProperties.MarshalJSON` has been removed
+- Function `PrivateEndpointConnectionListResult.MarshalJSON` has been removed
+- Function `PrivateLinkResourcesListResult.MarshalJSON` has been removed
+- Function `CommandResultProperties.MarshalJSON` has been removed
+- Function `OperationListResult.MarshalJSON` has been removed
+- Function `ManagedClusterUpgradeProfileProperties.MarshalJSON` has been removed
+- Function `MaintenanceConfigurationListResult.MarshalJSON` has been removed
+- Function `OSOptionPropertyList.MarshalJSON` has been removed
+- Function `OutboundEnvironmentEndpoint.MarshalJSON` has been removed
+- Function `SnapshotListResult.MarshalJSON` has been removed
+- Function `AgentPoolListResult.MarshalJSON` has been removed
+- Function `CloudErrorBody.MarshalJSON` has been removed
+- Function `ManagedClusterPoolUpgradeProfile.MarshalJSON` has been removed
+- Function `ManagedClusterListResult.MarshalJSON` has been removed
+- Function `AgentPoolUpgradeProfileProperties.MarshalJSON` has been removed
+
+### Features Added
+
+- New const `TrustedAccessRoleBindingProvisioningStateDeleting`
+- New const `OSSKUWindows2019`
+- New const `NetworkPluginModeOverlay`
+- New const `SnapshotTypeManagedCluster`
+- New const `TrustedAccessRoleBindingProvisioningStateUpdating`
+- New const `TrustedAccessRoleBindingProvisioningStateFailed`
+- New const `OSSKUWindows2022`
+- New const `TrustedAccessRoleBindingProvisioningStateSucceeded`
+- New const `NetworkPluginNone`
+- New function `TrustedAccessRoleBindingProperties.MarshalJSON() ([]byte, error)`
+- New function `*ManagedClustersClient.BeginRotateServiceAccountSigningKeys(context.Context, string, string, *ManagedClustersClientBeginRotateServiceAccountSigningKeysOptions) (*runtime.Poller[ManagedClustersClientRotateServiceAccountSigningKeysResponse], error)`
+- New function `PossibleNetworkPluginModeValues() []NetworkPluginMode`
+- New function `PossibleTrustedAccessRoleBindingProvisioningStateValues() []TrustedAccessRoleBindingProvisioningState`
+- New function `ManagedClusterSnapshot.MarshalJSON() ([]byte, error)`
+- New struct `AzureKeyVaultKms`
+- New struct `ManagedClusterIngressProfile`
+- New struct `ManagedClusterIngressProfileWebAppRouting`
+- New struct `ManagedClusterOIDCIssuerProfile`
+- New struct `ManagedClusterPropertiesForSnapshot`
+- New struct `ManagedClusterSecurityProfileWorkloadIdentity`
+- New struct `ManagedClusterSnapshot`
+- New struct `ManagedClusterSnapshotListResult`
+- New struct `ManagedClusterSnapshotProperties`
+- New struct `ManagedClusterSnapshotsClientCreateOrUpdateOptions`
+- New struct `ManagedClusterSnapshotsClientCreateOrUpdateResponse`
+- New struct `ManagedClusterSnapshotsClientDeleteOptions`
+- New struct `ManagedClusterSnapshotsClientDeleteResponse`
+- New struct `ManagedClusterSnapshotsClientGetOptions`
+- New struct `ManagedClusterSnapshotsClientGetResponse`
+- New struct `ManagedClusterSnapshotsClientListByResourceGroupOptions`
+- New struct `ManagedClusterSnapshotsClientListByResourceGroupResponse`
+- New struct `ManagedClusterSnapshotsClientListOptions`
+- New struct `ManagedClusterSnapshotsClientListResponse`
+- New struct `ManagedClusterSnapshotsClientUpdateTagsOptions`
+- New struct `ManagedClusterSnapshotsClientUpdateTagsResponse`
+- New struct `ManagedClustersClientBeginRotateServiceAccountSigningKeysOptions`
+- New struct `ManagedClustersClientRotateServiceAccountSigningKeysResponse`
+- New struct `NetworkProfileForSnapshot`
+- New struct `TrustedAccessRole`
+- New struct `TrustedAccessRoleBinding`
+- New struct `TrustedAccessRoleBindingListResult`
+- New struct `TrustedAccessRoleBindingProperties`
+- New struct `TrustedAccessRoleBindingsClientCreateOrUpdateOptions`
+- New struct `TrustedAccessRoleBindingsClientCreateOrUpdateResponse`
+- New struct `TrustedAccessRoleBindingsClientDeleteOptions`
+- New struct `TrustedAccessRoleBindingsClientDeleteResponse`
+- New struct `TrustedAccessRoleBindingsClientGetOptions`
+- New struct `TrustedAccessRoleBindingsClientGetResponse`
+- New struct `TrustedAccessRoleBindingsClientListOptions`
+- New struct `TrustedAccessRoleBindingsClientListResponse`
+- New struct `TrustedAccessRoleListResult`
+- New struct `TrustedAccessRoleRule`
+- New struct `TrustedAccessRolesClientListOptions`
+- New struct `TrustedAccessRolesClientListResponse`
+- New field `MessageOfTheDay` in struct `ManagedClusterAgentPoolProfile`
+- New field `CapacityReservationGroupID` in struct `ManagedClusterAgentPoolProfile`
+- New field `CurrentOrchestratorVersion` in struct `ManagedClusterAgentPoolProfile`
+- New field `EnableCustomCATrust` in struct `ManagedClusterAgentPoolProfile`
+- New field `HostGroupID` in struct `ManagedClusterAgentPoolProfile`
+- New field `EnableVnetIntegration` in struct `ManagedClusterAPIServerAccessProfile`
+- New field `SubnetID` in struct `ManagedClusterAPIServerAccessProfile`
+- New field `IgnorePodDisruptionBudget` in struct `AgentPoolsClientBeginDeleteOptions`
+- New field `NetworkPluginMode` in struct `NetworkProfile`
+- New field `IgnorePodDisruptionBudget` in struct `ManagedClustersClientBeginDeleteOptions`
+- New field `EffectiveNoProxy` in struct `ManagedClusterHTTPProxyConfig`
+- New field `EnableNamespaceResources` in struct `ManagedClusterProperties`
+- New field `CreationData` in struct `ManagedClusterProperties`
+- New field `CurrentKubernetesVersion` in struct `ManagedClusterProperties`
+- New field `IngressProfile` in struct `ManagedClusterProperties`
+- New field `OidcIssuerProfile` in struct `ManagedClusterProperties`
+- New field `StorageProfile` in struct `ManagedClusterProperties`
+- New field `CapacityReservationGroupID` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `CurrentOrchestratorVersion` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `EnableCustomCATrust` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `MessageOfTheDay` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `HostGroupID` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `Version` in struct `ManagedClusterStorageProfileDiskCSIDriver`
+- New field `WorkloadIdentity` in struct `ManagedClusterSecurityProfile`
+- New field `AzureKeyVaultKms` in struct `ManagedClusterSecurityProfile`
+
+
 ## 0.5.0 (2022-04-15)
 ### Breaking Changes
 
