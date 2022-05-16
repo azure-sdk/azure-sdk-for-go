@@ -1,5 +1,266 @@
 # Release History
 
+## 0.6.0 (2022-05-16)
+### Breaking Changes
+
+- Function `*ServersClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[ServersClientUpdateResponse], error)` to `(*runtime.Poller[ServersClientUpdateResponse], error)`
+- Function `*WorkloadClassifiersClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[WorkloadClassifiersClientDeleteResponse], error)` to `(*runtime.Poller[WorkloadClassifiersClientDeleteResponse], error)`
+- Function `*ExtendedServerBlobAuditingPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ExtendedServerBlobAuditingPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ExtendedServerBlobAuditingPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*InstancePoolsClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[InstancePoolsClientUpdateResponse], error)` to `(*runtime.Poller[InstancePoolsClientUpdateResponse], error)`
+- Function `*ManagedInstancesClient.BeginFailover` return value(s) have been changed from `(*armruntime.Poller[ManagedInstancesClientFailoverResponse], error)` to `(*runtime.Poller[ManagedInstancesClientFailoverResponse], error)`
+- Function `*SyncAgentsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[SyncAgentsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[SyncAgentsClientCreateOrUpdateResponse], error)`
+- Function `*ManagedBackupShortTermRetentionPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedBackupShortTermRetentionPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedBackupShortTermRetentionPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*ManagedInstanceLongTermRetentionPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceLongTermRetentionPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedInstanceLongTermRetentionPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*ManagedInstanceAzureADOnlyAuthenticationsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceAzureADOnlyAuthenticationsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedInstanceAzureADOnlyAuthenticationsClientCreateOrUpdateResponse], error)`
+- Function `*SyncMembersClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[SyncMembersClientDeleteResponse], error)` to `(*runtime.Poller[SyncMembersClientDeleteResponse], error)`
+- Function `*VirtualNetworkRulesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[VirtualNetworkRulesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[VirtualNetworkRulesClientCreateOrUpdateResponse], error)`
+- Function `*JobExecutionsClient.BeginCreate` return value(s) have been changed from `(*armruntime.Poller[JobExecutionsClientCreateResponse], error)` to `(*runtime.Poller[JobExecutionsClientCreateResponse], error)`
+- Function `*ServerAzureADAdministratorsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ServerAzureADAdministratorsClientDeleteResponse], error)` to `(*runtime.Poller[ServerAzureADAdministratorsClientDeleteResponse], error)`
+- Function `*ServerTrustGroupsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ServerTrustGroupsClientDeleteResponse], error)` to `(*runtime.Poller[ServerTrustGroupsClientDeleteResponse], error)`
+- Function `*ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientUpdateResponse], error)` to `(*runtime.Poller[ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientUpdateResponse], error)`
+- Function `*FailoverGroupsClient.BeginFailover` return value(s) have been changed from `(*armruntime.Poller[FailoverGroupsClientFailoverResponse], error)` to `(*runtime.Poller[FailoverGroupsClientFailoverResponse], error)`
+- Function `*JobExecutionsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[JobExecutionsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[JobExecutionsClientCreateOrUpdateResponse], error)`
+- Function `*ServerTrustCertificatesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerTrustCertificatesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerTrustCertificatesClientCreateOrUpdateResponse], error)`
+- Function `*LongTermRetentionPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[LongTermRetentionPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*ServerTrustGroupsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerTrustGroupsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerTrustGroupsClientCreateOrUpdateResponse], error)`
+- Function `*ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*ServersClient.BeginImportDatabase` return value(s) have been changed from `(*armruntime.Poller[ServersClientImportDatabaseResponse], error)` to `(*runtime.Poller[ServersClientImportDatabaseResponse], error)`
+- Function `*LongTermRetentionBackupsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionBackupsClientDeleteResponse], error)` to `(*runtime.Poller[LongTermRetentionBackupsClientDeleteResponse], error)`
+- Function `*ServerCommunicationLinksClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerCommunicationLinksClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerCommunicationLinksClientCreateOrUpdateResponse], error)`
+- Function `*ManagedDatabasesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedDatabasesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedDatabasesClientCreateOrUpdateResponse], error)`
+- Function `*ManagedDatabasesClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedDatabasesClientUpdateResponse], error)` to `(*runtime.Poller[ManagedDatabasesClientUpdateResponse], error)`
+- Function `*InstanceFailoverGroupsClient.BeginFailover` return value(s) have been changed from `(*armruntime.Poller[InstanceFailoverGroupsClientFailoverResponse], error)` to `(*runtime.Poller[InstanceFailoverGroupsClientFailoverResponse], error)`
+- Function `*ManagedInstancesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ManagedInstancesClientDeleteResponse], error)` to `(*runtime.Poller[ManagedInstancesClientDeleteResponse], error)`
+- Function `*TdeCertificatesClient.BeginCreate` return value(s) have been changed from `(*armruntime.Poller[TdeCertificatesClientCreateResponse], error)` to `(*runtime.Poller[TdeCertificatesClientCreateResponse], error)`
+- Function `*ElasticPoolsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ElasticPoolsClientDeleteResponse], error)` to `(*runtime.Poller[ElasticPoolsClientDeleteResponse], error)`
+- Function `*SyncGroupsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[SyncGroupsClientDeleteResponse], error)` to `(*runtime.Poller[SyncGroupsClientDeleteResponse], error)`
+- Function `*ServerBlobAuditingPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerBlobAuditingPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerBlobAuditingPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*DatabasesClient.BeginUpgradeDataWarehouse` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientUpgradeDataWarehouseResponse], error)` to `(*runtime.Poller[DatabasesClientUpgradeDataWarehouseResponse], error)`
+- Function `*ManagedInstancePrivateEndpointConnectionsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstancePrivateEndpointConnectionsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedInstancePrivateEndpointConnectionsClientCreateOrUpdateResponse], error)`
+- Function `*VirtualClustersClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[VirtualClustersClientDeleteResponse], error)` to `(*runtime.Poller[VirtualClustersClientDeleteResponse], error)`
+- Function `*InstanceFailoverGroupsClient.BeginForceFailoverAllowDataLoss` return value(s) have been changed from `(*armruntime.Poller[InstanceFailoverGroupsClientForceFailoverAllowDataLossResponse], error)` to `(*runtime.Poller[InstanceFailoverGroupsClientForceFailoverAllowDataLossResponse], error)`
+- Function `*ManagedInstancePrivateEndpointConnectionsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ManagedInstancePrivateEndpointConnectionsClientDeleteResponse], error)` to `(*runtime.Poller[ManagedInstancePrivateEndpointConnectionsClientDeleteResponse], error)`
+- Function `*LedgerDigestUploadsClient.BeginDisable` return value(s) have been changed from `(*armruntime.Poller[LedgerDigestUploadsClientDisableResponse], error)` to `(*runtime.Poller[LedgerDigestUploadsClientDisableResponse], error)`
+- Function `*ManagedInstancesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstancesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedInstancesClientCreateOrUpdateResponse], error)`
+- Function `*VirtualNetworkRulesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[VirtualNetworkRulesClientDeleteResponse], error)` to `(*runtime.Poller[VirtualNetworkRulesClientDeleteResponse], error)`
+- Function `*LongTermRetentionManagedInstanceBackupsClient.BeginDeleteByResourceGroup` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionManagedInstanceBackupsClientDeleteByResourceGroupResponse], error)` to `(*runtime.Poller[LongTermRetentionManagedInstanceBackupsClientDeleteByResourceGroupResponse], error)`
+- Function `*LongTermRetentionBackupsClient.BeginCopy` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionBackupsClientCopyResponse], error)` to `(*runtime.Poller[LongTermRetentionBackupsClientCopyResponse], error)`
+- Function `*BackupShortTermRetentionPoliciesClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[BackupShortTermRetentionPoliciesClientUpdateResponse], error)` to `(*runtime.Poller[BackupShortTermRetentionPoliciesClientUpdateResponse], error)`
+- Function `*DatabaseVulnerabilityAssessmentScansClient.BeginInitiateScan` return value(s) have been changed from `(*armruntime.Poller[DatabaseVulnerabilityAssessmentScansClientInitiateScanResponse], error)` to `(*runtime.Poller[DatabaseVulnerabilityAssessmentScansClientInitiateScanResponse], error)`
+- Function `*JobAgentsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[JobAgentsClientDeleteResponse], error)` to `(*runtime.Poller[JobAgentsClientDeleteResponse], error)`
+- Function `*ServerDNSAliasesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ServerDNSAliasesClientDeleteResponse], error)` to `(*runtime.Poller[ServerDNSAliasesClientDeleteResponse], error)`
+- Function `*ReplicationLinksClient.BeginFailover` return value(s) have been changed from `(*armruntime.Poller[ReplicationLinksClientFailoverResponse], error)` to `(*runtime.Poller[ReplicationLinksClientFailoverResponse], error)`
+- Function `*ManagedInstanceEncryptionProtectorsClient.BeginRevalidate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceEncryptionProtectorsClientRevalidateResponse], error)` to `(*runtime.Poller[ManagedInstanceEncryptionProtectorsClientRevalidateResponse], error)`
+- Function `*BackupShortTermRetentionPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[BackupShortTermRetentionPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[BackupShortTermRetentionPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*DatabasesClient.BeginResume` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientResumeResponse], error)` to `(*runtime.Poller[DatabasesClientResumeResponse], error)`
+- Function `*ManagedInstanceEncryptionProtectorsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceEncryptionProtectorsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedInstanceEncryptionProtectorsClientCreateOrUpdateResponse], error)`
+- Function `*SyncGroupsClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[SyncGroupsClientUpdateResponse], error)` to `(*runtime.Poller[SyncGroupsClientUpdateResponse], error)`
+- Function `*DatabasesClient.BeginPause` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientPauseResponse], error)` to `(*runtime.Poller[DatabasesClientPauseResponse], error)`
+- Function `*ServerSecurityAlertPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerSecurityAlertPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerSecurityAlertPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*PrivateEndpointConnectionsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[PrivateEndpointConnectionsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[PrivateEndpointConnectionsClientCreateOrUpdateResponse], error)`
+- Function `*WorkloadGroupsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[WorkloadGroupsClientDeleteResponse], error)` to `(*runtime.Poller[WorkloadGroupsClientDeleteResponse], error)`
+- Function `*LongTermRetentionManagedInstanceBackupsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionManagedInstanceBackupsClientDeleteResponse], error)` to `(*runtime.Poller[LongTermRetentionManagedInstanceBackupsClientDeleteResponse], error)`
+- Function `*OutboundFirewallRulesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[OutboundFirewallRulesClientDeleteResponse], error)` to `(*runtime.Poller[OutboundFirewallRulesClientDeleteResponse], error)`
+- Function `*ReplicationLinksClient.BeginFailoverAllowDataLoss` return value(s) have been changed from `(*armruntime.Poller[ReplicationLinksClientFailoverAllowDataLossResponse], error)` to `(*runtime.Poller[ReplicationLinksClientFailoverAllowDataLossResponse], error)`
+- Function `*ServerDevOpsAuditSettingsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerDevOpsAuditSettingsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerDevOpsAuditSettingsClientCreateOrUpdateResponse], error)`
+- Function `*LongTermRetentionBackupsClient.BeginUpdateByResourceGroup` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionBackupsClientUpdateByResourceGroupResponse], error)` to `(*runtime.Poller[LongTermRetentionBackupsClientUpdateByResourceGroupResponse], error)`
+- Function `*DistributedAvailabilityGroupsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[DistributedAvailabilityGroupsClientDeleteResponse], error)` to `(*runtime.Poller[DistributedAvailabilityGroupsClientDeleteResponse], error)`
+- Function `*SyncGroupsClient.BeginRefreshHubSchema` return value(s) have been changed from `(*armruntime.Poller[SyncGroupsClientRefreshHubSchemaResponse], error)` to `(*runtime.Poller[SyncGroupsClientRefreshHubSchemaResponse], error)`
+- Function `*ManagedServerDNSAliasesClient.BeginAcquire` return value(s) have been changed from `(*armruntime.Poller[ManagedServerDNSAliasesClientAcquireResponse], error)` to `(*runtime.Poller[ManagedServerDNSAliasesClientAcquireResponse], error)`
+- Function `*ElasticPoolsClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[ElasticPoolsClientUpdateResponse], error)` to `(*runtime.Poller[ElasticPoolsClientUpdateResponse], error)`
+- Function `*FailoverGroupsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[FailoverGroupsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[FailoverGroupsClientCreateOrUpdateResponse], error)`
+- Function `*ManagedServerDNSAliasesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ManagedServerDNSAliasesClientDeleteResponse], error)` to `(*runtime.Poller[ManagedServerDNSAliasesClientDeleteResponse], error)`
+- Function `*DatabasesClient.BeginFailover` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientFailoverResponse], error)` to `(*runtime.Poller[DatabasesClientFailoverResponse], error)`
+- Function `*ServerAzureADOnlyAuthenticationsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ServerAzureADOnlyAuthenticationsClientDeleteResponse], error)` to `(*runtime.Poller[ServerAzureADOnlyAuthenticationsClientDeleteResponse], error)`
+- Function `*InstancePoolsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[InstancePoolsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[InstancePoolsClientCreateOrUpdateResponse], error)`
+- Function `*InstancePoolsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[InstancePoolsClientDeleteResponse], error)` to `(*runtime.Poller[InstancePoolsClientDeleteResponse], error)`
+- Function `*DatabasesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientDeleteResponse], error)` to `(*runtime.Poller[DatabasesClientDeleteResponse], error)`
+- Function `*ServerAzureADOnlyAuthenticationsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerAzureADOnlyAuthenticationsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerAzureADOnlyAuthenticationsClientCreateOrUpdateResponse], error)`
+- Function `*SyncMembersClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[SyncMembersClientUpdateResponse], error)` to `(*runtime.Poller[SyncMembersClientUpdateResponse], error)`
+- Function `*LedgerDigestUploadsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[LedgerDigestUploadsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[LedgerDigestUploadsClientCreateOrUpdateResponse], error)`
+- Function `*ServerDNSAliasesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerDNSAliasesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerDNSAliasesClientCreateOrUpdateResponse], error)`
+- Function `*ServerAzureADAdministratorsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerAzureADAdministratorsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerAzureADAdministratorsClientCreateOrUpdateResponse], error)`
+- Function `*DistributedAvailabilityGroupsClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[DistributedAvailabilityGroupsClientUpdateResponse], error)` to `(*runtime.Poller[DistributedAvailabilityGroupsClientUpdateResponse], error)`
+- Function `*ManagedServerDNSAliasesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedServerDNSAliasesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedServerDNSAliasesClientCreateOrUpdateResponse], error)`
+- Function `*ManagedInstancesClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstancesClientUpdateResponse], error)` to `(*runtime.Poller[ManagedInstancesClientUpdateResponse], error)`
+- Function `*OutboundFirewallRulesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[OutboundFirewallRulesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[OutboundFirewallRulesClientCreateOrUpdateResponse], error)`
+- Function `*ServerKeysClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerKeysClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerKeysClientCreateOrUpdateResponse], error)`
+- Function `*ManagedDatabasesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ManagedDatabasesClientDeleteResponse], error)` to `(*runtime.Poller[ManagedDatabasesClientDeleteResponse], error)`
+- Function `*FailoverGroupsClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[FailoverGroupsClientUpdateResponse], error)` to `(*runtime.Poller[FailoverGroupsClientUpdateResponse], error)`
+- Function `*ManagedInstanceAzureADOnlyAuthenticationsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceAzureADOnlyAuthenticationsClientDeleteResponse], error)` to `(*runtime.Poller[ManagedInstanceAzureADOnlyAuthenticationsClientDeleteResponse], error)`
+- Function `*FailoverGroupsClient.BeginForceFailoverAllowDataLoss` return value(s) have been changed from `(*armruntime.Poller[FailoverGroupsClientForceFailoverAllowDataLossResponse], error)` to `(*runtime.Poller[FailoverGroupsClientForceFailoverAllowDataLossResponse], error)`
+- Function `*DatabaseExtensionsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[DatabaseExtensionsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[DatabaseExtensionsClientCreateOrUpdateResponse], error)`
+- Function `*LongTermRetentionBackupsClient.BeginCopyByResourceGroup` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionBackupsClientCopyByResourceGroupResponse], error)` to `(*runtime.Poller[LongTermRetentionBackupsClientCopyByResourceGroupResponse], error)`
+- Function `*WorkloadClassifiersClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[WorkloadClassifiersClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[WorkloadClassifiersClientCreateOrUpdateResponse], error)`
+- Function `*ServerDNSAliasesClient.BeginAcquire` return value(s) have been changed from `(*armruntime.Poller[ServerDNSAliasesClientAcquireResponse], error)` to `(*runtime.Poller[ServerDNSAliasesClientAcquireResponse], error)`
+- Function `*SyncMembersClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[SyncMembersClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[SyncMembersClientCreateOrUpdateResponse], error)`
+- Function `*SyncMembersClient.BeginRefreshMemberSchema` return value(s) have been changed from `(*armruntime.Poller[SyncMembersClientRefreshMemberSchemaResponse], error)` to `(*runtime.Poller[SyncMembersClientRefreshMemberSchemaResponse], error)`
+- Function `*JobAgentsClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[JobAgentsClientUpdateResponse], error)` to `(*runtime.Poller[JobAgentsClientUpdateResponse], error)`
+- Function `*ElasticPoolsClient.BeginFailover` return value(s) have been changed from `(*armruntime.Poller[ElasticPoolsClientFailoverResponse], error)` to `(*runtime.Poller[ElasticPoolsClientFailoverResponse], error)`
+- Function `*ManagedBackupShortTermRetentionPoliciesClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedBackupShortTermRetentionPoliciesClientUpdateResponse], error)` to `(*runtime.Poller[ManagedBackupShortTermRetentionPoliciesClientUpdateResponse], error)`
+- Function `*ManagedInstanceKeysClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceKeysClientDeleteResponse], error)` to `(*runtime.Poller[ManagedInstanceKeysClientDeleteResponse], error)`
+- Function `*PrivateEndpointConnectionsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error)` to `(*runtime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error)`
+- Function `*DatabasesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[DatabasesClientCreateOrUpdateResponse], error)`
+- Function `*DatabasesClient.BeginImport` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientImportResponse], error)` to `(*runtime.Poller[DatabasesClientImportResponse], error)`
+- Function `*RestorePointsClient.BeginCreate` return value(s) have been changed from `(*armruntime.Poller[RestorePointsClientCreateResponse], error)` to `(*runtime.Poller[RestorePointsClientCreateResponse], error)`
+- Function `*LongTermRetentionBackupsClient.BeginDeleteByResourceGroup` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionBackupsClientDeleteByResourceGroupResponse], error)` to `(*runtime.Poller[LongTermRetentionBackupsClientDeleteByResourceGroupResponse], error)`
+- Function `*JobAgentsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[JobAgentsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[JobAgentsClientCreateOrUpdateResponse], error)`
+- Function `*ServerTrustCertificatesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ServerTrustCertificatesClientDeleteResponse], error)` to `(*runtime.Poller[ServerTrustCertificatesClientDeleteResponse], error)`
+- Function `*ManagedInstanceTdeCertificatesClient.BeginCreate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceTdeCertificatesClientCreateResponse], error)` to `(*runtime.Poller[ManagedInstanceTdeCertificatesClientCreateResponse], error)`
+- Function `*SyncAgentsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[SyncAgentsClientDeleteResponse], error)` to `(*runtime.Poller[SyncAgentsClientDeleteResponse], error)`
+- Function `*DatabasesClient.BeginExport` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientExportResponse], error)` to `(*runtime.Poller[DatabasesClientExportResponse], error)`
+- Function `*DeletedServersClient.BeginRecover` return value(s) have been changed from `(*armruntime.Poller[DeletedServersClientRecoverResponse], error)` to `(*runtime.Poller[DeletedServersClientRecoverResponse], error)`
+- Function `*VirtualClustersClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[VirtualClustersClientUpdateResponse], error)` to `(*runtime.Poller[VirtualClustersClientUpdateResponse], error)`
+- Function `*SyncGroupsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[SyncGroupsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[SyncGroupsClientCreateOrUpdateResponse], error)`
+- Function `*ManagedInstanceAdministratorsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceAdministratorsClientDeleteResponse], error)` to `(*runtime.Poller[ManagedInstanceAdministratorsClientDeleteResponse], error)`
+- Function `*InstanceFailoverGroupsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[InstanceFailoverGroupsClientDeleteResponse], error)` to `(*runtime.Poller[InstanceFailoverGroupsClientDeleteResponse], error)`
+- Function `*WorkloadGroupsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[WorkloadGroupsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[WorkloadGroupsClientCreateOrUpdateResponse], error)`
+- Function `*LongTermRetentionBackupsClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[LongTermRetentionBackupsClientUpdateResponse], error)` to `(*runtime.Poller[LongTermRetentionBackupsClientUpdateResponse], error)`
+- Function `*EncryptionProtectorsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[EncryptionProtectorsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[EncryptionProtectorsClientCreateOrUpdateResponse], error)`
+- Function `*InstanceFailoverGroupsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[InstanceFailoverGroupsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[InstanceFailoverGroupsClientCreateOrUpdateResponse], error)`
+- Function `*ServersClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ServersClientDeleteResponse], error)` to `(*runtime.Poller[ServersClientDeleteResponse], error)`
+- Function `*DatabasesClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[DatabasesClientUpdateResponse], error)` to `(*runtime.Poller[DatabasesClientUpdateResponse], error)`
+- Function `*ManagedDatabaseVulnerabilityAssessmentScansClient.BeginInitiateScan` return value(s) have been changed from `(*armruntime.Poller[ManagedDatabaseVulnerabilityAssessmentScansClientInitiateScanResponse], error)` to `(*runtime.Poller[ManagedDatabaseVulnerabilityAssessmentScansClientInitiateScanResponse], error)`
+- Function `*ElasticPoolsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ElasticPoolsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ElasticPoolsClientCreateOrUpdateResponse], error)`
+- Function `*ServerConnectionPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServerConnectionPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServerConnectionPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*FailoverGroupsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[FailoverGroupsClientDeleteResponse], error)` to `(*runtime.Poller[FailoverGroupsClientDeleteResponse], error)`
+- Function `*ServersClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ServersClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ServersClientCreateOrUpdateResponse], error)`
+- Function `*ManagedServerSecurityAlertPoliciesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedServerSecurityAlertPoliciesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedServerSecurityAlertPoliciesClientCreateOrUpdateResponse], error)`
+- Function `*ManagedInstanceKeysClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceKeysClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedInstanceKeysClientCreateOrUpdateResponse], error)`
+- Function `*ManagedDatabasesClient.BeginCompleteRestore` return value(s) have been changed from `(*armruntime.Poller[ManagedDatabasesClientCompleteRestoreResponse], error)` to `(*runtime.Poller[ManagedDatabasesClientCompleteRestoreResponse], error)`
+- Function `*ServerKeysClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ServerKeysClientDeleteResponse], error)` to `(*runtime.Poller[ServerKeysClientDeleteResponse], error)`
+- Function `*EncryptionProtectorsClient.BeginRevalidate` return value(s) have been changed from `(*armruntime.Poller[EncryptionProtectorsClientRevalidateResponse], error)` to `(*runtime.Poller[EncryptionProtectorsClientRevalidateResponse], error)`
+- Function `*ManagedInstanceAdministratorsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ManagedInstanceAdministratorsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ManagedInstanceAdministratorsClientCreateOrUpdateResponse], error)`
+- Function `*DistributedAvailabilityGroupsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[DistributedAvailabilityGroupsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[DistributedAvailabilityGroupsClientCreateOrUpdateResponse], error)`
+- Function `SyncGroupLogListResult.MarshalJSON` has been removed
+- Function `RecoverableDatabaseListResult.MarshalJSON` has been removed
+- Function `DatabaseTableListResult.MarshalJSON` has been removed
+- Function `EncryptionProtectorListResult.MarshalJSON` has been removed
+- Function `ServerTrustGroupListResult.MarshalJSON` has been removed
+- Function `ManagedDatabaseSecurityAlertPolicyListResult.MarshalJSON` has been removed
+- Function `DatabaseOperationListResult.MarshalJSON` has been removed
+- Function `JobListResult.MarshalJSON` has been removed
+- Function `DatabaseSchemaListResult.MarshalJSON` has been removed
+- Function `SensitivityLabelListResult.MarshalJSON` has been removed
+- Function `InstancePoolListResult.MarshalJSON` has been removed
+- Function `JobVersionListResult.MarshalJSON` has been removed
+- Function `ServerTrustCertificatesListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceQueryStatistics.MarshalJSON` has been removed
+- Function `ManagedInstanceVcoresCapability.MarshalJSON` has been removed
+- Function `JobTargetGroupListResult.MarshalJSON` has been removed
+- Function `UsageListResult.MarshalJSON` has been removed
+- Function `TopQueriesListResult.MarshalJSON` has been removed
+- Function `OperationListResult.MarshalJSON` has been removed
+- Function `ServerKeyListResult.MarshalJSON` has been removed
+- Function `InstancePoolFamilyCapability.MarshalJSON` has been removed
+- Function `RestorePointListResult.MarshalJSON` has been removed
+- Function `ElasticPoolListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceKeyListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceListResult.MarshalJSON` has been removed
+- Function `VulnerabilityAssessmentScanRecordListResult.MarshalJSON` has been removed
+- Function `Operation.MarshalJSON` has been removed
+- Function `ServerUsageListResult.MarshalJSON` has been removed
+- Function `ReplicationLinkListResult.MarshalJSON` has been removed
+- Function `ServerOperationListResult.MarshalJSON` has been removed
+- Function `ElasticPoolDatabaseActivityListResult.MarshalJSON` has been removed
+- Function `WorkloadClassifierListResult.MarshalJSON` has been removed
+- Function `LedgerDigestUploadsListResult.MarshalJSON` has been removed
+- Function `DistributedAvailabilityGroupsListResult.MarshalJSON` has been removed
+- Function `DataMaskingRuleListResult.MarshalJSON` has been removed
+- Function `LogicalDatabaseTransparentDataEncryptionListResult.MarshalJSON` has been removed
+- Function `VirtualClusterListResult.MarshalJSON` has been removed
+- Function `DatabaseColumnListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceEditionCapability.MarshalJSON` has been removed
+- Function `LongTermRetentionPolicyListResult.MarshalJSON` has been removed
+- Function `RecoverableManagedDatabaseListResult.MarshalJSON` has been removed
+- Function `EditionCapability.MarshalJSON` has been removed
+- Function `ManagedDatabaseListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceVersionCapability.MarshalJSON` has been removed
+- Function `SecurityEventCollection.MarshalJSON` has been removed
+- Function `ServerCommunicationLinkListResult.MarshalJSON` has been removed
+- Function `AdministratorListResult.MarshalJSON` has been removed
+- Function `MetricValue.MarshalJSON` has been removed
+- Function `MetricDefinition.MarshalJSON` has been removed
+- Function `DatabaseSecurityAlertListResult.MarshalJSON` has been removed
+- Function `RestorableDroppedManagedDatabaseListResult.MarshalJSON` has been removed
+- Function `JobExecutionListResult.MarshalJSON` has been removed
+- Function `ServerUsage.MarshalJSON` has been removed
+- Function `DeletedServerListResult.MarshalJSON` has been removed
+- Function `ServerBlobAuditingPolicyListResult.MarshalJSON` has been removed
+- Function `ServerConnectionPolicyListResult.MarshalJSON` has been removed
+- Function `LongTermRetentionBackupListResult.MarshalJSON` has been removed
+- Function `DatabaseListResult.MarshalJSON` has been removed
+- Function `WorkloadGroupListResult.MarshalJSON` has been removed
+- Function `DatabaseBlobAuditingPolicyListResult.MarshalJSON` has been removed
+- Function `ExtendedDatabaseBlobAuditingPolicyListResult.MarshalJSON` has been removed
+- Function `IPv6FirewallRuleListResult.MarshalJSON` has been removed
+- Function `ServerVulnerabilityAssessmentListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceLongTermRetentionBackupListResult.MarshalJSON` has been removed
+- Function `SyncFullSchemaProperties.MarshalJSON` has been removed
+- Function `SyncGroupLogProperties.MarshalJSON` has been removed
+- Function `ElasticPoolOperationListResult.MarshalJSON` has been removed
+- Function `AzureADOnlyAuthListResult.MarshalJSON` has been removed
+- Function `JobStepListResult.MarshalJSON` has been removed
+- Function `ElasticPoolActivityListResult.MarshalJSON` has been removed
+- Function `DataWarehouseUserActivitiesListResult.MarshalJSON` has been removed
+- Function `ElasticPoolEditionCapability.MarshalJSON` has been removed
+- Function `ManagedInstanceFamilyCapability.MarshalJSON` has been removed
+- Function `TimeZoneListResult.MarshalJSON` has been removed
+- Function `PrivateEndpointConnectionListResult.MarshalJSON` has been removed
+- Function `ManagedInstancePrivateLinkListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceOperationListResult.MarshalJSON` has been removed
+- Function `PrivateLinkResourceListResult.MarshalJSON` has been removed
+- Function `InstancePoolEditionCapability.MarshalJSON` has been removed
+- Function `JobAgentListResult.MarshalJSON` has been removed
+- Function `ServerDevOpsAuditSettingsListResult.MarshalJSON` has been removed
+- Function `InstanceFailoverGroupListResult.MarshalJSON` has been removed
+- Function `FirewallRuleListResult.MarshalJSON` has been removed
+- Function `OutboundFirewallRuleListResult.MarshalJSON` has been removed
+- Function `SyncAgentLinkedDatabaseListResult.MarshalJSON` has been removed
+- Function `RestorableDroppedDatabaseListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceEncryptionProtectorListResult.MarshalJSON` has been removed
+- Function `ManagedServerSecurityAlertPolicyListResult.MarshalJSON` has been removed
+- Function `ManagedInstancePrivateEndpointConnectionListResult.MarshalJSON` has been removed
+- Function `VirtualNetworkRuleListResult.MarshalJSON` has been removed
+- Function `ManagedBackupShortTermRetentionPolicyListResult.MarshalJSON` has been removed
+- Function `JobCredentialListResult.MarshalJSON` has been removed
+- Function `SyncDatabaseIDListResult.MarshalJSON` has been removed
+- Function `TopQueries.MarshalJSON` has been removed
+- Function `ManagedInstanceLongTermRetentionPolicyListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceVulnerabilityAssessmentListResult.MarshalJSON` has been removed
+- Function `SyncAgentListResult.MarshalJSON` has been removed
+- Function `DatabaseVulnerabilityAssessmentListResult.MarshalJSON` has been removed
+- Function `SecurityEventsFilterParameters.MarshalJSON` has been removed
+- Function `ExtendedServerBlobAuditingPolicyListResult.MarshalJSON` has been removed
+- Function `ServiceObjectiveListResult.MarshalJSON` has been removed
+- Function `LogicalServerSecurityAlertPolicyListResult.MarshalJSON` has been removed
+- Function `MetricDefinitionListResult.MarshalJSON` has been removed
+- Function `SyncMemberListResult.MarshalJSON` has been removed
+- Function `MetricListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceAzureADOnlyAuthListResult.MarshalJSON` has been removed
+- Function `ManagedServerDNSAliasListResult.MarshalJSON` has been removed
+- Function `DatabaseUsageListResult.MarshalJSON` has been removed
+- Function `ManagedInstanceAdministratorListResult.MarshalJSON` has been removed
+- Function `GeoBackupPolicyListResult.MarshalJSON` has been removed
+- Function `LocationCapabilities.MarshalJSON` has been removed
+- Function `ServiceObjectiveCapability.MarshalJSON` has been removed
+- Function `ServerVersionCapability.MarshalJSON` has been removed
+- Function `SubscriptionUsageListResult.MarshalJSON` has been removed
+- Function `Metric.MarshalJSON` has been removed
+- Function `SyncGroupListResult.MarshalJSON` has been removed
+- Function `EndpointCertificateListResult.MarshalJSON` has been removed
+- Function `SyncFullSchemaTable.MarshalJSON` has been removed
+- Function `ElasticPoolPerDatabaseMaxPerformanceLevelCapability.MarshalJSON` has been removed
+- Function `FailoverGroupListResult.MarshalJSON` has been removed
+- Function `ManagedTransparentDataEncryptionListResult.MarshalJSON` has been removed
+- Function `SyncFullSchemaPropertiesListResult.MarshalJSON` has been removed
+- Function `BackupShortTermRetentionPolicyListResult.MarshalJSON` has been removed
+- Function `ServerListResult.MarshalJSON` has been removed
+- Function `ElasticPoolPerformanceLevelCapability.MarshalJSON` has been removed
+- Function `ServerDNSAliasListResult.MarshalJSON` has been removed
+- Function `ImportExportExtensionsOperationListResult.MarshalJSON` has been removed
+
+
 ## 0.5.0 (2022-04-18)
 ### Breaking Changes
 
