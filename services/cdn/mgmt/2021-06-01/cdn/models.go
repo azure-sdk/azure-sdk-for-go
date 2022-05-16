@@ -2813,7 +2813,7 @@ type CustomDomainProperties struct {
 	HostName *string `json:"hostName,omitempty"`
 	// ResourceState - READ-ONLY; Resource status of the custom domain. Possible values include: 'CustomDomainResourceStateCreating', 'CustomDomainResourceStateActive', 'CustomDomainResourceStateDeleting'
 	ResourceState CustomDomainResourceState `json:"resourceState,omitempty"`
-	// CustomHTTPSProvisioningState - READ-ONLY; Provisioning status of Custom Https of the custom domain. Possible values include: 'CustomHTTPSProvisioningStateEnabling', 'CustomHTTPSProvisioningStateEnabled', 'CustomHTTPSProvisioningStateDisabling', 'CustomHTTPSProvisioningStateDisabled', 'CustomHTTPSProvisioningStateFailed'
+	// CustomHTTPSProvisioningState - READ-ONLY; Provisioning status of the custom domain. Possible values include: 'CustomHTTPSProvisioningStateEnabling', 'CustomHTTPSProvisioningStateEnabled', 'CustomHTTPSProvisioningStateDisabling', 'CustomHTTPSProvisioningStateDisabled', 'CustomHTTPSProvisioningStateFailed'
 	CustomHTTPSProvisioningState CustomHTTPSProvisioningState `json:"customHttpsProvisioningState,omitempty"`
 	// CustomHTTPSProvisioningSubstate - READ-ONLY; Provisioning substate shows the progress of custom HTTPS enabling/disabling process step by step. Possible values include: 'CustomHTTPSProvisioningSubstateSubmittingDomainControlValidationRequest', 'CustomHTTPSProvisioningSubstatePendingDomainControlValidationREquestApproval', 'CustomHTTPSProvisioningSubstateDomainControlValidationRequestApproved', 'CustomHTTPSProvisioningSubstateDomainControlValidationRequestRejected', 'CustomHTTPSProvisioningSubstateDomainControlValidationRequestTimedOut', 'CustomHTTPSProvisioningSubstateIssuingCertificate', 'CustomHTTPSProvisioningSubstateDeployingCertificate', 'CustomHTTPSProvisioningSubstateCertificateDeployed', 'CustomHTTPSProvisioningSubstateDeletingCertificate', 'CustomHTTPSProvisioningSubstateCertificateDeleted'
 	CustomHTTPSProvisioningSubstate CustomHTTPSProvisioningSubstate `json:"customHttpsProvisioningSubstate,omitempty"`
@@ -2821,8 +2821,8 @@ type CustomDomainProperties struct {
 	CustomHTTPSParameters BasicCustomDomainHTTPSParameters `json:"customHttpsParameters,omitempty"`
 	// ValidationData - Special validation or data may be required when delivering CDN to some regions due to local compliance reasons. E.g. ICP license number of a custom domain is required to deliver content in China.
 	ValidationData *string `json:"validationData,omitempty"`
-	// ProvisioningState - READ-ONLY; Provisioning status of the custom domain.
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	// ProvisioningState - READ-ONLY; Provisioning status of Custom Https of the custom domain. Possible values include: 'CustomHTTPSProvisioningStateEnabling', 'CustomHTTPSProvisioningStateEnabled', 'CustomHTTPSProvisioningStateDisabling', 'CustomHTTPSProvisioningStateDisabled', 'CustomHTTPSProvisioningStateFailed'
+	ProvisioningState CustomHTTPSProvisioningState `json:"provisioningState,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for CustomDomainProperties.
@@ -2902,12 +2902,12 @@ func (cdp *CustomDomainProperties) UnmarshalJSON(body []byte) error {
 			}
 		case "provisioningState":
 			if v != nil {
-				var provisioningState string
+				var provisioningState CustomHTTPSProvisioningState
 				err = json.Unmarshal(*v, &provisioningState)
 				if err != nil {
 					return err
 				}
-				cdp.ProvisioningState = &provisioningState
+				cdp.ProvisioningState = provisioningState
 			}
 		}
 	}
@@ -7148,8 +7148,8 @@ type EndpointProperties struct {
 	CustomDomains *[]CustomDomain `json:"customDomains,omitempty"`
 	// ResourceState - READ-ONLY; Resource status of the endpoint. Possible values include: 'EndpointResourceStateCreating', 'EndpointResourceStateDeleting', 'EndpointResourceStateRunning', 'EndpointResourceStateStarting', 'EndpointResourceStateStopped', 'EndpointResourceStateStopping'
 	ResourceState EndpointResourceState `json:"resourceState,omitempty"`
-	// ProvisioningState - READ-ONLY; Provisioning status of the endpoint.
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	// ProvisioningState - READ-ONLY; Provisioning status of the endpoint. Possible values include: 'EndpointProvisioningStateSucceeded', 'EndpointProvisioningStateFailed', 'EndpointProvisioningStateUpdating', 'EndpointProvisioningStateDeleting', 'EndpointProvisioningStateCreating'
+	ProvisioningState EndpointProvisioningState `json:"provisioningState,omitempty"`
 	// OriginPath - A directory path on the origin that CDN can use to retrieve content from, e.g. contoso.cloudapp.net/originpath.
 	OriginPath *string `json:"originPath,omitempty"`
 	// ContentTypesToCompress - List of content types on which compression applies. The value should be a valid MIME type.
@@ -9073,8 +9073,8 @@ type OriginGroupOverrideActionParameters struct {
 type OriginGroupProperties struct {
 	// ResourceState - READ-ONLY; Resource status of the origin group. Possible values include: 'OriginGroupResourceStateCreating', 'OriginGroupResourceStateActive', 'OriginGroupResourceStateDeleting'
 	ResourceState OriginGroupResourceState `json:"resourceState,omitempty"`
-	// ProvisioningState - READ-ONLY; Provisioning status of the origin group.
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	// ProvisioningState - READ-ONLY; Provisioning status of the origin group. Possible values include: 'OriginGroupProvisioningStateSucceeded', 'OriginGroupProvisioningStateFailed', 'OriginGroupProvisioningStateUpdating', 'OriginGroupProvisioningStateDeleting', 'OriginGroupProvisioningStateCreating'
+	ProvisioningState OriginGroupProvisioningState `json:"provisioningState,omitempty"`
 	// HealthProbeSettings - Health probe settings to the origin that is used to determine the health of the origin.
 	HealthProbeSettings *HealthProbeParameters `json:"healthProbeSettings,omitempty"`
 	// Origins - The source of the content being delivered via CDN within given origin group.
@@ -9449,8 +9449,8 @@ func NewOriginListResultPage(cur OriginListResult, getNextPage func(context.Cont
 type OriginProperties struct {
 	// ResourceState - READ-ONLY; Resource status of the origin. Possible values include: 'OriginResourceStateCreating', 'OriginResourceStateActive', 'OriginResourceStateDeleting'
 	ResourceState OriginResourceState `json:"resourceState,omitempty"`
-	// ProvisioningState - READ-ONLY; Provisioning status of the origin.
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	// ProvisioningState - READ-ONLY; Provisioning status of the origin. Possible values include: 'OriginProvisioningStateSucceeded', 'OriginProvisioningStateFailed', 'OriginProvisioningStateUpdating', 'OriginProvisioningStateDeleting', 'OriginProvisioningStateCreating'
+	ProvisioningState OriginProvisioningState `json:"provisioningState,omitempty"`
 	// PrivateEndpointStatus - READ-ONLY; The approval status for the connection to the Private Link. Possible values include: 'PrivateEndpointStatusPending', 'PrivateEndpointStatusApproved', 'PrivateEndpointStatusRejected', 'PrivateEndpointStatusDisconnected', 'PrivateEndpointStatusTimeout'
 	PrivateEndpointStatus PrivateEndpointStatus `json:"privateEndpointStatus,omitempty"`
 	// HostName - The address of the origin. Domain names, IPv4 addresses, and IPv6 addresses are supported.This should be unique across all origins in an endpoint.
@@ -10127,8 +10127,8 @@ func NewProfileListResultPage(cur ProfileListResult, getNextPage func(context.Co
 type ProfileProperties struct {
 	// ResourceState - READ-ONLY; Resource status of the profile. Possible values include: 'ProfileResourceStateCreating', 'ProfileResourceStateActive', 'ProfileResourceStateDeleting', 'ProfileResourceStateDisabled'
 	ResourceState ProfileResourceState `json:"resourceState,omitempty"`
-	// ProvisioningState - READ-ONLY; Provisioning status of the profile.
-	ProvisioningState *string `json:"provisioningState,omitempty"`
+	// ProvisioningState - READ-ONLY; Provisioning status of the profile. Possible values include: 'ProfileProvisioningStateSucceeded', 'ProfileProvisioningStateFailed', 'ProfileProvisioningStateUpdating', 'ProfileProvisioningStateDeleting', 'ProfileProvisioningStateCreating'
+	ProvisioningState ProfileProvisioningState `json:"provisioningState,omitempty"`
 	// FrontDoorID - READ-ONLY; The Id of the frontdoor.
 	FrontDoorID *string `json:"frontDoorId,omitempty"`
 	// OriginResponseTimeoutSeconds - Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns.
@@ -10553,8 +10553,8 @@ type ResourcesResponseEndpointsItemCustomDomainsItem struct {
 type ResourceUsage struct {
 	// ResourceType - READ-ONLY; Resource type for which the usage is provided.
 	ResourceType *string `json:"resourceType,omitempty"`
-	// Unit - READ-ONLY; Unit of the usage. e.g. Count.
-	Unit *string `json:"unit,omitempty"`
+	// Unit - READ-ONLY; Unit of the usage. e.g. count. Possible values include: 'ResourceUsageUnitCount'
+	Unit ResourceUsageUnit `json:"unit,omitempty"`
 	// CurrentValue - READ-ONLY; Actual value of usage on the specified resource type.
 	CurrentValue *int32 `json:"currentValue,omitempty"`
 	// Limit - READ-ONLY; Quota of the specified resource type.
@@ -14199,7 +14199,7 @@ func (vpo ValidateProbeOutput) MarshalJSON() ([]byte, error) {
 type ValidateSecretInput struct {
 	// SecretType - The secret type. Possible values include: 'SecretTypeURLSigningKey', 'SecretTypeCustomerCertificate', 'SecretTypeManagedCertificate', 'SecretTypeAzureFirstPartyManagedCertificate'
 	SecretType SecretType `json:"secretType,omitempty"`
-	// SecretSource - Resource reference to the Azure Key Vault secret. Expected to be in format of /subscriptions/{​​​​​​​​​subscriptionId}​​​​​​​​​/resourceGroups/{​​​​​​​​​resourceGroupName}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/providers/Microsoft.KeyVault/vaults/{vaultName}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/secrets/{secretName}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+	// SecretSource - Resource reference to the Azure Key Vault secret. Expected to be in format of /subscriptions/{​​​​​​​​​subscriptionId}​​​​​​​​​/resourceGroups/{​​​​​​​​​resourceGroupName}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/providers/Microsoft.KeyVault/vaults/{vaultName}​​​​​​​​​​​​���​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/secrets/{secretName}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
 	SecretSource *ResourceReference `json:"secretSource,omitempty"`
 	// SecretVersion - Secret version, if customer is using a specific version.
 	SecretVersion *string `json:"secretVersion,omitempty"`
