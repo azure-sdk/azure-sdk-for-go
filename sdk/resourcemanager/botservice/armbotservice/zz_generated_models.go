@@ -18,14 +18,19 @@ type AlexaChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
 	// The set of properties specific to Alexa channel resource
 	Properties *AlexaChannelProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Provisioning state of the resource
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// GetChannel implements the ChannelClassification interface for type AlexaChannel.
+func (a *AlexaChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: a.ChannelName,
+		Etag:        a.Etag,
+	}
 }
 
 // AlexaChannelProperties - The parameters to provide for the Alexa channel.
@@ -164,6 +169,9 @@ type BotProperties struct {
 	// The hint (e.g. keyVault secret resourceId) on how to fetch the app secret
 	AppPasswordHint *string `json:"appPasswordHint,omitempty"`
 
+	// The CMK encryption status
+	CmekEncryptionStatus *string `json:"cmekEncryptionStatus,omitempty"`
+
 	// The CMK Url
 	CmekKeyVaultURL *string `json:"cmekKeyVaultUrl,omitempty"`
 
@@ -187,6 +195,9 @@ type BotProperties struct {
 
 	// Whether Cmek is enabled
 	IsCmekEnabled *bool `json:"isCmekEnabled,omitempty"`
+
+	// Whether the bot is developerAppInsightsApiKey set
+	IsDeveloperAppInsightsAPIKeySet *bool `json:"isDeveloperAppInsightsApiKeySet,omitempty"`
 
 	// Whether the bot is streaming supported
 	IsStreamingSupported *bool `json:"isStreamingSupported,omitempty"`
@@ -224,12 +235,6 @@ type BotProperties struct {
 	// The channel schema transformation version for the bot
 	SchemaTransformationVersion *string `json:"schemaTransformationVersion,omitempty"`
 
-	// The storage resourceId for the bot
-	StorageResourceID *string `json:"storageResourceId,omitempty"`
-
-	// READ-ONLY; The CMK encryption status
-	CmekEncryptionStatus *string `json:"cmekEncryptionStatus,omitempty" azure:"ro"`
-
 	// READ-ONLY; Collection of channels for which the bot is configured
 	ConfiguredChannels []*string `json:"configuredChannels,omitempty" azure:"ro"`
 
@@ -238,9 +243,6 @@ type BotProperties struct {
 
 	// READ-ONLY; The bot's endpoint version
 	EndpointVersion *string `json:"endpointVersion,omitempty" azure:"ro"`
-
-	// READ-ONLY; Whether the bot is developerAppInsightsApiKey set
-	IsDeveloperAppInsightsAPIKeySet *bool `json:"isDeveloperAppInsightsApiKeySet,omitempty" azure:"ro"`
 
 	// READ-ONLY; Token used to migrate non Azure bot to azure subscription
 	MigrationToken *string `json:"migrationToken,omitempty" azure:"ro"`
@@ -314,13 +316,10 @@ type Channel struct {
 
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
-
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 }
+
+// GetChannel implements the ChannelClassification interface for type Channel.
+func (c *Channel) GetChannel() *Channel { return c }
 
 // ChannelResponseList - The list of bot service channel operation response.
 type ChannelResponseList struct {
@@ -329,36 +328,6 @@ type ChannelResponseList struct {
 
 	// READ-ONLY; Gets the list of bot service channel results and their properties.
 	Value []*BotChannel `json:"value,omitempty" azure:"ro"`
-}
-
-// ChannelSettings - Channel settings definition
-type ChannelSettings struct {
-	// The bot id
-	BotID *string `json:"botId,omitempty"`
-
-	// The bot icon url
-	BotIconURL *string `json:"botIconUrl,omitempty"`
-
-	// The channel display name
-	ChannelDisplayName *string `json:"channelDisplayName,omitempty"`
-
-	// The channel id
-	ChannelID *string `json:"channelId,omitempty"`
-
-	// Opt-out of local authentication and ensure only MSI and AAD can be used exclusively for authentication.
-	DisableLocalAuth *bool `json:"disableLocalAuth,omitempty"`
-
-	// The extensionKey1
-	ExtensionKey1 *string `json:"extensionKey1,omitempty"`
-
-	// The extensionKey2
-	ExtensionKey2 *string `json:"extensionKey2,omitempty"`
-
-	// Whether this channel is enabled for the bot
-	IsEnabled *bool `json:"isEnabled,omitempty"`
-
-	// The list of sites
-	Sites []*Site `json:"sites,omitempty"`
 }
 
 // ChannelsClientCreateOptions contains the optional parameters for the ChannelsClient.Create method.
@@ -467,12 +436,6 @@ type ConnectionSettingProperties struct {
 	// Client Secret associated with the Connection Setting
 	ClientSecret *string `json:"clientSecret,omitempty"`
 
-	// Id associated with the Connection Setting.
-	ID *string `json:"id,omitempty"`
-
-	// Name associated with the Connection Setting.
-	Name *string `json:"name,omitempty"`
-
 	// Service Provider Parameters associated with the Connection Setting
 	Parameters []*ConnectionSettingParameter `json:"parameters,omitempty"`
 
@@ -509,14 +472,22 @@ type DirectLineChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
+	// Location of the resource
 	Location *string `json:"location,omitempty"`
 
 	// The set of properties specific to Direct Line channel resource
 	Properties *DirectLineChannelProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+	// Provisioning state of the resource
+	ProvisioningState *string `json:"provisioningState,omitempty"`
+}
+
+// GetChannel implements the ChannelClassification interface for type DirectLineChannel.
+func (d *DirectLineChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: d.ChannelName,
+		Etag:        d.Etag,
+	}
 }
 
 // DirectLineChannelProperties - The parameters to provide for the Direct Line channel.
@@ -574,14 +545,19 @@ type DirectLineSpeechChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
 	// The set of properties specific to DirectLine Speech channel resource
 	Properties *DirectLineSpeechChannelProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+	// Provisioning state of the resource
+	ProvisioningState *string `json:"provisioningState,omitempty"`
+}
+
+// GetChannel implements the ChannelClassification interface for type DirectLineSpeechChannel.
+func (d *DirectLineSpeechChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: d.ChannelName,
+		Etag:        d.Etag,
+	}
 }
 
 // DirectLineSpeechChannelProperties - The parameters to provide for the DirectLine Speech channel.
@@ -613,14 +589,19 @@ type EmailChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
 	// The set of properties specific to email channel resource
 	Properties *EmailChannelProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+	// Provisioning state of the resource
+	ProvisioningState *string `json:"provisioningState,omitempty"`
+}
+
+// GetChannel implements the ChannelClassification interface for type EmailChannel.
+func (e *EmailChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: e.ChannelName,
+		Etag:        e.Etag,
+	}
 }
 
 // EmailChannelProperties - The parameters to provide for the Email channel.
@@ -658,14 +639,22 @@ type FacebookChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
+	// Location of the resource
 	Location *string `json:"location,omitempty"`
 
 	// The set of properties specific to bot facebook channel
 	Properties *FacebookChannelProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+	// Provisioning state of the resource
+	ProvisioningState *string `json:"provisioningState,omitempty"`
+}
+
+// GetChannel implements the ChannelClassification interface for type FacebookChannel.
+func (f *FacebookChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: f.ChannelName,
+		Etag:        f.Etag,
+	}
 }
 
 // FacebookChannelProperties - The parameters to provide for the Facebook channel.
@@ -738,14 +727,16 @@ type KikChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
 	// The set of properties specific to Kik channel resource
 	Properties *KikChannelProperties `json:"properties,omitempty"`
+}
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+// GetChannel implements the ChannelClassification interface for type KikChannel.
+func (k *KikChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: k.ChannelName,
+		Etag:        k.Etag,
+	}
 }
 
 // KikChannelProperties - The parameters to provide for the Kik channel.
@@ -771,14 +762,16 @@ type LineChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
 	// The set of properties specific to line channel resource
 	Properties *LineChannelProperties `json:"properties,omitempty"`
+}
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+// GetChannel implements the ChannelClassification interface for type LineChannel.
+func (l *LineChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: l.ChannelName,
+		Etag:        l.Etag,
+	}
 }
 
 // LineChannelProperties - The parameters to provide for the Line channel.
@@ -805,54 +798,6 @@ type LineRegistration struct {
 	GeneratedID *string `json:"generatedId,omitempty" azure:"ro"`
 }
 
-// ListChannelWithKeysResponse - The ARM channel of list channel with keys operation response.
-type ListChannelWithKeysResponse struct {
-	// Changed time of the resource
-	ChangedTime *string `json:"changedTime,omitempty"`
-
-	// Entity tag of the resource
-	EntityTag *string `json:"entityTag,omitempty"`
-
-	// Entity Tag
-	Etag *string `json:"etag,omitempty"`
-
-	// Required. Gets or sets the Kind of the resource.
-	Kind *Kind `json:"kind,omitempty"`
-
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
-	// The set of properties specific to bot channel resource
-	Properties ChannelClassification `json:"properties,omitempty"`
-
-	// Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty"`
-
-	// The set of properties specific to bot channel resource
-	Resource ChannelClassification `json:"resource,omitempty"`
-
-	// Gets or sets the SKU of the resource.
-	SKU *SKU `json:"sku,omitempty"`
-
-	// Channel settings
-	Setting *ChannelSettings `json:"setting,omitempty"`
-
-	// Contains resource tags defined as key/value pairs.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// READ-ONLY; Specifies the resource ID.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; Specifies the name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Specifies the type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-
-	// READ-ONLY; Entity zones
-	Zones []*string `json:"zones,omitempty" azure:"ro"`
-}
-
 // MsTeamsChannel - Microsoft Teams channel definition
 type MsTeamsChannel struct {
 	// REQUIRED; The channel name
@@ -861,14 +806,22 @@ type MsTeamsChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
+	// Location of the resource
 	Location *string `json:"location,omitempty"`
 
 	// The set of properties specific to Microsoft Teams channel resource
 	Properties *MsTeamsChannelProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+	// Provisioning state of the resource
+	ProvisioningState *string `json:"provisioningState,omitempty"`
+}
+
+// GetChannel implements the ChannelClassification interface for type MsTeamsChannel.
+func (m *MsTeamsChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: m.ChannelName,
+		Etag:        m.Etag,
+	}
 }
 
 // MsTeamsChannelProperties - The parameters to provide for the Microsoft Teams channel.
@@ -1195,48 +1148,6 @@ type ServiceProviderResponseList struct {
 	Value []*ServiceProvider `json:"value,omitempty" azure:"ro"`
 }
 
-// Site - A site for the channel
-type Site struct {
-	// REQUIRED; Whether this site is enabled for DirectLine channel
-	IsEnabled *bool `json:"isEnabled,omitempty"`
-
-	// REQUIRED; Whether this site is enabled for Bot Framework V1 protocol.
-	IsV1Enabled *bool `json:"isV1Enabled,omitempty"`
-
-	// REQUIRED; Whether this site is enabled for Bot Framework V1 protocol.
-	IsV3Enabled *bool `json:"isV3Enabled,omitempty"`
-
-	// REQUIRED; Whether this site is enabled for preview versions of Webchat
-	IsWebchatPreviewEnabled *bool `json:"isWebchatPreviewEnabled,omitempty"`
-
-	// REQUIRED; Site name
-	SiteName *string `json:"siteName,omitempty"`
-
-	// Entity Tag
-	ETag *string `json:"eTag,omitempty"`
-
-	// Whether this site is enabled for block user upload.
-	IsBlockUserUploadEnabled *bool `json:"isBlockUserUploadEnabled,omitempty"`
-
-	// Whether this site is enabled for authentication with Bot Framework.
-	IsSecureSiteEnabled *bool `json:"isSecureSiteEnabled,omitempty"`
-
-	// Whether this site is token enabled for channel
-	IsTokenEnabled *bool `json:"isTokenEnabled,omitempty"`
-
-	// List of Trusted Origin URLs for this site. This field is applicable only if isSecureSiteEnabled is True.
-	TrustedOrigins []*string `json:"trustedOrigins,omitempty"`
-
-	// READ-ONLY; Primary key. Value only returned through POST to the action Channel List API, otherwise empty.
-	Key *string `json:"key,omitempty" azure:"ro"`
-
-	// READ-ONLY; Secondary key. Value only returned through POST to the action Channel List API, otherwise empty.
-	Key2 *string `json:"key2,omitempty" azure:"ro"`
-
-	// READ-ONLY; Site Id
-	SiteID *string `json:"siteId,omitempty" azure:"ro"`
-}
-
 // SiteInfo - Site information for WebChat or DirectLine Channels to identify which site to regenerate keys for.
 type SiteInfo struct {
 	// REQUIRED; Determines which key is to be regenerated
@@ -1254,14 +1165,16 @@ type SkypeChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
 	// The set of properties specific to Skype channel resource
 	Properties *SkypeChannelProperties `json:"properties,omitempty"`
+}
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+// GetChannel implements the ChannelClassification interface for type SkypeChannel.
+func (s *SkypeChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: s.ChannelName,
+		Etag:        s.Etag,
+	}
 }
 
 // SkypeChannelProperties - The parameters to provide for the Microsoft Teams channel.
@@ -1305,14 +1218,19 @@ type SlackChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
+	// Location of the resource
 	Location *string `json:"location,omitempty"`
 
 	// The set of properties specific to Slack channel resource
 	Properties *SlackChannelProperties `json:"properties,omitempty"`
+}
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+// GetChannel implements the ChannelClassification interface for type SlackChannel.
+func (s *SlackChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: s.ChannelName,
+		Etag:        s.Etag,
+	}
 }
 
 // SlackChannelProperties - The parameters to provide for the Slack channel.
@@ -1328,6 +1246,9 @@ type SlackChannelProperties struct {
 
 	// The Slack landing page Url
 	LandingPageURL *string `json:"landingPageUrl,omitempty"`
+
+	// Whether to register the settings before OAuth validation is performed. Recommended to True.
+	RegisterBeforeOAuthFlow *bool `json:"registerBeforeOAuthFlow,omitempty"`
 
 	// The Slack permission scopes.
 	Scopes *string `json:"scopes,omitempty"`
@@ -1346,9 +1267,6 @@ type SlackChannelProperties struct {
 
 	// READ-ONLY; The Slack redirect action
 	RedirectAction *string `json:"redirectAction,omitempty" azure:"ro"`
-
-	// READ-ONLY; Whether to register the settings before OAuth validation is performed. Recommended to True.
-	RegisterBeforeOAuthFlow *bool `json:"registerBeforeOAuthFlow,omitempty" azure:"ro"`
 }
 
 // SmsChannel - Sms channel definition
@@ -1359,14 +1277,16 @@ type SmsChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
 	// The set of properties specific to Sms channel resource
 	Properties *SmsChannelProperties `json:"properties,omitempty"`
+}
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+// GetChannel implements the ChannelClassification interface for type SmsChannel.
+func (s *SmsChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: s.ChannelName,
+		Etag:        s.Etag,
+	}
 }
 
 // SmsChannelProperties - The parameters to provide for the Sms channel.
@@ -1395,14 +1315,19 @@ type TelegramChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
-	Location *string `json:"location,omitempty"`
-
 	// The set of properties specific to Telegram channel resource
 	Properties *TelegramChannelProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+	// Provisioning state of the resource
+	ProvisioningState *string `json:"provisioningState,omitempty"`
+}
+
+// GetChannel implements the ChannelClassification interface for type TelegramChannel.
+func (t *TelegramChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: t.ChannelName,
+		Etag:        t.Etag,
+	}
 }
 
 // TelegramChannelProperties - The parameters to provide for the Telegram channel.
@@ -1425,14 +1350,22 @@ type WebChatChannel struct {
 	// Entity Tag of the resource
 	Etag *string `json:"etag,omitempty"`
 
-	// Specifies the location of the resource.
+	// Location of the resource
 	Location *string `json:"location,omitempty"`
 
 	// The set of properties specific to Web Chat channel resource
 	Properties *WebChatChannelProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Provisioning state of the resource
-	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+	// Provisioning state of the resource
+	ProvisioningState *string `json:"provisioningState,omitempty"`
+}
+
+// GetChannel implements the ChannelClassification interface for type WebChatChannel.
+func (w *WebChatChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName: w.ChannelName,
+		Etag:        w.Etag,
+	}
 }
 
 // WebChatChannelProperties - The parameters to provide for the Web Chat channel.

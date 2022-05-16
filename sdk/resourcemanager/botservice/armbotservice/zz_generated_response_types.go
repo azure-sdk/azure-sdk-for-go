@@ -100,7 +100,7 @@ type ChannelsClientListByResourceGroupResponse struct {
 
 // ChannelsClientListWithKeysResponse contains the response from method ChannelsClient.ListWithKeys.
 type ChannelsClientListWithKeysResponse struct {
-	ListChannelWithKeysResponse
+	BotChannel
 }
 
 // ChannelsClientUpdateResponse contains the response from method ChannelsClient.Update.

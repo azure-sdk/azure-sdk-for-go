@@ -10,7 +10,7 @@ package armbotservice
 
 const (
 	moduleName    = "armbotservice"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.5.0"
 )
 
 type ChannelName string
@@ -29,7 +29,6 @@ const (
 	ChannelNameSmsChannel              ChannelName = "SmsChannel"
 	ChannelNameLineChannel             ChannelName = "LineChannel"
 	ChannelNameDirectLineSpeechChannel ChannelName = "DirectLineSpeechChannel"
-	ChannelNameOutlookChannel          ChannelName = "OutlookChannel"
 )
 
 // PossibleChannelNameValues returns the possible values for the ChannelName const type.
@@ -48,7 +47,6 @@ func PossibleChannelNameValues() []ChannelName {
 		ChannelNameSmsChannel,
 		ChannelNameLineChannel,
 		ChannelNameDirectLineSpeechChannel,
-		ChannelNameOutlookChannel,
 	}
 }
 

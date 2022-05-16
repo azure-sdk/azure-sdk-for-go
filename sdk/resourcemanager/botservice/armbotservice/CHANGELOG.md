@@ -1,5 +1,51 @@
 # Release History
 
+## 0.5.0 (2022-05-16)
+### Breaking Changes
+
+- Function `*OperationResultsClient.BeginGet` return value(s) have been changed from `(*armruntime.Poller[OperationResultsClientGetResponse], error)` to `(*runtime.Poller[OperationResultsClientGetResponse], error)`
+- Const `ChannelNameOutlookChannel` has been removed
+- Function `OperationResultsDescription.MarshalJSON` has been removed
+- Function `ChannelResponseList.MarshalJSON` has been removed
+- Function `BotResponseList.MarshalJSON` has been removed
+- Function `ChannelSettings.MarshalJSON` has been removed
+- Function `ServiceProviderProperties.MarshalJSON` has been removed
+- Function `ServiceProviderResponseList.MarshalJSON` has been removed
+- Function `PrivateLinkResourceListResult.MarshalJSON` has been removed
+- Function `ListChannelWithKeysResponse.MarshalJSON` has been removed
+- Function `PrivateEndpointConnectionListResult.MarshalJSON` has been removed
+- Function `OperationEntityListResult.MarshalJSON` has been removed
+- Function `ConnectionSettingResponseList.MarshalJSON` has been removed
+- Function `Site.MarshalJSON` has been removed
+- Function `*ListChannelWithKeysResponse.UnmarshalJSON` has been removed
+- Struct `ChannelSettings` has been removed
+- Struct `ListChannelWithKeysResponse` has been removed
+- Struct `Site` has been removed
+- Field `Location` of struct `DirectLineSpeechChannel` has been removed
+- Field `Location` of struct `EmailChannel` has been removed
+- Field `Location` of struct `SmsChannel` has been removed
+- Field `ProvisioningState` of struct `SmsChannel` has been removed
+- Field `Location` of struct `Channel` has been removed
+- Field `ProvisioningState` of struct `Channel` has been removed
+- Field `ID` of struct `ConnectionSettingProperties` has been removed
+- Field `Name` of struct `ConnectionSettingProperties` has been removed
+- Field `Location` of struct `TelegramChannel` has been removed
+- Field `ProvisioningState` of struct `LineChannel` has been removed
+- Field `Location` of struct `LineChannel` has been removed
+- Field `StorageResourceID` of struct `BotProperties` has been removed
+- Field `ListChannelWithKeysResponse` of struct `ChannelsClientListWithKeysResponse` has been removed
+- Field `Location` of struct `AlexaChannel` has been removed
+- Field `ProvisioningState` of struct `SlackChannel` has been removed
+- Field `Location` of struct `KikChannel` has been removed
+- Field `ProvisioningState` of struct `KikChannel` has been removed
+- Field `ProvisioningState` of struct `SkypeChannel` has been removed
+- Field `Location` of struct `SkypeChannel` has been removed
+
+### Features Added
+
+- New anonymous field `BotChannel` in struct `ChannelsClientListWithKeysResponse`
+
+
 ## 0.4.0 (2022-04-15)
 ### Breaking Changes
 
