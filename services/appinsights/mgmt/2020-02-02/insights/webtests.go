@@ -119,7 +119,7 @@ func (client WebTestsClient) CreateOrUpdateSender(req *http.Request) (*http.Resp
 func (client WebTestsClient) CreateOrUpdateResponder(resp *http.Response) (result WebTest, err error) {
 	err = autorest.Respond(
 		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
