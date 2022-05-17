@@ -1,5 +1,5 @@
 {
-  "commit": "a95079cdd7a60c5af0417360b1ee56c8ae845cc4",
+  "commit": "c7bd7b5399d1c731f0f6d66a0d81e0f277e872c1",
   "readme": "/_/azure-rest-api-specs/specification/iothub/resource-manager/readme.md",
   "tag": "package-2021-03",
   "use": "@microsoft.azure/autorest.go@2.1.187",
