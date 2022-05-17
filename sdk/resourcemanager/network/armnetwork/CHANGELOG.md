@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.0 (2022-05-17)
+### Features Added
+
+- New field `ResourceGUID` in struct `PrivateEndpointProperties`
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 

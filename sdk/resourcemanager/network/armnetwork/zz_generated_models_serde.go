@@ -2170,6 +2170,7 @@ func (p PrivateEndpointProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "networkInterfaces", p.NetworkInterfaces)
 	populate(objectMap, "privateLinkServiceConnections", p.PrivateLinkServiceConnections)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
+	populate(objectMap, "resourceGuid", p.ResourceGUID)
 	populate(objectMap, "subnet", p.Subnet)
 	return json.Marshal(objectMap)
 }

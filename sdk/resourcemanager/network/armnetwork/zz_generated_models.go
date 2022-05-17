@@ -9738,6 +9738,9 @@ type PrivateEndpointProperties struct {
 
 	// READ-ONLY; The provisioning state of the private endpoint resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; The resource GUID property of the private endpoint.
+	ResourceGUID *string `json:"resourceGuid,omitempty" azure:"ro"`
 }
 
 // PrivateEndpointsClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointsClient.BeginCreateOrUpdate
