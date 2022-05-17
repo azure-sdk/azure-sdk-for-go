@@ -1222,6 +1222,9 @@ type ApplicationGatewayRequestRoutingRule struct {
 
 // ApplicationGatewayRequestRoutingRulePropertiesFormat - Properties of request routing rule of the application gateway.
 type ApplicationGatewayRequestRoutingRulePropertiesFormat struct {
+	// REQUIRED; Priority of the request routing rule.
+	Priority *int32 `json:"priority,omitempty"`
+
 	// Backend address pool resource of the application gateway.
 	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
 
@@ -1233,9 +1236,6 @@ type ApplicationGatewayRequestRoutingRulePropertiesFormat struct {
 
 	// Load Distribution Policy resource of the application gateway.
 	LoadDistributionPolicy *SubResource `json:"loadDistributionPolicy,omitempty"`
-
-	// Priority of the request routing rule.
-	Priority *int32 `json:"priority,omitempty"`
 
 	// Redirect configuration resource of the application gateway.
 	RedirectConfiguration *SubResource `json:"redirectConfiguration,omitempty"`
@@ -4461,6 +4461,9 @@ type ExplicitProxySettings struct {
 	// When set to true, explicit proxy mode is enabled.
 	EnableExplicitProxy *bool `json:"enableExplicitProxy,omitempty"`
 
+	// When set to true, pac file port and url needs to be provided.
+	EnablePacFile *bool `json:"enablePacFile,omitempty"`
+
 	// Port number for explicit proxy http protocol, cannot be greater than 64000.
 	HTTPPort *int32 `json:"httpPort,omitempty"`
 
@@ -5751,6 +5754,73 @@ type ExpressRoutePortsLocationsClientGetOptions struct {
 // method.
 type ExpressRoutePortsLocationsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ExpressRouteProviderPort resource.
+type ExpressRouteProviderPort struct {
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Resource location.
+	Location *string `json:"location,omitempty"`
+
+	// Properties of the express route Service Provider Port.
+	Properties *ExpressRouteProviderPortProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ExpressRouteProviderPortListResult - Response for ListExpressRouteProviderPort API service call.
+type ExpressRouteProviderPortListResult struct {
+	// A list of ExpressRouteProviderPort resources.
+	Value []*ExpressRouteProviderPort `json:"value,omitempty"`
+
+	// READ-ONLY; The URL to get the next set of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// ExpressRouteProviderPortProperties - Properties of ExpressRouteProviderPort.
+type ExpressRouteProviderPortProperties struct {
+	// Overprovisioning factor for the port pair.
+	OverprovisionFactor *int32 `json:"overprovisionFactor,omitempty"`
+
+	// The peering location of the port pair.
+	PeeringLocation *string `json:"peeringLocation,omitempty"`
+
+	// Bandwidth of the port in Mbps
+	PortBandwidthInMbps *int32 `json:"portBandwidthInMbps,omitempty"`
+
+	// Remaining Bandwidth of the port in Mbps
+	RemainingBandwidthInMbps *int32 `json:"remainingBandwidthInMbps,omitempty"`
+
+	// Used Bandwidth of the port in Mbps
+	UsedBandwidthInMbps *int32 `json:"usedBandwidthInMbps,omitempty"`
+
+	// READ-ONLY; The name of the port pair.
+	PortPairDescriptor *string `json:"portPairDescriptor,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the primary port.
+	PrimaryAzurePort *string `json:"primaryAzurePort,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the secondary port.
+	SecondaryAzurePort *string `json:"secondaryAzurePort,omitempty" azure:"ro"`
+}
+
+// ExpressRouteProviderPortsLocationClientListOptions contains the optional parameters for the ExpressRouteProviderPortsLocationClient.List
+// method.
+type ExpressRouteProviderPortsLocationClientListOptions struct {
+	// The filter to apply on the operation. For example, you can use $filter=location eq '{state}'.
+	Filter *string
 }
 
 // ExpressRouteServiceProvider - A ExpressRouteResourceProvider object.
@@ -8560,6 +8630,12 @@ type ManagementClientCheckDNSNameAvailabilityOptions struct {
 // ManagementClientDisconnectActiveSessionsOptions contains the optional parameters for the ManagementClient.DisconnectActiveSessions
 // method.
 type ManagementClientDisconnectActiveSessionsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementClientExpressRouteProviderPortOptions contains the optional parameters for the ManagementClient.ExpressRouteProviderPort
+// method.
+type ManagementClientExpressRouteProviderPortOptions struct {
 	// placeholder for future optional parameters
 }
 

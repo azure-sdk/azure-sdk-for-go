@@ -1,5 +1,20 @@
 # Release History
 
+## 1.1.0 (2022-05-17)
+### Features Added
+
+- New function `*ManagementClient.ExpressRouteProviderPort(context.Context, string, *ManagementClientExpressRouteProviderPortOptions) (ManagementClientExpressRouteProviderPortResponse, error)`
+- New function `ExpressRouteProviderPort.MarshalJSON() ([]byte, error)`
+- New struct `ExpressRouteProviderPort`
+- New struct `ExpressRouteProviderPortListResult`
+- New struct `ExpressRouteProviderPortProperties`
+- New struct `ExpressRouteProviderPortsLocationClientListOptions`
+- New struct `ExpressRouteProviderPortsLocationClientListResponse`
+- New struct `ManagementClientExpressRouteProviderPortOptions`
+- New struct `ManagementClientExpressRouteProviderPortResponse`
+- New field `EnablePacFile` in struct `ExplicitProxySettings`
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 
