@@ -70,7 +70,7 @@ func (client *WebTestsClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 	if err != nil {
 		return WebTestsClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return WebTestsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.createOrUpdateHandleResponse(resp)
