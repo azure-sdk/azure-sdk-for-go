@@ -33098,6 +33098,8 @@ type PrivateEndpointProperties struct {
 	Subnet *Subnet `json:"subnet,omitempty"`
 	// NetworkInterfaces - READ-ONLY; An array of references to the network interfaces created for this private endpoint.
 	NetworkInterfaces *[]Interface `json:"networkInterfaces,omitempty"`
+	// ResourceGUID - READ-ONLY; The resource GUID property of the private endpoint.
+	ResourceGUID *string `json:"resourceGuid,omitempty"`
 	// ProvisioningState - READ-ONLY; The provisioning state of the private endpoint resource. Possible values include: 'ProvisioningStateSucceeded', 'ProvisioningStateUpdating', 'ProvisioningStateDeleting', 'ProvisioningStateFailed'
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
 	// PrivateLinkServiceConnections - A grouping of information about the connection to the remote resource.
