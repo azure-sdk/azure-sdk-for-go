@@ -1,5 +1,87 @@
 # Release History
 
+## 1.1.0 (2022-05-17)
+### Features Added
+
+- New const `NetworkPluginModeOverlay`
+- New const `OSSKUWindows2022`
+- New const `TrustedAccessRoleBindingProvisioningStateUpdating`
+- New const `TrustedAccessRoleBindingProvisioningStateSucceeded`
+- New const `SnapshotTypeManagedCluster`
+- New const `OSSKUWindows2019`
+- New const `TrustedAccessRoleBindingProvisioningStateFailed`
+- New const `NetworkPluginNone`
+- New const `TrustedAccessRoleBindingProvisioningStateDeleting`
+- New function `PossibleTrustedAccessRoleBindingProvisioningStateValues() []TrustedAccessRoleBindingProvisioningState`
+- New function `TrustedAccessRoleBindingProperties.MarshalJSON() ([]byte, error)`
+- New function `ManagedClusterSnapshot.MarshalJSON() ([]byte, error)`
+- New function `PossibleNetworkPluginModeValues() []NetworkPluginMode`
+- New function `*ManagedClustersClient.BeginRotateServiceAccountSigningKeys(context.Context, string, string, *ManagedClustersClientBeginRotateServiceAccountSigningKeysOptions) (*runtime.Poller[ManagedClustersClientRotateServiceAccountSigningKeysResponse], error)`
+- New struct `AzureKeyVaultKms`
+- New struct `ManagedClusterIngressProfile`
+- New struct `ManagedClusterIngressProfileWebAppRouting`
+- New struct `ManagedClusterOIDCIssuerProfile`
+- New struct `ManagedClusterPropertiesForSnapshot`
+- New struct `ManagedClusterSecurityProfileWorkloadIdentity`
+- New struct `ManagedClusterSnapshot`
+- New struct `ManagedClusterSnapshotListResult`
+- New struct `ManagedClusterSnapshotProperties`
+- New struct `ManagedClusterSnapshotsClientCreateOrUpdateOptions`
+- New struct `ManagedClusterSnapshotsClientCreateOrUpdateResponse`
+- New struct `ManagedClusterSnapshotsClientDeleteOptions`
+- New struct `ManagedClusterSnapshotsClientDeleteResponse`
+- New struct `ManagedClusterSnapshotsClientGetOptions`
+- New struct `ManagedClusterSnapshotsClientGetResponse`
+- New struct `ManagedClusterSnapshotsClientListByResourceGroupOptions`
+- New struct `ManagedClusterSnapshotsClientListByResourceGroupResponse`
+- New struct `ManagedClusterSnapshotsClientListOptions`
+- New struct `ManagedClusterSnapshotsClientListResponse`
+- New struct `ManagedClusterSnapshotsClientUpdateTagsOptions`
+- New struct `ManagedClusterSnapshotsClientUpdateTagsResponse`
+- New struct `ManagedClusterStorageProfileBlobCSIDriver`
+- New struct `ManagedClustersClientBeginRotateServiceAccountSigningKeysOptions`
+- New struct `ManagedClustersClientRotateServiceAccountSigningKeysResponse`
+- New struct `NetworkProfileForSnapshot`
+- New struct `TrustedAccessRole`
+- New struct `TrustedAccessRoleBinding`
+- New struct `TrustedAccessRoleBindingListResult`
+- New struct `TrustedAccessRoleBindingProperties`
+- New struct `TrustedAccessRoleBindingsClientCreateOrUpdateOptions`
+- New struct `TrustedAccessRoleBindingsClientCreateOrUpdateResponse`
+- New struct `TrustedAccessRoleBindingsClientDeleteOptions`
+- New struct `TrustedAccessRoleBindingsClientDeleteResponse`
+- New struct `TrustedAccessRoleBindingsClientGetOptions`
+- New struct `TrustedAccessRoleBindingsClientGetResponse`
+- New struct `TrustedAccessRoleBindingsClientListOptions`
+- New struct `TrustedAccessRoleBindingsClientListResponse`
+- New struct `TrustedAccessRoleListResult`
+- New struct `TrustedAccessRoleRule`
+- New struct `TrustedAccessRolesClientListOptions`
+- New struct `TrustedAccessRolesClientListResponse`
+- New field `SubnetID` in struct `ManagedClusterAPIServerAccessProfile`
+- New field `EnableVnetIntegration` in struct `ManagedClusterAPIServerAccessProfile`
+- New field `Version` in struct `ManagedClusterStorageProfileDiskCSIDriver`
+- New field `BlobCSIDriver` in struct `ManagedClusterStorageProfile`
+- New field `EnableCustomCATrust` in struct `ManagedClusterAgentPoolProfile`
+- New field `CapacityReservationGroupID` in struct `ManagedClusterAgentPoolProfile`
+- New field `HostGroupID` in struct `ManagedClusterAgentPoolProfile`
+- New field `MessageOfTheDay` in struct `ManagedClusterAgentPoolProfile`
+- New field `EnableNamespaceResources` in struct `ManagedClusterProperties`
+- New field `CreationData` in struct `ManagedClusterProperties`
+- New field `OidcIssuerProfile` in struct `ManagedClusterProperties`
+- New field `IngressProfile` in struct `ManagedClusterProperties`
+- New field `IgnorePodDisruptionBudget` in struct `AgentPoolsClientBeginDeleteOptions`
+- New field `EffectiveNoProxy` in struct `ManagedClusterHTTPProxyConfig`
+- New field `MessageOfTheDay` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `CapacityReservationGroupID` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `EnableCustomCATrust` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `HostGroupID` in struct `ManagedClusterAgentPoolProfileProperties`
+- New field `AzureKeyVaultKms` in struct `ManagedClusterSecurityProfile`
+- New field `WorkloadIdentity` in struct `ManagedClusterSecurityProfile`
+- New field `NetworkPluginMode` in struct `NetworkProfile`
+- New field `IgnorePodDisruptionBudget` in struct `ManagedClustersClientBeginDeleteOptions`
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 
