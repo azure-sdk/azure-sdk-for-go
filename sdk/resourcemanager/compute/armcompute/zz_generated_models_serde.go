@@ -333,11 +333,17 @@ func (c *CommunityGalleryImageProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "architecture":
+			err = unpopulate(val, "Architecture", &c.Architecture)
+			delete(rawMsg, key)
 		case "disallowed":
 			err = unpopulate(val, "Disallowed", &c.Disallowed)
 			delete(rawMsg, key)
 		case "endOfLifeDate":
 			err = unpopulateTimeRFC3339(val, "EndOfLifeDate", &c.EndOfLifeDate)
+			delete(rawMsg, key)
+		case "eula":
+			err = unpopulate(val, "Eula", &c.Eula)
 			delete(rawMsg, key)
 		case "features":
 			err = unpopulate(val, "Features", &c.Features)
@@ -353,6 +359,9 @@ func (c *CommunityGalleryImageProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "osType":
 			err = unpopulate(val, "OSType", &c.OSType)
+			delete(rawMsg, key)
+		case "privacyStatementUri":
+			err = unpopulate(val, "PrivacyStatementURI", &c.PrivacyStatementURI)
 			delete(rawMsg, key)
 		case "purchasePlan":
 			err = unpopulate(val, "PurchasePlan", &c.PurchasePlan)
@@ -380,8 +389,14 @@ func (c *CommunityGalleryImageVersionProperties) UnmarshalJSON(data []byte) erro
 		case "endOfLifeDate":
 			err = unpopulateTimeRFC3339(val, "EndOfLifeDate", &c.EndOfLifeDate)
 			delete(rawMsg, key)
+		case "excludeFromLatest":
+			err = unpopulate(val, "ExcludeFromLatest", &c.ExcludeFromLatest)
+			delete(rawMsg, key)
 		case "publishedDate":
 			err = unpopulateTimeRFC3339(val, "PublishedDate", &c.PublishedDate)
+			delete(rawMsg, key)
+		case "storageProfile":
+			err = unpopulate(val, "StorageProfile", &c.StorageProfile)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1025,6 +1040,7 @@ func (g GalleryApplicationVersion) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type GalleryApplicationVersionPublishingProfile.
 func (g GalleryApplicationVersionPublishingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "advancedSettings", g.AdvancedSettings)
 	populate(objectMap, "enableHealthCheck", g.EnableHealthCheck)
 	populateTimeRFC3339(objectMap, "endOfLifeDate", g.EndOfLifeDate)
 	populate(objectMap, "excludeFromLatest", g.ExcludeFromLatest)
@@ -1032,6 +1048,7 @@ func (g GalleryApplicationVersionPublishingProfile) MarshalJSON() ([]byte, error
 	populateTimeRFC3339(objectMap, "publishedDate", g.PublishedDate)
 	populate(objectMap, "replicaCount", g.ReplicaCount)
 	populate(objectMap, "replicationMode", g.ReplicationMode)
+	populate(objectMap, "settings", g.Settings)
 	populate(objectMap, "source", g.Source)
 	populate(objectMap, "storageAccountType", g.StorageAccountType)
 	populate(objectMap, "targetExtendedLocations", g.TargetExtendedLocations)
@@ -1048,6 +1065,9 @@ func (g *GalleryApplicationVersionPublishingProfile) UnmarshalJSON(data []byte) 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "advancedSettings":
+			err = unpopulate(val, "AdvancedSettings", &g.AdvancedSettings)
+			delete(rawMsg, key)
 		case "enableHealthCheck":
 			err = unpopulate(val, "EnableHealthCheck", &g.EnableHealthCheck)
 			delete(rawMsg, key)
@@ -1068,6 +1088,9 @@ func (g *GalleryApplicationVersionPublishingProfile) UnmarshalJSON(data []byte) 
 			delete(rawMsg, key)
 		case "replicationMode":
 			err = unpopulate(val, "ReplicationMode", &g.ReplicationMode)
+			delete(rawMsg, key)
+		case "settings":
+			err = unpopulate(val, "Settings", &g.Settings)
 			delete(rawMsg, key)
 		case "source":
 			err = unpopulate(val, "Source", &g.Source)
@@ -2014,6 +2037,9 @@ func (s *SharedGalleryImageProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "architecture":
+			err = unpopulate(val, "Architecture", &s.Architecture)
+			delete(rawMsg, key)
 		case "disallowed":
 			err = unpopulate(val, "Disallowed", &s.Disallowed)
 			delete(rawMsg, key)
@@ -2061,8 +2087,14 @@ func (s *SharedGalleryImageVersionProperties) UnmarshalJSON(data []byte) error {
 		case "endOfLifeDate":
 			err = unpopulateTimeRFC3339(val, "EndOfLifeDate", &s.EndOfLifeDate)
 			delete(rawMsg, key)
+		case "excludeFromLatest":
+			err = unpopulate(val, "ExcludeFromLatest", &s.ExcludeFromLatest)
+			delete(rawMsg, key)
 		case "publishedDate":
 			err = unpopulateTimeRFC3339(val, "PublishedDate", &s.PublishedDate)
+			delete(rawMsg, key)
+		case "storageProfile":
+			err = unpopulate(val, "StorageProfile", &s.StorageProfile)
 			delete(rawMsg, key)
 		}
 		if err != nil {
