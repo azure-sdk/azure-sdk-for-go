@@ -71,9 +71,7 @@ func (client *AppsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroup
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[AppsClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[AppsClientCreateOrUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[AppsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -141,9 +139,7 @@ func (client *AppsClient) BeginDelete(ctx context.Context, resourceGroupName str
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[AppsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[AppsClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[AppsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -411,9 +407,7 @@ func (client *AppsClient) BeginSetActiveDeployments(ctx context.Context, resourc
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[AppsClientSetActiveDeploymentsResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[AppsClientSetActiveDeploymentsResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[AppsClientSetActiveDeploymentsResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -482,9 +476,7 @@ func (client *AppsClient) BeginUpdate(ctx context.Context, resourceGroupName str
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[AppsClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[AppsClientUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[AppsClientUpdateResponse](options.ResumeToken, client.pl, nil)
 	}

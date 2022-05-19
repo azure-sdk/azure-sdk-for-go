@@ -216,9 +216,7 @@ func (client *BuildServiceAgentPoolClient) BeginUpdatePut(ctx context.Context, r
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[BuildServiceAgentPoolClientUpdatePutResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[BuildServiceAgentPoolClientUpdatePutResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[BuildServiceAgentPoolClientUpdatePutResponse](options.ResumeToken, client.pl, nil)
 	}

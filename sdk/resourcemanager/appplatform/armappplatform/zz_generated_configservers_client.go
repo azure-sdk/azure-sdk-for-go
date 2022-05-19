@@ -127,9 +127,7 @@ func (client *ConfigServersClient) BeginUpdatePatch(ctx context.Context, resourc
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[ConfigServersClientUpdatePatchResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[ConfigServersClientUpdatePatchResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[ConfigServersClientUpdatePatchResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -194,9 +192,7 @@ func (client *ConfigServersClient) BeginUpdatePut(ctx context.Context, resourceG
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[ConfigServersClientUpdatePutResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[ConfigServersClientUpdatePutResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[ConfigServersClientUpdatePutResponse](options.ResumeToken, client.pl, nil)
 	}

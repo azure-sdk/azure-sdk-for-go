@@ -71,9 +71,7 @@ func (client *APIPortalsClient) BeginCreateOrUpdate(ctx context.Context, resourc
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[APIPortalsClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[APIPortalsClientCreateOrUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[APIPortalsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -141,9 +139,7 @@ func (client *APIPortalsClient) BeginDelete(ctx context.Context, resourceGroupNa
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[APIPortalsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[APIPortalsClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[APIPortalsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}

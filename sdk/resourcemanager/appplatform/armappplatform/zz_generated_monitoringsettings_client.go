@@ -127,9 +127,7 @@ func (client *MonitoringSettingsClient) BeginUpdatePatch(ctx context.Context, re
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[MonitoringSettingsClientUpdatePatchResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[MonitoringSettingsClientUpdatePatchResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[MonitoringSettingsClientUpdatePatchResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -194,9 +192,7 @@ func (client *MonitoringSettingsClient) BeginUpdatePut(ctx context.Context, reso
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[MonitoringSettingsClientUpdatePutResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[MonitoringSettingsClientUpdatePutResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[MonitoringSettingsClientUpdatePutResponse](options.ResumeToken, client.pl, nil)
 	}
