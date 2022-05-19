@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -3270,6 +3270,7 @@ func PossibleWebApplicationFirewallModeValues() []WebApplicationFirewallMode {
 type WebApplicationFirewallOperator string
 
 const (
+	WebApplicationFirewallOperatorAny                WebApplicationFirewallOperator = "Any"
 	WebApplicationFirewallOperatorBeginsWith         WebApplicationFirewallOperator = "BeginsWith"
 	WebApplicationFirewallOperatorContains           WebApplicationFirewallOperator = "Contains"
 	WebApplicationFirewallOperatorEndsWith           WebApplicationFirewallOperator = "EndsWith"
@@ -3286,6 +3287,7 @@ const (
 // PossibleWebApplicationFirewallOperatorValues returns the possible values for the WebApplicationFirewallOperator const type.
 func PossibleWebApplicationFirewallOperatorValues() []WebApplicationFirewallOperator {
 	return []WebApplicationFirewallOperator{
+		WebApplicationFirewallOperatorAny,
 		WebApplicationFirewallOperatorBeginsWith,
 		WebApplicationFirewallOperatorContains,
 		WebApplicationFirewallOperatorEndsWith,
