@@ -1,5 +1,11 @@
 # Release History
 
+## 0.8.0 (2022-05-19)
+### Features Added
+
+- New const `SettingNameWDATPUNIFIEDSOLUTION`
+
+
 ## 0.7.0 (2022-05-17)
 ### Breaking Changes
 
