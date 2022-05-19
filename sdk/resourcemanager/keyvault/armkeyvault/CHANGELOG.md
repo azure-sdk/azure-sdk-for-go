@@ -24,6 +24,30 @@
 - New field `RotationPolicy` in struct `KeyProperties`
 
 
+## 1.1.0-beta.1 (2022-05-19)
+### Features Added
+
+- New const `KeyPermissionsRelease`
+- New const `KeyRotationPolicyActionTypeRotate`
+- New const `KeyPermissionsGetrotationpolicy`
+- New const `KeyPermissionsRotate`
+- New const `JSONWebKeyOperationRelease`
+- New const `KeyPermissionsSetrotationpolicy`
+- New const `KeyRotationPolicyActionTypeNotify`
+- New function `RotationPolicy.MarshalJSON() ([]byte, error)`
+- New function `KeyReleasePolicy.MarshalJSON() ([]byte, error)`
+- New function `*KeyReleasePolicy.UnmarshalJSON([]byte) error`
+- New function `PossibleKeyRotationPolicyActionTypeValues() []KeyRotationPolicyActionType`
+- New struct `Action`
+- New struct `KeyReleasePolicy`
+- New struct `KeyRotationPolicyAttributes`
+- New struct `LifetimeAction`
+- New struct `RotationPolicy`
+- New struct `Trigger`
+- New field `ReleasePolicy` in struct `KeyProperties`
+- New field `RotationPolicy` in struct `KeyProperties`
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 
