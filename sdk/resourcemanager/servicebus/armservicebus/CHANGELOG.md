@@ -21,6 +21,27 @@
 - New field `PublicNetworkAccess` in struct `SBNamespaceProperties`
 
 
+## 2.0.0-beta.1 (2022-05-19)
+### Breaking Changes
+
+- Type of `Encryption.KeySource` has been changed from `*string` to `*KeySource`
+
+### Features Added
+
+- New const `TLSVersionOne0`
+- New const `PublicNetworkAccessDisabled`
+- New const `PublicNetworkAccessEnabled`
+- New const `TLSVersionOne2`
+- New const `TLSVersionOne1`
+- New const `PublicNetworkAccessSecuredByPerimeter`
+- New const `KeySourceMicrosoftKeyVault`
+- New function `PossibleTLSVersionValues() []TLSVersion`
+- New function `PossiblePublicNetworkAccessValues() []PublicNetworkAccess`
+- New function `PossibleKeySourceValues() []KeySource`
+- New field `PublicNetworkAccess` in struct `SBNamespaceProperties`
+- New field `MinimumTLSVersion` in struct `SBNamespaceProperties`
+
+
 ## 1.0.0 (2022-05-17)
 ### Breaking Changes
 
