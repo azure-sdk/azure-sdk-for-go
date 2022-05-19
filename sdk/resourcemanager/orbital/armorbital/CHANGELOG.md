@@ -1,5 +1,138 @@
 # Release History
 
+## 0.5.0 (2022-05-19)
+### Breaking Changes
+
+- Function `*ContactsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ContactsClientDeleteResponse], error)` to `(*runtime.Poller[ContactsClientDeleteResponse], error)`
+- Function `*SpacecraftsClient.BeginListAvailableContacts` return value(s) have been changed from `(*armruntime.Poller[SpacecraftsClientListAvailableContactsResponse], error)` to `(*runtime.Poller[*runtime.Pager[SpacecraftsClientListAvailableContactsResponse]], error)`
+- Function `*ContactProfilesClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[ContactProfilesClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[ContactProfilesClientCreateOrUpdateResponse], error)`
+- Function `*ContactsClient.BeginCreate` return value(s) have been changed from `(*armruntime.Poller[ContactsClientCreateResponse], error)` to `(*runtime.Poller[ContactsClientCreateResponse], error)`
+- Function `*SpacecraftsClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[SpacecraftsClientDeleteResponse], error)` to `(*runtime.Poller[SpacecraftsClientDeleteResponse], error)`
+- Function `*SpacecraftsClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[SpacecraftsClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[SpacecraftsClientCreateOrUpdateResponse], error)`
+- Function `*ContactProfilesClient.BeginDelete` return value(s) have been changed from `(*armruntime.Poller[ContactProfilesClientDeleteResponse], error)` to `(*runtime.Poller[ContactProfilesClientDeleteResponse], error)`
+- Function `*AvailableGroundStationsClient.NewListByCapabilityPager` parameter(s) have been changed from `(CapabilityType, *AvailableGroundStationsClientListByCapabilityOptions)` to `(CapabilityParameter, *AvailableGroundStationsClientListByCapabilityOptions)`
+- Type of `ContactParameters.ContactProfile` has been changed from `*ResourceReference` to `*ContactParametersContactProfile`
+- Type of `ContactsProperties.Status` has been changed from `*Status` to `*ContactsStatus`
+- Type of `ContactsProperties.ContactProfile` has been changed from `*ResourceReference` to `*ContactsPropertiesContactProfile`
+- Type of `AvailableContacts.Spacecraft` has been changed from `*ResourceReference` to `*AvailableContactsSpacecraft`
+- Type of `AvailableContacts.Properties` has been changed from `*ContactInstanceProperties` to `*AvailableContactsProperties`
+- Type of `ContactProfile.Properties` has been changed from `*ContactProfilesProperties` to `*ContactProfileProperties`
+- Const `StatusScheduled` has been removed
+- Const `AuthorizationStatusPending` has been removed
+- Const `CapabilityTypeCommunication` has been removed
+- Const `PolarizationDualRhcpLhcp` has been removed
+- Const `CapabilityTypeEarthObservation` has been removed
+- Const `StatusProviderCancelled` has been removed
+- Const `StatusCancelled` has been removed
+- Const `AuthorizationStatusDenied` has been removed
+- Const `AuthorizationStatusAllowed` has been removed
+- Function `*ContactProfilesClient.UpdateTags` has been removed
+- Function `ContactProfileListResult.MarshalJSON` has been removed
+- Function `PossibleAuthorizationStatusValues` has been removed
+- Function `AvailableGroundStationListResult.MarshalJSON` has been removed
+- Function `ContactListResult.MarshalJSON` has been removed
+- Function `OperationListResult.MarshalJSON` has been removed
+- Function `*SpacecraftsClient.UpdateTags` has been removed
+- Function `ResourceIDListResult.MarshalJSON` has been removed
+- Function `AvailableContactsListResult.MarshalJSON` has been removed
+- Function `SpacecraftListResult.MarshalJSON` has been removed
+- Function `CloudErrorBody.MarshalJSON` has been removed
+- Function `PossibleCapabilityTypeValues` has been removed
+- Function `ContactInstanceProperties.MarshalJSON` has been removed
+- Struct `ContactProfilesClientUpdateTagsOptions` has been removed
+- Struct `SpacecraftsClientUpdateTagsOptions` has been removed
+- Field `AuthorizationStatus` of struct `SpacecraftsProperties` has been removed
+- Field `AuthorizationStatusExtended` of struct `SpacecraftsProperties` has been removed
+
+### Features Added
+
+- New const `ContactProfilesPropertiesProvisioningStateUpdating`
+- New const `ProvisioningStateUpdating`
+- New const `ContactProfilesPropertiesProvisioningStateFailed`
+- New const `SpacecraftsPropertiesProvisioningStateCreating`
+- New const `ContactsPropertiesProvisioningStateCanceled`
+- New const `ContactProfilesPropertiesProvisioningStateCreating`
+- New const `SpacecraftsPropertiesProvisioningStateUpdating`
+- New const `SpacecraftsPropertiesProvisioningStateFailed`
+- New const `ContactsStatusCancelled`
+- New const `ProvisioningStateCanceled`
+- New const `ContactsStatusProviderCancelled`
+- New const `ReleaseModePreview`
+- New const `StatusCanceled`
+- New const `APIVersionParameterTwoThousandTwenty0901Preview`
+- New const `ContactsPropertiesProvisioningStateSucceeded`
+- New const `ReleaseModeGA`
+- New const `ProvisioningStateCreating`
+- New const `ContactsPropertiesProvisioningStateFailed`
+- New const `ProvisioningStateDeleting`
+- New const `CapabilityParameterEarthObservation`
+- New const `ContactProfilesPropertiesProvisioningStateDeleting`
+- New const `APIVersionParameterTwoThousandTwentyTwo0301`
+- New const `SpacecraftsPropertiesProvisioningStateDeleting`
+- New const `ContactsStatusScheduled`
+- New const `ContactsPropertiesProvisioningStateCreating`
+- New const `ContactsStatusSucceeded`
+- New const `ProvisioningStateFailed`
+- New const `ContactProfilesPropertiesProvisioningStateCanceled`
+- New const `StatusRunning`
+- New const `ContactsPropertiesProvisioningStateUpdating`
+- New const `APIVersionParameterTwoThousandTwentyOne0404Preview`
+- New const `SpacecraftsPropertiesProvisioningStateCanceled`
+- New const `ContactsStatusFailed`
+- New const `ContactsPropertiesProvisioningStateDeleting`
+- New const `CapabilityParameterCommunication`
+- New const `ContactProfilesPropertiesProvisioningStateSucceeded`
+- New const `SpacecraftsPropertiesProvisioningStateSucceeded`
+- New const `ProvisioningStateSucceeded`
+- New function `PossibleProvisioningStateValues() []ProvisioningState`
+- New function `SpacecraftLink.MarshalJSON() ([]byte, error)`
+- New function `ContactsPropertiesAntennaConfiguration.MarshalJSON() ([]byte, error)`
+- New function `PossibleContactsStatusValues() []ContactsStatus`
+- New function `PossibleReleaseModeValues() []ReleaseMode`
+- New function `PossibleAPIVersionParameterValues() []APIVersionParameter`
+- New function `*AuthorizedGroundstation.UnmarshalJSON([]byte) error`
+- New function `*SpacecraftsClient.BeginUpdateTags(context.Context, string, string, TagsObject, *SpacecraftsClientBeginUpdateTagsOptions) (*runtime.Poller[SpacecraftsClientUpdateTagsResponse], error)`
+- New function `PossibleContactsPropertiesProvisioningStateValues() []ContactsPropertiesProvisioningState`
+- New function `ContactProfileProperties.MarshalJSON() ([]byte, error)`
+- New function `*OperationResult.UnmarshalJSON([]byte) error`
+- New function `*ContactProfilesClient.BeginUpdateTags(context.Context, string, string, TagsObject, *ContactProfilesClientBeginUpdateTagsOptions) (*runtime.Poller[ContactProfilesClientUpdateTagsResponse], error)`
+- New function `PossibleContactProfilesPropertiesProvisioningStateValues() []ContactProfilesPropertiesProvisioningState`
+- New function `PossibleCapabilityParameterValues() []CapabilityParameter`
+- New function `*AvailableContactsProperties.UnmarshalJSON([]byte) error`
+- New function `PossibleSpacecraftsPropertiesProvisioningStateValues() []SpacecraftsPropertiesProvisioningState`
+- New function `AuthorizedGroundstation.MarshalJSON() ([]byte, error)`
+- New struct `AuthorizedGroundstation`
+- New struct `AvailableContactsProperties`
+- New struct `AvailableContactsSpacecraft`
+- New struct `AvailableGroundStationPropertiesAutoGenerated`
+- New struct `ContactParametersContactProfile`
+- New struct `ContactProfileProperties`
+- New struct `ContactProfilesClientBeginUpdateTagsOptions`
+- New struct `ContactProfilesPropertiesNetworkConfiguration`
+- New struct `ContactsPropertiesAntennaConfiguration`
+- New struct `ContactsPropertiesContactProfile`
+- New struct `OperationResult`
+- New struct `OperationResultErrorProperties`
+- New struct `OperationsResultsClientBeginGetOptions`
+- New struct `OperationsResultsClientGetResponse`
+- New struct `SpacecraftsClientBeginUpdateTagsOptions`
+- New field `Name` in struct `SpacecraftLink`
+- New field `Authorizations` in struct `SpacecraftLink`
+- New field `Name` in struct `ContactProfileLink`
+- New field `ProvisioningState` in struct `SpacecraftsProperties`
+- New field `AntennaConfiguration` in struct `ContactsProperties`
+- New field `ProvisioningState` in struct `ContactsProperties`
+- New field `Skiptoken` in struct `ContactProfilesClientListBySubscriptionOptions`
+- New field `Skiptoken` in struct `SpacecraftsClientListBySubscriptionOptions`
+- New field `ReleaseMode` in struct `AvailableGroundStationProperties`
+- New field `Skiptoken` in struct `SpacecraftsClientListOptions`
+- New field `NetworkConfiguration` in struct `ContactProfilesProperties`
+- New field `ProvisioningState` in struct `ContactProfilesProperties`
+- New field `Skiptoken` in struct `ContactsClientListOptions`
+- New field `Name` in struct `ContactProfileLinkChannel`
+- New field `Skiptoken` in struct `ContactProfilesClientListOptions`
+
+
 ## 0.4.0 (2022-04-18)
 ### Breaking Changes
 
