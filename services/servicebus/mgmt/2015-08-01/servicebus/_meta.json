@@ -1,5 +1,5 @@
 {
-  "commit": "3c764635e7d442b3e74caf593029fcd440b3ef82",
+  "commit": "8c16ea5f5ad5f5e5a3ee70bb9941df8fdeae844c",
   "readme": "/_/azure-rest-api-specs/specification/servicebus/resource-manager/readme.md",
   "tag": "package-2015-08",
   "use": "@microsoft.azure/autorest.go@2.1.187",
