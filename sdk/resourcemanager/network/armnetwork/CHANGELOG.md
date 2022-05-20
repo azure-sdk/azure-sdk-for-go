@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.0 (2022-05-20)
+### Features Added
+
+- New field `Priority` in struct `ApplicationGatewayRoutingRulePropertiesFormat`
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 
