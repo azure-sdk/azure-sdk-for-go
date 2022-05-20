@@ -42,6 +42,7 @@ type BackupsClientAPI interface {
 	Get(ctx context.Context, resourceGroupName string, serverName string, backupName string) (result mysqlflexibleservers.ServerBackup, err error)
 	ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result mysqlflexibleservers.ServerBackupListResultPage, err error)
 	ListByServerComplete(ctx context.Context, resourceGroupName string, serverName string) (result mysqlflexibleservers.ServerBackupListResultIterator, err error)
+	Put(ctx context.Context, resourceGroupName string, serverName string, backupName string) (result mysqlflexibleservers.ServerBackup, err error)
 }
 
 var _ BackupsClientAPI = (*mysqlflexibleservers.BackupsClient)(nil)

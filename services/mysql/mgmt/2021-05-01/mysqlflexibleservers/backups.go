@@ -246,3 +246,90 @@ func (client BackupsClient) ListByServerComplete(ctx context.Context, resourceGr
 	result.page, err = client.ListByServer(ctx, resourceGroupName, serverName)
 	return
 }
+
+// Put create backup for a given server with specified backup name.
+// Parameters:
+// resourceGroupName - the name of the resource group. The name is case insensitive.
+// serverName - the name of the server.
+// backupName - the name of the backup.
+func (client BackupsClient) Put(ctx context.Context, resourceGroupName string, serverName string, backupName string) (result ServerBackup, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/BackupsClient.Put")
+		defer func() {
+			sc := -1
+			if result.Response.Response != nil {
+				sc = result.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: client.SubscriptionID,
+			Constraints: []validation.Constraint{{Target: "client.SubscriptionID", Name: validation.MinLength, Rule: 1, Chain: nil}}},
+		{TargetValue: resourceGroupName,
+			Constraints: []validation.Constraint{{Target: "resourceGroupName", Name: validation.MaxLength, Rule: 90, Chain: nil},
+				{Target: "resourceGroupName", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("mysqlflexibleservers.BackupsClient", "Put", err.Error())
+	}
+
+	req, err := client.PutPreparer(ctx, resourceGroupName, serverName, backupName)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "mysqlflexibleservers.BackupsClient", "Put", nil, "Failure preparing request")
+		return
+	}
+
+	resp, err := client.PutSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "mysqlflexibleservers.BackupsClient", "Put", resp, "Failure sending request")
+		return
+	}
+
+	result, err = client.PutResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "mysqlflexibleservers.BackupsClient", "Put", resp, "Failure responding to request")
+		return
+	}
+
+	return
+}
+
+// PutPreparer prepares the Put request.
+func (client BackupsClient) PutPreparer(ctx context.Context, resourceGroupName string, serverName string, backupName string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"backupName":        autorest.Encode("path", backupName),
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"serverName":        autorest.Encode("path", serverName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
+
+	const APIVersion = "2021-05-01"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
+
+	preparer := autorest.CreatePreparer(
+		autorest.AsPut(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforMySQL/flexibleServers/{serverName}/backups/{backupName}", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
+
+// PutSender sends the Put request. The method will close the
+// http.Response Body if it receives an error.
+func (client BackupsClient) PutSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
+
+// PutResponder handles the response to the Put request. The method always
+// closes the http.Response Body.
+func (client BackupsClient) PutResponder(resp *http.Response) (result ServerBackup, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}

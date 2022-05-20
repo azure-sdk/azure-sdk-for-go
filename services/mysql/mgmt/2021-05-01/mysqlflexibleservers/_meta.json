@@ -1,5 +1,5 @@
 {
-  "commit": "51b37b069ecbb9d2fcd300eabd4b10b7911b7d7d",
+  "commit": "323e5fb07deeb8b9304d7758607da2b2d596dda1",
   "readme": "/_/azure-rest-api-specs/specification/mysql/resource-manager/readme.md",
   "tag": "package-flexibleserver-2021-05-01",
   "use": "@microsoft.azure/autorest.go@2.1.187",
