@@ -1,5 +1,38 @@
 # Release History
 
+## 0.7.0 (2022-05-20)
+### Breaking Changes
+
+- Field `IsManagedIdentityInUse` of struct `ExtendedServerBlobAuditingPolicyProperties` has been removed
+- Field `IsManagedIdentityInUse` of struct `DatabaseBlobAuditingPolicyProperties` has been removed
+- Field `IsManagedIdentityInUse` of struct `ServerBlobAuditingPolicyProperties` has been removed
+- Field `IsManagedIdentityInUse` of struct `ExtendedDatabaseBlobAuditingPolicyProperties` has been removed
+
+### Features Added
+
+- New function `*SensitivityLabelsClient.NewListByDatabasePager(string, string, string, *SensitivityLabelsClientListByDatabaseOptions) *runtime.Pager[SensitivityLabelsClientListByDatabaseResponse]`
+- New function `*ManagedDatabaseSensitivityLabelsClient.NewListByDatabasePager(string, string, string, *ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions) *runtime.Pager[ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse]`
+- New struct `ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions`
+- New struct `ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse`
+- New struct `ManagedServerDNSAlias`
+- New struct `ManagedServerDNSAliasAcquisition`
+- New struct `ManagedServerDNSAliasCreation`
+- New struct `ManagedServerDNSAliasListResult`
+- New struct `ManagedServerDNSAliasProperties`
+- New struct `ManagedServerDNSAliasesClientAcquireResponse`
+- New struct `ManagedServerDNSAliasesClientBeginAcquireOptions`
+- New struct `ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions`
+- New struct `ManagedServerDNSAliasesClientBeginDeleteOptions`
+- New struct `ManagedServerDNSAliasesClientCreateOrUpdateResponse`
+- New struct `ManagedServerDNSAliasesClientDeleteResponse`
+- New struct `ManagedServerDNSAliasesClientGetOptions`
+- New struct `ManagedServerDNSAliasesClientGetResponse`
+- New struct `ManagedServerDNSAliasesClientListByManagedInstanceOptions`
+- New struct `ManagedServerDNSAliasesClientListByManagedInstanceResponse`
+- New struct `SensitivityLabelsClientListByDatabaseOptions`
+- New struct `SensitivityLabelsClientListByDatabaseResponse`
+
+
 ## 0.6.0 (2022-05-17)
 ### Breaking Changes
 
