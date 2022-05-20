@@ -360,6 +360,10 @@
 - New field `Identity` in struct `CassandraTableCreateUpdateParameters`
 
 
+## 1.1.0-beta.2 (2022-05-20)
+### Other Changes
+
+
 ## 1.0.0 (2022-05-17)
 ### Breaking Changes
 
