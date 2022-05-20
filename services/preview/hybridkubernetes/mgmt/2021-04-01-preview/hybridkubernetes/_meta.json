@@ -1,5 +1,5 @@
 {
-  "commit": "8dff86df71bee429af84ea4713288ef3cdd1db2f",
+  "commit": "9e8d2fde2687762f56306133b8e8496f10c75c2e",
   "readme": "/_/azure-rest-api-specs/specification/hybridkubernetes/resource-manager/readme.md",
   "tag": "package-2021-04-01-preview",
   "use": "@microsoft.azure/autorest.go@2.1.187",
