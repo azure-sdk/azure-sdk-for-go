@@ -1,5 +1,13 @@
 # Release History
 
+## 1.1.0 (2022-05-20)
+### Features Added
+
+- New function `*BackupsClient.Put(context.Context, string, string, string, *BackupsClientPutOptions) (BackupsClientPutResponse, error)`
+- New struct `BackupsClientPutOptions`
+- New struct `BackupsClientPutResponse`
+
+
 ## 1.0.0 (2022-05-17)
 ### Breaking Changes
 

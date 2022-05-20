@@ -18,6 +18,11 @@ type BackupsClientListByServerResponse struct {
 	ServerBackupListResult
 }
 
+// BackupsClientPutResponse contains the response from method BackupsClient.Put.
+type BackupsClientPutResponse struct {
+	ServerBackup
+}
+
 // CheckNameAvailabilityClientExecuteResponse contains the response from method CheckNameAvailabilityClient.Execute.
 type CheckNameAvailabilityClientExecuteResponse struct {
 	NameAvailability

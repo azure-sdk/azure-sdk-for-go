@@ -32,6 +32,11 @@ type BackupsClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
+// BackupsClientPutOptions contains the optional parameters for the BackupsClient.Put method.
+type BackupsClientPutOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CapabilitiesListResult - location capability
 type CapabilitiesListResult struct {
 	// READ-ONLY; Link to retrieve next page of results.
