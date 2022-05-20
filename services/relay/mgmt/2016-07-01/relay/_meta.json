@@ -1,5 +1,5 @@
 {
-  "commit": "3c764635e7d442b3e74caf593029fcd440b3ef82",
+  "commit": "05824b75e8d34f078ab6d7f3e71e2c6d63e6f8ff",
   "readme": "/_/azure-rest-api-specs/specification/relay/resource-manager/readme.md",
   "tag": "package-2016-07",
   "use": "@microsoft.azure/autorest.go@2.1.187",
