@@ -10,6 +10,123 @@ package armnetwork
 
 import "encoding/json"
 
+func unmarshalActiveBaseSecurityAdminRuleClassification(rawMsg json.RawMessage) (ActiveBaseSecurityAdminRuleClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ActiveBaseSecurityAdminRuleClassification
+	switch m["kind"] {
+	case string(EffectiveAdminRuleKindCustom):
+		b = &ActiveSecurityAdminRule{}
+	case string(EffectiveAdminRuleKindDefault):
+		b = &ActiveDefaultSecurityAdminRule{}
+	default:
+		b = &ActiveBaseSecurityAdminRule{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalActiveBaseSecurityAdminRuleClassificationArray(rawMsg json.RawMessage) ([]ActiveBaseSecurityAdminRuleClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]ActiveBaseSecurityAdminRuleClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalActiveBaseSecurityAdminRuleClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
+func unmarshalBaseAdminRuleClassification(rawMsg json.RawMessage) (BaseAdminRuleClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b BaseAdminRuleClassification
+	switch m["kind"] {
+	case string(AdminRuleKindCustom):
+		b = &AdminRule{}
+	case string(AdminRuleKindDefault):
+		b = &DefaultAdminRule{}
+	default:
+		b = &BaseAdminRule{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalBaseAdminRuleClassificationArray(rawMsg json.RawMessage) ([]BaseAdminRuleClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]BaseAdminRuleClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalBaseAdminRuleClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
+func unmarshalEffectiveBaseSecurityAdminRuleClassification(rawMsg json.RawMessage) (EffectiveBaseSecurityAdminRuleClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b EffectiveBaseSecurityAdminRuleClassification
+	switch m["kind"] {
+	case string(EffectiveAdminRuleKindCustom):
+		b = &EffectiveSecurityAdminRule{}
+	case string(EffectiveAdminRuleKindDefault):
+		b = &EffectiveDefaultSecurityAdminRule{}
+	default:
+		b = &EffectiveBaseSecurityAdminRule{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalEffectiveBaseSecurityAdminRuleClassificationArray(rawMsg json.RawMessage) ([]EffectiveBaseSecurityAdminRuleClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]EffectiveBaseSecurityAdminRuleClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalEffectiveBaseSecurityAdminRuleClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
 func unmarshalFirewallPolicyRuleClassification(rawMsg json.RawMessage) (FirewallPolicyRuleClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
