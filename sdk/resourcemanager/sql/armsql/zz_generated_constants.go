@@ -10,7 +10,7 @@ package armsql
 
 const (
 	moduleName    = "armsql"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
 
 type AdministratorName string
@@ -783,6 +783,19 @@ func PossibleDiffBackupIntervalInHoursValues() []DiffBackupIntervalInHours {
 	return []DiffBackupIntervalInHours{
 		DiffBackupIntervalInHoursTwelve,
 		DiffBackupIntervalInHoursTwentyFour,
+	}
+}
+
+type DtcName string
+
+const (
+	DtcNameCurrent DtcName = "current"
+)
+
+// PossibleDtcNameValues returns the possible values for the DtcName const type.
+func PossibleDtcNameValues() []DtcName {
+	return []DtcName{
+		DtcNameCurrent,
 	}
 }
 
