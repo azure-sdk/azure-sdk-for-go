@@ -1258,6 +1258,19 @@ func (e ExpressRoutePortsLocationPropertiesFormat) MarshalJSON() ([]byte, error)
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ExpressRouteProviderPort.
+func (e ExpressRouteProviderPort) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "etag", e.Etag)
+	populate(objectMap, "id", e.ID)
+	populate(objectMap, "location", e.Location)
+	populate(objectMap, "name", e.Name)
+	populate(objectMap, "properties", e.Properties)
+	populate(objectMap, "tags", e.Tags)
+	populate(objectMap, "type", e.Type)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ExpressRouteServiceProvider.
 func (e ExpressRouteServiceProvider) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -2049,13 +2062,23 @@ func (p P2SVPNGatewayProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type PacketCaptureMachineScope.
+func (p PacketCaptureMachineScope) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "exclude", p.Exclude)
+	populate(objectMap, "include", p.Include)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type PacketCaptureParameters.
 func (p PacketCaptureParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "bytesToCapturePerPacket", p.BytesToCapturePerPacket)
 	populate(objectMap, "filters", p.Filters)
+	populate(objectMap, "scope", p.Scope)
 	populate(objectMap, "storageLocation", p.StorageLocation)
 	populate(objectMap, "target", p.Target)
+	populate(objectMap, "targetType", p.TargetType)
 	populate(objectMap, "timeLimitInSeconds", p.TimeLimitInSeconds)
 	populate(objectMap, "totalBytesPerSession", p.TotalBytesPerSession)
 	return json.Marshal(objectMap)
@@ -2102,8 +2125,10 @@ func (p PacketCaptureResultProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "bytesToCapturePerPacket", p.BytesToCapturePerPacket)
 	populate(objectMap, "filters", p.Filters)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
+	populate(objectMap, "scope", p.Scope)
 	populate(objectMap, "storageLocation", p.StorageLocation)
 	populate(objectMap, "target", p.Target)
+	populate(objectMap, "targetType", p.TargetType)
 	populate(objectMap, "timeLimitInSeconds", p.TimeLimitInSeconds)
 	populate(objectMap, "totalBytesPerSession", p.TotalBytesPerSession)
 	return json.Marshal(objectMap)
@@ -3099,6 +3124,7 @@ func (v VirtualHubProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "vpnGateway", v.VPNGateway)
 	populate(objectMap, "virtualHubRouteTableV2s", v.VirtualHubRouteTableV2S)
 	populate(objectMap, "virtualRouterAsn", v.VirtualRouterAsn)
+	populate(objectMap, "virtualRouterAutoScaleConfiguration", v.VirtualRouterAutoScaleConfiguration)
 	populate(objectMap, "virtualRouterIps", v.VirtualRouterIPs)
 	populate(objectMap, "virtualWan", v.VirtualWan)
 	return json.Marshal(objectMap)

@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -294,6 +294,8 @@ const (
 	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20150501  ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20150501"
 	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20170401  ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20170401"
 	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20170401S ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20170401S"
+	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101  ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20220101"
+	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101S ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20220101S"
 )
 
 // PossibleApplicationGatewaySSLPolicyNameValues returns the possible values for the ApplicationGatewaySSLPolicyName const type.
@@ -302,6 +304,8 @@ func PossibleApplicationGatewaySSLPolicyNameValues() []ApplicationGatewaySSLPoli
 		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20150501,
 		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20170401,
 		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20170401S,
+		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101,
+		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101S,
 	}
 }
 
@@ -310,6 +314,7 @@ type ApplicationGatewaySSLPolicyType string
 
 const (
 	ApplicationGatewaySSLPolicyTypeCustom     ApplicationGatewaySSLPolicyType = "Custom"
+	ApplicationGatewaySSLPolicyTypeCustomV2   ApplicationGatewaySSLPolicyType = "CustomV2"
 	ApplicationGatewaySSLPolicyTypePredefined ApplicationGatewaySSLPolicyType = "Predefined"
 )
 
@@ -317,6 +322,7 @@ const (
 func PossibleApplicationGatewaySSLPolicyTypeValues() []ApplicationGatewaySSLPolicyType {
 	return []ApplicationGatewaySSLPolicyType{
 		ApplicationGatewaySSLPolicyTypeCustom,
+		ApplicationGatewaySSLPolicyTypeCustomV2,
 		ApplicationGatewaySSLPolicyTypePredefined,
 	}
 }
@@ -328,6 +334,7 @@ const (
 	ApplicationGatewaySSLProtocolTLSv10 ApplicationGatewaySSLProtocol = "TLSv1_0"
 	ApplicationGatewaySSLProtocolTLSv11 ApplicationGatewaySSLProtocol = "TLSv1_1"
 	ApplicationGatewaySSLProtocolTLSv12 ApplicationGatewaySSLProtocol = "TLSv1_2"
+	ApplicationGatewaySSLProtocolTLSv13 ApplicationGatewaySSLProtocol = "TLSv1_3"
 )
 
 // PossibleApplicationGatewaySSLProtocolValues returns the possible values for the ApplicationGatewaySSLProtocol const type.
@@ -336,6 +343,7 @@ func PossibleApplicationGatewaySSLProtocolValues() []ApplicationGatewaySSLProtoc
 		ApplicationGatewaySSLProtocolTLSv10,
 		ApplicationGatewaySSLProtocolTLSv11,
 		ApplicationGatewaySSLProtocolTLSv12,
+		ApplicationGatewaySSLProtocolTLSv13,
 	}
 }
 
@@ -2119,6 +2127,22 @@ func PossibleOwaspCrsExclusionEntrySelectorMatchOperatorValues() []OwaspCrsExclu
 	}
 }
 
+// PacketCaptureTargetType - Target type of the resource provided.
+type PacketCaptureTargetType string
+
+const (
+	PacketCaptureTargetTypeAzureVM   PacketCaptureTargetType = "AzureVM"
+	PacketCaptureTargetTypeAzureVMSS PacketCaptureTargetType = "AzureVMSS"
+)
+
+// PossiblePacketCaptureTargetTypeValues returns the possible values for the PacketCaptureTargetType const type.
+func PossiblePacketCaptureTargetTypeValues() []PacketCaptureTargetType {
+	return []PacketCaptureTargetType{
+		PacketCaptureTargetTypeAzureVM,
+		PacketCaptureTargetTypeAzureVMSS,
+	}
+}
+
 type PcError string
 
 const (
@@ -3270,6 +3294,7 @@ func PossibleWebApplicationFirewallModeValues() []WebApplicationFirewallMode {
 type WebApplicationFirewallOperator string
 
 const (
+	WebApplicationFirewallOperatorAny                WebApplicationFirewallOperator = "Any"
 	WebApplicationFirewallOperatorBeginsWith         WebApplicationFirewallOperator = "BeginsWith"
 	WebApplicationFirewallOperatorContains           WebApplicationFirewallOperator = "Contains"
 	WebApplicationFirewallOperatorEndsWith           WebApplicationFirewallOperator = "EndsWith"
@@ -3286,6 +3311,7 @@ const (
 // PossibleWebApplicationFirewallOperatorValues returns the possible values for the WebApplicationFirewallOperator const type.
 func PossibleWebApplicationFirewallOperatorValues() []WebApplicationFirewallOperator {
 	return []WebApplicationFirewallOperator{
+		WebApplicationFirewallOperatorAny,
 		WebApplicationFirewallOperatorBeginsWith,
 		WebApplicationFirewallOperatorContains,
 		WebApplicationFirewallOperatorEndsWith,
