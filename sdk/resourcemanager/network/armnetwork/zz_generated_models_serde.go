@@ -1477,6 +1477,7 @@ func (f *FirewallPolicyRuleCollectionGroupProperties) UnmarshalJSON(data []byte)
 // MarshalJSON implements the json.Marshaller interface for type FirewallPolicySNAT.
 func (f FirewallPolicySNAT) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "autoLearnPrivateRanges", f.AutoLearnPrivateRanges)
 	populate(objectMap, "privateRanges", f.PrivateRanges)
 	return json.Marshal(objectMap)
 }

@@ -213,6 +213,11 @@ type AzureFirewallsClientListAllResponse struct {
 	AzureFirewallListResult
 }
 
+// AzureFirewallsClientListLearnedPrefixesResponse contains the response from method AzureFirewallsClient.ListLearnedPrefixes.
+type AzureFirewallsClientListLearnedPrefixesResponse struct {
+	IPPrefixesList
+}
+
 // AzureFirewallsClientListResponse contains the response from method AzureFirewallsClient.List.
 type AzureFirewallsClientListResponse struct {
 	AzureFirewallListResult

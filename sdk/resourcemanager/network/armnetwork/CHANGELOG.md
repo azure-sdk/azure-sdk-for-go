@@ -1,5 +1,16 @@
 # Release History
 
+## 1.1.0 (2022-05-24)
+### Features Added
+
+- New function `*AzureFirewallsClient.BeginListLearnedPrefixes(context.Context, string, string, *AzureFirewallsClientBeginListLearnedPrefixesOptions) (*runtime.Poller[AzureFirewallsClientListLearnedPrefixesResponse], error)`
+- New struct `AzureFirewallsClientBeginListLearnedPrefixesOptions`
+- New struct `AzureFirewallsClientListLearnedPrefixesResponse`
+- New struct `IPPrefixesList`
+- New field `Priority` in struct `ApplicationGatewayRoutingRulePropertiesFormat`
+- New field `AutoLearnPrivateRanges` in struct `FirewallPolicySNAT`
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 

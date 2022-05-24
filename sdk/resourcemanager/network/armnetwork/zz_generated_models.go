@@ -1339,6 +1339,9 @@ type ApplicationGatewayRoutingRule struct {
 
 // ApplicationGatewayRoutingRulePropertiesFormat - Properties of routing rule of the application gateway.
 type ApplicationGatewayRoutingRulePropertiesFormat struct {
+	// REQUIRED; Priority of the routing rule.
+	Priority *int32 `json:"priority,omitempty"`
+
 	// Backend address pool resource of the application gateway.
 	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
 
@@ -2491,6 +2494,13 @@ type AzureFirewallsClientBeginCreateOrUpdateOptions struct {
 
 // AzureFirewallsClientBeginDeleteOptions contains the optional parameters for the AzureFirewallsClient.BeginDelete method.
 type AzureFirewallsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AzureFirewallsClientBeginListLearnedPrefixesOptions contains the optional parameters for the AzureFirewallsClient.BeginListLearnedPrefixes
+// method.
+type AzureFirewallsClientBeginListLearnedPrefixesOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -6278,6 +6288,9 @@ type FirewallPolicySKU struct {
 
 // FirewallPolicySNAT - The private IP addresses/IP ranges to which traffic will not be SNAT.
 type FirewallPolicySNAT struct {
+	// The operation mode for automatically learning private ranges to not be SNAT
+	AutoLearnPrivateRanges *bool `json:"autoLearnPrivateRanges,omitempty"`
+
 	// List of private IP addresses/IP address ranges to not be SNAT.
 	PrivateRanges []*string `json:"privateRanges,omitempty"`
 }
@@ -7094,6 +7107,12 @@ type IPGroupsClientListOptions struct {
 // IPGroupsClientUpdateGroupsOptions contains the optional parameters for the IPGroupsClient.UpdateGroups method.
 type IPGroupsClientUpdateGroupsOptions struct {
 	// placeholder for future optional parameters
+}
+
+// IPPrefixesList - List of SNAT IP Prefixes learnt by firewall to not SNAT
+type IPPrefixesList struct {
+	// IP Prefix value.
+	IPPrefixes *string `json:"ipPrefixes,omitempty"`
 }
 
 // IPSecPolicy - An IPSec Policy configuration for a virtual network gateway connection.
