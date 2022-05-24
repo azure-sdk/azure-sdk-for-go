@@ -504,6 +504,85 @@ func (client AzureFirewallsClient) ListAllComplete(ctx context.Context) (result 
 	return
 }
 
+// ListLearnedPrefixes retrieves a list of all IP prefixes that azure firewall has learned to not SNAT.
+// Parameters:
+// resourceGroupName - the name of the resource group.
+// azureFirewallName - the name of the azure firewall.
+func (client AzureFirewallsClient) ListLearnedPrefixes(ctx context.Context, resourceGroupName string, azureFirewallName string) (result AzureFirewallsListLearnedPrefixesFuture, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/AzureFirewallsClient.ListLearnedPrefixes")
+		defer func() {
+			sc := -1
+			if result.FutureAPI != nil && result.FutureAPI.Response() != nil {
+				sc = result.FutureAPI.Response().StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	req, err := client.ListLearnedPrefixesPreparer(ctx, resourceGroupName, azureFirewallName)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "network.AzureFirewallsClient", "ListLearnedPrefixes", nil, "Failure preparing request")
+		return
+	}
+
+	result, err = client.ListLearnedPrefixesSender(req)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "network.AzureFirewallsClient", "ListLearnedPrefixes", result.Response(), "Failure sending request")
+		return
+	}
+
+	return
+}
+
+// ListLearnedPrefixesPreparer prepares the ListLearnedPrefixes request.
+func (client AzureFirewallsClient) ListLearnedPrefixesPreparer(ctx context.Context, resourceGroupName string, azureFirewallName string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"azureFirewallName": autorest.Encode("path", azureFirewallName),
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
+
+	const APIVersion = "2021-08-01"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
+
+	preparer := autorest.CreatePreparer(
+		autorest.AsPost(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/azureFirewalls/{azureFirewallName}/learnedIPPrefixes", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
+
+// ListLearnedPrefixesSender sends the ListLearnedPrefixes request. The method will close the
+// http.Response Body if it receives an error.
+func (client AzureFirewallsClient) ListLearnedPrefixesSender(req *http.Request) (future AzureFirewallsListLearnedPrefixesFuture, err error) {
+	var resp *http.Response
+	future.FutureAPI = &azure.Future{}
+	resp, err = client.Send(req, azure.DoRetryWithRegistration(client.Client))
+	if err != nil {
+		return
+	}
+	var azf azure.Future
+	azf, err = azure.NewFutureFromResponse(resp)
+	future.FutureAPI = &azf
+	future.Result = future.result
+	return
+}
+
+// ListLearnedPrefixesResponder handles the response to the ListLearnedPrefixes request. The method always
+// closes the http.Response Body.
+func (client AzureFirewallsClient) ListLearnedPrefixesResponder(resp *http.Response) (result IPPrefixesList, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}
+
 // UpdateTags updates tags of an Azure Firewall resource.
 // Parameters:
 // resourceGroupName - the name of the resource group.

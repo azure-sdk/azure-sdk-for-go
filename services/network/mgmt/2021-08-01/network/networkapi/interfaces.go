@@ -123,6 +123,7 @@ type AzureFirewallsClientAPI interface {
 	ListComplete(ctx context.Context, resourceGroupName string) (result network.AzureFirewallListResultIterator, err error)
 	ListAll(ctx context.Context) (result network.AzureFirewallListResultPage, err error)
 	ListAllComplete(ctx context.Context) (result network.AzureFirewallListResultIterator, err error)
+	ListLearnedPrefixes(ctx context.Context, resourceGroupName string, azureFirewallName string) (result network.AzureFirewallsListLearnedPrefixesFuture, err error)
 	UpdateTags(ctx context.Context, resourceGroupName string, azureFirewallName string, parameters network.TagsObject) (result network.AzureFirewallsUpdateTagsFuture, err error)
 }
 

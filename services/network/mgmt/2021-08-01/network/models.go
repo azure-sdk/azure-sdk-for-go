@@ -7783,6 +7783,49 @@ type AzureFirewallSku struct {
 	Tier AzureFirewallSkuTier `json:"tier,omitempty"`
 }
 
+// AzureFirewallsListLearnedPrefixesFuture an abstraction for monitoring and retrieving the results of a
+// long-running operation.
+type AzureFirewallsListLearnedPrefixesFuture struct {
+	azure.FutureAPI
+	// Result returns the result of the asynchronous operation.
+	// If the operation has not completed it will return an error.
+	Result func(AzureFirewallsClient) (IPPrefixesList, error)
+}
+
+// UnmarshalJSON is the custom unmarshaller for CreateFuture.
+func (future *AzureFirewallsListLearnedPrefixesFuture) UnmarshalJSON(body []byte) error {
+	var azFuture azure.Future
+	if err := json.Unmarshal(body, &azFuture); err != nil {
+		return err
+	}
+	future.FutureAPI = &azFuture
+	future.Result = future.result
+	return nil
+}
+
+// result is the default implementation for AzureFirewallsListLearnedPrefixesFuture.Result.
+func (future *AzureFirewallsListLearnedPrefixesFuture) result(client AzureFirewallsClient) (ipl IPPrefixesList, err error) {
+	var done bool
+	done, err = future.DoneWithContext(context.Background(), client)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "network.AzureFirewallsListLearnedPrefixesFuture", "Result", future.Response(), "Polling failure")
+		return
+	}
+	if !done {
+		ipl.Response.Response = future.Response()
+		err = azure.NewAsyncOpIncompleteError("network.AzureFirewallsListLearnedPrefixesFuture")
+		return
+	}
+	sender := autorest.DecorateSender(client, autorest.DoRetryForStatusCodes(client.RetryAttempts, client.RetryDuration, autorest.StatusCodesForRetry...))
+	if ipl.Response.Response, err = future.GetResult(sender); err == nil && ipl.Response.Response.StatusCode != http.StatusNoContent {
+		ipl, err = client.ListLearnedPrefixesResponder(ipl.Response.Response)
+		if err != nil {
+			err = autorest.NewErrorWithError(err, "network.AzureFirewallsListLearnedPrefixesFuture", "Result", ipl.Response.Response, "Failure responding to request")
+		}
+	}
+	return
+}
+
 // AzureFirewallsUpdateTagsFuture an abstraction for monitoring and retrieving the results of a
 // long-running operation.
 type AzureFirewallsUpdateTagsFuture struct {
@@ -19342,6 +19385,8 @@ type FirewallPolicySku struct {
 type FirewallPolicySNAT struct {
 	// PrivateRanges - List of private IP addresses/IP address ranges to not be SNAT.
 	PrivateRanges *[]string `json:"privateRanges,omitempty"`
+	// AutoLearnPrivateRanges - The operation mode for automatically learning private ranges to not be SNAT
+	AutoLearnPrivateRanges *bool `json:"autoLearnPrivateRanges,omitempty"`
 }
 
 // FirewallPolicySQL SQL Settings in Firewall Policy.
@@ -24159,6 +24204,13 @@ func (future *IPGroupsDeleteFuture) result(client IPGroupsClient) (ar autorest.R
 	}
 	ar.Response = future.Response()
 	return
+}
+
+// IPPrefixesList list of SNAT IP Prefixes learnt by firewall to not SNAT
+type IPPrefixesList struct {
+	autorest.Response `json:"-"`
+	// IPPrefixes - IP Prefix value.
+	IPPrefixes *string `json:"ipPrefixes,omitempty"`
 }
 
 // IpsecPolicy an IPSec Policy configuration for a virtual network gateway connection.
