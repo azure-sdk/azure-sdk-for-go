@@ -733,6 +733,11 @@ type ExpressRoutePortsLocationsClientListResponse struct {
 	ExpressRoutePortsLocationListResult
 }
 
+// ExpressRouteProviderPortsLocationClientListResponse contains the response from method ExpressRouteProviderPortsLocationClient.List.
+type ExpressRouteProviderPortsLocationClientListResponse struct {
+	ExpressRouteProviderPortListResult
+}
+
 // ExpressRouteServiceProvidersClientListResponse contains the response from method ExpressRouteServiceProvidersClient.List.
 type ExpressRouteServiceProvidersClientListResponse struct {
 	ExpressRouteServiceProviderListResult
@@ -1226,6 +1231,11 @@ type ManagementClientDeleteBastionShareableLinkResponse struct {
 // ManagementClientDisconnectActiveSessionsResponse contains the response from method ManagementClient.DisconnectActiveSessions.
 type ManagementClientDisconnectActiveSessionsResponse struct {
 	BastionSessionDeleteResult
+}
+
+// ManagementClientExpressRouteProviderPortResponse contains the response from method ManagementClient.ExpressRouteProviderPort.
+type ManagementClientExpressRouteProviderPortResponse struct {
+	ExpressRouteProviderPort
 }
 
 // ManagementClientGeneratevirtualwanvpnserverconfigurationvpnprofileResponse contains the response from method ManagementClient.Generatevirtualwanvpnserverconfigurationvpnprofile.

@@ -1,5 +1,28 @@
 # Release History
 
+## 1.1.0 (2022-05-24)
+### Features Added
+
+- New const `WebApplicationFirewallOperatorAny`
+- New const `ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101S`
+- New const `ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101`
+- New const `ApplicationGatewaySSLProtocolTLSv13`
+- New const `ApplicationGatewaySSLPolicyTypeCustomV2`
+- New function `ExpressRouteProviderPort.MarshalJSON() ([]byte, error)`
+- New function `*ManagementClient.ExpressRouteProviderPort(context.Context, string, *ManagementClientExpressRouteProviderPortOptions) (ManagementClientExpressRouteProviderPortResponse, error)`
+- New struct `ExpressRouteProviderPort`
+- New struct `ExpressRouteProviderPortListResult`
+- New struct `ExpressRouteProviderPortProperties`
+- New struct `ExpressRouteProviderPortsLocationClientListOptions`
+- New struct `ExpressRouteProviderPortsLocationClientListResponse`
+- New struct `ManagementClientExpressRouteProviderPortOptions`
+- New struct `ManagementClientExpressRouteProviderPortResponse`
+- New struct `VirtualRouterAutoScaleConfiguration`
+- New field `EnablePacFile` in struct `ExplicitProxySettings`
+- New field `VirtualRouterAutoScaleConfiguration` in struct `VirtualHubProperties`
+- New field `Priority` in struct `ApplicationGatewayRoutingRulePropertiesFormat`
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 
