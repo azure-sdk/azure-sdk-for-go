@@ -18,7 +18,7 @@ import (
 )
 
 // The package's fully qualified name.
-const fqdn = "github.com/Azure/azure-sdk-for-go/services/resources/mgmt/2020-05-01/managementgroups"
+const fqdn = "github.com/Azure/azure-sdk-for-go/services/resources/mgmt/2021-04-01/managementgroups"
 
 // AzureAsyncOperationResults the results of Azure-AsyncOperation.
 type AzureAsyncOperationResults struct {
@@ -107,7 +107,7 @@ func (aaor *AzureAsyncOperationResults) UnmarshalJSON(body []byte) error {
 type CheckNameAvailabilityRequest struct {
 	// Name - the name to check for availability
 	Name *string `json:"name,omitempty"`
-	// Type - fully qualified resource type which includes provider namespace. Possible values include: 'MicrosoftManagementmanagementGroups'
+	// Type - fully qualified resource type which includes provider namespace. Possible values include: 'TypeMicrosoftManagementmanagementGroups'
 	Type Type `json:"type,omitempty"`
 }
 
@@ -131,8 +131,8 @@ func (cnar CheckNameAvailabilityResult) MarshalJSON() ([]byte, error) {
 
 // ChildInfo the child information of a management group.
 type ChildInfo struct {
-	// Type - The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups). Possible values include: 'Type1MicrosoftManagementmanagementGroups', 'Type1Subscriptions'
-	Type Type1 `json:"type,omitempty"`
+	// Type - The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups). Possible values include: 'MicrosoftManagementmanagementGroups', 'Subscriptions'
+	Type ChildType `json:"type,omitempty"`
 	// ID - The fully qualified ID for the child resource (management group or subscription).  For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
 	ID *string `json:"id,omitempty"`
 	// Name - The name of the child entity.
@@ -145,8 +145,8 @@ type ChildInfo struct {
 
 // CreateManagementGroupChildInfo the child information of a management group used during creation.
 type CreateManagementGroupChildInfo struct {
-	// Type - READ-ONLY; The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups). Possible values include: 'Type2MicrosoftManagementmanagementGroups', 'Type2Subscriptions'
-	Type Type2 `json:"type,omitempty"`
+	// Type - READ-ONLY; The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups). Possible values include: 'MicrosoftManagementmanagementGroups', 'Subscriptions'
+	Type ChildType `json:"type,omitempty"`
 	// ID - READ-ONLY; The fully qualified ID for the child resource (management group or subscription).  For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
 	ID *string `json:"id,omitempty"`
 	// Name - READ-ONLY; The name of the child entity.
@@ -694,6 +694,10 @@ type Details struct {
 	Parent    *ParentGroupInfo `json:"parent,omitempty"`
 	// Path - The path from the root to the current group.
 	Path *[]PathElement `json:"path,omitempty"`
+	// ManagementGroupAncestors - The ancestors of the management group.
+	ManagementGroupAncestors *[]string `json:"managementGroupAncestors,omitempty"`
+	// ManagementGroupAncestorsChain - The ancestors of the management group displayed in reversed order, from immediate parent to the root.
+	ManagementGroupAncestorsChain *[]PathElement `json:"managementGroupAncestorsChain,omitempty"`
 }
 
 // EntityHierarchyItem the management group details for the hierarchy view.
@@ -771,8 +775,8 @@ func (ehi *EntityHierarchyItem) UnmarshalJSON(body []byte) error {
 type EntityHierarchyItemProperties struct {
 	// DisplayName - The friendly name of the management group.
 	DisplayName *string `json:"displayName,omitempty"`
-	// Permissions - Possible values include: 'Permissions1Noaccess', 'Permissions1View', 'Permissions1Edit', 'Permissions1Delete'
-	Permissions Permissions1 `json:"permissions,omitempty"`
+	// Permissions - Possible values include: 'Noaccess', 'View', 'Edit', 'Delete'
+	Permissions PermissionsType `json:"permissions,omitempty"`
 	// Children - The list of children.
 	Children *[]EntityHierarchyItem `json:"children,omitempty"`
 }
@@ -855,11 +859,11 @@ type EntityInfoProperties struct {
 	// DisplayName - The friendly name of the management group.
 	DisplayName *string                `json:"displayName,omitempty"`
 	Parent      *EntityParentGroupInfo `json:"parent,omitempty"`
-	// Permissions - Possible values include: 'PermissionsNoaccess', 'PermissionsView', 'PermissionsEdit', 'PermissionsDelete'
-	Permissions Permissions `json:"permissions,omitempty"`
+	// Permissions - Possible values include: 'Noaccess', 'View', 'Edit', 'Delete'
+	Permissions PermissionsType `json:"permissions,omitempty"`
 	// InheritedPermissions - Possible values include: 'Noaccess', 'View', 'Edit', 'Delete'
-	InheritedPermissions InheritedPermissions `json:"inheritedPermissions,omitempty"`
-	NumberOfDescendants  *int32               `json:"numberOfDescendants,omitempty"`
+	InheritedPermissions PermissionsType `json:"inheritedPermissions,omitempty"`
+	NumberOfDescendants  *int32          `json:"numberOfDescendants,omitempty"`
 	// NumberOfChildren - Number of children is the number of Groups and Subscriptions that are exactly one level underneath the current Group.
 	NumberOfChildren *int32 `json:"numberOfChildren,omitempty"`
 	// NumberOfChildGroups - Number of children is the number of Groups that are exactly one level underneath the current Group.
