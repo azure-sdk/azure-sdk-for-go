@@ -1,5 +1,18 @@
 # Release History
 
+## 1.1.0 (2022-05-24)
+### Features Added
+
+- New const `ChannelBindingEnabled`
+- New const `ChannelBindingDisabled`
+- New const `LdapSigningDisabled`
+- New const `LdapSigningEnabled`
+- New function `PossibleLdapSigningValues() []LdapSigning`
+- New function `PossibleChannelBindingValues() []ChannelBinding`
+- New field `LdapSigning` in struct `DomainSecuritySettings`
+- New field `ChannelBinding` in struct `DomainSecuritySettings`
+
+
 ## 1.0.0 (2022-05-18)
 ### Breaking Changes
 

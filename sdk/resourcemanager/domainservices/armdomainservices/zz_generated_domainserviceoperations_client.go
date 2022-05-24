@@ -50,7 +50,7 @@ func NewDomainServiceOperationsClient(credential azcore.TokenCredential, options
 
 // NewListPager - Lists all the available Domain Services operations.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01
+// Generated from API version 2022-06-01
 // options - DomainServiceOperationsClientListOptions contains the optional parameters for the DomainServiceOperationsClient.List
 // method.
 func (client *DomainServiceOperationsClient) NewListPager(options *DomainServiceOperationsClientListOptions) *runtime.Pager[DomainServiceOperationsClientListResponse] {
@@ -89,7 +89,7 @@ func (client *DomainServiceOperationsClient) listCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

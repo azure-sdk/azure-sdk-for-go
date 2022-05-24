@@ -10,8 +10,24 @@ package armdomainservices
 
 const (
 	moduleName    = "armdomainservices"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
+
+// ChannelBinding - A flag to determine whether or not ChannelBinding is enabled or disabled.
+type ChannelBinding string
+
+const (
+	ChannelBindingDisabled ChannelBinding = "Disabled"
+	ChannelBindingEnabled  ChannelBinding = "Enabled"
+)
+
+// PossibleChannelBindingValues returns the possible values for the ChannelBinding const type.
+func PossibleChannelBindingValues() []ChannelBinding {
+	return []ChannelBinding{
+		ChannelBindingDisabled,
+		ChannelBindingEnabled,
+	}
+}
 
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
@@ -94,6 +110,22 @@ func PossibleKerberosRc4EncryptionValues() []KerberosRc4Encryption {
 	return []KerberosRc4Encryption{
 		KerberosRc4EncryptionDisabled,
 		KerberosRc4EncryptionEnabled,
+	}
+}
+
+// LdapSigning - A flag to determine whether or not LdapSigning is enabled or disabled.
+type LdapSigning string
+
+const (
+	LdapSigningDisabled LdapSigning = "Disabled"
+	LdapSigningEnabled  LdapSigning = "Enabled"
+)
+
+// PossibleLdapSigningValues returns the possible values for the LdapSigning const type.
+func PossibleLdapSigningValues() []LdapSigning {
+	return []LdapSigning{
+		LdapSigningDisabled,
+		LdapSigningEnabled,
 	}
 }
 
