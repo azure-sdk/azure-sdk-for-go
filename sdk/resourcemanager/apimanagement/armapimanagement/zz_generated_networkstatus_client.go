@@ -58,7 +58,7 @@ func NewNetworkStatusClient(subscriptionID string, credential azcore.TokenCreden
 // ListByLocation - Gets the Connectivity Status to the external resources on which the Api Management service depends from
 // inside the Cloud Service. This also returns the DNS Servers as visible to the CloudService.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // locationName - Location in which the API Management service is deployed. This is one of the Azure Regions like West US,
@@ -104,7 +104,7 @@ func (client *NetworkStatusClient) listByLocationCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -122,7 +122,7 @@ func (client *NetworkStatusClient) listByLocationHandleResponse(resp *http.Respo
 // ListByService - Gets the Connectivity Status to the external resources on which the Api Management service depends from
 // inside the Cloud Service. This also returns the DNS Servers as visible to the CloudService.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - NetworkStatusClientListByServiceOptions contains the optional parameters for the NetworkStatusClient.ListByService
@@ -162,7 +162,7 @@ func (client *NetworkStatusClient) listByServiceCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -10,7 +10,7 @@ package armapimanagement
 
 const (
 	moduleName    = "armapimanagement"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // APIManagementSKUCapacityScaleType - The scale type applicable to the sku.
@@ -236,6 +236,21 @@ func PossibleAuthorizationMethodValues() []AuthorizationMethod {
 		AuthorizationMethodPUT,
 		AuthorizationMethodPATCH,
 		AuthorizationMethodDELETE,
+	}
+}
+
+// AuthorizationType - Authorization type options
+type AuthorizationType string
+
+const (
+	// AuthorizationTypeOAuth2 - OAuth2 authorization type
+	AuthorizationTypeOAuth2 AuthorizationType = "OAuth2"
+)
+
+// PossibleAuthorizationTypeValues returns the possible values for the AuthorizationType const type.
+func PossibleAuthorizationTypeValues() []AuthorizationType {
+	return []AuthorizationType{
+		AuthorizationTypeOAuth2,
 	}
 }
 
@@ -852,6 +867,24 @@ func PossibleNotificationNameValues() []NotificationName {
 	}
 }
 
+// OAuth2GrantType - OAuth2 grant type options
+type OAuth2GrantType string
+
+const (
+	// OAuth2GrantTypeAuthorizationCode - Authorization Code grant
+	OAuth2GrantTypeAuthorizationCode OAuth2GrantType = "AuthorizationCode"
+	// OAuth2GrantTypeClientCredentials - Client Credential grant
+	OAuth2GrantTypeClientCredentials OAuth2GrantType = "ClientCredentials"
+)
+
+// PossibleOAuth2GrantTypeValues returns the possible values for the OAuth2GrantType const type.
+func PossibleOAuth2GrantTypeValues() []OAuth2GrantType {
+	return []OAuth2GrantType{
+		OAuth2GrantTypeAuthorizationCode,
+		OAuth2GrantTypeClientCredentials,
+	}
+}
+
 // OperationNameFormat - The format of the Operation Name for Application Insights telemetries. Default is Name.
 type OperationNameFormat string
 
@@ -954,6 +987,23 @@ func PossiblePolicyExportFormatValues() []PolicyExportFormat {
 	}
 }
 
+type PolicyFragmentContentFormat string
+
+const (
+	// PolicyFragmentContentFormatRawxml - The contents are inline and Content type is a non XML encoded policy document.
+	PolicyFragmentContentFormatRawxml PolicyFragmentContentFormat = "rawxml"
+	// PolicyFragmentContentFormatXML - The contents are inline and Content type is an XML document.
+	PolicyFragmentContentFormatXML PolicyFragmentContentFormat = "xml"
+)
+
+// PossiblePolicyFragmentContentFormatValues returns the possible values for the PolicyFragmentContentFormat const type.
+func PossiblePolicyFragmentContentFormatValues() []PolicyFragmentContentFormat {
+	return []PolicyFragmentContentFormat{
+		PolicyFragmentContentFormatRawxml,
+		PolicyFragmentContentFormatXML,
+	}
+}
+
 type PolicyIDName string
 
 const (
@@ -1009,6 +1059,27 @@ func PossiblePortalRevisionStatusValues() []PortalRevisionStatus {
 		PortalRevisionStatusFailed,
 		PortalRevisionStatusPending,
 		PortalRevisionStatusPublishing,
+	}
+}
+
+// PortalSettingsCspMode - The mode of the developer portal Content Security Policy (CSP).
+type PortalSettingsCspMode string
+
+const (
+	// PortalSettingsCspModeDisabled - The browser will not apply the origin restrictions.
+	PortalSettingsCspModeDisabled PortalSettingsCspMode = "disabled"
+	// PortalSettingsCspModeEnabled - The browser will block requests not matching allowed origins.
+	PortalSettingsCspModeEnabled PortalSettingsCspMode = "enabled"
+	// PortalSettingsCspModeReportOnly - The browser will report requests not matching allowed origins without blocking them.
+	PortalSettingsCspModeReportOnly PortalSettingsCspMode = "reportOnly"
+)
+
+// PossiblePortalSettingsCspModeValues returns the possible values for the PortalSettingsCspMode const type.
+func PossiblePortalSettingsCspModeValues() []PortalSettingsCspMode {
+	return []PortalSettingsCspMode{
+		PortalSettingsCspModeDisabled,
+		PortalSettingsCspModeEnabled,
+		PortalSettingsCspModeReportOnly,
 	}
 }
 

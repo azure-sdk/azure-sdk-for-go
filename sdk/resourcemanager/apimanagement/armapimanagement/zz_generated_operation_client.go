@@ -58,7 +58,7 @@ func NewOperationClient(subscriptionID string, credential azcore.TokenCredential
 
 // NewListByTagsPager - Lists a collection of operations associated with tags.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -128,7 +128,7 @@ func (client *OperationClient) listByTagsCreateRequest(ctx context.Context, reso
 	if options != nil && options.IncludeNotTaggedOperations != nil {
 		reqQP.Set("includeNotTaggedOperations", strconv.FormatBool(*options.IncludeNotTaggedOperations))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

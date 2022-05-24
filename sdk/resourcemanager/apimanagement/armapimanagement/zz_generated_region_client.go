@@ -57,7 +57,7 @@ func NewRegionClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // NewListByServicePager - Lists all azure regions in which the service exists.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - RegionClientListByServiceOptions contains the optional parameters for the RegionClient.ListByService method.
@@ -109,7 +109,7 @@ func (client *RegionClient) listByServiceCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

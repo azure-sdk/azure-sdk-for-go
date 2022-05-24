@@ -1,5 +1,108 @@
 # Release History
 
+## 1.1.0-beta.1 (2022-05-24)
+### Features Added
+
+- New const `PolicyFragmentContentFormatXML`
+- New const `PortalSettingsCspModeEnabled`
+- New const `PortalSettingsCspModeReportOnly`
+- New const `AuthorizationTypeOAuth2`
+- New const `OAuth2GrantTypeAuthorizationCode`
+- New const `PortalSettingsCspModeDisabled`
+- New const `OAuth2GrantTypeClientCredentials`
+- New const `PolicyFragmentContentFormatRawxml`
+- New function `PossiblePolicyFragmentContentFormatValues() []PolicyFragmentContentFormat`
+- New function `PossibleAuthorizationTypeValues() []AuthorizationType`
+- New function `PortalConfigContract.MarshalJSON() ([]byte, error)`
+- New function `AuthorizationContractProperties.MarshalJSON() ([]byte, error)`
+- New function `PortalConfigCorsProperties.MarshalJSON() ([]byte, error)`
+- New function `PossiblePortalSettingsCspModeValues() []PortalSettingsCspMode`
+- New function `AuthorizationProviderOAuth2GrantTypes.MarshalJSON() ([]byte, error)`
+- New function `PossibleOAuth2GrantTypeValues() []OAuth2GrantType`
+- New function `PortalConfigCspProperties.MarshalJSON() ([]byte, error)`
+- New struct `AuthorizationAccessPolicyClientCreateOrUpdateOptions`
+- New struct `AuthorizationAccessPolicyClientCreateOrUpdateResponse`
+- New struct `AuthorizationAccessPolicyClientDeleteOptions`
+- New struct `AuthorizationAccessPolicyClientDeleteResponse`
+- New struct `AuthorizationAccessPolicyClientGetOptions`
+- New struct `AuthorizationAccessPolicyClientGetResponse`
+- New struct `AuthorizationAccessPolicyClientListByAuthorizationOptions`
+- New struct `AuthorizationAccessPolicyClientListByAuthorizationResponse`
+- New struct `AuthorizationAccessPolicyCollection`
+- New struct `AuthorizationAccessPolicyContract`
+- New struct `AuthorizationAccessPolicyContractProperties`
+- New struct `AuthorizationClientCreateOrUpdateOptions`
+- New struct `AuthorizationClientCreateOrUpdateResponse`
+- New struct `AuthorizationClientDeleteOptions`
+- New struct `AuthorizationClientDeleteResponse`
+- New struct `AuthorizationClientGetOptions`
+- New struct `AuthorizationClientGetResponse`
+- New struct `AuthorizationClientListByAuthorizationProviderOptions`
+- New struct `AuthorizationClientListByAuthorizationProviderResponse`
+- New struct `AuthorizationCollection`
+- New struct `AuthorizationContract`
+- New struct `AuthorizationContractProperties`
+- New struct `AuthorizationError`
+- New struct `AuthorizationLoginLinksClientPostOptions`
+- New struct `AuthorizationLoginLinksClientPostResponse`
+- New struct `AuthorizationLoginRequestContract`
+- New struct `AuthorizationLoginResponseContract`
+- New struct `AuthorizationProviderClientCreateOrUpdateOptions`
+- New struct `AuthorizationProviderClientCreateOrUpdateResponse`
+- New struct `AuthorizationProviderClientDeleteOptions`
+- New struct `AuthorizationProviderClientDeleteResponse`
+- New struct `AuthorizationProviderClientGetOptions`
+- New struct `AuthorizationProviderClientGetResponse`
+- New struct `AuthorizationProviderClientListByServiceOptions`
+- New struct `AuthorizationProviderClientListByServiceResponse`
+- New struct `AuthorizationProviderCollection`
+- New struct `AuthorizationProviderContract`
+- New struct `AuthorizationProviderContractProperties`
+- New struct `AuthorizationProviderOAuth2GrantTypes`
+- New struct `AuthorizationProviderOAuth2Settings`
+- New struct `PolicyFragmentClientBeginCreateOrUpdateOptions`
+- New struct `PolicyFragmentClientCreateOrUpdateResponse`
+- New struct `PolicyFragmentClientDeleteOptions`
+- New struct `PolicyFragmentClientDeleteResponse`
+- New struct `PolicyFragmentClientGetEntityTagOptions`
+- New struct `PolicyFragmentClientGetEntityTagResponse`
+- New struct `PolicyFragmentClientGetOptions`
+- New struct `PolicyFragmentClientGetResponse`
+- New struct `PolicyFragmentClientListByServiceOptions`
+- New struct `PolicyFragmentClientListByServiceResponse`
+- New struct `PolicyFragmentClientListReferencesOptions`
+- New struct `PolicyFragmentClientListReferencesResponse`
+- New struct `PolicyFragmentCollection`
+- New struct `PolicyFragmentContract`
+- New struct `PolicyFragmentContractProperties`
+- New struct `PortalConfigClientCreateOrUpdateOptions`
+- New struct `PortalConfigClientCreateOrUpdateResponse`
+- New struct `PortalConfigClientGetEntityTagOptions`
+- New struct `PortalConfigClientGetEntityTagResponse`
+- New struct `PortalConfigClientGetOptions`
+- New struct `PortalConfigClientGetResponse`
+- New struct `PortalConfigClientListByServiceOptions`
+- New struct `PortalConfigClientListByServiceResponse`
+- New struct `PortalConfigClientUpdateOptions`
+- New struct `PortalConfigClientUpdateResponse`
+- New struct `PortalConfigCollection`
+- New struct `PortalConfigContract`
+- New struct `PortalConfigCorsProperties`
+- New struct `PortalConfigCspProperties`
+- New struct `PortalConfigDelegationProperties`
+- New struct `PortalConfigProperties`
+- New struct `PortalConfigPropertiesSignin`
+- New struct `PortalConfigPropertiesSignup`
+- New struct `PortalConfigTermsOfServiceProperties`
+- New struct `ResourceCollection`
+- New struct `ResourceCollectionValueItem`
+- New field `ClientLibrary` in struct `IdentityProviderCreateContractProperties`
+- New field `Parameters` in struct `ContentTypeClientCreateOrUpdateOptions`
+- New field `ClientLibrary` in struct `IdentityProviderUpdateProperties`
+- New field `ClientLibrary` in struct `IdentityProviderBaseParameters`
+- New field `ClientLibrary` in struct `IdentityProviderContractProperties`
+
+
 ## 1.0.0 (2022-05-17)
 ### Breaking Changes
 

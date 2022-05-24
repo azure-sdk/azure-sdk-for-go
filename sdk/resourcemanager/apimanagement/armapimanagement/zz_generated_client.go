@@ -58,7 +58,7 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 // BeginPerformConnectivityCheckAsync - Performs a connectivity check between the API Management service and a given destination,
 // and returns metrics for the connection, as well as errors encountered while trying to establish it.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // connectivityCheckRequestParams - Connectivity Check request parameters.
@@ -81,7 +81,7 @@ func (client *Client) BeginPerformConnectivityCheckAsync(ctx context.Context, re
 // PerformConnectivityCheckAsync - Performs a connectivity check between the API Management service and a given destination,
 // and returns metrics for the connection, as well as errors encountered while trying to establish it.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *Client) performConnectivityCheckAsync(ctx context.Context, resourceGroupName string, serviceName string, connectivityCheckRequestParams ConnectivityCheckRequest, options *ClientBeginPerformConnectivityCheckAsyncOptions) (*http.Response, error) {
 	req, err := client.performConnectivityCheckAsyncCreateRequest(ctx, resourceGroupName, serviceName, connectivityCheckRequestParams, options)
 	if err != nil {
@@ -117,7 +117,7 @@ func (client *Client) performConnectivityCheckAsyncCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, connectivityCheckRequestParams)

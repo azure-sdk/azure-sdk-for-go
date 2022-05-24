@@ -58,7 +58,7 @@ func NewTenantConfigurationClient(subscriptionID string, credential azcore.Token
 // BeginDeploy - This operation applies changes from the specified Git branch to the configuration database. This is a long
 // running operation and could take several minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // configurationName - The identifier of the Git Configuration Operation.
@@ -82,7 +82,7 @@ func (client *TenantConfigurationClient) BeginDeploy(ctx context.Context, resour
 // Deploy - This operation applies changes from the specified Git branch to the configuration database. This is a long running
 // operation and could take several minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *TenantConfigurationClient) deploy(ctx context.Context, resourceGroupName string, serviceName string, configurationName ConfigurationIDName, parameters DeployConfigurationParameters, options *TenantConfigurationClientBeginDeployOptions) (*http.Response, error) {
 	req, err := client.deployCreateRequest(ctx, resourceGroupName, serviceName, configurationName, parameters, options)
 	if err != nil {
@@ -122,7 +122,7 @@ func (client *TenantConfigurationClient) deployCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -130,7 +130,7 @@ func (client *TenantConfigurationClient) deployCreateRequest(ctx context.Context
 
 // GetSyncState - Gets the status of the most recent synchronization between the configuration database and the Git repository.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // configurationName - The identifier of the Git Configuration Operation.
@@ -175,7 +175,7 @@ func (client *TenantConfigurationClient) getSyncStateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -193,7 +193,7 @@ func (client *TenantConfigurationClient) getSyncStateHandleResponse(resp *http.R
 // BeginSave - This operation creates a commit with the current configuration snapshot to the specified branch in the repository.
 // This is a long running operation and could take several minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // configurationName - The identifier of the Git Configuration Operation.
@@ -217,7 +217,7 @@ func (client *TenantConfigurationClient) BeginSave(ctx context.Context, resource
 // Save - This operation creates a commit with the current configuration snapshot to the specified branch in the repository.
 // This is a long running operation and could take several minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *TenantConfigurationClient) save(ctx context.Context, resourceGroupName string, serviceName string, configurationName ConfigurationIDName, parameters SaveConfigurationParameter, options *TenantConfigurationClientBeginSaveOptions) (*http.Response, error) {
 	req, err := client.saveCreateRequest(ctx, resourceGroupName, serviceName, configurationName, parameters, options)
 	if err != nil {
@@ -257,7 +257,7 @@ func (client *TenantConfigurationClient) saveCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -266,7 +266,7 @@ func (client *TenantConfigurationClient) saveCreateRequest(ctx context.Context, 
 // BeginValidate - This operation validates the changes in the specified Git branch. This is a long running operation and
 // could take several minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // configurationName - The identifier of the Git Configuration Operation.
@@ -290,7 +290,7 @@ func (client *TenantConfigurationClient) BeginValidate(ctx context.Context, reso
 // Validate - This operation validates the changes in the specified Git branch. This is a long running operation and could
 // take several minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *TenantConfigurationClient) validate(ctx context.Context, resourceGroupName string, serviceName string, configurationName ConfigurationIDName, parameters DeployConfigurationParameters, options *TenantConfigurationClientBeginValidateOptions) (*http.Response, error) {
 	req, err := client.validateCreateRequest(ctx, resourceGroupName, serviceName, configurationName, parameters, options)
 	if err != nil {
@@ -330,7 +330,7 @@ func (client *TenantConfigurationClient) validateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

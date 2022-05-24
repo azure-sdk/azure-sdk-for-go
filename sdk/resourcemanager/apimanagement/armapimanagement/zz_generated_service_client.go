@@ -58,7 +58,7 @@ func NewServiceClient(subscriptionID string, credential azcore.TokenCredential, 
 // BeginApplyNetworkConfigurationUpdates - Updates the Microsoft.ApiManagement resource running in the Virtual network to
 // pick the updated DNS changes.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - ServiceClientBeginApplyNetworkConfigurationUpdatesOptions contains the optional parameters for the ServiceClient.BeginApplyNetworkConfigurationUpdates
@@ -80,7 +80,7 @@ func (client *ServiceClient) BeginApplyNetworkConfigurationUpdates(ctx context.C
 // ApplyNetworkConfigurationUpdates - Updates the Microsoft.ApiManagement resource running in the Virtual network to pick
 // the updated DNS changes.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *ServiceClient) applyNetworkConfigurationUpdates(ctx context.Context, resourceGroupName string, serviceName string, options *ServiceClientBeginApplyNetworkConfigurationUpdatesOptions) (*http.Response, error) {
 	req, err := client.applyNetworkConfigurationUpdatesCreateRequest(ctx, resourceGroupName, serviceName, options)
 	if err != nil {
@@ -116,7 +116,7 @@ func (client *ServiceClient) applyNetworkConfigurationUpdatesCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {
@@ -128,7 +128,7 @@ func (client *ServiceClient) applyNetworkConfigurationUpdatesCreateRequest(ctx c
 // BeginBackup - Creates a backup of the API Management service to the given Azure Storage Account. This is long running operation
 // and could take several minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // parameters - Parameters supplied to the ApiManagementService_Backup operation.
@@ -150,7 +150,7 @@ func (client *ServiceClient) BeginBackup(ctx context.Context, resourceGroupName 
 // Backup - Creates a backup of the API Management service to the given Azure Storage Account. This is long running operation
 // and could take several minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *ServiceClient) backup(ctx context.Context, resourceGroupName string, serviceName string, parameters ServiceBackupRestoreParameters, options *ServiceClientBeginBackupOptions) (*http.Response, error) {
 	req, err := client.backupCreateRequest(ctx, resourceGroupName, serviceName, parameters, options)
 	if err != nil {
@@ -186,7 +186,7 @@ func (client *ServiceClient) backupCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -194,7 +194,7 @@ func (client *ServiceClient) backupCreateRequest(ctx context.Context, resourceGr
 
 // CheckNameAvailability - Checks availability and correctness of a name for an API Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // parameters - Parameters supplied to the CheckNameAvailability operation.
 // options - ServiceClientCheckNameAvailabilityOptions contains the optional parameters for the ServiceClient.CheckNameAvailability
 // method.
@@ -225,7 +225,7 @@ func (client *ServiceClient) checkNameAvailabilityCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -243,7 +243,7 @@ func (client *ServiceClient) checkNameAvailabilityHandleResponse(resp *http.Resp
 // BeginCreateOrUpdate - Creates or updates an API Management service. This is long running operation and could take several
 // minutes to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // parameters - Parameters supplied to the CreateOrUpdate API Management service operation.
@@ -264,7 +264,7 @@ func (client *ServiceClient) BeginCreateOrUpdate(ctx context.Context, resourceGr
 // CreateOrUpdate - Creates or updates an API Management service. This is long running operation and could take several minutes
 // to complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *ServiceClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, parameters ServiceResource, options *ServiceClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, parameters, options)
 	if err != nil {
@@ -300,7 +300,7 @@ func (client *ServiceClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -308,7 +308,7 @@ func (client *ServiceClient) createOrUpdateCreateRequest(ctx context.Context, re
 
 // BeginDelete - Deletes an existing API Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - ServiceClientBeginDeleteOptions contains the optional parameters for the ServiceClient.BeginDelete method.
@@ -326,7 +326,7 @@ func (client *ServiceClient) BeginDelete(ctx context.Context, resourceGroupName 
 
 // Delete - Deletes an existing API Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *ServiceClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, options *ServiceClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, options)
 	if err != nil {
@@ -362,7 +362,7 @@ func (client *ServiceClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -370,7 +370,7 @@ func (client *ServiceClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // Get - Gets an API Management service resource description.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - ServiceClientGetOptions contains the optional parameters for the ServiceClient.Get method.
@@ -409,7 +409,7 @@ func (client *ServiceClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -426,7 +426,7 @@ func (client *ServiceClient) getHandleResponse(resp *http.Response) (ServiceClie
 
 // GetDomainOwnershipIdentifier - Get the custom domain ownership identifier for an API Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // options - ServiceClientGetDomainOwnershipIdentifierOptions contains the optional parameters for the ServiceClient.GetDomainOwnershipIdentifier
 // method.
 func (client *ServiceClient) GetDomainOwnershipIdentifier(ctx context.Context, options *ServiceClientGetDomainOwnershipIdentifierOptions) (ServiceClientGetDomainOwnershipIdentifierResponse, error) {
@@ -456,7 +456,7 @@ func (client *ServiceClient) getDomainOwnershipIdentifierCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -473,7 +473,7 @@ func (client *ServiceClient) getDomainOwnershipIdentifierHandleResponse(resp *ht
 
 // GetSsoToken - Gets the Single-Sign-On token for the API Management Service which is valid for 5 Minutes.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - ServiceClientGetSsoTokenOptions contains the optional parameters for the ServiceClient.GetSsoToken method.
@@ -512,7 +512,7 @@ func (client *ServiceClient) getSsoTokenCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -529,7 +529,7 @@ func (client *ServiceClient) getSsoTokenHandleResponse(resp *http.Response) (Ser
 
 // NewListPager - Lists all API Management services within an Azure subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // options - ServiceClientListOptions contains the optional parameters for the ServiceClient.List method.
 func (client *ServiceClient) NewListPager(options *ServiceClientListOptions) *runtime.Pager[ServiceClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ServiceClientListResponse]{
@@ -571,7 +571,7 @@ func (client *ServiceClient) listCreateRequest(ctx context.Context, options *Ser
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -588,7 +588,7 @@ func (client *ServiceClient) listHandleResponse(resp *http.Response) (ServiceCli
 
 // NewListByResourceGroupPager - List all API Management services within a resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // options - ServiceClientListByResourceGroupOptions contains the optional parameters for the ServiceClient.ListByResourceGroup
 // method.
@@ -636,7 +636,7 @@ func (client *ServiceClient) listByResourceGroupCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -655,7 +655,7 @@ func (client *ServiceClient) listByResourceGroupHandleResponse(resp *http.Respon
 // the current service. This is a long running operation and could take several minutes to
 // complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // parameters - Parameters supplied to the Restore API Management service from backup operation.
@@ -678,7 +678,7 @@ func (client *ServiceClient) BeginRestore(ctx context.Context, resourceGroupName
 // current service. This is a long running operation and could take several minutes to
 // complete.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *ServiceClient) restore(ctx context.Context, resourceGroupName string, serviceName string, parameters ServiceBackupRestoreParameters, options *ServiceClientBeginRestoreOptions) (*http.Response, error) {
 	req, err := client.restoreCreateRequest(ctx, resourceGroupName, serviceName, parameters, options)
 	if err != nil {
@@ -714,7 +714,7 @@ func (client *ServiceClient) restoreCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -722,7 +722,7 @@ func (client *ServiceClient) restoreCreateRequest(ctx context.Context, resourceG
 
 // BeginUpdate - Updates an existing API Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // parameters - Parameters supplied to the CreateOrUpdate API Management service operation.
@@ -741,7 +741,7 @@ func (client *ServiceClient) BeginUpdate(ctx context.Context, resourceGroupName 
 
 // Update - Updates an existing API Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *ServiceClient) update(ctx context.Context, resourceGroupName string, serviceName string, parameters ServiceUpdateParameters, options *ServiceClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serviceName, parameters, options)
 	if err != nil {
@@ -777,7 +777,7 @@ func (client *ServiceClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

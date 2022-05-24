@@ -57,7 +57,7 @@ func NewUserIdentitiesClient(subscriptionID string, credential azcore.TokenCrede
 
 // NewListPager - List of all user identities.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // userID - User identifier. Must be unique in the current API Management service instance.
@@ -114,7 +114,7 @@ func (client *UserIdentitiesClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

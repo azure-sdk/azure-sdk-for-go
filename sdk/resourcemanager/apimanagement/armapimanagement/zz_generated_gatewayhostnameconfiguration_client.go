@@ -58,7 +58,7 @@ func NewGatewayHostnameConfigurationClient(subscriptionID string, credential azc
 
 // CreateOrUpdate - Creates of updates hostname configuration for a Gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -109,7 +109,7 @@ func (client *GatewayHostnameConfigurationClient) createOrUpdateCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -132,7 +132,7 @@ func (client *GatewayHostnameConfigurationClient) createOrUpdateHandleResponse(r
 
 // Delete - Deletes the specified hostname configuration from the specified Gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -185,7 +185,7 @@ func (client *GatewayHostnameConfigurationClient) deleteCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -194,7 +194,7 @@ func (client *GatewayHostnameConfigurationClient) deleteCreateRequest(ctx contex
 
 // Get - Get details of a hostname configuration
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -245,7 +245,7 @@ func (client *GatewayHostnameConfigurationClient) getCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -264,7 +264,7 @@ func (client *GatewayHostnameConfigurationClient) getHandleResponse(resp *http.R
 }
 
 // GetEntityTag - Checks that hostname configuration entity specified by identifier exists for specified Gateway entity.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -315,7 +315,7 @@ func (client *GatewayHostnameConfigurationClient) getEntityTagCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -333,7 +333,7 @@ func (client *GatewayHostnameConfigurationClient) getEntityTagHandleResponse(res
 
 // NewListByServicePager - Lists the collection of hostname configurations for the specified gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -401,7 +401,7 @@ func (client *GatewayHostnameConfigurationClient) listByServiceCreateRequest(ctx
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

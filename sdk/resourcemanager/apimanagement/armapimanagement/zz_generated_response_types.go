@@ -462,6 +462,85 @@ type APIVersionSetClientUpdateResponse struct {
 	ETag *string
 }
 
+// AuthorizationAccessPolicyClientCreateOrUpdateResponse contains the response from method AuthorizationAccessPolicyClient.CreateOrUpdate.
+type AuthorizationAccessPolicyClientCreateOrUpdateResponse struct {
+	AuthorizationAccessPolicyContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationAccessPolicyClientDeleteResponse contains the response from method AuthorizationAccessPolicyClient.Delete.
+type AuthorizationAccessPolicyClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AuthorizationAccessPolicyClientGetResponse contains the response from method AuthorizationAccessPolicyClient.Get.
+type AuthorizationAccessPolicyClientGetResponse struct {
+	AuthorizationAccessPolicyContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationAccessPolicyClientListByAuthorizationResponse contains the response from method AuthorizationAccessPolicyClient.ListByAuthorization.
+type AuthorizationAccessPolicyClientListByAuthorizationResponse struct {
+	AuthorizationAccessPolicyCollection
+}
+
+// AuthorizationClientCreateOrUpdateResponse contains the response from method AuthorizationClient.CreateOrUpdate.
+type AuthorizationClientCreateOrUpdateResponse struct {
+	AuthorizationContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationClientDeleteResponse contains the response from method AuthorizationClient.Delete.
+type AuthorizationClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AuthorizationClientGetResponse contains the response from method AuthorizationClient.Get.
+type AuthorizationClientGetResponse struct {
+	AuthorizationContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationClientListByAuthorizationProviderResponse contains the response from method AuthorizationClient.ListByAuthorizationProvider.
+type AuthorizationClientListByAuthorizationProviderResponse struct {
+	AuthorizationCollection
+}
+
+// AuthorizationLoginLinksClientPostResponse contains the response from method AuthorizationLoginLinksClient.Post.
+type AuthorizationLoginLinksClientPostResponse struct {
+	AuthorizationLoginResponseContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationProviderClientCreateOrUpdateResponse contains the response from method AuthorizationProviderClient.CreateOrUpdate.
+type AuthorizationProviderClientCreateOrUpdateResponse struct {
+	AuthorizationProviderContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationProviderClientDeleteResponse contains the response from method AuthorizationProviderClient.Delete.
+type AuthorizationProviderClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AuthorizationProviderClientGetResponse contains the response from method AuthorizationProviderClient.Get.
+type AuthorizationProviderClientGetResponse struct {
+	AuthorizationProviderContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationProviderClientListByServiceResponse contains the response from method AuthorizationProviderClient.ListByService.
+type AuthorizationProviderClientListByServiceResponse struct {
+	AuthorizationProviderCollection
+}
+
 // AuthorizationServerClientCreateOrUpdateResponse contains the response from method AuthorizationServerClient.CreateOrUpdate.
 type AuthorizationServerClientCreateOrUpdateResponse struct {
 	AuthorizationServerContract
@@ -1372,6 +1451,73 @@ type PolicyClientListByServiceResponse struct {
 // PolicyDescriptionClientListByServiceResponse contains the response from method PolicyDescriptionClient.ListByService.
 type PolicyDescriptionClientListByServiceResponse struct {
 	PolicyDescriptionCollection
+}
+
+// PolicyFragmentClientCreateOrUpdateResponse contains the response from method PolicyFragmentClient.CreateOrUpdate.
+type PolicyFragmentClientCreateOrUpdateResponse struct {
+	PolicyFragmentContract
+}
+
+// PolicyFragmentClientDeleteResponse contains the response from method PolicyFragmentClient.Delete.
+type PolicyFragmentClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PolicyFragmentClientGetEntityTagResponse contains the response from method PolicyFragmentClient.GetEntityTag.
+type PolicyFragmentClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// PolicyFragmentClientGetResponse contains the response from method PolicyFragmentClient.Get.
+type PolicyFragmentClientGetResponse struct {
+	PolicyFragmentContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// PolicyFragmentClientListByServiceResponse contains the response from method PolicyFragmentClient.ListByService.
+type PolicyFragmentClientListByServiceResponse struct {
+	PolicyFragmentCollection
+}
+
+// PolicyFragmentClientListReferencesResponse contains the response from method PolicyFragmentClient.ListReferences.
+type PolicyFragmentClientListReferencesResponse struct {
+	ResourceCollection
+}
+
+// PortalConfigClientCreateOrUpdateResponse contains the response from method PortalConfigClient.CreateOrUpdate.
+type PortalConfigClientCreateOrUpdateResponse struct {
+	PortalConfigContract
+}
+
+// PortalConfigClientGetEntityTagResponse contains the response from method PortalConfigClient.GetEntityTag.
+type PortalConfigClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// PortalConfigClientGetResponse contains the response from method PortalConfigClient.Get.
+type PortalConfigClientGetResponse struct {
+	PortalConfigContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// PortalConfigClientListByServiceResponse contains the response from method PortalConfigClient.ListByService.
+type PortalConfigClientListByServiceResponse struct {
+	PortalConfigCollection
+}
+
+// PortalConfigClientUpdateResponse contains the response from method PortalConfigClient.Update.
+type PortalConfigClientUpdateResponse struct {
+	PortalConfigContract
 }
 
 // PortalRevisionClientCreateOrUpdateResponse contains the response from method PortalRevisionClient.CreateOrUpdate.

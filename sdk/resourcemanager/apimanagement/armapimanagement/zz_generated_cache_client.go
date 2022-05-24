@@ -58,7 +58,7 @@ func NewCacheClient(subscriptionID string, credential azcore.TokenCredential, op
 
 // CreateOrUpdate - Creates or updates an External Cache to be used in Api Management instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // cacheID - Identifier of the Cache entity. Cache identifier (should be either 'default' or valid Azure region identifier).
@@ -103,7 +103,7 @@ func (client *CacheClient) createOrUpdateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -126,7 +126,7 @@ func (client *CacheClient) createOrUpdateHandleResponse(resp *http.Response) (Ca
 
 // Delete - Deletes specific Cache.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // cacheID - Identifier of the Cache entity. Cache identifier (should be either 'default' or valid Azure region identifier).
@@ -172,7 +172,7 @@ func (client *CacheClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -181,7 +181,7 @@ func (client *CacheClient) deleteCreateRequest(ctx context.Context, resourceGrou
 
 // Get - Gets the details of the Cache specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // cacheID - Identifier of the Cache entity. Cache identifier (should be either 'default' or valid Azure region identifier).
@@ -225,7 +225,7 @@ func (client *CacheClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -244,7 +244,7 @@ func (client *CacheClient) getHandleResponse(resp *http.Response) (CacheClientGe
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the Cache specified by its identifier.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // cacheID - Identifier of the Cache entity. Cache identifier (should be either 'default' or valid Azure region identifier).
@@ -288,7 +288,7 @@ func (client *CacheClient) getEntityTagCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -306,7 +306,7 @@ func (client *CacheClient) getEntityTagHandleResponse(resp *http.Response) (Cach
 
 // NewListByServicePager - Lists a collection of all external Caches in the specified service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - CacheClientListByServiceOptions contains the optional parameters for the CacheClient.ListByService method.
@@ -364,7 +364,7 @@ func (client *CacheClient) listByServiceCreateRequest(ctx context.Context, resou
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -381,7 +381,7 @@ func (client *CacheClient) listByServiceHandleResponse(resp *http.Response) (Cac
 
 // Update - Updates the details of the cache specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // cacheID - Identifier of the Cache entity. Cache identifier (should be either 'default' or valid Azure region identifier).
@@ -428,7 +428,7 @@ func (client *CacheClient) updateCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

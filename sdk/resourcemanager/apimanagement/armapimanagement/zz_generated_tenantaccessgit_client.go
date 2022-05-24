@@ -57,7 +57,7 @@ func NewTenantAccessGitClient(subscriptionID string, credential azcore.TokenCred
 
 // RegeneratePrimaryKey - Regenerate primary access key for GIT.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // accessName - The identifier of the Access configuration.
@@ -102,7 +102,7 @@ func (client *TenantAccessGitClient) regeneratePrimaryKeyCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -110,7 +110,7 @@ func (client *TenantAccessGitClient) regeneratePrimaryKeyCreateRequest(ctx conte
 
 // RegenerateSecondaryKey - Regenerate secondary access key for GIT.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // accessName - The identifier of the Access configuration.
@@ -155,7 +155,7 @@ func (client *TenantAccessGitClient) regenerateSecondaryKeyCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
