@@ -18,7 +18,7 @@ import (
 )
 
 // The package's fully qualified name.
-const fqdn = "github.com/Azure/azure-sdk-for-go/services/domainservices/mgmt/2020-01-01/aad"
+const fqdn = "github.com/Azure/azure-sdk-for-go/services/domainservices/mgmt/2022-06-01/aad"
 
 // CloudError an error response from the Domain Services.
 type CloudError struct {
@@ -36,6 +36,34 @@ type CloudErrorBody struct {
 	Target *string `json:"target,omitempty"`
 	// Details - A list of additional details about the error.
 	Details *[]CloudErrorBody `json:"details,omitempty"`
+}
+
+// ConfigDiagnostics configuration Diagnostics
+type ConfigDiagnostics struct {
+	// LastExecuted - Last domain configuration diagnostics DateTime
+	LastExecuted *date.TimeRFC1123 `json:"lastExecuted,omitempty"`
+	// ValidatorResults - List of Configuration Diagnostics validator results.
+	ValidatorResults *[]ConfigDiagnosticsValidatorResult `json:"validatorResults,omitempty"`
+}
+
+// ConfigDiagnosticsValidatorResult config Diagnostics validator result data
+type ConfigDiagnosticsValidatorResult struct {
+	// ValidatorID - Validator identifier
+	ValidatorID *string `json:"validatorId,omitempty"`
+	// ReplicaSetSubnetDisplayName - Replica set location and subnet name
+	ReplicaSetSubnetDisplayName *string `json:"replicaSetSubnetDisplayName,omitempty"`
+	// Status - Status for individual validator after running diagnostics. Possible values include: 'None', 'Running', 'OK', 'Failure', 'Warning', 'Skipped'
+	Status Status `json:"status,omitempty"`
+	// Issues - List of resource config validation issues.
+	Issues *[]ConfigDiagnosticsValidatorResultIssue `json:"issues,omitempty"`
+}
+
+// ConfigDiagnosticsValidatorResultIssue specific issue for a particular config diagnostics validator
+type ConfigDiagnosticsValidatorResultIssue struct {
+	// ID - Validation issue identifier.
+	ID *string `json:"id,omitempty"`
+	// DescriptionParams - List of domain resource property name or values used to compose a rich description.
+	DescriptionParams *[]string `json:"descriptionParams,omitempty"`
 }
 
 // ContainerAccount container Account Description
@@ -60,6 +88,14 @@ type DomainSecuritySettings struct {
 	SyncKerberosPasswords SyncKerberosPasswords `json:"syncKerberosPasswords,omitempty"`
 	// SyncOnPremPasswords - A flag to determine whether or not SyncOnPremPasswords is enabled or disabled. Possible values include: 'SyncOnPremPasswordsEnabled', 'SyncOnPremPasswordsDisabled'
 	SyncOnPremPasswords SyncOnPremPasswords `json:"syncOnPremPasswords,omitempty"`
+	// KerberosRc4Encryption - A flag to determine whether or not KerberosRc4Encryption is enabled or disabled. Possible values include: 'KerberosRc4EncryptionEnabled', 'KerberosRc4EncryptionDisabled'
+	KerberosRc4Encryption KerberosRc4Encryption `json:"kerberosRc4Encryption,omitempty"`
+	// KerberosArmoring - A flag to determine whether or not KerberosArmoring is enabled or disabled. Possible values include: 'KerberosArmoringEnabled', 'KerberosArmoringDisabled'
+	KerberosArmoring KerberosArmoring `json:"kerberosArmoring,omitempty"`
+	// LdapSigning - A flag to determine whether or not LdapSigning is enabled or disabled. Possible values include: 'LdapSigningEnabled', 'LdapSigningDisabled'
+	LdapSigning LdapSigning `json:"ldapSigning,omitempty"`
+	// ChannelBinding - A flag to determine whether or not ChannelBinding is enabled or disabled. Possible values include: 'Enabled', 'Disabled'
+	ChannelBinding ChannelBinding `json:"channelBinding,omitempty"`
 }
 
 // DomainService domain service.
@@ -79,6 +115,8 @@ type DomainService struct {
 	Tags map[string]*string `json:"tags"`
 	// Etag - Resource etag
 	Etag *string `json:"etag,omitempty"`
+	// SystemData - READ-ONLY; The system meta data relating to this resource.
+	SystemData *SystemData `json:"systemData,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for DomainService.
@@ -170,6 +208,15 @@ func (ds *DomainService) UnmarshalJSON(body []byte) error {
 					return err
 				}
 				ds.Etag = &etag
+			}
+		case "systemData":
+			if v != nil {
+				var systemData SystemData
+				err = json.Unmarshal(*v, &systemData)
+				if err != nil {
+					return err
+				}
+				ds.SystemData = &systemData
 			}
 		}
 	}
@@ -377,6 +424,8 @@ type DomainServiceProperties struct {
 	MigrationProperties *MigrationProperties `json:"migrationProperties,omitempty"`
 	// ProvisioningState - READ-ONLY; the current deployment or provisioning state, which only appears in the response.
 	ProvisioningState *string `json:"provisioningState,omitempty"`
+	// ConfigDiagnostics - Configuration diagnostics data containing latest execution from client.
+	ConfigDiagnostics *ConfigDiagnostics `json:"configDiagnostics,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for DomainServiceProperties.
@@ -408,6 +457,9 @@ func (dsp DomainServiceProperties) MarshalJSON() ([]byte, error) {
 	}
 	if dsp.NotificationSettings != nil {
 		objectMap["notificationSettings"] = dsp.NotificationSettings
+	}
+	if dsp.ConfigDiagnostics != nil {
+		objectMap["configDiagnostics"] = dsp.ConfigDiagnostics
 	}
 	return json.Marshal(objectMap)
 }
@@ -603,7 +655,7 @@ type LdapsSettings struct {
 	CertificateThumbprint *string `json:"certificateThumbprint,omitempty"`
 	// CertificateNotAfter - READ-ONLY; NotAfter DateTime of configure ldaps certificate.
 	CertificateNotAfter *date.Time `json:"certificateNotAfter,omitempty"`
-	// ExternalAccess - A flag to determine whether or not Secure LDAP access over the internet is enabled or disabled. Possible values include: 'Enabled', 'Disabled'
+	// ExternalAccess - A flag to determine whether or not Secure LDAP access over the internet is enabled or disabled. Possible values include: 'ExternalAccessEnabled', 'ExternalAccessDisabled'
 	ExternalAccess ExternalAccess `json:"externalAccess,omitempty"`
 }
 
@@ -866,6 +918,8 @@ type OuContainer struct {
 	Tags map[string]*string `json:"tags"`
 	// Etag - Resource etag
 	Etag *string `json:"etag,omitempty"`
+	// SystemData - READ-ONLY; The system meta data relating to this resource.
+	SystemData *SystemData `json:"systemData,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for OuContainer.
@@ -957,6 +1011,15 @@ func (oc *OuContainer) UnmarshalJSON(body []byte) error {
 					return err
 				}
 				oc.Etag = &etag
+			}
+		case "systemData":
+			if v != nil {
+				var systemData SystemData
+				err = json.Unmarshal(*v, &systemData)
+				if err != nil {
+					return err
+				}
+				oc.SystemData = &systemData
 			}
 		}
 	}
@@ -1334,6 +1397,8 @@ type Resource struct {
 	Tags map[string]*string `json:"tags"`
 	// Etag - Resource etag
 	Etag *string `json:"etag,omitempty"`
+	// SystemData - READ-ONLY; The system meta data relating to this resource.
+	SystemData *SystemData `json:"systemData,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for Resource.
@@ -1357,4 +1422,20 @@ type ResourceForestSettings struct {
 	Settings *[]ForestTrust `json:"settings,omitempty"`
 	// ResourceForest - Resource Forest
 	ResourceForest *string `json:"resourceForest,omitempty"`
+}
+
+// SystemData metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// CreatedBy - The identity that created the resource.
+	CreatedBy *string `json:"createdBy,omitempty"`
+	// CreatedByType - The type of identity that created the resource. Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+	CreatedByType CreatedByType `json:"createdByType,omitempty"`
+	// CreatedAt - The timestamp of resource creation (UTC).
+	CreatedAt *date.Time `json:"createdAt,omitempty"`
+	// LastModifiedBy - The identity that last modified the resource.
+	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+	// LastModifiedByType - The type of identity that last modified the resource. Possible values include: 'User', 'Application', 'ManagedIdentity', 'Key'
+	LastModifiedByType CreatedByType `json:"lastModifiedByType,omitempty"`
+	// LastModifiedAt - The timestamp of resource last modification (UTC)
+	LastModifiedAt *date.Time `json:"lastModifiedAt,omitempty"`
 }
