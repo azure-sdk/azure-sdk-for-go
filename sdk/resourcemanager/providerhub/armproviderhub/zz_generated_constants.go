@@ -10,8 +10,25 @@ package armproviderhub
 
 const (
 	moduleName    = "armproviderhub"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v2.0.0"
 )
+
+type ExtendedLocationType string
+
+const (
+	ExtendedLocationTypeNotSpecified ExtendedLocationType = "NotSpecified"
+	ExtendedLocationTypeEdgeZone     ExtendedLocationType = "EdgeZone"
+	ExtendedLocationTypeArcZone      ExtendedLocationType = "ArcZone"
+)
+
+// PossibleExtendedLocationTypeValues returns the possible values for the ExtendedLocationType const type.
+func PossibleExtendedLocationTypeValues() []ExtendedLocationType {
+	return []ExtendedLocationType{
+		ExtendedLocationTypeNotSpecified,
+		ExtendedLocationTypeEdgeZone,
+		ExtendedLocationTypeArcZone,
+	}
+}
 
 type ExtensionCategory string
 
@@ -194,6 +211,25 @@ func PossibleManifestResourceDeletionPolicyValues() []ManifestResourceDeletionPo
 	}
 }
 
+type MarketplaceType string
+
+const (
+	MarketplaceTypeNotSpecified MarketplaceType = "NotSpecified"
+	MarketplaceTypeAddOn        MarketplaceType = "AddOn"
+	MarketplaceTypeBypass       MarketplaceType = "Bypass"
+	MarketplaceTypeStore        MarketplaceType = "Store"
+)
+
+// PossibleMarketplaceTypeValues returns the possible values for the MarketplaceType const type.
+func PossibleMarketplaceTypeValues() []MarketplaceType {
+	return []MarketplaceType{
+		MarketplaceTypeNotSpecified,
+		MarketplaceTypeAddOn,
+		MarketplaceTypeBypass,
+		MarketplaceTypeStore,
+	}
+}
+
 type MessageScope string
 
 const (
@@ -226,35 +262,35 @@ func PossibleNotificationModeValues() []NotificationMode {
 	}
 }
 
-type OperationsDefinitionActionType string
+type OperationActionType string
 
 const (
-	OperationsDefinitionActionTypeInternal     OperationsDefinitionActionType = "Internal"
-	OperationsDefinitionActionTypeNotSpecified OperationsDefinitionActionType = "NotSpecified"
+	OperationActionTypeNotSpecified OperationActionType = "NotSpecified"
+	OperationActionTypeInternal     OperationActionType = "Internal"
 )
 
-// PossibleOperationsDefinitionActionTypeValues returns the possible values for the OperationsDefinitionActionType const type.
-func PossibleOperationsDefinitionActionTypeValues() []OperationsDefinitionActionType {
-	return []OperationsDefinitionActionType{
-		OperationsDefinitionActionTypeInternal,
-		OperationsDefinitionActionTypeNotSpecified,
+// PossibleOperationActionTypeValues returns the possible values for the OperationActionType const type.
+func PossibleOperationActionTypeValues() []OperationActionType {
+	return []OperationActionType{
+		OperationActionTypeNotSpecified,
+		OperationActionTypeInternal,
 	}
 }
 
-type OperationsDefinitionOrigin string
+type OperationOrigins string
 
 const (
-	OperationsDefinitionOriginNotSpecified OperationsDefinitionOrigin = "NotSpecified"
-	OperationsDefinitionOriginSystem       OperationsDefinitionOrigin = "System"
-	OperationsDefinitionOriginUser         OperationsDefinitionOrigin = "User"
+	OperationOriginsNotSpecified OperationOrigins = "NotSpecified"
+	OperationOriginsUser         OperationOrigins = "User"
+	OperationOriginsSystem       OperationOrigins = "System"
 )
 
-// PossibleOperationsDefinitionOriginValues returns the possible values for the OperationsDefinitionOrigin const type.
-func PossibleOperationsDefinitionOriginValues() []OperationsDefinitionOrigin {
-	return []OperationsDefinitionOrigin{
-		OperationsDefinitionOriginNotSpecified,
-		OperationsDefinitionOriginSystem,
-		OperationsDefinitionOriginUser,
+// PossibleOperationOriginsValues returns the possible values for the OperationOrigins const type.
+func PossibleOperationOriginsValues() []OperationOrigins {
+	return []OperationOrigins{
+		OperationOriginsNotSpecified,
+		OperationOriginsUser,
+		OperationOriginsSystem,
 	}
 }
 
@@ -350,6 +386,23 @@ func PossibleRegionalityValues() []Regionality {
 	}
 }
 
+type ResourceAccessPolicy string
+
+const (
+	ResourceAccessPolicyNotSpecified      ResourceAccessPolicy = "NotSpecified"
+	ResourceAccessPolicyAcisReadAllowed   ResourceAccessPolicy = "AcisReadAllowed"
+	ResourceAccessPolicyAcisActionAllowed ResourceAccessPolicy = "AcisActionAllowed"
+)
+
+// PossibleResourceAccessPolicyValues returns the possible values for the ResourceAccessPolicy const type.
+func PossibleResourceAccessPolicyValues() []ResourceAccessPolicy {
+	return []ResourceAccessPolicy{
+		ResourceAccessPolicyNotSpecified,
+		ResourceAccessPolicyAcisReadAllowed,
+		ResourceAccessPolicyAcisActionAllowed,
+	}
+}
+
 type ResourceDeletionPolicy string
 
 const (
@@ -384,23 +437,6 @@ func PossibleResourceProviderCapabilitiesEffectValues() []ResourceProviderCapabi
 	}
 }
 
-type ResourceProviderManagementResourceAccessPolicy string
-
-const (
-	ResourceProviderManagementResourceAccessPolicyAcisActionAllowed ResourceProviderManagementResourceAccessPolicy = "AcisActionAllowed"
-	ResourceProviderManagementResourceAccessPolicyAcisReadAllowed   ResourceProviderManagementResourceAccessPolicy = "AcisReadAllowed"
-	ResourceProviderManagementResourceAccessPolicyNotSpecified      ResourceProviderManagementResourceAccessPolicy = "NotSpecified"
-)
-
-// PossibleResourceProviderManagementResourceAccessPolicyValues returns the possible values for the ResourceProviderManagementResourceAccessPolicy const type.
-func PossibleResourceProviderManagementResourceAccessPolicyValues() []ResourceProviderManagementResourceAccessPolicy {
-	return []ResourceProviderManagementResourceAccessPolicy{
-		ResourceProviderManagementResourceAccessPolicyAcisActionAllowed,
-		ResourceProviderManagementResourceAccessPolicyAcisReadAllowed,
-		ResourceProviderManagementResourceAccessPolicyNotSpecified,
-	}
-}
-
 type ResourceProviderType string
 
 const (
@@ -425,44 +461,6 @@ func PossibleResourceProviderTypeValues() []ResourceProviderType {
 		ResourceProviderTypeNotSpecified,
 		ResourceProviderTypeRegistrationFree,
 		ResourceProviderTypeTenantOnly,
-	}
-}
-
-type ResourceTypeMarketplaceType string
-
-const (
-	ResourceTypeMarketplaceTypeAddOn        ResourceTypeMarketplaceType = "AddOn"
-	ResourceTypeMarketplaceTypeBypass       ResourceTypeMarketplaceType = "Bypass"
-	ResourceTypeMarketplaceTypeNotSpecified ResourceTypeMarketplaceType = "NotSpecified"
-	ResourceTypeMarketplaceTypeStore        ResourceTypeMarketplaceType = "Store"
-)
-
-// PossibleResourceTypeMarketplaceTypeValues returns the possible values for the ResourceTypeMarketplaceType const type.
-func PossibleResourceTypeMarketplaceTypeValues() []ResourceTypeMarketplaceType {
-	return []ResourceTypeMarketplaceType{
-		ResourceTypeMarketplaceTypeAddOn,
-		ResourceTypeMarketplaceTypeBypass,
-		ResourceTypeMarketplaceTypeNotSpecified,
-		ResourceTypeMarketplaceTypeStore,
-	}
-}
-
-type ResourceTypeRegistrationPropertiesMarketplaceType string
-
-const (
-	ResourceTypeRegistrationPropertiesMarketplaceTypeAddOn        ResourceTypeRegistrationPropertiesMarketplaceType = "AddOn"
-	ResourceTypeRegistrationPropertiesMarketplaceTypeBypass       ResourceTypeRegistrationPropertiesMarketplaceType = "Bypass"
-	ResourceTypeRegistrationPropertiesMarketplaceTypeNotSpecified ResourceTypeRegistrationPropertiesMarketplaceType = "NotSpecified"
-	ResourceTypeRegistrationPropertiesMarketplaceTypeStore        ResourceTypeRegistrationPropertiesMarketplaceType = "Store"
-)
-
-// PossibleResourceTypeRegistrationPropertiesMarketplaceTypeValues returns the possible values for the ResourceTypeRegistrationPropertiesMarketplaceType const type.
-func PossibleResourceTypeRegistrationPropertiesMarketplaceTypeValues() []ResourceTypeRegistrationPropertiesMarketplaceType {
-	return []ResourceTypeRegistrationPropertiesMarketplaceType{
-		ResourceTypeRegistrationPropertiesMarketplaceTypeAddOn,
-		ResourceTypeRegistrationPropertiesMarketplaceTypeBypass,
-		ResourceTypeRegistrationPropertiesMarketplaceTypeNotSpecified,
-		ResourceTypeRegistrationPropertiesMarketplaceTypeStore,
 	}
 }
 
@@ -509,23 +507,6 @@ func PossibleRoutingTypeValues() []RoutingType {
 		RoutingTypeLocationBased,
 		RoutingTypeProxyOnly,
 		RoutingTypeTenant,
-	}
-}
-
-type SKULocationInfoType string
-
-const (
-	SKULocationInfoTypeArcZone      SKULocationInfoType = "ArcZone"
-	SKULocationInfoTypeEdgeZone     SKULocationInfoType = "EdgeZone"
-	SKULocationInfoTypeNotSpecified SKULocationInfoType = "NotSpecified"
-)
-
-// PossibleSKULocationInfoTypeValues returns the possible values for the SKULocationInfoType const type.
-func PossibleSKULocationInfoTypeValues() []SKULocationInfoType {
-	return []SKULocationInfoType{
-		SKULocationInfoTypeArcZone,
-		SKULocationInfoTypeEdgeZone,
-		SKULocationInfoTypeNotSpecified,
 	}
 }
 
