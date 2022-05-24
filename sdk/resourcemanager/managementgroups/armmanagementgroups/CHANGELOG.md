@@ -1,5 +1,34 @@
 # Release History
 
+## 2.0.0 (2022-05-24)
+### Breaking Changes
+
+- Type of `EntityInfoProperties.InheritedPermissions` has been changed from `*Permissions` to `*PermissionsType`
+- Type of `EntityInfoProperties.Permissions` has been changed from `*Permissions` to `*PermissionsType`
+- Type of `CreateManagementGroupChildInfo.Type` has been changed from `*ManagementGroupChildType` to `*ChildType`
+- Type of `ManagementGroupChildInfo.Type` has been changed from `*ManagementGroupChildType` to `*ChildType`
+- Type of `EntityHierarchyItemProperties.Permissions` has been changed from `*Permissions` to `*PermissionsType`
+- Const `PermissionsEdit` has been removed
+- Const `PermissionsView` has been removed
+- Const `PermissionsNoaccess` has been removed
+- Const `ManagementGroupChildTypeSubscriptions` has been removed
+- Const `PermissionsDelete` has been removed
+- Const `ManagementGroupChildTypeMicrosoftManagementManagementGroups` has been removed
+- Function `PossiblePermissionsValues` has been removed
+- Function `PossibleManagementGroupChildTypeValues` has been removed
+
+### Features Added
+
+- New const `PermissionsTypeDelete`
+- New const `ChildTypeMicrosoftManagementManagementGroups`
+- New const `ChildTypeSubscriptions`
+- New const `PermissionsTypeEdit`
+- New const `PermissionsTypeNoaccess`
+- New const `PermissionsTypeView`
+- New function `PossibleChildTypeValues() []ChildType`
+- New function `PossiblePermissionsTypeValues() []PermissionsType`
+
+
 ## 1.0.0 (2022-05-18)
 ### Breaking Changes
 

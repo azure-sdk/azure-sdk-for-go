@@ -141,7 +141,7 @@ type CreateManagementGroupChildInfo struct {
 	Name *string `json:"name,omitempty" azure:"ro"`
 
 	// READ-ONLY; The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups)
-	Type *ManagementGroupChildType `json:"type,omitempty" azure:"ro"`
+	Type *ChildType `json:"type,omitempty" azure:"ro"`
 }
 
 // CreateManagementGroupDetails - The details of a management group used during creation.
@@ -324,7 +324,7 @@ type EntityHierarchyItemProperties struct {
 	DisplayName *string `json:"displayName,omitempty"`
 
 	// The users specific permissions to this item.
-	Permissions *Permissions `json:"permissions,omitempty"`
+	Permissions *PermissionsType `json:"permissions,omitempty"`
 }
 
 // EntityInfo - The entity.
@@ -348,7 +348,7 @@ type EntityInfoProperties struct {
 	DisplayName *string `json:"displayName,omitempty"`
 
 	// The users specific permissions to this item.
-	InheritedPermissions *Permissions `json:"inheritedPermissions,omitempty"`
+	InheritedPermissions *PermissionsType `json:"inheritedPermissions,omitempty"`
 
 	// Number of children is the number of Groups that are exactly one level underneath the current Group.
 	NumberOfChildGroups *int32 `json:"numberOfChildGroups,omitempty"`
@@ -369,7 +369,7 @@ type EntityInfoProperties struct {
 	ParentNameChain []*string `json:"parentNameChain,omitempty"`
 
 	// The users specific permissions to this item.
-	Permissions *Permissions `json:"permissions,omitempty"`
+	Permissions *PermissionsType `json:"permissions,omitempty"`
 
 	// The AAD Tenant ID associated with the entity. For example, 00000000-0000-0000-0000-000000000000
 	TenantID *string `json:"tenantId,omitempty"`
@@ -530,7 +530,7 @@ type ManagementGroupChildInfo struct {
 	Name *string `json:"name,omitempty"`
 
 	// The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups)
-	Type *ManagementGroupChildType `json:"type,omitempty"`
+	Type *ChildType `json:"type,omitempty"`
 }
 
 // ManagementGroupDetails - The details of a management group.

@@ -10,8 +10,24 @@ package armmanagementgroups
 
 const (
 	moduleName    = "armmanagementgroups"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v2.0.0"
 )
+
+// ChildType - The type of child resource.
+type ChildType string
+
+const (
+	ChildTypeMicrosoftManagementManagementGroups ChildType = "Microsoft.Management/managementGroups"
+	ChildTypeSubscriptions                       ChildType = "/subscriptions"
+)
+
+// PossibleChildTypeValues returns the possible values for the ChildType const type.
+func PossibleChildTypeValues() []ChildType {
+	return []ChildType{
+		ChildTypeMicrosoftManagementManagementGroups,
+		ChildTypeSubscriptions,
+	}
+}
 
 type EntitySearchType string
 
@@ -53,22 +69,6 @@ func PossibleEntityViewParameterTypeValues() []EntityViewParameterType {
 	}
 }
 
-// ManagementGroupChildType - The type of child resource.
-type ManagementGroupChildType string
-
-const (
-	ManagementGroupChildTypeMicrosoftManagementManagementGroups ManagementGroupChildType = "Microsoft.Management/managementGroups"
-	ManagementGroupChildTypeSubscriptions                       ManagementGroupChildType = "/subscriptions"
-)
-
-// PossibleManagementGroupChildTypeValues returns the possible values for the ManagementGroupChildType const type.
-func PossibleManagementGroupChildTypeValues() []ManagementGroupChildType {
-	return []ManagementGroupChildType{
-		ManagementGroupChildTypeMicrosoftManagementManagementGroups,
-		ManagementGroupChildTypeSubscriptions,
-	}
-}
-
 type ManagementGroupExpandType string
 
 const (
@@ -86,23 +86,23 @@ func PossibleManagementGroupExpandTypeValues() []ManagementGroupExpandType {
 	}
 }
 
-// Permissions - The users specific permissions to this item.
-type Permissions string
+// PermissionsType - The users specific permissions to this item.
+type PermissionsType string
 
 const (
-	PermissionsDelete   Permissions = "delete"
-	PermissionsEdit     Permissions = "edit"
-	PermissionsNoaccess Permissions = "noaccess"
-	PermissionsView     Permissions = "view"
+	PermissionsTypeDelete   PermissionsType = "delete"
+	PermissionsTypeEdit     PermissionsType = "edit"
+	PermissionsTypeNoaccess PermissionsType = "noaccess"
+	PermissionsTypeView     PermissionsType = "view"
 )
 
-// PossiblePermissionsValues returns the possible values for the Permissions const type.
-func PossiblePermissionsValues() []Permissions {
-	return []Permissions{
-		PermissionsDelete,
-		PermissionsEdit,
-		PermissionsNoaccess,
-		PermissionsView,
+// PossiblePermissionsTypeValues returns the possible values for the PermissionsType const type.
+func PossiblePermissionsTypeValues() []PermissionsType {
+	return []PermissionsType{
+		PermissionsTypeDelete,
+		PermissionsTypeEdit,
+		PermissionsTypeNoaccess,
+		PermissionsTypeView,
 	}
 }
 
