@@ -1,5 +1,30 @@
 # Release History
 
+## 1.1.0 (2022-05-25)
+### Features Added
+
+- New const `PrivateEndpointConnectionProvisioningStateCancelled`
+- New const `PrivateEndpointConnectionProvisioningStateDeleting`
+- New const `EndpointAccessDefaultActionDeny`
+- New const `EndpointAccessDefaultActionAllow`
+- New const `PrivateEndpointConnectionProvisioningStateCreating`
+- New function `*PrivateEndpointConnectionClient.BeginDelete(context.Context, string, string, string, *PrivateEndpointConnectionClientBeginDeleteOptions) (*runtime.Poller[PrivateEndpointConnectionClientDeleteResponse], error)`
+- New function `PossibleEndpointAccessDefaultActionValues() []EndpointAccessDefaultAction`
+- New function `EndpointAccessProfile.MarshalJSON() ([]byte, error)`
+- New function `PrivateEndpointConnectionProperties.MarshalJSON() ([]byte, error)`
+- New struct `EndpointAccessProfile`
+- New struct `IPRule`
+- New struct `NetworkProfile`
+- New struct `PrivateEndpointConnectionClientBeginDeleteOptions`
+- New struct `PrivateEndpointConnectionClientDeleteResponse`
+- New field `NetworkProfile` in struct `AccountProperties`
+- New field `NodeManagementEndpoint` in struct `AccountProperties`
+- New field `NetworkProfile` in struct `AccountCreateProperties`
+- New field `GroupIDs` in struct `PrivateEndpointConnectionProperties`
+- New field `NetworkProfile` in struct `AccountUpdateProperties`
+- New field `PublicNetworkAccess` in struct `AccountUpdateProperties`
+
+
 ## 1.0.0 (2022-05-17)
 ### Breaking Changes
 
