@@ -73,9 +73,7 @@ func (client *GatewayRouteConfigsClient) BeginCreateOrUpdate(ctx context.Context
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[GatewayRouteConfigsClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[GatewayRouteConfigsClientCreateOrUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[GatewayRouteConfigsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -150,9 +148,7 @@ func (client *GatewayRouteConfigsClient) BeginDelete(ctx context.Context, resour
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[GatewayRouteConfigsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[GatewayRouteConfigsClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[GatewayRouteConfigsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}

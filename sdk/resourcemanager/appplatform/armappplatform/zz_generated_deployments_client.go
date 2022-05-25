@@ -72,9 +72,7 @@ func (client *DeploymentsClient) BeginCreateOrUpdate(ctx context.Context, resour
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientCreateOrUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -147,9 +145,7 @@ func (client *DeploymentsClient) BeginDelete(ctx context.Context, resourceGroupN
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -224,9 +220,7 @@ func (client *DeploymentsClient) BeginGenerateHeapDump(ctx context.Context, reso
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientGenerateHeapDumpResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientGenerateHeapDumpResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientGenerateHeapDumpResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -301,9 +295,7 @@ func (client *DeploymentsClient) BeginGenerateThreadDump(ctx context.Context, re
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientGenerateThreadDumpResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientGenerateThreadDumpResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientGenerateThreadDumpResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -668,9 +660,7 @@ func (client *DeploymentsClient) BeginRestart(ctx context.Context, resourceGroup
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientRestartResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientRestartResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientRestartResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -743,9 +733,7 @@ func (client *DeploymentsClient) BeginStart(ctx context.Context, resourceGroupNa
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientStartResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientStartResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientStartResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -820,9 +808,7 @@ func (client *DeploymentsClient) BeginStartJFR(ctx context.Context, resourceGrou
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientStartJFRResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientStartJFRResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientStartJFRResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -895,9 +881,7 @@ func (client *DeploymentsClient) BeginStop(ctx context.Context, resourceGroupNam
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientStopResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientStopResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientStopResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -971,9 +955,7 @@ func (client *DeploymentsClient) BeginUpdate(ctx context.Context, resourceGroupN
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[DeploymentsClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DeploymentsClientUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DeploymentsClientUpdateResponse](options.ResumeToken, client.pl, nil)
 	}

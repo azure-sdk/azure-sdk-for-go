@@ -72,9 +72,7 @@ func (client *APIPortalCustomDomainsClient) BeginCreateOrUpdate(ctx context.Cont
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[APIPortalCustomDomainsClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[APIPortalCustomDomainsClientCreateOrUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[APIPortalCustomDomainsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -148,9 +146,7 @@ func (client *APIPortalCustomDomainsClient) BeginDelete(ctx context.Context, res
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[APIPortalCustomDomainsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[APIPortalCustomDomainsClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[APIPortalCustomDomainsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
