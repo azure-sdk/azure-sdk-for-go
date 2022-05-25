@@ -47,6 +47,13 @@ type DirectLineClientAPI interface {
 
 var _ DirectLineClientAPI = (*botservice.DirectLineClient)(nil)
 
+// EmailClientAPI contains the set of methods on the EmailClient type.
+type EmailClientAPI interface {
+	CreateSignInURL(ctx context.Context, resourceGroupName string, resourceName string) (result botservice.CreateEmailSignInURLResponse, err error)
+}
+
+var _ EmailClientAPI = (*botservice.EmailClient)(nil)
+
 // OperationsClientAPI contains the set of methods on the OperationsClient type.
 type OperationsClientAPI interface {
 	List(ctx context.Context) (result botservice.OperationEntityListResultPage, err error)
