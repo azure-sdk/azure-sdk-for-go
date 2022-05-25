@@ -10,7 +10,7 @@ package armorbital
 
 const (
 	moduleName    = "armorbital"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.0.1"
 )
 
 type APIVersionParameter string
