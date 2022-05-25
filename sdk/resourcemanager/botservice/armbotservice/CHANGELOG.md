@@ -1,5 +1,23 @@
 # Release History
 
+## 0.6.0 (2022-05-25)
+### Features Added
+
+- New const `EmailChannelAuthMethodGraph`
+- New const `EmailChannelAuthMethodPassword`
+- New function `*OutlookChannel.GetChannel() *Channel`
+- New function `OutlookChannel.MarshalJSON() ([]byte, error)`
+- New function `PossibleEmailChannelAuthMethodValues() []EmailChannelAuthMethod`
+- New function `*OutlookChannel.UnmarshalJSON([]byte) error`
+- New struct `CreateEmailSignInURLResponse`
+- New struct `CreateEmailSignInURLResponseProperties`
+- New struct `EmailClientCreateSignInURLOptions`
+- New struct `EmailClientCreateSignInURLResponse`
+- New struct `OutlookChannel`
+- New field `AuthMethod` in struct `EmailChannelProperties`
+- New field `MagicCode` in struct `EmailChannelProperties`
+
+
 ## 0.5.0 (2022-05-17)
 ### Breaking Changes
 
