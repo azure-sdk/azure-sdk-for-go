@@ -1,5 +1,50 @@
 # Release History
 
+## 0.7.0 (2022-05-25)
+### Features Added
+
+- New const `AdvancedThreatProtectionStateEnabled`
+- New const `AdvancedThreatProtectionStateNew`
+- New const `AdvancedThreatProtectionNameDefault`
+- New const `AdvancedThreatProtectionStateDisabled`
+- New function `PossibleAdvancedThreatProtectionNameValues() []AdvancedThreatProtectionName`
+- New function `AdvancedThreatProtectionProperties.MarshalJSON() ([]byte, error)`
+- New function `*AdvancedThreatProtectionProperties.UnmarshalJSON([]byte) error`
+- New function `PossibleAdvancedThreatProtectionStateValues() []AdvancedThreatProtectionState`
+- New struct `AdvancedThreatProtectionProperties`
+- New struct `DatabaseAdvancedThreatProtection`
+- New struct `DatabaseAdvancedThreatProtectionListResult`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientCreateOrUpdateOptions`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientGetOptions`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientGetResponse`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientListByDatabaseOptions`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientListByDatabaseResponse`
+- New struct `LogicalServerAdvancedThreatProtectionListResult`
+- New struct `ManagedServerDNSAlias`
+- New struct `ManagedServerDNSAliasAcquisition`
+- New struct `ManagedServerDNSAliasCreation`
+- New struct `ManagedServerDNSAliasListResult`
+- New struct `ManagedServerDNSAliasProperties`
+- New struct `ManagedServerDNSAliasesClientAcquireResponse`
+- New struct `ManagedServerDNSAliasesClientBeginAcquireOptions`
+- New struct `ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions`
+- New struct `ManagedServerDNSAliasesClientBeginDeleteOptions`
+- New struct `ManagedServerDNSAliasesClientCreateOrUpdateResponse`
+- New struct `ManagedServerDNSAliasesClientDeleteResponse`
+- New struct `ManagedServerDNSAliasesClientGetOptions`
+- New struct `ManagedServerDNSAliasesClientGetResponse`
+- New struct `ManagedServerDNSAliasesClientListByManagedInstanceOptions`
+- New struct `ManagedServerDNSAliasesClientListByManagedInstanceResponse`
+- New struct `ServerAdvancedThreatProtection`
+- New struct `ServerAdvancedThreatProtectionSettingsClientBeginCreateOrUpdateOptions`
+- New struct `ServerAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse`
+- New struct `ServerAdvancedThreatProtectionSettingsClientGetOptions`
+- New struct `ServerAdvancedThreatProtectionSettingsClientGetResponse`
+- New struct `ServerAdvancedThreatProtectionSettingsClientListByServerOptions`
+- New struct `ServerAdvancedThreatProtectionSettingsClientListByServerResponse`
+
+
 ## 0.6.0 (2022-05-17)
 ### Breaking Changes
 

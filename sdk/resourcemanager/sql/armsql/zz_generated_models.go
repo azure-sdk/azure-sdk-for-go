@@ -37,6 +37,16 @@ type AdministratorProperties struct {
 	AzureADOnlyAuthentication *bool `json:"azureADOnlyAuthentication,omitempty" azure:"ro"`
 }
 
+// AdvancedThreatProtectionProperties - Properties of an Advanced Threat Protection state.
+type AdvancedThreatProtectionProperties struct {
+	// REQUIRED; Specifies the state of the Advanced Threat Protection, whether it is enabled or disabled or a state has not been
+	// applied yet on the specific database or server.
+	State *AdvancedThreatProtectionState `json:"state,omitempty"`
+
+	// READ-ONLY; Specifies the UTC creation time of the policy.
+	CreationTime *time.Time `json:"creationTime,omitempty" azure:"ro"`
+}
+
 // Advisor - Database, Server or Elastic Pool Advisor.
 type Advisor struct {
 	// Resource properties.
@@ -559,6 +569,51 @@ type Database struct {
 
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// DatabaseAdvancedThreatProtection - A database Advanced Threat Protection.
+type DatabaseAdvancedThreatProtection struct {
+	// Resource properties.
+	Properties *AdvancedThreatProtectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; SystemData of AdvancedThreatProtectionResource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// DatabaseAdvancedThreatProtectionListResult - A list of the database's Advanced Threat Protection configurations.
+type DatabaseAdvancedThreatProtectionListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*DatabaseAdvancedThreatProtection `json:"value,omitempty" azure:"ro"`
+}
+
+// DatabaseAdvancedThreatProtectionSettingsClientCreateOrUpdateOptions contains the optional parameters for the DatabaseAdvancedThreatProtectionSettingsClient.CreateOrUpdate
+// method.
+type DatabaseAdvancedThreatProtectionSettingsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DatabaseAdvancedThreatProtectionSettingsClientGetOptions contains the optional parameters for the DatabaseAdvancedThreatProtectionSettingsClient.Get
+// method.
+type DatabaseAdvancedThreatProtectionSettingsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DatabaseAdvancedThreatProtectionSettingsClientListByDatabaseOptions contains the optional parameters for the DatabaseAdvancedThreatProtectionSettingsClient.ListByDatabase
+// method.
+type DatabaseAdvancedThreatProtectionSettingsClientListByDatabaseOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DatabaseAdvisorsClientGetOptions contains the optional parameters for the DatabaseAdvisorsClient.Get method.
@@ -4242,6 +4297,15 @@ type LogicalDatabaseTransparentDataEncryptionListResult struct {
 	Value []*LogicalDatabaseTransparentDataEncryption `json:"value,omitempty" azure:"ro"`
 }
 
+// LogicalServerAdvancedThreatProtectionListResult - A list of the server's Advanced Threat Protection configurations.
+type LogicalServerAdvancedThreatProtectionListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*ServerAdvancedThreatProtection `json:"value,omitempty" azure:"ro"`
+}
+
 // LogicalServerSecurityAlertPolicyListResult - A list of the server's security alert policies.
 type LogicalServerSecurityAlertPolicyListResult struct {
 	// READ-ONLY; Link to retrieve next page of results.
@@ -6273,6 +6337,83 @@ type ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientListB
 	// placeholder for future optional parameters
 }
 
+// ManagedServerDNSAlias - A managed server DNS alias.
+type ManagedServerDNSAlias struct {
+	// Resource properties.
+	Properties *ManagedServerDNSAliasProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasAcquisition - A managed server DNS alias acquisition request.
+type ManagedServerDNSAliasAcquisition struct {
+	// REQUIRED; The resource ID of the managed server DNS alias that will be acquired to point to this managed server instead.
+	OldManagedServerDNSAliasResourceID *string `json:"oldManagedServerDnsAliasResourceId,omitempty"`
+}
+
+// ManagedServerDNSAliasCreation - A managed server dns alias creation request.
+type ManagedServerDNSAliasCreation struct {
+	// Whether or not DNS record should be created for this alias.
+	CreateDNSRecord *bool `json:"createDnsRecord,omitempty"`
+}
+
+// ManagedServerDNSAliasListResult - A list of managed server DNS aliases.
+type ManagedServerDNSAliasListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*ManagedServerDNSAlias `json:"value,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasProperties - Properties of a managed server DNS alias.
+type ManagedServerDNSAliasProperties struct {
+	// READ-ONLY; The fully qualified DNS record for managed server alias
+	AzureDNSRecord *string `json:"azureDnsRecord,omitempty" azure:"ro"`
+
+	// READ-ONLY; The fully qualified public DNS record for managed server alias
+	PublicAzureDNSRecord *string `json:"publicAzureDnsRecord,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasesClientBeginAcquireOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginAcquire
+// method.
+type ManagedServerDNSAliasesClientBeginAcquireOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginCreateOrUpdate
+// method.
+type ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientBeginDeleteOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginDelete
+// method.
+type ManagedServerDNSAliasesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientGetOptions contains the optional parameters for the ManagedServerDNSAliasesClient.Get method.
+type ManagedServerDNSAliasesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedServerDNSAliasesClientListByManagedInstanceOptions contains the optional parameters for the ManagedServerDNSAliasesClient.ListByManagedInstance
+// method.
+type ManagedServerDNSAliasesClientListByManagedInstanceOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedServerSecurityAlertPoliciesClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedServerSecurityAlertPoliciesClient.BeginCreateOrUpdate
 // method.
 type ManagedServerSecurityAlertPoliciesClientBeginCreateOrUpdateOptions struct {
@@ -7874,6 +8015,43 @@ type Server struct {
 
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ServerAdvancedThreatProtection - A server Advanced Threat Protection.
+type ServerAdvancedThreatProtection struct {
+	// Resource properties.
+	Properties *AdvancedThreatProtectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; SystemData of AdvancedThreatProtectionResource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ServerAdvancedThreatProtectionSettingsClientBeginCreateOrUpdateOptions contains the optional parameters for the ServerAdvancedThreatProtectionSettingsClient.BeginCreateOrUpdate
+// method.
+type ServerAdvancedThreatProtectionSettingsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServerAdvancedThreatProtectionSettingsClientGetOptions contains the optional parameters for the ServerAdvancedThreatProtectionSettingsClient.Get
+// method.
+type ServerAdvancedThreatProtectionSettingsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ServerAdvancedThreatProtectionSettingsClientListByServerOptions contains the optional parameters for the ServerAdvancedThreatProtectionSettingsClient.ListByServer
+// method.
+type ServerAdvancedThreatProtectionSettingsClientListByServerOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ServerAdvisorsClientGetOptions contains the optional parameters for the ServerAdvisorsClient.Get method.
