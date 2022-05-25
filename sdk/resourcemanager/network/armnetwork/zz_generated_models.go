@@ -1339,6 +1339,9 @@ type ApplicationGatewayRoutingRule struct {
 
 // ApplicationGatewayRoutingRulePropertiesFormat - Properties of routing rule of the application gateway.
 type ApplicationGatewayRoutingRulePropertiesFormat struct {
+	// REQUIRED; Priority of the routing rule.
+	Priority *int32 `json:"priority,omitempty"`
+
 	// Backend address pool resource of the application gateway.
 	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
 
