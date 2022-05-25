@@ -564,12 +564,12 @@ type OperationsDefinition struct {
 	Display *OperationsDefinitionDisplay `json:"display,omitempty"`
 
 	// REQUIRED; Name of the operation.
-	Name       *string                         `json:"name,omitempty"`
-	ActionType *OperationsDefinitionActionType `json:"actionType,omitempty"`
+	Name       *string              `json:"name,omitempty"`
+	ActionType *OperationActionType `json:"actionType,omitempty"`
 
 	// Indicates whether the operation applies to data-plane.
-	IsDataAction *bool                       `json:"isDataAction,omitempty"`
-	Origin       *OperationsDefinitionOrigin `json:"origin,omitempty"`
+	IsDataAction *bool             `json:"isDataAction,omitempty"`
+	Origin       *OperationOrigins `json:"origin,omitempty"`
 
 	// Anything
 	Properties interface{} `json:"properties,omitempty"`
@@ -790,14 +790,14 @@ type ResourceProviderEndpointFeaturesRule struct {
 }
 
 type ResourceProviderManagement struct {
-	IncidentContactEmail   *string                                         `json:"incidentContactEmail,omitempty"`
-	IncidentRoutingService *string                                         `json:"incidentRoutingService,omitempty"`
-	IncidentRoutingTeam    *string                                         `json:"incidentRoutingTeam,omitempty"`
-	ManifestOwners         []*string                                       `json:"manifestOwners,omitempty"`
-	ResourceAccessPolicy   *ResourceProviderManagementResourceAccessPolicy `json:"resourceAccessPolicy,omitempty"`
-	ResourceAccessRoles    []interface{}                                   `json:"resourceAccessRoles,omitempty"`
-	SchemaOwners           []*string                                       `json:"schemaOwners,omitempty"`
-	ServiceTreeInfos       []*ServiceTreeInfo                              `json:"serviceTreeInfos,omitempty"`
+	IncidentContactEmail   *string               `json:"incidentContactEmail,omitempty"`
+	IncidentRoutingService *string               `json:"incidentRoutingService,omitempty"`
+	IncidentRoutingTeam    *string               `json:"incidentRoutingTeam,omitempty"`
+	ManifestOwners         []*string             `json:"manifestOwners,omitempty"`
+	ResourceAccessPolicy   *ResourceAccessPolicy `json:"resourceAccessPolicy,omitempty"`
+	ResourceAccessRoles    []interface{}         `json:"resourceAccessRoles,omitempty"`
+	SchemaOwners           []*string             `json:"schemaOwners,omitempty"`
+	ServiceTreeInfos       []*ServiceTreeInfo    `json:"serviceTreeInfos,omitempty"`
 }
 
 type ResourceProviderManifest struct {
@@ -825,14 +825,14 @@ type ResourceProviderManifestFeaturesRule struct {
 }
 
 type ResourceProviderManifestManagement struct {
-	IncidentContactEmail   *string                                         `json:"incidentContactEmail,omitempty"`
-	IncidentRoutingService *string                                         `json:"incidentRoutingService,omitempty"`
-	IncidentRoutingTeam    *string                                         `json:"incidentRoutingTeam,omitempty"`
-	ManifestOwners         []*string                                       `json:"manifestOwners,omitempty"`
-	ResourceAccessPolicy   *ResourceProviderManagementResourceAccessPolicy `json:"resourceAccessPolicy,omitempty"`
-	ResourceAccessRoles    []interface{}                                   `json:"resourceAccessRoles,omitempty"`
-	SchemaOwners           []*string                                       `json:"schemaOwners,omitempty"`
-	ServiceTreeInfos       []*ServiceTreeInfo                              `json:"serviceTreeInfos,omitempty"`
+	IncidentContactEmail   *string               `json:"incidentContactEmail,omitempty"`
+	IncidentRoutingService *string               `json:"incidentRoutingService,omitempty"`
+	IncidentRoutingTeam    *string               `json:"incidentRoutingTeam,omitempty"`
+	ManifestOwners         []*string             `json:"manifestOwners,omitempty"`
+	ResourceAccessPolicy   *ResourceAccessPolicy `json:"resourceAccessPolicy,omitempty"`
+	ResourceAccessRoles    []interface{}         `json:"resourceAccessRoles,omitempty"`
+	SchemaOwners           []*string             `json:"schemaOwners,omitempty"`
+	ServiceTreeInfos       []*ServiceTreeInfo    `json:"serviceTreeInfos,omitempty"`
 }
 
 type ResourceProviderManifestProperties struct {
@@ -858,14 +858,14 @@ type ResourceProviderManifestPropertiesFeaturesRule struct {
 }
 
 type ResourceProviderManifestPropertiesManagement struct {
-	IncidentContactEmail   *string                                         `json:"incidentContactEmail,omitempty"`
-	IncidentRoutingService *string                                         `json:"incidentRoutingService,omitempty"`
-	IncidentRoutingTeam    *string                                         `json:"incidentRoutingTeam,omitempty"`
-	ManifestOwners         []*string                                       `json:"manifestOwners,omitempty"`
-	ResourceAccessPolicy   *ResourceProviderManagementResourceAccessPolicy `json:"resourceAccessPolicy,omitempty"`
-	ResourceAccessRoles    []interface{}                                   `json:"resourceAccessRoles,omitempty"`
-	SchemaOwners           []*string                                       `json:"schemaOwners,omitempty"`
-	ServiceTreeInfos       []*ServiceTreeInfo                              `json:"serviceTreeInfos,omitempty"`
+	IncidentContactEmail   *string               `json:"incidentContactEmail,omitempty"`
+	IncidentRoutingService *string               `json:"incidentRoutingService,omitempty"`
+	IncidentRoutingTeam    *string               `json:"incidentRoutingTeam,omitempty"`
+	ManifestOwners         []*string             `json:"manifestOwners,omitempty"`
+	ResourceAccessPolicy   *ResourceAccessPolicy `json:"resourceAccessPolicy,omitempty"`
+	ResourceAccessRoles    []interface{}         `json:"resourceAccessRoles,omitempty"`
+	SchemaOwners           []*string             `json:"schemaOwners,omitempty"`
+	ServiceTreeInfos       []*ServiceTreeInfo    `json:"serviceTreeInfos,omitempty"`
 }
 
 type ResourceProviderManifestPropertiesProviderAuthentication struct {
@@ -909,7 +909,7 @@ type ResourceType struct {
 	LinkedAccessChecks          []*LinkedAccessCheck            `json:"linkedAccessChecks,omitempty"`
 	LinkedOperationRules        []*LinkedOperationRule          `json:"linkedOperationRules,omitempty"`
 	LoggingRules                []*LoggingRule                  `json:"loggingRules,omitempty"`
-	MarketplaceType             *ResourceTypeMarketplaceType    `json:"marketplaceType,omitempty"`
+	MarketplaceType             *MarketplaceType                `json:"marketplaceType,omitempty"`
 
 	// Anything
 	Metadata                 interface{}                           `json:"metadata,omitempty"`
@@ -1000,7 +1000,7 @@ type ResourceTypeRegistrationProperties struct {
 	IsPureProxy                                     *bool                                                                              `json:"isPureProxy,omitempty"`
 	LinkedAccessChecks                              []*LinkedAccessCheck                                                               `json:"linkedAccessChecks,omitempty"`
 	LoggingRules                                    []*LoggingRule                                                                     `json:"loggingRules,omitempty"`
-	MarketplaceType                                 *ResourceTypeRegistrationPropertiesMarketplaceType                                 `json:"marketplaceType,omitempty"`
+	MarketplaceType                                 *MarketplaceType                                                                   `json:"marketplaceType,omitempty"`
 	ProvisioningState                               *ProvisioningState                                                                 `json:"provisioningState,omitempty"`
 	Regionality                                     *Regionality                                                                       `json:"regionality,omitempty"`
 	RequestHeaderOptions                            *ResourceTypeRegistrationPropertiesRequestHeaderOptions                            `json:"requestHeaderOptions,omitempty"`
@@ -1032,7 +1032,7 @@ type ResourceTypeRegistrationPropertiesAutoGenerated struct {
 	IsPureProxy                                     *bool                                                                              `json:"isPureProxy,omitempty"`
 	LinkedAccessChecks                              []*LinkedAccessCheck                                                               `json:"linkedAccessChecks,omitempty"`
 	LoggingRules                                    []*LoggingRule                                                                     `json:"loggingRules,omitempty"`
-	MarketplaceType                                 *ResourceTypeRegistrationPropertiesMarketplaceType                                 `json:"marketplaceType,omitempty"`
+	MarketplaceType                                 *MarketplaceType                                                                   `json:"marketplaceType,omitempty"`
 	ProvisioningState                               *ProvisioningState                                                                 `json:"provisioningState,omitempty"`
 	Regionality                                     *Regionality                                                                       `json:"regionality,omitempty"`
 	RequestHeaderOptions                            *ResourceTypeRegistrationPropertiesRequestHeaderOptions                            `json:"requestHeaderOptions,omitempty"`
@@ -1162,11 +1162,11 @@ type SKUCost struct {
 
 type SKULocationInfo struct {
 	// REQUIRED
-	Location          *string              `json:"location,omitempty"`
-	ExtendedLocations []*string            `json:"extendedLocations,omitempty"`
-	Type              *SKULocationInfoType `json:"type,omitempty"`
-	ZoneDetails       []*SKUZoneDetail     `json:"zoneDetails,omitempty"`
-	Zones             []*string            `json:"zones,omitempty"`
+	Location          *string               `json:"location,omitempty"`
+	ExtendedLocations []*string             `json:"extendedLocations,omitempty"`
+	Type              *ExtendedLocationType `json:"type,omitempty"`
+	ZoneDetails       []*SKUZoneDetail      `json:"zoneDetails,omitempty"`
+	Zones             []*string             `json:"zones,omitempty"`
 }
 
 type SKUResource struct {
