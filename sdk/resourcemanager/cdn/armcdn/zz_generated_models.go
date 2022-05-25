@@ -939,19 +939,22 @@ type CustomDomainsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// CustomDomainsClientDisableCustomHTTPSOptions contains the optional parameters for the CustomDomainsClient.DisableCustomHTTPS
+// CustomDomainsClientBeginDisableCustomHTTPSOptions contains the optional parameters for the CustomDomainsClient.BeginDisableCustomHTTPS
 // method.
-type CustomDomainsClientDisableCustomHTTPSOptions struct {
-	// placeholder for future optional parameters
+type CustomDomainsClientBeginDisableCustomHTTPSOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// CustomDomainsClientEnableCustomHTTPSOptions contains the optional parameters for the CustomDomainsClient.EnableCustomHTTPS
+// CustomDomainsClientBeginEnableCustomHTTPSOptions contains the optional parameters for the CustomDomainsClient.BeginEnableCustomHTTPS
 // method.
-type CustomDomainsClientEnableCustomHTTPSOptions struct {
+type CustomDomainsClientBeginEnableCustomHTTPSOptions struct {
 	// The configuration specifying how to enable HTTPS for the custom domain - using CDN managed certificate or user's own certificate.
 	// If not specified, enabling ssl uses CDN managed certificate by
 	// default.
 	CustomDomainHTTPSParameters CustomDomainHTTPSParametersClassification
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // CustomDomainsClientGetOptions contains the optional parameters for the CustomDomainsClient.Get method.

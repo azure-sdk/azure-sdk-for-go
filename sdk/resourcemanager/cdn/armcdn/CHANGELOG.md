@@ -1,5 +1,21 @@
 # Release History
 
+## 2.0.0 (2022-05-25)
+### Breaking Changes
+
+- Function `*CustomDomainsClient.EnableCustomHTTPS` has been removed
+- Function `*CustomDomainsClient.DisableCustomHTTPS` has been removed
+- Struct `CustomDomainsClientDisableCustomHTTPSOptions` has been removed
+- Struct `CustomDomainsClientEnableCustomHTTPSOptions` has been removed
+
+### Features Added
+
+- New function `*CustomDomainsClient.BeginEnableCustomHTTPS(context.Context, string, string, string, string, *CustomDomainsClientBeginEnableCustomHTTPSOptions) (*runtime.Poller[CustomDomainsClientEnableCustomHTTPSResponse], error)`
+- New function `*CustomDomainsClient.BeginDisableCustomHTTPS(context.Context, string, string, string, string, *CustomDomainsClientBeginDisableCustomHTTPSOptions) (*runtime.Poller[CustomDomainsClientDisableCustomHTTPSResponse], error)`
+- New struct `CustomDomainsClientBeginDisableCustomHTTPSOptions`
+- New struct `CustomDomainsClientBeginEnableCustomHTTPSOptions`
+
+
 ## 1.0.0 (2022-05-17)
 ### Breaking Changes
 
