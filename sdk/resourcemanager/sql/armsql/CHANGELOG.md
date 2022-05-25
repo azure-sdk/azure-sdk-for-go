@@ -1,5 +1,35 @@
 # Release History
 
+## 0.7.0 (2022-05-25)
+### Features Added
+
+- New const `AdvancedThreatProtectionStateNew`
+- New const `AdvancedThreatProtectionStateDisabled`
+- New const `AdvancedThreatProtectionStateEnabled`
+- New const `AdvancedThreatProtectionNameDefault`
+- New function `PossibleAdvancedThreatProtectionNameValues() []AdvancedThreatProtectionName`
+- New function `AdvancedThreatProtectionProperties.MarshalJSON() ([]byte, error)`
+- New function `PossibleAdvancedThreatProtectionStateValues() []AdvancedThreatProtectionState`
+- New function `*AdvancedThreatProtectionProperties.UnmarshalJSON([]byte) error`
+- New struct `AdvancedThreatProtectionProperties`
+- New struct `DatabaseAdvancedThreatProtection`
+- New struct `DatabaseAdvancedThreatProtectionListResult`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientCreateOrUpdateOptions`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientGetOptions`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientGetResponse`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientListByDatabaseOptions`
+- New struct `DatabaseAdvancedThreatProtectionSettingsClientListByDatabaseResponse`
+- New struct `LogicalServerAdvancedThreatProtectionListResult`
+- New struct `ServerAdvancedThreatProtection`
+- New struct `ServerAdvancedThreatProtectionSettingsClientBeginCreateOrUpdateOptions`
+- New struct `ServerAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse`
+- New struct `ServerAdvancedThreatProtectionSettingsClientGetOptions`
+- New struct `ServerAdvancedThreatProtectionSettingsClientGetResponse`
+- New struct `ServerAdvancedThreatProtectionSettingsClientListByServerOptions`
+- New struct `ServerAdvancedThreatProtectionSettingsClientListByServerResponse`
+
+
 ## 0.6.0 (2022-05-17)
 ### Breaking Changes
 
