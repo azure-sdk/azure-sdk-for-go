@@ -83,6 +83,10 @@
 - New field `MinimumTLSVersion` in struct `EHNamespaceProperties`
 
 
+## 1.1.0-beta.2 (2022-05-25)
+### Other Changes
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 
