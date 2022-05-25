@@ -9,6 +9,14 @@
 - New field `ImportConfiguration` in struct `FhirServiceProperties`
 
 
+## 1.1.0 (2022-05-25)
+### Features Added
+
+- New function `CorsConfiguration.MarshalJSON() ([]byte, error)`
+- New struct `CorsConfiguration`
+- New field `CorsConfiguration` in struct `DicomServiceProperties`
+
+
 ## 1.0.0 (2022-05-18)
 ### Breaking Changes
 
