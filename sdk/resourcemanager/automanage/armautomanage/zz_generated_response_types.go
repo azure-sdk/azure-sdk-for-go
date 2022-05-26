@@ -148,11 +148,6 @@ type ConfigurationProfilesVersionsClientListChildResourcesResponse struct {
 	ConfigurationProfileList
 }
 
-// ConfigurationProfilesVersionsClientUpdateResponse contains the response from method ConfigurationProfilesVersionsClient.Update.
-type ConfigurationProfilesVersionsClientUpdateResponse struct {
-	ConfigurationProfile
-}
-
 // HCIReportsClientGetResponse contains the response from method HCIReportsClient.Get.
 type HCIReportsClientGetResponse struct {
 	Report

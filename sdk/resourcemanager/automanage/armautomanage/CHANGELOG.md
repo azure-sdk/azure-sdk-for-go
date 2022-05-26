@@ -1,5 +1,13 @@
 # Release History
 
+## 0.6.0 (2022-05-26)
+### Breaking Changes
+
+- Function `*ConfigurationProfilesVersionsClient.Update` has been removed
+- Struct `ConfigurationProfilesVersionsClientUpdateOptions` has been removed
+- Struct `ConfigurationProfilesVersionsClientUpdateResponse` has been removed
+
+
 ## 0.5.0 (2022-05-17)
 ### Breaking Changes
 

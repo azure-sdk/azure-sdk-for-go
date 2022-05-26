@@ -56,7 +56,7 @@ func NewHCRPReportsClient(subscriptionID string, credential azcore.TokenCredenti
 
 // Get - Get information about a report associated with a configuration profile assignment run
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // machineName - The name of the Arc machine.
 // configurationProfileAssignmentName - The configuration profile assignment name.
@@ -105,7 +105,7 @@ func (client *HCRPReportsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -122,7 +122,7 @@ func (client *HCRPReportsClient) getHandleResponse(resp *http.Response) (HCRPRep
 
 // NewListByConfigurationProfileAssignmentsPager - Retrieve a list of reports within a given configuration profile assignment
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // machineName - The name of the Arc machine.
 // configurationProfileAssignmentName - The configuration profile assignment name.
@@ -174,7 +174,7 @@ func (client *HCRPReportsClient) listByConfigurationProfileAssignmentsCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

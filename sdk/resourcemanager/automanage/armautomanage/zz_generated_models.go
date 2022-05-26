@@ -145,11 +145,11 @@ type ConfigurationProfileAssignmentProperties struct {
 	// The profileOverrides setting for the configuration profile assignment.
 	ProfileOverrides map[string]interface{} `json:"profileOverrides,omitempty"`
 
-	// The target VM resource URI
-	TargetID *string `json:"targetId,omitempty"`
-
 	// READ-ONLY; The status of onboarding, which only appears in the response.
 	Status *string `json:"status,omitempty" azure:"ro"`
+
+	// READ-ONLY; The target VM resource URI
+	TargetID *string `json:"targetId,omitempty" azure:"ro"`
 }
 
 // ConfigurationProfileAssignmentsClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.CreateOrUpdate
@@ -314,12 +314,6 @@ type ConfigurationProfilesVersionsClientGetOptions struct {
 // ConfigurationProfilesVersionsClientListChildResourcesOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.ListChildResources
 // method.
 type ConfigurationProfilesVersionsClientListChildResourcesOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ConfigurationProfilesVersionsClientUpdateOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.Update
-// method.
-type ConfigurationProfilesVersionsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 

@@ -56,7 +56,7 @@ func NewReportsClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // Get - Get information about a report associated with a configuration profile assignment run
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // configurationProfileAssignmentName - The configuration profile assignment name.
 // reportName - The report name.
@@ -105,7 +105,7 @@ func (client *ReportsClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -122,7 +122,7 @@ func (client *ReportsClient) getHandleResponse(resp *http.Response) (ReportsClie
 
 // NewListByConfigurationProfileAssignmentsPager - Retrieve a list of reports within a given configuration profile assignment
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // configurationProfileAssignmentName - The configuration profile assignment name.
 // vmName - The name of the virtual machine.
@@ -174,7 +174,7 @@ func (client *ReportsClient) listByConfigurationProfileAssignmentsCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

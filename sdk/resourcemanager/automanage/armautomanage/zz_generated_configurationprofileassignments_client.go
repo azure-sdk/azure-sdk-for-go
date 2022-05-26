@@ -56,7 +56,7 @@ func NewConfigurationProfileAssignmentsClient(subscriptionID string, credential 
 
 // CreateOrUpdate - Creates an association between a VM and Automanage configuration profile
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // configurationProfileAssignmentName - Name of the configuration profile assignment. Only default is supported.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // vmName - The name of the virtual machine.
@@ -102,7 +102,7 @@ func (client *ConfigurationProfileAssignmentsClient) createOrUpdateCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -119,7 +119,7 @@ func (client *ConfigurationProfileAssignmentsClient) createOrUpdateHandleRespons
 
 // Delete - Delete a configuration profile assignment
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // configurationProfileAssignmentName - Name of the configuration profile assignment
 // vmName - The name of the virtual machine.
@@ -164,7 +164,7 @@ func (client *ConfigurationProfileAssignmentsClient) deleteCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *ConfigurationProfileAssignmentsClient) deleteCreateRequest(ctx con
 
 // Get - Get information about a configuration profile assignment
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // configurationProfileAssignmentName - The configuration profile assignment name.
 // vmName - The name of the virtual machine.
@@ -217,7 +217,7 @@ func (client *ConfigurationProfileAssignmentsClient) getCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +234,7 @@ func (client *ConfigurationProfileAssignmentsClient) getHandleResponse(resp *htt
 
 // NewListPager - Get list of configuration profile assignments
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - ConfigurationProfileAssignmentsClientListOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.List
 // method.
@@ -276,7 +276,7 @@ func (client *ConfigurationProfileAssignmentsClient) listCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -293,7 +293,7 @@ func (client *ConfigurationProfileAssignmentsClient) listHandleResponse(resp *ht
 
 // NewListByClusterNamePager - Get list of configuration profile assignments
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterName - The name of the Arc machine.
 // options - ConfigurationProfileAssignmentsClientListByClusterNameOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.ListByClusterName
@@ -340,7 +340,7 @@ func (client *ConfigurationProfileAssignmentsClient) listByClusterNameCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -357,7 +357,7 @@ func (client *ConfigurationProfileAssignmentsClient) listByClusterNameHandleResp
 
 // NewListByMachineNamePager - Get list of configuration profile assignments
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // machineName - The name of the Arc machine.
 // options - ConfigurationProfileAssignmentsClientListByMachineNameOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.ListByMachineName
@@ -404,7 +404,7 @@ func (client *ConfigurationProfileAssignmentsClient) listByMachineNameCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -421,7 +421,7 @@ func (client *ConfigurationProfileAssignmentsClient) listByMachineNameHandleResp
 
 // NewListBySubscriptionPager - Get list of configuration profile assignments under a given subscription
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // options - ConfigurationProfileAssignmentsClientListBySubscriptionOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.ListBySubscription
 // method.
 func (client *ConfigurationProfileAssignmentsClient) NewListBySubscriptionPager(options *ConfigurationProfileAssignmentsClientListBySubscriptionOptions) *runtime.Pager[ConfigurationProfileAssignmentsClientListBySubscriptionResponse] {
@@ -458,7 +458,7 @@ func (client *ConfigurationProfileAssignmentsClient) listBySubscriptionCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -475,7 +475,7 @@ func (client *ConfigurationProfileAssignmentsClient) listBySubscriptionHandleRes
 
 // NewListByVirtualMachinesPager - Get list of configuration profile assignments
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // vmName - The name of the virtual machine.
 // options - ConfigurationProfileAssignmentsClientListByVirtualMachinesOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.ListByVirtualMachines
@@ -522,7 +522,7 @@ func (client *ConfigurationProfileAssignmentsClient) listByVirtualMachinesCreate
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

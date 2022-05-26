@@ -53,7 +53,7 @@ func NewBestPracticesVersionsClient(credential azcore.TokenCredential, options *
 
 // Get - Get information about a Automanage best practice version
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // bestPracticeName - The Automanage best practice name.
 // versionName - The Automanage best practice version name.
 // options - BestPracticesVersionsClientGetOptions contains the optional parameters for the BestPracticesVersionsClient.Get
@@ -89,7 +89,7 @@ func (client *BestPracticesVersionsClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -106,7 +106,7 @@ func (client *BestPracticesVersionsClient) getHandleResponse(resp *http.Response
 
 // NewListByTenantPager - Retrieve a list of Automanage best practices versions
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-04-30-preview
+// Generated from API version 2022-05-04
 // bestPracticeName - The Automanage best practice name.
 // options - BestPracticesVersionsClientListByTenantOptions contains the optional parameters for the BestPracticesVersionsClient.ListByTenant
 // method.
@@ -144,7 +144,7 @@ func (client *BestPracticesVersionsClient) listByTenantCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-04-30-preview")
+	reqQP.Set("api-version", "2022-05-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
