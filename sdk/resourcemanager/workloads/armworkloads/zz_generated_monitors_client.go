@@ -59,7 +59,7 @@ func NewMonitorsClient(subscriptionID string, credential azcore.TokenCredential,
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // monitorName - Name of the SAP monitor resource.
-// monitorParameter - Request body representing a SAP Monitor
+// monitorParameter - Request body representing a SAP monitor
 // options - MonitorsClientBeginCreateOptions contains the optional parameters for the MonitorsClient.BeginCreate method.
 func (client *MonitorsClient) BeginCreate(ctx context.Context, resourceGroupName string, monitorName string, monitorParameter Monitor, options *MonitorsClientBeginCreateOptions) (*runtime.Poller[MonitorsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
@@ -119,7 +119,7 @@ func (client *MonitorsClient) createCreateRequest(ctx context.Context, resourceG
 	return req, runtime.MarshalAsJSON(req, monitorParameter)
 }
 
-// BeginDelete - Deletes a SAP monitor with the specified subscription, resource group, and monitor name.
+// BeginDelete - Deletes a SAP monitor with the specified subscription, resource group, and SAP monitor name.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -137,7 +137,7 @@ func (client *MonitorsClient) BeginDelete(ctx context.Context, resourceGroupName
 	}
 }
 
-// Delete - Deletes a SAP monitor with the specified subscription, resource group, and monitor name.
+// Delete - Deletes a SAP monitor with the specified subscription, resource group, and SAP monitor name.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 func (client *MonitorsClient) deleteOperation(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorsClientBeginDeleteOptions) (*http.Response, error) {
@@ -362,7 +362,7 @@ func (client *MonitorsClient) listByResourceGroupHandleResponse(resp *http.Respo
 	return result, nil
 }
 
-// Update - Patches the Tags field of a SAP monitor for the specified subscription, resource group, and monitor name.
+// Update - Patches the Tags field of a SAP monitor for the specified subscription, resource group, and SAP monitor name.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
