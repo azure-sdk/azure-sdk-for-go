@@ -1,5 +1,413 @@
 # Release History
 
+## 0.2.0 (2022-05-26)
+### Features Added
+
+- New const `SAPConfigurationTypeDeployment`
+- New const `SKURestrictionReasonCodeQuotaID`
+- New const `SKUTierPremium`
+- New const `FileShareTypeAzureFiles`
+- New const `SAPVirtualInstanceStateInfrastructureDeploymentPending`
+- New const `CentralServerVirtualMachineTypeERSInactive`
+- New const `SKURestrictionTypeNotSpecified`
+- New const `SAPHealthStateDegraded`
+- New const `SAPProductTypeECC`
+- New const `HAEnabledDisabled`
+- New const `AzureFrontDoorEnabledDisabled`
+- New const `OSImageSKUSixteen04LTS`
+- New const `WordpressVersionsFive43`
+- New const `OSImageSKUEighteen04LTS`
+- New const `ApplicationProvisioningStateFailed`
+- New const `ApplicationProvisioningStateAccepted`
+- New const `FileShareStorageTypeStandardGRS`
+- New const `SAPEnvironmentTypeProd`
+- New const `LocationTypeEdgeZone`
+- New const `SAPDatabaseTypeHANA`
+- New const `SAPConfigurationTypeDeploymentWithOSConfig`
+- New const `SKURestrictionReasonCodeNotAvailableForSubscription`
+- New const `DiskStorageTypeStandardSSDLRS`
+- New const `FileShareStorageTypePremiumLRS`
+- New const `SAPDeploymentTypeSingleServer`
+- New const `FileShareTypeNfsOnController`
+- New const `WordpressVersionsFive41`
+- New const `SAPDatabaseScaleMethodScaleUp`
+- New const `EnableSSLEnforcementDisabled`
+- New const `SAPVirtualInstanceStateSoftwareInstallationFailed`
+- New const `PhpWorkloadProvisioningStateProvisioning`
+- New const `DiskStorageTypeStandardLRS`
+- New const `LoadBalancerTypeApplicationGateway`
+- New const `EnableBackupDisabled`
+- New const `SAPVirtualInstanceStateRegistrationComplete`
+- New const `SAPSoftwareInstallationTypeServiceInitiated`
+- New const `SAPVirtualInstanceStatusStopping`
+- New const `SAPConfigurationTypeDiscovery`
+- New const `SKUScaleTypeAutomatic`
+- New const `SAPHealthStateUnknown`
+- New const `PHPVersionSeven4`
+- New const `EnqueueReplicationServerTypeEnqueueReplicator2`
+- New const `SapVirtualInstanceProvisioningStateFailed`
+- New const `SKURestrictionTypeLocation`
+- New const `RedisCacheFamilyC`
+- New const `HAEnabledEnabled`
+- New const `SAPVirtualInstanceStateInfrastructureDeploymentFailed`
+- New const `CentralServerVirtualMachineTypeUnknown`
+- New const `ApplicationProvisioningStateSucceeded`
+- New const `SKUTierFree`
+- New const `CentralServerVirtualMachineTypeASCS`
+- New const `SAPHighAvailabilityTypeAvailabilitySet`
+- New const `OSImageOfferUbuntuServer`
+- New const `SAPVirtualInstanceStatusUnavailable`
+- New const `ApplicationProvisioningStateInstalling`
+- New const `SAPHighAvailabilityTypeAvailabilityZone`
+- New const `FileShareStorageTypeStandardZRS`
+- New const `SAPProductTypeOther`
+- New const `SAPEnvironmentTypeNonProd`
+- New const `SAPVirtualInstanceStateSoftwareInstallationInProgress`
+- New const `PhpWorkloadProvisioningStateCanceled`
+- New const `PhpWorkloadProvisioningStateFailed`
+- New const `WordpressVersionsFive4`
+- New const `RedisCacheFamilyP`
+- New const `CentralServerVirtualMachineTypeSecondary`
+- New const `OSTypeWindows`
+- New const `PhpWorkloadProvisioningStateCreated`
+- New const `AzureFrontDoorEnabledEnabled`
+- New const `SAPVirtualInstanceStatusPartiallyRunning`
+- New const `DatabaseTierMemoryOptimized`
+- New const `OSImageVersionLatest`
+- New const `SAPVirtualInstanceStatusOffline`
+- New const `CentralServerVirtualMachineTypeStandby`
+- New const `ApplicationProvisioningStateCanceled`
+- New const `DatabaseTypeMySQL`
+- New const `SAPSoftwareInstallationTypeSAPInstallWithoutOSConfig`
+- New const `OSImagePublisherCanonical`
+- New const `SAPVirtualInstanceStateDiscoveryInProgress`
+- New const `SapVirtualInstanceProvisioningStateUpdating`
+- New const `ApplicationProvisioningStateNotSpecified`
+- New const `DatabaseTierGeneralPurpose`
+- New const `OSTypeLinux`
+- New const `WorkloadKindWordPress`
+- New const `ManagedServiceIdentityTypeUserAssigned`
+- New const `SKUTierBasic`
+- New const `SAPVirtualInstanceStateInfrastructureDeploymentInProgress`
+- New const `SKUTierStandard`
+- New const `PHPVersionSeven3`
+- New const `SAPHealthStateUnhealthy`
+- New const `DiskStorageTypePremiumLRS`
+- New const `SKURestrictionTypeZone`
+- New const `SAPVirtualInstanceStatusStarting`
+- New const `EnableSSLEnforcementEnabled`
+- New const `SKURestrictionReasonCodeNotSpecified`
+- New const `ManagedServiceIdentityTypeNone`
+- New const `SAPDatabaseTypeDB2`
+- New const `PhpWorkloadProvisioningStateDeleting`
+- New const `PhpWorkloadProvisioningStateSucceeded`
+- New const `SapVirtualInstanceProvisioningStateCreating`
+- New const `PhpWorkloadProvisioningStateNotSpecified`
+- New const `SAPVirtualInstanceStatusRunning`
+- New const `EnableBackupEnabled`
+- New const `SAPVirtualInstanceStateDiscoveryFailed`
+- New const `CentralServerVirtualMachineTypeERS`
+- New const `SapVirtualInstanceProvisioningStateDeleting`
+- New const `SAPVirtualInstanceStateSoftwareInstallationPending`
+- New const `LocationTypeRegion`
+- New const `SAPHealthStateHealthy`
+- New const `CentralServerVirtualMachineTypePrimary`
+- New const `WordpressVersionsFive42`
+- New const `LoadBalancerTypeLoadBalancer`
+- New const `SAPVirtualInstanceStateDiscoveryPending`
+- New const `PHPVersionSeven2`
+- New const `SKUScaleTypeNone`
+- New const `SAPProductTypeS4HANA`
+- New const `SearchTypeElastic`
+- New const `DatabaseTierBurstable`
+- New const `ApplicationProvisioningStateCreated`
+- New const `EnqueueReplicationServerTypeEnqueueReplicator1`
+- New const `SapVirtualInstanceProvisioningStateSucceeded`
+- New const `PhpWorkloadProvisioningStateAccepted`
+- New const `SAPDeploymentTypeThreeTier`
+- New const `FileShareStorageTypeStandardLRS`
+- New const `SKUScaleTypeManual`
+- New function `*SingleServerRecommendationResult.UnmarshalJSON([]byte) error`
+- New function `SAPCentralServerInstance.MarshalJSON() ([]byte, error)`
+- New function `NetworkProfile.MarshalJSON() ([]byte, error)`
+- New function `PossibleOSImageOfferValues() []OSImageOffer`
+- New function `UpdateSAPCentralInstanceRequest.MarshalJSON() ([]byte, error)`
+- New function `SAPInstallWithoutOSConfigSoftwareConfiguration.MarshalJSON() ([]byte, error)`
+- New function `*DeploymentWithOSConfiguration.GetSAPConfiguration() *SAPConfiguration`
+- New function `PatchResourceRequestBody.MarshalJSON() ([]byte, error)`
+- New function `PossibleOSImageVersionValues() []OSImageVersion`
+- New function `PossibleSAPHealthStateValues() []SAPHealthState`
+- New function `*ServiceInitiatedSoftwareConfiguration.UnmarshalJSON([]byte) error`
+- New function `PossibleSAPEnvironmentTypeValues() []SAPEnvironmentType`
+- New function `PossiblePhpWorkloadProvisioningStateValues() []PhpWorkloadProvisioningState`
+- New function `*SingleServerRecommendationResult.GetSAPSizingRecommendationResult() *SAPSizingRecommendationResult`
+- New function `*LinuxConfiguration.GetOSConfiguration() *OSConfiguration`
+- New function `*SAPInstallWithoutOSConfigSoftwareConfiguration.UnmarshalJSON([]byte) error`
+- New function `DeploymentConfiguration.MarshalJSON() ([]byte, error)`
+- New function `PossibleWordpressVersionsValues() []WordpressVersions`
+- New function `PossibleCentralServerVirtualMachineTypeValues() []CentralServerVirtualMachineType`
+- New function `ErrorDefinition.MarshalJSON() ([]byte, error)`
+- New function `DeploymentWithOSConfiguration.MarshalJSON() ([]byte, error)`
+- New function `PhpWorkloadResourceIdentity.MarshalJSON() ([]byte, error)`
+- New function `PossibleLocationTypeValues() []LocationType`
+- New function `PossibleSKUScaleTypeValues() []SKUScaleType`
+- New function `*DiscoveryConfiguration.GetSAPConfiguration() *SAPConfiguration`
+- New function `UpdateSAPDatabaseInstanceRequest.MarshalJSON() ([]byte, error)`
+- New function `PossibleDiskStorageTypeValues() []DiskStorageType`
+- New function `*SAPVirtualInstanceProperties.UnmarshalJSON([]byte) error`
+- New function `PossibleFileShareTypeValues() []FileShareType`
+- New function `PossibleEnableSSLEnforcementValues() []EnableSSLEnforcement`
+- New function `PossibleOSImageSKUValues() []OSImageSKU`
+- New function `NodeProfile.MarshalJSON() ([]byte, error)`
+- New function `*DeploymentWithOSConfiguration.UnmarshalJSON([]byte) error`
+- New function `*DeploymentConfiguration.UnmarshalJSON([]byte) error`
+- New function `SAPCentralServerProperties.MarshalJSON() ([]byte, error)`
+- New function `PossibleSAPDatabaseScaleMethodValues() []SAPDatabaseScaleMethod`
+- New function `PossibleLoadBalancerTypeValues() []LoadBalancerType`
+- New function `PossibleSAPHighAvailabilityTypeValues() []SAPHighAvailabilityType`
+- New function `*WindowsConfiguration.UnmarshalJSON([]byte) error`
+- New function `*SAPInstallWithoutOSConfigSoftwareConfiguration.GetSoftwareConfiguration() *SoftwareConfiguration`
+- New function `ThreeTierConfiguration.MarshalJSON() ([]byte, error)`
+- New function `*OSProfile.UnmarshalJSON([]byte) error`
+- New function `OSProfile.MarshalJSON() ([]byte, error)`
+- New function `*SingleServerConfiguration.GetInfrastructureConfiguration() *InfrastructureConfiguration`
+- New function `PossibleSKURestrictionTypeValues() []SKURestrictionType`
+- New function `*SAPConfiguration.GetSAPConfiguration() *SAPConfiguration`
+- New function `PossibleOSImagePublisherValues() []OSImagePublisher`
+- New function `WindowsConfiguration.MarshalJSON() ([]byte, error)`
+- New function `PossibleWorkloadKindValues() []WorkloadKind`
+- New function `UserAssignedServiceIdentity.MarshalJSON() ([]byte, error)`
+- New function `UpdateSAPVirtualInstanceRequest.MarshalJSON() ([]byte, error)`
+- New function `*InfrastructureConfiguration.GetInfrastructureConfiguration() *InfrastructureConfiguration`
+- New function `*DeploymentConfiguration.GetSAPConfiguration() *SAPConfiguration`
+- New function `*ThreeTierRecommendationResult.GetSAPSizingRecommendationResult() *SAPSizingRecommendationResult`
+- New function `PossibleSAPDeploymentTypeValues() []SAPDeploymentType`
+- New function `PossibleEnqueueReplicationServerTypeValues() []EnqueueReplicationServerType`
+- New function `PossibleAzureFrontDoorEnabledValues() []AzureFrontDoorEnabled`
+- New function `*OSConfiguration.GetOSConfiguration() *OSConfiguration`
+- New function `SAPDatabaseProperties.MarshalJSON() ([]byte, error)`
+- New function `PossibleFileShareStorageTypeValues() []FileShareStorageType`
+- New function `*ThreeTierRecommendationResult.UnmarshalJSON([]byte) error`
+- New function `PossibleSKUTierValues() []SKUTier`
+- New function `PossibleDatabaseTierValues() []DatabaseTier`
+- New function `VmssNodesProfile.MarshalJSON() ([]byte, error)`
+- New function `*ThreeTierConfiguration.GetInfrastructureConfiguration() *InfrastructureConfiguration`
+- New function `PossibleDatabaseTypeValues() []DatabaseType`
+- New function `PossibleSKURestrictionReasonCodeValues() []SKURestrictionReasonCode`
+- New function `PossibleSAPDatabaseTypeValues() []SAPDatabaseType`
+- New function `PossibleSAPSoftwareInstallationTypeValues() []SAPSoftwareInstallationType`
+- New function `SAPApplicationServerInstance.MarshalJSON() ([]byte, error)`
+- New function `PossibleEnableBackupValues() []EnableBackup`
+- New function `SingleServerConfiguration.MarshalJSON() ([]byte, error)`
+- New function `PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType`
+- New function `SAPVirtualInstanceProperties.MarshalJSON() ([]byte, error)`
+- New function `PossibleSAPVirtualInstanceStatusValues() []SAPVirtualInstanceStatus`
+- New function `PhpWorkloadResource.MarshalJSON() ([]byte, error)`
+- New function `PossibleSAPVirtualInstanceStateValues() []SAPVirtualInstanceState`
+- New function `*ClientSAPSizingRecommendationsResponse.UnmarshalJSON([]byte) error`
+- New function `DiscoveryConfiguration.MarshalJSON() ([]byte, error)`
+- New function `*ThreeTierConfiguration.UnmarshalJSON([]byte) error`
+- New function `*ServiceInitiatedSoftwareConfiguration.GetSoftwareConfiguration() *SoftwareConfiguration`
+- New function `PossibleSearchTypeValues() []SearchType`
+- New function `*DiscoveryConfiguration.UnmarshalJSON([]byte) error`
+- New function `SAPDatabaseInstance.MarshalJSON() ([]byte, error)`
+- New function `*SAPSizingRecommendationResult.GetSAPSizingRecommendationResult() *SAPSizingRecommendationResult`
+- New function `PossibleOSTypeValues() []OSType`
+- New function `*LinuxConfiguration.UnmarshalJSON([]byte) error`
+- New function `PossibleApplicationProvisioningStateValues() []ApplicationProvisioningState`
+- New function `SearchProfile.MarshalJSON() ([]byte, error)`
+- New function `PossibleRedisCacheFamilyValues() []RedisCacheFamily`
+- New function `PossiblePHPVersionValues() []PHPVersion`
+- New function `*SoftwareConfiguration.GetSoftwareConfiguration() *SoftwareConfiguration`
+- New function `SSHConfiguration.MarshalJSON() ([]byte, error)`
+- New function `ServiceInitiatedSoftwareConfiguration.MarshalJSON() ([]byte, error)`
+- New function `PossibleSAPConfigurationTypeValues() []SAPConfigurationType`
+- New function `PossibleSapVirtualInstanceProvisioningStateValues() []SapVirtualInstanceProvisioningState`
+- New function `PossibleSAPProductTypeValues() []SAPProductType`
+- New function `PatchResourceRequestBodyIdentity.MarshalJSON() ([]byte, error)`
+- New function `SAPVirtualInstance.MarshalJSON() ([]byte, error)`
+- New function `UpdateSAPApplicationInstanceRequest.MarshalJSON() ([]byte, error)`
+- New function `*SingleServerConfiguration.UnmarshalJSON([]byte) error`
+- New function `*WindowsConfiguration.GetOSConfiguration() *OSConfiguration`
+- New function `LinuxConfiguration.MarshalJSON() ([]byte, error)`
+- New function `PossibleHAEnabledValues() []HAEnabled`
+- New struct `ApplicationServerConfiguration`
+- New struct `BackupProfile`
+- New struct `CacheProfile`
+- New struct `CentralServerConfiguration`
+- New struct `CentralServerVMDetails`
+- New struct `ClientSAPAvailabilityZoneDetailsOptions`
+- New struct `ClientSAPAvailabilityZoneDetailsResponse`
+- New struct `ClientSAPDiskConfigurationsOptions`
+- New struct `ClientSAPDiskConfigurationsResponse`
+- New struct `ClientSAPSizingRecommendationsOptions`
+- New struct `ClientSAPSizingRecommendationsResponse`
+- New struct `ClientSAPSupportedSKUOptions`
+- New struct `ClientSAPSupportedSKUResponse`
+- New struct `DatabaseConfiguration`
+- New struct `DatabaseProfile`
+- New struct `DatabaseVMDetails`
+- New struct `DeployerVMPackages`
+- New struct `DeploymentConfiguration`
+- New struct `DeploymentWithOSConfiguration`
+- New struct `DiscoveryConfiguration`
+- New struct `DiskInfo`
+- New struct `EnqueueReplicationServerProperties`
+- New struct `EnqueueServerProperties`
+- New struct `ErrorDefinition`
+- New struct `FileshareProfile`
+- New struct `GatewayServerProperties`
+- New struct `HighAvailabilityConfiguration`
+- New struct `HighAvailabilitySoftwareConfiguration`
+- New struct `ImageReference`
+- New struct `InfrastructureConfiguration`
+- New struct `LinuxConfiguration`
+- New struct `MessageServerProperties`
+- New struct `NetworkConfiguration`
+- New struct `NetworkProfile`
+- New struct `NodeProfile`
+- New struct `OSConfiguration`
+- New struct `OSProfile`
+- New struct `OsImageProfile`
+- New struct `OsSapConfiguration`
+- New struct `PatchResourceRequestBody`
+- New struct `PatchResourceRequestBodyIdentity`
+- New struct `PhpProfile`
+- New struct `PhpWorkloadResource`
+- New struct `PhpWorkloadResourceIdentity`
+- New struct `PhpWorkloadResourceList`
+- New struct `PhpWorkloadResourceProperties`
+- New struct `PhpWorkloadsClientBeginCreateOrUpdateOptions`
+- New struct `PhpWorkloadsClientBeginDeleteOptions`
+- New struct `PhpWorkloadsClientCreateOrUpdateResponse`
+- New struct `PhpWorkloadsClientDeleteResponse`
+- New struct `PhpWorkloadsClientGetOptions`
+- New struct `PhpWorkloadsClientGetResponse`
+- New struct `PhpWorkloadsClientListByResourceGroupOptions`
+- New struct `PhpWorkloadsClientListByResourceGroupResponse`
+- New struct `PhpWorkloadsClientListBySubscriptionOptions`
+- New struct `PhpWorkloadsClientListBySubscriptionResponse`
+- New struct `PhpWorkloadsClientUpdateOptions`
+- New struct `PhpWorkloadsClientUpdateResponse`
+- New struct `RestrictionInfo`
+- New struct `SAPApplicationServerInstance`
+- New struct `SAPApplicationServerInstanceList`
+- New struct `SAPApplicationServerInstancesClientBeginCreateOptions`
+- New struct `SAPApplicationServerInstancesClientBeginDeleteOptions`
+- New struct `SAPApplicationServerInstancesClientBeginUpdateOptions`
+- New struct `SAPApplicationServerInstancesClientCreateResponse`
+- New struct `SAPApplicationServerInstancesClientDeleteResponse`
+- New struct `SAPApplicationServerInstancesClientGetOptions`
+- New struct `SAPApplicationServerInstancesClientGetResponse`
+- New struct `SAPApplicationServerInstancesClientListOptions`
+- New struct `SAPApplicationServerInstancesClientListResponse`
+- New struct `SAPApplicationServerInstancesClientUpdateResponse`
+- New struct `SAPApplicationServerProperties`
+- New struct `SAPAvailabilityZoneDetailsRequest`
+- New struct `SAPAvailabilityZoneDetailsResult`
+- New struct `SAPAvailabilityZonePair`
+- New struct `SAPCentralInstanceList`
+- New struct `SAPCentralInstancesClientBeginCreateOptions`
+- New struct `SAPCentralInstancesClientBeginDeleteOptions`
+- New struct `SAPCentralInstancesClientBeginUpdateOptions`
+- New struct `SAPCentralInstancesClientCreateResponse`
+- New struct `SAPCentralInstancesClientDeleteResponse`
+- New struct `SAPCentralInstancesClientGetOptions`
+- New struct `SAPCentralInstancesClientGetResponse`
+- New struct `SAPCentralInstancesClientListOptions`
+- New struct `SAPCentralInstancesClientListResponse`
+- New struct `SAPCentralInstancesClientUpdateResponse`
+- New struct `SAPCentralServerInstance`
+- New struct `SAPCentralServerProperties`
+- New struct `SAPConfiguration`
+- New struct `SAPDatabaseInstance`
+- New struct `SAPDatabaseInstanceList`
+- New struct `SAPDatabaseInstancesClientBeginCreateOptions`
+- New struct `SAPDatabaseInstancesClientBeginDeleteOptions`
+- New struct `SAPDatabaseInstancesClientBeginUpdateOptions`
+- New struct `SAPDatabaseInstancesClientCreateResponse`
+- New struct `SAPDatabaseInstancesClientDeleteResponse`
+- New struct `SAPDatabaseInstancesClientGetOptions`
+- New struct `SAPDatabaseInstancesClientGetResponse`
+- New struct `SAPDatabaseInstancesClientListOptions`
+- New struct `SAPDatabaseInstancesClientListResponse`
+- New struct `SAPDatabaseInstancesClientUpdateResponse`
+- New struct `SAPDatabaseProperties`
+- New struct `SAPDiskConfiguration`
+- New struct `SAPDiskConfigurationsRequest`
+- New struct `SAPDiskConfigurationsResult`
+- New struct `SAPInstallWithoutOSConfigSoftwareConfiguration`
+- New struct `SAPSizingRecommendationRequest`
+- New struct `SAPSizingRecommendationResult`
+- New struct `SAPSupportedResourceSKUsResult`
+- New struct `SAPSupportedSKU`
+- New struct `SAPSupportedSKUsRequest`
+- New struct `SAPVirtualInstance`
+- New struct `SAPVirtualInstanceError`
+- New struct `SAPVirtualInstanceList`
+- New struct `SAPVirtualInstanceProperties`
+- New struct `SAPVirtualInstancesClientBeginCreateOptions`
+- New struct `SAPVirtualInstancesClientBeginDeleteOptions`
+- New struct `SAPVirtualInstancesClientBeginStartOptions`
+- New struct `SAPVirtualInstancesClientBeginStopOptions`
+- New struct `SAPVirtualInstancesClientCreateResponse`
+- New struct `SAPVirtualInstancesClientDeleteResponse`
+- New struct `SAPVirtualInstancesClientGetOptions`
+- New struct `SAPVirtualInstancesClientGetResponse`
+- New struct `SAPVirtualInstancesClientListByResourceGroupOptions`
+- New struct `SAPVirtualInstancesClientListByResourceGroupResponse`
+- New struct `SAPVirtualInstancesClientListBySubscriptionOptions`
+- New struct `SAPVirtualInstancesClientListBySubscriptionResponse`
+- New struct `SAPVirtualInstancesClientStartResponse`
+- New struct `SAPVirtualInstancesClientStopResponse`
+- New struct `SAPVirtualInstancesClientUpdateOptions`
+- New struct `SAPVirtualInstancesClientUpdateResponse`
+- New struct `SKU`
+- New struct `SKUCapability`
+- New struct `SKUCapacity`
+- New struct `SKUCost`
+- New struct `SKUDefinition`
+- New struct `SKULocationAndZones`
+- New struct `SKURestriction`
+- New struct `SKUZoneDetail`
+- New struct `SKUsClientListOptions`
+- New struct `SKUsClientListResponse`
+- New struct `SKUsListResult`
+- New struct `SSHConfiguration`
+- New struct `SSHKeyPair`
+- New struct `SSHPublicKey`
+- New struct `SearchProfile`
+- New struct `ServiceInitiatedSoftwareConfiguration`
+- New struct `SingleServerConfiguration`
+- New struct `SingleServerRecommendationResult`
+- New struct `SiteProfile`
+- New struct `SoftwareConfiguration`
+- New struct `StopRequest`
+- New struct `ThreeTierConfiguration`
+- New struct `ThreeTierRecommendationResult`
+- New struct `UpdateSAPApplicationInstanceRequest`
+- New struct `UpdateSAPCentralInstanceRequest`
+- New struct `UpdateSAPDatabaseInstanceRequest`
+- New struct `UpdateSAPVirtualInstanceRequest`
+- New struct `UserAssignedIdentity`
+- New struct `UserAssignedServiceIdentity`
+- New struct `UserProfile`
+- New struct `VirtualMachineConfiguration`
+- New struct `VmssNodesProfile`
+- New struct `WindowsConfiguration`
+- New struct `WordpressInstanceResource`
+- New struct `WordpressInstanceResourceList`
+- New struct `WordpressInstanceResourceProperties`
+- New struct `WordpressInstancesClientBeginCreateOrUpdateOptions`
+- New struct `WordpressInstancesClientCreateOrUpdateResponse`
+- New struct `WordpressInstancesClientDeleteOptions`
+- New struct `WordpressInstancesClientDeleteResponse`
+- New struct `WordpressInstancesClientGetOptions`
+- New struct `WordpressInstancesClientGetResponse`
+- New struct `WordpressInstancesClientListOptions`
+- New struct `WordpressInstancesClientListResponse`
+
+
 ## 0.1.0 (2022-05-16)
 
 - Init release.
