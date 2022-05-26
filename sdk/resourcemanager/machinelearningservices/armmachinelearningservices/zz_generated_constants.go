@@ -10,7 +10,7 @@ package armmachinelearningservices
 
 const (
 	moduleName    = "armmachinelearningservices"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AllocationState - Allocation state of the compute. Possible values are: steady - Indicates that the compute is not resizing.
@@ -51,6 +51,59 @@ func PossibleApplicationSharingPolicyValues() []ApplicationSharingPolicy {
 	}
 }
 
+// Autosave - Auto save settings.
+type Autosave string
+
+const (
+	AutosaveLocal  Autosave = "Local"
+	AutosaveNone   Autosave = "None"
+	AutosaveRemote Autosave = "Remote"
+)
+
+// PossibleAutosaveValues returns the possible values for the Autosave const type.
+func PossibleAutosaveValues() []Autosave {
+	return []Autosave{
+		AutosaveLocal,
+		AutosaveNone,
+		AutosaveRemote,
+	}
+}
+
+// BatchLoggingLevel - Log verbosity for batch inferencing. Increasing verbosity order for logging is : Warning, Info and
+// Debug. The default value is Info.
+type BatchLoggingLevel string
+
+const (
+	BatchLoggingLevelDebug   BatchLoggingLevel = "Debug"
+	BatchLoggingLevelInfo    BatchLoggingLevel = "Info"
+	BatchLoggingLevelWarning BatchLoggingLevel = "Warning"
+)
+
+// PossibleBatchLoggingLevelValues returns the possible values for the BatchLoggingLevel const type.
+func PossibleBatchLoggingLevelValues() []BatchLoggingLevel {
+	return []BatchLoggingLevel{
+		BatchLoggingLevelDebug,
+		BatchLoggingLevelInfo,
+		BatchLoggingLevelWarning,
+	}
+}
+
+// BatchOutputAction - Enum to determine how batch inferencing will handle output
+type BatchOutputAction string
+
+const (
+	BatchOutputActionAppendRow   BatchOutputAction = "AppendRow"
+	BatchOutputActionSummaryOnly BatchOutputAction = "SummaryOnly"
+)
+
+// PossibleBatchOutputActionValues returns the possible values for the BatchOutputAction const type.
+func PossibleBatchOutputActionValues() []BatchOutputAction {
+	return []BatchOutputAction{
+		BatchOutputActionAppendRow,
+		BatchOutputActionSummaryOnly,
+	}
+}
+
 // BillingCurrency - Three lettered code specifying the currency of the VM price. Example: USD
 type BillingCurrency string
 
@@ -62,6 +115,24 @@ const (
 func PossibleBillingCurrencyValues() []BillingCurrency {
 	return []BillingCurrency{
 		BillingCurrencyUSD,
+	}
+}
+
+// Caching - Caching type of Data Disk.
+type Caching string
+
+const (
+	CachingNone      Caching = "None"
+	CachingReadOnly  Caching = "ReadOnly"
+	CachingReadWrite Caching = "ReadWrite"
+)
+
+// PossibleCachingValues returns the possible values for the Caching const type.
+func PossibleCachingValues() []Caching {
+	return []Caching{
+		CachingNone,
+		CachingReadOnly,
+		CachingReadWrite,
 	}
 }
 
@@ -139,6 +210,22 @@ func PossibleComputeInstanceStateValues() []ComputeInstanceState {
 	}
 }
 
+// ComputePowerAction - The compute power action.
+type ComputePowerAction string
+
+const (
+	ComputePowerActionStart ComputePowerAction = "Start"
+	ComputePowerActionStop  ComputePowerAction = "Stop"
+)
+
+// PossibleComputePowerActionValues returns the possible values for the ComputePowerAction const type.
+func PossibleComputePowerActionValues() []ComputePowerAction {
+	return []ComputePowerAction{
+		ComputePowerActionStart,
+		ComputePowerActionStop,
+	}
+}
+
 // ComputeType - The type of compute
 type ComputeType string
 
@@ -171,6 +258,61 @@ func PossibleComputeTypeValues() []ComputeType {
 	}
 }
 
+// ConnectionAuthType - Authentication type of the connection target
+type ConnectionAuthType string
+
+const (
+	ConnectionAuthTypeManagedIdentity  ConnectionAuthType = "ManagedIdentity"
+	ConnectionAuthTypeNone             ConnectionAuthType = "None"
+	ConnectionAuthTypePAT              ConnectionAuthType = "PAT"
+	ConnectionAuthTypeSAS              ConnectionAuthType = "SAS"
+	ConnectionAuthTypeUsernamePassword ConnectionAuthType = "UsernamePassword"
+)
+
+// PossibleConnectionAuthTypeValues returns the possible values for the ConnectionAuthType const type.
+func PossibleConnectionAuthTypeValues() []ConnectionAuthType {
+	return []ConnectionAuthType{
+		ConnectionAuthTypeManagedIdentity,
+		ConnectionAuthTypeNone,
+		ConnectionAuthTypePAT,
+		ConnectionAuthTypeSAS,
+		ConnectionAuthTypeUsernamePassword,
+	}
+}
+
+// ConnectionCategory - Category of the connection
+type ConnectionCategory string
+
+const (
+	ConnectionCategoryContainerRegistry ConnectionCategory = "ContainerRegistry"
+	ConnectionCategoryGit               ConnectionCategory = "Git"
+	ConnectionCategoryPythonFeed        ConnectionCategory = "PythonFeed"
+)
+
+// PossibleConnectionCategoryValues returns the possible values for the ConnectionCategory const type.
+func PossibleConnectionCategoryValues() []ConnectionCategory {
+	return []ConnectionCategory{
+		ConnectionCategoryContainerRegistry,
+		ConnectionCategoryGit,
+		ConnectionCategoryPythonFeed,
+	}
+}
+
+type ContainerType string
+
+const (
+	ContainerTypeInferenceServer    ContainerType = "InferenceServer"
+	ContainerTypeStorageInitializer ContainerType = "StorageInitializer"
+)
+
+// PossibleContainerTypeValues returns the possible values for the ContainerType const type.
+func PossibleContainerTypeValues() []ContainerType {
+	return []ContainerType{
+		ContainerTypeInferenceServer,
+		ContainerTypeStorageInitializer,
+	}
+}
+
 // CreatedByType - The type of identity that created the resource.
 type CreatedByType string
 
@@ -188,6 +330,92 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// CredentialsType - Enum to determine the datastore credentials type.
+type CredentialsType string
+
+const (
+	CredentialsTypeAccountKey       CredentialsType = "AccountKey"
+	CredentialsTypeCertificate      CredentialsType = "Certificate"
+	CredentialsTypeNone             CredentialsType = "None"
+	CredentialsTypeSas              CredentialsType = "Sas"
+	CredentialsTypeServicePrincipal CredentialsType = "ServicePrincipal"
+)
+
+// PossibleCredentialsTypeValues returns the possible values for the CredentialsType const type.
+func PossibleCredentialsTypeValues() []CredentialsType {
+	return []CredentialsType{
+		CredentialsTypeAccountKey,
+		CredentialsTypeCertificate,
+		CredentialsTypeNone,
+		CredentialsTypeSas,
+		CredentialsTypeServicePrincipal,
+	}
+}
+
+// DataType - Enum to determine the type of data.
+type DataType string
+
+const (
+	DataTypeMltable   DataType = "mltable"
+	DataTypeURIFile   DataType = "uri_file"
+	DataTypeURIFolder DataType = "uri_folder"
+)
+
+// PossibleDataTypeValues returns the possible values for the DataType const type.
+func PossibleDataTypeValues() []DataType {
+	return []DataType{
+		DataTypeMltable,
+		DataTypeURIFile,
+		DataTypeURIFolder,
+	}
+}
+
+// DatastoreType - Enum to determine the datastore contents type.
+type DatastoreType string
+
+const (
+	DatastoreTypeAzureBlob         DatastoreType = "AzureBlob"
+	DatastoreTypeAzureDataLakeGen1 DatastoreType = "AzureDataLakeGen1"
+	DatastoreTypeAzureDataLakeGen2 DatastoreType = "AzureDataLakeGen2"
+	DatastoreTypeAzureFile         DatastoreType = "AzureFile"
+)
+
+// PossibleDatastoreTypeValues returns the possible values for the DatastoreType const type.
+func PossibleDatastoreTypeValues() []DatastoreType {
+	return []DatastoreType{
+		DatastoreTypeAzureBlob,
+		DatastoreTypeAzureDataLakeGen1,
+		DatastoreTypeAzureDataLakeGen2,
+		DatastoreTypeAzureFile,
+	}
+}
+
+// DeploymentProvisioningState - Possible values for DeploymentProvisioningState.
+type DeploymentProvisioningState string
+
+const (
+	DeploymentProvisioningStateCanceled  DeploymentProvisioningState = "Canceled"
+	DeploymentProvisioningStateCreating  DeploymentProvisioningState = "Creating"
+	DeploymentProvisioningStateDeleting  DeploymentProvisioningState = "Deleting"
+	DeploymentProvisioningStateFailed    DeploymentProvisioningState = "Failed"
+	DeploymentProvisioningStateScaling   DeploymentProvisioningState = "Scaling"
+	DeploymentProvisioningStateSucceeded DeploymentProvisioningState = "Succeeded"
+	DeploymentProvisioningStateUpdating  DeploymentProvisioningState = "Updating"
+)
+
+// PossibleDeploymentProvisioningStateValues returns the possible values for the DeploymentProvisioningState const type.
+func PossibleDeploymentProvisioningStateValues() []DeploymentProvisioningState {
+	return []DeploymentProvisioningState{
+		DeploymentProvisioningStateCanceled,
+		DeploymentProvisioningStateCreating,
+		DeploymentProvisioningStateDeleting,
+		DeploymentProvisioningStateFailed,
+		DeploymentProvisioningStateScaling,
+		DeploymentProvisioningStateSucceeded,
+		DeploymentProvisioningStateUpdating,
 	}
 }
 
@@ -209,6 +437,41 @@ func PossibleDiagnoseResultLevelValues() []DiagnoseResultLevel {
 	}
 }
 
+// DistributionType - Enum to determine the job distribution type.
+type DistributionType string
+
+const (
+	DistributionTypeMpi        DistributionType = "Mpi"
+	DistributionTypePyTorch    DistributionType = "PyTorch"
+	DistributionTypeTensorFlow DistributionType = "TensorFlow"
+)
+
+// PossibleDistributionTypeValues returns the possible values for the DistributionType const type.
+func PossibleDistributionTypeValues() []DistributionType {
+	return []DistributionType{
+		DistributionTypeMpi,
+		DistributionTypePyTorch,
+		DistributionTypeTensorFlow,
+	}
+}
+
+type EarlyTerminationPolicyType string
+
+const (
+	EarlyTerminationPolicyTypeBandit              EarlyTerminationPolicyType = "Bandit"
+	EarlyTerminationPolicyTypeMedianStopping      EarlyTerminationPolicyType = "MedianStopping"
+	EarlyTerminationPolicyTypeTruncationSelection EarlyTerminationPolicyType = "TruncationSelection"
+)
+
+// PossibleEarlyTerminationPolicyTypeValues returns the possible values for the EarlyTerminationPolicyType const type.
+func PossibleEarlyTerminationPolicyTypeValues() []EarlyTerminationPolicyType {
+	return []EarlyTerminationPolicyType{
+		EarlyTerminationPolicyTypeBandit,
+		EarlyTerminationPolicyTypeMedianStopping,
+		EarlyTerminationPolicyTypeTruncationSelection,
+	}
+}
+
 // EncryptionStatus - Indicates whether or not the encryption is enabled for the workspace.
 type EncryptionStatus string
 
@@ -225,6 +488,314 @@ func PossibleEncryptionStatusValues() []EncryptionStatus {
 	}
 }
 
+// EndpointAuthMode - Enum to determine endpoint authentication mode.
+type EndpointAuthMode string
+
+const (
+	EndpointAuthModeAADToken EndpointAuthMode = "AADToken"
+	EndpointAuthModeAMLToken EndpointAuthMode = "AMLToken"
+	EndpointAuthModeKey      EndpointAuthMode = "Key"
+)
+
+// PossibleEndpointAuthModeValues returns the possible values for the EndpointAuthMode const type.
+func PossibleEndpointAuthModeValues() []EndpointAuthMode {
+	return []EndpointAuthMode{
+		EndpointAuthModeAADToken,
+		EndpointAuthModeAMLToken,
+		EndpointAuthModeKey,
+	}
+}
+
+// EndpointComputeType - Enum to determine endpoint compute type.
+type EndpointComputeType string
+
+const (
+	EndpointComputeTypeAzureMLCompute EndpointComputeType = "AzureMLCompute"
+	EndpointComputeTypeKubernetes     EndpointComputeType = "Kubernetes"
+	EndpointComputeTypeManaged        EndpointComputeType = "Managed"
+)
+
+// PossibleEndpointComputeTypeValues returns the possible values for the EndpointComputeType const type.
+func PossibleEndpointComputeTypeValues() []EndpointComputeType {
+	return []EndpointComputeType{
+		EndpointComputeTypeAzureMLCompute,
+		EndpointComputeTypeKubernetes,
+		EndpointComputeTypeManaged,
+	}
+}
+
+// EndpointProvisioningState - State of endpoint provisioning.
+type EndpointProvisioningState string
+
+const (
+	EndpointProvisioningStateCanceled  EndpointProvisioningState = "Canceled"
+	EndpointProvisioningStateCreating  EndpointProvisioningState = "Creating"
+	EndpointProvisioningStateDeleting  EndpointProvisioningState = "Deleting"
+	EndpointProvisioningStateFailed    EndpointProvisioningState = "Failed"
+	EndpointProvisioningStateSucceeded EndpointProvisioningState = "Succeeded"
+	EndpointProvisioningStateUpdating  EndpointProvisioningState = "Updating"
+)
+
+// PossibleEndpointProvisioningStateValues returns the possible values for the EndpointProvisioningState const type.
+func PossibleEndpointProvisioningStateValues() []EndpointProvisioningState {
+	return []EndpointProvisioningState{
+		EndpointProvisioningStateCanceled,
+		EndpointProvisioningStateCreating,
+		EndpointProvisioningStateDeleting,
+		EndpointProvisioningStateFailed,
+		EndpointProvisioningStateSucceeded,
+		EndpointProvisioningStateUpdating,
+	}
+}
+
+// EnvironmentType - Environment type is either user created or curated by Azure ML service
+type EnvironmentType string
+
+const (
+	EnvironmentTypeCurated     EnvironmentType = "Curated"
+	EnvironmentTypeUserCreated EnvironmentType = "UserCreated"
+)
+
+// PossibleEnvironmentTypeValues returns the possible values for the EnvironmentType const type.
+func PossibleEnvironmentTypeValues() []EnvironmentType {
+	return []EnvironmentType{
+		EnvironmentTypeCurated,
+		EnvironmentTypeUserCreated,
+	}
+}
+
+// Goal - Defines supported metric goals for hyperparameter tuning
+type Goal string
+
+const (
+	GoalMaximize Goal = "Maximize"
+	GoalMinimize Goal = "Minimize"
+)
+
+// PossibleGoalValues returns the possible values for the Goal const type.
+func PossibleGoalValues() []Goal {
+	return []Goal{
+		GoalMaximize,
+		GoalMinimize,
+	}
+}
+
+// IdentityConfigurationType - Enum to determine identity framework.
+type IdentityConfigurationType string
+
+const (
+	IdentityConfigurationTypeAMLToken     IdentityConfigurationType = "AMLToken"
+	IdentityConfigurationTypeManaged      IdentityConfigurationType = "Managed"
+	IdentityConfigurationTypeUserIdentity IdentityConfigurationType = "UserIdentity"
+)
+
+// PossibleIdentityConfigurationTypeValues returns the possible values for the IdentityConfigurationType const type.
+func PossibleIdentityConfigurationTypeValues() []IdentityConfigurationType {
+	return []IdentityConfigurationType{
+		IdentityConfigurationTypeAMLToken,
+		IdentityConfigurationTypeManaged,
+		IdentityConfigurationTypeUserIdentity,
+	}
+}
+
+// InputDeliveryMode - Enum to determine the input data delivery mode.
+type InputDeliveryMode string
+
+const (
+	InputDeliveryModeDirect         InputDeliveryMode = "Direct"
+	InputDeliveryModeDownload       InputDeliveryMode = "Download"
+	InputDeliveryModeEvalDownload   InputDeliveryMode = "EvalDownload"
+	InputDeliveryModeEvalMount      InputDeliveryMode = "EvalMount"
+	InputDeliveryModeReadOnlyMount  InputDeliveryMode = "ReadOnlyMount"
+	InputDeliveryModeReadWriteMount InputDeliveryMode = "ReadWriteMount"
+)
+
+// PossibleInputDeliveryModeValues returns the possible values for the InputDeliveryMode const type.
+func PossibleInputDeliveryModeValues() []InputDeliveryMode {
+	return []InputDeliveryMode{
+		InputDeliveryModeDirect,
+		InputDeliveryModeDownload,
+		InputDeliveryModeEvalDownload,
+		InputDeliveryModeEvalMount,
+		InputDeliveryModeReadOnlyMount,
+		InputDeliveryModeReadWriteMount,
+	}
+}
+
+// JobInputType - Enum to determine the Job Input Type.
+type JobInputType string
+
+const (
+	JobInputTypeCustomModel JobInputType = "custom_model"
+	JobInputTypeLiteral     JobInputType = "literal"
+	JobInputTypeMlflowModel JobInputType = "mlflow_model"
+	JobInputTypeMltable     JobInputType = "mltable"
+	JobInputTypeTritonModel JobInputType = "triton_model"
+	JobInputTypeURIFile     JobInputType = "uri_file"
+	JobInputTypeURIFolder   JobInputType = "uri_folder"
+)
+
+// PossibleJobInputTypeValues returns the possible values for the JobInputType const type.
+func PossibleJobInputTypeValues() []JobInputType {
+	return []JobInputType{
+		JobInputTypeCustomModel,
+		JobInputTypeLiteral,
+		JobInputTypeMlflowModel,
+		JobInputTypeMltable,
+		JobInputTypeTritonModel,
+		JobInputTypeURIFile,
+		JobInputTypeURIFolder,
+	}
+}
+
+type JobLimitsType string
+
+const (
+	JobLimitsTypeCommand JobLimitsType = "Command"
+	JobLimitsTypeSweep   JobLimitsType = "Sweep"
+)
+
+// PossibleJobLimitsTypeValues returns the possible values for the JobLimitsType const type.
+func PossibleJobLimitsTypeValues() []JobLimitsType {
+	return []JobLimitsType{
+		JobLimitsTypeCommand,
+		JobLimitsTypeSweep,
+	}
+}
+
+// JobOutputType - Enum to determine the Job Output Type.
+type JobOutputType string
+
+const (
+	JobOutputTypeCustomModel JobOutputType = "custom_model"
+	JobOutputTypeMlflowModel JobOutputType = "mlflow_model"
+	JobOutputTypeMltable     JobOutputType = "mltable"
+	JobOutputTypeTritonModel JobOutputType = "triton_model"
+	JobOutputTypeURIFile     JobOutputType = "uri_file"
+	JobOutputTypeURIFolder   JobOutputType = "uri_folder"
+)
+
+// PossibleJobOutputTypeValues returns the possible values for the JobOutputType const type.
+func PossibleJobOutputTypeValues() []JobOutputType {
+	return []JobOutputType{
+		JobOutputTypeCustomModel,
+		JobOutputTypeMlflowModel,
+		JobOutputTypeMltable,
+		JobOutputTypeTritonModel,
+		JobOutputTypeURIFile,
+		JobOutputTypeURIFolder,
+	}
+}
+
+// JobStatus - The status of a job.
+type JobStatus string
+
+const (
+	// JobStatusCancelRequested - Cancellation has been requested for the job.
+	JobStatusCancelRequested JobStatus = "CancelRequested"
+	// JobStatusCanceled - Following cancellation request, the job is now successfully canceled.
+	JobStatusCanceled JobStatus = "Canceled"
+	// JobStatusCompleted - Job completed successfully. This reflects that both the job itself and output collection states completed
+	// successfully
+	JobStatusCompleted JobStatus = "Completed"
+	// JobStatusFailed - Job failed.
+	JobStatusFailed JobStatus = "Failed"
+	// JobStatusFinalizing - Job is completed in the target. It is in output collection state now.
+	JobStatusFinalizing JobStatus = "Finalizing"
+	// JobStatusNotResponding - When heartbeat is enabled, if the run isn't updating any information to RunHistory then the run
+	// goes to NotResponding state.
+	// NotResponding is the only state that is exempt from strict transition orders. A run can go from NotResponding to any of
+	// the previous states.
+	JobStatusNotResponding JobStatus = "NotResponding"
+	// JobStatusNotStarted - Run hasn't started yet.
+	JobStatusNotStarted JobStatus = "NotStarted"
+	// JobStatusPaused - The job is paused by users. Some adjustment to labeling jobs can be made only in paused state.
+	JobStatusPaused JobStatus = "Paused"
+	// JobStatusPreparing - The run environment is being prepared.
+	JobStatusPreparing JobStatus = "Preparing"
+	// JobStatusProvisioning - (Not used currently) It will be used if ES is creating the compute target.
+	JobStatusProvisioning JobStatus = "Provisioning"
+	// JobStatusQueued - The job is queued in the compute target. For example, in BatchAI the job is in queued state, while waiting
+	// for all required nodes to be ready.
+	JobStatusQueued JobStatus = "Queued"
+	// JobStatusRunning - The job started to run in the compute target.
+	JobStatusRunning JobStatus = "Running"
+	// JobStatusStarting - Run has started. The user has a run ID.
+	JobStatusStarting JobStatus = "Starting"
+	// JobStatusUnknown - Default job status if not mapped to all other statuses
+	JobStatusUnknown JobStatus = "Unknown"
+)
+
+// PossibleJobStatusValues returns the possible values for the JobStatus const type.
+func PossibleJobStatusValues() []JobStatus {
+	return []JobStatus{
+		JobStatusCancelRequested,
+		JobStatusCanceled,
+		JobStatusCompleted,
+		JobStatusFailed,
+		JobStatusFinalizing,
+		JobStatusNotResponding,
+		JobStatusNotStarted,
+		JobStatusPaused,
+		JobStatusPreparing,
+		JobStatusProvisioning,
+		JobStatusQueued,
+		JobStatusRunning,
+		JobStatusStarting,
+		JobStatusUnknown,
+	}
+}
+
+// JobType - Enum to determine the type of job.
+type JobType string
+
+const (
+	JobTypeCommand  JobType = "Command"
+	JobTypePipeline JobType = "Pipeline"
+	JobTypeSweep    JobType = "Sweep"
+)
+
+// PossibleJobTypeValues returns the possible values for the JobType const type.
+func PossibleJobTypeValues() []JobType {
+	return []JobType{
+		JobTypeCommand,
+		JobTypePipeline,
+		JobTypeSweep,
+	}
+}
+
+type KeyType string
+
+const (
+	KeyTypePrimary   KeyType = "Primary"
+	KeyTypeSecondary KeyType = "Secondary"
+)
+
+// PossibleKeyTypeValues returns the possible values for the KeyType const type.
+func PossibleKeyTypeValues() []KeyType {
+	return []KeyType{
+		KeyTypePrimary,
+		KeyTypeSecondary,
+	}
+}
+
+type ListViewType string
+
+const (
+	ListViewTypeActiveOnly   ListViewType = "ActiveOnly"
+	ListViewTypeAll          ListViewType = "All"
+	ListViewTypeArchivedOnly ListViewType = "ArchivedOnly"
+)
+
+// PossibleListViewTypeValues returns the possible values for the ListViewType const type.
+func PossibleListViewTypeValues() []ListViewType {
+	return []ListViewType{
+		ListViewTypeActiveOnly,
+		ListViewTypeAll,
+		ListViewTypeArchivedOnly,
+	}
+}
+
 // LoadBalancerType - Load Balancer Type
 type LoadBalancerType string
 
@@ -238,6 +809,82 @@ func PossibleLoadBalancerTypeValues() []LoadBalancerType {
 	return []LoadBalancerType{
 		LoadBalancerTypeInternalLoadBalancer,
 		LoadBalancerTypePublicIP,
+	}
+}
+
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// MountAction - Mount Action.
+type MountAction string
+
+const (
+	MountActionMount   MountAction = "Mount"
+	MountActionUnmount MountAction = "Unmount"
+)
+
+// PossibleMountActionValues returns the possible values for the MountAction const type.
+func PossibleMountActionValues() []MountAction {
+	return []MountAction{
+		MountActionMount,
+		MountActionUnmount,
+	}
+}
+
+// MountState - Mount state.
+type MountState string
+
+const (
+	MountStateMountFailed      MountState = "MountFailed"
+	MountStateMountRequested   MountState = "MountRequested"
+	MountStateMounted          MountState = "Mounted"
+	MountStateUnmountFailed    MountState = "UnmountFailed"
+	MountStateUnmountRequested MountState = "UnmountRequested"
+	MountStateUnmounted        MountState = "Unmounted"
+)
+
+// PossibleMountStateValues returns the possible values for the MountState const type.
+func PossibleMountStateValues() []MountState {
+	return []MountState{
+		MountStateMountFailed,
+		MountStateMountRequested,
+		MountStateMounted,
+		MountStateUnmountFailed,
+		MountStateUnmountRequested,
+		MountStateUnmounted,
+	}
+}
+
+// Network - network of this container.
+type Network string
+
+const (
+	NetworkBridge Network = "Bridge"
+	NetworkHost   Network = "Host"
+)
+
+// PossibleNetworkValues returns the possible values for the Network const type.
+func PossibleNetworkValues() []Network {
+	return []Network{
+		NetworkBridge,
+		NetworkHost,
 	}
 }
 
@@ -262,6 +909,22 @@ func PossibleNodeStateValues() []NodeState {
 		NodeStatePreparing,
 		NodeStateRunning,
 		NodeStateUnusable,
+	}
+}
+
+// OperatingSystemType - The type of operating system.
+type OperatingSystemType string
+
+const (
+	OperatingSystemTypeLinux   OperatingSystemType = "Linux"
+	OperatingSystemTypeWindows OperatingSystemType = "Windows"
+)
+
+// PossibleOperatingSystemTypeValues returns the possible values for the OperatingSystemType const type.
+func PossibleOperatingSystemTypeValues() []OperatingSystemType {
+	return []OperatingSystemType{
+		OperatingSystemTypeLinux,
+		OperatingSystemTypeWindows,
 	}
 }
 
@@ -317,6 +980,43 @@ func PossibleOperationStatusValues() []OperationStatus {
 	}
 }
 
+// OperationTrigger - Trigger of operation.
+type OperationTrigger string
+
+const (
+	OperationTriggerIdleShutdown OperationTrigger = "IdleShutdown"
+	OperationTriggerSchedule     OperationTrigger = "Schedule"
+	OperationTriggerUser         OperationTrigger = "User"
+)
+
+// PossibleOperationTriggerValues returns the possible values for the OperationTrigger const type.
+func PossibleOperationTriggerValues() []OperationTrigger {
+	return []OperationTrigger{
+		OperationTriggerIdleShutdown,
+		OperationTriggerSchedule,
+		OperationTriggerUser,
+	}
+}
+
+type OrderString string
+
+const (
+	OrderStringCreatedAtAsc  OrderString = "CreatedAtAsc"
+	OrderStringCreatedAtDesc OrderString = "CreatedAtDesc"
+	OrderStringUpdatedAtAsc  OrderString = "UpdatedAtAsc"
+	OrderStringUpdatedAtDesc OrderString = "UpdatedAtDesc"
+)
+
+// PossibleOrderStringValues returns the possible values for the OrderString const type.
+func PossibleOrderStringValues() []OrderString {
+	return []OrderString{
+		OrderStringCreatedAtAsc,
+		OrderStringCreatedAtDesc,
+		OrderStringUpdatedAtAsc,
+		OrderStringUpdatedAtDesc,
+	}
+}
+
 // OsType - Compute OS Type
 type OsType string
 
@@ -330,6 +1030,22 @@ func PossibleOsTypeValues() []OsType {
 	return []OsType{
 		OsTypeLinux,
 		OsTypeWindows,
+	}
+}
+
+// OutputDeliveryMode - Output data delivery mode enums.
+type OutputDeliveryMode string
+
+const (
+	OutputDeliveryModeReadWriteMount OutputDeliveryMode = "ReadWriteMount"
+	OutputDeliveryModeUpload         OutputDeliveryMode = "Upload"
+)
+
+// PossibleOutputDeliveryModeValues returns the possible values for the OutputDeliveryMode const type.
+func PossibleOutputDeliveryModeValues() []OutputDeliveryMode {
+	return []OutputDeliveryMode{
+		OutputDeliveryModeReadWriteMount,
+		OutputDeliveryModeUpload,
 	}
 }
 
@@ -402,6 +1118,24 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
+// ProvisioningStatus - The current deployment state of schedule.
+type ProvisioningStatus string
+
+const (
+	ProvisioningStatusCompleted    ProvisioningStatus = "Completed"
+	ProvisioningStatusFailed       ProvisioningStatus = "Failed"
+	ProvisioningStatusProvisioning ProvisioningStatus = "Provisioning"
+)
+
+// PossibleProvisioningStatusValues returns the possible values for the ProvisioningStatus const type.
+func PossibleProvisioningStatusValues() []ProvisioningStatus {
+	return []ProvisioningStatus{
+		ProvisioningStatusCompleted,
+		ProvisioningStatusFailed,
+		ProvisioningStatusProvisioning,
+	}
+}
+
 // PublicNetworkAccess - Whether requests from Public Network are allowed.
 type PublicNetworkAccess string
 
@@ -432,21 +1166,37 @@ func PossibleQuotaUnitValues() []QuotaUnit {
 	}
 }
 
-// ReasonCode - The reason for the restriction.
-type ReasonCode string
+// RandomSamplingAlgorithmRule - The specific type of random algorithm
+type RandomSamplingAlgorithmRule string
 
 const (
-	ReasonCodeNotAvailableForRegion       ReasonCode = "NotAvailableForRegion"
-	ReasonCodeNotAvailableForSubscription ReasonCode = "NotAvailableForSubscription"
-	ReasonCodeNotSpecified                ReasonCode = "NotSpecified"
+	RandomSamplingAlgorithmRuleRandom RandomSamplingAlgorithmRule = "Random"
+	RandomSamplingAlgorithmRuleSobol  RandomSamplingAlgorithmRule = "Sobol"
 )
 
-// PossibleReasonCodeValues returns the possible values for the ReasonCode const type.
-func PossibleReasonCodeValues() []ReasonCode {
-	return []ReasonCode{
-		ReasonCodeNotAvailableForRegion,
-		ReasonCodeNotAvailableForSubscription,
-		ReasonCodeNotSpecified,
+// PossibleRandomSamplingAlgorithmRuleValues returns the possible values for the RandomSamplingAlgorithmRule const type.
+func PossibleRandomSamplingAlgorithmRuleValues() []RandomSamplingAlgorithmRule {
+	return []RandomSamplingAlgorithmRule{
+		RandomSamplingAlgorithmRuleRandom,
+		RandomSamplingAlgorithmRuleSobol,
+	}
+}
+
+// ReferenceType - Enum to determine which reference method to use for an asset.
+type ReferenceType string
+
+const (
+	ReferenceTypeDataPath   ReferenceType = "DataPath"
+	ReferenceTypeID         ReferenceType = "Id"
+	ReferenceTypeOutputPath ReferenceType = "OutputPath"
+)
+
+// PossibleReferenceTypeValues returns the possible values for the ReferenceType const type.
+func PossibleReferenceTypeValues() []ReferenceType {
+	return []ReferenceType{
+		ReferenceTypeDataPath,
+		ReferenceTypeID,
+		ReferenceTypeOutputPath,
 	}
 }
 
@@ -472,23 +1222,45 @@ func PossibleRemoteLoginPortPublicAccessValues() []RemoteLoginPortPublicAccess {
 	}
 }
 
-// ResourceIdentityType - The identity type.
-type ResourceIdentityType string
+// SKUScaleType - Node scaling setting for the compute sku.
+type SKUScaleType string
 
 const (
-	ResourceIdentityTypeSystemAssigned             ResourceIdentityType = "SystemAssigned"
-	ResourceIdentityTypeSystemAssignedUserAssigned ResourceIdentityType = "SystemAssigned,UserAssigned"
-	ResourceIdentityTypeUserAssigned               ResourceIdentityType = "UserAssigned"
-	ResourceIdentityTypeNone                       ResourceIdentityType = "None"
+	// SKUScaleTypeAutomatic - Automatically scales node count.
+	SKUScaleTypeAutomatic SKUScaleType = "Automatic"
+	// SKUScaleTypeManual - Node count scaled upon user request.
+	SKUScaleTypeManual SKUScaleType = "Manual"
+	// SKUScaleTypeNone - Fixed set of nodes.
+	SKUScaleTypeNone SKUScaleType = "None"
 )
 
-// PossibleResourceIdentityTypeValues returns the possible values for the ResourceIdentityType const type.
-func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
-	return []ResourceIdentityType{
-		ResourceIdentityTypeSystemAssigned,
-		ResourceIdentityTypeSystemAssignedUserAssigned,
-		ResourceIdentityTypeUserAssigned,
-		ResourceIdentityTypeNone,
+// PossibleSKUScaleTypeValues returns the possible values for the SKUScaleType const type.
+func PossibleSKUScaleTypeValues() []SKUScaleType {
+	return []SKUScaleType{
+		SKUScaleTypeAutomatic,
+		SKUScaleTypeManual,
+		SKUScaleTypeNone,
+	}
+}
+
+// SKUTier - This field is required to be implemented by the Resource Provider if the service has more than one tier, but
+// is not required on a PUT.
+type SKUTier string
+
+const (
+	SKUTierFree     SKUTier = "Free"
+	SKUTierBasic    SKUTier = "Basic"
+	SKUTierStandard SKUTier = "Standard"
+	SKUTierPremium  SKUTier = "Premium"
+)
+
+// PossibleSKUTierValues returns the possible values for the SKUTier const type.
+func PossibleSKUTierValues() []SKUTier {
+	return []SKUTier{
+		SKUTierFree,
+		SKUTierBasic,
+		SKUTierStandard,
+		SKUTierPremium,
 	}
 }
 
@@ -510,21 +1282,145 @@ func PossibleSSHPublicAccessValues() []SSHPublicAccess {
 	}
 }
 
-// SSLConfigurationStatus - Enable or disable ssl for scoring
-type SSLConfigurationStatus string
+// SSLConfigStatus - Enable or disable ssl for scoring
+type SSLConfigStatus string
 
 const (
-	SSLConfigurationStatusAuto     SSLConfigurationStatus = "Auto"
-	SSLConfigurationStatusDisabled SSLConfigurationStatus = "Disabled"
-	SSLConfigurationStatusEnabled  SSLConfigurationStatus = "Enabled"
+	SSLConfigStatusAuto     SSLConfigStatus = "Auto"
+	SSLConfigStatusDisabled SSLConfigStatus = "Disabled"
+	SSLConfigStatusEnabled  SSLConfigStatus = "Enabled"
 )
 
-// PossibleSSLConfigurationStatusValues returns the possible values for the SSLConfigurationStatus const type.
-func PossibleSSLConfigurationStatusValues() []SSLConfigurationStatus {
-	return []SSLConfigurationStatus{
-		SSLConfigurationStatusAuto,
-		SSLConfigurationStatusDisabled,
-		SSLConfigurationStatusEnabled,
+// PossibleSSLConfigStatusValues returns the possible values for the SSLConfigStatus const type.
+func PossibleSSLConfigStatusValues() []SSLConfigStatus {
+	return []SSLConfigStatus{
+		SSLConfigStatusAuto,
+		SSLConfigStatusDisabled,
+		SSLConfigStatusEnabled,
+	}
+}
+
+type SamplingAlgorithmType string
+
+const (
+	SamplingAlgorithmTypeBayesian SamplingAlgorithmType = "Bayesian"
+	SamplingAlgorithmTypeGrid     SamplingAlgorithmType = "Grid"
+	SamplingAlgorithmTypeRandom   SamplingAlgorithmType = "Random"
+)
+
+// PossibleSamplingAlgorithmTypeValues returns the possible values for the SamplingAlgorithmType const type.
+func PossibleSamplingAlgorithmTypeValues() []SamplingAlgorithmType {
+	return []SamplingAlgorithmType{
+		SamplingAlgorithmTypeBayesian,
+		SamplingAlgorithmTypeGrid,
+		SamplingAlgorithmTypeRandom,
+	}
+}
+
+type ScaleType string
+
+const (
+	ScaleTypeDefault           ScaleType = "Default"
+	ScaleTypeTargetUtilization ScaleType = "TargetUtilization"
+)
+
+// PossibleScaleTypeValues returns the possible values for the ScaleType const type.
+func PossibleScaleTypeValues() []ScaleType {
+	return []ScaleType{
+		ScaleTypeDefault,
+		ScaleTypeTargetUtilization,
+	}
+}
+
+type ScheduleProvisioningState string
+
+const (
+	ScheduleProvisioningStateCompleted    ScheduleProvisioningState = "Completed"
+	ScheduleProvisioningStateFailed       ScheduleProvisioningState = "Failed"
+	ScheduleProvisioningStateProvisioning ScheduleProvisioningState = "Provisioning"
+)
+
+// PossibleScheduleProvisioningStateValues returns the possible values for the ScheduleProvisioningState const type.
+func PossibleScheduleProvisioningStateValues() []ScheduleProvisioningState {
+	return []ScheduleProvisioningState{
+		ScheduleProvisioningStateCompleted,
+		ScheduleProvisioningStateFailed,
+		ScheduleProvisioningStateProvisioning,
+	}
+}
+
+type ScheduleStatus string
+
+const (
+	ScheduleStatusDisabled ScheduleStatus = "Disabled"
+	ScheduleStatusEnabled  ScheduleStatus = "Enabled"
+)
+
+// PossibleScheduleStatusValues returns the possible values for the ScheduleStatus const type.
+func PossibleScheduleStatusValues() []ScheduleStatus {
+	return []ScheduleStatus{
+		ScheduleStatusDisabled,
+		ScheduleStatusEnabled,
+	}
+}
+
+// SecretsType - Enum to determine the datastore secrets type.
+type SecretsType string
+
+const (
+	SecretsTypeAccountKey       SecretsType = "AccountKey"
+	SecretsTypeCertificate      SecretsType = "Certificate"
+	SecretsTypeSas              SecretsType = "Sas"
+	SecretsTypeServicePrincipal SecretsType = "ServicePrincipal"
+)
+
+// PossibleSecretsTypeValues returns the possible values for the SecretsType const type.
+func PossibleSecretsTypeValues() []SecretsType {
+	return []SecretsType{
+		SecretsTypeAccountKey,
+		SecretsTypeCertificate,
+		SecretsTypeSas,
+		SecretsTypeServicePrincipal,
+	}
+}
+
+type ServiceDataAccessAuthIdentity string
+
+const (
+	// ServiceDataAccessAuthIdentityNone - Do not use any identity for service data access.
+	ServiceDataAccessAuthIdentityNone ServiceDataAccessAuthIdentity = "None"
+	// ServiceDataAccessAuthIdentityWorkspaceSystemAssignedIdentity - Use the system assigned managed identity of the Workspace
+	// to authenticate service data access.
+	ServiceDataAccessAuthIdentityWorkspaceSystemAssignedIdentity ServiceDataAccessAuthIdentity = "WorkspaceSystemAssignedIdentity"
+	// ServiceDataAccessAuthIdentityWorkspaceUserAssignedIdentity - Use the user assigned managed identity of the Workspace to
+	// authenticate service data access.
+	ServiceDataAccessAuthIdentityWorkspaceUserAssignedIdentity ServiceDataAccessAuthIdentity = "WorkspaceUserAssignedIdentity"
+)
+
+// PossibleServiceDataAccessAuthIdentityValues returns the possible values for the ServiceDataAccessAuthIdentity const type.
+func PossibleServiceDataAccessAuthIdentityValues() []ServiceDataAccessAuthIdentity {
+	return []ServiceDataAccessAuthIdentity{
+		ServiceDataAccessAuthIdentityNone,
+		ServiceDataAccessAuthIdentityWorkspaceSystemAssignedIdentity,
+		ServiceDataAccessAuthIdentityWorkspaceUserAssignedIdentity,
+	}
+}
+
+// SourceType - Data source type.
+type SourceType string
+
+const (
+	SourceTypeDataset   SourceType = "Dataset"
+	SourceTypeDatastore SourceType = "Datastore"
+	SourceTypeURI       SourceType = "URI"
+)
+
+// PossibleSourceTypeValues returns the possible values for the SourceType const type.
+func PossibleSourceTypeValues() []SourceType {
+	return []SourceType{
+		SourceTypeDataset,
+		SourceTypeDatastore,
+		SourceTypeURI,
 	}
 }
 
@@ -553,6 +1449,22 @@ func PossibleStatusValues() []Status {
 		StatusOperationNotSupportedForSKU,
 		StatusSuccess,
 		StatusUndefined,
+	}
+}
+
+// StorageAccountType - type of this storage account.
+type StorageAccountType string
+
+const (
+	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
+)
+
+// PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
+func PossibleStorageAccountTypeValues() []StorageAccountType {
+	return []StorageAccountType{
+		StorageAccountTypePremiumLRS,
+		StorageAccountTypeStandardLRS,
 	}
 }
 
