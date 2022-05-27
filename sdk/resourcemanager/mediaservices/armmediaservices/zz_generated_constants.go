@@ -10,7 +10,7 @@ package armmediaservices
 
 const (
 	moduleName    = "armmediaservices"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // AacAudioProfile - The encoding profile to be used when encoding audio with AAC.
@@ -127,6 +127,24 @@ func PossibleAssetStorageEncryptionFormatValues() []AssetStorageEncryptionFormat
 	return []AssetStorageEncryptionFormat{
 		AssetStorageEncryptionFormatMediaStorageClientEncryption,
 		AssetStorageEncryptionFormatNone,
+	}
+}
+
+// AsyncOperationStatus - Operation status of the async operation.
+type AsyncOperationStatus string
+
+const (
+	AsyncOperationStatusFailed     AsyncOperationStatus = "Failed"
+	AsyncOperationStatusInProgress AsyncOperationStatus = "InProgress"
+	AsyncOperationStatusSucceeded  AsyncOperationStatus = "Succeeded"
+)
+
+// PossibleAsyncOperationStatusValues returns the possible values for the AsyncOperationStatus const type.
+func PossibleAsyncOperationStatusValues() []AsyncOperationStatus {
+	return []AsyncOperationStatus{
+		AsyncOperationStatusFailed,
+		AsyncOperationStatusInProgress,
+		AsyncOperationStatusSucceeded,
 	}
 }
 

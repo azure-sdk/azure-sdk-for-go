@@ -1,5 +1,34 @@
 # Release History
 
+## 1.1.0 (2022-05-27)
+### Features Added
+
+- New const `AsyncOperationStatusFailed`
+- New const `AsyncOperationStatusSucceeded`
+- New const `AsyncOperationStatusInProgress`
+- New function `*LiveEventsClient.OperationLocation(context.Context, string, string, string, string, *LiveEventsClientOperationLocationOptions) (LiveEventsClientOperationLocationResponse, error)`
+- New function `*LiveEventsClient.AsyncOperation(context.Context, string, string, string, *LiveEventsClientAsyncOperationOptions) (LiveEventsClientAsyncOperationResponse, error)`
+- New function `*LiveOutputsClient.AsyncOperation(context.Context, string, string, string, *LiveOutputsClientAsyncOperationOptions) (LiveOutputsClientAsyncOperationResponse, error)`
+- New function `PossibleAsyncOperationStatusValues() []AsyncOperationStatus`
+- New function `*LiveOutputsClient.OperationLocation(context.Context, string, string, string, string, string, *LiveOutputsClientOperationLocationOptions) (LiveOutputsClientOperationLocationResponse, error)`
+- New function `*StreamingEndpointsClient.OperationLocation(context.Context, string, string, string, string, *StreamingEndpointsClientOperationLocationOptions) (StreamingEndpointsClientOperationLocationResponse, error)`
+- New function `*StreamingEndpointsClient.AsyncOperation(context.Context, string, string, string, *StreamingEndpointsClientAsyncOperationOptions) (StreamingEndpointsClientAsyncOperationResponse, error)`
+- New struct `AsyncOperationErrorDetail`
+- New struct `AsyncOperationResult`
+- New struct `LiveEventsClientAsyncOperationOptions`
+- New struct `LiveEventsClientAsyncOperationResponse`
+- New struct `LiveEventsClientOperationLocationOptions`
+- New struct `LiveEventsClientOperationLocationResponse`
+- New struct `LiveOutputsClientAsyncOperationOptions`
+- New struct `LiveOutputsClientAsyncOperationResponse`
+- New struct `LiveOutputsClientOperationLocationOptions`
+- New struct `LiveOutputsClientOperationLocationResponse`
+- New struct `StreamingEndpointsClientAsyncOperationOptions`
+- New struct `StreamingEndpointsClientAsyncOperationResponse`
+- New struct `StreamingEndpointsClientOperationLocationOptions`
+- New struct `StreamingEndpointsClientOperationLocationResponse`
+
+
 ## 1.0.0 (2022-05-18)
 ### Breaking Changes
 

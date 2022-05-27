@@ -55,6 +55,68 @@ func NewStreamingEndpointsClient(subscriptionID string, credential azcore.TokenC
 	return client, nil
 }
 
+// AsyncOperation - Get a streaming endpoint operation status.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2021-11-01
+// resourceGroupName - The name of the resource group within the Azure subscription.
+// accountName - The Media Services account name.
+// operationID - The ID of an ongoing async operation.
+// options - StreamingEndpointsClientAsyncOperationOptions contains the optional parameters for the StreamingEndpointsClient.AsyncOperation
+// method.
+func (client *StreamingEndpointsClient) AsyncOperation(ctx context.Context, resourceGroupName string, accountName string, operationID string, options *StreamingEndpointsClientAsyncOperationOptions) (StreamingEndpointsClientAsyncOperationResponse, error) {
+	req, err := client.asyncOperationCreateRequest(ctx, resourceGroupName, accountName, operationID, options)
+	if err != nil {
+		return StreamingEndpointsClientAsyncOperationResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return StreamingEndpointsClientAsyncOperationResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return StreamingEndpointsClientAsyncOperationResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.asyncOperationHandleResponse(resp)
+}
+
+// asyncOperationCreateRequest creates the AsyncOperation request.
+func (client *StreamingEndpointsClient) asyncOperationCreateRequest(ctx context.Context, resourceGroupName string, accountName string, operationID string, options *StreamingEndpointsClientAsyncOperationOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/streamingEndpointOperations/{operationId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if accountName == "" {
+		return nil, errors.New("parameter accountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if operationID == "" {
+		return nil, errors.New("parameter operationID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{operationId}", url.PathEscape(operationID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// asyncOperationHandleResponse handles the AsyncOperation response.
+func (client *StreamingEndpointsClient) asyncOperationHandleResponse(resp *http.Response) (StreamingEndpointsClientAsyncOperationResponse, error) {
+	result := StreamingEndpointsClientAsyncOperationResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AsyncOperationResult); err != nil {
+		return StreamingEndpointsClientAsyncOperationResponse{}, err
+	}
+	return result, nil
+}
+
 // BeginCreate - Creates a streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-11-01
@@ -321,6 +383,73 @@ func (client *StreamingEndpointsClient) listHandleResponse(resp *http.Response) 
 	result := StreamingEndpointsClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.StreamingEndpointListResult); err != nil {
 		return StreamingEndpointsClientListResponse{}, err
+	}
+	return result, nil
+}
+
+// OperationLocation - Get a streaming endpoint operation status.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2021-11-01
+// resourceGroupName - The name of the resource group within the Azure subscription.
+// accountName - The Media Services account name.
+// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+// operationID - The ID of an ongoing async operation.
+// options - StreamingEndpointsClientOperationLocationOptions contains the optional parameters for the StreamingEndpointsClient.OperationLocation
+// method.
+func (client *StreamingEndpointsClient) OperationLocation(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, operationID string, options *StreamingEndpointsClientOperationLocationOptions) (StreamingEndpointsClientOperationLocationResponse, error) {
+	req, err := client.operationLocationCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, operationID, options)
+	if err != nil {
+		return StreamingEndpointsClientOperationLocationResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return StreamingEndpointsClientOperationLocationResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return StreamingEndpointsClientOperationLocationResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.operationLocationHandleResponse(resp)
+}
+
+// operationLocationCreateRequest creates the OperationLocation request.
+func (client *StreamingEndpointsClient) operationLocationCreateRequest(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, operationID string, options *StreamingEndpointsClientOperationLocationOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/streamingEndpoints/{streamingEndpointName}/operationLocations/{operationId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if accountName == "" {
+		return nil, errors.New("parameter accountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{accountName}", url.PathEscape(accountName))
+	if streamingEndpointName == "" {
+		return nil, errors.New("parameter streamingEndpointName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{streamingEndpointName}", url.PathEscape(streamingEndpointName))
+	if operationID == "" {
+		return nil, errors.New("parameter operationID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{operationId}", url.PathEscape(operationID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// operationLocationHandleResponse handles the OperationLocation response.
+func (client *StreamingEndpointsClient) operationLocationHandleResponse(resp *http.Response) (StreamingEndpointsClientOperationLocationResponse, error) {
+	result := StreamingEndpointsClientOperationLocationResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.StreamingEndpoint); err != nil {
+		return StreamingEndpointsClientOperationLocationResponse{}, err
 	}
 	return result, nil
 }

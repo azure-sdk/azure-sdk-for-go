@@ -203,6 +203,11 @@ type LiveEventsClientAllocateResponse struct {
 	// placeholder for future response values
 }
 
+// LiveEventsClientAsyncOperationResponse contains the response from method LiveEventsClient.AsyncOperation.
+type LiveEventsClientAsyncOperationResponse struct {
+	AsyncOperationResult
+}
+
 // LiveEventsClientCreateResponse contains the response from method LiveEventsClient.Create.
 type LiveEventsClientCreateResponse struct {
 	LiveEvent
@@ -221,6 +226,11 @@ type LiveEventsClientGetResponse struct {
 // LiveEventsClientListResponse contains the response from method LiveEventsClient.List.
 type LiveEventsClientListResponse struct {
 	LiveEventListResult
+}
+
+// LiveEventsClientOperationLocationResponse contains the response from method LiveEventsClient.OperationLocation.
+type LiveEventsClientOperationLocationResponse struct {
+	LiveEvent
 }
 
 // LiveEventsClientResetResponse contains the response from method LiveEventsClient.Reset.
@@ -243,6 +253,11 @@ type LiveEventsClientUpdateResponse struct {
 	LiveEvent
 }
 
+// LiveOutputsClientAsyncOperationResponse contains the response from method LiveOutputsClient.AsyncOperation.
+type LiveOutputsClientAsyncOperationResponse struct {
+	AsyncOperationResult
+}
+
 // LiveOutputsClientCreateResponse contains the response from method LiveOutputsClient.Create.
 type LiveOutputsClientCreateResponse struct {
 	LiveOutput
@@ -261,6 +276,11 @@ type LiveOutputsClientGetResponse struct {
 // LiveOutputsClientListResponse contains the response from method LiveOutputsClient.List.
 type LiveOutputsClientListResponse struct {
 	LiveOutputListResult
+}
+
+// LiveOutputsClientOperationLocationResponse contains the response from method LiveOutputsClient.OperationLocation.
+type LiveOutputsClientOperationLocationResponse struct {
+	LiveOutput
 }
 
 // LocationsClientCheckNameAvailabilityResponse contains the response from method LocationsClient.CheckNameAvailability.
@@ -321,6 +341,11 @@ type PrivateLinkResourcesClientListResponse struct {
 	PrivateLinkResourceListResult
 }
 
+// StreamingEndpointsClientAsyncOperationResponse contains the response from method StreamingEndpointsClient.AsyncOperation.
+type StreamingEndpointsClientAsyncOperationResponse struct {
+	AsyncOperationResult
+}
+
 // StreamingEndpointsClientCreateResponse contains the response from method StreamingEndpointsClient.Create.
 type StreamingEndpointsClientCreateResponse struct {
 	StreamingEndpoint
@@ -339,6 +364,11 @@ type StreamingEndpointsClientGetResponse struct {
 // StreamingEndpointsClientListResponse contains the response from method StreamingEndpointsClient.List.
 type StreamingEndpointsClientListResponse struct {
 	StreamingEndpointListResult
+}
+
+// StreamingEndpointsClientOperationLocationResponse contains the response from method StreamingEndpointsClient.OperationLocation.
+type StreamingEndpointsClientOperationLocationResponse struct {
+	StreamingEndpoint
 }
 
 // StreamingEndpointsClientSKUsResponse contains the response from method StreamingEndpointsClient.SKUs.
