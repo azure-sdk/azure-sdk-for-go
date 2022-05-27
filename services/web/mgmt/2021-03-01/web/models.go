@@ -4280,6 +4280,8 @@ type AppServicePlanPatchResourceProperties struct {
 	HostingEnvironmentProfile *HostingEnvironmentProfile `json:"hostingEnvironmentProfile,omitempty"`
 	// MaximumNumberOfWorkers - READ-ONLY; Maximum number of instances that can be assigned to this App Service plan.
 	MaximumNumberOfWorkers *int32 `json:"maximumNumberOfWorkers,omitempty"`
+	// NumberOfWorkers - READ-ONLY; The number of instances that are assigned to this App Service plan.
+	NumberOfWorkers *int32 `json:"numberOfWorkers,omitempty"`
 	// GeoRegion - READ-ONLY; Geographical location for the App Service plan.
 	GeoRegion *string `json:"geoRegion,omitempty"`
 	// PerSiteScaling - If <code>true</code>, apps assigned to this App Service plan can be scaled independently.
@@ -4381,6 +4383,8 @@ type AppServicePlanProperties struct {
 	HostingEnvironmentProfile *HostingEnvironmentProfile `json:"hostingEnvironmentProfile,omitempty"`
 	// MaximumNumberOfWorkers - READ-ONLY; Maximum number of instances that can be assigned to this App Service plan.
 	MaximumNumberOfWorkers *int32 `json:"maximumNumberOfWorkers,omitempty"`
+	// NumberOfWorkers - READ-ONLY; The number of instances that are assigned to this App Service plan.
+	NumberOfWorkers *int32 `json:"numberOfWorkers,omitempty"`
 	// GeoRegion - READ-ONLY; Geographical location for the App Service plan.
 	GeoRegion *string `json:"geoRegion,omitempty"`
 	// PerSiteScaling - If <code>true</code>, apps assigned to this App Service plan can be scaled independently.
