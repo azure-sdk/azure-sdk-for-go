@@ -2444,6 +2444,7 @@ func (p PlanPatchResourceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maximumElasticWorkerCount", p.MaximumElasticWorkerCount)
 	populate(objectMap, "maximumNumberOfWorkers", p.MaximumNumberOfWorkers)
 	populate(objectMap, "numberOfSites", p.NumberOfSites)
+	populate(objectMap, "numberOfWorkers", p.NumberOfWorkers)
 	populate(objectMap, "perSiteScaling", p.PerSiteScaling)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
 	populate(objectMap, "reserved", p.Reserved)
@@ -2500,6 +2501,9 @@ func (p *PlanPatchResourceProperties) UnmarshalJSON(data []byte) error {
 		case "numberOfSites":
 			err = unpopulate(val, "NumberOfSites", &p.NumberOfSites)
 			delete(rawMsg, key)
+		case "numberOfWorkers":
+			err = unpopulate(val, "NumberOfWorkers", &p.NumberOfWorkers)
+			delete(rawMsg, key)
 		case "perSiteScaling":
 			err = unpopulate(val, "PerSiteScaling", &p.PerSiteScaling)
 			delete(rawMsg, key)
@@ -2555,6 +2559,7 @@ func (p PlanProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maximumElasticWorkerCount", p.MaximumElasticWorkerCount)
 	populate(objectMap, "maximumNumberOfWorkers", p.MaximumNumberOfWorkers)
 	populate(objectMap, "numberOfSites", p.NumberOfSites)
+	populate(objectMap, "numberOfWorkers", p.NumberOfWorkers)
 	populate(objectMap, "perSiteScaling", p.PerSiteScaling)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
 	populate(objectMap, "reserved", p.Reserved)
@@ -2610,6 +2615,9 @@ func (p *PlanProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "numberOfSites":
 			err = unpopulate(val, "NumberOfSites", &p.NumberOfSites)
+			delete(rawMsg, key)
+		case "numberOfWorkers":
+			err = unpopulate(val, "NumberOfWorkers", &p.NumberOfWorkers)
 			delete(rawMsg, key)
 		case "perSiteScaling":
 			err = unpopulate(val, "PerSiteScaling", &p.PerSiteScaling)

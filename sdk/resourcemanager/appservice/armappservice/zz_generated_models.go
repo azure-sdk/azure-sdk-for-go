@@ -5518,6 +5518,9 @@ type PlanPatchResourceProperties struct {
 	// READ-ONLY; Number of apps assigned to this App Service plan.
 	NumberOfSites *int32 `json:"numberOfSites,omitempty" azure:"ro"`
 
+	// READ-ONLY; The number of instances that are assigned to this App Service plan.
+	NumberOfWorkers *int32 `json:"numberOfWorkers,omitempty" azure:"ro"`
+
 	// READ-ONLY; Provisioning state of the App Service Plan.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 
@@ -5588,6 +5591,9 @@ type PlanProperties struct {
 
 	// READ-ONLY; Number of apps assigned to this App Service plan.
 	NumberOfSites *int32 `json:"numberOfSites,omitempty" azure:"ro"`
+
+	// READ-ONLY; The number of instances that are assigned to this App Service plan.
+	NumberOfWorkers *int32 `json:"numberOfWorkers,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning state of the App Service Plan.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`

@@ -1,5 +1,12 @@
 # Release History
 
+## 1.1.0 (2022-05-27)
+### Features Added
+
+- New field `NumberOfWorkers` in struct `PlanProperties`
+- New field `NumberOfWorkers` in struct `PlanPatchResourceProperties`
+
+
 ## 1.0.0 (2022-05-16)
 ### Breaking Changes
 
