@@ -231,3 +231,14 @@ type PrivateLinkResourcesClientAPI interface {
 }
 
 var _ PrivateLinkResourcesClientAPI = (*datafactory.PrivateLinkResourcesClient)(nil)
+
+// GlobalParametersClientAPI contains the set of methods on the GlobalParametersClient type.
+type GlobalParametersClientAPI interface {
+	CreateOrUpdate(ctx context.Context, resourceGroupName string, factoryName string, globalParameterName string, defaultParameter datafactory.GlobalParameterResource) (result datafactory.GlobalParameterResource, err error)
+	Delete(ctx context.Context, resourceGroupName string, factoryName string, globalParameterName string) (result autorest.Response, err error)
+	Get(ctx context.Context, resourceGroupName string, factoryName string, globalParameterName string) (result datafactory.GlobalParameterResource, err error)
+	ListByFactory(ctx context.Context, resourceGroupName string, factoryName string) (result datafactory.GlobalParameterListResponsePage, err error)
+	ListByFactoryComplete(ctx context.Context, resourceGroupName string, factoryName string) (result datafactory.GlobalParameterListResponseIterator, err error)
+}
+
+var _ GlobalParametersClientAPI = (*datafactory.GlobalParametersClient)(nil)
