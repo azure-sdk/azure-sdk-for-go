@@ -1,5 +1,5 @@
 {
-  "commit": "3c764635e7d442b3e74caf593029fcd440b3ef82",
+  "commit": "fa0e451cc78b7eaa572e144067d3f55ba3385c92",
   "readme": "/_/azure-rest-api-specs/specification/timeseriesinsights/resource-manager/readme.md",
   "tag": "package-2017-11-15",
   "use": "@microsoft.azure/autorest.go@2.1.187",
