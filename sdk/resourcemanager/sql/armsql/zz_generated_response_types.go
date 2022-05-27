@@ -1125,6 +1125,11 @@ type ManagedDatabaseSensitivityLabelsClientGetResponse struct {
 	SensitivityLabel
 }
 
+// ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse contains the response from method ManagedDatabaseSensitivityLabelsClient.ListByDatabase.
+type ManagedDatabaseSensitivityLabelsClientListByDatabaseResponse struct {
+	SensitivityLabelListResult
+}
+
 // ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseResponse contains the response from method ManagedDatabaseSensitivityLabelsClient.ListCurrentByDatabase.
 type ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseResponse struct {
 	SensitivityLabelListResult
@@ -1293,6 +1298,21 @@ type ManagedInstanceAzureADOnlyAuthenticationsClientGetResponse struct {
 // ManagedInstanceAzureADOnlyAuthenticationsClientListByInstanceResponse contains the response from method ManagedInstanceAzureADOnlyAuthenticationsClient.ListByInstance.
 type ManagedInstanceAzureADOnlyAuthenticationsClientListByInstanceResponse struct {
 	ManagedInstanceAzureADOnlyAuthListResult
+}
+
+// ManagedInstanceDtcsClientCreateOrUpdateResponse contains the response from method ManagedInstanceDtcsClient.CreateOrUpdate.
+type ManagedInstanceDtcsClientCreateOrUpdateResponse struct {
+	ManagedInstanceDtc
+}
+
+// ManagedInstanceDtcsClientGetResponse contains the response from method ManagedInstanceDtcsClient.Get.
+type ManagedInstanceDtcsClientGetResponse struct {
+	ManagedInstanceDtc
+}
+
+// ManagedInstanceDtcsClientListByManagedInstanceResponse contains the response from method ManagedInstanceDtcsClient.ListByManagedInstance.
+type ManagedInstanceDtcsClientListByManagedInstanceResponse struct {
+	ManagedInstanceDtcListResult
 }
 
 // ManagedInstanceEncryptionProtectorsClientCreateOrUpdateResponse contains the response from method ManagedInstanceEncryptionProtectorsClient.CreateOrUpdate.
@@ -1488,6 +1508,31 @@ type ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientUpdat
 	ManagedBackupShortTermRetentionPolicy
 }
 
+// ManagedServerDNSAliasesClientAcquireResponse contains the response from method ManagedServerDNSAliasesClient.Acquire.
+type ManagedServerDNSAliasesClientAcquireResponse struct {
+	ManagedServerDNSAlias
+}
+
+// ManagedServerDNSAliasesClientCreateOrUpdateResponse contains the response from method ManagedServerDNSAliasesClient.CreateOrUpdate.
+type ManagedServerDNSAliasesClientCreateOrUpdateResponse struct {
+	ManagedServerDNSAlias
+}
+
+// ManagedServerDNSAliasesClientDeleteResponse contains the response from method ManagedServerDNSAliasesClient.Delete.
+type ManagedServerDNSAliasesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagedServerDNSAliasesClientGetResponse contains the response from method ManagedServerDNSAliasesClient.Get.
+type ManagedServerDNSAliasesClientGetResponse struct {
+	ManagedServerDNSAlias
+}
+
+// ManagedServerDNSAliasesClientListByManagedInstanceResponse contains the response from method ManagedServerDNSAliasesClient.ListByManagedInstance.
+type ManagedServerDNSAliasesClientListByManagedInstanceResponse struct {
+	ManagedServerDNSAliasListResult
+}
+
 // ManagedServerSecurityAlertPoliciesClientCreateOrUpdateResponse contains the response from method ManagedServerSecurityAlertPoliciesClient.CreateOrUpdate.
 type ManagedServerSecurityAlertPoliciesClientCreateOrUpdateResponse struct {
 	ManagedServerSecurityAlertPolicy
@@ -1676,6 +1721,11 @@ type SensitivityLabelsClientEnableRecommendationResponse struct {
 // SensitivityLabelsClientGetResponse contains the response from method SensitivityLabelsClient.Get.
 type SensitivityLabelsClientGetResponse struct {
 	SensitivityLabel
+}
+
+// SensitivityLabelsClientListByDatabaseResponse contains the response from method SensitivityLabelsClient.ListByDatabase.
+type SensitivityLabelsClientListByDatabaseResponse struct {
+	SensitivityLabelListResult
 }
 
 // SensitivityLabelsClientListCurrentByDatabaseResponse contains the response from method SensitivityLabelsClient.ListCurrentByDatabase.

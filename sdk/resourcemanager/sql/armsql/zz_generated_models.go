@@ -678,8 +678,7 @@ type DatabaseBlobAuditingPolicyProperties struct {
 	// DATABASEPERMISSIONCHANGEGROUP DATABASEPRINCIPALCHANGEGROUP DATABASEPRINCIPALIMPERSONATIONGROUP DATABASEROLEMEMBERCHANGEGROUP
 	// FAILEDDATABASEAUTHENTICATIONGROUP SCHEMAOBJECTACCESSGROUP SCHEMAOBJECT
 	// CHANGEGROUP SCHEMAOBJECTOWNERSHIPCHANGEGROUP SCHEMAOBJECTPERMISSIONCHANGEGROUP SUCCESSFULDATABASEAUTHENTICATIONGROUP USERCHANGEPASSWORDGROUP
-	// BATCHSTARTEDGROUP BATCHCOMPLETEDGROUP DBCCGROUP DATABASE
-	// OWNERSHIPCHANGEGROUP DATABASECHANGEGROUP LEDGEROPERATION_GROUP
+	// BATCHSTARTEDGROUP BATCHCOMPLETED_GROUP
 	// These are groups that cover all sql statements and stored procedures executed against the database, and should not be used
 	// in combination with other groups as this will result in duplicate audit logs.
 	// For more information, see Database-Level Audit Action Groups
@@ -706,9 +705,6 @@ type DatabaseBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsAzureMonitorTargetEnabled *bool `json:"isAzureMonitorTargetEnabled,omitempty"`
-
-	// Specifies whether Managed Identity is used to access blob storage
-	IsManagedIdentityInUse *bool `json:"isManagedIdentityInUse,omitempty"`
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
@@ -2589,8 +2585,7 @@ type ExtendedDatabaseBlobAuditingPolicyProperties struct {
 	// DATABASEPERMISSIONCHANGEGROUP DATABASEPRINCIPALCHANGEGROUP DATABASEPRINCIPALIMPERSONATIONGROUP DATABASEROLEMEMBERCHANGEGROUP
 	// FAILEDDATABASEAUTHENTICATIONGROUP SCHEMAOBJECTACCESSGROUP SCHEMAOBJECT
 	// CHANGEGROUP SCHEMAOBJECTOWNERSHIPCHANGEGROUP SCHEMAOBJECTPERMISSIONCHANGEGROUP SUCCESSFULDATABASEAUTHENTICATIONGROUP USERCHANGEPASSWORDGROUP
-	// BATCHSTARTEDGROUP BATCHCOMPLETEDGROUP DBCCGROUP DATABASE
-	// OWNERSHIPCHANGEGROUP DATABASECHANGEGROUP LEDGEROPERATION_GROUP
+	// BATCHSTARTEDGROUP BATCHCOMPLETED_GROUP
 	// These are groups that cover all sql statements and stored procedures executed against the database, and should not be used
 	// in combination with other groups as this will result in duplicate audit logs.
 	// For more information, see Database-Level Audit Action Groups
@@ -2617,9 +2612,6 @@ type ExtendedDatabaseBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsAzureMonitorTargetEnabled *bool `json:"isAzureMonitorTargetEnabled,omitempty"`
-
-	// Specifies whether Managed Identity is used to access blob storage
-	IsManagedIdentityInUse *bool `json:"isManagedIdentityInUse,omitempty"`
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
@@ -2711,8 +2703,7 @@ type ExtendedServerBlobAuditingPolicyProperties struct {
 	// DATABASEPERMISSIONCHANGEGROUP DATABASEPRINCIPALCHANGEGROUP DATABASEPRINCIPALIMPERSONATIONGROUP DATABASEROLEMEMBERCHANGEGROUP
 	// FAILEDDATABASEAUTHENTICATIONGROUP SCHEMAOBJECTACCESSGROUP SCHEMAOBJECT
 	// CHANGEGROUP SCHEMAOBJECTOWNERSHIPCHANGEGROUP SCHEMAOBJECTPERMISSIONCHANGEGROUP SUCCESSFULDATABASEAUTHENTICATIONGROUP USERCHANGEPASSWORDGROUP
-	// BATCHSTARTEDGROUP BATCHCOMPLETEDGROUP DBCCGROUP DATABASE
-	// OWNERSHIPCHANGEGROUP DATABASECHANGEGROUP LEDGEROPERATION_GROUP
+	// BATCHSTARTEDGROUP BATCHCOMPLETED_GROUP
 	// These are groups that cover all sql statements and stored procedures executed against the database, and should not be used
 	// in combination with other groups as this will result in duplicate audit logs.
 	// For more information, see Database-Level Audit Action Groups
@@ -2750,9 +2741,6 @@ type ExtendedServerBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsDevopsAuditEnabled *bool `json:"isDevopsAuditEnabled,omitempty"`
-
-	// Specifies whether Managed Identity is used to access blob storage
-	IsManagedIdentityInUse *bool `json:"isManagedIdentityInUse,omitempty"`
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
@@ -5017,6 +5005,13 @@ type ManagedDatabaseSensitivityLabelsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.ListByDatabase
+// method.
+type ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions struct {
+	// An OData filter expression that filters elements in the collection.
+	Filter *string
+}
+
 // ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.ListCurrentByDatabase
 // method.
 type ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseOptions struct {
@@ -5336,6 +5331,91 @@ type ManagedInstanceAzureADOnlyAuthenticationsClientGetOptions struct {
 // ManagedInstanceAzureADOnlyAuthenticationsClientListByInstanceOptions contains the optional parameters for the ManagedInstanceAzureADOnlyAuthenticationsClient.ListByInstance
 // method.
 type ManagedInstanceAzureADOnlyAuthenticationsClientListByInstanceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedInstanceDtc - SQL Managed Instance DTC
+type ManagedInstanceDtc struct {
+	// Resource properties.
+	Properties *ManagedInstanceDtcProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedInstanceDtcListResult - A list of managed instance's DTCs.
+type ManagedInstanceDtcListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*ManagedInstanceDtc `json:"value,omitempty" azure:"ro"`
+}
+
+// ManagedInstanceDtcProperties - The properties of managed instance DTC.
+type ManagedInstanceDtcProperties struct {
+	// Active status of managed instance DTC.
+	DtcEnabled *bool `json:"dtcEnabled,omitempty"`
+
+	// External dns suffix search list of managed instance DTC.
+	ExternalDNSSuffixSearchList []*string `json:"externalDnsSuffixSearchList,omitempty"`
+
+	// Security settings of managed instance DTC.
+	SecuritySettings *ManagedInstanceDtcSecuritySettings `json:"securitySettings,omitempty"`
+
+	// READ-ONLY; Host name dns suffix of managed instance DTC.
+	DtcHostNameDNSSuffix *string `json:"dtcHostNameDnsSuffix,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state of managed instance DTC.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// ManagedInstanceDtcSecuritySettings - The Security Settings of managed instance DTC.
+type ManagedInstanceDtcSecuritySettings struct {
+	// Allow SNA LU 6.2 to managed instance DTC.
+	SnaLu6Point2TransactionsEnabled *bool `json:"snaLu6point2TransactionsEnabled,omitempty"`
+
+	// Transaction Manager communication settings of managed instance DTC.
+	TransactionManagerCommunicationSettings *ManagedInstanceDtcTransactionManagerCommunicationSettings `json:"transactionManagerCommunicationSettings,omitempty"`
+
+	// Allow XA Transactions to managed instance DTC.
+	XaTransactionsEnabled *bool `json:"xaTransactionsEnabled,omitempty"`
+}
+
+// ManagedInstanceDtcTransactionManagerCommunicationSettings - The Transaction Manager Communication Settings of managed instance
+// DTC.
+type ManagedInstanceDtcTransactionManagerCommunicationSettings struct {
+	// Allow Inbound traffic to managed instance DTC.
+	AllowInboundEnabled *bool `json:"allowInboundEnabled,omitempty"`
+
+	// Allow Outbound traffic of managed instance DTC.
+	AllowOutboundEnabled *bool `json:"allowOutboundEnabled,omitempty"`
+
+	// Authentication type of managed instance DTC.
+	Authentication *string `json:"authentication,omitempty"`
+}
+
+// ManagedInstanceDtcsClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedInstanceDtcsClient.BeginCreateOrUpdate
+// method.
+type ManagedInstanceDtcsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedInstanceDtcsClientGetOptions contains the optional parameters for the ManagedInstanceDtcsClient.Get method.
+type ManagedInstanceDtcsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedInstanceDtcsClientListByManagedInstanceOptions contains the optional parameters for the ManagedInstanceDtcsClient.ListByManagedInstance
+// method.
+type ManagedInstanceDtcsClientListByManagedInstanceOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -6270,6 +6350,80 @@ type ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientGetOp
 // optional parameters for the ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClient.ListByRestorableDroppedDatabase
 // method.
 type ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientListByRestorableDroppedDatabaseOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedServerDNSAlias - A managed server DNS alias.
+type ManagedServerDNSAlias struct {
+	// Resource properties.
+	Properties *ManagedServerDNSAliasProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasAcquisition - A managed server DNS alias acquisition request.
+type ManagedServerDNSAliasAcquisition struct {
+	// REQUIRED; The resource ID of the managed server DNS alias that will be acquired to point to this managed server instead.
+	OldManagedServerDNSAliasResourceID *string `json:"oldManagedServerDnsAliasResourceId,omitempty"`
+}
+
+// ManagedServerDNSAliasCreation - A managed server dns alias creation request.
+type ManagedServerDNSAliasCreation struct {
+	// Whether or not DNS record should be created for this alias.
+	CreateDNSRecord *bool `json:"createDnsRecord,omitempty"`
+}
+
+// ManagedServerDNSAliasListResult - A list of managed server DNS aliases.
+type ManagedServerDNSAliasListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*ManagedServerDNSAlias `json:"value,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasProperties - Properties of a managed server DNS alias.
+type ManagedServerDNSAliasProperties struct {
+	// READ-ONLY; The fully qualified DNS record for managed server alias
+	AzureDNSRecord *string `json:"azureDnsRecord,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasesClientBeginAcquireOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginAcquire
+// method.
+type ManagedServerDNSAliasesClientBeginAcquireOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginCreateOrUpdate
+// method.
+type ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientBeginDeleteOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginDelete
+// method.
+type ManagedServerDNSAliasesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientGetOptions contains the optional parameters for the ManagedServerDNSAliasesClient.Get method.
+type ManagedServerDNSAliasesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedServerDNSAliasesClientListByManagedInstanceOptions contains the optional parameters for the ManagedServerDNSAliasesClient.ListByManagedInstance
+// method.
+type ManagedServerDNSAliasesClientListByManagedInstanceOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -7825,6 +7979,13 @@ type SensitivityLabelsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SensitivityLabelsClientListByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.ListByDatabase
+// method.
+type SensitivityLabelsClientListByDatabaseOptions struct {
+	// An OData filter expression that filters elements in the collection.
+	Filter *string
+}
+
 // SensitivityLabelsClientListCurrentByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.ListCurrentByDatabase
 // method.
 type SensitivityLabelsClientListCurrentByDatabaseOptions struct {
@@ -8059,8 +8220,7 @@ type ServerBlobAuditingPolicyProperties struct {
 	// DATABASEPERMISSIONCHANGEGROUP DATABASEPRINCIPALCHANGEGROUP DATABASEPRINCIPALIMPERSONATIONGROUP DATABASEROLEMEMBERCHANGEGROUP
 	// FAILEDDATABASEAUTHENTICATIONGROUP SCHEMAOBJECTACCESSGROUP SCHEMAOBJECT
 	// CHANGEGROUP SCHEMAOBJECTOWNERSHIPCHANGEGROUP SCHEMAOBJECTPERMISSIONCHANGEGROUP SUCCESSFULDATABASEAUTHENTICATIONGROUP USERCHANGEPASSWORDGROUP
-	// BATCHSTARTEDGROUP BATCHCOMPLETEDGROUP DBCCGROUP DATABASE
-	// OWNERSHIPCHANGEGROUP DATABASECHANGEGROUP LEDGEROPERATION_GROUP
+	// BATCHSTARTEDGROUP BATCHCOMPLETED_GROUP
 	// These are groups that cover all sql statements and stored procedures executed against the database, and should not be used
 	// in combination with other groups as this will result in duplicate audit logs.
 	// For more information, see Database-Level Audit Action Groups
@@ -8098,9 +8258,6 @@ type ServerBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsDevopsAuditEnabled *bool `json:"isDevopsAuditEnabled,omitempty"`
-
-	// Specifies whether Managed Identity is used to access blob storage
-	IsManagedIdentityInUse *bool `json:"isManagedIdentityInUse,omitempty"`
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
