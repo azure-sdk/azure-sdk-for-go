@@ -102,6 +102,23 @@ func PossibleAssetStorageEncryptionFormatValues() []AssetStorageEncryptionFormat
 	return []AssetStorageEncryptionFormat{AssetStorageEncryptionFormatMediaStorageClientEncryption, AssetStorageEncryptionFormatNone}
 }
 
+// AsyncOperationStatus enumerates the values for async operation status.
+type AsyncOperationStatus string
+
+const (
+	// AsyncOperationStatusFailed ...
+	AsyncOperationStatusFailed AsyncOperationStatus = "Failed"
+	// AsyncOperationStatusInProgress ...
+	AsyncOperationStatusInProgress AsyncOperationStatus = "InProgress"
+	// AsyncOperationStatusSucceeded ...
+	AsyncOperationStatusSucceeded AsyncOperationStatus = "Succeeded"
+)
+
+// PossibleAsyncOperationStatusValues returns an array of possible values for the AsyncOperationStatus const type.
+func PossibleAsyncOperationStatusValues() []AsyncOperationStatus {
+	return []AsyncOperationStatus{AsyncOperationStatusFailed, AsyncOperationStatusInProgress, AsyncOperationStatusSucceeded}
+}
+
 // AttributeFilter enumerates the values for attribute filter.
 type AttributeFilter string
 

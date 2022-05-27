@@ -1245,6 +1245,27 @@ func (atp *AssetTrackProperties) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
+// AsyncOperationErrorDetail the error detail of an async operation result.
+type AsyncOperationErrorDetail struct {
+	// Code - The error code.
+	Code *string `json:"code,omitempty"`
+	// Message - The error message.
+	Message *string `json:"message,omitempty"`
+	// Target - Id of the entity on which the operation is performed.
+	Target *string `json:"target,omitempty"`
+}
+
+// AsyncOperationResult the status of an async operation.
+type AsyncOperationResult struct {
+	autorest.Response `json:"-"`
+	// Error - The error object
+	Error *AsyncOperationErrorDetail `json:"error,omitempty"`
+	// Name - Operation Id of the async operation.
+	Name *string `json:"name,omitempty"`
+	// Status - Operation status of the async operation. Possible values include: 'AsyncOperationStatusSucceeded', 'AsyncOperationStatusFailed', 'AsyncOperationStatusInProgress'
+	Status AsyncOperationStatus `json:"status,omitempty"`
+}
+
 // BasicAudio defines the common properties for all audio codecs.
 type BasicAudio interface {
 	AsAacAudio() (*AacAudio, bool)

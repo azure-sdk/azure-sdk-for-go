@@ -190,11 +190,13 @@ var _ StreamingLocatorsClientAPI = (*media.StreamingLocatorsClient)(nil)
 // LiveEventsClientAPI contains the set of methods on the LiveEventsClient type.
 type LiveEventsClientAPI interface {
 	Allocate(ctx context.Context, resourceGroupName string, accountName string, liveEventName string) (result media.LiveEventsAllocateFuture, err error)
+	AsyncOperation(ctx context.Context, resourceGroupName string, accountName string, operationID string) (result media.AsyncOperationResult, err error)
 	Create(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, parameters media.LiveEvent, autoStart *bool) (result media.LiveEventsCreateFuture, err error)
 	Delete(ctx context.Context, resourceGroupName string, accountName string, liveEventName string) (result media.LiveEventsDeleteFuture, err error)
 	Get(ctx context.Context, resourceGroupName string, accountName string, liveEventName string) (result media.LiveEvent, err error)
 	List(ctx context.Context, resourceGroupName string, accountName string) (result media.LiveEventListResultPage, err error)
 	ListComplete(ctx context.Context, resourceGroupName string, accountName string) (result media.LiveEventListResultIterator, err error)
+	OperationLocation(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, operationID string) (result media.LiveEvent, err error)
 	Reset(ctx context.Context, resourceGroupName string, accountName string, liveEventName string) (result media.LiveEventsResetFuture, err error)
 	Start(ctx context.Context, resourceGroupName string, accountName string, liveEventName string) (result media.LiveEventsStartFuture, err error)
 	Stop(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, parameters media.LiveEventActionInput) (result media.LiveEventsStopFuture, err error)
@@ -205,22 +207,26 @@ var _ LiveEventsClientAPI = (*media.LiveEventsClient)(nil)
 
 // LiveOutputsClientAPI contains the set of methods on the LiveOutputsClient type.
 type LiveOutputsClientAPI interface {
+	AsyncOperation(ctx context.Context, resourceGroupName string, accountName string, operationID string) (result media.AsyncOperationResult, err error)
 	Create(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, liveOutputName string, parameters media.LiveOutput) (result media.LiveOutputsCreateFuture, err error)
 	Delete(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, liveOutputName string) (result media.LiveOutputsDeleteFuture, err error)
 	Get(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, liveOutputName string) (result media.LiveOutput, err error)
 	List(ctx context.Context, resourceGroupName string, accountName string, liveEventName string) (result media.LiveOutputListResultPage, err error)
 	ListComplete(ctx context.Context, resourceGroupName string, accountName string, liveEventName string) (result media.LiveOutputListResultIterator, err error)
+	OperationLocation(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, liveOutputName string, operationID string) (result media.LiveOutput, err error)
 }
 
 var _ LiveOutputsClientAPI = (*media.LiveOutputsClient)(nil)
 
 // StreamingEndpointsClientAPI contains the set of methods on the StreamingEndpointsClient type.
 type StreamingEndpointsClientAPI interface {
+	AsyncOperation(ctx context.Context, resourceGroupName string, accountName string, operationID string) (result media.AsyncOperationResult, err error)
 	Create(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, parameters media.StreamingEndpoint, autoStart *bool) (result media.StreamingEndpointsCreateFuture, err error)
 	Delete(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string) (result media.StreamingEndpointsDeleteFuture, err error)
 	Get(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string) (result media.StreamingEndpoint, err error)
 	List(ctx context.Context, resourceGroupName string, accountName string) (result media.StreamingEndpointListResultPage, err error)
 	ListComplete(ctx context.Context, resourceGroupName string, accountName string) (result media.StreamingEndpointListResultIterator, err error)
+	OperationLocation(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, operationID string) (result media.StreamingEndpoint, err error)
 	Scale(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, parameters media.StreamingEntityScaleUnit) (result media.StreamingEndpointsScaleFuture, err error)
 	Skus(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string) (result media.StreamingEndpointSkuInfoListResult, err error)
 	Start(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string) (result media.StreamingEndpointsStartFuture, err error)

@@ -119,6 +119,90 @@ func (client LiveEventsClient) AllocateResponder(resp *http.Response) (result au
 	return
 }
 
+// AsyncOperation get a live event operation status.
+// Parameters:
+// resourceGroupName - the name of the resource group within the Azure subscription.
+// accountName - the Media Services account name.
+// operationID - the ID of an ongoing async operation.
+func (client LiveEventsClient) AsyncOperation(ctx context.Context, resourceGroupName string, accountName string, operationID string) (result AsyncOperationResult, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/LiveEventsClient.AsyncOperation")
+		defer func() {
+			sc := -1
+			if result.Response.Response != nil {
+				sc = result.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: operationID,
+			Constraints: []validation.Constraint{{Target: "operationID", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("media.LiveEventsClient", "AsyncOperation", err.Error())
+	}
+
+	req, err := client.AsyncOperationPreparer(ctx, resourceGroupName, accountName, operationID)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "media.LiveEventsClient", "AsyncOperation", nil, "Failure preparing request")
+		return
+	}
+
+	resp, err := client.AsyncOperationSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "media.LiveEventsClient", "AsyncOperation", resp, "Failure sending request")
+		return
+	}
+
+	result, err = client.AsyncOperationResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "media.LiveEventsClient", "AsyncOperation", resp, "Failure responding to request")
+		return
+	}
+
+	return
+}
+
+// AsyncOperationPreparer prepares the AsyncOperation request.
+func (client LiveEventsClient) AsyncOperationPreparer(ctx context.Context, resourceGroupName string, accountName string, operationID string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"accountName":       autorest.Encode("path", accountName),
+		"operationId":       autorest.Encode("path", operationID),
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
+
+	const APIVersion = "2021-11-01"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
+
+	preparer := autorest.CreatePreparer(
+		autorest.AsGet(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/liveEventOperations/{operationId}", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
+
+// AsyncOperationSender sends the AsyncOperation request. The method will close the
+// http.Response Body if it receives an error.
+func (client LiveEventsClient) AsyncOperationSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
+
+// AsyncOperationResponder handles the response to the AsyncOperation request. The method always
+// closes the http.Response Body.
+func (client LiveEventsClient) AsyncOperationResponder(resp *http.Response) (result AsyncOperationResult, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}
+
 // Create creates a new live event.
 // Parameters:
 // resourceGroupName - the name of the resource group within the Azure subscription.
@@ -508,6 +592,96 @@ func (client LiveEventsClient) ListComplete(ctx context.Context, resourceGroupNa
 		}()
 	}
 	result.page, err = client.List(ctx, resourceGroupName, accountName)
+	return
+}
+
+// OperationLocation get a live event operation status.
+// Parameters:
+// resourceGroupName - the name of the resource group within the Azure subscription.
+// accountName - the Media Services account name.
+// liveEventName - the name of the live event, maximum length is 32.
+// operationID - the ID of an ongoing async operation.
+func (client LiveEventsClient) OperationLocation(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, operationID string) (result LiveEvent, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/LiveEventsClient.OperationLocation")
+		defer func() {
+			sc := -1
+			if result.Response.Response != nil {
+				sc = result.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: liveEventName,
+			Constraints: []validation.Constraint{{Target: "liveEventName", Name: validation.MaxLength, Rule: 32, Chain: nil},
+				{Target: "liveEventName", Name: validation.MinLength, Rule: 1, Chain: nil},
+				{Target: "liveEventName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$`, Chain: nil}}},
+		{TargetValue: operationID,
+			Constraints: []validation.Constraint{{Target: "operationID", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("media.LiveEventsClient", "OperationLocation", err.Error())
+	}
+
+	req, err := client.OperationLocationPreparer(ctx, resourceGroupName, accountName, liveEventName, operationID)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "media.LiveEventsClient", "OperationLocation", nil, "Failure preparing request")
+		return
+	}
+
+	resp, err := client.OperationLocationSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "media.LiveEventsClient", "OperationLocation", resp, "Failure sending request")
+		return
+	}
+
+	result, err = client.OperationLocationResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "media.LiveEventsClient", "OperationLocation", resp, "Failure responding to request")
+		return
+	}
+
+	return
+}
+
+// OperationLocationPreparer prepares the OperationLocation request.
+func (client LiveEventsClient) OperationLocationPreparer(ctx context.Context, resourceGroupName string, accountName string, liveEventName string, operationID string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"accountName":       autorest.Encode("path", accountName),
+		"liveEventName":     autorest.Encode("path", liveEventName),
+		"operationId":       autorest.Encode("path", operationID),
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
+
+	const APIVersion = "2021-11-01"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
+
+	preparer := autorest.CreatePreparer(
+		autorest.AsGet(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/liveEvents/{liveEventName}/operationLocations/{operationId}", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
+
+// OperationLocationSender sends the OperationLocation request. The method will close the
+// http.Response Body if it receives an error.
+func (client LiveEventsClient) OperationLocationSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
+
+// OperationLocationResponder handles the response to the OperationLocation request. The method always
+// closes the http.Response Body.
+func (client LiveEventsClient) OperationLocationResponder(resp *http.Response) (result LiveEvent, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
 	return
 }
 

@@ -32,6 +32,90 @@ func NewStreamingEndpointsClientWithBaseURI(baseURI string, subscriptionID strin
 	return StreamingEndpointsClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
+// AsyncOperation get a streaming endpoint operation status.
+// Parameters:
+// resourceGroupName - the name of the resource group within the Azure subscription.
+// accountName - the Media Services account name.
+// operationID - the ID of an ongoing async operation.
+func (client StreamingEndpointsClient) AsyncOperation(ctx context.Context, resourceGroupName string, accountName string, operationID string) (result AsyncOperationResult, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/StreamingEndpointsClient.AsyncOperation")
+		defer func() {
+			sc := -1
+			if result.Response.Response != nil {
+				sc = result.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: operationID,
+			Constraints: []validation.Constraint{{Target: "operationID", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("media.StreamingEndpointsClient", "AsyncOperation", err.Error())
+	}
+
+	req, err := client.AsyncOperationPreparer(ctx, resourceGroupName, accountName, operationID)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "media.StreamingEndpointsClient", "AsyncOperation", nil, "Failure preparing request")
+		return
+	}
+
+	resp, err := client.AsyncOperationSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "media.StreamingEndpointsClient", "AsyncOperation", resp, "Failure sending request")
+		return
+	}
+
+	result, err = client.AsyncOperationResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "media.StreamingEndpointsClient", "AsyncOperation", resp, "Failure responding to request")
+		return
+	}
+
+	return
+}
+
+// AsyncOperationPreparer prepares the AsyncOperation request.
+func (client StreamingEndpointsClient) AsyncOperationPreparer(ctx context.Context, resourceGroupName string, accountName string, operationID string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"accountName":       autorest.Encode("path", accountName),
+		"operationId":       autorest.Encode("path", operationID),
+		"resourceGroupName": autorest.Encode("path", resourceGroupName),
+		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
+	}
+
+	const APIVersion = "2021-11-01"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
+
+	preparer := autorest.CreatePreparer(
+		autorest.AsGet(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/streamingEndpointOperations/{operationId}", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
+
+// AsyncOperationSender sends the AsyncOperation request. The method will close the
+// http.Response Body if it receives an error.
+func (client StreamingEndpointsClient) AsyncOperationSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
+
+// AsyncOperationResponder handles the response to the AsyncOperation request. The method always
+// closes the http.Response Body.
+func (client StreamingEndpointsClient) AsyncOperationResponder(resp *http.Response) (result AsyncOperationResult, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
+	return
+}
+
 // Create creates a streaming endpoint.
 // Parameters:
 // resourceGroupName - the name of the resource group within the Azure subscription.
@@ -421,6 +505,96 @@ func (client StreamingEndpointsClient) ListComplete(ctx context.Context, resourc
 		}()
 	}
 	result.page, err = client.List(ctx, resourceGroupName, accountName)
+	return
+}
+
+// OperationLocation get a streaming endpoint operation status.
+// Parameters:
+// resourceGroupName - the name of the resource group within the Azure subscription.
+// accountName - the Media Services account name.
+// streamingEndpointName - the name of the streaming endpoint, maximum length is 24.
+// operationID - the ID of an ongoing async operation.
+func (client StreamingEndpointsClient) OperationLocation(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, operationID string) (result StreamingEndpoint, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/StreamingEndpointsClient.OperationLocation")
+		defer func() {
+			sc := -1
+			if result.Response.Response != nil {
+				sc = result.Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	if err := validation.Validate([]validation.Validation{
+		{TargetValue: streamingEndpointName,
+			Constraints: []validation.Constraint{{Target: "streamingEndpointName", Name: validation.MaxLength, Rule: 24, Chain: nil},
+				{Target: "streamingEndpointName", Name: validation.MinLength, Rule: 1, Chain: nil},
+				{Target: "streamingEndpointName", Name: validation.Pattern, Rule: `^[a-zA-Z0-9]+(-*[a-zA-Z0-9])*$`, Chain: nil}}},
+		{TargetValue: operationID,
+			Constraints: []validation.Constraint{{Target: "operationID", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
+		return result, validation.NewError("media.StreamingEndpointsClient", "OperationLocation", err.Error())
+	}
+
+	req, err := client.OperationLocationPreparer(ctx, resourceGroupName, accountName, streamingEndpointName, operationID)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "media.StreamingEndpointsClient", "OperationLocation", nil, "Failure preparing request")
+		return
+	}
+
+	resp, err := client.OperationLocationSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "media.StreamingEndpointsClient", "OperationLocation", resp, "Failure sending request")
+		return
+	}
+
+	result, err = client.OperationLocationResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "media.StreamingEndpointsClient", "OperationLocation", resp, "Failure responding to request")
+		return
+	}
+
+	return
+}
+
+// OperationLocationPreparer prepares the OperationLocation request.
+func (client StreamingEndpointsClient) OperationLocationPreparer(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, operationID string) (*http.Request, error) {
+	pathParameters := map[string]interface{}{
+		"accountName":           autorest.Encode("path", accountName),
+		"operationId":           autorest.Encode("path", operationID),
+		"resourceGroupName":     autorest.Encode("path", resourceGroupName),
+		"streamingEndpointName": autorest.Encode("path", streamingEndpointName),
+		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
+	}
+
+	const APIVersion = "2021-11-01"
+	queryParameters := map[string]interface{}{
+		"api-version": APIVersion,
+	}
+
+	preparer := autorest.CreatePreparer(
+		autorest.AsGet(),
+		autorest.WithBaseURL(client.BaseURI),
+		autorest.WithPathParameters("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Media/mediaservices/{accountName}/streamingEndpoints/{streamingEndpointName}/operationLocations/{operationId}", pathParameters),
+		autorest.WithQueryParameters(queryParameters))
+	return preparer.Prepare((&http.Request{}).WithContext(ctx))
+}
+
+// OperationLocationSender sends the OperationLocation request. The method will close the
+// http.Response Body if it receives an error.
+func (client StreamingEndpointsClient) OperationLocationSender(req *http.Request) (*http.Response, error) {
+	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
+}
+
+// OperationLocationResponder handles the response to the OperationLocation request. The method always
+// closes the http.Response Body.
+func (client StreamingEndpointsClient) OperationLocationResponder(resp *http.Response) (result StreamingEndpoint, err error) {
+	err = autorest.Respond(
+		resp,
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
+		autorest.ByUnmarshallingJSON(&result),
+		autorest.ByClosing())
+	result.Response = autorest.Response{Response: resp}
 	return
 }
 
