@@ -17742,6 +17742,17 @@ func (g *GetMetadataActivityTypeProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type GlobalParameterResource.
+func (g GlobalParameterResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "etag", g.Etag)
+	populate(objectMap, "id", g.ID)
+	populate(objectMap, "name", g.Name)
+	populate(objectMap, "properties", g.Properties)
+	populate(objectMap, "type", g.Type)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type GoogleAdWordsLinkedService.
 func (g GoogleAdWordsLinkedService) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -31167,13 +31178,18 @@ func (r RestServiceLinkedServiceTypeProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "authHeaders", &r.AuthHeaders)
 	populate(objectMap, "authenticationType", r.AuthenticationType)
 	populate(objectMap, "azureCloudType", &r.AzureCloudType)
+	populate(objectMap, "clientId", &r.ClientID)
+	populate(objectMap, "clientSecret", r.ClientSecret)
 	populate(objectMap, "credential", r.Credential)
 	populate(objectMap, "enableServerCertificateValidation", &r.EnableServerCertificateValidation)
 	populate(objectMap, "encryptedCredential", &r.EncryptedCredential)
 	populate(objectMap, "password", r.Password)
+	populate(objectMap, "resource", &r.Resource)
+	populate(objectMap, "scope", &r.Scope)
 	populate(objectMap, "servicePrincipalId", &r.ServicePrincipalID)
 	populate(objectMap, "servicePrincipalKey", r.ServicePrincipalKey)
 	populate(objectMap, "tenant", &r.Tenant)
+	populate(objectMap, "tokenEndpoint", &r.TokenEndpoint)
 	populate(objectMap, "url", &r.URL)
 	populate(objectMap, "userName", &r.UserName)
 	return json.Marshal(objectMap)
@@ -31200,6 +31216,12 @@ func (r *RestServiceLinkedServiceTypeProperties) UnmarshalJSON(data []byte) erro
 		case "azureCloudType":
 			err = unpopulate(val, "AzureCloudType", &r.AzureCloudType)
 			delete(rawMsg, key)
+		case "clientId":
+			err = unpopulate(val, "ClientID", &r.ClientID)
+			delete(rawMsg, key)
+		case "clientSecret":
+			r.ClientSecret, err = unmarshalSecretBaseClassification(val)
+			delete(rawMsg, key)
 		case "credential":
 			err = unpopulate(val, "Credential", &r.Credential)
 			delete(rawMsg, key)
@@ -31212,6 +31234,12 @@ func (r *RestServiceLinkedServiceTypeProperties) UnmarshalJSON(data []byte) erro
 		case "password":
 			r.Password, err = unmarshalSecretBaseClassification(val)
 			delete(rawMsg, key)
+		case "resource":
+			err = unpopulate(val, "Resource", &r.Resource)
+			delete(rawMsg, key)
+		case "scope":
+			err = unpopulate(val, "Scope", &r.Scope)
+			delete(rawMsg, key)
 		case "servicePrincipalId":
 			err = unpopulate(val, "ServicePrincipalID", &r.ServicePrincipalID)
 			delete(rawMsg, key)
@@ -31220,6 +31248,9 @@ func (r *RestServiceLinkedServiceTypeProperties) UnmarshalJSON(data []byte) erro
 			delete(rawMsg, key)
 		case "tenant":
 			err = unpopulate(val, "Tenant", &r.Tenant)
+			delete(rawMsg, key)
+		case "tokenEndpoint":
+			err = unpopulate(val, "TokenEndpoint", &r.TokenEndpoint)
 			delete(rawMsg, key)
 		case "url":
 			err = unpopulate(val, "URL", &r.URL)
