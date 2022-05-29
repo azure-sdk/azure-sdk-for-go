@@ -64,8 +64,8 @@ func (future *AliasCreateFuture) result(client AliasClient) (par PutAliasRespons
 // CanceledSubscriptionID the ID of the canceled subscription
 type CanceledSubscriptionID struct {
 	autorest.Response `json:"-"`
-	// Value - READ-ONLY; The ID of the canceled subscription
-	Value *string `json:"value,omitempty"`
+	// SubscriptionID - READ-ONLY; The ID of the canceled subscription
+	SubscriptionID *string `json:"subscriptionId,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for CanceledSubscriptionID.
@@ -77,8 +77,8 @@ func (csi CanceledSubscriptionID) MarshalJSON() ([]byte, error) {
 // EnabledSubscriptionID the ID of the subscriptions that is being enabled
 type EnabledSubscriptionID struct {
 	autorest.Response `json:"-"`
-	// Value - READ-ONLY; The ID of the subscriptions that is being enabled
-	Value *string `json:"value,omitempty"`
+	// SubscriptionID - READ-ONLY; The ID of the subscriptions that is being enabled
+	SubscriptionID *string `json:"subscriptionId,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for EnabledSubscriptionID.
@@ -100,6 +100,10 @@ type ErrorResponse struct {
 type ErrorResponseBody struct {
 	// Error - The details of the error.
 	Error *ErrorResponse `json:"error,omitempty"`
+	// Code - Error code
+	Code *string `json:"code,omitempty"`
+	// Message - Error message indicating why the operation failed.
+	Message *string `json:"message,omitempty"`
 }
 
 // ListResult subscription list operation response.
@@ -446,8 +450,8 @@ func (parp PutAliasResponseProperties) MarshalJSON() ([]byte, error) {
 // RenamedSubscriptionID the ID of the subscriptions that is being renamed
 type RenamedSubscriptionID struct {
 	autorest.Response `json:"-"`
-	// Value - READ-ONLY; The ID of the subscriptions that is being renamed
-	Value *string `json:"value,omitempty"`
+	// SubscriptionID - READ-ONLY; The ID of the subscriptions that is being renamed
+	SubscriptionID *string `json:"subscriptionId,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for RenamedSubscriptionID.
