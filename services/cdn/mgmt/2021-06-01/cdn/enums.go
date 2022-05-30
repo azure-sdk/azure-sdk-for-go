@@ -419,6 +419,27 @@ func PossibleEnabledStateValues() []EnabledState {
 	return []EnabledState{EnabledStateDisabled, EnabledStateEnabled}
 }
 
+// EndpointProvisioningState enumerates the values for endpoint provisioning state.
+type EndpointProvisioningState string
+
+const (
+	// EndpointProvisioningStateCreating ...
+	EndpointProvisioningStateCreating EndpointProvisioningState = "Creating"
+	// EndpointProvisioningStateDeleting ...
+	EndpointProvisioningStateDeleting EndpointProvisioningState = "Deleting"
+	// EndpointProvisioningStateFailed ...
+	EndpointProvisioningStateFailed EndpointProvisioningState = "Failed"
+	// EndpointProvisioningStateSucceeded ...
+	EndpointProvisioningStateSucceeded EndpointProvisioningState = "Succeeded"
+	// EndpointProvisioningStateUpdating ...
+	EndpointProvisioningStateUpdating EndpointProvisioningState = "Updating"
+)
+
+// PossibleEndpointProvisioningStateValues returns an array of possible values for the EndpointProvisioningState const type.
+func PossibleEndpointProvisioningStateValues() []EndpointProvisioningState {
+	return []EndpointProvisioningState{EndpointProvisioningStateCreating, EndpointProvisioningStateDeleting, EndpointProvisioningStateFailed, EndpointProvisioningStateSucceeded, EndpointProvisioningStateUpdating}
+}
+
 // EndpointResourceState enumerates the values for endpoint resource state.
 type EndpointResourceState string
 
@@ -912,6 +933,27 @@ func PossibleOptimizationTypeValues() []OptimizationType {
 	return []OptimizationType{OptimizationTypeDynamicSiteAcceleration, OptimizationTypeGeneralMediaStreaming, OptimizationTypeGeneralWebDelivery, OptimizationTypeLargeFileDownload, OptimizationTypeVideoOnDemandMediaStreaming}
 }
 
+// OriginGroupProvisioningState enumerates the values for origin group provisioning state.
+type OriginGroupProvisioningState string
+
+const (
+	// OriginGroupProvisioningStateCreating ...
+	OriginGroupProvisioningStateCreating OriginGroupProvisioningState = "Creating"
+	// OriginGroupProvisioningStateDeleting ...
+	OriginGroupProvisioningStateDeleting OriginGroupProvisioningState = "Deleting"
+	// OriginGroupProvisioningStateFailed ...
+	OriginGroupProvisioningStateFailed OriginGroupProvisioningState = "Failed"
+	// OriginGroupProvisioningStateSucceeded ...
+	OriginGroupProvisioningStateSucceeded OriginGroupProvisioningState = "Succeeded"
+	// OriginGroupProvisioningStateUpdating ...
+	OriginGroupProvisioningStateUpdating OriginGroupProvisioningState = "Updating"
+)
+
+// PossibleOriginGroupProvisioningStateValues returns an array of possible values for the OriginGroupProvisioningState const type.
+func PossibleOriginGroupProvisioningStateValues() []OriginGroupProvisioningState {
+	return []OriginGroupProvisioningState{OriginGroupProvisioningStateCreating, OriginGroupProvisioningStateDeleting, OriginGroupProvisioningStateFailed, OriginGroupProvisioningStateSucceeded, OriginGroupProvisioningStateUpdating}
+}
+
 // OriginGroupResourceState enumerates the values for origin group resource state.
 type OriginGroupResourceState string
 
@@ -927,6 +969,27 @@ const (
 // PossibleOriginGroupResourceStateValues returns an array of possible values for the OriginGroupResourceState const type.
 func PossibleOriginGroupResourceStateValues() []OriginGroupResourceState {
 	return []OriginGroupResourceState{OriginGroupResourceStateActive, OriginGroupResourceStateCreating, OriginGroupResourceStateDeleting}
+}
+
+// OriginProvisioningState enumerates the values for origin provisioning state.
+type OriginProvisioningState string
+
+const (
+	// OriginProvisioningStateCreating ...
+	OriginProvisioningStateCreating OriginProvisioningState = "Creating"
+	// OriginProvisioningStateDeleting ...
+	OriginProvisioningStateDeleting OriginProvisioningState = "Deleting"
+	// OriginProvisioningStateFailed ...
+	OriginProvisioningStateFailed OriginProvisioningState = "Failed"
+	// OriginProvisioningStateSucceeded ...
+	OriginProvisioningStateSucceeded OriginProvisioningState = "Succeeded"
+	// OriginProvisioningStateUpdating ...
+	OriginProvisioningStateUpdating OriginProvisioningState = "Updating"
+)
+
+// PossibleOriginProvisioningStateValues returns an array of possible values for the OriginProvisioningState const type.
+func PossibleOriginProvisioningStateValues() []OriginProvisioningState {
+	return []OriginProvisioningState{OriginProvisioningStateCreating, OriginProvisioningStateDeleting, OriginProvisioningStateFailed, OriginProvisioningStateSucceeded, OriginProvisioningStateUpdating}
 }
 
 // OriginResourceState enumerates the values for origin resource state.
@@ -1083,6 +1146,27 @@ const (
 // PossibleProbeProtocolValues returns an array of possible values for the ProbeProtocol const type.
 func PossibleProbeProtocolValues() []ProbeProtocol {
 	return []ProbeProtocol{ProbeProtocolHTTP, ProbeProtocolHTTPS, ProbeProtocolNotSet}
+}
+
+// ProfileProvisioningState enumerates the values for profile provisioning state.
+type ProfileProvisioningState string
+
+const (
+	// ProfileProvisioningStateCreating ...
+	ProfileProvisioningStateCreating ProfileProvisioningState = "Creating"
+	// ProfileProvisioningStateDeleting ...
+	ProfileProvisioningStateDeleting ProfileProvisioningState = "Deleting"
+	// ProfileProvisioningStateFailed ...
+	ProfileProvisioningStateFailed ProfileProvisioningState = "Failed"
+	// ProfileProvisioningStateSucceeded ...
+	ProfileProvisioningStateSucceeded ProfileProvisioningState = "Succeeded"
+	// ProfileProvisioningStateUpdating ...
+	ProfileProvisioningStateUpdating ProfileProvisioningState = "Updating"
+)
+
+// PossibleProfileProvisioningStateValues returns an array of possible values for the ProfileProvisioningState const type.
+func PossibleProfileProvisioningStateValues() []ProfileProvisioningState {
+	return []ProfileProvisioningState{ProfileProvisioningStateCreating, ProfileProvisioningStateDeleting, ProfileProvisioningStateFailed, ProfileProvisioningStateSucceeded, ProfileProvisioningStateUpdating}
 }
 
 // ProfileResourceState enumerates the values for profile resource state.
@@ -1347,6 +1431,19 @@ const (
 // PossibleResourceTypeValues returns an array of possible values for the ResourceType const type.
 func PossibleResourceTypeValues() []ResourceType {
 	return []ResourceType{ResourceTypeMicrosoftCdnProfilesAfdEndpoints, ResourceTypeMicrosoftCdnProfilesEndpoints}
+}
+
+// ResourceUsageUnit enumerates the values for resource usage unit.
+type ResourceUsageUnit string
+
+const (
+	// ResourceUsageUnitCount ...
+	ResourceUsageUnitCount ResourceUsageUnit = "count"
+)
+
+// PossibleResourceUsageUnitValues returns an array of possible values for the ResourceUsageUnit const type.
+func PossibleResourceUsageUnitValues() []ResourceUsageUnit {
+	return []ResourceUsageUnit{ResourceUsageUnitCount}
 }
 
 // ResponseBasedDetectedErrorTypes enumerates the values for response based detected error types.
