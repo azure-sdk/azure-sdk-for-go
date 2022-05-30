@@ -1,5 +1,5 @@
 {
-  "commit": "3c764635e7d442b3e74caf593029fcd440b3ef82",
+  "commit": "829b0e2086b8f7484ad685e64ad9ae4e6ff02806",
   "readme": "/_/azure-rest-api-specs/specification/machinelearningservices/resource-manager/readme.md",
   "tag": "package-2018-03-preview",
   "use": "@microsoft.azure/autorest.go@2.1.187",
