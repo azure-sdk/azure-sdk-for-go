@@ -10,7 +10,7 @@ package armsql
 
 const (
 	moduleName    = "armsql"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
 
 type AdministratorName string
@@ -568,21 +568,34 @@ func PossibleDataMaskingFunctionValues() []DataMaskingFunction {
 	}
 }
 
+type DataMaskingPolicyName string
+
+const (
+	DataMaskingPolicyNameDefault DataMaskingPolicyName = "Default"
+)
+
+// PossibleDataMaskingPolicyNameValues returns the possible values for the DataMaskingPolicyName const type.
+func PossibleDataMaskingPolicyNameValues() []DataMaskingPolicyName {
+	return []DataMaskingPolicyName{
+		DataMaskingPolicyNameDefault,
+	}
+}
+
 // DataMaskingRuleState - The rule state. Used to delete a rule. To delete an existing rule, specify the schemaName, tableName,
 // columnName, maskingFunction, and specify ruleState as disabled. However, if the rule doesn't
 // already exist, the rule will be created with ruleState set to enabled, regardless of the provided value of ruleState.
 type DataMaskingRuleState string
 
 const (
-	DataMaskingRuleStateDisabled DataMaskingRuleState = "Disabled"
 	DataMaskingRuleStateEnabled  DataMaskingRuleState = "Enabled"
+	DataMaskingRuleStateDisabled DataMaskingRuleState = "Disabled"
 )
 
 // PossibleDataMaskingRuleStateValues returns the possible values for the DataMaskingRuleState const type.
 func PossibleDataMaskingRuleStateValues() []DataMaskingRuleState {
 	return []DataMaskingRuleState{
-		DataMaskingRuleStateDisabled,
 		DataMaskingRuleStateEnabled,
+		DataMaskingRuleStateDisabled,
 	}
 }
 
@@ -590,15 +603,15 @@ func PossibleDataMaskingRuleStateValues() []DataMaskingRuleState {
 type DataMaskingState string
 
 const (
-	DataMaskingStateDisabled DataMaskingState = "Disabled"
 	DataMaskingStateEnabled  DataMaskingState = "Enabled"
+	DataMaskingStateDisabled DataMaskingState = "Disabled"
 )
 
 // PossibleDataMaskingStateValues returns the possible values for the DataMaskingState const type.
 func PossibleDataMaskingStateValues() []DataMaskingState {
 	return []DataMaskingState{
-		DataMaskingStateDisabled,
 		DataMaskingStateEnabled,
+		DataMaskingStateDisabled,
 	}
 }
 
@@ -786,6 +799,19 @@ func PossibleDiffBackupIntervalInHoursValues() []DiffBackupIntervalInHours {
 	}
 }
 
+type DtcName string
+
+const (
+	DtcNameCurrent DtcName = "current"
+)
+
+// PossibleDtcNameValues returns the possible values for the DtcName const type.
+func PossibleDtcNameValues() []DtcName {
+	return []DtcName{
+		DtcNameCurrent,
+	}
+}
+
 // ElasticPoolLicenseType - The license type to apply for this elastic pool.
 type ElasticPoolLicenseType string
 
@@ -866,15 +892,15 @@ func PossibleGeoBackupPolicyNameValues() []GeoBackupPolicyName {
 type GeoBackupPolicyState string
 
 const (
-	GeoBackupPolicyStateDisabled GeoBackupPolicyState = "Disabled"
 	GeoBackupPolicyStateEnabled  GeoBackupPolicyState = "Enabled"
+	GeoBackupPolicyStateDisabled GeoBackupPolicyState = "Disabled"
 )
 
 // PossibleGeoBackupPolicyStateValues returns the possible values for the GeoBackupPolicyState const type.
 func PossibleGeoBackupPolicyStateValues() []GeoBackupPolicyState {
 	return []GeoBackupPolicyState{
-		GeoBackupPolicyStateDisabled,
 		GeoBackupPolicyStateEnabled,
+		GeoBackupPolicyStateDisabled,
 	}
 }
 

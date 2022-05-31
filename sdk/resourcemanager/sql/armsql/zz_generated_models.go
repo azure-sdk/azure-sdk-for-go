@@ -355,15 +355,15 @@ type DataMaskingPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataMaskingPolicy - Represents a database data masking policy.
+// DataMaskingPolicy - A database data masking policy.
 type DataMaskingPolicy struct {
-	// The properties of the data masking policy.
+	// Resource properties.
 	Properties *DataMaskingPolicyProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource ID.
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The kind of data masking policy. Metadata, used for Azure portal.
+	// READ-ONLY; The kind of Data Masking Policy. Metadata, used for Azure portal.
 	Kind *string `json:"kind,omitempty" azure:"ro"`
 
 	// READ-ONLY; The location of the data masking policy.
@@ -393,9 +393,9 @@ type DataMaskingPolicyProperties struct {
 	MaskingLevel *string `json:"maskingLevel,omitempty" azure:"ro"`
 }
 
-// DataMaskingRule - Represents a database data masking rule.
+// DataMaskingRule - A database data masking rule.
 type DataMaskingRule struct {
-	// The properties of the resource.
+	// Resource properties.
 	Properties *DataMaskingRuleProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource ID.
@@ -414,10 +414,13 @@ type DataMaskingRule struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// DataMaskingRuleListResult - The response to a list data masking rules request.
+// DataMaskingRuleListResult - The list of database data masking rules.
 type DataMaskingRuleListResult struct {
-	// The list of database data masking rules.
-	Value []*DataMaskingRule `json:"value,omitempty"`
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*DataMaskingRule `json:"value,omitempty" azure:"ro"`
 }
 
 // DataMaskingRuleProperties - The properties of a database data masking rule.
@@ -678,8 +681,7 @@ type DatabaseBlobAuditingPolicyProperties struct {
 	// DATABASEPERMISSIONCHANGEGROUP DATABASEPRINCIPALCHANGEGROUP DATABASEPRINCIPALIMPERSONATIONGROUP DATABASEROLEMEMBERCHANGEGROUP
 	// FAILEDDATABASEAUTHENTICATIONGROUP SCHEMAOBJECTACCESSGROUP SCHEMAOBJECT
 	// CHANGEGROUP SCHEMAOBJECTOWNERSHIPCHANGEGROUP SCHEMAOBJECTPERMISSIONCHANGEGROUP SUCCESSFULDATABASEAUTHENTICATIONGROUP USERCHANGEPASSWORDGROUP
-	// BATCHSTARTEDGROUP BATCHCOMPLETEDGROUP DBCCGROUP DATABASE
-	// OWNERSHIPCHANGEGROUP DATABASECHANGEGROUP LEDGEROPERATION_GROUP
+	// BATCHSTARTEDGROUP BATCHCOMPLETED_GROUP
 	// These are groups that cover all sql statements and stored procedures executed against the database, and should not be used
 	// in combination with other groups as this will result in duplicate audit logs.
 	// For more information, see Database-Level Audit Action Groups
@@ -706,9 +708,6 @@ type DatabaseBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsAzureMonitorTargetEnabled *bool `json:"isAzureMonitorTargetEnabled,omitempty"`
-
-	// Specifies whether Managed Identity is used to access blob storage
-	IsManagedIdentityInUse *bool `json:"isManagedIdentityInUse,omitempty"`
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
@@ -2589,8 +2588,7 @@ type ExtendedDatabaseBlobAuditingPolicyProperties struct {
 	// DATABASEPERMISSIONCHANGEGROUP DATABASEPRINCIPALCHANGEGROUP DATABASEPRINCIPALIMPERSONATIONGROUP DATABASEROLEMEMBERCHANGEGROUP
 	// FAILEDDATABASEAUTHENTICATIONGROUP SCHEMAOBJECTACCESSGROUP SCHEMAOBJECT
 	// CHANGEGROUP SCHEMAOBJECTOWNERSHIPCHANGEGROUP SCHEMAOBJECTPERMISSIONCHANGEGROUP SUCCESSFULDATABASEAUTHENTICATIONGROUP USERCHANGEPASSWORDGROUP
-	// BATCHSTARTEDGROUP BATCHCOMPLETEDGROUP DBCCGROUP DATABASE
-	// OWNERSHIPCHANGEGROUP DATABASECHANGEGROUP LEDGEROPERATION_GROUP
+	// BATCHSTARTEDGROUP BATCHCOMPLETED_GROUP
 	// These are groups that cover all sql statements and stored procedures executed against the database, and should not be used
 	// in combination with other groups as this will result in duplicate audit logs.
 	// For more information, see Database-Level Audit Action Groups
@@ -2617,9 +2615,6 @@ type ExtendedDatabaseBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsAzureMonitorTargetEnabled *bool `json:"isAzureMonitorTargetEnabled,omitempty"`
-
-	// Specifies whether Managed Identity is used to access blob storage
-	IsManagedIdentityInUse *bool `json:"isManagedIdentityInUse,omitempty"`
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
@@ -2711,8 +2706,7 @@ type ExtendedServerBlobAuditingPolicyProperties struct {
 	// DATABASEPERMISSIONCHANGEGROUP DATABASEPRINCIPALCHANGEGROUP DATABASEPRINCIPALIMPERSONATIONGROUP DATABASEROLEMEMBERCHANGEGROUP
 	// FAILEDDATABASEAUTHENTICATIONGROUP SCHEMAOBJECTACCESSGROUP SCHEMAOBJECT
 	// CHANGEGROUP SCHEMAOBJECTOWNERSHIPCHANGEGROUP SCHEMAOBJECTPERMISSIONCHANGEGROUP SUCCESSFULDATABASEAUTHENTICATIONGROUP USERCHANGEPASSWORDGROUP
-	// BATCHSTARTEDGROUP BATCHCOMPLETEDGROUP DBCCGROUP DATABASE
-	// OWNERSHIPCHANGEGROUP DATABASECHANGEGROUP LEDGEROPERATION_GROUP
+	// BATCHSTARTEDGROUP BATCHCOMPLETED_GROUP
 	// These are groups that cover all sql statements and stored procedures executed against the database, and should not be used
 	// in combination with other groups as this will result in duplicate audit logs.
 	// For more information, see Database-Level Audit Action Groups
@@ -2750,9 +2744,6 @@ type ExtendedServerBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsDevopsAuditEnabled *bool `json:"isDevopsAuditEnabled,omitempty"`
-
-	// Specifies whether Managed Identity is used to access blob storage
-	IsManagedIdentityInUse *bool `json:"isManagedIdentityInUse,omitempty"`
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
@@ -2980,15 +2971,14 @@ type GeoBackupPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GeoBackupPoliciesClientListByDatabaseOptions contains the optional parameters for the GeoBackupPoliciesClient.ListByDatabase
-// method.
-type GeoBackupPoliciesClientListByDatabaseOptions struct {
+// GeoBackupPoliciesClientListOptions contains the optional parameters for the GeoBackupPoliciesClient.List method.
+type GeoBackupPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GeoBackupPolicy - A database geo backup policy.
+// GeoBackupPolicy - A Geo backup policy.
 type GeoBackupPolicy struct {
-	// REQUIRED; The properties of the geo backup policy.
+	// Resource properties.
 	Properties *GeoBackupPolicyProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource ID.
@@ -3007,10 +2997,13 @@ type GeoBackupPolicy struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// GeoBackupPolicyListResult - The response to a list geo backup policies request.
+// GeoBackupPolicyListResult - The list of geo backup policies.
 type GeoBackupPolicyListResult struct {
-	// The list of geo backup policies.
-	Value []*GeoBackupPolicy `json:"value,omitempty"`
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*GeoBackupPolicy `json:"value,omitempty" azure:"ro"`
 }
 
 // GeoBackupPolicyProperties - The properties of the geo backup policy.
@@ -5017,6 +5010,13 @@ type ManagedDatabaseSensitivityLabelsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.ListByDatabase
+// method.
+type ManagedDatabaseSensitivityLabelsClientListByDatabaseOptions struct {
+	// An OData filter expression that filters elements in the collection.
+	Filter *string
+}
+
 // ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseOptions contains the optional parameters for the ManagedDatabaseSensitivityLabelsClient.ListCurrentByDatabase
 // method.
 type ManagedDatabaseSensitivityLabelsClientListCurrentByDatabaseOptions struct {
@@ -5336,6 +5336,91 @@ type ManagedInstanceAzureADOnlyAuthenticationsClientGetOptions struct {
 // ManagedInstanceAzureADOnlyAuthenticationsClientListByInstanceOptions contains the optional parameters for the ManagedInstanceAzureADOnlyAuthenticationsClient.ListByInstance
 // method.
 type ManagedInstanceAzureADOnlyAuthenticationsClientListByInstanceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedInstanceDtc - SQL Managed Instance DTC
+type ManagedInstanceDtc struct {
+	// Resource properties.
+	Properties *ManagedInstanceDtcProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedInstanceDtcListResult - A list of managed instance's DTCs.
+type ManagedInstanceDtcListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*ManagedInstanceDtc `json:"value,omitempty" azure:"ro"`
+}
+
+// ManagedInstanceDtcProperties - The properties of managed instance DTC.
+type ManagedInstanceDtcProperties struct {
+	// Active status of managed instance DTC.
+	DtcEnabled *bool `json:"dtcEnabled,omitempty"`
+
+	// External dns suffix search list of managed instance DTC.
+	ExternalDNSSuffixSearchList []*string `json:"externalDnsSuffixSearchList,omitempty"`
+
+	// Security settings of managed instance DTC.
+	SecuritySettings *ManagedInstanceDtcSecuritySettings `json:"securitySettings,omitempty"`
+
+	// READ-ONLY; Host name dns suffix of managed instance DTC.
+	DtcHostNameDNSSuffix *string `json:"dtcHostNameDnsSuffix,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state of managed instance DTC.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// ManagedInstanceDtcSecuritySettings - The Security Settings of managed instance DTC.
+type ManagedInstanceDtcSecuritySettings struct {
+	// Allow SNA LU 6.2 to managed instance DTC.
+	SnaLu6Point2TransactionsEnabled *bool `json:"snaLu6point2TransactionsEnabled,omitempty"`
+
+	// Transaction Manager communication settings of managed instance DTC.
+	TransactionManagerCommunicationSettings *ManagedInstanceDtcTransactionManagerCommunicationSettings `json:"transactionManagerCommunicationSettings,omitempty"`
+
+	// Allow XA Transactions to managed instance DTC.
+	XaTransactionsEnabled *bool `json:"xaTransactionsEnabled,omitempty"`
+}
+
+// ManagedInstanceDtcTransactionManagerCommunicationSettings - The Transaction Manager Communication Settings of managed instance
+// DTC.
+type ManagedInstanceDtcTransactionManagerCommunicationSettings struct {
+	// Allow Inbound traffic to managed instance DTC.
+	AllowInboundEnabled *bool `json:"allowInboundEnabled,omitempty"`
+
+	// Allow Outbound traffic of managed instance DTC.
+	AllowOutboundEnabled *bool `json:"allowOutboundEnabled,omitempty"`
+
+	// Authentication type of managed instance DTC.
+	Authentication *string `json:"authentication,omitempty"`
+}
+
+// ManagedInstanceDtcsClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedInstanceDtcsClient.BeginCreateOrUpdate
+// method.
+type ManagedInstanceDtcsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedInstanceDtcsClientGetOptions contains the optional parameters for the ManagedInstanceDtcsClient.Get method.
+type ManagedInstanceDtcsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedInstanceDtcsClientListByManagedInstanceOptions contains the optional parameters for the ManagedInstanceDtcsClient.ListByManagedInstance
+// method.
+type ManagedInstanceDtcsClientListByManagedInstanceOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -6273,6 +6358,80 @@ type ManagedRestorableDroppedDatabaseBackupShortTermRetentionPoliciesClientListB
 	// placeholder for future optional parameters
 }
 
+// ManagedServerDNSAlias - A managed server DNS alias.
+type ManagedServerDNSAlias struct {
+	// Resource properties.
+	Properties *ManagedServerDNSAliasProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasAcquisition - A managed server DNS alias acquisition request.
+type ManagedServerDNSAliasAcquisition struct {
+	// REQUIRED; The resource ID of the managed server DNS alias that will be acquired to point to this managed server instead.
+	OldManagedServerDNSAliasResourceID *string `json:"oldManagedServerDnsAliasResourceId,omitempty"`
+}
+
+// ManagedServerDNSAliasCreation - A managed server dns alias creation request.
+type ManagedServerDNSAliasCreation struct {
+	// Whether or not DNS record should be created for this alias.
+	CreateDNSRecord *bool `json:"createDnsRecord,omitempty"`
+}
+
+// ManagedServerDNSAliasListResult - A list of managed server DNS aliases.
+type ManagedServerDNSAliasListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*ManagedServerDNSAlias `json:"value,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasProperties - Properties of a managed server DNS alias.
+type ManagedServerDNSAliasProperties struct {
+	// READ-ONLY; The fully qualified DNS record for managed server alias
+	AzureDNSRecord *string `json:"azureDnsRecord,omitempty" azure:"ro"`
+}
+
+// ManagedServerDNSAliasesClientBeginAcquireOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginAcquire
+// method.
+type ManagedServerDNSAliasesClientBeginAcquireOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginCreateOrUpdate
+// method.
+type ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientBeginDeleteOptions contains the optional parameters for the ManagedServerDNSAliasesClient.BeginDelete
+// method.
+type ManagedServerDNSAliasesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedServerDNSAliasesClientGetOptions contains the optional parameters for the ManagedServerDNSAliasesClient.Get method.
+type ManagedServerDNSAliasesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedServerDNSAliasesClientListByManagedInstanceOptions contains the optional parameters for the ManagedServerDNSAliasesClient.ListByManagedInstance
+// method.
+type ManagedServerDNSAliasesClientListByManagedInstanceOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedServerSecurityAlertPoliciesClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedServerSecurityAlertPoliciesClient.BeginCreateOrUpdate
 // method.
 type ManagedServerSecurityAlertPoliciesClientBeginCreateOrUpdateOptions struct {
@@ -7121,9 +7280,9 @@ type RecommendedSensitivityLabelsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RecoverableDatabase - A recoverable database
+// RecoverableDatabase - A recoverable database resource.
 type RecoverableDatabase struct {
-	// The properties of a recoverable database
+	// Resource properties.
 	Properties *RecoverableDatabaseProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource ID.
@@ -7136,24 +7295,27 @@ type RecoverableDatabase struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// RecoverableDatabaseListResult - The response to a list recoverable databases request
+// RecoverableDatabaseListResult - A list of recoverable databases.
 type RecoverableDatabaseListResult struct {
-	// REQUIRED; A list of recoverable databases
-	Value []*RecoverableDatabase `json:"value,omitempty"`
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*RecoverableDatabase `json:"value,omitempty" azure:"ro"`
 }
 
-// RecoverableDatabaseProperties - The properties of a recoverable database
+// RecoverableDatabaseProperties - The recoverable database's properties.
 type RecoverableDatabaseProperties struct {
-	// READ-ONLY; The edition of the database
+	// READ-ONLY; The edition of the database.
 	Edition *string `json:"edition,omitempty" azure:"ro"`
 
 	// READ-ONLY; The elastic pool name of the database
 	ElasticPoolName *string `json:"elasticPoolName,omitempty" azure:"ro"`
 
-	// READ-ONLY; The last available backup date of the database (ISO8601 format)
+	// READ-ONLY; The last available backup date.
 	LastAvailableBackupDate *time.Time `json:"lastAvailableBackupDate,omitempty" azure:"ro"`
 
-	// READ-ONLY; The service level objective name of the database
+	// READ-ONLY; The service level objective name of the database.
 	ServiceLevelObjective *string `json:"serviceLevelObjective,omitempty" azure:"ro"`
 }
 
@@ -7825,6 +7987,13 @@ type SensitivityLabelsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SensitivityLabelsClientListByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.ListByDatabase
+// method.
+type SensitivityLabelsClientListByDatabaseOptions struct {
+	// An OData filter expression that filters elements in the collection.
+	Filter *string
+}
+
 // SensitivityLabelsClientListCurrentByDatabaseOptions contains the optional parameters for the SensitivityLabelsClient.ListCurrentByDatabase
 // method.
 type SensitivityLabelsClientListCurrentByDatabaseOptions struct {
@@ -8059,8 +8228,7 @@ type ServerBlobAuditingPolicyProperties struct {
 	// DATABASEPERMISSIONCHANGEGROUP DATABASEPRINCIPALCHANGEGROUP DATABASEPRINCIPALIMPERSONATIONGROUP DATABASEROLEMEMBERCHANGEGROUP
 	// FAILEDDATABASEAUTHENTICATIONGROUP SCHEMAOBJECTACCESSGROUP SCHEMAOBJECT
 	// CHANGEGROUP SCHEMAOBJECTOWNERSHIPCHANGEGROUP SCHEMAOBJECTPERMISSIONCHANGEGROUP SUCCESSFULDATABASEAUTHENTICATIONGROUP USERCHANGEPASSWORDGROUP
-	// BATCHSTARTEDGROUP BATCHCOMPLETEDGROUP DBCCGROUP DATABASE
-	// OWNERSHIPCHANGEGROUP DATABASECHANGEGROUP LEDGEROPERATION_GROUP
+	// BATCHSTARTEDGROUP BATCHCOMPLETED_GROUP
 	// These are groups that cover all sql statements and stored procedures executed against the database, and should not be used
 	// in combination with other groups as this will result in duplicate audit logs.
 	// For more information, see Database-Level Audit Action Groups
@@ -8098,9 +8266,6 @@ type ServerBlobAuditingPolicyProperties struct {
 	// For more information, see Diagnostic Settings REST API [https://go.microsoft.com/fwlink/?linkid=2033207]or Diagnostic Settings
 	// PowerShell [https://go.microsoft.com/fwlink/?linkid=2033043]
 	IsDevopsAuditEnabled *bool `json:"isDevopsAuditEnabled,omitempty"`
-
-	// Specifies whether Managed Identity is used to access blob storage
-	IsManagedIdentityInUse *bool `json:"isManagedIdentityInUse,omitempty"`
 
 	// Specifies whether storageAccountAccessKey value is the storage's secondary key.
 	IsStorageSecondaryKeyInUse *bool `json:"isStorageSecondaryKeyInUse,omitempty"`
@@ -8810,34 +8975,43 @@ type ServerUpdate struct {
 	Tags map[string]*string `json:"tags,omitempty"`
 }
 
-// ServerUsage - Represents server metrics.
+// ServerUsage - Usage metric of a server.
 type ServerUsage struct {
-	// READ-ONLY; The current value of the metric.
-	CurrentValue *float64 `json:"currentValue,omitempty" azure:"ro"`
+	// Resource properties.
+	Properties *ServerUsageProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; The metric display name.
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The current limit of the metric.
-	Limit *float64 `json:"limit,omitempty" azure:"ro"`
-
-	// READ-ONLY; Name of the server usage metric.
+	// READ-ONLY; Resource name.
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The next reset time for the metric (ISO8601 format).
-	NextResetTime *time.Time `json:"nextResetTime,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	ResourceName *string `json:"resourceName,omitempty" azure:"ro"`
-
-	// READ-ONLY; The units of the metric.
-	Unit *string `json:"unit,omitempty" azure:"ro"`
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// ServerUsageListResult - Represents the response to a list server metrics request.
+// ServerUsageListResult - A list of server usage metrics.
 type ServerUsageListResult struct {
-	// REQUIRED; The list of server metrics for the server.
-	Value []*ServerUsage `json:"value,omitempty"`
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; Array of results.
+	Value []*ServerUsage `json:"value,omitempty" azure:"ro"`
+}
+
+// ServerUsageProperties - Properties of a server usage.
+type ServerUsageProperties struct {
+	// READ-ONLY; Current value of the metric.
+	CurrentValue *float64 `json:"currentValue,omitempty" azure:"ro"`
+
+	// READ-ONLY; User-readable name of the metric.
+	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Boundary value of the metric.
+	Limit *float64 `json:"limit,omitempty" azure:"ro"`
+
+	// READ-ONLY; Unit of the metric.
+	Unit *string `json:"unit,omitempty" azure:"ro"`
 }
 
 // ServerUsagesClientListByServerOptions contains the optional parameters for the ServerUsagesClient.ListByServer method.

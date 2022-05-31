@@ -133,7 +133,6 @@ func (d DatabaseBlobAuditingPolicyProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "auditActionsAndGroups", d.AuditActionsAndGroups)
 	populate(objectMap, "isAzureMonitorTargetEnabled", d.IsAzureMonitorTargetEnabled)
-	populate(objectMap, "isManagedIdentityInUse", d.IsManagedIdentityInUse)
 	populate(objectMap, "isStorageSecondaryKeyInUse", d.IsStorageSecondaryKeyInUse)
 	populate(objectMap, "queueDelayMs", d.QueueDelayMs)
 	populate(objectMap, "retentionDays", d.RetentionDays)
@@ -1007,7 +1006,6 @@ func (e ExtendedDatabaseBlobAuditingPolicyProperties) MarshalJSON() ([]byte, err
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "auditActionsAndGroups", e.AuditActionsAndGroups)
 	populate(objectMap, "isAzureMonitorTargetEnabled", e.IsAzureMonitorTargetEnabled)
-	populate(objectMap, "isManagedIdentityInUse", e.IsManagedIdentityInUse)
 	populate(objectMap, "isStorageSecondaryKeyInUse", e.IsStorageSecondaryKeyInUse)
 	populate(objectMap, "predicateExpression", e.PredicateExpression)
 	populate(objectMap, "queueDelayMs", e.QueueDelayMs)
@@ -1025,7 +1023,6 @@ func (e ExtendedServerBlobAuditingPolicyProperties) MarshalJSON() ([]byte, error
 	populate(objectMap, "auditActionsAndGroups", e.AuditActionsAndGroups)
 	populate(objectMap, "isAzureMonitorTargetEnabled", e.IsAzureMonitorTargetEnabled)
 	populate(objectMap, "isDevopsAuditEnabled", e.IsDevopsAuditEnabled)
-	populate(objectMap, "isManagedIdentityInUse", e.IsManagedIdentityInUse)
 	populate(objectMap, "isStorageSecondaryKeyInUse", e.IsStorageSecondaryKeyInUse)
 	populate(objectMap, "predicateExpression", e.PredicateExpression)
 	populate(objectMap, "queueDelayMs", e.QueueDelayMs)
@@ -1548,6 +1545,17 @@ func (m ManagedInstance) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sku", m.SKU)
 	populate(objectMap, "tags", m.Tags)
 	populate(objectMap, "type", m.Type)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ManagedInstanceDtcProperties.
+func (m ManagedInstanceDtcProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "dtcEnabled", m.DtcEnabled)
+	populate(objectMap, "dtcHostNameDnsSuffix", m.DtcHostNameDNSSuffix)
+	populate(objectMap, "externalDnsSuffixSearchList", m.ExternalDNSSuffixSearchList)
+	populate(objectMap, "provisioningState", m.ProvisioningState)
+	populate(objectMap, "securitySettings", m.SecuritySettings)
 	return json.Marshal(objectMap)
 }
 
@@ -2701,7 +2709,6 @@ func (s ServerBlobAuditingPolicyProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "auditActionsAndGroups", s.AuditActionsAndGroups)
 	populate(objectMap, "isAzureMonitorTargetEnabled", s.IsAzureMonitorTargetEnabled)
 	populate(objectMap, "isDevopsAuditEnabled", s.IsDevopsAuditEnabled)
-	populate(objectMap, "isManagedIdentityInUse", s.IsManagedIdentityInUse)
 	populate(objectMap, "isStorageSecondaryKeyInUse", s.IsStorageSecondaryKeyInUse)
 	populate(objectMap, "queueDelayMs", s.QueueDelayMs)
 	populate(objectMap, "retentionDays", s.RetentionDays)
@@ -2869,44 +2876,6 @@ func (s ServerUpdate) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "properties", s.Properties)
 	populate(objectMap, "tags", s.Tags)
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type ServerUsage.
-func (s *ServerUsage) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", s, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "currentValue":
-			err = unpopulate(val, "CurrentValue", &s.CurrentValue)
-			delete(rawMsg, key)
-		case "displayName":
-			err = unpopulate(val, "DisplayName", &s.DisplayName)
-			delete(rawMsg, key)
-		case "limit":
-			err = unpopulate(val, "Limit", &s.Limit)
-			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &s.Name)
-			delete(rawMsg, key)
-		case "nextResetTime":
-			err = unpopulateTimeRFC3339(val, "NextResetTime", &s.NextResetTime)
-			delete(rawMsg, key)
-		case "resourceName":
-			err = unpopulate(val, "ResourceName", &s.ResourceName)
-			delete(rawMsg, key)
-		case "unit":
-			err = unpopulate(val, "Unit", &s.Unit)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", s, err)
-		}
-	}
-	return nil
 }
 
 // MarshalJSON implements the json.Marshaller interface for type SyncAgentProperties.

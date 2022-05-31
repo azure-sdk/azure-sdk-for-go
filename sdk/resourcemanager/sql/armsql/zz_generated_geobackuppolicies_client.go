@@ -54,14 +54,14 @@ func NewGeoBackupPoliciesClient(subscriptionID string, credential azcore.TokenCr
 	return client, nil
 }
 
-// CreateOrUpdate - Updates a database geo backup policy.
+// CreateOrUpdate - Create or update a database default Geo backup policy.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2014-04-01
+// Generated from API version 2022-02-01-preview
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
 // serverName - The name of the server.
 // databaseName - The name of the database.
-// geoBackupPolicyName - The name of the geo backup policy.
+// geoBackupPolicyName - The name of the Geo backup policy. This should always be 'Default'.
 // parameters - The required parameters for creating or updating the geo backup policy.
 // options - GeoBackupPoliciesClientCreateOrUpdateOptions contains the optional parameters for the GeoBackupPoliciesClient.CreateOrUpdate
 // method.
@@ -83,10 +83,6 @@ func (client *GeoBackupPoliciesClient) CreateOrUpdate(ctx context.Context, resou
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *GeoBackupPoliciesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName GeoBackupPolicyName, parameters GeoBackupPolicy, options *GeoBackupPoliciesClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/geoBackupPolicies/{geoBackupPolicyName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -103,12 +99,16 @@ func (client *GeoBackupPoliciesClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, errors.New("parameter geoBackupPolicyName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{geoBackupPolicyName}", url.PathEscape(string(geoBackupPolicyName)))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2014-04-01")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -123,14 +123,14 @@ func (client *GeoBackupPoliciesClient) createOrUpdateHandleResponse(resp *http.R
 	return result, nil
 }
 
-// Get - Gets a geo backup policy.
+// Get - Gets a Geo backup policy for the given database resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2014-04-01
+// Generated from API version 2022-02-01-preview
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
 // serverName - The name of the server.
 // databaseName - The name of the database.
-// geoBackupPolicyName - The name of the geo backup policy.
+// geoBackupPolicyName - The name of the Geo backup policy. This should always be 'Default'.
 // options - GeoBackupPoliciesClientGetOptions contains the optional parameters for the GeoBackupPoliciesClient.Get method.
 func (client *GeoBackupPoliciesClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName GeoBackupPolicyName, options *GeoBackupPoliciesClientGetOptions) (GeoBackupPoliciesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, databaseName, geoBackupPolicyName, options)
@@ -150,10 +150,6 @@ func (client *GeoBackupPoliciesClient) Get(ctx context.Context, resourceGroupNam
 // getCreateRequest creates the Get request.
 func (client *GeoBackupPoliciesClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, geoBackupPolicyName GeoBackupPolicyName, options *GeoBackupPoliciesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/geoBackupPolicies/{geoBackupPolicyName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -170,12 +166,16 @@ func (client *GeoBackupPoliciesClient) getCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter geoBackupPolicyName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{geoBackupPolicyName}", url.PathEscape(string(geoBackupPolicyName)))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2014-04-01")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -190,44 +190,45 @@ func (client *GeoBackupPoliciesClient) getHandleResponse(resp *http.Response) (G
 	return result, nil
 }
 
-// NewListByDatabasePager - Returns a list of geo backup policies.
+// NewListPager - Gets a list of Geo backup policies for the given database resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2014-04-01
+// Generated from API version 2022-02-01-preview
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
 // serverName - The name of the server.
 // databaseName - The name of the database.
-// options - GeoBackupPoliciesClientListByDatabaseOptions contains the optional parameters for the GeoBackupPoliciesClient.ListByDatabase
-// method.
-func (client *GeoBackupPoliciesClient) NewListByDatabasePager(resourceGroupName string, serverName string, databaseName string, options *GeoBackupPoliciesClientListByDatabaseOptions) *runtime.Pager[GeoBackupPoliciesClientListByDatabaseResponse] {
-	return runtime.NewPager(runtime.PagingHandler[GeoBackupPoliciesClientListByDatabaseResponse]{
-		More: func(page GeoBackupPoliciesClientListByDatabaseResponse) bool {
-			return false
+// options - GeoBackupPoliciesClientListOptions contains the optional parameters for the GeoBackupPoliciesClient.List method.
+func (client *GeoBackupPoliciesClient) NewListPager(resourceGroupName string, serverName string, databaseName string, options *GeoBackupPoliciesClientListOptions) *runtime.Pager[GeoBackupPoliciesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[GeoBackupPoliciesClientListResponse]{
+		More: func(page GeoBackupPoliciesClientListResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *GeoBackupPoliciesClientListByDatabaseResponse) (GeoBackupPoliciesClientListByDatabaseResponse, error) {
-			req, err := client.listByDatabaseCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
+		Fetcher: func(ctx context.Context, page *GeoBackupPoliciesClientListResponse) (GeoBackupPoliciesClientListResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
 			if err != nil {
-				return GeoBackupPoliciesClientListByDatabaseResponse{}, err
+				return GeoBackupPoliciesClientListResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return GeoBackupPoliciesClientListByDatabaseResponse{}, err
+				return GeoBackupPoliciesClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return GeoBackupPoliciesClientListByDatabaseResponse{}, runtime.NewResponseError(resp)
+				return GeoBackupPoliciesClientListResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listByDatabaseHandleResponse(resp)
+			return client.listHandleResponse(resp)
 		},
 	})
 }
 
-// listByDatabaseCreateRequest creates the ListByDatabase request.
-func (client *GeoBackupPoliciesClient) listByDatabaseCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *GeoBackupPoliciesClientListByDatabaseOptions) (*policy.Request, error) {
+// listCreateRequest creates the List request.
+func (client *GeoBackupPoliciesClient) listCreateRequest(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *GeoBackupPoliciesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/geoBackupPolicies"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -240,22 +241,26 @@ func (client *GeoBackupPoliciesClient) listByDatabaseCreateRequest(ctx context.C
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2014-04-01")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listByDatabaseHandleResponse handles the ListByDatabase response.
-func (client *GeoBackupPoliciesClient) listByDatabaseHandleResponse(resp *http.Response) (GeoBackupPoliciesClientListByDatabaseResponse, error) {
-	result := GeoBackupPoliciesClientListByDatabaseResponse{}
+// listHandleResponse handles the List response.
+func (client *GeoBackupPoliciesClient) listHandleResponse(resp *http.Response) (GeoBackupPoliciesClientListResponse, error) {
+	result := GeoBackupPoliciesClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.GeoBackupPolicyListResult); err != nil {
-		return GeoBackupPoliciesClientListByDatabaseResponse{}, err
+		return GeoBackupPoliciesClientListResponse{}, err
 	}
 	return result, nil
 }
