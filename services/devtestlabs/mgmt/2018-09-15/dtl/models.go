@@ -125,8 +125,6 @@ func (as *ApplicableSchedule) UnmarshalJSON(body []byte) error {
 // ApplicableScheduleFragment schedules applicable to a virtual machine. The schedules may have been
 // defined on a VM or on lab level.
 type ApplicableScheduleFragment struct {
-	// ApplicableSchedulePropertiesFragment - The properties of the resource.
-	*ApplicableSchedulePropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -134,46 +132,10 @@ type ApplicableScheduleFragment struct {
 // MarshalJSON is the custom marshaler for ApplicableScheduleFragment.
 func (asf ApplicableScheduleFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if asf.ApplicableSchedulePropertiesFragment != nil {
-		objectMap["properties"] = asf.ApplicableSchedulePropertiesFragment
-	}
 	if asf.Tags != nil {
 		objectMap["tags"] = asf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for ApplicableScheduleFragment struct.
-func (asf *ApplicableScheduleFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var applicableSchedulePropertiesFragment ApplicableSchedulePropertiesFragment
-				err = json.Unmarshal(*v, &applicableSchedulePropertiesFragment)
-				if err != nil {
-					return err
-				}
-				asf.ApplicableSchedulePropertiesFragment = &applicableSchedulePropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				asf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // ApplicableScheduleProperties properties of a schedules applicable to a virtual machine.
@@ -182,14 +144,6 @@ type ApplicableScheduleProperties struct {
 	LabVmsShutdown *Schedule `json:"labVmsShutdown,omitempty"`
 	// LabVmsStartup - The auto-startup schedule, if one has been set at the lab or lab resource level.
 	LabVmsStartup *Schedule `json:"labVmsStartup,omitempty"`
-}
-
-// ApplicableSchedulePropertiesFragment properties of a schedules applicable to a virtual machine.
-type ApplicableSchedulePropertiesFragment struct {
-	// LabVmsShutdown - The auto-shutdown schedule, if one has been set at the lab or lab resource level.
-	LabVmsShutdown *ScheduleFragment `json:"labVmsShutdown,omitempty"`
-	// LabVmsStartup - The auto-startup schedule, if one has been set at the lab or lab resource level.
-	LabVmsStartup *ScheduleFragment `json:"labVmsStartup,omitempty"`
 }
 
 // ApplyArtifactsRequest request body for applying artifacts to a virtual machine.
@@ -475,14 +429,6 @@ type ArmTemplateParameterProperties struct {
 	Value *string `json:"value,omitempty"`
 }
 
-// ArmTemplateParameterPropertiesFragment properties of an Azure Resource Manager template parameter.
-type ArmTemplateParameterPropertiesFragment struct {
-	// Name - The name of the template parameter.
-	Name *string `json:"name,omitempty"`
-	// Value - The value of the template parameter.
-	Value *string `json:"value,omitempty"`
-}
-
 // ArmTemplateProperties properties of an Azure Resource Manager template.
 type ArmTemplateProperties struct {
 	// DisplayName - READ-ONLY; The display name of the ARM template.
@@ -620,16 +566,6 @@ type ArtifactDeploymentStatusProperties struct {
 	TotalArtifacts *int32 `json:"totalArtifacts,omitempty"`
 }
 
-// ArtifactDeploymentStatusPropertiesFragment properties of an artifact deployment.
-type ArtifactDeploymentStatusPropertiesFragment struct {
-	// DeploymentStatus - The deployment status of the artifact.
-	DeploymentStatus *string `json:"deploymentStatus,omitempty"`
-	// ArtifactsApplied - The total count of the artifacts that were successfully applied.
-	ArtifactsApplied *int32 `json:"artifactsApplied,omitempty"`
-	// TotalArtifacts - The total count of the artifacts that were tentatively applied.
-	TotalArtifacts *int32 `json:"totalArtifacts,omitempty"`
-}
-
 // ArtifactInstallProperties properties of an artifact.
 type ArtifactInstallProperties struct {
 	// ArtifactID - The artifact's identifier.
@@ -638,24 +574,6 @@ type ArtifactInstallProperties struct {
 	ArtifactTitle *string `json:"artifactTitle,omitempty"`
 	// Parameters - The parameters of the artifact.
 	Parameters *[]ArtifactParameterProperties `json:"parameters,omitempty"`
-	// Status - The status of the artifact.
-	Status *string `json:"status,omitempty"`
-	// DeploymentStatusMessage - The status message from the deployment.
-	DeploymentStatusMessage *string `json:"deploymentStatusMessage,omitempty"`
-	// VMExtensionStatusMessage - The status message from the virtual machine extension.
-	VMExtensionStatusMessage *string `json:"vmExtensionStatusMessage,omitempty"`
-	// InstallTime - The time that the artifact starts to install on the virtual machine.
-	InstallTime *date.Time `json:"installTime,omitempty"`
-}
-
-// ArtifactInstallPropertiesFragment properties of an artifact.
-type ArtifactInstallPropertiesFragment struct {
-	// ArtifactID - The artifact's identifier.
-	ArtifactID *string `json:"artifactId,omitempty"`
-	// ArtifactTitle - The artifact's title.
-	ArtifactTitle *string `json:"artifactTitle,omitempty"`
-	// Parameters - The parameters of the artifact.
-	Parameters *[]ArtifactParameterPropertiesFragment `json:"parameters,omitempty"`
 	// Status - The status of the artifact.
 	Status *string `json:"status,omitempty"`
 	// DeploymentStatusMessage - The status message from the deployment.
@@ -833,14 +751,6 @@ type ArtifactParameterProperties struct {
 	Value *string `json:"value,omitempty"`
 }
 
-// ArtifactParameterPropertiesFragment properties of an artifact parameter.
-type ArtifactParameterPropertiesFragment struct {
-	// Name - The name of the artifact parameter.
-	Name *string `json:"name,omitempty"`
-	// Value - The value of the artifact parameter.
-	Value *string `json:"value,omitempty"`
-}
-
 // ArtifactProperties properties of an artifact.
 type ArtifactProperties struct {
 	// Title - READ-ONLY; The artifact's title.
@@ -970,8 +880,6 @@ func (as *ArtifactSource) UnmarshalJSON(body []byte) error {
 
 // ArtifactSourceFragment properties of an artifact source.
 type ArtifactSourceFragment struct {
-	// ArtifactSourcePropertiesFragment - The properties of the resource.
-	*ArtifactSourcePropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -979,46 +887,10 @@ type ArtifactSourceFragment struct {
 // MarshalJSON is the custom marshaler for ArtifactSourceFragment.
 func (asf ArtifactSourceFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if asf.ArtifactSourcePropertiesFragment != nil {
-		objectMap["properties"] = asf.ArtifactSourcePropertiesFragment
-	}
 	if asf.Tags != nil {
 		objectMap["tags"] = asf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for ArtifactSourceFragment struct.
-func (asf *ArtifactSourceFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var artifactSourcePropertiesFragment ArtifactSourcePropertiesFragment
-				err = json.Unmarshal(*v, &artifactSourcePropertiesFragment)
-				if err != nil {
-					return err
-				}
-				asf.ArtifactSourcePropertiesFragment = &artifactSourcePropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				asf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // ArtifactSourceList the response of a list operation.
@@ -1186,7 +1058,7 @@ type ArtifactSourceProperties struct {
 	DisplayName *string `json:"displayName,omitempty"`
 	// URI - The artifact source's URI.
 	URI *string `json:"uri,omitempty"`
-	// SourceType - The artifact source's type. Possible values include: 'VsoGit', 'GitHub'
+	// SourceType - The artifact source's type. Possible values include: 'VsoGit', 'GitHub', 'StorageAccount'
 	SourceType SourceControlType `json:"sourceType,omitempty"`
 	// FolderPath - The folder containing artifacts.
 	FolderPath *string `json:"folderPath,omitempty"`
@@ -1236,26 +1108,6 @@ func (asp ArtifactSourceProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// ArtifactSourcePropertiesFragment properties of an artifact source.
-type ArtifactSourcePropertiesFragment struct {
-	// DisplayName - The artifact source's display name.
-	DisplayName *string `json:"displayName,omitempty"`
-	// URI - The artifact source's URI.
-	URI *string `json:"uri,omitempty"`
-	// SourceType - The artifact source's type. Possible values include: 'VsoGit', 'GitHub'
-	SourceType SourceControlType `json:"sourceType,omitempty"`
-	// FolderPath - The folder containing artifacts.
-	FolderPath *string `json:"folderPath,omitempty"`
-	// ArmTemplateFolderPath - The folder containing Azure Resource Manager templates.
-	ArmTemplateFolderPath *string `json:"armTemplateFolderPath,omitempty"`
-	// BranchRef - The artifact source's branch reference.
-	BranchRef *string `json:"branchRef,omitempty"`
-	// SecurityToken - The security token to authenticate to the artifact source.
-	SecurityToken *string `json:"securityToken,omitempty"`
-	// Status - Indicates if the artifact source is enabled (values: Enabled, Disabled). Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
-	Status EnableStatus `json:"status,omitempty"`
-}
-
 // AttachDiskProperties properties of the disk to attach.
 type AttachDiskProperties struct {
 	// LeasedByLabVMID - The resource ID of the Lab virtual machine to which the disk is attached.
@@ -1264,17 +1116,7 @@ type AttachDiskProperties struct {
 
 // AttachNewDataDiskOptions properties to attach new disk to the Virtual Machine.
 type AttachNewDataDiskOptions struct {
-	// DiskSizeGiB - Size of the disk to be attached in GibiBytes.
-	DiskSizeGiB *int32 `json:"diskSizeGiB,omitempty"`
-	// DiskName - The name of the disk to be attached.
-	DiskName *string `json:"diskName,omitempty"`
-	// DiskType - The storage type for the disk (i.e. Standard, Premium). Possible values include: 'Standard', 'Premium', 'StandardSSD'
-	DiskType StorageType `json:"diskType,omitempty"`
-}
-
-// AttachNewDataDiskOptionsFragment properties to attach new disk to the Virtual Machine.
-type AttachNewDataDiskOptionsFragment struct {
-	// DiskSizeGiB - Size of the disk to be attached in GibiBytes.
+	// DiskSizeGiB - Size of the disk to be attached in Gibibytes.
 	DiskSizeGiB *int32 `json:"diskSizeGiB,omitempty"`
 	// DiskName - The name of the disk to be attached.
 	DiskName *string `json:"diskName,omitempty"`
@@ -1284,12 +1126,6 @@ type AttachNewDataDiskOptionsFragment struct {
 
 // BulkCreationParameters parameters for creating multiple virtual machines as a single action.
 type BulkCreationParameters struct {
-	// InstanceCount - The number of virtual machine instances to create.
-	InstanceCount *int32 `json:"instanceCount,omitempty"`
-}
-
-// BulkCreationParametersFragment parameters for creating multiple virtual machines as a single action.
-type BulkCreationParametersFragment struct {
 	// InstanceCount - The number of virtual machine instances to create.
 	InstanceCount *int32 `json:"instanceCount,omitempty"`
 }
@@ -1324,30 +1160,8 @@ type ComputeDataDisk struct {
 	DiskSizeGiB *int32 `json:"diskSizeGiB,omitempty"`
 }
 
-// ComputeDataDiskFragment a data disks attached to a virtual machine.
-type ComputeDataDiskFragment struct {
-	// Name - Gets data disk name.
-	Name *string `json:"name,omitempty"`
-	// DiskURI - When backed by a blob, the URI of underlying blob.
-	DiskURI *string `json:"diskUri,omitempty"`
-	// ManagedDiskID - When backed by managed disk, this is the ID of the compute disk resource.
-	ManagedDiskID *string `json:"managedDiskId,omitempty"`
-	// DiskSizeGiB - Gets data disk size in GiB.
-	DiskSizeGiB *int32 `json:"diskSizeGiB,omitempty"`
-}
-
 // ComputeVMInstanceViewStatus status information about a virtual machine.
 type ComputeVMInstanceViewStatus struct {
-	// Code - Gets the status Code.
-	Code *string `json:"code,omitempty"`
-	// DisplayStatus - Gets the short localizable label for the status.
-	DisplayStatus *string `json:"displayStatus,omitempty"`
-	// Message - Gets the message associated with the status.
-	Message *string `json:"message,omitempty"`
-}
-
-// ComputeVMInstanceViewStatusFragment status information about a virtual machine.
-type ComputeVMInstanceViewStatusFragment struct {
 	// Code - Gets the status Code.
 	Code *string `json:"code,omitempty"`
 	// DisplayStatus - Gets the short localizable label for the status.
@@ -1372,24 +1186,6 @@ type ComputeVMProperties struct {
 	DataDiskIds *[]string `json:"dataDiskIds,omitempty"`
 	// DataDisks - Gets all data disks attached to the virtual machine.
 	DataDisks *[]ComputeDataDisk `json:"dataDisks,omitempty"`
-}
-
-// ComputeVMPropertiesFragment properties of a virtual machine returned by the Microsoft.Compute API.
-type ComputeVMPropertiesFragment struct {
-	// Statuses - Gets the statuses of the virtual machine.
-	Statuses *[]ComputeVMInstanceViewStatusFragment `json:"statuses,omitempty"`
-	// OsType - Gets the OS type of the virtual machine.
-	OsType *string `json:"osType,omitempty"`
-	// VMSize - Gets the size of the virtual machine.
-	VMSize *string `json:"vmSize,omitempty"`
-	// NetworkInterfaceID - Gets the network interface ID of the virtual machine.
-	NetworkInterfaceID *string `json:"networkInterfaceId,omitempty"`
-	// OsDiskID - Gets OS disk blob uri for the virtual machine.
-	OsDiskID *string `json:"osDiskId,omitempty"`
-	// DataDiskIds - Gets data disks blob uri for the virtual machine.
-	DataDiskIds *[]string `json:"dataDiskIds,omitempty"`
-	// DataDisks - Gets all data disks attached to the virtual machine.
-	DataDisks *[]ComputeDataDiskFragment `json:"dataDisks,omitempty"`
 }
 
 // CostThresholdProperties properties of a cost threshold item.
@@ -1509,8 +1305,6 @@ func (ci *CustomImage) UnmarshalJSON(body []byte) error {
 
 // CustomImageFragment a custom image.
 type CustomImageFragment struct {
-	// CustomImagePropertiesFragment - The properties of the resource.
-	*CustomImagePropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -1518,46 +1312,10 @@ type CustomImageFragment struct {
 // MarshalJSON is the custom marshaler for CustomImageFragment.
 func (cif CustomImageFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if cif.CustomImagePropertiesFragment != nil {
-		objectMap["properties"] = cif.CustomImagePropertiesFragment
-	}
 	if cif.Tags != nil {
 		objectMap["tags"] = cif.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for CustomImageFragment struct.
-func (cif *CustomImageFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var customImagePropertiesFragment CustomImagePropertiesFragment
-				err = json.Unmarshal(*v, &customImagePropertiesFragment)
-				if err != nil {
-					return err
-				}
-				cif.CustomImagePropertiesFragment = &customImagePropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				cif.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // CustomImageList the response of a list operation.
@@ -1790,50 +1548,8 @@ type CustomImagePropertiesCustom struct {
 	OsType CustomImageOsType `json:"osType,omitempty"`
 }
 
-// CustomImagePropertiesCustomFragment properties for creating a custom image from a VHD.
-type CustomImagePropertiesCustomFragment struct {
-	// ImageName - The image name.
-	ImageName *string `json:"imageName,omitempty"`
-	// SysPrep - Indicates whether sysprep has been run on the VHD.
-	SysPrep *bool `json:"sysPrep,omitempty"`
-	// OsType - The OS type of the custom image (i.e. Windows, Linux). Possible values include: 'Windows', 'Linux', 'None'
-	OsType CustomImageOsType `json:"osType,omitempty"`
-}
-
-// CustomImagePropertiesFragment properties of a custom image.
-type CustomImagePropertiesFragment struct {
-	// VM - The virtual machine from which the image is to be created.
-	VM *CustomImagePropertiesFromVMFragment `json:"vm,omitempty"`
-	// Vhd - The VHD from which the image is to be created.
-	Vhd *CustomImagePropertiesCustomFragment `json:"vhd,omitempty"`
-	// Description - The description of the custom image.
-	Description *string `json:"description,omitempty"`
-	// Author - The author of the custom image.
-	Author *string `json:"author,omitempty"`
-	// ManagedImageID - The Managed Image Id backing the custom image.
-	ManagedImageID *string `json:"managedImageId,omitempty"`
-	// ManagedSnapshotID - The Managed Snapshot Id backing the custom image.
-	ManagedSnapshotID *string `json:"managedSnapshotId,omitempty"`
-	// DataDiskStorageInfo - Storage information about the data disks present in the custom image
-	DataDiskStorageInfo *[]DataDiskStorageTypeInfoFragment `json:"dataDiskStorageInfo,omitempty"`
-	// CustomImagePlan - Storage information about the plan related to this custom image
-	CustomImagePlan *CustomImagePropertiesFromPlanFragment `json:"customImagePlan,omitempty"`
-	// IsPlanAuthorized - Whether or not the custom images underlying offer/plan has been enabled for programmatic deployment
-	IsPlanAuthorized *bool `json:"isPlanAuthorized,omitempty"`
-}
-
 // CustomImagePropertiesFromPlan properties for plan on a custom image.
 type CustomImagePropertiesFromPlan struct {
-	// ID - The id of the plan, equivalent to name of the plan
-	ID *string `json:"id,omitempty"`
-	// Publisher - The publisher for the plan from the marketplace image the custom image is derived from
-	Publisher *string `json:"publisher,omitempty"`
-	// Offer - The offer for the plan from the marketplace image the custom image is derived from
-	Offer *string `json:"offer,omitempty"`
-}
-
-// CustomImagePropertiesFromPlanFragment properties for plan on a custom image.
-type CustomImagePropertiesFromPlanFragment struct {
 	// ID - The id of the plan, equivalent to name of the plan
 	ID *string `json:"id,omitempty"`
 	// Publisher - The publisher for the plan from the marketplace image the custom image is derived from
@@ -1850,16 +1566,6 @@ type CustomImagePropertiesFromVM struct {
 	WindowsOsInfo *WindowsOsInfo `json:"windowsOsInfo,omitempty"`
 	// LinuxOsInfo - The Linux OS information of the VM.
 	LinuxOsInfo *LinuxOsInfo `json:"linuxOsInfo,omitempty"`
-}
-
-// CustomImagePropertiesFromVMFragment properties for creating a custom image from a virtual machine.
-type CustomImagePropertiesFromVMFragment struct {
-	// SourceVMID - The source vm identifier.
-	SourceVMID *string `json:"sourceVmId,omitempty"`
-	// WindowsOsInfo - The Windows OS information of the VM.
-	WindowsOsInfo *WindowsOsInfoFragment `json:"windowsOsInfo,omitempty"`
-	// LinuxOsInfo - The Linux OS information of the VM.
-	LinuxOsInfo *LinuxOsInfoFragment `json:"linuxOsInfo,omitempty"`
 }
 
 // CustomImagesCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
@@ -1952,16 +1658,6 @@ type DataDiskProperties struct {
 	HostCaching HostCachingOptions `json:"hostCaching,omitempty"`
 }
 
-// DataDiskPropertiesFragment request body for adding a new or existing data disk to a virtual machine.
-type DataDiskPropertiesFragment struct {
-	// AttachNewDataDiskOptions - Specifies options to attach a new disk to the virtual machine.
-	AttachNewDataDiskOptions *AttachNewDataDiskOptionsFragment `json:"attachNewDataDiskOptions,omitempty"`
-	// ExistingLabDiskID - Specifies the existing lab disk id to attach to virtual machine.
-	ExistingLabDiskID *string `json:"existingLabDiskId,omitempty"`
-	// HostCaching - Caching option for a data disk (i.e. None, ReadOnly, ReadWrite). Possible values include: 'HostCachingOptionsNone', 'HostCachingOptionsReadOnly', 'HostCachingOptionsReadWrite'
-	HostCaching HostCachingOptions `json:"hostCaching,omitempty"`
-}
-
 // DataDiskStorageTypeInfo storage information about the data disks present in the custom image
 type DataDiskStorageTypeInfo struct {
 	// Lun - Disk Lun
@@ -1970,22 +1666,8 @@ type DataDiskStorageTypeInfo struct {
 	StorageType StorageType `json:"storageType,omitempty"`
 }
 
-// DataDiskStorageTypeInfoFragment storage information about the data disks present in the custom image
-type DataDiskStorageTypeInfoFragment struct {
-	// Lun - Disk Lun
-	Lun *string `json:"lun,omitempty"`
-	// StorageType - Disk Storage Type. Possible values include: 'Standard', 'Premium', 'StandardSSD'
-	StorageType StorageType `json:"storageType,omitempty"`
-}
-
 // DayDetails properties of a daily schedule.
 type DayDetails struct {
-	// Time - The time of day the schedule will occur.
-	Time *string `json:"time,omitempty"`
-}
-
-// DayDetailsFragment properties of a daily schedule.
-type DayDetailsFragment struct {
 	// Time - The time of day the schedule will occur.
 	Time *string `json:"time,omitempty"`
 }
@@ -2105,8 +1787,6 @@ func (d *Disk) UnmarshalJSON(body []byte) error {
 
 // DiskFragment a Disk.
 type DiskFragment struct {
-	// DiskPropertiesFragment - The properties of the resource.
-	*DiskPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -2114,46 +1794,10 @@ type DiskFragment struct {
 // MarshalJSON is the custom marshaler for DiskFragment.
 func (df DiskFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if df.DiskPropertiesFragment != nil {
-		objectMap["properties"] = df.DiskPropertiesFragment
-	}
 	if df.Tags != nil {
 		objectMap["tags"] = df.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for DiskFragment struct.
-func (df *DiskFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var diskPropertiesFragment DiskPropertiesFragment
-				err = json.Unmarshal(*v, &diskPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				df.DiskPropertiesFragment = &diskPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				df.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // DiskList the response of a list operation.
@@ -2319,7 +1963,7 @@ func NewDiskListPage(cur DiskList, getNextPage func(context.Context, DiskList) (
 type DiskProperties struct {
 	// DiskType - The storage type for the disk (i.e. Standard, Premium). Possible values include: 'Standard', 'Premium', 'StandardSSD'
 	DiskType StorageType `json:"diskType,omitempty"`
-	// DiskSizeGiB - The size of the disk in GibiBytes.
+	// DiskSizeGiB - The size of the disk in Gibibytes.
 	DiskSizeGiB *int32 `json:"diskSizeGiB,omitempty"`
 	// LeasedByLabVMID - The resource ID of the VM to which this disk is leased.
 	LeasedByLabVMID *string `json:"leasedByLabVmId,omitempty"`
@@ -2327,6 +1971,8 @@ type DiskProperties struct {
 	DiskBlobName *string `json:"diskBlobName,omitempty"`
 	// DiskURI - When backed by a blob, the URI of underlying blob.
 	DiskURI *string `json:"diskUri,omitempty"`
+	// StorageAccountID - When backed by a blob, the storage account where the blob is.
+	StorageAccountID *string `json:"storageAccountId,omitempty"`
 	// CreatedDate - READ-ONLY; The creation date of the disk.
 	CreatedDate *date.Time `json:"createdDate,omitempty"`
 	// HostCaching - The host caching policy of the disk (i.e. None, ReadOnly, ReadWrite).
@@ -2357,6 +2003,9 @@ func (dp DiskProperties) MarshalJSON() ([]byte, error) {
 	if dp.DiskURI != nil {
 		objectMap["diskUri"] = dp.DiskURI
 	}
+	if dp.StorageAccountID != nil {
+		objectMap["storageAccountId"] = dp.StorageAccountID
+	}
 	if dp.HostCaching != nil {
 		objectMap["hostCaching"] = dp.HostCaching
 	}
@@ -2364,24 +2013,6 @@ func (dp DiskProperties) MarshalJSON() ([]byte, error) {
 		objectMap["managedDiskId"] = dp.ManagedDiskID
 	}
 	return json.Marshal(objectMap)
-}
-
-// DiskPropertiesFragment properties of a disk.
-type DiskPropertiesFragment struct {
-	// DiskType - The storage type for the disk (i.e. Standard, Premium). Possible values include: 'Standard', 'Premium', 'StandardSSD'
-	DiskType StorageType `json:"diskType,omitempty"`
-	// DiskSizeGiB - The size of the disk in GibiBytes.
-	DiskSizeGiB *int32 `json:"diskSizeGiB,omitempty"`
-	// LeasedByLabVMID - The resource ID of the VM to which this disk is leased.
-	LeasedByLabVMID *string `json:"leasedByLabVmId,omitempty"`
-	// DiskBlobName - When backed by a blob, the name of the VHD blob without extension.
-	DiskBlobName *string `json:"diskBlobName,omitempty"`
-	// DiskURI - When backed by a blob, the URI of underlying blob.
-	DiskURI *string `json:"diskUri,omitempty"`
-	// HostCaching - The host caching policy of the disk (i.e. None, ReadOnly, ReadWrite).
-	HostCaching *string `json:"hostCaching,omitempty"`
-	// ManagedDiskID - When backed by managed disk, this is the ID of the compute disk resource.
-	ManagedDiskID *string `json:"managedDiskId,omitempty"`
 }
 
 // DisksAttachFuture an abstraction for monitoring and retrieving the results of a long-running operation.
@@ -2644,18 +2275,8 @@ type EnvironmentDeploymentProperties struct {
 	Parameters *[]ArmTemplateParameterProperties `json:"parameters,omitempty"`
 }
 
-// EnvironmentDeploymentPropertiesFragment properties of an environment deployment.
-type EnvironmentDeploymentPropertiesFragment struct {
-	// ArmTemplateID - The Azure Resource Manager template's identifier.
-	ArmTemplateID *string `json:"armTemplateId,omitempty"`
-	// Parameters - The parameters of the Azure Resource Manager template.
-	Parameters *[]ArmTemplateParameterPropertiesFragment `json:"parameters,omitempty"`
-}
-
 // EnvironmentFragment an environment, which is essentially an ARM template deployment.
 type EnvironmentFragment struct {
-	// EnvironmentPropertiesFragment - The properties of the resource.
-	*EnvironmentPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -2663,46 +2284,10 @@ type EnvironmentFragment struct {
 // MarshalJSON is the custom marshaler for EnvironmentFragment.
 func (ef EnvironmentFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if ef.EnvironmentPropertiesFragment != nil {
-		objectMap["properties"] = ef.EnvironmentPropertiesFragment
-	}
 	if ef.Tags != nil {
 		objectMap["tags"] = ef.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for EnvironmentFragment struct.
-func (ef *EnvironmentFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var environmentPropertiesFragment EnvironmentPropertiesFragment
-				err = json.Unmarshal(*v, &environmentPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				ef.EnvironmentPropertiesFragment = &environmentPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				ef.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // EnvironmentList the response of a list operation.
@@ -2892,14 +2477,6 @@ func (ep EnvironmentProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// EnvironmentPropertiesFragment properties of an environment.
-type EnvironmentPropertiesFragment struct {
-	// DeploymentProperties - The deployment properties of the environment.
-	DeploymentProperties *EnvironmentDeploymentPropertiesFragment `json:"deploymentProperties,omitempty"`
-	// ArmTemplateDisplayName - The display name of the Azure Resource Manager template that produced the environment.
-	ArmTemplateDisplayName *string `json:"armTemplateDisplayName,omitempty"`
-}
-
 // EnvironmentsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
 // long-running operation.
 type EnvironmentsCreateOrUpdateFuture struct {
@@ -3011,12 +2588,6 @@ type Event struct {
 	EventName NotificationChannelEventType `json:"eventName,omitempty"`
 }
 
-// EventFragment an event to be notified for.
-type EventFragment struct {
-	// EventName - The event type for which this notification is enabled (i.e. AutoShutdown, Cost). Possible values include: 'AutoShutdown', 'Cost'
-	EventName NotificationChannelEventType `json:"eventName,omitempty"`
-}
-
 // ExportResourceUsageParameters the parameters of the export operation.
 type ExportResourceUsageParameters struct {
 	// BlobStorageAbsoluteSasURI - The blob storage absolute sas uri with write permission to the container which the usage data needs to be uploaded to.
@@ -3027,14 +2598,6 @@ type ExportResourceUsageParameters struct {
 
 // ExternalSubnet subnet information as returned by the Microsoft.Network API.
 type ExternalSubnet struct {
-	// ID - Gets or sets the identifier.
-	ID *string `json:"id,omitempty"`
-	// Name - Gets or sets the name.
-	Name *string `json:"name,omitempty"`
-}
-
-// ExternalSubnetFragment subnet information as returned by the Microsoft.Network API.
-type ExternalSubnetFragment struct {
 	// ID - Gets or sets the identifier.
 	ID *string `json:"id,omitempty"`
 	// Name - Gets or sets the name.
@@ -3144,8 +2707,6 @@ func (f *Formula) UnmarshalJSON(body []byte) error {
 
 // FormulaFragment a formula for creating a VM, specifying an image base and other parameters
 type FormulaFragment struct {
-	// FormulaPropertiesFragment - The properties of the resource.
-	*FormulaPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -3153,46 +2714,10 @@ type FormulaFragment struct {
 // MarshalJSON is the custom marshaler for FormulaFragment.
 func (ff FormulaFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if ff.FormulaPropertiesFragment != nil {
-		objectMap["properties"] = ff.FormulaPropertiesFragment
-	}
 	if ff.Tags != nil {
 		objectMap["tags"] = ff.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for FormulaFragment struct.
-func (ff *FormulaFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var formulaPropertiesFragment FormulaPropertiesFragment
-				err = json.Unmarshal(*v, &formulaPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				ff.FormulaPropertiesFragment = &formulaPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				ff.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // FormulaList the response of a list operation.
@@ -3358,7 +2883,7 @@ func NewFormulaListPage(cur FormulaList, getNextPage func(context.Context, Formu
 type FormulaProperties struct {
 	// Description - The description of the formula.
 	Description *string `json:"description,omitempty"`
-	// Author - The author of the formula.
+	// Author - READ-ONLY; The author of the formula.
 	Author *string `json:"author,omitempty"`
 	// OsType - The OS type of the formula.
 	OsType *string `json:"osType,omitempty"`
@@ -3380,9 +2905,6 @@ func (fp FormulaProperties) MarshalJSON() ([]byte, error) {
 	if fp.Description != nil {
 		objectMap["description"] = fp.Description
 	}
-	if fp.Author != nil {
-		objectMap["author"] = fp.Author
-	}
 	if fp.OsType != nil {
 		objectMap["osType"] = fp.OsType
 	}
@@ -3395,28 +2917,8 @@ func (fp FormulaProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// FormulaPropertiesFragment properties of a formula.
-type FormulaPropertiesFragment struct {
-	// Description - The description of the formula.
-	Description *string `json:"description,omitempty"`
-	// Author - The author of the formula.
-	Author *string `json:"author,omitempty"`
-	// OsType - The OS type of the formula.
-	OsType *string `json:"osType,omitempty"`
-	// FormulaContent - The content of the formula.
-	FormulaContent *LabVirtualMachineCreationParameterFragment `json:"formulaContent,omitempty"`
-	// VM - Information about a VM from which a formula is to be created.
-	VM *FormulaPropertiesFromVMFragment `json:"vm,omitempty"`
-}
-
 // FormulaPropertiesFromVM information about a VM from which a formula is to be created.
 type FormulaPropertiesFromVM struct {
-	// LabVMID - The identifier of the VM from which a formula is to be created.
-	LabVMID *string `json:"labVmId,omitempty"`
-}
-
-// FormulaPropertiesFromVMFragment information about a VM from which a formula is to be created.
-type FormulaPropertiesFromVMFragment struct {
 	// LabVMID - The identifier of the VM from which a formula is to be created.
 	LabVMID *string `json:"labVmId,omitempty"`
 }
@@ -3784,20 +3286,6 @@ type GalleryImageReference struct {
 	Version *string `json:"version,omitempty"`
 }
 
-// GalleryImageReferenceFragment the reference information for an Azure Marketplace image.
-type GalleryImageReferenceFragment struct {
-	// Offer - The offer of the gallery image.
-	Offer *string `json:"offer,omitempty"`
-	// Publisher - The publisher of the gallery image.
-	Publisher *string `json:"publisher,omitempty"`
-	// Sku - The SKU of the gallery image.
-	Sku *string `json:"sku,omitempty"`
-	// OsType - The OS type of the gallery image.
-	OsType *string `json:"osType,omitempty"`
-	// Version - The version of the gallery image.
-	Version *string `json:"version,omitempty"`
-}
-
 // GenerateArmTemplateRequest parameters for generating an ARM template for deploying artifacts.
 type GenerateArmTemplateRequest struct {
 	// VirtualMachineName - The resource name of the virtual machine.
@@ -3903,16 +3391,10 @@ type HourDetails struct {
 	Minute *int32 `json:"minute,omitempty"`
 }
 
-// HourDetailsFragment properties of an hourly schedule.
-type HourDetailsFragment struct {
-	// Minute - Minutes of the hour the schedule will run.
-	Minute *int32 `json:"minute,omitempty"`
-}
-
 // IdentityProperties properties of a managed identity
 type IdentityProperties struct {
-	// Type - Managed identity.
-	Type *string `json:"type,omitempty"`
+	// Type - Managed identity. Possible values include: 'ManagedIdentityTypeNone', 'ManagedIdentityTypeSystemAssigned', 'ManagedIdentityTypeUserAssigned', 'ManagedIdentityTypeSystemAssignedUserAssigned'
+	Type ManagedIdentityType `json:"type,omitempty"`
 	// PrincipalID - The principal id of resource identity.
 	PrincipalID *string `json:"principalId,omitempty"`
 	// TenantID - The tenant identifier of resource.
@@ -3933,17 +3415,6 @@ type ImportLabVirtualMachineRequest struct {
 // InboundNatRule a rule for NAT - exposing a VM's port (backendPort) on the public IP address using a load
 // balancer.
 type InboundNatRule struct {
-	// TransportProtocol - The transport protocol for the endpoint. Possible values include: 'TCP', 'UDP'
-	TransportProtocol TransportProtocol `json:"transportProtocol,omitempty"`
-	// FrontendPort - The external endpoint port of the inbound connection. Possible values range between 1 and 65535, inclusive. If unspecified, a value will be allocated automatically.
-	FrontendPort *int32 `json:"frontendPort,omitempty"`
-	// BackendPort - The port to which the external traffic will be redirected.
-	BackendPort *int32 `json:"backendPort,omitempty"`
-}
-
-// InboundNatRuleFragment a rule for NAT - exposing a VM's port (backendPort) on the public IP address
-// using a load balancer.
-type InboundNatRuleFragment struct {
 	// TransportProtocol - The transport protocol for the endpoint. Possible values include: 'TCP', 'UDP'
 	TransportProtocol TransportProtocol `json:"transportProtocol,omitempty"`
 	// FrontendPort - The external endpoint port of the inbound connection. Possible values range between 1 and 65535, inclusive. If unspecified, a value will be allocated automatically.
@@ -4090,20 +3561,6 @@ func (lap LabAnnouncementProperties) MarshalJSON() ([]byte, error) {
 		objectMap["expired"] = lap.Expired
 	}
 	return json.Marshal(objectMap)
-}
-
-// LabAnnouncementPropertiesFragment properties of a lab's announcement banner
-type LabAnnouncementPropertiesFragment struct {
-	// Title - The plain text title for the lab announcement
-	Title *string `json:"title,omitempty"`
-	// Markdown - The markdown text (if any) that this lab displays in the UI. If left empty/null, nothing will be shown.
-	Markdown *string `json:"markdown,omitempty"`
-	// Enabled - Is the lab announcement active/enabled at this time?. Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
-	Enabled EnableStatus `json:"enabled,omitempty"`
-	// ExpirationDate - The time at which the announcement expires (null for never)
-	ExpirationDate *date.Time `json:"expirationDate,omitempty"`
-	// Expired - Has this announcement expired?
-	Expired *bool `json:"expired,omitempty"`
 }
 
 // LabCost a cost item.
@@ -4270,8 +3727,6 @@ type LabCostSummaryProperties struct {
 
 // LabFragment a lab.
 type LabFragment struct {
-	// LabPropertiesFragment - The properties of the resource.
-	*LabPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -4279,46 +3734,10 @@ type LabFragment struct {
 // MarshalJSON is the custom marshaler for LabFragment.
 func (lf LabFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if lf.LabPropertiesFragment != nil {
-		objectMap["properties"] = lf.LabPropertiesFragment
-	}
 	if lf.Tags != nil {
 		objectMap["tags"] = lf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for LabFragment struct.
-func (lf *LabFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var labPropertiesFragment LabPropertiesFragment
-				err = json.Unmarshal(*v, &labPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				lf.LabPropertiesFragment = &labPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				lf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // LabList the response of a list operation.
@@ -4552,58 +3971,6 @@ func (lp LabProperties) MarshalJSON() ([]byte, error) {
 	}
 	if lp.ExtendedProperties != nil {
 		objectMap["extendedProperties"] = lp.ExtendedProperties
-	}
-	return json.Marshal(objectMap)
-}
-
-// LabPropertiesFragment properties of a lab.
-type LabPropertiesFragment struct {
-	// LabStorageType - Type of storage used by the lab. It can be either Premium or Standard. Default is Premium. Possible values include: 'Standard', 'Premium', 'StandardSSD'
-	LabStorageType StorageType `json:"labStorageType,omitempty"`
-	// MandatoryArtifactsResourceIdsLinux - The ordered list of artifact resource IDs that should be applied on all Linux VM creations by default, prior to the artifacts specified by the user.
-	MandatoryArtifactsResourceIdsLinux *[]string `json:"mandatoryArtifactsResourceIdsLinux,omitempty"`
-	// MandatoryArtifactsResourceIdsWindows - The ordered list of artifact resource IDs that should be applied on all Windows VM creations by default, prior to the artifacts specified by the user.
-	MandatoryArtifactsResourceIdsWindows *[]string `json:"mandatoryArtifactsResourceIdsWindows,omitempty"`
-	// PremiumDataDisks - The setting to enable usage of premium data disks.
-	// When its value is 'Enabled', creation of standard or premium data disks is allowed.
-	// When its value is 'Disabled', only creation of standard data disks is allowed. Possible values include: 'PremiumDataDiskDisabled', 'PremiumDataDiskEnabled'
-	PremiumDataDisks PremiumDataDisk `json:"premiumDataDisks,omitempty"`
-	// EnvironmentPermission - The access rights to be granted to the user when provisioning an environment. Possible values include: 'Reader', 'Contributor'
-	EnvironmentPermission EnvironmentPermission `json:"environmentPermission,omitempty"`
-	// Announcement - The properties of any lab announcement associated with this lab
-	Announcement *LabAnnouncementPropertiesFragment `json:"announcement,omitempty"`
-	// Support - The properties of any lab support message associated with this lab
-	Support *LabSupportPropertiesFragment `json:"support,omitempty"`
-	// ExtendedProperties - Extended properties of the lab used for experimental features
-	ExtendedProperties map[string]*string `json:"extendedProperties"`
-}
-
-// MarshalJSON is the custom marshaler for LabPropertiesFragment.
-func (lpf LabPropertiesFragment) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	if lpf.LabStorageType != "" {
-		objectMap["labStorageType"] = lpf.LabStorageType
-	}
-	if lpf.MandatoryArtifactsResourceIdsLinux != nil {
-		objectMap["mandatoryArtifactsResourceIdsLinux"] = lpf.MandatoryArtifactsResourceIdsLinux
-	}
-	if lpf.MandatoryArtifactsResourceIdsWindows != nil {
-		objectMap["mandatoryArtifactsResourceIdsWindows"] = lpf.MandatoryArtifactsResourceIdsWindows
-	}
-	if lpf.PremiumDataDisks != "" {
-		objectMap["premiumDataDisks"] = lpf.PremiumDataDisks
-	}
-	if lpf.EnvironmentPermission != "" {
-		objectMap["environmentPermission"] = lpf.EnvironmentPermission
-	}
-	if lpf.Announcement != nil {
-		objectMap["announcement"] = lpf.Announcement
-	}
-	if lpf.Support != nil {
-		objectMap["support"] = lpf.Support
-	}
-	if lpf.ExtendedProperties != nil {
-		objectMap["extendedProperties"] = lpf.ExtendedProperties
 	}
 	return json.Marshal(objectMap)
 }
@@ -4859,14 +4226,6 @@ func (future *LabsImportVirtualMachineFuture) result(client LabsClient) (ar auto
 
 // LabSupportProperties properties of a lab's support banner
 type LabSupportProperties struct {
-	// Enabled - Is the lab support banner active/enabled at this time?. Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
-	Enabled EnableStatus `json:"enabled,omitempty"`
-	// Markdown - The markdown text (if any) that this lab displays in the UI. If left empty/null, nothing will be shown.
-	Markdown *string `json:"markdown,omitempty"`
-}
-
-// LabSupportPropertiesFragment properties of a lab's support banner
-type LabSupportPropertiesFragment struct {
 	// Enabled - Is the lab support banner active/enabled at this time?. Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
 	Enabled EnableStatus `json:"enabled,omitempty"`
 	// Markdown - The markdown text (if any) that this lab displays in the UI. If left empty/null, nothing will be shown.
@@ -5220,87 +4579,6 @@ func (lvmcp *LabVirtualMachineCreationParameter) UnmarshalJSON(body []byte) erro
 	return nil
 }
 
-// LabVirtualMachineCreationParameterFragment properties for creating a virtual machine.
-type LabVirtualMachineCreationParameterFragment struct {
-	// LabVirtualMachineCreationParameterPropertiesFragment - The properties of the resource.
-	*LabVirtualMachineCreationParameterPropertiesFragment `json:"properties,omitempty"`
-	// Name - The name of the virtual machine or environment
-	Name *string `json:"name,omitempty"`
-	// Location - The location of the new virtual machine or environment
-	Location *string `json:"location,omitempty"`
-	// Tags - The tags of the resource.
-	Tags map[string]*string `json:"tags"`
-}
-
-// MarshalJSON is the custom marshaler for LabVirtualMachineCreationParameterFragment.
-func (lvmcpf LabVirtualMachineCreationParameterFragment) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	if lvmcpf.LabVirtualMachineCreationParameterPropertiesFragment != nil {
-		objectMap["properties"] = lvmcpf.LabVirtualMachineCreationParameterPropertiesFragment
-	}
-	if lvmcpf.Name != nil {
-		objectMap["name"] = lvmcpf.Name
-	}
-	if lvmcpf.Location != nil {
-		objectMap["location"] = lvmcpf.Location
-	}
-	if lvmcpf.Tags != nil {
-		objectMap["tags"] = lvmcpf.Tags
-	}
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for LabVirtualMachineCreationParameterFragment struct.
-func (lvmcpf *LabVirtualMachineCreationParameterFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var labVirtualMachineCreationParameterPropertiesFragment LabVirtualMachineCreationParameterPropertiesFragment
-				err = json.Unmarshal(*v, &labVirtualMachineCreationParameterPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				lvmcpf.LabVirtualMachineCreationParameterPropertiesFragment = &labVirtualMachineCreationParameterPropertiesFragment
-			}
-		case "name":
-			if v != nil {
-				var name string
-				err = json.Unmarshal(*v, &name)
-				if err != nil {
-					return err
-				}
-				lvmcpf.Name = &name
-			}
-		case "location":
-			if v != nil {
-				var location string
-				err = json.Unmarshal(*v, &location)
-				if err != nil {
-					return err
-				}
-				lvmcpf.Location = &location
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				lvmcpf.Tags = tags
-			}
-		}
-	}
-
-	return nil
-}
-
 // LabVirtualMachineCreationParameterProperties properties for virtual machine creation.
 type LabVirtualMachineCreationParameterProperties struct {
 	// BulkCreationParameters - The number of virtual machine instances to create.
@@ -5311,18 +4589,10 @@ type LabVirtualMachineCreationParameterProperties struct {
 	OwnerObjectID *string `json:"ownerObjectId,omitempty"`
 	// OwnerUserPrincipalName - The user principal name of the virtual machine owner.
 	OwnerUserPrincipalName *string `json:"ownerUserPrincipalName,omitempty"`
-	// CreatedByUserID - The object identifier of the creator of the virtual machine.
-	CreatedByUserID *string `json:"createdByUserId,omitempty"`
-	// CreatedByUser - The email address of creator of the virtual machine.
-	CreatedByUser *string `json:"createdByUser,omitempty"`
 	// CreatedDate - The creation date of the virtual machine.
 	CreatedDate *date.Time `json:"createdDate,omitempty"`
-	// ComputeID - The resource identifier (Microsoft.Compute) of the virtual machine.
-	ComputeID *string `json:"computeId,omitempty"`
 	// CustomImageID - The custom image identifier of the virtual machine.
 	CustomImageID *string `json:"customImageId,omitempty"`
-	// OsType - The OS type of the virtual machine.
-	OsType *string `json:"osType,omitempty"`
 	// Size - The size of the virtual machine.
 	Size *string `json:"size,omitempty"`
 	// UserName - The user name of the virtual machine.
@@ -5333,8 +4603,6 @@ type LabVirtualMachineCreationParameterProperties struct {
 	SSHKey *string `json:"sshKey,omitempty"`
 	// IsAuthenticationWithSSHKey - Indicates whether this virtual machine uses an SSH key for authentication.
 	IsAuthenticationWithSSHKey *bool `json:"isAuthenticationWithSshKey,omitempty"`
-	// Fqdn - The fully-qualified domain name of the virtual machine.
-	Fqdn *string `json:"fqdn,omitempty"`
 	// LabSubnetName - The lab subnet name of the virtual machine.
 	LabSubnetName *string `json:"labSubnetName,omitempty"`
 	// LabVirtualNetworkID - The lab virtual network identifier of the virtual machine.
@@ -5343,8 +4611,6 @@ type LabVirtualMachineCreationParameterProperties struct {
 	DisallowPublicIPAddress *bool `json:"disallowPublicIpAddress,omitempty"`
 	// Artifacts - The artifacts to be installed on the virtual machine.
 	Artifacts *[]ArtifactInstallProperties `json:"artifacts,omitempty"`
-	// ArtifactDeploymentStatus - The artifact deployment status for the virtual machine.
-	ArtifactDeploymentStatus *ArtifactDeploymentStatusProperties `json:"artifactDeploymentStatus,omitempty"`
 	// GalleryImageReference - The Microsoft Azure Marketplace image reference of the virtual machine.
 	GalleryImageReference *GalleryImageReference `json:"galleryImageReference,omitempty"`
 	// PlanID - The id of the plan associated with the virtual machine image
@@ -5357,90 +4623,16 @@ type LabVirtualMachineCreationParameterProperties struct {
 	AllowClaim *bool `json:"allowClaim,omitempty"`
 	// StorageType - Storage type to use for virtual machine (i.e. Standard, Premium).
 	StorageType *string `json:"storageType,omitempty"`
-	// VirtualMachineCreationSource - Tells source of creation of lab virtual machine. Output property only. Possible values include: 'FromCustomImage', 'FromGalleryImage', 'FromSharedGalleryImage'
-	VirtualMachineCreationSource VirtualMachineCreationSource `json:"virtualMachineCreationSource,omitempty"`
 	// EnvironmentID - The resource ID of the environment that contains this virtual machine, if any.
 	EnvironmentID *string `json:"environmentId,omitempty"`
 	// DataDiskParameters - New or existing data disks to attach to the virtual machine after creation
 	DataDiskParameters *[]DataDiskProperties `json:"dataDiskParameters,omitempty"`
 	// ScheduleParameters - Virtual Machine schedules to be created
 	ScheduleParameters *[]ScheduleCreationParameter `json:"scheduleParameters,omitempty"`
-	// LastKnownPowerState - Last known compute power state captured in DTL
-	LastKnownPowerState *string `json:"lastKnownPowerState,omitempty"`
-}
-
-// LabVirtualMachineCreationParameterPropertiesFragment properties for virtual machine creation.
-type LabVirtualMachineCreationParameterPropertiesFragment struct {
-	// BulkCreationParameters - The number of virtual machine instances to create.
-	BulkCreationParameters *BulkCreationParametersFragment `json:"bulkCreationParameters,omitempty"`
-	// Notes - The notes of the virtual machine.
-	Notes *string `json:"notes,omitempty"`
-	// OwnerObjectID - The object identifier of the owner of the virtual machine.
-	OwnerObjectID *string `json:"ownerObjectId,omitempty"`
-	// OwnerUserPrincipalName - The user principal name of the virtual machine owner.
-	OwnerUserPrincipalName *string `json:"ownerUserPrincipalName,omitempty"`
-	// CreatedByUserID - The object identifier of the creator of the virtual machine.
-	CreatedByUserID *string `json:"createdByUserId,omitempty"`
-	// CreatedByUser - The email address of creator of the virtual machine.
-	CreatedByUser *string `json:"createdByUser,omitempty"`
-	// CreatedDate - The creation date of the virtual machine.
-	CreatedDate *date.Time `json:"createdDate,omitempty"`
-	// ComputeID - The resource identifier (Microsoft.Compute) of the virtual machine.
-	ComputeID *string `json:"computeId,omitempty"`
-	// CustomImageID - The custom image identifier of the virtual machine.
-	CustomImageID *string `json:"customImageId,omitempty"`
-	// OsType - The OS type of the virtual machine.
-	OsType *string `json:"osType,omitempty"`
-	// Size - The size of the virtual machine.
-	Size *string `json:"size,omitempty"`
-	// UserName - The user name of the virtual machine.
-	UserName *string `json:"userName,omitempty"`
-	// Password - The password of the virtual machine administrator.
-	Password *string `json:"password,omitempty"`
-	// SSHKey - The SSH key of the virtual machine administrator.
-	SSHKey *string `json:"sshKey,omitempty"`
-	// IsAuthenticationWithSSHKey - Indicates whether this virtual machine uses an SSH key for authentication.
-	IsAuthenticationWithSSHKey *bool `json:"isAuthenticationWithSshKey,omitempty"`
-	// Fqdn - The fully-qualified domain name of the virtual machine.
-	Fqdn *string `json:"fqdn,omitempty"`
-	// LabSubnetName - The lab subnet name of the virtual machine.
-	LabSubnetName *string `json:"labSubnetName,omitempty"`
-	// LabVirtualNetworkID - The lab virtual network identifier of the virtual machine.
-	LabVirtualNetworkID *string `json:"labVirtualNetworkId,omitempty"`
-	// DisallowPublicIPAddress - Indicates whether the virtual machine is to be created without a public IP address.
-	DisallowPublicIPAddress *bool `json:"disallowPublicIpAddress,omitempty"`
-	// Artifacts - The artifacts to be installed on the virtual machine.
-	Artifacts *[]ArtifactInstallPropertiesFragment `json:"artifacts,omitempty"`
-	// ArtifactDeploymentStatus - The artifact deployment status for the virtual machine.
-	ArtifactDeploymentStatus *ArtifactDeploymentStatusPropertiesFragment `json:"artifactDeploymentStatus,omitempty"`
-	// GalleryImageReference - The Microsoft Azure Marketplace image reference of the virtual machine.
-	GalleryImageReference *GalleryImageReferenceFragment `json:"galleryImageReference,omitempty"`
-	// PlanID - The id of the plan associated with the virtual machine image
-	PlanID *string `json:"planId,omitempty"`
-	// NetworkInterface - The network interface properties.
-	NetworkInterface *NetworkInterfacePropertiesFragment `json:"networkInterface,omitempty"`
-	// ExpirationDate - The expiration date for VM.
-	ExpirationDate *date.Time `json:"expirationDate,omitempty"`
-	// AllowClaim - Indicates whether another user can take ownership of the virtual machine
-	AllowClaim *bool `json:"allowClaim,omitempty"`
-	// StorageType - Storage type to use for virtual machine (i.e. Standard, Premium).
-	StorageType *string `json:"storageType,omitempty"`
-	// VirtualMachineCreationSource - Tells source of creation of lab virtual machine. Output property only. Possible values include: 'FromCustomImage', 'FromGalleryImage', 'FromSharedGalleryImage'
-	VirtualMachineCreationSource VirtualMachineCreationSource `json:"virtualMachineCreationSource,omitempty"`
-	// EnvironmentID - The resource ID of the environment that contains this virtual machine, if any.
-	EnvironmentID *string `json:"environmentId,omitempty"`
-	// DataDiskParameters - New or existing data disks to attach to the virtual machine after creation
-	DataDiskParameters *[]DataDiskPropertiesFragment `json:"dataDiskParameters,omitempty"`
-	// ScheduleParameters - Virtual Machine schedules to be created
-	ScheduleParameters *[]ScheduleCreationParameterFragment `json:"scheduleParameters,omitempty"`
-	// LastKnownPowerState - Last known compute power state captured in DTL
-	LastKnownPowerState *string `json:"lastKnownPowerState,omitempty"`
 }
 
 // LabVirtualMachineFragment a virtual machine.
 type LabVirtualMachineFragment struct {
-	// LabVirtualMachinePropertiesFragment - The properties of the resource.
-	*LabVirtualMachinePropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -5448,46 +4640,10 @@ type LabVirtualMachineFragment struct {
 // MarshalJSON is the custom marshaler for LabVirtualMachineFragment.
 func (lvmf LabVirtualMachineFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if lvmf.LabVirtualMachinePropertiesFragment != nil {
-		objectMap["properties"] = lvmf.LabVirtualMachinePropertiesFragment
-	}
 	if lvmf.Tags != nil {
 		objectMap["tags"] = lvmf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for LabVirtualMachineFragment struct.
-func (lvmf *LabVirtualMachineFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var labVirtualMachinePropertiesFragment LabVirtualMachinePropertiesFragment
-				err = json.Unmarshal(*v, &labVirtualMachinePropertiesFragment)
-				if err != nil {
-					return err
-				}
-				lvmf.LabVirtualMachinePropertiesFragment = &labVirtualMachinePropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				lvmf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // LabVirtualMachineList the response of a list operation.
@@ -5657,17 +4813,17 @@ type LabVirtualMachineProperties struct {
 	OwnerObjectID *string `json:"ownerObjectId,omitempty"`
 	// OwnerUserPrincipalName - The user principal name of the virtual machine owner.
 	OwnerUserPrincipalName *string `json:"ownerUserPrincipalName,omitempty"`
-	// CreatedByUserID - The object identifier of the creator of the virtual machine.
+	// CreatedByUserID - READ-ONLY; The object identifier of the creator of the virtual machine.
 	CreatedByUserID *string `json:"createdByUserId,omitempty"`
-	// CreatedByUser - The email address of creator of the virtual machine.
+	// CreatedByUser - READ-ONLY; The email address of creator of the virtual machine.
 	CreatedByUser *string `json:"createdByUser,omitempty"`
 	// CreatedDate - The creation date of the virtual machine.
 	CreatedDate *date.Time `json:"createdDate,omitempty"`
-	// ComputeID - The resource identifier (Microsoft.Compute) of the virtual machine.
+	// ComputeID - READ-ONLY; The resource identifier (Microsoft.Compute) of the virtual machine.
 	ComputeID *string `json:"computeId,omitempty"`
 	// CustomImageID - The custom image identifier of the virtual machine.
 	CustomImageID *string `json:"customImageId,omitempty"`
-	// OsType - The OS type of the virtual machine.
+	// OsType - READ-ONLY; The OS type of the virtual machine.
 	OsType *string `json:"osType,omitempty"`
 	// Size - The size of the virtual machine.
 	Size *string `json:"size,omitempty"`
@@ -5679,7 +4835,7 @@ type LabVirtualMachineProperties struct {
 	SSHKey *string `json:"sshKey,omitempty"`
 	// IsAuthenticationWithSSHKey - Indicates whether this virtual machine uses an SSH key for authentication.
 	IsAuthenticationWithSSHKey *bool `json:"isAuthenticationWithSshKey,omitempty"`
-	// Fqdn - The fully-qualified domain name of the virtual machine.
+	// Fqdn - READ-ONLY; The fully-qualified domain name of the virtual machine.
 	Fqdn *string `json:"fqdn,omitempty"`
 	// LabSubnetName - The lab subnet name of the virtual machine.
 	LabSubnetName *string `json:"labSubnetName,omitempty"`
@@ -5689,7 +4845,7 @@ type LabVirtualMachineProperties struct {
 	DisallowPublicIPAddress *bool `json:"disallowPublicIpAddress,omitempty"`
 	// Artifacts - The artifacts to be installed on the virtual machine.
 	Artifacts *[]ArtifactInstallProperties `json:"artifacts,omitempty"`
-	// ArtifactDeploymentStatus - The artifact deployment status for the virtual machine.
+	// ArtifactDeploymentStatus - READ-ONLY; The artifact deployment status for the virtual machine.
 	ArtifactDeploymentStatus *ArtifactDeploymentStatusProperties `json:"artifactDeploymentStatus,omitempty"`
 	// GalleryImageReference - The Microsoft Azure Marketplace image reference of the virtual machine.
 	GalleryImageReference *GalleryImageReference `json:"galleryImageReference,omitempty"`
@@ -5707,7 +4863,7 @@ type LabVirtualMachineProperties struct {
 	AllowClaim *bool `json:"allowClaim,omitempty"`
 	// StorageType - Storage type to use for virtual machine (i.e. Standard, Premium).
 	StorageType *string `json:"storageType,omitempty"`
-	// VirtualMachineCreationSource - Tells source of creation of lab virtual machine. Output property only. Possible values include: 'FromCustomImage', 'FromGalleryImage', 'FromSharedGalleryImage'
+	// VirtualMachineCreationSource - READ-ONLY; Tells source of creation of lab virtual machine. Output property only. Possible values include: 'FromCustomImage', 'FromGalleryImage', 'FromSharedGalleryImage'
 	VirtualMachineCreationSource VirtualMachineCreationSource `json:"virtualMachineCreationSource,omitempty"`
 	// EnvironmentID - The resource ID of the environment that contains this virtual machine, if any.
 	EnvironmentID *string `json:"environmentId,omitempty"`
@@ -5715,7 +4871,7 @@ type LabVirtualMachineProperties struct {
 	DataDiskParameters *[]DataDiskProperties `json:"dataDiskParameters,omitempty"`
 	// ScheduleParameters - Virtual Machine schedules to be created
 	ScheduleParameters *[]ScheduleCreationParameter `json:"scheduleParameters,omitempty"`
-	// LastKnownPowerState - Last known compute power state captured in DTL
+	// LastKnownPowerState - READ-ONLY; Last known compute power state captured in DTL
 	LastKnownPowerState *string `json:"lastKnownPowerState,omitempty"`
 	// ProvisioningState - READ-ONLY; The provisioning status of the resource.
 	ProvisioningState *string `json:"provisioningState,omitempty"`
@@ -5735,23 +4891,11 @@ func (lvmp LabVirtualMachineProperties) MarshalJSON() ([]byte, error) {
 	if lvmp.OwnerUserPrincipalName != nil {
 		objectMap["ownerUserPrincipalName"] = lvmp.OwnerUserPrincipalName
 	}
-	if lvmp.CreatedByUserID != nil {
-		objectMap["createdByUserId"] = lvmp.CreatedByUserID
-	}
-	if lvmp.CreatedByUser != nil {
-		objectMap["createdByUser"] = lvmp.CreatedByUser
-	}
 	if lvmp.CreatedDate != nil {
 		objectMap["createdDate"] = lvmp.CreatedDate
 	}
-	if lvmp.ComputeID != nil {
-		objectMap["computeId"] = lvmp.ComputeID
-	}
 	if lvmp.CustomImageID != nil {
 		objectMap["customImageId"] = lvmp.CustomImageID
-	}
-	if lvmp.OsType != nil {
-		objectMap["osType"] = lvmp.OsType
 	}
 	if lvmp.Size != nil {
 		objectMap["size"] = lvmp.Size
@@ -5768,9 +4912,6 @@ func (lvmp LabVirtualMachineProperties) MarshalJSON() ([]byte, error) {
 	if lvmp.IsAuthenticationWithSSHKey != nil {
 		objectMap["isAuthenticationWithSshKey"] = lvmp.IsAuthenticationWithSSHKey
 	}
-	if lvmp.Fqdn != nil {
-		objectMap["fqdn"] = lvmp.Fqdn
-	}
 	if lvmp.LabSubnetName != nil {
 		objectMap["labSubnetName"] = lvmp.LabSubnetName
 	}
@@ -5782,9 +4923,6 @@ func (lvmp LabVirtualMachineProperties) MarshalJSON() ([]byte, error) {
 	}
 	if lvmp.Artifacts != nil {
 		objectMap["artifacts"] = lvmp.Artifacts
-	}
-	if lvmp.ArtifactDeploymentStatus != nil {
-		objectMap["artifactDeploymentStatus"] = lvmp.ArtifactDeploymentStatus
 	}
 	if lvmp.GalleryImageReference != nil {
 		objectMap["galleryImageReference"] = lvmp.GalleryImageReference
@@ -5804,9 +4942,6 @@ func (lvmp LabVirtualMachineProperties) MarshalJSON() ([]byte, error) {
 	if lvmp.StorageType != nil {
 		objectMap["storageType"] = lvmp.StorageType
 	}
-	if lvmp.VirtualMachineCreationSource != "" {
-		objectMap["virtualMachineCreationSource"] = lvmp.VirtualMachineCreationSource
-	}
 	if lvmp.EnvironmentID != nil {
 		objectMap["environmentId"] = lvmp.EnvironmentID
 	}
@@ -5816,86 +4951,11 @@ func (lvmp LabVirtualMachineProperties) MarshalJSON() ([]byte, error) {
 	if lvmp.ScheduleParameters != nil {
 		objectMap["scheduleParameters"] = lvmp.ScheduleParameters
 	}
-	if lvmp.LastKnownPowerState != nil {
-		objectMap["lastKnownPowerState"] = lvmp.LastKnownPowerState
-	}
 	return json.Marshal(objectMap)
-}
-
-// LabVirtualMachinePropertiesFragment properties of a virtual machine.
-type LabVirtualMachinePropertiesFragment struct {
-	// Notes - The notes of the virtual machine.
-	Notes *string `json:"notes,omitempty"`
-	// OwnerObjectID - The object identifier of the owner of the virtual machine.
-	OwnerObjectID *string `json:"ownerObjectId,omitempty"`
-	// OwnerUserPrincipalName - The user principal name of the virtual machine owner.
-	OwnerUserPrincipalName *string `json:"ownerUserPrincipalName,omitempty"`
-	// CreatedByUserID - The object identifier of the creator of the virtual machine.
-	CreatedByUserID *string `json:"createdByUserId,omitempty"`
-	// CreatedByUser - The email address of creator of the virtual machine.
-	CreatedByUser *string `json:"createdByUser,omitempty"`
-	// CreatedDate - The creation date of the virtual machine.
-	CreatedDate *date.Time `json:"createdDate,omitempty"`
-	// ComputeID - The resource identifier (Microsoft.Compute) of the virtual machine.
-	ComputeID *string `json:"computeId,omitempty"`
-	// CustomImageID - The custom image identifier of the virtual machine.
-	CustomImageID *string `json:"customImageId,omitempty"`
-	// OsType - The OS type of the virtual machine.
-	OsType *string `json:"osType,omitempty"`
-	// Size - The size of the virtual machine.
-	Size *string `json:"size,omitempty"`
-	// UserName - The user name of the virtual machine.
-	UserName *string `json:"userName,omitempty"`
-	// Password - The password of the virtual machine administrator.
-	Password *string `json:"password,omitempty"`
-	// SSHKey - The SSH key of the virtual machine administrator.
-	SSHKey *string `json:"sshKey,omitempty"`
-	// IsAuthenticationWithSSHKey - Indicates whether this virtual machine uses an SSH key for authentication.
-	IsAuthenticationWithSSHKey *bool `json:"isAuthenticationWithSshKey,omitempty"`
-	// Fqdn - The fully-qualified domain name of the virtual machine.
-	Fqdn *string `json:"fqdn,omitempty"`
-	// LabSubnetName - The lab subnet name of the virtual machine.
-	LabSubnetName *string `json:"labSubnetName,omitempty"`
-	// LabVirtualNetworkID - The lab virtual network identifier of the virtual machine.
-	LabVirtualNetworkID *string `json:"labVirtualNetworkId,omitempty"`
-	// DisallowPublicIPAddress - Indicates whether the virtual machine is to be created without a public IP address.
-	DisallowPublicIPAddress *bool `json:"disallowPublicIpAddress,omitempty"`
-	// Artifacts - The artifacts to be installed on the virtual machine.
-	Artifacts *[]ArtifactInstallPropertiesFragment `json:"artifacts,omitempty"`
-	// ArtifactDeploymentStatus - The artifact deployment status for the virtual machine.
-	ArtifactDeploymentStatus *ArtifactDeploymentStatusPropertiesFragment `json:"artifactDeploymentStatus,omitempty"`
-	// GalleryImageReference - The Microsoft Azure Marketplace image reference of the virtual machine.
-	GalleryImageReference *GalleryImageReferenceFragment `json:"galleryImageReference,omitempty"`
-	// PlanID - The id of the plan associated with the virtual machine image
-	PlanID *string `json:"planId,omitempty"`
-	// NetworkInterface - The network interface properties.
-	NetworkInterface *NetworkInterfacePropertiesFragment `json:"networkInterface,omitempty"`
-	// ExpirationDate - The expiration date for VM.
-	ExpirationDate *date.Time `json:"expirationDate,omitempty"`
-	// AllowClaim - Indicates whether another user can take ownership of the virtual machine
-	AllowClaim *bool `json:"allowClaim,omitempty"`
-	// StorageType - Storage type to use for virtual machine (i.e. Standard, Premium).
-	StorageType *string `json:"storageType,omitempty"`
-	// VirtualMachineCreationSource - Tells source of creation of lab virtual machine. Output property only. Possible values include: 'FromCustomImage', 'FromGalleryImage', 'FromSharedGalleryImage'
-	VirtualMachineCreationSource VirtualMachineCreationSource `json:"virtualMachineCreationSource,omitempty"`
-	// EnvironmentID - The resource ID of the environment that contains this virtual machine, if any.
-	EnvironmentID *string `json:"environmentId,omitempty"`
-	// DataDiskParameters - New or existing data disks to attach to the virtual machine after creation
-	DataDiskParameters *[]DataDiskPropertiesFragment `json:"dataDiskParameters,omitempty"`
-	// ScheduleParameters - Virtual Machine schedules to be created
-	ScheduleParameters *[]ScheduleCreationParameterFragment `json:"scheduleParameters,omitempty"`
-	// LastKnownPowerState - Last known compute power state captured in DTL
-	LastKnownPowerState *string `json:"lastKnownPowerState,omitempty"`
 }
 
 // LinuxOsInfo information about a Linux OS.
 type LinuxOsInfo struct {
-	// LinuxOsState - The state of the Linux OS (i.e. NonDeprovisioned, DeprovisionRequested, DeprovisionApplied). Possible values include: 'NonDeprovisioned', 'DeprovisionRequested', 'DeprovisionApplied'
-	LinuxOsState LinuxOsState `json:"linuxOsState,omitempty"`
-}
-
-// LinuxOsInfoFragment information about a Linux OS.
-type LinuxOsInfoFragment struct {
 	// LinuxOsState - The state of the Linux OS (i.e. NonDeprovisioned, DeprovisionRequested, DeprovisionApplied). Possible values include: 'NonDeprovisioned', 'DeprovisionRequested', 'DeprovisionApplied'
 	LinuxOsState LinuxOsState `json:"linuxOsState,omitempty"`
 }
@@ -5920,28 +4980,6 @@ type NetworkInterfaceProperties struct {
 	SSHAuthority *string `json:"sshAuthority,omitempty"`
 	// SharedPublicIPAddressConfiguration - The configuration for sharing a public IP address across multiple virtual machines.
 	SharedPublicIPAddressConfiguration *SharedPublicIPAddressConfiguration `json:"sharedPublicIpAddressConfiguration,omitempty"`
-}
-
-// NetworkInterfacePropertiesFragment properties of a network interface.
-type NetworkInterfacePropertiesFragment struct {
-	// VirtualNetworkID - The resource ID of the virtual network.
-	VirtualNetworkID *string `json:"virtualNetworkId,omitempty"`
-	// SubnetID - The resource ID of the sub net.
-	SubnetID *string `json:"subnetId,omitempty"`
-	// PublicIPAddressID - The resource ID of the public IP address.
-	PublicIPAddressID *string `json:"publicIpAddressId,omitempty"`
-	// PublicIPAddress - The public IP address.
-	PublicIPAddress *string `json:"publicIpAddress,omitempty"`
-	// PrivateIPAddress - The private IP address.
-	PrivateIPAddress *string `json:"privateIpAddress,omitempty"`
-	// DNSName - The DNS name.
-	DNSName *string `json:"dnsName,omitempty"`
-	// RdpAuthority - The RdpAuthority property is a server DNS host name or IP address followed by the service port number for RDP (Remote Desktop Protocol).
-	RdpAuthority *string `json:"rdpAuthority,omitempty"`
-	// SSHAuthority - The SshAuthority property is a server DNS host name or IP address followed by the service port number for SSH.
-	SSHAuthority *string `json:"sshAuthority,omitempty"`
-	// SharedPublicIPAddressConfiguration - The configuration for sharing a public IP address across multiple virtual machines.
-	SharedPublicIPAddressConfiguration *SharedPublicIPAddressConfigurationFragment `json:"sharedPublicIpAddressConfiguration,omitempty"`
 }
 
 // NotificationChannel a notification.
@@ -6047,8 +5085,6 @@ func (nc *NotificationChannel) UnmarshalJSON(body []byte) error {
 
 // NotificationChannelFragment a notification.
 type NotificationChannelFragment struct {
-	// NotificationChannelPropertiesFragment - The properties of the resource.
-	*NotificationChannelPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -6056,46 +5092,10 @@ type NotificationChannelFragment struct {
 // MarshalJSON is the custom marshaler for NotificationChannelFragment.
 func (ncf NotificationChannelFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if ncf.NotificationChannelPropertiesFragment != nil {
-		objectMap["properties"] = ncf.NotificationChannelPropertiesFragment
-	}
 	if ncf.Tags != nil {
 		objectMap["tags"] = ncf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for NotificationChannelFragment struct.
-func (ncf *NotificationChannelFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var notificationChannelPropertiesFragment NotificationChannelPropertiesFragment
-				err = json.Unmarshal(*v, &notificationChannelPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				ncf.NotificationChannelPropertiesFragment = &notificationChannelPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				ncf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // NotificationChannelList the response of a list operation.
@@ -6298,36 +5298,8 @@ func (ncp NotificationChannelProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// NotificationChannelPropertiesFragment properties of a schedule.
-type NotificationChannelPropertiesFragment struct {
-	// WebHookURL - The webhook URL to send notifications to.
-	WebHookURL *string `json:"webHookUrl,omitempty"`
-	// EmailRecipient - The email recipient to send notifications to (can be a list of semi-colon separated email addresses).
-	EmailRecipient *string `json:"emailRecipient,omitempty"`
-	// NotificationLocale - The locale to use when sending a notification (fallback for unsupported languages is EN).
-	NotificationLocale *string `json:"notificationLocale,omitempty"`
-	// Description - Description of notification.
-	Description *string `json:"description,omitempty"`
-	// Events - The list of event for which this notification is enabled.
-	Events *[]EventFragment `json:"events,omitempty"`
-}
-
 // NotificationSettings notification settings for a schedule.
 type NotificationSettings struct {
-	// Status - If notifications are enabled for this schedule (i.e. Enabled, Disabled). Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
-	Status EnableStatus `json:"status,omitempty"`
-	// TimeInMinutes - Time in minutes before event at which notification will be sent.
-	TimeInMinutes *int32 `json:"timeInMinutes,omitempty"`
-	// WebhookURL - The webhook URL to which the notification will be sent.
-	WebhookURL *string `json:"webhookUrl,omitempty"`
-	// EmailRecipient - The email recipient to send notifications to (can be a list of semi-colon separated email addresses).
-	EmailRecipient *string `json:"emailRecipient,omitempty"`
-	// NotificationLocale - The locale to use when sending a notification (fallback for unsupported languages is EN).
-	NotificationLocale *string `json:"notificationLocale,omitempty"`
-}
-
-// NotificationSettingsFragment notification settings for a schedule.
-type NotificationSettingsFragment struct {
 	// Status - If notifications are enabled for this schedule (i.e. Enabled, Disabled). Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
 	Status EnableStatus `json:"status,omitempty"`
 	// TimeInMinutes - Time in minutes before event at which notification will be sent.
@@ -6381,7 +5353,7 @@ type OperationResult struct {
 	autorest.Response `json:"-"`
 	// Status - The operation status.
 	Status *string `json:"status,omitempty"`
-	// StatusCode - The status code for the operation. Possible values include: 'Continue', 'SwitchingProtocols', 'OK', 'Created', 'Accepted', 'NonAuthoritativeInformation', 'NoContent', 'ResetContent', 'PartialContent', 'MultipleChoices', 'MovedPermanently', 'Redirect', 'SeeOther', 'NotModified', 'UseProxy', 'Unused', 'TemporaryRedirect', 'BadRequest', 'Unauthorized', 'PaymentRequired', 'Forbidden', 'NotFound', 'MethodNotAllowed', 'NotAcceptable', 'ProxyAuthenticationRequired', 'RequestTimeout', 'Conflict', 'Gone', 'LengthRequired', 'PreconditionFailed', 'RequestEntityTooLarge', 'RequestURITooLong', 'UnsupportedMediaType', 'RequestedRangeNotSatisfiable', 'ExpectationFailed', 'UpgradeRequired', 'InternalServerError', 'NotImplemented', 'BadGateway', 'ServiceUnavailable', 'GatewayTimeout', 'HTTPVersionNotSupported'
+	// StatusCode - The status code for the operation. Possible values include: 'Continue', 'SwitchingProtocols', 'OK', 'Created', 'Accepted', 'NonAuthoritativeInformation', 'NoContent', 'ResetContent', 'PartialContent', 'MultipleChoices', 'Ambiguous', 'MovedPermanently', 'Moved', 'Found', 'Redirect', 'SeeOther', 'RedirectMethod', 'NotModified', 'UseProxy', 'Unused', 'TemporaryRedirect', 'RedirectKeepVerb', 'BadRequest', 'Unauthorized', 'PaymentRequired', 'Forbidden', 'NotFound', 'MethodNotAllowed', 'NotAcceptable', 'ProxyAuthenticationRequired', 'RequestTimeout', 'Conflict', 'Gone', 'LengthRequired', 'PreconditionFailed', 'RequestEntityTooLarge', 'RequestURITooLong', 'UnsupportedMediaType', 'RequestedRangeNotSatisfiable', 'ExpectationFailed', 'UpgradeRequired', 'InternalServerError', 'NotImplemented', 'BadGateway', 'ServiceUnavailable', 'GatewayTimeout', 'HTTPVersionNotSupported'
 	StatusCode HTTPStatusCode `json:"statusCode,omitempty"`
 	// Error - Error details for the operation in case of a failure.
 	Error *OperationError `json:"error,omitempty"`
@@ -6512,8 +5484,6 @@ func (p *Policy) UnmarshalJSON(body []byte) error {
 
 // PolicyFragment a Policy.
 type PolicyFragment struct {
-	// PolicyPropertiesFragment - The properties of the resource.
-	*PolicyPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -6521,46 +5491,10 @@ type PolicyFragment struct {
 // MarshalJSON is the custom marshaler for PolicyFragment.
 func (pf PolicyFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if pf.PolicyPropertiesFragment != nil {
-		objectMap["properties"] = pf.PolicyPropertiesFragment
-	}
 	if pf.Tags != nil {
 		objectMap["tags"] = pf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for PolicyFragment struct.
-func (pf *PolicyFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var policyPropertiesFragment PolicyPropertiesFragment
-				err = json.Unmarshal(*v, &policyPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				pf.PolicyPropertiesFragment = &policyPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				pf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // PolicyList the response of a list operation.
@@ -6768,22 +5702,6 @@ func (pp PolicyProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// PolicyPropertiesFragment properties of a Policy.
-type PolicyPropertiesFragment struct {
-	// Description - The description of the policy.
-	Description *string `json:"description,omitempty"`
-	// Status - The status of the policy. Possible values include: 'PolicyStatusEnabled', 'PolicyStatusDisabled'
-	Status PolicyStatus `json:"status,omitempty"`
-	// FactName - The fact name of the policy (e.g. LabVmCount, LabVmSize, MaxVmsAllowedPerLab, etc. Possible values include: 'PolicyFactNameUserOwnedLabVMCount', 'PolicyFactNameUserOwnedLabPremiumVMCount', 'PolicyFactNameLabVMCount', 'PolicyFactNameLabPremiumVMCount', 'PolicyFactNameLabVMSize', 'PolicyFactNameGalleryImage', 'PolicyFactNameUserOwnedLabVMCountInSubnet', 'PolicyFactNameLabTargetCost', 'PolicyFactNameEnvironmentTemplate', 'PolicyFactNameScheduleEditPermission'
-	FactName PolicyFactName `json:"factName,omitempty"`
-	// FactData - The fact data of the policy.
-	FactData *string `json:"factData,omitempty"`
-	// Threshold - The threshold of the policy (i.e. a number for MaxValuePolicy, and a JSON array of values for AllowedValuesPolicy).
-	Threshold *string `json:"threshold,omitempty"`
-	// EvaluatorType - The evaluator type of the policy (i.e. AllowedValuesPolicy, MaxValuePolicy). Possible values include: 'AllowedValuesPolicy', 'MaxValuePolicy'
-	EvaluatorType PolicyEvaluatorType `json:"evaluatorType,omitempty"`
-}
-
 // PolicySetResult result of a policy set evaluation.
 type PolicySetResult struct {
 	// HasError - A value indicating whether this policy set evaluation has discovered violations.
@@ -6802,14 +5720,6 @@ type PolicyViolation struct {
 
 // Port properties of a network port.
 type Port struct {
-	// TransportProtocol - Protocol type of the port. Possible values include: 'TCP', 'UDP'
-	TransportProtocol TransportProtocol `json:"transportProtocol,omitempty"`
-	// BackendPort - Backend port of the target virtual machine.
-	BackendPort *int32 `json:"backendPort,omitempty"`
-}
-
-// PortFragment properties of a network port.
-type PortFragment struct {
 	// TransportProtocol - Protocol type of the port. Possible values include: 'TCP', 'UDP'
 	TransportProtocol TransportProtocol `json:"transportProtocol,omitempty"`
 	// BackendPort - Backend port of the target virtual machine.
@@ -7138,7 +6048,7 @@ type ScheduleCreationParameter struct {
 	*ScheduleCreationParameterProperties `json:"properties,omitempty"`
 	// Name - The name of the virtual machine or environment
 	Name *string `json:"name,omitempty"`
-	// Location - The location of the new virtual machine or environment
+	// Location - READ-ONLY; The location of the new virtual machine or environment
 	Location *string `json:"location,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
@@ -7152,9 +6062,6 @@ func (scp ScheduleCreationParameter) MarshalJSON() ([]byte, error) {
 	}
 	if scp.Name != nil {
 		objectMap["name"] = scp.Name
-	}
-	if scp.Location != nil {
-		objectMap["location"] = scp.Location
 	}
 	if scp.Tags != nil {
 		objectMap["tags"] = scp.Tags
@@ -7213,87 +6120,6 @@ func (scp *ScheduleCreationParameter) UnmarshalJSON(body []byte) error {
 	return nil
 }
 
-// ScheduleCreationParameterFragment properties for creating a schedule.
-type ScheduleCreationParameterFragment struct {
-	// ScheduleCreationParameterPropertiesFragment - The properties of the schedule.
-	*ScheduleCreationParameterPropertiesFragment `json:"properties,omitempty"`
-	// Name - The name of the virtual machine or environment
-	Name *string `json:"name,omitempty"`
-	// Location - The location of the new virtual machine or environment
-	Location *string `json:"location,omitempty"`
-	// Tags - The tags of the resource.
-	Tags map[string]*string `json:"tags"`
-}
-
-// MarshalJSON is the custom marshaler for ScheduleCreationParameterFragment.
-func (scpf ScheduleCreationParameterFragment) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	if scpf.ScheduleCreationParameterPropertiesFragment != nil {
-		objectMap["properties"] = scpf.ScheduleCreationParameterPropertiesFragment
-	}
-	if scpf.Name != nil {
-		objectMap["name"] = scpf.Name
-	}
-	if scpf.Location != nil {
-		objectMap["location"] = scpf.Location
-	}
-	if scpf.Tags != nil {
-		objectMap["tags"] = scpf.Tags
-	}
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for ScheduleCreationParameterFragment struct.
-func (scpf *ScheduleCreationParameterFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var scheduleCreationParameterPropertiesFragment ScheduleCreationParameterPropertiesFragment
-				err = json.Unmarshal(*v, &scheduleCreationParameterPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				scpf.ScheduleCreationParameterPropertiesFragment = &scheduleCreationParameterPropertiesFragment
-			}
-		case "name":
-			if v != nil {
-				var name string
-				err = json.Unmarshal(*v, &name)
-				if err != nil {
-					return err
-				}
-				scpf.Name = &name
-			}
-		case "location":
-			if v != nil {
-				var location string
-				err = json.Unmarshal(*v, &location)
-				if err != nil {
-					return err
-				}
-				scpf.Location = &location
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				scpf.Tags = tags
-			}
-		}
-	}
-
-	return nil
-}
-
 // ScheduleCreationParameterProperties properties for schedule creation.
 type ScheduleCreationParameterProperties struct {
 	// Status - The status of the schedule (i.e. Enabled, Disabled). Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
@@ -7314,30 +6140,8 @@ type ScheduleCreationParameterProperties struct {
 	TargetResourceID *string `json:"targetResourceId,omitempty"`
 }
 
-// ScheduleCreationParameterPropertiesFragment properties for schedule creation.
-type ScheduleCreationParameterPropertiesFragment struct {
-	// Status - The status of the schedule (i.e. Enabled, Disabled). Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
-	Status EnableStatus `json:"status,omitempty"`
-	// TaskType - The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart).
-	TaskType *string `json:"taskType,omitempty"`
-	// WeeklyRecurrence - If the schedule will occur only some days of the week, specify the weekly recurrence.
-	WeeklyRecurrence *WeekDetailsFragment `json:"weeklyRecurrence,omitempty"`
-	// DailyRecurrence - If the schedule will occur once each day of the week, specify the daily recurrence.
-	DailyRecurrence *DayDetailsFragment `json:"dailyRecurrence,omitempty"`
-	// HourlyRecurrence - If the schedule will occur multiple times a day, specify the hourly recurrence.
-	HourlyRecurrence *HourDetailsFragment `json:"hourlyRecurrence,omitempty"`
-	// TimeZoneID - The time zone ID (e.g. Pacific Standard time).
-	TimeZoneID *string `json:"timeZoneId,omitempty"`
-	// NotificationSettings - Notification settings.
-	NotificationSettings *NotificationSettingsFragment `json:"notificationSettings,omitempty"`
-	// TargetResourceID - The resource ID to which the schedule belongs
-	TargetResourceID *string `json:"targetResourceId,omitempty"`
-}
-
 // ScheduleFragment a schedule.
 type ScheduleFragment struct {
-	// SchedulePropertiesFragment - The properties of the resource.
-	*SchedulePropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -7345,46 +6149,10 @@ type ScheduleFragment struct {
 // MarshalJSON is the custom marshaler for ScheduleFragment.
 func (sf ScheduleFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if sf.SchedulePropertiesFragment != nil {
-		objectMap["properties"] = sf.SchedulePropertiesFragment
-	}
 	if sf.Tags != nil {
 		objectMap["tags"] = sf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for ScheduleFragment struct.
-func (sf *ScheduleFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var schedulePropertiesFragment SchedulePropertiesFragment
-				err = json.Unmarshal(*v, &schedulePropertiesFragment)
-				if err != nil {
-					return err
-				}
-				sf.SchedulePropertiesFragment = &schedulePropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				sf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // ScheduleList the response of a list operation.
@@ -7602,26 +6370,6 @@ func (sp ScheduleProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// SchedulePropertiesFragment properties of a schedule.
-type SchedulePropertiesFragment struct {
-	// Status - The status of the schedule (i.e. Enabled, Disabled). Possible values include: 'EnableStatusEnabled', 'EnableStatusDisabled'
-	Status EnableStatus `json:"status,omitempty"`
-	// TaskType - The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart).
-	TaskType *string `json:"taskType,omitempty"`
-	// WeeklyRecurrence - If the schedule will occur only some days of the week, specify the weekly recurrence.
-	WeeklyRecurrence *WeekDetailsFragment `json:"weeklyRecurrence,omitempty"`
-	// DailyRecurrence - If the schedule will occur once each day of the week, specify the daily recurrence.
-	DailyRecurrence *DayDetailsFragment `json:"dailyRecurrence,omitempty"`
-	// HourlyRecurrence - If the schedule will occur multiple times a day, specify the hourly recurrence.
-	HourlyRecurrence *HourDetailsFragment `json:"hourlyRecurrence,omitempty"`
-	// TimeZoneID - The time zone ID (e.g. Pacific Standard time).
-	TimeZoneID *string `json:"timeZoneId,omitempty"`
-	// NotificationSettings - Notification settings.
-	NotificationSettings *NotificationSettingsFragment `json:"notificationSettings,omitempty"`
-	// TargetResourceID - The resource ID to which the schedule belongs
-	TargetResourceID *string `json:"targetResourceId,omitempty"`
-}
-
 // SchedulesExecuteFuture an abstraction for monitoring and retrieving the results of a long-running
 // operation.
 type SchedulesExecuteFuture struct {
@@ -7762,8 +6510,6 @@ func (s *Secret) UnmarshalJSON(body []byte) error {
 
 // SecretFragment a secret.
 type SecretFragment struct {
-	// SecretPropertiesFragment - The properties of the resource.
-	*SecretPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -7771,46 +6517,10 @@ type SecretFragment struct {
 // MarshalJSON is the custom marshaler for SecretFragment.
 func (sf SecretFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if sf.SecretPropertiesFragment != nil {
-		objectMap["properties"] = sf.SecretPropertiesFragment
-	}
 	if sf.Tags != nil {
 		objectMap["tags"] = sf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for SecretFragment struct.
-func (sf *SecretFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var secretPropertiesFragment SecretPropertiesFragment
-				err = json.Unmarshal(*v, &secretPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				sf.SecretPropertiesFragment = &secretPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				sf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // SecretList the response of a list operation.
@@ -7991,12 +6701,6 @@ func (sp SecretProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// SecretPropertiesFragment properties of a secret.
-type SecretPropertiesFragment struct {
-	// Value - The value of the secret for secret creation.
-	Value *string `json:"value,omitempty"`
-}
-
 // SecretsCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
 // operation.
 type SecretsCreateOrUpdateFuture struct {
@@ -8143,8 +6847,6 @@ func (sf *ServiceFabric) UnmarshalJSON(body []byte) error {
 
 // ServiceFabricFragment a Service Fabric.
 type ServiceFabricFragment struct {
-	// ServiceFabricPropertiesFragment - The properties of the resource.
-	*ServiceFabricPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -8152,46 +6854,10 @@ type ServiceFabricFragment struct {
 // MarshalJSON is the custom marshaler for ServiceFabricFragment.
 func (sff ServiceFabricFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if sff.ServiceFabricPropertiesFragment != nil {
-		objectMap["properties"] = sff.ServiceFabricPropertiesFragment
-	}
 	if sff.Tags != nil {
 		objectMap["tags"] = sff.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for ServiceFabricFragment struct.
-func (sff *ServiceFabricFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var serviceFabricPropertiesFragment ServiceFabricPropertiesFragment
-				err = json.Unmarshal(*v, &serviceFabricPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				sff.ServiceFabricPropertiesFragment = &serviceFabricPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				sff.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // ServiceFabricList the response of a list operation.
@@ -8377,14 +7043,6 @@ func (sfp ServiceFabricProperties) MarshalJSON() ([]byte, error) {
 		objectMap["environmentId"] = sfp.EnvironmentID
 	}
 	return json.Marshal(objectMap)
-}
-
-// ServiceFabricPropertiesFragment properties of a service fabric.
-type ServiceFabricPropertiesFragment struct {
-	// ExternalServiceFabricID - The backing service fabric resource's id
-	ExternalServiceFabricID *string `json:"externalServiceFabricId,omitempty"`
-	// EnvironmentID - The resource id of the environment under which the service fabric resource is present
-	EnvironmentID *string `json:"environmentId,omitempty"`
 }
 
 // ServiceFabricSchedulesExecuteFuture an abstraction for monitoring and retrieving the results of a
@@ -8610,18 +7268,19 @@ func (sr ServiceRunner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// ServiceRunnerList the response of a list operation.
+type ServiceRunnerList struct {
+	// Value - Results of the list operation.
+	Value *[]ServiceRunner `json:"value,omitempty"`
+	// NextLink - Link for next set of results.
+	NextLink *string `json:"nextLink,omitempty"`
+}
+
 // SharedPublicIPAddressConfiguration properties of a virtual machine that determine how it is connected to
 // a load balancer.
 type SharedPublicIPAddressConfiguration struct {
 	// InboundNatRules - The incoming NAT rules
 	InboundNatRules *[]InboundNatRule `json:"inboundNatRules,omitempty"`
-}
-
-// SharedPublicIPAddressConfigurationFragment properties of a virtual machine that determine how it is
-// connected to a load balancer.
-type SharedPublicIPAddressConfigurationFragment struct {
-	// InboundNatRules - The incoming NAT rules
-	InboundNatRules *[]InboundNatRuleFragment `json:"inboundNatRules,omitempty"`
 }
 
 // ShutdownNotificationContent the contents of a shutdown notification. Webhooks can use this type to
@@ -8665,16 +7324,6 @@ type Subnet struct {
 	AllowPublicIP UsagePermissionType `json:"allowPublicIp,omitempty"`
 }
 
-// SubnetFragment subnet information.
-type SubnetFragment struct {
-	// ResourceID - The resource ID of the subnet.
-	ResourceID *string `json:"resourceId,omitempty"`
-	// LabSubnetName - The name of the subnet as seen in the lab.
-	LabSubnetName *string `json:"labSubnetName,omitempty"`
-	// AllowPublicIP - The permission policy of the subnet for allowing public IP addresses (i.e. Allow, Deny)). Possible values include: 'Default', 'Deny', 'Allow'
-	AllowPublicIP UsagePermissionType `json:"allowPublicIp,omitempty"`
-}
-
 // SubnetOverride property overrides on a subnet of a virtual network.
 type SubnetOverride struct {
 	// ResourceID - The resource ID of the subnet.
@@ -8691,32 +7340,10 @@ type SubnetOverride struct {
 	VirtualNetworkPoolName *string `json:"virtualNetworkPoolName,omitempty"`
 }
 
-// SubnetOverrideFragment property overrides on a subnet of a virtual network.
-type SubnetOverrideFragment struct {
-	// ResourceID - The resource ID of the subnet.
-	ResourceID *string `json:"resourceId,omitempty"`
-	// LabSubnetName - The name given to the subnet within the lab.
-	LabSubnetName *string `json:"labSubnetName,omitempty"`
-	// UseInVMCreationPermission - Indicates whether this subnet can be used during virtual machine creation (i.e. Allow, Deny). Possible values include: 'Default', 'Deny', 'Allow'
-	UseInVMCreationPermission UsagePermissionType `json:"useInVmCreationPermission,omitempty"`
-	// UsePublicIPAddressPermission - Indicates whether public IP addresses can be assigned to virtual machines on this subnet (i.e. Allow, Deny). Possible values include: 'Default', 'Deny', 'Allow'
-	UsePublicIPAddressPermission UsagePermissionType `json:"usePublicIpAddressPermission,omitempty"`
-	// SharedPublicIPAddressConfiguration - Properties that virtual machines on this subnet will share.
-	SharedPublicIPAddressConfiguration *SubnetSharedPublicIPAddressConfigurationFragment `json:"sharedPublicIpAddressConfiguration,omitempty"`
-	// VirtualNetworkPoolName - The virtual network pool associated with this subnet.
-	VirtualNetworkPoolName *string `json:"virtualNetworkPoolName,omitempty"`
-}
-
 // SubnetSharedPublicIPAddressConfiguration configuration for public IP address sharing.
 type SubnetSharedPublicIPAddressConfiguration struct {
 	// AllowedPorts - Backend ports that virtual machines on this subnet are allowed to expose
 	AllowedPorts *[]Port `json:"allowedPorts,omitempty"`
-}
-
-// SubnetSharedPublicIPAddressConfigurationFragment configuration for public IP address sharing.
-type SubnetSharedPublicIPAddressConfigurationFragment struct {
-	// AllowedPorts - Backend ports that virtual machines on this subnet are allowed to expose
-	AllowedPorts *[]PortFragment `json:"allowedPorts,omitempty"`
 }
 
 // TargetCostProperties properties of a cost target.
@@ -8853,8 +7480,6 @@ func (u *User) UnmarshalJSON(body []byte) error {
 
 // UserFragment profile of a lab user.
 type UserFragment struct {
-	// UserPropertiesFragment - The properties of the resource.
-	*UserPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -8862,64 +7487,14 @@ type UserFragment struct {
 // MarshalJSON is the custom marshaler for UserFragment.
 func (uf UserFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if uf.UserPropertiesFragment != nil {
-		objectMap["properties"] = uf.UserPropertiesFragment
-	}
 	if uf.Tags != nil {
 		objectMap["tags"] = uf.Tags
 	}
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON is the custom unmarshaler for UserFragment struct.
-func (uf *UserFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var userPropertiesFragment UserPropertiesFragment
-				err = json.Unmarshal(*v, &userPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				uf.UserPropertiesFragment = &userPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				uf.Tags = tags
-			}
-		}
-	}
-
-	return nil
-}
-
 // UserIdentity identity attributes of a lab user.
 type UserIdentity struct {
-	// PrincipalName - Set to the principal name / UPN of the client JWT making the request.
-	PrincipalName *string `json:"principalName,omitempty"`
-	// PrincipalID - Set to the principal Id of the client JWT making the request. Service principal will not have the principal Id.
-	PrincipalID *string `json:"principalId,omitempty"`
-	// TenantID - Set to the tenant ID of the client JWT making the request.
-	TenantID *string `json:"tenantId,omitempty"`
-	// ObjectID - Set to the object Id of the client JWT making the request. Not all users have object Id. For CSP (reseller) scenarios for example, object Id is not available.
-	ObjectID *string `json:"objectId,omitempty"`
-	// AppID - Set to the app Id of the client JWT making the request.
-	AppID *string `json:"appId,omitempty"`
-}
-
-// UserIdentityFragment identity attributes of a lab user.
-type UserIdentityFragment struct {
 	// PrincipalName - Set to the principal name / UPN of the client JWT making the request.
 	PrincipalName *string `json:"principalName,omitempty"`
 	// PrincipalID - Set to the principal Id of the client JWT making the request. Service principal will not have the principal Id.
@@ -9117,14 +7692,6 @@ func (up UserProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// UserPropertiesFragment properties of a lab user profile.
-type UserPropertiesFragment struct {
-	// Identity - The identity of the user.
-	Identity *UserIdentityFragment `json:"identity,omitempty"`
-	// SecretStore - The secret store of the user.
-	SecretStore *UserSecretStoreFragment `json:"secretStore,omitempty"`
-}
-
 // UsersCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a long-running
 // operation.
 type UsersCreateOrUpdateFuture struct {
@@ -9206,14 +7773,6 @@ func (future *UsersDeleteFuture) result(client UsersClient) (ar autorest.Respons
 
 // UserSecretStore properties of a user's secret store.
 type UserSecretStore struct {
-	// KeyVaultURI - The URI of the user's Key vault.
-	KeyVaultURI *string `json:"keyVaultUri,omitempty"`
-	// KeyVaultID - The ID of the user's Key vault.
-	KeyVaultID *string `json:"keyVaultId,omitempty"`
-}
-
-// UserSecretStoreFragment properties of a user's secret store.
-type UserSecretStoreFragment struct {
 	// KeyVaultURI - The URI of the user's Key vault.
 	KeyVaultURI *string `json:"keyVaultUri,omitempty"`
 	// KeyVaultID - The ID of the user's Key vault.
@@ -9847,8 +8406,6 @@ func (vn *VirtualNetwork) UnmarshalJSON(body []byte) error {
 
 // VirtualNetworkFragment a virtual network.
 type VirtualNetworkFragment struct {
-	// VirtualNetworkPropertiesFragment - The properties of the resource.
-	*VirtualNetworkPropertiesFragment `json:"properties,omitempty"`
 	// Tags - The tags of the resource.
 	Tags map[string]*string `json:"tags"`
 }
@@ -9856,46 +8413,10 @@ type VirtualNetworkFragment struct {
 // MarshalJSON is the custom marshaler for VirtualNetworkFragment.
 func (vnf VirtualNetworkFragment) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if vnf.VirtualNetworkPropertiesFragment != nil {
-		objectMap["properties"] = vnf.VirtualNetworkPropertiesFragment
-	}
 	if vnf.Tags != nil {
 		objectMap["tags"] = vnf.Tags
 	}
 	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON is the custom unmarshaler for VirtualNetworkFragment struct.
-func (vnf *VirtualNetworkFragment) UnmarshalJSON(body []byte) error {
-	var m map[string]*json.RawMessage
-	err := json.Unmarshal(body, &m)
-	if err != nil {
-		return err
-	}
-	for k, v := range m {
-		switch k {
-		case "properties":
-			if v != nil {
-				var virtualNetworkPropertiesFragment VirtualNetworkPropertiesFragment
-				err = json.Unmarshal(*v, &virtualNetworkPropertiesFragment)
-				if err != nil {
-					return err
-				}
-				vnf.VirtualNetworkPropertiesFragment = &virtualNetworkPropertiesFragment
-			}
-		case "tags":
-			if v != nil {
-				var tags map[string]*string
-				err = json.Unmarshal(*v, &tags)
-				if err != nil {
-					return err
-				}
-				vnf.Tags = tags
-			}
-		}
-	}
-
-	return nil
 }
 
 // VirtualNetworkList the response of a list operation.
@@ -10095,18 +8616,6 @@ func (vnp VirtualNetworkProperties) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// VirtualNetworkPropertiesFragment properties of a virtual network.
-type VirtualNetworkPropertiesFragment struct {
-	// AllowedSubnets - The allowed subnets of the virtual network.
-	AllowedSubnets *[]SubnetFragment `json:"allowedSubnets,omitempty"`
-	// Description - The description of the virtual network.
-	Description *string `json:"description,omitempty"`
-	// ExternalProviderResourceID - The Microsoft.Network resource identifier of the virtual network.
-	ExternalProviderResourceID *string `json:"externalProviderResourceId,omitempty"`
-	// SubnetOverrides - The subnet overrides of the virtual network.
-	SubnetOverrides *[]SubnetOverrideFragment `json:"subnetOverrides,omitempty"`
-}
-
 // VirtualNetworksCreateOrUpdateFuture an abstraction for monitoring and retrieving the results of a
 // long-running operation.
 type VirtualNetworksCreateOrUpdateFuture struct {
@@ -10195,22 +8704,8 @@ type WeekDetails struct {
 	Time *string `json:"time,omitempty"`
 }
 
-// WeekDetailsFragment properties of a weekly schedule.
-type WeekDetailsFragment struct {
-	// Weekdays - The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.).
-	Weekdays *[]string `json:"weekdays,omitempty"`
-	// Time - The time of the day the schedule will occur.
-	Time *string `json:"time,omitempty"`
-}
-
 // WindowsOsInfo information about a Windows OS.
 type WindowsOsInfo struct {
-	// WindowsOsState - The state of the Windows OS (i.e. NonSysprepped, SysprepRequested, SysprepApplied). Possible values include: 'NonSysprepped', 'SysprepRequested', 'SysprepApplied'
-	WindowsOsState WindowsOsState `json:"windowsOsState,omitempty"`
-}
-
-// WindowsOsInfoFragment information about a Windows OS.
-type WindowsOsInfoFragment struct {
 	// WindowsOsState - The state of the Windows OS (i.e. NonSysprepped, SysprepRequested, SysprepApplied). Possible values include: 'NonSysprepped', 'SysprepRequested', 'SysprepApplied'
 	WindowsOsState WindowsOsState `json:"windowsOsState,omitempty"`
 }

@@ -123,6 +123,8 @@ type HTTPStatusCode string
 const (
 	// Accepted ...
 	Accepted HTTPStatusCode = "Accepted"
+	// Ambiguous ...
+	Ambiguous HTTPStatusCode = "Ambiguous"
 	// BadGateway ...
 	BadGateway HTTPStatusCode = "BadGateway"
 	// BadRequest ...
@@ -137,6 +139,8 @@ const (
 	ExpectationFailed HTTPStatusCode = "ExpectationFailed"
 	// Forbidden ...
 	Forbidden HTTPStatusCode = "Forbidden"
+	// Found ...
+	Found HTTPStatusCode = "Found"
 	// GatewayTimeout ...
 	GatewayTimeout HTTPStatusCode = "GatewayTimeout"
 	// Gone ...
@@ -149,6 +153,8 @@ const (
 	LengthRequired HTTPStatusCode = "LengthRequired"
 	// MethodNotAllowed ...
 	MethodNotAllowed HTTPStatusCode = "MethodNotAllowed"
+	// Moved ...
+	Moved HTTPStatusCode = "Moved"
 	// MovedPermanently ...
 	MovedPermanently HTTPStatusCode = "MovedPermanently"
 	// MultipleChoices ...
@@ -177,6 +183,10 @@ const (
 	ProxyAuthenticationRequired HTTPStatusCode = "ProxyAuthenticationRequired"
 	// Redirect ...
 	Redirect HTTPStatusCode = "Redirect"
+	// RedirectKeepVerb ...
+	RedirectKeepVerb HTTPStatusCode = "RedirectKeepVerb"
+	// RedirectMethod ...
+	RedirectMethod HTTPStatusCode = "RedirectMethod"
 	// RequestedRangeNotSatisfiable ...
 	RequestedRangeNotSatisfiable HTTPStatusCode = "RequestedRangeNotSatisfiable"
 	// RequestEntityTooLarge ...
@@ -209,7 +219,7 @@ const (
 
 // PossibleHTTPStatusCodeValues returns an array of possible values for the HTTPStatusCode const type.
 func PossibleHTTPStatusCodeValues() []HTTPStatusCode {
-	return []HTTPStatusCode{Accepted, BadGateway, BadRequest, Conflict, Continue, Created, ExpectationFailed, Forbidden, GatewayTimeout, Gone, HTTPVersionNotSupported, InternalServerError, LengthRequired, MethodNotAllowed, MovedPermanently, MultipleChoices, NoContent, NonAuthoritativeInformation, NotAcceptable, NotFound, NotImplemented, NotModified, OK, PartialContent, PaymentRequired, PreconditionFailed, ProxyAuthenticationRequired, Redirect, RequestedRangeNotSatisfiable, RequestEntityTooLarge, RequestTimeout, RequestURITooLong, ResetContent, SeeOther, ServiceUnavailable, SwitchingProtocols, TemporaryRedirect, Unauthorized, UnsupportedMediaType, Unused, UpgradeRequired, UseProxy}
+	return []HTTPStatusCode{Accepted, Ambiguous, BadGateway, BadRequest, Conflict, Continue, Created, ExpectationFailed, Forbidden, Found, GatewayTimeout, Gone, HTTPVersionNotSupported, InternalServerError, LengthRequired, MethodNotAllowed, Moved, MovedPermanently, MultipleChoices, NoContent, NonAuthoritativeInformation, NotAcceptable, NotFound, NotImplemented, NotModified, OK, PartialContent, PaymentRequired, PreconditionFailed, ProxyAuthenticationRequired, Redirect, RedirectKeepVerb, RedirectMethod, RequestedRangeNotSatisfiable, RequestEntityTooLarge, RequestTimeout, RequestURITooLong, ResetContent, SeeOther, ServiceUnavailable, SwitchingProtocols, TemporaryRedirect, Unauthorized, UnsupportedMediaType, Unused, UpgradeRequired, UseProxy}
 }
 
 // LinuxOsState enumerates the values for linux os state.
@@ -227,6 +237,25 @@ const (
 // PossibleLinuxOsStateValues returns an array of possible values for the LinuxOsState const type.
 func PossibleLinuxOsStateValues() []LinuxOsState {
 	return []LinuxOsState{DeprovisionApplied, DeprovisionRequested, NonDeprovisioned}
+}
+
+// ManagedIdentityType enumerates the values for managed identity type.
+type ManagedIdentityType string
+
+const (
+	// ManagedIdentityTypeNone ...
+	ManagedIdentityTypeNone ManagedIdentityType = "None"
+	// ManagedIdentityTypeSystemAssigned ...
+	ManagedIdentityTypeSystemAssigned ManagedIdentityType = "SystemAssigned"
+	// ManagedIdentityTypeSystemAssignedUserAssigned ...
+	ManagedIdentityTypeSystemAssignedUserAssigned ManagedIdentityType = "SystemAssigned,UserAssigned"
+	// ManagedIdentityTypeUserAssigned ...
+	ManagedIdentityTypeUserAssigned ManagedIdentityType = "UserAssigned"
+)
+
+// PossibleManagedIdentityTypeValues returns an array of possible values for the ManagedIdentityType const type.
+func PossibleManagedIdentityTypeValues() []ManagedIdentityType {
+	return []ManagedIdentityType{ManagedIdentityTypeNone, ManagedIdentityTypeSystemAssigned, ManagedIdentityTypeSystemAssignedUserAssigned, ManagedIdentityTypeUserAssigned}
 }
 
 // NotificationChannelEventType enumerates the values for notification channel event type.
@@ -341,13 +370,15 @@ type SourceControlType string
 const (
 	// GitHub ...
 	GitHub SourceControlType = "GitHub"
+	// StorageAccount ...
+	StorageAccount SourceControlType = "StorageAccount"
 	// VsoGit ...
 	VsoGit SourceControlType = "VsoGit"
 )
 
 // PossibleSourceControlTypeValues returns an array of possible values for the SourceControlType const type.
 func PossibleSourceControlTypeValues() []SourceControlType {
-	return []SourceControlType{GitHub, VsoGit}
+	return []SourceControlType{GitHub, StorageAccount, VsoGit}
 }
 
 // StorageType enumerates the values for storage type.

@@ -99,7 +99,7 @@ func (client OperationsClient) GetSender(req *http.Request) (*http.Response, err
 func (client OperationsClient) GetResponder(resp *http.Response) (result OperationResult, err error) {
 	err = autorest.Respond(
 		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusAccepted),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}

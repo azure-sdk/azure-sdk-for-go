@@ -1,5 +1,5 @@
 {
-  "commit": "3c764635e7d442b3e74caf593029fcd440b3ef82",
+  "commit": "7f4939d1be65477200e927f26cfc919da31b47f3",
   "readme": "/_/azure-rest-api-specs/specification/devtestlabs/resource-manager/readme.md",
   "tag": "package-2018-09",
   "use": "@microsoft.azure/autorest.go@2.1.187",
