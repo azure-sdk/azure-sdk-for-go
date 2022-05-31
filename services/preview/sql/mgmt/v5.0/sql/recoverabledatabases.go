@@ -33,12 +33,12 @@ func NewRecoverableDatabasesClientWithBaseURI(baseURI string, subscriptionID str
 	return RecoverableDatabasesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// Get gets a recoverable database, which is a resource representing a database's geo backup
+// Get gets a recoverable database.
 // Parameters:
 // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
 // from the Azure Resource Manager API or the portal.
 // serverName - the name of the server.
-// databaseName - the name of the database
+// databaseName - the name of the database.
 func (client RecoverableDatabasesClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result RecoverableDatabase, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/RecoverableDatabasesClient.Get")
@@ -81,7 +81,7 @@ func (client RecoverableDatabasesClient) GetPreparer(ctx context.Context, resour
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -112,22 +112,23 @@ func (client RecoverableDatabasesClient) GetResponder(resp *http.Response) (resu
 	return
 }
 
-// ListByServer gets a list of recoverable databases
+// ListByServer gets a list of recoverable databases.
 // Parameters:
 // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
 // from the Azure Resource Manager API or the portal.
 // serverName - the name of the server.
-func (client RecoverableDatabasesClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result RecoverableDatabaseListResult, err error) {
+func (client RecoverableDatabasesClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result RecoverableDatabaseListResultPage, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/RecoverableDatabasesClient.ListByServer")
 		defer func() {
 			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
+			if result.rdlr.Response.Response != nil {
+				sc = result.rdlr.Response.Response.StatusCode
 			}
 			tracing.EndSpan(ctx, sc, err)
 		}()
 	}
+	result.fn = client.listByServerNextResults
 	req, err := client.ListByServerPreparer(ctx, resourceGroupName, serverName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.RecoverableDatabasesClient", "ListByServer", nil, "Failure preparing request")
@@ -136,14 +137,18 @@ func (client RecoverableDatabasesClient) ListByServer(ctx context.Context, resou
 
 	resp, err := client.ListByServerSender(req)
 	if err != nil {
-		result.Response = autorest.Response{Response: resp}
+		result.rdlr.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "sql.RecoverableDatabasesClient", "ListByServer", resp, "Failure sending request")
 		return
 	}
 
-	result, err = client.ListByServerResponder(resp)
+	result.rdlr, err = client.ListByServerResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.RecoverableDatabasesClient", "ListByServer", resp, "Failure responding to request")
+		return
+	}
+	if result.rdlr.hasNextLink() && result.rdlr.IsEmpty() {
+		err = result.NextWithContext(ctx)
 		return
 	}
 
@@ -158,7 +163,7 @@ func (client RecoverableDatabasesClient) ListByServerPreparer(ctx context.Contex
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -186,5 +191,42 @@ func (client RecoverableDatabasesClient) ListByServerResponder(resp *http.Respon
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
+	return
+}
+
+// listByServerNextResults retrieves the next set of results, if any.
+func (client RecoverableDatabasesClient) listByServerNextResults(ctx context.Context, lastResults RecoverableDatabaseListResult) (result RecoverableDatabaseListResult, err error) {
+	req, err := lastResults.recoverableDatabaseListResultPreparer(ctx)
+	if err != nil {
+		return result, autorest.NewErrorWithError(err, "sql.RecoverableDatabasesClient", "listByServerNextResults", nil, "Failure preparing next results request")
+	}
+	if req == nil {
+		return
+	}
+	resp, err := client.ListByServerSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "sql.RecoverableDatabasesClient", "listByServerNextResults", resp, "Failure sending next results request")
+	}
+	result, err = client.ListByServerResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "sql.RecoverableDatabasesClient", "listByServerNextResults", resp, "Failure responding to next results request")
+	}
+	return
+}
+
+// ListByServerComplete enumerates all values, automatically crossing page boundaries as required.
+func (client RecoverableDatabasesClient) ListByServerComplete(ctx context.Context, resourceGroupName string, serverName string) (result RecoverableDatabaseListResultIterator, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/RecoverableDatabasesClient.ListByServer")
+		defer func() {
+			sc := -1
+			if result.Response().Response.Response != nil {
+				sc = result.page.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	result.page, err = client.ListByServer(ctx, resourceGroupName, serverName)
 	return
 }

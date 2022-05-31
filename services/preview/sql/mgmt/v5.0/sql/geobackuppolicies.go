@@ -10,7 +10,6 @@ import (
 	"context"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/azure"
-	"github.com/Azure/go-autorest/autorest/validation"
 	"github.com/Azure/go-autorest/tracing"
 	"net/http"
 )
@@ -34,7 +33,7 @@ func NewGeoBackupPoliciesClientWithBaseURI(baseURI string, subscriptionID string
 	return GeoBackupPoliciesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate updates a database geo backup policy.
+// CreateOrUpdate create or update a database default Geo backup policy.
 // Parameters:
 // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
 // from the Azure Resource Manager API or the portal.
@@ -52,12 +51,6 @@ func (client GeoBackupPoliciesClient) CreateOrUpdate(ctx context.Context, resour
 			tracing.EndSpan(ctx, sc, err)
 		}()
 	}
-	if err := validation.Validate([]validation.Validation{
-		{TargetValue: parameters,
-			Constraints: []validation.Constraint{{Target: "parameters.GeoBackupPolicyProperties", Name: validation.Null, Rule: true, Chain: nil}}}}); err != nil {
-		return result, validation.NewError("sql.GeoBackupPoliciesClient", "CreateOrUpdate", err.Error())
-	}
-
 	req, err := client.CreateOrUpdatePreparer(ctx, resourceGroupName, serverName, databaseName, parameters)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "CreateOrUpdate", nil, "Failure preparing request")
@@ -90,13 +83,13 @@ func (client GeoBackupPoliciesClient) CreateOrUpdatePreparer(ctx context.Context
 		"subscriptionId":      autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
 
-	parameters.Kind = nil
 	parameters.Location = nil
+	parameters.Kind = nil
 	preparer := autorest.CreatePreparer(
 		autorest.AsContentType("application/json; charset=utf-8"),
 		autorest.AsPut(),
@@ -125,7 +118,7 @@ func (client GeoBackupPoliciesClient) CreateOrUpdateResponder(resp *http.Respons
 	return
 }
 
-// Get gets a geo backup policy.
+// Get gets a Geo backup policy for the given database resource.
 // Parameters:
 // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
 // from the Azure Resource Manager API or the portal.
@@ -174,7 +167,7 @@ func (client GeoBackupPoliciesClient) GetPreparer(ctx context.Context, resourceG
 		"subscriptionId":      autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -205,47 +198,52 @@ func (client GeoBackupPoliciesClient) GetResponder(resp *http.Response) (result 
 	return
 }
 
-// ListByDatabase returns a list of geo backup policies.
+// List gets a list of Geo backup policies for the given database resource.
 // Parameters:
 // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
 // from the Azure Resource Manager API or the portal.
 // serverName - the name of the server.
 // databaseName - the name of the database.
-func (client GeoBackupPoliciesClient) ListByDatabase(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result GeoBackupPolicyListResult, err error) {
+func (client GeoBackupPoliciesClient) List(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result GeoBackupPolicyListResultPage, err error) {
 	if tracing.IsEnabled() {
-		ctx = tracing.StartSpan(ctx, fqdn+"/GeoBackupPoliciesClient.ListByDatabase")
+		ctx = tracing.StartSpan(ctx, fqdn+"/GeoBackupPoliciesClient.List")
 		defer func() {
 			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
+			if result.gbplr.Response.Response != nil {
+				sc = result.gbplr.Response.Response.StatusCode
 			}
 			tracing.EndSpan(ctx, sc, err)
 		}()
 	}
-	req, err := client.ListByDatabasePreparer(ctx, resourceGroupName, serverName, databaseName)
+	result.fn = client.listNextResults
+	req, err := client.ListPreparer(ctx, resourceGroupName, serverName, databaseName)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "ListByDatabase", nil, "Failure preparing request")
+		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "List", nil, "Failure preparing request")
 		return
 	}
 
-	resp, err := client.ListByDatabaseSender(req)
+	resp, err := client.ListSender(req)
 	if err != nil {
-		result.Response = autorest.Response{Response: resp}
-		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "ListByDatabase", resp, "Failure sending request")
+		result.gbplr.Response = autorest.Response{Response: resp}
+		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "List", resp, "Failure sending request")
 		return
 	}
 
-	result, err = client.ListByDatabaseResponder(resp)
+	result.gbplr, err = client.ListResponder(resp)
 	if err != nil {
-		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "ListByDatabase", resp, "Failure responding to request")
+		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "List", resp, "Failure responding to request")
+		return
+	}
+	if result.gbplr.hasNextLink() && result.gbplr.IsEmpty() {
+		err = result.NextWithContext(ctx)
 		return
 	}
 
 	return
 }
 
-// ListByDatabasePreparer prepares the ListByDatabase request.
-func (client GeoBackupPoliciesClient) ListByDatabasePreparer(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (*http.Request, error) {
+// ListPreparer prepares the List request.
+func (client GeoBackupPoliciesClient) ListPreparer(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (*http.Request, error) {
 	pathParameters := map[string]interface{}{
 		"databaseName":      autorest.Encode("path", databaseName),
 		"resourceGroupName": autorest.Encode("path", resourceGroupName),
@@ -253,7 +251,7 @@ func (client GeoBackupPoliciesClient) ListByDatabasePreparer(ctx context.Context
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -266,20 +264,57 @@ func (client GeoBackupPoliciesClient) ListByDatabasePreparer(ctx context.Context
 	return preparer.Prepare((&http.Request{}).WithContext(ctx))
 }
 
-// ListByDatabaseSender sends the ListByDatabase request. The method will close the
+// ListSender sends the List request. The method will close the
 // http.Response Body if it receives an error.
-func (client GeoBackupPoliciesClient) ListByDatabaseSender(req *http.Request) (*http.Response, error) {
+func (client GeoBackupPoliciesClient) ListSender(req *http.Request) (*http.Response, error) {
 	return client.Send(req, azure.DoRetryWithRegistration(client.Client))
 }
 
-// ListByDatabaseResponder handles the response to the ListByDatabase request. The method always
+// ListResponder handles the response to the List request. The method always
 // closes the http.Response Body.
-func (client GeoBackupPoliciesClient) ListByDatabaseResponder(resp *http.Response) (result GeoBackupPolicyListResult, err error) {
+func (client GeoBackupPoliciesClient) ListResponder(resp *http.Response) (result GeoBackupPolicyListResult, err error) {
 	err = autorest.Respond(
 		resp,
 		azure.WithErrorUnlessStatusCode(http.StatusOK),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
+	return
+}
+
+// listNextResults retrieves the next set of results, if any.
+func (client GeoBackupPoliciesClient) listNextResults(ctx context.Context, lastResults GeoBackupPolicyListResult) (result GeoBackupPolicyListResult, err error) {
+	req, err := lastResults.geoBackupPolicyListResultPreparer(ctx)
+	if err != nil {
+		return result, autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "listNextResults", nil, "Failure preparing next results request")
+	}
+	if req == nil {
+		return
+	}
+	resp, err := client.ListSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "listNextResults", resp, "Failure sending next results request")
+	}
+	result, err = client.ListResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "sql.GeoBackupPoliciesClient", "listNextResults", resp, "Failure responding to next results request")
+	}
+	return
+}
+
+// ListComplete enumerates all values, automatically crossing page boundaries as required.
+func (client GeoBackupPoliciesClient) ListComplete(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result GeoBackupPolicyListResultIterator, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/GeoBackupPoliciesClient.List")
+		defer func() {
+			sc := -1
+			if result.Response().Response.Response != nil {
+				sc = result.page.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	result.page, err = client.List(ctx, resourceGroupName, serverName, databaseName)
 	return
 }

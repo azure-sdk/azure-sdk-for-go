@@ -33,7 +33,7 @@ func NewDataMaskingPoliciesClientWithBaseURI(baseURI string, subscriptionID stri
 	return DataMaskingPoliciesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// CreateOrUpdate creates or updates a database data masking policy
+// CreateOrUpdate creates or updates a database data masking policy.
 // Parameters:
 // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
 // from the Azure Resource Manager API or the portal.
@@ -83,7 +83,7 @@ func (client DataMaskingPoliciesClient) CreateOrUpdatePreparer(ctx context.Conte
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -111,14 +111,14 @@ func (client DataMaskingPoliciesClient) CreateOrUpdateSender(req *http.Request) 
 func (client DataMaskingPoliciesClient) CreateOrUpdateResponder(resp *http.Response) (result DataMaskingPolicy, err error) {
 	err = autorest.Respond(
 		resp,
-		azure.WithErrorUnlessStatusCode(http.StatusOK),
+		azure.WithErrorUnlessStatusCode(http.StatusOK, http.StatusCreated),
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
 	return
 }
 
-// Get gets a database data masking policy.
+// Get gets the database data masking policy.
 // Parameters:
 // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
 // from the Azure Resource Manager API or the portal.
@@ -167,7 +167,7 @@ func (client DataMaskingPoliciesClient) GetPreparer(ctx context.Context, resourc
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}

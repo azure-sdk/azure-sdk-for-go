@@ -32,22 +32,23 @@ func NewServerUsagesClientWithBaseURI(baseURI string, subscriptionID string) Ser
 	return ServerUsagesClient{NewWithBaseURI(baseURI, subscriptionID)}
 }
 
-// ListByServer returns server usages.
+// ListByServer gets server usages.
 // Parameters:
 // resourceGroupName - the name of the resource group that contains the resource. You can obtain this value
 // from the Azure Resource Manager API or the portal.
 // serverName - the name of the server.
-func (client ServerUsagesClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result ServerUsageListResult, err error) {
+func (client ServerUsagesClient) ListByServer(ctx context.Context, resourceGroupName string, serverName string) (result ServerUsageListResultPage, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/ServerUsagesClient.ListByServer")
 		defer func() {
 			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
+			if result.sulr.Response.Response != nil {
+				sc = result.sulr.Response.Response.StatusCode
 			}
 			tracing.EndSpan(ctx, sc, err)
 		}()
 	}
+	result.fn = client.listByServerNextResults
 	req, err := client.ListByServerPreparer(ctx, resourceGroupName, serverName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.ServerUsagesClient", "ListByServer", nil, "Failure preparing request")
@@ -56,14 +57,18 @@ func (client ServerUsagesClient) ListByServer(ctx context.Context, resourceGroup
 
 	resp, err := client.ListByServerSender(req)
 	if err != nil {
-		result.Response = autorest.Response{Response: resp}
+		result.sulr.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "sql.ServerUsagesClient", "ListByServer", resp, "Failure sending request")
 		return
 	}
 
-	result, err = client.ListByServerResponder(resp)
+	result.sulr, err = client.ListByServerResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.ServerUsagesClient", "ListByServer", resp, "Failure responding to request")
+		return
+	}
+	if result.sulr.hasNextLink() && result.sulr.IsEmpty() {
+		err = result.NextWithContext(ctx)
 		return
 	}
 
@@ -78,7 +83,7 @@ func (client ServerUsagesClient) ListByServerPreparer(ctx context.Context, resou
 		"subscriptionId":    autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -106,5 +111,42 @@ func (client ServerUsagesClient) ListByServerResponder(resp *http.Response) (res
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
+	return
+}
+
+// listByServerNextResults retrieves the next set of results, if any.
+func (client ServerUsagesClient) listByServerNextResults(ctx context.Context, lastResults ServerUsageListResult) (result ServerUsageListResult, err error) {
+	req, err := lastResults.serverUsageListResultPreparer(ctx)
+	if err != nil {
+		return result, autorest.NewErrorWithError(err, "sql.ServerUsagesClient", "listByServerNextResults", nil, "Failure preparing next results request")
+	}
+	if req == nil {
+		return
+	}
+	resp, err := client.ListByServerSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "sql.ServerUsagesClient", "listByServerNextResults", resp, "Failure sending next results request")
+	}
+	result, err = client.ListByServerResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "sql.ServerUsagesClient", "listByServerNextResults", resp, "Failure responding to next results request")
+	}
+	return
+}
+
+// ListByServerComplete enumerates all values, automatically crossing page boundaries as required.
+func (client ServerUsagesClient) ListByServerComplete(ctx context.Context, resourceGroupName string, serverName string) (result ServerUsageListResultIterator, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/ServerUsagesClient.ListByServer")
+		defer func() {
+			sc := -1
+			if result.Response().Response.Response != nil {
+				sc = result.page.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	result.page, err = client.ListByServer(ctx, resourceGroupName, serverName)
 	return
 }

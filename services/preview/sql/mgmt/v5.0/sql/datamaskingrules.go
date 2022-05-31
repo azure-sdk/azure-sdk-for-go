@@ -96,7 +96,7 @@ func (client DataMaskingRulesClient) CreateOrUpdatePreparer(ctx context.Context,
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -137,17 +137,18 @@ func (client DataMaskingRulesClient) CreateOrUpdateResponder(resp *http.Response
 // from the Azure Resource Manager API or the portal.
 // serverName - the name of the server.
 // databaseName - the name of the database.
-func (client DataMaskingRulesClient) ListByDatabase(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result DataMaskingRuleListResult, err error) {
+func (client DataMaskingRulesClient) ListByDatabase(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result DataMaskingRuleListResultPage, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/DataMaskingRulesClient.ListByDatabase")
 		defer func() {
 			sc := -1
-			if result.Response.Response != nil {
-				sc = result.Response.Response.StatusCode
+			if result.dmrlr.Response.Response != nil {
+				sc = result.dmrlr.Response.Response.StatusCode
 			}
 			tracing.EndSpan(ctx, sc, err)
 		}()
 	}
+	result.fn = client.listByDatabaseNextResults
 	req, err := client.ListByDatabasePreparer(ctx, resourceGroupName, serverName, databaseName)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.DataMaskingRulesClient", "ListByDatabase", nil, "Failure preparing request")
@@ -156,14 +157,18 @@ func (client DataMaskingRulesClient) ListByDatabase(ctx context.Context, resourc
 
 	resp, err := client.ListByDatabaseSender(req)
 	if err != nil {
-		result.Response = autorest.Response{Response: resp}
+		result.dmrlr.Response = autorest.Response{Response: resp}
 		err = autorest.NewErrorWithError(err, "sql.DataMaskingRulesClient", "ListByDatabase", resp, "Failure sending request")
 		return
 	}
 
-	result, err = client.ListByDatabaseResponder(resp)
+	result.dmrlr, err = client.ListByDatabaseResponder(resp)
 	if err != nil {
 		err = autorest.NewErrorWithError(err, "sql.DataMaskingRulesClient", "ListByDatabase", resp, "Failure responding to request")
+		return
+	}
+	if result.dmrlr.hasNextLink() && result.dmrlr.IsEmpty() {
+		err = result.NextWithContext(ctx)
 		return
 	}
 
@@ -180,7 +185,7 @@ func (client DataMaskingRulesClient) ListByDatabasePreparer(ctx context.Context,
 		"subscriptionId":        autorest.Encode("path", client.SubscriptionID),
 	}
 
-	const APIVersion = "2014-04-01"
+	const APIVersion = "2022-02-01-preview"
 	queryParameters := map[string]interface{}{
 		"api-version": APIVersion,
 	}
@@ -208,5 +213,42 @@ func (client DataMaskingRulesClient) ListByDatabaseResponder(resp *http.Response
 		autorest.ByUnmarshallingJSON(&result),
 		autorest.ByClosing())
 	result.Response = autorest.Response{Response: resp}
+	return
+}
+
+// listByDatabaseNextResults retrieves the next set of results, if any.
+func (client DataMaskingRulesClient) listByDatabaseNextResults(ctx context.Context, lastResults DataMaskingRuleListResult) (result DataMaskingRuleListResult, err error) {
+	req, err := lastResults.dataMaskingRuleListResultPreparer(ctx)
+	if err != nil {
+		return result, autorest.NewErrorWithError(err, "sql.DataMaskingRulesClient", "listByDatabaseNextResults", nil, "Failure preparing next results request")
+	}
+	if req == nil {
+		return
+	}
+	resp, err := client.ListByDatabaseSender(req)
+	if err != nil {
+		result.Response = autorest.Response{Response: resp}
+		return result, autorest.NewErrorWithError(err, "sql.DataMaskingRulesClient", "listByDatabaseNextResults", resp, "Failure sending next results request")
+	}
+	result, err = client.ListByDatabaseResponder(resp)
+	if err != nil {
+		err = autorest.NewErrorWithError(err, "sql.DataMaskingRulesClient", "listByDatabaseNextResults", resp, "Failure responding to next results request")
+	}
+	return
+}
+
+// ListByDatabaseComplete enumerates all values, automatically crossing page boundaries as required.
+func (client DataMaskingRulesClient) ListByDatabaseComplete(ctx context.Context, resourceGroupName string, serverName string, databaseName string) (result DataMaskingRuleListResultIterator, err error) {
+	if tracing.IsEnabled() {
+		ctx = tracing.StartSpan(ctx, fqdn+"/DataMaskingRulesClient.ListByDatabase")
+		defer func() {
+			sc := -1
+			if result.Response().Response.Response != nil {
+				sc = result.page.Response().Response.Response.StatusCode
+			}
+			tracing.EndSpan(ctx, sc, err)
+		}()
+	}
+	result.page, err = client.ListByDatabase(ctx, resourceGroupName, serverName, databaseName)
 	return
 }
