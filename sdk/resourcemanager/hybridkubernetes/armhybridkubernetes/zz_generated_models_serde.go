@@ -50,6 +50,8 @@ func (c ConnectedClusterProperties) MarshalJSON() ([]byte, error) {
 	populateTimeRFC3339(objectMap, "lastConnectivityTime", c.LastConnectivityTime)
 	populateTimeRFC3339(objectMap, "managedIdentityCertificateExpirationTime", c.ManagedIdentityCertificateExpirationTime)
 	populate(objectMap, "offering", c.Offering)
+	populate(objectMap, "privateLinkScopeResourceId", c.PrivateLinkScopeResourceID)
+	populate(objectMap, "privateLinkState", c.PrivateLinkState)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "totalCoreCount", c.TotalCoreCount)
 	populate(objectMap, "totalNodeCount", c.TotalNodeCount)
@@ -91,6 +93,12 @@ func (c *ConnectedClusterProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "offering":
 			err = unpopulate(val, "Offering", &c.Offering)
+			delete(rawMsg, key)
+		case "privateLinkScopeResourceId":
+			err = unpopulate(val, "PrivateLinkScopeResourceID", &c.PrivateLinkScopeResourceID)
+			delete(rawMsg, key)
+		case "privateLinkState":
+			err = unpopulate(val, "PrivateLinkState", &c.PrivateLinkState)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)

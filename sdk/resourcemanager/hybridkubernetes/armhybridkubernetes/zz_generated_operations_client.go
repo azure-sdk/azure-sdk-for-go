@@ -50,7 +50,7 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 
 // NewGetPager - Lists all of the available API operations for Connected Cluster resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-10-01
+// Generated from API version 2022-05-01-preview
 // options - OperationsClientGetOptions contains the optional parameters for the OperationsClient.Get method.
 func (client *OperationsClient) NewGetPager(options *OperationsClientGetOptions) *runtime.Pager[OperationsClientGetResponse] {
 	return runtime.NewPager(runtime.PagingHandler[OperationsClientGetResponse]{
@@ -88,7 +88,7 @@ func (client *OperationsClient) getCreateRequest(ctx context.Context, options *O
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
+	reqQP.Set("api-version", "2022-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

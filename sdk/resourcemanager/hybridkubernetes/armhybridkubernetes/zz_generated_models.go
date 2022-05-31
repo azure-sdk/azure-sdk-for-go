@@ -120,6 +120,12 @@ type ConnectedClusterProperties struct {
 	// The infrastructure on which the Kubernetes cluster represented by this connected cluster is running on.
 	Infrastructure *string `json:"infrastructure,omitempty"`
 
+	// The resource id of the private link scope this connected cluster is assigned to, if any.
+	PrivateLinkScopeResourceID *string `json:"privateLinkScopeResourceId,omitempty"`
+
+	// Property which describes the state of private link on a connected cluster resource.
+	PrivateLinkState *PrivateLinkState `json:"privateLinkState,omitempty"`
+
 	// Provisioning state of the connected cluster resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty"`
 

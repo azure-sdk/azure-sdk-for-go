@@ -10,7 +10,7 @@ package armhybridkubernetes
 
 const (
 	moduleName    = "armhybridkubernetes"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // AuthenticationMethod - The mode of client authentication.
@@ -86,6 +86,22 @@ func PossibleLastModifiedByTypeValues() []LastModifiedByType {
 		LastModifiedByTypeKey,
 		LastModifiedByTypeManagedIdentity,
 		LastModifiedByTypeUser,
+	}
+}
+
+// PrivateLinkState - Property which describes the state of private link on a connected cluster resource.
+type PrivateLinkState string
+
+const (
+	PrivateLinkStateDisabled PrivateLinkState = "Disabled"
+	PrivateLinkStateEnabled  PrivateLinkState = "Enabled"
+)
+
+// PossiblePrivateLinkStateValues returns the possible values for the PrivateLinkState const type.
+func PossiblePrivateLinkStateValues() []PrivateLinkState {
+	return []PrivateLinkState{
+		PrivateLinkStateDisabled,
+		PrivateLinkStateEnabled,
 	}
 }
 
