@@ -1,5 +1,23 @@
 # Release History
 
+## 0.6.0 (2022-05-31)
+### Breaking Changes
+
+- Type of `WorkbookUpdateParameters.Kind` has been changed from `*SharedTypeKind` to `*WorkbookUpdateSharedTypeKind`
+- Type of `WorkbookResource.Kind` has been changed from `*Kind` to `*WorkbookSharedTypeKind`
+- Type of `Workbook.Kind` has been changed from `*Kind` to `*WorkbookSharedTypeKind`
+- Const `SharedTypeKindShared` has been removed
+- Const `SharedTypeKindUser` has been removed
+- Function `PossibleSharedTypeKindValues` has been removed
+
+### Features Added
+
+- New const `WorkbookSharedTypeKindShared`
+- New const `WorkbookUpdateSharedTypeKindShared`
+- New function `PossibleWorkbookUpdateSharedTypeKindValues() []WorkbookUpdateSharedTypeKind`
+- New function `PossibleWorkbookSharedTypeKindValues() []WorkbookSharedTypeKind`
+
+
 ## 0.5.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/applicationinsights/armapplicationinsights` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.5.0, which contains breaking changes.
