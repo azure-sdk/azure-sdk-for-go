@@ -682,6 +682,45 @@ func (o *OperationResultsDescription) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type OutlookChannel.
+func (o OutlookChannel) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	objectMap["channelName"] = "OutlookChannel"
+	populate(objectMap, "etag", o.Etag)
+	populate(objectMap, "location", o.Location)
+	populate(objectMap, "provisioningState", o.ProvisioningState)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type OutlookChannel.
+func (o *OutlookChannel) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", o, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "channelName":
+			err = unpopulate(val, "ChannelName", &o.ChannelName)
+			delete(rawMsg, key)
+		case "etag":
+			err = unpopulate(val, "Etag", &o.Etag)
+			delete(rawMsg, key)
+		case "location":
+			err = unpopulate(val, "Location", &o.Location)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &o.ProvisioningState)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type PrivateLinkResourceProperties.
 func (p PrivateLinkResourceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})

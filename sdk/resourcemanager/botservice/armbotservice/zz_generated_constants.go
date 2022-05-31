@@ -10,7 +10,7 @@ package armbotservice
 
 const (
 	moduleName    = "armbotservice"
-	moduleVersion = "v0.5.0"
+	moduleVersion = "v0.6.0"
 )
 
 type ChannelName string
@@ -49,6 +49,24 @@ func PossibleChannelNameValues() []ChannelName {
 		ChannelNameLineChannel,
 		ChannelNameDirectLineSpeechChannel,
 		ChannelNameOutlookChannel,
+	}
+}
+
+// EmailChannelAuthMethod - Email channel auth method. 0 Password (Default); 1 Graph.
+type EmailChannelAuthMethod float32
+
+const (
+	// EmailChannelAuthMethodPassword - Basic authentication.
+	EmailChannelAuthMethodPassword EmailChannelAuthMethod = 0
+	// EmailChannelAuthMethodGraph - Modern authentication.
+	EmailChannelAuthMethodGraph EmailChannelAuthMethod = 1
+)
+
+// PossibleEmailChannelAuthMethodValues returns the possible values for the EmailChannelAuthMethod const type.
+func PossibleEmailChannelAuthMethodValues() []EmailChannelAuthMethod {
+	return []EmailChannelAuthMethod{
+		EmailChannelAuthMethodPassword,
+		EmailChannelAuthMethodGraph,
 	}
 }
 

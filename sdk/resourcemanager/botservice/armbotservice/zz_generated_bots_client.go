@@ -56,7 +56,7 @@ func NewBotsClient(subscriptionID string, credential azcore.TokenCredential, opt
 
 // Create - Creates a Bot Service. Bot Service is a resource group wide resource type.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2022-06-15-preview
 // resourceGroupName - The name of the Bot resource group in the user subscription.
 // resourceName - The name of the Bot resource.
 // parameters - The parameters to provide for the created bot.
@@ -96,7 +96,7 @@ func (client *BotsClient) createCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2022-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -113,7 +113,7 @@ func (client *BotsClient) createHandleResponse(resp *http.Response) (BotsClientC
 
 // Delete - Deletes a Bot Service from the resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2022-06-15-preview
 // resourceGroupName - The name of the Bot resource group in the user subscription.
 // resourceName - The name of the Bot resource.
 // options - BotsClientDeleteOptions contains the optional parameters for the BotsClient.Delete method.
@@ -152,7 +152,7 @@ func (client *BotsClient) deleteCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2022-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -160,7 +160,7 @@ func (client *BotsClient) deleteCreateRequest(ctx context.Context, resourceGroup
 
 // Get - Returns a BotService specified by the parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2022-06-15-preview
 // resourceGroupName - The name of the Bot resource group in the user subscription.
 // resourceName - The name of the Bot resource.
 // options - BotsClientGetOptions contains the optional parameters for the BotsClient.Get method.
@@ -199,7 +199,7 @@ func (client *BotsClient) getCreateRequest(ctx context.Context, resourceGroupNam
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2022-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -216,7 +216,7 @@ func (client *BotsClient) getHandleResponse(resp *http.Response) (BotsClientGetR
 
 // GetCheckNameAvailability - Check whether a bot name is available.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2022-06-15-preview
 // parameters - The request body parameters to provide for the check name availability request
 // options - BotsClientGetCheckNameAvailabilityOptions contains the optional parameters for the BotsClient.GetCheckNameAvailability
 // method.
@@ -243,7 +243,7 @@ func (client *BotsClient) getCheckNameAvailabilityCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2022-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -260,7 +260,7 @@ func (client *BotsClient) getCheckNameAvailabilityHandleResponse(resp *http.Resp
 
 // NewListPager - Returns all the resources of a particular type belonging to a subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2022-06-15-preview
 // options - BotsClientListOptions contains the optional parameters for the BotsClient.List method.
 func (client *BotsClient) NewListPager(options *BotsClientListOptions) *runtime.Pager[BotsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BotsClientListResponse]{
@@ -302,7 +302,7 @@ func (client *BotsClient) listCreateRequest(ctx context.Context, options *BotsCl
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2022-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -319,7 +319,7 @@ func (client *BotsClient) listHandleResponse(resp *http.Response) (BotsClientLis
 
 // NewListByResourceGroupPager - Returns all the resources of a particular type belonging to a resource group
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2022-06-15-preview
 // resourceGroupName - The name of the Bot resource group in the user subscription.
 // options - BotsClientListByResourceGroupOptions contains the optional parameters for the BotsClient.ListByResourceGroup
 // method.
@@ -367,7 +367,7 @@ func (client *BotsClient) listByResourceGroupCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2022-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -384,7 +384,7 @@ func (client *BotsClient) listByResourceGroupHandleResponse(resp *http.Response)
 
 // Update - Updates a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2022-06-15-preview
 // resourceGroupName - The name of the Bot resource group in the user subscription.
 // resourceName - The name of the Bot resource.
 // parameters - The parameters to provide for the created bot.
@@ -424,7 +424,7 @@ func (client *BotsClient) updateCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2022-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

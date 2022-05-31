@@ -113,6 +113,11 @@ type DirectLineClientRegenerateKeysResponse struct {
 	BotChannel
 }
 
+// EmailClientCreateSignInURLResponse contains the response from method EmailClient.CreateSignInURL.
+type EmailClientCreateSignInURLResponse struct {
+	CreateEmailSignInURLResponse
+}
+
 // HostSettingsClientGetResponse contains the response from method HostSettingsClient.Get.
 type HostSettingsClientGetResponse struct {
 	HostSettingsResponse

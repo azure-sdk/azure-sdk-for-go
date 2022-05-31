@@ -311,7 +311,7 @@ type BotsClientUpdateOptions struct {
 // Call the interface's GetChannel() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AlexaChannel, *Channel, *DirectLineChannel, *DirectLineSpeechChannel, *EmailChannel, *FacebookChannel, *KikChannel,
-// - *LineChannel, *MsTeamsChannel, *SkypeChannel, *SlackChannel, *SmsChannel, *TelegramChannel, *WebChatChannel
+// - *LineChannel, *MsTeamsChannel, *OutlookChannel, *SkypeChannel, *SlackChannel, *SmsChannel, *TelegramChannel, *WebChatChannel
 type ChannelClassification interface {
 	// GetChannel returns the Channel content of the underlying type.
 	GetChannel() *Channel
@@ -514,6 +514,24 @@ type ConnectionSettingResponseList struct {
 	Value []*ConnectionSetting `json:"value,omitempty" azure:"ro"`
 }
 
+// CreateEmailSignInURLResponse - The ARM create email sign in url operation response.
+type CreateEmailSignInURLResponse struct {
+	// Specifies the location of the resource.
+	Location *string `json:"location,omitempty"`
+
+	// The set of properties specific to sign in url
+	Properties *CreateEmailSignInURLResponseProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Specifies the resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+}
+
+// CreateEmailSignInURLResponseProperties - The set of properties specific to sign in url
+type CreateEmailSignInURLResponseProperties struct {
+	// Sign in url.
+	URL *string `json:"url,omitempty"`
+}
+
 // DirectLineChannel - Direct Line channel definition
 type DirectLineChannel struct {
 	// REQUIRED; The channel name
@@ -674,8 +692,19 @@ type EmailChannelProperties struct {
 	// REQUIRED; Whether this channel is enabled for the bot
 	IsEnabled *bool `json:"isEnabled,omitempty"`
 
+	// Email channel auth method. 0 Password (Default); 1 Graph.
+	AuthMethod *EmailChannelAuthMethod `json:"authMethod,omitempty"`
+
+	// The magic code for setting up the modern authentication.
+	MagicCode *string `json:"magicCode,omitempty"`
+
 	// The password for the email address. Value only returned through POST to the action Channel List API, otherwise empty.
 	Password *string `json:"password,omitempty"`
+}
+
+// EmailClientCreateSignInURLOptions contains the optional parameters for the EmailClient.CreateSignInURL method.
+type EmailClientCreateSignInURLOptions struct {
+	// placeholder for future optional parameters
 }
 
 // Error - Bot Service error object.
@@ -1038,6 +1067,31 @@ type OperationResultsDescription struct {
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// OutlookChannel - Outlook channel definition
+type OutlookChannel struct {
+	// REQUIRED; The channel name
+	ChannelName *string `json:"channelName,omitempty"`
+
+	// Entity Tag of the resource
+	Etag *string `json:"etag,omitempty"`
+
+	// Specifies the location of the resource.
+	Location *string `json:"location,omitempty"`
+
+	// READ-ONLY; Provisioning state of the resource
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// GetChannel implements the ChannelClassification interface for type OutlookChannel.
+func (o *OutlookChannel) GetChannel() *Channel {
+	return &Channel{
+		ChannelName:       o.ChannelName,
+		Etag:              o.Etag,
+		ProvisioningState: o.ProvisioningState,
+		Location:          o.Location,
+	}
 }
 
 // PrivateEndpoint - The Private Endpoint resource.
@@ -1432,6 +1486,9 @@ type SlackChannelProperties struct {
 	// The Slack landing page Url
 	LandingPageURL *string `json:"landingPageUrl,omitempty"`
 
+	// Whether to register the settings before OAuth validation is performed. Recommended to True.
+	RegisterBeforeOAuthFlow *bool `json:"registerBeforeOAuthFlow,omitempty"`
+
 	// The Slack permission scopes.
 	Scopes *string `json:"scopes,omitempty"`
 
@@ -1449,9 +1506,6 @@ type SlackChannelProperties struct {
 
 	// READ-ONLY; The Slack redirect action
 	RedirectAction *string `json:"redirectAction,omitempty" azure:"ro"`
-
-	// READ-ONLY; Whether to register the settings before OAuth validation is performed. Recommended to True.
-	RegisterBeforeOAuthFlow *bool `json:"registerBeforeOAuthFlow,omitempty" azure:"ro"`
 }
 
 // SmsChannel - Sms channel definition
