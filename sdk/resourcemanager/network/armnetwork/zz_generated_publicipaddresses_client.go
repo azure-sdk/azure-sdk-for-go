@@ -57,7 +57,7 @@ func NewPublicIPAddressesClient(subscriptionID string, credential azcore.TokenCr
 
 // BeginCreateOrUpdate - Creates or updates a static or dynamic public IP address.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // publicIPAddressName - The name of the public IP address.
 // parameters - Parameters supplied to the create or update public IP address operation.
@@ -79,7 +79,7 @@ func (client *PublicIPAddressesClient) BeginCreateOrUpdate(ctx context.Context, 
 
 // CreateOrUpdate - Creates or updates a static or dynamic public IP address.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 func (client *PublicIPAddressesClient) createOrUpdate(ctx context.Context, resourceGroupName string, publicIPAddressName string, parameters PublicIPAddress, options *PublicIPAddressesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, publicIPAddressName, parameters, options)
 	if err != nil {
@@ -115,7 +115,7 @@ func (client *PublicIPAddressesClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -123,7 +123,7 @@ func (client *PublicIPAddressesClient) createOrUpdateCreateRequest(ctx context.C
 
 // BeginDelete - Deletes the specified public IP address.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // publicIPAddressName - The name of the public IP address.
 // options - PublicIPAddressesClientBeginDeleteOptions contains the optional parameters for the PublicIPAddressesClient.BeginDelete
@@ -144,7 +144,7 @@ func (client *PublicIPAddressesClient) BeginDelete(ctx context.Context, resource
 
 // Delete - Deletes the specified public IP address.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 func (client *PublicIPAddressesClient) deleteOperation(ctx context.Context, resourceGroupName string, publicIPAddressName string, options *PublicIPAddressesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, publicIPAddressName, options)
 	if err != nil {
@@ -180,7 +180,7 @@ func (client *PublicIPAddressesClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -188,7 +188,7 @@ func (client *PublicIPAddressesClient) deleteCreateRequest(ctx context.Context, 
 
 // Get - Gets the specified public IP address in a specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // publicIPAddressName - The name of the public IP address.
 // options - PublicIPAddressesClientGetOptions contains the optional parameters for the PublicIPAddressesClient.Get method.
@@ -227,7 +227,7 @@ func (client *PublicIPAddressesClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -247,7 +247,7 @@ func (client *PublicIPAddressesClient) getHandleResponse(resp *http.Response) (P
 
 // GetCloudServicePublicIPAddress - Get the specified public IP address in a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // cloudServiceName - The name of the cloud service.
 // roleInstanceName - The role instance name.
@@ -307,7 +307,7 @@ func (client *PublicIPAddressesClient) getCloudServicePublicIPAddressCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -327,7 +327,7 @@ func (client *PublicIPAddressesClient) getCloudServicePublicIPAddressHandleRespo
 
 // GetVirtualMachineScaleSetPublicIPAddress - Get the specified public IP address in a virtual machine scale set.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2018-10-01
 // resourceGroupName - The name of the resource group.
 // virtualMachineScaleSetName - The name of the virtual machine scale set.
 // virtualmachineIndex - The virtual machine index.
@@ -387,7 +387,7 @@ func (client *PublicIPAddressesClient) getVirtualMachineScaleSetPublicIPAddressC
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2018-10-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -407,7 +407,7 @@ func (client *PublicIPAddressesClient) getVirtualMachineScaleSetPublicIPAddressH
 
 // NewListPager - Gets all public IP addresses in a resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // options - PublicIPAddressesClientListOptions contains the optional parameters for the PublicIPAddressesClient.List method.
 func (client *PublicIPAddressesClient) NewListPager(resourceGroupName string, options *PublicIPAddressesClientListOptions) *runtime.Pager[PublicIPAddressesClientListResponse] {
@@ -454,7 +454,7 @@ func (client *PublicIPAddressesClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -471,7 +471,7 @@ func (client *PublicIPAddressesClient) listHandleResponse(resp *http.Response) (
 
 // NewListAllPager - Gets all the public IP addresses in a subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // options - PublicIPAddressesClientListAllOptions contains the optional parameters for the PublicIPAddressesClient.ListAll
 // method.
 func (client *PublicIPAddressesClient) NewListAllPager(options *PublicIPAddressesClientListAllOptions) *runtime.Pager[PublicIPAddressesClientListAllResponse] {
@@ -514,7 +514,7 @@ func (client *PublicIPAddressesClient) listAllCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -531,7 +531,7 @@ func (client *PublicIPAddressesClient) listAllHandleResponse(resp *http.Response
 
 // NewListCloudServicePublicIPAddressesPager - Gets information about all public IP addresses on a cloud service level.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // cloudServiceName - The name of the cloud service.
 // options - PublicIPAddressesClientListCloudServicePublicIPAddressesOptions contains the optional parameters for the PublicIPAddressesClient.ListCloudServicePublicIPAddresses
@@ -584,7 +584,7 @@ func (client *PublicIPAddressesClient) listCloudServicePublicIPAddressesCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -602,7 +602,7 @@ func (client *PublicIPAddressesClient) listCloudServicePublicIPAddressesHandleRe
 // NewListCloudServiceRoleInstancePublicIPAddressesPager - Gets information about all public IP addresses in a role instance
 // IP configuration in a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // cloudServiceName - The name of the cloud service.
 // roleInstanceName - The name of role instance.
@@ -670,7 +670,7 @@ func (client *PublicIPAddressesClient) listCloudServiceRoleInstancePublicIPAddre
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -688,7 +688,7 @@ func (client *PublicIPAddressesClient) listCloudServiceRoleInstancePublicIPAddre
 // NewListVirtualMachineScaleSetPublicIPAddressesPager - Gets information about all public IP addresses on a virtual machine
 // scale set level.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2018-10-01
 // resourceGroupName - The name of the resource group.
 // virtualMachineScaleSetName - The name of the virtual machine scale set.
 // options - PublicIPAddressesClientListVirtualMachineScaleSetPublicIPAddressesOptions contains the optional parameters for
@@ -741,7 +741,7 @@ func (client *PublicIPAddressesClient) listVirtualMachineScaleSetPublicIPAddress
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2018-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -759,7 +759,7 @@ func (client *PublicIPAddressesClient) listVirtualMachineScaleSetPublicIPAddress
 // NewListVirtualMachineScaleSetVMPublicIPAddressesPager - Gets information about all public IP addresses in a virtual machine
 // IP configuration in a virtual machine scale set.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2018-10-01
 // resourceGroupName - The name of the resource group.
 // virtualMachineScaleSetName - The name of the virtual machine scale set.
 // virtualmachineIndex - The virtual machine index.
@@ -827,7 +827,7 @@ func (client *PublicIPAddressesClient) listVirtualMachineScaleSetVMPublicIPAddre
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2018-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -844,7 +844,7 @@ func (client *PublicIPAddressesClient) listVirtualMachineScaleSetVMPublicIPAddre
 
 // UpdateTags - Updates public IP address tags.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // publicIPAddressName - The name of the public IP address.
 // parameters - Parameters supplied to update public IP address tags.
@@ -885,7 +885,7 @@ func (client *PublicIPAddressesClient) updateTagsCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
