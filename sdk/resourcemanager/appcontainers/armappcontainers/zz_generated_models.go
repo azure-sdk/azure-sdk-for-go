@@ -1881,7 +1881,7 @@ type VnetConfiguration struct {
 	InfrastructureSubnetID *string `json:"infrastructureSubnetId,omitempty"`
 
 	// Boolean indicating the environment only has an internal load balancer. These environments do not have a public static IP
-	// resource, must provide ControlPlaneSubnetResourceId and AppSubnetResourceId if
+	// resource. They must provide runtimeSubnetId and infrastructureSubnetId if
 	// enabling this property
 	Internal *bool `json:"internal,omitempty"`
 
