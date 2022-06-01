@@ -67,9 +67,7 @@ func (client *EnergyServicesClient) BeginAddPartition(ctx context.Context, resou
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[EnergyServicesClientAddPartitionResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[EnergyServicesClientAddPartitionResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[EnergyServicesClientAddPartitionResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -87,7 +85,7 @@ func (client *EnergyServicesClient) addPartition(ctx context.Context, resourceGr
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusCreated) {
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
@@ -501,9 +499,7 @@ func (client *EnergyServicesClient) BeginRemovePartition(ctx context.Context, re
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[EnergyServicesClientRemovePartitionResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[EnergyServicesClientRemovePartitionResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[EnergyServicesClientRemovePartitionResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -521,7 +517,7 @@ func (client *EnergyServicesClient) removePartition(ctx context.Context, resourc
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusCreated) {
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil

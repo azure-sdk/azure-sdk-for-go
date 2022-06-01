@@ -1,5 +1,18 @@
 # Release History
 
+## 0.5.0 (2022-06-01)
+### Breaking Changes
+
+- Type of `DataPartitionAddOrRemoveRequest.Name` has been changed from `*string` to `*DataPartitionNames`
+- Field `Value` of struct `DataPartitionsListResult` has been removed
+
+### Features Added
+
+- New anonymous field `DataPartitionAddOrRemoveRequest` in struct `EnergyServicesClientRemovePartitionResponse`
+- New anonymous field `DataPartitionAddOrRemoveRequest` in struct `EnergyServicesClientAddPartitionResponse`
+- New field `DataPartitionInfo` in struct `DataPartitionsListResult`
+
+
 ## 0.4.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/oep/armoep` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.4.0, which contains breaking changes.

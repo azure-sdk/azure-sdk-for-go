@@ -33,8 +33,8 @@ type CheckNameAvailabilityResponse struct {
 
 // DataPartitionAddOrRemoveRequest - Defines the partition add/ delete action properties.
 type DataPartitionAddOrRemoveRequest struct {
-	// Name of the data partition
-	Name *string `json:"name,omitempty"`
+	// The list of Energy services resource's Data Partition Names.
+	Name *DataPartitionNames `json:"name,omitempty"`
 }
 
 // DataPartitionNames - The list of Energy services resource's Data Partition Names.
@@ -59,7 +59,7 @@ type DataPartitionsList struct {
 // DataPartitionsListResult - List of data partitions.
 type DataPartitionsListResult struct {
 	// List of data partitions along with their properties in a given OEP resource.
-	Value []*DataPartitionProperties `json:"value,omitempty"`
+	DataPartitionInfo []*DataPartitionProperties `json:"dataPartitionInfo,omitempty"`
 }
 
 // EnergyResourceUpdate - The resource model definition used for updating a tracked ARM resource.
