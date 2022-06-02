@@ -73,9 +73,7 @@ func (client *BuildpackBindingClient) BeginCreateOrUpdate(ctx context.Context, r
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[BuildpackBindingClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[BuildpackBindingClientCreateOrUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[BuildpackBindingClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -154,9 +152,7 @@ func (client *BuildpackBindingClient) BeginDelete(ctx context.Context, resourceG
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[BuildpackBindingClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[BuildpackBindingClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[BuildpackBindingClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}

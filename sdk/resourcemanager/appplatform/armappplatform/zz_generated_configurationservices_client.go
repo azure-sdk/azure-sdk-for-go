@@ -72,9 +72,7 @@ func (client *ConfigurationServicesClient) BeginCreateOrUpdate(ctx context.Conte
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[ConfigurationServicesClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[ConfigurationServicesClientCreateOrUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[ConfigurationServicesClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -144,9 +142,7 @@ func (client *ConfigurationServicesClient) BeginDelete(ctx context.Context, reso
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[ConfigurationServicesClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[ConfigurationServicesClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[ConfigurationServicesClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}

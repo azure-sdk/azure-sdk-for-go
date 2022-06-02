@@ -72,9 +72,7 @@ func (client *GatewayCustomDomainsClient) BeginCreateOrUpdate(ctx context.Contex
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[GatewayCustomDomainsClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[GatewayCustomDomainsClientCreateOrUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[GatewayCustomDomainsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -148,9 +146,7 @@ func (client *GatewayCustomDomainsClient) BeginDelete(ctx context.Context, resou
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[GatewayCustomDomainsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[GatewayCustomDomainsClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[GatewayCustomDomainsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}

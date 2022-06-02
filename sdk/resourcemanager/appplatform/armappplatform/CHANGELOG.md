@@ -203,6 +203,10 @@
 - New field `VnetAddons` in struct `AppResourceProperties`
 
 
+## 1.1.0-beta.2 (2022-06-02)
+### Other Changes
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appplatform/armappplatform` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
