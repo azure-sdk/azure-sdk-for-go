@@ -1,5 +1,5 @@
 {
-  "commit": "50ed15bd61ac79f2368d769df0c207a00b9e099f",
+  "commit": "072dca0080f39db3099eb21cf610456e62c16fb2",
   "readme": "/_/azure-rest-api-specs/specification/redhatopenshift/resource-manager/readme.md",
   "tag": "package-2022-04-01",
   "use": "@microsoft.azure/autorest.go@2.1.187",
