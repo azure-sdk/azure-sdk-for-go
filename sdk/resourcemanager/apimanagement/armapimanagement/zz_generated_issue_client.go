@@ -58,7 +58,7 @@ func NewIssueClient(subscriptionID string, credential azcore.TokenCredential, op
 
 // Get - Gets API Management issue details
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // issueID - Issue identifier. Must be unique in the current API Management service instance.
@@ -102,7 +102,7 @@ func (client *IssueClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -122,7 +122,7 @@ func (client *IssueClient) getHandleResponse(resp *http.Response) (IssueClientGe
 
 // NewListByServicePager - Lists a collection of issues in the specified service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - IssueClientListByServiceOptions contains the optional parameters for the IssueClient.ListByService method.
@@ -183,7 +183,7 @@ func (client *IssueClient) listByServiceCreateRequest(ctx context.Context, resou
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

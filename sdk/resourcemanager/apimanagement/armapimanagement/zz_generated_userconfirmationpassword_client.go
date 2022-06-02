@@ -57,7 +57,7 @@ func NewUserConfirmationPasswordClient(subscriptionID string, credential azcore.
 
 // Send - Sends confirmation
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // userID - User identifier. Must be unique in the current API Management service instance.
@@ -102,7 +102,7 @@ func (client *UserConfirmationPasswordClient) sendCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	if options != nil && options.AppType != nil {
 		reqQP.Set("appType", string(*options.AppType))
 	}

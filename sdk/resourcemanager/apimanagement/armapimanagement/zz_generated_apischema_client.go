@@ -58,7 +58,7 @@ func NewAPISchemaClient(subscriptionID string, credential azcore.TokenCredential
 
 // BeginCreateOrUpdate - Creates or updates schema configuration for the API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -83,7 +83,7 @@ func (client *APISchemaClient) BeginCreateOrUpdate(ctx context.Context, resource
 
 // CreateOrUpdate - Creates or updates schema configuration for the API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *APISchemaClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiID string, schemaID string, parameters SchemaContract, options *APISchemaClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, apiID, schemaID, parameters, options)
 	if err != nil {
@@ -127,7 +127,7 @@ func (client *APISchemaClient) createOrUpdateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -138,7 +138,7 @@ func (client *APISchemaClient) createOrUpdateCreateRequest(ctx context.Context, 
 
 // Delete - Deletes the schema configuration at the Api.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -193,7 +193,7 @@ func (client *APISchemaClient) deleteCreateRequest(ctx context.Context, resource
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -202,7 +202,7 @@ func (client *APISchemaClient) deleteCreateRequest(ctx context.Context, resource
 
 // Get - Get the schema configuration at the API level.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -252,7 +252,7 @@ func (client *APISchemaClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -271,7 +271,7 @@ func (client *APISchemaClient) getHandleResponse(resp *http.Response) (APISchema
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the schema specified by its identifier.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -321,7 +321,7 @@ func (client *APISchemaClient) getEntityTagCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -339,7 +339,7 @@ func (client *APISchemaClient) getEntityTagHandleResponse(resp *http.Response) (
 
 // NewListByAPIPager - Get the schema configuration at the API level.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
@@ -406,7 +406,7 @@ func (client *APISchemaClient) listByAPICreateRequest(ctx context.Context, resou
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

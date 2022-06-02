@@ -261,6 +261,15 @@ func (a ApimResource) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AuthenticationSettingsContract.
+func (a AuthenticationSettingsContract) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "oAuth2", a.OAuth2)
+	populate(objectMap, "oAuth2AuthenticationSettings", a.OAuth2AuthenticationSettings)
+	populate(objectMap, "openid", a.Openid)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AuthorizationServerContractBaseProperties.
 func (a AuthorizationServerContractBaseProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -296,6 +305,8 @@ func (a AuthorizationServerContractProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "supportState", a.SupportState)
 	populate(objectMap, "tokenBodyParameters", a.TokenBodyParameters)
 	populate(objectMap, "tokenEndpoint", a.TokenEndpoint)
+	populate(objectMap, "useInApiDocumentation", a.UseInAPIDocumentation)
+	populate(objectMap, "useInTestConsole", a.UseInTestConsole)
 	return json.Marshal(objectMap)
 }
 
@@ -328,6 +339,8 @@ func (a AuthorizationServerUpdateContractProperties) MarshalJSON() ([]byte, erro
 	populate(objectMap, "supportState", a.SupportState)
 	populate(objectMap, "tokenBodyParameters", a.TokenBodyParameters)
 	populate(objectMap, "tokenEndpoint", a.TokenEndpoint)
+	populate(objectMap, "useInApiDocumentation", a.UseInAPIDocumentation)
+	populate(objectMap, "useInTestConsole", a.UseInTestConsole)
 	return json.Marshal(objectMap)
 }
 
@@ -653,6 +666,7 @@ func (i IdentityProviderBaseParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "allowedTenants", i.AllowedTenants)
 	populate(objectMap, "authority", i.Authority)
+	populate(objectMap, "clientLibrary", i.ClientLibrary)
 	populate(objectMap, "passwordResetPolicyName", i.PasswordResetPolicyName)
 	populate(objectMap, "profileEditingPolicyName", i.ProfileEditingPolicyName)
 	populate(objectMap, "signinPolicyName", i.SigninPolicyName)
@@ -668,6 +682,7 @@ func (i IdentityProviderContractProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "allowedTenants", i.AllowedTenants)
 	populate(objectMap, "authority", i.Authority)
 	populate(objectMap, "clientId", i.ClientID)
+	populate(objectMap, "clientLibrary", i.ClientLibrary)
 	populate(objectMap, "clientSecret", i.ClientSecret)
 	populate(objectMap, "passwordResetPolicyName", i.PasswordResetPolicyName)
 	populate(objectMap, "profileEditingPolicyName", i.ProfileEditingPolicyName)
@@ -684,6 +699,7 @@ func (i IdentityProviderCreateContractProperties) MarshalJSON() ([]byte, error) 
 	populate(objectMap, "allowedTenants", i.AllowedTenants)
 	populate(objectMap, "authority", i.Authority)
 	populate(objectMap, "clientId", i.ClientID)
+	populate(objectMap, "clientLibrary", i.ClientLibrary)
 	populate(objectMap, "clientSecret", i.ClientSecret)
 	populate(objectMap, "passwordResetPolicyName", i.PasswordResetPolicyName)
 	populate(objectMap, "profileEditingPolicyName", i.ProfileEditingPolicyName)
@@ -707,6 +723,7 @@ func (i IdentityProviderUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "allowedTenants", i.AllowedTenants)
 	populate(objectMap, "authority", i.Authority)
 	populate(objectMap, "clientId", i.ClientID)
+	populate(objectMap, "clientLibrary", i.ClientLibrary)
 	populate(objectMap, "clientSecret", i.ClientSecret)
 	populate(objectMap, "passwordResetPolicyName", i.PasswordResetPolicyName)
 	populate(objectMap, "profileEditingPolicyName", i.ProfileEditingPolicyName)
@@ -1123,6 +1140,32 @@ func (p ParameterContract) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "type", p.Type)
 	populate(objectMap, "typeName", p.TypeName)
 	populate(objectMap, "values", p.Values)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PortalConfigContract.
+func (p PortalConfigContract) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", p.ID)
+	populate(objectMap, "name", p.Name)
+	populate(objectMap, "properties", p.Properties)
+	populate(objectMap, "type", p.Type)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PortalConfigCorsProperties.
+func (p PortalConfigCorsProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "allowedOrigins", p.AllowedOrigins)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PortalConfigCspProperties.
+func (p PortalConfigCspProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "allowedSources", p.AllowedSources)
+	populate(objectMap, "mode", p.Mode)
+	populate(objectMap, "reportUri", p.ReportURI)
 	return json.Marshal(objectMap)
 }
 

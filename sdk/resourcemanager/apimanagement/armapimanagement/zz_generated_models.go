@@ -1311,6 +1311,9 @@ type AuthenticationSettingsContract struct {
 	// OAuth2 Authentication settings
 	OAuth2 *OAuth2AuthenticationSettingsContract `json:"oAuth2,omitempty"`
 
+	// Collection of OAuth2 authentication settings included into this API.
+	OAuth2AuthenticationSettings []*OAuth2AuthenticationSettingsContract `json:"oAuth2AuthenticationSettings,omitempty"`
+
 	// OpenID Connect Authentication Settings
 	Openid *OpenIDAuthenticationSettingsContract `json:"openid,omitempty"`
 }
@@ -1490,6 +1493,13 @@ type AuthorizationServerContractProperties struct {
 
 	// OAuth token endpoint. Contains absolute URI to entity being referenced.
 	TokenEndpoint *string `json:"tokenEndpoint,omitempty"`
+
+	// If true, the authorization server will be used in the API documentation in the developer portal. False by default if no
+	// value is provided.
+	UseInAPIDocumentation *bool `json:"useInApiDocumentation,omitempty"`
+
+	// If true, the authorization server may be used in the developer portal test console. True by default if no value is provided.
+	UseInTestConsole *bool `json:"useInTestConsole,omitempty"`
 }
 
 // AuthorizationServerSecretsContract - OAuth Server Secrets Contract.
@@ -1580,6 +1590,13 @@ type AuthorizationServerUpdateContractProperties struct {
 
 	// OAuth token endpoint. Contains absolute URI to entity being referenced.
 	TokenEndpoint *string `json:"tokenEndpoint,omitempty"`
+
+	// If true, the authorization server will be used in the API documentation in the developer portal. False by default if no
+	// value is provided.
+	UseInAPIDocumentation *bool `json:"useInApiDocumentation,omitempty"`
+
+	// If true, the authorization server may be used in the developer portal test console. True by default if no value is provided.
+	UseInTestConsole *bool `json:"useInTestConsole,omitempty"`
 }
 
 // BackendAuthorizationHeaderCredentials - Authorization header information.
@@ -2294,7 +2311,8 @@ type ContentItemContract struct {
 // ContentTypeClientCreateOrUpdateOptions contains the optional parameters for the ContentTypeClient.CreateOrUpdate method.
 type ContentTypeClientCreateOrUpdateOptions struct {
 	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
-	IfMatch *string
+	IfMatch    *string
+	Parameters *ContentTypeContract
 }
 
 // ContentTypeClientDeleteOptions contains the optional parameters for the ContentTypeClient.Delete method.
@@ -3357,6 +3375,9 @@ type IdentityProviderBaseParameters struct {
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string `json:"authority,omitempty"`
 
+	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
+	ClientLibrary *string `json:"clientLibrary,omitempty"`
+
 	// Password Reset Policy Name. Only applies to AAD B2C Identity Provider.
 	PasswordResetPolicyName *string `json:"passwordResetPolicyName,omitempty"`
 
@@ -3443,6 +3464,9 @@ type IdentityProviderContractProperties struct {
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string `json:"authority,omitempty"`
 
+	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
+	ClientLibrary *string `json:"clientLibrary,omitempty"`
+
 	// Client secret of the Application in external Identity Provider, used to authenticate login request. For example, it is
 	// App Secret for Facebook login, API Key for Google login, Public Key for
 	// Microsoft. This property will not be filled on 'GET' operations! Use '/listSecrets' POST request to get the value.
@@ -3500,6 +3524,9 @@ type IdentityProviderCreateContractProperties struct {
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string `json:"authority,omitempty"`
 
+	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
+	ClientLibrary *string `json:"clientLibrary,omitempty"`
+
 	// Password Reset Policy Name. Only applies to AAD B2C Identity Provider.
 	PasswordResetPolicyName *string `json:"passwordResetPolicyName,omitempty"`
 
@@ -3548,6 +3575,9 @@ type IdentityProviderUpdateProperties struct {
 	// Client Id of the Application in the external Identity Provider. It is App ID for Facebook login, Client ID for Google login,
 	// App ID for Microsoft.
 	ClientID *string `json:"clientId,omitempty"`
+
+	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
+	ClientLibrary *string `json:"clientLibrary,omitempty"`
 
 	// Client secret of the Application in external Identity Provider, used to authenticate login request. For example, it is
 	// App Secret for Facebook login, API Key for Google login, Public Key for
@@ -4786,6 +4816,212 @@ type PolicyDescriptionContractProperties struct {
 	Scope *int64 `json:"scope,omitempty" azure:"ro"`
 }
 
+// PolicyFragmentClientBeginCreateOrUpdateOptions contains the optional parameters for the PolicyFragmentClient.BeginCreateOrUpdate
+// method.
+type PolicyFragmentClientBeginCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PolicyFragmentClientDeleteOptions contains the optional parameters for the PolicyFragmentClient.Delete method.
+type PolicyFragmentClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyFragmentClientGetEntityTagOptions contains the optional parameters for the PolicyFragmentClient.GetEntityTag method.
+type PolicyFragmentClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyFragmentClientGetOptions contains the optional parameters for the PolicyFragmentClient.Get method.
+type PolicyFragmentClientGetOptions struct {
+	// Policy fragment content format.
+	Format *PolicyFragmentContentFormat
+}
+
+// PolicyFragmentClientListByServiceOptions contains the optional parameters for the PolicyFragmentClient.ListByService method.
+type PolicyFragmentClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter, orderBy | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | value | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+	// OData order by query option.
+	Orderby *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// PolicyFragmentClientListReferencesOptions contains the optional parameters for the PolicyFragmentClient.ListReferences
+// method.
+type PolicyFragmentClientListReferencesOptions struct {
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// PolicyFragmentCollection - The response of the get policy fragments operation.
+type PolicyFragmentCollection struct {
+	// Total record count number.
+	Count *int64 `json:"count,omitempty"`
+
+	// Next page link if any.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Policy fragment contract value.
+	Value []*PolicyFragmentContract `json:"value,omitempty"`
+}
+
+// PolicyFragmentContract - Policy fragment contract details.
+type PolicyFragmentContract struct {
+	// Properties of the Policy Fragment.
+	Properties *PolicyFragmentContractProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PolicyFragmentContractProperties - Policy fragment contract properties.
+type PolicyFragmentContractProperties struct {
+	// REQUIRED; Contents of the policy fragment.
+	Value *string `json:"value,omitempty"`
+
+	// Policy fragment description.
+	Description *string `json:"description,omitempty"`
+
+	// Format of the policy fragment content.
+	Format *PolicyFragmentContentFormat `json:"format,omitempty"`
+}
+
+// PortalConfigClientCreateOrUpdateOptions contains the optional parameters for the PortalConfigClient.CreateOrUpdate method.
+type PortalConfigClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigClientGetEntityTagOptions contains the optional parameters for the PortalConfigClient.GetEntityTag method.
+type PortalConfigClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigClientGetOptions contains the optional parameters for the PortalConfigClient.Get method.
+type PortalConfigClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigClientListByServiceOptions contains the optional parameters for the PortalConfigClient.ListByService method.
+type PortalConfigClientListByServiceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigClientUpdateOptions contains the optional parameters for the PortalConfigClient.Update method.
+type PortalConfigClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigCollection - The collection of the developer portal configurations.
+type PortalConfigCollection struct {
+	// The developer portal configurations.
+	Value []*PortalConfigContract `json:"value,omitempty"`
+
+	// READ-ONLY; Next page link if any.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// PortalConfigContract - The developer portal configuration contract.
+type PortalConfigContract struct {
+	// The developer portal configuration contract properties.
+	Properties *PortalConfigProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PortalConfigCorsProperties - The developer portal Cross-Origin Resource Sharing (CORS) settings.
+type PortalConfigCorsProperties struct {
+	// Allowed origins, e.g. https://trusted.com.
+	AllowedOrigins []*string `json:"allowedOrigins,omitempty"`
+}
+
+// PortalConfigCspProperties - The developer portal Content Security Policy (CSP) settings.
+type PortalConfigCspProperties struct {
+	// Allowed sources, e.g. *.trusted.com, trusted.com, https://.
+	AllowedSources []*string `json:"allowedSources,omitempty"`
+
+	// The mode of the developer portal Content Security Policy (CSP).
+	Mode *PortalSettingsCspMode `json:"mode,omitempty"`
+
+	// The URLs used by the browser to report CSP violations.
+	ReportURI []*string `json:"reportUri,omitempty"`
+}
+
+type PortalConfigDelegationProperties struct {
+	// Enable or disable delegation for user registration.
+	DelegateRegistration *bool `json:"delegateRegistration,omitempty"`
+
+	// Enable or disable delegation for product subscriptions.
+	DelegateSubscription *bool `json:"delegateSubscription,omitempty"`
+
+	// A delegation endpoint URL.
+	DelegationURL *string `json:"delegationUrl,omitempty"`
+
+	// A base64-encoded validation key to ensure requests originate from Azure API Management service.
+	ValidationKey *string `json:"validationKey,omitempty"`
+}
+
+// PortalConfigProperties - The developer portal configuration contract properties.
+type PortalConfigProperties struct {
+	// The developer portal Cross-Origin Resource Sharing (CORS) settings.
+	Cors *PortalConfigCorsProperties `json:"cors,omitempty"`
+
+	// The developer portal Content Security Policy (CSP) settings.
+	Csp *PortalConfigCspProperties `json:"csp,omitempty"`
+
+	// The developer portal delegation settings.
+	Delegation *PortalConfigDelegationProperties `json:"delegation,omitempty"`
+
+	// Enable or disable Basic authentication method.
+	EnableBasicAuth *bool                         `json:"enableBasicAuth,omitempty"`
+	Signin          *PortalConfigPropertiesSignin `json:"signin,omitempty"`
+	Signup          *PortalConfigPropertiesSignup `json:"signup,omitempty"`
+}
+
+type PortalConfigPropertiesSignin struct {
+	// Redirect anonymous users to the sign-in page.
+	Require *bool `json:"require,omitempty"`
+}
+
+type PortalConfigPropertiesSignup struct {
+	// Terms of service settings.
+	TermsOfService *PortalConfigTermsOfServiceProperties `json:"termsOfService,omitempty"`
+}
+
+// PortalConfigTermsOfServiceProperties - Terms of service contract properties.
+type PortalConfigTermsOfServiceProperties struct {
+	// Ask user for consent to the terms of service.
+	RequireConsent *bool `json:"requireConsent,omitempty"`
+
+	// A terms of service text.
+	Text *string `json:"text,omitempty"`
+}
+
 // PortalDelegationSettings - Delegation settings for a developer portal.
 type PortalDelegationSettings struct {
 	// Delegation settings contract properties.
@@ -5976,6 +6212,29 @@ type RequestReportRecordContract struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ResourceCollection - A collection of resources.
+type ResourceCollection struct {
+	// Total record count number.
+	Count *int64 `json:"count,omitempty"`
+
+	// Next page link if any.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// A collection of resources.
+	Value []*ResourceCollectionValueItem `json:"value,omitempty"`
+}
+
+type ResourceCollectionValueItem struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string `json:"id,omitempty" azure:"ro"`
 

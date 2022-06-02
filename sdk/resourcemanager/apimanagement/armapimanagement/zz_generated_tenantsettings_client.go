@@ -57,7 +57,7 @@ func NewTenantSettingsClient(subscriptionID string, credential azcore.TokenCrede
 
 // Get - Get tenant settings.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // settingsType - The identifier of the settings.
@@ -101,7 +101,7 @@ func (client *TenantSettingsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +121,7 @@ func (client *TenantSettingsClient) getHandleResponse(resp *http.Response) (Tena
 
 // NewListByServicePager - Public settings.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - TenantSettingsClientListByServiceOptions contains the optional parameters for the TenantSettingsClient.ListByService
@@ -177,7 +177,7 @@ func (client *TenantSettingsClient) listByServiceCreateRequest(ctx context.Conte
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

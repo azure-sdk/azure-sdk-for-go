@@ -58,7 +58,7 @@ func NewQuotaByPeriodKeysClient(subscriptionID string, credential azcore.TokenCr
 // Get - Gets the value of the quota counter associated with the counter-key in the policy for the specific period in service
 // instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // quotaCounterKey - Quota counter key identifier.This is the result of expression defined in counter-key attribute of the
@@ -109,7 +109,7 @@ func (client *QuotaByPeriodKeysClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -126,7 +126,7 @@ func (client *QuotaByPeriodKeysClient) getHandleResponse(resp *http.Response) (Q
 
 // Update - Updates an existing quota counter value in the specified service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // quotaCounterKey - Quota counter key identifier.This is the result of expression defined in counter-key attribute of the
@@ -179,7 +179,7 @@ func (client *QuotaByPeriodKeysClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

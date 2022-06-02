@@ -10,7 +10,7 @@ package armapimanagement
 
 const (
 	moduleName    = "armapimanagement"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // APIManagementSKUCapacityScaleType - The scale type applicable to the sku.
@@ -954,6 +954,23 @@ func PossiblePolicyExportFormatValues() []PolicyExportFormat {
 	}
 }
 
+type PolicyFragmentContentFormat string
+
+const (
+	// PolicyFragmentContentFormatRawxml - The contents are inline and Content type is a non XML encoded policy document.
+	PolicyFragmentContentFormatRawxml PolicyFragmentContentFormat = "rawxml"
+	// PolicyFragmentContentFormatXML - The contents are inline and Content type is an XML document.
+	PolicyFragmentContentFormatXML PolicyFragmentContentFormat = "xml"
+)
+
+// PossiblePolicyFragmentContentFormatValues returns the possible values for the PolicyFragmentContentFormat const type.
+func PossiblePolicyFragmentContentFormatValues() []PolicyFragmentContentFormat {
+	return []PolicyFragmentContentFormat{
+		PolicyFragmentContentFormatRawxml,
+		PolicyFragmentContentFormatXML,
+	}
+}
+
 type PolicyIDName string
 
 const (
@@ -1009,6 +1026,27 @@ func PossiblePortalRevisionStatusValues() []PortalRevisionStatus {
 		PortalRevisionStatusFailed,
 		PortalRevisionStatusPending,
 		PortalRevisionStatusPublishing,
+	}
+}
+
+// PortalSettingsCspMode - The mode of the developer portal Content Security Policy (CSP).
+type PortalSettingsCspMode string
+
+const (
+	// PortalSettingsCspModeDisabled - The browser will not apply the origin restrictions.
+	PortalSettingsCspModeDisabled PortalSettingsCspMode = "disabled"
+	// PortalSettingsCspModeEnabled - The browser will block requests not matching allowed origins.
+	PortalSettingsCspModeEnabled PortalSettingsCspMode = "enabled"
+	// PortalSettingsCspModeReportOnly - The browser will report requests not matching allowed origins without blocking them.
+	PortalSettingsCspModeReportOnly PortalSettingsCspMode = "reportOnly"
+)
+
+// PossiblePortalSettingsCspModeValues returns the possible values for the PortalSettingsCspMode const type.
+func PossiblePortalSettingsCspModeValues() []PortalSettingsCspMode {
+	return []PortalSettingsCspMode{
+		PortalSettingsCspModeDisabled,
+		PortalSettingsCspModeEnabled,
+		PortalSettingsCspModeReportOnly,
 	}
 }
 

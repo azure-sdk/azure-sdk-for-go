@@ -58,7 +58,7 @@ func NewBackendClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // CreateOrUpdate - Creates or Updates a backend.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // backendID - Identifier of the Backend entity. Must be unique in the current API Management service instance.
@@ -103,7 +103,7 @@ func (client *BackendClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -126,7 +126,7 @@ func (client *BackendClient) createOrUpdateHandleResponse(resp *http.Response) (
 
 // Delete - Deletes the specified backend.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // backendID - Identifier of the Backend entity. Must be unique in the current API Management service instance.
@@ -172,7 +172,7 @@ func (client *BackendClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -181,7 +181,7 @@ func (client *BackendClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // Get - Gets the details of the backend specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // backendID - Identifier of the Backend entity. Must be unique in the current API Management service instance.
@@ -225,7 +225,7 @@ func (client *BackendClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -244,7 +244,7 @@ func (client *BackendClient) getHandleResponse(resp *http.Response) (BackendClie
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the backend specified by its identifier.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // backendID - Identifier of the Backend entity. Must be unique in the current API Management service instance.
@@ -288,7 +288,7 @@ func (client *BackendClient) getEntityTagCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -306,7 +306,7 @@ func (client *BackendClient) getEntityTagHandleResponse(resp *http.Response) (Ba
 
 // NewListByServicePager - Lists a collection of backends in the specified service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - BackendClientListByServiceOptions contains the optional parameters for the BackendClient.ListByService method.
@@ -367,7 +367,7 @@ func (client *BackendClient) listByServiceCreateRequest(ctx context.Context, res
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -385,7 +385,7 @@ func (client *BackendClient) listByServiceHandleResponse(resp *http.Response) (B
 // Reconnect - Notifies the APIM proxy to create a new connection to the backend after the specified timeout. If no timeout
 // was specified, timeout of 2 minutes is used.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // backendID - Identifier of the Backend entity. Must be unique in the current API Management service instance.
@@ -429,7 +429,7 @@ func (client *BackendClient) reconnectCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {
@@ -440,7 +440,7 @@ func (client *BackendClient) reconnectCreateRequest(ctx context.Context, resourc
 
 // Update - Updates an existing backend.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // backendID - Identifier of the Backend entity. Must be unique in the current API Management service instance.
@@ -487,7 +487,7 @@ func (client *BackendClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

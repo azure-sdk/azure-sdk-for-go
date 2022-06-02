@@ -56,7 +56,7 @@ func NewNotificationRecipientUserClient(subscriptionID string, credential azcore
 }
 
 // CheckEntityExists - Determine if the Notification Recipient User is subscribed to the notification.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // notificationName - Notification Name Identifier.
@@ -106,7 +106,7 @@ func (client *NotificationRecipientUserClient) checkEntityExistsCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *NotificationRecipientUserClient) checkEntityExistsCreateRequest(ct
 
 // CreateOrUpdate - Adds the API Management User to the list of Recipients for the Notification.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // notificationName - Notification Name Identifier.
@@ -164,7 +164,7 @@ func (client *NotificationRecipientUserClient) createOrUpdateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,7 +181,7 @@ func (client *NotificationRecipientUserClient) createOrUpdateHandleResponse(resp
 
 // Delete - Removes the API Management user from the list of Notification.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // notificationName - Notification Name Identifier.
@@ -231,7 +231,7 @@ func (client *NotificationRecipientUserClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +239,7 @@ func (client *NotificationRecipientUserClient) deleteCreateRequest(ctx context.C
 
 // ListByNotification - Gets the list of the Notification Recipient User subscribed to the notification.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // notificationName - Notification Name Identifier.
@@ -284,7 +284,7 @@ func (client *NotificationRecipientUserClient) listByNotificationCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

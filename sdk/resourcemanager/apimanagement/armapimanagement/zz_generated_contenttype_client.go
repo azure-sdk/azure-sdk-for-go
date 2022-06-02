@@ -59,7 +59,7 @@ func NewContentTypeClient(subscriptionID string, credential azcore.TokenCredenti
 // validation rules, and constraints. Custom content types' identifiers need to start with the c-
 // prefix. Built-in content types can't be modified.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // contentTypeID - Content type identifier.
@@ -104,12 +104,15 @@ func (client *ContentTypeClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.Parameters != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Parameters)
+	}
 	return req, nil
 }
 
@@ -129,7 +132,7 @@ func (client *ContentTypeClient) createOrUpdateHandleResponse(resp *http.Respons
 // rules, and constraints. Built-in content types (with identifiers starting with the
 // c- prefix) can't be removed.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // contentTypeID - Content type identifier.
@@ -175,7 +178,7 @@ func (client *ContentTypeClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -185,7 +188,7 @@ func (client *ContentTypeClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Gets the details of the developer portal's content type. Content types describe content items' properties, validation
 // rules, and constraints.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // contentTypeID - Content type identifier.
@@ -229,7 +232,7 @@ func (client *ContentTypeClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,7 +253,7 @@ func (client *ContentTypeClient) getHandleResponse(resp *http.Response) (Content
 // NewListByServicePager - Lists the developer portal's content types. Content types describe content items' properties, validation
 // rules, and constraints.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - ContentTypeClientListByServiceOptions contains the optional parameters for the ContentTypeClient.ListByService
@@ -303,7 +306,7 @@ func (client *ContentTypeClient) listByServiceCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

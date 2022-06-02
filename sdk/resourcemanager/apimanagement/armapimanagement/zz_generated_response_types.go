@@ -1374,6 +1374,73 @@ type PolicyDescriptionClientListByServiceResponse struct {
 	PolicyDescriptionCollection
 }
 
+// PolicyFragmentClientCreateOrUpdateResponse contains the response from method PolicyFragmentClient.CreateOrUpdate.
+type PolicyFragmentClientCreateOrUpdateResponse struct {
+	PolicyFragmentContract
+}
+
+// PolicyFragmentClientDeleteResponse contains the response from method PolicyFragmentClient.Delete.
+type PolicyFragmentClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PolicyFragmentClientGetEntityTagResponse contains the response from method PolicyFragmentClient.GetEntityTag.
+type PolicyFragmentClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// PolicyFragmentClientGetResponse contains the response from method PolicyFragmentClient.Get.
+type PolicyFragmentClientGetResponse struct {
+	PolicyFragmentContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// PolicyFragmentClientListByServiceResponse contains the response from method PolicyFragmentClient.ListByService.
+type PolicyFragmentClientListByServiceResponse struct {
+	PolicyFragmentCollection
+}
+
+// PolicyFragmentClientListReferencesResponse contains the response from method PolicyFragmentClient.ListReferences.
+type PolicyFragmentClientListReferencesResponse struct {
+	ResourceCollection
+}
+
+// PortalConfigClientCreateOrUpdateResponse contains the response from method PortalConfigClient.CreateOrUpdate.
+type PortalConfigClientCreateOrUpdateResponse struct {
+	PortalConfigContract
+}
+
+// PortalConfigClientGetEntityTagResponse contains the response from method PortalConfigClient.GetEntityTag.
+type PortalConfigClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// PortalConfigClientGetResponse contains the response from method PortalConfigClient.Get.
+type PortalConfigClientGetResponse struct {
+	PortalConfigContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// PortalConfigClientListByServiceResponse contains the response from method PortalConfigClient.ListByService.
+type PortalConfigClientListByServiceResponse struct {
+	PortalConfigCollection
+}
+
+// PortalConfigClientUpdateResponse contains the response from method PortalConfigClient.Update.
+type PortalConfigClientUpdateResponse struct {
+	PortalConfigContract
+}
+
 // PortalRevisionClientCreateOrUpdateResponse contains the response from method PortalRevisionClient.CreateOrUpdate.
 type PortalRevisionClientCreateOrUpdateResponse struct {
 	PortalRevisionContract

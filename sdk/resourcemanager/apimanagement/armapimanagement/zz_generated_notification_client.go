@@ -58,7 +58,7 @@ func NewNotificationClient(subscriptionID string, credential azcore.TokenCredent
 
 // CreateOrUpdate - Create or Update API Management publisher notification.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // notificationName - Notification Name Identifier.
@@ -103,7 +103,7 @@ func (client *NotificationClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -123,7 +123,7 @@ func (client *NotificationClient) createOrUpdateHandleResponse(resp *http.Respon
 
 // Get - Gets the details of the Notification specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // notificationName - Notification Name Identifier.
@@ -167,7 +167,7 @@ func (client *NotificationClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -184,7 +184,7 @@ func (client *NotificationClient) getHandleResponse(resp *http.Response) (Notifi
 
 // NewListByServicePager - Lists a collection of properties defined within a service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - NotificationClientListByServiceOptions contains the optional parameters for the NotificationClient.ListByService
@@ -243,7 +243,7 @@ func (client *NotificationClient) listByServiceCreateRequest(ctx context.Context
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

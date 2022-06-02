@@ -57,7 +57,7 @@ func NewDeletedServicesClient(subscriptionID string, credential azcore.TokenCred
 
 // GetByName - Get soft-deleted Api Management Service by name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // serviceName - The name of the API Management service.
 // location - The location of the deleted API Management service.
 // options - DeletedServicesClientGetByNameOptions contains the optional parameters for the DeletedServicesClient.GetByName
@@ -97,7 +97,7 @@ func (client *DeletedServicesClient) getByNameCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *DeletedServicesClient) getByNameHandleResponse(resp *http.Response
 
 // NewListBySubscriptionPager - Lists all soft-deleted services available for undelete for the given subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // options - DeletedServicesClientListBySubscriptionOptions contains the optional parameters for the DeletedServicesClient.ListBySubscription
 // method.
 func (client *DeletedServicesClient) NewListBySubscriptionPager(options *DeletedServicesClientListBySubscriptionOptions) *runtime.Pager[DeletedServicesClientListBySubscriptionResponse] {
@@ -157,7 +157,7 @@ func (client *DeletedServicesClient) listBySubscriptionCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -174,7 +174,7 @@ func (client *DeletedServicesClient) listBySubscriptionHandleResponse(resp *http
 
 // BeginPurge - Purges Api Management Service (deletes it with no option to undelete).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // serviceName - The name of the API Management service.
 // location - The location of the deleted API Management service.
 // options - DeletedServicesClientBeginPurgeOptions contains the optional parameters for the DeletedServicesClient.BeginPurge
@@ -195,7 +195,7 @@ func (client *DeletedServicesClient) BeginPurge(ctx context.Context, serviceName
 
 // Purge - Purges Api Management Service (deletes it with no option to undelete).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *DeletedServicesClient) purge(ctx context.Context, serviceName string, location string, options *DeletedServicesClientBeginPurgeOptions) (*http.Response, error) {
 	req, err := client.purgeCreateRequest(ctx, serviceName, location, options)
 	if err != nil {
@@ -231,7 +231,7 @@ func (client *DeletedServicesClient) purgeCreateRequest(ctx context.Context, ser
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -58,7 +58,7 @@ func NewNamedValueClient(subscriptionID string, credential azcore.TokenCredentia
 
 // BeginCreateOrUpdate - Creates or updates named value.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // namedValueID - Identifier of the NamedValue.
@@ -81,7 +81,7 @@ func (client *NamedValueClient) BeginCreateOrUpdate(ctx context.Context, resourc
 
 // CreateOrUpdate - Creates or updates named value.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *NamedValueClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, namedValueID string, parameters NamedValueCreateContract, options *NamedValueClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, namedValueID, parameters, options)
 	if err != nil {
@@ -121,7 +121,7 @@ func (client *NamedValueClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -132,7 +132,7 @@ func (client *NamedValueClient) createOrUpdateCreateRequest(ctx context.Context,
 
 // Delete - Deletes specific named value from the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // namedValueID - Identifier of the NamedValue.
@@ -178,7 +178,7 @@ func (client *NamedValueClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -187,7 +187,7 @@ func (client *NamedValueClient) deleteCreateRequest(ctx context.Context, resourc
 
 // Get - Gets the details of the named value specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // namedValueID - Identifier of the NamedValue.
@@ -231,7 +231,7 @@ func (client *NamedValueClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,7 +250,7 @@ func (client *NamedValueClient) getHandleResponse(resp *http.Response) (NamedVal
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the named value specified by its identifier.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // namedValueID - Identifier of the NamedValue.
@@ -294,7 +294,7 @@ func (client *NamedValueClient) getEntityTagCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -312,7 +312,7 @@ func (client *NamedValueClient) getEntityTagHandleResponse(resp *http.Response) 
 
 // NewListByServicePager - Lists a collection of named values defined within a service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - NamedValueClientListByServiceOptions contains the optional parameters for the NamedValueClient.ListByService
@@ -377,7 +377,7 @@ func (client *NamedValueClient) listByServiceCreateRequest(ctx context.Context, 
 	if options != nil && options.IsKeyVaultRefreshFailed != nil {
 		reqQP.Set("isKeyVaultRefreshFailed", strconv.FormatBool(*options.IsKeyVaultRefreshFailed))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -394,7 +394,7 @@ func (client *NamedValueClient) listByServiceHandleResponse(resp *http.Response)
 
 // ListValue - Gets the secret of the named value specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // namedValueID - Identifier of the NamedValue.
@@ -438,7 +438,7 @@ func (client *NamedValueClient) listValueCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -458,7 +458,7 @@ func (client *NamedValueClient) listValueHandleResponse(resp *http.Response) (Na
 
 // BeginRefreshSecret - Refresh the secret of the named value specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // namedValueID - Identifier of the NamedValue.
@@ -480,7 +480,7 @@ func (client *NamedValueClient) BeginRefreshSecret(ctx context.Context, resource
 
 // RefreshSecret - Refresh the secret of the named value specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *NamedValueClient) refreshSecret(ctx context.Context, resourceGroupName string, serviceName string, namedValueID string, options *NamedValueClientBeginRefreshSecretOptions) (*http.Response, error) {
 	req, err := client.refreshSecretCreateRequest(ctx, resourceGroupName, serviceName, namedValueID, options)
 	if err != nil {
@@ -520,7 +520,7 @@ func (client *NamedValueClient) refreshSecretCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -528,7 +528,7 @@ func (client *NamedValueClient) refreshSecretCreateRequest(ctx context.Context, 
 
 // BeginUpdate - Updates the specific named value.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // namedValueID - Identifier of the NamedValue.
@@ -552,7 +552,7 @@ func (client *NamedValueClient) BeginUpdate(ctx context.Context, resourceGroupNa
 
 // Update - Updates the specific named value.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *NamedValueClient) update(ctx context.Context, resourceGroupName string, serviceName string, namedValueID string, ifMatch string, parameters NamedValueUpdateParameters, options *NamedValueClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serviceName, namedValueID, ifMatch, parameters, options)
 	if err != nil {
@@ -592,7 +592,7 @@ func (client *NamedValueClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

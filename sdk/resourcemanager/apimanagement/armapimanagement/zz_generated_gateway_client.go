@@ -58,7 +58,7 @@ func NewGatewayClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // CreateOrUpdate - Creates or updates a Gateway to be used in Api Management instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -103,7 +103,7 @@ func (client *GatewayClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -126,7 +126,7 @@ func (client *GatewayClient) createOrUpdateHandleResponse(resp *http.Response) (
 
 // Delete - Deletes specific Gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -173,7 +173,7 @@ func (client *GatewayClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -182,7 +182,7 @@ func (client *GatewayClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // GenerateToken - Gets the Shared Access Authorization Token for the gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -227,7 +227,7 @@ func (client *GatewayClient) generateTokenCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -244,7 +244,7 @@ func (client *GatewayClient) generateTokenHandleResponse(resp *http.Response) (G
 
 // Get - Gets the details of the Gateway specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -289,7 +289,7 @@ func (client *GatewayClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -308,7 +308,7 @@ func (client *GatewayClient) getHandleResponse(resp *http.Response) (GatewayClie
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the Gateway specified by its identifier.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -353,7 +353,7 @@ func (client *GatewayClient) getEntityTagCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -371,7 +371,7 @@ func (client *GatewayClient) getEntityTagHandleResponse(resp *http.Response) (Ga
 
 // NewListByServicePager - Lists a collection of gateways registered with service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - GatewayClientListByServiceOptions contains the optional parameters for the GatewayClient.ListByService method.
@@ -432,7 +432,7 @@ func (client *GatewayClient) listByServiceCreateRequest(ctx context.Context, res
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -449,7 +449,7 @@ func (client *GatewayClient) listByServiceHandleResponse(resp *http.Response) (G
 
 // ListKeys - Retrieves gateway keys.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -494,7 +494,7 @@ func (client *GatewayClient) listKeysCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -514,7 +514,7 @@ func (client *GatewayClient) listKeysHandleResponse(resp *http.Response) (Gatewa
 
 // RegenerateKey - Regenerates specified gateway key invalidating any tokens created with it.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -559,7 +559,7 @@ func (client *GatewayClient) regenerateKeyCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -567,7 +567,7 @@ func (client *GatewayClient) regenerateKeyCreateRequest(ctx context.Context, res
 
 // Update - Updates the details of the gateway specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // gatewayID - Gateway entity identifier. Must be unique in the current API Management service instance. Must not have value
@@ -614,7 +614,7 @@ func (client *GatewayClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

@@ -58,7 +58,7 @@ func NewAPIIssueClient(subscriptionID string, credential azcore.TokenCredential,
 
 // CreateOrUpdate - Creates a new Issue for an API or updates an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API identifier. Must be unique in the current API Management service instance.
@@ -108,7 +108,7 @@ func (client *APIIssueClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -131,7 +131,7 @@ func (client *APIIssueClient) createOrUpdateHandleResponse(resp *http.Response) 
 
 // Delete - Deletes the specified Issue from an API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API identifier. Must be unique in the current API Management service instance.
@@ -182,7 +182,7 @@ func (client *APIIssueClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -191,7 +191,7 @@ func (client *APIIssueClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Gets the details of the Issue for an API specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API identifier. Must be unique in the current API Management service instance.
@@ -243,7 +243,7 @@ func (client *APIIssueClient) getCreateRequest(ctx context.Context, resourceGrou
 	if options != nil && options.ExpandCommentsAttachments != nil {
 		reqQP.Set("expandCommentsAttachments", strconv.FormatBool(*options.ExpandCommentsAttachments))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -262,7 +262,7 @@ func (client *APIIssueClient) getHandleResponse(resp *http.Response) (APIIssueCl
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the Issue for an API specified by its identifier.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API identifier. Must be unique in the current API Management service instance.
@@ -311,7 +311,7 @@ func (client *APIIssueClient) getEntityTagCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -329,7 +329,7 @@ func (client *APIIssueClient) getEntityTagHandleResponse(resp *http.Response) (A
 
 // NewListByServicePager - Lists all issues associated with the specified API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API identifier. Must be unique in the current API Management service instance.
@@ -398,7 +398,7 @@ func (client *APIIssueClient) listByServiceCreateRequest(ctx context.Context, re
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -415,7 +415,7 @@ func (client *APIIssueClient) listByServiceHandleResponse(resp *http.Response) (
 
 // Update - Updates an existing issue for an API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // apiID - API identifier. Must be unique in the current API Management service instance.
@@ -467,7 +467,7 @@ func (client *APIIssueClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

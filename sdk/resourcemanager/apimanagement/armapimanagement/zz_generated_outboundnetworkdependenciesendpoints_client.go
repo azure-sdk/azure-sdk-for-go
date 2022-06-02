@@ -57,7 +57,7 @@ func NewOutboundNetworkDependenciesEndpointsClient(subscriptionID string, creden
 
 // ListByService - Gets the network endpoints of all outbound dependencies of a ApiManagement service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - OutboundNetworkDependenciesEndpointsClientListByServiceOptions contains the optional parameters for the OutboundNetworkDependenciesEndpointsClient.ListByService
@@ -97,7 +97,7 @@ func (client *OutboundNetworkDependenciesEndpointsClient) listByServiceCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -58,7 +58,7 @@ func NewReportsClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // NewListByAPIPager - Lists report records by API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // filter - The filter to apply on the operation.
@@ -121,7 +121,7 @@ func (client *ReportsClient) listByAPICreateRequest(ctx context.Context, resourc
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -138,7 +138,7 @@ func (client *ReportsClient) listByAPIHandleResponse(resp *http.Response) (Repor
 
 // NewListByGeoPager - Lists report records by geography.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // filter - | Field | Usage | Supported operators | Supported functions |
@@ -222,7 +222,7 @@ func (client *ReportsClient) listByGeoCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +239,7 @@ func (client *ReportsClient) listByGeoHandleResponse(resp *http.Response) (Repor
 
 // NewListByOperationPager - Lists report records by API Operations.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // filter - | Field | Usage | Supported operators | Supported functions |
@@ -325,7 +325,7 @@ func (client *ReportsClient) listByOperationCreateRequest(ctx context.Context, r
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -342,7 +342,7 @@ func (client *ReportsClient) listByOperationHandleResponse(resp *http.Response) 
 
 // NewListByProductPager - Lists report records by Product.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // filter - | Field | Usage | Supported operators | Supported functions |
@@ -426,7 +426,7 @@ func (client *ReportsClient) listByProductCreateRequest(ctx context.Context, res
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -443,7 +443,7 @@ func (client *ReportsClient) listByProductHandleResponse(resp *http.Response) (R
 
 // NewListByRequestPager - Lists report records by Request.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // filter - | Field | Usage | Supported operators | Supported functions |
@@ -505,7 +505,7 @@ func (client *ReportsClient) listByRequestCreateRequest(ctx context.Context, res
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -522,7 +522,7 @@ func (client *ReportsClient) listByRequestHandleResponse(resp *http.Response) (R
 
 // NewListBySubscriptionPager - Lists report records by subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // filter - | Field | Usage | Supported operators | Supported functions |
@@ -607,7 +607,7 @@ func (client *ReportsClient) listBySubscriptionCreateRequest(ctx context.Context
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -624,7 +624,7 @@ func (client *ReportsClient) listBySubscriptionHandleResponse(resp *http.Respons
 
 // NewListByTimePager - Lists report records by Time.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // filter - | Field | Usage | Supported operators | Supported functions |
@@ -713,7 +713,7 @@ func (client *ReportsClient) listByTimeCreateRequest(ctx context.Context, resour
 		reqQP.Set("$orderby", *options.Orderby)
 	}
 	reqQP.Set("interval", interval)
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -730,7 +730,7 @@ func (client *ReportsClient) listByTimeHandleResponse(resp *http.Response) (Repo
 
 // NewListByUserPager - Lists report records by User.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // filter - | Field | Usage | Supported operators | Supported functions |
@@ -816,7 +816,7 @@ func (client *ReportsClient) listByUserCreateRequest(ctx context.Context, resour
 	if options != nil && options.Orderby != nil {
 		reqQP.Set("$orderby", *options.Orderby)
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

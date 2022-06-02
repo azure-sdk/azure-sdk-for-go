@@ -58,7 +58,7 @@ func NewGlobalSchemaClient(subscriptionID string, credential azcore.TokenCredent
 
 // BeginCreateOrUpdate - Creates new or updates existing specified Schema of the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // schemaID - Schema id identifier. Must be unique in the current API Management service instance.
@@ -81,7 +81,7 @@ func (client *GlobalSchemaClient) BeginCreateOrUpdate(ctx context.Context, resou
 
 // CreateOrUpdate - Creates new or updates existing specified Schema of the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 func (client *GlobalSchemaClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, schemaID string, parameters GlobalSchemaContract, options *GlobalSchemaClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, schemaID, parameters, options)
 	if err != nil {
@@ -121,7 +121,7 @@ func (client *GlobalSchemaClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -132,7 +132,7 @@ func (client *GlobalSchemaClient) createOrUpdateCreateRequest(ctx context.Contex
 
 // Delete - Deletes specific Schema.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // schemaID - Schema id identifier. Must be unique in the current API Management service instance.
@@ -178,7 +178,7 @@ func (client *GlobalSchemaClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -187,7 +187,7 @@ func (client *GlobalSchemaClient) deleteCreateRequest(ctx context.Context, resou
 
 // Get - Gets the details of the Schema specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // schemaID - Schema id identifier. Must be unique in the current API Management service instance.
@@ -231,7 +231,7 @@ func (client *GlobalSchemaClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,7 +250,7 @@ func (client *GlobalSchemaClient) getHandleResponse(resp *http.Response) (Global
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the Schema specified by its identifier.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // schemaID - Schema id identifier. Must be unique in the current API Management service instance.
@@ -295,7 +295,7 @@ func (client *GlobalSchemaClient) getEntityTagCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -313,7 +313,7 @@ func (client *GlobalSchemaClient) getEntityTagHandleResponse(resp *http.Response
 
 // NewListByServicePager - Lists a collection of schemas registered with service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - GlobalSchemaClientListByServiceOptions contains the optional parameters for the GlobalSchemaClient.ListByService
@@ -375,7 +375,7 @@ func (client *GlobalSchemaClient) listByServiceCreateRequest(ctx context.Context
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

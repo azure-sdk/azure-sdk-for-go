@@ -58,7 +58,7 @@ func NewAuthorizationServerClient(subscriptionID string, credential azcore.Token
 
 // CreateOrUpdate - Creates new authorization server or updates an existing authorization server.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // authsid - Identifier of the authorization server.
@@ -104,7 +104,7 @@ func (client *AuthorizationServerClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -127,7 +127,7 @@ func (client *AuthorizationServerClient) createOrUpdateHandleResponse(resp *http
 
 // Delete - Deletes specific authorization server instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // authsid - Identifier of the authorization server.
@@ -174,7 +174,7 @@ func (client *AuthorizationServerClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -183,7 +183,7 @@ func (client *AuthorizationServerClient) deleteCreateRequest(ctx context.Context
 
 // Get - Gets the details of the authorization server specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // authsid - Identifier of the authorization server.
@@ -227,7 +227,7 @@ func (client *AuthorizationServerClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -246,7 +246,7 @@ func (client *AuthorizationServerClient) getHandleResponse(resp *http.Response) 
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the authorizationServer specified by its identifier.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // authsid - Identifier of the authorization server.
@@ -291,7 +291,7 @@ func (client *AuthorizationServerClient) getEntityTagCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -309,7 +309,7 @@ func (client *AuthorizationServerClient) getEntityTagHandleResponse(resp *http.R
 
 // NewListByServicePager - Lists a collection of authorization servers defined within a service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - AuthorizationServerClientListByServiceOptions contains the optional parameters for the AuthorizationServerClient.ListByService
@@ -371,7 +371,7 @@ func (client *AuthorizationServerClient) listByServiceCreateRequest(ctx context.
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -388,7 +388,7 @@ func (client *AuthorizationServerClient) listByServiceHandleResponse(resp *http.
 
 // ListSecrets - Gets the client secret details of the authorization server.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // authsid - Identifier of the authorization server.
@@ -433,7 +433,7 @@ func (client *AuthorizationServerClient) listSecretsCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -453,7 +453,7 @@ func (client *AuthorizationServerClient) listSecretsHandleResponse(resp *http.Re
 
 // Update - Updates the details of the authorization server specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // authsid - Identifier of the authorization server.
@@ -501,7 +501,7 @@ func (client *AuthorizationServerClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

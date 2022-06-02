@@ -57,7 +57,7 @@ func NewPolicyClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // CreateOrUpdate - Creates or updates the global policy configuration of the Api Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // policyID - The identifier of the Policy.
@@ -102,7 +102,7 @@ func (client *PolicyClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -125,7 +125,7 @@ func (client *PolicyClient) createOrUpdateHandleResponse(resp *http.Response) (P
 
 // Delete - Deletes the global policy configuration of the Api Management Service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // policyID - The identifier of the Policy.
@@ -171,7 +171,7 @@ func (client *PolicyClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -180,7 +180,7 @@ func (client *PolicyClient) deleteCreateRequest(ctx context.Context, resourceGro
 
 // Get - Get the Global policy definition of the Api Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // policyID - The identifier of the Policy.
@@ -227,7 +227,7 @@ func (client *PolicyClient) getCreateRequest(ctx context.Context, resourceGroupN
 	if options != nil && options.Format != nil {
 		reqQP.Set("format", string(*options.Format))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -246,7 +246,7 @@ func (client *PolicyClient) getHandleResponse(resp *http.Response) (PolicyClient
 }
 
 // GetEntityTag - Gets the entity state (Etag) version of the Global policy definition in the Api Management service.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // policyID - The identifier of the Policy.
@@ -290,7 +290,7 @@ func (client *PolicyClient) getEntityTagCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -308,7 +308,7 @@ func (client *PolicyClient) getEntityTagHandleResponse(resp *http.Response) (Pol
 
 // ListByService - Lists all the Global Policy definitions of the Api Management service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-08-01
+// Generated from API version 2022-04-01-preview
 // resourceGroupName - The name of the resource group.
 // serviceName - The name of the API Management service.
 // options - PolicyClientListByServiceOptions contains the optional parameters for the PolicyClient.ListByService method.
@@ -347,7 +347,7 @@ func (client *PolicyClient) listByServiceCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
