@@ -452,6 +452,12 @@ type EnvironmentsClientCreateOrUpdateWorkerPoolResponse struct {
 	WorkerPoolResource
 }
 
+// EnvironmentsClientDeleteAseCustomDNSSuffixConfigurationResponse contains the response from method EnvironmentsClient.DeleteAseCustomDNSSuffixConfiguration.
+type EnvironmentsClientDeleteAseCustomDNSSuffixConfigurationResponse struct {
+	// Anything
+	Interface interface{}
+}
+
 // EnvironmentsClientDeletePrivateEndpointConnectionResponse contains the response from method EnvironmentsClient.DeletePrivateEndpointConnection.
 type EnvironmentsClientDeletePrivateEndpointConnectionResponse struct {
 	// Anything
@@ -466,6 +472,11 @@ func (e *EnvironmentsClientDeletePrivateEndpointConnectionResponse) UnmarshalJSO
 // EnvironmentsClientDeleteResponse contains the response from method EnvironmentsClient.Delete.
 type EnvironmentsClientDeleteResponse struct {
 	// placeholder for future response values
+}
+
+// EnvironmentsClientGetAseCustomDNSSuffixConfigurationResponse contains the response from method EnvironmentsClient.GetAseCustomDNSSuffixConfiguration.
+type EnvironmentsClientGetAseCustomDNSSuffixConfigurationResponse struct {
+	CustomDNSSuffixConfiguration
 }
 
 // EnvironmentsClientGetAseV3NetworkingConfigurationResponse contains the response from method EnvironmentsClient.GetAseV3NetworkingConfiguration.
@@ -628,6 +639,11 @@ type EnvironmentsClientResumeResponse struct {
 // EnvironmentsClientSuspendResponse contains the response from method EnvironmentsClient.Suspend.
 type EnvironmentsClientSuspendResponse struct {
 	WebAppCollection
+}
+
+// EnvironmentsClientUpdateAseCustomDNSSuffixConfigurationResponse contains the response from method EnvironmentsClient.UpdateAseCustomDNSSuffixConfiguration.
+type EnvironmentsClientUpdateAseCustomDNSSuffixConfigurationResponse struct {
+	CustomDNSSuffixConfiguration
 }
 
 // EnvironmentsClientUpdateAseNetworkingConfigurationResponse contains the response from method EnvironmentsClient.UpdateAseNetworkingConfiguration.
@@ -1072,6 +1088,26 @@ type StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteResponse struct
 	// placeholder for future response values
 }
 
+// StaticSitesClientGetLinkedBackendForBuildResponse contains the response from method StaticSitesClient.GetLinkedBackendForBuild.
+type StaticSitesClientGetLinkedBackendForBuildResponse struct {
+	StaticSiteLinkedBackendARMResource
+}
+
+// StaticSitesClientGetLinkedBackendResponse contains the response from method StaticSitesClient.GetLinkedBackend.
+type StaticSitesClientGetLinkedBackendResponse struct {
+	StaticSiteLinkedBackendARMResource
+}
+
+// StaticSitesClientGetLinkedBackendsForBuildResponse contains the response from method StaticSitesClient.GetLinkedBackendsForBuild.
+type StaticSitesClientGetLinkedBackendsForBuildResponse struct {
+	StaticSiteLinkedBackendsCollection
+}
+
+// StaticSitesClientGetLinkedBackendsResponse contains the response from method StaticSitesClient.GetLinkedBackends.
+type StaticSitesClientGetLinkedBackendsResponse struct {
+	StaticSiteLinkedBackendsCollection
+}
+
 // StaticSitesClientGetPrivateEndpointConnectionListResponse contains the response from method StaticSitesClient.GetPrivateEndpointConnectionList.
 type StaticSitesClientGetPrivateEndpointConnectionListResponse struct {
 	PrivateEndpointConnectionCollection
@@ -1130,6 +1166,16 @@ type StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteBuildResponse stru
 // StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteResponse contains the response from method StaticSitesClient.GetUserProvidedFunctionAppsForStaticSite.
 type StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteResponse struct {
 	StaticSiteUserProvidedFunctionAppsCollection
+}
+
+// StaticSitesClientLinkBackendResponse contains the response from method StaticSitesClient.LinkBackend.
+type StaticSitesClientLinkBackendResponse struct {
+	StaticSiteLinkedBackendARMResource
+}
+
+// StaticSitesClientLinkBackendToBuildResponse contains the response from method StaticSitesClient.LinkBackendToBuild.
+type StaticSitesClientLinkBackendToBuildResponse struct {
+	StaticSiteLinkedBackendARMResource
 }
 
 // StaticSitesClientListResponse contains the response from method StaticSitesClient.List.
@@ -1207,6 +1253,16 @@ type StaticSitesClientResetStaticSiteAPIKeyResponse struct {
 	// placeholder for future response values
 }
 
+// StaticSitesClientUnlinkBackendFromBuildResponse contains the response from method StaticSitesClient.UnlinkBackendFromBuild.
+type StaticSitesClientUnlinkBackendFromBuildResponse struct {
+	// placeholder for future response values
+}
+
+// StaticSitesClientUnlinkBackendResponse contains the response from method StaticSitesClient.UnlinkBackend.
+type StaticSitesClientUnlinkBackendResponse struct {
+	// placeholder for future response values
+}
+
 // StaticSitesClientUpdateStaticSiteResponse contains the response from method StaticSitesClient.UpdateStaticSite.
 type StaticSitesClientUpdateStaticSiteResponse struct {
 	StaticSiteARMResource
@@ -1215,6 +1271,16 @@ type StaticSitesClientUpdateStaticSiteResponse struct {
 // StaticSitesClientUpdateStaticSiteUserResponse contains the response from method StaticSitesClient.UpdateStaticSiteUser.
 type StaticSitesClientUpdateStaticSiteUserResponse struct {
 	StaticSiteUserARMResource
+}
+
+// StaticSitesClientValidateBackendForBuildResponse contains the response from method StaticSitesClient.ValidateBackendForBuild.
+type StaticSitesClientValidateBackendForBuildResponse struct {
+	// placeholder for future response values
+}
+
+// StaticSitesClientValidateBackendResponse contains the response from method StaticSitesClient.ValidateBackend.
+type StaticSitesClientValidateBackendResponse struct {
+	// placeholder for future response values
 }
 
 // StaticSitesClientValidateCustomDomainCanBeAddedToStaticSiteResponse contains the response from method StaticSitesClient.ValidateCustomDomainCanBeAddedToStaticSite.
@@ -2135,6 +2201,11 @@ type WebAppsClientGetProcessSlotResponse struct {
 	ProcessInfo
 }
 
+// WebAppsClientGetProductionSiteDeploymentStatusResponse contains the response from method WebAppsClient.GetProductionSiteDeploymentStatus.
+type WebAppsClientGetProductionSiteDeploymentStatusResponse struct {
+	CsmDeploymentStatus
+}
+
 // WebAppsClientGetPublicCertificateResponse contains the response from method WebAppsClient.GetPublicCertificate.
 type WebAppsClientGetPublicCertificateResponse struct {
 	PublicCertificate
@@ -2213,6 +2284,11 @@ type WebAppsClientGetSitePhpErrorLogFlagSlotResponse struct {
 // WebAppsClientGetSlotResponse contains the response from method WebAppsClient.GetSlot.
 type WebAppsClientGetSlotResponse struct {
 	Site
+}
+
+// WebAppsClientGetSlotSiteDeploymentStatusSlotResponse contains the response from method WebAppsClient.GetSlotSiteDeploymentStatusSlot.
+type WebAppsClientGetSlotSiteDeploymentStatusSlotResponse struct {
+	CsmDeploymentStatus
 }
 
 // WebAppsClientGetSourceControlResponse contains the response from method WebAppsClient.GetSourceControl.
@@ -2612,6 +2688,11 @@ type WebAppsClientListProcessesSlotResponse struct {
 	ProcessInfoCollection
 }
 
+// WebAppsClientListProductionSiteDeploymentStatusesResponse contains the response from method WebAppsClient.ListProductionSiteDeploymentStatuses.
+type WebAppsClientListProductionSiteDeploymentStatusesResponse struct {
+	CsmDeploymentStatusCollection
+}
+
 // WebAppsClientListPublicCertificatesResponse contains the response from method WebAppsClient.ListPublicCertificates.
 type WebAppsClientListPublicCertificatesResponse struct {
 	PublicCertificateCollection
@@ -2702,6 +2783,11 @@ type WebAppsClientListSlotDifferencesFromProductionResponse struct {
 // WebAppsClientListSlotDifferencesSlotResponse contains the response from method WebAppsClient.ListSlotDifferencesSlot.
 type WebAppsClientListSlotDifferencesSlotResponse struct {
 	SlotDifferenceCollection
+}
+
+// WebAppsClientListSlotSiteDeploymentStatusesSlotResponse contains the response from method WebAppsClient.ListSlotSiteDeploymentStatusesSlot.
+type WebAppsClientListSlotSiteDeploymentStatusesSlotResponse struct {
+	CsmDeploymentStatusCollection
 }
 
 // WebAppsClientListSlotsResponse contains the response from method WebAppsClient.ListSlots.
