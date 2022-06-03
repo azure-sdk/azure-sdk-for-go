@@ -259,6 +259,7 @@ func (c CloudService) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "location", c.Location)
 	populate(objectMap, "name", c.Name)
 	populate(objectMap, "properties", c.Properties)
+	populate(objectMap, "systemData", c.SystemData)
 	populate(objectMap, "tags", c.Tags)
 	populate(objectMap, "type", c.Type)
 	return json.Marshal(objectMap)
@@ -276,12 +277,12 @@ func (c CloudServiceExtensionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "autoUpgradeMinorVersion", c.AutoUpgradeMinorVersion)
 	populate(objectMap, "forceUpdateTag", c.ForceUpdateTag)
-	populate(objectMap, "protectedSettings", c.ProtectedSettings)
+	populate(objectMap, "protectedSettings", &c.ProtectedSettings)
 	populate(objectMap, "protectedSettingsFromKeyVault", c.ProtectedSettingsFromKeyVault)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "publisher", c.Publisher)
 	populate(objectMap, "rolesAppliedTo", c.RolesAppliedTo)
-	populate(objectMap, "settings", c.Settings)
+	populate(objectMap, "settings", &c.Settings)
 	populate(objectMap, "type", c.Type)
 	populate(objectMap, "typeHandlerVersion", c.TypeHandlerVersion)
 	return json.Marshal(objectMap)
@@ -434,7 +435,6 @@ func (d DedicatedHostGroupInstanceView) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type DedicatedHostGroupProperties.
 func (d DedicatedHostGroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "additionalCapabilities", d.AdditionalCapabilities)
 	populate(objectMap, "hosts", d.Hosts)
 	populate(objectMap, "instanceView", d.InstanceView)
 	populate(objectMap, "platformFaultDomainCount", d.PlatformFaultDomainCount)
@@ -1655,7 +1655,6 @@ func (p ProximityPlacementGroup) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "properties", p.Properties)
 	populate(objectMap, "tags", p.Tags)
 	populate(objectMap, "type", p.Type)
-	populate(objectMap, "zones", p.Zones)
 	return json.Marshal(objectMap)
 }
 
@@ -1664,17 +1663,9 @@ func (p ProximityPlacementGroupProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "availabilitySets", p.AvailabilitySets)
 	populate(objectMap, "colocationStatus", p.ColocationStatus)
-	populate(objectMap, "intent", p.Intent)
 	populate(objectMap, "proximityPlacementGroupType", p.ProximityPlacementGroupType)
 	populate(objectMap, "virtualMachineScaleSets", p.VirtualMachineScaleSets)
 	populate(objectMap, "virtualMachines", p.VirtualMachines)
-	return json.Marshal(objectMap)
-}
-
-// MarshalJSON implements the json.Marshaller interface for type ProximityPlacementGroupPropertiesIntent.
-func (p ProximityPlacementGroupPropertiesIntent) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "vmSizes", p.VMSizes)
 	return json.Marshal(objectMap)
 }
 
@@ -1793,17 +1784,6 @@ func (r *ResourceInstanceViewStatus) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type ResourceWithOptionalLocation.
-func (r ResourceWithOptionalLocation) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "id", r.ID)
-	populate(objectMap, "location", r.Location)
-	populate(objectMap, "name", r.Name)
-	populate(objectMap, "tags", r.Tags)
-	populate(objectMap, "type", r.Type)
-	return json.Marshal(objectMap)
 }
 
 // MarshalJSON implements the json.Marshaller interface for type RestorePointCollection.
@@ -2243,6 +2223,37 @@ func (s StorageProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "imageReference", s.ImageReference)
 	populate(objectMap, "osDisk", s.OSDisk)
 	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SystemData.
+func (s SystemData) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populateTimeRFC3339(objectMap, "createdAt", s.CreatedAt)
+	populateTimeRFC3339(objectMap, "lastModifiedAt", s.LastModifiedAt)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SystemData.
+func (s *SystemData) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "createdAt":
+			err = unpopulateTimeRFC3339(val, "CreatedAt", &s.CreatedAt)
+			delete(rawMsg, key)
+		case "lastModifiedAt":
+			err = unpopulateTimeRFC3339(val, "LastModifiedAt", &s.LastModifiedAt)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
 }
 
 // MarshalJSON implements the json.Marshaller interface for type ThrottledRequestsInput.
@@ -2982,7 +2993,6 @@ func (v VirtualMachineScaleSetOSDisk) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "caching", v.Caching)
 	populate(objectMap, "createOption", v.CreateOption)
-	populate(objectMap, "deleteOption", v.DeleteOption)
 	populate(objectMap, "diffDiskSettings", v.DiffDiskSettings)
 	populate(objectMap, "diskSizeGB", v.DiskSizeGB)
 	populate(objectMap, "image", v.Image)
@@ -3180,7 +3190,6 @@ func (v VirtualMachineScaleSetUpdateNetworkProfile) MarshalJSON() ([]byte, error
 func (v VirtualMachineScaleSetUpdateOSDisk) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "caching", v.Caching)
-	populate(objectMap, "deleteOption", v.DeleteOption)
 	populate(objectMap, "diskSizeGB", v.DiskSizeGB)
 	populate(objectMap, "image", v.Image)
 	populate(objectMap, "managedDisk", v.ManagedDisk)
@@ -3212,7 +3221,6 @@ func (v VirtualMachineScaleSetUpdateStorageProfile) MarshalJSON() ([]byte, error
 func (v VirtualMachineScaleSetVM) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "id", v.ID)
-	populate(objectMap, "identity", v.Identity)
 	populate(objectMap, "instanceId", v.InstanceID)
 	populate(objectMap, "location", v.Location)
 	populate(objectMap, "name", v.Name)

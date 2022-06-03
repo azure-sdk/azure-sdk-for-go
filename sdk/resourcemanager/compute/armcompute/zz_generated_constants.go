@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v2.0.0"
 )
 
 type AccessLevel string
@@ -192,9 +192,8 @@ func PossibleConfidentialVMEncryptionTypeValues() []ConfidentialVMEncryptionType
 	}
 }
 
-// ConsistencyModeTypes - ConsistencyMode of the RestorePoint. Can be specified in the input while creating a restore point.
-// For now, only CrashConsistent is accepted as a valid input. Please refer to
-// https://aka.ms/RestorePoints for more details.
+// ConsistencyModeTypes - Gets the consistency mode for the restore point. Please refer to https://aka.ms/RestorePoints for
+// more details.
 type ConsistencyModeTypes string
 
 const (
@@ -963,27 +962,6 @@ func PossibleLinuxPatchAssessmentModeValues() []LinuxPatchAssessmentMode {
 	}
 }
 
-// LinuxVMGuestPatchAutomaticByPlatformRebootSetting - Specifies the reboot setting for all AutomaticByPlatform patch installation
-// operations.
-type LinuxVMGuestPatchAutomaticByPlatformRebootSetting string
-
-const (
-	LinuxVMGuestPatchAutomaticByPlatformRebootSettingAlways     LinuxVMGuestPatchAutomaticByPlatformRebootSetting = "Always"
-	LinuxVMGuestPatchAutomaticByPlatformRebootSettingIfRequired LinuxVMGuestPatchAutomaticByPlatformRebootSetting = "IfRequired"
-	LinuxVMGuestPatchAutomaticByPlatformRebootSettingNever      LinuxVMGuestPatchAutomaticByPlatformRebootSetting = "Never"
-	LinuxVMGuestPatchAutomaticByPlatformRebootSettingUnknown    LinuxVMGuestPatchAutomaticByPlatformRebootSetting = "Unknown"
-)
-
-// PossibleLinuxVMGuestPatchAutomaticByPlatformRebootSettingValues returns the possible values for the LinuxVMGuestPatchAutomaticByPlatformRebootSetting const type.
-func PossibleLinuxVMGuestPatchAutomaticByPlatformRebootSettingValues() []LinuxVMGuestPatchAutomaticByPlatformRebootSetting {
-	return []LinuxVMGuestPatchAutomaticByPlatformRebootSetting{
-		LinuxVMGuestPatchAutomaticByPlatformRebootSettingAlways,
-		LinuxVMGuestPatchAutomaticByPlatformRebootSettingIfRequired,
-		LinuxVMGuestPatchAutomaticByPlatformRebootSettingNever,
-		LinuxVMGuestPatchAutomaticByPlatformRebootSettingUnknown,
-	}
-}
-
 // LinuxVMGuestPatchMode - Specifies the mode of VM Guest Patching to IaaS virtual machine or virtual machines associated
 // to virtual machine scale set with OrchestrationMode as Flexible.
 // Possible values are:
@@ -1456,9 +1434,9 @@ func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	}
 }
 
-// ResourceIdentityType - The type of identity used for the virtual machine scale set. The type 'SystemAssigned, UserAssigned'
-// includes both an implicitly created identity and a set of user assigned identities. The type 'None'
-// will remove any identities from the virtual machine scale set.
+// ResourceIdentityType - The type of identity used for the virtual machine. The type 'SystemAssigned, UserAssigned' includes
+// both an implicitly created identity and a set of user assigned identities. The type 'None' will
+// remove any identities from the virtual machine.
 type ResourceIdentityType string
 
 const (
@@ -1803,7 +1781,6 @@ type StorageAccountTypes string
 
 const (
 	StorageAccountTypesPremiumLRS     StorageAccountTypes = "Premium_LRS"
-	StorageAccountTypesPremiumV2LRS   StorageAccountTypes = "PremiumV2_LRS"
 	StorageAccountTypesPremiumZRS     StorageAccountTypes = "Premium_ZRS"
 	StorageAccountTypesStandardLRS    StorageAccountTypes = "Standard_LRS"
 	StorageAccountTypesStandardSSDLRS StorageAccountTypes = "StandardSSD_LRS"
@@ -1815,7 +1792,6 @@ const (
 func PossibleStorageAccountTypesValues() []StorageAccountTypes {
 	return []StorageAccountTypes{
 		StorageAccountTypesPremiumLRS,
-		StorageAccountTypesPremiumV2LRS,
 		StorageAccountTypesPremiumZRS,
 		StorageAccountTypesStandardLRS,
 		StorageAccountTypesStandardSSDLRS,
@@ -2443,27 +2419,6 @@ func PossibleWindowsPatchAssessmentModeValues() []WindowsPatchAssessmentMode {
 	return []WindowsPatchAssessmentMode{
 		WindowsPatchAssessmentModeAutomaticByPlatform,
 		WindowsPatchAssessmentModeImageDefault,
-	}
-}
-
-// WindowsVMGuestPatchAutomaticByPlatformRebootSetting - Specifies the reboot setting for all AutomaticByPlatform patch installation
-// operations.
-type WindowsVMGuestPatchAutomaticByPlatformRebootSetting string
-
-const (
-	WindowsVMGuestPatchAutomaticByPlatformRebootSettingAlways     WindowsVMGuestPatchAutomaticByPlatformRebootSetting = "Always"
-	WindowsVMGuestPatchAutomaticByPlatformRebootSettingIfRequired WindowsVMGuestPatchAutomaticByPlatformRebootSetting = "IfRequired"
-	WindowsVMGuestPatchAutomaticByPlatformRebootSettingNever      WindowsVMGuestPatchAutomaticByPlatformRebootSetting = "Never"
-	WindowsVMGuestPatchAutomaticByPlatformRebootSettingUnknown    WindowsVMGuestPatchAutomaticByPlatformRebootSetting = "Unknown"
-)
-
-// PossibleWindowsVMGuestPatchAutomaticByPlatformRebootSettingValues returns the possible values for the WindowsVMGuestPatchAutomaticByPlatformRebootSetting const type.
-func PossibleWindowsVMGuestPatchAutomaticByPlatformRebootSettingValues() []WindowsVMGuestPatchAutomaticByPlatformRebootSetting {
-	return []WindowsVMGuestPatchAutomaticByPlatformRebootSetting{
-		WindowsVMGuestPatchAutomaticByPlatformRebootSettingAlways,
-		WindowsVMGuestPatchAutomaticByPlatformRebootSettingIfRequired,
-		WindowsVMGuestPatchAutomaticByPlatformRebootSettingNever,
-		WindowsVMGuestPatchAutomaticByPlatformRebootSettingUnknown,
 	}
 }
 

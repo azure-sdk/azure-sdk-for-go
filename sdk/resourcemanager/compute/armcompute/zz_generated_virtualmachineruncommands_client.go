@@ -57,7 +57,7 @@ func NewVirtualMachineRunCommandsClient(subscriptionID string, credential azcore
 
 // BeginCreateOrUpdate - The operation to create or update the run command.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 // resourceGroupName - The name of the resource group.
 // vmName - The name of the virtual machine where the run command should be created or updated.
 // runCommandName - The name of the virtual machine run command.
@@ -78,7 +78,7 @@ func (client *VirtualMachineRunCommandsClient) BeginCreateOrUpdate(ctx context.C
 
 // CreateOrUpdate - The operation to create or update the run command.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 func (client *VirtualMachineRunCommandsClient) createOrUpdate(ctx context.Context, resourceGroupName string, vmName string, runCommandName string, runCommand VirtualMachineRunCommand, options *VirtualMachineRunCommandsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, vmName, runCommandName, runCommand, options)
 	if err != nil {
@@ -118,7 +118,7 @@ func (client *VirtualMachineRunCommandsClient) createOrUpdateCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2021-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json, text/json"}
 	return req, runtime.MarshalAsJSON(req, runCommand)
@@ -126,7 +126,7 @@ func (client *VirtualMachineRunCommandsClient) createOrUpdateCreateRequest(ctx c
 
 // BeginDelete - The operation to delete the run command.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 // resourceGroupName - The name of the resource group.
 // vmName - The name of the virtual machine where the run command should be deleted.
 // runCommandName - The name of the virtual machine run command.
@@ -146,7 +146,7 @@ func (client *VirtualMachineRunCommandsClient) BeginDelete(ctx context.Context, 
 
 // Delete - The operation to delete the run command.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 func (client *VirtualMachineRunCommandsClient) deleteOperation(ctx context.Context, resourceGroupName string, vmName string, runCommandName string, options *VirtualMachineRunCommandsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, vmName, runCommandName, options)
 	if err != nil {
@@ -186,7 +186,7 @@ func (client *VirtualMachineRunCommandsClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2021-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json, text/json"}
 	return req, nil
@@ -194,7 +194,7 @@ func (client *VirtualMachineRunCommandsClient) deleteCreateRequest(ctx context.C
 
 // Get - Gets specific run command for a subscription in a location.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 // location - The location upon which run commands is queried.
 // commandID - The command id.
 // options - VirtualMachineRunCommandsClientGetOptions contains the optional parameters for the VirtualMachineRunCommandsClient.Get
@@ -234,7 +234,7 @@ func (client *VirtualMachineRunCommandsClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2021-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json, text/json"}
 	return req, nil
@@ -251,7 +251,7 @@ func (client *VirtualMachineRunCommandsClient) getHandleResponse(resp *http.Resp
 
 // GetByVirtualMachine - The operation to get the run command.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 // resourceGroupName - The name of the resource group.
 // vmName - The name of the virtual machine containing the run command.
 // runCommandName - The name of the virtual machine run command.
@@ -299,7 +299,7 @@ func (client *VirtualMachineRunCommandsClient) getByVirtualMachineCreateRequest(
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2021-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json, text/json"}
 	return req, nil
@@ -316,7 +316,7 @@ func (client *VirtualMachineRunCommandsClient) getByVirtualMachineHandleResponse
 
 // NewListPager - Lists all available run commands for a subscription in a location.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 // location - The location upon which run commands is queried.
 // options - VirtualMachineRunCommandsClientListOptions contains the optional parameters for the VirtualMachineRunCommandsClient.List
 // method.
@@ -364,7 +364,7 @@ func (client *VirtualMachineRunCommandsClient) listCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2021-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json, text/json"}
 	return req, nil
@@ -381,7 +381,7 @@ func (client *VirtualMachineRunCommandsClient) listHandleResponse(resp *http.Res
 
 // NewListByVirtualMachinePager - The operation to get all run commands of a Virtual Machine.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 // resourceGroupName - The name of the resource group.
 // vmName - The name of the virtual machine containing the run command.
 // options - VirtualMachineRunCommandsClientListByVirtualMachineOptions contains the optional parameters for the VirtualMachineRunCommandsClient.ListByVirtualMachine
@@ -437,7 +437,7 @@ func (client *VirtualMachineRunCommandsClient) listByVirtualMachineCreateRequest
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2021-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json, text/json"}
 	return req, nil
@@ -454,7 +454,7 @@ func (client *VirtualMachineRunCommandsClient) listByVirtualMachineHandleRespons
 
 // BeginUpdate - The operation to update the run command.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 // resourceGroupName - The name of the resource group.
 // vmName - The name of the virtual machine where the run command should be updated.
 // runCommandName - The name of the virtual machine run command.
@@ -475,7 +475,7 @@ func (client *VirtualMachineRunCommandsClient) BeginUpdate(ctx context.Context, 
 
 // Update - The operation to update the run command.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2021-11-01
 func (client *VirtualMachineRunCommandsClient) update(ctx context.Context, resourceGroupName string, vmName string, runCommandName string, runCommand VirtualMachineRunCommandUpdate, options *VirtualMachineRunCommandsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, vmName, runCommandName, runCommand, options)
 	if err != nil {
@@ -515,7 +515,7 @@ func (client *VirtualMachineRunCommandsClient) updateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2021-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json, text/json"}
 	return req, runtime.MarshalAsJSON(req, runCommand)
