@@ -22,19 +22,19 @@ import (
 	"strings"
 )
 
-// VMIngestionClient contains the methods for the VMIngestion group.
-// Don't use this type directly, use NewVMIngestionClient() instead.
-type VMIngestionClient struct {
+// UpgradableVersionsClient contains the methods for the UpgradableVersions group.
+// Don't use this type directly, use NewUpgradableVersionsClient() instead.
+type UpgradableVersionsClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewVMIngestionClient creates a new instance of VMIngestionClient with the specified values.
+// NewUpgradableVersionsClient creates a new instance of UpgradableVersionsClient with the specified values.
 // subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VMIngestionClient, error) {
+func NewUpgradableVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UpgradableVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -46,7 +46,7 @@ func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredenti
 	if err != nil {
 		return nil, err
 	}
-	client := &VMIngestionClient{
+	client := &UpgradableVersionsClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -54,30 +54,31 @@ func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// Details - List the vm ingestion details that will be monitored by the Elastic monitor resource.
+// Details - List of upgradable versions for a given monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-05-preview
 // resourceGroupName - The name of the resource group to which the Elastic resource belongs.
 // monitorName - Monitor resource name
-// options - VMIngestionClientDetailsOptions contains the optional parameters for the VMIngestionClient.Details method.
-func (client *VMIngestionClient) Details(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (VMIngestionClientDetailsResponse, error) {
+// options - UpgradableVersionsClientDetailsOptions contains the optional parameters for the UpgradableVersionsClient.Details
+// method.
+func (client *UpgradableVersionsClient) Details(ctx context.Context, resourceGroupName string, monitorName string, options *UpgradableVersionsClientDetailsOptions) (UpgradableVersionsClientDetailsResponse, error) {
 	req, err := client.detailsCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return UpgradableVersionsClientDetailsResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return UpgradableVersionsClientDetailsResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return VMIngestionClientDetailsResponse{}, runtime.NewResponseError(resp)
+		return UpgradableVersionsClientDetailsResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.detailsHandleResponse(resp)
 }
 
 // detailsCreateRequest creates the Details request.
-func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/vmIngestionDetails"
+func (client *UpgradableVersionsClient) detailsCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *UpgradableVersionsClientDetailsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/listUpgradableVersions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -102,10 +103,10 @@ func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resou
 }
 
 // detailsHandleResponse handles the Details response.
-func (client *VMIngestionClient) detailsHandleResponse(resp *http.Response) (VMIngestionClientDetailsResponse, error) {
-	result := VMIngestionClientDetailsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VMIngestionDetailsResponse); err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+func (client *UpgradableVersionsClient) detailsHandleResponse(resp *http.Response) (UpgradableVersionsClientDetailsResponse, error) {
+	result := UpgradableVersionsClientDetailsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.UpgradableVersionsList); err != nil {
+		return UpgradableVersionsClientDetailsResponse{}, err
 	}
 	return result, nil
 }

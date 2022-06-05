@@ -22,19 +22,19 @@ import (
 	"strings"
 )
 
-// VMIngestionClient contains the methods for the VMIngestion group.
-// Don't use this type directly, use NewVMIngestionClient() instead.
-type VMIngestionClient struct {
+// ListAssociatedTrafficFiltersClient contains the methods for the ListAssociatedTrafficFilters group.
+// Don't use this type directly, use NewListAssociatedTrafficFiltersClient() instead.
+type ListAssociatedTrafficFiltersClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewVMIngestionClient creates a new instance of VMIngestionClient with the specified values.
+// NewListAssociatedTrafficFiltersClient creates a new instance of ListAssociatedTrafficFiltersClient with the specified values.
 // subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VMIngestionClient, error) {
+func NewListAssociatedTrafficFiltersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ListAssociatedTrafficFiltersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -46,7 +46,7 @@ func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredenti
 	if err != nil {
 		return nil, err
 	}
-	client := &VMIngestionClient{
+	client := &ListAssociatedTrafficFiltersClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -54,30 +54,31 @@ func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// Details - List the vm ingestion details that will be monitored by the Elastic monitor resource.
+// List - Get the list of all associated traffic filters for the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-05-preview
 // resourceGroupName - The name of the resource group to which the Elastic resource belongs.
 // monitorName - Monitor resource name
-// options - VMIngestionClientDetailsOptions contains the optional parameters for the VMIngestionClient.Details method.
-func (client *VMIngestionClient) Details(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (VMIngestionClientDetailsResponse, error) {
-	req, err := client.detailsCreateRequest(ctx, resourceGroupName, monitorName, options)
+// options - ListAssociatedTrafficFiltersClientListOptions contains the optional parameters for the ListAssociatedTrafficFiltersClient.List
+// method.
+func (client *ListAssociatedTrafficFiltersClient) List(ctx context.Context, resourceGroupName string, monitorName string, options *ListAssociatedTrafficFiltersClientListOptions) (ListAssociatedTrafficFiltersClientListResponse, error) {
+	req, err := client.listCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return ListAssociatedTrafficFiltersClientListResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return ListAssociatedTrafficFiltersClientListResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return VMIngestionClientDetailsResponse{}, runtime.NewResponseError(resp)
+		return ListAssociatedTrafficFiltersClientListResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.detailsHandleResponse(resp)
+	return client.listHandleResponse(resp)
 }
 
-// detailsCreateRequest creates the Details request.
-func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/vmIngestionDetails"
+// listCreateRequest creates the List request.
+func (client *ListAssociatedTrafficFiltersClient) listCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *ListAssociatedTrafficFiltersClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/listAssociatedTrafficFilters"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -101,11 +102,11 @@ func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resou
 	return req, nil
 }
 
-// detailsHandleResponse handles the Details response.
-func (client *VMIngestionClient) detailsHandleResponse(resp *http.Response) (VMIngestionClientDetailsResponse, error) {
-	result := VMIngestionClientDetailsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VMIngestionDetailsResponse); err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+// listHandleResponse handles the List response.
+func (client *ListAssociatedTrafficFiltersClient) listHandleResponse(resp *http.Response) (ListAssociatedTrafficFiltersClientListResponse, error) {
+	result := ListAssociatedTrafficFiltersClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.TrafficFilterResponse); err != nil {
+		return ListAssociatedTrafficFiltersClientListResponse{}, err
 	}
 	return result, nil
 }

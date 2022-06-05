@@ -22,19 +22,19 @@ import (
 	"strings"
 )
 
-// VMIngestionClient contains the methods for the VMIngestion group.
-// Don't use this type directly, use NewVMIngestionClient() instead.
-type VMIngestionClient struct {
+// ExternalUserClient contains the methods for the ExternalUser group.
+// Don't use this type directly, use NewExternalUserClient() instead.
+type ExternalUserClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewVMIngestionClient creates a new instance of VMIngestionClient with the specified values.
+// NewExternalUserClient creates a new instance of ExternalUserClient with the specified values.
 // subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VMIngestionClient, error) {
+func NewExternalUserClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExternalUserClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -46,7 +46,7 @@ func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredenti
 	if err != nil {
 		return nil, err
 	}
-	client := &VMIngestionClient{
+	client := &ExternalUserClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -54,30 +54,32 @@ func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// Details - List the vm ingestion details that will be monitored by the Elastic monitor resource.
+// CreateOrUpdate - Create User inside elastic deployment which are used by customers to perform operations on the elastic
+// deployment
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-05-preview
 // resourceGroupName - The name of the resource group to which the Elastic resource belongs.
 // monitorName - Monitor resource name
-// options - VMIngestionClientDetailsOptions contains the optional parameters for the VMIngestionClient.Details method.
-func (client *VMIngestionClient) Details(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (VMIngestionClientDetailsResponse, error) {
-	req, err := client.detailsCreateRequest(ctx, resourceGroupName, monitorName, options)
+// options - ExternalUserClientCreateOrUpdateOptions contains the optional parameters for the ExternalUserClient.CreateOrUpdate
+// method.
+func (client *ExternalUserClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, monitorName string, options *ExternalUserClientCreateOrUpdateOptions) (ExternalUserClientCreateOrUpdateResponse, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return ExternalUserClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return ExternalUserClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return VMIngestionClientDetailsResponse{}, runtime.NewResponseError(resp)
+		return ExternalUserClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.detailsHandleResponse(resp)
+	return client.createOrUpdateHandleResponse(resp)
 }
 
-// detailsCreateRequest creates the Details request.
-func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/vmIngestionDetails"
+// createOrUpdateCreateRequest creates the CreateOrUpdate request.
+func (client *ExternalUserClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *ExternalUserClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/createOrUpdateExternalUser"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -98,14 +100,17 @@ func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resou
 	reqQP.Set("api-version", "2022-05-05-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
 	return req, nil
 }
 
-// detailsHandleResponse handles the Details response.
-func (client *VMIngestionClient) detailsHandleResponse(resp *http.Response) (VMIngestionClientDetailsResponse, error) {
-	result := VMIngestionClientDetailsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VMIngestionDetailsResponse); err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+// createOrUpdateHandleResponse handles the CreateOrUpdate response.
+func (client *ExternalUserClient) createOrUpdateHandleResponse(resp *http.Response) (ExternalUserClientCreateOrUpdateResponse, error) {
+	result := ExternalUserClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ExternalUserCreationResponse); err != nil {
+		return ExternalUserClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }

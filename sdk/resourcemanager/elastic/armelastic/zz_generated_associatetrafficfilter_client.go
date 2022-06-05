@@ -22,19 +22,19 @@ import (
 	"strings"
 )
 
-// VMIngestionClient contains the methods for the VMIngestion group.
-// Don't use this type directly, use NewVMIngestionClient() instead.
-type VMIngestionClient struct {
+// AssociateTrafficFilterClient contains the methods for the AssociateTrafficFilter group.
+// Don't use this type directly, use NewAssociateTrafficFilterClient() instead.
+type AssociateTrafficFilterClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewVMIngestionClient creates a new instance of VMIngestionClient with the specified values.
+// NewAssociateTrafficFilterClient creates a new instance of AssociateTrafficFilterClient with the specified values.
 // subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VMIngestionClient, error) {
+func NewAssociateTrafficFilterClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AssociateTrafficFilterClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -46,7 +46,7 @@ func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredenti
 	if err != nil {
 		return nil, err
 	}
-	client := &VMIngestionClient{
+	client := &AssociateTrafficFilterClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -54,30 +54,46 @@ func NewVMIngestionClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// Details - List the vm ingestion details that will be monitored by the Elastic monitor resource.
+// BeginAssociate - Associate traffic filter for the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-05-preview
 // resourceGroupName - The name of the resource group to which the Elastic resource belongs.
 // monitorName - Monitor resource name
-// options - VMIngestionClientDetailsOptions contains the optional parameters for the VMIngestionClient.Details method.
-func (client *VMIngestionClient) Details(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (VMIngestionClientDetailsResponse, error) {
-	req, err := client.detailsCreateRequest(ctx, resourceGroupName, monitorName, options)
+// options - AssociateTrafficFilterClientBeginAssociateOptions contains the optional parameters for the AssociateTrafficFilterClient.BeginAssociate
+// method.
+func (client *AssociateTrafficFilterClient) BeginAssociate(ctx context.Context, resourceGroupName string, monitorName string, options *AssociateTrafficFilterClientBeginAssociateOptions) (*runtime.Poller[AssociateTrafficFilterClientAssociateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.associate(ctx, resourceGroupName, monitorName, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[AssociateTrafficFilterClientAssociateResponse](resp, client.pl, nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[AssociateTrafficFilterClientAssociateResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// Associate - Associate traffic filter for the given deployment.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-05-05-preview
+func (client *AssociateTrafficFilterClient) associate(ctx context.Context, resourceGroupName string, monitorName string, options *AssociateTrafficFilterClientBeginAssociateOptions) (*http.Response, error) {
+	req, err := client.associateCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return nil, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return VMIngestionClientDetailsResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return VMIngestionClientDetailsResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.detailsHandleResponse(resp)
+	return resp, nil
 }
 
-// detailsCreateRequest creates the Details request.
-func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *VMIngestionClientDetailsOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/vmIngestionDetails"
+// associateCreateRequest creates the Associate request.
+func (client *AssociateTrafficFilterClient) associateCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *AssociateTrafficFilterClientBeginAssociateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/associateTrafficFilter"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -96,16 +112,10 @@ func (client *VMIngestionClient) detailsCreateRequest(ctx context.Context, resou
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2022-05-05-preview")
+	if options != nil && options.RulesetID != nil {
+		reqQP.Set("rulesetId", *options.RulesetID)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
-}
-
-// detailsHandleResponse handles the Details response.
-func (client *VMIngestionClient) detailsHandleResponse(resp *http.Response) (VMIngestionClientDetailsResponse, error) {
-	result := VMIngestionClientDetailsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.VMIngestionDetailsResponse); err != nil {
-		return VMIngestionClientDetailsResponse{}, err
-	}
-	return result, nil
 }
