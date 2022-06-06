@@ -112,6 +112,31 @@ func PossibleLinkStateValues() []LinkState {
 	return []LinkState{LinkStateLinked, LinkStateLinkFailed, LinkStateLinking, LinkStateUnlinkFailed, LinkStateUnlinking}
 }
 
+// Name enumerates the values for name.
+type Name string
+
+const (
+	// NameEnterpriseE10 ...
+	NameEnterpriseE10 Name = "Enterprise_E10"
+	// NameEnterpriseE100 ...
+	NameEnterpriseE100 Name = "Enterprise_E100"
+	// NameEnterpriseE20 ...
+	NameEnterpriseE20 Name = "Enterprise_E20"
+	// NameEnterpriseE50 ...
+	NameEnterpriseE50 Name = "Enterprise_E50"
+	// NameEnterpriseFlashF1500 ...
+	NameEnterpriseFlashF1500 Name = "EnterpriseFlash_F1500"
+	// NameEnterpriseFlashF300 ...
+	NameEnterpriseFlashF300 Name = "EnterpriseFlash_F300"
+	// NameEnterpriseFlashF700 ...
+	NameEnterpriseFlashF700 Name = "EnterpriseFlash_F700"
+)
+
+// PossibleNameValues returns an array of possible values for the Name const type.
+func PossibleNameValues() []Name {
+	return []Name{NameEnterpriseE10, NameEnterpriseE100, NameEnterpriseE20, NameEnterpriseE50, NameEnterpriseFlashF1500, NameEnterpriseFlashF300, NameEnterpriseFlashF700}
+}
+
 // Origin enumerates the values for origin.
 type Origin string
 

@@ -17,7 +17,7 @@ import (
 )
 
 // The package's fully qualified name.
-const fqdn = "github.com/Azure/azure-sdk-for-go/services/redisenterprise/mgmt/2022-01-01/redisenterprise"
+const fqdn = "github.com/Azure/azure-sdk-for-go/services/redisenterprise/mgmt/2021-08-01/redisenterprise"
 
 // AccessKeys the secret access keys used for authenticating connections to redis
 type AccessKeys struct {
@@ -50,14 +50,6 @@ type AzureEntityResource struct {
 func (aer AzureEntityResource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	return json.Marshal(objectMap)
-}
-
-// Capability information about what features the location supports
-type Capability struct {
-	// Name - Feature name
-	Name *string `json:"name,omitempty"`
-	// Value - Indicates whether feature is supported or not
-	Value *bool `json:"value,omitempty"`
 }
 
 // Cluster describes the RedisEnterprise cluster
@@ -360,7 +352,7 @@ func NewClusterListPage(cur ClusterList, getNextPage func(context.Context, Clust
 // ClusterProperties properties of RedisEnterprise clusters, as opposed to general resource properties like
 // location, tags
 type ClusterProperties struct {
-	// MinimumTLSVersion - The minimum TLS version for the cluster to support, e.g. '1.2'. Possible values include: 'TLSVersionOneFullStopZero', 'TLSVersionOneFullStopOne', 'TLSVersionOneFullStopTwo'
+	// MinimumTLSVersion - The minimum TLS version for the cluster to support, e.g. '1.2'. Possible values include: 'OneFullStopZero', 'OneFullStopOne', 'OneFullStopTwo'
 	MinimumTLSVersion TLSVersion `json:"minimumTlsVersion,omitempty"`
 	// HostName - READ-ONLY; DNS name of the cluster endpoint
 	HostName *string `json:"hostName,omitempty"`
@@ -736,7 +728,7 @@ func NewDatabaseListPage(cur DatabaseList, getNextPage func(context.Context, Dat
 // DatabaseProperties properties of RedisEnterprise databases, as opposed to general resource properties
 // like location, tags
 type DatabaseProperties struct {
-	// ClientProtocol - Specifies whether redis clients can connect using TLS-encrypted or plaintext redis protocols. Default is TLS-encrypted. Possible values include: 'ProtocolEncrypted', 'ProtocolPlaintext'
+	// ClientProtocol - Specifies whether redis clients can connect using TLS-encrypted or plaintext redis protocols. Default is TLS-encrypted. Possible values include: 'Encrypted', 'Plaintext'
 	ClientProtocol Protocol `json:"clientProtocol,omitempty"`
 	// Port - TCP port of the database endpoint. Specified at create time. Defaults to an available port.
 	Port *int32 `json:"port,omitempty"`
@@ -744,16 +736,14 @@ type DatabaseProperties struct {
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
 	// ResourceState - READ-ONLY; Current resource status of the database. Possible values include: 'ResourceStateRunning', 'ResourceStateCreating', 'ResourceStateCreateFailed', 'ResourceStateUpdating', 'ResourceStateUpdateFailed', 'ResourceStateDeleting', 'ResourceStateDeleteFailed', 'ResourceStateEnabling', 'ResourceStateEnableFailed', 'ResourceStateDisabling', 'ResourceStateDisableFailed', 'ResourceStateDisabled'
 	ResourceState ResourceState `json:"resourceState,omitempty"`
-	// ClusteringPolicy - Clustering policy - default is OSSCluster. Specified at create time. Possible values include: 'ClusteringPolicyEnterpriseCluster', 'ClusteringPolicyOSSCluster'
+	// ClusteringPolicy - Clustering policy - default is OSSCluster. Specified at create time. Possible values include: 'EnterpriseCluster', 'OSSCluster'
 	ClusteringPolicy ClusteringPolicy `json:"clusteringPolicy,omitempty"`
-	// EvictionPolicy - Redis eviction policy - default is VolatileLRU. Possible values include: 'EvictionPolicyAllKeysLFU', 'EvictionPolicyAllKeysLRU', 'EvictionPolicyAllKeysRandom', 'EvictionPolicyVolatileLRU', 'EvictionPolicyVolatileLFU', 'EvictionPolicyVolatileTTL', 'EvictionPolicyVolatileRandom', 'EvictionPolicyNoEviction'
+	// EvictionPolicy - Redis eviction policy - default is VolatileLRU. Possible values include: 'AllKeysLFU', 'AllKeysLRU', 'AllKeysRandom', 'VolatileLRU', 'VolatileLFU', 'VolatileTTL', 'VolatileRandom', 'NoEviction'
 	EvictionPolicy EvictionPolicy `json:"evictionPolicy,omitempty"`
 	// Persistence - Persistence settings
 	Persistence *Persistence `json:"persistence,omitempty"`
 	// Modules - Optional set of redis modules to enable in this database - modules can only be added at creation time.
 	Modules *[]Module `json:"modules,omitempty"`
-	// GeoReplication - Optional set of properties to configure geo replication for this database.
-	GeoReplication *DatabasePropertiesGeoReplication `json:"geoReplication,omitempty"`
 }
 
 // MarshalJSON is the custom marshaler for DatabaseProperties.
@@ -777,19 +767,7 @@ func (dp DatabaseProperties) MarshalJSON() ([]byte, error) {
 	if dp.Modules != nil {
 		objectMap["modules"] = dp.Modules
 	}
-	if dp.GeoReplication != nil {
-		objectMap["geoReplication"] = dp.GeoReplication
-	}
 	return json.Marshal(objectMap)
-}
-
-// DatabasePropertiesGeoReplication optional set of properties to configure geo replication for this
-// database.
-type DatabasePropertiesGeoReplication struct {
-	// GroupNickname - Name for the group of linked database resources
-	GroupNickname *string `json:"groupNickname,omitempty"`
-	// LinkedDatabases - List of database resources to link with this database
-	LinkedDatabases *[]LinkedDatabase `json:"linkedDatabases,omitempty"`
 }
 
 // DatabasesCreateFuture an abstraction for monitoring and retrieving the results of a long-running
@@ -903,43 +881,6 @@ func (future *DatabasesExportFuture) result(client DatabasesClient) (ar autorest
 	if !done {
 		ar.Response = future.Response()
 		err = azure.NewAsyncOpIncompleteError("redisenterprise.DatabasesExportFuture")
-		return
-	}
-	ar.Response = future.Response()
-	return
-}
-
-// DatabasesForceUnlinkFuture an abstraction for monitoring and retrieving the results of a long-running
-// operation.
-type DatabasesForceUnlinkFuture struct {
-	azure.FutureAPI
-	// Result returns the result of the asynchronous operation.
-	// If the operation has not completed it will return an error.
-	Result func(DatabasesClient) (autorest.Response, error)
-}
-
-// UnmarshalJSON is the custom unmarshaller for CreateFuture.
-func (future *DatabasesForceUnlinkFuture) UnmarshalJSON(body []byte) error {
-	var azFuture azure.Future
-	if err := json.Unmarshal(body, &azFuture); err != nil {
-		return err
-	}
-	future.FutureAPI = &azFuture
-	future.Result = future.result
-	return nil
-}
-
-// result is the default implementation for DatabasesForceUnlinkFuture.Result.
-func (future *DatabasesForceUnlinkFuture) result(client DatabasesClient) (ar autorest.Response, err error) {
-	var done bool
-	done, err = future.DoneWithContext(context.Background(), client)
-	if err != nil {
-		err = autorest.NewErrorWithError(err, "redisenterprise.DatabasesForceUnlinkFuture", "Result", future.Response(), "Polling failure")
-		return
-	}
-	if !done {
-		ar.Response = future.Response()
-		err = azure.NewAsyncOpIncompleteError("redisenterprise.DatabasesForceUnlinkFuture")
 		return
 	}
 	ar.Response = future.Response()
@@ -1191,48 +1132,17 @@ type ExportClusterParameters struct {
 	SasURI *string `json:"sasUri,omitempty"`
 }
 
-// ForceUnlinkParameters parameters for a Redis Enterprise Active Geo Replication Force Unlink operation.
-type ForceUnlinkParameters struct {
-	// Ids - The resource IDs of the database resources to be unlinked.
-	Ids *[]string `json:"ids,omitempty"`
-}
-
 // ImportClusterParameters parameters for a Redis Enterprise import operation.
 type ImportClusterParameters struct {
 	// SasUris - SAS URIs for the target blobs to import from
 	SasUris *[]string `json:"sasUris,omitempty"`
 }
 
-// LinkedDatabase specifies details of a linked database resource.
-type LinkedDatabase struct {
-	// ID - Resource ID of a database resource to link with this database.
-	ID *string `json:"id,omitempty"`
-	// State - READ-ONLY; State of the link between the database resources. Possible values include: 'LinkStateLinked', 'LinkStateLinking', 'LinkStateUnlinking', 'LinkStateLinkFailed', 'LinkStateUnlinkFailed'
-	State LinkState `json:"state,omitempty"`
-}
-
-// MarshalJSON is the custom marshaler for LinkedDatabase.
-func (ld LinkedDatabase) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	if ld.ID != nil {
-		objectMap["id"] = ld.ID
-	}
-	return json.Marshal(objectMap)
-}
-
-// LocationInfo information about location (for example: features that it supports)
-type LocationInfo struct {
-	// Location - Location name
-	Location *string `json:"location,omitempty"`
-	// Capabilities - List of capabilities
-	Capabilities *[]Capability `json:"capabilities,omitempty"`
-}
-
 // Module specifies configuration of a redis module
 type Module struct {
 	// Name - The name of the module, e.g. 'RedisBloom', 'RediSearch', 'RedisTimeSeries'
 	Name *string `json:"name,omitempty"`
-	// Args - Configuration options for the module, e.g. 'ERROR_RATE 0.01 INITIAL_SIZE 400'.
+	// Args - Configuration options for the module, e.g. 'ERROR_RATE 0.00 INITIAL_SIZE 400'.
 	Args *string `json:"args,omitempty"`
 	// Version - READ-ONLY; The version of the module, e.g. '1.0'.
 	Version *string `json:"version,omitempty"`
@@ -1258,9 +1168,9 @@ type Operation struct {
 	IsDataAction *bool `json:"isDataAction,omitempty"`
 	// Display - Localized display information for this particular operation.
 	Display *OperationDisplay `json:"display,omitempty"`
-	// Origin - READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default value is "user,system". Possible values include: 'OriginUser', 'OriginSystem', 'OriginUsersystem'
+	// Origin - READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default value is "user,system". Possible values include: 'User', 'System', 'Usersystem'
 	Origin Origin `json:"origin,omitempty"`
-	// ActionType - READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs. Possible values include: 'ActionTypeInternal'
+	// ActionType - READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs. Possible values include: 'Internal'
 	ActionType ActionType `json:"actionType,omitempty"`
 }
 
@@ -1480,9 +1390,9 @@ type Persistence struct {
 	AofEnabled *bool `json:"aofEnabled,omitempty"`
 	// RdbEnabled - Sets whether RDB is enabled.
 	RdbEnabled *bool `json:"rdbEnabled,omitempty"`
-	// AofFrequency - Sets the frequency at which data is written to disk. Possible values include: 'AofFrequencyOnes', 'AofFrequencyAlways'
+	// AofFrequency - Sets the frequency at which data is written to disk. Possible values include: 'Ones', 'Always'
 	AofFrequency AofFrequency `json:"aofFrequency,omitempty"`
-	// RdbFrequency - Sets the frequency at which a snapshot of the database is created. Possible values include: 'RdbFrequencyOneh', 'RdbFrequencySixh', 'RdbFrequencyOneTwoh'
+	// RdbFrequency - Sets the frequency at which a snapshot of the database is created. Possible values include: 'Oneh', 'Sixh', 'OneTwoh'
 	RdbFrequency RdbFrequency `json:"rdbFrequency,omitempty"`
 }
 
@@ -1585,7 +1495,7 @@ type PrivateEndpointConnectionProperties struct {
 	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
 	// PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer and provider.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
-	// ProvisioningState - The provisioning state of the private endpoint connection resource. Possible values include: 'PrivateEndpointConnectionProvisioningStateSucceeded', 'PrivateEndpointConnectionProvisioningStateCreating', 'PrivateEndpointConnectionProvisioningStateDeleting', 'PrivateEndpointConnectionProvisioningStateFailed'
+	// ProvisioningState - The provisioning state of the private endpoint connection resource. Possible values include: 'Succeeded', 'Creating', 'Deleting', 'Failed'
 	ProvisioningState PrivateEndpointConnectionProvisioningState `json:"provisioningState,omitempty"`
 }
 
@@ -1733,7 +1643,7 @@ func (plrp PrivateLinkResourceProperties) MarshalJSON() ([]byte, error) {
 // PrivateLinkServiceConnectionState a collection of information about the state of the connection between
 // service consumer and provider.
 type PrivateLinkServiceConnectionState struct {
-	// Status - Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service. Possible values include: 'PrivateEndpointServiceConnectionStatusPending', 'PrivateEndpointServiceConnectionStatusApproved', 'PrivateEndpointServiceConnectionStatusRejected'
+	// Status - Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service. Possible values include: 'Pending', 'Approved', 'Rejected'
 	Status PrivateEndpointServiceConnectionStatus `json:"status,omitempty"`
 	// Description - The reason for approval/rejection of the connection.
 	Description *string `json:"description,omitempty"`
@@ -1760,25 +1670,8 @@ func (pr ProxyResource) MarshalJSON() ([]byte, error) {
 
 // RegenerateKeyParameters specifies which access keys to reset to a new random value.
 type RegenerateKeyParameters struct {
-	// KeyType - Which access key to regenerate. Possible values include: 'AccessKeyTypePrimary', 'AccessKeyTypeSecondary'
+	// KeyType - Which access key to regenerate. Possible values include: 'Primary', 'Secondary'
 	KeyType AccessKeyType `json:"keyType,omitempty"`
-}
-
-// RegionSkuDetail details about the location requested and the available skus in the location
-type RegionSkuDetail struct {
-	// ResourceType - Resource type which has the SKU, such as Microsoft.Cache/redisEnterprise
-	ResourceType *string `json:"resourceType,omitempty"`
-	// LocationInfo - Details about location and its capabilities
-	LocationInfo *LocationInfo `json:"locationInfo,omitempty"`
-	// SkuDetails - Details about available skus
-	SkuDetails *SkuDetail `json:"skuDetails,omitempty"`
-}
-
-// RegionSkuDetails list of Region SKU Detail
-type RegionSkuDetails struct {
-	autorest.Response `json:"-"`
-	// Value - List of SkuDetails
-	Value *[]RegionSkuDetail `json:"value,omitempty"`
 }
 
 // Resource common fields that are returned in the response for all Azure Resource Manager resources
@@ -1799,20 +1692,10 @@ func (r Resource) MarshalJSON() ([]byte, error) {
 
 // Sku SKU parameters supplied to the create RedisEnterprise operation.
 type Sku struct {
-	// Name - The type of RedisEnterprise cluster to deploy. Possible values: (Enterprise_E10, EnterpriseFlash_F300 etc.). Possible values include: 'SkuNameEnterpriseE10', 'SkuNameEnterpriseE20', 'SkuNameEnterpriseE50', 'SkuNameEnterpriseE100', 'SkuNameEnterpriseFlashF300', 'SkuNameEnterpriseFlashF700', 'SkuNameEnterpriseFlashF1500'
+	// Name - The type of RedisEnterprise cluster to deploy. Possible values: (Enterprise_E10, EnterpriseFlash_F300 etc.). Possible values include: 'EnterpriseE10', 'EnterpriseE20', 'EnterpriseE50', 'EnterpriseE100', 'EnterpriseFlashF300', 'EnterpriseFlashF700', 'EnterpriseFlashF1500'
 	Name SkuName `json:"name,omitempty"`
 	// Capacity - The size of the RedisEnterprise cluster. Defaults to 2 or 3 depending on SKU. Valid values are (2, 4, 6, ...) for Enterprise SKUs and (3, 9, 15, ...) for Flash SKUs.
 	Capacity *int32 `json:"capacity,omitempty"`
-}
-
-// SkuDetail information about Sku
-type SkuDetail struct {
-	// Name - The type of RedisEnterprise cluster to deploy. Possible values: (Enterprise_E10, EnterpriseFlash_F300 etc.). Possible values include: 'NameEnterpriseE10', 'NameEnterpriseE20', 'NameEnterpriseE50', 'NameEnterpriseE100', 'NameEnterpriseFlashF300', 'NameEnterpriseFlashF700', 'NameEnterpriseFlashF1500'
-	Name Name `json:"name,omitempty"`
-	// DefaultMaxMemory - The memory limit
-	DefaultMaxMemory *float64 `json:"defaultMaxMemory,omitempty"`
-	// DefaultMaxFlash - The memory limit in flash tier caches
-	DefaultMaxFlash *float64 `json:"defaultMaxFlash,omitempty"`
 }
 
 // TrackedResource the resource model definition for an Azure Resource Manager tracked top level resource

@@ -8,7 +8,7 @@ package redisenterpriseapi
 
 import (
 	"context"
-	"github.com/Azure/azure-sdk-for-go/services/redisenterprise/mgmt/2022-01-01/redisenterprise"
+	"github.com/Azure/azure-sdk-for-go/services/redisenterprise/mgmt/2021-08-01/redisenterprise"
 	"github.com/Azure/go-autorest/autorest"
 )
 
@@ -46,7 +46,6 @@ type DatabasesClientAPI interface {
 	Create(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters redisenterprise.Database) (result redisenterprise.DatabasesCreateFuture, err error)
 	Delete(ctx context.Context, resourceGroupName string, clusterName string, databaseName string) (result redisenterprise.DatabasesDeleteFuture, err error)
 	Export(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters redisenterprise.ExportClusterParameters) (result redisenterprise.DatabasesExportFuture, err error)
-	ForceUnlink(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters redisenterprise.ForceUnlinkParameters) (result redisenterprise.DatabasesForceUnlinkFuture, err error)
 	Get(ctx context.Context, resourceGroupName string, clusterName string, databaseName string) (result redisenterprise.Database, err error)
 	Import(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters redisenterprise.ImportClusterParameters) (result redisenterprise.DatabasesImportFuture, err error)
 	ListByCluster(ctx context.Context, resourceGroupName string, clusterName string) (result redisenterprise.DatabaseListPage, err error)
@@ -74,10 +73,3 @@ type PrivateLinkResourcesClientAPI interface {
 }
 
 var _ PrivateLinkResourcesClientAPI = (*redisenterprise.PrivateLinkResourcesClient)(nil)
-
-// SkusClientAPI contains the set of methods on the SkusClient type.
-type SkusClientAPI interface {
-	List(ctx context.Context, location string) (result redisenterprise.RegionSkuDetails, err error)
-}
-
-var _ SkusClientAPI = (*redisenterprise.SkusClient)(nil)
