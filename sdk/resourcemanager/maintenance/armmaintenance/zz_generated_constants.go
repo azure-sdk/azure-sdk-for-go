@@ -70,6 +70,8 @@ const (
 	MaintenanceScopeInGuestPatch MaintenanceScope = "InGuestPatch"
 	// MaintenanceScopeOSImage - This maintenance scope controls os image installation on VM/VMSS
 	MaintenanceScopeOSImage MaintenanceScope = "OSImage"
+	// MaintenanceScopeResource - This maintenance scope is default for update by any Resource Providers
+	MaintenanceScopeResource MaintenanceScope = "Resource"
 	// MaintenanceScopeSQLDB - This maintenance scope controls installation of SQL server platform updates.
 	MaintenanceScopeSQLDB MaintenanceScope = "SQLDB"
 	// MaintenanceScopeSQLManagedInstance - This maintenance scope controls installation of SQL managed instance platform update.
@@ -83,6 +85,7 @@ func PossibleMaintenanceScopeValues() []MaintenanceScope {
 		MaintenanceScopeHost,
 		MaintenanceScopeInGuestPatch,
 		MaintenanceScopeOSImage,
+		MaintenanceScopeResource,
 		MaintenanceScopeSQLDB,
 		MaintenanceScopeSQLManagedInstance,
 	}
