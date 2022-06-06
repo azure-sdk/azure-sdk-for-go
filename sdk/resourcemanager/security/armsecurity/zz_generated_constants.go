@@ -10,7 +10,7 @@ package armsecurity
 
 const (
 	moduleName    = "armsecurity"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.8.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -1412,6 +1412,7 @@ const (
 	SettingNameSentinel                       SettingName = "Sentinel"
 	SettingNameWDATP                          SettingName = "WDATP"
 	SettingNameWDATPEXCLUDELINUXPUBLICPREVIEW SettingName = "WDATP_EXCLUDE_LINUX_PUBLIC_PREVIEW"
+	SettingNameWDATPUNIFIEDSOLUTION           SettingName = "WDATP_UNIFIED_SOLUTION"
 )
 
 // PossibleSettingNameValues returns the possible values for the SettingName const type.
@@ -1421,6 +1422,7 @@ func PossibleSettingNameValues() []SettingName {
 		SettingNameSentinel,
 		SettingNameWDATP,
 		SettingNameWDATPEXCLUDELINUXPUBLICPREVIEW,
+		SettingNameWDATPUNIFIEDSOLUTION,
 	}
 }
 
