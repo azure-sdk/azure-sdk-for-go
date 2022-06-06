@@ -1,5 +1,180 @@
 # Release History
 
+## 2.0.0-beta.1 (2022-06-06)
+### Breaking Changes
+
+- Type of `ServiceProperties.ProvisioningState` has been changed from `*ProvisioningState` to `*CommunicationServicesProvisioningState`
+- Const `ProvisioningStateDeleting` has been removed
+- Const `ProvisioningStateUnknown` has been removed
+- Const `ProvisioningStateUpdating` has been removed
+- Const `ProvisioningStateFailed` has been removed
+- Const `ProvisioningStateRunning` has been removed
+- Const `ProvisioningStateCanceled` has been removed
+- Const `ProvisioningStateCreating` has been removed
+- Const `ProvisioningStateMoving` has been removed
+- Const `ProvisioningStateSucceeded` has been removed
+- Function `NewServiceClient` has been removed
+- Function `*ServiceClient.BeginCreateOrUpdate` has been removed
+- Function `*ServiceClient.BeginDelete` has been removed
+- Function `*ServiceClient.NewListByResourceGroupPager` has been removed
+- Function `PossibleProvisioningStateValues` has been removed
+- Function `*ServiceClient.NewListBySubscriptionPager` has been removed
+- Function `*ServiceClient.RegenerateKey` has been removed
+- Function `*ServiceClient.LinkNotificationHub` has been removed
+- Function `*ServiceClient.Update` has been removed
+- Function `*ServiceClient.ListKeys` has been removed
+- Function `*ServiceClient.Get` has been removed
+- Function `*ServiceClient.CheckNameAvailability` has been removed
+- Struct `LocationResource` has been removed
+- Struct `NameAvailability` has been removed
+- Struct `ServiceClient` has been removed
+- Struct `ServiceClientBeginCreateOrUpdateOptions` has been removed
+- Struct `ServiceClientBeginDeleteOptions` has been removed
+- Struct `ServiceClientCheckNameAvailabilityOptions` has been removed
+- Struct `ServiceClientCheckNameAvailabilityResponse` has been removed
+- Struct `ServiceClientCreateOrUpdateResponse` has been removed
+- Struct `ServiceClientDeleteResponse` has been removed
+- Struct `ServiceClientGetOptions` has been removed
+- Struct `ServiceClientGetResponse` has been removed
+- Struct `ServiceClientLinkNotificationHubOptions` has been removed
+- Struct `ServiceClientLinkNotificationHubResponse` has been removed
+- Struct `ServiceClientListByResourceGroupOptions` has been removed
+- Struct `ServiceClientListByResourceGroupResponse` has been removed
+- Struct `ServiceClientListBySubscriptionOptions` has been removed
+- Struct `ServiceClientListBySubscriptionResponse` has been removed
+- Struct `ServiceClientListKeysOptions` has been removed
+- Struct `ServiceClientListKeysResponse` has been removed
+- Struct `ServiceClientRegenerateKeyOptions` has been removed
+- Struct `ServiceClientRegenerateKeyResponse` has been removed
+- Struct `ServiceClientUpdateOptions` has been removed
+- Struct `ServiceClientUpdateResponse` has been removed
+
+### Features Added
+
+- New const `EmailServicesProvisioningStateDeleting`
+- New const `VerificationStatusVerificationInProgress`
+- New const `DomainsProvisioningStateFailed`
+- New const `CheckNameAvailabilityReasonInvalid`
+- New const `DomainsProvisioningStateCanceled`
+- New const `VerificationTypeDMARC`
+- New const `DomainsProvisioningStateUpdating`
+- New const `EmailServicesProvisioningStateSucceeded`
+- New const `CommunicationServicesProvisioningStateMoving`
+- New const `CommunicationServicesProvisioningStateSucceeded`
+- New const `VerificationStatusVerificationFailed`
+- New const `DomainsProvisioningStateCreating`
+- New const `DomainsProvisioningStateSucceeded`
+- New const `VerificationStatusCancellationRequested`
+- New const `DomainManagementCustomerManaged`
+- New const `EmailServicesProvisioningStateMoving`
+- New const `UserEngagementTrackingDisabled`
+- New const `VerificationTypeDKIM`
+- New const `EmailServicesProvisioningStateRunning`
+- New const `CommunicationServicesProvisioningStateRunning`
+- New const `EmailServicesProvisioningStateCreating`
+- New const `VerificationStatusVerified`
+- New const `EmailServicesProvisioningStateCanceled`
+- New const `CheckNameAvailabilityReasonAlreadyExists`
+- New const `CommunicationServicesProvisioningStateUpdating`
+- New const `CommunicationServicesProvisioningStateDeleting`
+- New const `VerificationTypeDKIM2`
+- New const `VerificationStatusVerificationRequested`
+- New const `VerificationTypeDomain`
+- New const `CommunicationServicesProvisioningStateFailed`
+- New const `CommunicationServicesProvisioningStateUnknown`
+- New const `DomainsProvisioningStateRunning`
+- New const `UserEngagementTrackingEnabled`
+- New const `EmailServicesProvisioningStateFailed`
+- New const `DomainsProvisioningStateUnknown`
+- New const `DomainManagementCustomerManagedInExchangeOnline`
+- New const `CommunicationServicesProvisioningStateCanceled`
+- New const `EmailServicesProvisioningStateUpdating`
+- New const `DomainsProvisioningStateDeleting`
+- New const `CommunicationServicesProvisioningStateCreating`
+- New const `VerificationStatusNotStarted`
+- New const `VerificationTypeSPF`
+- New const `DomainManagementAzureManaged`
+- New const `DomainsProvisioningStateMoving`
+- New const `EmailServicesProvisioningStateUnknown`
+- New function `PossibleUserEngagementTrackingValues() []UserEngagementTracking`
+- New function `PossibleDomainManagementValues() []DomainManagement`
+- New function `PossibleVerificationTypeValues() []VerificationType`
+- New function `PossibleEmailServicesProvisioningStateValues() []EmailServicesProvisioningState`
+- New function `PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason`
+- New function `PossibleCommunicationServicesProvisioningStateValues() []CommunicationServicesProvisioningState`
+- New function `PossibleVerificationStatusValues() []VerificationStatus`
+- New function `PossibleDomainsProvisioningStateValues() []DomainsProvisioningState`
+- New struct `CheckNameAvailabilityRequest`
+- New struct `CheckNameAvailabilityResponse`
+- New struct `DNSRecord`
+- New struct `DomainProperties`
+- New struct `DomainPropertiesVerificationRecords`
+- New struct `DomainPropertiesVerificationStates`
+- New struct `DomainResource`
+- New struct `DomainResourceList`
+- New struct `DomainsClientBeginCancelVerificationOptions`
+- New struct `DomainsClientBeginCreateOrUpdateOptions`
+- New struct `DomainsClientBeginDeleteOptions`
+- New struct `DomainsClientBeginInitiateVerificationOptions`
+- New struct `DomainsClientBeginUpdateOptions`
+- New struct `DomainsClientCancelVerificationResponse`
+- New struct `DomainsClientCreateOrUpdateResponse`
+- New struct `DomainsClientDeleteResponse`
+- New struct `DomainsClientGetOptions`
+- New struct `DomainsClientGetResponse`
+- New struct `DomainsClientInitiateVerificationResponse`
+- New struct `DomainsClientListByEmailServiceResourceOptions`
+- New struct `DomainsClientListByEmailServiceResourceResponse`
+- New struct `DomainsClientUpdateResponse`
+- New struct `EmailServiceProperties`
+- New struct `EmailServiceResource`
+- New struct `EmailServiceResourceList`
+- New struct `EmailServiceResourceUpdate`
+- New struct `EmailServicesClientBeginCreateOrUpdateOptions`
+- New struct `EmailServicesClientBeginDeleteOptions`
+- New struct `EmailServicesClientBeginUpdateOptions`
+- New struct `EmailServicesClientCreateOrUpdateResponse`
+- New struct `EmailServicesClientDeleteResponse`
+- New struct `EmailServicesClientGetOptions`
+- New struct `EmailServicesClientGetResponse`
+- New struct `EmailServicesClientListByResourceGroupOptions`
+- New struct `EmailServicesClientListByResourceGroupResponse`
+- New struct `EmailServicesClientListBySubscriptionOptions`
+- New struct `EmailServicesClientListBySubscriptionResponse`
+- New struct `EmailServicesClientListVerifiedExchangeOnlineDomainsOptions`
+- New struct `EmailServicesClientListVerifiedExchangeOnlineDomainsResponse`
+- New struct `EmailServicesClientUpdateResponse`
+- New struct `ServiceResourceUpdate`
+- New struct `ServiceUpdateProperties`
+- New struct `ServicesClientBeginCreateOrUpdateOptions`
+- New struct `ServicesClientBeginDeleteOptions`
+- New struct `ServicesClientBeginRegenerateKeyOptions`
+- New struct `ServicesClientBeginUpdateOptions`
+- New struct `ServicesClientCheckNameAvailabilityOptions`
+- New struct `ServicesClientCheckNameAvailabilityResponse`
+- New struct `ServicesClientCreateOrUpdateResponse`
+- New struct `ServicesClientDeleteResponse`
+- New struct `ServicesClientGetOptions`
+- New struct `ServicesClientGetResponse`
+- New struct `ServicesClientLinkNotificationHubOptions`
+- New struct `ServicesClientLinkNotificationHubResponse`
+- New struct `ServicesClientListByResourceGroupOptions`
+- New struct `ServicesClientListByResourceGroupResponse`
+- New struct `ServicesClientListBySubscriptionOptions`
+- New struct `ServicesClientListBySubscriptionResponse`
+- New struct `ServicesClientListKeysOptions`
+- New struct `ServicesClientListKeysResponse`
+- New struct `ServicesClientRegenerateKeyResponse`
+- New struct `ServicesClientUpdateResponse`
+- New struct `TrackedResource`
+- New struct `UpdateDomainProperties`
+- New struct `UpdateDomainRequestParameters`
+- New struct `VerificationParameter`
+- New struct `VerificationStatusRecord`
+- New field `LinkedDomains` in struct `ServiceProperties`
+- New field `SystemData` in struct `Resource`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/communication/armcommunication` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
