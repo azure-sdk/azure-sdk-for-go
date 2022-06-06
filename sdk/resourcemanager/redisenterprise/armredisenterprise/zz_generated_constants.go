@@ -10,7 +10,7 @@ package armredisenterprise
 
 const (
 	moduleName    = "armredisenterprise"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // AccessKeyType - Which access key to regenerate.
@@ -122,6 +122,32 @@ func PossibleLinkStateValues() []LinkState {
 		LinkStateLinking,
 		LinkStateUnlinkFailed,
 		LinkStateUnlinking,
+	}
+}
+
+// Name - The type of RedisEnterprise cluster to deploy. Possible values: (EnterpriseE10, EnterpriseFlashF300 etc.)
+type Name string
+
+const (
+	NameEnterpriseE10        Name = "Enterprise_E10"
+	NameEnterpriseE100       Name = "Enterprise_E100"
+	NameEnterpriseE20        Name = "Enterprise_E20"
+	NameEnterpriseE50        Name = "Enterprise_E50"
+	NameEnterpriseFlashF1500 Name = "EnterpriseFlash_F1500"
+	NameEnterpriseFlashF300  Name = "EnterpriseFlash_F300"
+	NameEnterpriseFlashF700  Name = "EnterpriseFlash_F700"
+)
+
+// PossibleNameValues returns the possible values for the Name const type.
+func PossibleNameValues() []Name {
+	return []Name{
+		NameEnterpriseE10,
+		NameEnterpriseE100,
+		NameEnterpriseE20,
+		NameEnterpriseE50,
+		NameEnterpriseFlashF1500,
+		NameEnterpriseFlashF300,
+		NameEnterpriseFlashF700,
 	}
 }
 

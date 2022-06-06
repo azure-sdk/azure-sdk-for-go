@@ -122,3 +122,8 @@ type PrivateEndpointConnectionsClientPutResponse struct {
 type PrivateLinkResourcesClientListByClusterResponse struct {
 	PrivateLinkResourceListResult
 }
+
+// SKUsClientListResponse contains the response from method SKUsClient.List.
+type SKUsClientListResponse struct {
+	RegionSKUDetails
+}
