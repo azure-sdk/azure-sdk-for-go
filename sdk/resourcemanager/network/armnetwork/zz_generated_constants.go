@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -959,8 +959,10 @@ func PossibleEffectiveSecurityRuleProtocolValues() []EffectiveSecurityRuleProtoc
 type EndpointType string
 
 const (
+	EndpointTypeAzureArcVM          EndpointType = "AzureArcVM"
 	EndpointTypeAzureSubnet         EndpointType = "AzureSubnet"
 	EndpointTypeAzureVM             EndpointType = "AzureVM"
+	EndpointTypeAzureVMSS           EndpointType = "AzureVMSS"
 	EndpointTypeAzureVNet           EndpointType = "AzureVNet"
 	EndpointTypeExternalAddress     EndpointType = "ExternalAddress"
 	EndpointTypeMMAWorkspaceMachine EndpointType = "MMAWorkspaceMachine"
@@ -970,8 +972,10 @@ const (
 // PossibleEndpointTypeValues returns the possible values for the EndpointType const type.
 func PossibleEndpointTypeValues() []EndpointType {
 	return []EndpointType{
+		EndpointTypeAzureArcVM,
 		EndpointTypeAzureSubnet,
 		EndpointTypeAzureVM,
+		EndpointTypeAzureVMSS,
 		EndpointTypeAzureVNet,
 		EndpointTypeExternalAddress,
 		EndpointTypeMMAWorkspaceMachine,
@@ -2116,6 +2120,22 @@ func PossibleOwaspCrsExclusionEntrySelectorMatchOperatorValues() []OwaspCrsExclu
 		OwaspCrsExclusionEntrySelectorMatchOperatorEquals,
 		OwaspCrsExclusionEntrySelectorMatchOperatorEqualsAny,
 		OwaspCrsExclusionEntrySelectorMatchOperatorStartsWith,
+	}
+}
+
+// PacketCaptureTargetType - Target type of the resource provided.
+type PacketCaptureTargetType string
+
+const (
+	PacketCaptureTargetTypeAzureVM   PacketCaptureTargetType = "AzureVM"
+	PacketCaptureTargetTypeAzureVMSS PacketCaptureTargetType = "AzureVMSS"
+)
+
+// PossiblePacketCaptureTargetTypeValues returns the possible values for the PacketCaptureTargetType const type.
+func PossiblePacketCaptureTargetTypeValues() []PacketCaptureTargetType {
+	return []PacketCaptureTargetType{
+		PacketCaptureTargetTypeAzureVM,
+		PacketCaptureTargetTypeAzureVMSS,
 	}
 }
 

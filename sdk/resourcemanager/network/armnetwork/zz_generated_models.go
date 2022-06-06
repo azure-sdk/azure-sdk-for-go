@@ -1339,6 +1339,9 @@ type ApplicationGatewayRoutingRule struct {
 
 // ApplicationGatewayRoutingRulePropertiesFormat - Properties of routing rule of the application gateway.
 type ApplicationGatewayRoutingRulePropertiesFormat struct {
+	// REQUIRED; Priority of the routing rule.
+	Priority *int32 `json:"priority,omitempty"`
+
 	// Backend address pool resource of the application gateway.
 	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
 
@@ -9241,12 +9244,22 @@ type PacketCaptureListResult struct {
 	Value []*PacketCaptureResult `json:"value,omitempty"`
 }
 
+// PacketCaptureMachineScope - A list of AzureVMSS instances which can be included or excluded to run packet capture. If both
+// included and excluded are empty, then the packet capture will run on all instances of AzureVMSS.
+type PacketCaptureMachineScope struct {
+	// List of AzureVMSS instances which has to be excluded from the AzureVMSS from running packet capture.
+	Exclude []*string `json:"exclude,omitempty"`
+
+	// List of AzureVMSS instances to run packet capture on.
+	Include []*string `json:"include,omitempty"`
+}
+
 // PacketCaptureParameters - Parameters that define the create packet capture operation.
 type PacketCaptureParameters struct {
 	// REQUIRED; The storage location for a packet capture session.
 	StorageLocation *PacketCaptureStorageLocation `json:"storageLocation,omitempty"`
 
-	// REQUIRED; The ID of the targeted resource, only VM is currently supported.
+	// REQUIRED; The ID of the targeted resource, only AzureVM and AzureVMSS as target type are currently supported.
 	Target *string `json:"target,omitempty"`
 
 	// Number of bytes captured per packet, the remaining bytes are truncated.
@@ -9254,6 +9267,13 @@ type PacketCaptureParameters struct {
 
 	// A list of packet capture filters.
 	Filters []*PacketCaptureFilter `json:"filters,omitempty"`
+
+	// A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are
+	// empty, then the packet capture will run on all instances of AzureVMSS.
+	Scope *PacketCaptureMachineScope `json:"scope,omitempty"`
+
+	// Target type of the resource provided.
+	TargetType *PacketCaptureTargetType `json:"targetType,omitempty"`
 
 	// Maximum duration of the capture session in seconds.
 	TimeLimitInSeconds *int32 `json:"timeLimitInSeconds,omitempty"`
@@ -9303,7 +9323,7 @@ type PacketCaptureResultProperties struct {
 	// REQUIRED; The storage location for a packet capture session.
 	StorageLocation *PacketCaptureStorageLocation `json:"storageLocation,omitempty"`
 
-	// REQUIRED; The ID of the targeted resource, only VM is currently supported.
+	// REQUIRED; The ID of the targeted resource, only AzureVM and AzureVMSS as target type are currently supported.
 	Target *string `json:"target,omitempty"`
 
 	// Number of bytes captured per packet, the remaining bytes are truncated.
@@ -9311,6 +9331,13 @@ type PacketCaptureResultProperties struct {
 
 	// A list of packet capture filters.
 	Filters []*PacketCaptureFilter `json:"filters,omitempty"`
+
+	// A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are
+	// empty, then the packet capture will run on all instances of AzureVMSS.
+	Scope *PacketCaptureMachineScope `json:"scope,omitempty"`
+
+	// Target type of the resource provided.
+	TargetType *PacketCaptureTargetType `json:"targetType,omitempty"`
 
 	// Maximum duration of the capture session in seconds.
 	TimeLimitInSeconds *int32 `json:"timeLimitInSeconds,omitempty"`
