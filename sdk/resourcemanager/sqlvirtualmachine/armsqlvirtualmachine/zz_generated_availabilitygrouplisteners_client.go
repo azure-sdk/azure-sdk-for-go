@@ -56,7 +56,7 @@ func NewAvailabilityGroupListenersClient(subscriptionID string, credential azcor
 
 // BeginCreateOrUpdate - Creates or updates an availability group listener.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-02-01
 // resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 // Manager API or the portal.
 // sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
@@ -78,7 +78,7 @@ func (client *AvailabilityGroupListenersClient) BeginCreateOrUpdate(ctx context.
 
 // CreateOrUpdate - Creates or updates an availability group listener.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-02-01
 func (client *AvailabilityGroupListenersClient) createOrUpdate(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, availabilityGroupListenerName string, parameters AvailabilityGroupListener, options *AvailabilityGroupListenersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, sqlVirtualMachineGroupName, availabilityGroupListenerName, parameters, options)
 	if err != nil {
@@ -118,7 +118,7 @@ func (client *AvailabilityGroupListenersClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -126,7 +126,7 @@ func (client *AvailabilityGroupListenersClient) createOrUpdateCreateRequest(ctx 
 
 // BeginDelete - Deletes an availability group listener.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-02-01
 // resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 // Manager API or the portal.
 // sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
@@ -147,7 +147,7 @@ func (client *AvailabilityGroupListenersClient) BeginDelete(ctx context.Context,
 
 // Delete - Deletes an availability group listener.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-02-01
 func (client *AvailabilityGroupListenersClient) deleteOperation(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, availabilityGroupListenerName string, options *AvailabilityGroupListenersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, sqlVirtualMachineGroupName, availabilityGroupListenerName, options)
 	if err != nil {
@@ -187,14 +187,14 @@ func (client *AvailabilityGroupListenersClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
 // Get - Gets an availability group listener.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-02-01
 // resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 // Manager API or the portal.
 // sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
@@ -243,7 +243,7 @@ func (client *AvailabilityGroupListenersClient) getCreateRequest(ctx context.Con
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -260,7 +260,7 @@ func (client *AvailabilityGroupListenersClient) getHandleResponse(resp *http.Res
 
 // NewListByGroupPager - Lists all availability group listeners in a SQL virtual machine group.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-11-01-preview
+// Generated from API version 2022-02-01
 // resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
 // Manager API or the portal.
 // sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
@@ -314,7 +314,7 @@ func (client *AvailabilityGroupListenersClient) listByGroupCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-01-preview")
+	reqQP.Set("api-version", "2022-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

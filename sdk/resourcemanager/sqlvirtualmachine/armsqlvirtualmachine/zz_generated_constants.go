@@ -10,8 +10,59 @@ package armsqlvirtualmachine
 
 const (
 	moduleName    = "armsqlvirtualmachine"
-	moduleVersion = "v0.5.0"
+	moduleVersion = "v0.6.0"
 )
+
+// AssessmentDayOfWeek - Day of the week to run assessment.
+type AssessmentDayOfWeek string
+
+const (
+	AssessmentDayOfWeekMonday    AssessmentDayOfWeek = "Monday"
+	AssessmentDayOfWeekTuesday   AssessmentDayOfWeek = "Tuesday"
+	AssessmentDayOfWeekWednesday AssessmentDayOfWeek = "Wednesday"
+	AssessmentDayOfWeekThursday  AssessmentDayOfWeek = "Thursday"
+	AssessmentDayOfWeekFriday    AssessmentDayOfWeek = "Friday"
+	AssessmentDayOfWeekSaturday  AssessmentDayOfWeek = "Saturday"
+	AssessmentDayOfWeekSunday    AssessmentDayOfWeek = "Sunday"
+)
+
+// PossibleAssessmentDayOfWeekValues returns the possible values for the AssessmentDayOfWeek const type.
+func PossibleAssessmentDayOfWeekValues() []AssessmentDayOfWeek {
+	return []AssessmentDayOfWeek{
+		AssessmentDayOfWeekMonday,
+		AssessmentDayOfWeekTuesday,
+		AssessmentDayOfWeekWednesday,
+		AssessmentDayOfWeekThursday,
+		AssessmentDayOfWeekFriday,
+		AssessmentDayOfWeekSaturday,
+		AssessmentDayOfWeekSunday,
+	}
+}
+
+type AutoBackupDaysOfWeek string
+
+const (
+	AutoBackupDaysOfWeekFriday    AutoBackupDaysOfWeek = "Friday"
+	AutoBackupDaysOfWeekMonday    AutoBackupDaysOfWeek = "Monday"
+	AutoBackupDaysOfWeekSaturday  AutoBackupDaysOfWeek = "Saturday"
+	AutoBackupDaysOfWeekSunday    AutoBackupDaysOfWeek = "Sunday"
+	AutoBackupDaysOfWeekThursday  AutoBackupDaysOfWeek = "Thursday"
+	AutoBackupDaysOfWeekTuesday   AutoBackupDaysOfWeek = "Tuesday"
+	AutoBackupDaysOfWeekWednesday AutoBackupDaysOfWeek = "Wednesday"
+)
+
+// PossibleAutoBackupDaysOfWeekValues returns the possible values for the AutoBackupDaysOfWeek const type.
+func PossibleAutoBackupDaysOfWeekValues() []AutoBackupDaysOfWeek {
+	return []AutoBackupDaysOfWeek{
+		AutoBackupDaysOfWeekFriday,
+		AutoBackupDaysOfWeekMonday,
+		AutoBackupDaysOfWeekSaturday,
+		AutoBackupDaysOfWeekSunday,
+		AutoBackupDaysOfWeekThursday,
+		AutoBackupDaysOfWeekTuesday,
+		AutoBackupDaysOfWeekWednesday,
+	}
+}
 
 // BackupScheduleType - Backup schedule type.
 type BackupScheduleType string
@@ -58,6 +109,22 @@ func PossibleClusterManagerTypeValues() []ClusterManagerType {
 	}
 }
 
+// ClusterSubnetType - Cluster subnet type.
+type ClusterSubnetType string
+
+const (
+	ClusterSubnetTypeMultiSubnet  ClusterSubnetType = "MultiSubnet"
+	ClusterSubnetTypeSingleSubnet ClusterSubnetType = "SingleSubnet"
+)
+
+// PossibleClusterSubnetTypeValues returns the possible values for the ClusterSubnetType const type.
+func PossibleClusterSubnetTypeValues() []ClusterSubnetType {
+	return []ClusterSubnetType{
+		ClusterSubnetTypeMultiSubnet,
+		ClusterSubnetTypeSingleSubnet,
+	}
+}
+
 // Commit - Replica commit mode in availability group.
 type Commit string
 
@@ -92,30 +159,11 @@ func PossibleConnectivityTypeValues() []ConnectivityType {
 	}
 }
 
-// CreatedByType - The type of identity that created the resource.
-type CreatedByType string
-
-const (
-	CreatedByTypeApplication     CreatedByType = "Application"
-	CreatedByTypeKey             CreatedByType = "Key"
-	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
-	CreatedByTypeUser            CreatedByType = "User"
-)
-
-// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
-func PossibleCreatedByTypeValues() []CreatedByType {
-	return []CreatedByType{
-		CreatedByTypeApplication,
-		CreatedByTypeKey,
-		CreatedByTypeManagedIdentity,
-		CreatedByTypeUser,
-	}
-}
-
 // DayOfWeek - Day of week to apply the patch on.
 type DayOfWeek string
 
 const (
+	DayOfWeekEveryday  DayOfWeek = "Everyday"
 	DayOfWeekMonday    DayOfWeek = "Monday"
 	DayOfWeekTuesday   DayOfWeek = "Tuesday"
 	DayOfWeekWednesday DayOfWeek = "Wednesday"
@@ -128,6 +176,7 @@ const (
 // PossibleDayOfWeekValues returns the possible values for the DayOfWeek const type.
 func PossibleDayOfWeekValues() []DayOfWeek {
 	return []DayOfWeek{
+		DayOfWeekEveryday,
 		DayOfWeekMonday,
 		DayOfWeekTuesday,
 		DayOfWeekWednesday,
@@ -135,31 +184,6 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 		DayOfWeekFriday,
 		DayOfWeekSaturday,
 		DayOfWeekSunday,
-	}
-}
-
-type DaysOfWeek string
-
-const (
-	DaysOfWeekFriday    DaysOfWeek = "Friday"
-	DaysOfWeekMonday    DaysOfWeek = "Monday"
-	DaysOfWeekSaturday  DaysOfWeek = "Saturday"
-	DaysOfWeekSunday    DaysOfWeek = "Sunday"
-	DaysOfWeekThursday  DaysOfWeek = "Thursday"
-	DaysOfWeekTuesday   DaysOfWeek = "Tuesday"
-	DaysOfWeekWednesday DaysOfWeek = "Wednesday"
-)
-
-// PossibleDaysOfWeekValues returns the possible values for the DaysOfWeek const type.
-func PossibleDaysOfWeekValues() []DaysOfWeek {
-	return []DaysOfWeek{
-		DaysOfWeekFriday,
-		DaysOfWeekMonday,
-		DaysOfWeekSaturday,
-		DaysOfWeekSunday,
-		DaysOfWeekThursday,
-		DaysOfWeekTuesday,
-		DaysOfWeekWednesday,
 	}
 }
 
@@ -213,20 +237,20 @@ func PossibleFullBackupFrequencyTypeValues() []FullBackupFrequencyType {
 	}
 }
 
-// IdentityType - The identity type. Set this to 'SystemAssigned' in order to automatically create and assign an Azure Active
-// Directory principal for the resource.
-type IdentityType string
+// IdentityTypeWithNone - The identity type. Set this to 'SystemAssigned' in order to automatically create and assign an Azure
+// Active Directory principal for the resource.
+type IdentityTypeWithNone string
 
 const (
-	IdentityTypeNone           IdentityType = "None"
-	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
+	IdentityTypeWithNoneNone           IdentityTypeWithNone = "None"
+	IdentityTypeWithNoneSystemAssigned IdentityTypeWithNone = "SystemAssigned"
 )
 
-// PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
-func PossibleIdentityTypeValues() []IdentityType {
-	return []IdentityType{
-		IdentityTypeNone,
-		IdentityTypeSystemAssigned,
+// PossibleIdentityTypeWithNoneValues returns the possible values for the IdentityTypeWithNone const type.
+func PossibleIdentityTypeWithNoneValues() []IdentityTypeWithNone {
+	return []IdentityTypeWithNone{
+		IdentityTypeWithNoneNone,
+		IdentityTypeWithNoneSystemAssigned,
 	}
 }
 

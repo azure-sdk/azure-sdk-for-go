@@ -8,8 +8,6 @@
 
 package armsqlvirtualmachine
 
-import "time"
-
 // AdditionalFeaturesServerConfigurations - Additional SQL Server feature settings.
 type AdditionalFeaturesServerConfigurations struct {
 	// Enable or disable R services (SQL 2016 onwards).
@@ -18,8 +16,8 @@ type AdditionalFeaturesServerConfigurations struct {
 
 // AgConfiguration - Availability group configuration.
 type AgConfiguration struct {
-	// READ-ONLY; Replica configurations.
-	Replicas []*AgReplica `json:"replicas,omitempty" azure:"ro"`
+	// Replica configurations.
+	Replicas []*AgReplica `json:"replicas,omitempty"`
 }
 
 // AgReplica - Availability group replica configuration.
@@ -61,7 +59,7 @@ type AutoBackupSettings struct {
 	BackupSystemDbs *bool `json:"backupSystemDbs,omitempty"`
 
 	// Days of the week for the backups when FullBackupFrequency is set to Weekly.
-	DaysOfWeek []*DaysOfWeek `json:"daysOfWeek,omitempty"`
+	DaysOfWeek []*AutoBackupDaysOfWeek `json:"daysOfWeek,omitempty"`
 
 	// Enable or disable autobackup on SQL virtual machine.
 	Enable *bool `json:"enable,omitempty"`
@@ -123,9 +121,6 @@ type AvailabilityGroupListener struct {
 	// READ-ONLY; Resource name.
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
@@ -152,6 +147,9 @@ type AvailabilityGroupListenerProperties struct {
 
 	// List of load balancer configurations for an availability group listener.
 	LoadBalancerConfigurations []*LoadBalancerConfiguration `json:"loadBalancerConfigurations,omitempty"`
+
+	// List of multi subnet IP configurations for an AG listener.
+	MultiSubnetIPConfigurations []*MultiSubnetIPConfiguration `json:"multiSubnetIpConfigurations,omitempty"`
 
 	// Listener port.
 	Port *int32 `json:"port,omitempty"`
@@ -203,9 +201,6 @@ type Group struct {
 
 	// READ-ONLY; Resource name.
 	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -329,6 +324,15 @@ type LoadBalancerConfiguration struct {
 	SQLVirtualMachineInstances []*string `json:"sqlVirtualMachineInstances,omitempty"`
 }
 
+// MultiSubnetIPConfiguration - Multi subnet ip configuration for an availability group listener.
+type MultiSubnetIPConfiguration struct {
+	// REQUIRED; Private IP address.
+	PrivateIPAddress *PrivateIPAddress `json:"privateIpAddress,omitempty"`
+
+	// REQUIRED; SQL virtual machine instance resource id that are enrolled into the availability group listener.
+	SQLVirtualMachineInstance *string `json:"sqlVirtualMachineInstance,omitempty"`
+}
+
 // Operation - SQL REST API operation definition.
 type Operation struct {
 	// READ-ONLY; The localized display information for this particular operation / action.
@@ -423,6 +427,9 @@ type Properties struct {
 	// Domain credentials for setting up Windows Server Failover Cluster for SQL availability group.
 	WsfcDomainCredentials *WsfcDomainCredentials `json:"wsfcDomainCredentials,omitempty"`
 
+	// Domain credentials for setting up Windows Server Failover Cluster for SQL availability group.
+	WsfcStaticIP *string `json:"wsfcStaticIp,omitempty"`
+
 	// READ-ONLY; Provisioning state to track the async operation status.
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 }
@@ -455,7 +462,7 @@ type Resource struct {
 type ResourceIdentity struct {
 	// The identity type. Set this to 'SystemAssigned' in order to automatically create and assign an Azure Active Directory principal
 	// for the resource.
-	Type *IdentityType `json:"type,omitempty"`
+	Type *IdentityTypeWithNone `json:"type,omitempty"`
 
 	// READ-ONLY; The Azure Active Directory principal id.
 	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
@@ -483,6 +490,12 @@ type SQLConnectivityUpdateSettings struct {
 type SQLInstanceSettings struct {
 	// SQL Server Collation.
 	Collation *string `json:"collation,omitempty"`
+
+	// SQL Server IFI.
+	IsIFIEnabled *bool `json:"isIFIEnabled,omitempty"`
+
+	// SQL Server LPIM.
+	IsLPIMEnabled *bool `json:"isLPIMEnabled,omitempty"`
 
 	// SQL Server Optimize for Adhoc workloads.
 	IsOptimizeForAdHocWorkloadsEnabled *bool `json:"isOptimizeForAdHocWorkloadsEnabled,omitempty"`
@@ -519,26 +532,32 @@ type SQLStorageUpdateSettings struct {
 }
 
 type SQLTempDbSettings struct {
-	// SQL Server default file count
+	// SQL Server tempdb data file count
 	DataFileCount *int32 `json:"dataFileCount,omitempty"`
 
-	// SQL Server default file size
+	// SQL Server tempdb data file size
 	DataFileSize *int32 `json:"dataFileSize,omitempty"`
 
-	// SQL Server default file autoGrowth size
+	// SQL Server tempb data file autoGrowth size
 	DataGrowth *int32 `json:"dataGrowth,omitempty"`
 
 	// SQL Server default file path
 	DefaultFilePath *string `json:"defaultFilePath,omitempty"`
 
-	// SQL Server default file size
+	// SQL Server tempdb log file size
 	LogFileSize *int32 `json:"logFileSize,omitempty"`
 
-	// SQL Server default file autoGrowth size
+	// SQL Server tempdb log file autoGrowth size
 	LogGrowth *int32 `json:"logGrowth,omitempty"`
 
 	// Logical Unit Numbers for the disks.
 	Luns []*int32 `json:"luns,omitempty"`
+
+	// SQL Server tempdb persist folder choice
+	PersistFolder *bool `json:"persistFolder,omitempty"`
+
+	// SQL Server tempdb persist folder location
+	PersistFolderPath *string `json:"persistFolderPath,omitempty"`
 }
 
 // SQLVirtualMachine - A SQL virtual machine.
@@ -560,9 +579,6 @@ type SQLVirtualMachine struct {
 
 	// READ-ONLY; Resource name.
 	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -634,7 +650,7 @@ type SQLWorkloadTypeUpdateSettings struct {
 
 type Schedule struct {
 	// Day of the week to run assessment.
-	DayOfWeek *DayOfWeek `json:"dayOfWeek,omitempty"`
+	DayOfWeek *AssessmentDayOfWeek `json:"dayOfWeek,omitempty"`
 
 	// Enable or disable assessment schedule on SQL virtual machine.
 	Enable *bool `json:"enable,omitempty"`
@@ -689,27 +705,6 @@ type StorageConfigurationSettings struct {
 	StorageWorkloadType *StorageWorkloadType `json:"storageWorkloadType,omitempty"`
 }
 
-// SystemData - Metadata pertaining to creation and last modification of the resource.
-type SystemData struct {
-	// The timestamp of resource creation (UTC).
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-
-	// The identity that created the resource.
-	CreatedBy *string `json:"createdBy,omitempty"`
-
-	// The type of identity that created the resource.
-	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
-
-	// The timestamp of resource last modification (UTC)
-	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty"`
-
-	// The identity that last modified the resource.
-	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
-
-	// The type of identity that last modified the resource.
-	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
-}
-
 // TrackedResource - ARM tracked top level resource.
 type TrackedResource struct {
 	// REQUIRED; Resource location.
@@ -754,6 +749,9 @@ type WsfcDomainProfile struct {
 	// Account name used for operating cluster i.e. will be part of administrators group on all the participating virtual machines
 	// in the cluster.
 	ClusterOperatorAccount *string `json:"clusterOperatorAccount,omitempty"`
+
+	// Cluster subnet type.
+	ClusterSubnetType *ClusterSubnetType `json:"clusterSubnetType,omitempty"`
 
 	// Fully qualified name of the domain.
 	DomainFqdn *string `json:"domainFqdn,omitempty"`
