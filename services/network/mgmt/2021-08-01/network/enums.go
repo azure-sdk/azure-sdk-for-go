@@ -907,10 +907,14 @@ func PossibleEffectiveSecurityRuleProtocolValues() []EffectiveSecurityRuleProtoc
 type EndpointType string
 
 const (
+	// EndpointTypeAzureArcVM ...
+	EndpointTypeAzureArcVM EndpointType = "AzureArcVM"
 	// EndpointTypeAzureSubnet ...
 	EndpointTypeAzureSubnet EndpointType = "AzureSubnet"
 	// EndpointTypeAzureVM ...
 	EndpointTypeAzureVM EndpointType = "AzureVM"
+	// EndpointTypeAzureVMSS ...
+	EndpointTypeAzureVMSS EndpointType = "AzureVMSS"
 	// EndpointTypeAzureVNet ...
 	EndpointTypeAzureVNet EndpointType = "AzureVNet"
 	// EndpointTypeExternalAddress ...
@@ -923,7 +927,7 @@ const (
 
 // PossibleEndpointTypeValues returns an array of possible values for the EndpointType const type.
 func PossibleEndpointTypeValues() []EndpointType {
-	return []EndpointType{EndpointTypeAzureSubnet, EndpointTypeAzureVM, EndpointTypeAzureVNet, EndpointTypeExternalAddress, EndpointTypeMMAWorkspaceMachine, EndpointTypeMMAWorkspaceNetwork}
+	return []EndpointType{EndpointTypeAzureArcVM, EndpointTypeAzureSubnet, EndpointTypeAzureVM, EndpointTypeAzureVMSS, EndpointTypeAzureVNet, EndpointTypeExternalAddress, EndpointTypeMMAWorkspaceMachine, EndpointTypeMMAWorkspaceNetwork}
 }
 
 // EvaluationState enumerates the values for evaluation state.
@@ -1924,6 +1928,21 @@ const (
 // PossibleOwaspCrsExclusionEntrySelectorMatchOperatorValues returns an array of possible values for the OwaspCrsExclusionEntrySelectorMatchOperator const type.
 func PossibleOwaspCrsExclusionEntrySelectorMatchOperatorValues() []OwaspCrsExclusionEntrySelectorMatchOperator {
 	return []OwaspCrsExclusionEntrySelectorMatchOperator{OwaspCrsExclusionEntrySelectorMatchOperatorContains, OwaspCrsExclusionEntrySelectorMatchOperatorEndsWith, OwaspCrsExclusionEntrySelectorMatchOperatorEquals, OwaspCrsExclusionEntrySelectorMatchOperatorEqualsAny, OwaspCrsExclusionEntrySelectorMatchOperatorStartsWith}
+}
+
+// PacketCaptureTargetType enumerates the values for packet capture target type.
+type PacketCaptureTargetType string
+
+const (
+	// PacketCaptureTargetTypeAzureVM ...
+	PacketCaptureTargetTypeAzureVM PacketCaptureTargetType = "AzureVM"
+	// PacketCaptureTargetTypeAzureVMSS ...
+	PacketCaptureTargetTypeAzureVMSS PacketCaptureTargetType = "AzureVMSS"
+)
+
+// PossiblePacketCaptureTargetTypeValues returns an array of possible values for the PacketCaptureTargetType const type.
+func PossiblePacketCaptureTargetTypeValues() []PacketCaptureTargetType {
+	return []PacketCaptureTargetType{PacketCaptureTargetTypeAzureVM, PacketCaptureTargetTypeAzureVMSS}
 }
 
 // PcError enumerates the values for pc error.

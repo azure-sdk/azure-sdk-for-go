@@ -10102,7 +10102,7 @@ type ConnectionMonitorDestination struct {
 type ConnectionMonitorEndpoint struct {
 	// Name - The name of the connection monitor endpoint.
 	Name *string `json:"name,omitempty"`
-	// Type - The endpoint type. Possible values include: 'EndpointTypeAzureVM', 'EndpointTypeAzureVNet', 'EndpointTypeAzureSubnet', 'EndpointTypeExternalAddress', 'EndpointTypeMMAWorkspaceMachine', 'EndpointTypeMMAWorkspaceNetwork'
+	// Type - The endpoint type. Possible values include: 'EndpointTypeAzureVM', 'EndpointTypeAzureVNet', 'EndpointTypeAzureSubnet', 'EndpointTypeExternalAddress', 'EndpointTypeMMAWorkspaceMachine', 'EndpointTypeMMAWorkspaceNetwork', 'EndpointTypeAzureArcVM', 'EndpointTypeAzureVMSS'
 	Type EndpointType `json:"type,omitempty"`
 	// ResourceID - Resource ID of the connection monitor endpoint.
 	ResourceID *string `json:"resourceId,omitempty"`
@@ -31177,10 +31177,24 @@ type PacketCaptureListResult struct {
 	Value *[]PacketCaptureResult `json:"value,omitempty"`
 }
 
+// PacketCaptureMachineScope a list of AzureVMSS instances which can be included or excluded to run packet
+// capture. If both included and excluded are empty, then the packet capture will run on all instances of
+// AzureVMSS.
+type PacketCaptureMachineScope struct {
+	// Include - List of AzureVMSS instances to run packet capture on.
+	Include *[]string `json:"include,omitempty"`
+	// Exclude - List of AzureVMSS instances which has to be excluded from the AzureVMSS from running packet capture.
+	Exclude *[]string `json:"exclude,omitempty"`
+}
+
 // PacketCaptureParameters parameters that define the create packet capture operation.
 type PacketCaptureParameters struct {
-	// Target - The ID of the targeted resource, only VM is currently supported.
+	// Target - The ID of the targeted resource, only AzureVM and AzureVMSS as target type are currently supported.
 	Target *string `json:"target,omitempty"`
+	// Scope - A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are empty, then the packet capture will run on all instances of AzureVMSS.
+	Scope *PacketCaptureMachineScope `json:"scope,omitempty"`
+	// TargetType - Target type of the resource provided. Possible values include: 'PacketCaptureTargetTypeAzureVM', 'PacketCaptureTargetTypeAzureVMSS'
+	TargetType PacketCaptureTargetType `json:"targetType,omitempty"`
 	// BytesToCapturePerPacket - Number of bytes captured per packet, the remaining bytes are truncated.
 	BytesToCapturePerPacket *int64 `json:"bytesToCapturePerPacket,omitempty"`
 	// TotalBytesPerSession - Maximum size of the capture output.
@@ -31287,8 +31301,12 @@ func (pcr *PacketCaptureResult) UnmarshalJSON(body []byte) error {
 type PacketCaptureResultProperties struct {
 	// ProvisioningState - READ-ONLY; The provisioning state of the packet capture session. Possible values include: 'ProvisioningStateSucceeded', 'ProvisioningStateUpdating', 'ProvisioningStateDeleting', 'ProvisioningStateFailed'
 	ProvisioningState ProvisioningState `json:"provisioningState,omitempty"`
-	// Target - The ID of the targeted resource, only VM is currently supported.
+	// Target - The ID of the targeted resource, only AzureVM and AzureVMSS as target type are currently supported.
 	Target *string `json:"target,omitempty"`
+	// Scope - A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are empty, then the packet capture will run on all instances of AzureVMSS.
+	Scope *PacketCaptureMachineScope `json:"scope,omitempty"`
+	// TargetType - Target type of the resource provided. Possible values include: 'PacketCaptureTargetTypeAzureVM', 'PacketCaptureTargetTypeAzureVMSS'
+	TargetType PacketCaptureTargetType `json:"targetType,omitempty"`
 	// BytesToCapturePerPacket - Number of bytes captured per packet, the remaining bytes are truncated.
 	BytesToCapturePerPacket *int64 `json:"bytesToCapturePerPacket,omitempty"`
 	// TotalBytesPerSession - Maximum size of the capture output.
@@ -31306,6 +31324,12 @@ func (pcrp PacketCaptureResultProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	if pcrp.Target != nil {
 		objectMap["target"] = pcrp.Target
+	}
+	if pcrp.Scope != nil {
+		objectMap["scope"] = pcrp.Scope
+	}
+	if pcrp.TargetType != "" {
+		objectMap["targetType"] = pcrp.TargetType
 	}
 	if pcrp.BytesToCapturePerPacket != nil {
 		objectMap["bytesToCapturePerPacket"] = pcrp.BytesToCapturePerPacket
