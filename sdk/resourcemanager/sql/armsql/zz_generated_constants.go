@@ -10,7 +10,7 @@ package armsql
 
 const (
 	moduleName    = "armsql"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.0.1-beta.1"
 )
 
 type AdministratorName string
