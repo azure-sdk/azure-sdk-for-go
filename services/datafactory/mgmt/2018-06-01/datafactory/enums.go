@@ -1121,11 +1121,13 @@ const (
 	RestServiceAuthenticationTypeBasic RestServiceAuthenticationType = "Basic"
 	// RestServiceAuthenticationTypeManagedServiceIdentity ...
 	RestServiceAuthenticationTypeManagedServiceIdentity RestServiceAuthenticationType = "ManagedServiceIdentity"
+	// RestServiceAuthenticationTypeOAuth2ClientCredential ...
+	RestServiceAuthenticationTypeOAuth2ClientCredential RestServiceAuthenticationType = "OAuth2ClientCredential"
 )
 
 // PossibleRestServiceAuthenticationTypeValues returns an array of possible values for the RestServiceAuthenticationType const type.
 func PossibleRestServiceAuthenticationTypeValues() []RestServiceAuthenticationType {
-	return []RestServiceAuthenticationType{RestServiceAuthenticationTypeAadServicePrincipal, RestServiceAuthenticationTypeAnonymous, RestServiceAuthenticationTypeBasic, RestServiceAuthenticationTypeManagedServiceIdentity}
+	return []RestServiceAuthenticationType{RestServiceAuthenticationTypeAadServicePrincipal, RestServiceAuthenticationTypeAnonymous, RestServiceAuthenticationTypeBasic, RestServiceAuthenticationTypeManagedServiceIdentity, RestServiceAuthenticationTypeOAuth2ClientCredential}
 }
 
 // RunQueryFilterOperand enumerates the values for run query filter operand.
