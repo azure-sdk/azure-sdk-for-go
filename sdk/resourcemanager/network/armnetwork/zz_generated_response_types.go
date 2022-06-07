@@ -10,6 +10,66 @@ package armnetwork
 
 import "encoding/json"
 
+// AdminRuleCollectionsClientCreateOrUpdateResponse contains the response from method AdminRuleCollectionsClient.CreateOrUpdate.
+type AdminRuleCollectionsClientCreateOrUpdateResponse struct {
+	AdminRuleCollection
+}
+
+// AdminRuleCollectionsClientDeleteResponse contains the response from method AdminRuleCollectionsClient.Delete.
+type AdminRuleCollectionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AdminRuleCollectionsClientGetResponse contains the response from method AdminRuleCollectionsClient.Get.
+type AdminRuleCollectionsClientGetResponse struct {
+	AdminRuleCollection
+}
+
+// AdminRuleCollectionsClientListResponse contains the response from method AdminRuleCollectionsClient.List.
+type AdminRuleCollectionsClientListResponse struct {
+	AdminRuleCollectionListResult
+}
+
+// AdminRulesClientCreateOrUpdateResponse contains the response from method AdminRulesClient.CreateOrUpdate.
+type AdminRulesClientCreateOrUpdateResponse struct {
+	BaseAdminRuleClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AdminRulesClientCreateOrUpdateResponse.
+func (a *AdminRulesClientCreateOrUpdateResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalBaseAdminRuleClassification(data)
+	if err != nil {
+		return err
+	}
+	a.BaseAdminRuleClassification = res
+	return nil
+}
+
+// AdminRulesClientDeleteResponse contains the response from method AdminRulesClient.Delete.
+type AdminRulesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AdminRulesClientGetResponse contains the response from method AdminRulesClient.Get.
+type AdminRulesClientGetResponse struct {
+	BaseAdminRuleClassification
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AdminRulesClientGetResponse.
+func (a *AdminRulesClientGetResponse) UnmarshalJSON(data []byte) error {
+	res, err := unmarshalBaseAdminRuleClassification(data)
+	if err != nil {
+		return err
+	}
+	a.BaseAdminRuleClassification = res
+	return nil
+}
+
+// AdminRulesClientListResponse contains the response from method AdminRulesClient.List.
+type AdminRulesClientListResponse struct {
+	AdminRuleListResult
+}
+
 // ApplicationGatewayPrivateEndpointConnectionsClientDeleteResponse contains the response from method ApplicationGatewayPrivateEndpointConnectionsClient.Delete.
 type ApplicationGatewayPrivateEndpointConnectionsClientDeleteResponse struct {
 	// placeholder for future response values
@@ -213,6 +273,11 @@ type AzureFirewallsClientListAllResponse struct {
 	AzureFirewallListResult
 }
 
+// AzureFirewallsClientListLearnedPrefixesResponse contains the response from method AzureFirewallsClient.ListLearnedPrefixes.
+type AzureFirewallsClientListLearnedPrefixesResponse struct {
+	IPPrefixesList
+}
+
 // AzureFirewallsClientListResponse contains the response from method AzureFirewallsClient.List.
 type AzureFirewallsClientListResponse struct {
 	AzureFirewallListResult
@@ -316,6 +381,26 @@ type ConnectionMonitorsClientStopResponse struct {
 // ConnectionMonitorsClientUpdateTagsResponse contains the response from method ConnectionMonitorsClient.UpdateTags.
 type ConnectionMonitorsClientUpdateTagsResponse struct {
 	ConnectionMonitorResult
+}
+
+// ConnectivityConfigurationsClientCreateOrUpdateResponse contains the response from method ConnectivityConfigurationsClient.CreateOrUpdate.
+type ConnectivityConfigurationsClientCreateOrUpdateResponse struct {
+	ConnectivityConfiguration
+}
+
+// ConnectivityConfigurationsClientDeleteResponse contains the response from method ConnectivityConfigurationsClient.Delete.
+type ConnectivityConfigurationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ConnectivityConfigurationsClientGetResponse contains the response from method ConnectivityConfigurationsClient.Get.
+type ConnectivityConfigurationsClientGetResponse struct {
+	ConnectivityConfiguration
+}
+
+// ConnectivityConfigurationsClientListResponse contains the response from method ConnectivityConfigurationsClient.List.
+type ConnectivityConfigurationsClientListResponse struct {
+	ConnectivityConfigurationListResult
 }
 
 // CustomIPPrefixesClientCreateOrUpdateResponse contains the response from method CustomIPPrefixesClient.CreateOrUpdate.
@@ -733,6 +818,11 @@ type ExpressRoutePortsLocationsClientListResponse struct {
 	ExpressRoutePortsLocationListResult
 }
 
+// ExpressRouteProviderPortsLocationClientListResponse contains the response from method ExpressRouteProviderPortsLocationClient.List.
+type ExpressRouteProviderPortsLocationClientListResponse struct {
+	ExpressRouteProviderPortListResult
+}
+
 // ExpressRouteServiceProvidersClientListResponse contains the response from method ExpressRouteServiceProvidersClient.List.
 type ExpressRouteServiceProvidersClientListResponse struct {
 	ExpressRouteServiceProviderListResult
@@ -841,6 +931,28 @@ type FlowLogsClientListResponse struct {
 // FlowLogsClientUpdateTagsResponse contains the response from method FlowLogsClient.UpdateTags.
 type FlowLogsClientUpdateTagsResponse struct {
 	FlowLog
+}
+
+// GroupsClientCreateOrUpdateResponse contains the response from method GroupsClient.CreateOrUpdate.
+type GroupsClientCreateOrUpdateResponse struct {
+	Group
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// GroupsClientDeleteResponse contains the response from method GroupsClient.Delete.
+type GroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// GroupsClientGetResponse contains the response from method GroupsClient.Get.
+type GroupsClientGetResponse struct {
+	Group
+}
+
+// GroupsClientListResponse contains the response from method GroupsClient.List.
+type GroupsClientListResponse struct {
+	GroupListResult
 }
 
 // HubRouteTablesClientCreateOrUpdateResponse contains the response from method HubRouteTablesClient.CreateOrUpdate.
@@ -1228,6 +1340,11 @@ type ManagementClientDisconnectActiveSessionsResponse struct {
 	BastionSessionDeleteResult
 }
 
+// ManagementClientExpressRouteProviderPortResponse contains the response from method ManagementClient.ExpressRouteProviderPort.
+type ManagementClientExpressRouteProviderPortResponse struct {
+	ExpressRouteProviderPort
+}
+
 // ManagementClientGeneratevirtualwanvpnserverconfigurationvpnprofileResponse contains the response from method ManagementClient.Generatevirtualwanvpnserverconfigurationvpnprofile.
 type ManagementClientGeneratevirtualwanvpnserverconfigurationvpnprofileResponse struct {
 	VPNProfileResponse
@@ -1243,6 +1360,26 @@ type ManagementClientGetBastionShareableLinkResponse struct {
 	BastionShareableLinkListResult
 }
 
+// ManagementClientListActiveConnectivityConfigurationsResponse contains the response from method ManagementClient.ListActiveConnectivityConfigurations.
+type ManagementClientListActiveConnectivityConfigurationsResponse struct {
+	ActiveConnectivityConfigurationsListResult
+}
+
+// ManagementClientListActiveSecurityAdminRulesResponse contains the response from method ManagementClient.ListActiveSecurityAdminRules.
+type ManagementClientListActiveSecurityAdminRulesResponse struct {
+	ActiveSecurityAdminRulesListResult
+}
+
+// ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsResponse contains the response from method ManagementClient.ListNetworkManagerEffectiveConnectivityConfigurations.
+type ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsResponse struct {
+	ManagerEffectiveConnectivityConfigurationListResult
+}
+
+// ManagementClientListNetworkManagerEffectiveSecurityAdminRulesResponse contains the response from method ManagementClient.ListNetworkManagerEffectiveSecurityAdminRules.
+type ManagementClientListNetworkManagerEffectiveSecurityAdminRulesResponse struct {
+	ManagerEffectiveSecurityAdminRulesListResult
+}
+
 // ManagementClientPutBastionShareableLinkResponse contains the response from method ManagementClient.PutBastionShareableLink.
 type ManagementClientPutBastionShareableLinkResponse struct {
 	BastionShareableLinkListResult
@@ -1251,6 +1388,66 @@ type ManagementClientPutBastionShareableLinkResponse struct {
 // ManagementClientSupportedSecurityProvidersResponse contains the response from method ManagementClient.SupportedSecurityProviders.
 type ManagementClientSupportedSecurityProvidersResponse struct {
 	VirtualWanSecurityProviders
+}
+
+// ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateResponse contains the response from method ManagementGroupNetworkManagerConnectionsClient.CreateOrUpdate.
+type ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateResponse struct {
+	ManagerConnection
+}
+
+// ManagementGroupNetworkManagerConnectionsClientDeleteResponse contains the response from method ManagementGroupNetworkManagerConnectionsClient.Delete.
+type ManagementGroupNetworkManagerConnectionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagementGroupNetworkManagerConnectionsClientGetResponse contains the response from method ManagementGroupNetworkManagerConnectionsClient.Get.
+type ManagementGroupNetworkManagerConnectionsClientGetResponse struct {
+	ManagerConnection
+}
+
+// ManagementGroupNetworkManagerConnectionsClientListResponse contains the response from method ManagementGroupNetworkManagerConnectionsClient.List.
+type ManagementGroupNetworkManagerConnectionsClientListResponse struct {
+	ManagerConnectionListResult
+}
+
+// ManagerCommitsClientPostResponse contains the response from method ManagerCommitsClient.Post.
+type ManagerCommitsClientPostResponse struct {
+	ManagerCommit
+}
+
+// ManagerDeploymentStatusClientListResponse contains the response from method ManagerDeploymentStatusClient.List.
+type ManagerDeploymentStatusClientListResponse struct {
+	ManagerDeploymentStatusListResult
+}
+
+// ManagersClientCreateOrUpdateResponse contains the response from method ManagersClient.CreateOrUpdate.
+type ManagersClientCreateOrUpdateResponse struct {
+	Manager
+}
+
+// ManagersClientDeleteResponse contains the response from method ManagersClient.Delete.
+type ManagersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagersClientGetResponse contains the response from method ManagersClient.Get.
+type ManagersClientGetResponse struct {
+	Manager
+}
+
+// ManagersClientListBySubscriptionResponse contains the response from method ManagersClient.ListBySubscription.
+type ManagersClientListBySubscriptionResponse struct {
+	ManagerListResult
+}
+
+// ManagersClientListResponse contains the response from method ManagersClient.List.
+type ManagersClientListResponse struct {
+	ManagerListResult
+}
+
+// ManagersClientPatchResponse contains the response from method ManagersClient.Patch.
+type ManagersClientPatchResponse struct {
+	Manager
 }
 
 // NatGatewaysClientCreateOrUpdateResponse contains the response from method NatGatewaysClient.CreateOrUpdate.
@@ -1758,6 +1955,46 @@ type RoutingIntentClientListResponse struct {
 	ListRoutingIntentResult
 }
 
+// ScopeConnectionsClientCreateOrUpdateResponse contains the response from method ScopeConnectionsClient.CreateOrUpdate.
+type ScopeConnectionsClientCreateOrUpdateResponse struct {
+	ScopeConnection
+}
+
+// ScopeConnectionsClientDeleteResponse contains the response from method ScopeConnectionsClient.Delete.
+type ScopeConnectionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ScopeConnectionsClientGetResponse contains the response from method ScopeConnectionsClient.Get.
+type ScopeConnectionsClientGetResponse struct {
+	ScopeConnection
+}
+
+// ScopeConnectionsClientListResponse contains the response from method ScopeConnectionsClient.List.
+type ScopeConnectionsClientListResponse struct {
+	ScopeConnectionListResult
+}
+
+// SecurityAdminConfigurationsClientCreateOrUpdateResponse contains the response from method SecurityAdminConfigurationsClient.CreateOrUpdate.
+type SecurityAdminConfigurationsClientCreateOrUpdateResponse struct {
+	SecurityAdminConfiguration
+}
+
+// SecurityAdminConfigurationsClientDeleteResponse contains the response from method SecurityAdminConfigurationsClient.Delete.
+type SecurityAdminConfigurationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SecurityAdminConfigurationsClientGetResponse contains the response from method SecurityAdminConfigurationsClient.Get.
+type SecurityAdminConfigurationsClientGetResponse struct {
+	SecurityAdminConfiguration
+}
+
+// SecurityAdminConfigurationsClientListResponse contains the response from method SecurityAdminConfigurationsClient.List.
+type SecurityAdminConfigurationsClientListResponse struct {
+	SecurityAdminConfigurationListResult
+}
+
 // SecurityGroupsClientCreateOrUpdateResponse contains the response from method SecurityGroupsClient.CreateOrUpdate.
 type SecurityGroupsClientCreateOrUpdateResponse struct {
 	SecurityGroup
@@ -1903,6 +2140,26 @@ type ServiceTagsClientListResponse struct {
 	ServiceTagsListResult
 }
 
+// StaticMembersClientCreateOrUpdateResponse contains the response from method StaticMembersClient.CreateOrUpdate.
+type StaticMembersClientCreateOrUpdateResponse struct {
+	StaticMember
+}
+
+// StaticMembersClientDeleteResponse contains the response from method StaticMembersClient.Delete.
+type StaticMembersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// StaticMembersClientGetResponse contains the response from method StaticMembersClient.Get.
+type StaticMembersClientGetResponse struct {
+	StaticMember
+}
+
+// StaticMembersClientListResponse contains the response from method StaticMembersClient.List.
+type StaticMembersClientListResponse struct {
+	StaticMemberListResult
+}
+
 // SubnetsClientCreateOrUpdateResponse contains the response from method SubnetsClient.CreateOrUpdate.
 type SubnetsClientCreateOrUpdateResponse struct {
 	Subnet
@@ -1931,6 +2188,26 @@ type SubnetsClientPrepareNetworkPoliciesResponse struct {
 // SubnetsClientUnprepareNetworkPoliciesResponse contains the response from method SubnetsClient.UnprepareNetworkPolicies.
 type SubnetsClientUnprepareNetworkPoliciesResponse struct {
 	// placeholder for future response values
+}
+
+// SubscriptionNetworkManagerConnectionsClientCreateOrUpdateResponse contains the response from method SubscriptionNetworkManagerConnectionsClient.CreateOrUpdate.
+type SubscriptionNetworkManagerConnectionsClientCreateOrUpdateResponse struct {
+	ManagerConnection
+}
+
+// SubscriptionNetworkManagerConnectionsClientDeleteResponse contains the response from method SubscriptionNetworkManagerConnectionsClient.Delete.
+type SubscriptionNetworkManagerConnectionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SubscriptionNetworkManagerConnectionsClientGetResponse contains the response from method SubscriptionNetworkManagerConnectionsClient.Get.
+type SubscriptionNetworkManagerConnectionsClientGetResponse struct {
+	ManagerConnection
+}
+
+// SubscriptionNetworkManagerConnectionsClientListResponse contains the response from method SubscriptionNetworkManagerConnectionsClient.List.
+type SubscriptionNetworkManagerConnectionsClientListResponse struct {
+	ManagerConnectionListResult
 }
 
 // UsagesClientListResponse contains the response from method UsagesClient.List.

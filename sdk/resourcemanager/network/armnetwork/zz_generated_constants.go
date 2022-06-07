@@ -10,7 +10,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -26,6 +26,38 @@ func PossibleAccessValues() []Access {
 	return []Access{
 		AccessAllow,
 		AccessDeny,
+	}
+}
+
+// AddressPrefixType - Address prefix type.
+type AddressPrefixType string
+
+const (
+	AddressPrefixTypeIPPrefix   AddressPrefixType = "IPPrefix"
+	AddressPrefixTypeServiceTag AddressPrefixType = "ServiceTag"
+)
+
+// PossibleAddressPrefixTypeValues returns the possible values for the AddressPrefixType const type.
+func PossibleAddressPrefixTypeValues() []AddressPrefixType {
+	return []AddressPrefixType{
+		AddressPrefixTypeIPPrefix,
+		AddressPrefixTypeServiceTag,
+	}
+}
+
+// AdminRuleKind - Whether the rule is custom or default.
+type AdminRuleKind string
+
+const (
+	AdminRuleKindCustom  AdminRuleKind = "Custom"
+	AdminRuleKindDefault AdminRuleKind = "Default"
+)
+
+// PossibleAdminRuleKindValues returns the possible values for the AdminRuleKind const type.
+func PossibleAdminRuleKindValues() []AdminRuleKind {
+	return []AdminRuleKind{
+		AdminRuleKindCustom,
+		AdminRuleKindDefault,
 	}
 }
 
@@ -294,6 +326,8 @@ const (
 	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20150501  ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20150501"
 	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20170401  ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20170401"
 	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20170401S ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20170401S"
+	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101  ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20220101"
+	ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101S ApplicationGatewaySSLPolicyName = "AppGwSslPolicy20220101S"
 )
 
 // PossibleApplicationGatewaySSLPolicyNameValues returns the possible values for the ApplicationGatewaySSLPolicyName const type.
@@ -302,6 +336,8 @@ func PossibleApplicationGatewaySSLPolicyNameValues() []ApplicationGatewaySSLPoli
 		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20150501,
 		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20170401,
 		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20170401S,
+		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101,
+		ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101S,
 	}
 }
 
@@ -310,6 +346,7 @@ type ApplicationGatewaySSLPolicyType string
 
 const (
 	ApplicationGatewaySSLPolicyTypeCustom     ApplicationGatewaySSLPolicyType = "Custom"
+	ApplicationGatewaySSLPolicyTypeCustomV2   ApplicationGatewaySSLPolicyType = "CustomV2"
 	ApplicationGatewaySSLPolicyTypePredefined ApplicationGatewaySSLPolicyType = "Predefined"
 )
 
@@ -317,6 +354,7 @@ const (
 func PossibleApplicationGatewaySSLPolicyTypeValues() []ApplicationGatewaySSLPolicyType {
 	return []ApplicationGatewaySSLPolicyType{
 		ApplicationGatewaySSLPolicyTypeCustom,
+		ApplicationGatewaySSLPolicyTypeCustomV2,
 		ApplicationGatewaySSLPolicyTypePredefined,
 	}
 }
@@ -328,6 +366,7 @@ const (
 	ApplicationGatewaySSLProtocolTLSv10 ApplicationGatewaySSLProtocol = "TLSv1_0"
 	ApplicationGatewaySSLProtocolTLSv11 ApplicationGatewaySSLProtocol = "TLSv1_1"
 	ApplicationGatewaySSLProtocolTLSv12 ApplicationGatewaySSLProtocol = "TLSv1_2"
+	ApplicationGatewaySSLProtocolTLSv13 ApplicationGatewaySSLProtocol = "TLSv1_3"
 )
 
 // PossibleApplicationGatewaySSLProtocolValues returns the possible values for the ApplicationGatewaySSLProtocol const type.
@@ -336,6 +375,7 @@ func PossibleApplicationGatewaySSLProtocolValues() []ApplicationGatewaySSLProtoc
 		ApplicationGatewaySSLProtocolTLSv10,
 		ApplicationGatewaySSLProtocolTLSv11,
 		ApplicationGatewaySSLProtocolTLSv12,
+		ApplicationGatewaySSLProtocolTLSv13,
 	}
 }
 
@@ -404,6 +444,22 @@ func PossibleAuthorizationUseStatusValues() []AuthorizationUseStatus {
 	return []AuthorizationUseStatus{
 		AuthorizationUseStatusAvailable,
 		AuthorizationUseStatusInUse,
+	}
+}
+
+// AutoLearnPrivateRangesMode - The operation mode for automatically learning private ranges to not be SNAT
+type AutoLearnPrivateRangesMode string
+
+const (
+	AutoLearnPrivateRangesModeDisabled AutoLearnPrivateRangesMode = "Disabled"
+	AutoLearnPrivateRangesModeEnabled  AutoLearnPrivateRangesMode = "Enabled"
+)
+
+// PossibleAutoLearnPrivateRangesModeValues returns the possible values for the AutoLearnPrivateRangesMode const type.
+func PossibleAutoLearnPrivateRangesModeValues() []AutoLearnPrivateRangesMode {
+	return []AutoLearnPrivateRangesMode{
+		AutoLearnPrivateRangesModeDisabled,
+		AutoLearnPrivateRangesModeEnabled,
 	}
 }
 
@@ -605,23 +661,41 @@ func PossibleCircuitConnectionStatusValues() []CircuitConnectionStatus {
 type CommissionedState string
 
 const (
-	CommissionedStateCommissioned    CommissionedState = "Commissioned"
-	CommissionedStateCommissioning   CommissionedState = "Commissioning"
-	CommissionedStateDecommissioning CommissionedState = "Decommissioning"
-	CommissionedStateDeprovisioning  CommissionedState = "Deprovisioning"
-	CommissionedStateProvisioned     CommissionedState = "Provisioned"
-	CommissionedStateProvisioning    CommissionedState = "Provisioning"
+	CommissionedStateCommissioned                    CommissionedState = "Commissioned"
+	CommissionedStateCommissionedNoInternetAdvertise CommissionedState = "Commissioned-NoInternetAdvertise"
+	CommissionedStateCommissioning                   CommissionedState = "Commissioning"
+	CommissionedStateDecommissioning                 CommissionedState = "Decommissioning"
+	CommissionedStateDeprovisioning                  CommissionedState = "Deprovisioning"
+	CommissionedStateProvisioned                     CommissionedState = "Provisioned"
+	CommissionedStateProvisioning                    CommissionedState = "Provisioning"
 )
 
 // PossibleCommissionedStateValues returns the possible values for the CommissionedState const type.
 func PossibleCommissionedStateValues() []CommissionedState {
 	return []CommissionedState{
 		CommissionedStateCommissioned,
+		CommissionedStateCommissionedNoInternetAdvertise,
 		CommissionedStateCommissioning,
 		CommissionedStateDecommissioning,
 		CommissionedStateDeprovisioning,
 		CommissionedStateProvisioned,
 		CommissionedStateProvisioning,
+	}
+}
+
+// ConfigurationType - Configuration Deployment Type.
+type ConfigurationType string
+
+const (
+	ConfigurationTypeConnectivity  ConfigurationType = "Connectivity"
+	ConfigurationTypeSecurityAdmin ConfigurationType = "SecurityAdmin"
+)
+
+// PossibleConfigurationTypeValues returns the possible values for the ConfigurationType const type.
+func PossibleConfigurationTypeValues() []ConfigurationType {
+	return []ConfigurationType{
+		ConfigurationTypeConnectivity,
+		ConfigurationTypeSecurityAdmin,
 	}
 }
 
@@ -743,6 +817,22 @@ func PossibleConnectionStatusValues() []ConnectionStatus {
 	}
 }
 
+// ConnectivityTopology - Connectivity topology type.
+type ConnectivityTopology string
+
+const (
+	ConnectivityTopologyHubAndSpoke ConnectivityTopology = "HubAndSpoke"
+	ConnectivityTopologyMesh        ConnectivityTopology = "Mesh"
+)
+
+// PossibleConnectivityTopologyValues returns the possible values for the ConnectivityTopology const type.
+func PossibleConnectivityTopologyValues() []ConnectivityTopology {
+	return []ConnectivityTopology{
+		ConnectivityTopologyHubAndSpoke,
+		ConnectivityTopologyMesh,
+	}
+}
+
 // CoverageLevel - Test coverage for the endpoint.
 type CoverageLevel string
 
@@ -764,6 +854,26 @@ func PossibleCoverageLevelValues() []CoverageLevel {
 		CoverageLevelDefault,
 		CoverageLevelFull,
 		CoverageLevelLow,
+	}
+}
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 
@@ -825,6 +935,22 @@ func PossibleDdosSettingsProtectionCoverageValues() []DdosSettingsProtectionCove
 	}
 }
 
+// DeleteExistingPeering - Flag if need to remove current existing peerings.
+type DeleteExistingPeering string
+
+const (
+	DeleteExistingPeeringFalse DeleteExistingPeering = "False"
+	DeleteExistingPeeringTrue  DeleteExistingPeering = "True"
+)
+
+// PossibleDeleteExistingPeeringValues returns the possible values for the DeleteExistingPeering const type.
+func PossibleDeleteExistingPeeringValues() []DeleteExistingPeering {
+	return []DeleteExistingPeering{
+		DeleteExistingPeeringFalse,
+		DeleteExistingPeeringTrue,
+	}
+}
+
 // DeleteOptions - Specify what happens to the public IP address when the VM using it is deleted
 type DeleteOptions string
 
@@ -838,6 +964,26 @@ func PossibleDeleteOptionsValues() []DeleteOptions {
 	return []DeleteOptions{
 		DeleteOptionsDelete,
 		DeleteOptionsDetach,
+	}
+}
+
+// DeploymentStatus - Deployment Status.
+type DeploymentStatus string
+
+const (
+	DeploymentStatusDeployed   DeploymentStatus = "Deployed"
+	DeploymentStatusDeploying  DeploymentStatus = "Deploying"
+	DeploymentStatusFailed     DeploymentStatus = "Failed"
+	DeploymentStatusNotStarted DeploymentStatus = "NotStarted"
+)
+
+// PossibleDeploymentStatusValues returns the possible values for the DeploymentStatus const type.
+func PossibleDeploymentStatusValues() []DeploymentStatus {
+	return []DeploymentStatus{
+		DeploymentStatusDeployed,
+		DeploymentStatusDeploying,
+		DeploymentStatusFailed,
+		DeploymentStatusNotStarted,
 	}
 }
 
@@ -901,6 +1047,22 @@ func PossibleDirectionValues() []Direction {
 	}
 }
 
+// EffectiveAdminRuleKind - Whether the rule is custom or default.
+type EffectiveAdminRuleKind string
+
+const (
+	EffectiveAdminRuleKindCustom  EffectiveAdminRuleKind = "Custom"
+	EffectiveAdminRuleKindDefault EffectiveAdminRuleKind = "Default"
+)
+
+// PossibleEffectiveAdminRuleKindValues returns the possible values for the EffectiveAdminRuleKind const type.
+func PossibleEffectiveAdminRuleKindValues() []EffectiveAdminRuleKind {
+	return []EffectiveAdminRuleKind{
+		EffectiveAdminRuleKindCustom,
+		EffectiveAdminRuleKindDefault,
+	}
+}
+
 // EffectiveRouteSource - Who created the route.
 type EffectiveRouteSource string
 
@@ -959,8 +1121,10 @@ func PossibleEffectiveSecurityRuleProtocolValues() []EffectiveSecurityRuleProtoc
 type EndpointType string
 
 const (
+	EndpointTypeAzureArcVM          EndpointType = "AzureArcVM"
 	EndpointTypeAzureSubnet         EndpointType = "AzureSubnet"
 	EndpointTypeAzureVM             EndpointType = "AzureVM"
+	EndpointTypeAzureVMSS           EndpointType = "AzureVMSS"
 	EndpointTypeAzureVNet           EndpointType = "AzureVNet"
 	EndpointTypeExternalAddress     EndpointType = "ExternalAddress"
 	EndpointTypeMMAWorkspaceMachine EndpointType = "MMAWorkspaceMachine"
@@ -970,8 +1134,10 @@ const (
 // PossibleEndpointTypeValues returns the possible values for the EndpointType const type.
 func PossibleEndpointTypeValues() []EndpointType {
 	return []EndpointType{
+		EndpointTypeAzureArcVM,
 		EndpointTypeAzureSubnet,
 		EndpointTypeAzureVM,
+		EndpointTypeAzureVMSS,
 		EndpointTypeAzureVNet,
 		EndpointTypeExternalAddress,
 		EndpointTypeMMAWorkspaceMachine,
@@ -1495,6 +1661,22 @@ func PossibleGatewayLoadBalancerTunnelProtocolValues() []GatewayLoadBalancerTunn
 	}
 }
 
+// GroupConnectivity - Group connectivity type.
+type GroupConnectivity string
+
+const (
+	GroupConnectivityDirectlyConnected GroupConnectivity = "DirectlyConnected"
+	GroupConnectivityNone              GroupConnectivity = "None"
+)
+
+// PossibleGroupConnectivityValues returns the possible values for the GroupConnectivity const type.
+func PossibleGroupConnectivityValues() []GroupConnectivity {
+	return []GroupConnectivity{
+		GroupConnectivityDirectlyConnected,
+		GroupConnectivityNone,
+	}
+}
+
 // HTTPConfigurationMethod - The HTTP method to use.
 type HTTPConfigurationMethod string
 
@@ -1767,6 +1949,22 @@ func PossibleInboundSecurityRulesProtocolValues() []InboundSecurityRulesProtocol
 	}
 }
 
+// IsGlobal - Flag if global mesh is supported.
+type IsGlobal string
+
+const (
+	IsGlobalFalse IsGlobal = "False"
+	IsGlobalTrue  IsGlobal = "True"
+)
+
+// PossibleIsGlobalValues returns the possible values for the IsGlobal const type.
+func PossibleIsGlobalValues() []IsGlobal {
+	return []IsGlobal{
+		IsGlobalFalse,
+		IsGlobalTrue,
+	}
+}
+
 // IssueType - The type of issue.
 type IssueType string
 
@@ -1913,6 +2111,22 @@ const (
 func PossibleNatGatewaySKUNameValues() []NatGatewaySKUName {
 	return []NatGatewaySKUName{
 		NatGatewaySKUNameStandard,
+	}
+}
+
+// NetworkIntentPolicyBasedService - Network intent policy based services.
+type NetworkIntentPolicyBasedService string
+
+const (
+	NetworkIntentPolicyBasedServiceAll  NetworkIntentPolicyBasedService = "All"
+	NetworkIntentPolicyBasedServiceNone NetworkIntentPolicyBasedService = "None"
+)
+
+// PossibleNetworkIntentPolicyBasedServiceValues returns the possible values for the NetworkIntentPolicyBasedService const type.
+func PossibleNetworkIntentPolicyBasedServiceValues() []NetworkIntentPolicyBasedService {
+	return []NetworkIntentPolicyBasedService{
+		NetworkIntentPolicyBasedServiceAll,
+		NetworkIntentPolicyBasedServiceNone,
 	}
 }
 
@@ -2116,6 +2330,22 @@ func PossibleOwaspCrsExclusionEntrySelectorMatchOperatorValues() []OwaspCrsExclu
 		OwaspCrsExclusionEntrySelectorMatchOperatorEquals,
 		OwaspCrsExclusionEntrySelectorMatchOperatorEqualsAny,
 		OwaspCrsExclusionEntrySelectorMatchOperatorStartsWith,
+	}
+}
+
+// PacketCaptureTargetType - Target type of the resource provided.
+type PacketCaptureTargetType string
+
+const (
+	PacketCaptureTargetTypeAzureVM   PacketCaptureTargetType = "AzureVM"
+	PacketCaptureTargetTypeAzureVMSS PacketCaptureTargetType = "AzureVMSS"
+)
+
+// PossiblePacketCaptureTargetTypeValues returns the possible values for the PacketCaptureTargetType const type.
+func PossiblePacketCaptureTargetTypeValues() []PacketCaptureTargetType {
+	return []PacketCaptureTargetType{
+		PacketCaptureTargetTypeAzureVM,
+		PacketCaptureTargetTypeAzureVMSS,
 	}
 }
 
@@ -2513,6 +2743,87 @@ func PossibleRoutingStateValues() []RoutingState {
 	}
 }
 
+// ScopeConnectionState - The current scope connection state.
+type ScopeConnectionState string
+
+const (
+	ScopeConnectionStateConflict  ScopeConnectionState = "Conflict"
+	ScopeConnectionStateConnected ScopeConnectionState = "Connected"
+	ScopeConnectionStatePending   ScopeConnectionState = "Pending"
+	ScopeConnectionStateRejected  ScopeConnectionState = "Rejected"
+	ScopeConnectionStateRevoked   ScopeConnectionState = "Revoked"
+)
+
+// PossibleScopeConnectionStateValues returns the possible values for the ScopeConnectionState const type.
+func PossibleScopeConnectionStateValues() []ScopeConnectionState {
+	return []ScopeConnectionState{
+		ScopeConnectionStateConflict,
+		ScopeConnectionStateConnected,
+		ScopeConnectionStatePending,
+		ScopeConnectionStateRejected,
+		ScopeConnectionStateRevoked,
+	}
+}
+
+// SecurityConfigurationRuleAccess - Whether network traffic is allowed or denied.
+type SecurityConfigurationRuleAccess string
+
+const (
+	SecurityConfigurationRuleAccessAllow       SecurityConfigurationRuleAccess = "Allow"
+	SecurityConfigurationRuleAccessAlwaysAllow SecurityConfigurationRuleAccess = "AlwaysAllow"
+	SecurityConfigurationRuleAccessDeny        SecurityConfigurationRuleAccess = "Deny"
+)
+
+// PossibleSecurityConfigurationRuleAccessValues returns the possible values for the SecurityConfigurationRuleAccess const type.
+func PossibleSecurityConfigurationRuleAccessValues() []SecurityConfigurationRuleAccess {
+	return []SecurityConfigurationRuleAccess{
+		SecurityConfigurationRuleAccessAllow,
+		SecurityConfigurationRuleAccessAlwaysAllow,
+		SecurityConfigurationRuleAccessDeny,
+	}
+}
+
+// SecurityConfigurationRuleDirection - The direction of the rule. The direction specifies if the rule will be evaluated on
+// incoming or outgoing traffic.
+type SecurityConfigurationRuleDirection string
+
+const (
+	SecurityConfigurationRuleDirectionInbound  SecurityConfigurationRuleDirection = "Inbound"
+	SecurityConfigurationRuleDirectionOutbound SecurityConfigurationRuleDirection = "Outbound"
+)
+
+// PossibleSecurityConfigurationRuleDirectionValues returns the possible values for the SecurityConfigurationRuleDirection const type.
+func PossibleSecurityConfigurationRuleDirectionValues() []SecurityConfigurationRuleDirection {
+	return []SecurityConfigurationRuleDirection{
+		SecurityConfigurationRuleDirectionInbound,
+		SecurityConfigurationRuleDirectionOutbound,
+	}
+}
+
+// SecurityConfigurationRuleProtocol - Network protocol this rule applies to.
+type SecurityConfigurationRuleProtocol string
+
+const (
+	SecurityConfigurationRuleProtocolAh   SecurityConfigurationRuleProtocol = "Ah"
+	SecurityConfigurationRuleProtocolAny  SecurityConfigurationRuleProtocol = "Any"
+	SecurityConfigurationRuleProtocolEsp  SecurityConfigurationRuleProtocol = "Esp"
+	SecurityConfigurationRuleProtocolIcmp SecurityConfigurationRuleProtocol = "Icmp"
+	SecurityConfigurationRuleProtocolTCP  SecurityConfigurationRuleProtocol = "Tcp"
+	SecurityConfigurationRuleProtocolUDP  SecurityConfigurationRuleProtocol = "Udp"
+)
+
+// PossibleSecurityConfigurationRuleProtocolValues returns the possible values for the SecurityConfigurationRuleProtocol const type.
+func PossibleSecurityConfigurationRuleProtocolValues() []SecurityConfigurationRuleProtocol {
+	return []SecurityConfigurationRuleProtocol{
+		SecurityConfigurationRuleProtocolAh,
+		SecurityConfigurationRuleProtocolAny,
+		SecurityConfigurationRuleProtocolEsp,
+		SecurityConfigurationRuleProtocolIcmp,
+		SecurityConfigurationRuleProtocolTCP,
+		SecurityConfigurationRuleProtocolUDP,
+	}
+}
+
 // SecurityPartnerProviderConnectionStatus - The current state of the connection with Security Partner Provider.
 type SecurityPartnerProviderConnectionStatus string
 
@@ -2706,6 +3017,22 @@ const (
 func PossibleUsageUnitValues() []UsageUnit {
 	return []UsageUnit{
 		UsageUnitCount,
+	}
+}
+
+// UseHubGateway - Flag if need to use hub gateway.
+type UseHubGateway string
+
+const (
+	UseHubGatewayFalse UseHubGateway = "False"
+	UseHubGatewayTrue  UseHubGateway = "True"
+)
+
+// PossibleUseHubGatewayValues returns the possible values for the UseHubGateway const type.
+func PossibleUseHubGatewayValues() []UseHubGateway {
+	return []UseHubGateway{
+		UseHubGatewayFalse,
+		UseHubGatewayTrue,
 	}
 }
 
@@ -3270,6 +3597,7 @@ func PossibleWebApplicationFirewallModeValues() []WebApplicationFirewallMode {
 type WebApplicationFirewallOperator string
 
 const (
+	WebApplicationFirewallOperatorAny                WebApplicationFirewallOperator = "Any"
 	WebApplicationFirewallOperatorBeginsWith         WebApplicationFirewallOperator = "BeginsWith"
 	WebApplicationFirewallOperatorContains           WebApplicationFirewallOperator = "Contains"
 	WebApplicationFirewallOperatorEndsWith           WebApplicationFirewallOperator = "EndsWith"
@@ -3286,6 +3614,7 @@ const (
 // PossibleWebApplicationFirewallOperatorValues returns the possible values for the WebApplicationFirewallOperator const type.
 func PossibleWebApplicationFirewallOperatorValues() []WebApplicationFirewallOperator {
 	return []WebApplicationFirewallOperator{
+		WebApplicationFirewallOperatorAny,
 		WebApplicationFirewallOperatorBeginsWith,
 		WebApplicationFirewallOperatorContains,
 		WebApplicationFirewallOperatorEndsWith,
