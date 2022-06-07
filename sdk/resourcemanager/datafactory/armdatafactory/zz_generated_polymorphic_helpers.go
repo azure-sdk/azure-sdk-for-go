@@ -399,6 +399,8 @@ func unmarshalCopySourceClassification(rawMsg json.RawMessage) (CopySourceClassi
 		b = &SapEccSource{}
 	case "SapHanaSource":
 		b = &SapHanaSource{}
+	case "SapODPSource":
+		b = &SapODPSource{}
 	case "SapOpenHubSource":
 		b = &SapOpenHubSource{}
 	case "SapTableSource":
@@ -698,6 +700,8 @@ func unmarshalDatasetClassification(rawMsg json.RawMessage) (DatasetClassificati
 		b = &SapEccResourceDataset{}
 	case "SapHanaTable":
 		b = &SapHanaTableDataset{}
+	case "SapODPResource":
+		b = &SapODPResourceDataset{}
 	case "SapOpenHubTable":
 		b = &SapOpenHubTableDataset{}
 	case "SapTableResource":
@@ -1139,6 +1143,8 @@ func unmarshalLinkedServiceClassification(rawMsg json.RawMessage) (LinkedService
 		b = &SapEccLinkedService{}
 	case "SapHana":
 		b = &SapHanaLinkedService{}
+	case "SapODP":
+		b = &SapODPLinkedService{}
 	case "SapOpenHub":
 		b = &SapOpenHubLinkedService{}
 	case "SapTable":
