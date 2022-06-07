@@ -1,5 +1,16 @@
 # Release History
 
+## 1.2.0 (2022-06-07)
+### Features Added
+
+- New const `RestServiceAuthenticationTypeOAuth2ClientCredential`
+- New field `Resource` in struct `RestServiceLinkedServiceTypeProperties`
+- New field `ClientSecret` in struct `RestServiceLinkedServiceTypeProperties`
+- New field `ClientID` in struct `RestServiceLinkedServiceTypeProperties`
+- New field `Scope` in struct `RestServiceLinkedServiceTypeProperties`
+- New field `TokenEndpoint` in struct `RestServiceLinkedServiceTypeProperties`
+
+
 ## 1.1.0 (2022-05-30)
 ### Features Added
 

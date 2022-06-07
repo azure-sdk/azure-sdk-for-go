@@ -22242,6 +22242,12 @@ type RestServiceLinkedServiceTypeProperties struct {
 	// string (or Expression with resultType string).
 	AzureCloudType interface{} `json:"azureCloudType,omitempty"`
 
+	// The client ID associated with your application. Type: string (or Expression with resultType string).
+	ClientID interface{} `json:"clientId,omitempty"`
+
+	// The client secret associated with your application.
+	ClientSecret SecretBaseClassification `json:"clientSecret,omitempty"`
+
 	// The credential reference containing authentication information.
 	Credential *CredentialReference `json:"credential,omitempty"`
 
@@ -22256,6 +22262,13 @@ type RestServiceLinkedServiceTypeProperties struct {
 	// The password used in Basic authentication type.
 	Password SecretBaseClassification `json:"password,omitempty"`
 
+	// The target service or resource to which the access will be requested. Type: string (or Expression with resultType string).
+	Resource interface{} `json:"resource,omitempty"`
+
+	// The scope of the access required. It describes what kind of access will be requested. Type: string (or Expression with
+	// resultType string).
+	Scope interface{} `json:"scope,omitempty"`
+
 	// The application's client ID used in AadServicePrincipal authentication type.
 	ServicePrincipalID interface{} `json:"servicePrincipalId,omitempty"`
 
@@ -22265,6 +22278,9 @@ type RestServiceLinkedServiceTypeProperties struct {
 	// The tenant information (domain name or tenant ID) used in AadServicePrincipal authentication type under which your application
 	// resides.
 	Tenant interface{} `json:"tenant,omitempty"`
+
+	// The token endpoint of the authorization server to acquire access token. Type: string (or Expression with resultType string).
+	TokenEndpoint interface{} `json:"tokenEndpoint,omitempty"`
 
 	// The user name used in Basic authentication type.
 	UserName interface{} `json:"userName,omitempty"`
