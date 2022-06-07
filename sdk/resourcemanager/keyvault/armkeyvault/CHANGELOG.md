@@ -24,6 +24,27 @@
 - New field `RotationPolicy` in struct `KeyProperties`
 
 
+## 1.1.0 (2022-06-07)
+### Features Added
+
+- New const `KeyPermissionsGetrotationpolicy`
+- New const `KeyRotationPolicyActionTypeNotify`
+- New const `KeyPermissionsSetrotationpolicy`
+- New const `JSONWebKeyOperationRelease`
+- New const `KeyRotationPolicyActionTypeRotate`
+- New const `KeyPermissionsRotate`
+- New const `KeyPermissionsRelease`
+- New function `PossibleKeyRotationPolicyActionTypeValues() []KeyRotationPolicyActionType`
+- New struct `Action`
+- New struct `KeyReleasePolicy`
+- New struct `KeyRotationPolicyAttributes`
+- New struct `LifetimeAction`
+- New struct `RotationPolicy`
+- New struct `Trigger`
+- New field `RotationPolicy` in struct `KeyProperties`
+- New field `ReleasePolicy` in struct `KeyProperties`
+
+
 ## 1.0.0 (2022-05-16)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
