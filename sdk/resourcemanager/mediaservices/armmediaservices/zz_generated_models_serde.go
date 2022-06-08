@@ -16,6 +16,61 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type AV1Video.
+func (a AV1Video) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "complexity", a.Complexity)
+	populate(objectMap, "keyFrameInterval", a.KeyFrameInterval)
+	populate(objectMap, "label", a.Label)
+	populate(objectMap, "layers", a.Layers)
+	objectMap["@odata.type"] = "#Microsoft.Media.AV1Video"
+	populate(objectMap, "sceneChangeDetection", a.SceneChangeDetection)
+	populate(objectMap, "stretchMode", a.StretchMode)
+	populate(objectMap, "syncMode", a.SyncMode)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AV1Video.
+func (a *AV1Video) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "complexity":
+			err = unpopulate(val, "Complexity", &a.Complexity)
+			delete(rawMsg, key)
+		case "keyFrameInterval":
+			err = unpopulate(val, "KeyFrameInterval", &a.KeyFrameInterval)
+			delete(rawMsg, key)
+		case "label":
+			err = unpopulate(val, "Label", &a.Label)
+			delete(rawMsg, key)
+		case "layers":
+			err = unpopulate(val, "Layers", &a.Layers)
+			delete(rawMsg, key)
+		case "@odata.type":
+			err = unpopulate(val, "ODataType", &a.ODataType)
+			delete(rawMsg, key)
+		case "sceneChangeDetection":
+			err = unpopulate(val, "SceneChangeDetection", &a.SceneChangeDetection)
+			delete(rawMsg, key)
+		case "stretchMode":
+			err = unpopulate(val, "StretchMode", &a.StretchMode)
+			delete(rawMsg, key)
+		case "syncMode":
+			err = unpopulate(val, "SyncMode", &a.SyncMode)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AacAudio.
 func (a AacAudio) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -1243,6 +1298,49 @@ func (c *CopyVideo) UnmarshalJSON(data []byte) error {
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DDAudio.
+func (d DDAudio) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "bitrate", d.Bitrate)
+	populate(objectMap, "channels", d.Channels)
+	populate(objectMap, "label", d.Label)
+	objectMap["@odata.type"] = "#Microsoft.Media.DDAudio"
+	populate(objectMap, "samplingRate", d.SamplingRate)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DDAudio.
+func (d *DDAudio) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "bitrate":
+			err = unpopulate(val, "Bitrate", &d.Bitrate)
+			delete(rawMsg, key)
+		case "channels":
+			err = unpopulate(val, "Channels", &d.Channels)
+			delete(rawMsg, key)
+		case "label":
+			err = unpopulate(val, "Label", &d.Label)
+			delete(rawMsg, key)
+		case "@odata.type":
+			err = unpopulate(val, "ODataType", &d.ODataType)
+			delete(rawMsg, key)
+		case "samplingRate":
+			err = unpopulate(val, "SamplingRate", &d.SamplingRate)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
 		}
 	}
 	return nil
