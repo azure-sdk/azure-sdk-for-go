@@ -1,5 +1,5 @@
 {
-  "commit": "50ed15bd61ac79f2368d769df0c207a00b9e099f",
+  "commit": "861ee0522dbec5b2708c9c6114da092d67d95431",
   "readme": "/_/azure-rest-api-specs/specification/recoveryservicesbackup/resource-manager/readme.md",
   "tag": "package-2021-12",
   "use": "@microsoft.azure/autorest.go@2.1.187",
