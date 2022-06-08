@@ -1,5 +1,275 @@
 # Release History
 
+## 1.1.0 (2022-06-08)
+### Features Added
+
+- New const `UseHubGatewayFalse`
+- New const `SecurityConfigurationRuleProtocolAny`
+- New const `SecurityConfigurationRuleDirectionOutbound`
+- New const `PacketCaptureTargetTypeAzureVM`
+- New const `SecurityConfigurationRuleAccessAlwaysAllow`
+- New const `AutoLearnPrivateRangesModeDisabled`
+- New const `GroupConnectivityDirectlyConnected`
+- New const `AdminRuleKindCustom`
+- New const `SecurityConfigurationRuleProtocolUDP`
+- New const `CreatedByTypeManagedIdentity`
+- New const `ScopeConnectionStatePending`
+- New const `ApplicationGatewaySSLPolicyTypeCustomV2`
+- New const `SecurityConfigurationRuleProtocolEsp`
+- New const `ConnectivityTopologyMesh`
+- New const `UseHubGatewayTrue`
+- New const `EndpointTypeAzureVMSS`
+- New const `PacketCaptureTargetTypeAzureVMSS`
+- New const `ConfigurationTypeSecurityAdmin`
+- New const `SecurityConfigurationRuleAccessDeny`
+- New const `ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101S`
+- New const `SecurityConfigurationRuleDirectionInbound`
+- New const `AdminRuleKindDefault`
+- New const `SecurityConfigurationRuleProtocolAh`
+- New const `NetworkIntentPolicyBasedServiceAll`
+- New const `DeploymentStatusFailed`
+- New const `DeploymentStatusDeploying`
+- New const `CommissionedStateCommissionedNoInternetAdvertise`
+- New const `ScopeConnectionStateConnected`
+- New const `AddressPrefixTypeIPPrefix`
+- New const `ApplicationGatewaySSLPolicyNameAppGwSSLPolicy20220101`
+- New const `ScopeConnectionStateRejected`
+- New const `GroupConnectivityNone`
+- New const `ApplicationGatewaySSLProtocolTLSv13`
+- New const `DeleteExistingPeeringFalse`
+- New const `ScopeConnectionStateRevoked`
+- New const `SecurityConfigurationRuleAccessAllow`
+- New const `SecurityConfigurationRuleProtocolTCP`
+- New const `AutoLearnPrivateRangesModeEnabled`
+- New const `EffectiveAdminRuleKindCustom`
+- New const `WebApplicationFirewallOperatorAny`
+- New const `ScopeConnectionStateConflict`
+- New const `EndpointTypeAzureArcVM`
+- New const `SecurityConfigurationRuleProtocolIcmp`
+- New const `DeleteExistingPeeringTrue`
+- New const `CreatedByTypeApplication`
+- New const `ConfigurationTypeConnectivity`
+- New const `CreatedByTypeUser`
+- New const `EffectiveAdminRuleKindDefault`
+- New const `CreatedByTypeKey`
+- New const `AddressPrefixTypeServiceTag`
+- New const `DeploymentStatusDeployed`
+- New const `IsGlobalFalse`
+- New const `DeploymentStatusNotStarted`
+- New const `IsGlobalTrue`
+- New const `NetworkIntentPolicyBasedServiceNone`
+- New const `ConnectivityTopologyHubAndSpoke`
+- New function `PossibleAdminRuleKindValues() []AdminRuleKind`
+- New function `PossibleScopeConnectionStateValues() []ScopeConnectionState`
+- New function `PossibleConfigurationTypeValues() []ConfigurationType`
+- New function `*ActiveSecurityAdminRule.GetActiveBaseSecurityAdminRule() *ActiveBaseSecurityAdminRule`
+- New function `PossibleAddressPrefixTypeValues() []AddressPrefixType`
+- New function `PossibleSecurityConfigurationRuleDirectionValues() []SecurityConfigurationRuleDirection`
+- New function `PossibleAutoLearnPrivateRangesModeValues() []AutoLearnPrivateRangesMode`
+- New function `*AzureFirewallsClient.BeginListLearnedPrefixes(context.Context, string, string, *AzureFirewallsClientBeginListLearnedPrefixesOptions) (*runtime.Poller[AzureFirewallsClientListLearnedPrefixesResponse], error)`
+- New function `*ManagementClient.ListActiveSecurityAdminRules(context.Context, string, string, ActiveConfigurationParameter, *ManagementClientListActiveSecurityAdminRulesOptions) (ManagementClientListActiveSecurityAdminRulesResponse, error)`
+- New function `PossibleIsGlobalValues() []IsGlobal`
+- New function `*EffectiveDefaultSecurityAdminRule.GetEffectiveBaseSecurityAdminRule() *EffectiveBaseSecurityAdminRule`
+- New function `*ActiveDefaultSecurityAdminRule.GetActiveBaseSecurityAdminRule() *ActiveBaseSecurityAdminRule`
+- New function `PossiblePacketCaptureTargetTypeValues() []PacketCaptureTargetType`
+- New function `PossibleDeleteExistingPeeringValues() []DeleteExistingPeering`
+- New function `*ManagementClient.ListNetworkManagerEffectiveSecurityAdminRules(context.Context, string, string, QueryRequestOptions, *ManagementClientListNetworkManagerEffectiveSecurityAdminRulesOptions) (ManagementClientListNetworkManagerEffectiveSecurityAdminRulesResponse, error)`
+- New function `PossibleNetworkIntentPolicyBasedServiceValues() []NetworkIntentPolicyBasedService`
+- New function `*DefaultAdminRule.GetBaseAdminRule() *BaseAdminRule`
+- New function `*EffectiveBaseSecurityAdminRule.GetEffectiveBaseSecurityAdminRule() *EffectiveBaseSecurityAdminRule`
+- New function `PossibleCreatedByTypeValues() []CreatedByType`
+- New function `PossibleConnectivityTopologyValues() []ConnectivityTopology`
+- New function `PossibleEffectiveAdminRuleKindValues() []EffectiveAdminRuleKind`
+- New function `PossibleSecurityConfigurationRuleAccessValues() []SecurityConfigurationRuleAccess`
+- New function `*BaseAdminRule.GetBaseAdminRule() *BaseAdminRule`
+- New function `PossibleGroupConnectivityValues() []GroupConnectivity`
+- New function `*ManagementClient.ListActiveConnectivityConfigurations(context.Context, string, string, ActiveConfigurationParameter, *ManagementClientListActiveConnectivityConfigurationsOptions) (ManagementClientListActiveConnectivityConfigurationsResponse, error)`
+- New function `*EffectiveSecurityAdminRule.GetEffectiveBaseSecurityAdminRule() *EffectiveBaseSecurityAdminRule`
+- New function `PossibleSecurityConfigurationRuleProtocolValues() []SecurityConfigurationRuleProtocol`
+- New function `*AdminRule.GetBaseAdminRule() *BaseAdminRule`
+- New function `*ManagementClient.ListNetworkManagerEffectiveConnectivityConfigurations(context.Context, string, string, QueryRequestOptions, *ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsOptions) (ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsResponse, error)`
+- New function `*ManagementClient.ExpressRouteProviderPort(context.Context, string, *ManagementClientExpressRouteProviderPortOptions) (ManagementClientExpressRouteProviderPortResponse, error)`
+- New function `PossibleUseHubGatewayValues() []UseHubGateway`
+- New function `*ActiveBaseSecurityAdminRule.GetActiveBaseSecurityAdminRule() *ActiveBaseSecurityAdminRule`
+- New function `PossibleDeploymentStatusValues() []DeploymentStatus`
+- New struct `ActiveBaseSecurityAdminRule`
+- New struct `ActiveConfigurationParameter`
+- New struct `ActiveConnectivityConfiguration`
+- New struct `ActiveConnectivityConfigurationsListResult`
+- New struct `ActiveDefaultSecurityAdminRule`
+- New struct `ActiveSecurityAdminRule`
+- New struct `ActiveSecurityAdminRulesListResult`
+- New struct `AddressPrefixItem`
+- New struct `AdminPropertiesFormat`
+- New struct `AdminRule`
+- New struct `AdminRuleCollection`
+- New struct `AdminRuleCollectionListResult`
+- New struct `AdminRuleCollectionPropertiesFormat`
+- New struct `AdminRuleCollectionsClientBeginDeleteOptions`
+- New struct `AdminRuleCollectionsClientCreateOrUpdateOptions`
+- New struct `AdminRuleCollectionsClientCreateOrUpdateResponse`
+- New struct `AdminRuleCollectionsClientDeleteResponse`
+- New struct `AdminRuleCollectionsClientGetOptions`
+- New struct `AdminRuleCollectionsClientGetResponse`
+- New struct `AdminRuleCollectionsClientListOptions`
+- New struct `AdminRuleCollectionsClientListResponse`
+- New struct `AdminRuleListResult`
+- New struct `AdminRulesClientBeginDeleteOptions`
+- New struct `AdminRulesClientCreateOrUpdateOptions`
+- New struct `AdminRulesClientCreateOrUpdateResponse`
+- New struct `AdminRulesClientDeleteResponse`
+- New struct `AdminRulesClientGetOptions`
+- New struct `AdminRulesClientGetResponse`
+- New struct `AdminRulesClientListOptions`
+- New struct `AdminRulesClientListResponse`
+- New struct `AzureFirewallsClientBeginListLearnedPrefixesOptions`
+- New struct `AzureFirewallsClientListLearnedPrefixesResponse`
+- New struct `BaseAdminRule`
+- New struct `ChildResource`
+- New struct `ConfigurationGroup`
+- New struct `ConnectivityConfiguration`
+- New struct `ConnectivityConfigurationListResult`
+- New struct `ConnectivityConfigurationProperties`
+- New struct `ConnectivityConfigurationsClientBeginDeleteOptions`
+- New struct `ConnectivityConfigurationsClientCreateOrUpdateOptions`
+- New struct `ConnectivityConfigurationsClientCreateOrUpdateResponse`
+- New struct `ConnectivityConfigurationsClientDeleteResponse`
+- New struct `ConnectivityConfigurationsClientGetOptions`
+- New struct `ConnectivityConfigurationsClientGetResponse`
+- New struct `ConnectivityConfigurationsClientListOptions`
+- New struct `ConnectivityConfigurationsClientListResponse`
+- New struct `ConnectivityGroupItem`
+- New struct `CrossTenantScopes`
+- New struct `DefaultAdminPropertiesFormat`
+- New struct `DefaultAdminRule`
+- New struct `EffectiveBaseSecurityAdminRule`
+- New struct `EffectiveConnectivityConfiguration`
+- New struct `EffectiveDefaultSecurityAdminRule`
+- New struct `EffectiveSecurityAdminRule`
+- New struct `ExpressRouteProviderPort`
+- New struct `ExpressRouteProviderPortListResult`
+- New struct `ExpressRouteProviderPortProperties`
+- New struct `ExpressRouteProviderPortsLocationClientListOptions`
+- New struct `ExpressRouteProviderPortsLocationClientListResponse`
+- New struct `Group`
+- New struct `GroupListResult`
+- New struct `GroupProperties`
+- New struct `GroupsClientBeginDeleteOptions`
+- New struct `GroupsClientCreateOrUpdateOptions`
+- New struct `GroupsClientCreateOrUpdateResponse`
+- New struct `GroupsClientDeleteResponse`
+- New struct `GroupsClientGetOptions`
+- New struct `GroupsClientGetResponse`
+- New struct `GroupsClientListOptions`
+- New struct `GroupsClientListResponse`
+- New struct `Hub`
+- New struct `IPPrefixesList`
+- New struct `ManagementClientExpressRouteProviderPortOptions`
+- New struct `ManagementClientExpressRouteProviderPortResponse`
+- New struct `ManagementClientListActiveConnectivityConfigurationsOptions`
+- New struct `ManagementClientListActiveConnectivityConfigurationsResponse`
+- New struct `ManagementClientListActiveSecurityAdminRulesOptions`
+- New struct `ManagementClientListActiveSecurityAdminRulesResponse`
+- New struct `ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsOptions`
+- New struct `ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsResponse`
+- New struct `ManagementClientListNetworkManagerEffectiveSecurityAdminRulesOptions`
+- New struct `ManagementClientListNetworkManagerEffectiveSecurityAdminRulesResponse`
+- New struct `ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateOptions`
+- New struct `ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateResponse`
+- New struct `ManagementGroupNetworkManagerConnectionsClientDeleteOptions`
+- New struct `ManagementGroupNetworkManagerConnectionsClientDeleteResponse`
+- New struct `ManagementGroupNetworkManagerConnectionsClientGetOptions`
+- New struct `ManagementGroupNetworkManagerConnectionsClientGetResponse`
+- New struct `ManagementGroupNetworkManagerConnectionsClientListOptions`
+- New struct `ManagementGroupNetworkManagerConnectionsClientListResponse`
+- New struct `Manager`
+- New struct `ManagerCommit`
+- New struct `ManagerCommitsClientBeginPostOptions`
+- New struct `ManagerCommitsClientPostResponse`
+- New struct `ManagerConnection`
+- New struct `ManagerConnectionListResult`
+- New struct `ManagerConnectionProperties`
+- New struct `ManagerDeploymentStatus`
+- New struct `ManagerDeploymentStatusClientListOptions`
+- New struct `ManagerDeploymentStatusClientListResponse`
+- New struct `ManagerDeploymentStatusListResult`
+- New struct `ManagerDeploymentStatusParameter`
+- New struct `ManagerEffectiveConnectivityConfigurationListResult`
+- New struct `ManagerEffectiveSecurityAdminRulesListResult`
+- New struct `ManagerListResult`
+- New struct `ManagerProperties`
+- New struct `ManagerPropertiesNetworkManagerScopes`
+- New struct `ManagerSecurityGroupItem`
+- New struct `ManagersClientBeginDeleteOptions`
+- New struct `ManagersClientCreateOrUpdateOptions`
+- New struct `ManagersClientCreateOrUpdateResponse`
+- New struct `ManagersClientDeleteResponse`
+- New struct `ManagersClientGetOptions`
+- New struct `ManagersClientGetResponse`
+- New struct `ManagersClientListBySubscriptionOptions`
+- New struct `ManagersClientListBySubscriptionResponse`
+- New struct `ManagersClientListOptions`
+- New struct `ManagersClientListResponse`
+- New struct `ManagersClientPatchOptions`
+- New struct `ManagersClientPatchResponse`
+- New struct `PacketCaptureMachineScope`
+- New struct `PatchObject`
+- New struct `QueryRequestOptions`
+- New struct `ScopeConnection`
+- New struct `ScopeConnectionListResult`
+- New struct `ScopeConnectionProperties`
+- New struct `ScopeConnectionsClientCreateOrUpdateOptions`
+- New struct `ScopeConnectionsClientCreateOrUpdateResponse`
+- New struct `ScopeConnectionsClientDeleteOptions`
+- New struct `ScopeConnectionsClientDeleteResponse`
+- New struct `ScopeConnectionsClientGetOptions`
+- New struct `ScopeConnectionsClientGetResponse`
+- New struct `ScopeConnectionsClientListOptions`
+- New struct `ScopeConnectionsClientListResponse`
+- New struct `SecurityAdminConfiguration`
+- New struct `SecurityAdminConfigurationListResult`
+- New struct `SecurityAdminConfigurationPropertiesFormat`
+- New struct `SecurityAdminConfigurationsClientBeginDeleteOptions`
+- New struct `SecurityAdminConfigurationsClientCreateOrUpdateOptions`
+- New struct `SecurityAdminConfigurationsClientCreateOrUpdateResponse`
+- New struct `SecurityAdminConfigurationsClientDeleteResponse`
+- New struct `SecurityAdminConfigurationsClientGetOptions`
+- New struct `SecurityAdminConfigurationsClientGetResponse`
+- New struct `SecurityAdminConfigurationsClientListOptions`
+- New struct `SecurityAdminConfigurationsClientListResponse`
+- New struct `StaticMember`
+- New struct `StaticMemberListResult`
+- New struct `StaticMemberProperties`
+- New struct `StaticMembersClientCreateOrUpdateOptions`
+- New struct `StaticMembersClientCreateOrUpdateResponse`
+- New struct `StaticMembersClientDeleteOptions`
+- New struct `StaticMembersClientDeleteResponse`
+- New struct `StaticMembersClientGetOptions`
+- New struct `StaticMembersClientGetResponse`
+- New struct `StaticMembersClientListOptions`
+- New struct `StaticMembersClientListResponse`
+- New struct `SubscriptionNetworkManagerConnectionsClientCreateOrUpdateOptions`
+- New struct `SubscriptionNetworkManagerConnectionsClientCreateOrUpdateResponse`
+- New struct `SubscriptionNetworkManagerConnectionsClientDeleteOptions`
+- New struct `SubscriptionNetworkManagerConnectionsClientDeleteResponse`
+- New struct `SubscriptionNetworkManagerConnectionsClientGetOptions`
+- New struct `SubscriptionNetworkManagerConnectionsClientGetResponse`
+- New struct `SubscriptionNetworkManagerConnectionsClientListOptions`
+- New struct `SubscriptionNetworkManagerConnectionsClientListResponse`
+- New struct `SystemData`
+- New struct `VirtualRouterAutoScaleConfiguration`
+- New field `EnablePacFile` in struct `ExplicitProxySettings`
+- New field `Scope` in struct `PacketCaptureParameters`
+- New field `TargetType` in struct `PacketCaptureParameters`
+- New field `AutoLearnPrivateRanges` in struct `FirewallPolicySNAT`
+- New field `Priority` in struct `ApplicationGatewayRoutingRulePropertiesFormat`
+- New field `FlushConnection` in struct `SecurityGroupPropertiesFormat`
+- New field `Scope` in struct `PacketCaptureResultProperties`
+- New field `TargetType` in struct `PacketCaptureResultProperties`
+- New field `NoInternetAdvertise` in struct `CustomIPPrefixPropertiesFormat`
+- New field `VirtualRouterAutoScaleConfiguration` in struct `VirtualHubProperties`
+
+
 ## 1.0.0 (2022-05-16)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/network/armnetwork` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.

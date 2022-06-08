@@ -22,10 +22,379 @@ type AADAuthenticationParameters struct {
 	AADTenant *string `json:"aadTenant,omitempty"`
 }
 
+// ActiveBaseSecurityAdminRuleClassification provides polymorphic access to related types.
+// Call the interface's GetActiveBaseSecurityAdminRule() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ActiveBaseSecurityAdminRule, *ActiveDefaultSecurityAdminRule, *ActiveSecurityAdminRule
+type ActiveBaseSecurityAdminRuleClassification interface {
+	// GetActiveBaseSecurityAdminRule returns the ActiveBaseSecurityAdminRule content of the underlying type.
+	GetActiveBaseSecurityAdminRule() *ActiveBaseSecurityAdminRule
+}
+
+// ActiveBaseSecurityAdminRule - Network base admin rule.
+type ActiveBaseSecurityAdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *EffectiveAdminRuleKind `json:"kind,omitempty"`
+
+	// Deployment time string.
+	CommitTime *time.Time `json:"commitTime,omitempty"`
+
+	// A description of the security admin configuration.
+	ConfigurationDescription *string `json:"configurationDescription,omitempty"`
+
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Deployment region.
+	Region *string `json:"region,omitempty"`
+
+	// Groups for rule collection
+	RuleCollectionAppliesToGroups []*ManagerSecurityGroupItem `json:"ruleCollectionAppliesToGroups,omitempty"`
+
+	// A description of the rule collection.
+	RuleCollectionDescription *string `json:"ruleCollectionDescription,omitempty"`
+
+	// Effective configuration groups.
+	RuleGroups []*ConfigurationGroup `json:"ruleGroups,omitempty"`
+}
+
+// GetActiveBaseSecurityAdminRule implements the ActiveBaseSecurityAdminRuleClassification interface for type ActiveBaseSecurityAdminRule.
+func (a *ActiveBaseSecurityAdminRule) GetActiveBaseSecurityAdminRule() *ActiveBaseSecurityAdminRule {
+	return a
+}
+
+// ActiveConfigurationParameter - Effective Virtual Networks Parameter.
+type ActiveConfigurationParameter struct {
+	// List of regions.
+	Regions []*string `json:"regions,omitempty"`
+
+	// When present, the value can be passed to a subsequent query call (together with the same query and scopes used in the current
+	// request) to retrieve the next page of data.
+	SkipToken *string `json:"skipToken,omitempty"`
+}
+
+// ActiveConnectivityConfiguration - Active connectivity configuration.
+type ActiveConnectivityConfiguration struct {
+	// Deployment time string.
+	CommitTime *time.Time `json:"commitTime,omitempty"`
+
+	// Effective configuration groups.
+	ConfigurationGroups []*ConfigurationGroup `json:"configurationGroups,omitempty"`
+
+	// Connectivity configuration ID.
+	ID *string `json:"id,omitempty"`
+
+	// Properties of a network manager connectivity configuration
+	Properties *ConnectivityConfigurationProperties `json:"properties,omitempty"`
+
+	// Deployment region.
+	Region *string `json:"region,omitempty"`
+}
+
+// ActiveConnectivityConfigurationsListResult - Result of the request to list active connectivity configurations. It contains
+// a list of active connectivity configurations and a skiptoken to get the next set of results.
+type ActiveConnectivityConfigurationsListResult struct {
+	// When present, the value can be passed to a subsequent query call (together with the same query and scopes used in the current
+	// request) to retrieve the next page of data.
+	SkipToken *string `json:"skipToken,omitempty"`
+
+	// Gets a page of active connectivity configurations.
+	Value []*ActiveConnectivityConfiguration `json:"value,omitempty"`
+}
+
+// ActiveDefaultSecurityAdminRule - Network default admin rule.
+type ActiveDefaultSecurityAdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *EffectiveAdminRuleKind `json:"kind,omitempty"`
+
+	// Deployment time string.
+	CommitTime *time.Time `json:"commitTime,omitempty"`
+
+	// A description of the security admin configuration.
+	ConfigurationDescription *string `json:"configurationDescription,omitempty"`
+
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Indicates the properties of the default security admin rule
+	Properties *DefaultAdminPropertiesFormat `json:"properties,omitempty"`
+
+	// Deployment region.
+	Region *string `json:"region,omitempty"`
+
+	// Groups for rule collection
+	RuleCollectionAppliesToGroups []*ManagerSecurityGroupItem `json:"ruleCollectionAppliesToGroups,omitempty"`
+
+	// A description of the rule collection.
+	RuleCollectionDescription *string `json:"ruleCollectionDescription,omitempty"`
+
+	// Effective configuration groups.
+	RuleGroups []*ConfigurationGroup `json:"ruleGroups,omitempty"`
+}
+
+// GetActiveBaseSecurityAdminRule implements the ActiveBaseSecurityAdminRuleClassification interface for type ActiveDefaultSecurityAdminRule.
+func (a *ActiveDefaultSecurityAdminRule) GetActiveBaseSecurityAdminRule() *ActiveBaseSecurityAdminRule {
+	return &ActiveBaseSecurityAdminRule{
+		ID:                            a.ID,
+		CommitTime:                    a.CommitTime,
+		Region:                        a.Region,
+		ConfigurationDescription:      a.ConfigurationDescription,
+		RuleCollectionDescription:     a.RuleCollectionDescription,
+		RuleCollectionAppliesToGroups: a.RuleCollectionAppliesToGroups,
+		RuleGroups:                    a.RuleGroups,
+		Kind:                          a.Kind,
+	}
+}
+
+// ActiveSecurityAdminRule - Network admin rule.
+type ActiveSecurityAdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *EffectiveAdminRuleKind `json:"kind,omitempty"`
+
+	// Deployment time string.
+	CommitTime *time.Time `json:"commitTime,omitempty"`
+
+	// A description of the security admin configuration.
+	ConfigurationDescription *string `json:"configurationDescription,omitempty"`
+
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Indicates the properties of the security admin rule
+	Properties *AdminPropertiesFormat `json:"properties,omitempty"`
+
+	// Deployment region.
+	Region *string `json:"region,omitempty"`
+
+	// Groups for rule collection
+	RuleCollectionAppliesToGroups []*ManagerSecurityGroupItem `json:"ruleCollectionAppliesToGroups,omitempty"`
+
+	// A description of the rule collection.
+	RuleCollectionDescription *string `json:"ruleCollectionDescription,omitempty"`
+
+	// Effective configuration groups.
+	RuleGroups []*ConfigurationGroup `json:"ruleGroups,omitempty"`
+}
+
+// GetActiveBaseSecurityAdminRule implements the ActiveBaseSecurityAdminRuleClassification interface for type ActiveSecurityAdminRule.
+func (a *ActiveSecurityAdminRule) GetActiveBaseSecurityAdminRule() *ActiveBaseSecurityAdminRule {
+	return &ActiveBaseSecurityAdminRule{
+		ID:                            a.ID,
+		CommitTime:                    a.CommitTime,
+		Region:                        a.Region,
+		ConfigurationDescription:      a.ConfigurationDescription,
+		RuleCollectionDescription:     a.RuleCollectionDescription,
+		RuleCollectionAppliesToGroups: a.RuleCollectionAppliesToGroups,
+		RuleGroups:                    a.RuleGroups,
+		Kind:                          a.Kind,
+	}
+}
+
+// ActiveSecurityAdminRulesListResult - Result of the request to list active security admin rules. It contains a list of active
+// security admin rules and a skiptoken to get the next set of results.
+type ActiveSecurityAdminRulesListResult struct {
+	// When present, the value can be passed to a subsequent query call (together with the same query and scopes used in the current
+	// request) to retrieve the next page of data.
+	SkipToken *string `json:"skipToken,omitempty"`
+
+	// Gets a page of active security admin rules.
+	Value []ActiveBaseSecurityAdminRuleClassification `json:"value,omitempty"`
+}
+
+// AddressPrefixItem - Address prefix item.
+type AddressPrefixItem struct {
+	// Address prefix.
+	AddressPrefix *string `json:"addressPrefix,omitempty"`
+
+	// Address prefix type.
+	AddressPrefixType *AddressPrefixType `json:"addressPrefixType,omitempty"`
+}
+
 // AddressSpace contains an array of IP address ranges that can be used by subnets of the virtual network.
 type AddressSpace struct {
 	// A list of address blocks reserved for this virtual network in CIDR notation.
 	AddressPrefixes []*string `json:"addressPrefixes,omitempty"`
+}
+
+// AdminPropertiesFormat - Security admin rule resource.
+type AdminPropertiesFormat struct {
+	// REQUIRED; Indicates the access allowed for this particular rule
+	Access *SecurityConfigurationRuleAccess `json:"access,omitempty"`
+
+	// REQUIRED; Indicates if the traffic matched against the rule in inbound or outbound.
+	Direction *SecurityConfigurationRuleDirection `json:"direction,omitempty"`
+
+	// REQUIRED; The priority of the rule. The value can be between 1 and 4096. The priority number must be unique for each rule
+	// in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32 `json:"priority,omitempty"`
+
+	// REQUIRED; Network protocol this rule applies to.
+	Protocol *SecurityConfigurationRuleProtocol `json:"protocol,omitempty"`
+
+	// A description for this rule. Restricted to 140 chars.
+	Description *string `json:"description,omitempty"`
+
+	// The destination port ranges.
+	DestinationPortRanges []*string `json:"destinationPortRanges,omitempty"`
+
+	// The destination address prefixes. CIDR or destination IP ranges.
+	Destinations []*AddressPrefixItem `json:"destinations,omitempty"`
+
+	// The source port ranges.
+	SourcePortRanges []*string `json:"sourcePortRanges,omitempty"`
+
+	// The CIDR or source IP ranges.
+	Sources []*AddressPrefixItem `json:"sources,omitempty"`
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// AdminRule - Network admin rule.
+type AdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *AdminRuleKind `json:"kind,omitempty"`
+
+	// Indicates the properties of the security admin rule
+	Properties *AdminPropertiesFormat `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GetBaseAdminRule implements the BaseAdminRuleClassification interface for type AdminRule.
+func (a *AdminRule) GetBaseAdminRule() *BaseAdminRule {
+	return &BaseAdminRule{
+		Kind:       a.Kind,
+		SystemData: a.SystemData,
+		ID:         a.ID,
+		Name:       a.Name,
+		Type:       a.Type,
+		Etag:       a.Etag,
+	}
+}
+
+// AdminRuleCollection - Defines the admin rule collection.
+type AdminRuleCollection struct {
+	// Indicates the properties for the network manager admin rule collection.
+	Properties *AdminRuleCollectionPropertiesFormat `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// AdminRuleCollectionListResult - Security admin configuration rule collection list result.
+type AdminRuleCollectionListResult struct {
+	// Gets the URL to get the next set of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// A list of network manager security admin configuration rule collections
+	Value []*AdminRuleCollection `json:"value,omitempty"`
+}
+
+// AdminRuleCollectionPropertiesFormat - Defines the admin rule collection properties.
+type AdminRuleCollectionPropertiesFormat struct {
+	// REQUIRED; Groups for configuration
+	AppliesToGroups []*ManagerSecurityGroupItem `json:"appliesToGroups,omitempty"`
+
+	// A description of the admin rule collection.
+	Description *string `json:"description,omitempty"`
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// AdminRuleCollectionsClientBeginDeleteOptions contains the optional parameters for the AdminRuleCollectionsClient.BeginDelete
+// method.
+type AdminRuleCollectionsClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AdminRuleCollectionsClientCreateOrUpdateOptions contains the optional parameters for the AdminRuleCollectionsClient.CreateOrUpdate
+// method.
+type AdminRuleCollectionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AdminRuleCollectionsClientGetOptions contains the optional parameters for the AdminRuleCollectionsClient.Get method.
+type AdminRuleCollectionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AdminRuleCollectionsClientListOptions contains the optional parameters for the AdminRuleCollectionsClient.List method.
+type AdminRuleCollectionsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// AdminRuleListResult - security configuration admin rule list result.
+type AdminRuleListResult struct {
+	// The URL to get the next set of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// A list of admin rules
+	Value []BaseAdminRuleClassification `json:"value,omitempty"`
+}
+
+// AdminRulesClientBeginDeleteOptions contains the optional parameters for the AdminRulesClient.BeginDelete method.
+type AdminRulesClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AdminRulesClientCreateOrUpdateOptions contains the optional parameters for the AdminRulesClient.CreateOrUpdate method.
+type AdminRulesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AdminRulesClientGetOptions contains the optional parameters for the AdminRulesClient.Get method.
+type AdminRulesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AdminRulesClientListOptions contains the optional parameters for the AdminRulesClient.List method.
+type AdminRulesClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
 }
 
 // ApplicationGateway - Application gateway resource.
@@ -1339,6 +1708,9 @@ type ApplicationGatewayRoutingRule struct {
 
 // ApplicationGatewayRoutingRulePropertiesFormat - Properties of routing rule of the application gateway.
 type ApplicationGatewayRoutingRulePropertiesFormat struct {
+	// REQUIRED; Priority of the routing rule.
+	Priority *int32 `json:"priority,omitempty"`
+
 	// Backend address pool resource of the application gateway.
 	BackendAddressPool *SubResource `json:"backendAddressPool,omitempty"`
 
@@ -2495,6 +2867,13 @@ type AzureFirewallsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// AzureFirewallsClientBeginListLearnedPrefixesOptions contains the optional parameters for the AzureFirewallsClient.BeginListLearnedPrefixes
+// method.
+type AzureFirewallsClientBeginListLearnedPrefixesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // AzureFirewallsClientBeginUpdateTagsOptions contains the optional parameters for the AzureFirewallsClient.BeginUpdateTags
 // method.
 type AzureFirewallsClientBeginUpdateTagsOptions struct {
@@ -2691,6 +3070,39 @@ type BackendAddressPoolPropertiesFormat struct {
 	// READ-ONLY; The provisioning state of the backend address pool resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
+
+// BaseAdminRuleClassification provides polymorphic access to related types.
+// Call the interface's GetBaseAdminRule() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AdminRule, *BaseAdminRule, *DefaultAdminRule
+type BaseAdminRuleClassification interface {
+	// GetBaseAdminRule returns the BaseAdminRule content of the underlying type.
+	GetBaseAdminRule() *BaseAdminRule
+}
+
+// BaseAdminRule - Network base admin rule.
+type BaseAdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *AdminRuleKind `json:"kind,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GetBaseAdminRule implements the BaseAdminRuleClassification interface for type BaseAdminRule.
+func (b *BaseAdminRule) GetBaseAdminRule() *BaseAdminRule { return b }
 
 // BastionActiveSession - The session detail for a target.
 type BastionActiveSession struct {
@@ -3068,6 +3480,21 @@ type CheckPrivateLinkServiceVisibilityRequest struct {
 	PrivateLinkServiceAlias *string `json:"privateLinkServiceAlias,omitempty"`
 }
 
+// ChildResource - Proxy resource representation.
+type ChildResource struct {
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
 // CloudError - An error response from the service.
 type CloudError struct {
 	// Cloud error body.
@@ -3141,6 +3568,15 @@ type ConfigurationDiagnosticResult struct {
 
 	// Network configuration diagnostic profile.
 	Profile *ConfigurationDiagnosticProfile `json:"profile,omitempty"`
+}
+
+// ConfigurationGroup - The network configuration group resource
+type ConfigurationGroup struct {
+	// Network group ID.
+	ID *string `json:"id,omitempty"`
+
+	// The network configuration group properties
+	Properties *GroupProperties `json:"properties,omitempty"`
 }
 
 // ConfigurationPolicyGroupsClientBeginCreateOrUpdateOptions contains the optional parameters for the ConfigurationPolicyGroupsClient.BeginCreateOrUpdate
@@ -3579,6 +4015,94 @@ type ConnectionStateSnapshot struct {
 	Hops []*ConnectivityHop `json:"hops,omitempty" azure:"ro"`
 }
 
+// ConnectivityConfiguration - The network manager connectivity configuration resource
+type ConnectivityConfiguration struct {
+	// Properties of a network manager connectivity configuration
+	Properties *ConnectivityConfigurationProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ConnectivityConfigurationListResult - Result of the request to list network manager connectivity configurations. It contains
+// a list of configurations and a link to get the next set of results.
+type ConnectivityConfigurationListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Gets a page of Connectivity Configurations
+	Value []*ConnectivityConfiguration `json:"value,omitempty"`
+}
+
+// ConnectivityConfigurationProperties - Properties of network manager connectivity configuration
+type ConnectivityConfigurationProperties struct {
+	// REQUIRED; Groups for configuration
+	AppliesToGroups []*ConnectivityGroupItem `json:"appliesToGroups,omitempty"`
+
+	// REQUIRED; Connectivity topology type.
+	ConnectivityTopology *ConnectivityTopology `json:"connectivityTopology,omitempty"`
+
+	// Flag if need to remove current existing peerings.
+	DeleteExistingPeering *DeleteExistingPeering `json:"deleteExistingPeering,omitempty"`
+
+	// A description of the connectivity configuration.
+	Description *string `json:"description,omitempty"`
+
+	// List of hubItems
+	Hubs []*Hub `json:"hubs,omitempty"`
+
+	// Flag if global mesh is supported.
+	IsGlobal *IsGlobal `json:"isGlobal,omitempty"`
+
+	// READ-ONLY; The provisioning state of the connectivity configuration resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// ConnectivityConfigurationsClientBeginDeleteOptions contains the optional parameters for the ConnectivityConfigurationsClient.BeginDelete
+// method.
+type ConnectivityConfigurationsClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConnectivityConfigurationsClientCreateOrUpdateOptions contains the optional parameters for the ConnectivityConfigurationsClient.CreateOrUpdate
+// method.
+type ConnectivityConfigurationsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConnectivityConfigurationsClientGetOptions contains the optional parameters for the ConnectivityConfigurationsClient.Get
+// method.
+type ConnectivityConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConnectivityConfigurationsClientListOptions contains the optional parameters for the ConnectivityConfigurationsClient.List
+// method.
+type ConnectivityConfigurationsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
 // ConnectivityDestination - Parameters that define destination of connection.
 type ConnectivityDestination struct {
 	// The IP address or URI the resource to which a connection attempt will be made.
@@ -3589,6 +4113,21 @@ type ConnectivityDestination struct {
 
 	// The ID of the resource to which a connection attempt will be made.
 	ResourceID *string `json:"resourceId,omitempty"`
+}
+
+// ConnectivityGroupItem - Connectivity group item.
+type ConnectivityGroupItem struct {
+	// REQUIRED; Group connectivity type.
+	GroupConnectivity *GroupConnectivity `json:"groupConnectivity,omitempty"`
+
+	// REQUIRED; Network group Id.
+	NetworkGroupID *string `json:"networkGroupId,omitempty"`
+
+	// Flag if global is supported.
+	IsGlobal *IsGlobal `json:"isGlobal,omitempty"`
+
+	// Flag if need to use hub gateway.
+	UseHubGateway *UseHubGateway `json:"useHubGateway,omitempty"`
 }
 
 // ConnectivityHop - Information about a hop between the source and the destination.
@@ -3777,6 +4316,18 @@ type ContainerNetworkInterfacePropertiesFormat struct {
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
+// CrossTenantScopes - Cross tenant scopes.
+type CrossTenantScopes struct {
+	// READ-ONLY; List of management groups.
+	ManagementGroups []*string `json:"managementGroups,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of subscriptions.
+	Subscriptions []*string `json:"subscriptions,omitempty" azure:"ro"`
+
+	// READ-ONLY; Tenant ID.
+	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+}
+
 // CustomDNSConfigPropertiesFormat - Contains custom Dns resolution configuration from customer.
 type CustomDNSConfigPropertiesFormat struct {
 	// Fqdn that resolves to private endpoint ip address.
@@ -3838,6 +4389,9 @@ type CustomIPPrefixPropertiesFormat struct {
 
 	// The Parent CustomIpPrefix for IPv6 /64 CustomIpPrefix.
 	CustomIPPrefixParent *SubResource `json:"customIpPrefixParent,omitempty"`
+
+	// Whether to Advertise the range to Internet.
+	NoInternetAdvertise *bool `json:"noInternetAdvertise,omitempty"`
 
 	// Signed message for WAN validation.
 	SignedMessage *string `json:"signedMessage,omitempty"`
@@ -4069,6 +4623,79 @@ type DdosSettings struct {
 	ProtectionCoverage *DdosSettingsProtectionCoverage `json:"protectionCoverage,omitempty"`
 }
 
+// DefaultAdminPropertiesFormat - Security default admin rule resource.
+type DefaultAdminPropertiesFormat struct {
+	// Default rule flag.
+	Flag *string `json:"flag,omitempty"`
+
+	// READ-ONLY; Indicates the access allowed for this particular rule
+	Access *SecurityConfigurationRuleAccess `json:"access,omitempty" azure:"ro"`
+
+	// READ-ONLY; A description for this rule. Restricted to 140 chars.
+	Description *string `json:"description,omitempty" azure:"ro"`
+
+	// READ-ONLY; The destination port ranges.
+	DestinationPortRanges []*string `json:"destinationPortRanges,omitempty" azure:"ro"`
+
+	// READ-ONLY; The destination address prefixes. CIDR or destination IP ranges.
+	Destinations []*AddressPrefixItem `json:"destinations,omitempty" azure:"ro"`
+
+	// READ-ONLY; Indicates if the traffic matched against the rule in inbound or outbound.
+	Direction *SecurityConfigurationRuleDirection `json:"direction,omitempty" azure:"ro"`
+
+	// READ-ONLY; The priority of the rule. The value can be between 1 and 4096. The priority number must be unique for each rule
+	// in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32 `json:"priority,omitempty" azure:"ro"`
+
+	// READ-ONLY; Network protocol this rule applies to.
+	Protocol *SecurityConfigurationRuleProtocol `json:"protocol,omitempty" azure:"ro"`
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; The source port ranges.
+	SourcePortRanges []*string `json:"sourcePortRanges,omitempty" azure:"ro"`
+
+	// READ-ONLY; The CIDR or source IP ranges.
+	Sources []*AddressPrefixItem `json:"sources,omitempty" azure:"ro"`
+}
+
+// DefaultAdminRule - Network default admin rule.
+type DefaultAdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *AdminRuleKind `json:"kind,omitempty"`
+
+	// Indicates the properties of the security admin rule
+	Properties *DefaultAdminPropertiesFormat `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GetBaseAdminRule implements the BaseAdminRuleClassification interface for type DefaultAdminRule.
+func (d *DefaultAdminRule) GetBaseAdminRule() *BaseAdminRule {
+	return &BaseAdminRule{
+		Kind:       d.Kind,
+		SystemData: d.SystemData,
+		ID:         d.ID,
+		Name:       d.Name,
+		Type:       d.Type,
+		Etag:       d.Etag,
+	}
+}
+
 // DefaultSecurityRulesClientGetOptions contains the optional parameters for the DefaultSecurityRulesClient.Get method.
 type DefaultSecurityRulesClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -4226,6 +4853,89 @@ type DscpConfigurationPropertiesFormat struct {
 	ResourceGUID *string `json:"resourceGuid,omitempty" azure:"ro"`
 }
 
+// EffectiveBaseSecurityAdminRuleClassification provides polymorphic access to related types.
+// Call the interface's GetEffectiveBaseSecurityAdminRule() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *EffectiveBaseSecurityAdminRule, *EffectiveDefaultSecurityAdminRule, *EffectiveSecurityAdminRule
+type EffectiveBaseSecurityAdminRuleClassification interface {
+	// GetEffectiveBaseSecurityAdminRule returns the EffectiveBaseSecurityAdminRule content of the underlying type.
+	GetEffectiveBaseSecurityAdminRule() *EffectiveBaseSecurityAdminRule
+}
+
+// EffectiveBaseSecurityAdminRule - Network base admin rule.
+type EffectiveBaseSecurityAdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *EffectiveAdminRuleKind `json:"kind,omitempty"`
+
+	// A description of the security admin configuration.
+	ConfigurationDescription *string `json:"configurationDescription,omitempty"`
+
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Groups for rule collection
+	RuleCollectionAppliesToGroups []*ManagerSecurityGroupItem `json:"ruleCollectionAppliesToGroups,omitempty"`
+
+	// A description of the rule collection.
+	RuleCollectionDescription *string `json:"ruleCollectionDescription,omitempty"`
+
+	// Effective configuration groups.
+	RuleGroups []*ConfigurationGroup `json:"ruleGroups,omitempty"`
+}
+
+// GetEffectiveBaseSecurityAdminRule implements the EffectiveBaseSecurityAdminRuleClassification interface for type EffectiveBaseSecurityAdminRule.
+func (e *EffectiveBaseSecurityAdminRule) GetEffectiveBaseSecurityAdminRule() *EffectiveBaseSecurityAdminRule {
+	return e
+}
+
+// EffectiveConnectivityConfiguration - The network manager effective connectivity configuration
+type EffectiveConnectivityConfiguration struct {
+	// Effective configuration groups.
+	ConfigurationGroups []*ConfigurationGroup `json:"configurationGroups,omitempty"`
+
+	// Connectivity configuration ID.
+	ID *string `json:"id,omitempty"`
+
+	// Properties of a network manager connectivity configuration
+	Properties *ConnectivityConfigurationProperties `json:"properties,omitempty"`
+}
+
+// EffectiveDefaultSecurityAdminRule - Network default admin rule.
+type EffectiveDefaultSecurityAdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *EffectiveAdminRuleKind `json:"kind,omitempty"`
+
+	// A description of the security admin configuration.
+	ConfigurationDescription *string `json:"configurationDescription,omitempty"`
+
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Indicates the properties of the default security admin rule
+	Properties *DefaultAdminPropertiesFormat `json:"properties,omitempty"`
+
+	// Groups for rule collection
+	RuleCollectionAppliesToGroups []*ManagerSecurityGroupItem `json:"ruleCollectionAppliesToGroups,omitempty"`
+
+	// A description of the rule collection.
+	RuleCollectionDescription *string `json:"ruleCollectionDescription,omitempty"`
+
+	// Effective configuration groups.
+	RuleGroups []*ConfigurationGroup `json:"ruleGroups,omitempty"`
+}
+
+// GetEffectiveBaseSecurityAdminRule implements the EffectiveBaseSecurityAdminRuleClassification interface for type EffectiveDefaultSecurityAdminRule.
+func (e *EffectiveDefaultSecurityAdminRule) GetEffectiveBaseSecurityAdminRule() *EffectiveBaseSecurityAdminRule {
+	return &EffectiveBaseSecurityAdminRule{
+		ID:                            e.ID,
+		ConfigurationDescription:      e.ConfigurationDescription,
+		RuleCollectionDescription:     e.RuleCollectionDescription,
+		RuleCollectionAppliesToGroups: e.RuleCollectionAppliesToGroups,
+		RuleGroups:                    e.RuleGroups,
+		Kind:                          e.Kind,
+	}
+}
+
 // EffectiveNetworkSecurityGroup - Effective network security group.
 type EffectiveNetworkSecurityGroup struct {
 	// Associated resources.
@@ -4357,6 +5067,42 @@ type EffectiveRoutesParameters struct {
 	VirtualWanResourceType *string `json:"virtualWanResourceType,omitempty"`
 }
 
+// EffectiveSecurityAdminRule - Network admin rule.
+type EffectiveSecurityAdminRule struct {
+	// REQUIRED; Whether the rule is custom or default.
+	Kind *EffectiveAdminRuleKind `json:"kind,omitempty"`
+
+	// A description of the security admin configuration.
+	ConfigurationDescription *string `json:"configurationDescription,omitempty"`
+
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Indicates the properties of the security admin rule
+	Properties *AdminPropertiesFormat `json:"properties,omitempty"`
+
+	// Groups for rule collection
+	RuleCollectionAppliesToGroups []*ManagerSecurityGroupItem `json:"ruleCollectionAppliesToGroups,omitempty"`
+
+	// A description of the rule collection.
+	RuleCollectionDescription *string `json:"ruleCollectionDescription,omitempty"`
+
+	// Effective configuration groups.
+	RuleGroups []*ConfigurationGroup `json:"ruleGroups,omitempty"`
+}
+
+// GetEffectiveBaseSecurityAdminRule implements the EffectiveBaseSecurityAdminRuleClassification interface for type EffectiveSecurityAdminRule.
+func (e *EffectiveSecurityAdminRule) GetEffectiveBaseSecurityAdminRule() *EffectiveBaseSecurityAdminRule {
+	return &EffectiveBaseSecurityAdminRule{
+		ID:                            e.ID,
+		ConfigurationDescription:      e.ConfigurationDescription,
+		RuleCollectionDescription:     e.RuleCollectionDescription,
+		RuleCollectionAppliesToGroups: e.RuleCollectionAppliesToGroups,
+		RuleGroups:                    e.RuleGroups,
+		Kind:                          e.Kind,
+	}
+}
+
 // EndpointServiceResult - Endpoint service.
 type EndpointServiceResult struct {
 	// Resource ID.
@@ -4460,6 +5206,9 @@ type ExclusionManagedRuleSet struct {
 type ExplicitProxySettings struct {
 	// When set to true, explicit proxy mode is enabled.
 	EnableExplicitProxy *bool `json:"enableExplicitProxy,omitempty"`
+
+	// When set to true, pac file port and url needs to be provided.
+	EnablePacFile *bool `json:"enablePacFile,omitempty"`
 
 	// Port number for explicit proxy http protocol, cannot be greater than 64000.
 	HTTPPort *int32 `json:"httpPort,omitempty"`
@@ -5753,6 +6502,73 @@ type ExpressRoutePortsLocationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ExpressRouteProviderPort resource.
+type ExpressRouteProviderPort struct {
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Resource location.
+	Location *string `json:"location,omitempty"`
+
+	// Properties of the express route Service Provider Port.
+	Properties *ExpressRouteProviderPortProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ExpressRouteProviderPortListResult - Response for ListExpressRouteProviderPort API service call.
+type ExpressRouteProviderPortListResult struct {
+	// A list of ExpressRouteProviderPort resources.
+	Value []*ExpressRouteProviderPort `json:"value,omitempty"`
+
+	// READ-ONLY; The URL to get the next set of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// ExpressRouteProviderPortProperties - Properties of ExpressRouteProviderPort.
+type ExpressRouteProviderPortProperties struct {
+	// Overprovisioning factor for the port pair.
+	OverprovisionFactor *int32 `json:"overprovisionFactor,omitempty"`
+
+	// The peering location of the port pair.
+	PeeringLocation *string `json:"peeringLocation,omitempty"`
+
+	// Bandwidth of the port in Mbps
+	PortBandwidthInMbps *int32 `json:"portBandwidthInMbps,omitempty"`
+
+	// Remaining Bandwidth of the port in Mbps
+	RemainingBandwidthInMbps *int32 `json:"remainingBandwidthInMbps,omitempty"`
+
+	// Used Bandwidth of the port in Mbps
+	UsedBandwidthInMbps *int32 `json:"usedBandwidthInMbps,omitempty"`
+
+	// READ-ONLY; The name of the port pair.
+	PortPairDescriptor *string `json:"portPairDescriptor,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the primary port.
+	PrimaryAzurePort *string `json:"primaryAzurePort,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the secondary port.
+	SecondaryAzurePort *string `json:"secondaryAzurePort,omitempty" azure:"ro"`
+}
+
+// ExpressRouteProviderPortsLocationClientListOptions contains the optional parameters for the ExpressRouteProviderPortsLocationClient.List
+// method.
+type ExpressRouteProviderPortsLocationClientListOptions struct {
+	// The filter to apply on the operation. For example, you can use $filter=location eq '{state}'.
+	Filter *string
+}
+
 // ExpressRouteServiceProvider - A ExpressRouteResourceProvider object.
 type ExpressRouteServiceProvider struct {
 	// Resource ID.
@@ -6278,6 +7094,9 @@ type FirewallPolicySKU struct {
 
 // FirewallPolicySNAT - The private IP addresses/IP ranges to which traffic will not be SNAT.
 type FirewallPolicySNAT struct {
+	// The operation mode for automatically learning private ranges to not be SNAT
+	AutoLearnPrivateRanges *AutoLearnPrivateRangesMode `json:"autoLearnPrivateRanges,omitempty"`
+
 	// List of private IP addresses/IP address ranges to not be SNAT.
 	PrivateRanges []*string `json:"privateRanges,omitempty"`
 }
@@ -6568,6 +7387,77 @@ type GetVPNSitesConfigurationRequest struct {
 	VPNSites []*string `json:"vpnSites,omitempty"`
 }
 
+// Group - The network group resource
+type Group struct {
+	// The Network Group properties
+	Properties *GroupProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GroupListResult - Result of the request to list NetworkGroup. It contains a list of groups and a URL link to get the next
+// set of results.
+type GroupListResult struct {
+	// Gets the URL to get the next set of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Gets a page of NetworkGroup
+	Value []*Group `json:"value,omitempty"`
+}
+
+// GroupProperties - Properties of network group
+type GroupProperties struct {
+	// A description of the network group.
+	Description *string `json:"description,omitempty"`
+
+	// READ-ONLY; The provisioning state of the scope assignment resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
+type GroupsClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GroupsClientCreateOrUpdateOptions contains the optional parameters for the GroupsClient.CreateOrUpdate method.
+type GroupsClientCreateOrUpdateOptions struct {
+	// The ETag of the transformation. Omit this value to always overwrite the current resource. Specify the last-seen ETag value
+	// to prevent accidentally overwriting concurrent changes.
+	IfMatch *string
+}
+
+// GroupsClientGetOptions contains the optional parameters for the GroupsClient.Get method.
+type GroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GroupsClientListOptions contains the optional parameters for the GroupsClient.List method.
+type GroupsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
 // HTTPConfiguration - HTTP configuration of the connectivity check.
 type HTTPConfiguration struct {
 	// List of HTTP headers.
@@ -6620,6 +7510,15 @@ type HopLinkProperties struct {
 
 	// READ-ONLY; Minimum roundtrip time in milliseconds.
 	RoundTripTimeMin *int64 `json:"roundTripTimeMin,omitempty" azure:"ro"`
+}
+
+// Hub Item.
+type Hub struct {
+	// Resource Id.
+	ResourceID *string `json:"resourceId,omitempty"`
+
+	// Resource Type.
+	ResourceType *string `json:"resourceType,omitempty"`
 }
 
 // HubIPAddresses - IP addresses associated with azure firewall.
@@ -7094,6 +7993,12 @@ type IPGroupsClientListOptions struct {
 // IPGroupsClientUpdateGroupsOptions contains the optional parameters for the IPGroupsClient.UpdateGroups method.
 type IPGroupsClientUpdateGroupsOptions struct {
 	// placeholder for future optional parameters
+}
+
+// IPPrefixesList - List of SNAT IP Prefixes learnt by firewall to not SNAT
+type IPPrefixesList struct {
+	// IP Prefix value.
+	IPPrefixes []*string `json:"ipPrefixes,omitempty"`
 }
 
 // IPSecPolicy - An IPSec Policy configuration for a virtual network gateway connection.
@@ -8563,15 +9468,321 @@ type ManagementClientDisconnectActiveSessionsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagementClientExpressRouteProviderPortOptions contains the optional parameters for the ManagementClient.ExpressRouteProviderPort
+// method.
+type ManagementClientExpressRouteProviderPortOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagementClientGetBastionShareableLinkOptions contains the optional parameters for the ManagementClient.GetBastionShareableLink
 // method.
 type ManagementClientGetBastionShareableLinkOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ManagementClientListActiveConnectivityConfigurationsOptions contains the optional parameters for the ManagementClient.ListActiveConnectivityConfigurations
+// method.
+type ManagementClientListActiveConnectivityConfigurationsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementClientListActiveSecurityAdminRulesOptions contains the optional parameters for the ManagementClient.ListActiveSecurityAdminRules
+// method.
+type ManagementClientListActiveSecurityAdminRulesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsOptions contains the optional parameters for the ManagementClient.ListNetworkManagerEffectiveConnectivityConfigurations
+// method.
+type ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementClientListNetworkManagerEffectiveSecurityAdminRulesOptions contains the optional parameters for the ManagementClient.ListNetworkManagerEffectiveSecurityAdminRules
+// method.
+type ManagementClientListNetworkManagerEffectiveSecurityAdminRulesOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagementClientSupportedSecurityProvidersOptions contains the optional parameters for the ManagementClient.SupportedSecurityProviders
 // method.
 type ManagementClientSupportedSecurityProvidersOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.CreateOrUpdate
+// method.
+type ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupNetworkManagerConnectionsClientDeleteOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.Delete
+// method.
+type ManagementGroupNetworkManagerConnectionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupNetworkManagerConnectionsClientGetOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.Get
+// method.
+type ManagementGroupNetworkManagerConnectionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupNetworkManagerConnectionsClientListOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.List
+// method.
+type ManagementGroupNetworkManagerConnectionsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// Manager - The Managed Network resource
+type Manager struct {
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Resource location.
+	Location *string `json:"location,omitempty"`
+
+	// The network manager properties
+	Properties *ManagerProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagerCommit - Network Manager Commit.
+type ManagerCommit struct {
+	// REQUIRED; Commit Type.
+	CommitType *ConfigurationType `json:"commitType,omitempty"`
+
+	// REQUIRED; List of target locations.
+	TargetLocations []*string `json:"targetLocations,omitempty"`
+
+	// List of configuration ids.
+	ConfigurationIDs []*string `json:"configurationIds,omitempty"`
+
+	// READ-ONLY; Commit Id.
+	CommitID *string `json:"commitId,omitempty" azure:"ro"`
+}
+
+// ManagerCommitsClientBeginPostOptions contains the optional parameters for the ManagerCommitsClient.BeginPost method.
+type ManagerCommitsClientBeginPostOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagerConnection - The Network Manager Connection resource
+type ManagerConnection struct {
+	// The scope connection properties
+	Properties *ManagerConnectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagerConnectionListResult - List of network manager connections.
+type ManagerConnectionListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// List of network manager connections.
+	Value []*ManagerConnection `json:"value,omitempty"`
+}
+
+// ManagerConnectionProperties - Information about the network manager connection.
+type ManagerConnectionProperties struct {
+	// A description of the network manager connection.
+	Description *string `json:"description,omitempty"`
+
+	// Network Manager Id.
+	NetworkManagerID *string `json:"networkManagerId,omitempty"`
+
+	// READ-ONLY; Connection state.
+	ConnectionState *ScopeConnectionState `json:"connectionState,omitempty" azure:"ro"`
+}
+
+// ManagerDeploymentStatus - Network Manager Deployment Status.
+type ManagerDeploymentStatus struct {
+	// Commit Time.
+	CommitTime *time.Time `json:"commitTime,omitempty"`
+
+	// List of configuration ids.
+	ConfigurationIDs []*string `json:"configurationIds,omitempty"`
+
+	// Deployment Status.
+	DeploymentStatus *DeploymentStatus `json:"deploymentStatus,omitempty"`
+
+	// Configuration Deployment Type.
+	DeploymentType *ConfigurationType `json:"deploymentType,omitempty"`
+
+	// Error Message.
+	ErrorMessage *string `json:"errorMessage,omitempty"`
+
+	// Region Name.
+	Region *string `json:"region,omitempty"`
+}
+
+// ManagerDeploymentStatusClientListOptions contains the optional parameters for the ManagerDeploymentStatusClient.List method.
+type ManagerDeploymentStatusClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagerDeploymentStatusListResult - A list of Network Manager Deployment Status
+type ManagerDeploymentStatusListResult struct {
+	// When present, the value can be passed to a subsequent query call (together with the same query and scopes used in the current
+	// request) to retrieve the next page of data.
+	SkipToken *string `json:"skipToken,omitempty"`
+
+	// Gets a page of Network Manager Deployment Status
+	Value []*ManagerDeploymentStatus `json:"value,omitempty"`
+}
+
+// ManagerDeploymentStatusParameter - Network Manager Deployment Status Parameter.
+type ManagerDeploymentStatusParameter struct {
+	// List of deployment types.
+	DeploymentTypes []*ConfigurationType `json:"deploymentTypes,omitempty"`
+
+	// List of locations.
+	Regions []*string `json:"regions,omitempty"`
+
+	// Continuation token for pagination, capturing the next page size and offset, as well as the context of the query.
+	SkipToken *string `json:"skipToken,omitempty"`
+}
+
+// ManagerEffectiveConnectivityConfigurationListResult - Result of the request to list networkManagerEffectiveConnectivityConfiguration.
+// It contains a list of groups and a skiptoken to get the next set of results.
+type ManagerEffectiveConnectivityConfigurationListResult struct {
+	// When present, the value can be passed to a subsequent query call (together with the same query and scopes used in the current
+	// request) to retrieve the next page of data.
+	SkipToken *string `json:"skipToken,omitempty"`
+
+	// Gets a page of NetworkManagerEffectiveConnectivityConfiguration
+	Value []*EffectiveConnectivityConfiguration `json:"value,omitempty"`
+}
+
+// ManagerEffectiveSecurityAdminRulesListResult - Result of the request to list networkManagerEffectiveSecurityAdminRules.
+// It contains a list of groups and a skiptoken to get the next set of results.
+type ManagerEffectiveSecurityAdminRulesListResult struct {
+	// When present, the value can be passed to a subsequent query call (together with the same query and scopes used in the current
+	// request) to retrieve the next page of data.
+	SkipToken *string `json:"skipToken,omitempty"`
+
+	// Gets a page of NetworkManagerEffectiveSecurityAdminRules
+	Value []EffectiveBaseSecurityAdminRuleClassification `json:"value,omitempty"`
+}
+
+// ManagerListResult - Result of the request to list NetworkManager. It contains a list of network managers and a URL link
+// to get the next set of results.
+type ManagerListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Gets a page of NetworkManager
+	Value []*Manager `json:"value,omitempty"`
+}
+
+// ManagerProperties - Properties of Managed Network
+type ManagerProperties struct {
+	// REQUIRED; Scope Access.
+	NetworkManagerScopeAccesses []*ConfigurationType `json:"networkManagerScopeAccesses,omitempty"`
+
+	// REQUIRED; Scope of Network Manager.
+	NetworkManagerScopes *ManagerPropertiesNetworkManagerScopes `json:"networkManagerScopes,omitempty"`
+
+	// A description of the network manager.
+	Description *string `json:"description,omitempty"`
+
+	// READ-ONLY; The provisioning state of the network manager resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// ManagerPropertiesNetworkManagerScopes - Scope of Network Manager.
+type ManagerPropertiesNetworkManagerScopes struct {
+	// List of management groups.
+	ManagementGroups []*string `json:"managementGroups,omitempty"`
+
+	// List of subscriptions.
+	Subscriptions []*string `json:"subscriptions,omitempty"`
+
+	// READ-ONLY; List of cross tenant scopes.
+	CrossTenantScopes []*CrossTenantScopes `json:"crossTenantScopes,omitempty" azure:"ro"`
+}
+
+// ManagerSecurityGroupItem - Network manager security group item.
+type ManagerSecurityGroupItem struct {
+	// REQUIRED; Network manager group Id.
+	NetworkGroupID *string `json:"networkGroupId,omitempty"`
+}
+
+// ManagersClientBeginDeleteOptions contains the optional parameters for the ManagersClient.BeginDelete method.
+type ManagersClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagersClientCreateOrUpdateOptions contains the optional parameters for the ManagersClient.CreateOrUpdate method.
+type ManagersClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagersClientGetOptions contains the optional parameters for the ManagersClient.Get method.
+type ManagersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagersClientListBySubscriptionOptions contains the optional parameters for the ManagersClient.ListBySubscription method.
+type ManagersClientListBySubscriptionOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// ManagersClientListOptions contains the optional parameters for the ManagersClient.List method.
+type ManagersClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// ManagersClientPatchOptions contains the optional parameters for the ManagersClient.Patch method.
+type ManagersClientPatchOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -9241,12 +10452,22 @@ type PacketCaptureListResult struct {
 	Value []*PacketCaptureResult `json:"value,omitempty"`
 }
 
+// PacketCaptureMachineScope - A list of AzureVMSS instances which can be included or excluded to run packet capture. If both
+// included and excluded are empty, then the packet capture will run on all instances of AzureVMSS.
+type PacketCaptureMachineScope struct {
+	// List of AzureVMSS instances which has to be excluded from the AzureVMSS from running packet capture.
+	Exclude []*string `json:"exclude,omitempty"`
+
+	// List of AzureVMSS instances to run packet capture on.
+	Include []*string `json:"include,omitempty"`
+}
+
 // PacketCaptureParameters - Parameters that define the create packet capture operation.
 type PacketCaptureParameters struct {
 	// REQUIRED; The storage location for a packet capture session.
 	StorageLocation *PacketCaptureStorageLocation `json:"storageLocation,omitempty"`
 
-	// REQUIRED; The ID of the targeted resource, only VM is currently supported.
+	// REQUIRED; The ID of the targeted resource, only AzureVM and AzureVMSS as target type are currently supported.
 	Target *string `json:"target,omitempty"`
 
 	// Number of bytes captured per packet, the remaining bytes are truncated.
@@ -9254,6 +10475,13 @@ type PacketCaptureParameters struct {
 
 	// A list of packet capture filters.
 	Filters []*PacketCaptureFilter `json:"filters,omitempty"`
+
+	// A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are
+	// empty, then the packet capture will run on all instances of AzureVMSS.
+	Scope *PacketCaptureMachineScope `json:"scope,omitempty"`
+
+	// Target type of the resource provided.
+	TargetType *PacketCaptureTargetType `json:"targetType,omitempty"`
 
 	// Maximum duration of the capture session in seconds.
 	TimeLimitInSeconds *int32 `json:"timeLimitInSeconds,omitempty"`
@@ -9303,7 +10531,7 @@ type PacketCaptureResultProperties struct {
 	// REQUIRED; The storage location for a packet capture session.
 	StorageLocation *PacketCaptureStorageLocation `json:"storageLocation,omitempty"`
 
-	// REQUIRED; The ID of the targeted resource, only VM is currently supported.
+	// REQUIRED; The ID of the targeted resource, only AzureVM and AzureVMSS as target type are currently supported.
 	Target *string `json:"target,omitempty"`
 
 	// Number of bytes captured per packet, the remaining bytes are truncated.
@@ -9311,6 +10539,13 @@ type PacketCaptureResultProperties struct {
 
 	// A list of packet capture filters.
 	Filters []*PacketCaptureFilter `json:"filters,omitempty"`
+
+	// A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are
+	// empty, then the packet capture will run on all instances of AzureVMSS.
+	Scope *PacketCaptureMachineScope `json:"scope,omitempty"`
+
+	// Target type of the resource provided.
+	TargetType *PacketCaptureTargetType `json:"targetType,omitempty"`
 
 	// Maximum duration of the capture session in seconds.
 	TimeLimitInSeconds *int32 `json:"timeLimitInSeconds,omitempty"`
@@ -9370,6 +10605,12 @@ type PacketCapturesClientGetOptions struct {
 // PacketCapturesClientListOptions contains the optional parameters for the PacketCapturesClient.List method.
 type PacketCapturesClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// PatchObject - Object for patch operations.
+type PatchObject struct {
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
 }
 
 // PatchRouteFilter - Route Filter Resource.
@@ -10550,6 +11791,13 @@ type QueryInboundNatRulePortMappingRequest struct {
 	IPConfiguration *SubResource `json:"ipConfiguration,omitempty"`
 }
 
+// QueryRequestOptions - Query Request Options
+type QueryRequestOptions struct {
+	// When present, the value can be passed to a subsequent query call (together with the same query and scopes used in the current
+	// request) to retrieve the next page of data.
+	SkipToken *string `json:"skipToken,omitempty"`
+}
+
 // QueryResults - Query result
 type QueryResults struct {
 	// Number of total records matching the query.
@@ -11104,6 +12352,152 @@ type SKU struct {
 	Name *BastionHostSKUName `json:"name,omitempty"`
 }
 
+// ScopeConnection - The Scope Connections resource
+type ScopeConnection struct {
+	// The scope connection properties
+	Properties *ScopeConnectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ScopeConnectionListResult - List of scope connections.
+type ScopeConnectionListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// List of scope connections.
+	Value []*ScopeConnection `json:"value,omitempty"`
+}
+
+// ScopeConnectionProperties - Scope connection.
+type ScopeConnectionProperties struct {
+	// A description of the scope connection.
+	Description *string `json:"description,omitempty"`
+
+	// Resource ID.
+	ResourceID *string `json:"resourceId,omitempty"`
+
+	// Tenant ID.
+	TenantID *string `json:"tenantId,omitempty"`
+
+	// READ-ONLY; Connection State
+	ConnectionState *ScopeConnectionState `json:"connectionState,omitempty" azure:"ro"`
+}
+
+// ScopeConnectionsClientCreateOrUpdateOptions contains the optional parameters for the ScopeConnectionsClient.CreateOrUpdate
+// method.
+type ScopeConnectionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScopeConnectionsClientDeleteOptions contains the optional parameters for the ScopeConnectionsClient.Delete method.
+type ScopeConnectionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScopeConnectionsClientGetOptions contains the optional parameters for the ScopeConnectionsClient.Get method.
+type ScopeConnectionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScopeConnectionsClientListOptions contains the optional parameters for the ScopeConnectionsClient.List method.
+type ScopeConnectionsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SecurityAdminConfiguration - Defines the security admin configuration
+type SecurityAdminConfiguration struct {
+	// Indicates the properties for the network manager security admin configuration.
+	Properties *SecurityAdminConfigurationPropertiesFormat `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SecurityAdminConfigurationListResult - A list of network manager security admin configurations
+type SecurityAdminConfigurationListResult struct {
+	// Gets the URL to get the next page of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Gets a page of security admin configurations
+	Value []*SecurityAdminConfiguration `json:"value,omitempty"`
+}
+
+// SecurityAdminConfigurationPropertiesFormat - Defines the security admin configuration properties.
+type SecurityAdminConfigurationPropertiesFormat struct {
+	// Enum list of network intent policy based services.
+	ApplyOnNetworkIntentPolicyBasedServices []*NetworkIntentPolicyBasedService `json:"applyOnNetworkIntentPolicyBasedServices,omitempty"`
+
+	// A description of the security configuration.
+	Description *string `json:"description,omitempty"`
+
+	// READ-ONLY; The provisioning state of the resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// SecurityAdminConfigurationsClientBeginDeleteOptions contains the optional parameters for the SecurityAdminConfigurationsClient.BeginDelete
+// method.
+type SecurityAdminConfigurationsClientBeginDeleteOptions struct {
+	// Deletes the resource even if it is part of a deployed configuration. If the configuration has been deployed, the service
+	// will do a cleanup deployment in the background, prior to the delete.
+	Force *bool
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SecurityAdminConfigurationsClientCreateOrUpdateOptions contains the optional parameters for the SecurityAdminConfigurationsClient.CreateOrUpdate
+// method.
+type SecurityAdminConfigurationsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityAdminConfigurationsClientGetOptions contains the optional parameters for the SecurityAdminConfigurationsClient.Get
+// method.
+type SecurityAdminConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SecurityAdminConfigurationsClientListOptions contains the optional parameters for the SecurityAdminConfigurationsClient.List
+// method.
+type SecurityAdminConfigurationsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
 // SecurityGroup - NetworkSecurityGroup resource.
 type SecurityGroup struct {
 	// Resource ID.
@@ -11148,6 +12542,10 @@ type SecurityGroupNetworkInterface struct {
 
 // SecurityGroupPropertiesFormat - Network Security Group resource.
 type SecurityGroupPropertiesFormat struct {
+	// When enabled, flows created from Network Security Group connections will be re-evaluated when rules are updates. Initial
+	// enablement will trigger re-evaluation.
+	FlushConnection *bool `json:"flushConnection,omitempty"`
+
 	// A collection of security rules of the network security group.
 	SecurityRules []*SecurityRule `json:"securityRules,omitempty"`
 
@@ -11850,6 +13248,74 @@ type SingleQueryResult struct {
 	SourcePorts []*string `json:"sourcePorts,omitempty"`
 }
 
+// StaticMember Item.
+type StaticMember struct {
+	// The Static Member properties
+	Properties *StaticMemberProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource ID.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The system metadata related to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// StaticMemberListResult - Result of the request to list StaticMember. It contains a list of groups and a URL link to get
+// the next set of results.
+type StaticMemberListResult struct {
+	// Gets the URL to get the next set of results.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Gets a page of StaticMember
+	Value []*StaticMember `json:"value,omitempty"`
+}
+
+// StaticMemberProperties - Properties of static member.
+type StaticMemberProperties struct {
+	// Resource Id.
+	ResourceID *string `json:"resourceId,omitempty"`
+
+	// READ-ONLY; The provisioning state of the scope assignment resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource region.
+	Region *string `json:"region,omitempty" azure:"ro"`
+}
+
+// StaticMembersClientCreateOrUpdateOptions contains the optional parameters for the StaticMembersClient.CreateOrUpdate method.
+type StaticMembersClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticMembersClientDeleteOptions contains the optional parameters for the StaticMembersClient.Delete method.
+type StaticMembersClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticMembersClientGetOptions contains the optional parameters for the StaticMembersClient.Get method.
+type StaticMembersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticMembersClientListOptions contains the optional parameters for the StaticMembersClient.List method.
+type StaticMembersClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
 // StaticRoute - List of all Static Routes.
 type StaticRoute struct {
 	// List of all address prefixes.
@@ -12000,6 +13466,56 @@ type SubnetsClientGetOptions struct {
 // SubnetsClientListOptions contains the optional parameters for the SubnetsClient.List method.
 type SubnetsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SubscriptionNetworkManagerConnectionsClientCreateOrUpdateOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.CreateOrUpdate
+// method.
+type SubscriptionNetworkManagerConnectionsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SubscriptionNetworkManagerConnectionsClientDeleteOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.Delete
+// method.
+type SubscriptionNetworkManagerConnectionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SubscriptionNetworkManagerConnectionsClientGetOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.Get
+// method.
+type SubscriptionNetworkManagerConnectionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SubscriptionNetworkManagerConnectionsClientListOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.List
+// method.
+type SubscriptionNetworkManagerConnectionsClientListOptions struct {
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point to use for subsequent calls.
+	SkipToken *string
+	// An optional query parameter which specifies the maximum number of records to be returned by the server.
+	Top *int32
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+
+	// The identity that created the resource.
+	CreatedBy *string `json:"createdBy,omitempty"`
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
+
+	// The type of identity that last modified the resource.
+	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty"`
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
 }
 
 // TagsObject - Tags object for patch operations.
@@ -13737,6 +15253,9 @@ type VirtualHubProperties struct {
 	// VirtualRouter ASN.
 	VirtualRouterAsn *int64 `json:"virtualRouterAsn,omitempty"`
 
+	// The VirtualHub Router autoscale configuration.
+	VirtualRouterAutoScaleConfiguration *VirtualRouterAutoScaleConfiguration `json:"virtualRouterAutoScaleConfiguration,omitempty"`
+
 	// VirtualRouter IPs.
 	VirtualRouterIPs []*string `json:"virtualRouterIps,omitempty"`
 
@@ -14945,6 +16464,12 @@ type VirtualRouter struct {
 
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// VirtualRouterAutoScaleConfiguration - The VirtualHub Router autoscale configuration.
+type VirtualRouterAutoScaleConfiguration struct {
+	// The minimum number of scale units for VirtualHub Router.
+	MinCapacity *int32 `json:"minCapacity,omitempty"`
 }
 
 // VirtualRouterListResult - Response for ListVirtualRouters API service call.
