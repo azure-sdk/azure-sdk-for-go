@@ -1,5 +1,5 @@
 {
-  "commit": "d9506558e6389e62926ae385f1d625a1376a0f9d",
+  "commit": "92a72d1d7b4192fe8b066ae5ffd1df90905e9bf6",
   "readme": "/_/azure-rest-api-specs/specification/digitaltwins/resource-manager/readme.md",
   "tag": "package-2020-12",
   "use": "@microsoft.azure/autorest.go@2.1.187",
