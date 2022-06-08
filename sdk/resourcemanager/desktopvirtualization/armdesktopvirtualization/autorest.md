@@ -6,8 +6,8 @@
 azure-arm: true
 tag: package-2021-07
 require:
-- https://github.com/Azure/azure-rest-api-specs/blob/d55b8005f05b040b852c15e74a0f3e36494a15e1/specification/desktopvirtualization/resource-manager/readme.md
-- https://github.com/Azure/azure-rest-api-specs/blob/d55b8005f05b040b852c15e74a0f3e36494a15e1/specification/desktopvirtualization/resource-manager/readme.go.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/desktopvirtualization/resource-manager/readme.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/desktopvirtualization/resource-manager/readme.go.md
 license-header: MICROSOFT_MIT_NO_VERSION
-module-version: 1.0.0
+module-version: 1.0.1
 ```
