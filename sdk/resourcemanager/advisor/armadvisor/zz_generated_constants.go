@@ -10,7 +10,7 @@ package armadvisor
 
 const (
 	moduleName    = "armadvisor"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.0.1"
 )
 
 // CPUThreshold - Minimum percentage threshold for Advisor low CPU utilization evaluation. Valid only for subscriptions. Valid
