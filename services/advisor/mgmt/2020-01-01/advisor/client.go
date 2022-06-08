@@ -1,6 +1,6 @@
 // Package advisor implements the Azure ARM Advisor service API version 2020-01-01.
 //
-// REST APIs for Azure Advisor
+// REST APIs for Azure Advisor test
 package advisor
 
 // Copyright (c) Microsoft Corporation. All rights reserved.

@@ -15,7 +15,7 @@ import (
 	"net/http"
 )
 
-// RecommendationsClient is the REST APIs for Azure Advisor
+// RecommendationsClient is the REST APIs for Azure Advisor test
 type RecommendationsClient struct {
 	BaseClient
 }

@@ -14,7 +14,7 @@ import (
 	"net/http"
 )
 
-// OperationsClient is the REST APIs for Azure Advisor
+// OperationsClient is the REST APIs for Azure Advisor test
 type OperationsClient struct {
 	BaseClient
 }

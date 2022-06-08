@@ -14,7 +14,7 @@ import (
 	"net/http"
 )
 
-// ConfigurationsClient is the REST APIs for Azure Advisor
+// ConfigurationsClient is the REST APIs for Azure Advisor test
 type ConfigurationsClient struct {
 	BaseClient
 }
