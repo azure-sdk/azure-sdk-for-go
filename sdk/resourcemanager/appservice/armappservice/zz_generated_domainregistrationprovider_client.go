@@ -48,9 +48,10 @@ func NewDomainRegistrationProviderClient(credential azcore.TokenCredential, opti
 	return client, nil
 }
 
-// NewListOperationsPager - Implements Csm operations Api to exposes the list of available Csm Apis under the resource provider
+// NewListOperationsPager - Description for Implements Csm operations Api to exposes the list of available Csm Apis under
+// the resource provider
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-03-01
 // options - DomainRegistrationProviderClientListOperationsOptions contains the optional parameters for the DomainRegistrationProviderClient.ListOperations
 // method.
 func (client *DomainRegistrationProviderClient) NewListOperationsPager(options *DomainRegistrationProviderClientListOperationsOptions) *runtime.Pager[DomainRegistrationProviderClientListOperationsResponse] {
@@ -89,7 +90,7 @@ func (client *DomainRegistrationProviderClient) listOperationsCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

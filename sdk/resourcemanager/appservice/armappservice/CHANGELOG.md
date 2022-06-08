@@ -1,5 +1,185 @@
 # Release History
 
+## 2.0.0 (2022-06-08)
+### Breaking Changes
+
+- Type of `CertificateOrderProperties.AppServiceCertificateNotRenewableReasons` has been changed from `[]*AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem` to `[]*ResourceNotRenewableReason`
+- Type of `DomainPatchResourceProperties.DomainNotRenewableReasons` has been changed from `[]*DomainPatchResourcePropertiesDomainNotRenewableReasonsItem` to `[]*ResourceNotRenewableReason`
+- Type of `ProviderClientGetWebAppStacksOptions.StackOsType` has been changed from `*Enum19` to `*Enum18`
+- Type of `ProviderClientGetAvailableStacksOptions.OSTypeSelected` has been changed from `*Enum15` to `*Enum14`
+- Type of `CertificateOrderPatchResourceProperties.AppServiceCertificateNotRenewableReasons` has been changed from `[]*AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem` to `[]*ResourceNotRenewableReason`
+- Type of `ProviderClientGetAvailableStacksOnPremOptions.OSTypeSelected` has been changed from `*Enum20` to `*Enum19`
+- Type of `DomainProperties.DomainNotRenewableReasons` has been changed from `[]*DomainPropertiesDomainNotRenewableReasonsItem` to `[]*ResourceNotRenewableReason`
+- Type of `ProviderClientGetWebAppStacksForLocationOptions.StackOsType` has been changed from `*Enum18` to `*Enum17`
+- Type of `ProviderClientGetFunctionAppStacksOptions.StackOsType` has been changed from `*Enum16` to `*Enum15`
+- Type of `ProviderClientGetFunctionAppStacksForLocationOptions.StackOsType` has been changed from `*Enum17` to `*Enum16`
+- Const `Enum20LinuxFunctions` has been removed
+- Const `AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal` has been removed
+- Const `DomainPatchResourcePropertiesDomainNotRenewableReasonsItemSubscriptionNotActive` has been removed
+- Const `DomainPropertiesDomainNotRenewableReasonsItemSubscriptionNotActive` has been removed
+- Const `DomainPatchResourcePropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange` has been removed
+- Const `DomainPropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal` has been removed
+- Const `Enum20WindowsFunctions` has been removed
+- Const `Enum20All` has been removed
+- Const `AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange` has been removed
+- Const `Enum20Linux` has been removed
+- Const `AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal` has been removed
+- Const `AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange` has been removed
+- Const `Enum20Windows` has been removed
+- Const `DomainPatchResourcePropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal` has been removed
+- Const `AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive` has been removed
+- Const `Enum15LinuxFunctions` has been removed
+- Const `DomainPropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange` has been removed
+- Const `AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive` has been removed
+- Const `Enum15WindowsFunctions` has been removed
+- Function `PossibleEnum20Values` has been removed
+- Function `PossibleAppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemValues` has been removed
+- Function `PossibleDomainPropertiesDomainNotRenewableReasonsItemValues` has been removed
+- Function `PossibleAppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemValues` has been removed
+- Function `PossibleDomainPatchResourcePropertiesDomainNotRenewableReasonsItemValues` has been removed
+- Struct `CertificateEmailProperties` has been removed
+- Struct `CertificateOrderActionProperties` has been removed
+- Field `Properties` of struct `CertificateOrderAction` has been removed
+- Field `ID` of struct `CertificateOrderAction` has been removed
+- Field `Name` of struct `CertificateOrderAction` has been removed
+- Field `Type` of struct `CertificateOrderAction` has been removed
+- Field `Kind` of struct `CertificateOrderAction` has been removed
+- Field `Kind` of struct `CertificateEmail` has been removed
+- Field `Properties` of struct `CertificateEmail` has been removed
+- Field `ID` of struct `CertificateEmail` has been removed
+- Field `Name` of struct `CertificateEmail` has been removed
+- Field `Type` of struct `CertificateEmail` has been removed
+
+### Features Added
+
+- New const `UpgradePreferenceEarly`
+- New const `DeploymentBuildStatusBuildInProgress`
+- New const `UpgradePreferenceLate`
+- New const `DeploymentBuildStatusRuntimeFailed`
+- New const `Enum14LinuxFunctions`
+- New const `Enum14Linux`
+- New const `UpgradeAvailabilityReady`
+- New const `DeploymentBuildStatusBuildAborted`
+- New const `DeploymentBuildStatusRuntimeStarting`
+- New const `DeploymentBuildStatusBuildFailed`
+- New const `Enum19WindowsFunctions`
+- New const `CustomDNSSuffixProvisioningStateSucceeded`
+- New const `DeploymentBuildStatusBuildRequestReceived`
+- New const `UpgradePreferenceManual`
+- New const `UpgradeAvailabilityNone`
+- New const `Enum14Windows`
+- New const `CustomDNSSuffixProvisioningStateInProgress`
+- New const `ResourceNotRenewableReasonSubscriptionNotActive`
+- New const `Enum14WindowsFunctions`
+- New const `UpgradePreferenceNone`
+- New const `DeploymentBuildStatusBuildPending`
+- New const `DeploymentBuildStatusRuntimeSuccessful`
+- New const `Enum14All`
+- New const `ResourceNotRenewableReasonExpirationNotInRenewalTimeRange`
+- New const `CustomDomainStatusUnhealthy`
+- New const `Enum19LinuxFunctions`
+- New const `DeploymentBuildStatusStartPollingWithRestart`
+- New const `CustomDNSSuffixProvisioningStateFailed`
+- New const `DeploymentBuildStatusTimedOut`
+- New const `ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal`
+- New const `DeploymentBuildStatusBuildSuccessful`
+- New const `DeploymentBuildStatusPostBuildRestartRequired`
+- New const `CustomDNSSuffixProvisioningStateDegraded`
+- New const `DeploymentBuildStatusStartPolling`
+- New function `*WebAppsClient.BeginGetProductionSiteDeploymentStatus(context.Context, string, string, string, *WebAppsClientBeginGetProductionSiteDeploymentStatusOptions) (*runtime.Poller[WebAppsClientGetProductionSiteDeploymentStatusResponse], error)`
+- New function `*EnvironmentsClient.UpdateAseCustomDNSSuffixConfiguration(context.Context, string, string, CustomDNSSuffixConfiguration, *EnvironmentsClientUpdateAseCustomDNSSuffixConfigurationOptions) (EnvironmentsClientUpdateAseCustomDNSSuffixConfigurationResponse, error)`
+- New function `*StaticSitesClient.GetLinkedBackend(context.Context, string, string, string, *StaticSitesClientGetLinkedBackendOptions) (StaticSitesClientGetLinkedBackendResponse, error)`
+- New function `*StaticSitesClient.BeginValidateBackendForBuild(context.Context, string, string, string, string, StaticSiteLinkedBackendARMResource, *StaticSitesClientBeginValidateBackendForBuildOptions) (*runtime.Poller[StaticSitesClientValidateBackendForBuildResponse], error)`
+- New function `*StaticSitesClient.BeginLinkBackendToBuild(context.Context, string, string, string, string, StaticSiteLinkedBackendARMResource, *StaticSitesClientBeginLinkBackendToBuildOptions) (*runtime.Poller[StaticSitesClientLinkBackendToBuildResponse], error)`
+- New function `*EnvironmentsClient.TestUpgradeNotification(context.Context, string, string, *EnvironmentsClientTestUpgradeNotificationOptions) (EnvironmentsClientTestUpgradeNotificationResponse, error)`
+- New function `*StaticSitesClient.UnlinkBackendFromBuild(context.Context, string, string, string, string, *StaticSitesClientUnlinkBackendFromBuildOptions) (StaticSitesClientUnlinkBackendFromBuildResponse, error)`
+- New function `PossibleEnum14Values() []Enum14`
+- New function `*WebAppsClient.NewListSlotSiteDeploymentStatusesSlotPager(string, string, string, *WebAppsClientListSlotSiteDeploymentStatusesSlotOptions) *runtime.Pager[WebAppsClientListSlotSiteDeploymentStatusesSlotResponse]`
+- New function `*EnvironmentsClient.DeleteAseCustomDNSSuffixConfiguration(context.Context, string, string, *EnvironmentsClientDeleteAseCustomDNSSuffixConfigurationOptions) (EnvironmentsClientDeleteAseCustomDNSSuffixConfigurationResponse, error)`
+- New function `*EnvironmentsClient.BeginUpgrade(context.Context, string, string, *EnvironmentsClientBeginUpgradeOptions) (*runtime.Poller[EnvironmentsClientUpgradeResponse], error)`
+- New function `*WebAppsClient.NewListProductionSiteDeploymentStatusesPager(string, string, *WebAppsClientListProductionSiteDeploymentStatusesOptions) *runtime.Pager[WebAppsClientListProductionSiteDeploymentStatusesResponse]`
+- New function `PossibleCustomDNSSuffixProvisioningStateValues() []CustomDNSSuffixProvisioningState`
+- New function `*EnvironmentsClient.GetAseCustomDNSSuffixConfiguration(context.Context, string, string, *EnvironmentsClientGetAseCustomDNSSuffixConfigurationOptions) (EnvironmentsClientGetAseCustomDNSSuffixConfigurationResponse, error)`
+- New function `*StaticSitesClient.NewGetLinkedBackendsPager(string, string, *StaticSitesClientGetLinkedBackendsOptions) *runtime.Pager[StaticSitesClientGetLinkedBackendsResponse]`
+- New function `*WebAppsClient.BeginGetSlotSiteDeploymentStatusSlot(context.Context, string, string, string, string, *WebAppsClientBeginGetSlotSiteDeploymentStatusSlotOptions) (*runtime.Poller[WebAppsClientGetSlotSiteDeploymentStatusSlotResponse], error)`
+- New function `*StaticSitesClient.GetLinkedBackendForBuild(context.Context, string, string, string, string, *StaticSitesClientGetLinkedBackendForBuildOptions) (StaticSitesClientGetLinkedBackendForBuildResponse, error)`
+- New function `*StaticSitesClient.UnlinkBackend(context.Context, string, string, string, *StaticSitesClientUnlinkBackendOptions) (StaticSitesClientUnlinkBackendResponse, error)`
+- New function `PossibleResourceNotRenewableReasonValues() []ResourceNotRenewableReason`
+- New function `PossibleUpgradeAvailabilityValues() []UpgradeAvailability`
+- New function `*StaticSitesClient.BeginValidateBackend(context.Context, string, string, string, StaticSiteLinkedBackendARMResource, *StaticSitesClientBeginValidateBackendOptions) (*runtime.Poller[StaticSitesClientValidateBackendResponse], error)`
+- New function `*StaticSitesClient.NewGetLinkedBackendsForBuildPager(string, string, string, *StaticSitesClientGetLinkedBackendsForBuildOptions) *runtime.Pager[StaticSitesClientGetLinkedBackendsForBuildResponse]`
+- New function `*StaticSitesClient.BeginLinkBackend(context.Context, string, string, string, StaticSiteLinkedBackendARMResource, *StaticSitesClientBeginLinkBackendOptions) (*runtime.Poller[StaticSitesClientLinkBackendResponse], error)`
+- New function `PossibleUpgradePreferenceValues() []UpgradePreference`
+- New function `PossibleDeploymentBuildStatusValues() []DeploymentBuildStatus`
+- New struct `CsmDeploymentStatus`
+- New struct `CsmDeploymentStatusCollection`
+- New struct `CsmDeploymentStatusProperties`
+- New struct `CustomDNSSuffixConfiguration`
+- New struct `CustomDNSSuffixConfigurationProperties`
+- New struct `EnvironmentsClientBeginUpgradeOptions`
+- New struct `EnvironmentsClientDeleteAseCustomDNSSuffixConfigurationOptions`
+- New struct `EnvironmentsClientDeleteAseCustomDNSSuffixConfigurationResponse`
+- New struct `EnvironmentsClientGetAseCustomDNSSuffixConfigurationOptions`
+- New struct `EnvironmentsClientGetAseCustomDNSSuffixConfigurationResponse`
+- New struct `EnvironmentsClientTestUpgradeNotificationOptions`
+- New struct `EnvironmentsClientTestUpgradeNotificationResponse`
+- New struct `EnvironmentsClientUpdateAseCustomDNSSuffixConfigurationOptions`
+- New struct `EnvironmentsClientUpdateAseCustomDNSSuffixConfigurationResponse`
+- New struct `EnvironmentsClientUpgradeResponse`
+- New struct `StaticSiteLinkedBackend`
+- New struct `StaticSiteLinkedBackendARMResource`
+- New struct `StaticSiteLinkedBackendARMResourceProperties`
+- New struct `StaticSiteLinkedBackendsCollection`
+- New struct `StaticSitesClientBeginLinkBackendOptions`
+- New struct `StaticSitesClientBeginLinkBackendToBuildOptions`
+- New struct `StaticSitesClientBeginValidateBackendForBuildOptions`
+- New struct `StaticSitesClientBeginValidateBackendOptions`
+- New struct `StaticSitesClientGetLinkedBackendForBuildOptions`
+- New struct `StaticSitesClientGetLinkedBackendForBuildResponse`
+- New struct `StaticSitesClientGetLinkedBackendOptions`
+- New struct `StaticSitesClientGetLinkedBackendResponse`
+- New struct `StaticSitesClientGetLinkedBackendsForBuildOptions`
+- New struct `StaticSitesClientGetLinkedBackendsForBuildResponse`
+- New struct `StaticSitesClientGetLinkedBackendsOptions`
+- New struct `StaticSitesClientGetLinkedBackendsResponse`
+- New struct `StaticSitesClientLinkBackendResponse`
+- New struct `StaticSitesClientLinkBackendToBuildResponse`
+- New struct `StaticSitesClientUnlinkBackendFromBuildOptions`
+- New struct `StaticSitesClientUnlinkBackendFromBuildResponse`
+- New struct `StaticSitesClientUnlinkBackendOptions`
+- New struct `StaticSitesClientUnlinkBackendResponse`
+- New struct `StaticSitesClientValidateBackendForBuildResponse`
+- New struct `StaticSitesClientValidateBackendResponse`
+- New struct `WebAppsClientBeginGetProductionSiteDeploymentStatusOptions`
+- New struct `WebAppsClientBeginGetSlotSiteDeploymentStatusSlotOptions`
+- New struct `WebAppsClientGetProductionSiteDeploymentStatusResponse`
+- New struct `WebAppsClientGetSlotSiteDeploymentStatusSlotResponse`
+- New struct `WebAppsClientListProductionSiteDeploymentStatusesOptions`
+- New struct `WebAppsClientListProductionSiteDeploymentStatusesResponse`
+- New struct `WebAppsClientListSlotSiteDeploymentStatusesSlotOptions`
+- New struct `WebAppsClientListSlotSiteDeploymentStatusesSlotResponse`
+- New field `InboundIPAddressOverride` in struct `AseV3NetworkingConfigurationProperties`
+- New field `RemoteDebugEnabled` in struct `AseV3NetworkingConfigurationProperties`
+- New field `FtpEnabled` in struct `AseV3NetworkingConfigurationProperties`
+- New field `PublicNetworkAccess` in struct `SitePatchResourceProperties`
+- New field `NetworkingConfiguration` in struct `Environment`
+- New field `UpgradePreference` in struct `Environment`
+- New field `UpgradeAvailability` in struct `Environment`
+- New field `CustomDNSSuffixConfiguration` in struct `Environment`
+- New field `ActionType` in struct `CertificateOrderAction`
+- New field `CreatedAt` in struct `CertificateOrderAction`
+- New field `VnetImagePullEnabled` in struct `SiteProperties`
+- New field `VnetRouteAllEnabled` in struct `SiteProperties`
+- New field `PublicNetworkAccess` in struct `SiteProperties`
+- New field `VnetContentShareEnabled` in struct `SiteProperties`
+- New field `Hostname` in struct `WebSiteManagementClientListCustomHostNameSitesOptions`
+- New field `LinkedBackends` in struct `StaticSite`
+- New field `PublicNetworkAccess` in struct `StaticSite`
+- New field `EmailID` in struct `CertificateEmail`
+- New field `TimeStamp` in struct `CertificateEmail`
+- New field `LinkedBackends` in struct `StaticSiteBuildARMResourceProperties`
+
+
 ## 1.0.0 (2022-05-16)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appservice/armappservice` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.

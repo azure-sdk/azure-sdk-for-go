@@ -10,7 +10,7 @@ package armappservice
 
 const (
 	moduleName    = "armappservice"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v2.0.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -28,40 +28,6 @@ func PossibleActiveRevisionsModeValues() []ActiveRevisionsMode {
 	return []ActiveRevisionsMode{
 		ActiveRevisionsModeMultiple,
 		ActiveRevisionsModeSingle,
-	}
-}
-
-type AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem string
-
-const (
-	AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange          AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem = "ExpirationNotInRenewalTimeRange"
-	AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem = "RegistrationStatusNotSupportedForRenewal"
-	AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive                    AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem = "SubscriptionNotActive"
-)
-
-// PossibleAppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemValues returns the possible values for the AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem const type.
-func PossibleAppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemValues() []AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem {
-	return []AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItem{
-		AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange,
-		AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal,
-		AppServiceCertificateOrderPatchResourcePropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive,
-	}
-}
-
-type AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem string
-
-const (
-	AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange          AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem = "ExpirationNotInRenewalTimeRange"
-	AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem = "RegistrationStatusNotSupportedForRenewal"
-	AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive                    AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem = "SubscriptionNotActive"
-)
-
-// PossibleAppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemValues returns the possible values for the AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem const type.
-func PossibleAppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemValues() []AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem {
-	return []AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItem{
-		AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemExpirationNotInRenewalTimeRange,
-		AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal,
-		AppServiceCertificateOrderPropertiesAppServiceCertificateNotRenewableReasonsItemSubscriptionNotActive,
 	}
 }
 
@@ -552,6 +518,25 @@ func PossibleCookieExpirationConventionValues() []CookieExpirationConvention {
 	}
 }
 
+type CustomDNSSuffixProvisioningState string
+
+const (
+	CustomDNSSuffixProvisioningStateSucceeded  CustomDNSSuffixProvisioningState = "Succeeded"
+	CustomDNSSuffixProvisioningStateFailed     CustomDNSSuffixProvisioningState = "Failed"
+	CustomDNSSuffixProvisioningStateDegraded   CustomDNSSuffixProvisioningState = "Degraded"
+	CustomDNSSuffixProvisioningStateInProgress CustomDNSSuffixProvisioningState = "InProgress"
+)
+
+// PossibleCustomDNSSuffixProvisioningStateValues returns the possible values for the CustomDNSSuffixProvisioningState const type.
+func PossibleCustomDNSSuffixProvisioningStateValues() []CustomDNSSuffixProvisioningState {
+	return []CustomDNSSuffixProvisioningState{
+		CustomDNSSuffixProvisioningStateSucceeded,
+		CustomDNSSuffixProvisioningStateFailed,
+		CustomDNSSuffixProvisioningStateDegraded,
+		CustomDNSSuffixProvisioningStateInProgress,
+	}
+}
+
 // CustomDomainStatus - The status of the custom domain
 type CustomDomainStatus string
 
@@ -561,6 +546,7 @@ const (
 	CustomDomainStatusFailed                    CustomDomainStatus = "Failed"
 	CustomDomainStatusReady                     CustomDomainStatus = "Ready"
 	CustomDomainStatusRetrievingValidationToken CustomDomainStatus = "RetrievingValidationToken"
+	CustomDomainStatusUnhealthy                 CustomDomainStatus = "Unhealthy"
 	CustomDomainStatusValidating                CustomDomainStatus = "Validating"
 )
 
@@ -572,6 +558,7 @@ func PossibleCustomDomainStatusValues() []CustomDomainStatus {
 		CustomDomainStatusFailed,
 		CustomDomainStatusReady,
 		CustomDomainStatusRetrievingValidationToken,
+		CustomDomainStatusUnhealthy,
 		CustomDomainStatusValidating,
 	}
 }
@@ -646,6 +633,44 @@ func PossibleDatabaseTypeValues() []DatabaseType {
 	}
 }
 
+// DeploymentBuildStatus - Deployment build status.
+type DeploymentBuildStatus string
+
+const (
+	DeploymentBuildStatusBuildAborted             DeploymentBuildStatus = "BuildAborted"
+	DeploymentBuildStatusBuildFailed              DeploymentBuildStatus = "BuildFailed"
+	DeploymentBuildStatusBuildInProgress          DeploymentBuildStatus = "BuildInProgress"
+	DeploymentBuildStatusBuildPending             DeploymentBuildStatus = "BuildPending"
+	DeploymentBuildStatusBuildRequestReceived     DeploymentBuildStatus = "BuildRequestReceived"
+	DeploymentBuildStatusBuildSuccessful          DeploymentBuildStatus = "BuildSuccessful"
+	DeploymentBuildStatusPostBuildRestartRequired DeploymentBuildStatus = "PostBuildRestartRequired"
+	DeploymentBuildStatusRuntimeFailed            DeploymentBuildStatus = "RuntimeFailed"
+	DeploymentBuildStatusRuntimeStarting          DeploymentBuildStatus = "RuntimeStarting"
+	DeploymentBuildStatusRuntimeSuccessful        DeploymentBuildStatus = "RuntimeSuccessful"
+	DeploymentBuildStatusStartPolling             DeploymentBuildStatus = "StartPolling"
+	DeploymentBuildStatusStartPollingWithRestart  DeploymentBuildStatus = "StartPollingWithRestart"
+	DeploymentBuildStatusTimedOut                 DeploymentBuildStatus = "TimedOut"
+)
+
+// PossibleDeploymentBuildStatusValues returns the possible values for the DeploymentBuildStatus const type.
+func PossibleDeploymentBuildStatusValues() []DeploymentBuildStatus {
+	return []DeploymentBuildStatus{
+		DeploymentBuildStatusBuildAborted,
+		DeploymentBuildStatusBuildFailed,
+		DeploymentBuildStatusBuildInProgress,
+		DeploymentBuildStatusBuildPending,
+		DeploymentBuildStatusBuildRequestReceived,
+		DeploymentBuildStatusBuildSuccessful,
+		DeploymentBuildStatusPostBuildRestartRequired,
+		DeploymentBuildStatusRuntimeFailed,
+		DeploymentBuildStatusRuntimeStarting,
+		DeploymentBuildStatusRuntimeSuccessful,
+		DeploymentBuildStatusStartPolling,
+		DeploymentBuildStatusStartPollingWithRestart,
+		DeploymentBuildStatusTimedOut,
+	}
+}
+
 // DetectorType - Whether this detector is an Analysis Detector or not.
 type DetectorType string
 
@@ -661,40 +686,6 @@ func PossibleDetectorTypeValues() []DetectorType {
 		DetectorTypeDetector,
 		DetectorTypeAnalysis,
 		DetectorTypeCategoryOverview,
-	}
-}
-
-type DomainPatchResourcePropertiesDomainNotRenewableReasonsItem string
-
-const (
-	DomainPatchResourcePropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange          DomainPatchResourcePropertiesDomainNotRenewableReasonsItem = "ExpirationNotInRenewalTimeRange"
-	DomainPatchResourcePropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal DomainPatchResourcePropertiesDomainNotRenewableReasonsItem = "RegistrationStatusNotSupportedForRenewal"
-	DomainPatchResourcePropertiesDomainNotRenewableReasonsItemSubscriptionNotActive                    DomainPatchResourcePropertiesDomainNotRenewableReasonsItem = "SubscriptionNotActive"
-)
-
-// PossibleDomainPatchResourcePropertiesDomainNotRenewableReasonsItemValues returns the possible values for the DomainPatchResourcePropertiesDomainNotRenewableReasonsItem const type.
-func PossibleDomainPatchResourcePropertiesDomainNotRenewableReasonsItemValues() []DomainPatchResourcePropertiesDomainNotRenewableReasonsItem {
-	return []DomainPatchResourcePropertiesDomainNotRenewableReasonsItem{
-		DomainPatchResourcePropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange,
-		DomainPatchResourcePropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal,
-		DomainPatchResourcePropertiesDomainNotRenewableReasonsItemSubscriptionNotActive,
-	}
-}
-
-type DomainPropertiesDomainNotRenewableReasonsItem string
-
-const (
-	DomainPropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange          DomainPropertiesDomainNotRenewableReasonsItem = "ExpirationNotInRenewalTimeRange"
-	DomainPropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal DomainPropertiesDomainNotRenewableReasonsItem = "RegistrationStatusNotSupportedForRenewal"
-	DomainPropertiesDomainNotRenewableReasonsItemSubscriptionNotActive                    DomainPropertiesDomainNotRenewableReasonsItem = "SubscriptionNotActive"
-)
-
-// PossibleDomainPropertiesDomainNotRenewableReasonsItemValues returns the possible values for the DomainPropertiesDomainNotRenewableReasonsItem const type.
-func PossibleDomainPropertiesDomainNotRenewableReasonsItemValues() []DomainPropertiesDomainNotRenewableReasonsItem {
-	return []DomainPropertiesDomainNotRenewableReasonsItem{
-		DomainPropertiesDomainNotRenewableReasonsItemExpirationNotInRenewalTimeRange,
-		DomainPropertiesDomainNotRenewableReasonsItemRegistrationStatusNotSupportedForRenewal,
-		DomainPropertiesDomainNotRenewableReasonsItemSubscriptionNotActive,
 	}
 }
 
@@ -789,14 +780,33 @@ func PossibleEnterpriseGradeCdnStatusValues() []EnterpriseGradeCdnStatus {
 	}
 }
 
+type Enum14 string
+
+const (
+	Enum14All              Enum14 = "All"
+	Enum14Linux            Enum14 = "Linux"
+	Enum14LinuxFunctions   Enum14 = "LinuxFunctions"
+	Enum14Windows          Enum14 = "Windows"
+	Enum14WindowsFunctions Enum14 = "WindowsFunctions"
+)
+
+// PossibleEnum14Values returns the possible values for the Enum14 const type.
+func PossibleEnum14Values() []Enum14 {
+	return []Enum14{
+		Enum14All,
+		Enum14Linux,
+		Enum14LinuxFunctions,
+		Enum14Windows,
+		Enum14WindowsFunctions,
+	}
+}
+
 type Enum15 string
 
 const (
-	Enum15All              Enum15 = "All"
-	Enum15Linux            Enum15 = "Linux"
-	Enum15LinuxFunctions   Enum15 = "LinuxFunctions"
-	Enum15Windows          Enum15 = "Windows"
-	Enum15WindowsFunctions Enum15 = "WindowsFunctions"
+	Enum15All     Enum15 = "All"
+	Enum15Linux   Enum15 = "Linux"
+	Enum15Windows Enum15 = "Windows"
 )
 
 // PossibleEnum15Values returns the possible values for the Enum15 const type.
@@ -804,9 +814,7 @@ func PossibleEnum15Values() []Enum15 {
 	return []Enum15{
 		Enum15All,
 		Enum15Linux,
-		Enum15LinuxFunctions,
 		Enum15Windows,
-		Enum15WindowsFunctions,
 	}
 }
 
@@ -864,9 +872,11 @@ func PossibleEnum18Values() []Enum18 {
 type Enum19 string
 
 const (
-	Enum19All     Enum19 = "All"
-	Enum19Linux   Enum19 = "Linux"
-	Enum19Windows Enum19 = "Windows"
+	Enum19All              Enum19 = "All"
+	Enum19Linux            Enum19 = "Linux"
+	Enum19LinuxFunctions   Enum19 = "LinuxFunctions"
+	Enum19Windows          Enum19 = "Windows"
+	Enum19WindowsFunctions Enum19 = "WindowsFunctions"
 )
 
 // PossibleEnum19Values returns the possible values for the Enum19 const type.
@@ -874,28 +884,9 @@ func PossibleEnum19Values() []Enum19 {
 	return []Enum19{
 		Enum19All,
 		Enum19Linux,
+		Enum19LinuxFunctions,
 		Enum19Windows,
-	}
-}
-
-type Enum20 string
-
-const (
-	Enum20All              Enum20 = "All"
-	Enum20Linux            Enum20 = "Linux"
-	Enum20LinuxFunctions   Enum20 = "LinuxFunctions"
-	Enum20Windows          Enum20 = "Windows"
-	Enum20WindowsFunctions Enum20 = "WindowsFunctions"
-)
-
-// PossibleEnum20Values returns the possible values for the Enum20 const type.
-func PossibleEnum20Values() []Enum20 {
-	return []Enum20{
-		Enum20All,
-		Enum20Linux,
-		Enum20LinuxFunctions,
-		Enum20Windows,
-		Enum20WindowsFunctions,
+		Enum19WindowsFunctions,
 	}
 }
 
@@ -1539,6 +1530,23 @@ func PossibleResolveStatusValues() []ResolveStatus {
 	}
 }
 
+type ResourceNotRenewableReason string
+
+const (
+	ResourceNotRenewableReasonExpirationNotInRenewalTimeRange          ResourceNotRenewableReason = "ExpirationNotInRenewalTimeRange"
+	ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal ResourceNotRenewableReason = "RegistrationStatusNotSupportedForRenewal"
+	ResourceNotRenewableReasonSubscriptionNotActive                    ResourceNotRenewableReason = "SubscriptionNotActive"
+)
+
+// PossibleResourceNotRenewableReasonValues returns the possible values for the ResourceNotRenewableReason const type.
+func PossibleResourceNotRenewableReasonValues() []ResourceNotRenewableReason {
+	return []ResourceNotRenewableReason{
+		ResourceNotRenewableReasonExpirationNotInRenewalTimeRange,
+		ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal,
+		ResourceNotRenewableReasonSubscriptionNotActive,
+	}
+}
+
 // ResourceScopeType - Name of a resource type this recommendation applies, e.g. Subscription, ServerFarm, Site.
 type ResourceScopeType string
 
@@ -1956,6 +1964,51 @@ func PossibleUnauthenticatedClientActionV2Values() []UnauthenticatedClientAction
 		UnauthenticatedClientActionV2AllowAnonymous,
 		UnauthenticatedClientActionV2Return401,
 		UnauthenticatedClientActionV2Return403,
+	}
+}
+
+// UpgradeAvailability - Whether an upgrade is available for this App Service Environment.
+type UpgradeAvailability string
+
+const (
+	// UpgradeAvailabilityNone - No upgrade is currently available for this App Service Environment
+	UpgradeAvailabilityNone UpgradeAvailability = "None"
+	// UpgradeAvailabilityReady - An upgrade is ready to be manually initiated on this App Service Environment
+	UpgradeAvailabilityReady UpgradeAvailability = "Ready"
+)
+
+// PossibleUpgradeAvailabilityValues returns the possible values for the UpgradeAvailability const type.
+func PossibleUpgradeAvailabilityValues() []UpgradeAvailability {
+	return []UpgradeAvailability{
+		UpgradeAvailabilityNone,
+		UpgradeAvailabilityReady,
+	}
+}
+
+// UpgradePreference - Upgrade Preference
+type UpgradePreference string
+
+const (
+	// UpgradePreferenceEarly - This App Service Environment will be upgraded before others in the same region that have Upgrade
+	// Preference 'Late'
+	UpgradePreferenceEarly UpgradePreference = "Early"
+	// UpgradePreferenceLate - This App Service Environment will be upgraded after others in the same region that have Upgrade
+	// Preference 'Early'
+	UpgradePreferenceLate UpgradePreference = "Late"
+	// UpgradePreferenceManual - ASEv3 only. Once an upgrade is available, this App Service Environment will wait 10 days for
+	// the upgrade to be manually initiated. After 10 days the upgrade will begin automatically
+	UpgradePreferenceManual UpgradePreference = "Manual"
+	// UpgradePreferenceNone - No preference on when this App Service Environment will be upgraded
+	UpgradePreferenceNone UpgradePreference = "None"
+)
+
+// PossibleUpgradePreferenceValues returns the possible values for the UpgradePreference const type.
+func PossibleUpgradePreferenceValues() []UpgradePreference {
+	return []UpgradePreference{
+		UpgradePreferenceEarly,
+		UpgradePreferenceLate,
+		UpgradePreferenceManual,
+		UpgradePreferenceNone,
 	}
 }
 
