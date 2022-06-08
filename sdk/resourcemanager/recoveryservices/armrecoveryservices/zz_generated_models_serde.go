@@ -128,6 +128,9 @@ func (r *ResourceCertificateAndAADDetails) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "aadAudience":
+			err = unpopulate(val, "AADAudience", &r.AADAudience)
+			delete(rawMsg, key)
 		case "aadAuthority":
 			err = unpopulate(val, "AADAuthority", &r.AADAuthority)
 			delete(rawMsg, key)
@@ -464,6 +467,7 @@ func (v VaultProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "privateEndpointStateForBackup", v.PrivateEndpointStateForBackup)
 	populate(objectMap, "privateEndpointStateForSiteRecovery", v.PrivateEndpointStateForSiteRecovery)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
+	populate(objectMap, "redundancySettings", v.RedundancySettings)
 	populate(objectMap, "upgradeDetails", v.UpgradeDetails)
 	return json.Marshal(objectMap)
 }

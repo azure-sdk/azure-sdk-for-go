@@ -495,6 +495,9 @@ type ResourceCertificateAndAADDetails struct {
 	// REQUIRED; AAD service principal ObjectId.
 	ServicePrincipalObjectID *string `json:"servicePrincipalObjectId,omitempty"`
 
+	// AAD audience for the resource
+	AADAudience *string `json:"aadAudience,omitempty"`
+
 	// The base64 encoded certificate raw data string.
 	Certificate []byte `json:"certificate,omitempty"`
 
@@ -862,6 +865,9 @@ type VaultProperties struct {
 	// The details of the latest move operation performed on the Azure Resource
 	MoveDetails *VaultPropertiesMoveDetails `json:"moveDetails,omitempty"`
 
+	// The redundancy Settings of a Vault
+	RedundancySettings *VaultPropertiesRedundancySettings `json:"redundancySettings,omitempty"`
+
 	// Details for upgrading vault.
 	UpgradeDetails *UpgradeDetails `json:"upgradeDetails,omitempty"`
 
@@ -912,6 +918,15 @@ type VaultPropertiesMoveDetails struct {
 
 	// READ-ONLY; Target Resource of the Resource Move Operation
 	TargetResourceID *string `json:"targetResourceId,omitempty" azure:"ro"`
+}
+
+// VaultPropertiesRedundancySettings - The redundancy Settings of a Vault
+type VaultPropertiesRedundancySettings struct {
+	// READ-ONLY; Flag to show if Cross Region Restore is enabled on the Vault or not
+	CrossRegionRestore *CrossRegionRestore `json:"crossRegionRestore,omitempty" azure:"ro"`
+
+	// READ-ONLY; The storage redundancy setting of a vault
+	StandardTierStorageRedundancy *StandardTierStorageRedundancy `json:"standardTierStorageRedundancy,omitempty" azure:"ro"`
 }
 
 // VaultUsage - Usages of a vault.

@@ -10,7 +10,7 @@ package armrecoveryservices
 
 const (
 	moduleName    = "armrecoveryservices"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 type AlertsState string
@@ -85,6 +85,22 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// CrossRegionRestore - Flag to show if Cross Region Restore is enabled on the Vault or not
+type CrossRegionRestore string
+
+const (
+	CrossRegionRestoreDisabled CrossRegionRestore = "Disabled"
+	CrossRegionRestoreEnabled  CrossRegionRestore = "Enabled"
+)
+
+// PossibleCrossRegionRestoreValues returns the possible values for the CrossRegionRestore const type.
+func PossibleCrossRegionRestoreValues() []CrossRegionRestore {
+	return []CrossRegionRestore{
+		CrossRegionRestoreDisabled,
+		CrossRegionRestoreEnabled,
 	}
 }
 
@@ -211,6 +227,24 @@ func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
 		SKUNameRS0,
 		SKUNameStandard,
+	}
+}
+
+// StandardTierStorageRedundancy - The storage redundancy setting of a vault
+type StandardTierStorageRedundancy string
+
+const (
+	StandardTierStorageRedundancyGeoRedundant     StandardTierStorageRedundancy = "GeoRedundant"
+	StandardTierStorageRedundancyLocallyRedundant StandardTierStorageRedundancy = "LocallyRedundant"
+	StandardTierStorageRedundancyZoneRedundant    StandardTierStorageRedundancy = "ZoneRedundant"
+)
+
+// PossibleStandardTierStorageRedundancyValues returns the possible values for the StandardTierStorageRedundancy const type.
+func PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundancy {
+	return []StandardTierStorageRedundancy{
+		StandardTierStorageRedundancyGeoRedundant,
+		StandardTierStorageRedundancyLocallyRedundant,
+		StandardTierStorageRedundancyZoneRedundant,
 	}
 }
 
