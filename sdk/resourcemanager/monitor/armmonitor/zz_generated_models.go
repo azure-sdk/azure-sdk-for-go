@@ -2982,8 +2982,8 @@ type NetworkRuleSet struct {
 	PublicNetworkAccess *KnownPublicNetworkAccessOptions `json:"publicNetworkAccess,omitempty"`
 }
 
-// NotificationRequestBody - The request body which contain contact detail metadata
-type NotificationRequestBody struct {
+// NotificationRequest - The request body which contain contact detail metadata
+type NotificationRequest struct {
 	// REQUIRED; The name of the supported alert type.
 	AlertType *string `json:"alertType,omitempty"`
 
@@ -3020,6 +3020,12 @@ type NotificationRequestBody struct {
 
 	// The list of webhook receivers that are part of this action group.
 	WebhookReceivers []*WebhookReceiver `json:"webhookReceivers,omitempty"`
+}
+
+// NotificationRequestBody - An action group resource.
+type NotificationRequestBody struct {
+	// The action groups properties of the resource.
+	Properties *NotificationRequest `json:"properties,omitempty"`
 }
 
 // Operation - Microsoft Insights API operation definition.

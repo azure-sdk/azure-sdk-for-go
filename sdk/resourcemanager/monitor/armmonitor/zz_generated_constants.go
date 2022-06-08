@@ -10,7 +10,7 @@ package armmonitor
 
 const (
 	moduleName    = "armmonitor"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.8.0"
 )
 
 // AggregationType - the aggregation type of the metric.

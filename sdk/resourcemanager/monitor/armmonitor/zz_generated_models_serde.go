@@ -1641,8 +1641,8 @@ func (m *MultiMetricCriteria) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type NotificationRequestBody.
-func (n NotificationRequestBody) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type NotificationRequest.
+func (n NotificationRequest) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "alertType", n.AlertType)
 	populate(objectMap, "armRoleReceivers", n.ArmRoleReceivers)
