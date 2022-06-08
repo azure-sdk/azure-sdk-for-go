@@ -171,8 +171,8 @@ type AdaptiveApplicationControlGroupData struct {
 	SourceSystem *SourceSystem `json:"sourceSystem,omitempty" azure:"ro"`
 }
 
-// AdaptiveApplicationControlGroups - Represents a list of machine groups and set of rules that are recommended by Azure Security
-// Center to be allowed
+// AdaptiveApplicationControlGroups - Represents a list of VM/server groups and set of rules that are Recommended by Microsoft
+// Defender for Cloud to be allowed
 type AdaptiveApplicationControlGroups struct {
 	Value []*AdaptiveApplicationControlGroup `json:"value,omitempty"`
 }
@@ -281,7 +281,8 @@ type AdaptiveNetworkHardeningsList struct {
 // AdditionalDataClassification provides polymorphic access to related types.
 // Call the interface's GetAdditionalData() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AdditionalData, *ContainerRegistryVulnerabilityProperties, *SQLServerVulnerabilityProperties, *ServerVulnerabilityProperties
+// - *AdditionalData, *AmazonElasticContainerRegistryVulnerabilityProperties, *ContainerRegistryVulnerabilityProperties, *SQLServerVulnerabilityProperties,
+// - *ServerVulnerabilityProperties
 type AdditionalDataClassification interface {
 	// GetAdditionalData returns the AdditionalData content of the underlying type.
 	GetAdditionalData() *AdditionalData
@@ -781,6 +782,47 @@ func (a *AllowlistCustomAlertRule) GetListCustomAlertRule() *ListCustomAlertRule
 		Description: a.Description,
 		IsEnabled:   a.IsEnabled,
 		RuleType:    a.RuleType,
+	}
+}
+
+// AmazonElasticContainerRegistryVulnerabilityProperties - Additional context fields for amazon elastic container registry
+// Vulnerability assessment
+type AmazonElasticContainerRegistryVulnerabilityProperties struct {
+	// REQUIRED; Sub-assessment resource type
+	AssessedResourceType *AssessedResourceType `json:"assessedResourceType,omitempty"`
+
+	// READ-ONLY; List of CVEs
+	Cve []*CVE `json:"cve,omitempty" azure:"ro"`
+
+	// READ-ONLY; Digest of the vulnerable image
+	ImageDigest *string `json:"imageDigest,omitempty" azure:"ro"`
+
+	// READ-ONLY; The version installed
+	InstalledVersion *string `json:"InstalledVersion,omitempty" azure:"ro"`
+
+	// READ-ONLY; The sub assessment metadata
+	Metadata interface{} `json:"Metadata,omitempty" azure:"ro"`
+
+	// READ-ONLY; Name of the package the vulnerabilities relates too
+	PackageName *string `json:"PackageName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Name of the registry which the vulnerable image belongs to
+	RegistryHost *string `json:"RegistryHost,omitempty" azure:"ro"`
+
+	// READ-ONLY; Name of the repository which the vulnerable image belongs to
+	RepositoryName *string `json:"repositoryName,omitempty" azure:"ro"`
+
+	// READ-ONLY; The vulnerabilities scanner
+	Scanner interface{} `json:"Scanner,omitempty" azure:"ro"`
+
+	// READ-ONLY
+	Tags []interface{} `json:"tags,omitempty" azure:"ro"`
+}
+
+// GetAdditionalData implements the AdditionalDataClassification interface for type AmazonElasticContainerRegistryVulnerabilityProperties.
+func (a *AmazonElasticContainerRegistryVulnerabilityProperties) GetAdditionalData() *AdditionalData {
+	return &AdditionalData{
+		AssessedResourceType: a.AssessedResourceType,
 	}
 }
 
@@ -3010,8 +3052,8 @@ type ErrorAdditionalInfo struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// ExternalSecuritySolution - Represents a security solution external to Azure Security Center which sends information to
-// an OMS workspace and whose data is displayed by Azure Security Center.
+// ExternalSecuritySolution - Represents a security solution external to Microsoft Defender for Cloud which sends information
+// to an OMS workspace and whose data is displayed by Microsoft Defender for Cloud.
 type ExternalSecuritySolution struct {
 	// The kind of the external solution
 	Kind *ExternalSecuritySolutionKind `json:"kind,omitempty"`

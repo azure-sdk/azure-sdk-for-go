@@ -678,6 +678,69 @@ func (a *AllowlistCustomAlertRule) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AmazonElasticContainerRegistryVulnerabilityProperties.
+func (a AmazonElasticContainerRegistryVulnerabilityProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	objectMap["assessedResourceType"] = "AmazonElasticContainerRegistryVulnerability"
+	populate(objectMap, "cve", a.Cve)
+	populate(objectMap, "imageDigest", a.ImageDigest)
+	populate(objectMap, "InstalledVersion", a.InstalledVersion)
+	populate(objectMap, "Metadata", &a.Metadata)
+	populate(objectMap, "PackageName", a.PackageName)
+	populate(objectMap, "RegistryHost", a.RegistryHost)
+	populate(objectMap, "repositoryName", a.RepositoryName)
+	populate(objectMap, "Scanner", &a.Scanner)
+	populate(objectMap, "tags", a.Tags)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AmazonElasticContainerRegistryVulnerabilityProperties.
+func (a *AmazonElasticContainerRegistryVulnerabilityProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "assessedResourceType":
+			err = unpopulate(val, "AssessedResourceType", &a.AssessedResourceType)
+			delete(rawMsg, key)
+		case "cve":
+			err = unpopulate(val, "Cve", &a.Cve)
+			delete(rawMsg, key)
+		case "imageDigest":
+			err = unpopulate(val, "ImageDigest", &a.ImageDigest)
+			delete(rawMsg, key)
+		case "InstalledVersion":
+			err = unpopulate(val, "InstalledVersion", &a.InstalledVersion)
+			delete(rawMsg, key)
+		case "Metadata":
+			err = unpopulate(val, "Metadata", &a.Metadata)
+			delete(rawMsg, key)
+		case "PackageName":
+			err = unpopulate(val, "PackageName", &a.PackageName)
+			delete(rawMsg, key)
+		case "RegistryHost":
+			err = unpopulate(val, "RegistryHost", &a.RegistryHost)
+			delete(rawMsg, key)
+		case "repositoryName":
+			err = unpopulate(val, "RepositoryName", &a.RepositoryName)
+			delete(rawMsg, key)
+		case "Scanner":
+			err = unpopulate(val, "Scanner", &a.Scanner)
+			delete(rawMsg, key)
+		case "tags":
+			err = unpopulate(val, "Tags", &a.Tags)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AmqpC2DMessagesNotInAllowedRange.
 func (a AmqpC2DMessagesNotInAllowedRange) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})

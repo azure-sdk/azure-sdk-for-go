@@ -20,6 +20,8 @@ func unmarshalAdditionalDataClassification(rawMsg json.RawMessage) (AdditionalDa
 	}
 	var b AdditionalDataClassification
 	switch m["assessedResourceType"] {
+	case "AmazonElasticContainerRegistryVulnerability":
+		b = &AmazonElasticContainerRegistryVulnerabilityProperties{}
 	case string(AssessedResourceTypeContainerRegistryVulnerability):
 		b = &ContainerRegistryVulnerabilityProperties{}
 	case "ServerVulnerabilityAssessment":
