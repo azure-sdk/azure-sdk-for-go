@@ -56,7 +56,7 @@ func NewResourceGuardProxiesClient(subscriptionID string, credential azcore.Toke
 
 // NewGetPager - List the ResourceGuardProxies under vault
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // options - ResourceGuardProxiesClientGetOptions contains the optional parameters for the ResourceGuardProxiesClient.Get
@@ -109,7 +109,7 @@ func (client *ResourceGuardProxiesClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

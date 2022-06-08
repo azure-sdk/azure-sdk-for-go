@@ -56,7 +56,7 @@ func NewBackupStatusClient(subscriptionID string, credential azcore.TokenCredent
 
 // Get - Get the container backup status
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // azureRegion - Azure region to hit Api
 // parameters - Container Backup Status Request
 // options - BackupStatusClientGetOptions contains the optional parameters for the BackupStatusClient.Get method.
@@ -91,7 +91,7 @@ func (client *BackupStatusClient) getCreateRequest(ctx context.Context, azureReg
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

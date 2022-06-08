@@ -58,7 +58,7 @@ func NewValidateOperationStatusesClient(subscriptionID string, credential azcore
 // refer to the OperationStatus enum for all the possible states of the operation. If
 // operation has completed, this method returns the list of errors obtained while validating the operation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // operationID - OperationID represents the operation whose status needs to be fetched.
@@ -103,7 +103,7 @@ func (client *ValidateOperationStatusesClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

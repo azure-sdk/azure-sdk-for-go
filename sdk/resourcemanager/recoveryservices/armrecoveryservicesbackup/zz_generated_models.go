@@ -29,7 +29,7 @@ type AzureBackupServerContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -331,9 +331,6 @@ type AzureFileshareProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -397,8 +394,11 @@ type AzureFileshareProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetProtectedItem implements the ProtectedItemClassification interface for type AzureFileshareProtectedItem.
@@ -449,7 +449,7 @@ type AzureIaaSClassicComputeVMContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -560,9 +560,6 @@ type AzureIaaSClassicComputeVMProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -584,14 +581,8 @@ type AzureIaaSClassicComputeVMProtectedItem struct {
 	// Extended Properties for Azure IaasVM Backup.
 	ExtendedProperties *ExtendedProperties `json:"extendedProperties,omitempty"`
 
-	// Friendly name of the VM represented by this backup item.
-	FriendlyName *string `json:"friendlyName,omitempty"`
-
 	// Health details on this backup item.
 	HealthDetails []*AzureIaaSVMHealthDetails `json:"healthDetails,omitempty"`
-
-	// Health status of protected item.
-	HealthStatus *HealthStatus `json:"healthStatus,omitempty"`
 
 	// Flag to identify whether datasource is protected in archive
 	IsArchiveEnabled *bool `json:"isArchiveEnabled,omitempty"`
@@ -611,9 +602,6 @@ type AzureIaaSClassicComputeVMProtectedItem struct {
 	// Last backup operation status.
 	LastBackupStatus *string `json:"lastBackupStatus,omitempty"`
 
-	// Timestamp of the last backup operation on this backup item.
-	LastBackupTime *time.Time `json:"lastBackupTime,omitempty"`
-
 	// Timestamp when the last (latest) backup copy was created for this backup item.
 	LastRecoveryPoint *time.Time `json:"lastRecoveryPoint,omitempty"`
 
@@ -622,9 +610,6 @@ type AzureIaaSClassicComputeVMProtectedItem struct {
 
 	// Name of the policy used for protection
 	PolicyName *string `json:"policyName,omitempty"`
-
-	// Data ID of the protected item.
-	ProtectedItemDataID *string `json:"protectedItemDataId,omitempty"`
 
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
@@ -638,11 +623,26 @@ type AzureIaaSClassicComputeVMProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Fully qualified ARM ID of the virtual machine represented by this item.
-	VirtualMachineID *string `json:"virtualMachineId,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Friendly name of the VM represented by this backup item.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Health status of protected item.
+	HealthStatus *HealthStatus `json:"healthStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Timestamp of the last backup operation on this backup item.
+	LastBackupTime *time.Time `json:"lastBackupTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; Data ID of the protected item.
+	ProtectedItemDataID *string `json:"protectedItemDataId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Fully qualified ARM ID of the virtual machine represented by this item.
+	VirtualMachineID *string `json:"virtualMachineId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetAzureIaaSVMProtectedItem implements the AzureIaaSVMProtectedItemClassification interface for type AzureIaaSClassicComputeVMProtectedItem.
@@ -709,7 +709,7 @@ type AzureIaaSComputeVMContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -820,9 +820,6 @@ type AzureIaaSComputeVMProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -844,14 +841,8 @@ type AzureIaaSComputeVMProtectedItem struct {
 	// Extended Properties for Azure IaasVM Backup.
 	ExtendedProperties *ExtendedProperties `json:"extendedProperties,omitempty"`
 
-	// Friendly name of the VM represented by this backup item.
-	FriendlyName *string `json:"friendlyName,omitempty"`
-
 	// Health details on this backup item.
 	HealthDetails []*AzureIaaSVMHealthDetails `json:"healthDetails,omitempty"`
-
-	// Health status of protected item.
-	HealthStatus *HealthStatus `json:"healthStatus,omitempty"`
 
 	// Flag to identify whether datasource is protected in archive
 	IsArchiveEnabled *bool `json:"isArchiveEnabled,omitempty"`
@@ -871,9 +862,6 @@ type AzureIaaSComputeVMProtectedItem struct {
 	// Last backup operation status.
 	LastBackupStatus *string `json:"lastBackupStatus,omitempty"`
 
-	// Timestamp of the last backup operation on this backup item.
-	LastBackupTime *time.Time `json:"lastBackupTime,omitempty"`
-
 	// Timestamp when the last (latest) backup copy was created for this backup item.
 	LastRecoveryPoint *time.Time `json:"lastRecoveryPoint,omitempty"`
 
@@ -882,9 +870,6 @@ type AzureIaaSComputeVMProtectedItem struct {
 
 	// Name of the policy used for protection
 	PolicyName *string `json:"policyName,omitempty"`
-
-	// Data ID of the protected item.
-	ProtectedItemDataID *string `json:"protectedItemDataId,omitempty"`
 
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
@@ -898,11 +883,26 @@ type AzureIaaSComputeVMProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Fully qualified ARM ID of the virtual machine represented by this item.
-	VirtualMachineID *string `json:"virtualMachineId,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Friendly name of the VM represented by this backup item.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Health status of protected item.
+	HealthStatus *HealthStatus `json:"healthStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Timestamp of the last backup operation on this backup item.
+	LastBackupTime *time.Time `json:"lastBackupTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; Data ID of the protected item.
+	ProtectedItemDataID *string `json:"protectedItemDataId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Fully qualified ARM ID of the virtual machine represented by this item.
+	VirtualMachineID *string `json:"virtualMachineId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetAzureIaaSVMProtectedItem implements the AzureIaaSVMProtectedItemClassification interface for type AzureIaaSComputeVMProtectedItem.
@@ -1177,9 +1177,6 @@ type AzureIaaSVMProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -1201,14 +1198,8 @@ type AzureIaaSVMProtectedItem struct {
 	// Extended Properties for Azure IaasVM Backup.
 	ExtendedProperties *ExtendedProperties `json:"extendedProperties,omitempty"`
 
-	// Friendly name of the VM represented by this backup item.
-	FriendlyName *string `json:"friendlyName,omitempty"`
-
 	// Health details on this backup item.
 	HealthDetails []*AzureIaaSVMHealthDetails `json:"healthDetails,omitempty"`
-
-	// Health status of protected item.
-	HealthStatus *HealthStatus `json:"healthStatus,omitempty"`
 
 	// Flag to identify whether datasource is protected in archive
 	IsArchiveEnabled *bool `json:"isArchiveEnabled,omitempty"`
@@ -1228,9 +1219,6 @@ type AzureIaaSVMProtectedItem struct {
 	// Last backup operation status.
 	LastBackupStatus *string `json:"lastBackupStatus,omitempty"`
 
-	// Timestamp of the last backup operation on this backup item.
-	LastBackupTime *time.Time `json:"lastBackupTime,omitempty"`
-
 	// Timestamp when the last (latest) backup copy was created for this backup item.
 	LastRecoveryPoint *time.Time `json:"lastRecoveryPoint,omitempty"`
 
@@ -1239,9 +1227,6 @@ type AzureIaaSVMProtectedItem struct {
 
 	// Name of the policy used for protection
 	PolicyName *string `json:"policyName,omitempty"`
-
-	// Data ID of the protected item.
-	ProtectedItemDataID *string `json:"protectedItemDataId,omitempty"`
 
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
@@ -1255,11 +1240,26 @@ type AzureIaaSVMProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Fully qualified ARM ID of the virtual machine represented by this item.
-	VirtualMachineID *string `json:"virtualMachineId,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Friendly name of the VM represented by this backup item.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Health status of protected item.
+	HealthStatus *HealthStatus `json:"healthStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Timestamp of the last backup operation on this backup item.
+	LastBackupTime *time.Time `json:"lastBackupTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; Data ID of the protected item.
+	ProtectedItemDataID *string `json:"protectedItemDataId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Fully qualified ARM ID of the virtual machine represented by this item.
+	VirtualMachineID *string `json:"virtualMachineId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetAzureIaaSVMProtectedItem implements the AzureIaaSVMProtectedItemClassification interface for type AzureIaaSVMProtectedItem.
@@ -1290,8 +1290,17 @@ func (a *AzureIaaSVMProtectedItem) GetProtectedItem() *ProtectedItem {
 
 // AzureIaaSVMProtectedItemExtendedInfo - Additional information on Azure IaaS VM specific backup item.
 type AzureIaaSVMProtectedItemExtendedInfo struct {
-	// The oldest backup copy available for this backup item.
+	// The latest backup copy available for this backup item in archive tier
+	NewestRecoveryPointInArchive *time.Time `json:"newestRecoveryPointInArchive,omitempty"`
+
+	// The oldest backup copy available for this backup item across all tiers.
 	OldestRecoveryPoint *time.Time `json:"oldestRecoveryPoint,omitempty"`
+
+	// The oldest backup copy available for this backup item in archive tier
+	OldestRecoveryPointInArchive *time.Time `json:"oldestRecoveryPointInArchive,omitempty"`
+
+	// The oldest backup copy available for this backup item in vault tier
+	OldestRecoveryPointInVault *time.Time `json:"oldestRecoveryPointInVault,omitempty"`
 
 	// Specifies if backup policy associated with the backup item is inconsistent.
 	PolicyInconsistent *bool `json:"policyInconsistent,omitempty"`
@@ -1321,6 +1330,10 @@ type AzureIaaSVMProtectionPolicy struct {
 
 	// Backup schedule specified as part of backup policy.
 	SchedulePolicy SchedulePolicyClassification `json:"schedulePolicy,omitempty"`
+
+	// Tiering policy to automatically move RPs to another tier Key is Target Tier, defined in RecoveryPointTierType enum. Tiering
+	// policy specifies the criteria to move RP to the target tier.
+	TieringPolicy map[string]*TieringPolicy `json:"tieringPolicy,omitempty"`
 
 	// TimeZone optional input as string. For example: TimeZone = "Pacific Standard Time".
 	TimeZone *string `json:"timeZone,omitempty"`
@@ -1426,7 +1439,7 @@ type AzureSQLAGWorkloadContainerProtectionContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -1494,7 +1507,7 @@ type AzureSQLContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -1528,9 +1541,6 @@ func (a *AzureSQLContainer) GetProtectionContainer() *ProtectionContainer {
 type AzureSQLProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
-
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
 
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
@@ -1583,8 +1593,11 @@ type AzureSQLProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetProtectedItem implements the ProtectedItemClassification interface for type AzureSQLProtectedItem.
@@ -1652,7 +1665,7 @@ type AzureStorageContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Whether storage account lock is to be acquired for this container or not.
 	AcquireStorageAccountLock *AcquireStorageAccountLock `json:"acquireStorageAccountLock,omitempty"`
@@ -1797,7 +1810,7 @@ type AzureStorageProtectableContainer struct {
 	// REQUIRED; Type of the container. The value of this property for
 	// 1. Compute Azure VM is Microsoft.Compute/virtualMachines
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines
-	ProtectableContainerType *ContainerType `json:"protectableContainerType,omitempty"`
+	ProtectableContainerType *ProtectableContainerType `json:"protectableContainerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -1828,7 +1841,7 @@ type AzureVMAppContainerProtectableContainer struct {
 	// REQUIRED; Type of the container. The value of this property for
 	// 1. Compute Azure VM is Microsoft.Compute/virtualMachines
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines
-	ProtectableContainerType *ContainerType `json:"protectableContainerType,omitempty"`
+	ProtectableContainerType *ProtectableContainerType `json:"protectableContainerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -1860,7 +1873,7 @@ type AzureVMAppContainerProtectionContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -2008,9 +2021,9 @@ func (a *AzureVMWorkloadItem) GetWorkloadItem() *WorkloadItem {
 // AzureVMWorkloadProtectableItemClassification provides polymorphic access to related types.
 // Call the interface's GetAzureVMWorkloadProtectableItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureVMWorkloadProtectableItem, *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
-// - *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem, *AzureVMWorkloadSQLDatabaseProtectableItem,
-// - *AzureVMWorkloadSQLInstanceProtectableItem
+// - *AzureVMWorkloadProtectableItem, *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDBInstance, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
+// - *AzureVMWorkloadSAPHanaHSR, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
+// - *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem
 type AzureVMWorkloadProtectableItemClassification interface {
 	WorkloadProtectableItemClassification
 	// GetAzureVMWorkloadProtectableItem returns the AzureVMWorkloadProtectableItem content of the underlying type.
@@ -2079,8 +2092,8 @@ func (a *AzureVMWorkloadProtectableItem) GetWorkloadProtectableItem() *WorkloadP
 // AzureVMWorkloadProtectedItemClassification provides polymorphic access to related types.
 // Call the interface's GetAzureVMWorkloadProtectedItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureVMWorkloadProtectedItem, *AzureVMWorkloadSAPAseDatabaseProtectedItem, *AzureVMWorkloadSAPHanaDatabaseProtectedItem,
-// - *AzureVMWorkloadSQLDatabaseProtectedItem
+// - *AzureVMWorkloadProtectedItem, *AzureVMWorkloadSAPAseDatabaseProtectedItem, *AzureVMWorkloadSAPHanaDBInstanceProtectedItem,
+// - *AzureVMWorkloadSAPHanaDatabaseProtectedItem, *AzureVMWorkloadSQLDatabaseProtectedItem
 type AzureVMWorkloadProtectedItemClassification interface {
 	ProtectedItemClassification
 	// GetAzureVMWorkloadProtectedItem returns the AzureVMWorkloadProtectedItem content of the underlying type.
@@ -2091,9 +2104,6 @@ type AzureVMWorkloadProtectedItemClassification interface {
 type AzureVMWorkloadProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
-
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
 
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
@@ -2112,9 +2122,6 @@ type AzureVMWorkloadProtectedItem struct {
 
 	// Additional information for this backup item.
 	ExtendedInfo *AzureVMWorkloadProtectedItemExtendedInfo `json:"extendedInfo,omitempty"`
-
-	// Friendly name of the DB represented by this backup item.
-	FriendlyName *string `json:"friendlyName,omitempty"`
 
 	// Flag to identify whether datasource is protected in archive
 	IsArchiveEnabled *bool `json:"isArchiveEnabled,omitempty"`
@@ -2164,9 +2171,6 @@ type AzureVMWorkloadProtectedItem struct {
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
 
-	// Backup status of this backup item.
-	ProtectionStatus *string `json:"protectionStatus,omitempty"`
-
 	// ResourceGuardOperationRequests on which LAC check will be performed
 	ResourceGuardOperationRequests []*string `json:"resourceGuardOperationRequests,omitempty"`
 
@@ -2176,8 +2180,17 @@ type AzureVMWorkloadProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Friendly name of the DB represented by this backup item.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Backup status of this backup item.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetAzureVMWorkloadProtectedItem implements the AzureVMWorkloadProtectedItemClassification interface for type AzureVMWorkloadProtectedItem.
@@ -2210,8 +2223,17 @@ func (a *AzureVMWorkloadProtectedItem) GetProtectedItem() *ProtectedItem {
 
 // AzureVMWorkloadProtectedItemExtendedInfo - Additional information on Azure Workload for SQL specific backup item.
 type AzureVMWorkloadProtectedItemExtendedInfo struct {
-	// The oldest backup copy available for this backup item.
+	// The latest backup copy available for this backup item in archive tier
+	NewestRecoveryPointInArchive *time.Time `json:"newestRecoveryPointInArchive,omitempty"`
+
+	// The oldest backup copy available for this backup item across all tiers.
 	OldestRecoveryPoint *time.Time `json:"oldestRecoveryPoint,omitempty"`
+
+	// The oldest backup copy available for this backup item in archive tier
+	OldestRecoveryPointInArchive *time.Time `json:"oldestRecoveryPointInArchive,omitempty"`
+
+	// The oldest backup copy available for this backup item in vault tier
+	OldestRecoveryPointInVault *time.Time `json:"oldestRecoveryPointInVault,omitempty"`
 
 	// Indicates consistency of policy object and policy applied to this backup item.
 	PolicyState *string `json:"policyState,omitempty"`
@@ -2261,9 +2283,6 @@ type AzureVMWorkloadSAPAseDatabaseProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -2281,9 +2300,6 @@ type AzureVMWorkloadSAPAseDatabaseProtectedItem struct {
 
 	// Additional information for this backup item.
 	ExtendedInfo *AzureVMWorkloadProtectedItemExtendedInfo `json:"extendedInfo,omitempty"`
-
-	// Friendly name of the DB represented by this backup item.
-	FriendlyName *string `json:"friendlyName,omitempty"`
 
 	// Flag to identify whether datasource is protected in archive
 	IsArchiveEnabled *bool `json:"isArchiveEnabled,omitempty"`
@@ -2333,9 +2349,6 @@ type AzureVMWorkloadSAPAseDatabaseProtectedItem struct {
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
 
-	// Backup status of this backup item.
-	ProtectionStatus *string `json:"protectionStatus,omitempty"`
-
 	// ResourceGuardOperationRequests on which LAC check will be performed
 	ResourceGuardOperationRequests []*string `json:"resourceGuardOperationRequests,omitempty"`
 
@@ -2345,8 +2358,17 @@ type AzureVMWorkloadSAPAseDatabaseProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Friendly name of the DB represented by this backup item.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Backup status of this backup item.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetAzureVMWorkloadProtectedItem implements the AzureVMWorkloadProtectedItemClassification interface for type AzureVMWorkloadSAPAseDatabaseProtectedItem.
@@ -2601,6 +2623,231 @@ func (a *AzureVMWorkloadSAPAseSystemWorkloadItem) GetWorkloadItem() *WorkloadIte
 	}
 }
 
+// AzureVMWorkloadSAPHanaDBInstance - Azure VM workload-specific protectable item representing SAP HANA Dbinstance.
+type AzureVMWorkloadSAPHanaDBInstance struct {
+	// REQUIRED; Type of the backup item.
+	ProtectableItemType *string `json:"protectableItemType,omitempty"`
+
+	// Type of backup management to backup an item.
+	BackupManagementType *string `json:"backupManagementType,omitempty"`
+
+	// Friendly name of the backup item.
+	FriendlyName *string `json:"friendlyName,omitempty"`
+
+	// Indicates if protectable item is auto-protectable
+	IsAutoProtectable *bool `json:"isAutoProtectable,omitempty"`
+
+	// Indicates if protectable item is auto-protected
+	IsAutoProtected *bool `json:"isAutoProtected,omitempty"`
+
+	// Name for instance or AG
+	ParentName *string `json:"parentName,omitempty"`
+
+	// Parent Unique Name is added to provide the service formatted URI Name of the Parent Only Applicable for data bases where
+	// the parent would be either Instance or a SQL AG.
+	ParentUniqueName *string `json:"parentUniqueName,omitempty"`
+
+	// Pre-backup validation for protectable objects
+	Prebackupvalidation *PreBackupValidation `json:"prebackupvalidation,omitempty"`
+
+	// State of the back up item.
+	ProtectionState *ProtectionStatus `json:"protectionState,omitempty"`
+
+	// Host/Cluster Name for instance or AG
+	ServerName *string `json:"serverName,omitempty"`
+
+	// For instance or AG, indicates number of DB's present
+	Subinquireditemcount *int32 `json:"subinquireditemcount,omitempty"`
+
+	// For instance or AG, indicates number of DB's to be protected
+	Subprotectableitemcount *int32 `json:"subprotectableitemcount,omitempty"`
+
+	// Type of workload for the backup management
+	WorkloadType *string `json:"workloadType,omitempty"`
+}
+
+// GetAzureVMWorkloadProtectableItem implements the AzureVMWorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaDBInstance.
+func (a *AzureVMWorkloadSAPHanaDBInstance) GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem {
+	return &AzureVMWorkloadProtectableItem{
+		ParentName:              a.ParentName,
+		ParentUniqueName:        a.ParentUniqueName,
+		ServerName:              a.ServerName,
+		IsAutoProtectable:       a.IsAutoProtectable,
+		IsAutoProtected:         a.IsAutoProtected,
+		Subinquireditemcount:    a.Subinquireditemcount,
+		Subprotectableitemcount: a.Subprotectableitemcount,
+		Prebackupvalidation:     a.Prebackupvalidation,
+		BackupManagementType:    a.BackupManagementType,
+		WorkloadType:            a.WorkloadType,
+		ProtectableItemType:     a.ProtectableItemType,
+		FriendlyName:            a.FriendlyName,
+		ProtectionState:         a.ProtectionState,
+	}
+}
+
+// GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaDBInstance.
+func (a *AzureVMWorkloadSAPHanaDBInstance) GetWorkloadProtectableItem() *WorkloadProtectableItem {
+	return &WorkloadProtectableItem{
+		BackupManagementType: a.BackupManagementType,
+		WorkloadType:         a.WorkloadType,
+		ProtectableItemType:  a.ProtectableItemType,
+		FriendlyName:         a.FriendlyName,
+		ProtectionState:      a.ProtectionState,
+	}
+}
+
+// AzureVMWorkloadSAPHanaDBInstanceProtectedItem - Azure VM workload-specific protected item representing SAP HANA DBInstance.
+type AzureVMWorkloadSAPHanaDBInstanceProtectedItem struct {
+	// REQUIRED; backup item type.
+	ProtectedItemType *string `json:"protectedItemType,omitempty"`
+
+	// Name of the backup set the backup item belongs to
+	BackupSetName *string `json:"backupSetName,omitempty"`
+
+	// Unique name of container
+	ContainerName *string `json:"containerName,omitempty"`
+
+	// Create mode to indicate recovery of existing soft deleted data source or creation of new data source.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Time for deferred deletion in UTC
+	DeferredDeleteTimeInUTC *time.Time `json:"deferredDeleteTimeInUTC,omitempty"`
+
+	// Time remaining before the DS marked for deferred delete is permanently deleted
+	DeferredDeleteTimeRemaining *string `json:"deferredDeleteTimeRemaining,omitempty"`
+
+	// Additional information for this backup item.
+	ExtendedInfo *AzureVMWorkloadProtectedItemExtendedInfo `json:"extendedInfo,omitempty"`
+
+	// Flag to identify whether datasource is protected in archive
+	IsArchiveEnabled *bool `json:"isArchiveEnabled,omitempty"`
+
+	// Flag to identify whether the deferred deleted DS is to be purged soon
+	IsDeferredDeleteScheduleUpcoming *bool `json:"isDeferredDeleteScheduleUpcoming,omitempty"`
+
+	// Flag to identify that deferred deleted DS is to be moved into Pause state
+	IsRehydrate *bool `json:"isRehydrate,omitempty"`
+
+	// Flag to identify whether the DS is scheduled for deferred delete
+	IsScheduledForDeferredDelete *bool `json:"isScheduledForDeferredDelete,omitempty"`
+
+	// Health details of different KPIs
+	KpisHealths map[string]*KPIResourceHealthDetails `json:"kpisHealths,omitempty"`
+
+	// Error details in last backup
+	LastBackupErrorDetail *ErrorDetail `json:"lastBackupErrorDetail,omitempty"`
+
+	// Last backup operation status. Possible values: Healthy, Unhealthy.
+	LastBackupStatus *LastBackupStatus `json:"lastBackupStatus,omitempty"`
+
+	// Timestamp of the last backup operation on this backup item.
+	LastBackupTime *time.Time `json:"lastBackupTime,omitempty"`
+
+	// Timestamp when the last (latest) backup copy was created for this backup item.
+	LastRecoveryPoint *time.Time `json:"lastRecoveryPoint,omitempty"`
+
+	// Parent name of the DB such as Instance or Availability Group.
+	ParentName *string `json:"parentName,omitempty"`
+
+	// Parent type of protected item, example: for a DB, standalone server or distributed
+	ParentType *string `json:"parentType,omitempty"`
+
+	// ID of the backup policy with which this item is backed up.
+	PolicyID *string `json:"policyId,omitempty"`
+
+	// Name of the policy used for protection
+	PolicyName *string `json:"policyName,omitempty"`
+
+	// Data ID of the protected item.
+	ProtectedItemDataSourceID *string `json:"protectedItemDataSourceId,omitempty"`
+
+	// Health status of the backup item, evaluated based on last heartbeat received
+	ProtectedItemHealthStatus *ProtectedItemHealthStatus `json:"protectedItemHealthStatus,omitempty"`
+
+	// Backup state of this backup item.
+	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
+
+	// ResourceGuardOperationRequests on which LAC check will be performed
+	ResourceGuardOperationRequests []*string `json:"resourceGuardOperationRequests,omitempty"`
+
+	// Host/Cluster Name for instance or AG
+	ServerName *string `json:"serverName,omitempty"`
+
+	// ARM ID of the resource to be backed up.
+	SourceResourceID *string `json:"sourceResourceId,omitempty"`
+
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Friendly name of the DB represented by this backup item.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Backup status of this backup item.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
+}
+
+// GetAzureVMWorkloadProtectedItem implements the AzureVMWorkloadProtectedItemClassification interface for type AzureVMWorkloadSAPHanaDBInstanceProtectedItem.
+func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) GetAzureVMWorkloadProtectedItem() *AzureVMWorkloadProtectedItem {
+	return &AzureVMWorkloadProtectedItem{
+		FriendlyName:                     a.FriendlyName,
+		ServerName:                       a.ServerName,
+		ParentName:                       a.ParentName,
+		ParentType:                       a.ParentType,
+		ProtectionStatus:                 a.ProtectionStatus,
+		ProtectionState:                  a.ProtectionState,
+		LastBackupStatus:                 a.LastBackupStatus,
+		LastBackupTime:                   a.LastBackupTime,
+		LastBackupErrorDetail:            a.LastBackupErrorDetail,
+		ProtectedItemDataSourceID:        a.ProtectedItemDataSourceID,
+		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
+		ExtendedInfo:                     a.ExtendedInfo,
+		KpisHealths:                      a.KpisHealths,
+		ProtectedItemType:                a.ProtectedItemType,
+		BackupManagementType:             a.BackupManagementType,
+		WorkloadType:                     a.WorkloadType,
+		ContainerName:                    a.ContainerName,
+		SourceResourceID:                 a.SourceResourceID,
+		PolicyID:                         a.PolicyID,
+		LastRecoveryPoint:                a.LastRecoveryPoint,
+		BackupSetName:                    a.BackupSetName,
+		CreateMode:                       a.CreateMode,
+		DeferredDeleteTimeInUTC:          a.DeferredDeleteTimeInUTC,
+		IsScheduledForDeferredDelete:     a.IsScheduledForDeferredDelete,
+		DeferredDeleteTimeRemaining:      a.DeferredDeleteTimeRemaining,
+		IsDeferredDeleteScheduleUpcoming: a.IsDeferredDeleteScheduleUpcoming,
+		IsRehydrate:                      a.IsRehydrate,
+		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
+		IsArchiveEnabled:                 a.IsArchiveEnabled,
+		PolicyName:                       a.PolicyName,
+	}
+}
+
+// GetProtectedItem implements the ProtectedItemClassification interface for type AzureVMWorkloadSAPHanaDBInstanceProtectedItem.
+func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) GetProtectedItem() *ProtectedItem {
+	return &ProtectedItem{
+		ProtectedItemType:                a.ProtectedItemType,
+		BackupManagementType:             a.BackupManagementType,
+		WorkloadType:                     a.WorkloadType,
+		ContainerName:                    a.ContainerName,
+		SourceResourceID:                 a.SourceResourceID,
+		PolicyID:                         a.PolicyID,
+		LastRecoveryPoint:                a.LastRecoveryPoint,
+		BackupSetName:                    a.BackupSetName,
+		CreateMode:                       a.CreateMode,
+		DeferredDeleteTimeInUTC:          a.DeferredDeleteTimeInUTC,
+		IsScheduledForDeferredDelete:     a.IsScheduledForDeferredDelete,
+		DeferredDeleteTimeRemaining:      a.DeferredDeleteTimeRemaining,
+		IsDeferredDeleteScheduleUpcoming: a.IsDeferredDeleteScheduleUpcoming,
+		IsRehydrate:                      a.IsRehydrate,
+		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
+		IsArchiveEnabled:                 a.IsArchiveEnabled,
+		PolicyName:                       a.PolicyName,
+	}
+}
+
 // AzureVMWorkloadSAPHanaDatabaseProtectableItem - Azure VM workload-specific protectable item representing SAP HANA Database.
 type AzureVMWorkloadSAPHanaDatabaseProtectableItem struct {
 	// REQUIRED; Type of the backup item.
@@ -2679,9 +2926,6 @@ type AzureVMWorkloadSAPHanaDatabaseProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -2699,9 +2943,6 @@ type AzureVMWorkloadSAPHanaDatabaseProtectedItem struct {
 
 	// Additional information for this backup item.
 	ExtendedInfo *AzureVMWorkloadProtectedItemExtendedInfo `json:"extendedInfo,omitempty"`
-
-	// Friendly name of the DB represented by this backup item.
-	FriendlyName *string `json:"friendlyName,omitempty"`
 
 	// Flag to identify whether datasource is protected in archive
 	IsArchiveEnabled *bool `json:"isArchiveEnabled,omitempty"`
@@ -2751,9 +2992,6 @@ type AzureVMWorkloadSAPHanaDatabaseProtectedItem struct {
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
 
-	// Backup status of this backup item.
-	ProtectionStatus *string `json:"protectionStatus,omitempty"`
-
 	// ResourceGuardOperationRequests on which LAC check will be performed
 	ResourceGuardOperationRequests []*string `json:"resourceGuardOperationRequests,omitempty"`
 
@@ -2763,8 +3001,17 @@ type AzureVMWorkloadSAPHanaDatabaseProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Friendly name of the DB represented by this backup item.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Backup status of this backup item.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetAzureVMWorkloadProtectedItem implements the AzureVMWorkloadProtectedItemClassification interface for type AzureVMWorkloadSAPHanaDatabaseProtectedItem.
@@ -2881,6 +3128,79 @@ func (a *AzureVMWorkloadSAPHanaDatabaseWorkloadItem) GetWorkloadItem() *Workload
 		BackupManagementType: a.BackupManagementType,
 		WorkloadType:         a.WorkloadType,
 		WorkloadItemType:     a.WorkloadItemType,
+		FriendlyName:         a.FriendlyName,
+		ProtectionState:      a.ProtectionState,
+	}
+}
+
+// AzureVMWorkloadSAPHanaHSR - Azure VM workload-specific protectable item representing SAP HANA Dbinstance.
+type AzureVMWorkloadSAPHanaHSR struct {
+	// REQUIRED; Type of the backup item.
+	ProtectableItemType *string `json:"protectableItemType,omitempty"`
+
+	// Type of backup management to backup an item.
+	BackupManagementType *string `json:"backupManagementType,omitempty"`
+
+	// Friendly name of the backup item.
+	FriendlyName *string `json:"friendlyName,omitempty"`
+
+	// Indicates if protectable item is auto-protectable
+	IsAutoProtectable *bool `json:"isAutoProtectable,omitempty"`
+
+	// Indicates if protectable item is auto-protected
+	IsAutoProtected *bool `json:"isAutoProtected,omitempty"`
+
+	// Name for instance or AG
+	ParentName *string `json:"parentName,omitempty"`
+
+	// Parent Unique Name is added to provide the service formatted URI Name of the Parent Only Applicable for data bases where
+	// the parent would be either Instance or a SQL AG.
+	ParentUniqueName *string `json:"parentUniqueName,omitempty"`
+
+	// Pre-backup validation for protectable objects
+	Prebackupvalidation *PreBackupValidation `json:"prebackupvalidation,omitempty"`
+
+	// State of the back up item.
+	ProtectionState *ProtectionStatus `json:"protectionState,omitempty"`
+
+	// Host/Cluster Name for instance or AG
+	ServerName *string `json:"serverName,omitempty"`
+
+	// For instance or AG, indicates number of DB's present
+	Subinquireditemcount *int32 `json:"subinquireditemcount,omitempty"`
+
+	// For instance or AG, indicates number of DB's to be protected
+	Subprotectableitemcount *int32 `json:"subprotectableitemcount,omitempty"`
+
+	// Type of workload for the backup management
+	WorkloadType *string `json:"workloadType,omitempty"`
+}
+
+// GetAzureVMWorkloadProtectableItem implements the AzureVMWorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSR.
+func (a *AzureVMWorkloadSAPHanaHSR) GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem {
+	return &AzureVMWorkloadProtectableItem{
+		ParentName:              a.ParentName,
+		ParentUniqueName:        a.ParentUniqueName,
+		ServerName:              a.ServerName,
+		IsAutoProtectable:       a.IsAutoProtectable,
+		IsAutoProtected:         a.IsAutoProtected,
+		Subinquireditemcount:    a.Subinquireditemcount,
+		Subprotectableitemcount: a.Subprotectableitemcount,
+		Prebackupvalidation:     a.Prebackupvalidation,
+		BackupManagementType:    a.BackupManagementType,
+		WorkloadType:            a.WorkloadType,
+		ProtectableItemType:     a.ProtectableItemType,
+		FriendlyName:            a.FriendlyName,
+		ProtectionState:         a.ProtectionState,
+	}
+}
+
+// GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSR.
+func (a *AzureVMWorkloadSAPHanaHSR) GetWorkloadProtectableItem() *WorkloadProtectableItem {
+	return &WorkloadProtectableItem{
+		BackupManagementType: a.BackupManagementType,
+		WorkloadType:         a.WorkloadType,
+		ProtectableItemType:  a.ProtectableItemType,
 		FriendlyName:         a.FriendlyName,
 		ProtectionState:      a.ProtectionState,
 	}
@@ -3171,9 +3491,6 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -3191,9 +3508,6 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 
 	// Additional information for this backup item.
 	ExtendedInfo *AzureVMWorkloadProtectedItemExtendedInfo `json:"extendedInfo,omitempty"`
-
-	// Friendly name of the DB represented by this backup item.
-	FriendlyName *string `json:"friendlyName,omitempty"`
 
 	// Flag to identify whether datasource is protected in archive
 	IsArchiveEnabled *bool `json:"isArchiveEnabled,omitempty"`
@@ -3243,9 +3557,6 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
 
-	// Backup status of this backup item.
-	ProtectionStatus *string `json:"protectionStatus,omitempty"`
-
 	// ResourceGuardOperationRequests on which LAC check will be performed
 	ResourceGuardOperationRequests []*string `json:"resourceGuardOperationRequests,omitempty"`
 
@@ -3255,8 +3566,17 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Friendly name of the DB represented by this backup item.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Backup status of this backup item.
+	ProtectionStatus *string `json:"protectionStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetAzureVMWorkloadProtectedItem implements the AzureVMWorkloadProtectedItemClassification interface for type AzureVMWorkloadSQLDatabaseProtectedItem.
@@ -3614,7 +3934,7 @@ type AzureWorkloadContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -5699,9 +6019,6 @@ type DPMProtectedItem struct {
 	// Backup Management server protecting this backup item
 	BackupEngineName *string `json:"backupEngineName,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -5753,8 +6070,11 @@ type DPMProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetProtectedItem implements the ProtectedItemClassification interface for type DPMProtectedItem.
@@ -5957,7 +6277,7 @@ type DpmContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -6226,7 +6546,7 @@ type GenericContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -6278,9 +6598,6 @@ type GenericContainerExtendedInfo struct {
 type GenericProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
-
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
 
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
@@ -6342,8 +6659,11 @@ type GenericProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetProtectedItem implements the ProtectedItemClassification interface for type GenericProtectedItem.
@@ -6499,7 +6819,7 @@ type IaaSVMContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -7192,7 +7512,7 @@ type MabContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Agent version of this container.
 	AgentVersion *string `json:"agentVersion,omitempty"`
@@ -7275,9 +7595,6 @@ type MabFileFolderProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
 
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
-
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
 
@@ -7341,8 +7658,11 @@ type MabFileFolderProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetProtectedItem implements the ProtectedItemClassification interface for type MabFileFolderProtectedItem.
@@ -7941,7 +8261,7 @@ type ProtectableContainer struct {
 	// REQUIRED; Type of the container. The value of this property for
 	// 1. Compute Azure VM is Microsoft.Compute/virtualMachines
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines
-	ProtectableContainerType *ContainerType `json:"protectableContainerType,omitempty"`
+	ProtectableContainerType *ProtectableContainerType `json:"protectableContainerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -8002,8 +8322,9 @@ type ProtectableContainersClientListOptions struct {
 // Call the interface's GetProtectedItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureFileshareProtectedItem, *AzureIaaSClassicComputeVMProtectedItem, *AzureIaaSComputeVMProtectedItem, *AzureIaaSVMProtectedItem,
-// - *AzureSQLProtectedItem, *AzureVMWorkloadProtectedItem, *AzureVMWorkloadSAPAseDatabaseProtectedItem, *AzureVMWorkloadSAPHanaDatabaseProtectedItem,
-// - *AzureVMWorkloadSQLDatabaseProtectedItem, *DPMProtectedItem, *GenericProtectedItem, *MabFileFolderProtectedItem, *ProtectedItem
+// - *AzureSQLProtectedItem, *AzureVMWorkloadProtectedItem, *AzureVMWorkloadSAPAseDatabaseProtectedItem, *AzureVMWorkloadSAPHanaDBInstanceProtectedItem,
+// - *AzureVMWorkloadSAPHanaDatabaseProtectedItem, *AzureVMWorkloadSQLDatabaseProtectedItem, *DPMProtectedItem, *GenericProtectedItem,
+// - *MabFileFolderProtectedItem, *ProtectedItem
 type ProtectedItemClassification interface {
 	// GetProtectedItem returns the ProtectedItem content of the underlying type.
 	GetProtectedItem() *ProtectedItem
@@ -8013,9 +8334,6 @@ type ProtectedItemClassification interface {
 type ProtectedItem struct {
 	// REQUIRED; backup item type.
 	ProtectedItemType *string `json:"protectedItemType,omitempty"`
-
-	// Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
 
 	// Name of the backup set the backup item belongs to
 	BackupSetName *string `json:"backupSetName,omitempty"`
@@ -8059,8 +8377,11 @@ type ProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 
-	// Type of workload this item represents.
-	WorkloadType *DataSourceType `json:"workloadType,omitempty"`
+	// READ-ONLY; Type of backup management for the backed up item.
+	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of workload this item represents.
+	WorkloadType *DataSourceType `json:"workloadType,omitempty" azure:"ro"`
 }
 
 // GetProtectedItem implements the ProtectedItemClassification interface for type ProtectedItem.
@@ -8176,7 +8497,7 @@ type ProtectionContainer struct {
 	// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines 3. Windows
 	// machines (like MAB, DPM etc) is Windows 4. Azure SQL instance is AzureSqlContainer. 5. Storage containers is StorageContainer.
 	// 6. Azure workload Backup is VMAppContainer
-	ContainerType *ContainerType `json:"containerType,omitempty"`
+	ContainerType *ProtectableContainerType `json:"containerType,omitempty"`
 
 	// Type of backup management for the container.
 	BackupManagementType *BackupManagementType `json:"backupManagementType,omitempty"`
@@ -8950,6 +9271,10 @@ type SubProtectionPolicy struct {
 
 	// Backup schedule specified as part of backup policy.
 	SchedulePolicy SchedulePolicyClassification `json:"schedulePolicy,omitempty"`
+
+	// Tiering policy to automatically move RPs to another tier. Key is Target Tier, defined in RecoveryPointTierType enum. Tiering
+	// policy specifies the criteria to move RP to the target tier.
+	TieringPolicy map[string]*TieringPolicy `json:"tieringPolicy,omitempty"`
 }
 
 // TargetAFSRestoreInfo - Target Azure File Share Info.
@@ -8974,6 +9299,23 @@ type TargetRestoreInfo struct {
 
 	// Target directory location for restore as files.
 	TargetDirectoryForFileRestore *string `json:"targetDirectoryForFileRestore,omitempty"`
+}
+
+// TieringPolicy - Tiering Policy for a target tier. If the policy is not specified for a given target tier, service retains
+// the existing configured tiering policy for that tier
+type TieringPolicy struct {
+	// Number of days/weeks/months/years to retain backups in current tier before tiering. Used only if TieringMode is set to
+	// TierAfter
+	Duration *int32 `json:"duration,omitempty"`
+
+	// Retention duration type: days/weeks/months/years Used only if TieringMode is set to TierAfter
+	DurationType *RetentionDurationType `json:"durationType,omitempty"`
+
+	// Tiering Mode to control automatic tiering of recovery points. Supported values are:
+	// 1. TierRecommended: Tier all recovery points recommended to be tiered
+	// 2. TierAfter: Tier all recovery points after a fixed period, as specified in duration + durationType below.
+	// 3. DoNotTier: Do not tier any recovery points
+	TieringMode *TieringMode `json:"tieringMode,omitempty"`
 }
 
 // TokenInformation - The token information details.
@@ -9324,9 +9666,9 @@ type WorkloadItemResourceList struct {
 // Call the interface's GetWorkloadProtectableItem() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AzureFileShareProtectableItem, *AzureIaaSClassicComputeVMProtectableItem, *AzureIaaSComputeVMProtectableItem, *AzureVMWorkloadProtectableItem,
-// - *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDatabaseProtectableItem, *AzureVMWorkloadSAPHanaSystemProtectableItem,
-// - *AzureVMWorkloadSQLAvailabilityGroupProtectableItem, *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem,
-// - *IaaSVMProtectableItem, *WorkloadProtectableItem
+// - *AzureVMWorkloadSAPAseSystemProtectableItem, *AzureVMWorkloadSAPHanaDBInstance, *AzureVMWorkloadSAPHanaDatabaseProtectableItem,
+// - *AzureVMWorkloadSAPHanaHSR, *AzureVMWorkloadSAPHanaSystemProtectableItem, *AzureVMWorkloadSQLAvailabilityGroupProtectableItem,
+// - *AzureVMWorkloadSQLDatabaseProtectableItem, *AzureVMWorkloadSQLInstanceProtectableItem, *IaaSVMProtectableItem, *WorkloadProtectableItem
 type WorkloadProtectableItemClassification interface {
 	// GetWorkloadProtectableItem returns the WorkloadProtectableItem content of the underlying type.
 	GetWorkloadProtectableItem() *WorkloadProtectableItem

@@ -57,7 +57,7 @@ func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, 
 // Trigger - Triggers backup for specified backed up item. This is an asynchronous operation. To know the status of the operation,
 // call GetProtectedItemOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric name associated with the backup item.
@@ -112,7 +112,7 @@ func (client *BackupsClient) triggerCreateRequest(ctx context.Context, vaultName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

@@ -58,7 +58,7 @@ func NewItemLevelRecoveryConnectionsClient(subscriptionID string, credential azc
 // explorer displaying all the recoverable files and folders. This is an asynchronous
 // operation. To know the status of provisioning, call GetProtectedItemOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric name associated with the backed up items.
@@ -120,7 +120,7 @@ func (client *ItemLevelRecoveryConnectionsClient) provisionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -129,7 +129,7 @@ func (client *ItemLevelRecoveryConnectionsClient) provisionCreateRequest(ctx con
 // Revoke - Revokes an iSCSI connection which can be used to download a script. Executing this script opens a file explorer
 // displaying all recoverable files and folders. This is an asynchronous operation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric name associated with the backed up items.
@@ -190,7 +190,7 @@ func (client *ItemLevelRecoveryConnectionsClient) revokeCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

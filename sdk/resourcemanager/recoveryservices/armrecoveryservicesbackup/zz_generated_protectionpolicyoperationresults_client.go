@@ -56,7 +56,7 @@ func NewProtectionPolicyOperationResultsClient(subscriptionID string, credential
 
 // Get - Provides the result of an operation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // policyName - Backup policy name whose operation's result needs to be fetched.
@@ -106,7 +106,7 @@ func (client *ProtectionPolicyOperationResultsClient) getCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

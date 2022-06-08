@@ -10,7 +10,7 @@ package armrecoveryservicesbackup
 
 const (
 	moduleName    = "armrecoveryservicesbackup"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // AcquireStorageAccountLock - Whether storage account lock is to be acquired for this container or not.
@@ -77,6 +77,7 @@ const (
 	BackupItemTypeGenericDataSource BackupItemType = "GenericDataSource"
 	BackupItemTypeInvalid           BackupItemType = "Invalid"
 	BackupItemTypeSAPAseDatabase    BackupItemType = "SAPAseDatabase"
+	BackupItemTypeSAPHanaDBInstance BackupItemType = "SAPHanaDBInstance"
 	BackupItemTypeSAPHanaDatabase   BackupItemType = "SAPHanaDatabase"
 	BackupItemTypeSQLDB             BackupItemType = "SQLDB"
 	BackupItemTypeSQLDataBase       BackupItemType = "SQLDataBase"
@@ -97,6 +98,7 @@ func PossibleBackupItemTypeValues() []BackupItemType {
 		BackupItemTypeGenericDataSource,
 		BackupItemTypeInvalid,
 		BackupItemTypeSAPAseDatabase,
+		BackupItemTypeSAPHanaDBInstance,
 		BackupItemTypeSAPHanaDatabase,
 		BackupItemTypeSQLDB,
 		BackupItemTypeSQLDataBase,
@@ -141,12 +143,14 @@ func PossibleBackupManagementTypeValues() []BackupManagementType {
 type BackupType string
 
 const (
-	BackupTypeCopyOnlyFull BackupType = "CopyOnlyFull"
-	BackupTypeDifferential BackupType = "Differential"
-	BackupTypeFull         BackupType = "Full"
-	BackupTypeIncremental  BackupType = "Incremental"
-	BackupTypeInvalid      BackupType = "Invalid"
-	BackupTypeLog          BackupType = "Log"
+	BackupTypeCopyOnlyFull         BackupType = "CopyOnlyFull"
+	BackupTypeDifferential         BackupType = "Differential"
+	BackupTypeFull                 BackupType = "Full"
+	BackupTypeIncremental          BackupType = "Incremental"
+	BackupTypeInvalid              BackupType = "Invalid"
+	BackupTypeLog                  BackupType = "Log"
+	BackupTypeSnapshotCopyOnlyFull BackupType = "SnapshotCopyOnlyFull"
+	BackupTypeSnapshotFull         BackupType = "SnapshotFull"
 )
 
 // PossibleBackupTypeValues returns the possible values for the BackupType const type.
@@ -158,6 +162,8 @@ func PossibleBackupTypeValues() []BackupType {
 		BackupTypeIncremental,
 		BackupTypeInvalid,
 		BackupTypeLog,
+		BackupTypeSnapshotCopyOnlyFull,
+		BackupTypeSnapshotFull,
 	}
 }
 
@@ -165,24 +171,22 @@ func PossibleBackupTypeValues() []BackupType {
 type ContainerType string
 
 const (
-	ContainerTypeAzureBackupServerContainer             ContainerType = "AzureBackupServerContainer"
-	ContainerTypeAzureSQLContainer                      ContainerType = "AzureSqlContainer"
-	ContainerTypeAzureWorkloadContainer                 ContainerType = "AzureWorkloadContainer"
-	ContainerTypeCluster                                ContainerType = "Cluster"
-	ContainerTypeDPMContainer                           ContainerType = "DPMContainer"
-	ContainerTypeGenericContainer                       ContainerType = "GenericContainer"
-	ContainerTypeIaasVMContainer                        ContainerType = "IaasVMContainer"
-	ContainerTypeIaasVMServiceContainer                 ContainerType = "IaasVMServiceContainer"
-	ContainerTypeInvalid                                ContainerType = "Invalid"
-	ContainerTypeMABContainer                           ContainerType = "MABContainer"
-	ContainerTypeMicrosoftClassicComputeVirtualMachines ContainerType = "Microsoft.ClassicCompute/virtualMachines"
-	ContainerTypeMicrosoftComputeVirtualMachines        ContainerType = "Microsoft.Compute/virtualMachines"
-	ContainerTypeSQLAGWorkLoadContainer                 ContainerType = "SQLAGWorkLoadContainer"
-	ContainerTypeStorageContainer                       ContainerType = "StorageContainer"
-	ContainerTypeUnknown                                ContainerType = "Unknown"
-	ContainerTypeVCenter                                ContainerType = "VCenter"
-	ContainerTypeVMAppContainer                         ContainerType = "VMAppContainer"
-	ContainerTypeWindows                                ContainerType = "Windows"
+	ContainerTypeAzureBackupServerContainer ContainerType = "AzureBackupServerContainer"
+	ContainerTypeAzureSQLContainer          ContainerType = "AzureSqlContainer"
+	ContainerTypeCluster                    ContainerType = "Cluster"
+	ContainerTypeDPMContainer               ContainerType = "DPMContainer"
+	ContainerTypeGenericContainer           ContainerType = "GenericContainer"
+	ContainerTypeHanaHSRContainer           ContainerType = "HanaHSRContainer"
+	ContainerTypeIaasVMContainer            ContainerType = "IaasVMContainer"
+	ContainerTypeIaasVMServiceContainer     ContainerType = "IaasVMServiceContainer"
+	ContainerTypeInvalid                    ContainerType = "Invalid"
+	ContainerTypeMABContainer               ContainerType = "MABContainer"
+	ContainerTypeSQLAGWorkLoadContainer     ContainerType = "SQLAGWorkLoadContainer"
+	ContainerTypeStorageContainer           ContainerType = "StorageContainer"
+	ContainerTypeUnknown                    ContainerType = "Unknown"
+	ContainerTypeVCenter                    ContainerType = "VCenter"
+	ContainerTypeVMAppContainer             ContainerType = "VMAppContainer"
+	ContainerTypeWindows                    ContainerType = "Windows"
 )
 
 // PossibleContainerTypeValues returns the possible values for the ContainerType const type.
@@ -190,16 +194,14 @@ func PossibleContainerTypeValues() []ContainerType {
 	return []ContainerType{
 		ContainerTypeAzureBackupServerContainer,
 		ContainerTypeAzureSQLContainer,
-		ContainerTypeAzureWorkloadContainer,
 		ContainerTypeCluster,
 		ContainerTypeDPMContainer,
 		ContainerTypeGenericContainer,
+		ContainerTypeHanaHSRContainer,
 		ContainerTypeIaasVMContainer,
 		ContainerTypeIaasVMServiceContainer,
 		ContainerTypeInvalid,
 		ContainerTypeMABContainer,
-		ContainerTypeMicrosoftClassicComputeVirtualMachines,
-		ContainerTypeMicrosoftComputeVirtualMachines,
 		ContainerTypeSQLAGWorkLoadContainer,
 		ContainerTypeStorageContainer,
 		ContainerTypeUnknown,
@@ -279,6 +281,7 @@ const (
 	DataSourceTypeGenericDataSource DataSourceType = "GenericDataSource"
 	DataSourceTypeInvalid           DataSourceType = "Invalid"
 	DataSourceTypeSAPAseDatabase    DataSourceType = "SAPAseDatabase"
+	DataSourceTypeSAPHanaDBInstance DataSourceType = "SAPHanaDBInstance"
 	DataSourceTypeSAPHanaDatabase   DataSourceType = "SAPHanaDatabase"
 	DataSourceTypeSQLDB             DataSourceType = "SQLDB"
 	DataSourceTypeSQLDataBase       DataSourceType = "SQLDataBase"
@@ -299,6 +302,7 @@ func PossibleDataSourceTypeValues() []DataSourceType {
 		DataSourceTypeGenericDataSource,
 		DataSourceTypeInvalid,
 		DataSourceTypeSAPAseDatabase,
+		DataSourceTypeSAPHanaDBInstance,
 		DataSourceTypeSAPHanaDatabase,
 		DataSourceTypeSQLDB,
 		DataSourceTypeSQLDataBase,
@@ -885,12 +889,14 @@ func PossibleOverwriteOptionsValues() []OverwriteOptions {
 type PolicyType string
 
 const (
-	PolicyTypeCopyOnlyFull PolicyType = "CopyOnlyFull"
-	PolicyTypeDifferential PolicyType = "Differential"
-	PolicyTypeFull         PolicyType = "Full"
-	PolicyTypeIncremental  PolicyType = "Incremental"
-	PolicyTypeInvalid      PolicyType = "Invalid"
-	PolicyTypeLog          PolicyType = "Log"
+	PolicyTypeCopyOnlyFull         PolicyType = "CopyOnlyFull"
+	PolicyTypeDifferential         PolicyType = "Differential"
+	PolicyTypeFull                 PolicyType = "Full"
+	PolicyTypeIncremental          PolicyType = "Incremental"
+	PolicyTypeInvalid              PolicyType = "Invalid"
+	PolicyTypeLog                  PolicyType = "Log"
+	PolicyTypeSnapshotCopyOnlyFull PolicyType = "SnapshotCopyOnlyFull"
+	PolicyTypeSnapshotFull         PolicyType = "SnapshotFull"
 )
 
 // PossiblePolicyTypeValues returns the possible values for the PolicyType const type.
@@ -902,6 +908,8 @@ func PossiblePolicyTypeValues() []PolicyType {
 		PolicyTypeIncremental,
 		PolicyTypeInvalid,
 		PolicyTypeLog,
+		PolicyTypeSnapshotCopyOnlyFull,
+		PolicyTypeSnapshotFull,
 	}
 }
 
@@ -922,6 +930,56 @@ func PossiblePrivateEndpointConnectionStatusValues() []PrivateEndpointConnection
 		PrivateEndpointConnectionStatusDisconnected,
 		PrivateEndpointConnectionStatusPending,
 		PrivateEndpointConnectionStatusRejected,
+	}
+}
+
+// ProtectableContainerType - Type of the container. The value of this property for
+// 1. Compute Azure VM is Microsoft.Compute/virtualMachines
+// 2. Classic Compute Azure VM is Microsoft.ClassicCompute/virtualMachines
+type ProtectableContainerType string
+
+const (
+	ProtectableContainerTypeInvalid                                ProtectableContainerType = "Invalid"
+	ProtectableContainerTypeUnknown                                ProtectableContainerType = "Unknown"
+	ProtectableContainerTypeIaasVMContainer                        ProtectableContainerType = "IaasVMContainer"
+	ProtectableContainerTypeIaasVMServiceContainer                 ProtectableContainerType = "IaasVMServiceContainer"
+	ProtectableContainerTypeDPMContainer                           ProtectableContainerType = "DPMContainer"
+	ProtectableContainerTypeAzureBackupServerContainer             ProtectableContainerType = "AzureBackupServerContainer"
+	ProtectableContainerTypeMABContainer                           ProtectableContainerType = "MABContainer"
+	ProtectableContainerTypeCluster                                ProtectableContainerType = "Cluster"
+	ProtectableContainerTypeAzureSQLContainer                      ProtectableContainerType = "AzureSqlContainer"
+	ProtectableContainerTypeWindows                                ProtectableContainerType = "Windows"
+	ProtectableContainerTypeVCenter                                ProtectableContainerType = "VCenter"
+	ProtectableContainerTypeVMAppContainer                         ProtectableContainerType = "VMAppContainer"
+	ProtectableContainerTypeSQLAGWorkLoadContainer                 ProtectableContainerType = "SQLAGWorkLoadContainer"
+	ProtectableContainerTypeStorageContainer                       ProtectableContainerType = "StorageContainer"
+	ProtectableContainerTypeGenericContainer                       ProtectableContainerType = "GenericContainer"
+	ProtectableContainerTypeMicrosoftClassicComputeVirtualMachines ProtectableContainerType = "Microsoft.ClassicCompute/virtualMachines"
+	ProtectableContainerTypeMicrosoftComputeVirtualMachines        ProtectableContainerType = "Microsoft.Compute/virtualMachines"
+	ProtectableContainerTypeAzureWorkloadContainer                 ProtectableContainerType = "AzureWorkloadContainer"
+)
+
+// PossibleProtectableContainerTypeValues returns the possible values for the ProtectableContainerType const type.
+func PossibleProtectableContainerTypeValues() []ProtectableContainerType {
+	return []ProtectableContainerType{
+		ProtectableContainerTypeInvalid,
+		ProtectableContainerTypeUnknown,
+		ProtectableContainerTypeIaasVMContainer,
+		ProtectableContainerTypeIaasVMServiceContainer,
+		ProtectableContainerTypeDPMContainer,
+		ProtectableContainerTypeAzureBackupServerContainer,
+		ProtectableContainerTypeMABContainer,
+		ProtectableContainerTypeCluster,
+		ProtectableContainerTypeAzureSQLContainer,
+		ProtectableContainerTypeWindows,
+		ProtectableContainerTypeVCenter,
+		ProtectableContainerTypeVMAppContainer,
+		ProtectableContainerTypeSQLAGWorkLoadContainer,
+		ProtectableContainerTypeStorageContainer,
+		ProtectableContainerTypeGenericContainer,
+		ProtectableContainerTypeMicrosoftClassicComputeVirtualMachines,
+		ProtectableContainerTypeMicrosoftComputeVirtualMachines,
+		ProtectableContainerTypeAzureWorkloadContainer,
 	}
 }
 
@@ -1187,13 +1245,15 @@ func PossibleResourceHealthStatusValues() []ResourceHealthStatus {
 type RestorePointQueryType string
 
 const (
-	RestorePointQueryTypeAll                 RestorePointQueryType = "All"
-	RestorePointQueryTypeDifferential        RestorePointQueryType = "Differential"
-	RestorePointQueryTypeFull                RestorePointQueryType = "Full"
-	RestorePointQueryTypeFullAndDifferential RestorePointQueryType = "FullAndDifferential"
-	RestorePointQueryTypeIncremental         RestorePointQueryType = "Incremental"
-	RestorePointQueryTypeInvalid             RestorePointQueryType = "Invalid"
-	RestorePointQueryTypeLog                 RestorePointQueryType = "Log"
+	RestorePointQueryTypeAll                  RestorePointQueryType = "All"
+	RestorePointQueryTypeDifferential         RestorePointQueryType = "Differential"
+	RestorePointQueryTypeFull                 RestorePointQueryType = "Full"
+	RestorePointQueryTypeFullAndDifferential  RestorePointQueryType = "FullAndDifferential"
+	RestorePointQueryTypeIncremental          RestorePointQueryType = "Incremental"
+	RestorePointQueryTypeInvalid              RestorePointQueryType = "Invalid"
+	RestorePointQueryTypeLog                  RestorePointQueryType = "Log"
+	RestorePointQueryTypeSnapshotCopyOnlyFull RestorePointQueryType = "SnapshotCopyOnlyFull"
+	RestorePointQueryTypeSnapshotFull         RestorePointQueryType = "SnapshotFull"
 )
 
 // PossibleRestorePointQueryTypeValues returns the possible values for the RestorePointQueryType const type.
@@ -1206,6 +1266,8 @@ func PossibleRestorePointQueryTypeValues() []RestorePointQueryType {
 		RestorePointQueryTypeIncremental,
 		RestorePointQueryTypeInvalid,
 		RestorePointQueryTypeLog,
+		RestorePointQueryTypeSnapshotCopyOnlyFull,
+		RestorePointQueryTypeSnapshotFull,
 	}
 }
 
@@ -1213,11 +1275,13 @@ func PossibleRestorePointQueryTypeValues() []RestorePointQueryType {
 type RestorePointType string
 
 const (
-	RestorePointTypeDifferential RestorePointType = "Differential"
-	RestorePointTypeFull         RestorePointType = "Full"
-	RestorePointTypeIncremental  RestorePointType = "Incremental"
-	RestorePointTypeInvalid      RestorePointType = "Invalid"
-	RestorePointTypeLog          RestorePointType = "Log"
+	RestorePointTypeDifferential         RestorePointType = "Differential"
+	RestorePointTypeFull                 RestorePointType = "Full"
+	RestorePointTypeIncremental          RestorePointType = "Incremental"
+	RestorePointTypeInvalid              RestorePointType = "Invalid"
+	RestorePointTypeLog                  RestorePointType = "Log"
+	RestorePointTypeSnapshotCopyOnlyFull RestorePointType = "SnapshotCopyOnlyFull"
+	RestorePointTypeSnapshotFull         RestorePointType = "SnapshotFull"
 )
 
 // PossibleRestorePointTypeValues returns the possible values for the RestorePointType const type.
@@ -1228,6 +1292,8 @@ func PossibleRestorePointTypeValues() []RestorePointType {
 		RestorePointTypeIncremental,
 		RestorePointTypeInvalid,
 		RestorePointTypeLog,
+		RestorePointTypeSnapshotCopyOnlyFull,
+		RestorePointTypeSnapshotFull,
 	}
 }
 
@@ -1408,6 +1474,29 @@ func PossibleSupportStatusValues() []SupportStatus {
 	}
 }
 
+// TieringMode - Tiering Mode to control automatic tiering of recovery points. Supported values are:
+// 1. TierRecommended: Tier all recovery points recommended to be tiered
+// 2. TierAfter: Tier all recovery points after a fixed period, as specified in duration + durationType below.
+// 3. DoNotTier: Do not tier any recovery points
+type TieringMode string
+
+const (
+	TieringModeDoNotTier       TieringMode = "DoNotTier"
+	TieringModeInvalid         TieringMode = "Invalid"
+	TieringModeTierAfter       TieringMode = "TierAfter"
+	TieringModeTierRecommended TieringMode = "TierRecommended"
+)
+
+// PossibleTieringModeValues returns the possible values for the TieringMode const type.
+func PossibleTieringModeValues() []TieringMode {
+	return []TieringMode{
+		TieringModeDoNotTier,
+		TieringModeInvalid,
+		TieringModeTierAfter,
+		TieringModeTierRecommended,
+	}
+}
+
 // Type - Backup management type for this container.
 type Type string
 
@@ -1495,13 +1584,14 @@ func PossibleWeekOfMonthValues() []WeekOfMonth {
 type WorkloadItemType string
 
 const (
-	WorkloadItemTypeInvalid         WorkloadItemType = "Invalid"
-	WorkloadItemTypeSAPAseDatabase  WorkloadItemType = "SAPAseDatabase"
-	WorkloadItemTypeSAPAseSystem    WorkloadItemType = "SAPAseSystem"
-	WorkloadItemTypeSAPHanaDatabase WorkloadItemType = "SAPHanaDatabase"
-	WorkloadItemTypeSAPHanaSystem   WorkloadItemType = "SAPHanaSystem"
-	WorkloadItemTypeSQLDataBase     WorkloadItemType = "SQLDataBase"
-	WorkloadItemTypeSQLInstance     WorkloadItemType = "SQLInstance"
+	WorkloadItemTypeInvalid           WorkloadItemType = "Invalid"
+	WorkloadItemTypeSAPAseDatabase    WorkloadItemType = "SAPAseDatabase"
+	WorkloadItemTypeSAPAseSystem      WorkloadItemType = "SAPAseSystem"
+	WorkloadItemTypeSAPHanaDBInstance WorkloadItemType = "SAPHanaDBInstance"
+	WorkloadItemTypeSAPHanaDatabase   WorkloadItemType = "SAPHanaDatabase"
+	WorkloadItemTypeSAPHanaSystem     WorkloadItemType = "SAPHanaSystem"
+	WorkloadItemTypeSQLDataBase       WorkloadItemType = "SQLDataBase"
+	WorkloadItemTypeSQLInstance       WorkloadItemType = "SQLInstance"
 )
 
 // PossibleWorkloadItemTypeValues returns the possible values for the WorkloadItemType const type.
@@ -1510,6 +1600,7 @@ func PossibleWorkloadItemTypeValues() []WorkloadItemType {
 		WorkloadItemTypeInvalid,
 		WorkloadItemTypeSAPAseDatabase,
 		WorkloadItemTypeSAPAseSystem,
+		WorkloadItemTypeSAPHanaDBInstance,
 		WorkloadItemTypeSAPHanaDatabase,
 		WorkloadItemTypeSAPHanaSystem,
 		WorkloadItemTypeSQLDataBase,
@@ -1529,6 +1620,7 @@ const (
 	WorkloadTypeGenericDataSource WorkloadType = "GenericDataSource"
 	WorkloadTypeInvalid           WorkloadType = "Invalid"
 	WorkloadTypeSAPAseDatabase    WorkloadType = "SAPAseDatabase"
+	WorkloadTypeSAPHanaDBInstance WorkloadType = "SAPHanaDBInstance"
 	WorkloadTypeSAPHanaDatabase   WorkloadType = "SAPHanaDatabase"
 	WorkloadTypeSQLDB             WorkloadType = "SQLDB"
 	WorkloadTypeSQLDataBase       WorkloadType = "SQLDataBase"
@@ -1549,6 +1641,7 @@ func PossibleWorkloadTypeValues() []WorkloadType {
 		WorkloadTypeGenericDataSource,
 		WorkloadTypeInvalid,
 		WorkloadTypeSAPAseDatabase,
+		WorkloadTypeSAPHanaDBInstance,
 		WorkloadTypeSAPHanaDatabase,
 		WorkloadTypeSQLDB,
 		WorkloadTypeSQLDataBase,

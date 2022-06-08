@@ -57,7 +57,7 @@ func NewBackupWorkloadItemsClient(subscriptionID string, credential azcore.Token
 // NewListPager - Provides a pageable list of workload item of a specific container according to the query filter and the
 // pagination parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric name associated with the container.
@@ -120,7 +120,7 @@ func (client *BackupWorkloadItemsClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

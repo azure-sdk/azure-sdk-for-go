@@ -56,7 +56,7 @@ func NewProtectionContainersClient(subscriptionID string, credential azcore.Toke
 
 // Get - Gets details of the specific container registered to your Recovery Services Vault.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Name of the fabric where the container belongs.
@@ -106,7 +106,7 @@ func (client *ProtectionContainersClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -123,7 +123,7 @@ func (client *ProtectionContainersClient) getHandleResponse(resp *http.Response)
 
 // Inquire - This is an async operation and the results should be tracked using location header or Azure-async-url.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric Name associated with the container.
@@ -173,7 +173,7 @@ func (client *ProtectionContainersClient) inquireCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -186,7 +186,7 @@ func (client *ProtectionContainersClient) inquireCreateRequest(ctx context.Conte
 // asynchronous operation. To know the status of the operation, call
 // GetRefreshOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric name associated the container.
@@ -231,7 +231,7 @@ func (client *ProtectionContainersClient) refreshCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -243,7 +243,7 @@ func (client *ProtectionContainersClient) refreshCreateRequest(ctx context.Conte
 // Register - Registers the container with Recovery Services vault. This is an asynchronous operation. To track the operation
 // status, use location header to call get latest status of the operation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric name associated with the container.
@@ -294,7 +294,7 @@ func (client *ProtectionContainersClient) registerCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -313,7 +313,7 @@ func (client *ProtectionContainersClient) registerHandleResponse(resp *http.Resp
 // whether the backend service has finished processing the request, call Get Container
 // Operation Result API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Name of the fabric where the container belongs.
@@ -363,7 +363,7 @@ func (client *ProtectionContainersClient) unregisterCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

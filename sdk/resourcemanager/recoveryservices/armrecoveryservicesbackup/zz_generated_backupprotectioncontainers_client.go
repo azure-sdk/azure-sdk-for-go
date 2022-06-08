@@ -56,7 +56,7 @@ func NewBackupProtectionContainersClient(subscriptionID string, credential azcor
 
 // NewListPager - Lists the containers registered to Recovery Services Vault.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // options - BackupProtectionContainersClientListOptions contains the optional parameters for the BackupProtectionContainersClient.List
@@ -109,7 +109,7 @@ func (client *BackupProtectionContainersClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

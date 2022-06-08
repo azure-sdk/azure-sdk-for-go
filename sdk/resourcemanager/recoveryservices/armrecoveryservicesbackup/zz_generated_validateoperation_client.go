@@ -57,7 +57,7 @@ func NewValidateOperationClient(subscriptionID string, credential azcore.TokenCr
 // BeginTrigger - Validate operation for specified backed up item in the form of an asynchronous operation. Returns tracking
 // headers which can be tracked using GetValidateOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // parameters - resource validate operation request
@@ -78,7 +78,7 @@ func (client *ValidateOperationClient) BeginTrigger(ctx context.Context, vaultNa
 // Trigger - Validate operation for specified backed up item in the form of an asynchronous operation. Returns tracking headers
 // which can be tracked using GetValidateOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 func (client *ValidateOperationClient) trigger(ctx context.Context, vaultName string, resourceGroupName string, parameters ValidateOperationRequestClassification, options *ValidateOperationClientBeginTriggerOptions) (*http.Response, error) {
 	req, err := client.triggerCreateRequest(ctx, vaultName, resourceGroupName, parameters, options)
 	if err != nil {
@@ -114,7 +114,7 @@ func (client *ValidateOperationClient) triggerCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

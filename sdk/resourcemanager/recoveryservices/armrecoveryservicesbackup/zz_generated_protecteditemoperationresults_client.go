@@ -56,7 +56,7 @@ func NewProtectedItemOperationResultsClient(subscriptionID string, credential az
 
 // Get - Fetches the result of any operation on the backup item.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric name associated with the backup item.
@@ -116,7 +116,7 @@ func (client *ProtectedItemOperationResultsClient) getCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

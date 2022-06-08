@@ -56,7 +56,7 @@ func NewBMSPrepareDataMoveOperationResultClient(subscriptionID string, credentia
 
 // Get - Fetches Operation Result for Prepare Data Move
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // options - BMSPrepareDataMoveOperationResultClientGetOptions contains the optional parameters for the BMSPrepareDataMoveOperationResultClient.Get
@@ -100,7 +100,7 @@ func (client *BMSPrepareDataMoveOperationResultClient) getCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

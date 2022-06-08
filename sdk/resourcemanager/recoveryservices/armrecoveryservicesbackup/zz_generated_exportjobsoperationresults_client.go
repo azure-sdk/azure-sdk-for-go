@@ -58,7 +58,7 @@ func NewExportJobsOperationResultsClient(subscriptionID string, credential azcor
 // contains URL of a Blob and a SAS key to access the same. The blob contains exported
 // jobs in JSON serialized format.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // operationID - OperationID which represents the export job.
@@ -103,7 +103,7 @@ func (client *ExportJobsOperationResultsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

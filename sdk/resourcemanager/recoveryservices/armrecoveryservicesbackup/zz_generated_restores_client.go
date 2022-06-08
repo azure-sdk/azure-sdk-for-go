@@ -57,7 +57,7 @@ func NewRestoresClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginTrigger - Restores the specified backed up data. This is an asynchronous operation. To know the status of this API
 // call, use GetProtectedItemOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 // vaultName - The name of the recovery services vault.
 // resourceGroupName - The name of the resource group where the recovery services vault is present.
 // fabricName - Fabric name associated with the backed up items.
@@ -81,7 +81,7 @@ func (client *RestoresClient) BeginTrigger(ctx context.Context, vaultName string
 // Trigger - Restores the specified backed up data. This is an asynchronous operation. To know the status of this API call,
 // use GetProtectedItemOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-02-01
+// Generated from API version 2022-06-01-preview
 func (client *RestoresClient) trigger(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, parameters RestoreRequestResource, options *RestoresClientBeginTriggerOptions) (*http.Response, error) {
 	req, err := client.triggerCreateRequest(ctx, vaultName, resourceGroupName, fabricName, containerName, protectedItemName, recoveryPointID, parameters, options)
 	if err != nil {
@@ -133,7 +133,7 @@ func (client *RestoresClient) triggerCreateRequest(ctx context.Context, vaultNam
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-02-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

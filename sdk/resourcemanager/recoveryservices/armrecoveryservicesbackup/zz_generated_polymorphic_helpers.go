@@ -156,9 +156,9 @@ func unmarshalProtectableContainerClassification(rawMsg json.RawMessage) (Protec
 	}
 	var b ProtectableContainerClassification
 	switch m["protectableContainerType"] {
-	case string(ContainerTypeStorageContainer):
+	case string(ProtectableContainerTypeStorageContainer):
 		b = &AzureStorageProtectableContainer{}
-	case string(ContainerTypeVMAppContainer):
+	case string(ProtectableContainerTypeVMAppContainer):
 		b = &AzureVMAppContainerProtectableContainer{}
 	default:
 		b = &ProtectableContainer{}
@@ -184,6 +184,8 @@ func unmarshalProtectedItemClassification(rawMsg json.RawMessage) (ProtectedItem
 		b = &AzureVMWorkloadProtectedItem{}
 	case "AzureVmWorkloadSAPAseDatabase":
 		b = &AzureVMWorkloadSAPAseDatabaseProtectedItem{}
+	case "AzureVmWorkloadSAPHanaDBInstance":
+		b = &AzureVMWorkloadSAPHanaDBInstanceProtectedItem{}
 	case "AzureVmWorkloadSAPHanaDatabase":
 		b = &AzureVMWorkloadSAPHanaDatabaseProtectedItem{}
 	case "AzureVmWorkloadSQLDatabase":
@@ -216,29 +218,29 @@ func unmarshalProtectionContainerClassification(rawMsg json.RawMessage) (Protect
 	}
 	var b ProtectionContainerClassification
 	switch m["containerType"] {
-	case string(ContainerTypeAzureBackupServerContainer):
+	case string(ProtectableContainerTypeAzureBackupServerContainer):
 		b = &AzureBackupServerContainer{}
-	case string(ContainerTypeAzureSQLContainer):
+	case string(ProtectableContainerTypeAzureSQLContainer):
 		b = &AzureSQLContainer{}
-	case string(ContainerTypeAzureWorkloadContainer):
+	case string(ProtectableContainerTypeAzureWorkloadContainer):
 		b = &AzureWorkloadContainer{}
-	case string(ContainerTypeDPMContainer):
+	case string(ProtectableContainerTypeDPMContainer):
 		b = &DpmContainer{}
-	case string(ContainerTypeGenericContainer):
+	case string(ProtectableContainerTypeGenericContainer):
 		b = &GenericContainer{}
-	case string(ContainerTypeIaasVMContainer):
+	case string(ProtectableContainerTypeIaasVMContainer):
 		b = &IaaSVMContainer{}
-	case string(ContainerTypeMicrosoftClassicComputeVirtualMachines):
+	case string(ProtectableContainerTypeMicrosoftClassicComputeVirtualMachines):
 		b = &AzureIaaSClassicComputeVMContainer{}
-	case string(ContainerTypeMicrosoftComputeVirtualMachines):
+	case string(ProtectableContainerTypeMicrosoftComputeVirtualMachines):
 		b = &AzureIaaSComputeVMContainer{}
-	case string(ContainerTypeSQLAGWorkLoadContainer):
+	case string(ProtectableContainerTypeSQLAGWorkLoadContainer):
 		b = &AzureSQLAGWorkloadContainerProtectionContainer{}
-	case string(ContainerTypeStorageContainer):
+	case string(ProtectableContainerTypeStorageContainer):
 		b = &AzureStorageContainer{}
-	case string(ContainerTypeVMAppContainer):
+	case string(ProtectableContainerTypeVMAppContainer):
 		b = &AzureVMAppContainerProtectionContainer{}
-	case string(ContainerTypeWindows):
+	case string(ProtectableContainerTypeWindows):
 		b = &MabContainer{}
 	default:
 		b = &ProtectionContainer{}
@@ -490,8 +492,12 @@ func unmarshalWorkloadProtectableItemClassification(rawMsg json.RawMessage) (Wor
 		b = &AzureIaaSComputeVMProtectableItem{}
 	case "SAPAseSystem":
 		b = &AzureVMWorkloadSAPAseSystemProtectableItem{}
+	case "SAPHanaDBInstance":
+		b = &AzureVMWorkloadSAPHanaDBInstance{}
 	case "SAPHanaDatabase":
 		b = &AzureVMWorkloadSAPHanaDatabaseProtectableItem{}
+	case "SAPHanaHSR":
+		b = &AzureVMWorkloadSAPHanaHSR{}
 	case "SAPHanaSystem":
 		b = &AzureVMWorkloadSAPHanaSystemProtectableItem{}
 	case "SQLAvailabilityGroupContainer":
