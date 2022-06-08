@@ -261,9 +261,19 @@ type CommunityGalleryImageVersionsClientGetResponse struct {
 	CommunityGalleryImageVersion
 }
 
+// CommunityGalleryImageVersionsClientListResponse contains the response from method CommunityGalleryImageVersionsClient.List.
+type CommunityGalleryImageVersionsClientListResponse struct {
+	CommunityGalleryImageVersionList
+}
+
 // CommunityGalleryImagesClientGetResponse contains the response from method CommunityGalleryImagesClient.Get.
 type CommunityGalleryImagesClientGetResponse struct {
 	CommunityGalleryImage
+}
+
+// CommunityGalleryImagesClientListResponse contains the response from method CommunityGalleryImagesClient.List.
+type CommunityGalleryImagesClientListResponse struct {
+	CommunityGalleryImageList
 }
 
 // DedicatedHostGroupsClientCreateOrUpdateResponse contains the response from method DedicatedHostGroupsClient.CreateOrUpdate.
@@ -891,6 +901,11 @@ type VirtualMachineExtensionsClientUpdateResponse struct {
 // VirtualMachineImagesClientGetResponse contains the response from method VirtualMachineImagesClient.Get.
 type VirtualMachineImagesClientGetResponse struct {
 	VirtualMachineImage
+}
+
+// VirtualMachineImagesClientListByEdgeZoneResponse contains the response from method VirtualMachineImagesClient.ListByEdgeZone.
+type VirtualMachineImagesClientListByEdgeZoneResponse struct {
+	VMImagesInEdgeZoneListResult
 }
 
 // VirtualMachineImagesClientListOffersResponse contains the response from method VirtualMachineImagesClient.ListOffers.
