@@ -10,7 +10,7 @@ package armoperationalinsights
 
 const (
 	moduleName    = "armoperationalinsights"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // BillingType - Configures whether billing will be only on the cluster or each workspace will be billed by its proportional
@@ -234,6 +234,7 @@ const (
 	DataSourceTypeCustomLogs  DataSourceType = "CustomLogs"
 	DataSourceTypeAzureWatson DataSourceType = "AzureWatson"
 	DataSourceTypeQuery       DataSourceType = "Query"
+	DataSourceTypeIngestion   DataSourceType = "Ingestion"
 	DataSourceTypeAlerts      DataSourceType = "Alerts"
 )
 
@@ -243,6 +244,7 @@ func PossibleDataSourceTypeValues() []DataSourceType {
 		DataSourceTypeCustomLogs,
 		DataSourceTypeAzureWatson,
 		DataSourceTypeQuery,
+		DataSourceTypeIngestion,
 		DataSourceTypeAlerts,
 	}
 }
