@@ -1,5 +1,24 @@
 # Release History
 
+## 1.1.0-beta.1 (2022-06-09)
+### Features Added
+
+- New function `*BackupsClient.Put(context.Context, string, string, string, *BackupsClientPutOptions) (BackupsClientPutResponse, error)`
+- New struct `BackupsClientPutOptions`
+- New struct `BackupsClientPutResponse`
+- New struct `LogFile`
+- New struct `LogFileListResult`
+- New struct `LogFileProperties`
+- New struct `LogFilesClientListByServerOptions`
+- New struct `LogFilesClientListByServerResponse`
+- New field `ResetAllToDefault` in struct `ConfigurationListForBatchUpdate`
+- New field `Version` in struct `ServerPropertiesForUpdate`
+- New field `Keyword` in struct `ConfigurationsClientListByServerOptions`
+- New field `Page` in struct `ConfigurationsClientListByServerOptions`
+- New field `PageSize` in struct `ConfigurationsClientListByServerOptions`
+- New field `Tags` in struct `ConfigurationsClientListByServerOptions`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mysql/armmysqlflexibleservers` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
