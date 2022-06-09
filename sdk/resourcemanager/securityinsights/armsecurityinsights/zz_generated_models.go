@@ -2169,8 +2169,18 @@ type DataConnectorConnectBody struct {
 	// The client secret of the OAuth 2.0 application.
 	ClientSecret *string `json:"clientSecret,omitempty"`
 
+	// Used in v2 logs connector. Represents the data collection ingestion endpoint in log analytics.
+	DataCollectionEndpoint *string `json:"dataCollectionEndpoint,omitempty"`
+
+	// Used in v2 logs connector. The data collection rule immutable id, the rule defines the transformation and data destination.
+	DataCollectionRuleImmutableID *string `json:"dataCollectionRuleImmutableId,omitempty"`
+
 	// The authentication kind used to poll the data
 	Kind *ConnectAuthKind `json:"kind,omitempty"`
+
+	// Used in v2 logs connector. The stream we are sending the data to, this is the name of the streamDeclarations defined in
+	// the DCR.
+	OutputStream *string `json:"outputStream,omitempty"`
 
 	// The user password in the audit log server.
 	Password                     *string       `json:"password,omitempty"`

@@ -332,6 +332,8 @@ const (
 	AutomationRulePropertyConditionSupportedPropertyAccountSid AutomationRulePropertyConditionSupportedProperty = "AccountSid"
 	// AutomationRulePropertyConditionSupportedPropertyAccountUPNSuffix - The account user principal name suffix
 	AutomationRulePropertyConditionSupportedPropertyAccountUPNSuffix AutomationRulePropertyConditionSupportedProperty = "AccountUPNSuffix"
+	// AutomationRulePropertyConditionSupportedPropertyAlertAnalyticRuleIDs - The analytic rule ids of the alert
+	AutomationRulePropertyConditionSupportedPropertyAlertAnalyticRuleIDs AutomationRulePropertyConditionSupportedProperty = "AlertAnalyticRuleIds"
 	// AutomationRulePropertyConditionSupportedPropertyAlertProductNames - The name of the product of the alert
 	AutomationRulePropertyConditionSupportedPropertyAlertProductNames AutomationRulePropertyConditionSupportedProperty = "AlertProductNames"
 	// AutomationRulePropertyConditionSupportedPropertyAzureResourceResourceID - The Azure resource id
@@ -437,6 +439,7 @@ func PossibleAutomationRulePropertyConditionSupportedPropertyValues() []Automati
 		AutomationRulePropertyConditionSupportedPropertyAccountPUID,
 		AutomationRulePropertyConditionSupportedPropertyAccountSid,
 		AutomationRulePropertyConditionSupportedPropertyAccountUPNSuffix,
+		AutomationRulePropertyConditionSupportedPropertyAlertAnalyticRuleIDs,
 		AutomationRulePropertyConditionSupportedPropertyAlertProductNames,
 		AutomationRulePropertyConditionSupportedPropertyAzureResourceResourceID,
 		AutomationRulePropertyConditionSupportedPropertyAzureResourceSubscriptionID,
@@ -2004,6 +2007,8 @@ func PossibleTriggerOperatorValues() []TriggerOperator {
 type TriggersOn string
 
 const (
+	// TriggersOnAlerts - Trigger on Alerts
+	TriggersOnAlerts TriggersOn = "Alerts"
 	// TriggersOnIncidents - Trigger on Incidents
 	TriggersOnIncidents TriggersOn = "Incidents"
 )
@@ -2011,6 +2016,7 @@ const (
 // PossibleTriggersOnValues returns the possible values for the TriggersOn const type.
 func PossibleTriggersOnValues() []TriggersOn {
 	return []TriggersOn{
+		TriggersOnAlerts,
 		TriggersOnIncidents,
 	}
 }
