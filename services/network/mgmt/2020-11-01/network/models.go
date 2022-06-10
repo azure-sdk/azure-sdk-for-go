@@ -7574,8 +7574,6 @@ func (bap *BackendAddressPool) UnmarshalJSON(body []byte) error {
 
 // BackendAddressPoolPropertiesFormat properties of the backend address pool.
 type BackendAddressPoolPropertiesFormat struct {
-	// Location - The location of the backend address pool.
-	Location *string `json:"location,omitempty"`
 	// LoadBalancerBackendAddresses - An array of backend addresses.
 	LoadBalancerBackendAddresses *[]LoadBalancerBackendAddress `json:"loadBalancerBackendAddresses,omitempty"`
 	// BackendIPConfigurations - READ-ONLY; An array of references to IP addresses defined in network interfaces.
@@ -7593,9 +7591,6 @@ type BackendAddressPoolPropertiesFormat struct {
 // MarshalJSON is the custom marshaler for BackendAddressPoolPropertiesFormat.
 func (bappf BackendAddressPoolPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	if bappf.Location != nil {
-		objectMap["location"] = bappf.Location
-	}
 	if bappf.LoadBalancerBackendAddresses != nil {
 		objectMap["loadBalancerBackendAddresses"] = bappf.LoadBalancerBackendAddresses
 	}
