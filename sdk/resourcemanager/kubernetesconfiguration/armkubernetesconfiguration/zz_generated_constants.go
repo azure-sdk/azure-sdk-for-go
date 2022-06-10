@@ -10,7 +10,7 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "armkubernetesconfiguration"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // AKSIdentityType - The identity type.
@@ -244,6 +244,7 @@ func PossibleScopeTypeValues() []ScopeType {
 type SourceKindType string
 
 const (
+	SourceKindTypeAzureBlob     SourceKindType = "AzureBlob"
 	SourceKindTypeBucket        SourceKindType = "Bucket"
 	SourceKindTypeGitRepository SourceKindType = "GitRepository"
 )
@@ -251,6 +252,7 @@ const (
 // PossibleSourceKindTypeValues returns the possible values for the SourceKindType const type.
 func PossibleSourceKindTypeValues() []SourceKindType {
 	return []SourceKindType{
+		SourceKindTypeAzureBlob,
 		SourceKindTypeBucket,
 		SourceKindTypeGitRepository,
 	}

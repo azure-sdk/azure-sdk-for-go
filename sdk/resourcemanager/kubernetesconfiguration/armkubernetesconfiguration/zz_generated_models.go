@@ -10,7 +10,69 @@ package armkubernetesconfiguration
 
 import "time"
 
-// BucketDefinition - Parameters to reconcile to the GitRepository source kind type.
+// AzureBlobDefinition - Parameters to reconcile to the AzureBlob source kind type.
+type AzureBlobDefinition struct {
+	// The account key (shared key) to access the storage account
+	AccountKey *string `json:"accountKey,omitempty"`
+
+	// The Azure Blob container name to sync from the url endpoint for the flux configuration.
+	ContainerName *string `json:"containerName,omitempty"`
+
+	// Name of a local secret on the Kubernetes cluster to use as the authentication secret rather than the managed or user-provided
+	// configuration secrets.
+	LocalAuthRef *string `json:"localAuthRef,omitempty"`
+
+	// Parameters to authenticate using a Managed Identity.
+	ManagedIdentity *ManagedIdentityDefinition `json:"managedIdentity,omitempty"`
+
+	// The Shared Access token to access the storage container
+	SasToken *string `json:"sasToken,omitempty"`
+
+	// Parameters to authenticate using Service Principal.
+	ServicePrincipal *ServicePrincipalDefinition `json:"servicePrincipal,omitempty"`
+
+	// The interval at which to re-reconcile the cluster Azure Blob source with the remote.
+	SyncIntervalInSeconds *int64 `json:"syncIntervalInSeconds,omitempty"`
+
+	// The maximum time to attempt to reconcile the cluster Azure Blob source with the remote.
+	TimeoutInSeconds *int64 `json:"timeoutInSeconds,omitempty"`
+
+	// The URL to sync for the flux configuration Azure Blob storage account.
+	URL *string `json:"url,omitempty"`
+}
+
+// AzureBlobPatchDefinition - Parameters to reconcile to the AzureBlob source kind type.
+type AzureBlobPatchDefinition struct {
+	// The account key (shared key) to access the storage account
+	AccountKey *string `json:"accountKey,omitempty"`
+
+	// The Azure Blob container name to sync from the url endpoint for the flux configuration.
+	ContainerName *string `json:"containerName,omitempty"`
+
+	// Name of a local secret on the Kubernetes cluster to use as the authentication secret rather than the managed or user-provided
+	// configuration secrets.
+	LocalAuthRef *string `json:"localAuthRef,omitempty"`
+
+	// Parameters to authenticate using a Managed Identity.
+	ManagedIdentity *ManagedIdentityPatchDefinition `json:"managedIdentity,omitempty"`
+
+	// The Shared Access token to access the storage container
+	SasToken *string `json:"sasToken,omitempty"`
+
+	// Parameters to authenticate using Service Principal.
+	ServicePrincipal *ServicePrincipalPatchDefinition `json:"servicePrincipal,omitempty"`
+
+	// The interval at which to re-reconcile the cluster Azure Blob source with the remote.
+	SyncIntervalInSeconds *int64 `json:"syncIntervalInSeconds,omitempty"`
+
+	// The maximum time to attempt to reconcile the cluster Azure Blob source with the remote.
+	TimeoutInSeconds *int64 `json:"timeoutInSeconds,omitempty"`
+
+	// The URL to sync for the flux configuration Azure Blob storage account.
+	URL *string `json:"url,omitempty"`
+}
+
+// BucketDefinition - Parameters to reconcile to the Bucket source kind type.
 type BucketDefinition struct {
 	// Plaintext access key used to securely access the S3 bucket
 	AccessKey *string `json:"accessKey,omitempty"`
@@ -25,17 +87,17 @@ type BucketDefinition struct {
 	// configuration secrets.
 	LocalAuthRef *string `json:"localAuthRef,omitempty"`
 
-	// The interval at which to re-reconcile the cluster git repository source with the remote.
+	// The interval at which to re-reconcile the cluster bucket source with the remote.
 	SyncIntervalInSeconds *int64 `json:"syncIntervalInSeconds,omitempty"`
 
-	// The maximum time to attempt to reconcile the cluster git repository source with the remote.
+	// The maximum time to attempt to reconcile the cluster bucket source with the remote.
 	TimeoutInSeconds *int64 `json:"timeoutInSeconds,omitempty"`
 
 	// The URL to sync for the flux configuration S3 bucket.
 	URL *string `json:"url,omitempty"`
 }
 
-// BucketPatchDefinition - Parameters to reconcile to the GitRepository source kind type.
+// BucketPatchDefinition - Parameters to reconcile to the Bucket source kind type.
 type BucketPatchDefinition struct {
 	// Plaintext access key used to securely access the S3 bucket
 	AccessKey *string `json:"accessKey,omitempty"`
@@ -50,10 +112,10 @@ type BucketPatchDefinition struct {
 	// configuration secrets.
 	LocalAuthRef *string `json:"localAuthRef,omitempty"`
 
-	// The interval at which to re-reconcile the cluster git repository source with the remote.
+	// The interval at which to re-reconcile the cluster bucket source with the remote.
 	SyncIntervalInSeconds *int64 `json:"syncIntervalInSeconds,omitempty"`
 
-	// The maximum time to attempt to reconcile the cluster git repository source with the remote.
+	// The maximum time to attempt to reconcile the cluster bucket source with the remote.
 	TimeoutInSeconds *int64 `json:"timeoutInSeconds,omitempty"`
 
 	// The URL to sync for the flux configuration S3 bucket.
@@ -280,6 +342,9 @@ type FluxConfigurationPatch struct {
 
 // FluxConfigurationPatchProperties - Updatable properties of an Flux Configuration Patch Request
 type FluxConfigurationPatchProperties struct {
+	// Parameters to reconcile to the AzureBlob source kind type.
+	AzureBlob *AzureBlobPatchDefinition `json:"azureBlob,omitempty"`
+
 	// Parameters to reconcile to the Bucket source kind type.
 	Bucket *BucketPatchDefinition `json:"bucket,omitempty"`
 
@@ -301,6 +366,9 @@ type FluxConfigurationPatchProperties struct {
 
 // FluxConfigurationProperties - Properties to create a Flux Configuration resource
 type FluxConfigurationProperties struct {
+	// Parameters to reconcile to the AzureBlob source kind type.
+	AzureBlob *AzureBlobDefinition `json:"azureBlob,omitempty"`
+
 	// Parameters to reconcile to the Bucket source kind type.
 	Bucket *BucketDefinition `json:"bucket,omitempty"`
 
@@ -545,6 +613,18 @@ type KustomizationPatchDefinition struct {
 	TimeoutInSeconds *int64 `json:"timeoutInSeconds,omitempty"`
 }
 
+// ManagedIdentityDefinition - Parameters to authenticate using a Managed Identity.
+type ManagedIdentityDefinition struct {
+	// The client Id for authenticating a Managed Identity.
+	ClientID *string `json:"clientId,omitempty"`
+}
+
+// ManagedIdentityPatchDefinition - Parameters to authenticate using a Managed Identity.
+type ManagedIdentityPatchDefinition struct {
+	// The client Id for authenticating a Managed Identity.
+	ClientID *string `json:"clientId,omitempty"`
+}
+
 // ObjectReferenceDefinition - Object reference to a Kubernetes object on a cluster
 type ObjectReferenceDefinition struct {
 	// Name of the object
@@ -763,6 +843,50 @@ type ScopeNamespace struct {
 	// Namespace where the extension will be created for an Namespace scoped extension. If this namespace does not exist, it will
 	// be created
 	TargetNamespace *string `json:"targetNamespace,omitempty"`
+}
+
+// ServicePrincipalDefinition - Parameters to authenticate using Service Principal.
+type ServicePrincipalDefinition struct {
+	// Base64-encoded certificate used to authenticate a Service Principal
+	ClientCertificate *string `json:"clientCertificate,omitempty"`
+
+	// The password for the certificate used to authenticate a Service Principal
+	ClientCertificatePassword *string `json:"clientCertificatePassword,omitempty"`
+
+	// Specifies whether to include x5c header in client claims when acquiring a token to enable subject name / issuer based authentication
+	// for the Client Certificate
+	ClientCertificateSendChain *bool `json:"clientCertificateSendChain,omitempty"`
+
+	// The client Id for authenticating a Service Principal.
+	ClientID *string `json:"clientId,omitempty"`
+
+	// The client secret for authenticating a Service Principal
+	ClientSecret *string `json:"clientSecret,omitempty"`
+
+	// The tenant Id for authenticating a Service Principal
+	TenantID *string `json:"tenantId,omitempty"`
+}
+
+// ServicePrincipalPatchDefinition - Parameters to authenticate using Service Principal.
+type ServicePrincipalPatchDefinition struct {
+	// Base64-encoded certificate used to authenticate a Service Principal
+	ClientCertificate *string `json:"clientCertificate,omitempty"`
+
+	// The password for the certificate used to authenticate a Service Principal
+	ClientCertificatePassword *string `json:"clientCertificatePassword,omitempty"`
+
+	// Specifies whether to include x5c header in client claims when acquiring a token to enable subject name / issuer based authentication
+	// for the Client Certificate
+	ClientCertificateSendChain *bool `json:"clientCertificateSendChain,omitempty"`
+
+	// The client Id for authenticating a Service Principal.
+	ClientID *string `json:"clientId,omitempty"`
+
+	// The client secret for authenticating a Service Principal
+	ClientSecret *string `json:"clientSecret,omitempty"`
+
+	// The tenant Id for authenticating a Service Principal
+	TenantID *string `json:"tenantId,omitempty"`
 }
 
 // SourceControlConfiguration - The SourceControl Configuration object returned in Get & Put response.

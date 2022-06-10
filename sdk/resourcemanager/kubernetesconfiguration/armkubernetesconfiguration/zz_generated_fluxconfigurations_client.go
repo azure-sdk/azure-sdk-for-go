@@ -57,7 +57,7 @@ func NewFluxConfigurationsClient(subscriptionID string, credential azcore.TokenC
 
 // BeginCreateOrUpdate - Create a new Kubernetes Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -82,7 +82,7 @@ func (client *FluxConfigurationsClient) BeginCreateOrUpdate(ctx context.Context,
 
 // CreateOrUpdate - Create a new Kubernetes Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 func (client *FluxConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfiguration FluxConfiguration, options *FluxConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, fluxConfiguration, options)
 	if err != nil {
@@ -130,7 +130,7 @@ func (client *FluxConfigurationsClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, fluxConfiguration)
@@ -139,7 +139,7 @@ func (client *FluxConfigurationsClient) createOrUpdateCreateRequest(ctx context.
 // BeginDelete - This will delete the YAML file used to set up the Flux Configuration, thus stopping future sync from the
 // source repo.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -164,7 +164,7 @@ func (client *FluxConfigurationsClient) BeginDelete(ctx context.Context, resourc
 // Delete - This will delete the YAML file used to set up the Flux Configuration, thus stopping future sync from the source
 // repo.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 func (client *FluxConfigurationsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, options *FluxConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, options)
 	if err != nil {
@@ -212,7 +212,7 @@ func (client *FluxConfigurationsClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	if options != nil && options.ForceDelete != nil {
 		reqQP.Set("forceDelete", strconv.FormatBool(*options.ForceDelete))
 	}
@@ -223,7 +223,7 @@ func (client *FluxConfigurationsClient) deleteCreateRequest(ctx context.Context,
 
 // Get - Gets details of the Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -277,7 +277,7 @@ func (client *FluxConfigurationsClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -294,7 +294,7 @@ func (client *FluxConfigurationsClient) getHandleResponse(resp *http.Response) (
 
 // NewListPager - List all Flux Configurations.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -356,7 +356,7 @@ func (client *FluxConfigurationsClient) listCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -373,7 +373,7 @@ func (client *FluxConfigurationsClient) listHandleResponse(resp *http.Response) 
 
 // BeginUpdate - Update an existing Kubernetes Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -398,7 +398,7 @@ func (client *FluxConfigurationsClient) BeginUpdate(ctx context.Context, resourc
 
 // Update - Update an existing Kubernetes Flux Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 func (client *FluxConfigurationsClient) update(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, fluxConfigurationPatch FluxConfigurationPatch, options *FluxConfigurationsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, fluxConfigurationPatch, options)
 	if err != nil {
@@ -446,7 +446,7 @@ func (client *FluxConfigurationsClient) updateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, fluxConfigurationPatch)

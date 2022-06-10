@@ -1,5 +1,19 @@
 # Release History
 
+## 1.1.0 (2022-06-10)
+### Features Added
+
+- New const `SourceKindTypeAzureBlob`
+- New struct `AzureBlobDefinition`
+- New struct `AzureBlobPatchDefinition`
+- New struct `ManagedIdentityDefinition`
+- New struct `ManagedIdentityPatchDefinition`
+- New struct `ServicePrincipalDefinition`
+- New struct `ServicePrincipalPatchDefinition`
+- New field `AzureBlob` in struct `FluxConfigurationProperties`
+- New field `AzureBlob` in struct `FluxConfigurationPatchProperties`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/kubernetesconfiguration/armkubernetesconfiguration` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.

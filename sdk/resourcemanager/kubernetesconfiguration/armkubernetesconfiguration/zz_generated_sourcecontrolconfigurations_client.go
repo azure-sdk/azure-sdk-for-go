@@ -56,7 +56,7 @@ func NewSourceControlConfigurationsClient(subscriptionID string, credential azco
 
 // CreateOrUpdate - Create a new Kubernetes Source Control Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -112,7 +112,7 @@ func (client *SourceControlConfigurationsClient) createOrUpdateCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, sourceControlConfiguration)
@@ -130,7 +130,7 @@ func (client *SourceControlConfigurationsClient) createOrUpdateHandleResponse(re
 // BeginDelete - This will delete the YAML file used to set up the Source control configuration, thus stopping future sync
 // from the source repo.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -153,7 +153,7 @@ func (client *SourceControlConfigurationsClient) BeginDelete(ctx context.Context
 // Delete - This will delete the YAML file used to set up the Source control configuration, thus stopping future sync from
 // the source repo.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 func (client *SourceControlConfigurationsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, sourceControlConfigurationName string, options *SourceControlConfigurationsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, sourceControlConfigurationName, options)
 	if err != nil {
@@ -201,7 +201,7 @@ func (client *SourceControlConfigurationsClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -209,7 +209,7 @@ func (client *SourceControlConfigurationsClient) deleteCreateRequest(ctx context
 
 // Get - Gets details of the Source Control Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -264,7 +264,7 @@ func (client *SourceControlConfigurationsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -281,7 +281,7 @@ func (client *SourceControlConfigurationsClient) getHandleResponse(resp *http.Re
 
 // NewListPager - List all Source Control Configurations.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-07-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 // clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -344,7 +344,7 @@ func (client *SourceControlConfigurationsClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-07-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

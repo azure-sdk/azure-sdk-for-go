@@ -95,6 +95,7 @@ func (f FluxConfigurationPatch) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type FluxConfigurationPatchProperties.
 func (f FluxConfigurationPatchProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "azureBlob", f.AzureBlob)
 	populate(objectMap, "bucket", f.Bucket)
 	populate(objectMap, "configurationProtectedSettings", f.ConfigurationProtectedSettings)
 	populate(objectMap, "gitRepository", f.GitRepository)
@@ -107,6 +108,7 @@ func (f FluxConfigurationPatchProperties) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type FluxConfigurationProperties.
 func (f FluxConfigurationProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "azureBlob", f.AzureBlob)
 	populate(objectMap, "bucket", f.Bucket)
 	populate(objectMap, "complianceState", f.ComplianceState)
 	populate(objectMap, "configurationProtectedSettings", f.ConfigurationProtectedSettings)
@@ -135,6 +137,9 @@ func (f *FluxConfigurationProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "azureBlob":
+			err = unpopulate(val, "AzureBlob", &f.AzureBlob)
+			delete(rawMsg, key)
 		case "bucket":
 			err = unpopulate(val, "Bucket", &f.Bucket)
 			delete(rawMsg, key)
