@@ -1,5 +1,25 @@
 # Release History
 
+## 1.2.0 (2022-06-10)
+### Features Added
+
+- New const `RestServiceAuthenticationTypeOAuth2ClientCredential`
+- New function `*SapOdpSource.GetCopySource() *CopySource`
+- New function `*SapOdpSource.GetTabularSource() *TabularSource`
+- New function `*SapOdpLinkedService.GetLinkedService() *LinkedService`
+- New function `*SapOdpResourceDataset.GetDataset() *Dataset`
+- New struct `SapOdpLinkedService`
+- New struct `SapOdpLinkedServiceTypeProperties`
+- New struct `SapOdpResourceDataset`
+- New struct `SapOdpResourceDatasetTypeProperties`
+- New struct `SapOdpSource`
+- New field `ClientSecret` in struct `RestServiceLinkedServiceTypeProperties`
+- New field `Scope` in struct `RestServiceLinkedServiceTypeProperties`
+- New field `Resource` in struct `RestServiceLinkedServiceTypeProperties`
+- New field `ClientID` in struct `RestServiceLinkedServiceTypeProperties`
+- New field `TokenEndpoint` in struct `RestServiceLinkedServiceTypeProperties`
+
+
 ## 1.1.0 (2022-05-30)
 ### Features Added
 
