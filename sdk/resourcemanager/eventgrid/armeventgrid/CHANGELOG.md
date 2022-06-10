@@ -1,5 +1,256 @@
 # Release History
 
+## 2.0.0 (2022-06-10)
+### Breaking Changes
+
+- Type of `TopicTypeProperties.SupportedScopesForSource` has been changed from `[]*TopicTypePropertiesSupportedScopesForSourceItem` to `[]*TopicTypeSourceScope`
+- Const `TopicTypePropertiesSupportedScopesForSourceItemResourceGroup` has been removed
+- Const `TopicTypePropertiesSupportedScopesForSourceItemAzureSubscription` has been removed
+- Const `TopicTypePropertiesSupportedScopesForSourceItemResource` has been removed
+- Function `PossibleTopicTypePropertiesSupportedScopesForSourceItemValues` has been removed
+
+### Features Added
+
+- New const `PartnerNamespaceProvisioningStateCanceled`
+- New const `PartnerTopicProvisioningStateSucceeded`
+- New const `EventDefinitionKindInline`
+- New const `PartnerTopicRoutingModeSourceEventAttribute`
+- New const `ReadinessStateActivated`
+- New const `TopicTypeSourceScopeResourceGroup`
+- New const `DataResidencyBoundaryWithinRegion`
+- New const `VerifiedPartnerProvisioningStateUpdating`
+- New const `PartnerRegistrationProvisioningStateCreating`
+- New const `ChannelProvisioningStateUpdating`
+- New const `TopicTypeSourceScopeManagementGroup`
+- New const `ChannelProvisioningStateSucceeded`
+- New const `PartnerTopicProvisioningStateCanceled`
+- New const `PartnerTopicProvisioningStateIdleDueToMirroredChannelResourceDeletion`
+- New const `VerifiedPartnerProvisioningStateSucceeded`
+- New const `PartnerTopicProvisioningStateDeleting`
+- New const `PartnerConfigurationProvisioningStateCreating`
+- New const `VerifiedPartnerProvisioningStateCreating`
+- New const `TopicTypeSourceScopeAzureSubscription`
+- New const `ChannelProvisioningStateCanceled`
+- New const `PrivateEndpointConnectionsParentTypePartnerNamespaces`
+- New const `PartnerTopicActivationStateDeactivated`
+- New const `PartnerTopicActivationStateActivated`
+- New const `PartnerRegistrationProvisioningStateSucceeded`
+- New const `PartnerTopicRoutingModeChannelNameHeader`
+- New const `PartnerNamespaceProvisioningStateCreating`
+- New const `PartnerRegistrationProvisioningStateCanceled`
+- New const `PartnerTopicProvisioningStateUpdating`
+- New const `PartnerConfigurationProvisioningStateFailed`
+- New const `PartnerRegistrationProvisioningStateDeleting`
+- New const `PartnerConfigurationProvisioningStateSucceeded`
+- New const `PartnerConfigurationProvisioningStateCanceled`
+- New const `PartnerRegistrationProvisioningStateUpdating`
+- New const `VerifiedPartnerProvisioningStateDeleting`
+- New const `PartnerConfigurationProvisioningStateDeleting`
+- New const `VerifiedPartnerProvisioningStateCanceled`
+- New const `PartnerConfigurationProvisioningStateUpdating`
+- New const `ReadinessStateNeverActivated`
+- New const `PartnerTopicProvisioningStateFailed`
+- New const `PartnerNamespaceProvisioningStateFailed`
+- New const `TopicTypeSourceScopeResource`
+- New const `ChannelProvisioningStateFailed`
+- New const `VerifiedPartnerProvisioningStateFailed`
+- New const `PartnerNamespaceProvisioningStateUpdating`
+- New const `PartnerNamespaceProvisioningStateSucceeded`
+- New const `ChannelTypePartnerTopic`
+- New const `PartnerNamespaceProvisioningStateDeleting`
+- New const `PartnerTopicProvisioningStateCreating`
+- New const `PartnerTopicActivationStateNeverActivated`
+- New const `DataResidencyBoundaryWithinGeopair`
+- New const `ChannelProvisioningStateIdleDueToMirroredPartnerTopicDeletion`
+- New const `PartnerRegistrationProvisioningStateFailed`
+- New const `ChannelProvisioningStateDeleting`
+- New const `ChannelProvisioningStateCreating`
+- New function `PossiblePartnerTopicRoutingModeValues() []PartnerTopicRoutingMode`
+- New function `PossibleTopicTypeSourceScopeValues() []TopicTypeSourceScope`
+- New function `PossibleEventDefinitionKindValues() []EventDefinitionKind`
+- New function `PossiblePartnerTopicProvisioningStateValues() []PartnerTopicProvisioningState`
+- New function `PossibleReadinessStateValues() []ReadinessState`
+- New function `PossiblePartnerConfigurationProvisioningStateValues() []PartnerConfigurationProvisioningState`
+- New function `PossiblePartnerRegistrationProvisioningStateValues() []PartnerRegistrationProvisioningState`
+- New function `PossiblePartnerTopicActivationStateValues() []PartnerTopicActivationState`
+- New function `PossiblePartnerNamespaceProvisioningStateValues() []PartnerNamespaceProvisioningState`
+- New function `PossibleChannelProvisioningStateValues() []ChannelProvisioningState`
+- New function `PossibleVerifiedPartnerProvisioningStateValues() []VerifiedPartnerProvisioningState`
+- New function `PossibleDataResidencyBoundaryValues() []DataResidencyBoundary`
+- New function `PossibleChannelTypeValues() []ChannelType`
+- New struct `Channel`
+- New struct `ChannelProperties`
+- New struct `ChannelUpdateParameters`
+- New struct `ChannelUpdateParametersProperties`
+- New struct `ChannelsClientBeginDeleteOptions`
+- New struct `ChannelsClientCreateOrUpdateOptions`
+- New struct `ChannelsClientCreateOrUpdateResponse`
+- New struct `ChannelsClientDeleteResponse`
+- New struct `ChannelsClientGetFullURLOptions`
+- New struct `ChannelsClientGetFullURLResponse`
+- New struct `ChannelsClientGetOptions`
+- New struct `ChannelsClientGetResponse`
+- New struct `ChannelsClientListByPartnerNamespaceOptions`
+- New struct `ChannelsClientListByPartnerNamespaceResponse`
+- New struct `ChannelsClientUpdateOptions`
+- New struct `ChannelsClientUpdateResponse`
+- New struct `ChannelsListResult`
+- New struct `DomainEventSubscriptionsClientBeginCreateOrUpdateOptions`
+- New struct `DomainEventSubscriptionsClientBeginDeleteOptions`
+- New struct `DomainEventSubscriptionsClientBeginUpdateOptions`
+- New struct `DomainEventSubscriptionsClientCreateOrUpdateResponse`
+- New struct `DomainEventSubscriptionsClientDeleteResponse`
+- New struct `DomainEventSubscriptionsClientGetDeliveryAttributesOptions`
+- New struct `DomainEventSubscriptionsClientGetDeliveryAttributesResponse`
+- New struct `DomainEventSubscriptionsClientGetFullURLOptions`
+- New struct `DomainEventSubscriptionsClientGetFullURLResponse`
+- New struct `DomainEventSubscriptionsClientGetOptions`
+- New struct `DomainEventSubscriptionsClientGetResponse`
+- New struct `DomainEventSubscriptionsClientListOptions`
+- New struct `DomainEventSubscriptionsClientListResponse`
+- New struct `DomainEventSubscriptionsClientUpdateResponse`
+- New struct `DomainTopicEventSubscriptionsClientBeginCreateOrUpdateOptions`
+- New struct `DomainTopicEventSubscriptionsClientBeginDeleteOptions`
+- New struct `DomainTopicEventSubscriptionsClientBeginUpdateOptions`
+- New struct `DomainTopicEventSubscriptionsClientCreateOrUpdateResponse`
+- New struct `DomainTopicEventSubscriptionsClientDeleteResponse`
+- New struct `DomainTopicEventSubscriptionsClientGetDeliveryAttributesOptions`
+- New struct `DomainTopicEventSubscriptionsClientGetDeliveryAttributesResponse`
+- New struct `DomainTopicEventSubscriptionsClientGetFullURLOptions`
+- New struct `DomainTopicEventSubscriptionsClientGetFullURLResponse`
+- New struct `DomainTopicEventSubscriptionsClientGetOptions`
+- New struct `DomainTopicEventSubscriptionsClientGetResponse`
+- New struct `DomainTopicEventSubscriptionsClientListOptions`
+- New struct `DomainTopicEventSubscriptionsClientListResponse`
+- New struct `DomainTopicEventSubscriptionsClientUpdateResponse`
+- New struct `EventTypeInfo`
+- New struct `InlineEventProperties`
+- New struct `Partner`
+- New struct `PartnerAuthorization`
+- New struct `PartnerConfiguration`
+- New struct `PartnerConfigurationProperties`
+- New struct `PartnerConfigurationUpdateParameterProperties`
+- New struct `PartnerConfigurationUpdateParameters`
+- New struct `PartnerConfigurationsClientAuthorizePartnerOptions`
+- New struct `PartnerConfigurationsClientAuthorizePartnerResponse`
+- New struct `PartnerConfigurationsClientBeginCreateOrUpdateOptions`
+- New struct `PartnerConfigurationsClientBeginDeleteOptions`
+- New struct `PartnerConfigurationsClientBeginUpdateOptions`
+- New struct `PartnerConfigurationsClientCreateOrUpdateResponse`
+- New struct `PartnerConfigurationsClientDeleteResponse`
+- New struct `PartnerConfigurationsClientGetOptions`
+- New struct `PartnerConfigurationsClientGetResponse`
+- New struct `PartnerConfigurationsClientListByResourceGroupOptions`
+- New struct `PartnerConfigurationsClientListByResourceGroupResponse`
+- New struct `PartnerConfigurationsClientListBySubscriptionOptions`
+- New struct `PartnerConfigurationsClientListBySubscriptionResponse`
+- New struct `PartnerConfigurationsClientUnauthorizePartnerOptions`
+- New struct `PartnerConfigurationsClientUnauthorizePartnerResponse`
+- New struct `PartnerConfigurationsClientUpdateResponse`
+- New struct `PartnerConfigurationsListResult`
+- New struct `PartnerDetails`
+- New struct `PartnerNamespace`
+- New struct `PartnerNamespaceProperties`
+- New struct `PartnerNamespaceRegenerateKeyRequest`
+- New struct `PartnerNamespaceSharedAccessKeys`
+- New struct `PartnerNamespaceUpdateParameterProperties`
+- New struct `PartnerNamespaceUpdateParameters`
+- New struct `PartnerNamespacesClientBeginCreateOrUpdateOptions`
+- New struct `PartnerNamespacesClientBeginDeleteOptions`
+- New struct `PartnerNamespacesClientBeginUpdateOptions`
+- New struct `PartnerNamespacesClientCreateOrUpdateResponse`
+- New struct `PartnerNamespacesClientDeleteResponse`
+- New struct `PartnerNamespacesClientGetOptions`
+- New struct `PartnerNamespacesClientGetResponse`
+- New struct `PartnerNamespacesClientListByResourceGroupOptions`
+- New struct `PartnerNamespacesClientListByResourceGroupResponse`
+- New struct `PartnerNamespacesClientListBySubscriptionOptions`
+- New struct `PartnerNamespacesClientListBySubscriptionResponse`
+- New struct `PartnerNamespacesClientListSharedAccessKeysOptions`
+- New struct `PartnerNamespacesClientListSharedAccessKeysResponse`
+- New struct `PartnerNamespacesClientRegenerateKeyOptions`
+- New struct `PartnerNamespacesClientRegenerateKeyResponse`
+- New struct `PartnerNamespacesClientUpdateResponse`
+- New struct `PartnerNamespacesListResult`
+- New struct `PartnerRegistration`
+- New struct `PartnerRegistrationProperties`
+- New struct `PartnerRegistrationUpdateParameters`
+- New struct `PartnerRegistrationsClientBeginCreateOrUpdateOptions`
+- New struct `PartnerRegistrationsClientBeginDeleteOptions`
+- New struct `PartnerRegistrationsClientBeginUpdateOptions`
+- New struct `PartnerRegistrationsClientCreateOrUpdateResponse`
+- New struct `PartnerRegistrationsClientDeleteResponse`
+- New struct `PartnerRegistrationsClientGetOptions`
+- New struct `PartnerRegistrationsClientGetResponse`
+- New struct `PartnerRegistrationsClientListByResourceGroupOptions`
+- New struct `PartnerRegistrationsClientListByResourceGroupResponse`
+- New struct `PartnerRegistrationsClientListBySubscriptionOptions`
+- New struct `PartnerRegistrationsClientListBySubscriptionResponse`
+- New struct `PartnerRegistrationsClientUpdateResponse`
+- New struct `PartnerRegistrationsListResult`
+- New struct `PartnerTopic`
+- New struct `PartnerTopicEventSubscriptionsClientBeginCreateOrUpdateOptions`
+- New struct `PartnerTopicEventSubscriptionsClientBeginDeleteOptions`
+- New struct `PartnerTopicEventSubscriptionsClientBeginUpdateOptions`
+- New struct `PartnerTopicEventSubscriptionsClientCreateOrUpdateResponse`
+- New struct `PartnerTopicEventSubscriptionsClientDeleteResponse`
+- New struct `PartnerTopicEventSubscriptionsClientGetDeliveryAttributesOptions`
+- New struct `PartnerTopicEventSubscriptionsClientGetDeliveryAttributesResponse`
+- New struct `PartnerTopicEventSubscriptionsClientGetFullURLOptions`
+- New struct `PartnerTopicEventSubscriptionsClientGetFullURLResponse`
+- New struct `PartnerTopicEventSubscriptionsClientGetOptions`
+- New struct `PartnerTopicEventSubscriptionsClientGetResponse`
+- New struct `PartnerTopicEventSubscriptionsClientListByPartnerTopicOptions`
+- New struct `PartnerTopicEventSubscriptionsClientListByPartnerTopicResponse`
+- New struct `PartnerTopicEventSubscriptionsClientUpdateResponse`
+- New struct `PartnerTopicInfo`
+- New struct `PartnerTopicProperties`
+- New struct `PartnerTopicUpdateParameters`
+- New struct `PartnerTopicsClientActivateOptions`
+- New struct `PartnerTopicsClientActivateResponse`
+- New struct `PartnerTopicsClientBeginDeleteOptions`
+- New struct `PartnerTopicsClientCreateOrUpdateOptions`
+- New struct `PartnerTopicsClientCreateOrUpdateResponse`
+- New struct `PartnerTopicsClientDeactivateOptions`
+- New struct `PartnerTopicsClientDeactivateResponse`
+- New struct `PartnerTopicsClientDeleteResponse`
+- New struct `PartnerTopicsClientGetOptions`
+- New struct `PartnerTopicsClientGetResponse`
+- New struct `PartnerTopicsClientListByResourceGroupOptions`
+- New struct `PartnerTopicsClientListByResourceGroupResponse`
+- New struct `PartnerTopicsClientListBySubscriptionOptions`
+- New struct `PartnerTopicsClientListBySubscriptionResponse`
+- New struct `PartnerTopicsClientUpdateOptions`
+- New struct `PartnerTopicsClientUpdateResponse`
+- New struct `PartnerTopicsListResult`
+- New struct `PartnerUpdateTopicInfo`
+- New struct `TopicEventSubscriptionsClientBeginCreateOrUpdateOptions`
+- New struct `TopicEventSubscriptionsClientBeginDeleteOptions`
+- New struct `TopicEventSubscriptionsClientBeginUpdateOptions`
+- New struct `TopicEventSubscriptionsClientCreateOrUpdateResponse`
+- New struct `TopicEventSubscriptionsClientDeleteResponse`
+- New struct `TopicEventSubscriptionsClientGetDeliveryAttributesOptions`
+- New struct `TopicEventSubscriptionsClientGetDeliveryAttributesResponse`
+- New struct `TopicEventSubscriptionsClientGetFullURLOptions`
+- New struct `TopicEventSubscriptionsClientGetFullURLResponse`
+- New struct `TopicEventSubscriptionsClientGetOptions`
+- New struct `TopicEventSubscriptionsClientGetResponse`
+- New struct `TopicEventSubscriptionsClientListOptions`
+- New struct `TopicEventSubscriptionsClientListResponse`
+- New struct `TopicEventSubscriptionsClientUpdateResponse`
+- New struct `VerifiedPartner`
+- New struct `VerifiedPartnerProperties`
+- New struct `VerifiedPartnersClientGetOptions`
+- New struct `VerifiedPartnersClientGetResponse`
+- New struct `VerifiedPartnersClientListOptions`
+- New struct `VerifiedPartnersClientListResponse`
+- New struct `VerifiedPartnersListResult`
+- New field `DataResidencyBoundary` in struct `DomainUpdateParameterProperties`
+- New field `DataResidencyBoundary` in struct `DomainProperties`
+- New field `DataResidencyBoundary` in struct `TopicUpdateParameterProperties`
+- New field `DataResidencyBoundary` in struct `TopicProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/eventgrid/armeventgrid` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
