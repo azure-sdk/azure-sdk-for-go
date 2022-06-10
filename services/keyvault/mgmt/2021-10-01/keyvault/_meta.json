@@ -1,5 +1,5 @@
 {
-  "commit": "cd8f049ce47372fd5955c2dfd11daf4a02050fe3",
+  "commit": "b41d940251a770bfb05c729f104c2c57f73279b7",
   "readme": "/_/azure-rest-api-specs/specification/keyvault/resource-manager/readme.md",
   "tag": "package-2021-10",
   "use": "@microsoft.azure/autorest.go@2.1.187",
