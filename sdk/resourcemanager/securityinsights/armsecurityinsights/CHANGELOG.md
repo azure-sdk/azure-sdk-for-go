@@ -883,6 +883,35 @@
 - New field `AzureAsyncOperation` in struct `WatchlistsClientDeleteResponse`
 
 
+## 2.0.0-beta.2 (2022-06-10)
+### Features Added
+
+- New const `DeviceImportanceNormal`
+- New const `DeviceImportanceLow`
+- New const `DeviceImportanceHigh`
+- New const `EntityKindNic`
+- New const `DeviceImportanceUnknown`
+- New const `EntityTypeNic`
+- New function `PossibleDeviceImportanceValues() []DeviceImportance`
+- New function `*NicEntity.GetEntity() *Entity`
+- New struct `NicEntity`
+- New struct `NicEntityProperties`
+- New field `DataCollectionRuleImmutableID` in struct `DataConnectorConnectBody`
+- New field `DataCollectionEndpoint` in struct `DataConnectorConnectBody`
+- New field `OutputStream` in struct `DataConnectorConnectBody`
+- New field `Zone` in struct `IoTDeviceEntityProperties`
+- New field `IsAuthorized` in struct `IoTDeviceEntityProperties`
+- New field `PurdueLayer` in struct `IoTDeviceEntityProperties`
+- New field `IsProgramming` in struct `IoTDeviceEntityProperties`
+- New field `Importance` in struct `IoTDeviceEntityProperties`
+- New field `DeviceSubType` in struct `IoTDeviceEntityProperties`
+- New field `Owners` in struct `IoTDeviceEntityProperties`
+- New field `IsScanner` in struct `IoTDeviceEntityProperties`
+- New field `Site` in struct `IoTDeviceEntityProperties`
+- New field `Sensor` in struct `IoTDeviceEntityProperties`
+- New field `NicEntityIDs` in struct `IoTDeviceEntityProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/securityinsights/armsecurityinsights` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.

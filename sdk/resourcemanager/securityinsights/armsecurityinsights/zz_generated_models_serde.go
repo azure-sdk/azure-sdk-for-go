@@ -1883,7 +1883,10 @@ func (d DataConnectorConnectBody) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "authorizationCode", d.AuthorizationCode)
 	populate(objectMap, "clientId", d.ClientID)
 	populate(objectMap, "clientSecret", d.ClientSecret)
+	populate(objectMap, "dataCollectionEndpoint", d.DataCollectionEndpoint)
+	populate(objectMap, "dataCollectionRuleImmutableId", d.DataCollectionRuleImmutableID)
 	populate(objectMap, "kind", d.Kind)
+	populate(objectMap, "outputStream", d.OutputStream)
 	populate(objectMap, "password", d.Password)
 	populate(objectMap, "requestConfigUserInputValues", d.RequestConfigUserInputValues)
 	populate(objectMap, "userName", d.UserName)
@@ -3533,22 +3536,33 @@ func (i IoTDeviceEntityProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "additionalData", i.AdditionalData)
 	populate(objectMap, "deviceId", i.DeviceID)
 	populate(objectMap, "deviceName", i.DeviceName)
+	populate(objectMap, "deviceSubType", i.DeviceSubType)
 	populate(objectMap, "deviceType", i.DeviceType)
 	populate(objectMap, "edgeId", i.EdgeID)
 	populate(objectMap, "firmwareVersion", i.FirmwareVersion)
 	populate(objectMap, "friendlyName", i.FriendlyName)
 	populate(objectMap, "hostEntityId", i.HostEntityID)
 	populate(objectMap, "ipAddressEntityId", i.IPAddressEntityID)
+	populate(objectMap, "importance", i.Importance)
 	populate(objectMap, "iotHubEntityId", i.IotHubEntityID)
 	populate(objectMap, "iotSecurityAgentId", i.IotSecurityAgentID)
+	populate(objectMap, "isAuthorized", i.IsAuthorized)
+	populate(objectMap, "isProgramming", i.IsProgramming)
+	populate(objectMap, "isScanner", i.IsScanner)
 	populate(objectMap, "macAddress", i.MacAddress)
 	populate(objectMap, "model", i.Model)
+	populate(objectMap, "nicEntityIds", i.NicEntityIDs)
 	populate(objectMap, "operatingSystem", i.OperatingSystem)
+	populate(objectMap, "owners", i.Owners)
 	populate(objectMap, "protocols", i.Protocols)
+	populate(objectMap, "purdueLayer", i.PurdueLayer)
+	populate(objectMap, "sensor", i.Sensor)
 	populate(objectMap, "serialNumber", i.SerialNumber)
+	populate(objectMap, "site", i.Site)
 	populate(objectMap, "source", i.Source)
 	populate(objectMap, "threatIntelligence", i.ThreatIntelligence)
 	populate(objectMap, "vendor", i.Vendor)
+	populate(objectMap, "zone", i.Zone)
 	return json.Marshal(objectMap)
 }
 
@@ -4992,6 +5006,64 @@ func (m *MtpCheckRequirements) UnmarshalJSON(data []byte) error {
 		}
 	}
 	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type NicEntity.
+func (n NicEntity) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", n.ID)
+	objectMap["kind"] = EntityKindNic
+	populate(objectMap, "name", n.Name)
+	populate(objectMap, "properties", n.Properties)
+	populate(objectMap, "systemData", n.SystemData)
+	populate(objectMap, "type", n.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type NicEntity.
+func (n *NicEntity) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", n, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &n.ID)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, "Kind", &n.Kind)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &n.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &n.Properties)
+			delete(rawMsg, key)
+		case "systemData":
+			err = unpopulate(val, "SystemData", &n.SystemData)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &n.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", n, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type NicEntityProperties.
+func (n NicEntityProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "additionalData", n.AdditionalData)
+	populate(objectMap, "friendlyName", n.FriendlyName)
+	populate(objectMap, "ipAddressEntityId", n.IPAddressEntityID)
+	populate(objectMap, "macAddress", n.MacAddress)
+	populate(objectMap, "vlans", n.Vlans)
+	return json.Marshal(objectMap)
 }
 
 // MarshalJSON implements the json.Marshaller interface for type NrtAlertRule.

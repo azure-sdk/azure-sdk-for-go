@@ -2169,8 +2169,18 @@ type DataConnectorConnectBody struct {
 	// The client secret of the OAuth 2.0 application.
 	ClientSecret *string `json:"clientSecret,omitempty"`
 
+	// Used in v2 logs connector. Represents the data collection ingestion endpoint in log analytics.
+	DataCollectionEndpoint *string `json:"dataCollectionEndpoint,omitempty"`
+
+	// Used in v2 logs connector. The data collection rule immutable id, the rule defines the transformation and data destination.
+	DataCollectionRuleImmutableID *string `json:"dataCollectionRuleImmutableId,omitempty"`
+
 	// The authentication kind used to poll the data
 	Kind *ConnectAuthKind `json:"kind,omitempty"`
+
+	// Used in v2 logs connector. The stream we are sending the data to, this is the name of the streamDeclarations defined in
+	// the DCR.
+	OutputStream *string `json:"outputStream,omitempty"`
 
 	// The user password in the audit log server.
 	Password                     *string       `json:"password,omitempty"`
@@ -2604,7 +2614,7 @@ type EntitiesRelationsClientListOptions struct {
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *AccountEntity, *AzureResourceEntity, *CloudApplicationEntity, *DNSEntity, *Entity, *FileEntity, *FileHashEntity, *HostEntity,
 // - *HuntingBookmark, *IPEntity, *IoTDeviceEntity, *MailClusterEntity, *MailMessageEntity, *MailboxEntity, *MalwareEntity,
-// - *ProcessEntity, *RegistryKeyEntity, *RegistryValueEntity, *SecurityAlert, *SecurityGroupEntity, *SubmissionMailEntity,
+// - *NicEntity, *ProcessEntity, *RegistryKeyEntity, *RegistryValueEntity, *SecurityAlert, *SecurityGroupEntity, *SubmissionMailEntity,
 // - *URLEntity
 type EntityClassification interface {
 	// GetEntity returns the Entity content of the underlying type.
@@ -4417,6 +4427,9 @@ func (i *IoTDeviceEntity) GetEntity() *Entity {
 
 // IoTDeviceEntityProperties - IoTDevice entity property bag.
 type IoTDeviceEntityProperties struct {
+	// Device importance, determines if the device classified as 'crown jewel'
+	Importance *DeviceImportance `json:"importance,omitempty"`
+
 	// READ-ONLY; A bag of custom fields that should be part of the entity and will be presented to the user.
 	AdditionalData map[string]interface{} `json:"additionalData,omitempty" azure:"ro"`
 
@@ -4425,6 +4438,9 @@ type IoTDeviceEntityProperties struct {
 
 	// READ-ONLY; The friendly name of the device
 	DeviceName *string `json:"deviceName,omitempty" azure:"ro"`
+
+	// READ-ONLY; The subType of the device ('PLC', 'HMI', 'EWS', etc.)
+	DeviceSubType *string `json:"deviceSubType,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the device
 	DeviceType *string `json:"deviceType,omitempty" azure:"ro"`
@@ -4451,20 +4467,44 @@ type IoTDeviceEntityProperties struct {
 	// READ-ONLY; The ID of the security agent running on the device
 	IotSecurityAgentID *string `json:"iotSecurityAgentId,omitempty" azure:"ro"`
 
+	// READ-ONLY; Determines whether the device classified as authorized device
+	IsAuthorized *bool `json:"isAuthorized,omitempty" azure:"ro"`
+
+	// READ-ONLY; Determines whether the device classified as programming device
+	IsProgramming *bool `json:"isProgramming,omitempty" azure:"ro"`
+
+	// READ-ONLY; Is the device classified as a scanner device
+	IsScanner *bool `json:"isScanner,omitempty" azure:"ro"`
+
 	// READ-ONLY; The MAC address of the device
 	MacAddress *string `json:"macAddress,omitempty" azure:"ro"`
 
 	// READ-ONLY; The model of the device
 	Model *string `json:"model,omitempty" azure:"ro"`
 
+	// READ-ONLY; A list of Nic entity ids of the IoTDevice entity.
+	NicEntityIDs []*string `json:"nicEntityIds,omitempty" azure:"ro"`
+
 	// READ-ONLY; The operating system of the device
 	OperatingSystem *string `json:"operatingSystem,omitempty" azure:"ro"`
+
+	// READ-ONLY; A list of owners of the IoTDevice entity.
+	Owners []*string `json:"owners,omitempty" azure:"ro"`
 
 	// READ-ONLY; A list of protocols of the IoTDevice entity.
 	Protocols []*string `json:"protocols,omitempty" azure:"ro"`
 
+	// READ-ONLY; The Purdue Layer of the device
+	PurdueLayer *string `json:"purdueLayer,omitempty" azure:"ro"`
+
+	// READ-ONLY; The sensor the device is monitored by
+	Sensor *string `json:"sensor,omitempty" azure:"ro"`
+
 	// READ-ONLY; The serial number of the device
 	SerialNumber *string `json:"serialNumber,omitempty" azure:"ro"`
+
+	// READ-ONLY; The site of the device
+	Site *string `json:"site,omitempty" azure:"ro"`
 
 	// READ-ONLY; The source of the device
 	Source *string `json:"source,omitempty" azure:"ro"`
@@ -4474,6 +4514,9 @@ type IoTDeviceEntityProperties struct {
 
 	// READ-ONLY; The vendor of the device
 	Vendor *string `json:"vendor,omitempty" azure:"ro"`
+
+	// READ-ONLY; The zone location of the device within a site
+	Zone *string `json:"zone,omitempty" azure:"ro"`
 }
 
 // LastDataReceivedDataType - Data type for last data received
@@ -5686,6 +5729,57 @@ func (m *MtpCheckRequirements) GetDataConnectorsCheckRequirements() *DataConnect
 	return &DataConnectorsCheckRequirements{
 		Kind: m.Kind,
 	}
+}
+
+// NicEntity - Represents an network interface entity.
+type NicEntity struct {
+	// REQUIRED; The kind of the entity.
+	Kind *EntityKind `json:"kind,omitempty"`
+
+	// Network interface entity properties
+	Properties *NicEntityProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GetEntity implements the EntityClassification interface for type NicEntity.
+func (n *NicEntity) GetEntity() *Entity {
+	return &Entity{
+		Kind:       n.Kind,
+		ID:         n.ID,
+		Name:       n.Name,
+		Type:       n.Type,
+		SystemData: n.SystemData,
+	}
+}
+
+// NicEntityProperties - Nic entity property bag.
+type NicEntityProperties struct {
+	// READ-ONLY; A bag of custom fields that should be part of the entity and will be presented to the user.
+	AdditionalData map[string]interface{} `json:"additionalData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The graph item display name which is a short humanly readable description of the graph item instance. This property
+	// is optional and might be system generated.
+	FriendlyName *string `json:"friendlyName,omitempty" azure:"ro"`
+
+	// READ-ONLY; The IP entity id of this network interface
+	IPAddressEntityID *string `json:"ipAddressEntityId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The MAC address of this network interface
+	MacAddress *string `json:"macAddress,omitempty" azure:"ro"`
+
+	// READ-ONLY; A list of VLANs of the network interface entity.
+	Vlans []*string `json:"vlans,omitempty" azure:"ro"`
 }
 
 // NrtAlertRule - Represents NRT alert rule.

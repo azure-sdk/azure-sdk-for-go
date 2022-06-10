@@ -859,6 +859,30 @@ func PossibleDeploymentStateValues() []DeploymentState {
 	}
 }
 
+// DeviceImportance - Device importance, determines if the device classified as 'crown jewel'
+type DeviceImportance string
+
+const (
+	// DeviceImportanceHigh - High
+	DeviceImportanceHigh DeviceImportance = "High"
+	// DeviceImportanceLow - Low
+	DeviceImportanceLow DeviceImportance = "Low"
+	// DeviceImportanceNormal - Normal
+	DeviceImportanceNormal DeviceImportance = "Normal"
+	// DeviceImportanceUnknown - Unknown - Default value
+	DeviceImportanceUnknown DeviceImportance = "Unknown"
+)
+
+// PossibleDeviceImportanceValues returns the possible values for the DeviceImportance const type.
+func PossibleDeviceImportanceValues() []DeviceImportance {
+	return []DeviceImportance{
+		DeviceImportanceHigh,
+		DeviceImportanceLow,
+		DeviceImportanceNormal,
+		DeviceImportanceUnknown,
+	}
+}
+
 // ElevationToken - The elevation token associated with the process.
 type ElevationToken string
 
@@ -926,6 +950,8 @@ const (
 	EntityKindMailbox EntityKind = "Mailbox"
 	// EntityKindMalware - Entity represents malware in the system.
 	EntityKindMalware EntityKind = "Malware"
+	// EntityKindNic - Entity represents network interface in the system.
+	EntityKindNic EntityKind = "Nic"
 	// EntityKindProcess - Entity represents process in the system.
 	EntityKindProcess EntityKind = "Process"
 	// EntityKindRegistryKey - Entity represents registry key in the system.
@@ -959,6 +985,7 @@ func PossibleEntityKindValues() []EntityKind {
 		EntityKindMailMessage,
 		EntityKindMailbox,
 		EntityKindMalware,
+		EntityKindNic,
 		EntityKindProcess,
 		EntityKindRegistryKey,
 		EntityKindRegistryValue,
@@ -1139,6 +1166,8 @@ const (
 	EntityTypeMailbox EntityType = "Mailbox"
 	// EntityTypeMalware - Entity represents malware in the system.
 	EntityTypeMalware EntityType = "Malware"
+	// EntityTypeNic - Entity represents network interface in the system.
+	EntityTypeNic EntityType = "Nic"
 	// EntityTypeProcess - Entity represents process in the system.
 	EntityTypeProcess EntityType = "Process"
 	// EntityTypeRegistryKey - Entity represents registry key in the system.
@@ -1172,6 +1201,7 @@ func PossibleEntityTypeValues() []EntityType {
 		EntityTypeMailMessage,
 		EntityTypeMailbox,
 		EntityTypeMalware,
+		EntityTypeNic,
 		EntityTypeProcess,
 		EntityTypeRegistryKey,
 		EntityTypeRegistryValue,

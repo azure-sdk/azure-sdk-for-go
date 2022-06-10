@@ -297,6 +297,8 @@ func unmarshalEntityClassification(rawMsg json.RawMessage) (EntityClassification
 		b = &MailboxEntity{}
 	case string(EntityKindMalware):
 		b = &MalwareEntity{}
+	case string(EntityKindNic):
+		b = &NicEntity{}
 	case string(EntityKindProcess):
 		b = &ProcessEntity{}
 	case string(EntityKindRegistryKey):
