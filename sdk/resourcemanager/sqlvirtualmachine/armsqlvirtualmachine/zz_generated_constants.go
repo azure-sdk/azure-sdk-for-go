@@ -10,7 +10,7 @@ package armsqlvirtualmachine
 
 const (
 	moduleName    = "armsqlvirtualmachine"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
 
 // AssessmentDayOfWeek - Day of the week to run assessment.
@@ -109,6 +109,22 @@ func PossibleClusterManagerTypeValues() []ClusterManagerType {
 	}
 }
 
+// ClusterSubnetType - Cluster subnet type.
+type ClusterSubnetType string
+
+const (
+	ClusterSubnetTypeMultiSubnet  ClusterSubnetType = "MultiSubnet"
+	ClusterSubnetTypeSingleSubnet ClusterSubnetType = "SingleSubnet"
+)
+
+// PossibleClusterSubnetTypeValues returns the possible values for the ClusterSubnetType const type.
+func PossibleClusterSubnetTypeValues() []ClusterSubnetType {
+	return []ClusterSubnetType{
+		ClusterSubnetTypeMultiSubnet,
+		ClusterSubnetTypeSingleSubnet,
+	}
+}
+
 // Commit - Replica commit mode in availability group.
 type Commit string
 
@@ -140,26 +156,6 @@ func PossibleConnectivityTypeValues() []ConnectivityType {
 		ConnectivityTypeLOCAL,
 		ConnectivityTypePRIVATE,
 		ConnectivityTypePUBLIC,
-	}
-}
-
-// CreatedByType - The type of identity that created the resource.
-type CreatedByType string
-
-const (
-	CreatedByTypeApplication     CreatedByType = "Application"
-	CreatedByTypeKey             CreatedByType = "Key"
-	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
-	CreatedByTypeUser            CreatedByType = "User"
-)
-
-// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
-func PossibleCreatedByTypeValues() []CreatedByType {
-	return []CreatedByType{
-		CreatedByTypeApplication,
-		CreatedByTypeKey,
-		CreatedByTypeManagedIdentity,
-		CreatedByTypeUser,
 	}
 }
 
@@ -241,20 +237,20 @@ func PossibleFullBackupFrequencyTypeValues() []FullBackupFrequencyType {
 	}
 }
 
-// IdentityType - The identity type. Set this to 'SystemAssigned' in order to automatically create and assign an Azure Active
-// Directory principal for the resource.
-type IdentityType string
+// IdentityTypeWithNone - The identity type. Set this to 'SystemAssigned' in order to automatically create and assign an Azure
+// Active Directory principal for the resource.
+type IdentityTypeWithNone string
 
 const (
-	IdentityTypeNone           IdentityType = "None"
-	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
+	IdentityTypeWithNoneNone           IdentityTypeWithNone = "None"
+	IdentityTypeWithNoneSystemAssigned IdentityTypeWithNone = "SystemAssigned"
 )
 
-// PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
-func PossibleIdentityTypeValues() []IdentityType {
-	return []IdentityType{
-		IdentityTypeNone,
-		IdentityTypeSystemAssigned,
+// PossibleIdentityTypeWithNoneValues returns the possible values for the IdentityTypeWithNone const type.
+func PossibleIdentityTypeWithNoneValues() []IdentityTypeWithNone {
+	return []IdentityTypeWithNone{
+		IdentityTypeWithNoneNone,
+		IdentityTypeWithNoneSystemAssigned,
 	}
 }
 

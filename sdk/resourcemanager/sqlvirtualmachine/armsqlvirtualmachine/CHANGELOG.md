@@ -1,5 +1,43 @@
 # Release History
 
+## 0.7.0 (2022-06-10)
+### Breaking Changes
+
+- Type of `ResourceIdentity.Type` has been changed from `*IdentityType` to `*IdentityTypeWithNone`
+- Const `IdentityTypeSystemAssigned` has been removed
+- Const `CreatedByTypeKey` has been removed
+- Const `CreatedByTypeUser` has been removed
+- Const `CreatedByTypeManagedIdentity` has been removed
+- Const `IdentityTypeNone` has been removed
+- Const `CreatedByTypeApplication` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `PossibleIdentityTypeValues` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `PossibleCreatedByTypeValues` has been removed
+- Struct `SystemData` has been removed
+- Field `SystemData` of struct `SQLVirtualMachine` has been removed
+- Field `SystemData` of struct `Group` has been removed
+- Field `SystemData` of struct `AvailabilityGroupListener` has been removed
+
+### Features Added
+
+- New const `IdentityTypeWithNoneSystemAssigned`
+- New const `IdentityTypeWithNoneNone`
+- New const `ClusterSubnetTypeSingleSubnet`
+- New const `ClusterSubnetTypeMultiSubnet`
+- New function `PossibleIdentityTypeWithNoneValues() []IdentityTypeWithNone`
+- New function `PossibleClusterSubnetTypeValues() []ClusterSubnetType`
+- New struct `MultiSubnetIPConfiguration`
+- New field `WsfcStaticIP` in struct `Properties`
+- New field `ClusterSubnetType` in struct `WsfcDomainProfile`
+- New field `IsIFIEnabled` in struct `SQLInstanceSettings`
+- New field `IsLPIMEnabled` in struct `SQLInstanceSettings`
+- New field `PersistFolderPath` in struct `SQLTempDbSettings`
+- New field `PersistFolder` in struct `SQLTempDbSettings`
+- New field `MultiSubnetIPConfigurations` in struct `AvailabilityGroupListenerProperties`
+
+
 ## 0.6.0 (2022-06-02)
 ### Breaking Changes
 
