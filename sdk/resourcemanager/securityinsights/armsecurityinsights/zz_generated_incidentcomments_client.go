@@ -57,7 +57,7 @@ func NewIncidentCommentsClient(subscriptionID string, credential azcore.TokenCre
 
 // CreateOrUpdate - Creates or updates the incident comment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // incidentID - Incident ID
@@ -108,7 +108,7 @@ func (client *IncidentCommentsClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, incidentComment)
@@ -125,7 +125,7 @@ func (client *IncidentCommentsClient) createOrUpdateHandleResponse(resp *http.Re
 
 // Delete - Delete the incident comment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // incidentID - Incident ID
@@ -174,7 +174,7 @@ func (client *IncidentCommentsClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -182,7 +182,7 @@ func (client *IncidentCommentsClient) deleteCreateRequest(ctx context.Context, r
 
 // Get - Gets an incident comment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // incidentID - Incident ID
@@ -231,7 +231,7 @@ func (client *IncidentCommentsClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,7 +248,7 @@ func (client *IncidentCommentsClient) getHandleResponse(resp *http.Response) (In
 
 // NewListPager - Gets all incident comments.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // incidentID - Incident ID
@@ -305,7 +305,7 @@ func (client *IncidentCommentsClient) listCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

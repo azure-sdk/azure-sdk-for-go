@@ -57,7 +57,7 @@ func NewEntitiesRelationsClient(subscriptionID string, credential azcore.TokenCr
 
 // NewListPager - Gets all relations of an entity.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // entityID - entity ID
@@ -114,7 +114,7 @@ func (client *EntitiesRelationsClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

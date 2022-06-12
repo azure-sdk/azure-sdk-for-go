@@ -56,7 +56,7 @@ func NewSecurityMLAnalyticsSettingsClient(subscriptionID string, credential azco
 
 // CreateOrUpdate - Creates or updates the Security ML Analytics Settings.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // settingsResourceName - Security ML Analytics Settings resource name
@@ -102,7 +102,7 @@ func (client *SecurityMLAnalyticsSettingsClient) createOrUpdateCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, securityMLAnalyticsSetting)
@@ -119,7 +119,7 @@ func (client *SecurityMLAnalyticsSettingsClient) createOrUpdateHandleResponse(re
 
 // Delete - Delete the Security ML Analytics Settings.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // settingsResourceName - Security ML Analytics Settings resource name
@@ -164,7 +164,7 @@ func (client *SecurityMLAnalyticsSettingsClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *SecurityMLAnalyticsSettingsClient) deleteCreateRequest(ctx context
 
 // Get - Gets the Security ML Analytics Settings.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // settingsResourceName - Security ML Analytics Settings resource name
@@ -217,7 +217,7 @@ func (client *SecurityMLAnalyticsSettingsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +234,7 @@ func (client *SecurityMLAnalyticsSettingsClient) getHandleResponse(resp *http.Re
 
 // NewListPager - Gets all Security ML Analytics Settings.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01-preview
+// Generated from API version 2022-06-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // options - SecurityMLAnalyticsSettingsClientListOptions contains the optional parameters for the SecurityMLAnalyticsSettingsClient.List
@@ -287,7 +287,7 @@ func (client *SecurityMLAnalyticsSettingsClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01-preview")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
