@@ -1,5 +1,5 @@
 {
-  "commit": "a8a52b9e6c305f03c3a4c5411d59fc4454b5b372",
+  "commit": "613afb493d2002d5d7e9a44c5a6a873c93391fed",
   "readme": "/_/azure-rest-api-specs/specification/azurestackhci/resource-manager/readme.md",
   "tag": "package-2022-05",
   "use": "@microsoft.azure/autorest.go@2.1.187",
