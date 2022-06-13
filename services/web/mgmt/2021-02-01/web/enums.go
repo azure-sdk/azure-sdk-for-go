@@ -1087,6 +1087,44 @@ func PossibleOperationStatusValues() []OperationStatus {
 	return []OperationStatus{OperationStatusCreated, OperationStatusFailed, OperationStatusInProgress, OperationStatusSucceeded, OperationStatusTimedOut}
 }
 
+// ProviderOsTypeSelected enumerates the values for provider os type selected.
+type ProviderOsTypeSelected string
+
+const (
+	// ProviderOsTypeSelectedAll ...
+	ProviderOsTypeSelectedAll ProviderOsTypeSelected = "All"
+	// ProviderOsTypeSelectedLinux ...
+	ProviderOsTypeSelectedLinux ProviderOsTypeSelected = "Linux"
+	// ProviderOsTypeSelectedLinuxFunctions ...
+	ProviderOsTypeSelectedLinuxFunctions ProviderOsTypeSelected = "LinuxFunctions"
+	// ProviderOsTypeSelectedWindows ...
+	ProviderOsTypeSelectedWindows ProviderOsTypeSelected = "Windows"
+	// ProviderOsTypeSelectedWindowsFunctions ...
+	ProviderOsTypeSelectedWindowsFunctions ProviderOsTypeSelected = "WindowsFunctions"
+)
+
+// PossibleProviderOsTypeSelectedValues returns an array of possible values for the ProviderOsTypeSelected const type.
+func PossibleProviderOsTypeSelectedValues() []ProviderOsTypeSelected {
+	return []ProviderOsTypeSelected{ProviderOsTypeSelectedAll, ProviderOsTypeSelectedLinux, ProviderOsTypeSelectedLinuxFunctions, ProviderOsTypeSelectedWindows, ProviderOsTypeSelectedWindowsFunctions}
+}
+
+// ProviderStackOsType enumerates the values for provider stack os type.
+type ProviderStackOsType string
+
+const (
+	// ProviderStackOsTypeAll ...
+	ProviderStackOsTypeAll ProviderStackOsType = "All"
+	// ProviderStackOsTypeLinux ...
+	ProviderStackOsTypeLinux ProviderStackOsType = "Linux"
+	// ProviderStackOsTypeWindows ...
+	ProviderStackOsTypeWindows ProviderStackOsType = "Windows"
+)
+
+// PossibleProviderStackOsTypeValues returns an array of possible values for the ProviderStackOsType const type.
+func PossibleProviderStackOsTypeValues() []ProviderStackOsType {
+	return []ProviderStackOsType{ProviderStackOsTypeAll, ProviderStackOsTypeLinux, ProviderStackOsTypeWindows}
+}
+
 // ProvisioningState enumerates the values for provisioning state.
 type ProvisioningState string
 
@@ -1255,6 +1293,23 @@ const (
 // PossibleResolveStatusValues returns an array of possible values for the ResolveStatus const type.
 func PossibleResolveStatusValues() []ResolveStatus {
 	return []ResolveStatus{ResolveStatusAccessToKeyVaultDenied, ResolveStatusFetchTimedOut, ResolveStatusInitialized, ResolveStatusInvalidSyntax, ResolveStatusMSINotEnabled, ResolveStatusOtherReasons, ResolveStatusResolved, ResolveStatusSecretNotFound, ResolveStatusSecretVersionNotFound, ResolveStatusUnauthorizedClient, ResolveStatusVaultNotFound}
+}
+
+// ResourceNotRenewableReason enumerates the values for resource not renewable reason.
+type ResourceNotRenewableReason string
+
+const (
+	// ResourceNotRenewableReasonExpirationNotInRenewalTimeRange ...
+	ResourceNotRenewableReasonExpirationNotInRenewalTimeRange ResourceNotRenewableReason = "ExpirationNotInRenewalTimeRange"
+	// ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal ...
+	ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal ResourceNotRenewableReason = "RegistrationStatusNotSupportedForRenewal"
+	// ResourceNotRenewableReasonSubscriptionNotActive ...
+	ResourceNotRenewableReasonSubscriptionNotActive ResourceNotRenewableReason = "SubscriptionNotActive"
+)
+
+// PossibleResourceNotRenewableReasonValues returns an array of possible values for the ResourceNotRenewableReason const type.
+func PossibleResourceNotRenewableReasonValues() []ResourceNotRenewableReason {
+	return []ResourceNotRenewableReason{ResourceNotRenewableReasonExpirationNotInRenewalTimeRange, ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal, ResourceNotRenewableReasonSubscriptionNotActive}
 }
 
 // ResourceScopeType enumerates the values for resource scope type.

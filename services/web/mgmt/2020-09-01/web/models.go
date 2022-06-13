@@ -2360,7 +2360,7 @@ type AppServiceCertificateOrderPatchResourceProperties struct {
 	// IsPrivateKeyExternal - READ-ONLY; <code>true</code> if private key is external; otherwise, <code>false</code>.
 	IsPrivateKeyExternal *bool `json:"isPrivateKeyExternal,omitempty"`
 	// AppServiceCertificateNotRenewableReasons - READ-ONLY; Reasons why App Service Certificate is not renewable at the current moment.
-	AppServiceCertificateNotRenewableReasons *[]string `json:"appServiceCertificateNotRenewableReasons,omitempty"`
+	AppServiceCertificateNotRenewableReasons *[]ResourceNotRenewableReason `json:"appServiceCertificateNotRenewableReasons,omitempty"`
 	// NextAutoRenewalTimeStamp - READ-ONLY; Time stamp when the certificate would be auto renewed next
 	NextAutoRenewalTimeStamp *date.Time `json:"nextAutoRenewalTimeStamp,omitempty"`
 }
@@ -2429,7 +2429,7 @@ type AppServiceCertificateOrderProperties struct {
 	// IsPrivateKeyExternal - READ-ONLY; <code>true</code> if private key is external; otherwise, <code>false</code>.
 	IsPrivateKeyExternal *bool `json:"isPrivateKeyExternal,omitempty"`
 	// AppServiceCertificateNotRenewableReasons - READ-ONLY; Reasons why App Service Certificate is not renewable at the current moment.
-	AppServiceCertificateNotRenewableReasons *[]string `json:"appServiceCertificateNotRenewableReasons,omitempty"`
+	AppServiceCertificateNotRenewableReasons *[]ResourceNotRenewableReason `json:"appServiceCertificateNotRenewableReasons,omitempty"`
 	// NextAutoRenewalTimeStamp - READ-ONLY; Time stamp when the certificate would be auto renewed next
 	NextAutoRenewalTimeStamp *date.Time `json:"nextAutoRenewalTimeStamp,omitempty"`
 }
@@ -3758,7 +3758,6 @@ func (future *AppServiceEnvironmentsSuspendFuture) result(client AppServiceEnvir
 
 // AppserviceGithubToken github access token for Appservice CLI github integration.
 type AppserviceGithubToken struct {
-	autorest.Response `json:"-"`
 	// AccessToken - Github access token for Appservice CLI github integration
 	AccessToken *string `json:"accessToken,omitempty"`
 	// Scope - Scope of the github access token
@@ -23112,6 +23111,10 @@ type SiteConfig struct {
 	RemoteDebuggingVersion *string `json:"remoteDebuggingVersion,omitempty"`
 	// HTTPLoggingEnabled - <code>true</code> if HTTP logging is enabled; otherwise, <code>false</code>.
 	HTTPLoggingEnabled *bool `json:"httpLoggingEnabled,omitempty"`
+	// AcrUseManagedIdentityCreds - Flag to use Managed Identity Creds for ACR pull
+	AcrUseManagedIdentityCreds *bool `json:"acrUseManagedIdentityCreds,omitempty"`
+	// AcrUserManagedIdentityID - If using user managed identity, the user managed identity ClientId
+	AcrUserManagedIdentityID *string `json:"acrUserManagedIdentityID,omitempty"`
 	// LogsDirectorySizeLimit - HTTP logs directory size limit.
 	LogsDirectorySizeLimit *int32 `json:"logsDirectorySizeLimit,omitempty"`
 	// DetailedErrorLoggingEnabled - <code>true</code> if detailed error logging is enabled; otherwise, <code>false</code>.
@@ -23247,6 +23250,12 @@ func (sc SiteConfig) MarshalJSON() ([]byte, error) {
 	}
 	if sc.HTTPLoggingEnabled != nil {
 		objectMap["httpLoggingEnabled"] = sc.HTTPLoggingEnabled
+	}
+	if sc.AcrUseManagedIdentityCreds != nil {
+		objectMap["acrUseManagedIdentityCreds"] = sc.AcrUseManagedIdentityCreds
+	}
+	if sc.AcrUserManagedIdentityID != nil {
+		objectMap["acrUserManagedIdentityID"] = sc.AcrUserManagedIdentityID
 	}
 	if sc.LogsDirectorySizeLimit != nil {
 		objectMap["logsDirectorySizeLimit"] = sc.LogsDirectorySizeLimit

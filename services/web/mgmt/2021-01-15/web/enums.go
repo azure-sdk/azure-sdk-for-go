@@ -1257,6 +1257,23 @@ func PossibleResolveStatusValues() []ResolveStatus {
 	return []ResolveStatus{ResolveStatusAccessToKeyVaultDenied, ResolveStatusFetchTimedOut, ResolveStatusInitialized, ResolveStatusInvalidSyntax, ResolveStatusMSINotEnabled, ResolveStatusOtherReasons, ResolveStatusResolved, ResolveStatusSecretNotFound, ResolveStatusSecretVersionNotFound, ResolveStatusUnauthorizedClient, ResolveStatusVaultNotFound}
 }
 
+// ResourceNotRenewableReason enumerates the values for resource not renewable reason.
+type ResourceNotRenewableReason string
+
+const (
+	// ResourceNotRenewableReasonExpirationNotInRenewalTimeRange ...
+	ResourceNotRenewableReasonExpirationNotInRenewalTimeRange ResourceNotRenewableReason = "ExpirationNotInRenewalTimeRange"
+	// ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal ...
+	ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal ResourceNotRenewableReason = "RegistrationStatusNotSupportedForRenewal"
+	// ResourceNotRenewableReasonSubscriptionNotActive ...
+	ResourceNotRenewableReasonSubscriptionNotActive ResourceNotRenewableReason = "SubscriptionNotActive"
+)
+
+// PossibleResourceNotRenewableReasonValues returns an array of possible values for the ResourceNotRenewableReason const type.
+func PossibleResourceNotRenewableReasonValues() []ResourceNotRenewableReason {
+	return []ResourceNotRenewableReason{ResourceNotRenewableReasonExpirationNotInRenewalTimeRange, ResourceNotRenewableReasonRegistrationStatusNotSupportedForRenewal, ResourceNotRenewableReasonSubscriptionNotActive}
+}
+
 // ResourceScopeType enumerates the values for resource scope type.
 type ResourceScopeType string
 

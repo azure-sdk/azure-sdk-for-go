@@ -2504,7 +2504,7 @@ type AppServiceCertificateOrderPatchResourceProperties struct {
 	// IsPrivateKeyExternal - READ-ONLY; <code>true</code> if private key is external; otherwise, <code>false</code>.
 	IsPrivateKeyExternal *bool `json:"isPrivateKeyExternal,omitempty"`
 	// AppServiceCertificateNotRenewableReasons - READ-ONLY; Reasons why App Service Certificate is not renewable at the current moment.
-	AppServiceCertificateNotRenewableReasons *[]string `json:"appServiceCertificateNotRenewableReasons,omitempty"`
+	AppServiceCertificateNotRenewableReasons *[]ResourceNotRenewableReason `json:"appServiceCertificateNotRenewableReasons,omitempty"`
 	// NextAutoRenewalTimeStamp - READ-ONLY; Time stamp when the certificate would be auto renewed next
 	NextAutoRenewalTimeStamp *date.Time `json:"nextAutoRenewalTimeStamp,omitempty"`
 	// Contact - READ-ONLY; Contact info
@@ -2575,7 +2575,7 @@ type AppServiceCertificateOrderProperties struct {
 	// IsPrivateKeyExternal - READ-ONLY; <code>true</code> if private key is external; otherwise, <code>false</code>.
 	IsPrivateKeyExternal *bool `json:"isPrivateKeyExternal,omitempty"`
 	// AppServiceCertificateNotRenewableReasons - READ-ONLY; Reasons why App Service Certificate is not renewable at the current moment.
-	AppServiceCertificateNotRenewableReasons *[]string `json:"appServiceCertificateNotRenewableReasons,omitempty"`
+	AppServiceCertificateNotRenewableReasons *[]ResourceNotRenewableReason `json:"appServiceCertificateNotRenewableReasons,omitempty"`
 	// NextAutoRenewalTimeStamp - READ-ONLY; Time stamp when the certificate would be auto renewed next
 	NextAutoRenewalTimeStamp *date.Time `json:"nextAutoRenewalTimeStamp,omitempty"`
 	// Contact - READ-ONLY; Contact info

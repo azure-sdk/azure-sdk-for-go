@@ -982,6 +982,23 @@ func PossibleRenderingTypeValues() []RenderingType {
 	return []RenderingType{NoGraph, Table, TimeSeries, TimeSeriesPerInstance}
 }
 
+// ResourceNotRenewableReason enumerates the values for resource not renewable reason.
+type ResourceNotRenewableReason string
+
+const (
+	// ExpirationNotInRenewalTimeRange ...
+	ExpirationNotInRenewalTimeRange ResourceNotRenewableReason = "ExpirationNotInRenewalTimeRange"
+	// RegistrationStatusNotSupportedForRenewal ...
+	RegistrationStatusNotSupportedForRenewal ResourceNotRenewableReason = "RegistrationStatusNotSupportedForRenewal"
+	// SubscriptionNotActive ...
+	SubscriptionNotActive ResourceNotRenewableReason = "SubscriptionNotActive"
+)
+
+// PossibleResourceNotRenewableReasonValues returns an array of possible values for the ResourceNotRenewableReason const type.
+func PossibleResourceNotRenewableReasonValues() []ResourceNotRenewableReason {
+	return []ResourceNotRenewableReason{ExpirationNotInRenewalTimeRange, RegistrationStatusNotSupportedForRenewal, SubscriptionNotActive}
+}
+
 // ResourceScopeType enumerates the values for resource scope type.
 type ResourceScopeType string
 
