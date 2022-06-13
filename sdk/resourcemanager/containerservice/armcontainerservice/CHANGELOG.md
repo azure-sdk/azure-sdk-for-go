@@ -96,6 +96,10 @@
 - New field `EffectiveNoProxy` in struct `ManagedClusterHTTPProxyConfig`
 
 
+## 2.0.0-beta.2 (2022-06-13)
+### Other Changes
+
+
 ## 1.0.0 (2022-05-16)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
