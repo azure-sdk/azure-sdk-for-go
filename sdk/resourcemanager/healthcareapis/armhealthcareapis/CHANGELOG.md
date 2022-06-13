@@ -9,6 +9,17 @@
 - New field `ImportConfiguration` in struct `FhirServiceProperties`
 
 
+## 1.1.0 (2022-06-13)
+### Features Added
+
+- New struct `CorsConfiguration`
+- New struct `FhirServiceImportConfiguration`
+- New struct `ServiceImportConfigurationInfo`
+- New field `ImportConfiguration` in struct `FhirServiceProperties`
+- New field `ImportConfiguration` in struct `ServicesProperties`
+- New field `CorsConfiguration` in struct `DicomServiceProperties`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/healthcareapis/armhealthcareapis` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
