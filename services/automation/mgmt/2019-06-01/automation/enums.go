@@ -467,13 +467,17 @@ const (
 	RunbookTypeEnumPowerShell RunbookTypeEnum = "PowerShell"
 	// RunbookTypeEnumPowerShellWorkflow ...
 	RunbookTypeEnumPowerShellWorkflow RunbookTypeEnum = "PowerShellWorkflow"
+	// RunbookTypeEnumPython2 ...
+	RunbookTypeEnumPython2 RunbookTypeEnum = "Python2"
+	// RunbookTypeEnumPython3 ...
+	RunbookTypeEnumPython3 RunbookTypeEnum = "Python3"
 	// RunbookTypeEnumScript ...
 	RunbookTypeEnumScript RunbookTypeEnum = "Script"
 )
 
 // PossibleRunbookTypeEnumValues returns an array of possible values for the RunbookTypeEnum const type.
 func PossibleRunbookTypeEnumValues() []RunbookTypeEnum {
-	return []RunbookTypeEnum{RunbookTypeEnumGraph, RunbookTypeEnumGraphPowerShell, RunbookTypeEnumGraphPowerShellWorkflow, RunbookTypeEnumPowerShell, RunbookTypeEnumPowerShellWorkflow, RunbookTypeEnumScript}
+	return []RunbookTypeEnum{RunbookTypeEnumGraph, RunbookTypeEnumGraphPowerShell, RunbookTypeEnumGraphPowerShellWorkflow, RunbookTypeEnumPowerShell, RunbookTypeEnumPowerShellWorkflow, RunbookTypeEnumPython2, RunbookTypeEnumPython3, RunbookTypeEnumScript}
 }
 
 // ScheduleDay enumerates the values for schedule day.

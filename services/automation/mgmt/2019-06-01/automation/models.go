@@ -6418,6 +6418,8 @@ func (pec *PrivateEndpointConnection) UnmarshalJSON(body []byte) error {
 type PrivateEndpointConnectionProperties struct {
 	// PrivateEndpoint - Private endpoint which the connection belongs to.
 	PrivateEndpoint *PrivateEndpointProperty `json:"privateEndpoint,omitempty"`
+	// GroupIds - Gets the groupIds.
+	GroupIds *[]string `json:"groupIds,omitempty"`
 	// PrivateLinkServiceConnectionState - Connection State of the Private Endpoint Connection.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionStateProperty `json:"privateLinkServiceConnectionState,omitempty"`
 }
@@ -6696,7 +6698,7 @@ type RunbookCreateOrUpdateDraftProperties struct {
 	LogVerbose *bool `json:"logVerbose,omitempty"`
 	// LogProgress - Gets or sets progress log option.
 	LogProgress *bool `json:"logProgress,omitempty"`
-	// RunbookType - Gets or sets the type of the runbook. Possible values include: 'RunbookTypeEnumScript', 'RunbookTypeEnumGraph', 'RunbookTypeEnumPowerShellWorkflow', 'RunbookTypeEnumPowerShell', 'RunbookTypeEnumGraphPowerShellWorkflow', 'RunbookTypeEnumGraphPowerShell'
+	// RunbookType - Gets or sets the type of the runbook. Possible values include: 'RunbookTypeEnumScript', 'RunbookTypeEnumGraph', 'RunbookTypeEnumPowerShellWorkflow', 'RunbookTypeEnumPowerShell', 'RunbookTypeEnumGraphPowerShellWorkflow', 'RunbookTypeEnumGraphPowerShell', 'RunbookTypeEnumPython2', 'RunbookTypeEnumPython3'
 	RunbookType RunbookTypeEnum `json:"runbookType,omitempty"`
 	// Draft - Gets or sets the draft runbook properties.
 	Draft *RunbookDraft `json:"draft,omitempty"`
@@ -6793,7 +6795,7 @@ type RunbookCreateOrUpdateProperties struct {
 	LogVerbose *bool `json:"logVerbose,omitempty"`
 	// LogProgress - Gets or sets progress log option.
 	LogProgress *bool `json:"logProgress,omitempty"`
-	// RunbookType - Gets or sets the type of the runbook. Possible values include: 'RunbookTypeEnumScript', 'RunbookTypeEnumGraph', 'RunbookTypeEnumPowerShellWorkflow', 'RunbookTypeEnumPowerShell', 'RunbookTypeEnumGraphPowerShellWorkflow', 'RunbookTypeEnumGraphPowerShell'
+	// RunbookType - Gets or sets the type of the runbook. Possible values include: 'RunbookTypeEnumScript', 'RunbookTypeEnumGraph', 'RunbookTypeEnumPowerShellWorkflow', 'RunbookTypeEnumPowerShell', 'RunbookTypeEnumGraphPowerShellWorkflow', 'RunbookTypeEnumGraphPowerShell', 'RunbookTypeEnumPython2', 'RunbookTypeEnumPython3'
 	RunbookType RunbookTypeEnum `json:"runbookType,omitempty"`
 	// Draft - Gets or sets the draft runbook properties.
 	Draft *RunbookDraft `json:"draft,omitempty"`
@@ -7063,7 +7065,7 @@ type RunbookParameter struct {
 
 // RunbookProperties definition of the runbook property type.
 type RunbookProperties struct {
-	// RunbookType - Gets or sets the type of the runbook. Possible values include: 'RunbookTypeEnumScript', 'RunbookTypeEnumGraph', 'RunbookTypeEnumPowerShellWorkflow', 'RunbookTypeEnumPowerShell', 'RunbookTypeEnumGraphPowerShellWorkflow', 'RunbookTypeEnumGraphPowerShell'
+	// RunbookType - Gets or sets the type of the runbook. Possible values include: 'RunbookTypeEnumScript', 'RunbookTypeEnumGraph', 'RunbookTypeEnumPowerShellWorkflow', 'RunbookTypeEnumPowerShell', 'RunbookTypeEnumGraphPowerShellWorkflow', 'RunbookTypeEnumGraphPowerShell', 'RunbookTypeEnumPython2', 'RunbookTypeEnumPython3'
 	RunbookType RunbookTypeEnum `json:"runbookType,omitempty"`
 	// PublishContentLink - Gets or sets the published runbook content link.
 	PublishContentLink *ContentLink `json:"publishContentLink,omitempty"`
