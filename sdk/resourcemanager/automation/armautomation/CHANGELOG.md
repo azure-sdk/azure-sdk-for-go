@@ -1,5 +1,12 @@
 # Release History
 
+## 0.7.0 (2022-06-13)
+### Features Added
+
+- New const `RunbookTypeEnumPython3`
+- New const `RunbookTypeEnumPython2`
+
+
 ## 0.6.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/automation/armautomation` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.6.0, which contains breaking changes.

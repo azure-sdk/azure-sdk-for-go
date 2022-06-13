@@ -10,7 +10,7 @@ package armautomation
 
 const (
 	moduleName    = "armautomation"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
 
 // AgentRegistrationKeyName - Gets or sets the agent registration key name - primary or secondary.
@@ -530,6 +530,8 @@ const (
 	RunbookTypeEnumGraphPowerShellWorkflow RunbookTypeEnum = "GraphPowerShellWorkflow"
 	RunbookTypeEnumPowerShell              RunbookTypeEnum = "PowerShell"
 	RunbookTypeEnumPowerShellWorkflow      RunbookTypeEnum = "PowerShellWorkflow"
+	RunbookTypeEnumPython2                 RunbookTypeEnum = "Python2"
+	RunbookTypeEnumPython3                 RunbookTypeEnum = "Python3"
 	RunbookTypeEnumScript                  RunbookTypeEnum = "Script"
 )
 
@@ -541,6 +543,8 @@ func PossibleRunbookTypeEnumValues() []RunbookTypeEnum {
 		RunbookTypeEnumGraphPowerShellWorkflow,
 		RunbookTypeEnumPowerShell,
 		RunbookTypeEnumPowerShellWorkflow,
+		RunbookTypeEnumPython2,
+		RunbookTypeEnumPython3,
 		RunbookTypeEnumScript,
 	}
 }
