@@ -10,7 +10,7 @@ package armtrafficmanager
 
 const (
 	moduleName    = "armtrafficmanager"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.0.1"
 )
 
 // AllowedEndpointRecordType - The allowed type DNS record types for this profile.
