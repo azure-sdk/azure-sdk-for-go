@@ -13,10 +13,10 @@ import (
 
 // EndpointsClientAPI contains the set of methods on the EndpointsClient type.
 type EndpointsClientAPI interface {
-	CreateOrUpdate(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string, parameters trafficmanager.Endpoint) (result trafficmanager.Endpoint, err error)
-	Delete(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string) (result trafficmanager.DeleteOperationResult, err error)
-	Get(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string) (result trafficmanager.Endpoint, err error)
-	Update(ctx context.Context, resourceGroupName string, profileName string, endpointType string, endpointName string, parameters trafficmanager.Endpoint) (result trafficmanager.Endpoint, err error)
+	CreateOrUpdate(ctx context.Context, resourceGroupName string, profileName string, endpointType trafficmanager.EndpointType, endpointName string, parameters trafficmanager.Endpoint) (result trafficmanager.Endpoint, err error)
+	Delete(ctx context.Context, resourceGroupName string, profileName string, endpointType trafficmanager.EndpointType, endpointName string) (result trafficmanager.DeleteOperationResult, err error)
+	Get(ctx context.Context, resourceGroupName string, profileName string, endpointType trafficmanager.EndpointType, endpointName string) (result trafficmanager.Endpoint, err error)
+	Update(ctx context.Context, resourceGroupName string, profileName string, endpointType trafficmanager.EndpointType, endpointName string, parameters trafficmanager.Endpoint) (result trafficmanager.Endpoint, err error)
 }
 
 var _ EndpointsClientAPI = (*trafficmanager.EndpointsClient)(nil)

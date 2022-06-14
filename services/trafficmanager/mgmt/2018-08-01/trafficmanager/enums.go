@@ -63,6 +63,23 @@ func PossibleEndpointStatusValues() []EndpointStatus {
 	return []EndpointStatus{EndpointStatusDisabled, EndpointStatusEnabled}
 }
 
+// EndpointType enumerates the values for endpoint type.
+type EndpointType string
+
+const (
+	// EndpointTypeAzureEndpoints ...
+	EndpointTypeAzureEndpoints EndpointType = "AzureEndpoints"
+	// EndpointTypeExternalEndpoints ...
+	EndpointTypeExternalEndpoints EndpointType = "ExternalEndpoints"
+	// EndpointTypeNestedEndpoints ...
+	EndpointTypeNestedEndpoints EndpointType = "NestedEndpoints"
+)
+
+// PossibleEndpointTypeValues returns an array of possible values for the EndpointType const type.
+func PossibleEndpointTypeValues() []EndpointType {
+	return []EndpointType{EndpointTypeAzureEndpoints, EndpointTypeExternalEndpoints, EndpointTypeNestedEndpoints}
+}
+
 // MonitorProtocol enumerates the values for monitor protocol.
 type MonitorProtocol string
 
