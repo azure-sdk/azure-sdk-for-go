@@ -6466,6 +6466,15 @@ type VMGalleryApplication struct {
 	TreatFailureAsDeploymentFailure *bool `json:"treatFailureAsDeploymentFailure,omitempty"`
 }
 
+// VMImagesInEdgeZoneListResult - The List VmImages in EdgeZone operation response.
+type VMImagesInEdgeZoneListResult struct {
+	// The URI to fetch the next page of VMImages in EdgeZone. Call ListNext() with this URI to fetch the next page of VmImages.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// The list of VMImages in EdgeZone
+	Value []*VirtualMachineImageResource `json:"value,omitempty"`
+}
+
 type VMScaleSetConvertToSinglePlacementGroupInput struct {
 	// Id of the placement group in which you want future virtual machine instances to be placed. To query placement group Id,
 	// please use Virtual Machine Scale Set VMs - Get API. If not provided, the
@@ -6998,6 +7007,12 @@ type VirtualMachineImageResource struct {
 
 // VirtualMachineImagesClientGetOptions contains the optional parameters for the VirtualMachineImagesClient.Get method.
 type VirtualMachineImagesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineImagesClientListByEdgeZoneOptions contains the optional parameters for the VirtualMachineImagesClient.ListByEdgeZone
+// method.
+type VirtualMachineImagesClientListByEdgeZoneOptions struct {
 	// placeholder for future optional parameters
 }
 

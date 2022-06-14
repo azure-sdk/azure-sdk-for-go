@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.0.1"
 )
 
 type AccessLevel string
@@ -1733,6 +1733,7 @@ const (
 	StatusLevelTypesInfo    StatusLevelTypes = "Info"
 	StatusLevelTypesWarning StatusLevelTypes = "Warning"
 	StatusLevelTypesError   StatusLevelTypes = "Error"
+	StatusLevelTypesDebug   StatusLevelTypes = "Debug"
 )
 
 // PossibleStatusLevelTypesValues returns the possible values for the StatusLevelTypes const type.
@@ -1741,6 +1742,7 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 		StatusLevelTypesInfo,
 		StatusLevelTypesWarning,
 		StatusLevelTypesError,
+		StatusLevelTypesDebug,
 	}
 }
 
