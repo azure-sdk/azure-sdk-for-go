@@ -19,17 +19,17 @@ import (
 	"net/http"
 )
 
-// OuContainerOperationsClient contains the methods for the OuContainerOperations group.
-// Don't use this type directly, use NewOuContainerOperationsClient() instead.
-type OuContainerOperationsClient struct {
+// DomainServiceOperationsClient contains the methods for the DomainServiceOperations group.
+// Don't use this type directly, use NewDomainServiceOperationsClient() instead.
+type DomainServiceOperationsClient struct {
 	host string
 	pl   runtime.Pipeline
 }
 
-// NewOuContainerOperationsClient creates a new instance of OuContainerOperationsClient with the specified values.
+// NewDomainServiceOperationsClient creates a new instance of DomainServiceOperationsClient with the specified values.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewOuContainerOperationsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*OuContainerOperationsClient, error) {
+func NewDomainServiceOperationsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*DomainServiceOperationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -41,24 +41,24 @@ func NewOuContainerOperationsClient(credential azcore.TokenCredential, options *
 	if err != nil {
 		return nil, err
 	}
-	client := &OuContainerOperationsClient{
+	client := &DomainServiceOperationsClient{
 		host: ep,
 		pl:   pl,
 	}
 	return client, nil
 }
 
-// NewListPager - Lists all the available OuContainer operations.
+// NewListPager - Lists all the available Domain Services operations.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01
-// options - OuContainerOperationsClientListOptions contains the optional parameters for the OuContainerOperationsClient.List
+// Generated from API version 2022-06-01
+// options - DomainServiceOperationsClientListOptions contains the optional parameters for the DomainServiceOperationsClient.List
 // method.
-func (client *OuContainerOperationsClient) NewListPager(options *OuContainerOperationsClientListOptions) *runtime.Pager[OuContainerOperationsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[OuContainerOperationsClientListResponse]{
-		More: func(page OuContainerOperationsClientListResponse) bool {
+func (client *DomainServiceOperationsClient) NewListPager(options *DomainServiceOperationsClientListOptions) *runtime.Pager[DomainServiceOperationsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[DomainServiceOperationsClientListResponse]{
+		More: func(page DomainServiceOperationsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *OuContainerOperationsClientListResponse) (OuContainerOperationsClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *DomainServiceOperationsClientListResponse) (DomainServiceOperationsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -67,14 +67,14 @@ func (client *OuContainerOperationsClient) NewListPager(options *OuContainerOper
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return OuContainerOperationsClientListResponse{}, err
+				return DomainServiceOperationsClientListResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return OuContainerOperationsClientListResponse{}, err
+				return DomainServiceOperationsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return OuContainerOperationsClientListResponse{}, runtime.NewResponseError(resp)
+				return DomainServiceOperationsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -82,24 +82,24 @@ func (client *OuContainerOperationsClient) NewListPager(options *OuContainerOper
 }
 
 // listCreateRequest creates the List request.
-func (client *OuContainerOperationsClient) listCreateRequest(ctx context.Context, options *OuContainerOperationsClientListOptions) (*policy.Request, error) {
-	urlPath := "/providers/Microsoft.Aad/operations"
+func (client *DomainServiceOperationsClient) listCreateRequest(ctx context.Context, options *DomainServiceOperationsClientListOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.AAD/operations"
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // listHandleResponse handles the List response.
-func (client *OuContainerOperationsClient) listHandleResponse(resp *http.Response) (OuContainerOperationsClientListResponse, error) {
-	result := OuContainerOperationsClientListResponse{}
+func (client *DomainServiceOperationsClient) listHandleResponse(resp *http.Response) (DomainServiceOperationsClientListResponse, error) {
+	result := DomainServiceOperationsClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.OperationEntityListResult); err != nil {
-		return OuContainerOperationsClientListResponse{}, err
+		return DomainServiceOperationsClientListResponse{}, err
 	}
 	return result, nil
 }

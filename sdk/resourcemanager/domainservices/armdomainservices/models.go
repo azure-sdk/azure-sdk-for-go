@@ -111,11 +111,17 @@ type ContainerAccount struct {
 
 // DomainSecuritySettings - Domain Security Settings
 type DomainSecuritySettings struct {
+	// A flag to determine whether or not ChannelBinding is enabled or disabled.
+	ChannelBinding *ChannelBinding `json:"channelBinding,omitempty"`
+
 	// A flag to determine whether or not KerberosArmoring is enabled or disabled.
 	KerberosArmoring *KerberosArmoring `json:"kerberosArmoring,omitempty"`
 
 	// A flag to determine whether or not KerberosRc4Encryption is enabled or disabled.
 	KerberosRc4Encryption *KerberosRc4Encryption `json:"kerberosRc4Encryption,omitempty"`
+
+	// A flag to determine whether or not LdapSigning is enabled or disabled.
+	LdapSigning *LdapSigning `json:"ldapSigning,omitempty"`
 
 	// A flag to determine whether or not NtlmV1 is enabled or disabled.
 	NtlmV1 *NtlmV1 `json:"ntlmV1,omitempty"`
