@@ -57,7 +57,7 @@ func NewCloudServiceRolesClient(subscriptionID string, credential azcore.TokenCr
 
 // Get - Gets a role from a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // roleName - Name of the role.
 // options - CloudServiceRolesClientGetOptions contains the optional parameters for the CloudServiceRolesClient.Get method.
 func (client *CloudServiceRolesClient) Get(ctx context.Context, roleName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRolesClientGetOptions) (CloudServiceRolesClientGetResponse, error) {
@@ -99,7 +99,7 @@ func (client *CloudServiceRolesClient) getCreateRequest(ctx context.Context, rol
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,7 +117,7 @@ func (client *CloudServiceRolesClient) getHandleResponse(resp *http.Response) (C
 // NewListPager - Gets a list of all roles in a cloud service. Use nextLink property in the response to get the next page
 // of roles. Do this till nextLink is null to fetch all the roles.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // options - CloudServiceRolesClientListOptions contains the optional parameters for the CloudServiceRolesClient.List method.
 func (client *CloudServiceRolesClient) NewListPager(resourceGroupName string, cloudServiceName string, options *CloudServiceRolesClientListOptions) *runtime.Pager[CloudServiceRolesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CloudServiceRolesClientListResponse]{
@@ -167,7 +167,7 @@ func (client *CloudServiceRolesClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

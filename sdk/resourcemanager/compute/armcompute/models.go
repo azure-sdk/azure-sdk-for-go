@@ -6196,6 +6196,17 @@ type SupportedCapabilities struct {
 	Architecture *Architecture `json:"architecture,omitempty"`
 }
 
+// SystemData - The system meta data relating to this resource.
+type SystemData struct {
+	// READ-ONLY; Specifies the time in UTC at which the Cloud Service (extended support) resource was created.
+	// Minimum api-version: 2022-04-04.
+	CreatedAt *time.Time `json:"createdAt,omitempty" azure:"ro"`
+
+	// READ-ONLY; Specifies the time in UTC at which the Cloud Service (extended support) resource was last modified.
+	// Minimum api-version: 2022-04-04.
+	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty" azure:"ro"`
+}
+
 // TargetRegion - Describes the target region information.
 type TargetRegion struct {
 	// REQUIRED; The name of the region.
@@ -6464,6 +6475,15 @@ type VMGalleryApplication struct {
 
 	// Optional, If true, any failure for any operation in the VmApplication will fail the deployment
 	TreatFailureAsDeploymentFailure *bool `json:"treatFailureAsDeploymentFailure,omitempty"`
+}
+
+// VMImagesInEdgeZoneListResult - The List VmImages in EdgeZone operation response.
+type VMImagesInEdgeZoneListResult struct {
+	// The URI to fetch the next page of VMImages in EdgeZone. Call ListNext() with this URI to fetch the next page of VmImages.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// The list of VMImages in EdgeZone
+	Value []*VirtualMachineImageResource `json:"value,omitempty"`
 }
 
 type VMScaleSetConvertToSinglePlacementGroupInput struct {
@@ -6998,6 +7018,12 @@ type VirtualMachineImageResource struct {
 
 // VirtualMachineImagesClientGetOptions contains the optional parameters for the VirtualMachineImagesClient.Get method.
 type VirtualMachineImagesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineImagesClientListByEdgeZoneOptions contains the optional parameters for the VirtualMachineImagesClient.ListByEdgeZone
+// method.
+type VirtualMachineImagesClientListByEdgeZoneOptions struct {
 	// placeholder for future optional parameters
 }
 
