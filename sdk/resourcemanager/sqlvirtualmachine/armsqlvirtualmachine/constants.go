@@ -10,7 +10,7 @@ package armsqlvirtualmachine
 
 const (
 	moduleName    = "armsqlvirtualmachine"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
 
 // AssessmentDayOfWeek - Day of the week to run assessment.
@@ -106,6 +106,22 @@ const (
 func PossibleClusterManagerTypeValues() []ClusterManagerType {
 	return []ClusterManagerType{
 		ClusterManagerTypeWSFC,
+	}
+}
+
+// ClusterSubnetType - Cluster subnet type.
+type ClusterSubnetType string
+
+const (
+	ClusterSubnetTypeMultiSubnet  ClusterSubnetType = "MultiSubnet"
+	ClusterSubnetTypeSingleSubnet ClusterSubnetType = "SingleSubnet"
+)
+
+// PossibleClusterSubnetTypeValues returns the possible values for the ClusterSubnetType const type.
+func PossibleClusterSubnetTypeValues() []ClusterSubnetType {
+	return []ClusterSubnetType{
+		ClusterSubnetTypeMultiSubnet,
+		ClusterSubnetTypeSingleSubnet,
 	}
 }
 

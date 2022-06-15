@@ -1,5 +1,17 @@
 # Release History
 
+## 0.7.0 (2022-06-15)
+### Features Added
+
+- New field `WsfcStaticIP` in struct `Properties`
+- New field `PersistFolder` in struct `SQLTempDbSettings`
+- New field `PersistFolderPath` in struct `SQLTempDbSettings`
+- New field `IsIfiEnabled` in struct `SQLInstanceSettings`
+- New field `IsLpimEnabled` in struct `SQLInstanceSettings`
+- New field `ClusterSubnetType` in struct `WsfcDomainProfile`
+- New field `MultiSubnetIPConfigurations` in struct `AvailabilityGroupListenerProperties`
+
+
 ## 0.6.0 (2022-06-02)
 ### Breaking Changes
 
@@ -33,6 +45,24 @@
 - New const `AutoBackupDaysOfWeekThursday`
 - New function `PossibleAssessmentDayOfWeekValues() []AssessmentDayOfWeek`
 - New function `PossibleAutoBackupDaysOfWeekValues() []AutoBackupDaysOfWeek`
+
+
+## 0.5.0 (2022-05-17)
+
+The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sqlvirtualmachine/armsqlvirtualmachine` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.5.0, which contains breaking changes.
+
+To migrate the existing applications to the latest version, please refer to [Migration Guide](https://aka.ms/azsdk/go/mgmt/migration).
+
+To learn more, please refer to our documentation [Quick Start](https://aka.ms/azsdk/go/mgmt).## 0.7.0 (2022-06-15)
+### Features Added
+
+- New field `WsfcStaticIP` in struct `Properties`
+- New field `PersistFolder` in struct `SQLTempDbSettings`
+- New field `PersistFolderPath` in struct `SQLTempDbSettings`
+- New field `IsIfiEnabled` in struct `SQLInstanceSettings`
+- New field `IsLpimEnabled` in struct `SQLInstanceSettings`
+- New field `ClusterSubnetType` in struct `WsfcDomainProfile`
+- New field `MultiSubnetIPConfigurations` in struct `AvailabilityGroupListenerProperties`
 
 
 ## 0.5.0 (2022-05-17)

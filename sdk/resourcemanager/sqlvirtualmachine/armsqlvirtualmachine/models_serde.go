@@ -49,6 +49,7 @@ func (a AvailabilityGroupListenerProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "availabilityGroupName", a.AvailabilityGroupName)
 	populate(objectMap, "createDefaultAvailabilityGroupIfNotExist", a.CreateDefaultAvailabilityGroupIfNotExist)
 	populate(objectMap, "loadBalancerConfigurations", a.LoadBalancerConfigurations)
+	populate(objectMap, "multiSubnetIpConfigurations", a.MultiSubnetIPConfigurations)
 	populate(objectMap, "port", a.Port)
 	populate(objectMap, "provisioningState", a.ProvisioningState)
 	return json.Marshal(objectMap)
@@ -103,6 +104,8 @@ func (s SQLTempDbSettings) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "logFileSize", s.LogFileSize)
 	populate(objectMap, "logGrowth", s.LogGrowth)
 	populate(objectMap, "luns", s.Luns)
+	populate(objectMap, "persistFolder", s.PersistFolder)
+	populate(objectMap, "persistFolderPath", s.PersistFolderPath)
 	return json.Marshal(objectMap)
 }
 
