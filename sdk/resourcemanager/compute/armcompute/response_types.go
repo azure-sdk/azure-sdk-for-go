@@ -903,6 +903,11 @@ type VirtualMachineImagesClientGetResponse struct {
 	VirtualMachineImage
 }
 
+// VirtualMachineImagesClientListByEdgeZoneResponse contains the response from method VirtualMachineImagesClient.ListByEdgeZone.
+type VirtualMachineImagesClientListByEdgeZoneResponse struct {
+	VMImagesInEdgeZoneListResult
+}
+
 // VirtualMachineImagesClientListOffersResponse contains the response from method VirtualMachineImagesClient.ListOffers.
 type VirtualMachineImagesClientListOffersResponse struct {
 	// Array of VirtualMachineImageResource

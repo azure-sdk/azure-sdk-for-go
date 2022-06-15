@@ -204,6 +204,63 @@ func (client *VirtualMachineImagesClient) listHandleResponse(resp *http.Response
 	return result, nil
 }
 
+// ListByEdgeZone - Gets a list of all virtual machine image versions for the specified edge zone
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-03-01
+// location - The name of a supported Azure region.
+// edgeZone - The name of the edge zone.
+// options - VirtualMachineImagesClientListByEdgeZoneOptions contains the optional parameters for the VirtualMachineImagesClient.ListByEdgeZone
+// method.
+func (client *VirtualMachineImagesClient) ListByEdgeZone(ctx context.Context, location string, edgeZone string, options *VirtualMachineImagesClientListByEdgeZoneOptions) (VirtualMachineImagesClientListByEdgeZoneResponse, error) {
+	req, err := client.listByEdgeZoneCreateRequest(ctx, location, edgeZone, options)
+	if err != nil {
+		return VirtualMachineImagesClientListByEdgeZoneResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return VirtualMachineImagesClientListByEdgeZoneResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return VirtualMachineImagesClientListByEdgeZoneResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listByEdgeZoneHandleResponse(resp)
+}
+
+// listByEdgeZoneCreateRequest creates the ListByEdgeZone request.
+func (client *VirtualMachineImagesClient) listByEdgeZoneCreateRequest(ctx context.Context, location string, edgeZone string, options *VirtualMachineImagesClientListByEdgeZoneOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/edgeZones/{edgeZone}/vmimages"
+	if location == "" {
+		return nil, errors.New("parameter location cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
+	if edgeZone == "" {
+		return nil, errors.New("parameter edgeZone cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{edgeZone}", url.PathEscape(edgeZone))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-03-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listByEdgeZoneHandleResponse handles the ListByEdgeZone response.
+func (client *VirtualMachineImagesClient) listByEdgeZoneHandleResponse(resp *http.Response) (VirtualMachineImagesClientListByEdgeZoneResponse, error) {
+	result := VirtualMachineImagesClientListByEdgeZoneResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.VMImagesInEdgeZoneListResult); err != nil {
+		return VirtualMachineImagesClientListByEdgeZoneResponse{}, err
+	}
+	return result, nil
+}
+
 // ListOffers - Gets a list of virtual machine image offers for the specified location and publisher.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01

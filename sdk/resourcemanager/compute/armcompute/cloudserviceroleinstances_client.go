@@ -57,8 +57,10 @@ func NewCloudServiceRoleInstancesClient(subscriptionID string, credential azcore
 
 // BeginDelete - Deletes a role instance from a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // roleInstanceName - Name of the role instance.
+// resourceGroupName - Name of the resource group.
+// cloudServiceName - Name of the cloud service.
 // options - CloudServiceRoleInstancesClientBeginDeleteOptions contains the optional parameters for the CloudServiceRoleInstancesClient.BeginDelete
 // method.
 func (client *CloudServiceRoleInstancesClient) BeginDelete(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientBeginDeleteOptions) (*runtime.Poller[CloudServiceRoleInstancesClientDeleteResponse], error) {
@@ -75,7 +77,7 @@ func (client *CloudServiceRoleInstancesClient) BeginDelete(ctx context.Context, 
 
 // Delete - Deletes a role instance from a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 func (client *CloudServiceRoleInstancesClient) deleteOperation(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, roleInstanceName, resourceGroupName, cloudServiceName, options)
 	if err != nil {
@@ -115,7 +117,7 @@ func (client *CloudServiceRoleInstancesClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -123,8 +125,10 @@ func (client *CloudServiceRoleInstancesClient) deleteCreateRequest(ctx context.C
 
 // Get - Gets a role instance from a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // roleInstanceName - Name of the role instance.
+// resourceGroupName - Name of the resource group.
+// cloudServiceName - Name of the cloud service.
 // options - CloudServiceRoleInstancesClientGetOptions contains the optional parameters for the CloudServiceRoleInstancesClient.Get
 // method.
 func (client *CloudServiceRoleInstancesClient) Get(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientGetOptions) (CloudServiceRoleInstancesClientGetResponse, error) {
@@ -166,7 +170,7 @@ func (client *CloudServiceRoleInstancesClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
@@ -186,8 +190,10 @@ func (client *CloudServiceRoleInstancesClient) getHandleResponse(resp *http.Resp
 
 // GetInstanceView - Retrieves information about the run-time state of a role instance in a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // roleInstanceName - Name of the role instance.
+// resourceGroupName - Name of the resource group.
+// cloudServiceName - Name of the cloud service.
 // options - CloudServiceRoleInstancesClientGetInstanceViewOptions contains the optional parameters for the CloudServiceRoleInstancesClient.GetInstanceView
 // method.
 func (client *CloudServiceRoleInstancesClient) GetInstanceView(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientGetInstanceViewOptions) (CloudServiceRoleInstancesClientGetInstanceViewResponse, error) {
@@ -229,7 +235,7 @@ func (client *CloudServiceRoleInstancesClient) getInstanceViewCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -246,8 +252,10 @@ func (client *CloudServiceRoleInstancesClient) getInstanceViewHandleResponse(res
 
 // GetRemoteDesktopFile - Gets a remote desktop file for a role instance in a cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // roleInstanceName - Name of the role instance.
+// resourceGroupName - Name of the resource group.
+// cloudServiceName - Name of the cloud service.
 // options - CloudServiceRoleInstancesClientGetRemoteDesktopFileOptions contains the optional parameters for the CloudServiceRoleInstancesClient.GetRemoteDesktopFile
 // method.
 func (client *CloudServiceRoleInstancesClient) GetRemoteDesktopFile(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientGetRemoteDesktopFileOptions) (CloudServiceRoleInstancesClientGetRemoteDesktopFileResponse, error) {
@@ -289,7 +297,7 @@ func (client *CloudServiceRoleInstancesClient) getRemoteDesktopFileCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	runtime.SkipBodyDownload(req)
 	req.Raw().Header["Accept"] = []string{"application/x-rdp"}
@@ -299,7 +307,9 @@ func (client *CloudServiceRoleInstancesClient) getRemoteDesktopFileCreateRequest
 // NewListPager - Gets the list of all role instances in a cloud service. Use nextLink property in the response to get the
 // next page of role instances. Do this till nextLink is null to fetch all the role instances.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
+// resourceGroupName - Name of the resource group.
+// cloudServiceName - Name of the cloud service.
 // options - CloudServiceRoleInstancesClientListOptions contains the optional parameters for the CloudServiceRoleInstancesClient.List
 // method.
 func (client *CloudServiceRoleInstancesClient) NewListPager(resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientListOptions) *runtime.Pager[CloudServiceRoleInstancesClientListResponse] {
@@ -350,7 +360,7 @@ func (client *CloudServiceRoleInstancesClient) listCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
@@ -372,8 +382,10 @@ func (client *CloudServiceRoleInstancesClient) listHandleResponse(resp *http.Res
 // or worker roles and initializes the storage resources that are used by them. If you do not
 // want to initialize storage resources, you can use Reimage Role Instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // roleInstanceName - Name of the role instance.
+// resourceGroupName - Name of the resource group.
+// cloudServiceName - Name of the cloud service.
 // options - CloudServiceRoleInstancesClientBeginRebuildOptions contains the optional parameters for the CloudServiceRoleInstancesClient.BeginRebuild
 // method.
 func (client *CloudServiceRoleInstancesClient) BeginRebuild(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientBeginRebuildOptions) (*runtime.Poller[CloudServiceRoleInstancesClientRebuildResponse], error) {
@@ -392,7 +404,7 @@ func (client *CloudServiceRoleInstancesClient) BeginRebuild(ctx context.Context,
 // worker roles and initializes the storage resources that are used by them. If you do not
 // want to initialize storage resources, you can use Reimage Role Instance.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 func (client *CloudServiceRoleInstancesClient) rebuild(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientBeginRebuildOptions) (*http.Response, error) {
 	req, err := client.rebuildCreateRequest(ctx, roleInstanceName, resourceGroupName, cloudServiceName, options)
 	if err != nil {
@@ -432,7 +444,7 @@ func (client *CloudServiceRoleInstancesClient) rebuildCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -441,8 +453,10 @@ func (client *CloudServiceRoleInstancesClient) rebuildCreateRequest(ctx context.
 // BeginReimage - The Reimage Role Instance asynchronous operation reinstalls the operating system on instances of web roles
 // or worker roles.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // roleInstanceName - Name of the role instance.
+// resourceGroupName - Name of the resource group.
+// cloudServiceName - Name of the cloud service.
 // options - CloudServiceRoleInstancesClientBeginReimageOptions contains the optional parameters for the CloudServiceRoleInstancesClient.BeginReimage
 // method.
 func (client *CloudServiceRoleInstancesClient) BeginReimage(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientBeginReimageOptions) (*runtime.Poller[CloudServiceRoleInstancesClientReimageResponse], error) {
@@ -460,7 +474,7 @@ func (client *CloudServiceRoleInstancesClient) BeginReimage(ctx context.Context,
 // Reimage - The Reimage Role Instance asynchronous operation reinstalls the operating system on instances of web roles or
 // worker roles.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 func (client *CloudServiceRoleInstancesClient) reimage(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientBeginReimageOptions) (*http.Response, error) {
 	req, err := client.reimageCreateRequest(ctx, roleInstanceName, resourceGroupName, cloudServiceName, options)
 	if err != nil {
@@ -500,7 +514,7 @@ func (client *CloudServiceRoleInstancesClient) reimageCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -508,8 +522,10 @@ func (client *CloudServiceRoleInstancesClient) reimageCreateRequest(ctx context.
 
 // BeginRestart - The Reboot Role Instance asynchronous operation requests a reboot of a role instance in the cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 // roleInstanceName - Name of the role instance.
+// resourceGroupName - Name of the resource group.
+// cloudServiceName - Name of the cloud service.
 // options - CloudServiceRoleInstancesClientBeginRestartOptions contains the optional parameters for the CloudServiceRoleInstancesClient.BeginRestart
 // method.
 func (client *CloudServiceRoleInstancesClient) BeginRestart(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientBeginRestartOptions) (*runtime.Poller[CloudServiceRoleInstancesClientRestartResponse], error) {
@@ -526,7 +542,7 @@ func (client *CloudServiceRoleInstancesClient) BeginRestart(ctx context.Context,
 
 // Restart - The Reboot Role Instance asynchronous operation requests a reboot of a role instance in the cloud service.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-03-01
+// Generated from API version 2022-04-04
 func (client *CloudServiceRoleInstancesClient) restart(ctx context.Context, roleInstanceName string, resourceGroupName string, cloudServiceName string, options *CloudServiceRoleInstancesClientBeginRestartOptions) (*http.Response, error) {
 	req, err := client.restartCreateRequest(ctx, roleInstanceName, resourceGroupName, cloudServiceName, options)
 	if err != nil {
@@ -566,7 +582,7 @@ func (client *CloudServiceRoleInstancesClient) restartCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-04-04")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

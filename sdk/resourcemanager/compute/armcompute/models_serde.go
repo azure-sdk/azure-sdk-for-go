@@ -259,6 +259,7 @@ func (c CloudService) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "location", c.Location)
 	populate(objectMap, "name", c.Name)
 	populate(objectMap, "properties", c.Properties)
+	populate(objectMap, "systemData", c.SystemData)
 	populate(objectMap, "tags", c.Tags)
 	populate(objectMap, "type", c.Type)
 	return json.Marshal(objectMap)
@@ -276,12 +277,12 @@ func (c CloudServiceExtensionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "autoUpgradeMinorVersion", c.AutoUpgradeMinorVersion)
 	populate(objectMap, "forceUpdateTag", c.ForceUpdateTag)
-	populate(objectMap, "protectedSettings", c.ProtectedSettings)
+	populate(objectMap, "protectedSettings", &c.ProtectedSettings)
 	populate(objectMap, "protectedSettingsFromKeyVault", c.ProtectedSettingsFromKeyVault)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "publisher", c.Publisher)
 	populate(objectMap, "rolesAppliedTo", c.RolesAppliedTo)
-	populate(objectMap, "settings", c.Settings)
+	populate(objectMap, "settings", &c.Settings)
 	populate(objectMap, "type", c.Type)
 	populate(objectMap, "typeHandlerVersion", c.TypeHandlerVersion)
 	return json.Marshal(objectMap)
@@ -291,6 +292,7 @@ func (c CloudServiceExtensionProperties) MarshalJSON() ([]byte, error) {
 func (c CloudServiceNetworkProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "loadBalancerConfigurations", c.LoadBalancerConfigurations)
+	populate(objectMap, "slotType", c.SlotType)
 	populate(objectMap, "swappableCloudService", c.SwappableCloudService)
 	return json.Marshal(objectMap)
 }
@@ -2296,6 +2298,37 @@ func (s StorageProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "imageReference", s.ImageReference)
 	populate(objectMap, "osDisk", s.OSDisk)
 	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type SystemData.
+func (s SystemData) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populateTimeRFC3339(objectMap, "createdAt", s.CreatedAt)
+	populateTimeRFC3339(objectMap, "lastModifiedAt", s.LastModifiedAt)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type SystemData.
+func (s *SystemData) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "createdAt":
+			err = unpopulateTimeRFC3339(val, "CreatedAt", &s.CreatedAt)
+			delete(rawMsg, key)
+		case "lastModifiedAt":
+			err = unpopulateTimeRFC3339(val, "LastModifiedAt", &s.LastModifiedAt)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
 }
 
 // MarshalJSON implements the json.Marshaller interface for type ThrottledRequestsInput.

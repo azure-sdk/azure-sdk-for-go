@@ -607,6 +607,9 @@ type CloudService struct {
 	// READ-ONLY; Resource name.
 	Name *string `json:"name,omitempty" azure:"ro"`
 
+	// READ-ONLY; The system meta data relating to this resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
@@ -631,7 +634,9 @@ type CloudServiceExtensionProperties struct {
 	ForceUpdateTag *string `json:"forceUpdateTag,omitempty"`
 
 	// Protected settings for the extension which are encrypted before sent to the role instance.
-	ProtectedSettings             *string                              `json:"protectedSettings,omitempty"`
+	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
+
+	// Protected settings for the extension, referenced using KeyVault which are encrypted before sent to the role instance.
 	ProtectedSettingsFromKeyVault *CloudServiceVaultAndSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
 
 	// The name of the extension handler publisher.
@@ -643,7 +648,7 @@ type CloudServiceExtensionProperties struct {
 
 	// Public settings for the extension. For JSON extensions, this is the JSON settings for the extension. For XML Extension
 	// (like RDP), this is the XML setting for the extension.
-	Settings *string `json:"settings,omitempty"`
+	Settings interface{} `json:"settings,omitempty"`
 
 	// Specifies the type of the extension.
 	Type *string `json:"type,omitempty"`
@@ -676,10 +681,14 @@ type CloudServiceInstanceView struct {
 	Statuses []*ResourceInstanceViewStatus `json:"statuses,omitempty" azure:"ro"`
 }
 
+// CloudServiceListResult - The list operation result.
 type CloudServiceListResult struct {
-	// REQUIRED
-	Value    []*CloudService `json:"value,omitempty"`
-	NextLink *string         `json:"nextLink,omitempty"`
+	// REQUIRED; The list of resources.
+	Value []*CloudService `json:"value,omitempty"`
+
+	// The URI to fetch the next page of resources. Use this to get the next page of resources. Do this till nextLink is null
+	// to fetch all the resources.
+	NextLink *string `json:"nextLink,omitempty"`
 }
 
 // CloudServiceNetworkProfile - Network Profile for the cloud service.
@@ -687,6 +696,12 @@ type CloudServiceNetworkProfile struct {
 	// List of Load balancer configurations. Cloud service can have up to two load balancer configurations, corresponding to a
 	// Public Load Balancer and an Internal Load Balancer.
 	LoadBalancerConfigurations []*LoadBalancerConfiguration `json:"loadBalancerConfigurations,omitempty"`
+
+	// Slot type for the cloud service. Possible values are
+	// Production
+	// Staging
+	// If not specified, the default value is Production.
+	SlotType *CloudServiceSlotType `json:"slotType,omitempty"`
 
 	// The id reference of the cloud service containing the target IP with which the subject cloud service can perform a swap.
 	// This property cannot be updated once it is set. The swappable cloud service
@@ -782,6 +797,7 @@ type CloudServiceProperties struct {
 
 // CloudServiceRole - Describes a role of the cloud service.
 type CloudServiceRole struct {
+	// The cloud service role properties.
 	Properties *CloudServiceRoleProperties `json:"properties,omitempty"`
 
 	// Describes the cloud service role sku.
@@ -854,10 +870,14 @@ type CloudServiceRoleInstancesClientListOptions struct {
 	Expand *InstanceViewTypes
 }
 
+// CloudServiceRoleListResult - The list operation result.
 type CloudServiceRoleListResult struct {
-	// REQUIRED
-	Value    []*CloudServiceRole `json:"value,omitempty"`
-	NextLink *string             `json:"nextLink,omitempty"`
+	// REQUIRED; The list of resources.
+	Value []*CloudServiceRole `json:"value,omitempty"`
+
+	// The URI to fetch the next page of resources. Use this to get the next page of resources. Do this till nextLink is null
+	// to fetch all the resources.
+	NextLink *string `json:"nextLink,omitempty"`
 }
 
 // CloudServiceRoleProfile - Describes the role profile for the cloud service.
@@ -875,6 +895,7 @@ type CloudServiceRoleProfileProperties struct {
 	SKU *CloudServiceRoleSKU `json:"sku,omitempty"`
 }
 
+// CloudServiceRoleProperties - The cloud service role properties.
 type CloudServiceRoleProperties struct {
 	// READ-ONLY; Specifies the ID which uniquely identifies a cloud service role.
 	UniqueID *string `json:"uniqueId,omitempty" azure:"ro"`
@@ -910,8 +931,13 @@ type CloudServiceUpdate struct {
 	Tags map[string]*string `json:"tags,omitempty"`
 }
 
+// CloudServiceVaultAndSecretReference - Protected settings for the extension, referenced using KeyVault which are encrypted
+// before sent to the role instance.
 type CloudServiceVaultAndSecretReference struct {
-	SecretURL   *string      `json:"secretUrl,omitempty"`
+	// Secret URL which contains the protected settings of the extension
+	SecretURL *string `json:"secretUrl,omitempty"`
+
+	// The ARM Resource ID of the Key Vault
 	SourceVault *SubResource `json:"sourceVault,omitempty"`
 }
 
@@ -3604,6 +3630,7 @@ type InnerError struct {
 	Exceptiontype *string `json:"exceptiontype,omitempty"`
 }
 
+// InstanceSKU - The role instance SKU.
 type InstanceSKU struct {
 	// READ-ONLY; The sku name.
 	Name *string `json:"name,omitempty" azure:"ro"`
@@ -3632,7 +3659,7 @@ type InstanceViewStatus struct {
 
 // InstanceViewStatusesSummary - Instance view statuses.
 type InstanceViewStatusesSummary struct {
-	// READ-ONLY
+	// READ-ONLY; The summary.
 	StatusesSummary []*StatusCodeCount `json:"statusesSummary,omitempty" azure:"ro"`
 }
 
@@ -3806,12 +3833,15 @@ type LoadBalancerConfiguration struct {
 	ID *string `json:"id,omitempty"`
 }
 
+// LoadBalancerConfigurationProperties - Describes the properties of the load balancer configuration.
 type LoadBalancerConfigurationProperties struct {
 	// REQUIRED; Specifies the frontend IP to be used for the load balancer. Only IPv4 frontend IP address is supported. Each
 	// load balancer configuration must have exactly one frontend IP configuration.
 	FrontendIPConfigurations []*LoadBalancerFrontendIPConfiguration `json:"frontendIPConfigurations,omitempty"`
 }
 
+// LoadBalancerFrontendIPConfiguration - Specifies the frontend IP to be used for the load balancer. Only IPv4 frontend IP
+// address is supported. Each load balancer configuration must have exactly one frontend IP configuration.
 type LoadBalancerFrontendIPConfiguration struct {
 	// REQUIRED; The name of the resource that is unique within the set of frontend IP configurations used by the load balancer.
 	// This name can be used to access the resource.
@@ -4068,10 +4098,14 @@ type OSFamily struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// OSFamilyListResult - The list operation result.
 type OSFamilyListResult struct {
-	// REQUIRED
-	Value    []*OSFamily `json:"value,omitempty"`
-	NextLink *string     `json:"nextLink,omitempty"`
+	// REQUIRED; The list of resources.
+	Value []*OSFamily `json:"value,omitempty"`
+
+	// The URI to fetch the next page of resources. Use this to get the next page of resources. Do this till nextLink is null
+	// to fetch all the resources.
+	NextLink *string `json:"nextLink,omitempty"`
 }
 
 // OSFamilyProperties - OS family properties.
@@ -4173,10 +4207,14 @@ type OSVersion struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// OSVersionListResult - The list operation result.
 type OSVersionListResult struct {
-	// REQUIRED
-	Value    []*OSVersion `json:"value,omitempty"`
-	NextLink *string      `json:"nextLink,omitempty"`
+	// REQUIRED; The list of resources.
+	Value []*OSVersion `json:"value,omitempty"`
+
+	// The URI to fetch the next page of resources. Use this to get the next page of resources. Do this till nextLink is null
+	// to fetch all the resources.
+	NextLink *string `json:"nextLink,omitempty"`
 }
 
 // OSVersionProperties - OS version properties.
@@ -5192,9 +5230,13 @@ type RetrieveBootDiagnosticsDataResult struct {
 	SerialConsoleLogBlobURI *string `json:"serialConsoleLogBlobUri,omitempty" azure:"ro"`
 }
 
+// RoleInstance - Describes the cloud service role instance.
 type RoleInstance struct {
+	// Role instance properties.
 	Properties *RoleInstanceProperties `json:"properties,omitempty"`
-	SKU        *InstanceSKU            `json:"sku,omitempty"`
+
+	// The role instance SKU.
+	SKU *InstanceSKU `json:"sku,omitempty"`
 
 	// READ-ONLY; Resource Id
 	ID *string `json:"id,omitempty" azure:"ro"`
@@ -5212,10 +5254,14 @@ type RoleInstance struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// RoleInstanceListResult - The list operation result.
 type RoleInstanceListResult struct {
-	// REQUIRED
-	Value    []*RoleInstance `json:"value,omitempty"`
-	NextLink *string         `json:"nextLink,omitempty"`
+	// REQUIRED; The list of resources.
+	Value []*RoleInstance `json:"value,omitempty"`
+
+	// The URI to fetch the next page of resources. Use this to get the next page of resources. Do this till nextLink is null
+	// to fetch all the resources.
+	NextLink *string `json:"nextLink,omitempty"`
 }
 
 // RoleInstanceNetworkProfile - Describes the network profile for the role instance.
@@ -5224,6 +5270,7 @@ type RoleInstanceNetworkProfile struct {
 	NetworkInterfaces []*SubResource `json:"networkInterfaces,omitempty" azure:"ro"`
 }
 
+// RoleInstanceProperties - Role instance properties.
 type RoleInstanceProperties struct {
 	// The instance view of the role instance.
 	InstanceView *RoleInstanceView `json:"instanceView,omitempty"`
@@ -6145,6 +6192,7 @@ type SpotRestorePolicy struct {
 	RestoreTimeout *string `json:"restoreTimeout,omitempty"`
 }
 
+// StatusCodeCount - The status code and count of the cloud service instance view statuses
 type StatusCodeCount struct {
 	// READ-ONLY; The instance view status code
 	Code *string `json:"code,omitempty" azure:"ro"`
@@ -6194,6 +6242,17 @@ type SupportedCapabilities struct {
 
 	// CPU architecture supported by an OS disk.
 	Architecture *Architecture `json:"architecture,omitempty"`
+}
+
+// SystemData - The system meta data relating to this resource.
+type SystemData struct {
+	// READ-ONLY; Specifies the time in UTC at which the Cloud Service (extended support) resource was created.
+	// Minimum api-version: 2022-04-04.
+	CreatedAt *time.Time `json:"createdAt,omitempty" azure:"ro"`
+
+	// READ-ONLY; Specifies the time in UTC at which the Cloud Service (extended support) resource was last modified.
+	// Minimum api-version: 2022-04-04.
+	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty" azure:"ro"`
 }
 
 // TargetRegion - Describes the target region information.
@@ -6269,10 +6328,14 @@ type UpdateDomain struct {
 	Name *string `json:"name,omitempty" azure:"ro"`
 }
 
+// UpdateDomainListResult - The list operation result.
 type UpdateDomainListResult struct {
-	// REQUIRED
-	Value    []*UpdateDomain `json:"value,omitempty"`
-	NextLink *string         `json:"nextLink,omitempty"`
+	// REQUIRED; The list of resources.
+	Value []*UpdateDomain `json:"value,omitempty"`
+
+	// The URI to fetch the next page of resources. Use this to get the next page of resources. Do this till nextLink is null
+	// to fetch all the resources.
+	NextLink *string `json:"nextLink,omitempty"`
 }
 
 // UpdateResource - The Update Resource model definition.
@@ -6464,6 +6527,15 @@ type VMGalleryApplication struct {
 
 	// Optional, If true, any failure for any operation in the VmApplication will fail the deployment
 	TreatFailureAsDeploymentFailure *bool `json:"treatFailureAsDeploymentFailure,omitempty"`
+}
+
+// VMImagesInEdgeZoneListResult - The List VmImages in EdgeZone operation response.
+type VMImagesInEdgeZoneListResult struct {
+	// The URI to fetch the next page of VMImages in EdgeZone. Call ListNext() with this URI to fetch the next page of VmImages.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// The list of VMImages in EdgeZone
+	Value []*VirtualMachineImageResource `json:"value,omitempty"`
 }
 
 type VMScaleSetConvertToSinglePlacementGroupInput struct {
@@ -6998,6 +7070,12 @@ type VirtualMachineImageResource struct {
 
 // VirtualMachineImagesClientGetOptions contains the optional parameters for the VirtualMachineImagesClient.Get method.
 type VirtualMachineImagesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineImagesClientListByEdgeZoneOptions contains the optional parameters for the VirtualMachineImagesClient.ListByEdgeZone
+// method.
+type VirtualMachineImagesClientListByEdgeZoneOptions struct {
 	// placeholder for future optional parameters
 }
 

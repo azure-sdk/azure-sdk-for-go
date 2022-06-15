@@ -10,7 +10,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.0.1"
 )
 
 type AccessLevel string
@@ -145,6 +145,25 @@ const (
 func PossibleCapacityReservationInstanceViewTypesValues() []CapacityReservationInstanceViewTypes {
 	return []CapacityReservationInstanceViewTypes{
 		CapacityReservationInstanceViewTypesInstanceView,
+	}
+}
+
+// CloudServiceSlotType - Slot type for the cloud service. Possible values are
+// Production
+// Staging
+// If not specified, the default value is Production.
+type CloudServiceSlotType string
+
+const (
+	CloudServiceSlotTypeProduction CloudServiceSlotType = "Production"
+	CloudServiceSlotTypeStaging    CloudServiceSlotType = "Staging"
+)
+
+// PossibleCloudServiceSlotTypeValues returns the possible values for the CloudServiceSlotType const type.
+func PossibleCloudServiceSlotTypeValues() []CloudServiceSlotType {
+	return []CloudServiceSlotType{
+		CloudServiceSlotTypeProduction,
+		CloudServiceSlotTypeStaging,
 	}
 }
 
