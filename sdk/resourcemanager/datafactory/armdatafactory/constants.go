@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "armdatafactory"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 type AmazonRdsForOraclePartitionOption string
@@ -962,20 +962,6 @@ func PossibleJSONWriteFilePatternValues() []JSONWriteFilePattern {
 	}
 }
 
-// LinkedServiceReferenceType - Linked service reference type.
-type LinkedServiceReferenceType string
-
-const (
-	LinkedServiceReferenceTypeLinkedServiceReference LinkedServiceReferenceType = "LinkedServiceReference"
-)
-
-// PossibleLinkedServiceReferenceTypeValues returns the possible values for the LinkedServiceReferenceType const type.
-func PossibleLinkedServiceReferenceTypeValues() []LinkedServiceReferenceType {
-	return []LinkedServiceReferenceType{
-		LinkedServiceReferenceTypeLinkedServiceReference,
-	}
-}
-
 // ManagedIntegrationRuntimeNodeStatus - The managed integration runtime node status.
 type ManagedIntegrationRuntimeNodeStatus string
 
@@ -1259,6 +1245,7 @@ const (
 	RestServiceAuthenticationTypeAnonymous              RestServiceAuthenticationType = "Anonymous"
 	RestServiceAuthenticationTypeBasic                  RestServiceAuthenticationType = "Basic"
 	RestServiceAuthenticationTypeManagedServiceIdentity RestServiceAuthenticationType = "ManagedServiceIdentity"
+	RestServiceAuthenticationTypeOAuth2ClientCredential RestServiceAuthenticationType = "OAuth2ClientCredential"
 )
 
 // PossibleRestServiceAuthenticationTypeValues returns the possible values for the RestServiceAuthenticationType const type.
@@ -1268,6 +1255,7 @@ func PossibleRestServiceAuthenticationTypeValues() []RestServiceAuthenticationTy
 		RestServiceAuthenticationTypeAnonymous,
 		RestServiceAuthenticationTypeBasic,
 		RestServiceAuthenticationTypeManagedServiceIdentity,
+		RestServiceAuthenticationTypeOAuth2ClientCredential,
 	}
 }
 
@@ -1983,6 +1971,20 @@ func PossibleTumblingWindowFrequencyValues() []TumblingWindowFrequency {
 		TumblingWindowFrequencyHour,
 		TumblingWindowFrequencyMinute,
 		TumblingWindowFrequencyMonth,
+	}
+}
+
+// Type - Linked service reference type.
+type Type string
+
+const (
+	TypeLinkedServiceReference Type = "LinkedServiceReference"
+)
+
+// PossibleTypeValues returns the possible values for the Type const type.
+func PossibleTypeValues() []Type {
+	return []Type{
+		TypeLinkedServiceReference,
 	}
 }
 
