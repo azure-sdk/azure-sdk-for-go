@@ -1,5 +1,16 @@
 # Release History
 
+## 1.1.0-beta.1 (2022-06-16)
+### Features Added
+
+- New field `Version` in struct `ServerPropertiesForUpdate`
+- New field `Page` in struct `ConfigurationsClientListByServerOptions`
+- New field `PageSize` in struct `ConfigurationsClientListByServerOptions`
+- New field `Tags` in struct `ConfigurationsClientListByServerOptions`
+- New field `Keyword` in struct `ConfigurationsClientListByServerOptions`
+- New field `ResetAllToDefault` in struct `ConfigurationListForBatchUpdate`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mysql/armmysqlflexibleservers` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
