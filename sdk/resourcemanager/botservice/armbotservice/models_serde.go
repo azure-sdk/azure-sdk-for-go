@@ -174,6 +174,7 @@ func (b BotProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "publishingCredentials", b.PublishingCredentials)
 	populate(objectMap, "schemaTransformationVersion", b.SchemaTransformationVersion)
 	populate(objectMap, "storageResourceId", b.StorageResourceID)
+	populate(objectMap, "tenantId", b.TenantID)
 	return json.Marshal(objectMap)
 }
 
@@ -271,6 +272,8 @@ func (d *DirectLineChannel) UnmarshalJSON(data []byte) error {
 func (d DirectLineChannelProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "DirectLineEmbedCode", d.DirectLineEmbedCode)
+	populate(objectMap, "extensionKey1", d.ExtensionKey1)
+	populate(objectMap, "extensionKey2", d.ExtensionKey2)
 	populate(objectMap, "sites", d.Sites)
 	return json.Marshal(objectMap)
 }
@@ -278,11 +281,18 @@ func (d DirectLineChannelProperties) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type DirectLineSite.
 func (d DirectLineSite) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "appId", d.AppID)
+	populate(objectMap, "eTag", d.ETag)
 	populate(objectMap, "isBlockUserUploadEnabled", d.IsBlockUserUploadEnabled)
+	populate(objectMap, "isDetailedLoggingEnabled", d.IsDetailedLoggingEnabled)
 	populate(objectMap, "isEnabled", d.IsEnabled)
+	populate(objectMap, "isEndpointParametersEnabled", d.IsEndpointParametersEnabled)
+	populate(objectMap, "isNoStorageEnabled", d.IsNoStorageEnabled)
 	populate(objectMap, "isSecureSiteEnabled", d.IsSecureSiteEnabled)
+	populate(objectMap, "isTokenEnabled", d.IsTokenEnabled)
 	populate(objectMap, "isV1Enabled", d.IsV1Enabled)
 	populate(objectMap, "isV3Enabled", d.IsV3Enabled)
+	populate(objectMap, "isWebchatPreviewEnabled", d.IsWebchatPreviewEnabled)
 	populate(objectMap, "key", d.Key)
 	populate(objectMap, "key2", d.Key2)
 	populate(objectMap, "siteId", d.SiteID)
@@ -682,6 +692,45 @@ func (o *OperationResultsDescription) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type OutlookChannel.
+func (o OutlookChannel) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	objectMap["channelName"] = "OutlookChannel"
+	populate(objectMap, "etag", o.Etag)
+	populate(objectMap, "location", o.Location)
+	populate(objectMap, "provisioningState", o.ProvisioningState)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type OutlookChannel.
+func (o *OutlookChannel) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", o, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "channelName":
+			err = unpopulate(val, "ChannelName", &o.ChannelName)
+			delete(rawMsg, key)
+		case "etag":
+			err = unpopulate(val, "Etag", &o.Etag)
+			delete(rawMsg, key)
+		case "location":
+			err = unpopulate(val, "Location", &o.Location)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &o.ProvisioningState)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type PrivateLinkResourceProperties.
 func (p PrivateLinkResourceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -709,9 +758,13 @@ func (r Resource) MarshalJSON() ([]byte, error) {
 // MarshalJSON implements the json.Marshaller interface for type Site.
 func (s Site) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "appId", s.AppID)
 	populate(objectMap, "eTag", s.ETag)
 	populate(objectMap, "isBlockUserUploadEnabled", s.IsBlockUserUploadEnabled)
+	populate(objectMap, "isDetailedLoggingEnabled", s.IsDetailedLoggingEnabled)
 	populate(objectMap, "isEnabled", s.IsEnabled)
+	populate(objectMap, "isEndpointParametersEnabled", s.IsEndpointParametersEnabled)
+	populate(objectMap, "isNoStorageEnabled", s.IsNoStorageEnabled)
 	populate(objectMap, "isSecureSiteEnabled", s.IsSecureSiteEnabled)
 	populate(objectMap, "isTokenEnabled", s.IsTokenEnabled)
 	populate(objectMap, "isV1Enabled", s.IsV1Enabled)
@@ -945,6 +998,29 @@ func (w WebChatChannelProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "sites", w.Sites)
 	populate(objectMap, "webChatEmbedCode", w.WebChatEmbedCode)
+	return json.Marshal(objectMap)
+}
+
+// MarshalJSON implements the json.Marshaller interface for type WebChatSite.
+func (w WebChatSite) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "appId", w.AppID)
+	populate(objectMap, "eTag", w.ETag)
+	populate(objectMap, "isBlockUserUploadEnabled", w.IsBlockUserUploadEnabled)
+	populate(objectMap, "isDetailedLoggingEnabled", w.IsDetailedLoggingEnabled)
+	populate(objectMap, "isEnabled", w.IsEnabled)
+	populate(objectMap, "isEndpointParametersEnabled", w.IsEndpointParametersEnabled)
+	populate(objectMap, "isNoStorageEnabled", w.IsNoStorageEnabled)
+	populate(objectMap, "isSecureSiteEnabled", w.IsSecureSiteEnabled)
+	populate(objectMap, "isTokenEnabled", w.IsTokenEnabled)
+	populate(objectMap, "isV1Enabled", w.IsV1Enabled)
+	populate(objectMap, "isV3Enabled", w.IsV3Enabled)
+	populate(objectMap, "isWebchatPreviewEnabled", w.IsWebchatPreviewEnabled)
+	populate(objectMap, "key", w.Key)
+	populate(objectMap, "key2", w.Key2)
+	populate(objectMap, "siteId", w.SiteID)
+	populate(objectMap, "siteName", w.SiteName)
+	populate(objectMap, "trustedOrigins", w.TrustedOrigins)
 	return json.Marshal(objectMap)
 }
 

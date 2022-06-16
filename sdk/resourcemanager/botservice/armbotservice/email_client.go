@@ -22,19 +22,19 @@ import (
 	"strings"
 )
 
-// PrivateLinkResourcesClient contains the methods for the PrivateLinkResources group.
-// Don't use this type directly, use NewPrivateLinkResourcesClient() instead.
-type PrivateLinkResourcesClient struct {
+// EmailClient contains the methods for the Email group.
+// Don't use this type directly, use NewEmailClient() instead.
+type EmailClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient with the specified values.
+// NewEmailClient creates a new instance of EmailClient with the specified values.
 // subscriptionID - Azure Subscription ID.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateLinkResourcesClient, error) {
+func NewEmailClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EmailClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -46,7 +46,7 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 	if err != nil {
 		return nil, err
 	}
-	client := &PrivateLinkResourcesClient{
+	client := &EmailClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -54,31 +54,30 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 	return client, nil
 }
 
-// ListByBotResource - Gets the private link resources that need to be created for a Bot.
+// CreateSignInURL - Creates an email channel sign in url for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2022-06-15-preview
 // resourceGroupName - The name of the Bot resource group in the user subscription.
 // resourceName - The name of the Bot resource.
-// options - PrivateLinkResourcesClientListByBotResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByBotResource
-// method.
-func (client *PrivateLinkResourcesClient) ListByBotResource(ctx context.Context, resourceGroupName string, resourceName string, options *PrivateLinkResourcesClientListByBotResourceOptions) (PrivateLinkResourcesClientListByBotResourceResponse, error) {
-	req, err := client.listByBotResourceCreateRequest(ctx, resourceGroupName, resourceName, options)
+// options - EmailClientCreateSignInURLOptions contains the optional parameters for the EmailClient.CreateSignInURL method.
+func (client *EmailClient) CreateSignInURL(ctx context.Context, resourceGroupName string, resourceName string, options *EmailClientCreateSignInURLOptions) (EmailClientCreateSignInURLResponse, error) {
+	req, err := client.createSignInURLCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
-		return PrivateLinkResourcesClientListByBotResourceResponse{}, err
+		return EmailClientCreateSignInURLResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return PrivateLinkResourcesClientListByBotResourceResponse{}, err
+		return EmailClientCreateSignInURLResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return PrivateLinkResourcesClientListByBotResourceResponse{}, runtime.NewResponseError(resp)
+		return EmailClientCreateSignInURLResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.listByBotResourceHandleResponse(resp)
+	return client.createSignInURLHandleResponse(resp)
 }
 
-// listByBotResourceCreateRequest creates the ListByBotResource request.
-func (client *PrivateLinkResourcesClient) listByBotResourceCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *PrivateLinkResourcesClientListByBotResourceOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BotService/botServices/{resourceName}/privateLinkResources"
+// createSignInURLCreateRequest creates the CreateSignInURL request.
+func (client *EmailClient) createSignInURLCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *EmailClientCreateSignInURLOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.BotService/botServices/{resourceName}/createEmailSignInUrl"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -91,22 +90,22 @@ func (client *PrivateLinkResourcesClient) listByBotResourceCreateRequest(ctx con
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2022-06-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listByBotResourceHandleResponse handles the ListByBotResource response.
-func (client *PrivateLinkResourcesClient) listByBotResourceHandleResponse(resp *http.Response) (PrivateLinkResourcesClientListByBotResourceResponse, error) {
-	result := PrivateLinkResourcesClientListByBotResourceResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateLinkResourceListResult); err != nil {
-		return PrivateLinkResourcesClientListByBotResourceResponse{}, err
+// createSignInURLHandleResponse handles the CreateSignInURL response.
+func (client *EmailClient) createSignInURLHandleResponse(resp *http.Response) (EmailClientCreateSignInURLResponse, error) {
+	result := EmailClientCreateSignInURLResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.CreateEmailSignInURLResponse); err != nil {
+		return EmailClientCreateSignInURLResponse{}, err
 	}
 	return result, nil
 }

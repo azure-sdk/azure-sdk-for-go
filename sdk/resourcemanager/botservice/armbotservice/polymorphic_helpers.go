@@ -36,6 +36,8 @@ func unmarshalChannelClassification(rawMsg json.RawMessage) (ChannelClassificati
 		b = &LineChannel{}
 	case "MsTeamsChannel":
 		b = &MsTeamsChannel{}
+	case "OutlookChannel":
+		b = &OutlookChannel{}
 	case "SkypeChannel":
 		b = &SkypeChannel{}
 	case "SlackChannel":
