@@ -237,6 +237,9 @@ type BotProperties struct {
 	// The storage resourceId for the bot
 	StorageResourceID *string `json:"storageResourceId,omitempty"`
 
+	// The Tenant Id for the bot
+	TenantID *string `json:"tenantId,omitempty"`
+
 	// READ-ONLY; The CMK encryption status
 	CmekEncryptionStatus *string `json:"cmekEncryptionStatus,omitempty" azure:"ro"`
 
@@ -547,6 +550,12 @@ type DirectLineChannelProperties struct {
 	// Direct Line embed code of the resource
 	DirectLineEmbedCode *string `json:"DirectLineEmbedCode,omitempty"`
 
+	// The extensionKey1
+	ExtensionKey1 *string `json:"extensionKey1,omitempty"`
+
+	// The extensionKey2
+	ExtensionKey2 *string `json:"extensionKey2,omitempty"`
+
 	// The list of Direct Line sites
 	Sites []*DirectLineSite `json:"sites,omitempty"`
 }
@@ -558,23 +567,44 @@ type DirectLineClientRegenerateKeysOptions struct {
 
 // DirectLineSite - A site for the Direct Line channel
 type DirectLineSite struct {
-	// REQUIRED; Whether this site is enabled for DirectLine channel.
+	// REQUIRED; Whether this site is enabled for DirectLine channel
 	IsEnabled *bool `json:"isEnabled,omitempty"`
-
-	// REQUIRED; Whether this site is enabled for Bot Framework V1 protocol.
-	IsV1Enabled *bool `json:"isV1Enabled,omitempty"`
-
-	// REQUIRED; Whether this site is enabled for Bot Framework V1 protocol.
-	IsV3Enabled *bool `json:"isV3Enabled,omitempty"`
 
 	// REQUIRED; Site name
 	SiteName *string `json:"siteName,omitempty"`
 
+	// DirectLine application id
+	AppID *string `json:"appId,omitempty"`
+
+	// Entity Tag
+	ETag *string `json:"eTag,omitempty"`
+
 	// Whether this site is enabled for block user upload.
 	IsBlockUserUploadEnabled *bool `json:"isBlockUserUploadEnabled,omitempty"`
 
+	// Whether this site is disabled detailed logging for
+	IsDetailedLoggingEnabled *bool `json:"isDetailedLoggingEnabled,omitempty"`
+
+	// Whether this site is EndpointParameters enabled for channel
+	IsEndpointParametersEnabled *bool `json:"isEndpointParametersEnabled,omitempty"`
+
+	// Whether this no-storage site is disabled detailed logging for
+	IsNoStorageEnabled *bool `json:"isNoStorageEnabled,omitempty"`
+
 	// Whether this site is enabled for authentication with Bot Framework.
 	IsSecureSiteEnabled *bool `json:"isSecureSiteEnabled,omitempty"`
+
+	// Whether this site is token enabled for channel
+	IsTokenEnabled *bool `json:"isTokenEnabled,omitempty"`
+
+	// Whether this site is enabled for Bot Framework V1 protocol.
+	IsV1Enabled *bool `json:"isV1Enabled,omitempty"`
+
+	// Whether this site is enabled for Bot Framework V1 protocol.
+	IsV3Enabled *bool `json:"isV3Enabled,omitempty"`
+
+	// Whether this site is enabled for preview versions of Webchat
+	IsWebchatPreviewEnabled *bool `json:"isWebchatPreviewEnabled,omitempty"`
 
 	// List of Trusted Origin URLs for this site. This field is applicable only if isSecureSiteEnabled is True.
 	TrustedOrigins []*string `json:"trustedOrigins,omitempty"`
@@ -619,10 +649,13 @@ func (d *DirectLineSpeechChannel) GetChannel() *Channel {
 
 // DirectLineSpeechChannelProperties - The parameters to provide for the DirectLine Speech channel.
 type DirectLineSpeechChannelProperties struct {
-	// REQUIRED; The cognitive service region with this channel registration.
+	// The cognitive service region with this channel registration.
 	CognitiveServiceRegion *string `json:"cognitiveServiceRegion,omitempty"`
 
-	// REQUIRED; The cognitive service subscription key to use with this channel registration.
+	// The cognitive service id with this channel registration.
+	CognitiveServiceResourceID *string `json:"cognitiveServiceResourceId,omitempty"`
+
+	// The cognitive service subscription key to use with this channel registration.
 	CognitiveServiceSubscriptionKey *string `json:"cognitiveServiceSubscriptionKey,omitempty"`
 
 	// Custom voice deployment id (optional).
@@ -673,6 +706,9 @@ type EmailChannelProperties struct {
 
 	// REQUIRED; Whether this channel is enabled for the bot
 	IsEnabled *bool `json:"isEnabled,omitempty"`
+
+	// The authMethod for the bot
+	AuthMethod *string `json:"authMethod,omitempty"`
 
 	// The password for the email address. Value only returned through POST to the action Channel List API, otherwise empty.
 	Password *string `json:"password,omitempty"`
@@ -963,7 +999,7 @@ type MsTeamsChannelProperties struct {
 	AcceptedTerms *bool `json:"acceptedTerms,omitempty"`
 
 	// Webhook for Microsoft Teams channel calls
-	CallingWebHook *string `json:"callingWebHook,omitempty"`
+	CallingWebhook *string `json:"callingWebhook,omitempty"`
 
 	// Deployment environment for Microsoft Teams channel calls
 	DeploymentEnvironment *string `json:"deploymentEnvironment,omitempty"`
@@ -1283,17 +1319,11 @@ type Site struct {
 	// REQUIRED; Whether this site is enabled for DirectLine channel
 	IsEnabled *bool `json:"isEnabled,omitempty"`
 
-	// REQUIRED; Whether this site is enabled for Bot Framework V1 protocol.
-	IsV1Enabled *bool `json:"isV1Enabled,omitempty"`
-
-	// REQUIRED; Whether this site is enabled for Bot Framework V1 protocol.
-	IsV3Enabled *bool `json:"isV3Enabled,omitempty"`
-
-	// REQUIRED; Whether this site is enabled for preview versions of Webchat
-	IsWebchatPreviewEnabled *bool `json:"isWebchatPreviewEnabled,omitempty"`
-
 	// REQUIRED; Site name
 	SiteName *string `json:"siteName,omitempty"`
+
+	// DirectLine application id
+	AppID *string `json:"appId,omitempty"`
 
 	// Entity Tag
 	ETag *string `json:"eTag,omitempty"`
@@ -1301,11 +1331,29 @@ type Site struct {
 	// Whether this site is enabled for block user upload.
 	IsBlockUserUploadEnabled *bool `json:"isBlockUserUploadEnabled,omitempty"`
 
+	// Whether this site is disabled detailed logging for
+	IsDetailedLoggingEnabled *bool `json:"isDetailedLoggingEnabled,omitempty"`
+
+	// Whether this site is EndpointParameters enabled for channel
+	IsEndpointParametersEnabled *bool `json:"isEndpointParametersEnabled,omitempty"`
+
+	// Whether this no-storage site is disabled detailed logging for
+	IsNoStorageEnabled *bool `json:"isNoStorageEnabled,omitempty"`
+
 	// Whether this site is enabled for authentication with Bot Framework.
 	IsSecureSiteEnabled *bool `json:"isSecureSiteEnabled,omitempty"`
 
 	// Whether this site is token enabled for channel
 	IsTokenEnabled *bool `json:"isTokenEnabled,omitempty"`
+
+	// Whether this site is enabled for Bot Framework V1 protocol.
+	IsV1Enabled *bool `json:"isV1Enabled,omitempty"`
+
+	// Whether this site is enabled for Bot Framework V1 protocol.
+	IsV3Enabled *bool `json:"isV3Enabled,omitempty"`
+
+	// Whether this site is enabled for preview versions of Webchat
+	IsWebchatPreviewEnabled *bool `json:"isWebchatPreviewEnabled,omitempty"`
 
 	// List of Trusted Origin URLs for this site. This field is applicable only if isSecureSiteEnabled is True.
 	TrustedOrigins []*string `json:"trustedOrigins,omitempty"`
@@ -1432,6 +1480,9 @@ type SlackChannelProperties struct {
 	// The Slack landing page Url
 	LandingPageURL *string `json:"landingPageUrl,omitempty"`
 
+	// Whether to register the settings before OAuth validation is performed. Recommended to True.
+	RegisterBeforeOAuthFlow *bool `json:"registerBeforeOAuthFlow,omitempty"`
+
 	// The Slack permission scopes.
 	Scopes *string `json:"scopes,omitempty"`
 
@@ -1449,9 +1500,6 @@ type SlackChannelProperties struct {
 
 	// READ-ONLY; The Slack redirect action
 	RedirectAction *string `json:"redirectAction,omitempty" azure:"ro"`
-
-	// READ-ONLY; Whether to register the settings before OAuth validation is performed. Recommended to True.
-	RegisterBeforeOAuthFlow *bool `json:"registerBeforeOAuthFlow,omitempty" azure:"ro"`
 }
 
 // SmsChannel - Sms channel definition
@@ -1582,11 +1630,44 @@ type WebChatSite struct {
 	// REQUIRED; Whether this site is enabled for DirectLine channel
 	IsEnabled *bool `json:"isEnabled,omitempty"`
 
-	// REQUIRED; Whether this site is enabled for preview versions of Webchat
-	IsWebchatPreviewEnabled *bool `json:"isWebchatPreviewEnabled,omitempty"`
-
 	// REQUIRED; Site name
 	SiteName *string `json:"siteName,omitempty"`
+
+	// DirectLine application id
+	AppID *string `json:"appId,omitempty"`
+
+	// Entity Tag
+	ETag *string `json:"eTag,omitempty"`
+
+	// Whether this site is enabled for block user upload.
+	IsBlockUserUploadEnabled *bool `json:"isBlockUserUploadEnabled,omitempty"`
+
+	// Whether this site is disabled detailed logging for
+	IsDetailedLoggingEnabled *bool `json:"isDetailedLoggingEnabled,omitempty"`
+
+	// Whether this site is EndpointParameters enabled for channel
+	IsEndpointParametersEnabled *bool `json:"isEndpointParametersEnabled,omitempty"`
+
+	// Whether this no-storage site is disabled detailed logging for
+	IsNoStorageEnabled *bool `json:"isNoStorageEnabled,omitempty"`
+
+	// Whether this site is enabled for authentication with Bot Framework.
+	IsSecureSiteEnabled *bool `json:"isSecureSiteEnabled,omitempty"`
+
+	// Whether this site is token enabled for channel
+	IsTokenEnabled *bool `json:"isTokenEnabled,omitempty"`
+
+	// Whether this site is enabled for Bot Framework V1 protocol.
+	IsV1Enabled *bool `json:"isV1Enabled,omitempty"`
+
+	// Whether this site is enabled for Bot Framework V1 protocol.
+	IsV3Enabled *bool `json:"isV3Enabled,omitempty"`
+
+	// Whether this site is enabled for preview versions of Webchat
+	IsWebchatPreviewEnabled *bool `json:"isWebchatPreviewEnabled,omitempty"`
+
+	// List of Trusted Origin URLs for this site. This field is applicable only if isSecureSiteEnabled is True.
+	TrustedOrigins []*string `json:"trustedOrigins,omitempty"`
 
 	// READ-ONLY; Primary key. Value only returned through POST to the action Channel List API, otherwise empty.
 	Key *string `json:"key,omitempty" azure:"ro"`
