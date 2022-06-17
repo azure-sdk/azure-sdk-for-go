@@ -10,7 +10,7 @@ package armconsumption
 
 const (
 	moduleName    = "armconsumption"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.0.1"
 )
 
 // BillingFrequency - The billing frequency.
@@ -150,6 +150,7 @@ func PossibleDatagrainValues() []Datagrain {
 type EventType string
 
 const (
+	EventTypeCreditExpired        EventType = "CreditExpired"
 	EventTypeNewCredit            EventType = "NewCredit"
 	EventTypePendingAdjustments   EventType = "PendingAdjustments"
 	EventTypePendingCharges       EventType = "PendingCharges"
@@ -162,6 +163,7 @@ const (
 // PossibleEventTypeValues returns the possible values for the EventType const type.
 func PossibleEventTypeValues() []EventType {
 	return []EventType{
+		EventTypeCreditExpired,
 		EventTypeNewCredit,
 		EventTypePendingAdjustments,
 		EventTypePendingCharges,
