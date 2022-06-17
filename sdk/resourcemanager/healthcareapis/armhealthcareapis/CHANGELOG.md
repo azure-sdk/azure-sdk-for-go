@@ -1,12 +1,7 @@
 # Release History
 
-## 1.1.0-beta.1 (2022-05-19)
-### Features Added
-
-- New struct `FhirServiceImportConfiguration`
-- New struct `ServiceImportConfigurationInfo`
-- New field `ImportConfiguration` in struct `ServicesProperties`
-- New field `ImportConfiguration` in struct `FhirServiceProperties`
+## 1.0.1 (2022-06-17)
+### Other Changes
 
 
 ## 1.0.0 (2022-05-18)
