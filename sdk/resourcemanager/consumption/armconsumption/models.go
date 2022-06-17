@@ -2794,6 +2794,8 @@ func (u *UsageDetail) GetUsageDetail() *UsageDetail { return u }
 
 // UsageDetailsClientListOptions contains the optional parameters for the UsageDetailsClient.List method.
 type UsageDetailsClientListOptions struct {
+	// End date
+	EndDate *string
 	// May be used to expand the properties/additionalInfo or properties/meterDetails within a list of usage details. By default,
 	// these fields are not included when listing usage details.
 	Expand *string
@@ -2809,6 +2811,8 @@ type UsageDetailsClientListOptions struct {
 	// the value of the nextLink element will include a skiptoken parameter that
 	// specifies a starting point to use for subsequent calls.
 	Skiptoken *string
+	// Start date
+	StartDate *string
 	// May be used to limit the number of results to the most recent N usageDetails.
 	Top *int32
 }

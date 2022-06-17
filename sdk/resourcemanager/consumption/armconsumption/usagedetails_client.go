@@ -119,6 +119,12 @@ func (client *UsageDetailsClient) listCreateRequest(ctx context.Context, scope s
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
+	if options != nil && options.StartDate != nil {
+		reqQP.Set("$startDate", *options.StartDate)
+	}
+	if options != nil && options.EndDate != nil {
+		reqQP.Set("$endDate", *options.EndDate)
+	}
 	reqQP.Set("api-version", "2021-10-01")
 	if options != nil && options.Metric != nil {
 		reqQP.Set("metric", string(*options.Metric))
