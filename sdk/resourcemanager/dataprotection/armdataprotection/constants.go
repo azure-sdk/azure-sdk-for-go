@@ -10,7 +10,7 @@ package armdataprotection
 
 const (
 	moduleName    = "armdataprotection"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 type AbsoluteMarker string
@@ -448,6 +448,7 @@ type StorageSettingTypes string
 const (
 	StorageSettingTypesGeoRedundant     StorageSettingTypes = "GeoRedundant"
 	StorageSettingTypesLocallyRedundant StorageSettingTypes = "LocallyRedundant"
+	StorageSettingTypesZoneRedundant    StorageSettingTypes = "ZoneRedundant"
 )
 
 // PossibleStorageSettingTypesValues returns the possible values for the StorageSettingTypes const type.
@@ -455,6 +456,7 @@ func PossibleStorageSettingTypesValues() []StorageSettingTypes {
 	return []StorageSettingTypes{
 		StorageSettingTypesGeoRedundant,
 		StorageSettingTypesLocallyRedundant,
+		StorageSettingTypesZoneRedundant,
 	}
 }
 

@@ -626,16 +626,19 @@ type BackupInstanceResource struct {
 	// BackupInstanceResource properties
 	Properties *BackupInstance `json:"properties,omitempty"`
 
-	// READ-ONLY; Resource Id represents the complete path to the resource.
+	// Proxy Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Proxy Resource Id represents the complete path to the resource.
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; Resource name associated with the resource.
+	// READ-ONLY; Proxy Resource name associated with the resource.
 	Name *string `json:"name,omitempty" azure:"ro"`
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
-	// READ-ONLY; Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
+	// READ-ONLY; Proxy Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -1275,6 +1278,23 @@ type DppIdentityDetails struct {
 
 	// READ-ONLY; A Globally Unique Identifier (GUID) that represents the Azure AD tenant where the resource is now a member.
 	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+}
+
+type DppProxyResource struct {
+	// Proxy Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Proxy Resource Id represents the complete path to the resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Proxy Resource name associated with the resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Proxy Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // DppResource - Resource class
