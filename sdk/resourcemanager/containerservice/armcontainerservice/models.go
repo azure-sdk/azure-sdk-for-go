@@ -163,6 +163,24 @@ type AgentPoolsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AzureEntityResource - The resource model definition for an Azure Resource Manager resource with an etag.
+type AzureEntityResource struct {
+	// READ-ONLY; Resource Etag.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
 // AzureKeyVaultKms - Azure Key Vault key management service settings for the security profile.
 type AzureKeyVaultKms struct {
 	// Whether to enable Azure Key Vault key management service. The default is false.
@@ -277,6 +295,40 @@ type EndpointDetail struct {
 	Protocol *string `json:"protocol,omitempty"`
 }
 
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info interface{} `json:"info,omitempty" azure:"ro"`
+
+	// READ-ONLY; The additional info type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail `json:"details,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error message.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error target.
+	Target *string `json:"target,omitempty" azure:"ro"`
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail `json:"error,omitempty"`
+}
+
 // ExtendedLocation - The complex type of the extended location.
 type ExtendedLocation struct {
 	// The name of the extended location.
@@ -284,6 +336,188 @@ type ExtendedLocation struct {
 
 	// The type of the extended location.
 	Type *ExtendedLocationTypes `json:"type,omitempty"`
+}
+
+// Fleet - The fleet resource which contains multiple Kubernetes clusters as its members.
+type Fleet struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Properties of a fleet.
+	Properties *FleetProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Resource Etag.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// FleetHubProfile - The FleetHubProfile configures the fleet hub. it is enabled by default and can be disabled by setting
+// the hubMode property.
+type FleetHubProfile struct {
+	// DNS prefix used to create the FQDN for the fleet hub.
+	DNSPrefix *string `json:"dnsPrefix,omitempty"`
+
+	// READ-ONLY; The FQDN of the fleet hub.
+	Fqdn *string `json:"fqdn,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Kubernetes version of the fleet hub.
+	KubernetesVersion *string `json:"kubernetesVersion,omitempty" azure:"ro"`
+}
+
+// FleetListResult - The response from the List Fleets operation.
+type FleetListResult struct {
+	// The list of fleets.
+	Value []*Fleet `json:"value,omitempty"`
+
+	// READ-ONLY; The URL to get the next page of fleets.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// FleetMember - A member of the fleet. It contains a reference to an existing Kubernetes cluster on Azure, which is a member
+// of the fleet.
+type FleetMember struct {
+	// Properties of a fleet member.
+	Properties *FleetMemberProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Etag.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// FleetMemberProperties - Properties of a fleet member.
+type FleetMemberProperties struct {
+	// The ARM resource id of the cluster that joins the fleet. Must be a valid Azure resource id. e.g.:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{clusterName}'.
+	ClusterResourceID *string `json:"clusterResourceId,omitempty"`
+
+	// READ-ONLY; The provisioning state of the last accepted operation.
+	ProvisioningState *FleetMemberProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// FleetMembersClientBeginCreateOrUpdateOptions contains the optional parameters for the FleetMembersClient.BeginCreateOrUpdate
+// method.
+type FleetMembersClientBeginCreateOrUpdateOptions struct {
+	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
+	// concurrent changes.
+	IfMatch *string
+	// Set to '*' to allow a new resource to be created and prevent updating an existing resource. Other values will result in
+	// a 412 Pre-condition Failed response.
+	IfNoneMatch *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FleetMembersClientBeginDeleteOptions contains the optional parameters for the FleetMembersClient.BeginDelete method.
+type FleetMembersClientBeginDeleteOptions struct {
+	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
+	// concurrent changes.
+	IfMatch *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FleetMembersClientGetOptions contains the optional parameters for the FleetMembersClient.Get method.
+type FleetMembersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FleetMembersClientListByFleetOptions contains the optional parameters for the FleetMembersClient.ListByFleet method.
+type FleetMembersClientListByFleetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FleetMembersListResult - The response from the List FleetMembers operation.
+type FleetMembersListResult struct {
+	// The list of members in a given fleet.
+	Value []*FleetMember `json:"value,omitempty"`
+
+	// READ-ONLY; The URL to get the next page of fleet members.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// FleetPatch - Properties of a fleet that can be patched.
+type FleetPatch struct {
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// FleetProperties - Properties of a fleet.
+type FleetProperties struct {
+	// The FleetHubProfile configures the fleet's hub. it is enabled by default and can be disabled by setting the hubMode property.
+	HubProfile *FleetHubProfile `json:"hubProfile,omitempty"`
+
+	// READ-ONLY; The provisioning state of the last accepted operation.
+	ProvisioningState *FleetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// FleetsClientBeginCreateOrUpdateOptions contains the optional parameters for the FleetsClient.BeginCreateOrUpdate method.
+type FleetsClientBeginCreateOrUpdateOptions struct {
+	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
+	// concurrent changes.
+	IfMatch *string
+	// Set to '*' to allow a new resource to be created and prevent updating an existing resource. Other values will result in
+	// a 412 Pre-condition Failed response.
+	IfNoneMatch *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FleetsClientBeginDeleteOptions contains the optional parameters for the FleetsClient.BeginDelete method.
+type FleetsClientBeginDeleteOptions struct {
+	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
+	// concurrent changes.
+	IfMatch *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FleetsClientGetOptions contains the optional parameters for the FleetsClient.Get method.
+type FleetsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FleetsClientListByResourceGroupOptions contains the optional parameters for the FleetsClient.ListByResourceGroup method.
+type FleetsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FleetsClientListOptions contains the optional parameters for the FleetsClient.List method.
+type FleetsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FleetsClientUpdateOptions contains the optional parameters for the FleetsClient.Update method.
+type FleetsClientUpdateOptions struct {
+	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
+	// concurrent changes.
+	IfMatch *string
+	// The properties of a fleet to update.
+	Parameters *FleetPatch
 }
 
 // KubeletConfig - See AKS custom node configuration [https://docs.microsoft.com/azure/aks/custom-node-configuration] for

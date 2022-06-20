@@ -1,5 +1,9 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-06-20)
+### Other Changes
+
+
 ## 2.0.0-beta.1 (2022-06-02)
 ### Breaking Changes
 
@@ -94,6 +98,16 @@
 - New field `SubnetID` in struct `ManagedClusterAPIServerAccessProfile`
 - New field `NetworkPluginMode` in struct `NetworkProfile`
 - New field `EffectiveNoProxy` in struct `ManagedClusterHTTPProxyConfig`
+
+
+## 1.0.0 (2022-05-16)
+
+The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
+
+To migrate the existing applications to the latest version, please refer to [Migration Guide](https://aka.ms/azsdk/go/mgmt/migration).
+
+To learn more, please refer to our documentation [Quick Start](https://aka.ms/azsdk/go/mgmt).## 2.0.0-beta.2 (2022-06-20)
+### Other Changes
 
 
 ## 1.0.0 (2022-05-16)
