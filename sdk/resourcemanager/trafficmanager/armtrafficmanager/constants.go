@@ -10,7 +10,7 @@ package armtrafficmanager
 
 const (
 	moduleName    = "armtrafficmanager"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.0.1"
 )
 
 // AllowedEndpointRecordType - The allowed type DNS record types for this profile.
@@ -30,6 +30,43 @@ func PossibleAllowedEndpointRecordTypeValues() []AllowedEndpointRecordType {
 		AllowedEndpointRecordTypeDomainName,
 		AllowedEndpointRecordTypeIPv4Address,
 		AllowedEndpointRecordTypeIPv6Address,
+	}
+}
+
+// AlwaysServe - If the always serve is Enabled, probed for endpoint health will be bypassed and the endpoint will always
+// get included in the traffic routing method.
+type AlwaysServe string
+
+const (
+	AlwaysServeDisabled AlwaysServe = "Disabled"
+	AlwaysServeEnabled  AlwaysServe = "Enabled"
+)
+
+// PossibleAlwaysServeValues returns the possible values for the AlwaysServe const type.
+func PossibleAlwaysServeValues() []AlwaysServe {
+	return []AlwaysServe{
+		AlwaysServeDisabled,
+		AlwaysServeEnabled,
+	}
+}
+
+// CreatedByType - The type of identity that created the resource.
+type CreatedByType string
+
+const (
+	CreatedByTypeApplication     CreatedByType = "Application"
+	CreatedByTypeKey             CreatedByType = "Key"
+	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
+	CreatedByTypeUser            CreatedByType = "User"
+)
+
+// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
+func PossibleCreatedByTypeValues() []CreatedByType {
+	return []CreatedByType{
+		CreatedByTypeApplication,
+		CreatedByTypeKey,
+		CreatedByTypeManagedIdentity,
+		CreatedByTypeUser,
 	}
 }
 

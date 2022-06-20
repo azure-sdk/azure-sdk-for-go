@@ -57,7 +57,7 @@ func NewUserMetricsKeysClient(subscriptionID string, credential azcore.TokenCred
 
 // CreateOrUpdate - Create or update a subscription-level key used for Real User Metrics collection.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-08-01
+// Generated from API version 2022-04-01
 // options - UserMetricsKeysClientCreateOrUpdateOptions contains the optional parameters for the UserMetricsKeysClient.CreateOrUpdate
 // method.
 func (client *UserMetricsKeysClient) CreateOrUpdate(ctx context.Context, options *UserMetricsKeysClientCreateOrUpdateOptions) (UserMetricsKeysClientCreateOrUpdateResponse, error) {
@@ -87,7 +87,7 @@ func (client *UserMetricsKeysClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-08-01")
+	reqQP.Set("api-version", "2022-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -104,7 +104,7 @@ func (client *UserMetricsKeysClient) createOrUpdateHandleResponse(resp *http.Res
 
 // Delete - Delete a subscription-level key used for Real User Metrics collection.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-08-01
+// Generated from API version 2022-04-01
 // options - UserMetricsKeysClientDeleteOptions contains the optional parameters for the UserMetricsKeysClient.Delete method.
 func (client *UserMetricsKeysClient) Delete(ctx context.Context, options *UserMetricsKeysClientDeleteOptions) (UserMetricsKeysClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, options)
@@ -115,7 +115,7 @@ func (client *UserMetricsKeysClient) Delete(ctx context.Context, options *UserMe
 	if err != nil {
 		return UserMetricsKeysClientDeleteResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
 		return UserMetricsKeysClientDeleteResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.deleteHandleResponse(resp)
@@ -133,7 +133,7 @@ func (client *UserMetricsKeysClient) deleteCreateRequest(ctx context.Context, op
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-08-01")
+	reqQP.Set("api-version", "2022-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -150,7 +150,7 @@ func (client *UserMetricsKeysClient) deleteHandleResponse(resp *http.Response) (
 
 // Get - Get the subscription-level key used for Real User Metrics collection.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-08-01
+// Generated from API version 2022-04-01
 // options - UserMetricsKeysClientGetOptions contains the optional parameters for the UserMetricsKeysClient.Get method.
 func (client *UserMetricsKeysClient) Get(ctx context.Context, options *UserMetricsKeysClientGetOptions) (UserMetricsKeysClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, options)
@@ -179,7 +179,7 @@ func (client *UserMetricsKeysClient) getCreateRequest(ctx context.Context, optio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-08-01")
+	reqQP.Set("api-version", "2022-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

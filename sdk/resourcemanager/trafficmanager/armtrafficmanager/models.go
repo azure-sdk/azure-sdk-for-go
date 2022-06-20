@@ -75,10 +75,17 @@ type Endpoint struct {
 
 	// The type of the resource. Ex- Microsoft.Network/trafficManagerProfiles.
 	Type *string `json:"type,omitempty"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 }
 
 // EndpointProperties - Class representing a Traffic Manager endpoint properties.
 type EndpointProperties struct {
+	// If the always serve is Enabled, probed for endpoint health will be bypassed and the endpoint will always get included in
+	// the traffic routing method.
+	AlwaysServe *AlwaysServe `json:"alwaysServe,omitempty"`
+
 	// List of custom headers.
 	CustomHeaders []*EndpointPropertiesCustomHeadersItem `json:"customHeaders,omitempty"`
 
@@ -148,7 +155,7 @@ type EndpointPropertiesSubnetsItem struct {
 	Last *string `json:"last,omitempty"`
 
 	// Block size (number of leading bits in the subnet mask).
-	Scope *int32 `json:"scope,omitempty"`
+	Scope *int64 `json:"scope,omitempty"`
 }
 
 // EndpointsClientCreateOrUpdateOptions contains the optional parameters for the EndpointsClient.CreateOrUpdate method.
@@ -190,6 +197,9 @@ type GeographicHierarchy struct {
 
 	// The type of the resource. Ex- Microsoft.Network/trafficManagerProfiles.
 	Type *string `json:"type,omitempty"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 }
 
 // GeographicHierarchyProperties - Class representing the properties of the Geographic hierarchy used with the Geographic
@@ -210,7 +220,7 @@ type HeatMapClientGetOptions struct {
 // HeatMapEndpoint - Class which is a sparse representation of a Traffic Manager endpoint.
 type HeatMapEndpoint struct {
 	// A number uniquely identifying this endpoint in query experiences.
-	EndpointID *int32 `json:"endpointId,omitempty"`
+	EndpointID *int64 `json:"endpointId,omitempty"`
 
 	// The ARM Resource ID of this Traffic Manager endpoint.
 	ResourceID *string `json:"resourceId,omitempty"`
@@ -229,6 +239,9 @@ type HeatMapModel struct {
 
 	// The type of the resource. Ex- Microsoft.Network/trafficManagerProfiles.
 	Type *string `json:"type,omitempty"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 }
 
 // HeatMapProperties - Class representing a Traffic Manager HeatMap properties.
@@ -291,10 +304,10 @@ type MonitorConfigCustomHeadersItem struct {
 // MonitorConfigExpectedStatusCodeRangesItem - Min and max value of a status code range.
 type MonitorConfigExpectedStatusCodeRangesItem struct {
 	// Max status code.
-	Max *int32 `json:"max,omitempty"`
+	Max *int64 `json:"max,omitempty"`
 
 	// Min status code.
-	Min *int32 `json:"min,omitempty"`
+	Min *int64 `json:"min,omitempty"`
 }
 
 // NameAvailability - Class representing a Traffic Manager Name Availability response.
@@ -334,6 +347,9 @@ type Profile struct {
 
 	// The type of the resource. Ex- Microsoft.Network/trafficManagerProfiles.
 	Type *string `json:"type,omitempty"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 }
 
 // ProfileListResult - The list Traffic Manager profiles operation response.
@@ -422,10 +438,10 @@ type ProxyResource struct {
 // QueryExperience - Class representing a Traffic Manager HeatMap query experience properties.
 type QueryExperience struct {
 	// REQUIRED; The id of the endpoint from the 'endpoints' array which these queries were routed to.
-	EndpointID *int32 `json:"endpointId,omitempty"`
+	EndpointID *int64 `json:"endpointId,omitempty"`
 
 	// REQUIRED; The number of queries originating from this location.
-	QueryCount *int32 `json:"queryCount,omitempty"`
+	QueryCount *int64 `json:"queryCount,omitempty"`
 
 	// The latency experienced by queries originating from this location.
 	Latency *float64 `json:"latency,omitempty"`
@@ -453,6 +469,27 @@ type Resource struct {
 
 	// The type of the resource. Ex- Microsoft.Network/trafficManagerProfiles.
 	Type *string `json:"type,omitempty"`
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+
+	// The identity that created the resource.
+	CreatedBy *string `json:"createdBy,omitempty"`
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty"`
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
 }
 
 // TrackedResource - The resource model definition for a ARM tracked top level resource
@@ -517,6 +554,9 @@ type UserMetricsModel struct {
 
 	// The type of the resource. Ex- Microsoft.Network/trafficManagerProfiles.
 	Type *string `json:"type,omitempty"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 }
 
 // UserMetricsProperties - Class representing a Traffic Manager Real User Metrics key response.

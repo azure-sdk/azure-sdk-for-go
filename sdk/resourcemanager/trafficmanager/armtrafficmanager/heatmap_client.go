@@ -58,7 +58,7 @@ func NewHeatMapClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // Get - Gets latest heatmap for Traffic Manager profile.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-08-01
+// Generated from API version 2022-04-01
 // resourceGroupName - The name of the resource group containing the Traffic Manager endpoint.
 // profileName - The name of the Traffic Manager profile.
 // options - HeatMapClientGetOptions contains the optional parameters for the HeatMapClient.Get method.
@@ -104,7 +104,7 @@ func (client *HeatMapClient) getCreateRequest(ctx context.Context, resourceGroup
 	if options != nil && options.BotRight != nil {
 		reqQP.Set("botRight", strings.Join(strings.Fields(strings.Trim(fmt.Sprint(options.BotRight), "[]")), ","))
 	}
-	reqQP.Set("api-version", "2018-08-01")
+	reqQP.Set("api-version", "2022-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
