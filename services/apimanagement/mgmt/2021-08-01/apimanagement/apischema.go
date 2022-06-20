@@ -37,7 +37,7 @@ func NewAPISchemaClientWithBaseURI(baseURI string, subscriptionID string) APISch
 // serviceName - the name of the API Management service.
 // apiid - API revision identifier. Must be unique in the current API Management service instance. Non-current
 // revision has ;rev=n as a suffix where n is the revision number.
-// schemaID - schema identifier within an API. Must be unique in the current API Management service instance.
+// schemaID - schema id identifier. Must be unique in the current API Management service instance.
 // parameters - the schema contents to apply.
 // ifMatch - eTag of the Entity. Not required when creating an entity, but required when updating an entity.
 func (client APISchemaClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiid string, schemaID string, parameters SchemaContract, ifMatch string) (result APISchemaCreateOrUpdateFuture, err error) {
@@ -62,8 +62,7 @@ func (client APISchemaClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 				{Target: "apiid", Name: validation.Pattern, Rule: `^[^*#&+:<>?]+$`, Chain: nil}}},
 		{TargetValue: schemaID,
 			Constraints: []validation.Constraint{{Target: "schemaID", Name: validation.MaxLength, Rule: 80, Chain: nil},
-				{Target: "schemaID", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "schemaID", Name: validation.Pattern, Rule: `^[^*#&+:<>?]+$`, Chain: nil}}},
+				{Target: "schemaID", Name: validation.MinLength, Rule: 1, Chain: nil}}},
 		{TargetValue: parameters,
 			Constraints: []validation.Constraint{{Target: "parameters.SchemaContractProperties", Name: validation.Null, Rule: false,
 				Chain: []validation.Constraint{{Target: "parameters.SchemaContractProperties.ContentType", Name: validation.Null, Rule: true, Chain: nil}}}}}}); err != nil {
@@ -148,7 +147,7 @@ func (client APISchemaClient) CreateOrUpdateResponder(resp *http.Response) (resu
 // serviceName - the name of the API Management service.
 // apiid - API revision identifier. Must be unique in the current API Management service instance. Non-current
 // revision has ;rev=n as a suffix where n is the revision number.
-// schemaID - schema identifier within an API. Must be unique in the current API Management service instance.
+// schemaID - schema id identifier. Must be unique in the current API Management service instance.
 // ifMatch - eTag of the Entity. ETag should match the current entity state from the header response of the GET
 // request or it should be * for unconditional update.
 // force - if true removes all references to the schema before deleting it.
@@ -174,8 +173,7 @@ func (client APISchemaClient) Delete(ctx context.Context, resourceGroupName stri
 				{Target: "apiid", Name: validation.Pattern, Rule: `^[^*#&+:<>?]+$`, Chain: nil}}},
 		{TargetValue: schemaID,
 			Constraints: []validation.Constraint{{Target: "schemaID", Name: validation.MaxLength, Rule: 80, Chain: nil},
-				{Target: "schemaID", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "schemaID", Name: validation.Pattern, Rule: `^[^*#&+:<>?]+$`, Chain: nil}}}}); err != nil {
+				{Target: "schemaID", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
 		return result, validation.NewError("apimanagement.APISchemaClient", "Delete", err.Error())
 	}
 
@@ -251,7 +249,7 @@ func (client APISchemaClient) DeleteResponder(resp *http.Response) (result autor
 // serviceName - the name of the API Management service.
 // apiid - API revision identifier. Must be unique in the current API Management service instance. Non-current
 // revision has ;rev=n as a suffix where n is the revision number.
-// schemaID - schema identifier within an API. Must be unique in the current API Management service instance.
+// schemaID - schema id identifier. Must be unique in the current API Management service instance.
 func (client APISchemaClient) Get(ctx context.Context, resourceGroupName string, serviceName string, apiid string, schemaID string) (result SchemaContract, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/APISchemaClient.Get")
@@ -274,8 +272,7 @@ func (client APISchemaClient) Get(ctx context.Context, resourceGroupName string,
 				{Target: "apiid", Name: validation.Pattern, Rule: `^[^*#&+:<>?]+$`, Chain: nil}}},
 		{TargetValue: schemaID,
 			Constraints: []validation.Constraint{{Target: "schemaID", Name: validation.MaxLength, Rule: 80, Chain: nil},
-				{Target: "schemaID", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "schemaID", Name: validation.Pattern, Rule: `^[^*#&+:<>?]+$`, Chain: nil}}}}); err != nil {
+				{Target: "schemaID", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
 		return result, validation.NewError("apimanagement.APISchemaClient", "Get", err.Error())
 	}
 
@@ -348,7 +345,7 @@ func (client APISchemaClient) GetResponder(resp *http.Response) (result SchemaCo
 // serviceName - the name of the API Management service.
 // apiid - API revision identifier. Must be unique in the current API Management service instance. Non-current
 // revision has ;rev=n as a suffix where n is the revision number.
-// schemaID - schema identifier within an API. Must be unique in the current API Management service instance.
+// schemaID - schema id identifier. Must be unique in the current API Management service instance.
 func (client APISchemaClient) GetEntityTag(ctx context.Context, resourceGroupName string, serviceName string, apiid string, schemaID string) (result autorest.Response, err error) {
 	if tracing.IsEnabled() {
 		ctx = tracing.StartSpan(ctx, fqdn+"/APISchemaClient.GetEntityTag")
@@ -371,8 +368,7 @@ func (client APISchemaClient) GetEntityTag(ctx context.Context, resourceGroupNam
 				{Target: "apiid", Name: validation.Pattern, Rule: `^[^*#&+:<>?]+$`, Chain: nil}}},
 		{TargetValue: schemaID,
 			Constraints: []validation.Constraint{{Target: "schemaID", Name: validation.MaxLength, Rule: 80, Chain: nil},
-				{Target: "schemaID", Name: validation.MinLength, Rule: 1, Chain: nil},
-				{Target: "schemaID", Name: validation.Pattern, Rule: `^[^*#&+:<>?]+$`, Chain: nil}}}}); err != nil {
+				{Target: "schemaID", Name: validation.MinLength, Rule: 1, Chain: nil}}}}); err != nil {
 		return result, validation.NewError("apimanagement.APISchemaClient", "GetEntityTag", err.Error())
 	}
 
