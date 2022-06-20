@@ -16386,8 +16386,8 @@ type LinkedServiceClassification interface {
 	GetLinkedService() *LinkedService
 }
 
-// LinkedService - The Azure Data Factory nested object which contains the information and credential which can be used to
-// connect with related store or compute resource.
+// LinkedService - The nested object which contains the information and credential which can be used to connect with related
+// store or compute resource.
 type LinkedService struct {
 	// REQUIRED; Type of linked service.
 	Type *string `json:"type,omitempty"`
@@ -16435,7 +16435,7 @@ type LinkedServiceReference struct {
 	ReferenceName *string `json:"referenceName,omitempty"`
 
 	// REQUIRED; Linked service reference type.
-	Type *LinkedServiceReferenceType `json:"type,omitempty"`
+	Type *Type `json:"type,omitempty"`
 
 	// Arguments for LinkedService.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`

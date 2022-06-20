@@ -10,7 +10,7 @@ package armdatafactory
 
 const (
 	moduleName    = "armdatafactory"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v2.0.0"
 )
 
 type AmazonRdsForOraclePartitionOption string
@@ -959,20 +959,6 @@ func PossibleJSONWriteFilePatternValues() []JSONWriteFilePattern {
 	return []JSONWriteFilePattern{
 		JSONWriteFilePatternArrayOfObjects,
 		JSONWriteFilePatternSetOfObjects,
-	}
-}
-
-// LinkedServiceReferenceType - Linked service reference type.
-type LinkedServiceReferenceType string
-
-const (
-	LinkedServiceReferenceTypeLinkedServiceReference LinkedServiceReferenceType = "LinkedServiceReference"
-)
-
-// PossibleLinkedServiceReferenceTypeValues returns the possible values for the LinkedServiceReferenceType const type.
-func PossibleLinkedServiceReferenceTypeValues() []LinkedServiceReferenceType {
-	return []LinkedServiceReferenceType{
-		LinkedServiceReferenceTypeLinkedServiceReference,
 	}
 }
 
@@ -1985,6 +1971,20 @@ func PossibleTumblingWindowFrequencyValues() []TumblingWindowFrequency {
 		TumblingWindowFrequencyHour,
 		TumblingWindowFrequencyMinute,
 		TumblingWindowFrequencyMonth,
+	}
+}
+
+// Type - Linked service reference type.
+type Type string
+
+const (
+	TypeLinkedServiceReference Type = "LinkedServiceReference"
+)
+
+// PossibleTypeValues returns the possible values for the Type const type.
+func PossibleTypeValues() []Type {
+	return []Type{
+		TypeLinkedServiceReference,
 	}
 }
 
