@@ -321,8 +321,7 @@ func (client *RuleSetsClient) listByProfileHandleResponse(resp *http.Response) (
 	return result, nil
 }
 
-// NewListResourceUsagePager - Checks the quota and actual usage of the given AzureFrontDoor rule set under the given CDN
-// profile.
+// NewListResourceUsagePager - Checks the quota and actual usage of endpoints under the given CDN profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-06-01
 // resourceGroupName - Name of the Resource group within the Azure subscription.
