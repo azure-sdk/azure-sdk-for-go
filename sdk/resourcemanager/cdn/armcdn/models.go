@@ -908,14 +908,14 @@ type CustomDomainProperties struct {
 	// license number of a custom domain is required to deliver content in China.
 	ValidationData *string `json:"validationData,omitempty"`
 
-	// READ-ONLY; Provisioning status of the custom domain.
+	// READ-ONLY; Provisioning status of Custom Https of the custom domain.
 	CustomHTTPSProvisioningState *CustomHTTPSProvisioningState `json:"customHttpsProvisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning substate shows the progress of custom HTTPS enabling/disabling process step by step.
 	CustomHTTPSProvisioningSubstate *CustomHTTPSProvisioningSubstate `json:"customHttpsProvisioningSubstate,omitempty" azure:"ro"`
 
-	// READ-ONLY; Provisioning status of Custom Https of the custom domain.
-	ProvisioningState *CustomHTTPSProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+	// READ-ONLY; Provisioning status of the custom domain.
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource status of the custom domain.
 	ResourceState *CustomDomainResourceState `json:"resourceState,omitempty" azure:"ro"`
@@ -1749,7 +1749,7 @@ type EndpointProperties struct {
 	HostName *string `json:"hostName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning status of the endpoint.
-	ProvisioningState *EndpointProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource status of the endpoint.
 	ResourceState *EndpointResourceState `json:"resourceState,omitempty" azure:"ro"`
@@ -2610,7 +2610,7 @@ type OriginGroupProperties struct {
 	TrafficRestorationTimeToHealedOrNewEndpointsInMinutes *int32 `json:"trafficRestorationTimeToHealedOrNewEndpointsInMinutes,omitempty"`
 
 	// READ-ONLY; Provisioning status of the origin group.
-	ProvisioningState *OriginGroupProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource status of the origin group.
 	ResourceState *OriginGroupResourceState `json:"resourceState,omitempty" azure:"ro"`
@@ -2720,7 +2720,7 @@ type OriginProperties struct {
 	PrivateEndpointStatus *PrivateEndpointStatus `json:"privateEndpointStatus,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning status of the origin.
-	ProvisioningState *OriginProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource status of the origin.
 	ResourceState *OriginResourceState `json:"resourceState,omitempty" azure:"ro"`
@@ -2916,7 +2916,7 @@ type ProfileProperties struct {
 	FrontDoorID *string `json:"frontDoorId,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning status of the profile.
-	ProvisioningState *ProfileProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource status of the profile.
 	ResourceState *ProfileResourceState `json:"resourceState,omitempty" azure:"ro"`
@@ -3223,8 +3223,8 @@ type ResourceUsage struct {
 	// READ-ONLY; Resource type for which the usage is provided.
 	ResourceType *string `json:"resourceType,omitempty" azure:"ro"`
 
-	// READ-ONLY; Unit of the usage. e.g. count.
-	Unit *ResourceUsageUnit `json:"unit,omitempty" azure:"ro"`
+	// READ-ONLY; Unit of the usage. e.g. Count.
+	Unit *string `json:"unit,omitempty" azure:"ro"`
 }
 
 // ResourceUsageClientListOptions contains the optional parameters for the ResourceUsageClient.List method.

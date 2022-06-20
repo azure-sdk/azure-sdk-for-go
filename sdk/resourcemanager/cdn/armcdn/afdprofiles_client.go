@@ -54,7 +54,7 @@ func NewAFDProfilesClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// CheckHostNameAvailability - Check the name availability of a host name.
+// CheckHostNameAvailability - Validates the custom domain mapping to ensure it maps to the correct CDN endpoint in DNS.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-06-01
 // resourceGroupName - Name of the Resource group within the Azure subscription.
@@ -113,7 +113,7 @@ func (client *AFDProfilesClient) checkHostNameAvailabilityHandleResponse(resp *h
 	return result, nil
 }
 
-// NewListResourceUsagePager - Checks the quota and actual usage of AzureFrontDoor endpoints under the given CDN profile.
+// NewListResourceUsagePager - Checks the quota and actual usage of endpoints under the given CDN profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-06-01
 // resourceGroupName - Name of the Resource group within the Azure subscription.
