@@ -93,3 +93,8 @@ type LocationClientListUsageResponse struct {
 type OperationsClientListResponse struct {
 	OperationListResult
 }
+
+// SubnetServiceAssociationLinkClientDeleteResponse contains the response from method SubnetServiceAssociationLinkClient.Delete.
+type SubnetServiceAssociationLinkClientDeleteResponse struct {
+	// placeholder for future response values
+}
