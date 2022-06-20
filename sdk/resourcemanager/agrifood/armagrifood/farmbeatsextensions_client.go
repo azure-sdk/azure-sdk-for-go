@@ -54,7 +54,7 @@ func NewFarmBeatsExtensionsClient(credential azcore.TokenCredential, options *ar
 
 // Get - Get farmBeats extension.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-05-12-preview
+// Generated from API version 2022-05-02
 // farmBeatsExtensionID - farmBeatsExtensionId to be queried.
 // options - FarmBeatsExtensionsClientGetOptions contains the optional parameters for the FarmBeatsExtensionsClient.Get method.
 func (client *FarmBeatsExtensionsClient) Get(ctx context.Context, farmBeatsExtensionID string, options *FarmBeatsExtensionsClientGetOptions) (FarmBeatsExtensionsClientGetResponse, error) {
@@ -84,7 +84,7 @@ func (client *FarmBeatsExtensionsClient) getCreateRequest(ctx context.Context, f
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-05-12-preview")
+	reqQP.Set("api-version", "2022-05-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -101,7 +101,7 @@ func (client *FarmBeatsExtensionsClient) getHandleResponse(resp *http.Response) 
 
 // NewListPager - Get list of farmBeats extension.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-05-12-preview
+// Generated from API version 2022-05-02
 // options - FarmBeatsExtensionsClientListOptions contains the optional parameters for the FarmBeatsExtensionsClient.List
 // method.
 func (client *FarmBeatsExtensionsClient) NewListPager(options *FarmBeatsExtensionsClientListOptions) *runtime.Pager[FarmBeatsExtensionsClientListResponse] {
@@ -163,7 +163,7 @@ func (client *FarmBeatsExtensionsClient) listCreateRequest(ctx context.Context, 
 	if options != nil && options.MaxPageSize != nil {
 		reqQP.Set("$maxPageSize", strconv.FormatInt(int64(*options.MaxPageSize), 10))
 	}
-	reqQP.Set("api-version", "2020-05-12-preview")
+	reqQP.Set("api-version", "2022-05-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

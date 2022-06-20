@@ -57,7 +57,7 @@ func NewExtensionsClient(subscriptionID string, credential azcore.TokenCredentia
 
 // Create - Install extension.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-05-12-preview
+// Generated from API version 2022-05-02
 // extensionID - Id of extension resource.
 // farmBeatsResourceName - FarmBeats resource name.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -101,7 +101,7 @@ func (client *ExtensionsClient) createCreateRequest(ctx context.Context, extensi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-05-12-preview")
+	reqQP.Set("api-version", "2022-05-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -118,7 +118,7 @@ func (client *ExtensionsClient) createHandleResponse(resp *http.Response) (Exten
 
 // Delete - Uninstall extension.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-05-12-preview
+// Generated from API version 2022-05-02
 // extensionID - Id of extension resource.
 // farmBeatsResourceName - FarmBeats resource name.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -162,7 +162,7 @@ func (client *ExtensionsClient) deleteCreateRequest(ctx context.Context, extensi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-05-12-preview")
+	reqQP.Set("api-version", "2022-05-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -170,7 +170,7 @@ func (client *ExtensionsClient) deleteCreateRequest(ctx context.Context, extensi
 
 // Get - Get installed extension details by extension id.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-05-12-preview
+// Generated from API version 2022-05-02
 // extensionID - Id of extension resource.
 // farmBeatsResourceName - FarmBeats resource name.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -214,7 +214,7 @@ func (client *ExtensionsClient) getCreateRequest(ctx context.Context, extensionI
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-05-12-preview")
+	reqQP.Set("api-version", "2022-05-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -231,7 +231,7 @@ func (client *ExtensionsClient) getHandleResponse(resp *http.Response) (Extensio
 
 // NewListByFarmBeatsPager - Get installed extensions details.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-05-12-preview
+// Generated from API version 2022-05-02
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // farmBeatsResourceName - FarmBeats resource name.
 // options - ExtensionsClientListByFarmBeatsOptions contains the optional parameters for the ExtensionsClient.ListByFarmBeats
@@ -284,7 +284,7 @@ func (client *ExtensionsClient) listByFarmBeatsCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-05-12-preview")
+	reqQP.Set("api-version", "2022-05-02")
 	if options != nil && options.ExtensionIDs != nil {
 		for _, qv := range options.ExtensionIDs {
 			reqQP.Add("extensionIds", qv)
@@ -317,7 +317,7 @@ func (client *ExtensionsClient) listByFarmBeatsHandleResponse(resp *http.Respons
 
 // Update - Upgrade to latest extension.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-05-12-preview
+// Generated from API version 2022-05-02
 // extensionID - Id of extension resource.
 // farmBeatsResourceName - FarmBeats resource name.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -361,7 +361,7 @@ func (client *ExtensionsClient) updateCreateRequest(ctx context.Context, extensi
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-05-12-preview")
+	reqQP.Set("api-version", "2022-05-02")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
