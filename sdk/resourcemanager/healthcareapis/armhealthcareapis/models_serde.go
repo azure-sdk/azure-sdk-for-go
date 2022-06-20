@@ -15,6 +15,17 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type CorsConfiguration.
+func (c CorsConfiguration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "allowCredentials", c.AllowCredentials)
+	populate(objectMap, "headers", c.Headers)
+	populate(objectMap, "maxAge", c.MaxAge)
+	populate(objectMap, "methods", c.Methods)
+	populate(objectMap, "origins", c.Origins)
+	return json.Marshal(objectMap)
+}
+
 // MarshalJSON implements the json.Marshaller interface for type DicomService.
 func (d DicomService) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -50,6 +61,7 @@ func (d DicomServicePatchResource) MarshalJSON() ([]byte, error) {
 func (d DicomServiceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "authenticationConfiguration", d.AuthenticationConfiguration)
+	populate(objectMap, "corsConfiguration", d.CorsConfiguration)
 	populate(objectMap, "privateEndpointConnections", d.PrivateEndpointConnections)
 	populate(objectMap, "provisioningState", d.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", d.PublicNetworkAccess)
@@ -109,7 +121,6 @@ func (f FhirServiceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "corsConfiguration", f.CorsConfiguration)
 	populate(objectMap, "eventState", f.EventState)
 	populate(objectMap, "exportConfiguration", f.ExportConfiguration)
-	populate(objectMap, "importConfiguration", f.ImportConfiguration)
 	populate(objectMap, "privateEndpointConnections", f.PrivateEndpointConnections)
 	populate(objectMap, "provisioningState", f.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", f.PublicNetworkAccess)
@@ -226,7 +237,6 @@ func (s ServicesProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "corsConfiguration", s.CorsConfiguration)
 	populate(objectMap, "cosmosDbConfiguration", s.CosmosDbConfiguration)
 	populate(objectMap, "exportConfiguration", s.ExportConfiguration)
-	populate(objectMap, "importConfiguration", s.ImportConfiguration)
 	populate(objectMap, "privateEndpointConnections", s.PrivateEndpointConnections)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", s.PublicNetworkAccess)
