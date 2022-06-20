@@ -596,9 +596,6 @@ type ImageRegistryCredential struct {
 	// REQUIRED; The Docker image registry server without a protocol such as "http" and "https".
 	Server *string `json:"server,omitempty"`
 
-	// REQUIRED; The username for the private registry.
-	Username *string `json:"username,omitempty"`
-
 	// The identity for the private registry.
 	Identity *string `json:"identity,omitempty"`
 
@@ -607,6 +604,9 @@ type ImageRegistryCredential struct {
 
 	// The password for the private registry.
 	Password *string `json:"password,omitempty"`
+
+	// The username for the private registry.
+	Username *string `json:"username,omitempty"`
 }
 
 // InitContainerDefinition - The init container definition.
