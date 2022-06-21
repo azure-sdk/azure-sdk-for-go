@@ -1,5 +1,13 @@
 # Release History
 
+## 2.0.0-beta.1 (2022-06-21)
+### Breaking Changes
+
+- Const `ContainerTypeMicrosoftComputeVirtualMachines` has been removed
+- Const `ContainerTypeMicrosoftClassicComputeVirtualMachines` has been removed
+- Const `ContainerTypeAzureWorkloadContainer` has been removed
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
