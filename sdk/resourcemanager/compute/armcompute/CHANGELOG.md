@@ -1,5 +1,31 @@
 # Release History
 
+## 3.0.0 (2022-06-22)
+### Breaking Changes
+
+- Function `*CloudServicesUpdateDomainClient.BeginWalkUpdateDomain` parameter(s) have been changed from `(context.Context, string, string, int32, *CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions)` to `(context.Context, string, string, int32, UpdateDomain, *CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions)`
+- Function `*CloudServicesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, *CloudServicesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, CloudService, *CloudServicesClientBeginCreateOrUpdateOptions)`
+- Function `*CloudServicesClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, *CloudServicesClientBeginUpdateOptions)` to `(context.Context, string, string, CloudServiceUpdate, *CloudServicesClientBeginUpdateOptions)`
+- Type of `CloudServiceExtensionProperties.ProtectedSettings` has been changed from `*string` to `interface{}`
+- Type of `CloudServiceExtensionProperties.Settings` has been changed from `*string` to `interface{}`
+- Field `Parameters` of struct `CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions` has been removed
+- Field `Parameters` of struct `CloudServicesClientBeginUpdateOptions` has been removed
+- Field `Parameters` of struct `CloudServicesClientBeginCreateOrUpdateOptions` has been removed
+
+### Features Added
+
+- New const `CloudServiceSlotTypeProduction`
+- New const `CloudServiceSlotTypeStaging`
+- New function `*VirtualMachineImagesClient.ListByEdgeZone(context.Context, string, string, *VirtualMachineImagesClientListByEdgeZoneOptions) (VirtualMachineImagesClientListByEdgeZoneResponse, error)`
+- New function `PossibleCloudServiceSlotTypeValues() []CloudServiceSlotType`
+- New struct `SystemData`
+- New struct `VMImagesInEdgeZoneListResult`
+- New struct `VirtualMachineImagesClientListByEdgeZoneOptions`
+- New struct `VirtualMachineImagesClientListByEdgeZoneResponse`
+- New field `SlotType` in struct `CloudServiceNetworkProfile`
+- New field `SystemData` in struct `CloudService`
+
+
 ## 2.0.0 (2022-06-02)
 ### Breaking Changes
 
