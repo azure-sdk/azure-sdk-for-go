@@ -1,5 +1,15 @@
 # Release History
 
+## 1.1.0 (2022-06-23)
+### Features Added
+
+- New function `NewSubnetServiceAssociationLinkClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SubnetServiceAssociationLinkClient, error)`
+- New function `*SubnetServiceAssociationLinkClient.BeginDelete(context.Context, string, string, string, *SubnetServiceAssociationLinkClientBeginDeleteOptions) (*runtime.Poller[SubnetServiceAssociationLinkClientDeleteResponse], error)`
+- New struct `SubnetServiceAssociationLinkClient`
+- New struct `SubnetServiceAssociationLinkClientBeginDeleteOptions`
+- New struct `SubnetServiceAssociationLinkClientDeleteResponse`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerinstance/armcontainerinstance` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
