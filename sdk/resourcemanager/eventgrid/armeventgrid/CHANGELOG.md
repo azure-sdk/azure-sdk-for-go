@@ -1,5 +1,342 @@
 # Release History
 
+## 2.0.0 (2022-06-23)
+### Breaking Changes
+
+- Type of `TopicTypeProperties.SupportedScopesForSource` has been changed from `[]*TopicTypePropertiesSupportedScopesForSourceItem` to `[]*TopicTypeSourceScope`
+- Const `TopicTypePropertiesSupportedScopesForSourceItemAzureSubscription` has been removed
+- Const `TopicTypePropertiesSupportedScopesForSourceItemResource` has been removed
+- Const `TopicTypePropertiesSupportedScopesForSourceItemResourceGroup` has been removed
+- Function `PossibleTopicTypePropertiesSupportedScopesForSourceItemValues` has been removed
+
+### Features Added
+
+- New const `TopicTypeSourceScopeAzureSubscription`
+- New const `PrivateEndpointConnectionsParentTypePartnerNamespaces`
+- New const `PartnerNamespaceProvisioningStateSucceeded`
+- New const `ChannelProvisioningStateUpdating`
+- New const `VerifiedPartnerProvisioningStateUpdating`
+- New const `TopicTypeSourceScopeResource`
+- New const `TopicTypeSourceScopeResourceGroup`
+- New const `PartnerTopicProvisioningStateUpdating`
+- New const `ChannelProvisioningStateCreating`
+- New const `PartnerTopicActivationStateActivated`
+- New const `PartnerRegistrationProvisioningStateFailed`
+- New const `PartnerNamespaceProvisioningStateDeleting`
+- New const `ChannelProvisioningStateFailed`
+- New const `PartnerConfigurationProvisioningStateCanceled`
+- New const `PartnerConfigurationProvisioningStateCreating`
+- New const `PartnerTopicRoutingModeSourceEventAttribute`
+- New const `TopicTypeSourceScopeManagementGroup`
+- New const `DataResidencyBoundaryWithinRegion`
+- New const `ChannelProvisioningStateDeleting`
+- New const `PartnerNamespaceProvisioningStateUpdating`
+- New const `PartnerRegistrationProvisioningStateSucceeded`
+- New const `ChannelProvisioningStateSucceeded`
+- New const `ChannelProvisioningStateCanceled`
+- New const `PartnerConfigurationProvisioningStateSucceeded`
+- New const `PartnerRegistrationProvisioningStateCreating`
+- New const `PartnerNamespaceProvisioningStateFailed`
+- New const `ChannelTypePartnerTopic`
+- New const `EventDefinitionKindInline`
+- New const `PartnerNamespaceProvisioningStateCreating`
+- New const `PartnerConfigurationProvisioningStateUpdating`
+- New const `ChannelProvisioningStateIdleDueToMirroredPartnerTopicDeletion`
+- New const `PartnerNamespaceProvisioningStateCanceled`
+- New const `PartnerTopicProvisioningStateIdleDueToMirroredChannelResourceDeletion`
+- New const `PartnerTopicProvisioningStateDeleting`
+- New const `PartnerTopicProvisioningStateCanceled`
+- New const `PartnerTopicProvisioningStateCreating`
+- New const `PartnerRegistrationProvisioningStateCanceled`
+- New const `PartnerTopicRoutingModeChannelNameHeader`
+- New const `PartnerTopicProvisioningStateFailed`
+- New const `VerifiedPartnerProvisioningStateCreating`
+- New const `VerifiedPartnerProvisioningStateSucceeded`
+- New const `VerifiedPartnerProvisioningStateFailed`
+- New const `ReadinessStateNeverActivated`
+- New const `PartnerConfigurationProvisioningStateFailed`
+- New const `PartnerTopicProvisioningStateSucceeded`
+- New const `PartnerConfigurationProvisioningStateDeleting`
+- New const `VerifiedPartnerProvisioningStateCanceled`
+- New const `ReadinessStateActivated`
+- New const `VerifiedPartnerProvisioningStateDeleting`
+- New const `PartnerRegistrationProvisioningStateUpdating`
+- New const `DataResidencyBoundaryWithinGeopair`
+- New const `PartnerTopicActivationStateNeverActivated`
+- New const `PartnerRegistrationProvisioningStateDeleting`
+- New const `PartnerTopicActivationStateDeactivated`
+- New function `*PartnerTopicEventSubscriptionsClient.BeginUpdate(context.Context, string, string, string, EventSubscriptionUpdateParameters, *PartnerTopicEventSubscriptionsClientBeginUpdateOptions) (*runtime.Poller[PartnerTopicEventSubscriptionsClientUpdateResponse], error)`
+- New function `*PartnerTopicsClient.NewListBySubscriptionPager(*PartnerTopicsClientListBySubscriptionOptions) *runtime.Pager[PartnerTopicsClientListBySubscriptionResponse]`
+- New function `*PartnerRegistrationsClient.BeginUpdate(context.Context, string, string, PartnerRegistrationUpdateParameters, *PartnerRegistrationsClientBeginUpdateOptions) (*runtime.Poller[PartnerRegistrationsClientUpdateResponse], error)`
+- New function `*PartnerTopicsClient.Update(context.Context, string, string, PartnerTopicUpdateParameters, *PartnerTopicsClientUpdateOptions) (PartnerTopicsClientUpdateResponse, error)`
+- New function `*PartnerTopicsClient.NewListByResourceGroupPager(string, *PartnerTopicsClientListByResourceGroupOptions) *runtime.Pager[PartnerTopicsClientListByResourceGroupResponse]`
+- New function `NewVerifiedPartnersClient(azcore.TokenCredential, *arm.ClientOptions) (*VerifiedPartnersClient, error)`
+- New function `*PartnerTopicEventSubscriptionsClient.NewListByPartnerTopicPager(string, string, *PartnerTopicEventSubscriptionsClientListByPartnerTopicOptions) *runtime.Pager[PartnerTopicEventSubscriptionsClientListByPartnerTopicResponse]`
+- New function `*TopicEventSubscriptionsClient.Get(context.Context, string, string, string, *TopicEventSubscriptionsClientGetOptions) (TopicEventSubscriptionsClientGetResponse, error)`
+- New function `*ChannelsClient.Update(context.Context, string, string, string, ChannelUpdateParameters, *ChannelsClientUpdateOptions) (ChannelsClientUpdateResponse, error)`
+- New function `*TopicEventSubscriptionsClient.NewListPager(string, string, *TopicEventSubscriptionsClientListOptions) *runtime.Pager[TopicEventSubscriptionsClientListResponse]`
+- New function `*PartnerRegistrationsClient.NewListByResourceGroupPager(string, *PartnerRegistrationsClientListByResourceGroupOptions) *runtime.Pager[PartnerRegistrationsClientListByResourceGroupResponse]`
+- New function `*DomainEventSubscriptionsClient.Get(context.Context, string, string, string, *DomainEventSubscriptionsClientGetOptions) (DomainEventSubscriptionsClientGetResponse, error)`
+- New function `*DomainEventSubscriptionsClient.NewListPager(string, string, *DomainEventSubscriptionsClientListOptions) *runtime.Pager[DomainEventSubscriptionsClientListResponse]`
+- New function `*TopicEventSubscriptionsClient.GetFullURL(context.Context, string, string, string, *TopicEventSubscriptionsClientGetFullURLOptions) (TopicEventSubscriptionsClientGetFullURLResponse, error)`
+- New function `*PartnerConfigurationsClient.NewListBySubscriptionPager(*PartnerConfigurationsClientListBySubscriptionOptions) *runtime.Pager[PartnerConfigurationsClientListBySubscriptionResponse]`
+- New function `PossibleVerifiedPartnerProvisioningStateValues() []VerifiedPartnerProvisioningState`
+- New function `*DomainTopicEventSubscriptionsClient.BeginUpdate(context.Context, string, string, string, string, EventSubscriptionUpdateParameters, *DomainTopicEventSubscriptionsClientBeginUpdateOptions) (*runtime.Poller[DomainTopicEventSubscriptionsClientUpdateResponse], error)`
+- New function `NewTopicEventSubscriptionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TopicEventSubscriptionsClient, error)`
+- New function `*PartnerNamespacesClient.NewListBySubscriptionPager(*PartnerNamespacesClientListBySubscriptionOptions) *runtime.Pager[PartnerNamespacesClientListBySubscriptionResponse]`
+- New function `PossibleChannelProvisioningStateValues() []ChannelProvisioningState`
+- New function `*PartnerNamespacesClient.Get(context.Context, string, string, *PartnerNamespacesClientGetOptions) (PartnerNamespacesClientGetResponse, error)`
+- New function `*ChannelsClient.NewListByPartnerNamespacePager(string, string, *ChannelsClientListByPartnerNamespaceOptions) *runtime.Pager[ChannelsClientListByPartnerNamespaceResponse]`
+- New function `NewPartnerConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PartnerConfigurationsClient, error)`
+- New function `*DomainTopicEventSubscriptionsClient.Get(context.Context, string, string, string, string, *DomainTopicEventSubscriptionsClientGetOptions) (DomainTopicEventSubscriptionsClientGetResponse, error)`
+- New function `NewPartnerNamespacesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PartnerNamespacesClient, error)`
+- New function `*PartnerRegistrationsClient.BeginCreateOrUpdate(context.Context, string, string, PartnerRegistration, *PartnerRegistrationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[PartnerRegistrationsClientCreateOrUpdateResponse], error)`
+- New function `PossibleReadinessStateValues() []ReadinessState`
+- New function `NewPartnerTopicEventSubscriptionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PartnerTopicEventSubscriptionsClient, error)`
+- New function `*PartnerConfigurationsClient.NewListByResourceGroupPager(string, *PartnerConfigurationsClientListByResourceGroupOptions) *runtime.Pager[PartnerConfigurationsClientListByResourceGroupResponse]`
+- New function `*DomainEventSubscriptionsClient.GetDeliveryAttributes(context.Context, string, string, string, *DomainEventSubscriptionsClientGetDeliveryAttributesOptions) (DomainEventSubscriptionsClientGetDeliveryAttributesResponse, error)`
+- New function `*PartnerTopicsClient.CreateOrUpdate(context.Context, string, string, PartnerTopic, *PartnerTopicsClientCreateOrUpdateOptions) (PartnerTopicsClientCreateOrUpdateResponse, error)`
+- New function `*PartnerTopicEventSubscriptionsClient.BeginCreateOrUpdate(context.Context, string, string, string, EventSubscription, *PartnerTopicEventSubscriptionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[PartnerTopicEventSubscriptionsClientCreateOrUpdateResponse], error)`
+- New function `PossiblePartnerConfigurationProvisioningStateValues() []PartnerConfigurationProvisioningState`
+- New function `PossibleEventDefinitionKindValues() []EventDefinitionKind`
+- New function `*ChannelsClient.BeginDelete(context.Context, string, string, string, *ChannelsClientBeginDeleteOptions) (*runtime.Poller[ChannelsClientDeleteResponse], error)`
+- New function `*TopicEventSubscriptionsClient.GetDeliveryAttributes(context.Context, string, string, string, *TopicEventSubscriptionsClientGetDeliveryAttributesOptions) (TopicEventSubscriptionsClientGetDeliveryAttributesResponse, error)`
+- New function `*PartnerTopicEventSubscriptionsClient.Get(context.Context, string, string, string, *PartnerTopicEventSubscriptionsClientGetOptions) (PartnerTopicEventSubscriptionsClientGetResponse, error)`
+- New function `*DomainTopicEventSubscriptionsClient.GetDeliveryAttributes(context.Context, string, string, string, string, *DomainTopicEventSubscriptionsClientGetDeliveryAttributesOptions) (DomainTopicEventSubscriptionsClientGetDeliveryAttributesResponse, error)`
+- New function `*DomainEventSubscriptionsClient.BeginCreateOrUpdate(context.Context, string, string, string, EventSubscription, *DomainEventSubscriptionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DomainEventSubscriptionsClientCreateOrUpdateResponse], error)`
+- New function `*PartnerTopicEventSubscriptionsClient.BeginDelete(context.Context, string, string, string, *PartnerTopicEventSubscriptionsClientBeginDeleteOptions) (*runtime.Poller[PartnerTopicEventSubscriptionsClientDeleteResponse], error)`
+- New function `*PartnerTopicsClient.Get(context.Context, string, string, *PartnerTopicsClientGetOptions) (PartnerTopicsClientGetResponse, error)`
+- New function `*ChannelsClient.GetFullURL(context.Context, string, string, string, *ChannelsClientGetFullURLOptions) (ChannelsClientGetFullURLResponse, error)`
+- New function `*PartnerNamespacesClient.BeginCreateOrUpdate(context.Context, string, string, PartnerNamespace, *PartnerNamespacesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PartnerNamespacesClientCreateOrUpdateResponse], error)`
+- New function `PossiblePartnerRegistrationProvisioningStateValues() []PartnerRegistrationProvisioningState`
+- New function `*ChannelsClient.Get(context.Context, string, string, string, *ChannelsClientGetOptions) (ChannelsClientGetResponse, error)`
+- New function `*PartnerConfigurationsClient.BeginCreateOrUpdate(context.Context, string, PartnerConfiguration, *PartnerConfigurationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[PartnerConfigurationsClientCreateOrUpdateResponse], error)`
+- New function `NewPartnerTopicsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PartnerTopicsClient, error)`
+- New function `*PartnerConfigurationsClient.Get(context.Context, string, *PartnerConfigurationsClientGetOptions) (PartnerConfigurationsClientGetResponse, error)`
+- New function `*PartnerNamespacesClient.BeginDelete(context.Context, string, string, *PartnerNamespacesClientBeginDeleteOptions) (*runtime.Poller[PartnerNamespacesClientDeleteResponse], error)`
+- New function `*DomainTopicEventSubscriptionsClient.BeginDelete(context.Context, string, string, string, string, *DomainTopicEventSubscriptionsClientBeginDeleteOptions) (*runtime.Poller[DomainTopicEventSubscriptionsClientDeleteResponse], error)`
+- New function `NewDomainEventSubscriptionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DomainEventSubscriptionsClient, error)`
+- New function `PossiblePartnerTopicRoutingModeValues() []PartnerTopicRoutingMode`
+- New function `*PartnerRegistrationsClient.BeginDelete(context.Context, string, string, *PartnerRegistrationsClientBeginDeleteOptions) (*runtime.Poller[PartnerRegistrationsClientDeleteResponse], error)`
+- New function `*DomainEventSubscriptionsClient.BeginUpdate(context.Context, string, string, string, EventSubscriptionUpdateParameters, *DomainEventSubscriptionsClientBeginUpdateOptions) (*runtime.Poller[DomainEventSubscriptionsClientUpdateResponse], error)`
+- New function `NewDomainTopicEventSubscriptionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DomainTopicEventSubscriptionsClient, error)`
+- New function `*PartnerConfigurationsClient.AuthorizePartner(context.Context, string, Partner, *PartnerConfigurationsClientAuthorizePartnerOptions) (PartnerConfigurationsClientAuthorizePartnerResponse, error)`
+- New function `*DomainTopicEventSubscriptionsClient.NewListPager(string, string, string, *DomainTopicEventSubscriptionsClientListOptions) *runtime.Pager[DomainTopicEventSubscriptionsClientListResponse]`
+- New function `*TopicEventSubscriptionsClient.BeginCreateOrUpdate(context.Context, string, string, string, EventSubscription, *TopicEventSubscriptionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[TopicEventSubscriptionsClientCreateOrUpdateResponse], error)`
+- New function `PossiblePartnerTopicProvisioningStateValues() []PartnerTopicProvisioningState`
+- New function `PossiblePartnerNamespaceProvisioningStateValues() []PartnerNamespaceProvisioningState`
+- New function `*PartnerNamespacesClient.NewListByResourceGroupPager(string, *PartnerNamespacesClientListByResourceGroupOptions) *runtime.Pager[PartnerNamespacesClientListByResourceGroupResponse]`
+- New function `*TopicEventSubscriptionsClient.BeginUpdate(context.Context, string, string, string, EventSubscriptionUpdateParameters, *TopicEventSubscriptionsClientBeginUpdateOptions) (*runtime.Poller[TopicEventSubscriptionsClientUpdateResponse], error)`
+- New function `PossiblePartnerTopicActivationStateValues() []PartnerTopicActivationState`
+- New function `*PartnerRegistrationsClient.NewListBySubscriptionPager(*PartnerRegistrationsClientListBySubscriptionOptions) *runtime.Pager[PartnerRegistrationsClientListBySubscriptionResponse]`
+- New function `*PartnerTopicEventSubscriptionsClient.GetFullURL(context.Context, string, string, string, *PartnerTopicEventSubscriptionsClientGetFullURLOptions) (PartnerTopicEventSubscriptionsClientGetFullURLResponse, error)`
+- New function `*PartnerConfigurationsClient.BeginUpdate(context.Context, string, PartnerConfigurationUpdateParameters, *PartnerConfigurationsClientBeginUpdateOptions) (*runtime.Poller[PartnerConfigurationsClientUpdateResponse], error)`
+- New function `*PartnerNamespacesClient.RegenerateKey(context.Context, string, string, PartnerNamespaceRegenerateKeyRequest, *PartnerNamespacesClientRegenerateKeyOptions) (PartnerNamespacesClientRegenerateKeyResponse, error)`
+- New function `NewPartnerRegistrationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PartnerRegistrationsClient, error)`
+- New function `*DomainTopicEventSubscriptionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, EventSubscription, *DomainTopicEventSubscriptionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DomainTopicEventSubscriptionsClientCreateOrUpdateResponse], error)`
+- New function `*PartnerRegistrationsClient.Get(context.Context, string, string, *PartnerRegistrationsClientGetOptions) (PartnerRegistrationsClientGetResponse, error)`
+- New function `*VerifiedPartnersClient.NewListPager(*VerifiedPartnersClientListOptions) *runtime.Pager[VerifiedPartnersClientListResponse]`
+- New function `*ChannelsClient.CreateOrUpdate(context.Context, string, string, string, Channel, *ChannelsClientCreateOrUpdateOptions) (ChannelsClientCreateOrUpdateResponse, error)`
+- New function `*PartnerTopicsClient.BeginDelete(context.Context, string, string, *PartnerTopicsClientBeginDeleteOptions) (*runtime.Poller[PartnerTopicsClientDeleteResponse], error)`
+- New function `*PartnerTopicEventSubscriptionsClient.GetDeliveryAttributes(context.Context, string, string, string, *PartnerTopicEventSubscriptionsClientGetDeliveryAttributesOptions) (PartnerTopicEventSubscriptionsClientGetDeliveryAttributesResponse, error)`
+- New function `PossibleChannelTypeValues() []ChannelType`
+- New function `*DomainEventSubscriptionsClient.BeginDelete(context.Context, string, string, string, *DomainEventSubscriptionsClientBeginDeleteOptions) (*runtime.Poller[DomainEventSubscriptionsClientDeleteResponse], error)`
+- New function `*PartnerTopicsClient.Activate(context.Context, string, string, *PartnerTopicsClientActivateOptions) (PartnerTopicsClientActivateResponse, error)`
+- New function `*PartnerConfigurationsClient.BeginDelete(context.Context, string, *PartnerConfigurationsClientBeginDeleteOptions) (*runtime.Poller[PartnerConfigurationsClientDeleteResponse], error)`
+- New function `PossibleDataResidencyBoundaryValues() []DataResidencyBoundary`
+- New function `*PartnerTopicsClient.Deactivate(context.Context, string, string, *PartnerTopicsClientDeactivateOptions) (PartnerTopicsClientDeactivateResponse, error)`
+- New function `PossibleTopicTypeSourceScopeValues() []TopicTypeSourceScope`
+- New function `*PartnerConfigurationsClient.UnauthorizePartner(context.Context, string, Partner, *PartnerConfigurationsClientUnauthorizePartnerOptions) (PartnerConfigurationsClientUnauthorizePartnerResponse, error)`
+- New function `NewChannelsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ChannelsClient, error)`
+- New function `*DomainEventSubscriptionsClient.GetFullURL(context.Context, string, string, string, *DomainEventSubscriptionsClientGetFullURLOptions) (DomainEventSubscriptionsClientGetFullURLResponse, error)`
+- New function `*DomainTopicEventSubscriptionsClient.GetFullURL(context.Context, string, string, string, string, *DomainTopicEventSubscriptionsClientGetFullURLOptions) (DomainTopicEventSubscriptionsClientGetFullURLResponse, error)`
+- New function `*PartnerNamespacesClient.ListSharedAccessKeys(context.Context, string, string, *PartnerNamespacesClientListSharedAccessKeysOptions) (PartnerNamespacesClientListSharedAccessKeysResponse, error)`
+- New function `*TopicEventSubscriptionsClient.BeginDelete(context.Context, string, string, string, *TopicEventSubscriptionsClientBeginDeleteOptions) (*runtime.Poller[TopicEventSubscriptionsClientDeleteResponse], error)`
+- New function `*VerifiedPartnersClient.Get(context.Context, string, *VerifiedPartnersClientGetOptions) (VerifiedPartnersClientGetResponse, error)`
+- New function `*PartnerNamespacesClient.BeginUpdate(context.Context, string, string, PartnerNamespaceUpdateParameters, *PartnerNamespacesClientBeginUpdateOptions) (*runtime.Poller[PartnerNamespacesClientUpdateResponse], error)`
+- New struct `Channel`
+- New struct `ChannelProperties`
+- New struct `ChannelUpdateParameters`
+- New struct `ChannelUpdateParametersProperties`
+- New struct `ChannelsClient`
+- New struct `ChannelsClientBeginDeleteOptions`
+- New struct `ChannelsClientCreateOrUpdateOptions`
+- New struct `ChannelsClientCreateOrUpdateResponse`
+- New struct `ChannelsClientDeleteResponse`
+- New struct `ChannelsClientGetFullURLOptions`
+- New struct `ChannelsClientGetFullURLResponse`
+- New struct `ChannelsClientGetOptions`
+- New struct `ChannelsClientGetResponse`
+- New struct `ChannelsClientListByPartnerNamespaceOptions`
+- New struct `ChannelsClientListByPartnerNamespaceResponse`
+- New struct `ChannelsClientUpdateOptions`
+- New struct `ChannelsClientUpdateResponse`
+- New struct `ChannelsListResult`
+- New struct `DomainEventSubscriptionsClient`
+- New struct `DomainEventSubscriptionsClientBeginCreateOrUpdateOptions`
+- New struct `DomainEventSubscriptionsClientBeginDeleteOptions`
+- New struct `DomainEventSubscriptionsClientBeginUpdateOptions`
+- New struct `DomainEventSubscriptionsClientCreateOrUpdateResponse`
+- New struct `DomainEventSubscriptionsClientDeleteResponse`
+- New struct `DomainEventSubscriptionsClientGetDeliveryAttributesOptions`
+- New struct `DomainEventSubscriptionsClientGetDeliveryAttributesResponse`
+- New struct `DomainEventSubscriptionsClientGetFullURLOptions`
+- New struct `DomainEventSubscriptionsClientGetFullURLResponse`
+- New struct `DomainEventSubscriptionsClientGetOptions`
+- New struct `DomainEventSubscriptionsClientGetResponse`
+- New struct `DomainEventSubscriptionsClientListOptions`
+- New struct `DomainEventSubscriptionsClientListResponse`
+- New struct `DomainEventSubscriptionsClientUpdateResponse`
+- New struct `DomainTopicEventSubscriptionsClient`
+- New struct `DomainTopicEventSubscriptionsClientBeginCreateOrUpdateOptions`
+- New struct `DomainTopicEventSubscriptionsClientBeginDeleteOptions`
+- New struct `DomainTopicEventSubscriptionsClientBeginUpdateOptions`
+- New struct `DomainTopicEventSubscriptionsClientCreateOrUpdateResponse`
+- New struct `DomainTopicEventSubscriptionsClientDeleteResponse`
+- New struct `DomainTopicEventSubscriptionsClientGetDeliveryAttributesOptions`
+- New struct `DomainTopicEventSubscriptionsClientGetDeliveryAttributesResponse`
+- New struct `DomainTopicEventSubscriptionsClientGetFullURLOptions`
+- New struct `DomainTopicEventSubscriptionsClientGetFullURLResponse`
+- New struct `DomainTopicEventSubscriptionsClientGetOptions`
+- New struct `DomainTopicEventSubscriptionsClientGetResponse`
+- New struct `DomainTopicEventSubscriptionsClientListOptions`
+- New struct `DomainTopicEventSubscriptionsClientListResponse`
+- New struct `DomainTopicEventSubscriptionsClientUpdateResponse`
+- New struct `EventTypeInfo`
+- New struct `InlineEventProperties`
+- New struct `Partner`
+- New struct `PartnerAuthorization`
+- New struct `PartnerConfiguration`
+- New struct `PartnerConfigurationProperties`
+- New struct `PartnerConfigurationUpdateParameterProperties`
+- New struct `PartnerConfigurationUpdateParameters`
+- New struct `PartnerConfigurationsClient`
+- New struct `PartnerConfigurationsClientAuthorizePartnerOptions`
+- New struct `PartnerConfigurationsClientAuthorizePartnerResponse`
+- New struct `PartnerConfigurationsClientBeginCreateOrUpdateOptions`
+- New struct `PartnerConfigurationsClientBeginDeleteOptions`
+- New struct `PartnerConfigurationsClientBeginUpdateOptions`
+- New struct `PartnerConfigurationsClientCreateOrUpdateResponse`
+- New struct `PartnerConfigurationsClientDeleteResponse`
+- New struct `PartnerConfigurationsClientGetOptions`
+- New struct `PartnerConfigurationsClientGetResponse`
+- New struct `PartnerConfigurationsClientListByResourceGroupOptions`
+- New struct `PartnerConfigurationsClientListByResourceGroupResponse`
+- New struct `PartnerConfigurationsClientListBySubscriptionOptions`
+- New struct `PartnerConfigurationsClientListBySubscriptionResponse`
+- New struct `PartnerConfigurationsClientUnauthorizePartnerOptions`
+- New struct `PartnerConfigurationsClientUnauthorizePartnerResponse`
+- New struct `PartnerConfigurationsClientUpdateResponse`
+- New struct `PartnerConfigurationsListResult`
+- New struct `PartnerDetails`
+- New struct `PartnerNamespace`
+- New struct `PartnerNamespaceProperties`
+- New struct `PartnerNamespaceRegenerateKeyRequest`
+- New struct `PartnerNamespaceSharedAccessKeys`
+- New struct `PartnerNamespaceUpdateParameterProperties`
+- New struct `PartnerNamespaceUpdateParameters`
+- New struct `PartnerNamespacesClient`
+- New struct `PartnerNamespacesClientBeginCreateOrUpdateOptions`
+- New struct `PartnerNamespacesClientBeginDeleteOptions`
+- New struct `PartnerNamespacesClientBeginUpdateOptions`
+- New struct `PartnerNamespacesClientCreateOrUpdateResponse`
+- New struct `PartnerNamespacesClientDeleteResponse`
+- New struct `PartnerNamespacesClientGetOptions`
+- New struct `PartnerNamespacesClientGetResponse`
+- New struct `PartnerNamespacesClientListByResourceGroupOptions`
+- New struct `PartnerNamespacesClientListByResourceGroupResponse`
+- New struct `PartnerNamespacesClientListBySubscriptionOptions`
+- New struct `PartnerNamespacesClientListBySubscriptionResponse`
+- New struct `PartnerNamespacesClientListSharedAccessKeysOptions`
+- New struct `PartnerNamespacesClientListSharedAccessKeysResponse`
+- New struct `PartnerNamespacesClientRegenerateKeyOptions`
+- New struct `PartnerNamespacesClientRegenerateKeyResponse`
+- New struct `PartnerNamespacesClientUpdateResponse`
+- New struct `PartnerNamespacesListResult`
+- New struct `PartnerRegistration`
+- New struct `PartnerRegistrationProperties`
+- New struct `PartnerRegistrationUpdateParameters`
+- New struct `PartnerRegistrationsClient`
+- New struct `PartnerRegistrationsClientBeginCreateOrUpdateOptions`
+- New struct `PartnerRegistrationsClientBeginDeleteOptions`
+- New struct `PartnerRegistrationsClientBeginUpdateOptions`
+- New struct `PartnerRegistrationsClientCreateOrUpdateResponse`
+- New struct `PartnerRegistrationsClientDeleteResponse`
+- New struct `PartnerRegistrationsClientGetOptions`
+- New struct `PartnerRegistrationsClientGetResponse`
+- New struct `PartnerRegistrationsClientListByResourceGroupOptions`
+- New struct `PartnerRegistrationsClientListByResourceGroupResponse`
+- New struct `PartnerRegistrationsClientListBySubscriptionOptions`
+- New struct `PartnerRegistrationsClientListBySubscriptionResponse`
+- New struct `PartnerRegistrationsClientUpdateResponse`
+- New struct `PartnerRegistrationsListResult`
+- New struct `PartnerTopic`
+- New struct `PartnerTopicEventSubscriptionsClient`
+- New struct `PartnerTopicEventSubscriptionsClientBeginCreateOrUpdateOptions`
+- New struct `PartnerTopicEventSubscriptionsClientBeginDeleteOptions`
+- New struct `PartnerTopicEventSubscriptionsClientBeginUpdateOptions`
+- New struct `PartnerTopicEventSubscriptionsClientCreateOrUpdateResponse`
+- New struct `PartnerTopicEventSubscriptionsClientDeleteResponse`
+- New struct `PartnerTopicEventSubscriptionsClientGetDeliveryAttributesOptions`
+- New struct `PartnerTopicEventSubscriptionsClientGetDeliveryAttributesResponse`
+- New struct `PartnerTopicEventSubscriptionsClientGetFullURLOptions`
+- New struct `PartnerTopicEventSubscriptionsClientGetFullURLResponse`
+- New struct `PartnerTopicEventSubscriptionsClientGetOptions`
+- New struct `PartnerTopicEventSubscriptionsClientGetResponse`
+- New struct `PartnerTopicEventSubscriptionsClientListByPartnerTopicOptions`
+- New struct `PartnerTopicEventSubscriptionsClientListByPartnerTopicResponse`
+- New struct `PartnerTopicEventSubscriptionsClientUpdateResponse`
+- New struct `PartnerTopicInfo`
+- New struct `PartnerTopicProperties`
+- New struct `PartnerTopicUpdateParameters`
+- New struct `PartnerTopicsClient`
+- New struct `PartnerTopicsClientActivateOptions`
+- New struct `PartnerTopicsClientActivateResponse`
+- New struct `PartnerTopicsClientBeginDeleteOptions`
+- New struct `PartnerTopicsClientCreateOrUpdateOptions`
+- New struct `PartnerTopicsClientCreateOrUpdateResponse`
+- New struct `PartnerTopicsClientDeactivateOptions`
+- New struct `PartnerTopicsClientDeactivateResponse`
+- New struct `PartnerTopicsClientDeleteResponse`
+- New struct `PartnerTopicsClientGetOptions`
+- New struct `PartnerTopicsClientGetResponse`
+- New struct `PartnerTopicsClientListByResourceGroupOptions`
+- New struct `PartnerTopicsClientListByResourceGroupResponse`
+- New struct `PartnerTopicsClientListBySubscriptionOptions`
+- New struct `PartnerTopicsClientListBySubscriptionResponse`
+- New struct `PartnerTopicsClientUpdateOptions`
+- New struct `PartnerTopicsClientUpdateResponse`
+- New struct `PartnerTopicsListResult`
+- New struct `PartnerUpdateTopicInfo`
+- New struct `TopicEventSubscriptionsClient`
+- New struct `TopicEventSubscriptionsClientBeginCreateOrUpdateOptions`
+- New struct `TopicEventSubscriptionsClientBeginDeleteOptions`
+- New struct `TopicEventSubscriptionsClientBeginUpdateOptions`
+- New struct `TopicEventSubscriptionsClientCreateOrUpdateResponse`
+- New struct `TopicEventSubscriptionsClientDeleteResponse`
+- New struct `TopicEventSubscriptionsClientGetDeliveryAttributesOptions`
+- New struct `TopicEventSubscriptionsClientGetDeliveryAttributesResponse`
+- New struct `TopicEventSubscriptionsClientGetFullURLOptions`
+- New struct `TopicEventSubscriptionsClientGetFullURLResponse`
+- New struct `TopicEventSubscriptionsClientGetOptions`
+- New struct `TopicEventSubscriptionsClientGetResponse`
+- New struct `TopicEventSubscriptionsClientListOptions`
+- New struct `TopicEventSubscriptionsClientListResponse`
+- New struct `TopicEventSubscriptionsClientUpdateResponse`
+- New struct `VerifiedPartner`
+- New struct `VerifiedPartnerProperties`
+- New struct `VerifiedPartnersClient`
+- New struct `VerifiedPartnersClientGetOptions`
+- New struct `VerifiedPartnersClientGetResponse`
+- New struct `VerifiedPartnersClientListOptions`
+- New struct `VerifiedPartnersClientListResponse`
+- New struct `VerifiedPartnersListResult`
+- New field `DataResidencyBoundary` in struct `TopicUpdateParameterProperties`
+- New field `DataResidencyBoundary` in struct `DomainUpdateParameterProperties`
+- New field `DataResidencyBoundary` in struct `TopicProperties`
+- New field `DataResidencyBoundary` in struct `DomainProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/eventgrid/armeventgrid` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
