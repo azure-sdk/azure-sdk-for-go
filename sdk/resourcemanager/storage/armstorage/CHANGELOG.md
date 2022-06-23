@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0 (2022-06-23)
+### Breaking Changes
+
+- Function `*BlobContainersClient.CreateOrUpdateImmutabilityPolicy` parameter(s) have been changed from `(context.Context, string, string, string, *BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions)` to `(context.Context, string, string, string, ImmutabilityPolicy, *BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions)`
+- Function `*TableClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, *TableClientUpdateOptions)` to `(context.Context, string, string, string, Table, *TableClientUpdateOptions)`
+- Function `*TableClient.Create` parameter(s) have been changed from `(context.Context, string, string, string, *TableClientCreateOptions)` to `(context.Context, string, string, string, Table, *TableClientCreateOptions)`
+- Field `Parameters` of struct `TableClientCreateOptions` has been removed
+- Field `Parameters` of struct `BlobContainersClientCreateOrUpdateImmutabilityPolicyOptions` has been removed
+- Field `Parameters` of struct `TableClientUpdateOptions` has been removed
+
+
 ## 1.0.0 (2022-05-16)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
