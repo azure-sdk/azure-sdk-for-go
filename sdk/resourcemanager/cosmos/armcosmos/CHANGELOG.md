@@ -1,5 +1,22 @@
 # Release History
 
+## 1.1.0-beta.2 (2022-06-24)
+### Breaking Changes
+
+- Type of `RestorableGremlinResourcesListResult.Value` has been changed from `[]*GremlinDatabaseRestoreResource` to `[]*RestorableGremlinResourcesGetResult`
+- Type of `RestorableTableResourcesListResult.Value` has been changed from `[]*string` to `[]*RestorableTableResourcesGetResult`
+
+### Features Added
+
+- New struct `AccountKeyMetadata`
+- New struct `DatabaseAccountKeysMetadata`
+- New struct `RestorableGremlinResourcesGetResult`
+- New struct `RestorableTableResourcesGetResult`
+- New field `KeysMetadata` in struct `DatabaseAccountUpdateProperties`
+- New field `KeysMetadata` in struct `DatabaseAccountCreateUpdateProperties`
+- New field `KeysMetadata` in struct `DatabaseAccountGetProperties`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
