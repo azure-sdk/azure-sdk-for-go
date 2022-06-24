@@ -1,5 +1,39 @@
 # Release History
 
+## 3.0.0 (2022-06-24)
+### Breaking Changes
+
+- Function `*OperationStatusesClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, string, string, *OperationStatusesClientGetOptions)` to `(context.Context, string, string, *OperationStatusesClientGetOptions)`
+- Function `*OperationResultsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, string, string, *OperationResultsClientGetOptions)` to `(context.Context, string, string, *OperationResultsClientGetOptions)`
+- Function `NewMediaServiceOperationResultsClient` has been removed
+- Function `NewMediaServiceOperationStatusesClient` has been removed
+- Function `*MediaServiceOperationResultsClient.Get` has been removed
+- Function `*MediaServiceOperationStatusesClient.Get` has been removed
+- Struct `MediaServiceOperationResultsClient` has been removed
+- Struct `MediaServiceOperationResultsClientGetOptions` has been removed
+- Struct `MediaServiceOperationResultsClientGetResponse` has been removed
+- Struct `MediaServiceOperationStatusesClient` has been removed
+- Struct `MediaServiceOperationStatusesClientGetOptions` has been removed
+- Struct `MediaServiceOperationStatusesClientGetResponse` has been removed
+- Field `AssetTrack` of struct `OperationResultsClientGetResponse` has been removed
+- Field `AssetTrackOperationStatus` of struct `OperationStatusesClientGetResponse` has been removed
+
+### Features Added
+
+- New function `*AssetTrackOperationResultsClient.Get(context.Context, string, string, string, string, string, *AssetTrackOperationResultsClientGetOptions) (AssetTrackOperationResultsClientGetResponse, error)`
+- New function `*AssetTrackOperationStatusesClient.Get(context.Context, string, string, string, string, string, *AssetTrackOperationStatusesClientGetOptions) (AssetTrackOperationStatusesClientGetResponse, error)`
+- New function `NewAssetTrackOperationResultsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssetTrackOperationResultsClient, error)`
+- New function `NewAssetTrackOperationStatusesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AssetTrackOperationStatusesClient, error)`
+- New struct `AssetTrackOperationResultsClient`
+- New struct `AssetTrackOperationResultsClientGetOptions`
+- New struct `AssetTrackOperationResultsClientGetResponse`
+- New struct `AssetTrackOperationStatusesClient`
+- New struct `AssetTrackOperationStatusesClientGetOptions`
+- New struct `AssetTrackOperationStatusesClientGetResponse`
+- New anonymous field `MediaService` in struct `OperationResultsClientGetResponse`
+- New anonymous field `MediaServiceOperationStatus` in struct `OperationStatusesClientGetResponse`
+
+
 ## 2.0.0 (2022-06-22)
 ### Breaking Changes
 
