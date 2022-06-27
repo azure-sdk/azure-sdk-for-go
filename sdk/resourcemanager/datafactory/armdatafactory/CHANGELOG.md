@@ -1,5 +1,18 @@
 # Release History
 
+## 2.0.0 (2022-06-27)
+### Breaking Changes
+
+- Type of `LinkedServiceReference.Type` has been changed from `*LinkedServiceReferenceType` to `*Type`
+- Const `LinkedServiceReferenceTypeLinkedServiceReference` has been removed
+- Function `PossibleLinkedServiceReferenceTypeValues` has been removed
+
+### Features Added
+
+- New const `TypeLinkedServiceReference`
+- New function `PossibleTypeValues() []Type`
+
+
 ## 1.2.0 (2022-06-15)
 ### Features Added
 
