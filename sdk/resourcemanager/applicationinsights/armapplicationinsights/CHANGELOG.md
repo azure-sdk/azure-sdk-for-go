@@ -1,5 +1,14 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-06-28)
+### Breaking Changes
+
+- Function `*WorkbookTemplatesClient.Update` parameter(s) have been changed from `(context.Context, string, string, *WorkbookTemplatesClientUpdateOptions)` to `(context.Context, string, string, WorkbookTemplateUpdateParameters, *WorkbookTemplatesClientUpdateOptions)`
+- Function `*WorkbooksClient.Update` parameter(s) have been changed from `(context.Context, string, string, *WorkbooksClientUpdateOptions)` to `(context.Context, string, string, WorkbookUpdateParameters, *WorkbooksClientUpdateOptions)`
+- Field `WorkbookUpdateParameters` of struct `WorkbooksClientUpdateOptions` has been removed
+- Field `WorkbookTemplateUpdateParameters` of struct `WorkbookTemplatesClientUpdateOptions` has been removed
+
+
 ## 2.0.0-beta.1 (2022-06-02)
 ### Breaking Changes
 
