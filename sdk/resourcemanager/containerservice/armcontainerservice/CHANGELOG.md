@@ -1,5 +1,75 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-06-28)
+### Features Added
+
+- New const `FleetProvisioningStateFailed`
+- New const `FleetProvisioningStateCreating`
+- New const `FleetProvisioningStateDeleting`
+- New const `FleetMemberProvisioningStateUpdating`
+- New const `FleetMemberProvisioningStateJoining`
+- New const `FleetProvisioningStateUpdating`
+- New const `FleetMemberProvisioningStateLeaving`
+- New const `FleetMemberProvisioningStateSucceeded`
+- New const `FleetMemberProvisioningStateFailed`
+- New const `FleetProvisioningStateSucceeded`
+- New const `FleetMemberProvisioningStateCanceled`
+- New const `FleetProvisioningStateCanceled`
+- New function `*FleetMembersClient.Get(context.Context, string, string, string, *FleetMembersClientGetOptions) (FleetMembersClientGetResponse, error)`
+- New function `*FleetsClient.NewListPager(*FleetsClientListOptions) *runtime.Pager[FleetsClientListResponse]`
+- New function `*FleetMembersClient.BeginCreateOrUpdate(context.Context, string, string, string, FleetMember, *FleetMembersClientBeginCreateOrUpdateOptions) (*runtime.Poller[FleetMembersClientCreateOrUpdateResponse], error)`
+- New function `*FleetsClient.NewListByResourceGroupPager(string, *FleetsClientListByResourceGroupOptions) *runtime.Pager[FleetsClientListByResourceGroupResponse]`
+- New function `NewFleetsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FleetsClient, error)`
+- New function `NewFleetMembersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FleetMembersClient, error)`
+- New function `*FleetMembersClient.NewListByFleetPager(string, string, *FleetMembersClientListByFleetOptions) *runtime.Pager[FleetMembersClientListByFleetResponse]`
+- New function `*FleetsClient.Get(context.Context, string, string, *FleetsClientGetOptions) (FleetsClientGetResponse, error)`
+- New function `PossibleFleetProvisioningStateValues() []FleetProvisioningState`
+- New function `*FleetsClient.Update(context.Context, string, string, FleetPatch, *FleetsClientUpdateOptions) (FleetsClientUpdateResponse, error)`
+- New function `PossibleFleetMemberProvisioningStateValues() []FleetMemberProvisioningState`
+- New function `*FleetsClient.BeginDelete(context.Context, string, string, *FleetsClientBeginDeleteOptions) (*runtime.Poller[FleetsClientDeleteResponse], error)`
+- New function `*FleetMembersClient.BeginDelete(context.Context, string, string, string, *FleetMembersClientBeginDeleteOptions) (*runtime.Poller[FleetMembersClientDeleteResponse], error)`
+- New function `*FleetsClient.ListCredentials(context.Context, string, string, *FleetsClientListCredentialsOptions) (FleetsClientListCredentialsResponse, error)`
+- New function `*FleetsClient.BeginCreateOrUpdate(context.Context, string, string, Fleet, *FleetsClientBeginCreateOrUpdateOptions) (*runtime.Poller[FleetsClientCreateOrUpdateResponse], error)`
+- New struct `AzureEntityResource`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `Fleet`
+- New struct `FleetCredentialResult`
+- New struct `FleetCredentialResults`
+- New struct `FleetHubProfile`
+- New struct `FleetListResult`
+- New struct `FleetMember`
+- New struct `FleetMemberProperties`
+- New struct `FleetMembersClient`
+- New struct `FleetMembersClientBeginCreateOrUpdateOptions`
+- New struct `FleetMembersClientBeginDeleteOptions`
+- New struct `FleetMembersClientCreateOrUpdateResponse`
+- New struct `FleetMembersClientDeleteResponse`
+- New struct `FleetMembersClientGetOptions`
+- New struct `FleetMembersClientGetResponse`
+- New struct `FleetMembersClientListByFleetOptions`
+- New struct `FleetMembersClientListByFleetResponse`
+- New struct `FleetMembersListResult`
+- New struct `FleetPatch`
+- New struct `FleetProperties`
+- New struct `FleetsClient`
+- New struct `FleetsClientBeginCreateOrUpdateOptions`
+- New struct `FleetsClientBeginDeleteOptions`
+- New struct `FleetsClientCreateOrUpdateResponse`
+- New struct `FleetsClientDeleteResponse`
+- New struct `FleetsClientGetOptions`
+- New struct `FleetsClientGetResponse`
+- New struct `FleetsClientListByResourceGroupOptions`
+- New struct `FleetsClientListByResourceGroupResponse`
+- New struct `FleetsClientListCredentialsOptions`
+- New struct `FleetsClientListCredentialsResponse`
+- New struct `FleetsClientListOptions`
+- New struct `FleetsClientListResponse`
+- New struct `FleetsClientUpdateOptions`
+- New struct `FleetsClientUpdateResponse`
+
+
 ## 2.0.0-beta.1 (2022-06-02)
 ### Breaking Changes
 
