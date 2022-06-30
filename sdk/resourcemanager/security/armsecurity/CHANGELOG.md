@@ -1,5 +1,219 @@
 # Release History
 
+## 0.8.0 (2022-06-30)
+### Breaking Changes
+
+- Function `*SQLVulnerabilityAssessmentBaselineRulesClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *SQLVulnerabilityAssessmentBaselineRulesClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, RuleResultsInput, *SQLVulnerabilityAssessmentBaselineRulesClientCreateOrUpdateOptions)`
+- Struct `ConnectorPropertiesOrganizationalData` has been removed
+- Field `OrganizationalData` of struct `ConnectorProperties` has been removed
+- Field `CloudName` of struct `ConnectorProperties` has been removed
+- Field `Body` of struct `SQLVulnerabilityAssessmentBaselineRulesClientCreateOrUpdateOptions` has been removed
+
+### Features Added
+
+- New const `EnvironmentTypeGithubScope`
+- New const `EnvironmentTypeAwsAccount`
+- New const `GovernanceRuleOwnerSourceTypeManually`
+- New const `OfferingTypeDefenderForServersGcp`
+- New const `SubPlanP2`
+- New const `OfferingTypeCspmMonitorGcp`
+- New const `OfferingTypeDefenderForContainersGcp`
+- New const `GovernanceRuleOwnerSourceTypeByTag`
+- New const `EnvironmentTypeGcpProject`
+- New const `TypeQualys`
+- New const `OfferingTypeDefenderForDatabasesAws`
+- New const `EnvironmentTypeAzureDevOpsScope`
+- New const `OfferingTypeCspmMonitorGithub`
+- New const `GovernanceRuleSourceResourceTypeAssessments`
+- New const `CloudNameGithub`
+- New const `TypeTVM`
+- New const `OfferingTypeCspmMonitorAzureDevOps`
+- New const `CloudNameAzureDevOps`
+- New const `GovernanceRuleTypeIntegrated`
+- New const `GovernanceRuleTypeServiceNow`
+- New const `SubPlanP1`
+- New const `OfferingTypeDefenderForDatabasesGcp`
+- New const `SettingNameWDATPUNIFIEDSOLUTION`
+- New const `GovernanceRuleConditionOperatorIn`
+- New const `ScanningModeDefault`
+- New const `GovernanceRuleConditionOperatorEquals`
+- New function `PossibleGovernanceRuleOwnerSourceTypeValues() []GovernanceRuleOwnerSourceType`
+- New function `PossibleScanningModeValues() []ScanningMode`
+- New function `NewVMScannersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VMScannersClient, error)`
+- New function `*VMScannersClient.Delete(context.Context, string, *VMScannersClientDeleteOptions) (VMScannersClientDeleteResponse, error)`
+- New function `NewSubscriptionGovernanceRulesExecuteStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SubscriptionGovernanceRulesExecuteStatusClient, error)`
+- New function `*EnvironmentData.GetEnvironmentData() *EnvironmentData`
+- New function `PossibleTypeValues() []Type`
+- New function `*GovernanceRulesClient.BeginRuleIDExecuteSingleSecurityConnector(context.Context, string, string, string, *GovernanceRulesClientBeginRuleIDExecuteSingleSecurityConnectorOptions) (*runtime.Poller[GovernanceRulesClientRuleIDExecuteSingleSecurityConnectorResponse], error)`
+- New function `*GovernanceRulesClient.BeginRuleIDExecuteSingleSubscription(context.Context, string, *GovernanceRulesClientBeginRuleIDExecuteSingleSubscriptionOptions) (*runtime.Poller[GovernanceRulesClientRuleIDExecuteSingleSubscriptionResponse], error)`
+- New function `*SubscriptionGovernanceRulesExecuteStatusClient.BeginGet(context.Context, string, string, *SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions) (*runtime.Poller[SubscriptionGovernanceRulesExecuteStatusClientGetResponse], error)`
+- New function `NewConnectorGovernanceRulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectorGovernanceRulesClient, error)`
+- New function `*GovernanceAssignmentsClient.NewListPager(string, string, *GovernanceAssignmentsClientListOptions) *runtime.Pager[GovernanceAssignmentsClientListResponse]`
+- New function `*GovernanceRulesClient.Get(context.Context, string, *GovernanceRulesClientGetOptions) (GovernanceRulesClientGetResponse, error)`
+- New function `*VMScannersClient.CreateOrUpdate(context.Context, string, *VMScannersClientCreateOrUpdateOptions) (VMScannersClientCreateOrUpdateResponse, error)`
+- New function `*GcpProjectEnvironmentData.GetEnvironmentData() *EnvironmentData`
+- New function `*VMScannersClient.Get(context.Context, string, *VMScannersClientGetOptions) (VMScannersClientGetResponse, error)`
+- New function `*ConnectorGovernanceRulesClient.CreateOrUpdate(context.Context, string, string, string, GovernanceRule, *ConnectorGovernanceRulesClientCreateOrUpdateOptions) (ConnectorGovernanceRulesClientCreateOrUpdateResponse, error)`
+- New function `NewConnectorGovernanceRulesExecuteStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectorGovernanceRulesExecuteStatusClient, error)`
+- New function `*VMScannersClient.ListBySubscription(context.Context, *VMScannersClientListBySubscriptionOptions) (VMScannersClientListBySubscriptionResponse, error)`
+- New function `*GithubScopeEnvironmentData.GetEnvironmentData() *EnvironmentData`
+- New function `*GovernanceRulesClient.CreateOrUpdate(context.Context, string, GovernanceRule, *GovernanceRulesClientCreateOrUpdateOptions) (GovernanceRulesClientCreateOrUpdateResponse, error)`
+- New function `*AWSEnvironmentData.GetEnvironmentData() *EnvironmentData`
+- New function `*ConnectorGovernanceRulesClient.Get(context.Context, string, string, string, *ConnectorGovernanceRulesClientGetOptions) (ConnectorGovernanceRulesClientGetResponse, error)`
+- New function `*DefenderFoDatabasesAwsOffering.GetCloudOffering() *CloudOffering`
+- New function `NewGovernanceRulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GovernanceRulesClient, error)`
+- New function `NewGovernanceRuleClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GovernanceRuleClient, error)`
+- New function `*ConnectorGovernanceRuleClient.NewListPager(string, string, *ConnectorGovernanceRuleClientListOptions) *runtime.Pager[ConnectorGovernanceRuleClientListResponse]`
+- New function `PossibleEnvironmentTypeValues() []EnvironmentType`
+- New function `PossibleGovernanceRuleConditionOperatorValues() []GovernanceRuleConditionOperator`
+- New function `*GcpOrganizationalData.GetGcpOrganizationalData() *GcpOrganizationalData`
+- New function `*AwsOrganizationalDataMember.GetAwsOrganizationalData() *AwsOrganizationalData`
+- New function `*CspmMonitorAzureDevOpsOffering.GetCloudOffering() *CloudOffering`
+- New function `PossibleGovernanceRuleTypeValues() []GovernanceRuleType`
+- New function `*GovernanceAssignmentsClient.Get(context.Context, string, string, string, *GovernanceAssignmentsClientGetOptions) (GovernanceAssignmentsClientGetResponse, error)`
+- New function `*ConnectorGovernanceRulesClient.Delete(context.Context, string, string, string, *ConnectorGovernanceRulesClientDeleteOptions) (ConnectorGovernanceRulesClientDeleteResponse, error)`
+- New function `PossibleSubPlanValues() []SubPlan`
+- New function `*CspmMonitorGcpOffering.GetCloudOffering() *CloudOffering`
+- New function `*DefenderForDatabasesGcpOffering.GetCloudOffering() *CloudOffering`
+- New function `*GovernanceRulesClient.Delete(context.Context, string, *GovernanceRulesClientDeleteOptions) (GovernanceRulesClientDeleteResponse, error)`
+- New function `NewConnectorGovernanceRuleClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectorGovernanceRuleClient, error)`
+- New function `*DefenderForContainersGcpOffering.GetCloudOffering() *CloudOffering`
+- New function `*ConnectorGovernanceRulesExecuteStatusClient.BeginGet(context.Context, string, string, string, string, *ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions) (*runtime.Poller[ConnectorGovernanceRulesExecuteStatusClientGetResponse], error)`
+- New function `*AwsOrganizationalData.GetAwsOrganizationalData() *AwsOrganizationalData`
+- New function `*GcpOrganizationalDataOrganization.GetGcpOrganizationalData() *GcpOrganizationalData`
+- New function `*AzureDevOpsScopeEnvironmentData.GetEnvironmentData() *EnvironmentData`
+- New function `*CspmMonitorGithubOffering.GetCloudOffering() *CloudOffering`
+- New function `PossibleGovernanceRuleSourceResourceTypeValues() []GovernanceRuleSourceResourceType`
+- New function `*GovernanceAssignmentsClient.Delete(context.Context, string, string, string, *GovernanceAssignmentsClientDeleteOptions) (GovernanceAssignmentsClientDeleteResponse, error)`
+- New function `*AwsOrganizationalDataMaster.GetAwsOrganizationalData() *AwsOrganizationalData`
+- New function `*GcpOrganizationalDataMember.GetGcpOrganizationalData() *GcpOrganizationalData`
+- New function `*GovernanceRuleClient.NewListPager(*GovernanceRuleClientListOptions) *runtime.Pager[GovernanceRuleClientListResponse]`
+- New function `NewGovernanceAssignmentsClient(azcore.TokenCredential, *arm.ClientOptions) (*GovernanceAssignmentsClient, error)`
+- New function `*DefenderForServersGcpOffering.GetCloudOffering() *CloudOffering`
+- New function `*GovernanceAssignmentsClient.CreateOrUpdate(context.Context, string, string, string, GovernanceAssignment, *GovernanceAssignmentsClientCreateOrUpdateOptions) (GovernanceAssignmentsClientCreateOrUpdateResponse, error)`
+- New struct `AWSEnvironmentData`
+- New struct `AwsOrganizationalData`
+- New struct `AwsOrganizationalDataMaster`
+- New struct `AwsOrganizationalDataMember`
+- New struct `AzureDevOpsScopeEnvironmentData`
+- New struct `Condition`
+- New struct `ConnectorGovernanceRuleClient`
+- New struct `ConnectorGovernanceRuleClientListOptions`
+- New struct `ConnectorGovernanceRuleClientListResponse`
+- New struct `ConnectorGovernanceRulesClient`
+- New struct `ConnectorGovernanceRulesClientCreateOrUpdateOptions`
+- New struct `ConnectorGovernanceRulesClientCreateOrUpdateResponse`
+- New struct `ConnectorGovernanceRulesClientDeleteOptions`
+- New struct `ConnectorGovernanceRulesClientDeleteResponse`
+- New struct `ConnectorGovernanceRulesClientGetOptions`
+- New struct `ConnectorGovernanceRulesClientGetResponse`
+- New struct `ConnectorGovernanceRulesExecuteStatusClient`
+- New struct `ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions`
+- New struct `ConnectorGovernanceRulesExecuteStatusClientGetResponse`
+- New struct `CspmMonitorAzureDevOpsOffering`
+- New struct `CspmMonitorGcpOffering`
+- New struct `CspmMonitorGcpOfferingNativeCloudConnection`
+- New struct `CspmMonitorGithubOffering`
+- New struct `DefenderFoDatabasesAwsOffering`
+- New struct `DefenderFoDatabasesAwsOfferingArcAutoProvisioning`
+- New struct `DefenderFoDatabasesAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata`
+- New struct `DefenderForContainersAwsOfferingContainerVulnerabilityAssessment`
+- New struct `DefenderForContainersAwsOfferingContainerVulnerabilityAssessmentTask`
+- New struct `DefenderForContainersGcpOffering`
+- New struct `DefenderForContainersGcpOfferingDataPipelineNativeCloudConnection`
+- New struct `DefenderForContainersGcpOfferingNativeCloudConnection`
+- New struct `DefenderForDatabasesGcpOffering`
+- New struct `DefenderForDatabasesGcpOfferingArcAutoProvisioning`
+- New struct `DefenderForDatabasesGcpOfferingArcAutoProvisioningConfiguration`
+- New struct `DefenderForDatabasesGcpOfferingDefenderForDatabasesArcAutoProvisioning`
+- New struct `DefenderForServersAwsOfferingMdeAutoProvisioning`
+- New struct `DefenderForServersAwsOfferingSubPlan`
+- New struct `DefenderForServersAwsOfferingVMScanners`
+- New struct `DefenderForServersAwsOfferingVMScannersConfiguration`
+- New struct `DefenderForServersAwsOfferingVaAutoProvisioning`
+- New struct `DefenderForServersAwsOfferingVaAutoProvisioningConfiguration`
+- New struct `DefenderForServersGcpOffering`
+- New struct `DefenderForServersGcpOfferingArcAutoProvisioning`
+- New struct `DefenderForServersGcpOfferingArcAutoProvisioningConfiguration`
+- New struct `DefenderForServersGcpOfferingDefenderForServers`
+- New struct `DefenderForServersGcpOfferingMdeAutoProvisioning`
+- New struct `DefenderForServersGcpOfferingSubPlan`
+- New struct `DefenderForServersGcpOfferingVaAutoProvisioning`
+- New struct `DefenderForServersGcpOfferingVaAutoProvisioningConfiguration`
+- New struct `EnvironmentData`
+- New struct `ExecuteGovernanceRuleParams`
+- New struct `ExecuteRuleStatus`
+- New struct `GcpOrganizationalData`
+- New struct `GcpOrganizationalDataMember`
+- New struct `GcpOrganizationalDataOrganization`
+- New struct `GcpProjectDetails`
+- New struct `GcpProjectEnvironmentData`
+- New struct `GithubScopeEnvironmentData`
+- New struct `GovernanceAssignment`
+- New struct `GovernanceAssignmentAdditionalData`
+- New struct `GovernanceAssignmentProperties`
+- New struct `GovernanceAssignmentsClient`
+- New struct `GovernanceAssignmentsClientCreateOrUpdateOptions`
+- New struct `GovernanceAssignmentsClientCreateOrUpdateResponse`
+- New struct `GovernanceAssignmentsClientDeleteOptions`
+- New struct `GovernanceAssignmentsClientDeleteResponse`
+- New struct `GovernanceAssignmentsClientGetOptions`
+- New struct `GovernanceAssignmentsClientGetResponse`
+- New struct `GovernanceAssignmentsClientListOptions`
+- New struct `GovernanceAssignmentsClientListResponse`
+- New struct `GovernanceAssignmentsList`
+- New struct `GovernanceEmailNotification`
+- New struct `GovernanceRule`
+- New struct `GovernanceRuleClient`
+- New struct `GovernanceRuleClientListOptions`
+- New struct `GovernanceRuleClientListResponse`
+- New struct `GovernanceRuleEmailNotification`
+- New struct `GovernanceRuleList`
+- New struct `GovernanceRuleOwnerSource`
+- New struct `GovernanceRuleProperties`
+- New struct `GovernanceRulesClient`
+- New struct `GovernanceRulesClientBeginRuleIDExecuteSingleSecurityConnectorOptions`
+- New struct `GovernanceRulesClientBeginRuleIDExecuteSingleSubscriptionOptions`
+- New struct `GovernanceRulesClientCreateOrUpdateOptions`
+- New struct `GovernanceRulesClientCreateOrUpdateResponse`
+- New struct `GovernanceRulesClientDeleteOptions`
+- New struct `GovernanceRulesClientDeleteResponse`
+- New struct `GovernanceRulesClientGetOptions`
+- New struct `GovernanceRulesClientGetResponse`
+- New struct `GovernanceRulesClientRuleIDExecuteSingleSecurityConnectorResponse`
+- New struct `GovernanceRulesClientRuleIDExecuteSingleSubscriptionResponse`
+- New struct `RemediationEta`
+- New struct `ScannerConfiguration`
+- New struct `ScannerConfigurationList`
+- New struct `ScannerProperties`
+- New struct `SubscriptionGovernanceRulesExecuteStatusClient`
+- New struct `SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions`
+- New struct `SubscriptionGovernanceRulesExecuteStatusClientGetResponse`
+- New struct `VMScannersClient`
+- New struct `VMScannersClientCreateOrUpdateOptions`
+- New struct `VMScannersClientCreateOrUpdateResponse`
+- New struct `VMScannersClientDeleteOptions`
+- New struct `VMScannersClientDeleteResponse`
+- New struct `VMScannersClientGetOptions`
+- New struct `VMScannersClientGetResponse`
+- New struct `VMScannersClientListBySubscriptionOptions`
+- New struct `VMScannersClientListBySubscriptionResponse`
+- New field `ContainerVulnerabilityAssessmentTask` in struct `DefenderForContainersAwsOffering`
+- New field `EnableContainerVulnerabilityAssessment` in struct `DefenderForContainersAwsOffering`
+- New field `AutoProvisioning` in struct `DefenderForContainersAwsOffering`
+- New field `KubeAuditRetentionTime` in struct `DefenderForContainersAwsOffering`
+- New field `ScubaExternalID` in struct `DefenderForContainersAwsOffering`
+- New field `ContainerVulnerabilityAssessment` in struct `DefenderForContainersAwsOffering`
+- New field `CloudRoleArn` in struct `DefenderForServersAwsOfferingArcAutoProvisioning`
+- New field `EnvironmentData` in struct `ConnectorProperties`
+- New field `EnvironmentName` in struct `ConnectorProperties`
+- New field `HierarchyIdentifierTrialEndDate` in struct `ConnectorProperties`
+- New field `VMScanners` in struct `DefenderForServersAwsOffering`
+- New field `VaAutoProvisioning` in struct `DefenderForServersAwsOffering`
+- New field `MdeAutoProvisioning` in struct `DefenderForServersAwsOffering`
+- New field `SubPlan` in struct `DefenderForServersAwsOffering`
+
+
 ## 0.7.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/security/armsecurity` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.7.0, which contains breaking changes.
