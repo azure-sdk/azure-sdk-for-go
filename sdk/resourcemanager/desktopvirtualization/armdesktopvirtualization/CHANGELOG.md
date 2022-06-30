@@ -1,5 +1,50 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-06-30)
+### Breaking Changes
+
+- Function `*ApplicationsClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, *ApplicationsClientUpdateOptions)` to `(context.Context, string, string, string, ApplicationPatch, *ApplicationsClientUpdateOptions)`
+- Function `*DesktopsClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, *DesktopsClientUpdateOptions)` to `(context.Context, string, string, string, DesktopPatch, *DesktopsClientUpdateOptions)`
+- Function `*HostPoolsClient.Update` parameter(s) have been changed from `(context.Context, string, string, *HostPoolsClientUpdateOptions)` to `(context.Context, string, string, HostPoolPatch, *HostPoolsClientUpdateOptions)`
+- Function `*SessionHostsClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, *SessionHostsClientUpdateOptions)` to `(context.Context, string, string, string, SessionHostPatch, *SessionHostsClientUpdateOptions)`
+- Function `*ApplicationGroupsClient.Update` parameter(s) have been changed from `(context.Context, string, string, *ApplicationGroupsClientUpdateOptions)` to `(context.Context, string, string, ApplicationGroupPatch, *ApplicationGroupsClientUpdateOptions)`
+- Function `*MSIXPackagesClient.Update` parameter(s) have been changed from `(context.Context, string, string, string, *MSIXPackagesClientUpdateOptions)` to `(context.Context, string, string, string, MSIXPackagePatch, *MSIXPackagesClientUpdateOptions)`
+- Function `*WorkspacesClient.Update` parameter(s) have been changed from `(context.Context, string, string, *WorkspacesClientUpdateOptions)` to `(context.Context, string, string, WorkspacePatch, *WorkspacesClientUpdateOptions)`
+- Function `*ScalingPlansClient.Update` parameter(s) have been changed from `(context.Context, string, string, *ScalingPlansClientUpdateOptions)` to `(context.Context, string, string, ScalingPlanPatch, *ScalingPlansClientUpdateOptions)`
+- Field `ApplicationGroup` of struct `ApplicationGroupsClientUpdateOptions` has been removed
+- Field `Application` of struct `ApplicationsClientUpdateOptions` has been removed
+- Field `HostPool` of struct `HostPoolsClientUpdateOptions` has been removed
+- Field `SessionHost` of struct `SessionHostsClientUpdateOptions` has been removed
+- Field `Workspace` of struct `WorkspacesClientUpdateOptions` has been removed
+- Field `MsixPackage` of struct `MSIXPackagesClientUpdateOptions` has been removed
+- Field `Desktop` of struct `DesktopsClientUpdateOptions` has been removed
+- Field `ScalingPlan` of struct `ScalingPlansClientUpdateOptions` has been removed
+
+### Features Added
+
+- New function `*ScalingPlanPooledSchedulesClient.Create(context.Context, string, string, string, ScalingPlanPooledSchedule, *ScalingPlanPooledSchedulesClientCreateOptions) (ScalingPlanPooledSchedulesClientCreateResponse, error)`
+- New function `*ScalingPlanPooledSchedulesClient.NewListPager(string, string, *ScalingPlanPooledSchedulesClientListOptions) *runtime.Pager[ScalingPlanPooledSchedulesClientListResponse]`
+- New function `NewScalingPlanPooledSchedulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ScalingPlanPooledSchedulesClient, error)`
+- New function `*ScalingPlanPooledSchedulesClient.Delete(context.Context, string, string, string, *ScalingPlanPooledSchedulesClientDeleteOptions) (ScalingPlanPooledSchedulesClientDeleteResponse, error)`
+- New function `*ScalingPlanPooledSchedulesClient.Update(context.Context, string, string, string, ScalingPlanPooledSchedulePatch, *ScalingPlanPooledSchedulesClientUpdateOptions) (ScalingPlanPooledSchedulesClientUpdateResponse, error)`
+- New function `*ScalingPlanPooledSchedulesClient.Get(context.Context, string, string, string, *ScalingPlanPooledSchedulesClientGetOptions) (ScalingPlanPooledSchedulesClientGetResponse, error)`
+- New struct `ScalingPlanPooledSchedule`
+- New struct `ScalingPlanPooledScheduleList`
+- New struct `ScalingPlanPooledSchedulePatch`
+- New struct `ScalingPlanPooledScheduleProperties`
+- New struct `ScalingPlanPooledSchedulesClient`
+- New struct `ScalingPlanPooledSchedulesClientCreateOptions`
+- New struct `ScalingPlanPooledSchedulesClientCreateResponse`
+- New struct `ScalingPlanPooledSchedulesClientDeleteOptions`
+- New struct `ScalingPlanPooledSchedulesClientDeleteResponse`
+- New struct `ScalingPlanPooledSchedulesClientGetOptions`
+- New struct `ScalingPlanPooledSchedulesClientGetResponse`
+- New struct `ScalingPlanPooledSchedulesClientListOptions`
+- New struct `ScalingPlanPooledSchedulesClientListResponse`
+- New struct `ScalingPlanPooledSchedulesClientUpdateOptions`
+- New struct `ScalingPlanPooledSchedulesClientUpdateResponse`
+
+
 ## 2.0.0-beta.1 (2022-05-24)
 ### Breaking Changes
 
