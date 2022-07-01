@@ -1,5 +1,20 @@
 # Release History
 
+## 1.1.0 (2022-07-01)
+### Features Added
+
+- New const `StandardTierStorageRedundancyGeoRedundant`
+- New const `StandardTierStorageRedundancyZoneRedundant`
+- New const `CrossRegionRestoreDisabled`
+- New const `StandardTierStorageRedundancyLocallyRedundant`
+- New const `CrossRegionRestoreEnabled`
+- New function `PossibleCrossRegionRestoreValues() []CrossRegionRestore`
+- New function `PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundancy`
+- New struct `VaultPropertiesRedundancySettings`
+- New field `AADAudience` in struct `ResourceCertificateAndAADDetails`
+- New field `RedundancySettings` in struct `VaultProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservices` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
