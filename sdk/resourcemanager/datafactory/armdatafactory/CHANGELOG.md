@@ -1,5 +1,22 @@
 # Release History
 
+## 2.0.0 (2022-07-04)
+### Breaking Changes
+
+- Type of `LinkedServiceReference.Type` has been changed from `*LinkedServiceReferenceType` to `*Type`
+- Const `LinkedServiceReferenceTypeLinkedServiceReference` has been removed
+- Function `PossibleLinkedServiceReferenceTypeValues` has been removed
+
+### Features Added
+
+- New const `TypeLinkedServiceReference`
+- New function `*ManagedIntegrationRuntimeBase.GetManagedIntegrationRuntimeBase() *ManagedIntegrationRuntimeBase`
+- New function `*ManagedIntegrationRuntimeBase.GetIntegrationRuntime() *IntegrationRuntime`
+- New function `PossibleTypeValues() []Type`
+- New function `*ManagedIntegrationRuntime.GetManagedIntegrationRuntimeBase() *ManagedIntegrationRuntimeBase`
+- New struct `ManagedIntegrationRuntimeBase`
+
+
 ## 1.2.0 (2022-06-15)
 ### Features Added
 
