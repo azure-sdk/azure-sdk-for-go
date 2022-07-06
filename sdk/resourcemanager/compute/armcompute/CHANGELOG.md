@@ -1,5 +1,11 @@
 # Release History
 
+## 4.0.0 (2022-07-06)
+### Breaking Changes
+
+- Type of `SharingProfile.CommunityGalleryInfo` has been changed from `interface{}` to `*CommunityGalleryInfo`
+
+
 ## 3.0.0 (2022-06-24)
 ### Breaking Changes
 
