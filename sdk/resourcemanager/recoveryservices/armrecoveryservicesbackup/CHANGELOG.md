@@ -1,5 +1,87 @@
 # Release History
 
+## 2.0.0-beta.1 (2022-07-07)
+### Breaking Changes
+
+- Type of `AzureSQLContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureWorkloadContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `DpmContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureIaaSClassicComputeVMContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureVMAppContainerProtectableContainer.ProtectableContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureVMAppContainerProtectionContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureStorageContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureIaaSComputeVMContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureSQLAGWorkloadContainerProtectionContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `MabContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `ProtectableContainer.ProtectableContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `ProtectionContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `IaaSVMContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureStorageProtectableContainer.ProtectableContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `GenericContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Type of `AzureBackupServerContainer.ContainerType` has been changed from `*ContainerType` to `*ProtectableContainerType`
+- Const `ContainerTypeAzureWorkloadContainer` has been removed
+- Const `ContainerTypeMicrosoftClassicComputeVirtualMachines` has been removed
+- Const `ContainerTypeMicrosoftComputeVirtualMachines` has been removed
+
+### Features Added
+
+- New const `ProtectableContainerTypeUnknown`
+- New const `ProtectableContainerTypeIaasVMServiceContainer`
+- New const `TieringModeDoNotTier`
+- New const `BackupTypeSnapshotCopyOnlyFull`
+- New const `ProtectableContainerTypeSQLAGWorkLoadContainer`
+- New const `ProtectableContainerTypeGenericContainer`
+- New const `ProtectableContainerTypeInvalid`
+- New const `ProtectableContainerTypeIaasVMContainer`
+- New const `RestorePointQueryTypeSnapshotCopyOnlyFull`
+- New const `TieringModeTierRecommended`
+- New const `ProtectableContainerTypeAzureBackupServerContainer`
+- New const `DataSourceTypeSAPHanaDBInstance`
+- New const `WorkloadItemTypeSAPHanaDBInstance`
+- New const `BackupTypeSnapshotFull`
+- New const `WorkloadTypeSAPHanaDBInstance`
+- New const `ProtectableContainerTypeMABContainer`
+- New const `ProtectableContainerTypeMicrosoftComputeVirtualMachines`
+- New const `ProtectableContainerTypeCluster`
+- New const `TieringModeInvalid`
+- New const `ProtectableContainerTypeAzureWorkloadContainer`
+- New const `ProtectableContainerTypeVCenter`
+- New const `ProtectableContainerTypeStorageContainer`
+- New const `ProtectableContainerTypeAzureSQLContainer`
+- New const `RestorePointQueryTypeSnapshotFull`
+- New const `PolicyTypeSnapshotFull`
+- New const `ProtectableContainerTypeVMAppContainer`
+- New const `TieringModeTierAfter`
+- New const `PolicyTypeSnapshotCopyOnlyFull`
+- New const `ProtectableContainerTypeDPMContainer`
+- New const `ProtectableContainerTypeWindows`
+- New const `RestorePointTypeSnapshotCopyOnlyFull`
+- New const `ProtectableContainerTypeMicrosoftClassicComputeVirtualMachines`
+- New const `BackupItemTypeSAPHanaDBInstance`
+- New const `RestorePointTypeSnapshotFull`
+- New const `ContainerTypeHanaHSRContainer`
+- New function `*AzureVMWorkloadSAPHanaDBInstance.GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem`
+- New function `PossibleTieringModeValues() []TieringMode`
+- New function `*AzureVMWorkloadSAPHanaDBInstanceProtectedItem.GetAzureVMWorkloadProtectedItem() *AzureVMWorkloadProtectedItem`
+- New function `PossibleProtectableContainerTypeValues() []ProtectableContainerType`
+- New function `*AzureVMWorkloadSAPHanaHSR.GetWorkloadProtectableItem() *WorkloadProtectableItem`
+- New function `*AzureVMWorkloadSAPHanaDBInstance.GetWorkloadProtectableItem() *WorkloadProtectableItem`
+- New function `*AzureVMWorkloadSAPHanaDBInstanceProtectedItem.GetProtectedItem() *ProtectedItem`
+- New function `*AzureVMWorkloadSAPHanaHSR.GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem`
+- New struct `AzureVMWorkloadSAPHanaDBInstance`
+- New struct `AzureVMWorkloadSAPHanaDBInstanceProtectedItem`
+- New struct `AzureVMWorkloadSAPHanaHSR`
+- New struct `TieringPolicy`
+- New field `NewestRecoveryPointInArchive` in struct `AzureVMWorkloadProtectedItemExtendedInfo`
+- New field `OldestRecoveryPointInArchive` in struct `AzureVMWorkloadProtectedItemExtendedInfo`
+- New field `OldestRecoveryPointInVault` in struct `AzureVMWorkloadProtectedItemExtendedInfo`
+- New field `TieringPolicy` in struct `AzureIaaSVMProtectionPolicy`
+- New field `OldestRecoveryPointInArchive` in struct `AzureIaaSVMProtectedItemExtendedInfo`
+- New field `OldestRecoveryPointInVault` in struct `AzureIaaSVMProtectedItemExtendedInfo`
+- New field `NewestRecoveryPointInArchive` in struct `AzureIaaSVMProtectedItemExtendedInfo`
+- New field `TieringPolicy` in struct `SubProtectionPolicy`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
