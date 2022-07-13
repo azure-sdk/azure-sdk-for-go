@@ -3448,7 +3448,7 @@ type ImageListResult struct {
 
 // ImageOSDisk - Describes an Operating System disk.
 type ImageOSDisk struct {
-	// REQUIRED; The OS State.
+	// REQUIRED; The OS State. For managed images, use Generalized.
 	OSState *OperatingSystemStateTypes `json:"osState,omitempty"`
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk if creating a VM from a custom
@@ -5896,7 +5896,7 @@ type SharedGalleryOSDiskImage struct {
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
-	CommunityGalleryInfo interface{} `json:"communityGalleryInfo,omitempty"`
+	CommunityGalleryInfo *CommunityGalleryInfo `json:"communityGalleryInfo,omitempty"`
 
 	// This property allows you to specify the permission of sharing gallery.
 	// Possible values are:
