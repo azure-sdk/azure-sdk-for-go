@@ -1,5 +1,16 @@
 # Release History
 
+## 2.1.0-beta.1 (2022-07-13)
+### Features Added
+
+- New const `ScalingFactorOne33`
+- New const `ScalingFactorTwo`
+- New const `ScalingFactorFour`
+- New const `ScalingFactorOne`
+- New function `PossibleScalingFactorValues() []ScalingFactor`
+- New field `ScalingFactor` in struct `CacheProperties`
+
+
 ## 2.0.0 (2022-07-06)
 ### Breaking Changes
 

@@ -627,6 +627,7 @@ func (c CacheProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "networkSettings", c.NetworkSettings)
 	populate(objectMap, "primingJobs", c.PrimingJobs)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
+	populate(objectMap, "scalingFactor", c.ScalingFactor)
 	populate(objectMap, "securitySettings", c.SecuritySettings)
 	populate(objectMap, "spaceAllocation", c.SpaceAllocation)
 	populate(objectMap, "subnet", c.Subnet)
@@ -668,6 +669,9 @@ func (c *CacheProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)
+			delete(rawMsg, key)
+		case "scalingFactor":
+			err = unpopulate(val, "ScalingFactor", &c.ScalingFactor)
 			delete(rawMsg, key)
 		case "securitySettings":
 			err = unpopulate(val, "SecuritySettings", &c.SecuritySettings)

@@ -11,7 +11,7 @@ package armstoragecache
 
 const (
 	moduleName    = "armstoragecache"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0-beta.1"
 )
 
 // CacheIdentityType - The type of identity used for the cache
@@ -265,6 +265,28 @@ func PossibleReasonCodeValues() []ReasonCode {
 	return []ReasonCode{
 		ReasonCodeNotAvailableForSubscription,
 		ReasonCodeQuotaID,
+	}
+}
+
+// ScalingFactor - Multiplier that sets the current storage and throughput capacity of the cache. Values can be 1.0 (the base
+// size, listed in the SKU), 1.33, 2.0, or 4.0. Values above 1.0 increase the cache size and
+// throughput - for example, the scaling factor 1.33 gives a cache that's 33% larger than its base size.
+type ScalingFactor float64
+
+const (
+	ScalingFactorFour  ScalingFactor = 4
+	ScalingFactorOne   ScalingFactor = 1
+	ScalingFactorOne33 ScalingFactor = 1.33
+	ScalingFactorTwo   ScalingFactor = 2
+)
+
+// PossibleScalingFactorValues returns the possible values for the ScalingFactor const type.
+func PossibleScalingFactorValues() []ScalingFactor {
+	return []ScalingFactor{
+		ScalingFactorFour,
+		ScalingFactorOne,
+		ScalingFactorOne33,
+		ScalingFactorTwo,
 	}
 }
 

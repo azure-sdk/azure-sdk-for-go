@@ -248,7 +248,7 @@ type CacheNetworkSettings struct {
 
 // CacheProperties - Properties of the Cache.
 type CacheProperties struct {
-	// The size of this Cache, in GB.
+	// The size of this Cache, in GB, when scalingFactor is 1.0
 	CacheSizeGB *int32 `json:"cacheSizeGB,omitempty"`
 
 	// Specifies Directory Services settings of the cache.
@@ -259,6 +259,11 @@ type CacheProperties struct {
 
 	// Specifies network settings of the cache.
 	NetworkSettings *CacheNetworkSettings `json:"networkSettings,omitempty"`
+
+	// Multiplier that sets the current storage and throughput capacity of the cache. Values can be 1.0 (the base size, listed
+	// in the SKU), 1.33, 2.0, or 4.0. Values above 1.0 increase the cache size and
+	// throughput - for example, the scaling factor 1.33 gives a cache that's 33% larger than its base size.
+	ScalingFactor *ScalingFactor `json:"scalingFactor,omitempty"`
 
 	// Specifies security settings of the cache.
 	SecuritySettings *CacheSecuritySettings `json:"securitySettings,omitempty"`
