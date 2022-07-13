@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2022-07-13)
+### Breaking Changes
+
+- Field `IdentityServiceURI` of struct `LedgerProperties` has been removed
+
+### Features Added
+
+- New field `CertificateClientEndpoint` in struct `LedgerProperties`
+
+
 ## 1.0.0 (2022-05-24)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confidentialledger/armconfidentialledger` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
