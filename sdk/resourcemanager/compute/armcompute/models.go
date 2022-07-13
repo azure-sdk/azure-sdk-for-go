@@ -4055,6 +4055,12 @@ type OSDisk struct {
 type OSDiskImage struct {
 	// REQUIRED; The operating system of the osDiskImage.
 	OperatingSystem *OperatingSystemTypes `json:"operatingSystem,omitempty"`
+
+	// READ-ONLY; The image size in bytes.
+	SizeInBytes *int64 `json:"sizeInBytes,omitempty" azure:"ro"`
+
+	// READ-ONLY; The image size in GB.
+	SizeInGb *int32 `json:"sizeInGb,omitempty" azure:"ro"`
 }
 
 // OSDiskImageEncryption - Contains encryption settings for an OS disk image.
@@ -5896,7 +5902,7 @@ type SharedGalleryOSDiskImage struct {
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
-	CommunityGalleryInfo interface{} `json:"communityGalleryInfo,omitempty"`
+	CommunityGalleryInfo *CommunityGalleryInfo `json:"communityGalleryInfo,omitempty"`
 
 	// This property allows you to specify the permission of sharing gallery.
 	// Possible values are:
