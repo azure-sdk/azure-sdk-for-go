@@ -1,5 +1,44 @@
 # Release History
 
+## 2.0.0 (2022-07-14)
+### Breaking Changes
+
+- Type of `LinkedServiceReference.Type` has been changed from `*LinkedServiceReferenceType` to `*Type`
+- Const `LinkedServiceReferenceTypeLinkedServiceReference` has been removed
+- Function `PossibleLinkedServiceReferenceTypeValues` has been removed
+
+### Features Added
+
+- New const `NotebookParameterTypeBool`
+- New const `BigDataPoolReferenceTypeBigDataPoolReference`
+- New const `NotebookParameterTypeString`
+- New const `NotebookReferenceTypeNotebookReference`
+- New const `SparkJobReferenceTypeSparkJobDefinitionReference`
+- New const `NotebookParameterTypeFloat`
+- New const `NotebookParameterTypeInt`
+- New const `TypeLinkedServiceReference`
+- New function `PossibleSparkJobReferenceTypeValues() []SparkJobReferenceType`
+- New function `*SynapseNotebookActivity.GetExecutionActivity() *ExecutionActivity`
+- New function `*SynapseSparkJobDefinitionActivity.GetExecutionActivity() *ExecutionActivity`
+- New function `*SynapseNotebookActivity.GetActivity() *Activity`
+- New function `*AzureSynapseArtifactsLinkedService.GetLinkedService() *LinkedService`
+- New function `PossibleNotebookReferenceTypeValues() []NotebookReferenceType`
+- New function `PossibleTypeValues() []Type`
+- New function `PossibleBigDataPoolReferenceTypeValues() []BigDataPoolReferenceType`
+- New function `PossibleNotebookParameterTypeValues() []NotebookParameterType`
+- New function `*SynapseSparkJobDefinitionActivity.GetActivity() *Activity`
+- New struct `AzureSynapseArtifactsLinkedService`
+- New struct `AzureSynapseArtifactsLinkedServiceTypeProperties`
+- New struct `BigDataPoolParametrizationReference`
+- New struct `NotebookParameter`
+- New struct `SynapseNotebookActivity`
+- New struct `SynapseNotebookActivityTypeProperties`
+- New struct `SynapseNotebookReference`
+- New struct `SynapseSparkJobActivityTypeProperties`
+- New struct `SynapseSparkJobDefinitionActivity`
+- New struct `SynapseSparkJobReference`
+
+
 ## 1.2.0 (2022-06-15)
 ### Features Added
 
