@@ -8097,6 +8097,9 @@ type VirtualMachineScaleSetNetworkConfigurationProperties struct {
 	// Specify what happens to the network interface when the VM is deleted
 	DeleteOption *DeleteOptions `json:"deleteOption,omitempty"`
 
+	// Specifies whether the network interface is disabled for tcp state tracking.
+	DisableTCPStateTracking *bool `json:"disableTcpStateTracking,omitempty"`
+
 	// Specifies whether the network interface is accelerated networking-enabled.
 	EnableAcceleratedNetworking *bool `json:"enableAcceleratedNetworking,omitempty"`
 
@@ -8514,6 +8517,9 @@ type VirtualMachineScaleSetUpdateNetworkConfigurationProperties struct {
 
 	// Specify what happens to the network interface when the VM is deleted
 	DeleteOption *DeleteOptions `json:"deleteOption,omitempty"`
+
+	// Specifies whether the network interface is disabled for tcp state tracking.
+	DisableTCPStateTracking *bool `json:"disableTcpStateTracking,omitempty"`
 
 	// Specifies whether the network interface is accelerated networking-enabled.
 	EnableAcceleratedNetworking *bool `json:"enableAcceleratedNetworking,omitempty"`

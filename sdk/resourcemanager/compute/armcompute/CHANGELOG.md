@@ -1,5 +1,12 @@
 # Release History
 
+## 3.1.0 (2022-07-14)
+### Features Added
+
+- New field `DisableTCPStateTracking` in struct `VirtualMachineScaleSetNetworkConfigurationProperties`
+- New field `DisableTCPStateTracking` in struct `VirtualMachineScaleSetUpdateNetworkConfigurationProperties`
+
+
 ## 3.0.0 (2022-06-24)
 ### Breaking Changes
 

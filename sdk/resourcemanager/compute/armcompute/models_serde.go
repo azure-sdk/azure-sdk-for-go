@@ -16084,6 +16084,7 @@ func (v VirtualMachineScaleSetNetworkConfigurationProperties) MarshalJSON() ([]b
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dnsSettings", v.DNSSettings)
 	populate(objectMap, "deleteOption", v.DeleteOption)
+	populate(objectMap, "disableTcpStateTracking", v.DisableTCPStateTracking)
 	populate(objectMap, "enableAcceleratedNetworking", v.EnableAcceleratedNetworking)
 	populate(objectMap, "enableFpga", v.EnableFpga)
 	populate(objectMap, "enableIPForwarding", v.EnableIPForwarding)
@@ -16107,6 +16108,9 @@ func (v *VirtualMachineScaleSetNetworkConfigurationProperties) UnmarshalJSON(dat
 			delete(rawMsg, key)
 		case "deleteOption":
 			err = unpopulate(val, "DeleteOption", &v.DeleteOption)
+			delete(rawMsg, key)
+		case "disableTcpStateTracking":
+			err = unpopulate(val, "DisableTCPStateTracking", &v.DisableTCPStateTracking)
 			delete(rawMsg, key)
 		case "enableAcceleratedNetworking":
 			err = unpopulate(val, "EnableAcceleratedNetworking", &v.EnableAcceleratedNetworking)
@@ -16804,6 +16808,7 @@ func (v VirtualMachineScaleSetUpdateNetworkConfigurationProperties) MarshalJSON(
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dnsSettings", v.DNSSettings)
 	populate(objectMap, "deleteOption", v.DeleteOption)
+	populate(objectMap, "disableTcpStateTracking", v.DisableTCPStateTracking)
 	populate(objectMap, "enableAcceleratedNetworking", v.EnableAcceleratedNetworking)
 	populate(objectMap, "enableFpga", v.EnableFpga)
 	populate(objectMap, "enableIPForwarding", v.EnableIPForwarding)
@@ -16827,6 +16832,9 @@ func (v *VirtualMachineScaleSetUpdateNetworkConfigurationProperties) UnmarshalJS
 			delete(rawMsg, key)
 		case "deleteOption":
 			err = unpopulate(val, "DeleteOption", &v.DeleteOption)
+			delete(rawMsg, key)
+		case "disableTcpStateTracking":
+			err = unpopulate(val, "DisableTCPStateTracking", &v.DisableTCPStateTracking)
 			delete(rawMsg, key)
 		case "enableAcceleratedNetworking":
 			err = unpopulate(val, "EnableAcceleratedNetworking", &v.EnableAcceleratedNetworking)
