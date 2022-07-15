@@ -1,5 +1,640 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-07-15)
+### Breaking Changes
+
+- Function `*BatchEndpointsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, BatchEndpointData, *BatchEndpointsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, BatchEndpoint, *BatchEndpointsClientBeginCreateOrUpdateOptions)`
+- Function `*EnvironmentVersionsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, EnvironmentVersionData, *EnvironmentVersionsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, EnvironmentVersion, *EnvironmentVersionsClientCreateOrUpdateOptions)`
+- Function `*ComponentContainersClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, ComponentContainerData, *ComponentContainersClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, ComponentContainer, *ComponentContainersClientCreateOrUpdateOptions)`
+- Function `*CodeVersionsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, CodeVersionData, *CodeVersionsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, CodeVersion, *CodeVersionsClientCreateOrUpdateOptions)`
+- Function `*ModelVersionsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, ModelVersionData, *ModelVersionsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, ModelVersion, *ModelVersionsClientCreateOrUpdateOptions)`
+- Function `*OnlineDeploymentsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, OnlineDeploymentData, *OnlineDeploymentsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, OnlineDeployment, *OnlineDeploymentsClientBeginCreateOrUpdateOptions)`
+- Function `*OnlineDeploymentsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, PartialOnlineDeploymentPartialTrackedResource, *OnlineDeploymentsClientBeginUpdateOptions)` to `(context.Context, string, string, string, string, PartialMinimalTrackedResourceWithSKU, *OnlineDeploymentsClientBeginUpdateOptions)`
+- Function `*OnlineEndpointsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, OnlineEndpointData, *OnlineEndpointsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, OnlineEndpoint, *OnlineEndpointsClientBeginCreateOrUpdateOptions)`
+- Function `*CodeContainersClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, CodeContainerData, *CodeContainersClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, CodeContainer, *CodeContainersClientCreateOrUpdateOptions)`
+- Function `*DataVersionsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, DataVersionBaseData, *DataVersionsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, DataVersionBase, *DataVersionsClientCreateOrUpdateOptions)`
+- Function `*BatchEndpointsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, PartialBatchEndpointPartialTrackedResource, *BatchEndpointsClientBeginUpdateOptions)` to `(context.Context, string, string, string, PartialMinimalTrackedResourceWithIdentity, *BatchEndpointsClientBeginUpdateOptions)`
+- Function `*OnlineEndpointsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, PartialOnlineEndpointPartialTrackedResource, *OnlineEndpointsClientBeginUpdateOptions)` to `(context.Context, string, string, string, PartialMinimalTrackedResourceWithIdentity, *OnlineEndpointsClientBeginUpdateOptions)`
+- Function `*DatastoresClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, DatastoreData, *DatastoresClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, Datastore, *DatastoresClientCreateOrUpdateOptions)`
+- Function `*BatchDeploymentsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, BatchDeploymentData, *BatchDeploymentsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, BatchDeployment, *BatchDeploymentsClientBeginCreateOrUpdateOptions)`
+- Function `*ComponentVersionsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, ComponentVersionData, *ComponentVersionsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, ComponentVersion, *ComponentVersionsClientCreateOrUpdateOptions)`
+- Function `*ModelContainersClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, ModelContainerData, *ModelContainersClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, ModelContainer, *ModelContainersClientCreateOrUpdateOptions)`
+- Function `*EnvironmentContainersClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, EnvironmentContainerData, *EnvironmentContainersClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, EnvironmentContainer, *EnvironmentContainersClientCreateOrUpdateOptions)`
+- Function `*BatchDeploymentsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, PartialBatchDeploymentPartialTrackedResource, *BatchDeploymentsClientBeginUpdateOptions)` to `(context.Context, string, string, string, string, PartialBatchDeploymentPartialMinimalTrackedResourceWithProperties, *BatchDeploymentsClientBeginUpdateOptions)`
+- Function `*JobsClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, JobBaseData, *JobsClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, JobBase, *JobsClientCreateOrUpdateOptions)`
+- Function `*WorkspaceConnectionsClient.Create` parameter(s) have been changed from `(context.Context, string, string, string, WorkspaceConnection, *WorkspaceConnectionsClientCreateOptions)` to `(context.Context, string, string, string, WorkspaceConnectionPropertiesV2BasicResource, *WorkspaceConnectionsClientCreateOptions)`
+- Function `*DataContainersClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, DataContainerData, *DataContainersClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, DataContainer, *DataContainersClientCreateOrUpdateOptions)`
+- Type of `CodeContainerResourceArmPaginatedResult.Value` has been changed from `[]*CodeContainerData` to `[]*CodeContainer`
+- Type of `ComponentContainerResourceArmPaginatedResult.Value` has been changed from `[]*ComponentContainerData` to `[]*ComponentContainer`
+- Type of `ModelContainerResourceArmPaginatedResult.Value` has been changed from `[]*ModelContainerData` to `[]*ModelContainer`
+- Type of `CodeVersionResourceArmPaginatedResult.Value` has been changed from `[]*CodeVersionData` to `[]*CodeVersion`
+- Type of `AmlComputeProperties.PropertyBag` has been changed from `map[string]interface{}` to `interface{}`
+- Type of `EnvironmentContainerResourceArmPaginatedResult.Value` has been changed from `[]*EnvironmentContainerData` to `[]*EnvironmentContainer`
+- Type of `OnlineEndpointTrackedResourceArmPaginatedResult.Value` has been changed from `[]*OnlineEndpointData` to `[]*OnlineEndpoint`
+- Type of `JobBaseResourceArmPaginatedResult.Value` has been changed from `[]*JobBaseData` to `[]*JobBase`
+- Type of `ModelVersionResourceArmPaginatedResult.Value` has been changed from `[]*ModelVersionData` to `[]*ModelVersion`
+- Type of `EnvironmentVersionResourceArmPaginatedResult.Value` has been changed from `[]*EnvironmentVersionData` to `[]*EnvironmentVersion`
+- Type of `BatchDeploymentTrackedResourceArmPaginatedResult.Value` has been changed from `[]*BatchDeploymentData` to `[]*BatchDeployment`
+- Type of `OnlineDeploymentTrackedResourceArmPaginatedResult.Value` has been changed from `[]*OnlineDeploymentData` to `[]*OnlineDeployment`
+- Type of `SSLConfiguration.Status` has been changed from `*SSLConfigurationStatus` to `*SSLConfigStatus`
+- Type of `ComponentVersionResourceArmPaginatedResult.Value` has been changed from `[]*ComponentVersionData` to `[]*ComponentVersion`
+- Type of `DataContainerResourceArmPaginatedResult.Value` has been changed from `[]*DataContainerData` to `[]*DataContainer`
+- Type of `DatastoreResourceArmPaginatedResult.Value` has been changed from `[]*DatastoreData` to `[]*Datastore`
+- Type of `DataVersionBaseResourceArmPaginatedResult.Value` has been changed from `[]*DataVersionBaseData` to `[]*DataVersionBase`
+- Type of `BatchEndpointTrackedResourceArmPaginatedResult.Value` has been changed from `[]*BatchEndpointData` to `[]*BatchEndpoint`
+- Type of `ComputeStartStopSchedule.Schedule` has been changed from `ScheduleBaseClassification` to `*ScheduleBase`
+- Const `ForecastingModelsDecisionTree` has been removed
+- Const `ValidationMetricTypeVoc` has been removed
+- Const `SeasonalityModeCustom` has been removed
+- Const `DataTypeMLTable` has been removed
+- Const `ModelTypeCustomModel` has been removed
+- Const `FeatureLagsNone` has been removed
+- Const `ClassificationPrimaryMetricsAveragePrecisionScoreWeighted` has been removed
+- Const `UseStlNone` has been removed
+- Const `RegressionModelsGradientBoosting` has been removed
+- Const `FeaturizationModeOff` has been removed
+- Const `PublicNetworkAccessTypeEnabled` has been removed
+- Const `StochasticOptimizerAdam` has been removed
+- Const `TaskTypeImageInstanceSegmentation` has been removed
+- Const `ModelSizeNone` has been removed
+- Const `ForecastingModelsKNN` has been removed
+- Const `EgressPublicNetworkAccessTypeDisabled` has been removed
+- Const `RegressionModelsXGBoostRegressor` has been removed
+- Const `ClassificationModelsKNN` has been removed
+- Const `WeekdayFriday` has been removed
+- Const `TargetAggregationFunctionMin` has been removed
+- Const `CredentialsTypeKerberosKeytab` has been removed
+- Const `LearningRateSchedulerWarmupCosine` has been removed
+- Const `PublicNetworkAccessTypeDisabled` has been removed
+- Const `ShortSeriesHandlingConfigurationNone` has been removed
+- Const `ModelTypeMLFlowModel` has been removed
+- Const `ForecastingModelsAverage` has been removed
+- Const `ForecastingModelsExponentialSmoothing` has been removed
+- Const `JobOutputTypeMLTable` has been removed
+- Const `TargetRollingWindowSizeModeAuto` has been removed
+- Const `StackMetaLearnerTypeNone` has been removed
+- Const `RegressionModelsLassoLars` has been removed
+- Const `ForecastHorizonModeCustom` has been removed
+- Const `SSLConfigurationStatusDisabled` has been removed
+- Const `EgressPublicNetworkAccessTypeEnabled` has been removed
+- Const `ModelTypeTritonModel` has been removed
+- Const `ClassificationModelsBernoulliNaiveBayes` has been removed
+- Const `ForecastingModelsLightGBM` has been removed
+- Const `LogVerbosityInfo` has been removed
+- Const `ClassificationModelsLinearSVM` has been removed
+- Const `ModelSizeSmall` has been removed
+- Const `SecretsTypeKerberosPassword` has been removed
+- Const `StochasticOptimizerAdamw` has been removed
+- Const `ClassificationMultilabelPrimaryMetricsAUCWeighted` has been removed
+- Const `ForecastingModelsExtremeRandomTrees` has been removed
+- Const `TaskTypeClassification` has been removed
+- Const `WeekdaySaturday` has been removed
+- Const `InstanceSegmentationPrimaryMetricsMeanAveragePrecision` has been removed
+- Const `ForecastingModelsNaive` has been removed
+- Const `WeekdayWednesday` has been removed
+- Const `FeaturizationModeAuto` has been removed
+- Const `RecurrenceFrequencyDay` has been removed
+- Const `RegressionModelsKNN` has been removed
+- Const `TaskTypeRegression` has been removed
+- Const `ClassificationModelsDecisionTree` has been removed
+- Const `ForecastingPrimaryMetricsR2Score` has been removed
+- Const `StackMetaLearnerTypeLogisticRegressionCV` has been removed
+- Const `RegressionModelsRandomForest` has been removed
+- Const `StackMetaLearnerTypeLinearRegression` has been removed
+- Const `ModelSizeMedium` has been removed
+- Const `JobInputTypeMLFlowModel` has been removed
+- Const `LogVerbosityNotSet` has been removed
+- Const `TaskTypeTextClassification` has been removed
+- Const `ForecastingModelsProphet` has been removed
+- Const `ClassificationModelsExtremeRandomTrees` has been removed
+- Const `StochasticOptimizerSgd` has been removed
+- Const `JobTypeAutoML` has been removed
+- Const `ShortSeriesHandlingConfigurationAuto` has been removed
+- Const `RegressionPrimaryMetricsNormalizedRootMeanSquaredError` has been removed
+- Const `RecurrenceFrequencyWeek` has been removed
+- Const `RegressionPrimaryMetricsR2Score` has been removed
+- Const `LogVerbosityWarning` has been removed
+- Const `RecurrenceFrequencyMinute` has been removed
+- Const `StackMetaLearnerTypeElasticNet` has been removed
+- Const `ShortSeriesHandlingConfigurationPad` has been removed
+- Const `RegressionModelsExtremeRandomTrees` has been removed
+- Const `WeekdayThursday` has been removed
+- Const `LogVerbosityError` has been removed
+- Const `ForecastHorizonModeAuto` has been removed
+- Const `WeekdayMonday` has been removed
+- Const `ClassificationPrimaryMetricsPrecisionScoreWeighted` has been removed
+- Const `ClassificationMultilabelPrimaryMetricsIOU` has been removed
+- Const `ScheduleTypeCron` has been removed
+- Const `ForecastingPrimaryMetricsNormalizedRootMeanSquaredError` has been removed
+- Const `TargetAggregationFunctionSum` has been removed
+- Const `ModelSizeExtraLarge` has been removed
+- Const `LearningRateSchedulerNone` has been removed
+- Const `ClassificationMultilabelPrimaryMetricsNormMacroRecall` has been removed
+- Const `DatastoreTypeHdfs` has been removed
+- Const `ShortSeriesHandlingConfigurationDrop` has been removed
+- Const `LogVerbosityDebug` has been removed
+- Const `TaskTypeTextNER` has been removed
+- Const `ForecastingModelsSeasonalAverage` has been removed
+- Const `ClassificationMultilabelPrimaryMetricsPrecisionScoreWeighted` has been removed
+- Const `StackMetaLearnerTypeLightGBMClassifier` has been removed
+- Const `ClassificationMultilabelPrimaryMetricsAveragePrecisionScoreWeighted` has been removed
+- Const `RegressionModelsElasticNet` has been removed
+- Const `UseStlSeason` has been removed
+- Const `LearningRateSchedulerStep` has been removed
+- Const `NCrossValidationsModeCustom` has been removed
+- Const `NCrossValidationsModeAuto` has been removed
+- Const `RegressionModelsLightGBM` has been removed
+- Const `TargetAggregationFunctionNone` has been removed
+- Const `JobStatusScheduled` has been removed
+- Const `WeekdaySunday` has been removed
+- Const `RecurrenceFrequencyMonth` has been removed
+- Const `SecretsTypeKerberosKeytab` has been removed
+- Const `ForecastingModelsAutoArima` has been removed
+- Const `ForecastingModelsArimax` has been removed
+- Const `SSLConfigurationStatusAuto` has been removed
+- Const `RegressionPrimaryMetricsSpearmanCorrelation` has been removed
+- Const `ScheduleTypeRecurrence` has been removed
+- Const `ValidationMetricTypeCocoVoc` has been removed
+- Const `WeekdayTuesday` has been removed
+- Const `RegressionPrimaryMetricsNormalizedMeanAbsoluteError` has been removed
+- Const `ObjectDetectionPrimaryMetricsMeanAveragePrecision` has been removed
+- Const `TaskTypeImageClassificationMultilabel` has been removed
+- Const `TargetAggregationFunctionMean` has been removed
+- Const `TargetAggregationFunctionMax` has been removed
+- Const `RegressionModelsDecisionTree` has been removed
+- Const `ValidationMetricTypeCoco` has been removed
+- Const `ForecastingModelsXGBoostRegressor` has been removed
+- Const `LogVerbosityCritical` has been removed
+- Const `StackMetaLearnerTypeElasticNetCV` has been removed
+- Const `TaskTypeTextClassificationMultilabel` has been removed
+- Const `StackMetaLearnerTypeLogisticRegression` has been removed
+- Const `ModelSizeLarge` has been removed
+- Const `TargetRollingWindowSizeModeCustom` has been removed
+- Const `ForecastingModelsTCNForecaster` has been removed
+- Const `ClassificationPrimaryMetricsNormMacroRecall` has been removed
+- Const `ClassificationModelsLightGBM` has been removed
+- Const `ClassificationPrimaryMetricsAUCWeighted` has been removed
+- Const `UseStlSeasonTrend` has been removed
+- Const `ForecastingPrimaryMetricsNormalizedMeanAbsoluteError` has been removed
+- Const `ForecastingPrimaryMetricsSpearmanCorrelation` has been removed
+- Const `ClassificationMultilabelPrimaryMetricsAccuracy` has been removed
+- Const `FeaturizationModeCustom` has been removed
+- Const `ForecastingModelsElasticNet` has been removed
+- Const `ForecastingModelsSeasonalNaive` has been removed
+- Const `ClassificationModelsSGD` has been removed
+- Const `SSLConfigurationStatusEnabled` has been removed
+- Const `RecurrenceFrequencyHour` has been removed
+- Const `JobInputTypeMLTable` has been removed
+- Const `TargetLagsModeCustom` has been removed
+- Const `ClassificationModelsRandomForest` has been removed
+- Const `ClassificationModelsXGBoostClassifier` has been removed
+- Const `ClassificationModelsSVM` has been removed
+- Const `CredentialsTypeKerberosPassword` has been removed
+- Const `ValidationMetricTypeNone` has been removed
+- Const `SeasonalityModeAuto` has been removed
+- Const `ForecastingModelsGradientBoosting` has been removed
+- Const `TaskTypeForecasting` has been removed
+- Const `ForecastingModelsRandomForest` has been removed
+- Const `TargetLagsModeAuto` has been removed
+- Const `RegressionModelsSGD` has been removed
+- Const `ClassificationModelsMultinomialNaiveBayes` has been removed
+- Const `ClassificationPrimaryMetricsAccuracy` has been removed
+- Const `ForecastingModelsSGD` has been removed
+- Const `JobOutputTypeMLFlowModel` has been removed
+- Const `ClassificationModelsLogisticRegression` has been removed
+- Const `TaskTypeImageClassification` has been removed
+- Const `StackMetaLearnerTypeLightGBMRegressor` has been removed
+- Const `ClassificationModelsGradientBoosting` has been removed
+- Const `ForecastingModelsLassoLars` has been removed
+- Const `FeatureLagsAuto` has been removed
+- Const `StochasticOptimizerNone` has been removed
+- Const `TaskTypeImageObjectDetection` has been removed
+- Function `*Seasonality.GetSeasonality` has been removed
+- Function `PossibleScheduleTypeValues` has been removed
+- Function `PossibleShortSeriesHandlingConfigurationValues` has been removed
+- Function `*JobBaseDetails.GetJobBaseDetails` has been removed
+- Function `PossibleStochasticOptimizerValues` has been removed
+- Function `*AzureBlobDatastore.GetDatastoreDetails` has been removed
+- Function `*AutoMLJob.GetJobBaseDetails` has been removed
+- Function `*DatastoreDetails.GetDatastoreDetails` has been removed
+- Function `*AutoTargetLags.GetTargetLags` has been removed
+- Function `*KerberosPasswordCredentials.GetDatastoreCredentials` has been removed
+- Function `PossibleModelSizeValues` has been removed
+- Function `*AzureFileDatastore.GetDatastoreDetails` has been removed
+- Function `*ImageClassificationMultilabel.GetAutoMLVertical` has been removed
+- Function `*PartialOnlineDeployment.GetPartialOnlineDeployment` has been removed
+- Function `PossibleModelTypeValues` has been removed
+- Function `PossibleWeekdayValues` has been removed
+- Function `*KerberosKeytabCredentials.GetDatastoreCredentials` has been removed
+- Function `*PipelineJob.GetJobBaseDetails` has been removed
+- Function `*KerberosPasswordSecrets.GetDatastoreSecrets` has been removed
+- Function `*PartialManagedOnlineDeployment.GetPartialOnlineDeployment` has been removed
+- Function `PossibleUseStlValues` has been removed
+- Function `*AutoSeasonality.GetSeasonality` has been removed
+- Function `*TargetLags.GetTargetLags` has been removed
+- Function `*AutoNCrossValidations.GetNCrossValidations` has been removed
+- Function `PossibleTargetAggregationFunctionValues` has been removed
+- Function `PossibleObjectDetectionPrimaryMetricsValues` has been removed
+- Function `PossibleLogVerbosityValues` has been removed
+- Function `*TargetRollingWindowSize.GetTargetRollingWindowSize` has been removed
+- Function `PossibleRegressionPrimaryMetricsValues` has been removed
+- Function `*CommandJob.GetJobBaseDetails` has been removed
+- Function `*AzureDataLakeGen2Datastore.GetDatastoreDetails` has been removed
+- Function `*TextClassificationMultilabel.GetAutoMLVertical` has been removed
+- Function `*Classification.GetAutoMLVertical` has been removed
+- Function `*CustomForecastHorizon.GetForecastHorizon` has been removed
+- Function `PossibleInstanceSegmentationPrimaryMetricsValues` has been removed
+- Function `PossibleForecastHorizonModeValues` has been removed
+- Function `PossibleNCrossValidationsModeValues` has been removed
+- Function `*PartialAssetReferenceBase.GetPartialAssetReferenceBase` has been removed
+- Function `*ScheduleBase.GetScheduleBase` has been removed
+- Function `*KubernetesOnlineDeployment.GetOnlineDeploymentDetails` has been removed
+- Function `*ImageClassification.GetAutoMLVertical` has been removed
+- Function `PossibleTargetLagsModeValues` has been removed
+- Function `*AutoForecastHorizon.GetForecastHorizon` has been removed
+- Function `PossibleFeaturizationModeValues` has been removed
+- Function `PossibleRecurrenceFrequencyValues` has been removed
+- Function `*AutoTargetRollingWindowSize.GetTargetRollingWindowSize` has been removed
+- Function `PossibleClassificationPrimaryMetricsValues` has been removed
+- Function `PossibleTaskTypeValues` has been removed
+- Function `*RecurrenceSchedule.GetScheduleBase` has been removed
+- Function `PossibleValidationMetricTypeValues` has been removed
+- Function `*PartialKubernetesOnlineDeployment.GetPartialOnlineDeployment` has been removed
+- Function `PossibleEgressPublicNetworkAccessTypeValues` has been removed
+- Function `*ImageObjectDetection.GetAutoMLVertical` has been removed
+- Function `*Forecasting.GetAutoMLVertical` has been removed
+- Function `*PartialDataPathAssetReference.GetPartialAssetReferenceBase` has been removed
+- Function `*ForecastHorizon.GetForecastHorizon` has been removed
+- Function `*ImageInstanceSegmentation.GetAutoMLVertical` has been removed
+- Function `*HdfsDatastore.GetDatastoreDetails` has been removed
+- Function `PossiblePublicNetworkAccessTypeValues` has been removed
+- Function `PossibleFeatureLagsValues` has been removed
+- Function `*MLTableData.GetDataVersionBaseDetails` has been removed
+- Function `*TextClassification.GetAutoMLVertical` has been removed
+- Function `*CronSchedule.GetScheduleBase` has been removed
+- Function `PossibleRegressionModelsValues` has been removed
+- Function `PossibleSeasonalityModeValues` has been removed
+- Function `*NCrossValidations.GetNCrossValidations` has been removed
+- Function `PossibleClassificationMultilabelPrimaryMetricsValues` has been removed
+- Function `PossibleStackMetaLearnerTypeValues` has been removed
+- Function `*CustomSeasonality.GetSeasonality` has been removed
+- Function `PossibleTargetRollingWindowSizeModeValues` has been removed
+- Function `PossibleLearningRateSchedulerValues` has been removed
+- Function `*URIFileDataVersion.GetDataVersionBaseDetails` has been removed
+- Function `*Regression.GetAutoMLVertical` has been removed
+- Function `*URIFolderDataVersion.GetDataVersionBaseDetails` has been removed
+- Function `*PartialIDAssetReference.GetPartialAssetReferenceBase` has been removed
+- Function `*DataVersionBaseDetails.GetDataVersionBaseDetails` has been removed
+- Function `*JobsClient.Cancel` has been removed
+- Function `*SweepJob.GetJobBaseDetails` has been removed
+- Function `PossibleForecastingPrimaryMetricsValues` has been removed
+- Function `*CustomNCrossValidations.GetNCrossValidations` has been removed
+- Function `*AzureDataLakeGen1Datastore.GetDatastoreDetails` has been removed
+- Function `*TextNer.GetAutoMLVertical` has been removed
+- Function `*CustomTargetRollingWindowSize.GetTargetRollingWindowSize` has been removed
+- Function `*OnlineDeploymentDetails.GetOnlineDeploymentDetails` has been removed
+- Function `PossibleSSLConfigurationStatusValues` has been removed
+- Function `PossibleClassificationModelsValues` has been removed
+- Function `*PartialOutputPathAssetReference.GetPartialAssetReferenceBase` has been removed
+- Function `PossibleForecastingModelsValues` has been removed
+- Function `*CustomTargetLags.GetTargetLags` has been removed
+- Function `*KerberosKeytabSecrets.GetDatastoreSecrets` has been removed
+- Function `*AutoMLVertical.GetAutoMLVertical` has been removed
+- Function `*ManagedOnlineDeployment.GetOnlineDeploymentDetails` has been removed
+- Struct `AutoForecastHorizon` has been removed
+- Struct `AutoMLJob` has been removed
+- Struct `AutoMLVertical` has been removed
+- Struct `AutoNCrossValidations` has been removed
+- Struct `AutoSeasonality` has been removed
+- Struct `AutoTargetLags` has been removed
+- Struct `AutoTargetRollingWindowSize` has been removed
+- Struct `BatchDeploymentData` has been removed
+- Struct `BatchDeploymentDetails` has been removed
+- Struct `BatchEndpointData` has been removed
+- Struct `BatchEndpointDetails` has been removed
+- Struct `Classification` has been removed
+- Struct `CodeContainerData` has been removed
+- Struct `CodeContainerDetails` has been removed
+- Struct `CodeVersionData` has been removed
+- Struct `CodeVersionDetails` has been removed
+- Struct `ColumnTransformer` has been removed
+- Struct `ComponentContainerData` has been removed
+- Struct `ComponentContainerDetails` has been removed
+- Struct `ComponentVersionData` has been removed
+- Struct `ComponentVersionDetails` has been removed
+- Struct `CronSchedule` has been removed
+- Struct `CustomForecastHorizon` has been removed
+- Struct `CustomNCrossValidations` has been removed
+- Struct `CustomSeasonality` has been removed
+- Struct `CustomTargetLags` has been removed
+- Struct `CustomTargetRollingWindowSize` has been removed
+- Struct `DataContainerData` has been removed
+- Struct `DataContainerDetails` has been removed
+- Struct `DataSettings` has been removed
+- Struct `DataVersionBaseData` has been removed
+- Struct `DataVersionBaseDetails` has been removed
+- Struct `DatastoreData` has been removed
+- Struct `DatastoreDetails` has been removed
+- Struct `EnvironmentContainerData` has been removed
+- Struct `EnvironmentContainerDetails` has been removed
+- Struct `EnvironmentVersionData` has been removed
+- Struct `EnvironmentVersionDetails` has been removed
+- Struct `FeaturizationSettings` has been removed
+- Struct `ForecastHorizon` has been removed
+- Struct `Forecasting` has been removed
+- Struct `ForecastingSettings` has been removed
+- Struct `HdfsDatastore` has been removed
+- Struct `ImageClassification` has been removed
+- Struct `ImageClassificationBase` has been removed
+- Struct `ImageClassificationMultilabel` has been removed
+- Struct `ImageInstanceSegmentation` has been removed
+- Struct `ImageLimitSettings` has been removed
+- Struct `ImageModelDistributionSettings` has been removed
+- Struct `ImageModelDistributionSettingsClassification` has been removed
+- Struct `ImageModelDistributionSettingsObjectDetection` has been removed
+- Struct `ImageModelSettings` has been removed
+- Struct `ImageModelSettingsClassification` has been removed
+- Struct `ImageModelSettingsObjectDetection` has been removed
+- Struct `ImageObjectDetection` has been removed
+- Struct `ImageObjectDetectionBase` has been removed
+- Struct `ImageSweepLimitSettings` has been removed
+- Struct `ImageSweepSettings` has been removed
+- Struct `ImageVertical` has been removed
+- Struct `ImageVerticalDataSettings` has been removed
+- Struct `ImageVerticalValidationDataSettings` has been removed
+- Struct `JobBaseData` has been removed
+- Struct `JobBaseDetails` has been removed
+- Struct `JobsClientCancelOptions` has been removed
+- Struct `KerberosCredentials` has been removed
+- Struct `KerberosKeytabCredentials` has been removed
+- Struct `KerberosKeytabSecrets` has been removed
+- Struct `KerberosPasswordCredentials` has been removed
+- Struct `KerberosPasswordSecrets` has been removed
+- Struct `ModelContainerData` has been removed
+- Struct `ModelContainerDetails` has been removed
+- Struct `ModelVersionData` has been removed
+- Struct `ModelVersionDetails` has been removed
+- Struct `NCrossValidations` has been removed
+- Struct `NlpVertical` has been removed
+- Struct `NlpVerticalDataSettings` has been removed
+- Struct `NlpVerticalFeaturizationSettings` has been removed
+- Struct `NlpVerticalLimitSettings` has been removed
+- Struct `NlpVerticalValidationDataSettings` has been removed
+- Struct `OnlineDeploymentData` has been removed
+- Struct `OnlineDeploymentDetails` has been removed
+- Struct `OnlineEndpointData` has been removed
+- Struct `OnlineEndpointDetails` has been removed
+- Struct `PaginatedWorkspaceConnectionsList` has been removed
+- Struct `PartialAssetReferenceBase` has been removed
+- Struct `PartialBatchDeploymentPartialTrackedResource` has been removed
+- Struct `PartialBatchEndpoint` has been removed
+- Struct `PartialBatchEndpointPartialTrackedResource` has been removed
+- Struct `PartialBatchRetrySettings` has been removed
+- Struct `PartialCodeConfiguration` has been removed
+- Struct `PartialDataPathAssetReference` has been removed
+- Struct `PartialIDAssetReference` has been removed
+- Struct `PartialKubernetesOnlineDeployment` has been removed
+- Struct `PartialManagedOnlineDeployment` has been removed
+- Struct `PartialOnlineDeployment` has been removed
+- Struct `PartialOnlineDeploymentPartialTrackedResource` has been removed
+- Struct `PartialOnlineEndpoint` has been removed
+- Struct `PartialOnlineEndpointPartialTrackedResource` has been removed
+- Struct `PartialOutputPathAssetReference` has been removed
+- Struct `RecurrencePattern` has been removed
+- Struct `RecurrenceSchedule` has been removed
+- Struct `Regression` has been removed
+- Struct `Seasonality` has been removed
+- Struct `StackEnsembleSettings` has been removed
+- Struct `TableVertical` has been removed
+- Struct `TableVerticalDataSettings` has been removed
+- Struct `TableVerticalFeaturizationSettings` has been removed
+- Struct `TableVerticalLimitSettings` has been removed
+- Struct `TableVerticalValidationDataSettings` has been removed
+- Struct `TargetLags` has been removed
+- Struct `TargetRollingWindowSize` has been removed
+- Struct `TestDataSettings` has been removed
+- Struct `TextClassification` has been removed
+- Struct `TextClassificationMultilabel` has been removed
+- Struct `TextNer` has been removed
+- Struct `TrainingDataSettings` has been removed
+- Struct `TrainingSettings` has been removed
+- Struct `ValidationDataSettings` has been removed
+- Struct `WorkspaceConnection` has been removed
+- Struct `WorkspaceConnectionProps` has been removed
+- Field `BatchEndpointData` of struct `BatchEndpointsClientUpdateResponse` has been removed
+- Field `DataVersionBaseData` of struct `DataVersionsClientCreateOrUpdateResponse` has been removed
+- Field `PrivateNetworkConnection` of struct `KubernetesOnlineDeployment` has been removed
+- Field `EgressPublicNetworkAccess` of struct `KubernetesOnlineDeployment` has been removed
+- Field `BatchDeploymentData` of struct `BatchDeploymentsClientGetResponse` has been removed
+- Field `OnlineDeploymentData` of struct `OnlineDeploymentsClientUpdateResponse` has been removed
+- Field `BatchDeploymentData` of struct `BatchDeploymentsClientCreateOrUpdateResponse` has been removed
+- Field `CodeContainerData` of struct `CodeContainersClientCreateOrUpdateResponse` has been removed
+- Field `OnlineEndpointData` of struct `OnlineEndpointsClientUpdateResponse` has been removed
+- Field `EnvironmentContainerData` of struct `EnvironmentContainersClientCreateOrUpdateResponse` has been removed
+- Field `ComponentContainerData` of struct `ComponentContainersClientGetResponse` has been removed
+- Field `PrivateNetworkConnection` of struct `ManagedOnlineDeployment` has been removed
+- Field `EgressPublicNetworkAccess` of struct `ManagedOnlineDeployment` has been removed
+- Field `BatchDeploymentData` of struct `BatchDeploymentsClientUpdateResponse` has been removed
+- Field `DatastoreData` of struct `DatastoresClientCreateOrUpdateResponse` has been removed
+- Field `ModelContainerData` of struct `ModelContainersClientGetResponse` has been removed
+- Field `BatchEndpointData` of struct `BatchEndpointsClientCreateOrUpdateResponse` has been removed
+- Field `WorkspaceConnection` of struct `WorkspaceConnectionsClientCreateResponse` has been removed
+- Field `Schedule` of struct `CommandJob` has been removed
+- Field `DataContainerData` of struct `DataContainersClientCreateOrUpdateResponse` has been removed
+- Field `WorkspaceConnection` of struct `WorkspaceConnectionsClientGetResponse` has been removed
+- Field `OnlineDeploymentData` of struct `OnlineDeploymentsClientGetResponse` has been removed
+- Field `CodeContainerData` of struct `CodeContainersClientGetResponse` has been removed
+- Field `ScheduleStatus` of struct `ScheduleBase` has been removed
+- Field `StartTime` of struct `ScheduleBase` has been removed
+- Field `TimeZone` of struct `ScheduleBase` has been removed
+- Field `ScheduleType` of struct `ScheduleBase` has been removed
+- Field `EndTime` of struct `ScheduleBase` has been removed
+- Field `DatastoreData` of struct `DatastoresClientGetResponse` has been removed
+- Field `ComponentVersionData` of struct `ComponentVersionsClientGetResponse` has been removed
+- Field `EnvironmentVersionData` of struct `EnvironmentVersionsClientCreateOrUpdateResponse` has been removed
+- Field `OnlineEndpointData` of struct `OnlineEndpointsClientCreateOrUpdateResponse` has been removed
+- Field `ScheduleID` of struct `JobsClientListOptions` has been removed
+- Field `Scheduled` of struct `JobsClientListOptions` has been removed
+- Field `Schedule` of struct `SweepJob` has been removed
+- Field `DataContainerData` of struct `DataContainersClientGetResponse` has been removed
+- Field `ModelVersionData` of struct `ModelVersionsClientGetResponse` has been removed
+- Field `ComponentContainerData` of struct `ComponentContainersClientCreateOrUpdateResponse` has been removed
+- Field `CodeVersionData` of struct `CodeVersionsClientCreateOrUpdateResponse` has been removed
+- Field `ModelContainerData` of struct `ModelContainersClientCreateOrUpdateResponse` has been removed
+- Field `PaginatedWorkspaceConnectionsList` of struct `WorkspaceConnectionsClientListResponse` has been removed
+- Field `BatchEndpointData` of struct `BatchEndpointsClientGetResponse` has been removed
+- Field `EnvironmentVersionData` of struct `EnvironmentVersionsClientGetResponse` has been removed
+- Field `JobBaseData` of struct `JobsClientCreateOrUpdateResponse` has been removed
+- Field `EnvironmentContainerData` of struct `EnvironmentContainersClientGetResponse` has been removed
+- Field `CodeVersionData` of struct `CodeVersionsClientGetResponse` has been removed
+- Field `OnlineDeploymentData` of struct `OnlineDeploymentsClientCreateOrUpdateResponse` has been removed
+- Field `Schedule` of struct `PipelineJob` has been removed
+- Field `ComponentVersionData` of struct `ComponentVersionsClientCreateOrUpdateResponse` has been removed
+- Field `EnvironmentVariables` of struct `PartialBatchDeployment` has been removed
+- Field `CodeConfiguration` of struct `PartialBatchDeployment` has been removed
+- Field `MiniBatchSize` of struct `PartialBatchDeployment` has been removed
+- Field `RetrySettings` of struct `PartialBatchDeployment` has been removed
+- Field `Compute` of struct `PartialBatchDeployment` has been removed
+- Field `MaxConcurrencyPerInstance` of struct `PartialBatchDeployment` has been removed
+- Field `OutputAction` of struct `PartialBatchDeployment` has been removed
+- Field `OutputFileName` of struct `PartialBatchDeployment` has been removed
+- Field `ErrorThreshold` of struct `PartialBatchDeployment` has been removed
+- Field `LoggingLevel` of struct `PartialBatchDeployment` has been removed
+- Field `Properties` of struct `PartialBatchDeployment` has been removed
+- Field `Model` of struct `PartialBatchDeployment` has been removed
+- Field `EnvironmentID` of struct `PartialBatchDeployment` has been removed
+- Field `DataVersionBaseData` of struct `DataVersionsClientGetResponse` has been removed
+- Field `OnlineEndpointData` of struct `OnlineEndpointsClientGetResponse` has been removed
+- Field `JobBaseData` of struct `JobsClientGetResponse` has been removed
+- Field `ModelVersionData` of struct `ModelVersionsClientCreateOrUpdateResponse` has been removed
+
+### Features Added
+
+- New const `ConnectionAuthTypeSAS`
+- New const `DataTypeMltable`
+- New const `SSLConfigStatusDisabled`
+- New const `ScheduleProvisioningStateCompleted`
+- New const `ScheduleProvisioningStateFailed`
+- New const `ConnectionAuthTypeManagedIdentity`
+- New const `ConnectionAuthTypePAT`
+- New const `ScheduleProvisioningStateProvisioning`
+- New const `SSLConfigStatusEnabled`
+- New const `JobOutputTypeMlflowModel`
+- New const `ConnectionCategoryContainerRegistry`
+- New const `ConnectionCategoryPythonFeed`
+- New const `SSLConfigStatusAuto`
+- New const `ConnectionAuthTypeUsernamePassword`
+- New const `ConnectionCategoryGit`
+- New const `JobOutputTypeMltable`
+- New const `ConnectionAuthTypeNone`
+- New const `JobInputTypeMltable`
+- New const `JobInputTypeMlflowModel`
+- New function `*JobBaseProperties.GetJobBaseProperties() *JobBaseProperties`
+- New function `*ManagedIdentityAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `PossibleSSLConfigStatusValues() []SSLConfigStatus`
+- New function `*AzureBlobDatastore.GetDatastoreProperties() *DatastoreProperties`
+- New function `*NoneAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*PipelineJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*AzureFileDatastore.GetDatastoreProperties() *DatastoreProperties`
+- New function `*PATAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*SASAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*KubernetesOnlineDeployment.GetOnlineDeploymentProperties() *OnlineDeploymentProperties`
+- New function `*OnlineDeploymentProperties.GetOnlineDeploymentProperties() *OnlineDeploymentProperties`
+- New function `*WorkspaceConnectionPropertiesV2.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*AzureDataLakeGen2Datastore.GetDatastoreProperties() *DatastoreProperties`
+- New function `PossibleConnectionCategoryValues() []ConnectionCategory`
+- New function `*AzureDataLakeGen1Datastore.GetDatastoreProperties() *DatastoreProperties`
+- New function `*DataVersionBaseProperties.GetDataVersionBaseProperties() *DataVersionBaseProperties`
+- New function `*SweepJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*CommandJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*JobsClient.BeginCancel(context.Context, string, string, string, *JobsClientBeginCancelOptions) (*runtime.Poller[JobsClientCancelResponse], error)`
+- New function `*ManagedOnlineDeployment.GetOnlineDeploymentProperties() *OnlineDeploymentProperties`
+- New function `PossibleScheduleProvisioningStateValues() []ScheduleProvisioningState`
+- New function `*DatastoreProperties.GetDatastoreProperties() *DatastoreProperties`
+- New function `*ComputeClient.UpdateIdleShutdownSetting(context.Context, string, string, string, IdleShutdownSetting, *ComputeClientUpdateIdleShutdownSettingOptions) (ComputeClientUpdateIdleShutdownSettingResponse, error)`
+- New function `PossibleConnectionAuthTypeValues() []ConnectionAuthType`
+- New function `*URIFolderDataVersion.GetDataVersionBaseProperties() *DataVersionBaseProperties`
+- New function `*URIFileDataVersion.GetDataVersionBaseProperties() *DataVersionBaseProperties`
+- New function `*MLTableData.GetDataVersionBaseProperties() *DataVersionBaseProperties`
+- New function `*UsernamePasswordAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New struct `BatchDeployment`
+- New struct `BatchDeploymentProperties`
+- New struct `BatchEndpoint`
+- New struct `BatchEndpointProperties`
+- New struct `CodeContainer`
+- New struct `CodeContainerProperties`
+- New struct `CodeVersion`
+- New struct `CodeVersionProperties`
+- New struct `ComponentContainer`
+- New struct `ComponentContainerProperties`
+- New struct `ComponentVersion`
+- New struct `ComponentVersionProperties`
+- New struct `ComputeClientUpdateIdleShutdownSettingOptions`
+- New struct `ComputeClientUpdateIdleShutdownSettingResponse`
+- New struct `DataContainer`
+- New struct `DataContainerProperties`
+- New struct `DataVersionBase`
+- New struct `DataVersionBaseProperties`
+- New struct `Datastore`
+- New struct `DatastoreProperties`
+- New struct `EnvironmentContainer`
+- New struct `EnvironmentContainerProperties`
+- New struct `EnvironmentVersion`
+- New struct `EnvironmentVersionProperties`
+- New struct `IdleShutdownSetting`
+- New struct `JobBase`
+- New struct `JobBaseProperties`
+- New struct `JobsClientBeginCancelOptions`
+- New struct `ManagedIdentityAuthTypeWorkspaceConnectionProperties`
+- New struct `ModelContainer`
+- New struct `ModelContainerProperties`
+- New struct `ModelVersion`
+- New struct `ModelVersionProperties`
+- New struct `NoneAuthTypeWorkspaceConnectionProperties`
+- New struct `OnlineDeployment`
+- New struct `OnlineDeploymentProperties`
+- New struct `OnlineEndpoint`
+- New struct `OnlineEndpointProperties`
+- New struct `PATAuthTypeWorkspaceConnectionProperties`
+- New struct `PartialBatchDeploymentPartialMinimalTrackedResourceWithProperties`
+- New struct `PartialMinimalTrackedResource`
+- New struct `PartialMinimalTrackedResourceWithIdentity`
+- New struct `PartialMinimalTrackedResourceWithSKU`
+- New struct `SASAuthTypeWorkspaceConnectionProperties`
+- New struct `UsernamePasswordAuthTypeWorkspaceConnectionProperties`
+- New struct `WorkspaceConnectionManagedIdentity`
+- New struct `WorkspaceConnectionPersonalAccessToken`
+- New struct `WorkspaceConnectionPropertiesV2`
+- New struct `WorkspaceConnectionPropertiesV2BasicResource`
+- New struct `WorkspaceConnectionPropertiesV2BasicResourceArmPaginatedResult`
+- New struct `WorkspaceConnectionSharedAccessSignature`
+- New struct `WorkspaceConnectionUsernamePassword`
+- New field `ID` in struct `ScheduleBase`
+- New field `ProvisioningStatus` in struct `ScheduleBase`
+- New field `Status` in struct `ScheduleBase`
+- New anonymous field `ComponentVersion` in struct `ComponentVersionsClientCreateOrUpdateResponse`
+- New anonymous field `DataContainer` in struct `DataContainersClientGetResponse`
+- New anonymous field `BatchDeployment` in struct `BatchDeploymentsClientUpdateResponse`
+- New anonymous field `WorkspaceConnectionPropertiesV2BasicResourceArmPaginatedResult` in struct `WorkspaceConnectionsClientListResponse`
+- New anonymous field `ModelContainer` in struct `ModelContainersClientCreateOrUpdateResponse`
+- New field `IdleTimeBeforeShutdown` in struct `ComputeInstanceProperties`
+- New anonymous field `CodeContainer` in struct `CodeContainersClientGetResponse`
+- New anonymous field `BatchEndpoint` in struct `BatchEndpointsClientCreateOrUpdateResponse`
+- New anonymous field `Datastore` in struct `DatastoresClientCreateOrUpdateResponse`
+- New anonymous field `CodeContainer` in struct `CodeContainersClientCreateOrUpdateResponse`
+- New anonymous field `OnlineDeployment` in struct `OnlineDeploymentsClientUpdateResponse`
+- New anonymous field `ModelVersion` in struct `ModelVersionsClientGetResponse`
+- New anonymous field `BatchDeployment` in struct `BatchDeploymentsClientGetResponse`
+- New anonymous field `Datastore` in struct `DatastoresClientGetResponse`
+- New anonymous field `OnlineEndpoint` in struct `OnlineEndpointsClientCreateOrUpdateResponse`
+- New anonymous field `EnvironmentContainer` in struct `EnvironmentContainersClientGetResponse`
+- New anonymous field `DataVersionBase` in struct `DataVersionsClientCreateOrUpdateResponse`
+- New anonymous field `BatchEndpoint` in struct `BatchEndpointsClientGetResponse`
+- New anonymous field `CodeVersion` in struct `CodeVersionsClientCreateOrUpdateResponse`
+- New anonymous field `ComponentContainer` in struct `ComponentContainersClientCreateOrUpdateResponse`
+- New anonymous field `WorkspaceConnectionPropertiesV2BasicResource` in struct `WorkspaceConnectionsClientGetResponse`
+- New anonymous field `OnlineEndpoint` in struct `OnlineEndpointsClientUpdateResponse`
+- New anonymous field `EnvironmentVersion` in struct `EnvironmentVersionsClientGetResponse`
+- New anonymous field `BatchDeployment` in struct `BatchDeploymentsClientCreateOrUpdateResponse`
+- New field `V1LegacyMode` in struct `WorkspaceProperties`
+- New anonymous field `ModelVersion` in struct `ModelVersionsClientCreateOrUpdateResponse`
+- New anonymous field `OnlineEndpoint` in struct `OnlineEndpointsClientGetResponse`
+- New anonymous field `WorkspaceConnectionPropertiesV2BasicResource` in struct `WorkspaceConnectionsClientCreateResponse`
+- New anonymous field `JobBase` in struct `JobsClientGetResponse`
+- New anonymous field `EnvironmentVersion` in struct `EnvironmentVersionsClientCreateOrUpdateResponse`
+- New anonymous field `ComponentVersion` in struct `ComponentVersionsClientGetResponse`
+- New anonymous field `DataContainer` in struct `DataContainersClientCreateOrUpdateResponse`
+- New anonymous field `OnlineDeployment` in struct `OnlineDeploymentsClientGetResponse`
+- New anonymous field `BatchEndpoint` in struct `BatchEndpointsClientUpdateResponse`
+- New anonymous field `OnlineDeployment` in struct `OnlineDeploymentsClientCreateOrUpdateResponse`
+- New anonymous field `EnvironmentContainer` in struct `EnvironmentContainersClientCreateOrUpdateResponse`
+- New anonymous field `DataVersionBase` in struct `DataVersionsClientGetResponse`
+- New anonymous field `JobBase` in struct `JobsClientCreateOrUpdateResponse`
+- New anonymous field `CodeVersion` in struct `CodeVersionsClientGetResponse`
+- New anonymous field `ModelContainer` in struct `ModelContainersClientGetResponse`
+- New anonymous field `ComponentContainer` in struct `ComponentContainersClientGetResponse`
+
+
 ## 2.0.0 (2022-06-09)
 ### Breaking Changes
 
