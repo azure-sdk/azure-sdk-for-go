@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0 (2022-07-19)
+### Breaking Changes
+
+- Function `*MoveResourcesClient.BeginCreate` parameter(s) have been changed from `(context.Context, string, string, string, *MoveResourcesClientBeginCreateOptions)` to `(context.Context, string, string, string, MoveResource, *MoveResourcesClientBeginCreateOptions)`
+- Function `*MoveCollectionsClient.Create` parameter(s) have been changed from `(context.Context, string, string, *MoveCollectionsClientCreateOptions)` to `(context.Context, string, string, MoveCollection, *MoveCollectionsClientCreateOptions)`
+- Function `*MoveCollectionsClient.Update` parameter(s) have been changed from `(context.Context, string, string, *MoveCollectionsClientUpdateOptions)` to `(context.Context, string, string, UpdateMoveCollectionRequest, *MoveCollectionsClientUpdateOptions)`
+- Field `Body` of struct `MoveResourcesClientBeginCreateOptions` has been removed
+- Field `Body` of struct `MoveCollectionsClientUpdateOptions` has been removed
+- Field `Body` of struct `MoveCollectionsClientCreateOptions` has been removed
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resourcemover/armresourcemover` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
