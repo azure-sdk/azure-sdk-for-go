@@ -1,5 +1,45 @@
 # Release History
 
+## 1.1.0-beta.2 (2022-07-20)
+### Breaking Changes
+
+- Type of `RestorableTableResourcesListResult.Value` has been changed from `[]*string` to `[]*RestorableTableResourcesGetResult`
+- Type of `RestorableGremlinResourcesListResult.Value` has been changed from `[]*GremlinDatabaseRestoreResource` to `[]*RestorableGremlinResourcesGetResult`
+
+### Features Added
+
+- New const `OperationTypeRecreate`
+- New struct `AccountKeyMetadata`
+- New struct `DatabaseAccountKeysMetadata`
+- New struct `ResourceRestoreParameters`
+- New struct `RestorableGremlinResourcesGetResult`
+- New struct `RestorableTableResourcesGetResult`
+- New struct `RestoreParametersBase`
+- New field `RestoreParameters` in struct `RestorableSQLContainerPropertiesResourceContainer`
+- New field `CreateMode` in struct `RestorableSQLContainerPropertiesResourceContainer`
+- New field `KeysMetadata` in struct `DatabaseAccountGetProperties`
+- New field `RestoreParameters` in struct `SQLDatabaseGetPropertiesResource`
+- New field `CreateMode` in struct `SQLDatabaseGetPropertiesResource`
+- New field `CreateMode` in struct `MongoDBCollectionGetPropertiesResource`
+- New field `RestoreParameters` in struct `MongoDBCollectionGetPropertiesResource`
+- New field `KeysMetadata` in struct `DatabaseAccountCreateUpdateProperties`
+- New field `CreateMode` in struct `MongoDBDatabaseGetPropertiesResource`
+- New field `RestoreParameters` in struct `MongoDBDatabaseGetPropertiesResource`
+- New field `CreateMode` in struct `SQLContainerGetPropertiesResource`
+- New field `RestoreParameters` in struct `SQLContainerGetPropertiesResource`
+- New field `RestoreParameters` in struct `MongoDBCollectionResource`
+- New field `CreateMode` in struct `MongoDBCollectionResource`
+- New field `CreateMode` in struct `SQLContainerResource`
+- New field `RestoreParameters` in struct `SQLContainerResource`
+- New field `CreateMode` in struct `MongoDBDatabaseResource`
+- New field `RestoreParameters` in struct `MongoDBDatabaseResource`
+- New field `CreateMode` in struct `SQLDatabaseResource`
+- New field `RestoreParameters` in struct `SQLDatabaseResource`
+- New field `CreateMode` in struct `RestorableSQLDatabasePropertiesResourceDatabase`
+- New field `RestoreParameters` in struct `RestorableSQLDatabasePropertiesResourceDatabase`
+- New field `KeysMetadata` in struct `DatabaseAccountUpdateProperties`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
