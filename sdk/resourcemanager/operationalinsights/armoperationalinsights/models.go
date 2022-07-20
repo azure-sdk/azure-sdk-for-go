@@ -949,6 +949,12 @@ type QueryPacksClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// QueryPacksClientCreateOrUpdateWithoutNameOptions contains the optional parameters for the QueryPacksClient.CreateOrUpdateWithoutName
+// method.
+type QueryPacksClientCreateOrUpdateWithoutNameOptions struct {
+	// placeholder for future optional parameters
+}
+
 // QueryPacksClientDeleteOptions contains the optional parameters for the QueryPacksClient.Delete method.
 type QueryPacksClientDeleteOptions struct {
 	// placeholder for future optional parameters
