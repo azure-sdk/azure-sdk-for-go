@@ -5896,7 +5896,7 @@ type SharedGalleryOSDiskImage struct {
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
-	CommunityGalleryInfo interface{} `json:"communityGalleryInfo,omitempty"`
+	CommunityGalleryInfo *CommunityGalleryInfo `json:"communityGalleryInfo,omitempty"`
 
 	// This property allows you to specify the permission of sharing gallery.
 	// Possible values are:
