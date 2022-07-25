@@ -1,5 +1,20 @@
 # Release History
 
+## 2.0.0-beta.3 (2022-07-25)
+### Features Added
+
+- New const `UpdateModeRecreate`
+- New const `ControlledValuesRequestsOnly`
+- New const `UpdateModeOff`
+- New const `UpdateModeAuto`
+- New const `ControlledValuesRequestsAndLimits`
+- New const `UpdateModeInitial`
+- New function `PossibleControlledValuesValues() []ControlledValues`
+- New function `PossibleUpdateModeValues() []UpdateMode`
+- New struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler`
+- New field `VerticalPodAutoscaler` in struct `ManagedClusterWorkloadAutoScalerProfile`
+
+
 ## 2.0.0 (2022-07-22)
 ### Breaking Changes
 
