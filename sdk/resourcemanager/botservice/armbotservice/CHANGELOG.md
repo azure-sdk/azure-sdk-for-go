@@ -1,5 +1,17 @@
 # Release History
 
+## 0.6.0 (2022-07-25)
+### Features Added
+
+- New function `*QnAMakerEndpointKeysClient.Get(context.Context, QnAMakerEndpointKeysRequestBody, *QnAMakerEndpointKeysClientGetOptions) (QnAMakerEndpointKeysClientGetResponse, error)`
+- New function `NewQnAMakerEndpointKeysClient(string, azcore.TokenCredential, *arm.ClientOptions) (*QnAMakerEndpointKeysClient, error)`
+- New struct `QnAMakerEndpointKeysClient`
+- New struct `QnAMakerEndpointKeysClientGetOptions`
+- New struct `QnAMakerEndpointKeysClientGetResponse`
+- New struct `QnAMakerEndpointKeysRequestBody`
+- New struct `QnAMakerEndpointKeysResponse`
+
+
 ## 0.5.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/botservice/armbotservice` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.5.0, which contains breaking changes.
