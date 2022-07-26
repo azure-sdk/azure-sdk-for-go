@@ -1,5 +1,11 @@
 # Release History
 
+## 0.3.0 (2022-07-26)
+### Features Added
+
+- New field `ZoneRedundancyPreference` in struct `MonitorProperties`
+
+
 ## 0.2.0 (2022-06-30)
 ### Breaking Changes
 

@@ -628,6 +628,10 @@ type MonitorProperties struct {
 	// Sets the routing preference of the SAP monitor. By default only RFC1918 traffic is routed to the customer VNET.
 	RoutingPreference *RoutingPreference `json:"routingPreference,omitempty"`
 
+	// Sets the preference for zone redundancy on resources created for the SAP monitor. By default resources will be created
+	// which do not support zone redundancy.
+	ZoneRedundancyPreference *string `json:"zoneRedundancyPreference,omitempty"`
+
 	// READ-ONLY; Defines the SAP monitor errors.
 	Errors *MonitorPropertiesErrors `json:"errors,omitempty" azure:"ro"`
 
