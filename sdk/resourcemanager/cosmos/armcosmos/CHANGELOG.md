@@ -1,5 +1,45 @@
 # Release History
 
+## 2.1.0-beta.2 (2022-07-26)
+### Features Added
+
+- New const `OperationTypeRecreate`
+- New function `*MongoDBResourcesClient.BeginMongoDBDatabaseRetrieveThroughputDistribution(context.Context, string, string, string, RetrieveThroughputParameters, *MongoDBResourcesClientBeginMongoDBDatabaseRetrieveThroughputDistributionOptions) (*runtime.Poller[MongoDBResourcesClientMongoDBDatabaseRetrieveThroughputDistributionResponse], error)`
+- New function `*MongoDBResourcesClient.BeginMongoDBDatabaseRedistributeThroughput(context.Context, string, string, string, RedistributeThroughputParameters, *MongoDBResourcesClientBeginMongoDBDatabaseRedistributeThroughputOptions) (*runtime.Poller[MongoDBResourcesClientMongoDBDatabaseRedistributeThroughputResponse], error)`
+- New function `*SQLResourcesClient.BeginSQLDatabaseRetrieveThroughputDistribution(context.Context, string, string, string, RetrieveThroughputParameters, *SQLResourcesClientBeginSQLDatabaseRetrieveThroughputDistributionOptions) (*runtime.Poller[SQLResourcesClientSQLDatabaseRetrieveThroughputDistributionResponse], error)`
+- New function `*SQLResourcesClient.BeginSQLDatabaseRedistributeThroughput(context.Context, string, string, string, RedistributeThroughputParameters, *SQLResourcesClientBeginSQLDatabaseRedistributeThroughputOptions) (*runtime.Poller[SQLResourcesClientSQLDatabaseRedistributeThroughputResponse], error)`
+- New struct `MongoDBResourcesClientBeginMongoDBDatabaseRedistributeThroughputOptions`
+- New struct `MongoDBResourcesClientBeginMongoDBDatabaseRetrieveThroughputDistributionOptions`
+- New struct `MongoDBResourcesClientMongoDBDatabaseRedistributeThroughputResponse`
+- New struct `MongoDBResourcesClientMongoDBDatabaseRetrieveThroughputDistributionResponse`
+- New struct `ResourceRestoreParameters`
+- New struct `RestoreParametersBase`
+- New struct `SQLResourcesClientBeginSQLDatabaseRedistributeThroughputOptions`
+- New struct `SQLResourcesClientBeginSQLDatabaseRetrieveThroughputDistributionOptions`
+- New struct `SQLResourcesClientSQLDatabaseRedistributeThroughputResponse`
+- New struct `SQLResourcesClientSQLDatabaseRetrieveThroughputDistributionResponse`
+- New field `CreateMode` in struct `SQLDatabaseResource`
+- New field `RestoreParameters` in struct `SQLDatabaseResource`
+- New field `CreateMode` in struct `MongoDBDatabaseGetPropertiesResource`
+- New field `RestoreParameters` in struct `MongoDBDatabaseGetPropertiesResource`
+- New field `RestoreParameters` in struct `MongoDBCollectionGetPropertiesResource`
+- New field `CreateMode` in struct `MongoDBCollectionGetPropertiesResource`
+- New field `CreateMode` in struct `MongoDBDatabaseResource`
+- New field `RestoreParameters` in struct `MongoDBDatabaseResource`
+- New field `RestoreParameters` in struct `RestorableSQLContainerPropertiesResourceContainer`
+- New field `CreateMode` in struct `RestorableSQLContainerPropertiesResourceContainer`
+- New field `CreateMode` in struct `RestorableSQLDatabasePropertiesResourceDatabase`
+- New field `RestoreParameters` in struct `RestorableSQLDatabasePropertiesResourceDatabase`
+- New field `CreateMode` in struct `SQLContainerResource`
+- New field `RestoreParameters` in struct `SQLContainerResource`
+- New field `CreateMode` in struct `SQLContainerGetPropertiesResource`
+- New field `RestoreParameters` in struct `SQLContainerGetPropertiesResource`
+- New field `RestoreParameters` in struct `MongoDBCollectionResource`
+- New field `CreateMode` in struct `MongoDBCollectionResource`
+- New field `CreateMode` in struct `SQLDatabaseGetPropertiesResource`
+- New field `RestoreParameters` in struct `SQLDatabaseGetPropertiesResource`
+
+
 ## 2.1.0-beta.1 (2022-07-22)
 ### Features Added
 
