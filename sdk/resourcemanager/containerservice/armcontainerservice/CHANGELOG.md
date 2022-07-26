@@ -1,5 +1,12 @@
 # Release History
 
+## 2.0.0-beta.3 (2022-07-26)
+### Features Added
+
+- New struct `ManagedClusterSecurityProfileImageCleaner`
+- New field `ImageCleaner` in struct `ManagedClusterSecurityProfile`
+
+
 ## 2.0.0 (2022-07-22)
 ### Breaking Changes
 
