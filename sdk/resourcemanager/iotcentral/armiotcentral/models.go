@@ -136,7 +136,7 @@ type AppTemplate struct {
 	Name *string `json:"name,omitempty" azure:"ro"`
 
 	// READ-ONLY; The order of the template in the templates list.
-	Order *float32 `json:"order,omitempty" azure:"ro"`
+	Order *int32 `json:"order,omitempty" azure:"ro"`
 
 	// READ-ONLY; The title of the template.
 	Title *string `json:"title,omitempty" azure:"ro"`

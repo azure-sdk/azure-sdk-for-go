@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-07-27)
+### Breaking Changes
+
+- Type of `AppTemplate.Order` has been changed from `*float32` to `*int32`
+
+
 ## 2.0.0-beta.1 (2022-06-22)
 ### Breaking Changes
 
