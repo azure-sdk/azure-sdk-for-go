@@ -1,5 +1,47 @@
 # Release History
 
+## 4.0.0 (2022-07-27)
+### Breaking Changes
+
+- Type of `GalleryDataDiskImage.Source` has been changed from `*GalleryArtifactVersionSource` to `*GalleryDiskImageSource`
+- Type of `GalleryDiskImage.Source` has been changed from `*GalleryArtifactVersionSource` to `*GalleryDiskImageSource`
+- Type of `GalleryImageVersionStorageProfile.Source` has been changed from `*GalleryArtifactVersionSource` to `*GalleryArtifactVersionFullSource`
+- Type of `GalleryOSDiskImage.Source` has been changed from `*GalleryArtifactVersionSource` to `*GalleryDiskImageSource`
+- Type of `SharingProfile.CommunityGalleryInfo` has been changed from `interface{}` to `*CommunityGalleryInfo`
+- Field `URI` of struct `GalleryArtifactVersionSource` has been removed
+
+### Features Added
+
+- New const `GalleryApplicationCustomActionParameterTypeString`
+- New const `GalleryApplicationCustomActionParameterTypeConfigurationDataBlob`
+- New const `PolicyViolationCategoryOther`
+- New const `GalleryApplicationCustomActionParameterTypeLogOutputBlob`
+- New const `PolicyViolationCategoryCopyrightValidation`
+- New const `PolicyViolationCategoryImageFlaggedUnsafe`
+- New const `PolicyViolationCategoryIPTheft`
+- New function `PossibleGalleryApplicationCustomActionParameterTypeValues() []GalleryApplicationCustomActionParameterType`
+- New function `PossiblePolicyViolationCategoryValues() []PolicyViolationCategory`
+- New function `*GalleryImagesClient.GetLatestVersionName(context.Context, string, string, string, *GalleryImagesClientGetLatestVersionNameOptions) (GalleryImagesClientGetLatestVersionNameResponse, error)`
+- New struct `GalleryApplicationCustomAction`
+- New struct `GalleryApplicationCustomActionParameter`
+- New struct `GalleryApplicationVersionSafetyProfile`
+- New struct `GalleryArtifactSafetyProfileBase`
+- New struct `GalleryArtifactVersionFullSource`
+- New struct `GalleryDiskImageSource`
+- New struct `GalleryImageVersionSafetyProfile`
+- New struct `GalleryImagesClientGetLatestVersionNameOptions`
+- New struct `GalleryImagesClientGetLatestVersionNameResponse`
+- New struct `LatestGalleryImageVersion`
+- New struct `PolicyViolation`
+- New field `CustomActions` in struct `GalleryApplicationVersionPublishingProfile`
+- New field `PrivacyStatementURI` in struct `SharedGalleryImageProperties`
+- New field `Eula` in struct `SharedGalleryImageProperties`
+- New field `ExcludeFromLatest` in struct `TargetRegion`
+- New field `SafetyProfile` in struct `GalleryApplicationVersionProperties`
+- New field `CustomActions` in struct `GalleryApplicationProperties`
+- New field `SafetyProfile` in struct `GalleryImageVersionProperties`
+
+
 ## 3.0.0 (2022-06-24)
 ### Breaking Changes
 

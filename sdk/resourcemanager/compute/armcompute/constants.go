@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v4.0.0"
 )
 
 type AccessLevel string
@@ -51,7 +51,7 @@ func PossibleAggregatedReplicationStateValues() []AggregatedReplicationState {
 	}
 }
 
-// Architecture - The architecture of the image. Applicable to OS disks only.
+// Architecture - CPU architecture supported by an OS disk.
 type Architecture string
 
 const (
@@ -710,6 +710,25 @@ func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
 	}
 }
 
+// GalleryApplicationCustomActionParameterType - Specifies the type of the custom action parameter. Possible values are: String,
+// ConfigurationDataBlob or LogOutputBlob
+type GalleryApplicationCustomActionParameterType string
+
+const (
+	GalleryApplicationCustomActionParameterTypeString                GalleryApplicationCustomActionParameterType = "String"
+	GalleryApplicationCustomActionParameterTypeConfigurationDataBlob GalleryApplicationCustomActionParameterType = "ConfigurationDataBlob"
+	GalleryApplicationCustomActionParameterTypeLogOutputBlob         GalleryApplicationCustomActionParameterType = "LogOutputBlob"
+)
+
+// PossibleGalleryApplicationCustomActionParameterTypeValues returns the possible values for the GalleryApplicationCustomActionParameterType const type.
+func PossibleGalleryApplicationCustomActionParameterTypeValues() []GalleryApplicationCustomActionParameterType {
+	return []GalleryApplicationCustomActionParameterType{
+		GalleryApplicationCustomActionParameterTypeString,
+		GalleryApplicationCustomActionParameterTypeConfigurationDataBlob,
+		GalleryApplicationCustomActionParameterTypeLogOutputBlob,
+	}
+}
+
 type GalleryExpandParams string
 
 const (
@@ -1037,12 +1056,13 @@ func PossibleNetworkAccessPolicyValues() []NetworkAccessPolicy {
 	}
 }
 
-// OperatingSystemStateTypes - This property allows the user to specify whether the virtual machines created under this image
-// are 'Generalized' or 'Specialized'.
+// OperatingSystemStateTypes - The OS State.
 type OperatingSystemStateTypes string
 
 const (
+	// OperatingSystemStateTypesGeneralized - Generalized image. Needs to be provisioned during deployment time.
 	OperatingSystemStateTypesGeneralized OperatingSystemStateTypes = "Generalized"
+	// OperatingSystemStateTypesSpecialized - Specialized image. Contains already provisioned OS Disk.
 	OperatingSystemStateTypesSpecialized OperatingSystemStateTypes = "Specialized"
 )
 
@@ -1070,7 +1090,8 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 	}
 }
 
-// OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
+// OperatingSystemTypes - This property allows you to specify the type of the OS that is included in the disk if creating
+// a VM from user-image or a specialized VHD.
 // Possible values are:
 // Windows
 // Linux
@@ -1214,6 +1235,26 @@ func PossiblePatchOperationStatusValues() []PatchOperationStatus {
 		PatchOperationStatusInProgress,
 		PatchOperationStatusSucceeded,
 		PatchOperationStatusUnknown,
+	}
+}
+
+// PolicyViolationCategory - Describes the nature of the policy violation.
+type PolicyViolationCategory string
+
+const (
+	PolicyViolationCategoryCopyrightValidation PolicyViolationCategory = "CopyrightValidation"
+	PolicyViolationCategoryIPTheft             PolicyViolationCategory = "IpTheft"
+	PolicyViolationCategoryImageFlaggedUnsafe  PolicyViolationCategory = "ImageFlaggedUnsafe"
+	PolicyViolationCategoryOther               PolicyViolationCategory = "Other"
+)
+
+// PossiblePolicyViolationCategoryValues returns the possible values for the PolicyViolationCategory const type.
+func PossiblePolicyViolationCategoryValues() []PolicyViolationCategory {
+	return []PolicyViolationCategory{
+		PolicyViolationCategoryCopyrightValidation,
+		PolicyViolationCategoryIPTheft,
+		PolicyViolationCategoryImageFlaggedUnsafe,
+		PolicyViolationCategoryOther,
 	}
 }
 
