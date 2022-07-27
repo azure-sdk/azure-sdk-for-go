@@ -1,5 +1,26 @@
 # Release History
 
+## 2.0.0-beta.3 (2022-07-27)
+### Features Added
+
+- New const `ControlledValuesRequestsOnly`
+- New const `UpdateModeRecreate`
+- New const `UpdateModeAuto`
+- New const `UpdateModeInitial`
+- New const `UpdateModeOff`
+- New const `ControlledValuesRequestsAndLimits`
+- New function `*AgentPoolsClient.AbortLatestOperation(context.Context, string, string, string, *AgentPoolsClientAbortLatestOperationOptions) (AgentPoolsClientAbortLatestOperationResponse, error)`
+- New function `PossibleControlledValuesValues() []ControlledValues`
+- New function `PossibleUpdateModeValues() []UpdateMode`
+- New function `*ManagedClustersClient.AbortLatestOperation(context.Context, string, string, *ManagedClustersClientAbortLatestOperationOptions) (ManagedClustersClientAbortLatestOperationResponse, error)`
+- New struct `AgentPoolsClientAbortLatestOperationOptions`
+- New struct `AgentPoolsClientAbortLatestOperationResponse`
+- New struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler`
+- New struct `ManagedClustersClientAbortLatestOperationOptions`
+- New struct `ManagedClustersClientAbortLatestOperationResponse`
+- New field `VerticalPodAutoscaler` in struct `ManagedClusterWorkloadAutoScalerProfile`
+
+
 ## 2.0.0 (2022-07-22)
 ### Breaking Changes
 
