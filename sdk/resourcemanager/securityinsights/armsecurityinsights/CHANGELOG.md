@@ -1,5 +1,96 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-07-29)
+### Breaking Changes
+
+- Function `*AutomationRulesClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *AutomationRulesClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, AutomationRule, *AutomationRulesClientCreateOrUpdateOptions)`
+- Function `*SentinelOnboardingStatesClient.Create` parameter(s) have been changed from `(context.Context, string, string, string, *SentinelOnboardingStatesClientCreateOptions)` to `(context.Context, string, string, string, SentinelOnboardingState, *SentinelOnboardingStatesClientCreateOptions)`
+- Type of `GetInsightsResultsMetadata.Errors` has been changed from `[]*GetInsightsErrorKind` to `[]*GetInsightsError`
+- Const `AutomationRulePropertyChangedConditionSupportedChangedTypeChangedFrom` has been removed
+- Const `SettingsStatusProduction` has been removed
+- Const `SecurityMLAnalyticsSettingsKindAnomaly` has been removed
+- Const `AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentSeverity` has been removed
+- Const `AutomationRulePropertyArrayChangedConditionSupportedArrayTypeTactics` has been removed
+- Const `ConditionTypePropertyArrayChanged` has been removed
+- Const `GetInsightsErrorInsight` has been removed
+- Const `ConditionTypePropertyChanged` has been removed
+- Const `AutomationRulePropertyArrayChangedConditionSupportedChangeTypeAdded` has been removed
+- Const `SettingsStatusFlighting` has been removed
+- Const `AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentStatus` has been removed
+- Const `AutomationRulePropertyArrayChangedConditionSupportedArrayTypeLabels` has been removed
+- Const `EntityTimelineKindAnomaly` has been removed
+- Const `AutomationRulePropertyChangedConditionSupportedChangedTypeChangedTo` has been removed
+- Const `AutomationRulePropertyChangedConditionSupportedPropertyTypeIncidentOwner` has been removed
+- Const `TriggersWhenUpdated` has been removed
+- Const `AutomationRulePropertyArrayChangedConditionSupportedArrayTypeAlerts` has been removed
+- Const `AutomationRulePropertyArrayChangedConditionSupportedArrayTypeComments` has been removed
+- Function `*PropertyArrayChangedConditionProperties.GetAutomationRuleCondition` has been removed
+- Function `*AnomalySecurityMLAnalyticsSettings.GetSecurityMLAnalyticsSetting` has been removed
+- Function `*SecurityMLAnalyticsSettingsClient.NewListPager` has been removed
+- Function `PossibleSettingsStatusValues` has been removed
+- Function `*SecurityMLAnalyticsSettingsClient.CreateOrUpdate` has been removed
+- Function `PossibleAutomationRulePropertyChangedConditionSupportedChangedTypeValues` has been removed
+- Function `PossibleSecurityMLAnalyticsSettingsKindValues` has been removed
+- Function `*SecurityMLAnalyticsSetting.GetSecurityMLAnalyticsSetting` has been removed
+- Function `*AnomalyTimelineItem.GetEntityTimelineItem` has been removed
+- Function `NewSecurityMLAnalyticsSettingsClient` has been removed
+- Function `PossibleGetInsightsErrorValues` has been removed
+- Function `PossibleAutomationRulePropertyChangedConditionSupportedPropertyTypeValues` has been removed
+- Function `PossibleAutomationRulePropertyArrayChangedConditionSupportedChangeTypeValues` has been removed
+- Function `*SecurityMLAnalyticsSettingsClient.Get` has been removed
+- Function `PossibleAutomationRulePropertyArrayChangedConditionSupportedArrayTypeValues` has been removed
+- Function `*SecurityMLAnalyticsSettingsClient.Delete` has been removed
+- Function `*PropertyChangedConditionProperties.GetAutomationRuleCondition` has been removed
+- Struct `AnomalySecurityMLAnalyticsSettings` has been removed
+- Struct `AnomalySecurityMLAnalyticsSettingsProperties` has been removed
+- Struct `AnomalyTimelineItem` has been removed
+- Struct `AutomationRulePropertyArrayChangedValuesCondition` has been removed
+- Struct `AutomationRulePropertyValuesChangedCondition` has been removed
+- Struct `GetInsightsErrorKind` has been removed
+- Struct `PropertyArrayChangedConditionProperties` has been removed
+- Struct `PropertyChangedConditionProperties` has been removed
+- Struct `SecurityMLAnalyticsSetting` has been removed
+- Struct `SecurityMLAnalyticsSettingsClient` has been removed
+- Struct `SecurityMLAnalyticsSettingsClientCreateOrUpdateOptions` has been removed
+- Struct `SecurityMLAnalyticsSettingsClientCreateOrUpdateResponse` has been removed
+- Struct `SecurityMLAnalyticsSettingsClientDeleteOptions` has been removed
+- Struct `SecurityMLAnalyticsSettingsClientDeleteResponse` has been removed
+- Struct `SecurityMLAnalyticsSettingsClientGetOptions` has been removed
+- Struct `SecurityMLAnalyticsSettingsClientGetResponse` has been removed
+- Struct `SecurityMLAnalyticsSettingsClientListOptions` has been removed
+- Struct `SecurityMLAnalyticsSettingsClientListResponse` has been removed
+- Struct `SecurityMLAnalyticsSettingsDataSource` has been removed
+- Struct `SecurityMLAnalyticsSettingsList` has been removed
+- Field `AutomationRuleToUpsert` of struct `AutomationRulesClientCreateOrUpdateOptions` has been removed
+- Field `SentinelOnboardingStateParameter` of struct `SentinelOnboardingStatesClientCreateOptions` has been removed
+
+### Features Added
+
+- New const `OverviewSectionKindIncidents`
+- New const `OverviewSectionKindAnalytics`
+- New const `GetInsightsErrorKindInsight`
+- New const `OverviewSectionKindDataConnectors`
+- New const `OverviewSectionKindAutomation`
+- New function `PossibleGetInsightsErrorKindValues() []GetInsightsErrorKind`
+- New function `NewOverviewClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OverviewClient, error)`
+- New function `*OverviewClient.List(context.Context, string, string, *OverviewClientListOptions) (OverviewClientListResponse, error)`
+- New function `PossibleOverviewSectionKindValues() []OverviewSectionKind`
+- New struct `AnalyticsSection`
+- New struct `AnalyticsSectionData`
+- New struct `AutomationSection`
+- New struct `AutomationSectionData`
+- New struct `DataConnectorsSection`
+- New struct `DataConnectorsSectionData`
+- New struct `GetInsightsError`
+- New struct `IncidentsSection`
+- New struct `IncidentsSectionData`
+- New struct `MeanTimeToAction`
+- New struct `OverviewClient`
+- New struct `OverviewClientListOptions`
+- New struct `OverviewClientListResponse`
+- New struct `OverviewSection`
+
+
 ## 2.0.0-beta.1 (2022-05-24)
 ### Breaking Changes
 
