@@ -3448,7 +3448,7 @@ type ImageListResult struct {
 
 // ImageOSDisk - Describes an Operating System disk.
 type ImageOSDisk struct {
-	// REQUIRED; The OS State.
+	// REQUIRED; The OS State. For managed images, use Generalized.
 	OSState *OperatingSystemStateTypes `json:"osState,omitempty"`
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk if creating a VM from a custom
@@ -4406,6 +4406,17 @@ type Plan struct {
 
 	// The publisher ID.
 	Publisher *string `json:"publisher,omitempty"`
+}
+
+// PriorityMixPolicy - Specifies the target splits for Spot and Regular priority VMs within a scale set with flexible orchestration
+// mode.
+type PriorityMixPolicy struct {
+	// The base number of regular priority VM's that will be created in this scale set as it scales out.
+	BaseRegularPriorityCount *int32 `json:"baseRegularPriorityCount,omitempty"`
+
+	// The percentage of VM instances, after the base regular priority count has been reached, that are expected to use regular
+	// priority.
+	RegularPriorityPercentageAboveBase *int32 `json:"regularPriorityPercentageAboveBase,omitempty"`
 }
 
 // PrivateEndpoint - The Private Endpoint resource.
@@ -5896,7 +5907,7 @@ type SharedGalleryOSDiskImage struct {
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
-	CommunityGalleryInfo interface{} `json:"communityGalleryInfo,omitempty"`
+	CommunityGalleryInfo *CommunityGalleryInfo `json:"communityGalleryInfo,omitempty"`
 
 	// This property allows you to specify the permission of sharing gallery.
 	// Possible values are:
@@ -8269,6 +8280,9 @@ type VirtualMachineScaleSetProperties struct {
 
 	// Fault Domain count for each placement group.
 	PlatformFaultDomainCount *int32 `json:"platformFaultDomainCount,omitempty"`
+
+	// Specifies the desired targets for mixing Spot and Regular priority VMs within the same VMSS Flex instance.
+	PriorityMixPolicy *PriorityMixPolicy `json:"priorityMixPolicy,omitempty"`
 
 	// Specifies information about the proximity placement group that the virtual machine scale set should be assigned to.
 	// Minimum api-version: 2018-04-01.
