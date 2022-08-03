@@ -1,5 +1,11 @@
 # Release History
 
+## 4.0.0 (2022-08-03)
+### Breaking Changes
+
+- Type of `SharingProfile.CommunityGalleryInfo` has been changed from `interface{}` to `*CommunityGalleryInfo`
+
+
 ## 3.0.1 (2022-07-29)
 ### Other Changes
 - Fix wrong module import for live test
