@@ -522,7 +522,7 @@ type CapacityReservationProperties struct {
 	ReservationID *string `json:"reservationId,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Capacity Reservation resource was created.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; A list of all virtual machine resource ids that are associated with the capacity reservation.
@@ -1629,7 +1629,7 @@ type DedicatedHostProperties struct {
 	ProvisioningTime *time.Time `json:"provisioningTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Dedicated Host resource was created.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; A list of references to all virtual machines in the Dedicated Host.
@@ -3448,7 +3448,7 @@ type ImageListResult struct {
 
 // ImageOSDisk - Describes an Operating System disk.
 type ImageOSDisk struct {
-	// REQUIRED; The OS State.
+	// REQUIRED; The OS State. For managed images, use Generalized.
 	OSState *OperatingSystemStateTypes `json:"osState,omitempty"`
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk if creating a VM from a custom
@@ -5896,7 +5896,7 @@ type SharedGalleryOSDiskImage struct {
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
-	CommunityGalleryInfo interface{} `json:"communityGalleryInfo,omitempty"`
+	CommunityGalleryInfo *CommunityGalleryInfo `json:"communityGalleryInfo,omitempty"`
 
 	// This property allows you to specify the permission of sharing gallery.
 	// Possible values are:
@@ -6845,7 +6845,7 @@ type VirtualMachineExtensionProperties struct {
 	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
 
 	// The extensions protected settings that are passed by reference, and consumed from key vault
-	ProtectedSettingsFromKeyVault interface{} `json:"protectedSettingsFromKeyVault,omitempty"`
+	ProtectedSettingsFromKeyVault *KeyVaultSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
 
 	// The name of the extension handler publisher.
 	Publisher *string `json:"publisher,omitempty"`
@@ -6894,7 +6894,7 @@ type VirtualMachineExtensionUpdateProperties struct {
 	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
 
 	// The extensions protected settings that are passed by reference, and consumed from key vault
-	ProtectedSettingsFromKeyVault interface{} `json:"protectedSettingsFromKeyVault,omitempty"`
+	ProtectedSettingsFromKeyVault *KeyVaultSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
 
 	// The name of the extension handler publisher.
 	Publisher *string `json:"publisher,omitempty"`
@@ -7470,7 +7470,7 @@ type VirtualMachineProperties struct {
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Virtual Machine resource was created.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the VM unique ID which is a 128-bits identifier that is encoded and stored in all Azure IaaS VMs SMBIOS
@@ -7836,7 +7836,7 @@ type VirtualMachineScaleSetExtensionProperties struct {
 	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
 
 	// The extensions protected settings that are passed by reference, and consumed from key vault
-	ProtectedSettingsFromKeyVault interface{} `json:"protectedSettingsFromKeyVault,omitempty"`
+	ProtectedSettingsFromKeyVault *KeyVaultSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
 
 	// Collection of extension names after which this extension needs to be provisioned.
 	ProvisionAfterExtensions []*string `json:"provisionAfterExtensions,omitempty"`
@@ -7912,7 +7912,7 @@ type VirtualMachineScaleSetExtensionsClientListOptions struct {
 
 // VirtualMachineScaleSetHardwareProfile - Specifies the hardware settings for the virtual machine scale set.
 type VirtualMachineScaleSetHardwareProfile struct {
-	// Specifies the properties for customizing the size of the virtual machine. Minimum api-version: 2022-03-01.
+	// Specifies the properties for customizing the size of the virtual machine. Minimum api-version: 2021-11-01.
 	// Please follow the instructions in VM Customization [https://aka.ms/vmcustomization] for more details.
 	VMSizeProperties *VMSizeProperties `json:"vmSizeProperties,omitempty"`
 }
@@ -8300,7 +8300,7 @@ type VirtualMachineScaleSetProperties struct {
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Virtual Machine Scale Set resource was created.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the ID which uniquely identifies a Virtual Machine Scale Set.
@@ -8931,7 +8931,7 @@ type VirtualMachineScaleSetVMProfile struct {
 	ExtensionProfile *VirtualMachineScaleSetExtensionProfile `json:"extensionProfile,omitempty"`
 
 	// Specifies the hardware profile related details of a scale set.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	HardwareProfile *VirtualMachineScaleSetHardwareProfile `json:"hardwareProfile,omitempty"`
 
 	// Specifies that the image or disk that is being used was licensed on-premises.
