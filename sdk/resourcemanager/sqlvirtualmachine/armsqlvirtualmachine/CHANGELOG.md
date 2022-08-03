@@ -1,5 +1,21 @@
 # Release History
 
+## 1.0.0 (2022-08-03)
+### Features Added
+
+- New const `ClusterSubnetTypeMultiSubnet`
+- New const `ClusterSubnetTypeSingleSubnet`
+- New function `PossibleClusterSubnetTypeValues() []ClusterSubnetType`
+- New struct `MultiSubnetIPConfiguration`
+- New field `MultiSubnetIPConfigurations` in struct `AvailabilityGroupListenerProperties`
+- New field `IsIfiEnabled` in struct `SQLInstanceSettings`
+- New field `IsLpimEnabled` in struct `SQLInstanceSettings`
+- New field `WsfcStaticIP` in struct `Properties`
+- New field `PersistFolderPath` in struct `SQLTempDbSettings`
+- New field `PersistFolder` in struct `SQLTempDbSettings`
+- New field `ClusterSubnetType` in struct `WsfcDomainProfile`
+
+
 ## 0.6.0 (2022-06-02)
 ### Breaking Changes
 
