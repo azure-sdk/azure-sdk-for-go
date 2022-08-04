@@ -1,5 +1,33 @@
 # Release History
 
+## 2.0.0-beta.3 (2022-08-04)
+### Features Added
+
+- New const `ControlledValuesRequestsOnly`
+- New const `UpdateModeRecreate`
+- New const `UpdateModeOff`
+- New const `PublicNetworkAccessSecuredByPerimeter`
+- New const `UpdateModeAuto`
+- New const `UpdateModeInitial`
+- New const `ControlledValuesRequestsAndLimits`
+- New function `*AgentPoolsClient.AbortLatestOperation(context.Context, string, string, string, *AgentPoolsClientAbortLatestOperationOptions) (AgentPoolsClientAbortLatestOperationResponse, error)`
+- New function `PossibleControlledValuesValues() []ControlledValues`
+- New function `*ManagedClustersClient.AbortLatestOperation(context.Context, string, string, *ManagedClustersClientAbortLatestOperationOptions) (ManagedClustersClientAbortLatestOperationResponse, error)`
+- New function `PossibleUpdateModeValues() []UpdateMode`
+- New struct `AgentPoolsClientAbortLatestOperationOptions`
+- New struct `AgentPoolsClientAbortLatestOperationResponse`
+- New struct `ManagedClusterAzureMonitorProfile`
+- New struct `ManagedClusterAzureMonitorProfileKubeStateMetrics`
+- New struct `ManagedClusterAzureMonitorProfileMetrics`
+- New struct `ManagedClusterSecurityProfileImageCleaner`
+- New struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler`
+- New struct `ManagedClustersClientAbortLatestOperationOptions`
+- New struct `ManagedClustersClientAbortLatestOperationResponse`
+- New field `ImageCleaner` in struct `ManagedClusterSecurityProfile`
+- New field `VerticalPodAutoscaler` in struct `ManagedClusterWorkloadAutoScalerProfile`
+- New field `AzureMonitorProfile` in struct `ManagedClusterProperties`
+
+
 ## 2.0.0 (2022-07-22)
 ### Breaking Changes
 
