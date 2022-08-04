@@ -1,5 +1,195 @@
 # Release History
 
+## 2.0.0-beta.1 (2022-08-04)
+### Breaking Changes
+
+- Const `PropertyChangeTypeRemove` has been removed
+- Const `ChangeCategoryUser` has been removed
+- Const `ChangeCategorySystem` has been removed
+- Const `ChangeTypeUpdate` has been removed
+- Const `ChangeTypeDelete` has been removed
+- Const `ChangeTypeCreate` has been removed
+- Const `PropertyChangeTypeUpdate` has been removed
+- Const `PropertyChangeTypeInsert` has been removed
+- Function `PossiblePropertyChangeTypeValues` has been removed
+- Function `NewClient` has been removed
+- Function `*Client.Get` has been removed
+- Function `*Client.NewListPager` has been removed
+- Function `PossibleChangeCategoryValues` has been removed
+- Function `PossibleChangeTypeValues` has been removed
+- Struct `ChangeAttributes` has been removed
+- Struct `ChangeBase` has been removed
+- Struct `ChangeProperties` has been removed
+- Struct `ChangeResourceListResult` has been removed
+- Struct `ChangeResourceResult` has been removed
+- Struct `Client` has been removed
+- Struct `ClientGetOptions` has been removed
+- Struct `ClientGetResponse` has been removed
+- Struct `ClientListOptions` has been removed
+- Struct `ClientListResponse` has been removed
+- Struct `ErrorDetail` has been removed
+- Struct `Resource` has been removed
+- Field `Error` of struct `ErrorResponse` has been removed
+
+### Features Added
+
+- New const `ParameterTypeDateTime`
+- New const `ParameterTypeInteger`
+- New const `ParameterTypeString`
+- New const `EnforcementModeDefault`
+- New const `EnforcementModeDoNotEnforce`
+- New const `CreatedByTypeUser`
+- New const `ParameterTypeArray`
+- New const `ResourceIdentityTypeUserAssigned`
+- New const `CreatedByTypeManagedIdentity`
+- New const `ResourceIdentityTypeSystemAssigned`
+- New const `ParameterTypeFloat`
+- New const `ResourceIdentityTypeNone`
+- New const `ParameterTypeObject`
+- New const `PolicyTypeStatic`
+- New const `PolicyTypeBuiltIn`
+- New const `CreatedByTypeKey`
+- New const `ParameterTypeBoolean`
+- New const `PolicyTypeNotSpecified`
+- New const `CreatedByTypeApplication`
+- New const `PolicyTypeCustom`
+- New function `*PolicyDefinitionsClient.NewListByManagementGroupPager(string, *PolicyDefinitionsClientListByManagementGroupOptions) *runtime.Pager[PolicyDefinitionsClientListByManagementGroupResponse]`
+- New function `PossiblePolicyTypeValues() []PolicyType`
+- New function `timeRFC3339.MarshalText() ([]byte, error)`
+- New function `*PolicySetDefinitionsClient.GetAtManagementGroup(context.Context, string, string, *PolicySetDefinitionsClientGetAtManagementGroupOptions) (PolicySetDefinitionsClientGetAtManagementGroupResponse, error)`
+- New function `*PolicyAssignmentsClient.GetByID(context.Context, string, *PolicyAssignmentsClientGetByIDOptions) (PolicyAssignmentsClientGetByIDResponse, error)`
+- New function `*PolicySetDefinitionsClient.CreateOrUpdate(context.Context, string, PolicySetDefinition, *PolicySetDefinitionsClientCreateOrUpdateOptions) (PolicySetDefinitionsClientCreateOrUpdateResponse, error)`
+- New function `*timeRFC3339.UnmarshalText([]byte) error`
+- New function `*PolicyAssignmentsClient.Delete(context.Context, string, string, *PolicyAssignmentsClientDeleteOptions) (PolicyAssignmentsClientDeleteResponse, error)`
+- New function `*PolicyDefinitionsClient.NewListBuiltInPager(*PolicyDefinitionsClientListBuiltInOptions) *runtime.Pager[PolicyDefinitionsClientListBuiltInResponse]`
+- New function `*PolicyAssignmentsClient.NewListPager(*PolicyAssignmentsClientListOptions) *runtime.Pager[PolicyAssignmentsClientListResponse]`
+- New function `*PolicyAssignmentsClient.Update(context.Context, string, string, PolicyAssignmentUpdate, *PolicyAssignmentsClientUpdateOptions) (PolicyAssignmentsClientUpdateResponse, error)`
+- New function `PossibleResourceIdentityTypeValues() []ResourceIdentityType`
+- New function `*PolicySetDefinitionsClient.Get(context.Context, string, *PolicySetDefinitionsClientGetOptions) (PolicySetDefinitionsClientGetResponse, error)`
+- New function `*PolicyAssignmentsClient.CreateByID(context.Context, string, PolicyAssignment, *PolicyAssignmentsClientCreateByIDOptions) (PolicyAssignmentsClientCreateByIDResponse, error)`
+- New function `PossibleParameterTypeValues() []ParameterType`
+- New function `*PolicyDefinitionsClient.GetBuiltIn(context.Context, string, *PolicyDefinitionsClientGetBuiltInOptions) (PolicyDefinitionsClientGetBuiltInResponse, error)`
+- New function `*PolicyAssignmentsClient.NewListForManagementGroupPager(string, *PolicyAssignmentsClientListForManagementGroupOptions) *runtime.Pager[PolicyAssignmentsClientListForManagementGroupResponse]`
+- New function `*PolicySetDefinitionsClient.NewListBuiltInPager(*PolicySetDefinitionsClientListBuiltInOptions) *runtime.Pager[PolicySetDefinitionsClientListBuiltInResponse]`
+- New function `*PolicyDefinitionsClient.CreateOrUpdateAtManagementGroup(context.Context, string, string, PolicyDefinition, *PolicyDefinitionsClientCreateOrUpdateAtManagementGroupOptions) (PolicyDefinitionsClientCreateOrUpdateAtManagementGroupResponse, error)`
+- New function `*PolicyAssignmentsClient.UpdateByID(context.Context, string, PolicyAssignmentUpdate, *PolicyAssignmentsClientUpdateByIDOptions) (PolicyAssignmentsClientUpdateByIDResponse, error)`
+- New function `*PolicyDefinitionsClient.DeleteAtManagementGroup(context.Context, string, string, *PolicyDefinitionsClientDeleteAtManagementGroupOptions) (PolicyDefinitionsClientDeleteAtManagementGroupResponse, error)`
+- New function `*PolicyDefinitionsClient.CreateOrUpdate(context.Context, string, PolicyDefinition, *PolicyDefinitionsClientCreateOrUpdateOptions) (PolicyDefinitionsClientCreateOrUpdateResponse, error)`
+- New function `*PolicyDefinitionsClient.Delete(context.Context, string, *PolicyDefinitionsClientDeleteOptions) (PolicyDefinitionsClientDeleteResponse, error)`
+- New function `PossibleEnforcementModeValues() []EnforcementMode`
+- New function `*PolicySetDefinitionsClient.DeleteAtManagementGroup(context.Context, string, string, *PolicySetDefinitionsClientDeleteAtManagementGroupOptions) (PolicySetDefinitionsClientDeleteAtManagementGroupResponse, error)`
+- New function `*PolicyAssignmentsClient.Get(context.Context, string, string, *PolicyAssignmentsClientGetOptions) (PolicyAssignmentsClientGetResponse, error)`
+- New function `*PolicySetDefinitionsClient.CreateOrUpdateAtManagementGroup(context.Context, string, string, PolicySetDefinition, *PolicySetDefinitionsClientCreateOrUpdateAtManagementGroupOptions) (PolicySetDefinitionsClientCreateOrUpdateAtManagementGroupResponse, error)`
+- New function `*PolicyDefinitionsClient.GetAtManagementGroup(context.Context, string, string, *PolicyDefinitionsClientGetAtManagementGroupOptions) (PolicyDefinitionsClientGetAtManagementGroupResponse, error)`
+- New function `NewPolicyAssignmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PolicyAssignmentsClient, error)`
+- New function `*PolicyAssignmentsClient.DeleteByID(context.Context, string, *PolicyAssignmentsClientDeleteByIDOptions) (PolicyAssignmentsClientDeleteByIDResponse, error)`
+- New function `*timeRFC3339.Parse(string) error`
+- New function `*PolicySetDefinitionsClient.Delete(context.Context, string, *PolicySetDefinitionsClientDeleteOptions) (PolicySetDefinitionsClientDeleteResponse, error)`
+- New function `*PolicyAssignmentsClient.NewListForResourcePager(string, string, string, string, string, *PolicyAssignmentsClientListForResourceOptions) *runtime.Pager[PolicyAssignmentsClientListForResourceResponse]`
+- New function `*PolicyDefinitionsClient.NewListPager(*PolicyDefinitionsClientListOptions) *runtime.Pager[PolicyDefinitionsClientListResponse]`
+- New function `*PolicySetDefinitionsClient.NewListPager(*PolicySetDefinitionsClientListOptions) *runtime.Pager[PolicySetDefinitionsClientListResponse]`
+- New function `*PolicyDefinitionsClient.Get(context.Context, string, *PolicyDefinitionsClientGetOptions) (PolicyDefinitionsClientGetResponse, error)`
+- New function `PossibleCreatedByTypeValues() []CreatedByType`
+- New function `*PolicyAssignmentsClient.Create(context.Context, string, string, PolicyAssignment, *PolicyAssignmentsClientCreateOptions) (PolicyAssignmentsClientCreateResponse, error)`
+- New function `NewPolicyDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PolicyDefinitionsClient, error)`
+- New function `NewPolicySetDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PolicySetDefinitionsClient, error)`
+- New function `*PolicySetDefinitionsClient.NewListByManagementGroupPager(string, *PolicySetDefinitionsClientListByManagementGroupOptions) *runtime.Pager[PolicySetDefinitionsClientListByManagementGroupResponse]`
+- New function `*PolicyAssignmentsClient.NewListForResourceGroupPager(string, *PolicyAssignmentsClientListForResourceGroupOptions) *runtime.Pager[PolicyAssignmentsClientListForResourceGroupResponse]`
+- New function `*PolicySetDefinitionsClient.GetBuiltIn(context.Context, string, *PolicySetDefinitionsClientGetBuiltInOptions) (PolicySetDefinitionsClientGetBuiltInResponse, error)`
+- New struct `CloudError`
+- New struct `Identity`
+- New struct `NonComplianceMessage`
+- New struct `ParameterDefinitionsValue`
+- New struct `ParameterDefinitionsValueMetadata`
+- New struct `ParameterValuesValue`
+- New struct `PolicyAssignment`
+- New struct `PolicyAssignmentListResult`
+- New struct `PolicyAssignmentProperties`
+- New struct `PolicyAssignmentUpdate`
+- New struct `PolicyAssignmentsClient`
+- New struct `PolicyAssignmentsClientCreateByIDOptions`
+- New struct `PolicyAssignmentsClientCreateByIDResponse`
+- New struct `PolicyAssignmentsClientCreateOptions`
+- New struct `PolicyAssignmentsClientCreateResponse`
+- New struct `PolicyAssignmentsClientDeleteByIDOptions`
+- New struct `PolicyAssignmentsClientDeleteByIDResponse`
+- New struct `PolicyAssignmentsClientDeleteOptions`
+- New struct `PolicyAssignmentsClientDeleteResponse`
+- New struct `PolicyAssignmentsClientGetByIDOptions`
+- New struct `PolicyAssignmentsClientGetByIDResponse`
+- New struct `PolicyAssignmentsClientGetOptions`
+- New struct `PolicyAssignmentsClientGetResponse`
+- New struct `PolicyAssignmentsClientListForManagementGroupOptions`
+- New struct `PolicyAssignmentsClientListForManagementGroupResponse`
+- New struct `PolicyAssignmentsClientListForResourceGroupOptions`
+- New struct `PolicyAssignmentsClientListForResourceGroupResponse`
+- New struct `PolicyAssignmentsClientListForResourceOptions`
+- New struct `PolicyAssignmentsClientListForResourceResponse`
+- New struct `PolicyAssignmentsClientListOptions`
+- New struct `PolicyAssignmentsClientListResponse`
+- New struct `PolicyAssignmentsClientUpdateByIDOptions`
+- New struct `PolicyAssignmentsClientUpdateByIDResponse`
+- New struct `PolicyAssignmentsClientUpdateOptions`
+- New struct `PolicyAssignmentsClientUpdateResponse`
+- New struct `PolicyDefinition`
+- New struct `PolicyDefinitionGroup`
+- New struct `PolicyDefinitionListResult`
+- New struct `PolicyDefinitionProperties`
+- New struct `PolicyDefinitionReference`
+- New struct `PolicyDefinitionsClient`
+- New struct `PolicyDefinitionsClientCreateOrUpdateAtManagementGroupOptions`
+- New struct `PolicyDefinitionsClientCreateOrUpdateAtManagementGroupResponse`
+- New struct `PolicyDefinitionsClientCreateOrUpdateOptions`
+- New struct `PolicyDefinitionsClientCreateOrUpdateResponse`
+- New struct `PolicyDefinitionsClientDeleteAtManagementGroupOptions`
+- New struct `PolicyDefinitionsClientDeleteAtManagementGroupResponse`
+- New struct `PolicyDefinitionsClientDeleteOptions`
+- New struct `PolicyDefinitionsClientDeleteResponse`
+- New struct `PolicyDefinitionsClientGetAtManagementGroupOptions`
+- New struct `PolicyDefinitionsClientGetAtManagementGroupResponse`
+- New struct `PolicyDefinitionsClientGetBuiltInOptions`
+- New struct `PolicyDefinitionsClientGetBuiltInResponse`
+- New struct `PolicyDefinitionsClientGetOptions`
+- New struct `PolicyDefinitionsClientGetResponse`
+- New struct `PolicyDefinitionsClientListBuiltInOptions`
+- New struct `PolicyDefinitionsClientListBuiltInResponse`
+- New struct `PolicyDefinitionsClientListByManagementGroupOptions`
+- New struct `PolicyDefinitionsClientListByManagementGroupResponse`
+- New struct `PolicyDefinitionsClientListOptions`
+- New struct `PolicyDefinitionsClientListResponse`
+- New struct `PolicySetDefinition`
+- New struct `PolicySetDefinitionListResult`
+- New struct `PolicySetDefinitionProperties`
+- New struct `PolicySetDefinitionsClient`
+- New struct `PolicySetDefinitionsClientCreateOrUpdateAtManagementGroupOptions`
+- New struct `PolicySetDefinitionsClientCreateOrUpdateAtManagementGroupResponse`
+- New struct `PolicySetDefinitionsClientCreateOrUpdateOptions`
+- New struct `PolicySetDefinitionsClientCreateOrUpdateResponse`
+- New struct `PolicySetDefinitionsClientDeleteAtManagementGroupOptions`
+- New struct `PolicySetDefinitionsClientDeleteAtManagementGroupResponse`
+- New struct `PolicySetDefinitionsClientDeleteOptions`
+- New struct `PolicySetDefinitionsClientDeleteResponse`
+- New struct `PolicySetDefinitionsClientGetAtManagementGroupOptions`
+- New struct `PolicySetDefinitionsClientGetAtManagementGroupResponse`
+- New struct `PolicySetDefinitionsClientGetBuiltInOptions`
+- New struct `PolicySetDefinitionsClientGetBuiltInResponse`
+- New struct `PolicySetDefinitionsClientGetOptions`
+- New struct `PolicySetDefinitionsClientGetResponse`
+- New struct `PolicySetDefinitionsClientListBuiltInOptions`
+- New struct `PolicySetDefinitionsClientListBuiltInResponse`
+- New struct `PolicySetDefinitionsClientListByManagementGroupOptions`
+- New struct `PolicySetDefinitionsClientListByManagementGroupResponse`
+- New struct `PolicySetDefinitionsClientListOptions`
+- New struct `PolicySetDefinitionsClientListResponse`
+- New struct `SystemData`
+- New struct `UserAssignedIdentitiesValue`
+- New field `Code` in struct `ErrorResponse`
+- New field `Details` in struct `ErrorResponse`
+- New field `Message` in struct `ErrorResponse`
+- New field `Target` in struct `ErrorResponse`
+- New field `AdditionalInfo` in struct `ErrorResponse`
+
+
 ## 1.0.0 (2022-05-16)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armchanges` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
