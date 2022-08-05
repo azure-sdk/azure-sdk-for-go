@@ -5203,8 +5203,8 @@ type ExclusionManagedRuleSet struct {
 	RuleGroups []*ExclusionManagedRuleGroup `json:"ruleGroups,omitempty"`
 }
 
-// ExplicitProxySettings - Explicit Proxy Settings in Firewall Policy.
-type ExplicitProxySettings struct {
+// ExplicitProxy - Explicit Proxy Settings in Firewall Policy.
+type ExplicitProxy struct {
 	// When set to true, explicit proxy mode is enabled.
 	EnableExplicitProxy *bool `json:"enableExplicitProxy,omitempty"`
 
@@ -5802,6 +5802,10 @@ type ExpressRouteConnectionProperties struct {
 	// Enable internet security.
 	EnableInternetSecurity *bool `json:"enableInternetSecurity,omitempty"`
 
+	// Bypass the ExpressRoute gateway when accessing private-links. ExpressRoute FastPath (expressRouteGatewayBypass) must be
+	// enabled.
+	EnablePrivateLinkFastPath *bool `json:"enablePrivateLinkFastPath,omitempty"`
+
 	// Enable FastPath to vWan Firewall hub.
 	ExpressRouteGatewayBypass *bool `json:"expressRouteGatewayBypass,omitempty"`
 
@@ -6227,6 +6231,9 @@ type ExpressRouteLinkPropertiesFormat struct {
 	// MacSec configuration.
 	MacSecConfig *ExpressRouteLinkMacSecConfig `json:"macSecConfig,omitempty"`
 
+	// READ-ONLY; Cololocation for ExpressRoute Hybrid Direct.
+	ColoLocation *string `json:"coloLocation,omitempty" azure:"ro"`
+
 	// READ-ONLY; Physical fiber port type.
 	ConnectorType *ExpressRouteLinkConnectorType `json:"connectorType,omitempty" azure:"ro"`
 
@@ -6364,6 +6371,9 @@ type ExpressRoutePortListResult struct {
 type ExpressRoutePortPropertiesFormat struct {
 	// Bandwidth of procured ports in Gbps.
 	BandwidthInGbps *int32 `json:"bandwidthInGbps,omitempty"`
+
+	// The billing type of the ExpressRoutePort resource.
+	BillingType *ExpressRoutePortsBillingType `json:"billingType,omitempty"`
 
 	// Encapsulation method on physical ports.
 	Encapsulation *ExpressRoutePortsEncapsulation `json:"encapsulation,omitempty"`
@@ -6924,7 +6934,7 @@ type FirewallPolicyPropertiesFormat struct {
 	DNSSettings *DNSSettings `json:"dnsSettings,omitempty"`
 
 	// Explicit Proxy Settings definition.
-	ExplicitProxySettings *ExplicitProxySettings `json:"explicitProxySettings,omitempty"`
+	ExplicitProxy *ExplicitProxy `json:"explicitProxy,omitempty"`
 
 	// Insights on Firewall Policy.
 	Insights *FirewallPolicyInsights `json:"insights,omitempty"`
@@ -8501,6 +8511,9 @@ type InterfacePropertiesFormat struct {
 	// The DNS settings in network interface.
 	DNSSettings *InterfaceDNSSettings `json:"dnsSettings,omitempty"`
 
+	// Indicates whether to disable tcp state tracking.
+	DisableTCPStateTracking *bool `json:"disableTcpStateTracking,omitempty"`
+
 	// If the network interface is configured for accelerated networking. Not applicable to VM sizes which require accelerated
 	// networking.
 	EnableAcceleratedNetworking *bool `json:"enableAcceleratedNetworking,omitempty"`
@@ -9384,6 +9397,9 @@ type ManagedRuleGroupOverride struct {
 type ManagedRuleOverride struct {
 	// REQUIRED; Identifier for the managed rule.
 	RuleID *string `json:"ruleId,omitempty"`
+
+	// Describes the override action to be applied when rule matches.
+	Action *ActionType `json:"action,omitempty"`
 
 	// The state of the managed rule. Defaults to Disabled if not specified.
 	State *ManagedRuleEnabledState `json:"state,omitempty"`
@@ -13499,6 +13515,32 @@ type SubscriptionNetworkManagerConnectionsClientListOptions struct {
 	Top *int32
 }
 
+// SwapResource to represent slot type on the specified cloud service.
+type SwapResource struct {
+	// Swap resource properties
+	Properties *SwapResourceProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SwapResourceListResult - SwapResource List with single entry to represent slot type on the specified cloud service.
+type SwapResourceListResult struct {
+	Value []*SwapResource `json:"value,omitempty"`
+}
+
+// SwapResourceProperties - Swap resource properties
+type SwapResourceProperties struct {
+	// Specifies slot info on a cloud service
+	SlotType *SlotType `json:"slotType,omitempty"`
+}
+
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
@@ -13799,6 +13841,9 @@ type VPNClientConfiguration struct {
 
 	// VpnClientRootCertificate for virtual network gateway.
 	VPNClientRootCertificates []*VPNClientRootCertificate `json:"vpnClientRootCertificates,omitempty"`
+
+	// per ip address pool connection policy for virtual network gateway P2S client.
+	VngClientConnectionConfigurations []*VngClientConnectionConfiguration `json:"vngClientConnectionConfigurations,omitempty"`
 }
 
 // VPNClientConnectionHealth - VpnClientConnectionHealth properties.
@@ -14826,6 +14871,22 @@ type VerificationIPFlowResult struct {
 	RuleName *string `json:"ruleName,omitempty"`
 }
 
+// VipSwapClientBeginCreateOptions contains the optional parameters for the VipSwapClient.BeginCreate method.
+type VipSwapClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VipSwapClientGetOptions contains the optional parameters for the VipSwapClient.Get method.
+type VipSwapClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VipSwapClientListOptions contains the optional parameters for the VipSwapClient.List method.
+type VipSwapClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // VirtualAppliance - NetworkVirtualAppliance Resource.
 type VirtualAppliance struct {
 	// Resource ID.
@@ -15549,6 +15610,10 @@ type VirtualNetworkGatewayConnectionListEntityPropertiesFormat struct {
 	// EnableBgp flag.
 	EnableBgp *bool `json:"enableBgp,omitempty"`
 
+	// Bypass the ExpressRoute gateway when accessing private-links. ExpressRoute FastPath (expressRouteGatewayBypass) must be
+	// enabled.
+	EnablePrivateLinkFastPath *bool `json:"enablePrivateLinkFastPath,omitempty"`
+
 	// Bypass ExpressRoute Gateway for data forwarding.
 	ExpressRouteGatewayBypass *bool `json:"expressRouteGatewayBypass,omitempty"`
 
@@ -15632,6 +15697,10 @@ type VirtualNetworkGatewayConnectionPropertiesFormat struct {
 
 	// EnableBgp flag.
 	EnableBgp *bool `json:"enableBgp,omitempty"`
+
+	// Bypass the ExpressRoute gateway when accessing private-links. ExpressRoute FastPath (expressRouteGatewayBypass) must be
+	// enabled.
+	EnablePrivateLinkFastPath *bool `json:"enablePrivateLinkFastPath,omitempty"`
 
 	// Bypass ExpressRoute Gateway for data forwarding.
 	ExpressRouteGatewayBypass *bool `json:"expressRouteGatewayBypass,omitempty"`
@@ -15887,6 +15956,51 @@ type VirtualNetworkGatewayNatRulesClientListByVirtualNetworkGatewayOptions struc
 	// placeholder for future optional parameters
 }
 
+// VirtualNetworkGatewayPolicyGroup - Parameters for VirtualNetworkGatewayPolicyGroup.
+type VirtualNetworkGatewayPolicyGroup struct {
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// The name of the resource that is unique within a resource group. This name can be used to access the resource.
+	Name *string `json:"name,omitempty"`
+
+	// Properties of tVirtualNetworkGatewayPolicyGroup.
+	Properties *VirtualNetworkGatewayPolicyGroupProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+}
+
+// VirtualNetworkGatewayPolicyGroupMember - Vpn Client Connection configuration PolicyGroup member
+type VirtualNetworkGatewayPolicyGroupMember struct {
+	// The Vpn Policy member attribute type.
+	AttributeType *VPNPolicyMemberAttributeType `json:"attributeType,omitempty"`
+
+	// The value of Attribute used for this VirtualNetworkGatewayPolicyGroupMember.
+	AttributeValue *string `json:"attributeValue,omitempty"`
+
+	// Name of the VirtualNetworkGatewayPolicyGroupMember.
+	Name *string `json:"name,omitempty"`
+}
+
+// VirtualNetworkGatewayPolicyGroupProperties - Properties of VirtualNetworkGatewayPolicyGroup.
+type VirtualNetworkGatewayPolicyGroupProperties struct {
+	// REQUIRED; Shows if this is a Default VirtualNetworkGatewayPolicyGroup or not.
+	IsDefault *bool `json:"isDefault,omitempty"`
+
+	// REQUIRED; Multiple PolicyMembers for VirtualNetworkGatewayPolicyGroup.
+	PolicyMembers []*VirtualNetworkGatewayPolicyGroupMember `json:"policyMembers,omitempty"`
+
+	// REQUIRED; Priority for VirtualNetworkGatewayPolicyGroup.
+	Priority *int32 `json:"priority,omitempty"`
+
+	// READ-ONLY; The provisioning state of the VirtualNetworkGatewayPolicyGroup resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of references to vngClientConnectionConfigurations.
+	VngClientConnectionConfigurations []*SubResource `json:"vngClientConnectionConfigurations,omitempty" azure:"ro"`
+}
+
 // VirtualNetworkGatewayPropertiesFormat - VirtualNetworkGateway properties.
 type VirtualNetworkGatewayPropertiesFormat struct {
 	// ActiveActive flag.
@@ -15941,6 +16055,10 @@ type VirtualNetworkGatewayPropertiesFormat struct {
 
 	// The type of this virtual network gateway.
 	VPNType *VPNType `json:"vpnType,omitempty"`
+
+	// The reference to the VirtualNetworkGatewayPolicyGroup resource which represents the available VirtualNetworkGatewayPolicyGroup
+	// for the gateway.
+	VirtualNetworkGatewayPolicyGroups []*VirtualNetworkGatewayPolicyGroup `json:"virtualNetworkGatewayPolicyGroups,omitempty"`
 
 	// READ-ONLY; The IP address allocated by the gateway to which dns requests can be sent.
 	InboundDNSForwardingEndpoint *string `json:"inboundDnsForwardingEndpoint,omitempty" azure:"ro"`
@@ -16716,6 +16834,33 @@ type VnetRoute struct {
 
 	// READ-ONLY; The list of references to HubBgpConnection objects.
 	BgpConnections []*SubResource `json:"bgpConnections,omitempty" azure:"ro"`
+}
+
+// VngClientConnectionConfiguration - A vpn client connection configuration for client connection configuration.
+type VngClientConnectionConfiguration struct {
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// The name of the resource that is unique within a resource group. This name can be used to access the resource.
+	Name *string `json:"name,omitempty"`
+
+	// Properties of the vpn client root certificate.
+	Properties *VngClientConnectionConfigurationProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+}
+
+// VngClientConnectionConfigurationProperties - Properties of VngClientConnectionConfiguration.
+type VngClientConnectionConfigurationProperties struct {
+	// REQUIRED; The reference to the address space resource which represents Address space for P2S VpnClient.
+	VPNClientAddressPool *AddressSpace `json:"vpnClientAddressPool,omitempty"`
+
+	// REQUIRED; List of references to virtualNetworkGatewayPolicyGroups
+	VirtualNetworkGatewayPolicyGroups []*SubResource `json:"virtualNetworkGatewayPolicyGroups,omitempty"`
+
+	// READ-ONLY; The provisioning state of the VngClientConnectionConfiguration resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // Watcher - Network watcher in a resource group.

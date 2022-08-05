@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -27,6 +27,26 @@ func PossibleAccessValues() []Access {
 	return []Access{
 		AccessAllow,
 		AccessDeny,
+	}
+}
+
+// ActionType - Defines the action to take on rule match.
+type ActionType string
+
+const (
+	ActionTypeAllow          ActionType = "Allow"
+	ActionTypeAnomalyScoring ActionType = "AnomalyScoring"
+	ActionTypeBlock          ActionType = "Block"
+	ActionTypeLog            ActionType = "Log"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeAllow,
+		ActionTypeAnomalyScoring,
+		ActionTypeBlock,
+		ActionTypeLog,
 	}
 }
 
@@ -1354,6 +1374,22 @@ func PossibleExpressRoutePortAuthorizationUseStatusValues() []ExpressRoutePortAu
 	}
 }
 
+// ExpressRoutePortsBillingType - The billing type of the ExpressRoutePort resource.
+type ExpressRoutePortsBillingType string
+
+const (
+	ExpressRoutePortsBillingTypeMeteredData   ExpressRoutePortsBillingType = "MeteredData"
+	ExpressRoutePortsBillingTypeUnlimitedData ExpressRoutePortsBillingType = "UnlimitedData"
+)
+
+// PossibleExpressRoutePortsBillingTypeValues returns the possible values for the ExpressRoutePortsBillingType const type.
+func PossibleExpressRoutePortsBillingTypeValues() []ExpressRoutePortsBillingType {
+	return []ExpressRoutePortsBillingType{
+		ExpressRoutePortsBillingTypeMeteredData,
+		ExpressRoutePortsBillingTypeUnlimitedData,
+	}
+}
+
 // ExpressRoutePortsEncapsulation - Encapsulation method on physical ports.
 type ExpressRoutePortsEncapsulation string
 
@@ -2092,12 +2128,14 @@ type ManagedRuleEnabledState string
 
 const (
 	ManagedRuleEnabledStateDisabled ManagedRuleEnabledState = "Disabled"
+	ManagedRuleEnabledStateEnabled  ManagedRuleEnabledState = "Enabled"
 )
 
 // PossibleManagedRuleEnabledStateValues returns the possible values for the ManagedRuleEnabledState const type.
 func PossibleManagedRuleEnabledStateValues() []ManagedRuleEnabledState {
 	return []ManagedRuleEnabledState{
 		ManagedRuleEnabledStateDisabled,
+		ManagedRuleEnabledStateEnabled,
 	}
 }
 
@@ -2953,6 +2991,22 @@ func PossibleSeverityValues() []Severity {
 	return []Severity{
 		SeverityError,
 		SeverityWarning,
+	}
+}
+
+// SlotType - Specifies slot info on a cloud service
+type SlotType string
+
+const (
+	SlotTypeProduction SlotType = "Production"
+	SlotTypeStaging    SlotType = "Staging"
+)
+
+// PossibleSlotTypeValues returns the possible values for the SlotType const type.
+func PossibleSlotTypeValues() []SlotType {
+	return []SlotType{
+		SlotTypeProduction,
+		SlotTypeStaging,
 	}
 }
 

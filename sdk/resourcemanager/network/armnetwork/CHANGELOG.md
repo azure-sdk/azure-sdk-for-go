@@ -1,5 +1,57 @@
 # Release History
 
+## 2.0.0 (2022-08-05)
+### Breaking Changes
+
+- Struct `ExplicitProxySettings` has been removed
+- Field `ExplicitProxySettings` of struct `FirewallPolicyPropertiesFormat` has been removed
+
+### Features Added
+
+- New const `ActionTypeLog`
+- New const `ExpressRoutePortsBillingTypeMeteredData`
+- New const `ActionTypeAllow`
+- New const `SlotTypeStaging`
+- New const `SlotTypeProduction`
+- New const `ActionTypeAnomalyScoring`
+- New const `ManagedRuleEnabledStateEnabled`
+- New const `ActionTypeBlock`
+- New const `ExpressRoutePortsBillingTypeUnlimitedData`
+- New function `PossibleSlotTypeValues() []SlotType`
+- New function `NewVipSwapClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VipSwapClient, error)`
+- New function `*VipSwapClient.BeginCreate(context.Context, string, string, SwapResource, *VipSwapClientBeginCreateOptions) (*runtime.Poller[VipSwapClientCreateResponse], error)`
+- New function `*VipSwapClient.Get(context.Context, string, string, *VipSwapClientGetOptions) (VipSwapClientGetResponse, error)`
+- New function `PossibleExpressRoutePortsBillingTypeValues() []ExpressRoutePortsBillingType`
+- New function `*VipSwapClient.List(context.Context, string, string, *VipSwapClientListOptions) (VipSwapClientListResponse, error)`
+- New function `PossibleActionTypeValues() []ActionType`
+- New struct `ExplicitProxy`
+- New struct `SwapResource`
+- New struct `SwapResourceListResult`
+- New struct `SwapResourceProperties`
+- New struct `VipSwapClient`
+- New struct `VipSwapClientBeginCreateOptions`
+- New struct `VipSwapClientCreateResponse`
+- New struct `VipSwapClientGetOptions`
+- New struct `VipSwapClientGetResponse`
+- New struct `VipSwapClientListOptions`
+- New struct `VipSwapClientListResponse`
+- New struct `VirtualNetworkGatewayPolicyGroup`
+- New struct `VirtualNetworkGatewayPolicyGroupMember`
+- New struct `VirtualNetworkGatewayPolicyGroupProperties`
+- New struct `VngClientConnectionConfiguration`
+- New struct `VngClientConnectionConfigurationProperties`
+- New field `EnablePrivateLinkFastPath` in struct `VirtualNetworkGatewayConnectionListEntityPropertiesFormat`
+- New field `Action` in struct `ManagedRuleOverride`
+- New field `EnablePrivateLinkFastPath` in struct `ExpressRouteConnectionProperties`
+- New field `VirtualNetworkGatewayPolicyGroups` in struct `VirtualNetworkGatewayPropertiesFormat`
+- New field `ExplicitProxy` in struct `FirewallPolicyPropertiesFormat`
+- New field `EnablePrivateLinkFastPath` in struct `VirtualNetworkGatewayConnectionPropertiesFormat`
+- New field `BillingType` in struct `ExpressRoutePortPropertiesFormat`
+- New field `VngClientConnectionConfigurations` in struct `VPNClientConfiguration`
+- New field `ColoLocation` in struct `ExpressRouteLinkPropertiesFormat`
+- New field `DisableTCPStateTracking` in struct `InterfacePropertiesFormat`
+
+
 ## 1.1.0 (2022-08-05)
 ### Features Added
 
