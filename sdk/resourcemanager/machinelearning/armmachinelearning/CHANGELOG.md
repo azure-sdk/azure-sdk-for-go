@@ -1,5 +1,12 @@
 # Release History
 
+## 2.1.0 (2022-08-06)
+### Features Added
+
+- New struct `SSHPublicKeyReference`
+- New field `AdminPublicKeys` in struct `ComputeInstanceSSHSettings`
+
+
 ## 2.0.0 (2022-06-09)
 ### Breaking Changes
 
