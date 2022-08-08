@@ -1,5 +1,14 @@
 # Release History
 
+## 0.3.0 (2022-08-08)
+### Features Added
+
+- New field `IsRestrictedUse` in struct `ThreeTierConfiguration`
+- New field `IsRestrictedUse` in struct `SingleServerConfiguration`
+- New field `ZoneRedundancyPreference` in struct `MonitorProperties`
+- New field `IsRestrictedUse` in struct `InfrastructureConfiguration`
+
+
 ## 0.2.0 (2022-06-30)
 ### Breaking Changes
 

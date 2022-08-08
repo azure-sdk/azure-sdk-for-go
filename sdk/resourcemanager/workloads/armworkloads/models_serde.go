@@ -1109,6 +1109,7 @@ func (i InfrastructureConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "appResourceGroup", i.AppResourceGroup)
 	objectMap["deploymentType"] = i.DeploymentType
+	populate(objectMap, "isRestrictedUse", i.IsRestrictedUse)
 	return json.Marshal(objectMap)
 }
 
@@ -1126,6 +1127,9 @@ func (i *InfrastructureConfiguration) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "deploymentType":
 			err = unpopulate(val, "DeploymentType", &i.DeploymentType)
+			delete(rawMsg, key)
+		case "isRestrictedUse":
+			err = unpopulate(val, "IsRestrictedUse", &i.IsRestrictedUse)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1349,6 +1353,7 @@ func (m MonitorProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "msiArmId", m.MsiArmID)
 	populate(objectMap, "provisioningState", m.ProvisioningState)
 	populate(objectMap, "routingPreference", m.RoutingPreference)
+	populate(objectMap, "zoneRedundancyPreference", m.ZoneRedundancyPreference)
 	return json.Marshal(objectMap)
 }
 
@@ -1384,6 +1389,9 @@ func (m *MonitorProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "routingPreference":
 			err = unpopulate(val, "RoutingPreference", &m.RoutingPreference)
+			delete(rawMsg, key)
+		case "zoneRedundancyPreference":
+			err = unpopulate(val, "ZoneRedundancyPreference", &m.ZoneRedundancyPreference)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -4515,6 +4523,7 @@ func (s SingleServerConfiguration) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "appResourceGroup", s.AppResourceGroup)
 	populate(objectMap, "databaseType", s.DatabaseType)
 	objectMap["deploymentType"] = SAPDeploymentTypeSingleServer
+	populate(objectMap, "isRestrictedUse", s.IsRestrictedUse)
 	populate(objectMap, "networkConfiguration", s.NetworkConfiguration)
 	populate(objectMap, "subnetId", s.SubnetID)
 	populate(objectMap, "virtualMachineConfiguration", s.VirtualMachineConfiguration)
@@ -4538,6 +4547,9 @@ func (s *SingleServerConfiguration) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "deploymentType":
 			err = unpopulate(val, "DeploymentType", &s.DeploymentType)
+			delete(rawMsg, key)
+		case "isRestrictedUse":
+			err = unpopulate(val, "IsRestrictedUse", &s.IsRestrictedUse)
 			delete(rawMsg, key)
 		case "networkConfiguration":
 			err = unpopulate(val, "NetworkConfiguration", &s.NetworkConfiguration)
@@ -4751,6 +4763,7 @@ func (t ThreeTierConfiguration) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "databaseServer", t.DatabaseServer)
 	objectMap["deploymentType"] = SAPDeploymentTypeThreeTier
 	populate(objectMap, "highAvailabilityConfig", t.HighAvailabilityConfig)
+	populate(objectMap, "isRestrictedUse", t.IsRestrictedUse)
 	populate(objectMap, "networkConfiguration", t.NetworkConfiguration)
 	return json.Marshal(objectMap)
 }
@@ -4781,6 +4794,9 @@ func (t *ThreeTierConfiguration) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "highAvailabilityConfig":
 			err = unpopulate(val, "HighAvailabilityConfig", &t.HighAvailabilityConfig)
+			delete(rawMsg, key)
+		case "isRestrictedUse":
+			err = unpopulate(val, "IsRestrictedUse", &t.IsRestrictedUse)
 			delete(rawMsg, key)
 		case "networkConfiguration":
 			err = unpopulate(val, "NetworkConfiguration", &t.NetworkConfiguration)

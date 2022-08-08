@@ -514,6 +514,9 @@ type InfrastructureConfiguration struct {
 
 	// REQUIRED; The deployment Type.
 	DeploymentType *SAPDeploymentType `json:"deploymentType,omitempty"`
+
+	// A boolean, if true, specifies that the user is aware about the given infrastructure configuration to be restricted.
+	IsRestrictedUse *bool `json:"isRestrictedUse,omitempty"`
 }
 
 // GetInfrastructureConfiguration implements the InfrastructureConfigurationClassification interface for type InfrastructureConfiguration.
@@ -627,6 +630,10 @@ type MonitorProperties struct {
 
 	// Sets the routing preference of the SAP monitor. By default only RFC1918 traffic is routed to the customer VNET.
 	RoutingPreference *RoutingPreference `json:"routingPreference,omitempty"`
+
+	// Sets the preference for zone redundancy on resources created for the SAP monitor. By default resources will be created
+	// which do not support zone redundancy.
+	ZoneRedundancyPreference *string `json:"zoneRedundancyPreference,omitempty"`
 
 	// READ-ONLY; Defines the SAP monitor errors.
 	Errors *MonitorPropertiesErrors `json:"errors,omitempty" azure:"ro"`
@@ -2292,6 +2299,9 @@ type SingleServerConfiguration struct {
 	// The database type.
 	DatabaseType *SAPDatabaseType `json:"databaseType,omitempty"`
 
+	// A boolean, if true, specifies that the user is aware about the given infrastructure configuration to be restricted.
+	IsRestrictedUse *bool `json:"isRestrictedUse,omitempty"`
+
 	// Network configuration for the server
 	NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration,omitempty"`
 }
@@ -2301,6 +2311,7 @@ func (s *SingleServerConfiguration) GetInfrastructureConfiguration() *Infrastruc
 	return &InfrastructureConfiguration{
 		DeploymentType:   s.DeploymentType,
 		AppResourceGroup: s.AppResourceGroup,
+		IsRestrictedUse:  s.IsRestrictedUse,
 	}
 }
 
@@ -2397,6 +2408,9 @@ type ThreeTierConfiguration struct {
 	// The high availability configuration.
 	HighAvailabilityConfig *HighAvailabilityConfiguration `json:"highAvailabilityConfig,omitempty"`
 
+	// A boolean, if true, specifies that the user is aware about the given infrastructure configuration to be restricted.
+	IsRestrictedUse *bool `json:"isRestrictedUse,omitempty"`
+
 	// Network configuration common to all servers
 	NetworkConfiguration *NetworkConfiguration `json:"networkConfiguration,omitempty"`
 }
@@ -2406,6 +2420,7 @@ func (t *ThreeTierConfiguration) GetInfrastructureConfiguration() *Infrastructur
 	return &InfrastructureConfiguration{
 		DeploymentType:   t.DeploymentType,
 		AppResourceGroup: t.AppResourceGroup,
+		IsRestrictedUse:  t.IsRestrictedUse,
 	}
 }
 
