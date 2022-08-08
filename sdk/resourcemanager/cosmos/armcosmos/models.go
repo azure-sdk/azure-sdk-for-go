@@ -3033,6 +3033,15 @@ type ManagedServiceIdentity struct {
 	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
 }
 
+// MaterializedViewDefinition - Materialized View definition for the container.
+type MaterializedViewDefinition struct {
+	// REQUIRED; Definition of the Cosmos DB SQL Materialized view
+	Definition *string `json:"definition,omitempty"`
+
+	// REQUIRED; Name of the Cosmos DB SQL source container
+	SourceCollectionID *string `json:"sourceCollectionId,omitempty"`
+}
+
 // MaterializedViewsBuilderRegionalServiceResource - Resource for a regional service location.
 type MaterializedViewsBuilderRegionalServiceResource struct {
 	// READ-ONLY; The location name.
@@ -4796,6 +4805,9 @@ type RestorableSQLContainerPropertiesResourceContainer struct {
 	// The configuration of the indexing policy. By default, the indexing is automatic for all document paths within the container
 	IndexingPolicy *IndexingPolicy `json:"indexingPolicy,omitempty"`
 
+	// The configuration for defining Materialized View. This should be specified for creating a Materialized View container.
+	MaterializedViewDefinition *MaterializedViewDefinition `json:"materializedViewDefinition,omitempty"`
+
 	// The configuration of the partition key to be used for partitioning data into multiple partitions
 	PartitionKey *ContainerPartitionKey `json:"partitionKey,omitempty"`
 
@@ -5163,6 +5175,9 @@ type SQLContainerGetPropertiesResource struct {
 	// The configuration of the indexing policy. By default, the indexing is automatic for all document paths within the container
 	IndexingPolicy *IndexingPolicy `json:"indexingPolicy,omitempty"`
 
+	// The configuration for defining Materialized View. This should be specified for creating a Materialized View container.
+	MaterializedViewDefinition *MaterializedViewDefinition `json:"materializedViewDefinition,omitempty"`
+
 	// The configuration of the partition key to be used for partitioning data into multiple partitions
 	PartitionKey *ContainerPartitionKey `json:"partitionKey,omitempty"`
 
@@ -5233,6 +5248,9 @@ type SQLContainerResource struct {
 
 	// The configuration of the indexing policy. By default, the indexing is automatic for all document paths within the container
 	IndexingPolicy *IndexingPolicy `json:"indexingPolicy,omitempty"`
+
+	// The configuration for defining Materialized View. This should be specified for creating a Materialized View container.
+	MaterializedViewDefinition *MaterializedViewDefinition `json:"materializedViewDefinition,omitempty"`
 
 	// The configuration of the partition key to be used for partitioning data into multiple partitions
 	PartitionKey *ContainerPartitionKey `json:"partitionKey,omitempty"`

@@ -5857,6 +5857,37 @@ func (m *ManagedServiceIdentity) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type MaterializedViewDefinition.
+func (m MaterializedViewDefinition) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "definition", m.Definition)
+	populate(objectMap, "sourceCollectionId", m.SourceCollectionID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type MaterializedViewDefinition.
+func (m *MaterializedViewDefinition) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "definition":
+			err = unpopulate(val, "Definition", &m.Definition)
+			delete(rawMsg, key)
+		case "sourceCollectionId":
+			err = unpopulate(val, "SourceCollectionID", &m.SourceCollectionID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type MaterializedViewsBuilderRegionalServiceResource.
 func (m MaterializedViewsBuilderRegionalServiceResource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -9717,6 +9748,7 @@ func (r RestorableSQLContainerPropertiesResourceContainer) MarshalJSON() ([]byte
 	populate(objectMap, "_etag", r.Etag)
 	populate(objectMap, "id", r.ID)
 	populate(objectMap, "indexingPolicy", r.IndexingPolicy)
+	populate(objectMap, "materializedViewDefinition", r.MaterializedViewDefinition)
 	populate(objectMap, "partitionKey", r.PartitionKey)
 	populate(objectMap, "_rid", r.Rid)
 	populate(objectMap, "_self", r.Self)
@@ -9754,6 +9786,9 @@ func (r *RestorableSQLContainerPropertiesResourceContainer) UnmarshalJSON(data [
 			delete(rawMsg, key)
 		case "indexingPolicy":
 			err = unpopulate(val, "IndexingPolicy", &r.IndexingPolicy)
+			delete(rawMsg, key)
+		case "materializedViewDefinition":
+			err = unpopulate(val, "MaterializedViewDefinition", &r.MaterializedViewDefinition)
 			delete(rawMsg, key)
 		case "partitionKey":
 			err = unpopulate(val, "PartitionKey", &r.PartitionKey)
@@ -10601,6 +10636,7 @@ func (s SQLContainerGetPropertiesResource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "_etag", s.Etag)
 	populate(objectMap, "id", s.ID)
 	populate(objectMap, "indexingPolicy", s.IndexingPolicy)
+	populate(objectMap, "materializedViewDefinition", s.MaterializedViewDefinition)
 	populate(objectMap, "partitionKey", s.PartitionKey)
 	populate(objectMap, "_rid", s.Rid)
 	populate(objectMap, "_ts", s.Ts)
@@ -10637,6 +10673,9 @@ func (s *SQLContainerGetPropertiesResource) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "indexingPolicy":
 			err = unpopulate(val, "IndexingPolicy", &s.IndexingPolicy)
+			delete(rawMsg, key)
+		case "materializedViewDefinition":
+			err = unpopulate(val, "MaterializedViewDefinition", &s.MaterializedViewDefinition)
 			delete(rawMsg, key)
 		case "partitionKey":
 			err = unpopulate(val, "PartitionKey", &s.PartitionKey)
@@ -10745,6 +10784,7 @@ func (s SQLContainerResource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "defaultTtl", s.DefaultTTL)
 	populate(objectMap, "id", s.ID)
 	populate(objectMap, "indexingPolicy", s.IndexingPolicy)
+	populate(objectMap, "materializedViewDefinition", s.MaterializedViewDefinition)
 	populate(objectMap, "partitionKey", s.PartitionKey)
 	populate(objectMap, "uniqueKeyPolicy", s.UniqueKeyPolicy)
 	return json.Marshal(objectMap)
@@ -10776,6 +10816,9 @@ func (s *SQLContainerResource) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "indexingPolicy":
 			err = unpopulate(val, "IndexingPolicy", &s.IndexingPolicy)
+			delete(rawMsg, key)
+		case "materializedViewDefinition":
+			err = unpopulate(val, "MaterializedViewDefinition", &s.MaterializedViewDefinition)
 			delete(rawMsg, key)
 		case "partitionKey":
 			err = unpopulate(val, "PartitionKey", &s.PartitionKey)

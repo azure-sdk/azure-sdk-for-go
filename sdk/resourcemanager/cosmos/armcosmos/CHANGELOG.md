@@ -1,5 +1,14 @@
 # Release History
 
+## 2.1.0-beta.2 (2022-08-08)
+### Features Added
+
+- New struct `MaterializedViewDefinition`
+- New field `MaterializedViewDefinition` in struct `SQLContainerGetPropertiesResource`
+- New field `MaterializedViewDefinition` in struct `RestorableSQLContainerPropertiesResourceContainer`
+- New field `MaterializedViewDefinition` in struct `SQLContainerResource`
+
+
 ## 2.1.0-beta.1 (2022-07-22)
 ### Features Added
 
