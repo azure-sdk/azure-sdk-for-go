@@ -12163,14 +12163,14 @@ type RouteTablePropertiesFormat struct {
 	// Whether to disable the routes learned by BGP on that route table. True means disable.
 	DisableBgpRoutePropagation *bool `json:"disableBgpRoutePropagation,omitempty"`
 
-	// Collection of routes contained within a route table.
-	Routes []*Route `json:"routes,omitempty"`
-
 	// READ-ONLY; The provisioning state of the route table resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; The resource GUID property of the route table.
 	ResourceGUID *string `json:"resourceGuid,omitempty" azure:"ro"`
+
+	// READ-ONLY; Collection of routes contained within a route table.
+	Routes []*Route `json:"routes,omitempty" azure:"ro"`
 
 	// READ-ONLY; A collection of references to subnets.
 	Subnets []*Subnet `json:"subnets,omitempty" azure:"ro"`
