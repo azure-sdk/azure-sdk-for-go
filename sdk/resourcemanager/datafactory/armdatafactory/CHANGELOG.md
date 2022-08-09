@@ -1,5 +1,47 @@
 # Release History
 
+## 2.0.0 (2022-08-09)
+### Breaking Changes
+
+- Type of `LinkedServiceReference.Type` has been changed from `*LinkedServiceReferenceType` to `*Type`
+- Const `LinkedServiceReferenceTypeLinkedServiceReference` has been removed
+- Function `PossibleLinkedServiceReferenceTypeValues` has been removed
+
+### Features Added
+
+- New const `SparkJobReferenceTypeSparkJobDefinitionReference`
+- New const `BigDataPoolReferenceTypeBigDataPoolReference`
+- New const `NotebookParameterTypeFloat`
+- New const `TypeLinkedServiceReference`
+- New const `NotebookParameterTypeInt`
+- New const `NotebookReferenceTypeNotebookReference`
+- New const `NotebookParameterTypeBool`
+- New const `NotebookParameterTypeString`
+- New function `*SynapseNotebookActivity.GetExecutionActivity() *ExecutionActivity`
+- New function `*GoogleSheetsLinkedService.GetLinkedService() *LinkedService`
+- New function `*SynapseNotebookActivity.GetActivity() *Activity`
+- New function `PossibleBigDataPoolReferenceTypeValues() []BigDataPoolReferenceType`
+- New function `*SynapseSparkJobDefinitionActivity.GetExecutionActivity() *ExecutionActivity`
+- New function `PossibleNotebookParameterTypeValues() []NotebookParameterType`
+- New function `PossibleTypeValues() []Type`
+- New function `PossibleNotebookReferenceTypeValues() []NotebookReferenceType`
+- New function `PossibleSparkJobReferenceTypeValues() []SparkJobReferenceType`
+- New function `*AzureSynapseArtifactsLinkedService.GetLinkedService() *LinkedService`
+- New function `*SynapseSparkJobDefinitionActivity.GetActivity() *Activity`
+- New struct `AzureSynapseArtifactsLinkedService`
+- New struct `AzureSynapseArtifactsLinkedServiceTypeProperties`
+- New struct `BigDataPoolParametrizationReference`
+- New struct `GoogleSheetsLinkedService`
+- New struct `GoogleSheetsLinkedServiceTypeProperties`
+- New struct `NotebookParameter`
+- New struct `SynapseNotebookActivity`
+- New struct `SynapseNotebookActivityTypeProperties`
+- New struct `SynapseNotebookReference`
+- New struct `SynapseSparkJobActivityTypeProperties`
+- New struct `SynapseSparkJobDefinitionActivity`
+- New struct `SynapseSparkJobReference`
+
+
 ## 1.2.0 (2022-06-15)
 ### Features Added
 
