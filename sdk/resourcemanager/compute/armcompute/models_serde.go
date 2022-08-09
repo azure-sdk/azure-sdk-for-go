@@ -9947,6 +9947,7 @@ func (r RestorePointSourceMetadata) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "osProfile", r.OSProfile)
 	populate(objectMap, "securityProfile", r.SecurityProfile)
 	populate(objectMap, "storageProfile", r.StorageProfile)
+	populate(objectMap, "userData", r.UserData)
 	populate(objectMap, "vmId", r.VMID)
 	return json.Marshal(objectMap)
 }
@@ -9980,6 +9981,9 @@ func (r *RestorePointSourceMetadata) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "storageProfile":
 			err = unpopulate(val, "StorageProfile", &r.StorageProfile)
+			delete(rawMsg, key)
+		case "userData":
+			err = unpopulate(val, "UserData", &r.UserData)
 			delete(rawMsg, key)
 		case "vmId":
 			err = unpopulate(val, "VMID", &r.VMID)
@@ -11711,7 +11715,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
