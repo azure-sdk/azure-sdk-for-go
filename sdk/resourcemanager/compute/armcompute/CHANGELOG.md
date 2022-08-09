@@ -1,5 +1,17 @@
 # Release History
 
+## 4.0.0 (2022-08-09)
+### Breaking Changes
+
+- Type of `SharingProfile.CommunityGalleryInfo` has been changed from `interface{}` to `*CommunityGalleryInfo`
+
+### Features Added
+
+- New field `DisableTCPStateTracking` in struct `VirtualMachineScaleSetUpdateNetworkConfigurationProperties`
+- New field `DisableTCPStateTracking` in struct `VirtualMachineScaleSetNetworkConfigurationProperties`
+- New field `DisableTCPStateTracking` in struct `VirtualMachineNetworkInterfaceConfigurationProperties`
+
+
 ## 3.0.1 (2022-07-29)
 ### Other Changes
 - Fix wrong module import for live test
