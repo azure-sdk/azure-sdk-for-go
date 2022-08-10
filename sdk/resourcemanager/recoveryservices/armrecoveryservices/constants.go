@@ -105,6 +105,23 @@ func PossibleCrossRegionRestoreValues() []CrossRegionRestore {
 	}
 }
 
+type ImmutabilityState string
+
+const (
+	ImmutabilityStateDisabled ImmutabilityState = "Disabled"
+	ImmutabilityStateLocked   ImmutabilityState = "Locked"
+	ImmutabilityStateUnlocked ImmutabilityState = "Unlocked"
+)
+
+// PossibleImmutabilityStateValues returns the possible values for the ImmutabilityState const type.
+func PossibleImmutabilityStateValues() []ImmutabilityState {
+	return []ImmutabilityState{
+		ImmutabilityStateDisabled,
+		ImmutabilityStateLocked,
+		ImmutabilityStateUnlocked,
+	}
+}
+
 // InfrastructureEncryptionState - Enabling/Disabling the Double Encryption state
 type InfrastructureEncryptionState string
 

@@ -1,5 +1,27 @@
 # Release History
 
+## 1.1.0 (2022-08-10)
+### Features Added
+
+- New const `StandardTierStorageRedundancyGeoRedundant`
+- New const `StandardTierStorageRedundancyZoneRedundant`
+- New const `ImmutabilityStateDisabled`
+- New const `StandardTierStorageRedundancyLocallyRedundant`
+- New const `CrossRegionRestoreEnabled`
+- New const `CrossRegionRestoreDisabled`
+- New const `ImmutabilityStateUnlocked`
+- New const `ImmutabilityStateLocked`
+- New function `PossibleImmutabilityStateValues() []ImmutabilityState`
+- New function `PossibleCrossRegionRestoreValues() []CrossRegionRestore`
+- New function `PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundancy`
+- New struct `ImmutabilitySettings`
+- New struct `SecuritySettings`
+- New struct `VaultPropertiesRedundancySettings`
+- New field `RedundancySettings` in struct `VaultProperties`
+- New field `SecuritySettings` in struct `VaultProperties`
+- New field `AADAudience` in struct `ResourceCertificateAndAADDetails`
+
+
 ## 1.1.0 (2022-07-22)
 ### Features Added
 
