@@ -1,5 +1,15 @@
 # Release History
 
+## 2.1.0 (2022-08-10)
+### Features Added
+
+- New const `LevelWarning`
+- New const `LevelOff`
+- New const `LevelEnforcement`
+- New function `PossibleLevelValues() []Level`
+- New struct `GuardrailsProfile`
+
+
 ## 2.0.0 (2022-07-22)
 ### Breaking Changes
 

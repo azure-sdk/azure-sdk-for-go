@@ -285,6 +285,24 @@ type ExtendedLocation struct {
 	Type *ExtendedLocationTypes `json:"type,omitempty"`
 }
 
+// GuardrailsProfile - The Guardrails profile.
+type GuardrailsProfile struct {
+	// REQUIRED; The guardrails level to be used
+	Level *Level `json:"level,omitempty"`
+
+	// REQUIRED; The version of constraints to use
+	Version *string `json:"version,omitempty"`
+
+	// Customer-specified list of namespaces that must be excluded from guardrails
+	ExcludedNamespaces []*string `json:"excludedNamespaces,omitempty"`
+
+	// Customer-specified list of namespaces that must be included in guardrails
+	IncludedNamespaces []*string `json:"includedNamespaces,omitempty"`
+
+	// READ-ONLY; List of namespaces specified by AKS to be excluded from Guardrails
+	SystemExcludedNamespaces []*string `json:"systemExcludedNamespaces,omitempty" azure:"ro"`
+}
+
 // KubeletConfig - See AKS custom node configuration [https://docs.microsoft.com/azure/aks/custom-node-configuration] for
 // more details.
 type KubeletConfig struct {

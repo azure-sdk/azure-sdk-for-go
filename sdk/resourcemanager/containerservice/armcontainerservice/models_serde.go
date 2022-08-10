@@ -716,6 +716,49 @@ func (e *ExtendedLocation) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type GuardrailsProfile.
+func (g GuardrailsProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "excludedNamespaces", g.ExcludedNamespaces)
+	populate(objectMap, "includedNamespaces", g.IncludedNamespaces)
+	populate(objectMap, "level", g.Level)
+	populate(objectMap, "systemExcludedNamespaces", g.SystemExcludedNamespaces)
+	populate(objectMap, "version", g.Version)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GuardrailsProfile.
+func (g *GuardrailsProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "excludedNamespaces":
+			err = unpopulate(val, "ExcludedNamespaces", &g.ExcludedNamespaces)
+			delete(rawMsg, key)
+		case "includedNamespaces":
+			err = unpopulate(val, "IncludedNamespaces", &g.IncludedNamespaces)
+			delete(rawMsg, key)
+		case "level":
+			err = unpopulate(val, "Level", &g.Level)
+			delete(rawMsg, key)
+		case "systemExcludedNamespaces":
+			err = unpopulate(val, "SystemExcludedNamespaces", &g.SystemExcludedNamespaces)
+			delete(rawMsg, key)
+		case "version":
+			err = unpopulate(val, "Version", &g.Version)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type KubeletConfig.
 func (k KubeletConfig) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})

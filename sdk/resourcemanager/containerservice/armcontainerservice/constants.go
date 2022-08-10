@@ -11,7 +11,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "armcontainerservice"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0"
 )
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
@@ -638,6 +638,24 @@ func PossibleKubeletDiskTypeValues() []KubeletDiskType {
 	return []KubeletDiskType{
 		KubeletDiskTypeOS,
 		KubeletDiskTypeTemporary,
+	}
+}
+
+// Level - The guardrails level to be used
+type Level string
+
+const (
+	LevelEnforcement Level = "Enforcement"
+	LevelOff         Level = "Off"
+	LevelWarning     Level = "Warning"
+)
+
+// PossibleLevelValues returns the possible values for the Level const type.
+func PossibleLevelValues() []Level {
+	return []Level{
+		LevelEnforcement,
+		LevelOff,
+		LevelWarning,
 	}
 }
 
