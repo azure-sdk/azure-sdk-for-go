@@ -897,6 +897,41 @@ func (a *AssetTrackProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AsyncOperationResult.
+func (a AsyncOperationResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "error", a.Error)
+	populate(objectMap, "name", a.Name)
+	populate(objectMap, "status", a.Status)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AsyncOperationResult.
+func (a *AsyncOperationResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "error":
+			err = unpopulate(val, "Error", &a.Error)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &a.Name)
+			delete(rawMsg, key)
+		case "status":
+			err = unpopulate(val, "Status", &a.Status)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type Audio.
 func (a Audio) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -5149,6 +5184,7 @@ func (l LiveOutputProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "outputSnapTime", l.OutputSnapTime)
 	populate(objectMap, "provisioningState", l.ProvisioningState)
 	populate(objectMap, "resourceState", l.ResourceState)
+	populate(objectMap, "rewindWindowLength", l.RewindWindowLength)
 	return json.Marshal(objectMap)
 }
 
@@ -5190,6 +5226,9 @@ func (l *LiveOutputProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "resourceState":
 			err = unpopulate(val, "ResourceState", &l.ResourceState)
+			delete(rawMsg, key)
+		case "rewindWindowLength":
+			err = unpopulate(val, "RewindWindowLength", &l.RewindWindowLength)
 			delete(rawMsg, key)
 		}
 		if err != nil {
