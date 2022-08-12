@@ -1,5 +1,23 @@
 # Release History
 
+## 4.0.0 (2022-08-12)
+### Breaking Changes
+
+- Function `*CloudServicesClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, CloudServiceUpdate, *CloudServicesClientBeginUpdateOptions)` to `(context.Context, string, string, *CloudServicesClientBeginUpdateOptions)`
+- Function `*CloudServicesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, CloudService, *CloudServicesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, *CloudServicesClientBeginCreateOrUpdateOptions)`
+- Function `*CloudServicesUpdateDomainClient.BeginWalkUpdateDomain` parameter(s) have been changed from `(context.Context, string, string, int32, UpdateDomain, *CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions)` to `(context.Context, string, string, int32, *CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions)`
+- Type of `VirtualMachineScaleSetExtensionProperties.ProtectedSettingsFromKeyVault` has been changed from `interface{}` to `*KeyVaultSecretReference`
+- Type of `SharingProfile.CommunityGalleryInfo` has been changed from `interface{}` to `*CommunityGalleryInfo`
+- Type of `VirtualMachineExtensionUpdateProperties.ProtectedSettingsFromKeyVault` has been changed from `interface{}` to `*KeyVaultSecretReference`
+- Type of `VirtualMachineExtensionProperties.ProtectedSettingsFromKeyVault` has been changed from `interface{}` to `*KeyVaultSecretReference`
+
+### Features Added
+
+- New field `Parameters` in struct `CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions`
+- New field `Parameters` in struct `CloudServicesClientBeginCreateOrUpdateOptions`
+- New field `Parameters` in struct `CloudServicesClientBeginUpdateOptions`
+
+
 ## 3.0.1 (2022-07-29)
 ### Other Changes
 - Fix wrong module import for live test
