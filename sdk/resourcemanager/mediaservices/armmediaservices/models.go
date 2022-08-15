@@ -462,6 +462,18 @@ type AssetsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AsyncOperationResult - The status of an async operation.
+type AsyncOperationResult struct {
+	// The error object
+	Error *ErrorDetail `json:"error,omitempty"`
+
+	// Operation Id of the async operation.
+	Name *string `json:"name,omitempty"`
+
+	// Operation status of the async operation.
+	Status *AsyncOperationStatus `json:"status,omitempty"`
+}
+
 // AudioClassification provides polymorphic access to related types.
 // Call the interface's GetAudio() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -2968,6 +2980,11 @@ type LiveEventTranscription struct {
 	OutputTranscriptionTrack *LiveEventOutputTranscriptionTrack `json:"outputTranscriptionTrack,omitempty"`
 }
 
+// LiveEventsClientAsyncOperationOptions contains the optional parameters for the LiveEventsClient.AsyncOperation method.
+type LiveEventsClientAsyncOperationOptions struct {
+	// placeholder for future optional parameters
+}
+
 // LiveEventsClientBeginAllocateOptions contains the optional parameters for the LiveEventsClient.BeginAllocate method.
 type LiveEventsClientBeginAllocateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -3019,6 +3036,11 @@ type LiveEventsClientGetOptions struct {
 
 // LiveEventsClientListOptions contains the optional parameters for the LiveEventsClient.List method.
 type LiveEventsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LiveEventsClientOperationLocationOptions contains the optional parameters for the LiveEventsClient.OperationLocation method.
+type LiveEventsClientOperationLocationOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3074,6 +3096,13 @@ type LiveOutputProperties struct {
 	// The initial timestamp that the live output will start at, any content before this value will not be archived.
 	OutputSnapTime *int64 `json:"outputSnapTime,omitempty"`
 
+	// ISO 8601 time between 1 minute to the duration of archiveWindowLength to control seek-able window length during Live. The
+	// service won't use this property once LiveOutput stops. The archived VOD will
+	// have full content with original ArchiveWindowLength. For example, use PT1H30M to indicate 1 hour and 30 minutes of rewind
+	// window length. Service will use implicit default value 30m only if Live Event
+	// enables LL.
+	RewindWindowLength *string `json:"rewindWindowLength,omitempty"`
+
 	// READ-ONLY; The creation time the live output.
 	Created *time.Time `json:"created,omitempty" azure:"ro"`
 
@@ -3085,6 +3114,11 @@ type LiveOutputProperties struct {
 
 	// READ-ONLY; The resource state of the live output.
 	ResourceState *LiveOutputResourceState `json:"resourceState,omitempty" azure:"ro"`
+}
+
+// LiveOutputsClientAsyncOperationOptions contains the optional parameters for the LiveOutputsClient.AsyncOperation method.
+type LiveOutputsClientAsyncOperationOptions struct {
+	// placeholder for future optional parameters
 }
 
 // LiveOutputsClientBeginCreateOptions contains the optional parameters for the LiveOutputsClient.BeginCreate method.
@@ -3106,6 +3140,12 @@ type LiveOutputsClientGetOptions struct {
 
 // LiveOutputsClientListOptions contains the optional parameters for the LiveOutputsClient.List method.
 type LiveOutputsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LiveOutputsClientOperationLocationOptions contains the optional parameters for the LiveOutputsClient.OperationLocation
+// method.
+type LiveOutputsClientOperationLocationOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -4159,6 +4199,12 @@ type StreamingEndpointSKUInfoListResult struct {
 	Value []*ArmStreamingEndpointSKUInfo `json:"value,omitempty"`
 }
 
+// StreamingEndpointsClientAsyncOperationOptions contains the optional parameters for the StreamingEndpointsClient.AsyncOperation
+// method.
+type StreamingEndpointsClientAsyncOperationOptions struct {
+	// placeholder for future optional parameters
+}
+
 // StreamingEndpointsClientBeginCreateOptions contains the optional parameters for the StreamingEndpointsClient.BeginCreate
 // method.
 type StreamingEndpointsClientBeginCreateOptions struct {
@@ -4209,6 +4255,12 @@ type StreamingEndpointsClientGetOptions struct {
 
 // StreamingEndpointsClientListOptions contains the optional parameters for the StreamingEndpointsClient.List method.
 type StreamingEndpointsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StreamingEndpointsClientOperationLocationOptions contains the optional parameters for the StreamingEndpointsClient.OperationLocation
+// method.
+type StreamingEndpointsClientOperationLocationOptions struct {
 	// placeholder for future optional parameters
 }
 
