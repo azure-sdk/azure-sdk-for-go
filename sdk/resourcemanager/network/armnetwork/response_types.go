@@ -1886,6 +1886,26 @@ type RouteFiltersClientUpdateTagsResponse struct {
 	RouteFilter
 }
 
+// RouteMapsClientCreateOrUpdateResponse contains the response from method RouteMapsClient.CreateOrUpdate.
+type RouteMapsClientCreateOrUpdateResponse struct {
+	RouteMap
+}
+
+// RouteMapsClientDeleteResponse contains the response from method RouteMapsClient.Delete.
+type RouteMapsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RouteMapsClientGetResponse contains the response from method RouteMapsClient.Get.
+type RouteMapsClientGetResponse struct {
+	RouteMap
+}
+
+// RouteMapsClientListResponse contains the response from method RouteMapsClient.List.
+type RouteMapsClientListResponse struct {
+	ListRouteMapsResult
+}
+
 // RouteTablesClientCreateOrUpdateResponse contains the response from method RouteTablesClient.CreateOrUpdate.
 type RouteTablesClientCreateOrUpdateResponse struct {
 	RouteTable
@@ -2416,6 +2436,21 @@ type VPNSitesConfigurationClientDownloadResponse struct {
 	// placeholder for future response values
 }
 
+// VipSwapClientCreateResponse contains the response from method VipSwapClient.Create.
+type VipSwapClientCreateResponse struct {
+	// placeholder for future response values
+}
+
+// VipSwapClientGetResponse contains the response from method VipSwapClient.Get.
+type VipSwapClientGetResponse struct {
+	SwapResource
+}
+
+// VipSwapClientListResponse contains the response from method VipSwapClient.List.
+type VipSwapClientListResponse struct {
+	SwapResourceListResult
+}
+
 // VirtualApplianceSKUsClientGetResponse contains the response from method VirtualApplianceSKUsClient.Get.
 type VirtualApplianceSKUsClientGetResponse struct {
 	VirtualApplianceSKU
@@ -2558,6 +2593,16 @@ type VirtualHubsClientDeleteResponse struct {
 
 // VirtualHubsClientGetEffectiveVirtualHubRoutesResponse contains the response from method VirtualHubsClient.GetEffectiveVirtualHubRoutes.
 type VirtualHubsClientGetEffectiveVirtualHubRoutesResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualHubsClientGetInboundRoutesResponse contains the response from method VirtualHubsClient.GetInboundRoutes.
+type VirtualHubsClientGetInboundRoutesResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualHubsClientGetOutboundRoutesResponse contains the response from method VirtualHubsClient.GetOutboundRoutes.
+type VirtualHubsClientGetOutboundRoutesResponse struct {
 	// placeholder for future response values
 }
 
