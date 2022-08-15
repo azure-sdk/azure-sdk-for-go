@@ -1,5 +1,9 @@
 # Release History
 
+## 2.0.1 (2022-08-15)
+### Other Changes
+
+
 ## 2.0.0 (2022-07-22)
 ### Breaking Changes
 
