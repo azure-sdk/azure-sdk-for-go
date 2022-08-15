@@ -1,5 +1,94 @@
 # Release History
 
+## 2.0.0 (2022-08-15)
+### Breaking Changes
+
+- Const `DdosCustomPolicyProtocolTCP` has been removed
+- Const `DdosCustomPolicyTriggerSensitivityOverrideDefault` has been removed
+- Const `DdosCustomPolicyTriggerSensitivityOverrideHigh` has been removed
+- Const `DdosCustomPolicyProtocolSyn` has been removed
+- Const `DdosCustomPolicyTriggerSensitivityOverrideLow` has been removed
+- Const `DdosCustomPolicyTriggerSensitivityOverrideRelaxed` has been removed
+- Const `DdosSettingsProtectionCoverageStandard` has been removed
+- Const `DdosSettingsProtectionCoverageBasic` has been removed
+- Const `DdosCustomPolicyProtocolUDP` has been removed
+- Function `PossibleDdosCustomPolicyProtocolValues` has been removed
+- Function `PossibleDdosSettingsProtectionCoverageValues` has been removed
+- Function `PossibleDdosCustomPolicyTriggerSensitivityOverrideValues` has been removed
+- Struct `ExplicitProxySettings` has been removed
+- Struct `ProtocolCustomSettingsFormat` has been removed
+- Field `DdosCustomPolicy` of struct `DdosSettings` has been removed
+- Field `ProtectedIP` of struct `DdosSettings` has been removed
+- Field `ProtectionCoverage` of struct `DdosSettings` has been removed
+- Field `ExplicitProxySettings` of struct `FirewallPolicyPropertiesFormat` has been removed
+- Field `PublicIPAddresses` of struct `DdosCustomPolicyPropertiesFormat` has been removed
+- Field `ProtocolCustomSettings` of struct `DdosCustomPolicyPropertiesFormat` has been removed
+
+### Features Added
+
+- New const `SlotTypeStaging`
+- New const `ActionTypeAnomalyScoring`
+- New const `SlotTypeProduction`
+- New const `ExpressRoutePortsBillingTypeMeteredData`
+- New const `IsWorkloadProtectedFalse`
+- New const `ActionTypeLog`
+- New const `ManagedRuleEnabledStateEnabled`
+- New const `DdosSettingsProtectionModeVirtualNetworkInherited`
+- New const `DdosSettingsProtectionModeEnabled`
+- New const `ExpressRoutePortsBillingTypeUnlimitedData`
+- New const `IsWorkloadProtectedTrue`
+- New const `ActionTypeAllow`
+- New const `DdosSettingsProtectionModeDisabled`
+- New const `ActionTypeBlock`
+- New function `PossibleActionTypeValues() []ActionType`
+- New function `NewVipSwapClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VipSwapClient, error)`
+- New function `PossibleExpressRoutePortsBillingTypeValues() []ExpressRoutePortsBillingType`
+- New function `PossibleSlotTypeValues() []SlotType`
+- New function `PossibleIsWorkloadProtectedValues() []IsWorkloadProtected`
+- New function `*PublicIPAddressesClient.BeginDdosProtectionStatus(context.Context, string, string, *PublicIPAddressesClientBeginDdosProtectionStatusOptions) (*runtime.Poller[PublicIPAddressesClientDdosProtectionStatusResponse], error)`
+- New function `*VipSwapClient.Get(context.Context, string, string, *VipSwapClientGetOptions) (VipSwapClientGetResponse, error)`
+- New function `*VirtualNetworksClient.BeginListDdosProtectionStatus(context.Context, string, string, *VirtualNetworksClientBeginListDdosProtectionStatusOptions) (*runtime.Poller[*runtime.Pager[VirtualNetworksClientListDdosProtectionStatusResponse]], error)`
+- New function `*VipSwapClient.List(context.Context, string, string, *VipSwapClientListOptions) (VipSwapClientListResponse, error)`
+- New function `PossibleDdosSettingsProtectionModeValues() []DdosSettingsProtectionMode`
+- New function `*VipSwapClient.BeginCreate(context.Context, string, string, SwapResource, *VipSwapClientBeginCreateOptions) (*runtime.Poller[VipSwapClientCreateResponse], error)`
+- New struct `ExplicitProxy`
+- New struct `PublicIPAddressesClientBeginDdosProtectionStatusOptions`
+- New struct `PublicIPAddressesClientDdosProtectionStatusResponse`
+- New struct `PublicIPDdosProtectionStatusResult`
+- New struct `SwapResource`
+- New struct `SwapResourceListResult`
+- New struct `SwapResourceProperties`
+- New struct `VipSwapClient`
+- New struct `VipSwapClientBeginCreateOptions`
+- New struct `VipSwapClientCreateResponse`
+- New struct `VipSwapClientGetOptions`
+- New struct `VipSwapClientGetResponse`
+- New struct `VipSwapClientListOptions`
+- New struct `VipSwapClientListResponse`
+- New struct `VirtualNetworkDdosProtectionStatusResult`
+- New struct `VirtualNetworkGatewayPolicyGroup`
+- New struct `VirtualNetworkGatewayPolicyGroupMember`
+- New struct `VirtualNetworkGatewayPolicyGroupProperties`
+- New struct `VirtualNetworksClientBeginListDdosProtectionStatusOptions`
+- New struct `VirtualNetworksClientListDdosProtectionStatusResponse`
+- New struct `VngClientConnectionConfiguration`
+- New struct `VngClientConnectionConfigurationProperties`
+- New field `Action` in struct `ManagedRuleOverride`
+- New field `VngClientConnectionConfigurations` in struct `VPNClientConfiguration`
+- New field `DisableTCPStateTracking` in struct `InterfacePropertiesFormat`
+- New field `EnablePrivateLinkFastPath` in struct `VirtualNetworkGatewayConnectionListEntityPropertiesFormat`
+- New field `DdosProtectionPlan` in struct `DdosSettings`
+- New field `ProtectionMode` in struct `DdosSettings`
+- New field `EnablePrivateLinkFastPath` in struct `ExpressRouteConnectionProperties`
+- New field `VirtualNetworkGatewayPolicyGroups` in struct `VirtualNetworkGatewayPropertiesFormat`
+- New field `PublicIPAddresses` in struct `DdosProtectionPlanPropertiesFormat`
+- New field `BillingType` in struct `ExpressRoutePortPropertiesFormat`
+- New field `EnablePrivateLinkFastPath` in struct `VirtualNetworkGatewayConnectionPropertiesFormat`
+- New field `ExplicitProxy` in struct `FirewallPolicyPropertiesFormat`
+- New field `ProbeThreshold` in struct `ProbePropertiesFormat`
+- New field `ColoLocation` in struct `ExpressRouteLinkPropertiesFormat`
+
+
 ## 1.1.0 (2022-08-05)
 ### Features Added
 
