@@ -1,5 +1,38 @@
 # Release History
 
+## 2.0.0-beta.3 (2022-08-16)
+### Breaking Changes
+
+- Function `*FleetsClient.Update` parameter(s) have been changed from `(context.Context, string, string, FleetPatch, *FleetsClientUpdateOptions)` to `(context.Context, string, string, *FleetsClientUpdateOptions)`
+
+### Features Added
+
+- New const `ControlledValuesRequestsAndLimits`
+- New const `UpdateModeInitial`
+- New const `ControlledValuesRequestsOnly`
+- New const `UpdateModeOff`
+- New const `PublicNetworkAccessSecuredByPerimeter`
+- New const `UpdateModeAuto`
+- New const `UpdateModeRecreate`
+- New function `PossibleUpdateModeValues() []UpdateMode`
+- New function `*ManagedClustersClient.AbortLatestOperation(context.Context, string, string, *ManagedClustersClientAbortLatestOperationOptions) (ManagedClustersClientAbortLatestOperationResponse, error)`
+- New function `PossibleControlledValuesValues() []ControlledValues`
+- New function `*AgentPoolsClient.AbortLatestOperation(context.Context, string, string, string, *AgentPoolsClientAbortLatestOperationOptions) (AgentPoolsClientAbortLatestOperationResponse, error)`
+- New struct `AgentPoolsClientAbortLatestOperationOptions`
+- New struct `AgentPoolsClientAbortLatestOperationResponse`
+- New struct `ManagedClusterAzureMonitorProfile`
+- New struct `ManagedClusterAzureMonitorProfileKubeStateMetrics`
+- New struct `ManagedClusterAzureMonitorProfileMetrics`
+- New struct `ManagedClusterSecurityProfileImageCleaner`
+- New struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler`
+- New struct `ManagedClustersClientAbortLatestOperationOptions`
+- New struct `ManagedClustersClientAbortLatestOperationResponse`
+- New field `AzureMonitorProfile` in struct `ManagedClusterProperties`
+- New field `Parameters` in struct `FleetsClientUpdateOptions`
+- New field `VerticalPodAutoscaler` in struct `ManagedClusterWorkloadAutoScalerProfile`
+- New field `ImageCleaner` in struct `ManagedClusterSecurityProfile`
+
+
 ## 2.0.0 (2022-07-22)
 ### Breaking Changes
 
