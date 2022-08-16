@@ -2211,6 +2211,7 @@ func (c CreationData) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "galleryImageReference", c.GalleryImageReference)
 	populate(objectMap, "imageReference", c.ImageReference)
 	populate(objectMap, "logicalSectorSize", c.LogicalSectorSize)
+	populate(objectMap, "performancePlus", c.PerformancePlus)
 	populate(objectMap, "securityDataUri", c.SecurityDataURI)
 	populate(objectMap, "sourceResourceId", c.SourceResourceID)
 	populate(objectMap, "sourceUri", c.SourceURI)
@@ -2240,6 +2241,9 @@ func (c *CreationData) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "logicalSectorSize":
 			err = unpopulate(val, "LogicalSectorSize", &c.LogicalSectorSize)
+			delete(rawMsg, key)
+		case "performancePlus":
+			err = unpopulate(val, "PerformancePlus", &c.PerformancePlus)
 			delete(rawMsg, key)
 		case "securityDataUri":
 			err = unpopulate(val, "SecurityDataURI", &c.SecurityDataURI)
@@ -3560,6 +3564,7 @@ func (d *DiskList) UnmarshalJSON(data []byte) error {
 func (d DiskProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "burstingEnabled", d.BurstingEnabled)
+	populateTimeRFC3339(objectMap, "burstingEnabledTime", d.BurstingEnabledTime)
 	populate(objectMap, "completionPercent", d.CompletionPercent)
 	populate(objectMap, "creationData", d.CreationData)
 	populate(objectMap, "dataAccessAuthMode", d.DataAccessAuthMode)
@@ -3577,6 +3582,7 @@ func (d DiskProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maxShares", d.MaxShares)
 	populate(objectMap, "networkAccessPolicy", d.NetworkAccessPolicy)
 	populate(objectMap, "osType", d.OSType)
+	populate(objectMap, "optimizedForFrequentAttach", d.OptimizedForFrequentAttach)
 	populate(objectMap, "propertyUpdatesInProgress", d.PropertyUpdatesInProgress)
 	populate(objectMap, "provisioningState", d.ProvisioningState)
 	populate(objectMap, "publicNetworkAccess", d.PublicNetworkAccess)
@@ -3602,6 +3608,9 @@ func (d *DiskProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "burstingEnabled":
 			err = unpopulate(val, "BurstingEnabled", &d.BurstingEnabled)
+			delete(rawMsg, key)
+		case "burstingEnabledTime":
+			err = unpopulateTimeRFC3339(val, "BurstingEnabledTime", &d.BurstingEnabledTime)
 			delete(rawMsg, key)
 		case "completionPercent":
 			err = unpopulate(val, "CompletionPercent", &d.CompletionPercent)
@@ -3653,6 +3662,9 @@ func (d *DiskProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "osType":
 			err = unpopulate(val, "OSType", &d.OSType)
+			delete(rawMsg, key)
+		case "optimizedForFrequentAttach":
+			err = unpopulate(val, "OptimizedForFrequentAttach", &d.OptimizedForFrequentAttach)
 			delete(rawMsg, key)
 		case "propertyUpdatesInProgress":
 			err = unpopulate(val, "PropertyUpdatesInProgress", &d.PropertyUpdatesInProgress)
@@ -4070,6 +4082,7 @@ func (d DiskUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maxShares", d.MaxShares)
 	populate(objectMap, "networkAccessPolicy", d.NetworkAccessPolicy)
 	populate(objectMap, "osType", d.OSType)
+	populate(objectMap, "optimizedForFrequentAttach", d.OptimizedForFrequentAttach)
 	populate(objectMap, "propertyUpdatesInProgress", d.PropertyUpdatesInProgress)
 	populate(objectMap, "publicNetworkAccess", d.PublicNetworkAccess)
 	populate(objectMap, "purchasePlan", d.PurchasePlan)
@@ -4126,6 +4139,9 @@ func (d *DiskUpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "osType":
 			err = unpopulate(val, "OSType", &d.OSType)
+			delete(rawMsg, key)
+		case "optimizedForFrequentAttach":
+			err = unpopulate(val, "OptimizedForFrequentAttach", &d.OptimizedForFrequentAttach)
 			delete(rawMsg, key)
 		case "propertyUpdatesInProgress":
 			err = unpopulate(val, "PropertyUpdatesInProgress", &d.PropertyUpdatesInProgress)
@@ -11711,7 +11727,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
@@ -11941,6 +11957,7 @@ func (s SnapshotProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "encryptionSettingsCollection", s.EncryptionSettingsCollection)
 	populate(objectMap, "hyperVGeneration", s.HyperVGeneration)
 	populate(objectMap, "incremental", s.Incremental)
+	populate(objectMap, "incrementalSnapshotFamilyId", s.IncrementalSnapshotFamilyID)
 	populate(objectMap, "networkAccessPolicy", s.NetworkAccessPolicy)
 	populate(objectMap, "osType", s.OSType)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
@@ -11998,6 +12015,9 @@ func (s *SnapshotProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "incremental":
 			err = unpopulate(val, "Incremental", &s.Incremental)
+			delete(rawMsg, key)
+		case "incrementalSnapshotFamilyId":
+			err = unpopulate(val, "IncrementalSnapshotFamilyID", &s.IncrementalSnapshotFamilyID)
 			delete(rawMsg, key)
 		case "networkAccessPolicy":
 			err = unpopulate(val, "NetworkAccessPolicy", &s.NetworkAccessPolicy)
@@ -12407,6 +12427,7 @@ func (s SupportedCapabilities) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "acceleratedNetwork", s.AcceleratedNetwork)
 	populate(objectMap, "architecture", s.Architecture)
+	populate(objectMap, "diskControllerTypes", s.DiskControllerTypes)
 	return json.Marshal(objectMap)
 }
 
@@ -12424,6 +12445,9 @@ func (s *SupportedCapabilities) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "architecture":
 			err = unpopulate(val, "Architecture", &s.Architecture)
+			delete(rawMsg, key)
+		case "diskControllerTypes":
+			err = unpopulate(val, "DiskControllerTypes", &s.DiskControllerTypes)
 			delete(rawMsg, key)
 		}
 		if err != nil {
