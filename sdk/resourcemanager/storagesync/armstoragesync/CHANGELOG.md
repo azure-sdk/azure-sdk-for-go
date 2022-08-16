@@ -1,5 +1,15 @@
 # Release History
 
+## 1.1.0 (2022-08-16)
+### Features Added
+
+- New const `CloudTieringLowDiskModeStateEnabled`
+- New const `CloudTieringLowDiskModeStateDisabled`
+- New function `PossibleCloudTieringLowDiskModeStateValues() []CloudTieringLowDiskModeState`
+- New struct `CloudTieringLowDiskMode`
+- New field `LowDiskMode` in struct `ServerEndpointCloudTieringStatus`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storagesync/armstoragesync` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
