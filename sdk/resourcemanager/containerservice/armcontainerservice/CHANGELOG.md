@@ -1,5 +1,25 @@
 # Release History
 
+## 2.0.0-beta.3 (2022-08-16)
+### Breaking Changes
+
+- Function `*FleetsClient.Update` parameter(s) have been changed from `(context.Context, string, string, FleetPatch, *FleetsClientUpdateOptions)` to `(context.Context, string, string, *FleetsClientUpdateOptions)`
+
+### Features Added
+
+- New const `UpdateModeAuto`
+- New const `UpdateModeInitial`
+- New const `ControlledValuesRequestsOnly`
+- New const `ControlledValuesRequestsAndLimits`
+- New const `UpdateModeRecreate`
+- New const `UpdateModeOff`
+- New function `PossibleControlledValuesValues() []ControlledValues`
+- New function `PossibleUpdateModeValues() []UpdateMode`
+- New struct `ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler`
+- New field `Parameters` in struct `FleetsClientUpdateOptions`
+- New field `VerticalPodAutoscaler` in struct `ManagedClusterWorkloadAutoScalerProfile`
+
+
 ## 2.0.0 (2022-07-22)
 ### Breaking Changes
 
