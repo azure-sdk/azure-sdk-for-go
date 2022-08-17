@@ -1746,6 +1746,11 @@ type PublicIPAddressesClientCreateOrUpdateResponse struct {
 	PublicIPAddress
 }
 
+// PublicIPAddressesClientDdosProtectionStatusResponse contains the response from method PublicIPAddressesClient.DdosProtectionStatus.
+type PublicIPAddressesClientDdosProtectionStatusResponse struct {
+	PublicIPDdosProtectionStatusResult
+}
+
 // PublicIPAddressesClientDeleteResponse contains the response from method PublicIPAddressesClient.Delete.
 type PublicIPAddressesClientDeleteResponse struct {
 	// placeholder for future response values
@@ -2416,6 +2421,21 @@ type VPNSitesConfigurationClientDownloadResponse struct {
 	// placeholder for future response values
 }
 
+// VipSwapClientCreateResponse contains the response from method VipSwapClient.Create.
+type VipSwapClientCreateResponse struct {
+	// placeholder for future response values
+}
+
+// VipSwapClientGetResponse contains the response from method VipSwapClient.Get.
+type VipSwapClientGetResponse struct {
+	SwapResource
+}
+
+// VipSwapClientListResponse contains the response from method VipSwapClient.List.
+type VipSwapClientListResponse struct {
+	SwapResourceListResult
+}
+
 // VirtualApplianceSKUsClientGetResponse contains the response from method VirtualApplianceSKUsClient.Get.
 type VirtualApplianceSKUsClientGetResponse struct {
 	VirtualApplianceSKU
@@ -2884,6 +2904,11 @@ type VirtualNetworksClientGetResponse struct {
 // VirtualNetworksClientListAllResponse contains the response from method VirtualNetworksClient.ListAll.
 type VirtualNetworksClientListAllResponse struct {
 	VirtualNetworkListResult
+}
+
+// VirtualNetworksClientListDdosProtectionStatusResponse contains the response from method VirtualNetworksClient.ListDdosProtectionStatus.
+type VirtualNetworksClientListDdosProtectionStatusResponse struct {
+	VirtualNetworkDdosProtectionStatusResult
 }
 
 // VirtualNetworksClientListResponse contains the response from method VirtualNetworksClient.List.
