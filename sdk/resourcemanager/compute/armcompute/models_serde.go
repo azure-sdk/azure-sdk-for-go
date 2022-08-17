@@ -8251,6 +8251,37 @@ func (p *Plan) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type PriorityMixPolicy.
+func (p PriorityMixPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "baseRegularPriorityCount", p.BaseRegularPriorityCount)
+	populate(objectMap, "regularPriorityPercentageAboveBase", p.RegularPriorityPercentageAboveBase)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PriorityMixPolicy.
+func (p *PriorityMixPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "baseRegularPriorityCount":
+			err = unpopulate(val, "BaseRegularPriorityCount", &p.BaseRegularPriorityCount)
+			delete(rawMsg, key)
+		case "regularPriorityPercentageAboveBase":
+			err = unpopulate(val, "RegularPriorityPercentageAboveBase", &p.RegularPriorityPercentageAboveBase)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type PrivateEndpoint.
 func (p PrivateEndpoint) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -11711,7 +11742,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
@@ -16301,6 +16332,7 @@ func (v VirtualMachineScaleSetProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "orchestrationMode", v.OrchestrationMode)
 	populate(objectMap, "overprovision", v.Overprovision)
 	populate(objectMap, "platformFaultDomainCount", v.PlatformFaultDomainCount)
+	populate(objectMap, "priorityMixPolicy", v.PriorityMixPolicy)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
 	populate(objectMap, "proximityPlacementGroup", v.ProximityPlacementGroup)
 	populate(objectMap, "scaleInPolicy", v.ScaleInPolicy)
@@ -16343,6 +16375,9 @@ func (v *VirtualMachineScaleSetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "platformFaultDomainCount":
 			err = unpopulate(val, "PlatformFaultDomainCount", &v.PlatformFaultDomainCount)
+			delete(rawMsg, key)
+		case "priorityMixPolicy":
+			err = unpopulate(val, "PriorityMixPolicy", &v.PriorityMixPolicy)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &v.ProvisioningState)
