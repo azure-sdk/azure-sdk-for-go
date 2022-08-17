@@ -11711,7 +11711,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
@@ -13134,6 +13134,7 @@ func (v VMGalleryApplication) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "configurationReference", v.ConfigurationReference)
 	populate(objectMap, "enableAutomaticUpgrade", v.EnableAutomaticUpgrade)
+	populate(objectMap, "instanceView", v.InstanceView)
 	populate(objectMap, "order", v.Order)
 	populate(objectMap, "packageReferenceId", v.PackageReferenceID)
 	populate(objectMap, "tags", v.Tags)
@@ -13156,6 +13157,9 @@ func (v *VMGalleryApplication) UnmarshalJSON(data []byte) error {
 		case "enableAutomaticUpgrade":
 			err = unpopulate(val, "EnableAutomaticUpgrade", &v.EnableAutomaticUpgrade)
 			delete(rawMsg, key)
+		case "instanceView":
+			err = unpopulate(val, "InstanceView", &v.InstanceView)
+			delete(rawMsg, key)
 		case "order":
 			err = unpopulate(val, "Order", &v.Order)
 			delete(rawMsg, key)
@@ -13167,6 +13171,76 @@ func (v *VMGalleryApplication) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "treatFailureAsDeploymentFailure":
 			err = unpopulate(val, "TreatFailureAsDeploymentFailure", &v.TreatFailureAsDeploymentFailure)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type VMGalleryApplicationInstanceView.
+func (v VMGalleryApplicationInstanceView) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "actionsPerformed", v.ActionsPerformed)
+	populate(objectMap, "name", v.Name)
+	populate(objectMap, "result", v.Result)
+	populate(objectMap, "version", v.Version)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VMGalleryApplicationInstanceView.
+func (v *VMGalleryApplicationInstanceView) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "actionsPerformed":
+			err = unpopulate(val, "ActionsPerformed", &v.ActionsPerformed)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &v.Name)
+			delete(rawMsg, key)
+		case "result":
+			err = unpopulate(val, "Result", &v.Result)
+			delete(rawMsg, key)
+		case "version":
+			err = unpopulate(val, "Version", &v.Version)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type VMGalleryApplicationInstanceViewAction.
+func (v VMGalleryApplicationInstanceViewAction) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "operation", v.Operation)
+	populate(objectMap, "result", v.Result)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VMGalleryApplicationInstanceViewAction.
+func (v *VMGalleryApplicationInstanceViewAction) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "operation":
+			err = unpopulate(val, "Operation", &v.Operation)
+			delete(rawMsg, key)
+		case "result":
+			err = unpopulate(val, "Result", &v.Result)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -13447,6 +13521,33 @@ func (v *VirtualMachineAgentInstanceView) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "vmAgentVersion":
 			err = unpopulate(val, "VMAgentVersion", &v.VMAgentVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", v, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type VirtualMachineApplicationsListResult.
+func (v VirtualMachineApplicationsListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "value", v.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualMachineApplicationsListResult.
+func (v *VirtualMachineApplicationsListResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", v, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "value":
+			err = unpopulate(val, "Value", &v.Value)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -17146,6 +17247,7 @@ func (v *VirtualMachineScaleSetUpdateStorageProfile) UnmarshalJSON(data []byte) 
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetUpdateVMProfile.
 func (v VirtualMachineScaleSetUpdateVMProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "applicationProfile", v.ApplicationProfile)
 	populate(objectMap, "billingProfile", v.BillingProfile)
 	populate(objectMap, "diagnosticsProfile", v.DiagnosticsProfile)
 	populate(objectMap, "extensionProfile", v.ExtensionProfile)
@@ -17168,6 +17270,9 @@ func (v *VirtualMachineScaleSetUpdateVMProfile) UnmarshalJSON(data []byte) error
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "applicationProfile":
+			err = unpopulate(val, "ApplicationProfile", &v.ApplicationProfile)
+			delete(rawMsg, key)
 		case "billingProfile":
 			err = unpopulate(val, "BillingProfile", &v.BillingProfile)
 			delete(rawMsg, key)

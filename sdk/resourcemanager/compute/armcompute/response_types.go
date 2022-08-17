@@ -857,6 +857,26 @@ type UsageClientListResponse struct {
 	ListUsagesResult
 }
 
+// VirtualMachineApplicationsClientDeleteResponse contains the response from method VirtualMachineApplicationsClient.Delete.
+type VirtualMachineApplicationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachineApplicationsClientGetResponse contains the response from method VirtualMachineApplicationsClient.Get.
+type VirtualMachineApplicationsClientGetResponse struct {
+	VMGalleryApplication
+}
+
+// VirtualMachineApplicationsClientListResponse contains the response from method VirtualMachineApplicationsClient.List.
+type VirtualMachineApplicationsClientListResponse struct {
+	VirtualMachineApplicationsListResult
+}
+
+// VirtualMachineApplicationsClientPutResponse contains the response from method VirtualMachineApplicationsClient.Put.
+type VirtualMachineApplicationsClientPutResponse struct {
+	VMGalleryApplication
+}
+
 // VirtualMachineExtensionImagesClientGetResponse contains the response from method VirtualMachineExtensionImagesClient.Get.
 type VirtualMachineExtensionImagesClientGetResponse struct {
 	VirtualMachineExtensionImage
@@ -995,6 +1015,26 @@ type VirtualMachineRunCommandsClientListResponse struct {
 // VirtualMachineRunCommandsClientUpdateResponse contains the response from method VirtualMachineRunCommandsClient.Update.
 type VirtualMachineRunCommandsClientUpdateResponse struct {
 	VirtualMachineRunCommand
+}
+
+// VirtualMachineScaleSetApplicationsClientDeleteResponse contains the response from method VirtualMachineScaleSetApplicationsClient.Delete.
+type VirtualMachineScaleSetApplicationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// VirtualMachineScaleSetApplicationsClientGetResponse contains the response from method VirtualMachineScaleSetApplicationsClient.Get.
+type VirtualMachineScaleSetApplicationsClientGetResponse struct {
+	VMGalleryApplication
+}
+
+// VirtualMachineScaleSetApplicationsClientListResponse contains the response from method VirtualMachineScaleSetApplicationsClient.List.
+type VirtualMachineScaleSetApplicationsClientListResponse struct {
+	VirtualMachineApplicationsListResult
+}
+
+// VirtualMachineScaleSetApplicationsClientPutResponse contains the response from method VirtualMachineScaleSetApplicationsClient.Put.
+type VirtualMachineScaleSetApplicationsClientPutResponse struct {
+	VMGalleryApplication
 }
 
 // VirtualMachineScaleSetExtensionsClientCreateOrUpdateResponse contains the response from method VirtualMachineScaleSetExtensionsClient.CreateOrUpdate.

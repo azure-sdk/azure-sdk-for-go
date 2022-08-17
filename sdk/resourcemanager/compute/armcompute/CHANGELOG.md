@@ -1,5 +1,53 @@
 # Release History
 
+## 4.0.0 (2022-08-17)
+### Breaking Changes
+
+- Function `*CloudServicesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, CloudService, *CloudServicesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, *CloudServicesClientBeginCreateOrUpdateOptions)`
+- Function `*CloudServicesClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, CloudServiceUpdate, *CloudServicesClientBeginUpdateOptions)` to `(context.Context, string, string, *CloudServicesClientBeginUpdateOptions)`
+- Function `*CloudServicesUpdateDomainClient.BeginWalkUpdateDomain` parameter(s) have been changed from `(context.Context, string, string, int32, UpdateDomain, *CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions)` to `(context.Context, string, string, int32, *CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions)`
+- Type of `SharingProfile.CommunityGalleryInfo` has been changed from `interface{}` to `*CommunityGalleryInfo`
+
+### Features Added
+
+- New function `*VirtualMachineApplicationsClient.BeginPut(context.Context, string, string, string, VMGalleryApplication, *VirtualMachineApplicationsClientBeginPutOptions) (*runtime.Poller[VirtualMachineApplicationsClientPutResponse], error)`
+- New function `*VirtualMachineApplicationsClient.List(context.Context, string, string, *VirtualMachineApplicationsClientListOptions) (VirtualMachineApplicationsClientListResponse, error)`
+- New function `*VirtualMachineApplicationsClient.BeginDelete(context.Context, string, string, string, *VirtualMachineApplicationsClientBeginDeleteOptions) (*runtime.Poller[VirtualMachineApplicationsClientDeleteResponse], error)`
+- New function `*VirtualMachineScaleSetApplicationsClient.List(context.Context, string, string, *VirtualMachineScaleSetApplicationsClientListOptions) (VirtualMachineScaleSetApplicationsClientListResponse, error)`
+- New function `*VirtualMachineScaleSetApplicationsClient.Get(context.Context, string, string, string, *VirtualMachineScaleSetApplicationsClientGetOptions) (VirtualMachineScaleSetApplicationsClientGetResponse, error)`
+- New function `*VirtualMachineScaleSetApplicationsClient.BeginDelete(context.Context, string, string, string, *VirtualMachineScaleSetApplicationsClientBeginDeleteOptions) (*runtime.Poller[VirtualMachineScaleSetApplicationsClientDeleteResponse], error)`
+- New function `NewVirtualMachineScaleSetApplicationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VirtualMachineScaleSetApplicationsClient, error)`
+- New function `NewVirtualMachineApplicationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VirtualMachineApplicationsClient, error)`
+- New function `*VirtualMachineScaleSetApplicationsClient.BeginPut(context.Context, string, string, string, VMGalleryApplication, *VirtualMachineScaleSetApplicationsClientBeginPutOptions) (*runtime.Poller[VirtualMachineScaleSetApplicationsClientPutResponse], error)`
+- New function `*VirtualMachineApplicationsClient.Get(context.Context, string, string, string, *VirtualMachineApplicationsClientGetOptions) (VirtualMachineApplicationsClientGetResponse, error)`
+- New struct `VMGalleryApplicationInstanceView`
+- New struct `VMGalleryApplicationInstanceViewAction`
+- New struct `VirtualMachineApplicationsClient`
+- New struct `VirtualMachineApplicationsClientBeginDeleteOptions`
+- New struct `VirtualMachineApplicationsClientBeginPutOptions`
+- New struct `VirtualMachineApplicationsClientDeleteResponse`
+- New struct `VirtualMachineApplicationsClientGetOptions`
+- New struct `VirtualMachineApplicationsClientGetResponse`
+- New struct `VirtualMachineApplicationsClientListOptions`
+- New struct `VirtualMachineApplicationsClientListResponse`
+- New struct `VirtualMachineApplicationsClientPutResponse`
+- New struct `VirtualMachineApplicationsListResult`
+- New struct `VirtualMachineScaleSetApplicationsClient`
+- New struct `VirtualMachineScaleSetApplicationsClientBeginDeleteOptions`
+- New struct `VirtualMachineScaleSetApplicationsClientBeginPutOptions`
+- New struct `VirtualMachineScaleSetApplicationsClientDeleteResponse`
+- New struct `VirtualMachineScaleSetApplicationsClientGetOptions`
+- New struct `VirtualMachineScaleSetApplicationsClientGetResponse`
+- New struct `VirtualMachineScaleSetApplicationsClientListOptions`
+- New struct `VirtualMachineScaleSetApplicationsClientListResponse`
+- New struct `VirtualMachineScaleSetApplicationsClientPutResponse`
+- New field `ApplicationProfile` in struct `VirtualMachineScaleSetUpdateVMProfile`
+- New field `InstanceView` in struct `VMGalleryApplication`
+- New field `Parameters` in struct `CloudServicesClientBeginCreateOrUpdateOptions`
+- New field `Parameters` in struct `CloudServicesClientBeginUpdateOptions`
+- New field `Parameters` in struct `CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions`
+
+
 ## 3.0.1 (2022-07-29)
 ### Other Changes
 - Fix wrong module import for live test

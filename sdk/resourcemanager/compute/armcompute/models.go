@@ -522,7 +522,7 @@ type CapacityReservationProperties struct {
 	ReservationID *string `json:"reservationId,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Capacity Reservation resource was created.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; A list of all virtual machine resource ids that are associated with the capacity reservation.
@@ -961,6 +961,8 @@ type CloudServiceVaultSecretGroup struct {
 // CloudServicesClientBeginCreateOrUpdateOptions contains the optional parameters for the CloudServicesClient.BeginCreateOrUpdate
 // method.
 type CloudServicesClientBeginCreateOrUpdateOptions struct {
+	// The cloud service object.
+	Parameters *CloudService
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1018,6 +1020,8 @@ type CloudServicesClientBeginStartOptions struct {
 
 // CloudServicesClientBeginUpdateOptions contains the optional parameters for the CloudServicesClient.BeginUpdate method.
 type CloudServicesClientBeginUpdateOptions struct {
+	// The cloud service object.
+	Parameters *CloudServiceUpdate
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1046,6 +1050,8 @@ type CloudServicesClientListOptions struct {
 // CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions contains the optional parameters for the CloudServicesUpdateDomainClient.BeginWalkUpdateDomain
 // method.
 type CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions struct {
+	// The update domain object.
+	Parameters *UpdateDomain
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1629,7 +1635,7 @@ type DedicatedHostProperties struct {
 	ProvisioningTime *time.Time `json:"provisioningTime,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Dedicated Host resource was created.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; A list of references to all virtual machines in the Dedicated Host.
@@ -3448,7 +3454,7 @@ type ImageListResult struct {
 
 // ImageOSDisk - Describes an Operating System disk.
 type ImageOSDisk struct {
-	// REQUIRED; The OS State.
+	// REQUIRED; The OS State. For managed images, use Generalized.
 	OSState *OperatingSystemStateTypes `json:"osState,omitempty"`
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk if creating a VM from a custom
@@ -5896,7 +5902,7 @@ type SharedGalleryOSDiskImage struct {
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
-	CommunityGalleryInfo interface{} `json:"communityGalleryInfo,omitempty"`
+	CommunityGalleryInfo *CommunityGalleryInfo `json:"communityGalleryInfo,omitempty"`
 
 	// This property allows you to specify the permission of sharing gallery.
 	// Possible values are:
@@ -6522,6 +6528,31 @@ type VMGalleryApplication struct {
 
 	// Optional, If true, any failure for any operation in the VmApplication will fail the deployment
 	TreatFailureAsDeploymentFailure *bool `json:"treatFailureAsDeploymentFailure,omitempty"`
+
+	// READ-ONLY; Contains instanceView of the VMApplication if $expand=instanceView is specified
+	InstanceView *VMGalleryApplicationInstanceView `json:"instanceView,omitempty" azure:"ro"`
+}
+
+type VMGalleryApplicationInstanceView struct {
+	// actions performed on the application
+	ActionsPerformed []*VMGalleryApplicationInstanceViewAction `json:"actionsPerformed,omitempty"`
+
+	// The application name
+	Name *string `json:"name,omitempty"`
+
+	// The current status of the application
+	Result *string `json:"result,omitempty"`
+
+	// The application version
+	Version *string `json:"version,omitempty"`
+}
+
+type VMGalleryApplicationInstanceViewAction struct {
+	// The action performed
+	Operation *string `json:"operation,omitempty"`
+
+	// The result of the operation
+	Result *string `json:"result,omitempty"`
 }
 
 // VMImagesInEdgeZoneListResult - The List VmImages in EdgeZone operation response.
@@ -6648,6 +6679,39 @@ type VirtualMachineAgentInstanceView struct {
 
 	// The VM Agent full version.
 	VMAgentVersion *string `json:"vmAgentVersion,omitempty"`
+}
+
+// VirtualMachineApplicationsClientBeginDeleteOptions contains the optional parameters for the VirtualMachineApplicationsClient.BeginDelete
+// method.
+type VirtualMachineApplicationsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineApplicationsClientBeginPutOptions contains the optional parameters for the VirtualMachineApplicationsClient.BeginPut
+// method.
+type VirtualMachineApplicationsClientBeginPutOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineApplicationsClientGetOptions contains the optional parameters for the VirtualMachineApplicationsClient.Get
+// method.
+type VirtualMachineApplicationsClientGetOptions struct {
+	// The expand expression to apply on the operation.. Specifying any value will set the value to instanceView.
+	Expand *string
+}
+
+// VirtualMachineApplicationsClientListOptions contains the optional parameters for the VirtualMachineApplicationsClient.List
+// method.
+type VirtualMachineApplicationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineApplicationsListResult - The List Extension operation response
+type VirtualMachineApplicationsListResult struct {
+	// The list of extensions
+	Value []*VMGalleryApplication `json:"value,omitempty"`
 }
 
 // VirtualMachineAssessPatchesResult - Describes the properties of an AssessPatches result.
@@ -7470,7 +7534,7 @@ type VirtualMachineProperties struct {
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Virtual Machine resource was created.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the VM unique ID which is a 128-bits identifier that is encoded and stored in all Azure IaaS VMs SMBIOS
@@ -7732,6 +7796,32 @@ type VirtualMachineScaleSet struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// VirtualMachineScaleSetApplicationsClientBeginDeleteOptions contains the optional parameters for the VirtualMachineScaleSetApplicationsClient.BeginDelete
+// method.
+type VirtualMachineScaleSetApplicationsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineScaleSetApplicationsClientBeginPutOptions contains the optional parameters for the VirtualMachineScaleSetApplicationsClient.BeginPut
+// method.
+type VirtualMachineScaleSetApplicationsClientBeginPutOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// VirtualMachineScaleSetApplicationsClientGetOptions contains the optional parameters for the VirtualMachineScaleSetApplicationsClient.Get
+// method.
+type VirtualMachineScaleSetApplicationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VirtualMachineScaleSetApplicationsClientListOptions contains the optional parameters for the VirtualMachineScaleSetApplicationsClient.List
+// method.
+type VirtualMachineScaleSetApplicationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // VirtualMachineScaleSetDataDisk - Describes a virtual machine scale set data disk.
 type VirtualMachineScaleSetDataDisk struct {
 	// REQUIRED; The create option.
@@ -7912,7 +8002,7 @@ type VirtualMachineScaleSetExtensionsClientListOptions struct {
 
 // VirtualMachineScaleSetHardwareProfile - Specifies the hardware settings for the virtual machine scale set.
 type VirtualMachineScaleSetHardwareProfile struct {
-	// Specifies the properties for customizing the size of the virtual machine. Minimum api-version: 2022-03-01.
+	// Specifies the properties for customizing the size of the virtual machine. Minimum api-version: 2021-11-01.
 	// Please follow the instructions in VM Customization [https://aka.ms/vmcustomization] for more details.
 	VMSizeProperties *VMSizeProperties `json:"vmSizeProperties,omitempty"`
 }
@@ -8300,7 +8390,7 @@ type VirtualMachineScaleSetProperties struct {
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the time at which the Virtual Machine Scale Set resource was created.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	TimeCreated *time.Time `json:"timeCreated,omitempty" azure:"ro"`
 
 	// READ-ONLY; Specifies the ID which uniquely identifies a Virtual Machine Scale Set.
@@ -8676,6 +8766,9 @@ type VirtualMachineScaleSetUpdateStorageProfile struct {
 
 // VirtualMachineScaleSetUpdateVMProfile - Describes a virtual machine scale set virtual machine profile.
 type VirtualMachineScaleSetUpdateVMProfile struct {
+	// Specifies the gallery applications that should be made available to the VM/VMSS
+	ApplicationProfile *ApplicationProfile `json:"applicationProfile,omitempty"`
+
 	// Specifies the billing related details of a Azure Spot VMSS.
 	// Minimum api-version: 2019-03-01.
 	BillingProfile *BillingProfile `json:"billingProfile,omitempty"`
@@ -8931,7 +9024,7 @@ type VirtualMachineScaleSetVMProfile struct {
 	ExtensionProfile *VirtualMachineScaleSetExtensionProfile `json:"extensionProfile,omitempty"`
 
 	// Specifies the hardware profile related details of a scale set.
-	// Minimum api-version: 2022-03-01.
+	// Minimum api-version: 2021-11-01.
 	HardwareProfile *VirtualMachineScaleSetHardwareProfile `json:"hardwareProfile,omitempty"`
 
 	// Specifies that the image or disk that is being used was licensed on-premises.
