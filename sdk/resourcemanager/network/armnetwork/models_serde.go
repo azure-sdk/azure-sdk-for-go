@@ -11151,8 +11151,8 @@ func (e *ExclusionManagedRuleSet) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type ExplicitProxySettings.
-func (e ExplicitProxySettings) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type ExplicitProxy.
+func (e ExplicitProxy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "enableExplicitProxy", e.EnableExplicitProxy)
 	populate(objectMap, "enablePacFile", e.EnablePacFile)
@@ -11163,8 +11163,8 @@ func (e ExplicitProxySettings) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type ExplicitProxySettings.
-func (e *ExplicitProxySettings) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExplicitProxy.
+func (e *ExplicitProxy) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", e, err)
@@ -14256,7 +14256,7 @@ func (f FirewallPolicyPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "basePolicy", f.BasePolicy)
 	populate(objectMap, "childPolicies", f.ChildPolicies)
 	populate(objectMap, "dnsSettings", f.DNSSettings)
-	populate(objectMap, "explicitProxySettings", f.ExplicitProxySettings)
+	populate(objectMap, "explicitProxy", f.ExplicitProxy)
 	populate(objectMap, "firewalls", f.Firewalls)
 	populate(objectMap, "insights", f.Insights)
 	populate(objectMap, "intrusionDetection", f.IntrusionDetection)
@@ -14289,8 +14289,8 @@ func (f *FirewallPolicyPropertiesFormat) UnmarshalJSON(data []byte) error {
 		case "dnsSettings":
 			err = unpopulate(val, "DNSSettings", &f.DNSSettings)
 			delete(rawMsg, key)
-		case "explicitProxySettings":
-			err = unpopulate(val, "ExplicitProxySettings", &f.ExplicitProxySettings)
+		case "explicitProxy":
+			err = unpopulate(val, "ExplicitProxy", &f.ExplicitProxy)
 			delete(rawMsg, key)
 		case "firewalls":
 			err = unpopulate(val, "Firewalls", &f.Firewalls)

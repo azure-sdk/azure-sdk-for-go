@@ -5203,8 +5203,8 @@ type ExclusionManagedRuleSet struct {
 	RuleGroups []*ExclusionManagedRuleGroup `json:"ruleGroups,omitempty"`
 }
 
-// ExplicitProxySettings - Explicit Proxy Settings in Firewall Policy.
-type ExplicitProxySettings struct {
+// ExplicitProxy - Explicit Proxy Settings in Firewall Policy.
+type ExplicitProxy struct {
 	// When set to true, explicit proxy mode is enabled.
 	EnableExplicitProxy *bool `json:"enableExplicitProxy,omitempty"`
 
@@ -6924,7 +6924,7 @@ type FirewallPolicyPropertiesFormat struct {
 	DNSSettings *DNSSettings `json:"dnsSettings,omitempty"`
 
 	// Explicit Proxy Settings definition.
-	ExplicitProxySettings *ExplicitProxySettings `json:"explicitProxySettings,omitempty"`
+	ExplicitProxy *ExplicitProxy `json:"explicitProxy,omitempty"`
 
 	// Insights on Firewall Policy.
 	Insights *FirewallPolicyInsights `json:"insights,omitempty"`

@@ -1,5 +1,17 @@
 # Release History
 
+## 2.0.0 (2022-08-17)
+### Breaking Changes
+
+- Struct `ExplicitProxySettings` has been removed
+- Field `ExplicitProxySettings` of struct `FirewallPolicyPropertiesFormat` has been removed
+
+### Features Added
+
+- New struct `ExplicitProxy`
+- New field `ExplicitProxy` in struct `FirewallPolicyPropertiesFormat`
+
+
 ## 1.1.0 (2022-08-05)
 ### Features Added
 
