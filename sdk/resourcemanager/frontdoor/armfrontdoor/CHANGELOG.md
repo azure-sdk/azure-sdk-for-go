@@ -1,5 +1,16 @@
 # Release History
 
+## 1.1.0 (2022-08-17)
+### Features Added
+
+- New const `FrontDoorResourceStateMigrating`
+- New const `FrontDoorResourceStateMigrated`
+- New function `*PoliciesClient.BeginUpdate(context.Context, string, string, TagsObject, *PoliciesClientBeginUpdateOptions) (*runtime.Poller[PoliciesClientUpdateResponse], error)`
+- New struct `PoliciesClientBeginUpdateOptions`
+- New struct `PoliciesClientUpdateResponse`
+- New field `ExtendedProperties` in struct `Properties`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/frontdoor/armfrontdoor` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
