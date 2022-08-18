@@ -961,6 +961,8 @@ type CloudServiceVaultSecretGroup struct {
 // CloudServicesClientBeginCreateOrUpdateOptions contains the optional parameters for the CloudServicesClient.BeginCreateOrUpdate
 // method.
 type CloudServicesClientBeginCreateOrUpdateOptions struct {
+	// The cloud service object.
+	Parameters *CloudService
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1018,6 +1020,8 @@ type CloudServicesClientBeginStartOptions struct {
 
 // CloudServicesClientBeginUpdateOptions contains the optional parameters for the CloudServicesClient.BeginUpdate method.
 type CloudServicesClientBeginUpdateOptions struct {
+	// The cloud service object.
+	Parameters *CloudServiceUpdate
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1046,6 +1050,8 @@ type CloudServicesClientListOptions struct {
 // CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions contains the optional parameters for the CloudServicesUpdateDomainClient.BeginWalkUpdateDomain
 // method.
 type CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions struct {
+	// The update domain object.
+	Parameters *UpdateDomain
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -3448,7 +3454,7 @@ type ImageListResult struct {
 
 // ImageOSDisk - Describes an Operating System disk.
 type ImageOSDisk struct {
-	// REQUIRED; The OS State.
+	// REQUIRED; The OS State. For managed images, use Generalized.
 	OSState *OperatingSystemStateTypes `json:"osState,omitempty"`
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk if creating a VM from a custom
@@ -4055,6 +4061,12 @@ type OSDisk struct {
 type OSDiskImage struct {
 	// REQUIRED; The operating system of the osDiskImage.
 	OperatingSystem *OperatingSystemTypes `json:"operatingSystem,omitempty"`
+
+	// The size in bytes of the osDiskImage.
+	SizeInBytes *int64 `json:"sizeInBytes,omitempty"`
+
+	// The size in GB of the osDiskImage.
+	SizeInGb *int32 `json:"sizeInGb,omitempty"`
 }
 
 // OSDiskImageEncryption - Contains encryption settings for an OS disk image.
@@ -5896,7 +5908,7 @@ type SharedGalleryOSDiskImage struct {
 // SharingProfile - Profile for gallery sharing to subscription or tenant
 type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
-	CommunityGalleryInfo interface{} `json:"communityGalleryInfo,omitempty"`
+	CommunityGalleryInfo *CommunityGalleryInfo `json:"communityGalleryInfo,omitempty"`
 
 	// This property allows you to specify the permission of sharing gallery.
 	// Possible values are:

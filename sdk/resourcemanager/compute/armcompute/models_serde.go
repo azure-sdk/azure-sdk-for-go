@@ -7445,6 +7445,8 @@ func (o *OSDisk) UnmarshalJSON(data []byte) error {
 func (o OSDiskImage) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "operatingSystem", o.OperatingSystem)
+	populate(objectMap, "sizeInBytes", o.SizeInBytes)
+	populate(objectMap, "sizeInGb", o.SizeInGb)
 	return json.Marshal(objectMap)
 }
 
@@ -7459,6 +7461,12 @@ func (o *OSDiskImage) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "operatingSystem":
 			err = unpopulate(val, "OperatingSystem", &o.OperatingSystem)
+			delete(rawMsg, key)
+		case "sizeInBytes":
+			err = unpopulate(val, "SizeInBytes", &o.SizeInBytes)
+			delete(rawMsg, key)
+		case "sizeInGb":
+			err = unpopulate(val, "SizeInGb", &o.SizeInGb)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -11711,7 +11719,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
