@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v3.0.1"
+	moduleVersion = "v4.0.0"
 )
 
 type AccessLevel string
@@ -51,7 +51,7 @@ func PossibleAggregatedReplicationStateValues() []AggregatedReplicationState {
 	}
 }
 
-// Architecture - The architecture of the image. Applicable to OS disks only.
+// Architecture - CPU architecture supported by an OS disk.
 type Architecture string
 
 const (
@@ -1037,12 +1037,13 @@ func PossibleNetworkAccessPolicyValues() []NetworkAccessPolicy {
 	}
 }
 
-// OperatingSystemStateTypes - This property allows the user to specify whether the virtual machines created under this image
-// are 'Generalized' or 'Specialized'.
+// OperatingSystemStateTypes - The OS State. For managed images, use Generalized.
 type OperatingSystemStateTypes string
 
 const (
+	// OperatingSystemStateTypesGeneralized - Generalized image. Needs to be provisioned during deployment time.
 	OperatingSystemStateTypesGeneralized OperatingSystemStateTypes = "Generalized"
+	// OperatingSystemStateTypesSpecialized - Specialized image. Contains already provisioned OS Disk.
 	OperatingSystemStateTypesSpecialized OperatingSystemStateTypes = "Specialized"
 )
 
@@ -1070,7 +1071,8 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 	}
 }
 
-// OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
+// OperatingSystemTypes - This property allows you to specify the type of the OS that is included in the disk if creating
+// a VM from user-image or a specialized VHD.
 // Possible values are:
 // Windows
 // Linux
