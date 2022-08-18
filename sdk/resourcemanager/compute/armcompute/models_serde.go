@@ -6752,6 +6752,7 @@ func (l *LastPatchInstallationSummary) UnmarshalJSON(data []byte) error {
 func (l LinuxConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "disablePasswordAuthentication", l.DisablePasswordAuthentication)
+	populate(objectMap, "enableVMAgentPlatformUpdates", l.EnableVMAgentPlatformUpdates)
 	populate(objectMap, "patchSettings", l.PatchSettings)
 	populate(objectMap, "provisionVMAgent", l.ProvisionVMAgent)
 	populate(objectMap, "ssh", l.SSH)
@@ -6769,6 +6770,9 @@ func (l *LinuxConfiguration) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "disablePasswordAuthentication":
 			err = unpopulate(val, "DisablePasswordAuthentication", &l.DisablePasswordAuthentication)
+			delete(rawMsg, key)
+		case "enableVMAgentPlatformUpdates":
+			err = unpopulate(val, "EnableVMAgentPlatformUpdates", &l.EnableVMAgentPlatformUpdates)
 			delete(rawMsg, key)
 		case "patchSettings":
 			err = unpopulate(val, "PatchSettings", &l.PatchSettings)
@@ -11711,7 +11715,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
@@ -13812,7 +13816,7 @@ func (v VirtualMachineExtensionProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "forceUpdateTag", v.ForceUpdateTag)
 	populate(objectMap, "instanceView", v.InstanceView)
 	populate(objectMap, "protectedSettings", &v.ProtectedSettings)
-	populate(objectMap, "protectedSettingsFromKeyVault", &v.ProtectedSettingsFromKeyVault)
+	populate(objectMap, "protectedSettingsFromKeyVault", v.ProtectedSettingsFromKeyVault)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
 	populate(objectMap, "publisher", v.Publisher)
 	populate(objectMap, "settings", &v.Settings)
@@ -13913,7 +13917,7 @@ func (v VirtualMachineExtensionUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableAutomaticUpgrade", v.EnableAutomaticUpgrade)
 	populate(objectMap, "forceUpdateTag", v.ForceUpdateTag)
 	populate(objectMap, "protectedSettings", &v.ProtectedSettings)
-	populate(objectMap, "protectedSettingsFromKeyVault", &v.ProtectedSettingsFromKeyVault)
+	populate(objectMap, "protectedSettingsFromKeyVault", v.ProtectedSettingsFromKeyVault)
 	populate(objectMap, "publisher", v.Publisher)
 	populate(objectMap, "settings", &v.Settings)
 	populate(objectMap, "suppressFailures", v.SuppressFailures)
@@ -15502,7 +15506,7 @@ func (v VirtualMachineScaleSetExtensionProperties) MarshalJSON() ([]byte, error)
 	populate(objectMap, "enableAutomaticUpgrade", v.EnableAutomaticUpgrade)
 	populate(objectMap, "forceUpdateTag", v.ForceUpdateTag)
 	populate(objectMap, "protectedSettings", &v.ProtectedSettings)
-	populate(objectMap, "protectedSettingsFromKeyVault", &v.ProtectedSettingsFromKeyVault)
+	populate(objectMap, "protectedSettingsFromKeyVault", v.ProtectedSettingsFromKeyVault)
 	populate(objectMap, "provisionAfterExtensions", v.ProvisionAfterExtensions)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
 	populate(objectMap, "publisher", v.Publisher)
@@ -18102,6 +18106,7 @@ func (w WindowsConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "additionalUnattendContent", w.AdditionalUnattendContent)
 	populate(objectMap, "enableAutomaticUpdates", w.EnableAutomaticUpdates)
+	populate(objectMap, "enableVMAgentPlatformUpdates", w.EnableVMAgentPlatformUpdates)
 	populate(objectMap, "patchSettings", w.PatchSettings)
 	populate(objectMap, "provisionVMAgent", w.ProvisionVMAgent)
 	populate(objectMap, "timeZone", w.TimeZone)
@@ -18123,6 +18128,9 @@ func (w *WindowsConfiguration) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "enableAutomaticUpdates":
 			err = unpopulate(val, "EnableAutomaticUpdates", &w.EnableAutomaticUpdates)
+			delete(rawMsg, key)
+		case "enableVMAgentPlatformUpdates":
+			err = unpopulate(val, "EnableVMAgentPlatformUpdates", &w.EnableVMAgentPlatformUpdates)
 			delete(rawMsg, key)
 		case "patchSettings":
 			err = unpopulate(val, "PatchSettings", &w.PatchSettings)
