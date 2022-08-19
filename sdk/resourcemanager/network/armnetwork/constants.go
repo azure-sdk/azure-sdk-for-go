@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -27,6 +27,26 @@ func PossibleAccessValues() []Access {
 	return []Access{
 		AccessAllow,
 		AccessDeny,
+	}
+}
+
+// ActionType - Defines the action to take on rule match.
+type ActionType string
+
+const (
+	ActionTypeAllow          ActionType = "Allow"
+	ActionTypeAnomalyScoring ActionType = "AnomalyScoring"
+	ActionTypeBlock          ActionType = "Block"
+	ActionTypeLog            ActionType = "Log"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeAllow,
+		ActionTypeAnomalyScoring,
+		ActionTypeBlock,
+		ActionTypeLog,
 	}
 }
 
@@ -81,6 +101,22 @@ func PossibleApplicationGatewayBackendHealthServerHealthValues() []ApplicationGa
 		ApplicationGatewayBackendHealthServerHealthPartial,
 		ApplicationGatewayBackendHealthServerHealthUnknown,
 		ApplicationGatewayBackendHealthServerHealthUp,
+	}
+}
+
+// ApplicationGatewayClientRevocationOptions - Verify client certificate revocation status.
+type ApplicationGatewayClientRevocationOptions string
+
+const (
+	ApplicationGatewayClientRevocationOptionsNone ApplicationGatewayClientRevocationOptions = "None"
+	ApplicationGatewayClientRevocationOptionsOCSP ApplicationGatewayClientRevocationOptions = "OCSP"
+)
+
+// PossibleApplicationGatewayClientRevocationOptionsValues returns the possible values for the ApplicationGatewayClientRevocationOptions const type.
+func PossibleApplicationGatewayClientRevocationOptionsValues() []ApplicationGatewayClientRevocationOptions {
+	return []ApplicationGatewayClientRevocationOptions{
+		ApplicationGatewayClientRevocationOptionsNone,
+		ApplicationGatewayClientRevocationOptionsOCSP,
 	}
 }
 
@@ -878,61 +914,21 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// DdosCustomPolicyProtocol - The protocol for which the DDoS protection policy is being customized.
-type DdosCustomPolicyProtocol string
+// DdosSettingsProtectionMode - The DDoS protection mode of the public IP
+type DdosSettingsProtectionMode string
 
 const (
-	DdosCustomPolicyProtocolSyn DdosCustomPolicyProtocol = "Syn"
-	DdosCustomPolicyProtocolTCP DdosCustomPolicyProtocol = "Tcp"
-	DdosCustomPolicyProtocolUDP DdosCustomPolicyProtocol = "Udp"
+	DdosSettingsProtectionModeDisabled                DdosSettingsProtectionMode = "Disabled"
+	DdosSettingsProtectionModeEnabled                 DdosSettingsProtectionMode = "Enabled"
+	DdosSettingsProtectionModeVirtualNetworkInherited DdosSettingsProtectionMode = "VirtualNetworkInherited"
 )
 
-// PossibleDdosCustomPolicyProtocolValues returns the possible values for the DdosCustomPolicyProtocol const type.
-func PossibleDdosCustomPolicyProtocolValues() []DdosCustomPolicyProtocol {
-	return []DdosCustomPolicyProtocol{
-		DdosCustomPolicyProtocolSyn,
-		DdosCustomPolicyProtocolTCP,
-		DdosCustomPolicyProtocolUDP,
-	}
-}
-
-// DdosCustomPolicyTriggerSensitivityOverride - The customized DDoS protection trigger rate sensitivity degrees. High: Trigger
-// rate set with most sensitivity w.r.t. normal traffic. Default: Trigger rate set with moderate sensitivity w.r.t. normal
-// traffic. Low: Trigger rate set with less sensitivity w.r.t. normal traffic. Relaxed: Trigger rate set with least sensitivity
-// w.r.t. normal traffic.
-type DdosCustomPolicyTriggerSensitivityOverride string
-
-const (
-	DdosCustomPolicyTriggerSensitivityOverrideDefault DdosCustomPolicyTriggerSensitivityOverride = "Default"
-	DdosCustomPolicyTriggerSensitivityOverrideHigh    DdosCustomPolicyTriggerSensitivityOverride = "High"
-	DdosCustomPolicyTriggerSensitivityOverrideLow     DdosCustomPolicyTriggerSensitivityOverride = "Low"
-	DdosCustomPolicyTriggerSensitivityOverrideRelaxed DdosCustomPolicyTriggerSensitivityOverride = "Relaxed"
-)
-
-// PossibleDdosCustomPolicyTriggerSensitivityOverrideValues returns the possible values for the DdosCustomPolicyTriggerSensitivityOverride const type.
-func PossibleDdosCustomPolicyTriggerSensitivityOverrideValues() []DdosCustomPolicyTriggerSensitivityOverride {
-	return []DdosCustomPolicyTriggerSensitivityOverride{
-		DdosCustomPolicyTriggerSensitivityOverrideDefault,
-		DdosCustomPolicyTriggerSensitivityOverrideHigh,
-		DdosCustomPolicyTriggerSensitivityOverrideLow,
-		DdosCustomPolicyTriggerSensitivityOverrideRelaxed,
-	}
-}
-
-// DdosSettingsProtectionCoverage - The DDoS protection policy customizability of the public IP. Only standard coverage will
-// have the ability to be customized.
-type DdosSettingsProtectionCoverage string
-
-const (
-	DdosSettingsProtectionCoverageBasic    DdosSettingsProtectionCoverage = "Basic"
-	DdosSettingsProtectionCoverageStandard DdosSettingsProtectionCoverage = "Standard"
-)
-
-// PossibleDdosSettingsProtectionCoverageValues returns the possible values for the DdosSettingsProtectionCoverage const type.
-func PossibleDdosSettingsProtectionCoverageValues() []DdosSettingsProtectionCoverage {
-	return []DdosSettingsProtectionCoverage{
-		DdosSettingsProtectionCoverageBasic,
-		DdosSettingsProtectionCoverageStandard,
+// PossibleDdosSettingsProtectionModeValues returns the possible values for the DdosSettingsProtectionMode const type.
+func PossibleDdosSettingsProtectionModeValues() []DdosSettingsProtectionMode {
+	return []DdosSettingsProtectionMode{
+		DdosSettingsProtectionModeDisabled,
+		DdosSettingsProtectionModeEnabled,
+		DdosSettingsProtectionModeVirtualNetworkInherited,
 	}
 }
 
@@ -1351,6 +1347,22 @@ func PossibleExpressRoutePortAuthorizationUseStatusValues() []ExpressRoutePortAu
 	return []ExpressRoutePortAuthorizationUseStatus{
 		ExpressRoutePortAuthorizationUseStatusAvailable,
 		ExpressRoutePortAuthorizationUseStatusInUse,
+	}
+}
+
+// ExpressRoutePortsBillingType - The billing type of the ExpressRoutePort resource.
+type ExpressRoutePortsBillingType string
+
+const (
+	ExpressRoutePortsBillingTypeMeteredData   ExpressRoutePortsBillingType = "MeteredData"
+	ExpressRoutePortsBillingTypeUnlimitedData ExpressRoutePortsBillingType = "UnlimitedData"
+)
+
+// PossibleExpressRoutePortsBillingTypeValues returns the possible values for the ExpressRoutePortsBillingType const type.
+func PossibleExpressRoutePortsBillingTypeValues() []ExpressRoutePortsBillingType {
+	return []ExpressRoutePortsBillingType{
+		ExpressRoutePortsBillingTypeMeteredData,
+		ExpressRoutePortsBillingTypeUnlimitedData,
 	}
 }
 
@@ -1966,6 +1978,22 @@ func PossibleIsGlobalValues() []IsGlobal {
 	}
 }
 
+// IsWorkloadProtected - Value indicating whether the IP address is DDoS workload protected or not.
+type IsWorkloadProtected string
+
+const (
+	IsWorkloadProtectedFalse IsWorkloadProtected = "False"
+	IsWorkloadProtectedTrue  IsWorkloadProtected = "True"
+)
+
+// PossibleIsWorkloadProtectedValues returns the possible values for the IsWorkloadProtected const type.
+func PossibleIsWorkloadProtectedValues() []IsWorkloadProtected {
+	return []IsWorkloadProtected{
+		IsWorkloadProtectedFalse,
+		IsWorkloadProtectedTrue,
+	}
+}
+
 // IssueType - The type of issue.
 type IssueType string
 
@@ -2092,12 +2120,14 @@ type ManagedRuleEnabledState string
 
 const (
 	ManagedRuleEnabledStateDisabled ManagedRuleEnabledState = "Disabled"
+	ManagedRuleEnabledStateEnabled  ManagedRuleEnabledState = "Enabled"
 )
 
 // PossibleManagedRuleEnabledStateValues returns the possible values for the ManagedRuleEnabledState const type.
 func PossibleManagedRuleEnabledStateValues() []ManagedRuleEnabledState {
 	return []ManagedRuleEnabledState{
 		ManagedRuleEnabledStateDisabled,
+		ManagedRuleEnabledStateEnabled,
 	}
 }
 
@@ -2953,6 +2983,22 @@ func PossibleSeverityValues() []Severity {
 	return []Severity{
 		SeverityError,
 		SeverityWarning,
+	}
+}
+
+// SlotType - Specifies slot info on a cloud service
+type SlotType string
+
+const (
+	SlotTypeProduction SlotType = "Production"
+	SlotTypeStaging    SlotType = "Staging"
+)
+
+// PossibleSlotTypeValues returns the possible values for the SlotType const type.
+func PossibleSlotTypeValues() []SlotType {
+	return []SlotType{
+		SlotTypeProduction,
+		SlotTypeStaging,
 	}
 }
 
