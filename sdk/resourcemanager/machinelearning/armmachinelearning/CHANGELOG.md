@@ -1,5 +1,34 @@
 # Release History
 
+## 3.0.0 (2022-08-22)
+### Breaking Changes
+
+- Const `ValueFormatJSON` has been removed
+- Type alias `ValueFormat` has been removed
+- Function `PossibleValueFormatValues` has been removed
+- Field `Value` of struct `PATAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `ValueFormat` of struct `PATAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `ValueFormat` of struct `SASAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value` of struct `SASAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `ValueFormat` of struct `WorkspaceConnectionPropertiesV2` has been removed
+- Field `Value` of struct `WorkspaceConnectionPropertiesV2` has been removed
+- Field `Value` of struct `UsernamePasswordAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `ValueFormat` of struct `UsernamePasswordAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value` of struct `NoneAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `ValueFormat` of struct `NoneAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `Value` of struct `ManagedIdentityAuthTypeWorkspaceConnectionProperties` has been removed
+- Field `ValueFormat` of struct `ManagedIdentityAuthTypeWorkspaceConnectionProperties` has been removed
+
+### Features Added
+
+- New field `TargetProperties` in struct `ManagedIdentityAuthTypeWorkspaceConnectionProperties`
+- New field `TargetProperties` in struct `UsernamePasswordAuthTypeWorkspaceConnectionProperties`
+- New field `TargetProperties` in struct `PATAuthTypeWorkspaceConnectionProperties`
+- New field `TargetProperties` in struct `NoneAuthTypeWorkspaceConnectionProperties`
+- New field `TargetProperties` in struct `WorkspaceConnectionPropertiesV2`
+- New field `TargetProperties` in struct `SASAuthTypeWorkspaceConnectionProperties`
+
+
 ## 2.0.0 (2022-06-09)
 ### Breaking Changes
 
