@@ -1,5 +1,130 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-08-22)
+### Breaking Changes
+
+- Type of `AccessReviewDecisionProperties.Resource` has been changed from `AccessReviewDecisionResourceClassification` to `*AccessReviewDecisionResource`
+- Function `*AccessReviewDecisionResource.GetAccessReviewDecisionResource` has been removed
+- Function `*AccessReviewDecisionResourceAzureRole.GetAccessReviewDecisionResource` has been removed
+- Struct `AccessReviewDecisionResourceAzureRole` has been removed
+
+### Features Added
+
+- New const `RecordAllDecisionsResultApprove`
+- New const `RecordAllDecisionsResultDeny`
+- New const `AccessReviewDecisionPrincipalResourceMembershipTypeDirect`
+- New const `AccessReviewDecisionPrincipalResourceMembershipTypeIndirect`
+- New const `AccessReviewDecisionInsightTypeUserSignInInsight`
+- New type alias `RecordAllDecisionsResult`
+- New type alias `AccessReviewDecisionInsightType`
+- New type alias `AccessReviewDecisionPrincipalResourceMembershipType`
+- New function `NewScopeAccessReviewInstanceDecisionsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewInstanceDecisionsClient, error)`
+- New function `*ScopeAccessReviewInstancesClient.GetByID(context.Context, string, string, string, *ScopeAccessReviewInstancesClientGetByIDOptions) (ScopeAccessReviewInstancesClientGetByIDResponse, error)`
+- New function `NewScopeAccessReviewDefaultSettingsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewDefaultSettingsClient, error)`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.Stop(context.Context, string, string, *ScopeAccessReviewScheduleDefinitionsClientStopOptions) (ScopeAccessReviewScheduleDefinitionsClientStopResponse, error)`
+- New function `NewScopeAccessReviewInstanceContactedReviewersClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewInstanceContactedReviewersClient, error)`
+- New function `NewScopeAccessReviewInstancesClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewInstancesClient, error)`
+- New function `*ScopeAccessReviewInstanceClient.Stop(context.Context, string, string, string, *ScopeAccessReviewInstanceClientStopOptions) (ScopeAccessReviewInstanceClientStopResponse, error)`
+- New function `NewScopeAccessReviewHistoryDefinitionsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewHistoryDefinitionsClient, error)`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.NewListPager(string, *ScopeAccessReviewScheduleDefinitionsClientListOptions) *runtime.Pager[ScopeAccessReviewScheduleDefinitionsClientListResponse]`
+- New function `*ScopeAccessReviewInstanceClient.ApplyDecisions(context.Context, string, string, string, *ScopeAccessReviewInstanceClientApplyDecisionsOptions) (ScopeAccessReviewInstanceClientApplyDecisionsResponse, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionsClient.NewListPager(string, *ScopeAccessReviewHistoryDefinitionsClientListOptions) *runtime.Pager[ScopeAccessReviewHistoryDefinitionsClientListResponse]`
+- New function `PossibleRecordAllDecisionsResultValues() []RecordAllDecisionsResult`
+- New function `*ScopeAccessReviewHistoryDefinitionClient.Create(context.Context, string, string, AccessReviewHistoryDefinitionProperties, *ScopeAccessReviewHistoryDefinitionClientCreateOptions) (ScopeAccessReviewHistoryDefinitionClientCreateResponse, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionInstanceClient.GenerateDownloadURI(context.Context, string, string, string, *ScopeAccessReviewHistoryDefinitionInstanceClientGenerateDownloadURIOptions) (ScopeAccessReviewHistoryDefinitionInstanceClientGenerateDownloadURIResponse, error)`
+- New function `NewScopeAccessReviewInstanceClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewInstanceClient, error)`
+- New function `*ScopeAccessReviewDefaultSettingsClient.Get(context.Context, string, *ScopeAccessReviewDefaultSettingsClientGetOptions) (ScopeAccessReviewDefaultSettingsClientGetResponse, error)`
+- New function `NewScopeAccessReviewHistoryDefinitionInstancesClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewHistoryDefinitionInstancesClient, error)`
+- New function `PossibleAccessReviewDecisionPrincipalResourceMembershipTypeValues() []AccessReviewDecisionPrincipalResourceMembershipType`
+- New function `*ScopeAccessReviewInstanceClient.ResetDecisions(context.Context, string, string, string, *ScopeAccessReviewInstanceClientResetDecisionsOptions) (ScopeAccessReviewInstanceClientResetDecisionsResponse, error)`
+- New function `*AccessReviewDecisionUserSignInInsightProperties.GetAccessReviewDecisionInsightProperties() *AccessReviewDecisionInsightProperties`
+- New function `*ScopeAccessReviewInstancesClient.Create(context.Context, string, string, string, AccessReviewInstanceProperties, *ScopeAccessReviewInstancesClientCreateOptions) (ScopeAccessReviewInstancesClientCreateResponse, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionsClient.GetByID(context.Context, string, string, *ScopeAccessReviewHistoryDefinitionsClientGetByIDOptions) (ScopeAccessReviewHistoryDefinitionsClientGetByIDResponse, error)`
+- New function `NewScopeAccessReviewHistoryDefinitionInstanceClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewHistoryDefinitionInstanceClient, error)`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.DeleteByID(context.Context, string, string, *ScopeAccessReviewScheduleDefinitionsClientDeleteByIDOptions) (ScopeAccessReviewScheduleDefinitionsClientDeleteByIDResponse, error)`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.CreateOrUpdateByID(context.Context, string, string, AccessReviewScheduleDefinitionProperties, *ScopeAccessReviewScheduleDefinitionsClientCreateOrUpdateByIDOptions) (ScopeAccessReviewScheduleDefinitionsClientCreateOrUpdateByIDResponse, error)`
+- New function `PossibleAccessReviewDecisionInsightTypeValues() []AccessReviewDecisionInsightType`
+- New function `NewScopeAccessReviewScheduleDefinitionsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewScheduleDefinitionsClient, error)`
+- New function `NewScopeAccessReviewHistoryDefinitionClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewHistoryDefinitionClient, error)`
+- New function `*ScopeAccessReviewDefaultSettingsClient.Put(context.Context, string, AccessReviewScheduleSettings, *ScopeAccessReviewDefaultSettingsClientPutOptions) (ScopeAccessReviewDefaultSettingsClientPutResponse, error)`
+- New function `*ScopeAccessReviewInstanceContactedReviewersClient.NewListPager(string, string, string, *ScopeAccessReviewInstanceContactedReviewersClientListOptions) *runtime.Pager[ScopeAccessReviewInstanceContactedReviewersClientListResponse]`
+- New function `*ScopeAccessReviewInstanceDecisionsClient.NewListPager(string, string, string, *ScopeAccessReviewInstanceDecisionsClientListOptions) *runtime.Pager[ScopeAccessReviewInstanceDecisionsClientListResponse]`
+- New function `*ScopeAccessReviewHistoryDefinitionClient.DeleteByID(context.Context, string, string, *ScopeAccessReviewHistoryDefinitionClientDeleteByIDOptions) (ScopeAccessReviewHistoryDefinitionClientDeleteByIDResponse, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionInstancesClient.NewListPager(string, string, *ScopeAccessReviewHistoryDefinitionInstancesClientListOptions) *runtime.Pager[ScopeAccessReviewHistoryDefinitionInstancesClientListResponse]`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.GetByID(context.Context, string, string, *ScopeAccessReviewScheduleDefinitionsClientGetByIDOptions) (ScopeAccessReviewScheduleDefinitionsClientGetByIDResponse, error)`
+- New function `*ScopeAccessReviewInstanceClient.SendReminders(context.Context, string, string, string, *ScopeAccessReviewInstanceClientSendRemindersOptions) (ScopeAccessReviewInstanceClientSendRemindersResponse, error)`
+- New function `*ScopeAccessReviewInstancesClient.NewListPager(string, string, *ScopeAccessReviewInstancesClientListOptions) *runtime.Pager[ScopeAccessReviewInstancesClientListResponse]`
+- New function `*ScopeAccessReviewInstanceClient.RecordAllDecisions(context.Context, string, string, string, RecordAllDecisionsProperties, *ScopeAccessReviewInstanceClientRecordAllDecisionsOptions) (ScopeAccessReviewInstanceClientRecordAllDecisionsResponse, error)`
+- New function `*AccessReviewDecisionInsightProperties.GetAccessReviewDecisionInsightProperties() *AccessReviewDecisionInsightProperties`
+- New struct `AccessReviewDecisionInsight`
+- New struct `AccessReviewDecisionInsightProperties`
+- New struct `AccessReviewDecisionPrincipalResourceMembership`
+- New struct `AccessReviewDecisionUserSignInInsightProperties`
+- New struct `RecordAllDecisionsProperties`
+- New struct `ScopeAccessReviewDefaultSettingsClient`
+- New struct `ScopeAccessReviewDefaultSettingsClientGetOptions`
+- New struct `ScopeAccessReviewDefaultSettingsClientGetResponse`
+- New struct `ScopeAccessReviewDefaultSettingsClientPutOptions`
+- New struct `ScopeAccessReviewDefaultSettingsClientPutResponse`
+- New struct `ScopeAccessReviewHistoryDefinitionClient`
+- New struct `ScopeAccessReviewHistoryDefinitionClientCreateOptions`
+- New struct `ScopeAccessReviewHistoryDefinitionClientCreateResponse`
+- New struct `ScopeAccessReviewHistoryDefinitionClientDeleteByIDOptions`
+- New struct `ScopeAccessReviewHistoryDefinitionClientDeleteByIDResponse`
+- New struct `ScopeAccessReviewHistoryDefinitionInstanceClient`
+- New struct `ScopeAccessReviewHistoryDefinitionInstanceClientGenerateDownloadURIOptions`
+- New struct `ScopeAccessReviewHistoryDefinitionInstanceClientGenerateDownloadURIResponse`
+- New struct `ScopeAccessReviewHistoryDefinitionInstancesClient`
+- New struct `ScopeAccessReviewHistoryDefinitionInstancesClientListOptions`
+- New struct `ScopeAccessReviewHistoryDefinitionInstancesClientListResponse`
+- New struct `ScopeAccessReviewHistoryDefinitionsClient`
+- New struct `ScopeAccessReviewHistoryDefinitionsClientGetByIDOptions`
+- New struct `ScopeAccessReviewHistoryDefinitionsClientGetByIDResponse`
+- New struct `ScopeAccessReviewHistoryDefinitionsClientListOptions`
+- New struct `ScopeAccessReviewHistoryDefinitionsClientListResponse`
+- New struct `ScopeAccessReviewInstanceClient`
+- New struct `ScopeAccessReviewInstanceClientApplyDecisionsOptions`
+- New struct `ScopeAccessReviewInstanceClientApplyDecisionsResponse`
+- New struct `ScopeAccessReviewInstanceClientRecordAllDecisionsOptions`
+- New struct `ScopeAccessReviewInstanceClientRecordAllDecisionsResponse`
+- New struct `ScopeAccessReviewInstanceClientResetDecisionsOptions`
+- New struct `ScopeAccessReviewInstanceClientResetDecisionsResponse`
+- New struct `ScopeAccessReviewInstanceClientSendRemindersOptions`
+- New struct `ScopeAccessReviewInstanceClientSendRemindersResponse`
+- New struct `ScopeAccessReviewInstanceClientStopOptions`
+- New struct `ScopeAccessReviewInstanceClientStopResponse`
+- New struct `ScopeAccessReviewInstanceContactedReviewersClient`
+- New struct `ScopeAccessReviewInstanceContactedReviewersClientListOptions`
+- New struct `ScopeAccessReviewInstanceContactedReviewersClientListResponse`
+- New struct `ScopeAccessReviewInstanceDecisionsClient`
+- New struct `ScopeAccessReviewInstanceDecisionsClientListOptions`
+- New struct `ScopeAccessReviewInstanceDecisionsClientListResponse`
+- New struct `ScopeAccessReviewInstancesClient`
+- New struct `ScopeAccessReviewInstancesClientCreateOptions`
+- New struct `ScopeAccessReviewInstancesClientCreateResponse`
+- New struct `ScopeAccessReviewInstancesClientGetByIDOptions`
+- New struct `ScopeAccessReviewInstancesClientGetByIDResponse`
+- New struct `ScopeAccessReviewInstancesClientListOptions`
+- New struct `ScopeAccessReviewInstancesClientListResponse`
+- New struct `ScopeAccessReviewScheduleDefinitionsClient`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientCreateOrUpdateByIDOptions`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientCreateOrUpdateByIDResponse`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientDeleteByIDOptions`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientDeleteByIDResponse`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientGetByIDOptions`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientGetByIDResponse`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientListOptions`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientListResponse`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientStopOptions`
+- New struct `ScopeAccessReviewScheduleDefinitionsClientStopResponse`
+- New field `IncludeAccessBelowResource` in struct `AccessReviewScope`
+- New field `IncludeInheritedAccess` in struct `AccessReviewScope`
+- New field `ExcludeResourceID` in struct `AccessReviewScope`
+- New field `ExcludeRoleDefinitionID` in struct `AccessReviewScope`
+- New field `Insights` in struct `AccessReviewDecisionProperties`
+- New field `PrincipalResourceMembership` in struct `AccessReviewDecisionProperties`
+
+
 ## 2.0.0-beta.1 (2022-06-02)
 ### Breaking Changes
 
