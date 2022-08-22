@@ -1012,6 +1012,7 @@ func (c *CapacityReservationProfile) UnmarshalJSON(data []byte) error {
 func (c CapacityReservationProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "instanceView", c.InstanceView)
+	populate(objectMap, "platformFaultDomainCount", c.PlatformFaultDomainCount)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populateTimeRFC3339(objectMap, "provisioningTime", c.ProvisioningTime)
 	populate(objectMap, "reservationId", c.ReservationID)
@@ -1031,6 +1032,9 @@ func (c *CapacityReservationProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "instanceView":
 			err = unpopulate(val, "InstanceView", &c.InstanceView)
+			delete(rawMsg, key)
+		case "platformFaultDomainCount":
+			err = unpopulate(val, "PlatformFaultDomainCount", &c.PlatformFaultDomainCount)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)
@@ -1093,6 +1097,7 @@ func (c *CapacityReservationUpdate) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CapacityReservationUtilization.
 func (c CapacityReservationUtilization) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "currentCapacity", c.CurrentCapacity)
 	populate(objectMap, "virtualMachinesAllocated", c.VirtualMachinesAllocated)
 	return json.Marshal(objectMap)
 }
@@ -1106,6 +1111,9 @@ func (c *CapacityReservationUtilization) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "currentCapacity":
+			err = unpopulate(val, "CurrentCapacity", &c.CurrentCapacity)
+			delete(rawMsg, key)
 		case "virtualMachinesAllocated":
 			err = unpopulate(val, "VirtualMachinesAllocated", &c.VirtualMachinesAllocated)
 			delete(rawMsg, key)
@@ -11711,7 +11719,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
