@@ -1,5 +1,584 @@
 # Release History
 
+## 3.0.0-beta.1 (2022-08-23)
+### Breaking Changes
+
+- Type of `DataLakeAnalytics.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `Databricks.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `SynapseSpark.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `Kubernetes.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `HDInsight.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `CommandJob.Resources` has been changed from `*ResourceConfiguration` to `*JobResourceConfiguration`
+- Type of `Compute.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `AmlCompute.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `DataFactory.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `BatchDeploymentProperties.Resources` has been changed from `*ResourceConfiguration` to `*DeploymentResourceConfiguration`
+- Type of `AKS.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `VirtualMachine.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `ComputeInstance.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `TrialComponent.Resources` has been changed from `*ResourceConfiguration` to `*JobResourceConfiguration`
+- Type of `WorkspaceProperties.ProvisioningState` has been changed from `*ProvisioningState` to `*WorkspaceProvisioningState`
+- Const `ProvisioningStateCreating` has been removed
+- Const `ProvisioningStateUpdating` has been removed
+- Const `ProvisioningStateDeleting` has been removed
+- Const `ProvisioningStateFailed` has been removed
+- Const `ProvisioningStateCanceled` has been removed
+- Const `ProvisioningStateSucceeded` has been removed
+- Const `ProvisioningStateUnknown` has been removed
+- Type alias `ProvisioningState` has been removed
+- Function `PossibleProvisioningStateValues` has been removed
+
+### Features Added
+
+- New const `StackMetaLearnerTypeLinearRegression`
+- New const `ClassificationMultilabelPrimaryMetricsNormMacroRecall`
+- New const `ForecastingModelsKNN`
+- New const `ScheduleProvisioningStatusSucceeded`
+- New const `WorkspaceProvisioningStateCreating`
+- New const `StochasticOptimizerAdam`
+- New const `LearningRateSchedulerNone`
+- New const `RecurrenceFrequencyWeek`
+- New const `ShortSeriesHandlingConfigurationPad`
+- New const `TargetLagsModeCustom`
+- New const `MLAssistConfigurationTypeEnabled`
+- New const `TaskTypeForecasting`
+- New const `ModelSizeNone`
+- New const `BlockedTransformersLabelEncoder`
+- New const `RegressionModelsKNN`
+- New const `JobTypeAutoML`
+- New const `LogVerbosityDebug`
+- New const `JobTypeLabeling`
+- New const `ImageTypeAzureml`
+- New const `ValidationMetricTypeNone`
+- New const `ClassificationModelsLogisticRegression`
+- New const `PublicNetworkAccessTypeDisabled`
+- New const `TaskTypeImageClassification`
+- New const `ClassificationModelsKNN`
+- New const `SparkJobEntryTypeSparkJobScalaEntry`
+- New const `CredentialsTypeKerberosKeytab`
+- New const `ComputeProvisioningStateFailed`
+- New const `UseStlSeasonTrend`
+- New const `VolumeDefinitionTypeTmpfs`
+- New const `RegressionModelsDecisionTree`
+- New const `TargetRollingWindowSizeModeAuto`
+- New const `ExportFormatTypeCoco`
+- New const `ComputeProvisioningStateCanceled`
+- New const `ExportFormatTypeCSV`
+- New const `StatusMessageLevelInformation`
+- New const `StackMetaLearnerTypeElasticNetCV`
+- New const `ClassificationPrimaryMetricsNormMacroRecall`
+- New const `ForecastingPrimaryMetricsNormalizedRootMeanSquaredError`
+- New const `ClassificationPrimaryMetricsPrecisionScoreWeighted`
+- New const `TextAnnotationTypeNamedEntityRecognition`
+- New const `RegressionModelsSGD`
+- New const `RegressionModelsGradientBoosting`
+- New const `StochasticOptimizerSgd`
+- New const `SecretsTypeKerberosPassword`
+- New const `MediaTypeText`
+- New const `ForecastingModelsTCNForecaster`
+- New const `TargetAggregationFunctionMax`
+- New const `JobStatusScheduled`
+- New const `ShortSeriesHandlingConfigurationDrop`
+- New const `WeekDaySunday`
+- New const `BlockedTransformersNaiveBayes`
+- New const `ModelSizeLarge`
+- New const `TaskTypeTextNER`
+- New const `ScheduleProvisioningStatusCreating`
+- New const `TaskTypeImageInstanceSegmentation`
+- New const `FeaturizationModeOff`
+- New const `StackMetaLearnerTypeLogisticRegression`
+- New const `LogVerbosityCritical`
+- New const `TextAnnotationTypeClassification`
+- New const `TriggerTypeCron`
+- New const `WorkspaceProvisioningStateCanceled`
+- New const `TaskTypeImageClassificationMultilabel`
+- New const `WorkspaceProvisioningStateDeleting`
+- New const `ForecastingModelsGradientBoosting`
+- New const `BlockedTransformersCountVectorizer`
+- New const `SeasonalityModeCustom`
+- New const `ComputeProvisioningStateDeleting`
+- New const `FeatureLagsAuto`
+- New const `RecurrenceFrequencyMonth`
+- New const `RegressionPrimaryMetricsSpearmanCorrelation`
+- New const `ScheduleActionTypeCreateJob`
+- New const `FeatureLagsNone`
+- New const `StackMetaLearnerTypeLightGBMClassifier`
+- New const `EnvironmentVariableTypeLocal`
+- New const `BlockedTransformersCatTargetEncoder`
+- New const `WeekDayThursday`
+- New const `ExportFormatTypeDataset`
+- New const `BlockedTransformersHashOneHotEncoder`
+- New const `ClassificationModelsXGBoostClassifier`
+- New const `ClassificationModelsBernoulliNaiveBayes`
+- New const `RegressionModelsElasticNet`
+- New const `ClassificationModelsSGD`
+- New const `TargetAggregationFunctionMin`
+- New const `WeekDayWednesday`
+- New const `JobProvisioningStateInProgress`
+- New const `DatastoreTypeHdfs`
+- New const `WorkspaceProvisioningStateSoftDeleted`
+- New const `CredentialsTypeKerberosPassword`
+- New const `StatusMessageLevelError`
+- New const `WorkspaceProvisioningStateUnknown`
+- New const `ModelSizeExtraLarge`
+- New const `RecurrenceFrequencyDay`
+- New const `ScheduleProvisioningStatusFailed`
+- New const `ForecastingModelsSeasonalAverage`
+- New const `JobTypeSpark`
+- New const `ClassificationMultilabelPrimaryMetricsAccuracy`
+- New const `ForecastingModelsProphet`
+- New const `WorkspaceProvisioningStateFailed`
+- New const `VolumeDefinitionTypeNpipe`
+- New const `RegressionModelsLightGBM`
+- New const `RegressionModelsExtremeRandomTrees`
+- New const `InstanceSegmentationPrimaryMetricsMeanAveragePrecision`
+- New const `UseStlNone`
+- New const `ComputeProvisioningStateUnknown`
+- New const `TargetLagsModeAuto`
+- New const `RegressionPrimaryMetricsNormalizedRootMeanSquaredError`
+- New const `ForecastingPrimaryMetricsSpearmanCorrelation`
+- New const `BlockedTransformersTextTargetEncoder`
+- New const `StackMetaLearnerTypeLogisticRegressionCV`
+- New const `ClassificationModelsRandomForest`
+- New const `StackMetaLearnerTypeNone`
+- New const `ValidationMetricTypeCoco`
+- New const `ForecastingModelsSGD`
+- New const `RegressionModelsRandomForest`
+- New const `WorkspaceProvisioningStateUpdating`
+- New const `ProtocolHTTP`
+- New const `LogVerbosityWarning`
+- New const `ClassificationModelsSVM`
+- New const `TargetAggregationFunctionSum`
+- New const `PublicNetworkAccessTypeEnabled`
+- New const `StochasticOptimizerAdamw`
+- New const `ScheduleProvisioningStatusDeleting`
+- New const `ObjectDetectionPrimaryMetricsMeanAveragePrecision`
+- New const `ScheduleActionTypeInvokeBatchEndpoint`
+- New const `ForecastHorizonModeCustom`
+- New const `RecurrenceFrequencyMinute`
+- New const `WeekDayTuesday`
+- New const `NCrossValidationsModeCustom`
+- New const `WorkspaceProvisioningStateSucceeded`
+- New const `ForecastingModelsElasticNet`
+- New const `TaskTypeTextClassificationMultilabel`
+- New const `BlockedTransformersWordEmbedding`
+- New const `SparkJobEntryTypeSparkJobPythonEntry`
+- New const `StatusMessageLevelWarning`
+- New const `JobProvisioningStateCanceled`
+- New const `TargetAggregationFunctionMean`
+- New const `ClassificationPrimaryMetricsAUCWeighted`
+- New const `LearningRateSchedulerWarmupCosine`
+- New const `JobProvisioningStateFailed`
+- New const `ForecastingModelsDecisionTree`
+- New const `VolumeDefinitionTypeVolume`
+- New const `StackMetaLearnerTypeElasticNet`
+- New const `ValidationMetricTypeCocoVoc`
+- New const `ClassificationMultilabelPrimaryMetricsAUCWeighted`
+- New const `ClassificationModelsGradientBoosting`
+- New const `ComputeProvisioningStateSucceeded`
+- New const `ImageAnnotationTypeClassification`
+- New const `OutputDeliveryModeDirect`
+- New const `BlockedTransformersOneHotEncoder`
+- New const `ScheduleProvisioningStatusCanceled`
+- New const `ForecastHorizonModeAuto`
+- New const `TriggerTypeRecurrence`
+- New const `ClassificationMultilabelPrimaryMetricsAveragePrecisionScoreWeighted`
+- New const `ForecastingPrimaryMetricsR2Score`
+- New const `RegressionModelsXGBoostRegressor`
+- New const `ClassificationPrimaryMetricsAveragePrecisionScoreWeighted`
+- New const `ForecastingModelsAutoArima`
+- New const `WeekDayFriday`
+- New const `ProtocolTCP`
+- New const `ClassificationModelsLightGBM`
+- New const `RecurrenceFrequencyHour`
+- New const `EgressPublicNetworkAccessTypeEnabled`
+- New const `StackMetaLearnerTypeLightGBMRegressor`
+- New const `VolumeDefinitionTypeBind`
+- New const `ForecastingModelsLightGBM`
+- New const `MediaTypeImage`
+- New const `TargetRollingWindowSizeModeCustom`
+- New const `JobProvisioningStateSucceeded`
+- New const `EgressPublicNetworkAccessTypeDisabled`
+- New const `ImageAnnotationTypeBoundingBox`
+- New const `ForecastingModelsAverage`
+- New const `LogVerbosityNotSet`
+- New const `BlockedTransformersWoETargetEncoder`
+- New const `RegressionPrimaryMetricsR2Score`
+- New const `WeekDayMonday`
+- New const `ForecastingModelsSeasonalNaive`
+- New const `UseStlSeason`
+- New const `RegressionModelsLassoLars`
+- New const `ScheduleProvisioningStatusUpdating`
+- New const `ForecastingModelsXGBoostRegressor`
+- New const `ForecastingModelsRandomForest`
+- New const `NCrossValidationsModeAuto`
+- New const `SeasonalityModeAuto`
+- New const `FeaturizationModeAuto`
+- New const `SecretsTypeKerberosKeytab`
+- New const `ImageTypeDocker`
+- New const `ClassificationModelsExtremeRandomTrees`
+- New const `ModelSizeMedium`
+- New const `WeekDaySaturday`
+- New const `RegressionPrimaryMetricsNormalizedMeanAbsoluteError`
+- New const `TaskTypeRegression`
+- New const `TaskTypeTextClassification`
+- New const `ForecastingModelsNaive`
+- New const `ShortSeriesHandlingConfigurationAuto`
+- New const `ClassificationModelsLinearSVM`
+- New const `ShortSeriesHandlingConfigurationNone`
+- New const `LearningRateSchedulerStep`
+- New const `StochasticOptimizerNone`
+- New const `ImageAnnotationTypeInstanceSegmentation`
+- New const `ClassificationMultilabelPrimaryMetricsIOU`
+- New const `LogVerbosityInfo`
+- New const `ForecastingModelsLassoLars`
+- New const `ForecastingModelsArimax`
+- New const `LogVerbosityError`
+- New const `ComputeProvisioningStateCreating`
+- New const `ForecastingModelsExtremeRandomTrees`
+- New const `ClassificationPrimaryMetricsAccuracy`
+- New const `ValidationMetricTypeVoc`
+- New const `MLAssistConfigurationTypeDisabled`
+- New const `ClassificationModelsMultinomialNaiveBayes`
+- New const `ForecastingPrimaryMetricsNormalizedMeanAbsoluteError`
+- New const `ClassificationModelsDecisionTree`
+- New const `FeaturizationModeCustom`
+- New const `BlockedTransformersTfIdf`
+- New const `TaskTypeImageObjectDetection`
+- New const `ComputeProvisioningStateUpdating`
+- New const `ModelSizeSmall`
+- New const `ClassificationMultilabelPrimaryMetricsPrecisionScoreWeighted`
+- New const `TargetAggregationFunctionNone`
+- New const `TaskTypeClassification`
+- New const `ProtocolUDP`
+- New const `ForecastingModelsExponentialSmoothing`
+- New type alias `ScheduleProvisioningStatus`
+- New type alias `MediaType`
+- New type alias `ForecastingModels`
+- New type alias `ScheduleActionType`
+- New type alias `ComputeProvisioningState`
+- New type alias `WorkspaceProvisioningState`
+- New type alias `LearningRateScheduler`
+- New type alias `ForecastHorizonMode`
+- New type alias `FeaturizationMode`
+- New type alias `ImageAnnotationType`
+- New type alias `InstanceSegmentationPrimaryMetrics`
+- New type alias `Protocol`
+- New type alias `StochasticOptimizer`
+- New type alias `ValidationMetricType`
+- New type alias `ExportFormatType`
+- New type alias `LogVerbosity`
+- New type alias `ClassificationMultilabelPrimaryMetrics`
+- New type alias `TargetRollingWindowSizeMode`
+- New type alias `EgressPublicNetworkAccessType`
+- New type alias `ShortSeriesHandlingConfiguration`
+- New type alias `SparkJobEntryType`
+- New type alias `FeatureLags`
+- New type alias `TargetAggregationFunction`
+- New type alias `StatusMessageLevel`
+- New type alias `NCrossValidationsMode`
+- New type alias `PublicNetworkAccessType`
+- New type alias `ClassificationPrimaryMetrics`
+- New type alias `ForecastingPrimaryMetrics`
+- New type alias `TriggerType`
+- New type alias `RecurrenceFrequency`
+- New type alias `ImageType`
+- New type alias `TextAnnotationType`
+- New type alias `WeekDay`
+- New type alias `RegressionPrimaryMetrics`
+- New type alias `VolumeDefinitionType`
+- New type alias `ObjectDetectionPrimaryMetrics`
+- New type alias `ModelSize`
+- New type alias `UseStl`
+- New type alias `SeasonalityMode`
+- New type alias `EnvironmentVariableType`
+- New type alias `JobProvisioningState`
+- New type alias `RegressionModels`
+- New type alias `MLAssistConfigurationType`
+- New type alias `TargetLagsMode`
+- New type alias `StackMetaLearnerType`
+- New type alias `TaskType`
+- New type alias `BlockedTransformers`
+- New type alias `ClassificationModels`
+- New function `PossibleBlockedTransformersValues() []BlockedTransformers`
+- New function `PossibleUseStlValues() []UseStl`
+- New function `*SparkJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*LabelingJobTextProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `PossibleEnvironmentVariableTypeValues() []EnvironmentVariableType`
+- New function `PossibleTextAnnotationTypeValues() []TextAnnotationType`
+- New function `*LabelingJobsClient.Get(context.Context, string, string, string, *LabelingJobsClientGetOptions) (LabelingJobsClientGetResponse, error)`
+- New function `PossibleForecastingPrimaryMetricsValues() []ForecastingPrimaryMetrics`
+- New function `*TextNer.GetAutoMLVertical() *AutoMLVertical`
+- New function `*NCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `PossibleTargetAggregationFunctionValues() []TargetAggregationFunction`
+- New function `*RecurrenceTrigger.GetTriggerBase() *TriggerBase`
+- New function `PossibleImageAnnotationTypeValues() []ImageAnnotationType`
+- New function `PossibleScheduleActionTypeValues() []ScheduleActionType`
+- New function `PossibleEgressPublicNetworkAccessTypeValues() []EgressPublicNetworkAccessType`
+- New function `PossibleClassificationMultilabelPrimaryMetricsValues() []ClassificationMultilabelPrimaryMetrics`
+- New function `*DatasetExportSummary.GetExportSummary() *ExportSummary`
+- New function `*AutoNCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `PossibleModelSizeValues() []ModelSize`
+- New function `PossibleObjectDetectionPrimaryMetricsValues() []ObjectDetectionPrimaryMetrics`
+- New function `PossibleRecurrenceFrequencyValues() []RecurrenceFrequency`
+- New function `*AutoSeasonality.GetSeasonality() *Seasonality`
+- New function `PossibleShortSeriesHandlingConfigurationValues() []ShortSeriesHandlingConfiguration`
+- New function `PossibleSeasonalityModeValues() []SeasonalityMode`
+- New function `*Classification.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleWeekDayValues() []WeekDay`
+- New function `*LabelingJobsClient.BeginExportLabels(context.Context, string, string, string, ExportSummaryClassification, *LabelingJobsClientBeginExportLabelsOptions) (*runtime.Poller[LabelingJobsClientExportLabelsResponse], error)`
+- New function `*TargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `*LabelingJobsClient.NewListPager(string, string, *LabelingJobsClientListOptions) *runtime.Pager[LabelingJobsClientListResponse]`
+- New function `*CSVExportSummary.GetExportSummary() *ExportSummary`
+- New function `*EndpointScheduleAction.GetScheduleActionBase() *ScheduleActionBase`
+- New function `*ForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `*SparkJobPythonEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `PossibleTargetLagsModeValues() []TargetLagsMode`
+- New function `*SchedulesClient.BeginCreateOrUpdate(context.Context, string, string, string, Schedule, *SchedulesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SchedulesClientCreateOrUpdateResponse], error)`
+- New function `*KerberosKeytabSecrets.GetDatastoreSecrets() *DatastoreSecrets`
+- New function `*KerberosPasswordSecrets.GetDatastoreSecrets() *DatastoreSecrets`
+- New function `PossibleProtocolValues() []Protocol`
+- New function `*ComputeClient.UpdateCustomServices(context.Context, string, string, string, []*CustomService, *ComputeClientUpdateCustomServicesOptions) (ComputeClientUpdateCustomServicesResponse, error)`
+- New function `PossibleLogVerbosityValues() []LogVerbosity`
+- New function `*KerberosPasswordCredentials.GetDatastoreCredentials() *DatastoreCredentials`
+- New function `*SchedulesClient.NewListPager(string, string, *SchedulesClientListOptions) *runtime.Pager[SchedulesClientListResponse]`
+- New function `PossibleWorkspaceProvisioningStateValues() []WorkspaceProvisioningState`
+- New function `PossibleComputeProvisioningStateValues() []ComputeProvisioningState`
+- New function `*JobScheduleAction.GetScheduleActionBase() *ScheduleActionBase`
+- New function `*CustomNCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `PossibleValidationMetricTypeValues() []ValidationMetricType`
+- New function `PossibleMLAssistConfigurationTypeValues() []MLAssistConfigurationType`
+- New function `*AutoTargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `PossibleFeaturizationModeValues() []FeaturizationMode`
+- New function `*LabelingJobsClient.BeginCreateOrUpdate(context.Context, string, string, string, LabelingJob, *LabelingJobsClientBeginCreateOrUpdateOptions) (*runtime.Poller[LabelingJobsClientCreateOrUpdateResponse], error)`
+- New function `*CustomTargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `*LabelingJobsClient.BeginResume(context.Context, string, string, string, *LabelingJobsClientBeginResumeOptions) (*runtime.Poller[LabelingJobsClientResumeResponse], error)`
+- New function `*AutoMLVertical.GetAutoMLVertical() *AutoMLVertical`
+- New function `*TextClassification.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleStackMetaLearnerTypeValues() []StackMetaLearnerType`
+- New function `PossibleTargetRollingWindowSizeModeValues() []TargetRollingWindowSizeMode`
+- New function `*TextClassificationMultilabel.GetAutoMLVertical() *AutoMLVertical`
+- New function `*KerberosKeytabCredentials.GetDatastoreCredentials() *DatastoreCredentials`
+- New function `PossibleMediaTypeValues() []MediaType`
+- New function `PossibleClassificationModelsValues() []ClassificationModels`
+- New function `PossibleFeatureLagsValues() []FeatureLags`
+- New function `*SparkJobScalaEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*TriggerBase.GetTriggerBase() *TriggerBase`
+- New function `*ImageInstanceSegmentation.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleClassificationPrimaryMetricsValues() []ClassificationPrimaryMetrics`
+- New function `*CustomSeasonality.GetSeasonality() *Seasonality`
+- New function `PossibleForecastingModelsValues() []ForecastingModels`
+- New function `*ExportSummary.GetExportSummary() *ExportSummary`
+- New function `PossibleInstanceSegmentationPrimaryMetricsValues() []InstanceSegmentationPrimaryMetrics`
+- New function `*Forecasting.GetAutoMLVertical() *AutoMLVertical`
+- New function `*CocoExportSummary.GetExportSummary() *ExportSummary`
+- New function `*MLAssistConfigurationDisabled.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `*ImageClassification.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleNCrossValidationsModeValues() []NCrossValidationsMode`
+- New function `*ImageClassificationMultilabel.GetAutoMLVertical() *AutoMLVertical`
+- New function `*SparkJobEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `PossibleRegressionModelsValues() []RegressionModels`
+- New function `*Seasonality.GetSeasonality() *Seasonality`
+- New function `PossibleSparkJobEntryTypeValues() []SparkJobEntryType`
+- New function `*HdfsDatastore.GetDatastoreProperties() *DatastoreProperties`
+- New function `PossibleLearningRateSchedulerValues() []LearningRateScheduler`
+- New function `*AutoForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `*MLAssistConfigurationEnabled.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `*MLAssistConfiguration.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `PossibleTaskTypeValues() []TaskType`
+- New function `PossibleStatusMessageLevelValues() []StatusMessageLevel`
+- New function `PossibleStochasticOptimizerValues() []StochasticOptimizer`
+- New function `*LabelingJobsClient.Delete(context.Context, string, string, string, *LabelingJobsClientDeleteOptions) (LabelingJobsClientDeleteResponse, error)`
+- New function `*SchedulesClient.BeginDelete(context.Context, string, string, string, *SchedulesClientBeginDeleteOptions) (*runtime.Poller[SchedulesClientDeleteResponse], error)`
+- New function `*CustomForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `*CustomTargetLags.GetTargetLags() *TargetLags`
+- New function `*LabelingJobImageProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `PossibleScheduleProvisioningStatusValues() []ScheduleProvisioningStatus`
+- New function `PossibleImageTypeValues() []ImageType`
+- New function `*LabelingJobMediaProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `PossibleForecastHorizonModeValues() []ForecastHorizonMode`
+- New function `*AutoTargetLags.GetTargetLags() *TargetLags`
+- New function `*Regression.GetAutoMLVertical() *AutoMLVertical`
+- New function `*AutoMLJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*SchedulesClient.Get(context.Context, string, string, string, *SchedulesClientGetOptions) (SchedulesClientGetResponse, error)`
+- New function `*LabelingJobsClient.Pause(context.Context, string, string, string, *LabelingJobsClientPauseOptions) (LabelingJobsClientPauseResponse, error)`
+- New function `NewLabelingJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LabelingJobsClient, error)`
+- New function `*CronTrigger.GetTriggerBase() *TriggerBase`
+- New function `PossibleExportFormatTypeValues() []ExportFormatType`
+- New function `PossibleTriggerTypeValues() []TriggerType`
+- New function `PossibleVolumeDefinitionTypeValues() []VolumeDefinitionType`
+- New function `*ComputeClient.UpdateIdleShutdownSetting(context.Context, string, string, string, IdleShutdownSetting, *ComputeClientUpdateIdleShutdownSettingOptions) (ComputeClientUpdateIdleShutdownSettingResponse, error)`
+- New function `PossibleRegressionPrimaryMetricsValues() []RegressionPrimaryMetrics`
+- New function `PossiblePublicNetworkAccessTypeValues() []PublicNetworkAccessType`
+- New function `PossibleJobProvisioningStateValues() []JobProvisioningState`
+- New function `*TargetLags.GetTargetLags() *TargetLags`
+- New function `*ImageObjectDetection.GetAutoMLVertical() *AutoMLVertical`
+- New function `*ScheduleActionBase.GetScheduleActionBase() *ScheduleActionBase`
+- New function `NewSchedulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SchedulesClient, error)`
+- New function `*LabelingJobProperties.GetJobBaseProperties() *JobBaseProperties`
+- New struct `AutoForecastHorizon`
+- New struct `AutoMLJob`
+- New struct `AutoMLVertical`
+- New struct `AutoNCrossValidations`
+- New struct `AutoSeasonality`
+- New struct `AutoTargetLags`
+- New struct `AutoTargetRollingWindowSize`
+- New struct `AzureDatastore`
+- New struct `BindOptions`
+- New struct `CSVExportSummary`
+- New struct `Classification`
+- New struct `ClassificationTrainingSettings`
+- New struct `CocoExportSummary`
+- New struct `ColumnTransformer`
+- New struct `ComputeClientUpdateCustomServicesOptions`
+- New struct `ComputeClientUpdateCustomServicesResponse`
+- New struct `ComputeClientUpdateIdleShutdownSettingOptions`
+- New struct `ComputeClientUpdateIdleShutdownSettingResponse`
+- New struct `CronTrigger`
+- New struct `CustomForecastHorizon`
+- New struct `CustomNCrossValidations`
+- New struct `CustomSeasonality`
+- New struct `CustomService`
+- New struct `CustomTargetLags`
+- New struct `CustomTargetRollingWindowSize`
+- New struct `DatasetExportSummary`
+- New struct `DeploymentResourceConfiguration`
+- New struct `Docker`
+- New struct `EncryptionKeyVaultUpdateProperties`
+- New struct `EncryptionUpdateProperties`
+- New struct `Endpoint`
+- New struct `EndpointScheduleAction`
+- New struct `EnvironmentVariable`
+- New struct `ExportSummary`
+- New struct `FeaturizationSettings`
+- New struct `ForecastHorizon`
+- New struct `Forecasting`
+- New struct `ForecastingSettings`
+- New struct `ForecastingTrainingSettings`
+- New struct `HdfsDatastore`
+- New struct `IdleShutdownSetting`
+- New struct `Image`
+- New struct `ImageClassification`
+- New struct `ImageClassificationBase`
+- New struct `ImageClassificationMultilabel`
+- New struct `ImageInstanceSegmentation`
+- New struct `ImageLimitSettings`
+- New struct `ImageModelDistributionSettings`
+- New struct `ImageModelDistributionSettingsClassification`
+- New struct `ImageModelDistributionSettingsObjectDetection`
+- New struct `ImageModelSettings`
+- New struct `ImageModelSettingsClassification`
+- New struct `ImageModelSettingsObjectDetection`
+- New struct `ImageObjectDetection`
+- New struct `ImageObjectDetectionBase`
+- New struct `ImageSweepLimitSettings`
+- New struct `ImageSweepSettings`
+- New struct `ImageVertical`
+- New struct `JobResourceConfiguration`
+- New struct `JobScheduleAction`
+- New struct `KerberosCredentials`
+- New struct `KerberosKeytabCredentials`
+- New struct `KerberosKeytabSecrets`
+- New struct `KerberosPasswordCredentials`
+- New struct `KerberosPasswordSecrets`
+- New struct `LabelCategory`
+- New struct `LabelClass`
+- New struct `LabelingDataConfiguration`
+- New struct `LabelingJob`
+- New struct `LabelingJobImageProperties`
+- New struct `LabelingJobInstructions`
+- New struct `LabelingJobMediaProperties`
+- New struct `LabelingJobProperties`
+- New struct `LabelingJobResourceArmPaginatedResult`
+- New struct `LabelingJobTextProperties`
+- New struct `LabelingJobsClient`
+- New struct `LabelingJobsClientBeginCreateOrUpdateOptions`
+- New struct `LabelingJobsClientBeginExportLabelsOptions`
+- New struct `LabelingJobsClientBeginResumeOptions`
+- New struct `LabelingJobsClientCreateOrUpdateResponse`
+- New struct `LabelingJobsClientDeleteOptions`
+- New struct `LabelingJobsClientDeleteResponse`
+- New struct `LabelingJobsClientExportLabelsResponse`
+- New struct `LabelingJobsClientGetOptions`
+- New struct `LabelingJobsClientGetResponse`
+- New struct `LabelingJobsClientListOptions`
+- New struct `LabelingJobsClientListResponse`
+- New struct `LabelingJobsClientPauseOptions`
+- New struct `LabelingJobsClientPauseResponse`
+- New struct `LabelingJobsClientResumeResponse`
+- New struct `MLAssistConfiguration`
+- New struct `MLAssistConfigurationDisabled`
+- New struct `MLAssistConfigurationEnabled`
+- New struct `NCrossValidations`
+- New struct `NlpVertical`
+- New struct `NlpVerticalFeaturizationSettings`
+- New struct `NlpVerticalLimitSettings`
+- New struct `ProgressMetrics`
+- New struct `RecurrenceSchedule`
+- New struct `RecurrenceTrigger`
+- New struct `Regression`
+- New struct `RegressionTrainingSettings`
+- New struct `Schedule`
+- New struct `ScheduleActionBase`
+- New struct `ScheduleProperties`
+- New struct `ScheduleResourceArmPaginatedResult`
+- New struct `SchedulesClient`
+- New struct `SchedulesClientBeginCreateOrUpdateOptions`
+- New struct `SchedulesClientBeginDeleteOptions`
+- New struct `SchedulesClientCreateOrUpdateResponse`
+- New struct `SchedulesClientDeleteResponse`
+- New struct `SchedulesClientGetOptions`
+- New struct `SchedulesClientGetResponse`
+- New struct `SchedulesClientListOptions`
+- New struct `SchedulesClientListResponse`
+- New struct `Seasonality`
+- New struct `SparkJob`
+- New struct `SparkJobEntry`
+- New struct `SparkJobPythonEntry`
+- New struct `SparkJobScalaEntry`
+- New struct `SparkResourceConfiguration`
+- New struct `StackEnsembleSettings`
+- New struct `StatusMessage`
+- New struct `TableVertical`
+- New struct `TableVerticalFeaturizationSettings`
+- New struct `TableVerticalLimitSettings`
+- New struct `TargetLags`
+- New struct `TargetRollingWindowSize`
+- New struct `TextClassification`
+- New struct `TextClassificationMultilabel`
+- New struct `TextNer`
+- New struct `TmpfsOptions`
+- New struct `TrainingSettings`
+- New struct `TriggerBase`
+- New struct `VolumeDefinition`
+- New struct `VolumeOptions`
+- New field `ScheduledPurgeDate` in struct `WorkspaceProperties`
+- New field `SoftDeletedAt` in struct `WorkspaceProperties`
+- New field `ComponentID` in struct `SweepJob`
+- New field `ResourceGroup` in struct `AzureFileDatastore`
+- New field `SubscriptionID` in struct `AzureFileDatastore`
+- New field `ComponentID` in struct `CommandJob`
+- New field `IdleTimeBeforeShutdown` in struct `ComputeInstanceProperties`
+- New field `CustomServices` in struct `ComputeInstanceProperties`
+- New field `EgressPublicNetworkAccess` in struct `ManagedOnlineDeployment`
+- New field `MirrorTraffic` in struct `OnlineEndpointProperties`
+- New field `PublicNetworkAccess` in struct `OnlineEndpointProperties`
+- New field `ComponentID` in struct `PipelineJob`
+- New field `SourceJobID` in struct `PipelineJob`
+- New field `EgressPublicNetworkAccess` in struct `KubernetesOnlineDeployment`
+- New field `EgressPublicNetworkAccess` in struct `OnlineDeploymentProperties`
+- New field `SubscriptionID` in struct `AzureBlobDatastore`
+- New field `ResourceGroup` in struct `AzureBlobDatastore`
+- New field `Encryption` in struct `WorkspacePropertiesUpdateParameters`
+- New field `ResourceGroup` in struct `AzureDataLakeGen1Datastore`
+- New field `SubscriptionID` in struct `AzureDataLakeGen1Datastore`
+- New field `ScheduleID` in struct `JobsClientListOptions`
+- New field `Scheduled` in struct `JobsClientListOptions`
+- New field `ResourceGroup` in struct `AzureDataLakeGen2Datastore`
+- New field `SubscriptionID` in struct `AzureDataLakeGen2Datastore`
+- New field `ComponentID` in struct `JobBaseProperties`
+
+
 ## 2.0.0 (2022-06-09)
 ### Breaking Changes
 
