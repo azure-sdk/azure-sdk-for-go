@@ -1,5 +1,27 @@
 # Release History
 
+## 0.7.0 (2022-08-23)
+### Features Added
+
+- New const `ClusterSubnetTypeMultiSubnet`
+- New const `LeastPrivilegeModeEnabled`
+- New const `ClusterSubnetTypeSingleSubnet`
+- New type alias `LeastPrivilegeMode`
+- New type alias `ClusterSubnetType`
+- New function `PossibleLeastPrivilegeModeValues() []LeastPrivilegeMode`
+- New function `PossibleClusterSubnetTypeValues() []ClusterSubnetType`
+- New struct `MultiSubnetIPConfiguration`
+- New field `ClusterSubnetType` in struct `WsfcDomainProfile`
+- New field `PersistFolder` in struct `SQLTempDbSettings`
+- New field `PersistFolderPath` in struct `SQLTempDbSettings`
+- New field `IsIfiEnabled` in struct `SQLInstanceSettings`
+- New field `IsLpimEnabled` in struct `SQLInstanceSettings`
+- New field `MultiSubnetIPConfigurations` in struct `AvailabilityGroupListenerProperties`
+- New field `WsfcStaticIP` in struct `Properties`
+- New field `EnableAutomaticUpgrade` in struct `Properties`
+- New field `LeastPrivilegeMode` in struct `Properties`
+
+
 ## 0.6.0 (2022-06-02)
 ### Breaking Changes
 
