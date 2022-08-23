@@ -58,7 +58,7 @@ func NewGalleryImagesClient(subscriptionID string, credential azcore.TokenCreden
 
 // BeginCreateOrUpdate - Create or update a gallery image definition.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-03
+// Generated from API version 2022-03-03
 // resourceGroupName - The name of the resource group.
 // galleryName - The name of the Shared Image Gallery in which the Image Definition is to be created.
 // galleryImageName - The name of the gallery image definition to be created or updated. The allowed characters are alphabets
@@ -81,7 +81,7 @@ func (client *GalleryImagesClient) BeginCreateOrUpdate(ctx context.Context, reso
 
 // CreateOrUpdate - Create or update a gallery image definition.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-03
+// Generated from API version 2022-03-03
 func (client *GalleryImagesClient) createOrUpdate(ctx context.Context, resourceGroupName string, galleryName string, galleryImageName string, galleryImage GalleryImage, options *GalleryImagesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, galleryName, galleryImageName, galleryImage, options)
 	if err != nil {
@@ -121,7 +121,7 @@ func (client *GalleryImagesClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-03")
+	reqQP.Set("api-version", "2022-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, galleryImage)
@@ -129,7 +129,7 @@ func (client *GalleryImagesClient) createOrUpdateCreateRequest(ctx context.Conte
 
 // BeginDelete - Delete a gallery image.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-03
+// Generated from API version 2022-03-03
 // resourceGroupName - The name of the resource group.
 // galleryName - The name of the Shared Image Gallery in which the Image Definition is to be deleted.
 // galleryImageName - The name of the gallery image definition to be deleted.
@@ -149,7 +149,7 @@ func (client *GalleryImagesClient) BeginDelete(ctx context.Context, resourceGrou
 
 // Delete - Delete a gallery image.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-03
+// Generated from API version 2022-03-03
 func (client *GalleryImagesClient) deleteOperation(ctx context.Context, resourceGroupName string, galleryName string, galleryImageName string, options *GalleryImagesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, galleryName, galleryImageName, options)
 	if err != nil {
@@ -189,7 +189,7 @@ func (client *GalleryImagesClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-03")
+	reqQP.Set("api-version", "2022-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -197,7 +197,7 @@ func (client *GalleryImagesClient) deleteCreateRequest(ctx context.Context, reso
 
 // Get - Retrieves information about a gallery image definition.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-03
+// Generated from API version 2022-03-03
 // resourceGroupName - The name of the resource group.
 // galleryName - The name of the Shared Image Gallery from which the Image Definitions are to be retrieved.
 // galleryImageName - The name of the gallery image definition to be retrieved.
@@ -241,7 +241,7 @@ func (client *GalleryImagesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-03")
+	reqQP.Set("api-version", "2022-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -256,9 +256,74 @@ func (client *GalleryImagesClient) getHandleResponse(resp *http.Response) (Galle
 	return result, nil
 }
 
+// GetLatestVersionName - Retrieves information about the latest image version in the Gallery Image.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-03-03
+// resourceGroupName - The name of the resource group.
+// galleryName - The name of the Shared Image Gallery from which the Image Definitions are to be retrieved.
+// galleryImageName - The name of the gallery image definition to be retrieved.
+// options - GalleryImagesClientGetLatestVersionNameOptions contains the optional parameters for the GalleryImagesClient.GetLatestVersionName
+// method.
+func (client *GalleryImagesClient) GetLatestVersionName(ctx context.Context, resourceGroupName string, galleryName string, galleryImageName string, options *GalleryImagesClientGetLatestVersionNameOptions) (GalleryImagesClientGetLatestVersionNameResponse, error) {
+	req, err := client.getLatestVersionNameCreateRequest(ctx, resourceGroupName, galleryName, galleryImageName, options)
+	if err != nil {
+		return GalleryImagesClientGetLatestVersionNameResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return GalleryImagesClientGetLatestVersionNameResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return GalleryImagesClientGetLatestVersionNameResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getLatestVersionNameHandleResponse(resp)
+}
+
+// getLatestVersionNameCreateRequest creates the GetLatestVersionName request.
+func (client *GalleryImagesClient) getLatestVersionNameCreateRequest(ctx context.Context, resourceGroupName string, galleryName string, galleryImageName string, options *GalleryImagesClientGetLatestVersionNameOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/images/{galleryImageName}/latestVersionName"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if galleryName == "" {
+		return nil, errors.New("parameter galleryName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{galleryName}", url.PathEscape(galleryName))
+	if galleryImageName == "" {
+		return nil, errors.New("parameter galleryImageName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{galleryImageName}", url.PathEscape(galleryImageName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-03-03")
+	if options != nil && options.Location != nil {
+		reqQP.Set("location", *options.Location)
+	}
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getLatestVersionNameHandleResponse handles the GetLatestVersionName response.
+func (client *GalleryImagesClient) getLatestVersionNameHandleResponse(resp *http.Response) (GalleryImagesClientGetLatestVersionNameResponse, error) {
+	result := GalleryImagesClientGetLatestVersionNameResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.LatestGalleryImageVersion); err != nil {
+		return GalleryImagesClientGetLatestVersionNameResponse{}, err
+	}
+	return result, nil
+}
+
 // NewListByGalleryPager - List gallery image definitions in a gallery.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-03
+// Generated from API version 2022-03-03
 // resourceGroupName - The name of the resource group.
 // galleryName - The name of the Shared Image Gallery from which Image Definitions are to be listed.
 // options - GalleryImagesClientListByGalleryOptions contains the optional parameters for the GalleryImagesClient.ListByGallery
@@ -311,7 +376,7 @@ func (client *GalleryImagesClient) listByGalleryCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-03")
+	reqQP.Set("api-version", "2022-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -328,7 +393,7 @@ func (client *GalleryImagesClient) listByGalleryHandleResponse(resp *http.Respon
 
 // BeginUpdate - Update a gallery image definition.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-03
+// Generated from API version 2022-03-03
 // resourceGroupName - The name of the resource group.
 // galleryName - The name of the Shared Image Gallery in which the Image Definition is to be updated.
 // galleryImageName - The name of the gallery image definition to be updated. The allowed characters are alphabets and numbers
@@ -350,7 +415,7 @@ func (client *GalleryImagesClient) BeginUpdate(ctx context.Context, resourceGrou
 
 // Update - Update a gallery image definition.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-03
+// Generated from API version 2022-03-03
 func (client *GalleryImagesClient) update(ctx context.Context, resourceGroupName string, galleryName string, galleryImageName string, galleryImage GalleryImageUpdate, options *GalleryImagesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, galleryName, galleryImageName, galleryImage, options)
 	if err != nil {
@@ -390,7 +455,7 @@ func (client *GalleryImagesClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-03")
+	reqQP.Set("api-version", "2022-03-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, galleryImage)
