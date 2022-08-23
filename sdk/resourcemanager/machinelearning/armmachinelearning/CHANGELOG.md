@@ -1,5 +1,40 @@
 # Release History
 
+## 2.1.0 (2022-08-23)
+### Features Added
+
+- New const `DaysOfWeekSunday`
+- New const `RecurrenceFrequencyDay`
+- New const `DaysOfWeekWednesday`
+- New const `RecurrenceFrequencyHour`
+- New const `DaysOfWeekTuesday`
+- New const `RecurrenceFrequencyMonth`
+- New const `DaysOfWeekSaturday`
+- New const `DaysOfWeekFriday`
+- New const `TriggerTypeCron`
+- New const `RecurrenceFrequencyMinute`
+- New const `TriggerTypeRecurrence`
+- New const `DaysOfWeekMonday`
+- New const `RecurrenceFrequencyWeek`
+- New const `DaysOfWeekThursday`
+- New type alias `TriggerType`
+- New type alias `RecurrenceFrequency`
+- New type alias `DaysOfWeek`
+- New function `PossibleRecurrenceFrequencyValues() []RecurrenceFrequency`
+- New function `*ComputeClient.UpdateSchedules(context.Context, string, string, string, *ComputeClientUpdateSchedulesOptions) (ComputeClientUpdateSchedulesResponse, error)`
+- New function `PossibleDaysOfWeekValues() []DaysOfWeek`
+- New function `PossibleTriggerTypeValues() []TriggerType`
+- New struct `ComputeClientUpdateSchedulesOptions`
+- New struct `ComputeClientUpdateSchedulesResponse`
+- New struct `Cron`
+- New struct `Recurrence`
+- New struct `RecurrenceSchedule`
+- New field `Recurrence` in struct `ComputeStartStopSchedule`
+- New field `Status` in struct `ComputeStartStopSchedule`
+- New field `TriggerType` in struct `ComputeStartStopSchedule`
+- New field `Cron` in struct `ComputeStartStopSchedule`
+
+
 ## 2.0.0 (2022-06-09)
 ### Breaking Changes
 
