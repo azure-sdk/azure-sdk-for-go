@@ -1582,8 +1582,8 @@ type Workspace struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string `json:"location,omitempty"`
 
-	// The ETag of the workspace.
-	ETag *string `json:"eTag,omitempty"`
+	// The etag of the workspace.
+	Etag *string `json:"etag,omitempty"`
 
 	// Workspace properties.
 	Properties *WorkspaceProperties `json:"properties,omitempty"`

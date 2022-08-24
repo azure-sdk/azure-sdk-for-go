@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0-beta.3 (2022-08-24)
+### Breaking Changes
+
+- Field `ETag` of struct `Workspace` has been removed
+
+### Features Added
+
+- New field `Etag` in struct `Workspace`
+
+
 ## 2.0.0-beta.2 (2022-06-24)
 ### Features Added
 
