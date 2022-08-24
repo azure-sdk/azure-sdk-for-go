@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.0-beta.2 (2022-08-24)
+### Features Added
+
+- New const `MaintenanceScopeResource`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
