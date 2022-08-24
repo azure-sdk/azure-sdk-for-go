@@ -1,5 +1,35 @@
 # Release History
 
+## 3.1.0 (2022-08-24)
+### Features Added
+
+- New const `AsyncOperationStatusSucceeded`
+- New const `AsyncOperationStatusFailed`
+- New const `AsyncOperationStatusInProgress`
+- New type alias `AsyncOperationStatus`
+- New function `*StreamingEndpointsClient.AsyncOperation(context.Context, string, string, string, *StreamingEndpointsClientAsyncOperationOptions) (StreamingEndpointsClientAsyncOperationResponse, error)`
+- New function `*LiveEventsClient.AsyncOperation(context.Context, string, string, string, *LiveEventsClientAsyncOperationOptions) (LiveEventsClientAsyncOperationResponse, error)`
+- New function `*LiveOutputsClient.AsyncOperation(context.Context, string, string, string, *LiveOutputsClientAsyncOperationOptions) (LiveOutputsClientAsyncOperationResponse, error)`
+- New function `*LiveOutputsClient.OperationLocation(context.Context, string, string, string, string, string, *LiveOutputsClientOperationLocationOptions) (LiveOutputsClientOperationLocationResponse, error)`
+- New function `*StreamingEndpointsClient.OperationLocation(context.Context, string, string, string, string, *StreamingEndpointsClientOperationLocationOptions) (StreamingEndpointsClientOperationLocationResponse, error)`
+- New function `PossibleAsyncOperationStatusValues() []AsyncOperationStatus`
+- New function `*LiveEventsClient.OperationLocation(context.Context, string, string, string, string, *LiveEventsClientOperationLocationOptions) (LiveEventsClientOperationLocationResponse, error)`
+- New struct `AsyncOperationResult`
+- New struct `LiveEventsClientAsyncOperationOptions`
+- New struct `LiveEventsClientAsyncOperationResponse`
+- New struct `LiveEventsClientOperationLocationOptions`
+- New struct `LiveEventsClientOperationLocationResponse`
+- New struct `LiveOutputsClientAsyncOperationOptions`
+- New struct `LiveOutputsClientAsyncOperationResponse`
+- New struct `LiveOutputsClientOperationLocationOptions`
+- New struct `LiveOutputsClientOperationLocationResponse`
+- New struct `StreamingEndpointsClientAsyncOperationOptions`
+- New struct `StreamingEndpointsClientAsyncOperationResponse`
+- New struct `StreamingEndpointsClientOperationLocationOptions`
+- New struct `StreamingEndpointsClientOperationLocationResponse`
+- New field `RewindWindowLength` in struct `LiveOutputProperties`
+
+
 ## 3.0.0 (2022-06-24)
 ### Breaking Changes
 
