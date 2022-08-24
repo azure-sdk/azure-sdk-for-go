@@ -1,5 +1,58 @@
 # Release History
 
+## 0.8.0 (2022-08-24)
+### Breaking Changes
+
+- Function `*DscConfigurationClient.UpdateWithJSON` parameter(s) have been changed from `(context.Context, string, string, string, DscConfigurationUpdateParameters, *DscConfigurationClientUpdateWithJSONOptions)` to `(context.Context, string, string, string, *DscConfigurationClientUpdateWithJSONOptions)`
+- Function `*DscConfigurationClient.UpdateWithText` parameter(s) have been changed from `(context.Context, string, string, string, string, *DscConfigurationClientUpdateWithTextOptions)` to `(context.Context, string, string, string, *DscConfigurationClientUpdateWithTextOptions)`
+- Const `RunbookTypeEnumPython2` has been removed
+- Const `RunbookTypeEnumGraph` has been removed
+- Const `RunbookTypeEnumPython3` has been removed
+- Const `RunbookTypeEnumScript` has been removed
+- Struct `RunbookCreateOrUpdateDraftProperties` has been removed
+
+### Features Added
+
+- New const `RunbookTypeEnumPython`
+- New const `RuntimeLanguagePython`
+- New const `RuntimeLanguagePowerShellWorkflow`
+- New const `RuntimeLanguagePowerShell`
+- New const `RuntimeLanguageGraphPowerShellWorkflow`
+- New const `RuntimeLanguageGraphPowerShell`
+- New type alias `RuntimeLanguage`
+- New function `*RuntimeClient.Get(context.Context, string, string, string, *RuntimeClientGetOptions) (RuntimeClientGetResponse, error)`
+- New function `NewRuntimeClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RuntimeClient, error)`
+- New function `*RuntimeClient.Create(context.Context, string, string, string, Runtime, *RuntimeClientCreateOptions) (RuntimeClientCreateResponse, error)`
+- New function `*RuntimeClient.Delete(context.Context, string, string, string, *RuntimeClientDeleteOptions) (RuntimeClientDeleteResponse, error)`
+- New function `PossibleRuntimeLanguageValues() []RuntimeLanguage`
+- New function `*RuntimeClient.NewListByAutomationAccountPager(string, string, *RuntimeClientListByAutomationAccountOptions) *runtime.Pager[RuntimeClientListByAutomationAccountResponse]`
+- New function `*RuntimeClient.Update(context.Context, string, string, string, RuntimeUpdateProperties, *RuntimeClientUpdateOptions) (RuntimeClientUpdateResponse, error)`
+- New struct `Runtime`
+- New struct `RuntimeClient`
+- New struct `RuntimeClientCreateOptions`
+- New struct `RuntimeClientCreateResponse`
+- New struct `RuntimeClientDeleteOptions`
+- New struct `RuntimeClientDeleteResponse`
+- New struct `RuntimeClientGetOptions`
+- New struct `RuntimeClientGetResponse`
+- New struct `RuntimeClientListByAutomationAccountOptions`
+- New struct `RuntimeClientListByAutomationAccountResponse`
+- New struct `RuntimeClientUpdateOptions`
+- New struct `RuntimeClientUpdateResponse`
+- New struct `RuntimeListResult`
+- New struct `RuntimeProperties`
+- New struct `RuntimeUpdateParameters`
+- New struct `RuntimeUpdateProperties`
+- New field `Runtime` in struct `RunbookProperties`
+- New field `Parameters` in struct `DscConfigurationClientUpdateWithTextOptions`
+- New field `RunbookType` in struct `RunbookUpdateProperties`
+- New field `Runtime` in struct `RunbookUpdateProperties`
+- New field `Description` in struct `OperationDisplay`
+- New field `Runtime` in struct `RunbookCreateOrUpdateProperties`
+- New field `IsDataAction` in struct `Operation`
+- New field `Parameters` in struct `DscConfigurationClientUpdateWithJSONOptions`
+
+
 ## 0.7.0 (2022-07-12)
 ### Breaking Changes
 

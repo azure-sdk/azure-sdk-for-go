@@ -581,6 +581,31 @@ type RunbookDraftClientUndoEditResponse struct {
 	RunbookDraftUndoEditResult
 }
 
+// RuntimeClientCreateResponse contains the response from method RuntimeClient.Create.
+type RuntimeClientCreateResponse struct {
+	Runtime
+}
+
+// RuntimeClientDeleteResponse contains the response from method RuntimeClient.Delete.
+type RuntimeClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// RuntimeClientGetResponse contains the response from method RuntimeClient.Get.
+type RuntimeClientGetResponse struct {
+	Runtime
+}
+
+// RuntimeClientListByAutomationAccountResponse contains the response from method RuntimeClient.ListByAutomationAccount.
+type RuntimeClientListByAutomationAccountResponse struct {
+	RuntimeListResult
+}
+
+// RuntimeClientUpdateResponse contains the response from method RuntimeClient.Update.
+type RuntimeClientUpdateResponse struct {
+	Runtime
+}
+
 // ScheduleClientCreateOrUpdateResponse contains the response from method ScheduleClient.CreateOrUpdate.
 type ScheduleClientCreateOrUpdateResponse struct {
 	Schedule

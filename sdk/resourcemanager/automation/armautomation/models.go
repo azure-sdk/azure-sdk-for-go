@@ -1078,13 +1078,15 @@ type DscConfigurationClientListByAutomationAccountOptions struct {
 // DscConfigurationClientUpdateWithJSONOptions contains the optional parameters for the DscConfigurationClient.UpdateWithJSON
 // method.
 type DscConfigurationClientUpdateWithJSONOptions struct {
-	// placeholder for future optional parameters
+	// The create or update parameters for configuration.
+	Parameters *DscConfigurationUpdateParameters
 }
 
 // DscConfigurationClientUpdateWithTextOptions contains the optional parameters for the DscConfigurationClient.UpdateWithText
 // method.
 type DscConfigurationClientUpdateWithTextOptions struct {
-	// placeholder for future optional parameters
+	// The create or update parameters for configuration.
+	Parameters *string
 }
 
 // DscConfigurationCreateOrUpdateParameters - The parameters supplied to the create or update configuration operation.
@@ -2410,12 +2412,18 @@ type Operation struct {
 	// Provider, Resource and Operation values
 	Display *OperationDisplay `json:"display,omitempty"`
 
+	// Indicates whether the operation is a data action
+	IsDataAction *bool `json:"isDataAction,omitempty"`
+
 	// Operation name: {provider}/{resource}/{operation}
 	Name *string `json:"name,omitempty"`
 }
 
 // OperationDisplay - Provider, Resource and Operation values
 type OperationDisplay struct {
+	// Localized friendly description for the operation
+	Description *string `json:"description,omitempty"`
+
 	// Operation type: Read, write, delete, etc.
 	Operation *string `json:"operation,omitempty"`
 
@@ -2713,27 +2721,6 @@ type RunbookCreateOrUpdateDraftParameters struct {
 	RunbookContent *string `json:"runbookContent,omitempty"`
 }
 
-// RunbookCreateOrUpdateDraftProperties - The parameters supplied to the create or update draft runbook properties.
-type RunbookCreateOrUpdateDraftProperties struct {
-	// REQUIRED; Gets or sets the draft runbook properties.
-	Draft *RunbookDraft `json:"draft,omitempty"`
-
-	// REQUIRED; Gets or sets the type of the runbook.
-	RunbookType *RunbookTypeEnum `json:"runbookType,omitempty"`
-
-	// Gets or sets the description of the runbook.
-	Description *string `json:"description,omitempty"`
-
-	// Gets or sets the activity-level tracing options of the runbook.
-	LogActivityTrace *int32 `json:"logActivityTrace,omitempty"`
-
-	// Gets or sets progress log option.
-	LogProgress *bool `json:"logProgress,omitempty"`
-
-	// Gets or sets verbose log option.
-	LogVerbose *bool `json:"logVerbose,omitempty"`
-}
-
 // RunbookCreateOrUpdateParameters - The parameters supplied to the create or update runbook operation.
 type RunbookCreateOrUpdateParameters struct {
 	// REQUIRED; Gets or sets runbook create or update properties.
@@ -2753,6 +2740,9 @@ type RunbookCreateOrUpdateParameters struct {
 type RunbookCreateOrUpdateProperties struct {
 	// REQUIRED; Gets or sets the type of the runbook.
 	RunbookType *RunbookTypeEnum `json:"runbookType,omitempty"`
+
+	// REQUIRED; Gets or sets fully qualified resource id of runtime of the runbook.
+	Runtime *string `json:"runtime,omitempty"`
 
 	// Gets or sets the description of the runbook.
 	Description *string `json:"description,omitempty"`
@@ -2889,6 +2879,9 @@ type RunbookProperties struct {
 	// Gets or sets the type of the runbook.
 	RunbookType *RunbookTypeEnum `json:"runbookType,omitempty"`
 
+	// Gets or sets fully qualified resource id of runtime of the runbook.
+	Runtime *string `json:"runtime,omitempty"`
+
 	// Gets or sets the state of the runbook.
 	State *RunbookState `json:"state,omitempty"`
 }
@@ -2921,6 +2914,90 @@ type RunbookUpdateProperties struct {
 
 	// Gets or sets verbose log option.
 	LogVerbose *bool `json:"logVerbose,omitempty"`
+
+	// Gets or sets the type of the runbook.
+	RunbookType *RunbookTypeEnum `json:"runbookType,omitempty"`
+
+	// Gets or sets fully qualified resource id of runtime of the runbook.
+	Runtime *string `json:"runtime,omitempty"`
+}
+
+// Runtime - Definition of runtime.
+type Runtime struct {
+	// Gets or sets the hybrid worker group properties.
+	Properties *RuntimeProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Gets or sets the id of the resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets or sets the name of the runtime.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource system metadata.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RuntimeClientCreateOptions contains the optional parameters for the RuntimeClient.Create method.
+type RuntimeClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeClientDeleteOptions contains the optional parameters for the RuntimeClient.Delete method.
+type RuntimeClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeClientGetOptions contains the optional parameters for the RuntimeClient.Get method.
+type RuntimeClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeClientListByAutomationAccountOptions contains the optional parameters for the RuntimeClient.ListByAutomationAccount
+// method.
+type RuntimeClientListByAutomationAccountOptions struct {
+	// The filter to apply on the operation.
+	Filter *string
+}
+
+// RuntimeClientUpdateOptions contains the optional parameters for the RuntimeClient.Update method.
+type RuntimeClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RuntimeListResult - The response model for the list runtimes.
+type RuntimeListResult struct {
+	// Gets or sets the next link.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Gets or sets a list of runtimes.
+	Value []*Runtime `json:"value,omitempty"`
+}
+
+// RuntimeProperties - Runtime properties
+type RuntimeProperties struct {
+	// Gets or sets the built in dependencies of the runtime.
+	BuiltInDependencies map[string]*string `json:"builtInDependencies,omitempty"`
+
+	// Gets or sets the language of the runtime.
+	Language *RuntimeLanguage `json:"language,omitempty"`
+
+	// Gets or sets the language version of the runtime.
+	LanguageVersion *string `json:"languageVersion,omitempty"`
+}
+
+// RuntimeUpdateParameters - Runtime update properties
+type RuntimeUpdateParameters struct {
+	// Gets or sets the built in dependencies of the runtime.
+	BuiltInDependencies map[string]*string `json:"builtInDependencies,omitempty"`
+}
+
+// RuntimeUpdateProperties - Runtime patch dependencies property
+type RuntimeUpdateProperties struct {
+	// Gets or sets the runtime update properties.
+	Properties *RuntimeUpdateParameters `json:"properties,omitempty"`
 }
 
 // SKU - The account SKU.

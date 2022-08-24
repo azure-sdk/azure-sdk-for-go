@@ -11,7 +11,7 @@ package armautomation
 
 const (
 	moduleName    = "armautomation"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.8.0"
 )
 
 // AgentRegistrationKeyName - Gets or sets the agent registration key name - primary or secondary.
@@ -526,27 +526,43 @@ func PossibleRunbookStateValues() []RunbookState {
 type RunbookTypeEnum string
 
 const (
-	RunbookTypeEnumGraph                   RunbookTypeEnum = "Graph"
 	RunbookTypeEnumGraphPowerShell         RunbookTypeEnum = "GraphPowerShell"
 	RunbookTypeEnumGraphPowerShellWorkflow RunbookTypeEnum = "GraphPowerShellWorkflow"
 	RunbookTypeEnumPowerShell              RunbookTypeEnum = "PowerShell"
 	RunbookTypeEnumPowerShellWorkflow      RunbookTypeEnum = "PowerShellWorkflow"
-	RunbookTypeEnumPython2                 RunbookTypeEnum = "Python2"
-	RunbookTypeEnumPython3                 RunbookTypeEnum = "Python3"
-	RunbookTypeEnumScript                  RunbookTypeEnum = "Script"
+	RunbookTypeEnumPython                  RunbookTypeEnum = "Python"
 )
 
 // PossibleRunbookTypeEnumValues returns the possible values for the RunbookTypeEnum const type.
 func PossibleRunbookTypeEnumValues() []RunbookTypeEnum {
 	return []RunbookTypeEnum{
-		RunbookTypeEnumGraph,
 		RunbookTypeEnumGraphPowerShell,
 		RunbookTypeEnumGraphPowerShellWorkflow,
 		RunbookTypeEnumPowerShell,
 		RunbookTypeEnumPowerShellWorkflow,
-		RunbookTypeEnumPython2,
-		RunbookTypeEnumPython3,
-		RunbookTypeEnumScript,
+		RunbookTypeEnumPython,
+	}
+}
+
+// RuntimeLanguage - Gets or sets the language of the runtime.
+type RuntimeLanguage string
+
+const (
+	RuntimeLanguageGraphPowerShell         RuntimeLanguage = "GraphPowerShell"
+	RuntimeLanguageGraphPowerShellWorkflow RuntimeLanguage = "GraphPowerShellWorkflow"
+	RuntimeLanguagePowerShell              RuntimeLanguage = "PowerShell"
+	RuntimeLanguagePowerShellWorkflow      RuntimeLanguage = "PowerShellWorkflow"
+	RuntimeLanguagePython                  RuntimeLanguage = "Python"
+)
+
+// PossibleRuntimeLanguageValues returns the possible values for the RuntimeLanguage const type.
+func PossibleRuntimeLanguageValues() []RuntimeLanguage {
+	return []RuntimeLanguage{
+		RuntimeLanguageGraphPowerShell,
+		RuntimeLanguageGraphPowerShellWorkflow,
+		RuntimeLanguagePowerShell,
+		RuntimeLanguagePowerShellWorkflow,
+		RuntimeLanguagePython,
 	}
 }
 
