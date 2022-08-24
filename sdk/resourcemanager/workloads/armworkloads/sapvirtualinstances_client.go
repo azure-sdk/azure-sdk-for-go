@@ -55,17 +55,16 @@ func NewSAPVirtualInstancesClient(subscriptionID string, credential azcore.Token
 	return client, nil
 }
 
-// BeginCreate - Creates an Virtual Instance for SAP.
+// BeginCreate - Creates a Virtual Instance for SAP solutions (VIS) resource
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// sapVirtualInstanceName - The name of the Virtual Instances for SAP.
-// body - The Virtual Instance for SAP request body.
+// sapVirtualInstanceName - The name of the Virtual Instances for SAP solutions resource
 // options - SAPVirtualInstancesClientBeginCreateOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginCreate
 // method.
-func (client *SAPVirtualInstancesClient) BeginCreate(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, body SAPVirtualInstance, options *SAPVirtualInstancesClientBeginCreateOptions) (*runtime.Poller[SAPVirtualInstancesClientCreateResponse], error) {
+func (client *SAPVirtualInstancesClient) BeginCreate(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginCreateOptions) (*runtime.Poller[SAPVirtualInstancesClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, sapVirtualInstanceName, body, options)
+		resp, err := client.create(ctx, resourceGroupName, sapVirtualInstanceName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -77,11 +76,11 @@ func (client *SAPVirtualInstancesClient) BeginCreate(ctx context.Context, resour
 	}
 }
 
-// Create - Creates an Virtual Instance for SAP.
+// Create - Creates a Virtual Instance for SAP solutions (VIS) resource
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
-func (client *SAPVirtualInstancesClient) create(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, body SAPVirtualInstance, options *SAPVirtualInstancesClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, sapVirtualInstanceName, body, options)
+func (client *SAPVirtualInstancesClient) create(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, sapVirtualInstanceName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +95,7 @@ func (client *SAPVirtualInstancesClient) create(ctx context.Context, resourceGro
 }
 
 // createCreateRequest creates the Create request.
-func (client *SAPVirtualInstancesClient) createCreateRequest(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, body SAPVirtualInstance, options *SAPVirtualInstancesClientBeginCreateOptions) (*policy.Request, error) {
+func (client *SAPVirtualInstancesClient) createCreateRequest(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Workloads/sapVirtualInstances/{sapVirtualInstanceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -118,14 +117,18 @@ func (client *SAPVirtualInstancesClient) createCreateRequest(ctx context.Context
 	reqQP.Set("api-version", "2021-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
-// BeginDelete - Deletes an Virtual Instance for SAP.
+// BeginDelete - Deletes a Virtual Instance for SAP solutions resource and its child resources, that is the associated Central
+// Services Instance, Application Server Instances and Database Instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// sapVirtualInstanceName - The name of the Virtual Instances for SAP.
+// sapVirtualInstanceName - The name of the Virtual Instances for SAP solutions resource
 // options - SAPVirtualInstancesClientBeginDeleteOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginDelete
 // method.
 func (client *SAPVirtualInstancesClient) BeginDelete(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginDeleteOptions) (*runtime.Poller[SAPVirtualInstancesClientDeleteResponse], error) {
@@ -142,7 +145,8 @@ func (client *SAPVirtualInstancesClient) BeginDelete(ctx context.Context, resour
 	}
 }
 
-// Delete - Deletes an Virtual Instance for SAP.
+// Delete - Deletes a Virtual Instance for SAP solutions resource and its child resources, that is the associated Central
+// Services Instance, Application Server Instances and Database Instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 func (client *SAPVirtualInstancesClient) deleteOperation(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginDeleteOptions) (*http.Response, error) {
@@ -186,11 +190,11 @@ func (client *SAPVirtualInstancesClient) deleteCreateRequest(ctx context.Context
 	return req, nil
 }
 
-// Get - Gets an Virtual Instance for SAP.
+// Get - Gets a Virtual Instance for SAP solutions resource
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// sapVirtualInstanceName - The name of the Virtual Instances for SAP.
+// sapVirtualInstanceName - The name of the Virtual Instances for SAP solutions resource
 // options - SAPVirtualInstancesClientGetOptions contains the optional parameters for the SAPVirtualInstancesClient.Get method.
 func (client *SAPVirtualInstancesClient) Get(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientGetOptions) (SAPVirtualInstancesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, sapVirtualInstanceName, options)
@@ -242,7 +246,7 @@ func (client *SAPVirtualInstancesClient) getHandleResponse(resp *http.Response) 
 	return result, nil
 }
 
-// NewListByResourceGroupPager - Gets all Virtual Instances for SAP in a resource group.
+// NewListByResourceGroupPager - Gets all Virtual Instances for SAP solutions resources in a Resource Group.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -307,7 +311,7 @@ func (client *SAPVirtualInstancesClient) listByResourceGroupHandleResponse(resp 
 	return result, nil
 }
 
-// NewListBySubscriptionPager - Gets all Virtual Instances for SAP in the subscription.
+// NewListBySubscriptionPager - Gets all Virtual Instances for SAP solutions resources in a Subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // options - SAPVirtualInstancesClientListBySubscriptionOptions contains the optional parameters for the SAPVirtualInstancesClient.ListBySubscription
@@ -367,11 +371,11 @@ func (client *SAPVirtualInstancesClient) listBySubscriptionHandleResponse(resp *
 	return result, nil
 }
 
-// BeginStart - Starts the SAP System.
+// BeginStart - Starts the SAP application, that is the Central Services instance and Application server instances.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// sapVirtualInstanceName - The name of the Virtual Instances for SAP.
+// sapVirtualInstanceName - The name of the Virtual Instances for SAP solutions resource
 // options - SAPVirtualInstancesClientBeginStartOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginStart
 // method.
 func (client *SAPVirtualInstancesClient) BeginStart(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginStartOptions) (*runtime.Poller[SAPVirtualInstancesClientStartResponse], error) {
@@ -388,7 +392,7 @@ func (client *SAPVirtualInstancesClient) BeginStart(ctx context.Context, resourc
 	}
 }
 
-// Start - Starts the SAP System.
+// Start - Starts the SAP application, that is the Central Services instance and Application server instances.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 func (client *SAPVirtualInstancesClient) start(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginStartOptions) (*http.Response, error) {
@@ -432,11 +436,11 @@ func (client *SAPVirtualInstancesClient) startCreateRequest(ctx context.Context,
 	return req, nil
 }
 
-// BeginStop - Stops the SAP System.
+// BeginStop - Stops the SAP Application, that is the Application server instances and Central Services instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// sapVirtualInstanceName - The name of the Virtual Instances for SAP.
+// sapVirtualInstanceName - The name of the Virtual Instances for SAP solutions resource
 // options - SAPVirtualInstancesClientBeginStopOptions contains the optional parameters for the SAPVirtualInstancesClient.BeginStop
 // method.
 func (client *SAPVirtualInstancesClient) BeginStop(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginStopOptions) (*runtime.Poller[SAPVirtualInstancesClientStopResponse], error) {
@@ -453,7 +457,7 @@ func (client *SAPVirtualInstancesClient) BeginStop(ctx context.Context, resource
 	}
 }
 
-// Stop - Stops the SAP System.
+// Stop - Stops the SAP Application, that is the Application server instances and Central Services instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 func (client *SAPVirtualInstancesClient) stop(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientBeginStopOptions) (*http.Response, error) {
@@ -500,16 +504,15 @@ func (client *SAPVirtualInstancesClient) stopCreateRequest(ctx context.Context, 
 	return req, nil
 }
 
-// Update - Updates an Virtual Instance for SAP.
+// Update - Updates a Virtual Instance for SAP solutions resource
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
-// sapVirtualInstanceName - The name of the Virtual Instances for SAP.
-// body - The Update Virtual Instance for SAP request body.
+// sapVirtualInstanceName - The name of the Virtual Instances for SAP solutions resource
 // options - SAPVirtualInstancesClientUpdateOptions contains the optional parameters for the SAPVirtualInstancesClient.Update
 // method.
-func (client *SAPVirtualInstancesClient) Update(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, body UpdateSAPVirtualInstanceRequest, options *SAPVirtualInstancesClientUpdateOptions) (SAPVirtualInstancesClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, sapVirtualInstanceName, body, options)
+func (client *SAPVirtualInstancesClient) Update(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientUpdateOptions) (SAPVirtualInstancesClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, sapVirtualInstanceName, options)
 	if err != nil {
 		return SAPVirtualInstancesClientUpdateResponse{}, err
 	}
@@ -524,7 +527,7 @@ func (client *SAPVirtualInstancesClient) Update(ctx context.Context, resourceGro
 }
 
 // updateCreateRequest creates the Update request.
-func (client *SAPVirtualInstancesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, body UpdateSAPVirtualInstanceRequest, options *SAPVirtualInstancesClientUpdateOptions) (*policy.Request, error) {
+func (client *SAPVirtualInstancesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, sapVirtualInstanceName string, options *SAPVirtualInstancesClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Workloads/sapVirtualInstances/{sapVirtualInstanceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -546,7 +549,10 @@ func (client *SAPVirtualInstancesClient) updateCreateRequest(ctx context.Context
 	reqQP.Set("api-version", "2021-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
