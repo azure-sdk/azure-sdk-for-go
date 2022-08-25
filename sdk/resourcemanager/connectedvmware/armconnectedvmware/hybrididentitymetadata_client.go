@@ -69,11 +69,10 @@ func NewHybridIdentityMetadataClient(subscriptionID string, credential azcore.To
 // resourceGroupName - The Resource Group Name.
 // virtualMachineName - Name of the vm.
 // metadataName - Name of the hybridIdentityMetadata.
-// body - Request payload.
 // options - HybridIdentityMetadataClientCreateOptions contains the optional parameters for the HybridIdentityMetadataClient.Create
 // method.
-func (client *HybridIdentityMetadataClient) Create(ctx context.Context, resourceGroupName string, virtualMachineName string, metadataName string, body HybridIdentityMetadata, options *HybridIdentityMetadataClientCreateOptions) (HybridIdentityMetadataClientCreateResponse, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualMachineName, metadataName, body, options)
+func (client *HybridIdentityMetadataClient) Create(ctx context.Context, resourceGroupName string, virtualMachineName string, metadataName string, options *HybridIdentityMetadataClientCreateOptions) (HybridIdentityMetadataClientCreateResponse, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualMachineName, metadataName, options)
 	if err != nil {
 		return HybridIdentityMetadataClientCreateResponse{}, err
 	}
@@ -88,7 +87,7 @@ func (client *HybridIdentityMetadataClient) Create(ctx context.Context, resource
 }
 
 // createCreateRequest creates the Create request.
-func (client *HybridIdentityMetadataClient) createCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineName string, metadataName string, body HybridIdentityMetadata, options *HybridIdentityMetadataClientCreateOptions) (*policy.Request, error) {
+func (client *HybridIdentityMetadataClient) createCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineName string, metadataName string, options *HybridIdentityMetadataClientCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/hybridIdentityMetadata/{metadataName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -114,7 +113,10 @@ func (client *HybridIdentityMetadataClient) createCreateRequest(ctx context.Cont
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // createHandleResponse handles the Create response.
