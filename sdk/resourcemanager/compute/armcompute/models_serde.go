@@ -11711,7 +11711,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
@@ -12286,6 +12286,7 @@ func (s *StatusCodeCount) UnmarshalJSON(data []byte) error {
 func (s StorageProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dataDisks", s.DataDisks)
+	populate(objectMap, "diskControllerType", s.DiskControllerType)
 	populate(objectMap, "imageReference", s.ImageReference)
 	populate(objectMap, "osDisk", s.OSDisk)
 	return json.Marshal(objectMap)
@@ -12302,6 +12303,9 @@ func (s *StorageProfile) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "dataDisks":
 			err = unpopulate(val, "DataDisks", &s.DataDisks)
+			delete(rawMsg, key)
+		case "diskControllerType":
+			err = unpopulate(val, "DiskControllerType", &s.DiskControllerType)
 			delete(rawMsg, key)
 		case "imageReference":
 			err = unpopulate(val, "ImageReference", &s.ImageReference)
@@ -16600,6 +16604,7 @@ func (v *VirtualMachineScaleSetSKUCapacity) UnmarshalJSON(data []byte) error {
 func (v VirtualMachineScaleSetStorageProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dataDisks", v.DataDisks)
+	populate(objectMap, "diskControllerType", v.DiskControllerType)
 	populate(objectMap, "imageReference", v.ImageReference)
 	populate(objectMap, "osDisk", v.OSDisk)
 	return json.Marshal(objectMap)
@@ -16616,6 +16621,9 @@ func (v *VirtualMachineScaleSetStorageProfile) UnmarshalJSON(data []byte) error 
 		switch key {
 		case "dataDisks":
 			err = unpopulate(val, "DataDisks", &v.DataDisks)
+			delete(rawMsg, key)
+		case "diskControllerType":
+			err = unpopulate(val, "DiskControllerType", &v.DiskControllerType)
 			delete(rawMsg, key)
 		case "imageReference":
 			err = unpopulate(val, "ImageReference", &v.ImageReference)
@@ -17112,6 +17120,7 @@ func (v *VirtualMachineScaleSetUpdatePublicIPAddressConfigurationProperties) Unm
 func (v VirtualMachineScaleSetUpdateStorageProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dataDisks", v.DataDisks)
+	populate(objectMap, "diskControllerType", v.DiskControllerType)
 	populate(objectMap, "imageReference", v.ImageReference)
 	populate(objectMap, "osDisk", v.OSDisk)
 	return json.Marshal(objectMap)
@@ -17128,6 +17137,9 @@ func (v *VirtualMachineScaleSetUpdateStorageProfile) UnmarshalJSON(data []byte) 
 		switch key {
 		case "dataDisks":
 			err = unpopulate(val, "DataDisks", &v.DataDisks)
+			delete(rawMsg, key)
+		case "diskControllerType":
+			err = unpopulate(val, "DiskControllerType", &v.DiskControllerType)
 			delete(rawMsg, key)
 		case "imageReference":
 			err = unpopulate(val, "ImageReference", &v.ImageReference)
@@ -17149,6 +17161,7 @@ func (v VirtualMachineScaleSetUpdateVMProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "billingProfile", v.BillingProfile)
 	populate(objectMap, "diagnosticsProfile", v.DiagnosticsProfile)
 	populate(objectMap, "extensionProfile", v.ExtensionProfile)
+	populate(objectMap, "hardwareProfile", v.HardwareProfile)
 	populate(objectMap, "licenseType", v.LicenseType)
 	populate(objectMap, "networkProfile", v.NetworkProfile)
 	populate(objectMap, "osProfile", v.OSProfile)
@@ -17176,6 +17189,9 @@ func (v *VirtualMachineScaleSetUpdateVMProfile) UnmarshalJSON(data []byte) error
 			delete(rawMsg, key)
 		case "extensionProfile":
 			err = unpopulate(val, "ExtensionProfile", &v.ExtensionProfile)
+			delete(rawMsg, key)
+		case "hardwareProfile":
+			err = unpopulate(val, "HardwareProfile", &v.HardwareProfile)
 			delete(rawMsg, key)
 		case "licenseType":
 			err = unpopulate(val, "LicenseType", &v.LicenseType)
