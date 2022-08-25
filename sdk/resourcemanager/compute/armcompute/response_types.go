@@ -602,6 +602,11 @@ type GalleryImagesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// GalleryImagesClientGetLatestVersionNameResponse contains the response from method GalleryImagesClient.GetLatestVersionName.
+type GalleryImagesClientGetLatestVersionNameResponse struct {
+	LatestGalleryImageVersion
+}
+
 // GalleryImagesClientGetResponse contains the response from method GalleryImagesClient.Get.
 type GalleryImagesClientGetResponse struct {
 	GalleryImage
