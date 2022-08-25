@@ -1,5 +1,16 @@
 # Release History
 
+## 1.1.0 (2022-08-25)
+### Features Added
+
+- New const `ProvisioningPending`
+- New const `ProvisioningAccepted`
+- New const `ProvisioningSucceeded`
+- New type alias `Provisioning`
+- New function `PossibleProvisioningValues() []Provisioning`
+- New field `ProvisioningState` in struct `AcceptOwnershipStatusResponse`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/subscription/armsubscription` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
