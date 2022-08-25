@@ -58,7 +58,7 @@ func NewFleetMembersClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateOrUpdate - A member contains a reference to an existing Kubernetes cluster. Creating a member makes the referenced
 // cluster join the Fleet.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-02-preview
+// Generated from API version 2022-08-02-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // fleetName - The name of the Fleet resource.
 // fleetMemberName - The name of the Fleet member resource.
@@ -80,7 +80,7 @@ func (client *FleetMembersClient) BeginCreateOrUpdate(ctx context.Context, resou
 // CreateOrUpdate - A member contains a reference to an existing Kubernetes cluster. Creating a member makes the referenced
 // cluster join the Fleet.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-02-preview
+// Generated from API version 2022-08-02-preview
 func (client *FleetMembersClient) createOrUpdate(ctx context.Context, resourceGroupName string, fleetName string, fleetMemberName string, parameters FleetMember, options *FleetMembersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, fleetName, fleetMemberName, parameters, options)
 	if err != nil {
@@ -120,7 +120,7 @@ func (client *FleetMembersClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-02-preview")
+	reqQP.Set("api-version", "2022-08-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -135,7 +135,7 @@ func (client *FleetMembersClient) createOrUpdateCreateRequest(ctx context.Contex
 // BeginDelete - Deleting a Fleet member results in the member cluster leaving fleet. The Member azure resource is deleted
 // upon success. The underlying cluster is not deleted.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-02-preview
+// Generated from API version 2022-08-02-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // fleetName - The name of the Fleet resource.
 // fleetMemberName - The name of the Fleet member resource.
@@ -158,7 +158,7 @@ func (client *FleetMembersClient) BeginDelete(ctx context.Context, resourceGroup
 // Delete - Deleting a Fleet member results in the member cluster leaving fleet. The Member azure resource is deleted upon
 // success. The underlying cluster is not deleted.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-02-preview
+// Generated from API version 2022-08-02-preview
 func (client *FleetMembersClient) deleteOperation(ctx context.Context, resourceGroupName string, fleetName string, fleetMemberName string, options *FleetMembersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, fleetName, fleetMemberName, options)
 	if err != nil {
@@ -198,7 +198,7 @@ func (client *FleetMembersClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-02-preview")
+	reqQP.Set("api-version", "2022-08-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -209,7 +209,7 @@ func (client *FleetMembersClient) deleteCreateRequest(ctx context.Context, resou
 
 // Get - Gets a Fleet member.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-02-preview
+// Generated from API version 2022-08-02-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // fleetName - The name of the Fleet resource.
 // fleetMemberName - The name of the Fleet member resource.
@@ -253,7 +253,7 @@ func (client *FleetMembersClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-02-preview")
+	reqQP.Set("api-version", "2022-08-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -270,7 +270,7 @@ func (client *FleetMembersClient) getHandleResponse(resp *http.Response) (FleetM
 
 // NewListByFleetPager - Lists the members of a fleet.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-02-preview
+// Generated from API version 2022-08-02-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // fleetName - The name of the Fleet resource.
 // options - FleetMembersClientListByFleetOptions contains the optional parameters for the FleetMembersClient.ListByFleet
@@ -323,7 +323,7 @@ func (client *FleetMembersClient) listByFleetCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-02-preview")
+	reqQP.Set("api-version", "2022-08-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

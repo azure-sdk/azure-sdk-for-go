@@ -2427,6 +2427,7 @@ func (m *ManagedClusterListResult) UnmarshalJSON(data []byte) error {
 func (m ManagedClusterLoadBalancerProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "allocatedOutboundPorts", m.AllocatedOutboundPorts)
+	populate(objectMap, "backendPoolType", m.BackendPoolType)
 	populate(objectMap, "effectiveOutboundIPs", m.EffectiveOutboundIPs)
 	populate(objectMap, "enableMultipleStandardLoadBalancers", m.EnableMultipleStandardLoadBalancers)
 	populate(objectMap, "idleTimeoutInMinutes", m.IdleTimeoutInMinutes)
@@ -2447,6 +2448,9 @@ func (m *ManagedClusterLoadBalancerProfile) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "allocatedOutboundPorts":
 			err = unpopulate(val, "AllocatedOutboundPorts", &m.AllocatedOutboundPorts)
+			delete(rawMsg, key)
+		case "backendPoolType":
+			err = unpopulate(val, "BackendPoolType", &m.BackendPoolType)
 			delete(rawMsg, key)
 		case "effectiveOutboundIPs":
 			err = unpopulate(val, "EffectiveOutboundIPs", &m.EffectiveOutboundIPs)

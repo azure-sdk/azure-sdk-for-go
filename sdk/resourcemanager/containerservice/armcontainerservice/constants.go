@@ -11,7 +11,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "armcontainerservice"
-	moduleVersion = "v2.1.0-beta.1"
+	moduleVersion = "v2.1.0-beta.2"
 )
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
@@ -49,6 +49,24 @@ func PossibleAgentPoolTypeValues() []AgentPoolType {
 	return []AgentPoolType{
 		AgentPoolTypeAvailabilitySet,
 		AgentPoolTypeVirtualMachineScaleSets,
+	}
+}
+
+// BackendPoolType - The type of the managed inbound Load Balancer BackendPool.
+type BackendPoolType string
+
+const (
+	// BackendPoolTypeNodeIP - The type of the managed inbound Load Balancer BackendPool. https://cloud-provider-azure.sigs.k8s.io/topics/loadbalancer/#configure-load-balancer-backend.
+	BackendPoolTypeNodeIP BackendPoolType = "NodeIP"
+	// BackendPoolTypeNodeIPConfiguration - The type of the managed inbound Load Balancer BackendPool. https://cloud-provider-azure.sigs.k8s.io/topics/loadbalancer/#configure-load-balancer-backend.
+	BackendPoolTypeNodeIPConfiguration BackendPoolType = "NodeIPConfiguration"
+)
+
+// PossibleBackendPoolTypeValues returns the possible values for the BackendPoolType const type.
+func PossibleBackendPoolTypeValues() []BackendPoolType {
+	return []BackendPoolType{
+		BackendPoolTypeNodeIP,
+		BackendPoolTypeNodeIPConfiguration,
 	}
 }
 

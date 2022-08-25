@@ -1,5 +1,15 @@
 # Release History
 
+## 2.1.0-beta.2 (2022-08-25)
+### Features Added
+
+- New const `BackendPoolTypeNodeIP`
+- New const `BackendPoolTypeNodeIPConfiguration`
+- New type alias `BackendPoolType`
+- New function `PossibleBackendPoolTypeValues() []BackendPoolType`
+- New field `BackendPoolType` in struct `ManagedClusterLoadBalancerProfile`
+
+
 ## 2.1.0-beta.1 (2022-08-22)
 ### Features Added
 

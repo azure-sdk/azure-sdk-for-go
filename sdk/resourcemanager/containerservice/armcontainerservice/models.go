@@ -1246,6 +1246,9 @@ type ManagedClusterLoadBalancerProfile struct {
 	// value is 0 which results in Azure dynamically allocating ports.
 	AllocatedOutboundPorts *int32 `json:"allocatedOutboundPorts,omitempty"`
 
+	// The type of the managed inbound Load Balancer BackendPool.
+	BackendPoolType *BackendPoolType `json:"backendPoolType,omitempty"`
+
 	// The effective outbound IP resources of the cluster load balancer.
 	EffectiveOutboundIPs []*ResourceReference `json:"effectiveOutboundIPs,omitempty"`
 
