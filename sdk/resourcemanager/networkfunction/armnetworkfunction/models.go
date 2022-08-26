@@ -148,22 +148,28 @@ type CollectorPoliciesClientListOptions struct {
 
 // CollectorPolicy - Collector policy resource.
 type CollectorPolicy struct {
+	// Resource location.
+	Location *string `json:"location,omitempty"`
+
 	// Properties of the Collector Policy.
 	Properties *CollectorPolicyPropertiesFormat `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
 
 	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
 	Etag *string `json:"etag,omitempty" azure:"ro"`
 
-	// READ-ONLY; Azure resource Id
+	// READ-ONLY; Resource ID.
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; Azure resource name
+	// READ-ONLY; Resource name.
 	Name *string `json:"name,omitempty" azure:"ro"`
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *CollectorPolicySystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *TrackedResourceSystemData `json:"systemData,omitempty" azure:"ro"`
 
-	// READ-ONLY; Azure resource type
+	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -186,24 +192,6 @@ type CollectorPolicyPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// CollectorPolicySystemData - Metadata pertaining to creation and last modification of the resource.
-type CollectorPolicySystemData struct {
-	// The timestamp of resource creation (UTC).
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-
-	// The identity that created the resource.
-	CreatedBy *string `json:"createdBy,omitempty"`
-
-	// The type of identity that created the resource.
-	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
-
-	// The identity that last modified the resource.
-	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
-
-	// The type of identity that last modified the resource.
-	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
 }
 
 // EmissionPoliciesPropertiesFormat - Emission policy properties.
