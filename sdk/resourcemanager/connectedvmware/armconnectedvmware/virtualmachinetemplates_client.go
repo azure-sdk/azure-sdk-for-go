@@ -69,12 +69,11 @@ func NewVirtualMachineTemplatesClient(subscriptionID string, credential azcore.T
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // virtualMachineTemplateName - Name of the virtual machine template resource.
-// body - Request payload.
 // options - VirtualMachineTemplatesClientBeginCreateOptions contains the optional parameters for the VirtualMachineTemplatesClient.BeginCreate
 // method.
-func (client *VirtualMachineTemplatesClient) BeginCreate(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, body VirtualMachineTemplate, options *VirtualMachineTemplatesClientBeginCreateOptions) (*runtime.Poller[VirtualMachineTemplatesClientCreateResponse], error) {
+func (client *VirtualMachineTemplatesClient) BeginCreate(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, options *VirtualMachineTemplatesClientBeginCreateOptions) (*runtime.Poller[VirtualMachineTemplatesClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, virtualMachineTemplateName, body, options)
+		resp, err := client.create(ctx, resourceGroupName, virtualMachineTemplateName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -89,8 +88,8 @@ func (client *VirtualMachineTemplatesClient) BeginCreate(ctx context.Context, re
 // Create - Create Or Update virtual machine template.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
-func (client *VirtualMachineTemplatesClient) create(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, body VirtualMachineTemplate, options *VirtualMachineTemplatesClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualMachineTemplateName, body, options)
+func (client *VirtualMachineTemplatesClient) create(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, options *VirtualMachineTemplatesClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualMachineTemplateName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +104,7 @@ func (client *VirtualMachineTemplatesClient) create(ctx context.Context, resourc
 }
 
 // createCreateRequest creates the Create request.
-func (client *VirtualMachineTemplatesClient) createCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, body VirtualMachineTemplate, options *VirtualMachineTemplatesClientBeginCreateOptions) (*policy.Request, error) {
+func (client *VirtualMachineTemplatesClient) createCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, options *VirtualMachineTemplatesClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineTemplates/{virtualMachineTemplateName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -127,7 +126,10 @@ func (client *VirtualMachineTemplatesClient) createCreateRequest(ctx context.Con
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // BeginDelete - Implements virtual machine template DELETE method.
@@ -383,11 +385,10 @@ func (client *VirtualMachineTemplatesClient) listByResourceGroupHandleResponse(r
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // virtualMachineTemplateName - Name of the virtual machine template resource.
-// body - Resource properties to update.
 // options - VirtualMachineTemplatesClientUpdateOptions contains the optional parameters for the VirtualMachineTemplatesClient.Update
 // method.
-func (client *VirtualMachineTemplatesClient) Update(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, body ResourcePatch, options *VirtualMachineTemplatesClientUpdateOptions) (VirtualMachineTemplatesClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, virtualMachineTemplateName, body, options)
+func (client *VirtualMachineTemplatesClient) Update(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, options *VirtualMachineTemplatesClientUpdateOptions) (VirtualMachineTemplatesClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, virtualMachineTemplateName, options)
 	if err != nil {
 		return VirtualMachineTemplatesClientUpdateResponse{}, err
 	}
@@ -402,7 +403,7 @@ func (client *VirtualMachineTemplatesClient) Update(ctx context.Context, resourc
 }
 
 // updateCreateRequest creates the Update request.
-func (client *VirtualMachineTemplatesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, body ResourcePatch, options *VirtualMachineTemplatesClientUpdateOptions) (*policy.Request, error) {
+func (client *VirtualMachineTemplatesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineTemplateName string, options *VirtualMachineTemplatesClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachineTemplates/{virtualMachineTemplateName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -424,7 +425,10 @@ func (client *VirtualMachineTemplatesClient) updateCreateRequest(ctx context.Con
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.

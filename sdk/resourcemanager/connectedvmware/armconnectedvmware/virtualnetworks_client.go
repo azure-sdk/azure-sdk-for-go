@@ -69,12 +69,11 @@ func NewVirtualNetworksClient(subscriptionID string, credential azcore.TokenCred
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // virtualNetworkName - Name of the virtual network resource.
-// body - Request payload.
 // options - VirtualNetworksClientBeginCreateOptions contains the optional parameters for the VirtualNetworksClient.BeginCreate
 // method.
-func (client *VirtualNetworksClient) BeginCreate(ctx context.Context, resourceGroupName string, virtualNetworkName string, body VirtualNetwork, options *VirtualNetworksClientBeginCreateOptions) (*runtime.Poller[VirtualNetworksClientCreateResponse], error) {
+func (client *VirtualNetworksClient) BeginCreate(ctx context.Context, resourceGroupName string, virtualNetworkName string, options *VirtualNetworksClientBeginCreateOptions) (*runtime.Poller[VirtualNetworksClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, virtualNetworkName, body, options)
+		resp, err := client.create(ctx, resourceGroupName, virtualNetworkName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -89,8 +88,8 @@ func (client *VirtualNetworksClient) BeginCreate(ctx context.Context, resourceGr
 // Create - Create Or Update virtual network.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
-func (client *VirtualNetworksClient) create(ctx context.Context, resourceGroupName string, virtualNetworkName string, body VirtualNetwork, options *VirtualNetworksClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualNetworkName, body, options)
+func (client *VirtualNetworksClient) create(ctx context.Context, resourceGroupName string, virtualNetworkName string, options *VirtualNetworksClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualNetworkName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +104,7 @@ func (client *VirtualNetworksClient) create(ctx context.Context, resourceGroupNa
 }
 
 // createCreateRequest creates the Create request.
-func (client *VirtualNetworksClient) createCreateRequest(ctx context.Context, resourceGroupName string, virtualNetworkName string, body VirtualNetwork, options *VirtualNetworksClientBeginCreateOptions) (*policy.Request, error) {
+func (client *VirtualNetworksClient) createCreateRequest(ctx context.Context, resourceGroupName string, virtualNetworkName string, options *VirtualNetworksClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualNetworks/{virtualNetworkName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -127,7 +126,10 @@ func (client *VirtualNetworksClient) createCreateRequest(ctx context.Context, re
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // BeginDelete - Implements virtual network DELETE method.
@@ -381,10 +383,9 @@ func (client *VirtualNetworksClient) listByResourceGroupHandleResponse(resp *htt
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // virtualNetworkName - Name of the virtual network resource.
-// body - Resource properties to update.
 // options - VirtualNetworksClientUpdateOptions contains the optional parameters for the VirtualNetworksClient.Update method.
-func (client *VirtualNetworksClient) Update(ctx context.Context, resourceGroupName string, virtualNetworkName string, body ResourcePatch, options *VirtualNetworksClientUpdateOptions) (VirtualNetworksClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, virtualNetworkName, body, options)
+func (client *VirtualNetworksClient) Update(ctx context.Context, resourceGroupName string, virtualNetworkName string, options *VirtualNetworksClientUpdateOptions) (VirtualNetworksClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, virtualNetworkName, options)
 	if err != nil {
 		return VirtualNetworksClientUpdateResponse{}, err
 	}
@@ -399,7 +400,7 @@ func (client *VirtualNetworksClient) Update(ctx context.Context, resourceGroupNa
 }
 
 // updateCreateRequest creates the Update request.
-func (client *VirtualNetworksClient) updateCreateRequest(ctx context.Context, resourceGroupName string, virtualNetworkName string, body ResourcePatch, options *VirtualNetworksClientUpdateOptions) (*policy.Request, error) {
+func (client *VirtualNetworksClient) updateCreateRequest(ctx context.Context, resourceGroupName string, virtualNetworkName string, options *VirtualNetworksClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualNetworks/{virtualNetworkName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -421,7 +422,10 @@ func (client *VirtualNetworksClient) updateCreateRequest(ctx context.Context, re
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
