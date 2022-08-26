@@ -1349,6 +1349,7 @@ func (m MonitorProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "msiArmId", m.MsiArmID)
 	populate(objectMap, "provisioningState", m.ProvisioningState)
 	populate(objectMap, "routingPreference", m.RoutingPreference)
+	populate(objectMap, "zoneRedundancyPreference", m.ZoneRedundancyPreference)
 	return json.Marshal(objectMap)
 }
 
@@ -1384,6 +1385,9 @@ func (m *MonitorProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "routingPreference":
 			err = unpopulate(val, "RoutingPreference", &m.RoutingPreference)
+			delete(rawMsg, key)
+		case "zoneRedundancyPreference":
+			err = unpopulate(val, "ZoneRedundancyPreference", &m.ZoneRedundancyPreference)
 			delete(rawMsg, key)
 		}
 		if err != nil {
