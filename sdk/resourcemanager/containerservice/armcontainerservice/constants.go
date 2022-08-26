@@ -11,7 +11,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "armcontainerservice"
-	moduleVersion = "v2.1.0-beta.1"
+	moduleVersion = "v2.1.0-beta.2"
 )
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
@@ -568,54 +568,6 @@ func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
 	}
 }
 
-// FleetMemberProvisioningState - The provisioning state of the last accepted operation.
-type FleetMemberProvisioningState string
-
-const (
-	FleetMemberProvisioningStateCanceled  FleetMemberProvisioningState = "Canceled"
-	FleetMemberProvisioningStateFailed    FleetMemberProvisioningState = "Failed"
-	FleetMemberProvisioningStateJoining   FleetMemberProvisioningState = "Joining"
-	FleetMemberProvisioningStateLeaving   FleetMemberProvisioningState = "Leaving"
-	FleetMemberProvisioningStateSucceeded FleetMemberProvisioningState = "Succeeded"
-	FleetMemberProvisioningStateUpdating  FleetMemberProvisioningState = "Updating"
-)
-
-// PossibleFleetMemberProvisioningStateValues returns the possible values for the FleetMemberProvisioningState const type.
-func PossibleFleetMemberProvisioningStateValues() []FleetMemberProvisioningState {
-	return []FleetMemberProvisioningState{
-		FleetMemberProvisioningStateCanceled,
-		FleetMemberProvisioningStateFailed,
-		FleetMemberProvisioningStateJoining,
-		FleetMemberProvisioningStateLeaving,
-		FleetMemberProvisioningStateSucceeded,
-		FleetMemberProvisioningStateUpdating,
-	}
-}
-
-// FleetProvisioningState - The provisioning state of the last accepted operation.
-type FleetProvisioningState string
-
-const (
-	FleetProvisioningStateCanceled  FleetProvisioningState = "Canceled"
-	FleetProvisioningStateCreating  FleetProvisioningState = "Creating"
-	FleetProvisioningStateDeleting  FleetProvisioningState = "Deleting"
-	FleetProvisioningStateFailed    FleetProvisioningState = "Failed"
-	FleetProvisioningStateSucceeded FleetProvisioningState = "Succeeded"
-	FleetProvisioningStateUpdating  FleetProvisioningState = "Updating"
-)
-
-// PossibleFleetProvisioningStateValues returns the possible values for the FleetProvisioningState const type.
-func PossibleFleetProvisioningStateValues() []FleetProvisioningState {
-	return []FleetProvisioningState{
-		FleetProvisioningStateCanceled,
-		FleetProvisioningStateCreating,
-		FleetProvisioningStateDeleting,
-		FleetProvisioningStateFailed,
-		FleetProvisioningStateSucceeded,
-		FleetProvisioningStateUpdating,
-	}
-}
-
 type Format string
 
 const (
@@ -911,6 +863,7 @@ type OSSKU string
 
 const (
 	OSSKUCBLMariner  OSSKU = "CBLMariner"
+	OSSKUMariner     OSSKU = "Mariner"
 	OSSKUUbuntu      OSSKU = "Ubuntu"
 	OSSKUWindows2019 OSSKU = "Windows2019"
 	OSSKUWindows2022 OSSKU = "Windows2022"
@@ -920,6 +873,7 @@ const (
 func PossibleOSSKUValues() []OSSKU {
 	return []OSSKU{
 		OSSKUCBLMariner,
+		OSSKUMariner,
 		OSSKUUbuntu,
 		OSSKUWindows2019,
 		OSSKUWindows2022,
