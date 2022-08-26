@@ -1,5 +1,92 @@
 # Release History
 
+## 2.1.0-beta.2 (2022-08-26)
+### Breaking Changes
+
+- Const `FleetProvisioningStateFailed` has been removed
+- Const `FleetMemberProvisioningStateUpdating` has been removed
+- Const `FleetProvisioningStateDeleting` has been removed
+- Const `FleetProvisioningStateCreating` has been removed
+- Const `FleetProvisioningStateSucceeded` has been removed
+- Const `FleetMemberProvisioningStateLeaving` has been removed
+- Const `FleetProvisioningStateCanceled` has been removed
+- Const `FleetProvisioningStateUpdating` has been removed
+- Const `FleetMemberProvisioningStateFailed` has been removed
+- Const `FleetMemberProvisioningStateJoining` has been removed
+- Const `FleetMemberProvisioningStateSucceeded` has been removed
+- Const `FleetMemberProvisioningStateCanceled` has been removed
+- Type alias `FleetProvisioningState` has been removed
+- Type alias `FleetMemberProvisioningState` has been removed
+- Function `*FleetsClient.BeginDelete` has been removed
+- Function `PossibleFleetProvisioningStateValues` has been removed
+- Function `*FleetsClient.BeginCreateOrUpdate` has been removed
+- Function `*FleetsClient.NewListPager` has been removed
+- Function `*FleetMembersClient.BeginCreateOrUpdate` has been removed
+- Function `NewFleetsClient` has been removed
+- Function `NewFleetMembersClient` has been removed
+- Function `*FleetMembersClient.BeginDelete` has been removed
+- Function `*FleetsClient.Get` has been removed
+- Function `*FleetsClient.Update` has been removed
+- Function `*FleetMembersClient.Get` has been removed
+- Function `PossibleFleetMemberProvisioningStateValues` has been removed
+- Function `*FleetsClient.ListCredentials` has been removed
+- Function `*FleetMembersClient.NewListByFleetPager` has been removed
+- Function `*FleetsClient.NewListByResourceGroupPager` has been removed
+- Struct `AzureEntityResource` has been removed
+- Struct `ErrorAdditionalInfo` has been removed
+- Struct `ErrorDetail` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `Fleet` has been removed
+- Struct `FleetCredentialResult` has been removed
+- Struct `FleetCredentialResults` has been removed
+- Struct `FleetHubProfile` has been removed
+- Struct `FleetListResult` has been removed
+- Struct `FleetMember` has been removed
+- Struct `FleetMemberProperties` has been removed
+- Struct `FleetMembersClient` has been removed
+- Struct `FleetMembersClientBeginCreateOrUpdateOptions` has been removed
+- Struct `FleetMembersClientBeginDeleteOptions` has been removed
+- Struct `FleetMembersClientCreateOrUpdateResponse` has been removed
+- Struct `FleetMembersClientDeleteResponse` has been removed
+- Struct `FleetMembersClientGetOptions` has been removed
+- Struct `FleetMembersClientGetResponse` has been removed
+- Struct `FleetMembersClientListByFleetOptions` has been removed
+- Struct `FleetMembersClientListByFleetResponse` has been removed
+- Struct `FleetMembersListResult` has been removed
+- Struct `FleetPatch` has been removed
+- Struct `FleetProperties` has been removed
+- Struct `FleetsClient` has been removed
+- Struct `FleetsClientBeginCreateOrUpdateOptions` has been removed
+- Struct `FleetsClientBeginDeleteOptions` has been removed
+- Struct `FleetsClientCreateOrUpdateResponse` has been removed
+- Struct `FleetsClientDeleteResponse` has been removed
+- Struct `FleetsClientGetOptions` has been removed
+- Struct `FleetsClientGetResponse` has been removed
+- Struct `FleetsClientListByResourceGroupOptions` has been removed
+- Struct `FleetsClientListByResourceGroupResponse` has been removed
+- Struct `FleetsClientListCredentialsOptions` has been removed
+- Struct `FleetsClientListCredentialsResponse` has been removed
+- Struct `FleetsClientListOptions` has been removed
+- Struct `FleetsClientListResponse` has been removed
+- Struct `FleetsClientUpdateOptions` has been removed
+- Struct `FleetsClientUpdateResponse` has been removed
+
+### Features Added
+
+- New const `LevelEnforcement`
+- New const `LevelWarning`
+- New const `LevelOff`
+- New type alias `Level`
+- New function `*GuardrailsVersionsClient.List(context.Context, string, string, *GuardrailsVersionsClientListOptions) (GuardrailsVersionsClientListResponse, error)`
+- New function `NewGuardrailsVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GuardrailsVersionsClient, error)`
+- New function `PossibleLevelValues() []Level`
+- New struct `GuardrailsProfile`
+- New struct `GuardrailsVersionsClient`
+- New struct `GuardrailsVersionsClientListOptions`
+- New struct `GuardrailsVersionsClientListResponse`
+- New struct `ListGuardrailsVersionsResponse`
+
+
 ## 2.1.0-beta.1 (2022-08-22)
 ### Features Added
 

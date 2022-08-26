@@ -49,59 +49,9 @@ type AgentPoolsClientUpgradeNodeImageVersionResponse struct {
 	AgentPool
 }
 
-// FleetMembersClientCreateOrUpdateResponse contains the response from method FleetMembersClient.CreateOrUpdate.
-type FleetMembersClientCreateOrUpdateResponse struct {
-	FleetMember
-}
-
-// FleetMembersClientDeleteResponse contains the response from method FleetMembersClient.Delete.
-type FleetMembersClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// FleetMembersClientGetResponse contains the response from method FleetMembersClient.Get.
-type FleetMembersClientGetResponse struct {
-	FleetMember
-}
-
-// FleetMembersClientListByFleetResponse contains the response from method FleetMembersClient.ListByFleet.
-type FleetMembersClientListByFleetResponse struct {
-	FleetMembersListResult
-}
-
-// FleetsClientCreateOrUpdateResponse contains the response from method FleetsClient.CreateOrUpdate.
-type FleetsClientCreateOrUpdateResponse struct {
-	Fleet
-}
-
-// FleetsClientDeleteResponse contains the response from method FleetsClient.Delete.
-type FleetsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// FleetsClientGetResponse contains the response from method FleetsClient.Get.
-type FleetsClientGetResponse struct {
-	Fleet
-}
-
-// FleetsClientListByResourceGroupResponse contains the response from method FleetsClient.ListByResourceGroup.
-type FleetsClientListByResourceGroupResponse struct {
-	FleetListResult
-}
-
-// FleetsClientListCredentialsResponse contains the response from method FleetsClient.ListCredentials.
-type FleetsClientListCredentialsResponse struct {
-	FleetCredentialResults
-}
-
-// FleetsClientListResponse contains the response from method FleetsClient.List.
-type FleetsClientListResponse struct {
-	FleetListResult
-}
-
-// FleetsClientUpdateResponse contains the response from method FleetsClient.Update.
-type FleetsClientUpdateResponse struct {
-	Fleet
+// GuardrailsVersionsClientListResponse contains the response from method GuardrailsVersionsClient.List.
+type GuardrailsVersionsClientListResponse struct {
+	ListGuardrailsVersionsResponse
 }
 
 // MaintenanceConfigurationsClientCreateOrUpdateResponse contains the response from method MaintenanceConfigurationsClient.CreateOrUpdate.
