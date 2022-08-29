@@ -11711,7 +11711,7 @@ func (s *SharedGalleryOSDiskImage) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SharingProfile.
 func (s SharingProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "communityGalleryInfo", &s.CommunityGalleryInfo)
+	populate(objectMap, "communityGalleryInfo", s.CommunityGalleryInfo)
 	populate(objectMap, "groups", s.Groups)
 	populate(objectMap, "permissions", s.Permissions)
 	return json.Marshal(objectMap)
@@ -14533,6 +14533,7 @@ func (v VirtualMachineNetworkInterfaceConfigurationProperties) MarshalJSON() ([]
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dnsSettings", v.DNSSettings)
 	populate(objectMap, "deleteOption", v.DeleteOption)
+	populate(objectMap, "disableTcpStateTracking", v.DisableTCPStateTracking)
 	populate(objectMap, "dscpConfiguration", v.DscpConfiguration)
 	populate(objectMap, "enableAcceleratedNetworking", v.EnableAcceleratedNetworking)
 	populate(objectMap, "enableFpga", v.EnableFpga)
@@ -14557,6 +14558,9 @@ func (v *VirtualMachineNetworkInterfaceConfigurationProperties) UnmarshalJSON(da
 			delete(rawMsg, key)
 		case "deleteOption":
 			err = unpopulate(val, "DeleteOption", &v.DeleteOption)
+			delete(rawMsg, key)
+		case "disableTcpStateTracking":
+			err = unpopulate(val, "DisableTCPStateTracking", &v.DisableTCPStateTracking)
 			delete(rawMsg, key)
 		case "dscpConfiguration":
 			err = unpopulate(val, "DscpConfiguration", &v.DscpConfiguration)
@@ -16084,6 +16088,7 @@ func (v VirtualMachineScaleSetNetworkConfigurationProperties) MarshalJSON() ([]b
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dnsSettings", v.DNSSettings)
 	populate(objectMap, "deleteOption", v.DeleteOption)
+	populate(objectMap, "disableTcpStateTracking", v.DisableTCPStateTracking)
 	populate(objectMap, "enableAcceleratedNetworking", v.EnableAcceleratedNetworking)
 	populate(objectMap, "enableFpga", v.EnableFpga)
 	populate(objectMap, "enableIPForwarding", v.EnableIPForwarding)
@@ -16107,6 +16112,9 @@ func (v *VirtualMachineScaleSetNetworkConfigurationProperties) UnmarshalJSON(dat
 			delete(rawMsg, key)
 		case "deleteOption":
 			err = unpopulate(val, "DeleteOption", &v.DeleteOption)
+			delete(rawMsg, key)
+		case "disableTcpStateTracking":
+			err = unpopulate(val, "DisableTCPStateTracking", &v.DisableTCPStateTracking)
 			delete(rawMsg, key)
 		case "enableAcceleratedNetworking":
 			err = unpopulate(val, "EnableAcceleratedNetworking", &v.EnableAcceleratedNetworking)
@@ -16804,6 +16812,7 @@ func (v VirtualMachineScaleSetUpdateNetworkConfigurationProperties) MarshalJSON(
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dnsSettings", v.DNSSettings)
 	populate(objectMap, "deleteOption", v.DeleteOption)
+	populate(objectMap, "disableTcpStateTracking", v.DisableTCPStateTracking)
 	populate(objectMap, "enableAcceleratedNetworking", v.EnableAcceleratedNetworking)
 	populate(objectMap, "enableFpga", v.EnableFpga)
 	populate(objectMap, "enableIPForwarding", v.EnableIPForwarding)
@@ -16827,6 +16836,9 @@ func (v *VirtualMachineScaleSetUpdateNetworkConfigurationProperties) UnmarshalJS
 			delete(rawMsg, key)
 		case "deleteOption":
 			err = unpopulate(val, "DeleteOption", &v.DeleteOption)
+			delete(rawMsg, key)
+		case "disableTcpStateTracking":
+			err = unpopulate(val, "DisableTCPStateTracking", &v.DisableTCPStateTracking)
 			delete(rawMsg, key)
 		case "enableAcceleratedNetworking":
 			err = unpopulate(val, "EnableAcceleratedNetworking", &v.EnableAcceleratedNetworking)
