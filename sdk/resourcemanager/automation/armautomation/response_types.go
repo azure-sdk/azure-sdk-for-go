@@ -211,7 +211,7 @@ type DscConfigurationClientDeleteResponse struct {
 
 // DscConfigurationClientGetContentResponse contains the response from method DscConfigurationClient.GetContent.
 type DscConfigurationClientGetContentResponse struct {
-	Value *string
+	// placeholder for future response values
 }
 
 // DscConfigurationClientGetResponse contains the response from method DscConfigurationClient.Get.
