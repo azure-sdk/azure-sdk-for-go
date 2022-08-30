@@ -1,5 +1,128 @@
 # Release History
 
+## 2.0.0 (2022-08-30)
+### Breaking Changes
+
+- Const `DdosCustomPolicyProtocolTCP` has been removed
+- Const `DdosSettingsProtectionCoverageBasic` has been removed
+- Const `DdosCustomPolicyTriggerSensitivityOverrideHigh` has been removed
+- Const `DdosCustomPolicyProtocolUDP` has been removed
+- Const `DdosCustomPolicyProtocolSyn` has been removed
+- Const `DdosCustomPolicyTriggerSensitivityOverrideLow` has been removed
+- Const `DdosCustomPolicyTriggerSensitivityOverrideDefault` has been removed
+- Const `DdosSettingsProtectionCoverageStandard` has been removed
+- Const `DdosCustomPolicyTriggerSensitivityOverrideRelaxed` has been removed
+- Type alias `DdosCustomPolicyTriggerSensitivityOverride` has been removed
+- Type alias `DdosCustomPolicyProtocol` has been removed
+- Type alias `DdosSettingsProtectionCoverage` has been removed
+- Function `PossibleDdosSettingsProtectionCoverageValues` has been removed
+- Function `PossibleDdosCustomPolicyTriggerSensitivityOverrideValues` has been removed
+- Function `PossibleDdosCustomPolicyProtocolValues` has been removed
+- Struct `ExplicitProxySettings` has been removed
+- Struct `ProtocolCustomSettingsFormat` has been removed
+- Field `ExplicitProxySettings` of struct `FirewallPolicyPropertiesFormat` has been removed
+- Field `DdosCustomPolicy` of struct `DdosSettings` has been removed
+- Field `ProtectedIP` of struct `DdosSettings` has been removed
+- Field `ProtectionCoverage` of struct `DdosSettings` has been removed
+- Field `ProtocolCustomSettings` of struct `DdosCustomPolicyPropertiesFormat` has been removed
+- Field `PublicIPAddresses` of struct `DdosCustomPolicyPropertiesFormat` has been removed
+
+### Features Added
+
+- New const `GeoAFRI`
+- New const `GeoEURO`
+- New const `ActionTypeAllow`
+- New const `GeoLATAM`
+- New const `GeoNAM`
+- New const `IsWorkloadProtectedTrue`
+- New const `ActionTypeAnomalyScoring`
+- New const `DdosSettingsProtectionModeVirtualNetworkInherited`
+- New const `DdosSettingsProtectionModeEnabled`
+- New const `ApplicationGatewayClientRevocationOptionsNone`
+- New const `SlotTypeStaging`
+- New const `GeoAQ`
+- New const `DdosSettingsProtectionModeDisabled`
+- New const `SlotTypeProduction`
+- New const `IsWorkloadProtectedFalse`
+- New const `GeoAPAC`
+- New const `ExpressRoutePortsBillingTypeMeteredData`
+- New const `NetworkIntentPolicyBasedServiceAllowRulesOnly`
+- New const `ManagedRuleEnabledStateEnabled`
+- New const `ActionTypeLog`
+- New const `ApplicationGatewayClientRevocationOptionsOCSP`
+- New const `GeoOCEANIA`
+- New const `ActionTypeBlock`
+- New const `ExpressRoutePortsBillingTypeUnlimitedData`
+- New const `GeoGLOBAL`
+- New const `CommissionedStateDeprovisioned`
+- New const `GeoME`
+- New type alias `SlotType`
+- New type alias `IsWorkloadProtected`
+- New type alias `DdosSettingsProtectionMode`
+- New type alias `ExpressRoutePortsBillingType`
+- New type alias `Geo`
+- New type alias `ActionType`
+- New type alias `ApplicationGatewayClientRevocationOptions`
+- New function `PossibleSlotTypeValues() []SlotType`
+- New function `NewVipSwapClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VipSwapClient, error)`
+- New function `PossibleExpressRoutePortsBillingTypeValues() []ExpressRoutePortsBillingType`
+- New function `*PublicIPAddressesClient.BeginDdosProtectionStatus(context.Context, string, string, *PublicIPAddressesClientBeginDdosProtectionStatusOptions) (*runtime.Poller[PublicIPAddressesClientDdosProtectionStatusResponse], error)`
+- New function `*VirtualNetworksClient.BeginListDdosProtectionStatus(context.Context, string, string, *VirtualNetworksClientBeginListDdosProtectionStatusOptions) (*runtime.Poller[*runtime.Pager[VirtualNetworksClientListDdosProtectionStatusResponse]], error)`
+- New function `PossibleActionTypeValues() []ActionType`
+- New function `*VipSwapClient.List(context.Context, string, string, *VipSwapClientListOptions) (VipSwapClientListResponse, error)`
+- New function `*VipSwapClient.Get(context.Context, string, string, *VipSwapClientGetOptions) (VipSwapClientGetResponse, error)`
+- New function `PossibleApplicationGatewayClientRevocationOptionsValues() []ApplicationGatewayClientRevocationOptions`
+- New function `PossibleIsWorkloadProtectedValues() []IsWorkloadProtected`
+- New function `PossibleGeoValues() []Geo`
+- New function `*VipSwapClient.BeginCreate(context.Context, string, string, SwapResource, *VipSwapClientBeginCreateOptions) (*runtime.Poller[VipSwapClientCreateResponse], error)`
+- New function `PossibleDdosSettingsProtectionModeValues() []DdosSettingsProtectionMode`
+- New struct `ExplicitProxy`
+- New struct `PublicIPAddressesClientBeginDdosProtectionStatusOptions`
+- New struct `PublicIPAddressesClientDdosProtectionStatusResponse`
+- New struct `PublicIPDdosProtectionStatusResult`
+- New struct `SwapResource`
+- New struct `SwapResourceListResult`
+- New struct `SwapResourceProperties`
+- New struct `VipSwapClient`
+- New struct `VipSwapClientBeginCreateOptions`
+- New struct `VipSwapClientCreateResponse`
+- New struct `VipSwapClientGetOptions`
+- New struct `VipSwapClientGetResponse`
+- New struct `VipSwapClientListOptions`
+- New struct `VipSwapClientListResponse`
+- New struct `VirtualNetworkDdosProtectionStatusResult`
+- New struct `VirtualNetworkGatewayPolicyGroup`
+- New struct `VirtualNetworkGatewayPolicyGroupMember`
+- New struct `VirtualNetworkGatewayPolicyGroupProperties`
+- New struct `VirtualNetworksClientBeginListDdosProtectionStatusOptions`
+- New struct `VirtualNetworksClientListDdosProtectionStatusResponse`
+- New struct `VngClientConnectionConfiguration`
+- New struct `VngClientConnectionConfigurationProperties`
+- New field `Top` in struct `ManagementClientListNetworkManagerEffectiveSecurityAdminRulesOptions`
+- New field `ExplicitProxy` in struct `FirewallPolicyPropertiesFormat`
+- New field `PublicIPAddresses` in struct `DdosProtectionPlanPropertiesFormat`
+- New field `VerifyClientRevocation` in struct `ApplicationGatewayClientAuthConfiguration`
+- New field `EnablePrivateLinkFastPath` in struct `VirtualNetworkGatewayConnectionPropertiesFormat`
+- New field `DisableTCPStateTracking` in struct `InterfacePropertiesFormat`
+- New field `ColoLocation` in struct `ExpressRouteLinkPropertiesFormat`
+- New field `ProbeThreshold` in struct `ProbePropertiesFormat`
+- New field `Top` in struct `ManagerDeploymentStatusClientListOptions`
+- New field `DdosProtectionPlan` in struct `DdosSettings`
+- New field `ProtectionMode` in struct `DdosSettings`
+- New field `VirtualNetworkGatewayPolicyGroups` in struct `VirtualNetworkGatewayPropertiesFormat`
+- New field `EnablePrivateLinkFastPath` in struct `VirtualNetworkGatewayConnectionListEntityPropertiesFormat`
+- New field `BillingType` in struct `ExpressRoutePortPropertiesFormat`
+- New field `Top` in struct `ManagementClientListActiveConnectivityConfigurationsOptions`
+- New field `Asn` in struct `CustomIPPrefixPropertiesFormat`
+- New field `ExpressRouteAdvertise` in struct `CustomIPPrefixPropertiesFormat`
+- New field `Geo` in struct `CustomIPPrefixPropertiesFormat`
+- New field `EnablePrivateLinkFastPath` in struct `ExpressRouteConnectionProperties`
+- New field `Top` in struct `ManagementClientListNetworkManagerEffectiveConnectivityConfigurationsOptions`
+- New field `VngClientConnectionConfigurations` in struct `VPNClientConfiguration`
+- New field `Action` in struct `ManagedRuleOverride`
+- New field `Top` in struct `ManagementClientListActiveSecurityAdminRulesOptions`
+
+
 ## 1.1.0 (2022-08-05)
 ### Features Added
 
