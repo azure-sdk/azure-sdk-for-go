@@ -59,7 +59,7 @@ func NewRunbookDraftClient(subscriptionID string, credential azcore.TokenCredent
 
 // Get - Retrieve the runbook draft identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // runbookName - The runbook name.
@@ -103,7 +103,7 @@ func (client *RunbookDraftClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -120,7 +120,7 @@ func (client *RunbookDraftClient) getHandleResponse(resp *http.Response) (Runboo
 
 // GetContent - Retrieve the content of runbook draft identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // runbookName - The runbook name.
@@ -164,7 +164,7 @@ func (client *RunbookDraftClient) getContentCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"text/powershell"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *RunbookDraftClient) getContentCreateRequest(ctx context.Context, r
 
 // BeginReplaceContent - Replaces the runbook draft content.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // runbookName - The runbook name.
@@ -185,7 +185,9 @@ func (client *RunbookDraftClient) BeginReplaceContent(ctx context.Context, resou
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[RunbookDraftClientReplaceContentResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[RunbookDraftClientReplaceContentResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[RunbookDraftClientReplaceContentResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -193,7 +195,7 @@ func (client *RunbookDraftClient) BeginReplaceContent(ctx context.Context, resou
 
 // ReplaceContent - Replaces the runbook draft content.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 func (client *RunbookDraftClient) replaceContent(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, runbookContent io.ReadSeekCloser, options *RunbookDraftClientBeginReplaceContentOptions) (*http.Response, error) {
 	req, err := client.replaceContentCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, runbookContent, options)
 	if err != nil {
@@ -233,16 +235,15 @@ func (client *RunbookDraftClient) replaceContentCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	runtime.SkipBodyDownload(req)
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, req.SetBody(runbookContent, "text/powershell")
 }
 
 // UndoEdit - Undo draft edit to last known published state identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // runbookName - The runbook name.
@@ -259,7 +260,7 @@ func (client *RunbookDraftClient) UndoEdit(ctx context.Context, resourceGroupNam
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
 		return RunbookDraftClientUndoEditResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.undoEditHandleResponse(resp)
+	return RunbookDraftClientUndoEditResponse{}, nil
 }
 
 // undoEditCreateRequest creates the UndoEdit request.
@@ -286,17 +287,8 @@ func (client *RunbookDraftClient) undoEditCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
-}
-
-// undoEditHandleResponse handles the UndoEdit response.
-func (client *RunbookDraftClient) undoEditHandleResponse(resp *http.Response) (RunbookDraftClientUndoEditResponse, error) {
-	result := RunbookDraftClientUndoEditResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RunbookDraftUndoEditResult); err != nil {
-		return RunbookDraftClientUndoEditResponse{}, err
-	}
-	return result, nil
 }

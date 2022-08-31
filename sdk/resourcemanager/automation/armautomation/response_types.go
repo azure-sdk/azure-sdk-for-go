@@ -9,11 +9,6 @@
 
 package armautomation
 
-import (
-	"encoding/json"
-	"io"
-)
-
 // AccountClientCreateOrUpdateResponse contains the response from method AccountClient.CreateOrUpdate.
 type AccountClientCreateOrUpdateResponse struct {
 	Account
@@ -211,7 +206,7 @@ type DscConfigurationClientDeleteResponse struct {
 
 // DscConfigurationClientGetContentResponse contains the response from method DscConfigurationClient.GetContent.
 type DscConfigurationClientGetContentResponse struct {
-	Value *string
+	// placeholder for future response values
 }
 
 // DscConfigurationClientGetResponse contains the response from method DscConfigurationClient.Get.
@@ -520,6 +515,31 @@ type Python2PackageClientUpdateResponse struct {
 	Module
 }
 
+// Python3PackageClientCreateOrUpdateResponse contains the response from method Python3PackageClient.CreateOrUpdate.
+type Python3PackageClientCreateOrUpdateResponse struct {
+	Module
+}
+
+// Python3PackageClientDeleteResponse contains the response from method Python3PackageClient.Delete.
+type Python3PackageClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// Python3PackageClientGetResponse contains the response from method Python3PackageClient.Get.
+type Python3PackageClientGetResponse struct {
+	Module
+}
+
+// Python3PackageClientListByAutomationAccountResponse contains the response from method Python3PackageClient.ListByAutomationAccount.
+type Python3PackageClientListByAutomationAccountResponse struct {
+	ModuleListResult
+}
+
+// Python3PackageClientUpdateResponse contains the response from method Python3PackageClient.Update.
+type Python3PackageClientUpdateResponse struct {
+	Module
+}
+
 // RunbookClientCreateOrUpdateResponse contains the response from method RunbookClient.CreateOrUpdate.
 type RunbookClientCreateOrUpdateResponse struct {
 	Runbook
@@ -567,18 +587,12 @@ type RunbookDraftClientGetResponse struct {
 
 // RunbookDraftClientReplaceContentResponse contains the response from method RunbookDraftClient.ReplaceContent.
 type RunbookDraftClientReplaceContentResponse struct {
-	// Body contains the streaming response.
-	Body io.ReadCloser
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type RunbookDraftClientReplaceContentResponse.
-func (r *RunbookDraftClientReplaceContentResponse) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.Body)
+	// placeholder for future response values
 }
 
 // RunbookDraftClientUndoEditResponse contains the response from method RunbookDraftClient.UndoEdit.
 type RunbookDraftClientUndoEditResponse struct {
-	RunbookDraftUndoEditResult
+	// placeholder for future response values
 }
 
 // ScheduleClientCreateOrUpdateResponse contains the response from method ScheduleClient.CreateOrUpdate.
