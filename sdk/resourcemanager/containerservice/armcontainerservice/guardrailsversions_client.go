@@ -23,19 +23,19 @@ import (
 	"strings"
 )
 
-// ResolvePrivateLinkServiceIDClient contains the methods for the ResolvePrivateLinkServiceID group.
-// Don't use this type directly, use NewResolvePrivateLinkServiceIDClient() instead.
-type ResolvePrivateLinkServiceIDClient struct {
+// GuardrailsVersionsClient contains the methods for the GuardrailsVersions group.
+// Don't use this type directly, use NewGuardrailsVersionsClient() instead.
+type GuardrailsVersionsClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewResolvePrivateLinkServiceIDClient creates a new instance of ResolvePrivateLinkServiceIDClient with the specified values.
+// NewGuardrailsVersionsClient creates a new instance of GuardrailsVersionsClient with the specified values.
 // subscriptionID - The ID of the target subscription.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewResolvePrivateLinkServiceIDClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ResolvePrivateLinkServiceIDClient, error) {
+func NewGuardrailsVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GuardrailsVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -47,7 +47,7 @@ func NewResolvePrivateLinkServiceIDClient(subscriptionID string, credential azco
 	if err != nil {
 		return nil, err
 	}
-	client := &ResolvePrivateLinkServiceIDClient{
+	client := &GuardrailsVersionsClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -55,32 +55,30 @@ func NewResolvePrivateLinkServiceIDClient(subscriptionID string, credential azco
 	return client, nil
 }
 
-// POST - Gets the private link service ID for the specified managed cluster.
+// List - List available guardrails versions.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-02-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // resourceName - The name of the managed cluster resource.
-// parameters - Parameters required in order to resolve a private link service ID.
-// options - ResolvePrivateLinkServiceIDClientPOSTOptions contains the optional parameters for the ResolvePrivateLinkServiceIDClient.POST
-// method.
-func (client *ResolvePrivateLinkServiceIDClient) POST(ctx context.Context, resourceGroupName string, resourceName string, parameters PrivateLinkResource, options *ResolvePrivateLinkServiceIDClientPOSTOptions) (ResolvePrivateLinkServiceIDClientPOSTResponse, error) {
-	req, err := client.postCreateRequest(ctx, resourceGroupName, resourceName, parameters, options)
+// options - GuardrailsVersionsClientListOptions contains the optional parameters for the GuardrailsVersionsClient.List method.
+func (client *GuardrailsVersionsClient) List(ctx context.Context, resourceGroupName string, resourceName string, options *GuardrailsVersionsClientListOptions) (GuardrailsVersionsClientListResponse, error) {
+	req, err := client.listCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
-		return ResolvePrivateLinkServiceIDClientPOSTResponse{}, err
+		return GuardrailsVersionsClientListResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return ResolvePrivateLinkServiceIDClientPOSTResponse{}, err
+		return GuardrailsVersionsClientListResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ResolvePrivateLinkServiceIDClientPOSTResponse{}, runtime.NewResponseError(resp)
+		return GuardrailsVersionsClientListResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.postHandleResponse(resp)
+	return client.listHandleResponse(resp)
 }
 
-// postCreateRequest creates the POST request.
-func (client *ResolvePrivateLinkServiceIDClient) postCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, parameters PrivateLinkResource, options *ResolvePrivateLinkServiceIDClientPOSTOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/resolvePrivateLinkServiceId"
+// listCreateRequest creates the List request.
+func (client *GuardrailsVersionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *GuardrailsVersionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{resourceName}/guardrailsversions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -93,7 +91,7 @@ func (client *ResolvePrivateLinkServiceIDClient) postCreateRequest(ctx context.C
 		return nil, errors.New("parameter resourceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceName}", url.PathEscape(resourceName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
@@ -101,14 +99,14 @@ func (client *ResolvePrivateLinkServiceIDClient) postCreateRequest(ctx context.C
 	reqQP.Set("api-version", "2022-08-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, nil
 }
 
-// postHandleResponse handles the POST response.
-func (client *ResolvePrivateLinkServiceIDClient) postHandleResponse(resp *http.Response) (ResolvePrivateLinkServiceIDClientPOSTResponse, error) {
-	result := ResolvePrivateLinkServiceIDClientPOSTResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateLinkResource); err != nil {
-		return ResolvePrivateLinkServiceIDClientPOSTResponse{}, err
+// listHandleResponse handles the List response.
+func (client *GuardrailsVersionsClient) listHandleResponse(resp *http.Response) (GuardrailsVersionsClientListResponse, error) {
+	result := GuardrailsVersionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ListGuardrailsVersionsResponse); err != nil {
+		return GuardrailsVersionsClientListResponse{}, err
 	}
 	return result, nil
 }
