@@ -1,5 +1,310 @@
 # Release History
 
+## 2.0.0-beta.1 (2022-09-02)
+### Breaking Changes
+
+- Type of `GetUserTablesSQLSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateMySQLAzureDbForMySQLSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToSourceSQLServerTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `GetUserTablesPostgreSQLTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MongoDbCancelCommand.CommandType` has been changed from `*string` to `*CommandType`
+- Type of `CheckOCIDriverTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ProjectTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ValidateMigrationInputSQLServerSQLMITaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateSQLServerSQLDbTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MongoDbFinishCommand.CommandType` has been changed from `*string` to `*CommandType`
+- Type of `ConnectToTargetSQLDbSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToSourceSQLServerSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `GetUserTablesSQLTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateOracleAzureDbForPostgreSQLSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToSourceMySQLTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateMongoDbTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToTargetAzureDbForPostgreSQLSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ValidateOracleAzureDbForPostgreSQLSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `UploadOCIDriverTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToMongoDbTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateSyncCompleteCommandProperties.CommandType` has been changed from `*string` to `*CommandType`
+- Type of `MigratePostgreSQLAzureDbForPostgreSQLSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToTargetOracleAzureDbForPostgreSQLSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateSQLServerSQLDbSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToSourcePostgreSQLSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `GetTdeCertificatesSQLTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `GetUserTablesMySQLTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `CommandProperties.CommandType` has been changed from `*string` to `*CommandType`
+- Type of `MigrateMISyncCompleteCommandProperties.CommandType` has been changed from `*string` to `*CommandType`
+- Type of `ConnectToTargetAzureDbForMySQLTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateSchemaSQLServerSQLDbTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToTargetSQLDbTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateSsisTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigratePostgreSQLAzureDbForPostgreSQLSyncDatabaseInput.MigrationSetting` has been changed from `map[string]*string` to `map[string]interface{}`
+- Type of `ValidateMigrationInputSQLServerSQLDbSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ValidateMongoDbTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToTargetSQLMITaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateSQLServerSQLMITaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MigrateMySQLAzureDbForMySQLOfflineTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToTargetSQLMISyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ConnectToSourceOracleSyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `ValidateMigrationInputSQLServerSQLMISyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `InstallOCIDriverTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `GetUserTablesOracleTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Type of `MongoDbRestartCommand.CommandType` has been changed from `*string` to `*CommandType`
+- Type of `MigrateSQLServerSQLMISyncTaskProperties.TaskType` has been changed from `*string` to `*TaskType`
+- Field `ServiceOperationList` of struct `OperationsClientListResponse` has been removed
+
+### Features Added
+
+- New const `TaskTypeGetUserTablesMySQL`
+- New const `TaskTypeValidateMongoDb`
+- New const `TaskTypeConnectToTargetAzureDbForPostgreSQLSync`
+- New const `TaskTypeMigrateMongoDb`
+- New const `TaskTypeMigrateSQLServerAzureSQLDbSync`
+- New const `ResourceTypeSQLMi`
+- New const `OperationOriginSystem`
+- New const `TaskTypeConnectToSourceSQLServerSync`
+- New const `TaskTypeConnectToTargetSQLDbSync`
+- New const `CommandTypeCancel`
+- New const `TaskTypeMigrateSQLServerAzureSQLDbMI`
+- New const `ResourceTypeSQLVM`
+- New const `TaskTypeMigrateSchemaSQLServerSQLDb`
+- New const `ResourceTypeSQLDb`
+- New const `TaskTypeConnectToTargetAzureSQLDbMISyncLRS`
+- New const `TaskTypeConnectToSourcePostgreSQLSync`
+- New const `TaskTypeConnectToSourceOracleSync`
+- New const `TaskTypeValidateMigrationInputSQLServerAzureSQLDbMISyncLRS`
+- New const `TaskTypeValidateMigrationInputSQLServerSQLDbSync`
+- New const `TaskTypeServiceUploadOCI`
+- New const `TaskTypeGetUserTablesAzureSQLDbSync`
+- New const `TaskTypeMigrateSQLServerSQLDb`
+- New const `TaskTypeMigrateMySQLAzureDbForMySQL`
+- New const `TaskTypeGetUserTablesPostgreSQL`
+- New const `TaskTypeMigrateSsis`
+- New const `CommandTypeFinish`
+- New const `TaskTypeMigrateSQLServerAzureSQLDbMISyncLRS`
+- New const `TaskTypeConnectToTargetOracleAzureDbForPostgreSQLSync`
+- New const `TaskTypeValidateMigrationInputSQLServerAzureSQLDbMI`
+- New const `TaskTypeMigratePostgreSQLAzureDbForPostgreSQLSyncV2`
+- New const `TaskTypeConnectToTargetAzureSQLDbMI`
+- New const `TaskTypeGetUserTablesSQL`
+- New const `TaskTypeMigrateOracleAzureDbForPostgreSQLSync`
+- New const `TaskTypeConnectToSourceSQLServer`
+- New const `OperationOriginUser`
+- New const `ServerLevelPermissionsGroupMigrationFromSQLServerToAzureVM`
+- New const `TaskTypeConnectToTargetSQLDb`
+- New const `TaskTypeConnectToTargetAzureDbForMySQL`
+- New const `TaskTypeServiceInstallOCI`
+- New const `TaskTypeConnectMongoDb`
+- New const `TaskTypeConnectToSourceMySQL`
+- New const `TaskTypeMigrateMySQLAzureDbForMySQLSync`
+- New const `CommandTypeMigrateSQLServerAzureDbSQLMiComplete`
+- New const `CommandTypeRestart`
+- New const `TaskTypeServiceCheckOCI`
+- New const `TaskTypeValidateOracleAzureDbPostgreSQLSync`
+- New const `TaskTypeGetTDECertificatesSQL`
+- New const `CommandTypeMigrateSyncCompleteDatabase`
+- New const `TaskTypeGetUserTablesOracle`
+- New type alias `ResourceType`
+- New type alias `OperationOrigin`
+- New type alias `CommandType`
+- New type alias `TaskType`
+- New function `*SQLMigrationServicesClient.NewListMigrationsPager(string, string, *SQLMigrationServicesClientListMigrationsOptions) *runtime.Pager[SQLMigrationServicesClientListMigrationsResponse]`
+- New function `PossibleTaskTypeValues() []TaskType`
+- New function `*DatabaseMigrationsSQLDbClient.BeginDelete(context.Context, string, string, string, *DatabaseMigrationsSQLDbClientBeginDeleteOptions) (*runtime.Poller[DatabaseMigrationsSQLDbClientDeleteResponse], error)`
+- New function `PossibleResourceTypeValues() []ResourceType`
+- New function `*DatabaseMigrationPropertiesSQLVM.GetDatabaseMigrationProperties() *DatabaseMigrationProperties`
+- New function `*SQLMigrationServicesClient.BeginUpdate(context.Context, string, string, SQLMigrationServiceUpdate, *SQLMigrationServicesClientBeginUpdateOptions) (*runtime.Poller[SQLMigrationServicesClientUpdateResponse], error)`
+- New function `*SQLMigrationServicesClient.ListMonitoringData(context.Context, string, string, *SQLMigrationServicesClientListMonitoringDataOptions) (SQLMigrationServicesClientListMonitoringDataResponse, error)`
+- New function `*DatabaseMigrationsSQLDbClient.BeginCreateOrUpdate(context.Context, string, string, string, DatabaseMigrationSQLDb, *DatabaseMigrationsSQLDbClientBeginCreateOrUpdateOptions) (*runtime.Poller[DatabaseMigrationsSQLDbClientCreateOrUpdateResponse], error)`
+- New function `*DatabaseMigrationsSQLDbClient.BeginCancel(context.Context, string, string, string, MigrationOperationInput, *DatabaseMigrationsSQLDbClientBeginCancelOptions) (*runtime.Poller[DatabaseMigrationsSQLDbClientCancelResponse], error)`
+- New function `*SQLMigrationServicesClient.Get(context.Context, string, string, *SQLMigrationServicesClientGetOptions) (SQLMigrationServicesClientGetResponse, error)`
+- New function `*SQLMigrationServicesClient.BeginDelete(context.Context, string, string, *SQLMigrationServicesClientBeginDeleteOptions) (*runtime.Poller[SQLMigrationServicesClientDeleteResponse], error)`
+- New function `NewDatabaseMigrationsSQLMiClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseMigrationsSQLMiClient, error)`
+- New function `NewSQLMigrationServicesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SQLMigrationServicesClient, error)`
+- New function `*DatabaseMigrationsSQLDbClient.Get(context.Context, string, string, string, *DatabaseMigrationsSQLDbClientGetOptions) (DatabaseMigrationsSQLDbClientGetResponse, error)`
+- New function `*SQLMigrationServicesClient.DeleteNode(context.Context, string, string, DeleteNode, *SQLMigrationServicesClientDeleteNodeOptions) (SQLMigrationServicesClientDeleteNodeResponse, error)`
+- New function `*SQLMigrationServicesClient.RegenerateAuthKeys(context.Context, string, string, RegenAuthKeys, *SQLMigrationServicesClientRegenerateAuthKeysOptions) (SQLMigrationServicesClientRegenerateAuthKeysResponse, error)`
+- New function `*DatabaseMigrationsSQLVMClient.Get(context.Context, string, string, string, *DatabaseMigrationsSQLVMClientGetOptions) (DatabaseMigrationsSQLVMClientGetResponse, error)`
+- New function `*DatabaseMigrationProperties.GetDatabaseMigrationProperties() *DatabaseMigrationProperties`
+- New function `*SQLMigrationServicesClient.ListAuthKeys(context.Context, string, string, *SQLMigrationServicesClientListAuthKeysOptions) (SQLMigrationServicesClientListAuthKeysResponse, error)`
+- New function `*DatabaseMigrationPropertiesSQLMi.GetDatabaseMigrationProperties() *DatabaseMigrationProperties`
+- New function `*SQLMigrationServicesClient.NewListByResourceGroupPager(string, *SQLMigrationServicesClientListByResourceGroupOptions) *runtime.Pager[SQLMigrationServicesClientListByResourceGroupResponse]`
+- New function `*DatabaseMigrationsSQLMiClient.Get(context.Context, string, string, string, *DatabaseMigrationsSQLMiClientGetOptions) (DatabaseMigrationsSQLMiClientGetResponse, error)`
+- New function `PossibleOperationOriginValues() []OperationOrigin`
+- New function `*DatabaseMigrationsSQLMiClient.BeginCancel(context.Context, string, string, string, MigrationOperationInput, *DatabaseMigrationsSQLMiClientBeginCancelOptions) (*runtime.Poller[DatabaseMigrationsSQLMiClientCancelResponse], error)`
+- New function `NewDatabaseMigrationsSQLVMClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseMigrationsSQLVMClient, error)`
+- New function `*DatabaseMigrationsSQLVMClient.BeginCreateOrUpdate(context.Context, string, string, string, DatabaseMigrationSQLVM, *DatabaseMigrationsSQLVMClientBeginCreateOrUpdateOptions) (*runtime.Poller[DatabaseMigrationsSQLVMClientCreateOrUpdateResponse], error)`
+- New function `*SQLMigrationServicesClient.BeginCreateOrUpdate(context.Context, string, string, SQLMigrationService, *SQLMigrationServicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SQLMigrationServicesClientCreateOrUpdateResponse], error)`
+- New function `*DatabaseMigrationsSQLVMClient.BeginCancel(context.Context, string, string, string, MigrationOperationInput, *DatabaseMigrationsSQLVMClientBeginCancelOptions) (*runtime.Poller[DatabaseMigrationsSQLVMClientCancelResponse], error)`
+- New function `*DatabaseMigrationPropertiesSQLDb.GetDatabaseMigrationProperties() *DatabaseMigrationProperties`
+- New function `*DatabaseMigrationsSQLMiClient.BeginCutover(context.Context, string, string, string, MigrationOperationInput, *DatabaseMigrationsSQLMiClientBeginCutoverOptions) (*runtime.Poller[DatabaseMigrationsSQLMiClientCutoverResponse], error)`
+- New function `*DatabaseMigrationsSQLMiClient.BeginCreateOrUpdate(context.Context, string, string, string, DatabaseMigrationSQLMi, *DatabaseMigrationsSQLMiClientBeginCreateOrUpdateOptions) (*runtime.Poller[DatabaseMigrationsSQLMiClientCreateOrUpdateResponse], error)`
+- New function `PossibleCommandTypeValues() []CommandType`
+- New function `NewDatabaseMigrationsSQLDbClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseMigrationsSQLDbClient, error)`
+- New function `*DatabaseMigrationsSQLVMClient.BeginCutover(context.Context, string, string, string, MigrationOperationInput, *DatabaseMigrationsSQLVMClientBeginCutoverOptions) (*runtime.Poller[DatabaseMigrationsSQLVMClientCutoverResponse], error)`
+- New function `*SQLMigrationServicesClient.NewListBySubscriptionPager(*SQLMigrationServicesClientListBySubscriptionOptions) *runtime.Pager[SQLMigrationServicesClientListBySubscriptionResponse]`
+- New struct `AuthenticationKeys`
+- New struct `AzureBlob`
+- New struct `BackupConfiguration`
+- New struct `CopyProgressDetails`
+- New struct `DatabaseMigration`
+- New struct `DatabaseMigrationListResult`
+- New struct `DatabaseMigrationProperties`
+- New struct `DatabaseMigrationPropertiesSQLDb`
+- New struct `DatabaseMigrationPropertiesSQLMi`
+- New struct `DatabaseMigrationPropertiesSQLVM`
+- New struct `DatabaseMigrationSQLDb`
+- New struct `DatabaseMigrationSQLMi`
+- New struct `DatabaseMigrationSQLVM`
+- New struct `DatabaseMigrationsSQLDbClient`
+- New struct `DatabaseMigrationsSQLDbClientBeginCancelOptions`
+- New struct `DatabaseMigrationsSQLDbClientBeginCreateOrUpdateOptions`
+- New struct `DatabaseMigrationsSQLDbClientBeginDeleteOptions`
+- New struct `DatabaseMigrationsSQLDbClientCancelResponse`
+- New struct `DatabaseMigrationsSQLDbClientCreateOrUpdateResponse`
+- New struct `DatabaseMigrationsSQLDbClientDeleteResponse`
+- New struct `DatabaseMigrationsSQLDbClientGetOptions`
+- New struct `DatabaseMigrationsSQLDbClientGetResponse`
+- New struct `DatabaseMigrationsSQLMiClient`
+- New struct `DatabaseMigrationsSQLMiClientBeginCancelOptions`
+- New struct `DatabaseMigrationsSQLMiClientBeginCreateOrUpdateOptions`
+- New struct `DatabaseMigrationsSQLMiClientBeginCutoverOptions`
+- New struct `DatabaseMigrationsSQLMiClientCancelResponse`
+- New struct `DatabaseMigrationsSQLMiClientCreateOrUpdateResponse`
+- New struct `DatabaseMigrationsSQLMiClientCutoverResponse`
+- New struct `DatabaseMigrationsSQLMiClientGetOptions`
+- New struct `DatabaseMigrationsSQLMiClientGetResponse`
+- New struct `DatabaseMigrationsSQLVMClient`
+- New struct `DatabaseMigrationsSQLVMClientBeginCancelOptions`
+- New struct `DatabaseMigrationsSQLVMClientBeginCreateOrUpdateOptions`
+- New struct `DatabaseMigrationsSQLVMClientBeginCutoverOptions`
+- New struct `DatabaseMigrationsSQLVMClientCancelResponse`
+- New struct `DatabaseMigrationsSQLVMClientCreateOrUpdateResponse`
+- New struct `DatabaseMigrationsSQLVMClientCutoverResponse`
+- New struct `DatabaseMigrationsSQLVMClientGetOptions`
+- New struct `DatabaseMigrationsSQLVMClientGetResponse`
+- New struct `DeleteNode`
+- New struct `ErrorInfo`
+- New struct `IntegrationRuntimeMonitoringData`
+- New struct `MigrationOperationInput`
+- New struct `MigrationStatusDetails`
+- New struct `NodeMonitoringData`
+- New struct `OfflineConfiguration`
+- New struct `OperationListResult`
+- New struct `OperationsDefinition`
+- New struct `OperationsDisplayDefinition`
+- New struct `ProxyResource`
+- New struct `RegenAuthKeys`
+- New struct `SQLBackupFileInfo`
+- New struct `SQLBackupSetInfo`
+- New struct `SQLConnectionInformation`
+- New struct `SQLDbMigrationStatusDetails`
+- New struct `SQLDbOfflineConfiguration`
+- New struct `SQLFileShare`
+- New struct `SQLMigrationListResult`
+- New struct `SQLMigrationService`
+- New struct `SQLMigrationServiceProperties`
+- New struct `SQLMigrationServiceUpdate`
+- New struct `SQLMigrationServicesClient`
+- New struct `SQLMigrationServicesClientBeginCreateOrUpdateOptions`
+- New struct `SQLMigrationServicesClientBeginDeleteOptions`
+- New struct `SQLMigrationServicesClientBeginUpdateOptions`
+- New struct `SQLMigrationServicesClientCreateOrUpdateResponse`
+- New struct `SQLMigrationServicesClientDeleteNodeOptions`
+- New struct `SQLMigrationServicesClientDeleteNodeResponse`
+- New struct `SQLMigrationServicesClientDeleteResponse`
+- New struct `SQLMigrationServicesClientGetOptions`
+- New struct `SQLMigrationServicesClientGetResponse`
+- New struct `SQLMigrationServicesClientListAuthKeysOptions`
+- New struct `SQLMigrationServicesClientListAuthKeysResponse`
+- New struct `SQLMigrationServicesClientListByResourceGroupOptions`
+- New struct `SQLMigrationServicesClientListByResourceGroupResponse`
+- New struct `SQLMigrationServicesClientListBySubscriptionOptions`
+- New struct `SQLMigrationServicesClientListBySubscriptionResponse`
+- New struct `SQLMigrationServicesClientListMigrationsOptions`
+- New struct `SQLMigrationServicesClientListMigrationsResponse`
+- New struct `SQLMigrationServicesClientListMonitoringDataOptions`
+- New struct `SQLMigrationServicesClientListMonitoringDataResponse`
+- New struct `SQLMigrationServicesClientRegenerateAuthKeysOptions`
+- New struct `SQLMigrationServicesClientRegenerateAuthKeysResponse`
+- New struct `SQLMigrationServicesClientUpdateResponse`
+- New struct `SourceLocation`
+- New struct `TargetLocation`
+- New field `ID` in struct `MigrateSQLServerSQLMIDatabaseInput`
+- New field `TaskID` in struct `MigrateMySQLAzureDbForMySQLOfflineTaskProperties`
+- New field `IsCloneable` in struct `MigrateMySQLAzureDbForMySQLOfflineTaskProperties`
+- New field `DataSource` in struct `MySQLConnectionInfo`
+- New field `AdditionalSettings` in struct `MySQLConnectionInfo`
+- New field `Authentication` in struct `MySQLConnectionInfo`
+- New field `CreatedOn` in struct `ConnectToTargetSQLDbTaskProperties`
+- New field `StartedOn` in struct `MigrateSQLServerSQLMITaskInput`
+- New field `EncryptedKeyForSecureFields` in struct `MigrateSQLServerSQLMITaskInput`
+- New field `AgentConfiguration` in struct `ServiceStatusResponse`
+- New anonymous field `OperationListResult` in struct `OperationsClientListResponse`
+- New field `CommandID` in struct `MigrateSyncCompleteCommandProperties`
+- New field `CreatedOn` in struct `MigrateSQLServerSQLMITaskProperties`
+- New field `IsCloneable` in struct `MigrateSQLServerSQLMITaskProperties`
+- New field `TaskID` in struct `MigrateSQLServerSQLMITaskProperties`
+- New field `ParentTaskID` in struct `MigrateSQLServerSQLMITaskProperties`
+- New field `EncryptedKeyForSecureFields` in struct `MigratePostgreSQLAzureDbForPostgreSQLSyncTaskInput`
+- New field `StartedOn` in struct `MigratePostgreSQLAzureDbForPostgreSQLSyncTaskInput`
+- New field `ID` in struct `MigrateSchemaSQLServerSQLDbDatabaseInput`
+- New field `NumberOfParallelDatabaseMigrations` in struct `MigrateSQLServerSQLMISyncTaskInput`
+- New field `IgnoreAzurePermissions` in struct `AzureActiveDirectoryApp`
+- New field `TaskID` in struct `ConnectToSourceSQLServerTaskProperties`
+- New field `TaskID` in struct `MigrateSchemaSQLServerSQLDbTaskProperties`
+- New field `IsCloneable` in struct `MigrateSchemaSQLServerSQLDbTaskProperties`
+- New field `CreatedOn` in struct `MigrateSchemaSQLServerSQLDbTaskProperties`
+- New field `EncryptedKeyForSecureFields` in struct `MigrateMySQLAzureDbForMySQLOfflineTaskInput`
+- New field `SchemaSetting` in struct `MigrateSQLServerSQLDbDatabaseInput`
+- New field `ID` in struct `MigrateSQLServerSQLDbDatabaseInput`
+- New field `ServerBrandVersion` in struct `PostgreSQLConnectionInfo`
+- New field `Authentication` in struct `PostgreSQLConnectionInfo`
+- New field `DataSource` in struct `PostgreSQLConnectionInfo`
+- New field `ServerVersion` in struct `PostgreSQLConnectionInfo`
+- New field `AdditionalSettings` in struct `PostgreSQLConnectionInfo`
+- New field `CreatedOn` in struct `MigrateSQLServerSQLMISyncTaskProperties`
+- New field `Events` in struct `MigratePostgreSQLAzureDbForPostgreSQLSyncTaskOutputError`
+- New field `AzureAuthenticationInfo` in struct `ProjectProperties`
+- New field `DataSource` in struct `MongoDbConnectionInfo`
+- New field `EnforceSSL` in struct `MongoDbConnectionInfo`
+- New field `AdditionalSettings` in struct `MongoDbConnectionInfo`
+- New field `Authentication` in struct `MongoDbConnectionInfo`
+- New field `ServerName` in struct `MongoDbConnectionInfo`
+- New field `TrustServerCertificate` in struct `MongoDbConnectionInfo`
+- New field `ServerBrandVersion` in struct `MongoDbConnectionInfo`
+- New field `ServerVersion` in struct `MongoDbConnectionInfo`
+- New field `EncryptConnection` in struct `MongoDbConnectionInfo`
+- New field `Port` in struct `MongoDbConnectionInfo`
+- New field `ServerName` in struct `SQLConnectionInfo`
+- New field `ServerVersion` in struct `SQLConnectionInfo`
+- New field `ResourceID` in struct `SQLConnectionInfo`
+- New field `Port` in struct `SQLConnectionInfo`
+- New field `ServerBrandVersion` in struct `SQLConnectionInfo`
+- New field `CreatedOn` in struct `MigrateSQLServerSQLDbTaskProperties`
+- New field `IsCloneable` in struct `MigrateSQLServerSQLDbTaskProperties`
+- New field `TaskID` in struct `MigrateSQLServerSQLDbTaskProperties`
+- New field `ServerVersion` in struct `OracleConnectionInfo`
+- New field `Authentication` in struct `OracleConnectionInfo`
+- New field `Port` in struct `OracleConnectionInfo`
+- New field `ServerName` in struct `OracleConnectionInfo`
+- New field `AutoStopDelay` in struct `ServiceProperties`
+- New field `DeleteResourcesOnStop` in struct `ServiceProperties`
+- New field `EncryptedKeyForSecureFields` in struct `ConnectToSourceSQLServerTaskInput`
+- New field `QueryObjectCounts` in struct `ConnectToTargetSQLDbTaskInput`
+- New field `ID` in struct `MigratePostgreSQLAzureDbForPostgreSQLSyncDatabaseInput`
+- New field `Etag` in struct `Project`
+- New field `TaskID` in struct `GetUserTablesSQLTaskProperties`
+- New field `EncryptedKeyForSecureFields` in struct `MigrateSQLServerSQLDbTaskInput`
+- New field `StartedOn` in struct `MigrateSQLServerSQLDbTaskInput`
+- New field `DatabaseCount` in struct `MigratePostgreSQLAzureDbForPostgreSQLSyncTaskOutputMigrationLevel`
+- New field `StartedOn` in struct `MigrateSchemaSQLServerSQLDbTaskInput`
+- New field `EncryptedKeyForSecureFields` in struct `MigrateSchemaSQLServerSQLDbTaskInput`
+- New field `TaskID` in struct `MigratePostgreSQLAzureDbForPostgreSQLSyncTaskProperties`
+- New field `CreatedOn` in struct `MigratePostgreSQLAzureDbForPostgreSQLSyncTaskProperties`
+- New field `IsCloneable` in struct `MigratePostgreSQLAzureDbForPostgreSQLSyncTaskProperties`
+- New field `EncryptedKeyForSecureFields` in struct `GetUserTablesSQLTaskInput`
+- New field `FileName` in struct `SchemaMigrationSetting`
+
+
 ## 1.0.0 (2022-06-10)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/datamigration/armdatamigration` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
