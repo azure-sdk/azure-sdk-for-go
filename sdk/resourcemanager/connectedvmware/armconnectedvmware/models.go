@@ -145,6 +145,8 @@ type ClusterProperties struct {
 
 // ClustersClientBeginCreateOptions contains the optional parameters for the ClustersClient.BeginCreate method.
 type ClustersClientBeginCreateOptions struct {
+	// Request payload.
+	Body *Cluster
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -174,7 +176,8 @@ type ClustersClientListOptions struct {
 
 // ClustersClientUpdateOptions contains the optional parameters for the ClustersClient.Update method.
 type ClustersClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Resource properties to update.
+	Body *ResourcePatch
 }
 
 // ClustersList - List of Clusters.
@@ -297,6 +300,8 @@ type DatastoreProperties struct {
 
 // DatastoresClientBeginCreateOptions contains the optional parameters for the DatastoresClient.BeginCreate method.
 type DatastoresClientBeginCreateOptions struct {
+	// Request payload.
+	Body *Datastore
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -327,7 +332,8 @@ type DatastoresClientListOptions struct {
 
 // DatastoresClientUpdateOptions contains the optional parameters for the DatastoresClient.Update method.
 type DatastoresClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Resource properties to update.
+	Body *ResourcePatch
 }
 
 // DatastoresList - List of Datastores.
@@ -455,6 +461,8 @@ type GuestAgentProperties struct {
 
 // GuestAgentsClientBeginCreateOptions contains the optional parameters for the GuestAgentsClient.BeginCreate method.
 type GuestAgentsClientBeginCreateOptions struct {
+	// Request payload.
+	Body *GuestAgent
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -604,6 +612,8 @@ type HostProperties struct {
 
 // HostsClientBeginCreateOptions contains the optional parameters for the HostsClient.BeginCreate method.
 type HostsClientBeginCreateOptions struct {
+	// Request payload.
+	Body *Host
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -633,7 +643,8 @@ type HostsClientListOptions struct {
 
 // HostsClientUpdateOptions contains the optional parameters for the HostsClient.Update method.
 type HostsClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Resource properties to update.
+	Body *ResourcePatch
 }
 
 // HostsList - List of Hosts.
@@ -666,7 +677,8 @@ type HybridIdentityMetadata struct {
 // HybridIdentityMetadataClientCreateOptions contains the optional parameters for the HybridIdentityMetadataClient.Create
 // method.
 type HybridIdentityMetadataClientCreateOptions struct {
-	// placeholder for future optional parameters
+	// Request payload.
+	Body *HybridIdentityMetadata
 }
 
 // HybridIdentityMetadataClientDeleteOptions contains the optional parameters for the HybridIdentityMetadataClient.Delete
@@ -787,7 +799,8 @@ func (i *InventoryItemProperties) GetInventoryItemProperties() *InventoryItemPro
 
 // InventoryItemsClientCreateOptions contains the optional parameters for the InventoryItemsClient.Create method.
 type InventoryItemsClientCreateOptions struct {
-	// placeholder for future optional parameters
+	// Request payload.
+	Body *InventoryItem
 }
 
 // InventoryItemsClientDeleteOptions contains the optional parameters for the InventoryItemsClient.Delete method.
@@ -1402,6 +1415,8 @@ type ResourcePoolProperties struct {
 
 // ResourcePoolsClientBeginCreateOptions contains the optional parameters for the ResourcePoolsClient.BeginCreate method.
 type ResourcePoolsClientBeginCreateOptions struct {
+	// Request payload.
+	Body *ResourcePool
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1432,7 +1447,8 @@ type ResourcePoolsClientListOptions struct {
 
 // ResourcePoolsClientUpdateOptions contains the optional parameters for the ResourcePoolsClient.Update method.
 type ResourcePoolsClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Resource properties to update.
+	Body *ResourcePatch
 }
 
 // ResourcePoolsList - List of ResourcePools.
@@ -1587,6 +1603,8 @@ type VCenterProperties struct {
 
 // VCentersClientBeginCreateOptions contains the optional parameters for the VCentersClient.BeginCreate method.
 type VCentersClientBeginCreateOptions struct {
+	// Request payload.
+	Body *VCenter
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1616,7 +1634,8 @@ type VCentersClientListOptions struct {
 
 // VCentersClientUpdateOptions contains the optional parameters for the VCentersClient.Update method.
 type VCentersClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Resource properties to update.
+	Body *ResourcePatch
 }
 
 // VCentersList - List of VCenters.
@@ -2113,6 +2132,8 @@ type VirtualMachineTemplateProperties struct {
 // VirtualMachineTemplatesClientBeginCreateOptions contains the optional parameters for the VirtualMachineTemplatesClient.BeginCreate
 // method.
 type VirtualMachineTemplatesClientBeginCreateOptions struct {
+	// Request payload.
+	Body *VirtualMachineTemplate
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2145,7 +2166,8 @@ type VirtualMachineTemplatesClientListOptions struct {
 // VirtualMachineTemplatesClientUpdateOptions contains the optional parameters for the VirtualMachineTemplatesClient.Update
 // method.
 type VirtualMachineTemplatesClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Resource properties to update.
+	Body *ResourcePatch
 }
 
 // VirtualMachineTemplatesList - List of VirtualMachineTemplates.
@@ -2193,6 +2215,8 @@ type VirtualMachinesClientBeginAssessPatchesOptions struct {
 
 // VirtualMachinesClientBeginCreateOptions contains the optional parameters for the VirtualMachinesClient.BeginCreate method.
 type VirtualMachinesClientBeginCreateOptions struct {
+	// Request payload.
+	Body *VirtualMachine
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2236,6 +2260,8 @@ type VirtualMachinesClientBeginStopOptions struct {
 
 // VirtualMachinesClientBeginUpdateOptions contains the optional parameters for the VirtualMachinesClient.BeginUpdate method.
 type VirtualMachinesClientBeginUpdateOptions struct {
+	// Resource properties to update.
+	Body *VirtualMachineUpdate
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2355,6 +2381,8 @@ type VirtualNetworkProperties struct {
 
 // VirtualNetworksClientBeginCreateOptions contains the optional parameters for the VirtualNetworksClient.BeginCreate method.
 type VirtualNetworksClientBeginCreateOptions struct {
+	// Request payload.
+	Body *VirtualNetwork
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2385,7 +2413,8 @@ type VirtualNetworksClientListOptions struct {
 
 // VirtualNetworksClientUpdateOptions contains the optional parameters for the VirtualNetworksClient.Update method.
 type VirtualNetworksClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Resource properties to update.
+	Body *ResourcePatch
 }
 
 // VirtualNetworksList - List of VirtualNetworks.

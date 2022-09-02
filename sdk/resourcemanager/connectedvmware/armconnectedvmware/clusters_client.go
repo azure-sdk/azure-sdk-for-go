@@ -69,11 +69,10 @@ func NewClustersClient(subscriptionID string, credential azcore.TokenCredential,
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // clusterName - Name of the cluster.
-// body - Request payload.
 // options - ClustersClientBeginCreateOptions contains the optional parameters for the ClustersClient.BeginCreate method.
-func (client *ClustersClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, body Cluster, options *ClustersClientBeginCreateOptions) (*runtime.Poller[ClustersClientCreateResponse], error) {
+func (client *ClustersClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginCreateOptions) (*runtime.Poller[ClustersClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, clusterName, body, options)
+		resp, err := client.create(ctx, resourceGroupName, clusterName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -88,8 +87,8 @@ func (client *ClustersClient) BeginCreate(ctx context.Context, resourceGroupName
 // Create - Create Or Update cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
-func (client *ClustersClient) create(ctx context.Context, resourceGroupName string, clusterName string, body Cluster, options *ClustersClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, body, options)
+func (client *ClustersClient) create(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +103,7 @@ func (client *ClustersClient) create(ctx context.Context, resourceGroupName stri
 }
 
 // createCreateRequest creates the Create request.
-func (client *ClustersClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, body Cluster, options *ClustersClientBeginCreateOptions) (*policy.Request, error) {
+func (client *ClustersClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/clusters/{clusterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -126,7 +125,10 @@ func (client *ClustersClient) createCreateRequest(ctx context.Context, resourceG
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // BeginDelete - Implements cluster DELETE method.
@@ -379,10 +381,9 @@ func (client *ClustersClient) listByResourceGroupHandleResponse(resp *http.Respo
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // clusterName - Name of the cluster.
-// body - Resource properties to update.
 // options - ClustersClientUpdateOptions contains the optional parameters for the ClustersClient.Update method.
-func (client *ClustersClient) Update(ctx context.Context, resourceGroupName string, clusterName string, body ResourcePatch, options *ClustersClientUpdateOptions) (ClustersClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, body, options)
+func (client *ClustersClient) Update(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientUpdateOptions) (ClustersClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
 		return ClustersClientUpdateResponse{}, err
 	}
@@ -397,7 +398,7 @@ func (client *ClustersClient) Update(ctx context.Context, resourceGroupName stri
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, body ResourcePatch, options *ClustersClientUpdateOptions) (*policy.Request, error) {
+func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/clusters/{clusterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -419,7 +420,10 @@ func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceG
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.

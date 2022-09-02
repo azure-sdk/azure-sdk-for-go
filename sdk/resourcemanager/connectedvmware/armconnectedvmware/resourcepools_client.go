@@ -69,12 +69,11 @@ func NewResourcePoolsClient(subscriptionID string, credential azcore.TokenCreden
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // resourcePoolName - Name of the resourcePool.
-// body - Request payload.
 // options - ResourcePoolsClientBeginCreateOptions contains the optional parameters for the ResourcePoolsClient.BeginCreate
 // method.
-func (client *ResourcePoolsClient) BeginCreate(ctx context.Context, resourceGroupName string, resourcePoolName string, body ResourcePool, options *ResourcePoolsClientBeginCreateOptions) (*runtime.Poller[ResourcePoolsClientCreateResponse], error) {
+func (client *ResourcePoolsClient) BeginCreate(ctx context.Context, resourceGroupName string, resourcePoolName string, options *ResourcePoolsClientBeginCreateOptions) (*runtime.Poller[ResourcePoolsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, resourcePoolName, body, options)
+		resp, err := client.create(ctx, resourceGroupName, resourcePoolName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -89,8 +88,8 @@ func (client *ResourcePoolsClient) BeginCreate(ctx context.Context, resourceGrou
 // Create - Create Or Update resourcePool.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
-func (client *ResourcePoolsClient) create(ctx context.Context, resourceGroupName string, resourcePoolName string, body ResourcePool, options *ResourcePoolsClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, resourcePoolName, body, options)
+func (client *ResourcePoolsClient) create(ctx context.Context, resourceGroupName string, resourcePoolName string, options *ResourcePoolsClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, resourcePoolName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +104,7 @@ func (client *ResourcePoolsClient) create(ctx context.Context, resourceGroupName
 }
 
 // createCreateRequest creates the Create request.
-func (client *ResourcePoolsClient) createCreateRequest(ctx context.Context, resourceGroupName string, resourcePoolName string, body ResourcePool, options *ResourcePoolsClientBeginCreateOptions) (*policy.Request, error) {
+func (client *ResourcePoolsClient) createCreateRequest(ctx context.Context, resourceGroupName string, resourcePoolName string, options *ResourcePoolsClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/resourcePools/{resourcePoolName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -127,7 +126,10 @@ func (client *ResourcePoolsClient) createCreateRequest(ctx context.Context, reso
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // BeginDelete - Implements resourcePool DELETE method.
@@ -381,10 +383,9 @@ func (client *ResourcePoolsClient) listByResourceGroupHandleResponse(resp *http.
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // resourcePoolName - Name of the resourcePool.
-// body - Resource properties to update.
 // options - ResourcePoolsClientUpdateOptions contains the optional parameters for the ResourcePoolsClient.Update method.
-func (client *ResourcePoolsClient) Update(ctx context.Context, resourceGroupName string, resourcePoolName string, body ResourcePatch, options *ResourcePoolsClientUpdateOptions) (ResourcePoolsClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, resourcePoolName, body, options)
+func (client *ResourcePoolsClient) Update(ctx context.Context, resourceGroupName string, resourcePoolName string, options *ResourcePoolsClientUpdateOptions) (ResourcePoolsClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, resourcePoolName, options)
 	if err != nil {
 		return ResourcePoolsClientUpdateResponse{}, err
 	}
@@ -399,7 +400,7 @@ func (client *ResourcePoolsClient) Update(ctx context.Context, resourceGroupName
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ResourcePoolsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, resourcePoolName string, body ResourcePatch, options *ResourcePoolsClientUpdateOptions) (*policy.Request, error) {
+func (client *ResourcePoolsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, resourcePoolName string, options *ResourcePoolsClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/resourcePools/{resourcePoolName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -421,7 +422,10 @@ func (client *ResourcePoolsClient) updateCreateRequest(ctx context.Context, reso
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
