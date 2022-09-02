@@ -1,5 +1,42 @@
 # Release History
 
+## 1.1.0-beta.2 (2022-09-02)
+### Features Added
+
+- New const `GatewayRouteConfigProtocolHTTPS`
+- New const `BackendProtocolDefault`
+- New const `GatewayRouteConfigProtocolHTTP`
+- New const `SessionAffinityCookie`
+- New const `SessionAffinityNone`
+- New const `BackendProtocolGRPC`
+- New type alias `SessionAffinity`
+- New type alias `GatewayRouteConfigProtocol`
+- New type alias `BackendProtocol`
+- New function `PossibleGatewayRouteConfigProtocolValues() []GatewayRouteConfigProtocol`
+- New function `*DeploymentsClient.BeginEnableRemoteDebugging(context.Context, string, string, string, string, *DeploymentsClientBeginEnableRemoteDebuggingOptions) (*runtime.Poller[DeploymentsClientEnableRemoteDebuggingResponse], error)`
+- New function `*BuildServiceBuilderClient.ListDeployments(context.Context, string, string, string, string, *BuildServiceBuilderClientListDeploymentsOptions) (BuildServiceBuilderClientListDeploymentsResponse, error)`
+- New function `*DeploymentsClient.BeginDisableRemoteDebugging(context.Context, string, string, string, string, *DeploymentsClientBeginDisableRemoteDebuggingOptions) (*runtime.Poller[DeploymentsClientDisableRemoteDebuggingResponse], error)`
+- New function `PossibleBackendProtocolValues() []BackendProtocol`
+- New function `PossibleSessionAffinityValues() []SessionAffinity`
+- New function `*DeploymentsClient.GetRemoteDebuggingConfig(context.Context, string, string, string, string, *DeploymentsClientGetRemoteDebuggingConfigOptions) (DeploymentsClientGetRemoteDebuggingConfigResponse, error)`
+- New struct `BuildServiceBuilderClientListDeploymentsOptions`
+- New struct `BuildServiceBuilderClientListDeploymentsResponse`
+- New struct `DeploymentList`
+- New struct `DeploymentsClientBeginDisableRemoteDebuggingOptions`
+- New struct `DeploymentsClientBeginEnableRemoteDebuggingOptions`
+- New struct `DeploymentsClientDisableRemoteDebuggingResponse`
+- New struct `DeploymentsClientEnableRemoteDebuggingResponse`
+- New struct `DeploymentsClientGetRemoteDebuggingConfigOptions`
+- New struct `DeploymentsClientGetRemoteDebuggingConfigResponse`
+- New struct `IngressSettings`
+- New struct `IngressSettingsClientAuth`
+- New struct `RemoteDebugging`
+- New struct `RemoteDebuggingPayload`
+- New field `Protocol` in struct `GatewayRouteConfigProperties`
+- New field `OutboundType` in struct `NetworkProfile`
+- New field `IngressSettings` in struct `AppResourceProperties`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
