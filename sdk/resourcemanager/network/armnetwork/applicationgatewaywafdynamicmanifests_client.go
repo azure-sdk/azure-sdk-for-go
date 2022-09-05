@@ -20,24 +20,23 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 )
 
-// ServiceTagInformationClient contains the methods for the ServiceTagInformation group.
-// Don't use this type directly, use NewServiceTagInformationClient() instead.
-type ServiceTagInformationClient struct {
+// ApplicationGatewayWafDynamicManifestsClient contains the methods for the ApplicationGatewayWafDynamicManifests group.
+// Don't use this type directly, use NewApplicationGatewayWafDynamicManifestsClient() instead.
+type ApplicationGatewayWafDynamicManifestsClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewServiceTagInformationClient creates a new instance of ServiceTagInformationClient with the specified values.
+// NewApplicationGatewayWafDynamicManifestsClient creates a new instance of ApplicationGatewayWafDynamicManifestsClient with the specified values.
 // subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
 // ID forms part of the URI for every service call.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewServiceTagInformationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServiceTagInformationClient, error) {
+func NewApplicationGatewayWafDynamicManifestsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationGatewayWafDynamicManifestsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -49,7 +48,7 @@ func NewServiceTagInformationClient(subscriptionID string, credential azcore.Tok
 	if err != nil {
 		return nil, err
 	}
-	client := &ServiceTagInformationClient{
+	client := &ApplicationGatewayWafDynamicManifestsClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -57,45 +56,43 @@ func NewServiceTagInformationClient(subscriptionID string, credential azcore.Tok
 	return client, nil
 }
 
-// NewListPager - Gets a list of service tag information resources with pagination.
+// NewGetPager - Gets the regional application gateway waf manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
-// location - The location that will be used as a reference for cloud (not as a filter based on location, you will get the
-// list of service tags with prefix details across all regions but limited to the cloud that
-// your subscription belongs to).
-// options - ServiceTagInformationClientListOptions contains the optional parameters for the ServiceTagInformationClient.List
+// location - The region where the nrp are located at.
+// options - ApplicationGatewayWafDynamicManifestsClientGetOptions contains the optional parameters for the ApplicationGatewayWafDynamicManifestsClient.Get
 // method.
-func (client *ServiceTagInformationClient) NewListPager(location string, options *ServiceTagInformationClientListOptions) *runtime.Pager[ServiceTagInformationClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ServiceTagInformationClientListResponse]{
-		More: func(page ServiceTagInformationClientListResponse) bool {
+func (client *ApplicationGatewayWafDynamicManifestsClient) NewGetPager(location string, options *ApplicationGatewayWafDynamicManifestsClientGetOptions) *runtime.Pager[ApplicationGatewayWafDynamicManifestsClientGetResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ApplicationGatewayWafDynamicManifestsClientGetResponse]{
+		More: func(page ApplicationGatewayWafDynamicManifestsClientGetResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ServiceTagInformationClientListResponse) (ServiceTagInformationClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *ApplicationGatewayWafDynamicManifestsClientGetResponse) (ApplicationGatewayWafDynamicManifestsClientGetResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listCreateRequest(ctx, location, options)
+				req, err = client.getCreateRequest(ctx, location, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return ServiceTagInformationClientListResponse{}, err
+				return ApplicationGatewayWafDynamicManifestsClientGetResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return ServiceTagInformationClientListResponse{}, err
+				return ApplicationGatewayWafDynamicManifestsClientGetResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ServiceTagInformationClientListResponse{}, runtime.NewResponseError(resp)
+				return ApplicationGatewayWafDynamicManifestsClientGetResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listHandleResponse(resp)
+			return client.getHandleResponse(resp)
 		},
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *ServiceTagInformationClient) listCreateRequest(ctx context.Context, location string, options *ServiceTagInformationClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/serviceTagDetails"
+// getCreateRequest creates the Get request.
+func (client *ApplicationGatewayWafDynamicManifestsClient) getCreateRequest(ctx context.Context, location string, options *ApplicationGatewayWafDynamicManifestsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/applicationGatewayWafDynamicManifests"
 	if location == "" {
 		return nil, errors.New("parameter location cannot be empty")
 	}
@@ -110,22 +107,16 @@ func (client *ServiceTagInformationClient) listCreateRequest(ctx context.Context
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2022-05-01")
-	if options != nil && options.NoAddressPrefixes != nil {
-		reqQP.Set("noAddressPrefixes", strconv.FormatBool(*options.NoAddressPrefixes))
-	}
-	if options != nil && options.TagName != nil {
-		reqQP.Set("tagName", *options.TagName)
-	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *ServiceTagInformationClient) listHandleResponse(resp *http.Response) (ServiceTagInformationClientListResponse, error) {
-	result := ServiceTagInformationClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServiceTagInformationListResult); err != nil {
-		return ServiceTagInformationClientListResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *ApplicationGatewayWafDynamicManifestsClient) getHandleResponse(resp *http.Response) (ApplicationGatewayWafDynamicManifestsClientGetResponse, error) {
+	result := ApplicationGatewayWafDynamicManifestsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ApplicationGatewayWafDynamicManifestResultList); err != nil {
+		return ApplicationGatewayWafDynamicManifestsClientGetResponse{}, err
 	}
 	return result, nil
 }
