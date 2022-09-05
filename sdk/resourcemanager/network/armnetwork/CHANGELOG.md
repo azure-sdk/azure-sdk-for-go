@@ -1,5 +1,92 @@
 # Release History
 
+## 1.2.0 (2022-09-05)
+### Features Added
+
+- New const `RouteMapMatchConditionEquals`
+- New const `RouteMapMatchConditionNotEquals`
+- New const `RouteMapActionTypeDrop`
+- New const `VnetLocalRouteOverrideCriteriaEqual`
+- New const `SlotTypeProduction`
+- New const `NextStepContinue`
+- New const `NextStepTerminate`
+- New const `VnetLocalRouteOverrideCriteriaContains`
+- New const `RouteMapMatchConditionNotContains`
+- New const `RouteMapMatchConditionUnknown`
+- New const `ExpressRoutePortsBillingTypeUnlimitedData`
+- New const `RouteMapActionTypeAdd`
+- New const `RouteMapMatchConditionContains`
+- New const `ExpressRoutePortsBillingTypeMeteredData`
+- New const `SlotTypeStaging`
+- New const `RouteMapActionTypeUnknown`
+- New const `RouteMapActionTypeRemove`
+- New const `RouteMapActionTypeReplace`
+- New const `NextStepUnknown`
+- New type alias `VnetLocalRouteOverrideCriteria`
+- New type alias `NextStep`
+- New type alias `RouteMapActionType`
+- New type alias `SlotType`
+- New type alias `ExpressRoutePortsBillingType`
+- New type alias `RouteMapMatchCondition`
+- New function `PossibleExpressRoutePortsBillingTypeValues() []ExpressRoutePortsBillingType`
+- New function `*VipSwapClient.Get(context.Context, string, string, *VipSwapClientGetOptions) (VipSwapClientGetResponse, error)`
+- New function `*RouteMapsClient.BeginCreateOrUpdate(context.Context, string, string, string, RouteMap, *RouteMapsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RouteMapsClientCreateOrUpdateResponse], error)`
+- New function `*RouteMapsClient.Get(context.Context, string, string, string, *RouteMapsClientGetOptions) (RouteMapsClientGetResponse, error)`
+- New function `PossibleVnetLocalRouteOverrideCriteriaValues() []VnetLocalRouteOverrideCriteria`
+- New function `*RouteMapsClient.NewListPager(string, string, *RouteMapsClientListOptions) *runtime.Pager[RouteMapsClientListResponse]`
+- New function `NewRouteMapsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RouteMapsClient, error)`
+- New function `PossibleRouteMapMatchConditionValues() []RouteMapMatchCondition`
+- New function `PossibleNextStepValues() []NextStep`
+- New function `*VirtualHubsClient.BeginGetInboundRoutes(context.Context, string, string, GetInboundRoutesParameters, *VirtualHubsClientBeginGetInboundRoutesOptions) (*runtime.Poller[VirtualHubsClientGetInboundRoutesResponse], error)`
+- New function `*VirtualHubsClient.BeginGetOutboundRoutes(context.Context, string, string, GetOutboundRoutesParameters, *VirtualHubsClientBeginGetOutboundRoutesOptions) (*runtime.Poller[VirtualHubsClientGetOutboundRoutesResponse], error)`
+- New function `*VipSwapClient.BeginCreate(context.Context, string, string, SwapResource, *VipSwapClientBeginCreateOptions) (*runtime.Poller[VipSwapClientCreateResponse], error)`
+- New function `NewVipSwapClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VipSwapClient, error)`
+- New function `*VipSwapClient.List(context.Context, string, string, *VipSwapClientListOptions) (VipSwapClientListResponse, error)`
+- New function `*RouteMapsClient.BeginDelete(context.Context, string, string, string, *RouteMapsClientBeginDeleteOptions) (*runtime.Poller[RouteMapsClientDeleteResponse], error)`
+- New function `PossibleSlotTypeValues() []SlotType`
+- New function `PossibleRouteMapActionTypeValues() []RouteMapActionType`
+- New struct `Action`
+- New struct `Criterion`
+- New struct `EffectiveRouteMapRoute`
+- New struct `GetInboundRoutesParameters`
+- New struct `GetOutboundRoutesParameters`
+- New struct `ListRouteMapsResult`
+- New struct `Parameter`
+- New struct `RouteMap`
+- New struct `RouteMapProperties`
+- New struct `RouteMapRule`
+- New struct `RouteMapsClient`
+- New struct `RouteMapsClientBeginCreateOrUpdateOptions`
+- New struct `RouteMapsClientBeginDeleteOptions`
+- New struct `RouteMapsClientCreateOrUpdateResponse`
+- New struct `RouteMapsClientDeleteResponse`
+- New struct `RouteMapsClientGetOptions`
+- New struct `RouteMapsClientGetResponse`
+- New struct `RouteMapsClientListOptions`
+- New struct `RouteMapsClientListResponse`
+- New struct `StaticRoutesConfig`
+- New struct `SwapResource`
+- New struct `SwapResourceListResult`
+- New struct `SwapResourceProperties`
+- New struct `VipSwapClient`
+- New struct `VipSwapClientBeginCreateOptions`
+- New struct `VipSwapClientCreateResponse`
+- New struct `VipSwapClientGetOptions`
+- New struct `VipSwapClientGetResponse`
+- New struct `VipSwapClientListOptions`
+- New struct `VipSwapClientListResponse`
+- New struct `VirtualHubsClientBeginGetInboundRoutesOptions`
+- New struct `VirtualHubsClientBeginGetOutboundRoutesOptions`
+- New struct `VirtualHubsClientGetInboundRoutesResponse`
+- New struct `VirtualHubsClientGetOutboundRoutesResponse`
+- New field `StaticRoutesConfig` in struct `VnetRoute`
+- New field `DisableTCPStateTracking` in struct `InterfacePropertiesFormat`
+- New field `InboundRouteMap` in struct `RoutingConfiguration`
+- New field `OutboundRouteMap` in struct `RoutingConfiguration`
+- New field `RouteMaps` in struct `VirtualHubProperties`
+- New field `BillingType` in struct `ExpressRoutePortPropertiesFormat`
+
+
 ## 1.1.0 (2022-08-05)
 ### Features Added
 

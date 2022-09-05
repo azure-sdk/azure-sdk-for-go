@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -1354,6 +1354,22 @@ func PossibleExpressRoutePortAuthorizationUseStatusValues() []ExpressRoutePortAu
 	}
 }
 
+// ExpressRoutePortsBillingType - The billing type of the ExpressRoutePort resource.
+type ExpressRoutePortsBillingType string
+
+const (
+	ExpressRoutePortsBillingTypeMeteredData   ExpressRoutePortsBillingType = "MeteredData"
+	ExpressRoutePortsBillingTypeUnlimitedData ExpressRoutePortsBillingType = "UnlimitedData"
+)
+
+// PossibleExpressRoutePortsBillingTypeValues returns the possible values for the ExpressRoutePortsBillingType const type.
+func PossibleExpressRoutePortsBillingTypeValues() []ExpressRoutePortsBillingType {
+	return []ExpressRoutePortsBillingType{
+		ExpressRoutePortsBillingTypeMeteredData,
+		ExpressRoutePortsBillingTypeUnlimitedData,
+	}
+}
+
 // ExpressRoutePortsEncapsulation - Encapsulation method on physical ports.
 type ExpressRoutePortsEncapsulation string
 
@@ -2229,6 +2245,24 @@ func PossibleNextHopTypeValues() []NextHopType {
 	}
 }
 
+// NextStep - Supported next step behaviors after a rule is applied to a matched route
+type NextStep string
+
+const (
+	NextStepContinue  NextStep = "Continue"
+	NextStepTerminate NextStep = "Terminate"
+	NextStepUnknown   NextStep = "Unknown"
+)
+
+// PossibleNextStepValues returns the possible values for the NextStep const type.
+func PossibleNextStepValues() []NextStep {
+	return []NextStep{
+		NextStepContinue,
+		NextStepTerminate,
+		NextStepUnknown,
+	}
+}
+
 // OfficeTrafficCategory - The office traffic category.
 type OfficeTrafficCategory string
 
@@ -2702,6 +2736,51 @@ func PossibleRouteFilterRuleTypeValues() []RouteFilterRuleType {
 	}
 }
 
+// RouteMapActionType - Kind of actions which can be taken on a matched route. Add, Replace, Remove refer to parameters on
+// the route, like community or prefix
+type RouteMapActionType string
+
+const (
+	RouteMapActionTypeAdd     RouteMapActionType = "Add"
+	RouteMapActionTypeDrop    RouteMapActionType = "Drop"
+	RouteMapActionTypeRemove  RouteMapActionType = "Remove"
+	RouteMapActionTypeReplace RouteMapActionType = "Replace"
+	RouteMapActionTypeUnknown RouteMapActionType = "Unknown"
+)
+
+// PossibleRouteMapActionTypeValues returns the possible values for the RouteMapActionType const type.
+func PossibleRouteMapActionTypeValues() []RouteMapActionType {
+	return []RouteMapActionType{
+		RouteMapActionTypeAdd,
+		RouteMapActionTypeDrop,
+		RouteMapActionTypeRemove,
+		RouteMapActionTypeReplace,
+		RouteMapActionTypeUnknown,
+	}
+}
+
+// RouteMapMatchCondition - Match condition to apply RouteMap rules.
+type RouteMapMatchCondition string
+
+const (
+	RouteMapMatchConditionContains    RouteMapMatchCondition = "Contains"
+	RouteMapMatchConditionEquals      RouteMapMatchCondition = "Equals"
+	RouteMapMatchConditionNotContains RouteMapMatchCondition = "NotContains"
+	RouteMapMatchConditionNotEquals   RouteMapMatchCondition = "NotEquals"
+	RouteMapMatchConditionUnknown     RouteMapMatchCondition = "Unknown"
+)
+
+// PossibleRouteMapMatchConditionValues returns the possible values for the RouteMapMatchCondition const type.
+func PossibleRouteMapMatchConditionValues() []RouteMapMatchCondition {
+	return []RouteMapMatchCondition{
+		RouteMapMatchConditionContains,
+		RouteMapMatchConditionEquals,
+		RouteMapMatchConditionNotContains,
+		RouteMapMatchConditionNotEquals,
+		RouteMapMatchConditionUnknown,
+	}
+}
+
 // RouteNextHopType - The type of Azure hop the packet should be sent to.
 type RouteNextHopType string
 
@@ -2953,6 +3032,22 @@ func PossibleSeverityValues() []Severity {
 	return []Severity{
 		SeverityError,
 		SeverityWarning,
+	}
+}
+
+// SlotType - Specifies slot info on a cloud service
+type SlotType string
+
+const (
+	SlotTypeProduction SlotType = "Production"
+	SlotTypeStaging    SlotType = "Staging"
+)
+
+// PossibleSlotTypeValues returns the possible values for the SlotType const type.
+func PossibleSlotTypeValues() []SlotType {
+	return []SlotType{
+		SlotTypeProduction,
+		SlotTypeStaging,
 	}
 }
 
@@ -3513,6 +3608,23 @@ func PossibleVirtualWanSecurityProviderTypeValues() []VirtualWanSecurityProvider
 	return []VirtualWanSecurityProviderType{
 		VirtualWanSecurityProviderTypeExternal,
 		VirtualWanSecurityProviderTypeNative,
+	}
+}
+
+// VnetLocalRouteOverrideCriteria - Parameter determining whether NVA in spoke vnet is bypassed for traffic with destination
+// in spoke vnet.
+type VnetLocalRouteOverrideCriteria string
+
+const (
+	VnetLocalRouteOverrideCriteriaContains VnetLocalRouteOverrideCriteria = "Contains"
+	VnetLocalRouteOverrideCriteriaEqual    VnetLocalRouteOverrideCriteria = "Equal"
+)
+
+// PossibleVnetLocalRouteOverrideCriteriaValues returns the possible values for the VnetLocalRouteOverrideCriteria const type.
+func PossibleVnetLocalRouteOverrideCriteriaValues() []VnetLocalRouteOverrideCriteria {
+	return []VnetLocalRouteOverrideCriteria{
+		VnetLocalRouteOverrideCriteriaContains,
+		VnetLocalRouteOverrideCriteriaEqual,
 	}
 }
 
