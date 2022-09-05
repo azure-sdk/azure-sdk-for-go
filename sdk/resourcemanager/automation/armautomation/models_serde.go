@@ -5752,53 +5752,6 @@ func (r *RunbookCreateOrUpdateDraftParameters) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type RunbookCreateOrUpdateDraftProperties.
-func (r RunbookCreateOrUpdateDraftProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "description", r.Description)
-	populate(objectMap, "draft", r.Draft)
-	populate(objectMap, "logActivityTrace", r.LogActivityTrace)
-	populate(objectMap, "logProgress", r.LogProgress)
-	populate(objectMap, "logVerbose", r.LogVerbose)
-	populate(objectMap, "runbookType", r.RunbookType)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type RunbookCreateOrUpdateDraftProperties.
-func (r *RunbookCreateOrUpdateDraftProperties) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", r, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "description":
-			err = unpopulate(val, "Description", &r.Description)
-			delete(rawMsg, key)
-		case "draft":
-			err = unpopulate(val, "Draft", &r.Draft)
-			delete(rawMsg, key)
-		case "logActivityTrace":
-			err = unpopulate(val, "LogActivityTrace", &r.LogActivityTrace)
-			delete(rawMsg, key)
-		case "logProgress":
-			err = unpopulate(val, "LogProgress", &r.LogProgress)
-			delete(rawMsg, key)
-		case "logVerbose":
-			err = unpopulate(val, "LogVerbose", &r.LogVerbose)
-			delete(rawMsg, key)
-		case "runbookType":
-			err = unpopulate(val, "RunbookType", &r.RunbookType)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", r, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type RunbookCreateOrUpdateParameters.
 func (r RunbookCreateOrUpdateParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -5848,6 +5801,7 @@ func (r RunbookCreateOrUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "logVerbose", r.LogVerbose)
 	populate(objectMap, "publishContentLink", r.PublishContentLink)
 	populate(objectMap, "runbookType", r.RunbookType)
+	populate(objectMap, "runtime", r.Runtime)
 	return json.Marshal(objectMap)
 }
 
@@ -5880,6 +5834,9 @@ func (r *RunbookCreateOrUpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "runbookType":
 			err = unpopulate(val, "RunbookType", &r.RunbookType)
+			delete(rawMsg, key)
+		case "runtime":
+			err = unpopulate(val, "Runtime", &r.Runtime)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -6054,6 +6011,7 @@ func (r RunbookProperties) MarshalJSON() ([]byte, error) {
 	objectMap["provisioningState"] = "Succeeded"
 	populate(objectMap, "publishContentLink", r.PublishContentLink)
 	populate(objectMap, "runbookType", r.RunbookType)
+	populate(objectMap, "runtime", r.Runtime)
 	populate(objectMap, "state", r.State)
 	return json.Marshal(objectMap)
 }
@@ -6108,6 +6066,9 @@ func (r *RunbookProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "runbookType":
 			err = unpopulate(val, "RunbookType", &r.RunbookType)
+			delete(rawMsg, key)
+		case "runtime":
+			err = unpopulate(val, "Runtime", &r.Runtime)
 			delete(rawMsg, key)
 		case "state":
 			err = unpopulate(val, "State", &r.State)
@@ -6166,6 +6127,8 @@ func (r RunbookUpdateProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "logActivityTrace", r.LogActivityTrace)
 	populate(objectMap, "logProgress", r.LogProgress)
 	populate(objectMap, "logVerbose", r.LogVerbose)
+	populate(objectMap, "runbookType", r.RunbookType)
+	populate(objectMap, "runtime", r.Runtime)
 	return json.Marshal(objectMap)
 }
 
@@ -6189,6 +6152,175 @@ func (r *RunbookUpdateProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "logVerbose":
 			err = unpopulate(val, "LogVerbose", &r.LogVerbose)
+			delete(rawMsg, key)
+		case "runbookType":
+			err = unpopulate(val, "RunbookType", &r.RunbookType)
+			delete(rawMsg, key)
+		case "runtime":
+			err = unpopulate(val, "Runtime", &r.Runtime)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type Runtime.
+func (r Runtime) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", r.ID)
+	populate(objectMap, "name", r.Name)
+	populate(objectMap, "properties", r.Properties)
+	populate(objectMap, "systemData", r.SystemData)
+	populate(objectMap, "type", r.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type Runtime.
+func (r *Runtime) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &r.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &r.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &r.Properties)
+			delete(rawMsg, key)
+		case "systemData":
+			err = unpopulate(val, "SystemData", &r.SystemData)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &r.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RuntimeListResult.
+func (r RuntimeListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", r.NextLink)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RuntimeListResult.
+func (r *RuntimeListResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &r.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &r.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RuntimeProperties.
+func (r RuntimeProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "defaultPackages", r.DefaultPackages)
+	populate(objectMap, "language", r.Language)
+	populate(objectMap, "languageVersion", r.LanguageVersion)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RuntimeProperties.
+func (r *RuntimeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "defaultPackages":
+			err = unpopulate(val, "DefaultPackages", &r.DefaultPackages)
+			delete(rawMsg, key)
+		case "language":
+			err = unpopulate(val, "Language", &r.Language)
+			delete(rawMsg, key)
+		case "languageVersion":
+			err = unpopulate(val, "LanguageVersion", &r.LanguageVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RuntimeUpdateParameters.
+func (r RuntimeUpdateParameters) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "defaultPackages", r.DefaultPackages)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RuntimeUpdateParameters.
+func (r *RuntimeUpdateParameters) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "defaultPackages":
+			err = unpopulate(val, "DefaultPackages", &r.DefaultPackages)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RuntimeUpdateProperties.
+func (r RuntimeUpdateProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "properties", r.Properties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RuntimeUpdateProperties.
+func (r *RuntimeUpdateProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &r.Properties)
 			delete(rawMsg, key)
 		}
 		if err != nil {
