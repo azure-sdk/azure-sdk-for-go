@@ -54,11 +54,6 @@ type FarmBeatsModelsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// FarmBeatsModelsClientGetOperationResultResponse contains the response from method FarmBeatsModelsClient.GetOperationResult.
-type FarmBeatsModelsClientGetOperationResultResponse struct {
-	ArmAsyncOperation
-}
-
 // FarmBeatsModelsClientGetResponse contains the response from method FarmBeatsModelsClient.Get.
 type FarmBeatsModelsClientGetResponse struct {
 	FarmBeats
@@ -87,34 +82,4 @@ type LocationsClientCheckNameAvailabilityResponse struct {
 // OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	OperationListResult
-}
-
-// PrivateEndpointConnectionsClientCreateOrUpdateResponse contains the response from method PrivateEndpointConnectionsClient.CreateOrUpdate.
-type PrivateEndpointConnectionsClientCreateOrUpdateResponse struct {
-	PrivateEndpointConnection
-}
-
-// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.Delete.
-type PrivateEndpointConnectionsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// PrivateEndpointConnectionsClientGetResponse contains the response from method PrivateEndpointConnectionsClient.Get.
-type PrivateEndpointConnectionsClientGetResponse struct {
-	PrivateEndpointConnection
-}
-
-// PrivateEndpointConnectionsClientListByResourceResponse contains the response from method PrivateEndpointConnectionsClient.ListByResource.
-type PrivateEndpointConnectionsClientListByResourceResponse struct {
-	PrivateEndpointConnectionListResult
-}
-
-// PrivateLinkResourcesClientGetResponse contains the response from method PrivateLinkResourcesClient.Get.
-type PrivateLinkResourcesClientGetResponse struct {
-	PrivateLinkResource
-}
-
-// PrivateLinkResourcesClientListByResourceResponse contains the response from method PrivateLinkResourcesClient.ListByResource.
-type PrivateLinkResourcesClientListByResourceResponse struct {
-	PrivateLinkResourceListResult
 }
