@@ -23,20 +23,20 @@ import (
 	"strings"
 )
 
-// ServiceTagsClient contains the methods for the ServiceTags group.
-// Don't use this type directly, use NewServiceTagsClient() instead.
-type ServiceTagsClient struct {
+// ApplicationGatewayWafDynamicManifestsDefaultClient contains the methods for the ApplicationGatewayWafDynamicManifestsDefault group.
+// Don't use this type directly, use NewApplicationGatewayWafDynamicManifestsDefaultClient() instead.
+type ApplicationGatewayWafDynamicManifestsDefaultClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewServiceTagsClient creates a new instance of ServiceTagsClient with the specified values.
+// NewApplicationGatewayWafDynamicManifestsDefaultClient creates a new instance of ApplicationGatewayWafDynamicManifestsDefaultClient with the specified values.
 // subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
 // ID forms part of the URI for every service call.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewServiceTagsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServiceTagsClient, error) {
+func NewApplicationGatewayWafDynamicManifestsDefaultClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationGatewayWafDynamicManifestsDefaultClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -48,7 +48,7 @@ func NewServiceTagsClient(subscriptionID string, credential azcore.TokenCredenti
 	if err != nil {
 		return nil, err
 	}
-	client := &ServiceTagsClient{
+	client := &ApplicationGatewayWafDynamicManifestsDefaultClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -56,31 +56,30 @@ func NewServiceTagsClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// List - Gets a list of service tag information resources.
+// Get - Gets the regional application gateway waf manifest.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
-// location - The location that will be used as a reference for version (not as a filter based on location, you will get the
-// list of service tags with prefix details across all regions but limited to the cloud that
-// your subscription belongs to).
-// options - ServiceTagsClientListOptions contains the optional parameters for the ServiceTagsClient.List method.
-func (client *ServiceTagsClient) List(ctx context.Context, location string, options *ServiceTagsClientListOptions) (ServiceTagsClientListResponse, error) {
-	req, err := client.listCreateRequest(ctx, location, options)
+// location - The region where the nrp are located at.
+// options - ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions contains the optional parameters for the ApplicationGatewayWafDynamicManifestsDefaultClient.Get
+// method.
+func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) Get(ctx context.Context, location string, options *ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions) (ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, location, options)
 	if err != nil {
-		return ServiceTagsClientListResponse{}, err
+		return ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return ServiceTagsClientListResponse{}, err
+		return ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ServiceTagsClientListResponse{}, runtime.NewResponseError(resp)
+		return ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.listHandleResponse(resp)
+	return client.getHandleResponse(resp)
 }
 
-// listCreateRequest creates the List request.
-func (client *ServiceTagsClient) listCreateRequest(ctx context.Context, location string, options *ServiceTagsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/serviceTags"
+// getCreateRequest creates the Get request.
+func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) getCreateRequest(ctx context.Context, location string, options *ApplicationGatewayWafDynamicManifestsDefaultClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/applicationGatewayWafDynamicManifests/dafault"
 	if location == "" {
 		return nil, errors.New("parameter location cannot be empty")
 	}
@@ -100,11 +99,11 @@ func (client *ServiceTagsClient) listCreateRequest(ctx context.Context, location
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *ServiceTagsClient) listHandleResponse(resp *http.Response) (ServiceTagsClientListResponse, error) {
-	result := ServiceTagsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServiceTagsListResult); err != nil {
-		return ServiceTagsClientListResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *ApplicationGatewayWafDynamicManifestsDefaultClient) getHandleResponse(resp *http.Response) (ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse, error) {
+	result := ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ApplicationGatewayWafDynamicManifestResult); err != nil {
+		return ApplicationGatewayWafDynamicManifestsDefaultClientGetResponse{}, err
 	}
 	return result, nil
 }
