@@ -268,7 +268,7 @@ func (client *PrivateEndpointConnectionsClient) put(ctx context.Context, resourc
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusCreated) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
