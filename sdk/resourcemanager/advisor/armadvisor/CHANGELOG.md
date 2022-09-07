@@ -1,5 +1,40 @@
 # Release History
 
+## 2.0.0 (2022-09-07)
+### Breaking Changes
+
+- Const `RiskError` has been removed
+- Const `RiskNone` has been removed
+- Const `RiskWarning` has been removed
+- Type alias `Risk` has been removed
+- Function `PossibleRiskValues` has been removed
+- Field `Risk` of struct `RecommendationProperties` has been removed
+
+### Features Added
+
+- New const `PredictionTypePredictiveRightsizing`
+- New const `DurationFourteen`
+- New const `DurationSeven`
+- New const `DurationSixty`
+- New const `DurationTwentyOne`
+- New const `DurationThirty`
+- New const `DurationNinety`
+- New type alias `PredictionType`
+- New type alias `Duration`
+- New function `NewManagementClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementClient, error)`
+- New function `*ManagementClient.Predict(context.Context, PredictionRequest, *ManagementClientPredictOptions) (ManagementClientPredictResponse, error)`
+- New function `PossiblePredictionTypeValues() []PredictionType`
+- New function `PossibleDurationValues() []Duration`
+- New struct `ManagementClient`
+- New struct `ManagementClientPredictOptions`
+- New struct `ManagementClientPredictResponse`
+- New struct `PredictionRequest`
+- New struct `PredictionRequestProperties`
+- New struct `PredictionResponse`
+- New struct `PredictionResponseProperties`
+- New field `Duration` in struct `ConfigDataProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/advisor/armadvisor` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
