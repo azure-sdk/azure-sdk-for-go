@@ -264,7 +264,6 @@ func (client *MachineExtensionsClient) getHandleResponse(resp *http.Response) (M
 }
 
 // NewListPager - The operation to get all extensions of a non-Azure machine
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // name - The name of the machine containing the extension.
