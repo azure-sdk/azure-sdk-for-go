@@ -117,7 +117,6 @@ func (client *AlertsClient) changeStateHandleResponse(resp *http.Response) (Aler
 // NewGetAllPager - List all existing alerts, where the results can be filtered on the basis of multiple parameters (e.g.
 // time range). The results can then be sorted on the basis specific fields, with the default being
 // lastModifiedDateTime.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2019-05-05-preview
 // options - AlertsClientGetAllOptions contains the optional parameters for the AlertsClient.GetAll method.
 func (client *AlertsClient) NewGetAllPager(options *AlertsClientGetAllOptions) *runtime.Pager[AlertsClientGetAllResponse] {
