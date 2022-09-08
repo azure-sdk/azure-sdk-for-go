@@ -257,7 +257,6 @@ func (client *CassandraDataCentersClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListPager - List all data centers in a particular managed Cassandra cluster.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterName - Managed Cassandra cluster name.

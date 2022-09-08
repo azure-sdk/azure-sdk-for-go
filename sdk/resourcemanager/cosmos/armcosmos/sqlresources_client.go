@@ -1822,7 +1822,6 @@ func (client *SQLResourcesClient) getSQLUserDefinedFunctionHandleResponse(resp *
 }
 
 // NewListClientEncryptionKeysPager - Lists the ClientEncryptionKeys under an existing Azure Cosmos DB SQL database.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -1967,7 +1966,6 @@ func (client *SQLResourcesClient) listSQLContainerPartitionMergeCreateRequest(ct
 }
 
 // NewListSQLContainersPager - Lists the SQL container under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -2036,7 +2034,6 @@ func (client *SQLResourcesClient) listSQLContainersHandleResponse(resp *http.Res
 }
 
 // NewListSQLDatabasesPager - Lists the SQL databases under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -2100,7 +2097,6 @@ func (client *SQLResourcesClient) listSQLDatabasesHandleResponse(resp *http.Resp
 }
 
 // NewListSQLRoleAssignmentsPager - Retrieves the list of all Azure Cosmos DB SQL Role Assignments.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -2164,7 +2160,6 @@ func (client *SQLResourcesClient) listSQLRoleAssignmentsHandleResponse(resp *htt
 }
 
 // NewListSQLRoleDefinitionsPager - Retrieves the list of all Azure Cosmos DB SQL Role Definitions.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -2228,7 +2223,6 @@ func (client *SQLResourcesClient) listSQLRoleDefinitionsHandleResponse(resp *htt
 }
 
 // NewListSQLStoredProceduresPager - Lists the SQL storedProcedure under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -2302,7 +2296,6 @@ func (client *SQLResourcesClient) listSQLStoredProceduresHandleResponse(resp *ht
 }
 
 // NewListSQLTriggersPager - Lists the SQL trigger under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -2376,7 +2369,6 @@ func (client *SQLResourcesClient) listSQLTriggersHandleResponse(resp *http.Respo
 }
 
 // NewListSQLUserDefinedFunctionsPager - Lists the SQL userDefinedFunction under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.

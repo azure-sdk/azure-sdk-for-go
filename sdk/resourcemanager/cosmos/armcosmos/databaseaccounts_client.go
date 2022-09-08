@@ -402,7 +402,6 @@ func (client *DatabaseAccountsClient) getReadOnlyKeysHandleResponse(resp *http.R
 }
 
 // NewListPager - Lists all the Azure Cosmos DB database accounts available under the subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // options - DatabaseAccountsClientListOptions contains the optional parameters for the DatabaseAccountsClient.List method.
 func (client *DatabaseAccountsClient) NewListPager(options *DatabaseAccountsClientListOptions) *runtime.Pager[DatabaseAccountsClientListResponse] {
@@ -455,7 +454,6 @@ func (client *DatabaseAccountsClient) listHandleResponse(resp *http.Response) (D
 }
 
 // NewListByResourceGroupPager - Lists all the Azure Cosmos DB database accounts available under the given resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - DatabaseAccountsClientListByResourceGroupOptions contains the optional parameters for the DatabaseAccountsClient.ListByResourceGroup
@@ -628,7 +626,6 @@ func (client *DatabaseAccountsClient) listKeysHandleResponse(resp *http.Response
 }
 
 // NewListMetricDefinitionsPager - Retrieves metric definitions for the given database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -692,7 +689,6 @@ func (client *DatabaseAccountsClient) listMetricDefinitionsHandleResponse(resp *
 }
 
 // NewListMetricsPager - Retrieves the metrics determined by the given filter for the given database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -817,7 +813,6 @@ func (client *DatabaseAccountsClient) listReadOnlyKeysHandleResponse(resp *http.
 }
 
 // NewListUsagesPager - Retrieves the usages (most recent data) for the given database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.

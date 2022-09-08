@@ -434,7 +434,6 @@ func (client *CassandraClustersClient) invokeCommandCreateRequest(ctx context.Co
 }
 
 // NewListBackupsPager - List the backups of this cluster that are available to restore.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // clusterName - Managed Cassandra cluster name.
@@ -498,7 +497,6 @@ func (client *CassandraClustersClient) listBackupsHandleResponse(resp *http.Resp
 }
 
 // NewListByResourceGroupPager - List all managed Cassandra clusters in this resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - CassandraClustersClientListByResourceGroupOptions contains the optional parameters for the CassandraClustersClient.ListByResourceGroup
@@ -557,7 +555,6 @@ func (client *CassandraClustersClient) listByResourceGroupHandleResponse(resp *h
 }
 
 // NewListBySubscriptionPager - List all managed Cassandra clusters in this subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // options - CassandraClustersClientListBySubscriptionOptions contains the optional parameters for the CassandraClustersClient.ListBySubscription
 // method.

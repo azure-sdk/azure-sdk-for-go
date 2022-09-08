@@ -1072,7 +1072,6 @@ func (client *MongoDBResourcesClient) listMongoDBCollectionPartitionMergeCreateR
 }
 
 // NewListMongoDBCollectionsPager - Lists the MongoDB collection under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -1141,7 +1140,6 @@ func (client *MongoDBResourcesClient) listMongoDBCollectionsHandleResponse(resp 
 }
 
 // NewListMongoDBDatabasesPager - Lists the MongoDB databases under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -1205,7 +1203,6 @@ func (client *MongoDBResourcesClient) listMongoDBDatabasesHandleResponse(resp *h
 }
 
 // NewListMongoRoleDefinitionsPager - Retrieves the list of all Azure Cosmos DB Mongo Role Definitions.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -1269,7 +1266,6 @@ func (client *MongoDBResourcesClient) listMongoRoleDefinitionsHandleResponse(res
 }
 
 // NewListMongoUserDefinitionsPager - Retrieves the list of all Azure Cosmos DB Mongo User Definition.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.

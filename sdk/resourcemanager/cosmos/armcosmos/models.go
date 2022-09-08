@@ -971,12 +971,6 @@ type ClientEncryptionPolicy struct {
 	PolicyFormatVersion *int32 `json:"policyFormatVersion,omitempty"`
 }
 
-// CloudError - An error response from the service.
-type CloudError struct {
-	// Error Response.
-	Error *ErrorResponse `json:"error,omitempty"`
-}
-
 // ClusterKey - Cosmos DB Cassandra table cluster key
 type ClusterKey struct {
 	// Name of the Cosmos DB Cassandra table cluster key

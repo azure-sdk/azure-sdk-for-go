@@ -880,7 +880,6 @@ func (client *CassandraResourcesClient) getCassandraViewThroughputHandleResponse
 }
 
 // NewListCassandraKeyspacesPager - Lists the Cassandra keyspaces under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -944,7 +943,6 @@ func (client *CassandraResourcesClient) listCassandraKeyspacesHandleResponse(res
 }
 
 // NewListCassandraTablesPager - Lists the Cassandra table under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -1013,7 +1011,6 @@ func (client *CassandraResourcesClient) listCassandraTablesHandleResponse(resp *
 }
 
 // NewListCassandraViewsPager - Lists the Cassandra materialized views under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.

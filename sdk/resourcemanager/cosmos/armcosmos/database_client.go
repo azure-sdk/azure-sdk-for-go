@@ -56,7 +56,6 @@ func NewDatabaseClient(subscriptionID string, credential azcore.TokenCredential,
 }
 
 // NewListMetricDefinitionsPager - Retrieves metric definitions for the given database.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -125,7 +124,6 @@ func (client *DatabaseClient) listMetricDefinitionsHandleResponse(resp *http.Res
 }
 
 // NewListMetricsPager - Retrieves the metrics determined by the given filter for the given database account and database.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -197,7 +195,6 @@ func (client *DatabaseClient) listMetricsHandleResponse(resp *http.Response) (Da
 }
 
 // NewListUsagesPager - Retrieves the usages (most recent data) for the given database.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.

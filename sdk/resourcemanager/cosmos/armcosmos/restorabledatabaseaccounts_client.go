@@ -115,7 +115,6 @@ func (client *RestorableDatabaseAccountsClient) getByLocationHandleResponse(resp
 
 // NewListPager - Lists all the restorable Azure Cosmos DB database accounts available under the subscription. This call requires
 // 'Microsoft.DocumentDB/locations/restorableDatabaseAccounts/read' permission.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // options - RestorableDatabaseAccountsClientListOptions contains the optional parameters for the RestorableDatabaseAccountsClient.List
 // method.
@@ -171,7 +170,6 @@ func (client *RestorableDatabaseAccountsClient) listHandleResponse(resp *http.Re
 // NewListByLocationPager - Lists all the restorable Azure Cosmos DB database accounts available under the subscription and
 // in a region. This call requires 'Microsoft.DocumentDB/locations/restorableDatabaseAccounts/read'
 // permission.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // location - Cosmos DB region, with spaces between words and each word capitalized.
 // options - RestorableDatabaseAccountsClientListByLocationOptions contains the optional parameters for the RestorableDatabaseAccountsClient.ListByLocation

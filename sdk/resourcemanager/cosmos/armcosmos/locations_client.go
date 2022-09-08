@@ -107,7 +107,6 @@ func (client *LocationsClient) getHandleResponse(resp *http.Response) (Locations
 }
 
 // NewListPager - List Cosmos DB locations and their properties
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // options - LocationsClientListOptions contains the optional parameters for the LocationsClient.List method.
 func (client *LocationsClient) NewListPager(options *LocationsClientListOptions) *runtime.Pager[LocationsClientListResponse] {

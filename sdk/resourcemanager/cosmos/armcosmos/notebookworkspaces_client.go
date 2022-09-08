@@ -254,7 +254,6 @@ func (client *NotebookWorkspacesClient) getHandleResponse(resp *http.Response) (
 }
 
 // NewListByDatabaseAccountPager - Gets the notebook workspace resources of an existing Cosmos DB account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.

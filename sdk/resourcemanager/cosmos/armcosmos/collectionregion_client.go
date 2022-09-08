@@ -57,7 +57,6 @@ func NewCollectionRegionClient(subscriptionID string, credential azcore.TokenCre
 
 // NewListMetricsPager - Retrieves the metrics determined by the given filter for the given database account, collection and
 // region.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.

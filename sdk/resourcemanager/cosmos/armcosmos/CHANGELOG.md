@@ -1,5 +1,11 @@
 # Release History
 
+## 2.1.0-beta.2 (2022-09-08)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+
+
 ## 2.1.0-beta.1 (2022-07-22)
 ### Features Added
 

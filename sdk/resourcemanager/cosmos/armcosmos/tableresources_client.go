@@ -316,7 +316,6 @@ func (client *TableResourcesClient) getTableThroughputHandleResponse(resp *http.
 }
 
 // NewListTablesPager - Lists the Tables under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.

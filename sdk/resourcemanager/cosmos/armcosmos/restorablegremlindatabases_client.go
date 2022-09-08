@@ -58,7 +58,6 @@ func NewRestorableGremlinDatabasesClient(subscriptionID string, credential azcor
 // NewListPager - Show the event feed of all mutations done on all the Azure Cosmos DB Gremlin databases under the restorable
 // account. This helps in scenario where database was accidentally deleted to get the deletion
 // time. This API requires 'Microsoft.DocumentDB/locations/restorableDatabaseAccounts/…/read' permission
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // location - Cosmos DB region, with spaces between words and each word capitalized.
 // instanceID - The instanceId GUID of a restorable database account.

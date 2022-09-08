@@ -598,7 +598,6 @@ func (client *GremlinResourcesClient) getGremlinGraphThroughputHandleResponse(re
 }
 
 // NewListGremlinDatabasesPager - Lists the Gremlin databases under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
@@ -662,7 +661,6 @@ func (client *GremlinResourcesClient) listGremlinDatabasesHandleResponse(resp *h
 }
 
 // NewListGremlinGraphsPager - Lists the Gremlin graph under an existing Azure Cosmos DB database account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-15-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - Cosmos DB database account name.
