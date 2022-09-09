@@ -247,7 +247,6 @@ func (client *CustomIPPrefixesClient) getHandleResponse(resp *http.Response) (Cu
 }
 
 // NewListPager - Gets all custom IP prefixes in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // options - CustomIPPrefixesClientListOptions contains the optional parameters for the CustomIPPrefixesClient.List method.
@@ -311,7 +310,6 @@ func (client *CustomIPPrefixesClient) listHandleResponse(resp *http.Response) (C
 }
 
 // NewListAllPager - Gets all the custom IP prefixes in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // options - CustomIPPrefixesClientListAllOptions contains the optional parameters for the CustomIPPrefixesClient.ListAll
 // method.

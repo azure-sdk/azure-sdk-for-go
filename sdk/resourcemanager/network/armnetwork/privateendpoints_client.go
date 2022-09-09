@@ -247,7 +247,6 @@ func (client *PrivateEndpointsClient) getHandleResponse(resp *http.Response) (Pr
 }
 
 // NewListPager - Gets all private endpoints in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // options - PrivateEndpointsClientListOptions contains the optional parameters for the PrivateEndpointsClient.List method.
@@ -311,7 +310,6 @@ func (client *PrivateEndpointsClient) listHandleResponse(resp *http.Response) (P
 }
 
 // NewListBySubscriptionPager - Gets all private endpoints in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // options - PrivateEndpointsClientListBySubscriptionOptions contains the optional parameters for the PrivateEndpointsClient.ListBySubscription
 // method.

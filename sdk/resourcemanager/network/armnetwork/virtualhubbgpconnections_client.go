@@ -57,7 +57,6 @@ func NewVirtualHubBgpConnectionsClient(subscriptionID string, credential azcore.
 }
 
 // NewListPager - Retrieves the details of all VirtualHubBgpConnections.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The resource group name of the VirtualHub.
 // virtualHubName - The name of the VirtualHub.

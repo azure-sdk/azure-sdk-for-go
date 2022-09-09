@@ -271,7 +271,6 @@ func (client *AdminRuleCollectionsClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListPager - Lists all the rule collections in a security admin configuration, in a paginated format.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // networkManagerName - The name of the network manager.

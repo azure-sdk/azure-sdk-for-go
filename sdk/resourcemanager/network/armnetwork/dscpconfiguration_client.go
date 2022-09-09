@@ -244,7 +244,6 @@ func (client *DscpConfigurationClient) getHandleResponse(resp *http.Response) (D
 }
 
 // NewListPager - Gets a DSCP Configuration.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // options - DscpConfigurationClientListOptions contains the optional parameters for the DscpConfigurationClient.List method.
@@ -308,7 +307,6 @@ func (client *DscpConfigurationClient) listHandleResponse(resp *http.Response) (
 }
 
 // NewListAllPager - Gets all dscp configurations in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // options - DscpConfigurationClientListAllOptions contains the optional parameters for the DscpConfigurationClient.ListAll
 // method.

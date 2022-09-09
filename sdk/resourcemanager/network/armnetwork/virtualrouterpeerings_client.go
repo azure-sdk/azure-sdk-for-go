@@ -260,7 +260,6 @@ func (client *VirtualRouterPeeringsClient) getHandleResponse(resp *http.Response
 }
 
 // NewListPager - Lists all Virtual Router Peerings in a Virtual Router resource.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // virtualRouterName - The name of the Virtual Router.
