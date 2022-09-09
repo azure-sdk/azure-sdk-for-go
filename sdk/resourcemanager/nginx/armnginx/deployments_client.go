@@ -232,7 +232,6 @@ func (client *DeploymentsClient) getHandleResponse(resp *http.Response) (Deploym
 }
 
 // NewListPager - List the Nginx deployments resources
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // options - DeploymentsClientListOptions contains the optional parameters for the DeploymentsClient.List method.
 func (client *DeploymentsClient) NewListPager(options *DeploymentsClientListOptions) *runtime.Pager[DeploymentsClientListResponse] {
@@ -288,7 +287,6 @@ func (client *DeploymentsClient) listHandleResponse(resp *http.Response) (Deploy
 }
 
 // NewListByResourceGroupPager - List all Nginx deployments under the specified resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - DeploymentsClientListByResourceGroupOptions contains the optional parameters for the DeploymentsClient.ListByResourceGroup
