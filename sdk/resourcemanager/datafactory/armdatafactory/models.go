@@ -6390,27 +6390,6 @@ type ChainingTriggerTypeProperties struct {
 	RunDimension *string `json:"runDimension,omitempty"`
 }
 
-// CloudError - The object that defines the structure of an Azure Data Factory error response.
-type CloudError struct {
-	// REQUIRED; Error data
-	Error *CloudErrorBody `json:"error,omitempty"`
-}
-
-// CloudErrorBody - The object that defines the structure of an Azure Data Factory error.
-type CloudErrorBody struct {
-	// REQUIRED; Error code.
-	Code *string `json:"code,omitempty"`
-
-	// REQUIRED; Error message.
-	Message *string `json:"message,omitempty"`
-
-	// Array with additional error details.
-	Details []*CloudError `json:"details,omitempty"`
-
-	// Property name/path in request associated with error.
-	Target *string `json:"target,omitempty"`
-}
-
 // CmdkeySetup - The custom setup of running cmdkey commands.
 type CmdkeySetup struct {
 	// REQUIRED; The type of custom setup.
@@ -16539,7 +16518,7 @@ type LinkedServiceReference struct {
 	ReferenceName *string `json:"referenceName,omitempty"`
 
 	// REQUIRED; Linked service reference type.
-	Type *LinkedServiceReferenceType `json:"type,omitempty"`
+	Type *Type `json:"type,omitempty"`
 
 	// Arguments for LinkedService.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
