@@ -242,7 +242,6 @@ func (client *LabsClient) getHandleResponse(resp *http.Response) (LabsClientGetR
 }
 
 // NewListByResourceGroupPager - Returns a list of all labs in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - LabsClientListByResourceGroupOptions contains the optional parameters for the LabsClient.ListByResourceGroup
@@ -307,7 +306,6 @@ func (client *LabsClient) listByResourceGroupHandleResponse(resp *http.Response)
 }
 
 // NewListBySubscriptionPager - Returns a list of all labs for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // options - LabsClientListBySubscriptionOptions contains the optional parameters for the LabsClient.ListBySubscription method.
 func (client *LabsClient) NewListBySubscriptionPager(options *LabsClientListBySubscriptionOptions) *runtime.Pager[LabsClientListBySubscriptionResponse] {

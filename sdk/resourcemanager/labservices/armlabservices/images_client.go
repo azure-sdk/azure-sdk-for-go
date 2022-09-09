@@ -181,7 +181,6 @@ func (client *ImagesClient) getHandleResponse(resp *http.Response) (ImagesClient
 }
 
 // NewListByLabPlanPager - Gets all images from galleries attached to a lab plan.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // labPlanName - The name of the lab plan that uniquely identifies it within containing resource group. Used in resource URIs

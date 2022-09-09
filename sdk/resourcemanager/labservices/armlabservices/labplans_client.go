@@ -247,7 +247,6 @@ func (client *LabPlansClient) getHandleResponse(resp *http.Response) (LabPlansCl
 }
 
 // NewListByResourceGroupPager - Returns a list of all lab plans for a subscription and resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - LabPlansClientListByResourceGroupOptions contains the optional parameters for the LabPlansClient.ListByResourceGroup
@@ -312,7 +311,6 @@ func (client *LabPlansClient) listByResourceGroupHandleResponse(resp *http.Respo
 }
 
 // NewListBySubscriptionPager - Returns a list of all lab plans within a subscription
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // options - LabPlansClientListBySubscriptionOptions contains the optional parameters for the LabPlansClient.ListBySubscription
 // method.
