@@ -231,7 +231,6 @@ func (client *ExtensionsClient) getHandleResponse(resp *http.Response) (Extensio
 }
 
 // NewListByFarmBeatsPager - Get installed extensions details.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-09-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // farmBeatsResourceName - FarmBeats resource name.
