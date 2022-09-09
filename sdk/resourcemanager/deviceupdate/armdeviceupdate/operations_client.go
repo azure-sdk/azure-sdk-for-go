@@ -50,7 +50,6 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 }
 
 // NewListPager - Returns list of operations for Microsoft.DeviceUpdate resource provider.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-10-01
 // options - OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 func (client *OperationsClient) NewListPager(options *OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse] {

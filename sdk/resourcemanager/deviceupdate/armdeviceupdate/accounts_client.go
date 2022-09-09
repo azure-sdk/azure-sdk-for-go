@@ -287,7 +287,6 @@ func (client *AccountsClient) headCreateRequest(ctx context.Context, resourceGro
 }
 
 // NewListByResourceGroupPager - Returns list of Accounts.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-10-01
 // resourceGroupName - The resource group name.
 // options - AccountsClientListByResourceGroupOptions contains the optional parameters for the AccountsClient.ListByResourceGroup
@@ -352,7 +351,6 @@ func (client *AccountsClient) listByResourceGroupHandleResponse(resp *http.Respo
 }
 
 // NewListBySubscriptionPager - Returns list of Accounts.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-10-01
 // options - AccountsClientListBySubscriptionOptions contains the optional parameters for the AccountsClient.ListBySubscription
 // method.

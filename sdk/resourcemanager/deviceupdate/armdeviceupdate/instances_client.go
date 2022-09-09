@@ -307,7 +307,6 @@ func (client *InstancesClient) headCreateRequest(ctx context.Context, resourceGr
 }
 
 // NewListByAccountPager - Returns instances for the given account name.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-10-01
 // resourceGroupName - The resource group name.
 // accountName - Account name.
