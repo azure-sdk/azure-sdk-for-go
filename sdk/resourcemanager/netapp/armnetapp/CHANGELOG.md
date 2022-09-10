@@ -1,5 +1,69 @@
 # Release History
 
+## 3.0.0 (2022-09-10)
+### Breaking Changes
+
+- Type of `AccountEncryption.KeySource` has been changed from `*string` to `*KeySource`
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+- Field `Location` of struct `Vault` has been removed
+
+### Features Added
+
+- New const `KeyVaultStatusCreated`
+- New const `RegionStorageToNetworkProximityT1AndT2`
+- New const `IdentityTypeNone`
+- New const `KeyVaultStatusDeleted`
+- New const `KeyVaultStatusInUse`
+- New const `IdentityTypeUserAssigned`
+- New const `RegionStorageToNetworkProximityDefault`
+- New const `KeyVaultStatusError`
+- New const `SmbNonBrowsableDisabled`
+- New const `SmbAccessBasedEnumerationEnabled`
+- New const `KeySourceMicrosoftNetApp`
+- New const `IdentityTypeSystemAssigned`
+- New const `IdentityTypeSystemAssignedUserAssigned`
+- New const `RegionStorageToNetworkProximityT2`
+- New const `SmbAccessBasedEnumerationDisabled`
+- New const `RegionStorageToNetworkProximityT1`
+- New const `KeyVaultStatusUpdating`
+- New const `KeySourceMicrosoftKeyVault`
+- New const `SmbNonBrowsableEnabled`
+- New type alias `IdentityType`
+- New type alias `RegionStorageToNetworkProximity`
+- New type alias `KeyVaultStatus`
+- New type alias `KeySource`
+- New type alias `SmbNonBrowsable`
+- New type alias `SmbAccessBasedEnumeration`
+- New function `PossibleSmbNonBrowsableValues() []SmbNonBrowsable`
+- New function `*AccountsClient.BeginRenewCredentials(context.Context, string, string, *AccountsClientBeginRenewCredentialsOptions) (*runtime.Poller[AccountsClientRenewCredentialsResponse], error)`
+- New function `*ResourceClient.QueryRegionInfo(context.Context, string, *ResourceClientQueryRegionInfoOptions) (ResourceClientQueryRegionInfoResponse, error)`
+- New function `PossibleIdentityTypeValues() []IdentityType`
+- New function `PossibleKeySourceValues() []KeySource`
+- New function `PossibleRegionStorageToNetworkProximityValues() []RegionStorageToNetworkProximity`
+- New function `PossibleKeyVaultStatusValues() []KeyVaultStatus`
+- New function `PossibleSmbAccessBasedEnumerationValues() []SmbAccessBasedEnumeration`
+- New struct `AccountsClientBeginRenewCredentialsOptions`
+- New struct `AccountsClientRenewCredentialsResponse`
+- New struct `EncryptionIdentity`
+- New struct `Identity`
+- New struct `KeyVaultProperties`
+- New struct `RegionInfo`
+- New struct `RegionInfoAvailabilityZoneMappingsItem`
+- New struct `RelocateVolumeRequest`
+- New struct `ResourceClientQueryRegionInfoOptions`
+- New struct `ResourceClientQueryRegionInfoResponse`
+- New struct `UserAssignedIdentity`
+- New field `KeyVaultProperties` in struct `AccountEncryption`
+- New field `Identity` in struct `AccountEncryption`
+- New field `DeleteBaseSnapshot` in struct `VolumeProperties`
+- New field `SmbAccessBasedEnumeration` in struct `VolumeProperties`
+- New field `SmbNonBrowsable` in struct `VolumeProperties`
+- New field `Body` in struct `VolumesClientBeginRelocateOptions`
+- New field `Identity` in struct `Account`
+- New field `DisableShowmount` in struct `AccountProperties`
+
+
 ## 2.1.0 (2022-07-21)
 ### Features Added
 
