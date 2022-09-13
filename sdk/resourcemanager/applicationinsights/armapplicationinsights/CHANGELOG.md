@@ -1,5 +1,137 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-09-13)
+### Breaking Changes
+
+- Type of `WorkbookErrorDefinition.InnerError` has been changed from `interface{}` to `*WorkbookInnerErrorTrace`
+
+### Features Added
+
+- New const `PrivateEndpointServiceConnectionStatusApproved`
+- New const `AccessModePrivateOnly`
+- New const `AzureMonitorPrivateLinkScopePropertiesProvisioningStateSucceeded`
+- New const `AccessModeOpen`
+- New const `AzureMonitorPrivateLinkScopePropertiesProvisioningStateProvisioning`
+- New const `ScopedResourcePropertiesProvisioningStateProvisioning`
+- New const `ScopedResourcePropertiesProvisioningStateSucceeded`
+- New const `PrivateEndpointConnectionProvisioningStateDeleting`
+- New const `PrivateEndpointServiceConnectionStatusRejected`
+- New const `ScopedResourcePropertiesProvisioningStateFailed`
+- New const `PrivateEndpointConnectionProvisioningStateCreating`
+- New const `PrivateEndpointServiceConnectionStatusPending`
+- New const `AzureMonitorPrivateLinkScopePropertiesProvisioningStateCanceled`
+- New const `ScopedResourcePropertiesProvisioningStateCanceled`
+- New const `AzureMonitorPrivateLinkScopePropertiesProvisioningStateFailed`
+- New const `PrivateEndpointConnectionProvisioningStateFailed`
+- New const `PrivateEndpointConnectionProvisioningStateSucceeded`
+- New const `WebTestKindStandard`
+- New type alias `AccessMode`
+- New type alias `PrivateEndpointConnectionProvisioningState`
+- New type alias `AzureMonitorPrivateLinkScopePropertiesProvisioningState`
+- New type alias `PrivateEndpointServiceConnectionStatus`
+- New type alias `ScopedResourcePropertiesProvisioningState`
+- New function `NewPrivateEndpointConnectionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionsClient, error)`
+- New function `PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointServiceConnectionStatus`
+- New function `*PrivateLinkScopesClient.NewListPager(*PrivateLinkScopesClientListOptions) *runtime.Pager[PrivateLinkScopesClientListResponse]`
+- New function `*PrivateLinkScopedResourcesClient.BeginDelete(context.Context, string, string, string, *PrivateLinkScopedResourcesClientBeginDeleteOptions) (*runtime.Poller[PrivateLinkScopedResourcesClientDeleteResponse], error)`
+- New function `NewPrivateLinkScopeOperationStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkScopeOperationStatusClient, error)`
+- New function `*PrivateLinkScopesClient.BeginDelete(context.Context, string, string, *PrivateLinkScopesClientBeginDeleteOptions) (*runtime.Poller[PrivateLinkScopesClientDeleteResponse], error)`
+- New function `*PrivateLinkScopesClient.UpdateTags(context.Context, string, string, TagsResourcePrivateLinkScope, *PrivateLinkScopesClientUpdateTagsOptions) (PrivateLinkScopesClientUpdateTagsResponse, error)`
+- New function `*PrivateLinkScopesClient.Get(context.Context, string, string, *PrivateLinkScopesClientGetOptions) (PrivateLinkScopesClientGetResponse, error)`
+- New function `PossibleAccessModeValues() []AccessMode`
+- New function `PossibleScopedResourcePropertiesProvisioningStateValues() []ScopedResourcePropertiesProvisioningState`
+- New function `*PrivateLinkScopedResourcesClient.BeginCreateOrUpdate(context.Context, string, string, string, ScopedResource, *PrivateLinkScopedResourcesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PrivateLinkScopedResourcesClientCreateOrUpdateResponse], error)`
+- New function `NewOperationsClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsClient, error)`
+- New function `*PrivateEndpointConnectionsClient.ListByPrivateLinkScope(context.Context, string, string, *PrivateEndpointConnectionsClientListByPrivateLinkScopeOptions) (PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse, error)`
+- New function `*PrivateLinkScopedResourcesClient.NewListByPrivateLinkScopePager(string, string, *PrivateLinkScopedResourcesClientListByPrivateLinkScopeOptions) *runtime.Pager[PrivateLinkScopedResourcesClientListByPrivateLinkScopeResponse]`
+- New function `*PrivateLinkScopesClient.CreateOrUpdate(context.Context, string, string, AzureMonitorPrivateLinkScope, *PrivateLinkScopesClientCreateOrUpdateOptions) (PrivateLinkScopesClientCreateOrUpdateResponse, error)`
+- New function `NewPrivateLinkScopesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkScopesClient, error)`
+- New function `PossibleAzureMonitorPrivateLinkScopePropertiesProvisioningStateValues() []AzureMonitorPrivateLinkScopePropertiesProvisioningState`
+- New function `*PrivateEndpointConnectionsClient.BeginCreateOrUpdate(context.Context, string, string, string, PrivateEndpointConnection, *PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[PrivateEndpointConnectionsClientCreateOrUpdateResponse], error)`
+- New function `*PrivateLinkResourcesClient.ListByPrivateLinkScope(context.Context, string, string, *PrivateLinkResourcesClientListByPrivateLinkScopeOptions) (PrivateLinkResourcesClientListByPrivateLinkScopeResponse, error)`
+- New function `*PrivateLinkScopedResourcesClient.Get(context.Context, string, string, string, *PrivateLinkScopedResourcesClientGetOptions) (PrivateLinkScopedResourcesClientGetResponse, error)`
+- New function `NewPrivateLinkResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkResourcesClient, error)`
+- New function `PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpointConnectionProvisioningState`
+- New function `*PrivateLinkScopeOperationStatusClient.Get(context.Context, string, string, *PrivateLinkScopeOperationStatusClientGetOptions) (PrivateLinkScopeOperationStatusClientGetResponse, error)`
+- New function `*PrivateLinkScopesClient.NewListByResourceGroupPager(string, *PrivateLinkScopesClientListByResourceGroupOptions) *runtime.Pager[PrivateLinkScopesClientListByResourceGroupResponse]`
+- New function `*PrivateEndpointConnectionsClient.BeginDelete(context.Context, string, string, string, *PrivateEndpointConnectionsClientBeginDeleteOptions) (*runtime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New function `NewPrivateLinkScopedResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkScopedResourcesClient, error)`
+- New function `*PrivateEndpointConnectionsClient.Get(context.Context, string, string, string, *PrivateEndpointConnectionsClientGetOptions) (PrivateEndpointConnectionsClientGetResponse, error)`
+- New function `*PrivateLinkResourcesClient.Get(context.Context, string, string, string, *PrivateLinkResourcesClientGetOptions) (PrivateLinkResourcesClientGetResponse, error)`
+- New struct `AccessModeSettings`
+- New struct `AccessModeSettingsExclusion`
+- New struct `AzureMonitorPrivateLinkScope`
+- New struct `AzureMonitorPrivateLinkScopeListResult`
+- New struct `AzureMonitorPrivateLinkScopeProperties`
+- New struct `DefaultErrorResponse`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorFieldContract`
+- New struct `HeaderField`
+- New struct `OperationStatus`
+- New struct `OperationsClient`
+- New struct `OperationsClientListOptions`
+- New struct `OperationsClientListResponse`
+- New struct `PrivateEndpoint`
+- New struct `PrivateEndpointConnection`
+- New struct `PrivateEndpointConnectionListResult`
+- New struct `PrivateEndpointConnectionProperties`
+- New struct `PrivateEndpointConnectionsClient`
+- New struct `PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions`
+- New struct `PrivateEndpointConnectionsClientBeginDeleteOptions`
+- New struct `PrivateEndpointConnectionsClientCreateOrUpdateResponse`
+- New struct `PrivateEndpointConnectionsClientDeleteResponse`
+- New struct `PrivateEndpointConnectionsClientGetOptions`
+- New struct `PrivateEndpointConnectionsClientGetResponse`
+- New struct `PrivateEndpointConnectionsClientListByPrivateLinkScopeOptions`
+- New struct `PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse`
+- New struct `PrivateLinkResource`
+- New struct `PrivateLinkResourceListResult`
+- New struct `PrivateLinkResourceProperties`
+- New struct `PrivateLinkResourcesClient`
+- New struct `PrivateLinkResourcesClientGetOptions`
+- New struct `PrivateLinkResourcesClientGetResponse`
+- New struct `PrivateLinkResourcesClientListByPrivateLinkScopeOptions`
+- New struct `PrivateLinkResourcesClientListByPrivateLinkScopeResponse`
+- New struct `PrivateLinkScopeOperationStatusClient`
+- New struct `PrivateLinkScopeOperationStatusClientGetOptions`
+- New struct `PrivateLinkScopeOperationStatusClientGetResponse`
+- New struct `PrivateLinkScopedResourcesClient`
+- New struct `PrivateLinkScopedResourcesClientBeginCreateOrUpdateOptions`
+- New struct `PrivateLinkScopedResourcesClientBeginDeleteOptions`
+- New struct `PrivateLinkScopedResourcesClientCreateOrUpdateResponse`
+- New struct `PrivateLinkScopedResourcesClientDeleteResponse`
+- New struct `PrivateLinkScopedResourcesClientGetOptions`
+- New struct `PrivateLinkScopedResourcesClientGetResponse`
+- New struct `PrivateLinkScopedResourcesClientListByPrivateLinkScopeOptions`
+- New struct `PrivateLinkScopedResourcesClientListByPrivateLinkScopeResponse`
+- New struct `PrivateLinkScopesClient`
+- New struct `PrivateLinkScopesClientBeginDeleteOptions`
+- New struct `PrivateLinkScopesClientCreateOrUpdateOptions`
+- New struct `PrivateLinkScopesClientCreateOrUpdateResponse`
+- New struct `PrivateLinkScopesClientDeleteResponse`
+- New struct `PrivateLinkScopesClientGetOptions`
+- New struct `PrivateLinkScopesClientGetResponse`
+- New struct `PrivateLinkScopesClientListByResourceGroupOptions`
+- New struct `PrivateLinkScopesClientListByResourceGroupResponse`
+- New struct `PrivateLinkScopesClientListOptions`
+- New struct `PrivateLinkScopesClientListResponse`
+- New struct `PrivateLinkScopesClientUpdateTagsOptions`
+- New struct `PrivateLinkScopesClientUpdateTagsResponse`
+- New struct `PrivateLinkServiceConnectionState`
+- New struct `ScopedResource`
+- New struct `ScopedResourceListResult`
+- New struct `ScopedResourceProperties`
+- New struct `TagsResourcePrivateLinkScope`
+- New struct `WebTestPropertiesRequest`
+- New struct `WebTestPropertiesValidationRules`
+- New struct `WebTestPropertiesValidationRulesContentValidation`
+- New field `ValidationRules` in struct `WebTestProperties`
+- New field `Request` in struct `WebTestProperties`
+- New field `Details` in struct `ErrorResponse`
+
+
 ## 2.0.0-beta.1 (2022-06-02)
 ### Breaking Changes
 
