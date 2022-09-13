@@ -11,7 +11,7 @@ package armstorage
 
 const (
 	moduleName    = "armstorage"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AccessTier - Required for storage accounts where kind = BlobStorage. The access tier is used for billing. The 'Premium'
@@ -72,19 +72,19 @@ func PossibleAccountStatusValues() []AccountStatus {
 	}
 }
 
-// ActiveDirectoryPropertiesAccountType - Specifies the Active Directory account type for Azure Storage.
-type ActiveDirectoryPropertiesAccountType string
+// AccountType - Specifies the Active Directory account type for Azure Storage.
+type AccountType string
 
 const (
-	ActiveDirectoryPropertiesAccountTypeComputer ActiveDirectoryPropertiesAccountType = "Computer"
-	ActiveDirectoryPropertiesAccountTypeUser     ActiveDirectoryPropertiesAccountType = "User"
+	AccountTypeComputer AccountType = "Computer"
+	AccountTypeUser     AccountType = "User"
 )
 
-// PossibleActiveDirectoryPropertiesAccountTypeValues returns the possible values for the ActiveDirectoryPropertiesAccountType const type.
-func PossibleActiveDirectoryPropertiesAccountTypeValues() []ActiveDirectoryPropertiesAccountType {
-	return []ActiveDirectoryPropertiesAccountType{
-		ActiveDirectoryPropertiesAccountTypeComputer,
-		ActiveDirectoryPropertiesAccountTypeUser,
+// PossibleAccountTypeValues returns the possible values for the AccountType const type.
+func PossibleAccountTypeValues() []AccountType {
+	return []AccountType{
+		AccountTypeComputer,
+		AccountTypeUser,
 	}
 }
 
@@ -101,6 +101,33 @@ func PossibleAllowedCopyScopeValues() []AllowedCopyScope {
 	return []AllowedCopyScope{
 		AllowedCopyScopeAAD,
 		AllowedCopyScopePrivateLink,
+	}
+}
+
+type AllowedMethods string
+
+const (
+	AllowedMethodsDELETE  AllowedMethods = "DELETE"
+	AllowedMethodsGET     AllowedMethods = "GET"
+	AllowedMethodsHEAD    AllowedMethods = "HEAD"
+	AllowedMethodsMERGE   AllowedMethods = "MERGE"
+	AllowedMethodsOPTIONS AllowedMethods = "OPTIONS"
+	AllowedMethodsPATCH   AllowedMethods = "PATCH"
+	AllowedMethodsPOST    AllowedMethods = "POST"
+	AllowedMethodsPUT     AllowedMethods = "PUT"
+)
+
+// PossibleAllowedMethodsValues returns the possible values for the AllowedMethods const type.
+func PossibleAllowedMethodsValues() []AllowedMethods {
+	return []AllowedMethods{
+		AllowedMethodsDELETE,
+		AllowedMethodsGET,
+		AllowedMethodsHEAD,
+		AllowedMethodsMERGE,
+		AllowedMethodsOPTIONS,
+		AllowedMethodsPATCH,
+		AllowedMethodsPOST,
+		AllowedMethodsPUT,
 	}
 }
 
@@ -156,33 +183,6 @@ func PossibleBypassValues() []Bypass {
 		BypassLogging,
 		BypassMetrics,
 		BypassNone,
-	}
-}
-
-type CorsRuleAllowedMethodsItem string
-
-const (
-	CorsRuleAllowedMethodsItemDELETE  CorsRuleAllowedMethodsItem = "DELETE"
-	CorsRuleAllowedMethodsItemGET     CorsRuleAllowedMethodsItem = "GET"
-	CorsRuleAllowedMethodsItemHEAD    CorsRuleAllowedMethodsItem = "HEAD"
-	CorsRuleAllowedMethodsItemMERGE   CorsRuleAllowedMethodsItem = "MERGE"
-	CorsRuleAllowedMethodsItemOPTIONS CorsRuleAllowedMethodsItem = "OPTIONS"
-	CorsRuleAllowedMethodsItemPATCH   CorsRuleAllowedMethodsItem = "PATCH"
-	CorsRuleAllowedMethodsItemPOST    CorsRuleAllowedMethodsItem = "POST"
-	CorsRuleAllowedMethodsItemPUT     CorsRuleAllowedMethodsItem = "PUT"
-)
-
-// PossibleCorsRuleAllowedMethodsItemValues returns the possible values for the CorsRuleAllowedMethodsItem const type.
-func PossibleCorsRuleAllowedMethodsItemValues() []CorsRuleAllowedMethodsItem {
-	return []CorsRuleAllowedMethodsItem{
-		CorsRuleAllowedMethodsItemDELETE,
-		CorsRuleAllowedMethodsItemGET,
-		CorsRuleAllowedMethodsItemHEAD,
-		CorsRuleAllowedMethodsItemMERGE,
-		CorsRuleAllowedMethodsItemOPTIONS,
-		CorsRuleAllowedMethodsItemPATCH,
-		CorsRuleAllowedMethodsItemPOST,
-		CorsRuleAllowedMethodsItemPUT,
 	}
 }
 
@@ -565,25 +565,25 @@ func PossibleLargeFileSharesStateValues() []LargeFileSharesState {
 	}
 }
 
-// LeaseContainerRequestAction - Specifies the lease action. Can be one of the available actions.
-type LeaseContainerRequestAction string
+// LeaseContainerRequest - Specifies the lease action. Can be one of the available actions.
+type LeaseContainerRequest string
 
 const (
-	LeaseContainerRequestActionAcquire LeaseContainerRequestAction = "Acquire"
-	LeaseContainerRequestActionBreak   LeaseContainerRequestAction = "Break"
-	LeaseContainerRequestActionChange  LeaseContainerRequestAction = "Change"
-	LeaseContainerRequestActionRelease LeaseContainerRequestAction = "Release"
-	LeaseContainerRequestActionRenew   LeaseContainerRequestAction = "Renew"
+	LeaseContainerRequestAcquire LeaseContainerRequest = "Acquire"
+	LeaseContainerRequestBreak   LeaseContainerRequest = "Break"
+	LeaseContainerRequestChange  LeaseContainerRequest = "Change"
+	LeaseContainerRequestRelease LeaseContainerRequest = "Release"
+	LeaseContainerRequestRenew   LeaseContainerRequest = "Renew"
 )
 
-// PossibleLeaseContainerRequestActionValues returns the possible values for the LeaseContainerRequestAction const type.
-func PossibleLeaseContainerRequestActionValues() []LeaseContainerRequestAction {
-	return []LeaseContainerRequestAction{
-		LeaseContainerRequestActionAcquire,
-		LeaseContainerRequestActionBreak,
-		LeaseContainerRequestActionChange,
-		LeaseContainerRequestActionRelease,
-		LeaseContainerRequestActionRenew,
+// PossibleLeaseContainerRequestValues returns the possible values for the LeaseContainerRequest const type.
+func PossibleLeaseContainerRequestValues() []LeaseContainerRequest {
+	return []LeaseContainerRequest{
+		LeaseContainerRequestAcquire,
+		LeaseContainerRequestBreak,
+		LeaseContainerRequestChange,
+		LeaseContainerRequestRelease,
+		LeaseContainerRequestRenew,
 	}
 }
 

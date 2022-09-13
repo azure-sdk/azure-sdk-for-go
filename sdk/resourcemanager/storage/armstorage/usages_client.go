@@ -56,7 +56,6 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListByLocationPager - Gets the current usage count and the limit for the resources of the location under the subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
 // location - The location of the Azure Storage resource.
 // options - UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.ListByLocation method.
