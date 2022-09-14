@@ -56,7 +56,6 @@ func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, opt
 }
 
 // NewListPager - Returns a list of Azure Lab Services resource SKUs.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // options - SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
 func (client *SKUsClient) NewListPager(options *SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse] {

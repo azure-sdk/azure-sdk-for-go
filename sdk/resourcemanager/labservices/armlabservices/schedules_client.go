@@ -249,7 +249,6 @@ func (client *SchedulesClient) getHandleResponse(resp *http.Response) (Schedules
 }
 
 // NewListByLabPager - Returns a list of all schedules for a lab.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // labName - The name of the lab that uniquely identifies it within containing lab plan. Used in resource URIs.
