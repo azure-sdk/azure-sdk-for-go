@@ -118,7 +118,6 @@ func (client *PrivateLinkResourcesClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListByAccountPager - List all private link resources in a device update account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-10-01
 // resourceGroupName - The resource group name.
 // accountName - Account name.

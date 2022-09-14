@@ -263,7 +263,6 @@ func (client *PrivateEndpointConnectionProxiesClient) getHandleResponse(resp *ht
 }
 
 // NewListByAccountPager - (INTERNAL - DO NOT USE) List all private endpoint connection proxies in a device update account.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-10-01
 // resourceGroupName - The resource group name.
 // accountName - Account name.
