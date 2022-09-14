@@ -1,5 +1,22 @@
 # Release History
 
+## 2.0.0 (2022-09-14)
+### Breaking Changes
+
+- Type of `LinkedServiceReference.Type` has been changed from `*LinkedServiceReferenceType` to `*Type`
+- Const `LinkedServiceReferenceTypeLinkedServiceReference` has been removed
+- Type alias `LinkedServiceReferenceType` has been removed
+- Function `PossibleLinkedServiceReferenceTypeValues` has been removed
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New const `TypeLinkedServiceReference`
+- New type alias `Type`
+- New function `PossibleTypeValues() []Type`
+
+
 ## 1.3.0 (2022-09-07)
 ### Features Added
 
