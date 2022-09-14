@@ -69,11 +69,10 @@ func NewGuestAgentsClient(subscriptionID string, credential azcore.TokenCredenti
 // resourceGroupName - The Resource Group Name.
 // virtualMachineName - Name of the vm.
 // name - Name of the guestAgents.
-// body - Request payload.
 // options - GuestAgentsClientBeginCreateOptions contains the optional parameters for the GuestAgentsClient.BeginCreate method.
-func (client *GuestAgentsClient) BeginCreate(ctx context.Context, resourceGroupName string, virtualMachineName string, name string, body GuestAgent, options *GuestAgentsClientBeginCreateOptions) (*runtime.Poller[GuestAgentsClientCreateResponse], error) {
+func (client *GuestAgentsClient) BeginCreate(ctx context.Context, resourceGroupName string, virtualMachineName string, name string, options *GuestAgentsClientBeginCreateOptions) (*runtime.Poller[GuestAgentsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, virtualMachineName, name, body, options)
+		resp, err := client.create(ctx, resourceGroupName, virtualMachineName, name, options)
 		if err != nil {
 			return nil, err
 		}
@@ -88,8 +87,8 @@ func (client *GuestAgentsClient) BeginCreate(ctx context.Context, resourceGroupN
 // Create - Create Or Update GuestAgent.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
-func (client *GuestAgentsClient) create(ctx context.Context, resourceGroupName string, virtualMachineName string, name string, body GuestAgent, options *GuestAgentsClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualMachineName, name, body, options)
+func (client *GuestAgentsClient) create(ctx context.Context, resourceGroupName string, virtualMachineName string, name string, options *GuestAgentsClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualMachineName, name, options)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +103,7 @@ func (client *GuestAgentsClient) create(ctx context.Context, resourceGroupName s
 }
 
 // createCreateRequest creates the Create request.
-func (client *GuestAgentsClient) createCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineName string, name string, body GuestAgent, options *GuestAgentsClientBeginCreateOptions) (*policy.Request, error) {
+func (client *GuestAgentsClient) createCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineName string, name string, options *GuestAgentsClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/guestAgents/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -130,7 +129,10 @@ func (client *GuestAgentsClient) createCreateRequest(ctx context.Context, resour
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // BeginDelete - Implements GuestAgent DELETE method.
@@ -262,7 +264,6 @@ func (client *GuestAgentsClient) getHandleResponse(resp *http.Response) (GuestAg
 }
 
 // NewListByVMPager - Returns the list of GuestAgent of the given vm.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // virtualMachineName - Name of the vm.

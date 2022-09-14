@@ -69,11 +69,10 @@ func NewDatastoresClient(subscriptionID string, credential azcore.TokenCredentia
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // datastoreName - Name of the datastore.
-// body - Request payload.
 // options - DatastoresClientBeginCreateOptions contains the optional parameters for the DatastoresClient.BeginCreate method.
-func (client *DatastoresClient) BeginCreate(ctx context.Context, resourceGroupName string, datastoreName string, body Datastore, options *DatastoresClientBeginCreateOptions) (*runtime.Poller[DatastoresClientCreateResponse], error) {
+func (client *DatastoresClient) BeginCreate(ctx context.Context, resourceGroupName string, datastoreName string, options *DatastoresClientBeginCreateOptions) (*runtime.Poller[DatastoresClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, datastoreName, body, options)
+		resp, err := client.create(ctx, resourceGroupName, datastoreName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -88,8 +87,8 @@ func (client *DatastoresClient) BeginCreate(ctx context.Context, resourceGroupNa
 // Create - Create Or Update datastore.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
-func (client *DatastoresClient) create(ctx context.Context, resourceGroupName string, datastoreName string, body Datastore, options *DatastoresClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, datastoreName, body, options)
+func (client *DatastoresClient) create(ctx context.Context, resourceGroupName string, datastoreName string, options *DatastoresClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, datastoreName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +103,7 @@ func (client *DatastoresClient) create(ctx context.Context, resourceGroupName st
 }
 
 // createCreateRequest creates the Create request.
-func (client *DatastoresClient) createCreateRequest(ctx context.Context, resourceGroupName string, datastoreName string, body Datastore, options *DatastoresClientBeginCreateOptions) (*policy.Request, error) {
+func (client *DatastoresClient) createCreateRequest(ctx context.Context, resourceGroupName string, datastoreName string, options *DatastoresClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/datastores/{datastoreName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -126,7 +125,10 @@ func (client *DatastoresClient) createCreateRequest(ctx context.Context, resourc
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // BeginDelete - Implements datastore DELETE method.
@@ -251,7 +253,6 @@ func (client *DatastoresClient) getHandleResponse(resp *http.Response) (Datastor
 }
 
 // NewListPager - List of datastores in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
 // options - DatastoresClientListOptions contains the optional parameters for the DatastoresClient.List method.
 func (client *DatastoresClient) NewListPager(options *DatastoresClientListOptions) *runtime.Pager[DatastoresClientListResponse] {
@@ -310,7 +311,6 @@ func (client *DatastoresClient) listHandleResponse(resp *http.Response) (Datasto
 }
 
 // NewListByResourceGroupPager - List of datastores in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // options - DatastoresClientListByResourceGroupOptions contains the optional parameters for the DatastoresClient.ListByResourceGroup
@@ -379,10 +379,9 @@ func (client *DatastoresClient) listByResourceGroupHandleResponse(resp *http.Res
 // Generated from API version 2022-01-10-preview
 // resourceGroupName - The Resource Group Name.
 // datastoreName - Name of the datastore.
-// body - Resource properties to update.
 // options - DatastoresClientUpdateOptions contains the optional parameters for the DatastoresClient.Update method.
-func (client *DatastoresClient) Update(ctx context.Context, resourceGroupName string, datastoreName string, body ResourcePatch, options *DatastoresClientUpdateOptions) (DatastoresClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, datastoreName, body, options)
+func (client *DatastoresClient) Update(ctx context.Context, resourceGroupName string, datastoreName string, options *DatastoresClientUpdateOptions) (DatastoresClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, datastoreName, options)
 	if err != nil {
 		return DatastoresClientUpdateResponse{}, err
 	}
@@ -397,7 +396,7 @@ func (client *DatastoresClient) Update(ctx context.Context, resourceGroupName st
 }
 
 // updateCreateRequest creates the Update request.
-func (client *DatastoresClient) updateCreateRequest(ctx context.Context, resourceGroupName string, datastoreName string, body ResourcePatch, options *DatastoresClientUpdateOptions) (*policy.Request, error) {
+func (client *DatastoresClient) updateCreateRequest(ctx context.Context, resourceGroupName string, datastoreName string, options *DatastoresClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/datastores/{datastoreName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -419,7 +418,10 @@ func (client *DatastoresClient) updateCreateRequest(ctx context.Context, resourc
 	reqQP.Set("api-version", "2022-01-10-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
