@@ -118,6 +118,9 @@ func (client *CertificatesClient) createCreateRequest(ctx context.Context, resou
 	if err != nil {
 		return nil, err
 	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
 		return req, runtime.MarshalAsJSON(req, *options.Body)
@@ -186,6 +189,9 @@ func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resou
 	if err != nil {
 		return nil, err
 	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -235,6 +241,9 @@ func (client *CertificatesClient) getCreateRequest(ctx context.Context, resource
 	if err != nil {
 		return nil, err
 	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -249,7 +258,6 @@ func (client *CertificatesClient) getHandleResponse(resp *http.Response) (Certif
 }
 
 // NewListPager - List all certificates of given Nginx deployment
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // deploymentName - The name of targeted Nginx deployment
