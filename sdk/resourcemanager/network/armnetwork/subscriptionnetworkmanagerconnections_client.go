@@ -206,7 +206,6 @@ func (client *SubscriptionNetworkManagerConnectionsClient) getHandleResponse(res
 }
 
 // NewListPager - List all network manager connections created by this subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // options - SubscriptionNetworkManagerConnectionsClientListOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.List
 // method.

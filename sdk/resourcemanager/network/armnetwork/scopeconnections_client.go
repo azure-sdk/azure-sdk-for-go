@@ -234,7 +234,6 @@ func (client *ScopeConnectionsClient) getHandleResponse(resp *http.Response) (Sc
 }
 
 // NewListPager - List all scope connections created by this network manager.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // networkManagerName - The name of the network manager.

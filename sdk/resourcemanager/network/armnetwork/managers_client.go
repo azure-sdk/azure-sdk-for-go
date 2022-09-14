@@ -238,7 +238,6 @@ func (client *ManagersClient) getHandleResponse(resp *http.Response) (ManagersCl
 }
 
 // NewListPager - List network managers in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // options - ManagersClientListOptions contains the optional parameters for the ManagersClient.List method.
@@ -308,7 +307,6 @@ func (client *ManagersClient) listHandleResponse(resp *http.Response) (ManagersC
 }
 
 // NewListBySubscriptionPager - List all network managers in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // options - ManagersClientListBySubscriptionOptions contains the optional parameters for the ManagersClient.ListBySubscription
 // method.

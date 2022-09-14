@@ -109,7 +109,6 @@ func (client *VirtualApplianceSKUsClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListPager - List all SKUs available for a virtual appliance.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // options - VirtualApplianceSKUsClientListOptions contains the optional parameters for the VirtualApplianceSKUsClient.List
 // method.

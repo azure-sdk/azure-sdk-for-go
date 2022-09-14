@@ -1,5 +1,12 @@
 # Release History
 
+## 2.0.0 (2022-09-14)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+
 ## 1.1.0 (2022-08-05)
 ### Features Added
 

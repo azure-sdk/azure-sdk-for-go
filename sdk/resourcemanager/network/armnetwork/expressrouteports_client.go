@@ -302,7 +302,6 @@ func (client *ExpressRoutePortsClient) getHandleResponse(resp *http.Response) (E
 }
 
 // NewListPager - List all the ExpressRoutePort resources in the specified subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // options - ExpressRoutePortsClientListOptions contains the optional parameters for the ExpressRoutePortsClient.List method.
 func (client *ExpressRoutePortsClient) NewListPager(options *ExpressRoutePortsClientListOptions) *runtime.Pager[ExpressRoutePortsClientListResponse] {
@@ -361,7 +360,6 @@ func (client *ExpressRoutePortsClient) listHandleResponse(resp *http.Response) (
 }
 
 // NewListByResourceGroupPager - List all the ExpressRoutePort resources in the specified resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // options - ExpressRoutePortsClientListByResourceGroupOptions contains the optional parameters for the ExpressRoutePortsClient.ListByResourceGroup

@@ -259,7 +259,6 @@ func (client *HubRouteTablesClient) getHandleResponse(resp *http.Response) (HubR
 }
 
 // NewListPager - Retrieves the details of all RouteTables.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The resource group name of the VirtualHub.
 // virtualHubName - The name of the VirtualHub.

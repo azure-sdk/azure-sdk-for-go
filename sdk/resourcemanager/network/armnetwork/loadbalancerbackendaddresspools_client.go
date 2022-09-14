@@ -260,7 +260,6 @@ func (client *LoadBalancerBackendAddressPoolsClient) getHandleResponse(resp *htt
 }
 
 // NewListPager - Gets all the load balancer backed address pools.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // loadBalancerName - The name of the load balancer.

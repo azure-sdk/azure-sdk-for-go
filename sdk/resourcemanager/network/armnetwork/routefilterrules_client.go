@@ -259,7 +259,6 @@ func (client *RouteFilterRulesClient) getHandleResponse(resp *http.Response) (Ro
 }
 
 // NewListByRouteFilterPager - Gets all RouteFilterRules in a route filter.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // routeFilterName - The name of the route filter.
