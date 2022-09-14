@@ -118,7 +118,6 @@ func (client *PrivateLinkResourcesClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListByResourcePager - Get list of Private link resources.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-09-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // farmBeatsResourceName - FarmBeats resource name.
