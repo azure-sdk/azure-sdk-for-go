@@ -331,7 +331,6 @@ func (client *FileSharesClient) leaseHandleResponse(resp *http.Response) (FileSh
 }
 
 // NewListPager - Lists all shares.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
 // resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // accountName - The name of the storage account within the specified resource group. Storage account names must be between
