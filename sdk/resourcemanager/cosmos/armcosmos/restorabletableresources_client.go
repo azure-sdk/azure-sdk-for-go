@@ -23,19 +23,19 @@ import (
 	"strings"
 )
 
-// RestorableMongodbResourcesClient contains the methods for the RestorableMongodbResources group.
-// Don't use this type directly, use NewRestorableMongodbResourcesClient() instead.
-type RestorableMongodbResourcesClient struct {
+// RestorableTableResourcesClient contains the methods for the RestorableTableResources group.
+// Don't use this type directly, use NewRestorableTableResourcesClient() instead.
+type RestorableTableResourcesClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewRestorableMongodbResourcesClient creates a new instance of RestorableMongodbResourcesClient with the specified values.
+// NewRestorableTableResourcesClient creates a new instance of RestorableTableResourcesClient with the specified values.
 // subscriptionID - The ID of the target subscription.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewRestorableMongodbResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RestorableMongodbResourcesClient, error) {
+func NewRestorableTableResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RestorableTableResourcesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -47,7 +47,7 @@ func NewRestorableMongodbResourcesClient(subscriptionID string, credential azcor
 	if err != nil {
 		return nil, err
 	}
-	client := &RestorableMongodbResourcesClient{
+	client := &RestorableTableResourcesClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -55,30 +55,30 @@ func NewRestorableMongodbResourcesClient(subscriptionID string, credential azcor
 	return client, nil
 }
 
-// NewListPager - Return a list of database and collection combo that exist on the account at the given timestamp and location.
-// This helps in scenarios to validate what resources exist at given timestamp and location.
-// This API requires 'Microsoft.DocumentDB/locations/restorableDatabaseAccounts/…/read' permission.
+// NewListPager - Return a list of tables that exist on the account at the given timestamp and location. This helps in scenarios
+// to validate what resources exist at given timestamp and location. This API requires
+// 'Microsoft.DocumentDB/locations/restorableDatabaseAccounts/…/read' permission.
 // Generated from API version 2022-05-15-preview
 // location - Cosmos DB region, with spaces between words and each word capitalized.
 // instanceID - The instanceId GUID of a restorable database account.
-// options - RestorableMongodbResourcesClientListOptions contains the optional parameters for the RestorableMongodbResourcesClient.List
+// options - RestorableTableResourcesClientListOptions contains the optional parameters for the RestorableTableResourcesClient.List
 // method.
-func (client *RestorableMongodbResourcesClient) NewListPager(location string, instanceID string, options *RestorableMongodbResourcesClientListOptions) *runtime.Pager[RestorableMongodbResourcesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[RestorableMongodbResourcesClientListResponse]{
-		More: func(page RestorableMongodbResourcesClientListResponse) bool {
+func (client *RestorableTableResourcesClient) NewListPager(location string, instanceID string, options *RestorableTableResourcesClientListOptions) *runtime.Pager[RestorableTableResourcesClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[RestorableTableResourcesClientListResponse]{
+		More: func(page RestorableTableResourcesClientListResponse) bool {
 			return false
 		},
-		Fetcher: func(ctx context.Context, page *RestorableMongodbResourcesClientListResponse) (RestorableMongodbResourcesClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *RestorableTableResourcesClientListResponse) (RestorableTableResourcesClientListResponse, error) {
 			req, err := client.listCreateRequest(ctx, location, instanceID, options)
 			if err != nil {
-				return RestorableMongodbResourcesClientListResponse{}, err
+				return RestorableTableResourcesClientListResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return RestorableMongodbResourcesClientListResponse{}, err
+				return RestorableTableResourcesClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return RestorableMongodbResourcesClientListResponse{}, runtime.NewResponseError(resp)
+				return RestorableTableResourcesClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -86,8 +86,8 @@ func (client *RestorableMongodbResourcesClient) NewListPager(location string, in
 }
 
 // listCreateRequest creates the List request.
-func (client *RestorableMongodbResourcesClient) listCreateRequest(ctx context.Context, location string, instanceID string, options *RestorableMongodbResourcesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DocumentDB/locations/{location}/restorableDatabaseAccounts/{instanceId}/restorableMongodbResources"
+func (client *RestorableTableResourcesClient) listCreateRequest(ctx context.Context, location string, instanceID string, options *RestorableTableResourcesClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DocumentDB/locations/{location}/restorableDatabaseAccounts/{instanceId}/restorableTableResources"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -118,10 +118,10 @@ func (client *RestorableMongodbResourcesClient) listCreateRequest(ctx context.Co
 }
 
 // listHandleResponse handles the List response.
-func (client *RestorableMongodbResourcesClient) listHandleResponse(resp *http.Response) (RestorableMongodbResourcesClientListResponse, error) {
-	result := RestorableMongodbResourcesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RestorableMongodbResourcesListResult); err != nil {
-		return RestorableMongodbResourcesClientListResponse{}, err
+func (client *RestorableTableResourcesClient) listHandleResponse(resp *http.Response) (RestorableTableResourcesClientListResponse, error) {
+	result := RestorableTableResourcesClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.RestorableTableResourcesListResult); err != nil {
+		return RestorableTableResourcesClientListResponse{}, err
 	}
 	return result, nil
 }
