@@ -1,5 +1,37 @@
 # Release History
 
+## 2.1.0 (2022-09-15)
+### Features Added
+
+- New const `TriggerTypeCron`
+- New const `RecurrenceFrequencyMonth`
+- New const `RecurrenceFrequencyHour`
+- New const `RecurrenceFrequencyWeek`
+- New const `DaysOfWeekFriday`
+- New const `DaysOfWeekThursday`
+- New const `DaysOfWeekWednesday`
+- New const `DaysOfWeekSaturday`
+- New const `DaysOfWeekTuesday`
+- New const `DaysOfWeekSunday`
+- New const `RecurrenceFrequencyDay`
+- New const `TriggerTypeRecurrence`
+- New const `DaysOfWeekMonday`
+- New const `RecurrenceFrequencyMinute`
+- New type alias `RecurrenceFrequency`
+- New type alias `DaysOfWeek`
+- New type alias `TriggerType`
+- New function `PossibleTriggerTypeValues() []TriggerType`
+- New function `PossibleRecurrenceFrequencyValues() []RecurrenceFrequency`
+- New function `PossibleDaysOfWeekValues() []DaysOfWeek`
+- New struct `Cron`
+- New struct `Recurrence`
+- New struct `RecurrenceSchedule`
+- New field `Recurrence` in struct `ComputeStartStopSchedule`
+- New field `Status` in struct `ComputeStartStopSchedule`
+- New field `TriggerType` in struct `ComputeStartStopSchedule`
+- New field `Cron` in struct `ComputeStartStopSchedule`
+
+
 ## 2.0.0 (2022-06-09)
 ### Breaking Changes
 
