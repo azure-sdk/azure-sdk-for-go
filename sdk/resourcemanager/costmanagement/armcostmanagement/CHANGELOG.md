@@ -1,5 +1,77 @@
 # Release History
 
+## 2.0.0 (2022-09-20)
+### Breaking Changes
+
+- Type of `ForecastDataset.Aggregation` has been changed from `map[string]*QueryAggregation` to `map[string]*ForecastAggregation`
+- Type of `ForecastDataset.Configuration` has been changed from `*QueryDatasetConfiguration` to `*ForecastDatasetConfiguration`
+- Type of `ForecastDataset.Filter` has been changed from `*QueryFilter` to `*ForecastFilter`
+- Type of `ForecastDefinition.TimePeriod` has been changed from `*QueryTimePeriod` to `*ForecastTimePeriod`
+- Type of `ForecastDefinition.Timeframe` has been changed from `*ForecastTimeframeType` to `*ForecastTimeframe`
+- Const `ForecastTimeframeTypeCustom` has been removed
+- Const `ForecastTimeframeTypeTheLastBillingMonth` has been removed
+- Const `ForecastTimeframeTypeBillingMonthToDate` has been removed
+- Const `ForecastTimeframeTypeWeekToDate` has been removed
+- Const `ForecastTimeframeTypeTheLastMonth` has been removed
+- Const `ForecastTimeframeTypeMonthToDate` has been removed
+- Type alias `ForecastTimeframeType` has been removed
+- Function `PossibleForecastTimeframeTypeValues` has been removed
+- Field `QueryResult` of struct `ForecastClientExternalCloudProviderUsageResponse` has been removed
+- Field `QueryResult` of struct `ForecastClientUsageResponse` has been removed
+
+### Features Added
+
+- New const `FunctionNamePreTaxCostUSD`
+- New const `CostDetailsMetricTypeActualCostCostDetailsMetricType`
+- New const `CostDetailsMetricTypeAmortizedCostCostDetailsMetricType`
+- New const `FunctionNameCost`
+- New const `CostDetailsStatusTypeFailedCostDetailsStatusType`
+- New const `CostDetailsStatusTypeCompletedCostDetailsStatusType`
+- New const `FunctionNamePreTaxCost`
+- New const `CostDetailsDataFormatCSVCostDetailsDataFormat`
+- New const `CostDetailsStatusTypeNoDataFoundCostDetailsStatusType`
+- New const `FunctionNameCostUSD`
+- New const `ForecastOperatorTypeIn`
+- New const `ForecastTimeframeCustom`
+- New type alias `ForecastTimeframe`
+- New type alias `CostDetailsStatusType`
+- New type alias `CostDetailsMetricType`
+- New type alias `ForecastOperatorType`
+- New type alias `FunctionName`
+- New type alias `CostDetailsDataFormat`
+- New function `PossibleFunctionNameValues() []FunctionName`
+- New function `*GenerateCostDetailsReportClient.BeginGetOperationResults(context.Context, string, string, *GenerateCostDetailsReportClientBeginGetOperationResultsOptions) (*runtime.Poller[GenerateCostDetailsReportClientGetOperationResultsResponse], error)`
+- New function `NewGenerateCostDetailsReportClient(azcore.TokenCredential, *arm.ClientOptions) (*GenerateCostDetailsReportClient, error)`
+- New function `PossibleForecastOperatorTypeValues() []ForecastOperatorType`
+- New function `*GenerateCostDetailsReportClient.BeginCreateOperation(context.Context, string, GenerateCostDetailsReportRequestDefinition, *GenerateCostDetailsReportClientBeginCreateOperationOptions) (*runtime.Poller[GenerateCostDetailsReportClientCreateOperationResponse], error)`
+- New function `PossibleCostDetailsStatusTypeValues() []CostDetailsStatusType`
+- New function `PossibleCostDetailsDataFormatValues() []CostDetailsDataFormat`
+- New function `PossibleForecastTimeframeValues() []ForecastTimeframe`
+- New function `PossibleCostDetailsMetricTypeValues() []CostDetailsMetricType`
+- New struct `BlobInfo`
+- New struct `CostDetailsOperationResults`
+- New struct `CostDetailsTimePeriod`
+- New struct `ForecastAggregation`
+- New struct `ForecastColumn`
+- New struct `ForecastComparisonExpression`
+- New struct `ForecastDatasetConfiguration`
+- New struct `ForecastFilter`
+- New struct `ForecastProperties`
+- New struct `ForecastResult`
+- New struct `ForecastTimePeriod`
+- New struct `GenerateCostDetailsReportClient`
+- New struct `GenerateCostDetailsReportClientBeginCreateOperationOptions`
+- New struct `GenerateCostDetailsReportClientBeginGetOperationResultsOptions`
+- New struct `GenerateCostDetailsReportClientCreateOperationResponse`
+- New struct `GenerateCostDetailsReportClientGetOperationResultsResponse`
+- New struct `GenerateCostDetailsReportErrorResponse`
+- New struct `GenerateCostDetailsReportRequestDefinition`
+- New struct `ReportManifest`
+- New struct `RequestContext`
+- New anonymous field `ForecastResult` in struct `ForecastClientExternalCloudProviderUsageResponse`
+- New anonymous field `ForecastResult` in struct `ForecastClientUsageResponse`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
