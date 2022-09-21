@@ -235,7 +235,6 @@ func (client *FederatedIdentityCredentialsClient) getHandleResponse(resp *http.R
 }
 
 // NewListPager - Lists all the federated identity credentials under the specified user assigned identity.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-31-preview
 // resourceGroupName - The name of the Resource Group to which the identity belongs.
 // resourceName - The name of the identity resource.
