@@ -459,7 +459,7 @@ type GatewaysClientDeleteOptions struct {
 // Identity for the resource.
 type Identity struct {
 	// REQUIRED; Type of managed service identity.
-	Type *IdentityType `json:"type,omitempty"`
+	Type *IdentityTypeForCluster `json:"type,omitempty"`
 
 	// The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource
 	// ids in the form:
@@ -946,6 +946,12 @@ type QueriesClientUpdateOptions struct {
 
 // QueryPacksClientCreateOrUpdateOptions contains the optional parameters for the QueryPacksClient.CreateOrUpdate method.
 type QueryPacksClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// QueryPacksClientCreateOrUpdateWithoutNameOptions contains the optional parameters for the QueryPacksClient.CreateOrUpdateWithoutName
+// method.
+type QueryPacksClientCreateOrUpdateWithoutNameOptions struct {
 	// placeholder for future optional parameters
 }
 

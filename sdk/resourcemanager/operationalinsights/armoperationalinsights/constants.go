@@ -11,7 +11,7 @@ package armoperationalinsights
 
 const (
 	moduleName    = "armoperationalinsights"
-	moduleVersion = "v2.0.0-beta.2"
+	moduleVersion = "v2.0.0-beta.3"
 )
 
 // BillingType - Configures whether billing will be only on the cluster or each workspace will be billed by its proportional
@@ -329,10 +329,7 @@ const (
 	IdentityTypeApplication     IdentityType = "application"
 	IdentityTypeKey             IdentityType = "key"
 	IdentityTypeManagedIdentity IdentityType = "managedIdentity"
-	IdentityTypeNone            IdentityType = "None"
-	IdentityTypeSystemAssigned  IdentityType = "SystemAssigned"
 	IdentityTypeUser            IdentityType = "user"
-	IdentityTypeUserAssigned    IdentityType = "UserAssigned"
 )
 
 // PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
@@ -341,10 +338,25 @@ func PossibleIdentityTypeValues() []IdentityType {
 		IdentityTypeApplication,
 		IdentityTypeKey,
 		IdentityTypeManagedIdentity,
-		IdentityTypeNone,
-		IdentityTypeSystemAssigned,
 		IdentityTypeUser,
-		IdentityTypeUserAssigned,
+	}
+}
+
+// IdentityTypeForCluster - Type of managed service identity.
+type IdentityTypeForCluster string
+
+const (
+	IdentityTypeForClusterSystemAssigned IdentityTypeForCluster = "SystemAssigned"
+	IdentityTypeForClusterUserAssigned   IdentityTypeForCluster = "UserAssigned"
+	IdentityTypeForClusterNone           IdentityTypeForCluster = "None"
+)
+
+// PossibleIdentityTypeForClusterValues returns the possible values for the IdentityTypeForCluster const type.
+func PossibleIdentityTypeForClusterValues() []IdentityTypeForCluster {
+	return []IdentityTypeForCluster{
+		IdentityTypeForClusterSystemAssigned,
+		IdentityTypeForClusterUserAssigned,
+		IdentityTypeForClusterNone,
 	}
 }
 

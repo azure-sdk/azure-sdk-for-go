@@ -206,6 +206,11 @@ type QueryPacksClientCreateOrUpdateResponse struct {
 	LogAnalyticsQueryPack
 }
 
+// QueryPacksClientCreateOrUpdateWithoutNameResponse contains the response from method QueryPacksClient.CreateOrUpdateWithoutName.
+type QueryPacksClientCreateOrUpdateWithoutNameResponse struct {
+	LogAnalyticsQueryPack
+}
+
 // QueryPacksClientDeleteResponse contains the response from method QueryPacksClient.Delete.
 type QueryPacksClientDeleteResponse struct {
 	// placeholder for future response values

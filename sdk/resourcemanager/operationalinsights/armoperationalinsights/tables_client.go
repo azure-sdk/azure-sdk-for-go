@@ -257,7 +257,6 @@ func (client *TablesClient) getHandleResponse(resp *http.Response) (TablesClient
 }
 
 // NewListByWorkspacePager - Gets all the tables for the specified Log Analytics workspace.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.

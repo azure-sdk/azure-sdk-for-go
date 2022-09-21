@@ -1,5 +1,25 @@
 # Release History
 
+## 2.0.0-beta.3 (2022-09-21)
+### Breaking Changes
+
+- Type of `Identity.Type` has been changed from `*IdentityType` to `*IdentityTypeForCluster`
+- Const `IdentityTypeUserAssigned` has been removed
+- Const `IdentityTypeSystemAssigned` has been removed
+- Const `IdentityTypeNone` has been removed
+
+### Features Added
+
+- New const `IdentityTypeForClusterUserAssigned`
+- New const `IdentityTypeForClusterNone`
+- New const `IdentityTypeForClusterSystemAssigned`
+- New type alias `IdentityTypeForCluster`
+- New function `*QueryPacksClient.CreateOrUpdateWithoutName(context.Context, string, LogAnalyticsQueryPack, *QueryPacksClientCreateOrUpdateWithoutNameOptions) (QueryPacksClientCreateOrUpdateWithoutNameResponse, error)`
+- New function `PossibleIdentityTypeForClusterValues() []IdentityTypeForCluster`
+- New struct `QueryPacksClientCreateOrUpdateWithoutNameOptions`
+- New struct `QueryPacksClientCreateOrUpdateWithoutNameResponse`
+
+
 ## 2.0.0-beta.2 (2022-06-24)
 ### Features Added
 
