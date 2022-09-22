@@ -23,20 +23,20 @@ import (
 	"strings"
 )
 
-// UsagesClient contains the methods for the Usages group.
-// Don't use this type directly, use NewUsagesClient() instead.
-type UsagesClient struct {
+// ApplicationGatewayWafDynamicManifestsClient contains the methods for the ApplicationGatewayWafDynamicManifests group.
+// Don't use this type directly, use NewApplicationGatewayWafDynamicManifestsClient() instead.
+type ApplicationGatewayWafDynamicManifestsClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewUsagesClient creates a new instance of UsagesClient with the specified values.
+// NewApplicationGatewayWafDynamicManifestsClient creates a new instance of ApplicationGatewayWafDynamicManifestsClient with the specified values.
 // subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
 // ID forms part of the URI for every service call.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsagesClient, error) {
+func NewApplicationGatewayWafDynamicManifestsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationGatewayWafDynamicManifestsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -48,7 +48,7 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 	if err != nil {
 		return nil, err
 	}
-	client := &UsagesClient{
+	client := &ApplicationGatewayWafDynamicManifestsClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -56,41 +56,42 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 	return client, nil
 }
 
-// NewListPager - List network usages for a subscription.
+// NewGetPager - Gets the regional application gateway waf manifest.
 // Generated from API version 2022-05-01
-// location - The location where resource usage is queried.
-// options - UsagesClientListOptions contains the optional parameters for the UsagesClient.List method.
-func (client *UsagesClient) NewListPager(location string, options *UsagesClientListOptions) *runtime.Pager[UsagesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[UsagesClientListResponse]{
-		More: func(page UsagesClientListResponse) bool {
+// location - The region where the nrp are located at.
+// options - ApplicationGatewayWafDynamicManifestsClientGetOptions contains the optional parameters for the ApplicationGatewayWafDynamicManifestsClient.Get
+// method.
+func (client *ApplicationGatewayWafDynamicManifestsClient) NewGetPager(location string, options *ApplicationGatewayWafDynamicManifestsClientGetOptions) *runtime.Pager[ApplicationGatewayWafDynamicManifestsClientGetResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ApplicationGatewayWafDynamicManifestsClientGetResponse]{
+		More: func(page ApplicationGatewayWafDynamicManifestsClientGetResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *UsagesClientListResponse) (UsagesClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *ApplicationGatewayWafDynamicManifestsClientGetResponse) (ApplicationGatewayWafDynamicManifestsClientGetResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listCreateRequest(ctx, location, options)
+				req, err = client.getCreateRequest(ctx, location, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return UsagesClientListResponse{}, err
+				return ApplicationGatewayWafDynamicManifestsClientGetResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return UsagesClientListResponse{}, err
+				return ApplicationGatewayWafDynamicManifestsClientGetResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return UsagesClientListResponse{}, runtime.NewResponseError(resp)
+				return ApplicationGatewayWafDynamicManifestsClientGetResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listHandleResponse(resp)
+			return client.getHandleResponse(resp)
 		},
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *UsagesClient) listCreateRequest(ctx context.Context, location string, options *UsagesClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/usages"
+// getCreateRequest creates the Get request.
+func (client *ApplicationGatewayWafDynamicManifestsClient) getCreateRequest(ctx context.Context, location string, options *ApplicationGatewayWafDynamicManifestsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/applicationGatewayWafDynamicManifests"
 	if location == "" {
 		return nil, errors.New("parameter location cannot be empty")
 	}
@@ -110,11 +111,11 @@ func (client *UsagesClient) listCreateRequest(ctx context.Context, location stri
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *UsagesClient) listHandleResponse(resp *http.Response) (UsagesClientListResponse, error) {
-	result := UsagesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.UsagesListResult); err != nil {
-		return UsagesClientListResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *ApplicationGatewayWafDynamicManifestsClient) getHandleResponse(resp *http.Response) (ApplicationGatewayWafDynamicManifestsClientGetResponse, error) {
+	result := ApplicationGatewayWafDynamicManifestsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ApplicationGatewayWafDynamicManifestResultList); err != nil {
+		return ApplicationGatewayWafDynamicManifestsClientGetResponse{}, err
 	}
 	return result, nil
 }
