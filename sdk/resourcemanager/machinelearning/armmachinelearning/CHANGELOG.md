@@ -1,5 +1,385 @@
 # Release History
 
+## 3.0.0 (2022-09-23)
+### Breaking Changes
+
+- Type of `CommandJob.Resources` has been changed from `*ResourceConfiguration` to `*JobResourceConfiguration`
+- Type of `TrialComponent.Resources` has been changed from `*ResourceConfiguration` to `*JobResourceConfiguration`
+- Type of `BatchDeploymentProperties.Resources` has been changed from `*ResourceConfiguration` to `*DeploymentResourceConfiguration`
+
+### Features Added
+
+- New const `SeasonalityModeCustom`
+- New const `RegressionPrimaryMetricsSpearmanCorrelation`
+- New const `ScheduleProvisioningStatusCanceled`
+- New const `ModelSizeLarge`
+- New const `ForecastingModelsSGD`
+- New const `ClassificationMultilabelPrimaryMetricsIOU`
+- New const `ForecastingModelsLassoLars`
+- New const `BlockedTransformersTextTargetEncoder`
+- New const `ClassificationModelsKNN`
+- New const `ForecastHorizonModeAuto`
+- New const `EgressPublicNetworkAccessTypeDisabled`
+- New const `ClassificationModelsGradientBoosting`
+- New const `RegressionModelsSGD`
+- New const `TriggerTypeCron`
+- New const `RegressionModelsElasticNet`
+- New const `ForecastingModelsGradientBoosting`
+- New const `WeekDaySaturday`
+- New const `RegressionModelsLassoLars`
+- New const `ClassificationMultilabelPrimaryMetricsAveragePrecisionScoreWeighted`
+- New const `StackMetaLearnerTypeElasticNetCV`
+- New const `ForecastingModelsExponentialSmoothing`
+- New const `UseStlSeasonTrend`
+- New const `WeekDayMonday`
+- New const `TaskTypeTextNER`
+- New const `ClassificationMultilabelPrimaryMetricsNormMacroRecall`
+- New const `AutoRebuildSettingDisabled`
+- New const `StackMetaLearnerTypeNone`
+- New const `StackMetaLearnerTypeLightGBMRegressor`
+- New const `BlockedTransformersOneHotEncoder`
+- New const `ClassificationPrimaryMetricsAveragePrecisionScoreWeighted`
+- New const `ShortSeriesHandlingConfigurationDrop`
+- New const `ScheduleProvisioningStatusUpdating`
+- New const `ValidationMetricTypeNone`
+- New const `WeekDayTuesday`
+- New const `ForecastingModelsSeasonalAverage`
+- New const `ScheduleProvisioningStatusFailed`
+- New const `StochasticOptimizerSgd`
+- New const `ClassificationMultilabelPrimaryMetricsAUCWeighted`
+- New const `TriggerTypeRecurrence`
+- New const `FeaturizationModeAuto`
+- New const `ClassificationPrimaryMetricsAUCWeighted`
+- New const `RegressionModelsGradientBoosting`
+- New const `WeekDaySunday`
+- New const `ForecastingPrimaryMetricsNormalizedMeanAbsoluteError`
+- New const `ForecastingModelsSeasonalNaive`
+- New const `ClassificationModelsLightGBM`
+- New const `AutoRebuildSettingOnBaseImageUpdate`
+- New const `RecurrenceFrequencyDay`
+- New const `ScheduleActionTypeCreateJob`
+- New const `FeatureLagsNone`
+- New const `WeekDayFriday`
+- New const `RecurrenceFrequencyMinute`
+- New const `StackMetaLearnerTypeLinearRegression`
+- New const `ClassificationModelsSGD`
+- New const `LogVerbosityError`
+- New const `EgressPublicNetworkAccessTypeEnabled`
+- New const `RecurrenceFrequencyWeek`
+- New const `BlockedTransformersCatTargetEncoder`
+- New const `UseStlSeason`
+- New const `RegressionPrimaryMetricsNormalizedMeanAbsoluteError`
+- New const `ModelSizeNone`
+- New const `TaskTypeRegression`
+- New const `RegressionModelsDecisionTree`
+- New const `TargetLagsModeCustom`
+- New const `ModelSizeMedium`
+- New const `TargetAggregationFunctionMax`
+- New const `ForecastingModelsTCNForecaster`
+- New const `InstanceSegmentationPrimaryMetricsMeanAveragePrecision`
+- New const `ShortSeriesHandlingConfigurationPad`
+- New const `NCrossValidationsModeAuto`
+- New const `ValidationMetricTypeCocoVoc`
+- New const `LearningRateSchedulerStep`
+- New const `RegressionModelsRandomForest`
+- New const `TaskTypeImageClassificationMultilabel`
+- New const `PublicNetworkAccessTypeEnabled`
+- New const `RecurrenceFrequencyHour`
+- New const `BlockedTransformersWordEmbedding`
+- New const `ClassificationModelsLinearSVM`
+- New const `ForecastingModelsAutoArima`
+- New const `RegressionModelsKNN`
+- New const `ForecastingPrimaryMetricsSpearmanCorrelation`
+- New const `BlockedTransformersTfIdf`
+- New const `ForecastingModelsAverage`
+- New const `ForecastingModelsExtremeRandomTrees`
+- New const `TaskTypeTextClassificationMultilabel`
+- New const `StochasticOptimizerAdam`
+- New const `LogVerbosityCritical`
+- New const `ClassificationModelsSVM`
+- New const `TaskTypeTextClassification`
+- New const `ShortSeriesHandlingConfigurationAuto`
+- New const `ValidationMetricTypeCoco`
+- New const `TargetAggregationFunctionNone`
+- New const `LogVerbosityDebug`
+- New const `ScheduleProvisioningStatusCreating`
+- New const `ForecastingModelsXGBoostRegressor`
+- New const `ForecastingModelsRandomForest`
+- New const `StackMetaLearnerTypeLogisticRegression`
+- New const `RegressionModelsLightGBM`
+- New const `BlockedTransformersWoETargetEncoder`
+- New const `ClassificationModelsBernoulliNaiveBayes`
+- New const `ForecastingPrimaryMetricsR2Score`
+- New const `ScheduleListViewTypeAll`
+- New const `PublicNetworkAccessTypeDisabled`
+- New const `ForecastingModelsArimax`
+- New const `StackMetaLearnerTypeLogisticRegressionCV`
+- New const `WeekDayWednesday`
+- New const `ClassificationModelsLogisticRegression`
+- New const `BlockedTransformersCountVectorizer`
+- New const `ScheduleProvisioningStatusSucceeded`
+- New const `ScheduleActionTypeInvokeBatchEndpoint`
+- New const `ClassificationModelsXGBoostClassifier`
+- New const `BlockedTransformersNaiveBayes`
+- New const `TargetAggregationFunctionMean`
+- New const `ClassificationMultilabelPrimaryMetricsAccuracy`
+- New const `ClassificationPrimaryMetricsAccuracy`
+- New const `ClassificationPrimaryMetricsPrecisionScoreWeighted`
+- New const `ForecastingPrimaryMetricsNormalizedRootMeanSquaredError`
+- New const `ClassificationModelsMultinomialNaiveBayes`
+- New const `ValidationMetricTypeVoc`
+- New const `ForecastingModelsProphet`
+- New const `FeaturizationModeOff`
+- New const `LogVerbosityInfo`
+- New const `TaskTypeClassification`
+- New const `ClassificationModelsRandomForest`
+- New const `ScheduleListViewTypeDisabledOnly`
+- New const `SeasonalityModeAuto`
+- New const `TaskTypeImageClassification`
+- New const `BlockedTransformersLabelEncoder`
+- New const `ForecastHorizonModeCustom`
+- New const `ClassificationPrimaryMetricsNormMacroRecall`
+- New const `BlockedTransformersHashOneHotEncoder`
+- New const `RegressionPrimaryMetricsR2Score`
+- New const `ForecastingModelsKNN`
+- New const `WeekDayThursday`
+- New const `TaskTypeImageInstanceSegmentation`
+- New const `RecurrenceFrequencyMonth`
+- New const `ScheduleListViewTypeEnabledOnly`
+- New const `TargetRollingWindowSizeModeCustom`
+- New const `StochasticOptimizerNone`
+- New const `LearningRateSchedulerNone`
+- New const `ClassificationModelsDecisionTree`
+- New const `TargetAggregationFunctionSum`
+- New const `ClassificationMultilabelPrimaryMetricsPrecisionScoreWeighted`
+- New const `ForecastingModelsLightGBM`
+- New const `ClassificationModelsExtremeRandomTrees`
+- New const `ObjectDetectionPrimaryMetricsMeanAveragePrecision`
+- New const `StackMetaLearnerTypeLightGBMClassifier`
+- New const `ScheduleProvisioningStatusDeleting`
+- New const `UseStlNone`
+- New const `StackMetaLearnerTypeElasticNet`
+- New const `TaskTypeImageObjectDetection`
+- New const `TargetLagsModeAuto`
+- New const `TaskTypeForecasting`
+- New const `FeatureLagsAuto`
+- New const `RegressionPrimaryMetricsNormalizedRootMeanSquaredError`
+- New const `ShortSeriesHandlingConfigurationNone`
+- New const `ModelSizeSmall`
+- New const `ForecastingModelsDecisionTree`
+- New const `FeaturizationModeCustom`
+- New const `ForecastingModelsElasticNet`
+- New const `LogVerbosityNotSet`
+- New const `RegressionModelsXGBoostRegressor`
+- New const `TargetRollingWindowSizeModeAuto`
+- New const `RegressionModelsExtremeRandomTrees`
+- New const `ForecastingModelsNaive`
+- New const `LogVerbosityWarning`
+- New const `StochasticOptimizerAdamw`
+- New const `JobTypeAutoML`
+- New const `ModelSizeExtraLarge`
+- New const `LearningRateSchedulerWarmupCosine`
+- New const `NCrossValidationsModeCustom`
+- New const `TargetAggregationFunctionMin`
+- New type alias `SeasonalityMode`
+- New type alias `BlockedTransformers`
+- New type alias `LogVerbosity`
+- New type alias `EgressPublicNetworkAccessType`
+- New type alias `ScheduleListViewType`
+- New type alias `ForecastingPrimaryMetrics`
+- New type alias `RecurrenceFrequency`
+- New type alias `ClassificationModels`
+- New type alias `RegressionPrimaryMetrics`
+- New type alias `ValidationMetricType`
+- New type alias `ScheduleProvisioningStatus`
+- New type alias `StackMetaLearnerType`
+- New type alias `NCrossValidationsMode`
+- New type alias `LearningRateScheduler`
+- New type alias `TargetAggregationFunction`
+- New type alias `TriggerType`
+- New type alias `TargetRollingWindowSizeMode`
+- New type alias `UseStl`
+- New type alias `PublicNetworkAccessType`
+- New type alias `InstanceSegmentationPrimaryMetrics`
+- New type alias `ForecastHorizonMode`
+- New type alias `ClassificationPrimaryMetrics`
+- New type alias `TargetLagsMode`
+- New type alias `FeaturizationMode`
+- New type alias `AutoRebuildSetting`
+- New type alias `ForecastingModels`
+- New type alias `ShortSeriesHandlingConfiguration`
+- New type alias `ModelSize`
+- New type alias `ObjectDetectionPrimaryMetrics`
+- New type alias `ClassificationMultilabelPrimaryMetrics`
+- New type alias `TaskType`
+- New type alias `FeatureLags`
+- New type alias `RegressionModels`
+- New type alias `WeekDay`
+- New type alias `StochasticOptimizer`
+- New type alias `ScheduleActionType`
+- New function `PossibleEgressPublicNetworkAccessTypeValues() []EgressPublicNetworkAccessType`
+- New function `PossibleTriggerTypeValues() []TriggerType`
+- New function `PossibleClassificationModelsValues() []ClassificationModels`
+- New function `*Regression.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleForecastingModelsValues() []ForecastingModels`
+- New function `PossibleTargetAggregationFunctionValues() []TargetAggregationFunction`
+- New function `*Classification.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleRegressionPrimaryMetricsValues() []RegressionPrimaryMetrics`
+- New function `*SchedulesClient.Get(context.Context, string, string, string, *SchedulesClientGetOptions) (SchedulesClientGetResponse, error)`
+- New function `*TargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `*ImageClassification.GetAutoMLVertical() *AutoMLVertical`
+- New function `*TargetLags.GetTargetLags() *TargetLags`
+- New function `*AutoMLVertical.GetAutoMLVertical() *AutoMLVertical`
+- New function `*SchedulesClient.BeginDelete(context.Context, string, string, string, *SchedulesClientBeginDeleteOptions) (*runtime.Poller[SchedulesClientDeleteResponse], error)`
+- New function `PossibleForecastingPrimaryMetricsValues() []ForecastingPrimaryMetrics`
+- New function `PossibleRegressionModelsValues() []RegressionModels`
+- New function `*Forecasting.GetAutoMLVertical() *AutoMLVertical`
+- New function `*TextClassification.GetAutoMLVertical() *AutoMLVertical`
+- New function `*CronTrigger.GetTriggerBase() *TriggerBase`
+- New function `PossibleObjectDetectionPrimaryMetricsValues() []ObjectDetectionPrimaryMetrics`
+- New function `PossibleValidationMetricTypeValues() []ValidationMetricType`
+- New function `*CustomTargetLags.GetTargetLags() *TargetLags`
+- New function `PossibleScheduleProvisioningStatusValues() []ScheduleProvisioningStatus`
+- New function `*NCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `PossibleTargetRollingWindowSizeModeValues() []TargetRollingWindowSizeMode`
+- New function `PossibleLogVerbosityValues() []LogVerbosity`
+- New function `*JobScheduleAction.GetScheduleActionBase() *ScheduleActionBase`
+- New function `PossibleClassificationPrimaryMetricsValues() []ClassificationPrimaryMetrics`
+- New function `PossibleScheduleActionTypeValues() []ScheduleActionType`
+- New function `PossibleFeaturizationModeValues() []FeaturizationMode`
+- New function `PossibleTargetLagsModeValues() []TargetLagsMode`
+- New function `PossibleSeasonalityModeValues() []SeasonalityMode`
+- New function `*AutoNCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `*TextNer.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleNCrossValidationsModeValues() []NCrossValidationsMode`
+- New function `PossibleScheduleListViewTypeValues() []ScheduleListViewType`
+- New function `*CustomTargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `PossibleAutoRebuildSettingValues() []AutoRebuildSetting`
+- New function `*ImageObjectDetection.GetAutoMLVertical() *AutoMLVertical`
+- New function `*TriggerBase.GetTriggerBase() *TriggerBase`
+- New function `*AutoTargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `PossibleShortSeriesHandlingConfigurationValues() []ShortSeriesHandlingConfiguration`
+- New function `*CustomNCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `*TextClassificationMultilabel.GetAutoMLVertical() *AutoMLVertical`
+- New function `*AutoMLJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*CustomSeasonality.GetSeasonality() *Seasonality`
+- New function `*Seasonality.GetSeasonality() *Seasonality`
+- New function `*SchedulesClient.NewListPager(string, string, *SchedulesClientListOptions) *runtime.Pager[SchedulesClientListResponse]`
+- New function `PossibleClassificationMultilabelPrimaryMetricsValues() []ClassificationMultilabelPrimaryMetrics`
+- New function `PossibleInstanceSegmentationPrimaryMetricsValues() []InstanceSegmentationPrimaryMetrics`
+- New function `PossibleBlockedTransformersValues() []BlockedTransformers`
+- New function `*AutoSeasonality.GetSeasonality() *Seasonality`
+- New function `PossibleRecurrenceFrequencyValues() []RecurrenceFrequency`
+- New function `*AutoTargetLags.GetTargetLags() *TargetLags`
+- New function `*AutoForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `*SchedulesClient.BeginCreateOrUpdate(context.Context, string, string, string, Schedule, *SchedulesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SchedulesClientCreateOrUpdateResponse], error)`
+- New function `PossibleStackMetaLearnerTypeValues() []StackMetaLearnerType`
+- New function `*ImageInstanceSegmentation.GetAutoMLVertical() *AutoMLVertical`
+- New function `*ScheduleActionBase.GetScheduleActionBase() *ScheduleActionBase`
+- New function `PossibleModelSizeValues() []ModelSize`
+- New function `*ForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `PossibleFeatureLagsValues() []FeatureLags`
+- New function `*CustomForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `PossibleStochasticOptimizerValues() []StochasticOptimizer`
+- New function `PossibleForecastHorizonModeValues() []ForecastHorizonMode`
+- New function `PossibleTaskTypeValues() []TaskType`
+- New function `NewSchedulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SchedulesClient, error)`
+- New function `PossibleWeekDayValues() []WeekDay`
+- New function `PossibleLearningRateSchedulerValues() []LearningRateScheduler`
+- New function `*RecurrenceTrigger.GetTriggerBase() *TriggerBase`
+- New function `PossiblePublicNetworkAccessTypeValues() []PublicNetworkAccessType`
+- New function `PossibleUseStlValues() []UseStl`
+- New function `*EndpointScheduleAction.GetScheduleActionBase() *ScheduleActionBase`
+- New function `*ImageClassificationMultilabel.GetAutoMLVertical() *AutoMLVertical`
+- New struct `AutoForecastHorizon`
+- New struct `AutoMLJob`
+- New struct `AutoMLVertical`
+- New struct `AutoNCrossValidations`
+- New struct `AutoSeasonality`
+- New struct `AutoTargetLags`
+- New struct `AutoTargetRollingWindowSize`
+- New struct `Classification`
+- New struct `ClassificationTrainingSettings`
+- New struct `ColumnTransformer`
+- New struct `CronTrigger`
+- New struct `CustomForecastHorizon`
+- New struct `CustomNCrossValidations`
+- New struct `CustomSeasonality`
+- New struct `CustomTargetLags`
+- New struct `CustomTargetRollingWindowSize`
+- New struct `DeploymentResourceConfiguration`
+- New struct `EndpointScheduleAction`
+- New struct `FeaturizationSettings`
+- New struct `ForecastHorizon`
+- New struct `Forecasting`
+- New struct `ForecastingSettings`
+- New struct `ForecastingTrainingSettings`
+- New struct `ImageClassification`
+- New struct `ImageClassificationBase`
+- New struct `ImageClassificationMultilabel`
+- New struct `ImageInstanceSegmentation`
+- New struct `ImageLimitSettings`
+- New struct `ImageModelDistributionSettings`
+- New struct `ImageModelDistributionSettingsClassification`
+- New struct `ImageModelDistributionSettingsObjectDetection`
+- New struct `ImageModelSettings`
+- New struct `ImageModelSettingsClassification`
+- New struct `ImageModelSettingsObjectDetection`
+- New struct `ImageObjectDetection`
+- New struct `ImageObjectDetectionBase`
+- New struct `ImageSweepSettings`
+- New struct `ImageVertical`
+- New struct `JobResourceConfiguration`
+- New struct `JobScheduleAction`
+- New struct `NCrossValidations`
+- New struct `NlpVertical`
+- New struct `NlpVerticalFeaturizationSettings`
+- New struct `NlpVerticalLimitSettings`
+- New struct `RecurrenceSchedule`
+- New struct `RecurrenceTrigger`
+- New struct `Regression`
+- New struct `RegressionTrainingSettings`
+- New struct `Schedule`
+- New struct `ScheduleActionBase`
+- New struct `ScheduleProperties`
+- New struct `ScheduleResourceArmPaginatedResult`
+- New struct `SchedulesClient`
+- New struct `SchedulesClientBeginCreateOrUpdateOptions`
+- New struct `SchedulesClientBeginDeleteOptions`
+- New struct `SchedulesClientCreateOrUpdateResponse`
+- New struct `SchedulesClientDeleteResponse`
+- New struct `SchedulesClientGetOptions`
+- New struct `SchedulesClientGetResponse`
+- New struct `SchedulesClientListOptions`
+- New struct `SchedulesClientListResponse`
+- New struct `Seasonality`
+- New struct `StackEnsembleSettings`
+- New struct `TableVertical`
+- New struct `TableVerticalFeaturizationSettings`
+- New struct `TableVerticalLimitSettings`
+- New struct `TargetLags`
+- New struct `TargetRollingWindowSize`
+- New struct `TextClassification`
+- New struct `TextClassificationMultilabel`
+- New struct `TextNer`
+- New struct `TrainingSettings`
+- New struct `TriggerBase`
+- New field `PublicNetworkAccess` in struct `OnlineEndpointProperties`
+- New field `ComponentID` in struct `CommandJob`
+- New field `EgressPublicNetworkAccess` in struct `OnlineDeploymentProperties`
+- New field `SourceJobID` in struct `PipelineJob`
+- New field `ComponentID` in struct `PipelineJob`
+- New field `ComponentID` in struct `JobBaseProperties`
+- New field `EgressPublicNetworkAccess` in struct `ManagedOnlineDeployment`
+- New field `Status` in struct `ComputeStartStopSchedule`
+- New field `TriggerType` in struct `ComputeStartStopSchedule`
+- New field `Cron` in struct `ComputeStartStopSchedule`
+- New field `Recurrence` in struct `ComputeStartStopSchedule`
+- New field `ComponentID` in struct `SweepJob`
+- New field `AutoRebuild` in struct `EnvironmentVersionProperties`
+- New field `EgressPublicNetworkAccess` in struct `KubernetesOnlineDeployment`
+
+
 ## 2.0.0 (2022-06-09)
 ### Breaking Changes
 
