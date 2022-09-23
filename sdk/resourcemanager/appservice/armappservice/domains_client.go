@@ -58,7 +58,7 @@ func NewDomainsClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // CheckAvailability - Description for Check if a domain is available for registration.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // identifier - Name of the domain.
 // options - DomainsClientCheckAvailabilityOptions contains the optional parameters for the DomainsClient.CheckAvailability
 // method.
@@ -89,7 +89,7 @@ func (client *DomainsClient) checkAvailabilityCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, identifier)
@@ -106,7 +106,7 @@ func (client *DomainsClient) checkAvailabilityHandleResponse(resp *http.Response
 
 // BeginCreateOrUpdate - Description for Creates or updates a domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of the domain.
 // domain - Domain registration information.
@@ -126,7 +126,7 @@ func (client *DomainsClient) BeginCreateOrUpdate(ctx context.Context, resourceGr
 
 // CreateOrUpdate - Description for Creates or updates a domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 func (client *DomainsClient) createOrUpdate(ctx context.Context, resourceGroupName string, domainName string, domain Domain, options *DomainsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, domainName, domain, options)
 	if err != nil {
@@ -162,7 +162,7 @@ func (client *DomainsClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, domain)
@@ -171,7 +171,7 @@ func (client *DomainsClient) createOrUpdateCreateRequest(ctx context.Context, re
 // CreateOrUpdateOwnershipIdentifier - Description for Creates an ownership identifier for a domain or updates identifier
 // details for an existing identifier
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of domain.
 // name - Name of identifier.
@@ -217,7 +217,7 @@ func (client *DomainsClient) createOrUpdateOwnershipIdentifierCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, domainOwnershipIdentifier)
@@ -234,7 +234,7 @@ func (client *DomainsClient) createOrUpdateOwnershipIdentifierHandleResponse(res
 
 // Delete - Description for Delete a domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of the domain.
 // options - DomainsClientDeleteOptions contains the optional parameters for the DomainsClient.Delete method.
@@ -276,7 +276,7 @@ func (client *DomainsClient) deleteCreateRequest(ctx context.Context, resourceGr
 	if options != nil && options.ForceHardDeleteDomain != nil {
 		reqQP.Set("forceHardDeleteDomain", strconv.FormatBool(*options.ForceHardDeleteDomain))
 	}
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -284,7 +284,7 @@ func (client *DomainsClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // DeleteOwnershipIdentifier - Description for Delete ownership identifier for domain
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of domain.
 // name - Name of identifier.
@@ -329,7 +329,7 @@ func (client *DomainsClient) deleteOwnershipIdentifierCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -337,7 +337,7 @@ func (client *DomainsClient) deleteOwnershipIdentifierCreateRequest(ctx context.
 
 // Get - Description for Get a domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of the domain.
 // options - DomainsClientGetOptions contains the optional parameters for the DomainsClient.Get method.
@@ -376,7 +376,7 @@ func (client *DomainsClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -393,7 +393,7 @@ func (client *DomainsClient) getHandleResponse(resp *http.Response) (DomainsClie
 
 // GetControlCenterSsoRequest - Description for Generate a single sign-on request for the domain management portal.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // options - DomainsClientGetControlCenterSsoRequestOptions contains the optional parameters for the DomainsClient.GetControlCenterSsoRequest
 // method.
 func (client *DomainsClient) GetControlCenterSsoRequest(ctx context.Context, options *DomainsClientGetControlCenterSsoRequestOptions) (DomainsClientGetControlCenterSsoRequestResponse, error) {
@@ -423,7 +423,7 @@ func (client *DomainsClient) getControlCenterSsoRequestCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -440,7 +440,7 @@ func (client *DomainsClient) getControlCenterSsoRequestHandleResponse(resp *http
 
 // GetOwnershipIdentifier - Description for Get ownership identifier for domain
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of domain.
 // name - Name of identifier.
@@ -485,7 +485,7 @@ func (client *DomainsClient) getOwnershipIdentifierCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -501,8 +501,7 @@ func (client *DomainsClient) getOwnershipIdentifierHandleResponse(resp *http.Res
 }
 
 // NewListPager - Description for Get all domains in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // options - DomainsClientListOptions contains the optional parameters for the DomainsClient.List method.
 func (client *DomainsClient) NewListPager(options *DomainsClientListOptions) *runtime.Pager[DomainsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DomainsClientListResponse]{
@@ -544,7 +543,7 @@ func (client *DomainsClient) listCreateRequest(ctx context.Context, options *Dom
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -560,8 +559,7 @@ func (client *DomainsClient) listHandleResponse(resp *http.Response) (DomainsCli
 }
 
 // NewListByResourceGroupPager - Description for Get all domains in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - DomainsClientListByResourceGroupOptions contains the optional parameters for the DomainsClient.ListByResourceGroup
 // method.
@@ -609,7 +607,7 @@ func (client *DomainsClient) listByResourceGroupCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -625,8 +623,7 @@ func (client *DomainsClient) listByResourceGroupHandleResponse(resp *http.Respon
 }
 
 // NewListOwnershipIdentifiersPager - Description for Lists domain ownership identifiers.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of domain.
 // options - DomainsClientListOwnershipIdentifiersOptions contains the optional parameters for the DomainsClient.ListOwnershipIdentifiers
@@ -679,7 +676,7 @@ func (client *DomainsClient) listOwnershipIdentifiersCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -695,8 +692,7 @@ func (client *DomainsClient) listOwnershipIdentifiersHandleResponse(resp *http.R
 }
 
 // NewListRecommendationsPager - Description for Get domain name recommendations based on keywords.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // parameters - Search parameters for domain name recommendations.
 // options - DomainsClientListRecommendationsOptions contains the optional parameters for the DomainsClient.ListRecommendations
 // method.
@@ -740,7 +736,7 @@ func (client *DomainsClient) listRecommendationsCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -757,7 +753,7 @@ func (client *DomainsClient) listRecommendationsHandleResponse(resp *http.Respon
 
 // Renew - Description for Renew a domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of the domain.
 // options - DomainsClientRenewOptions contains the optional parameters for the DomainsClient.Renew method.
@@ -796,7 +792,7 @@ func (client *DomainsClient) renewCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -804,7 +800,7 @@ func (client *DomainsClient) renewCreateRequest(ctx context.Context, resourceGro
 
 // TransferOut - Transfer out domain to another registrar
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of domain.
 // options - DomainsClientTransferOutOptions contains the optional parameters for the DomainsClient.TransferOut method.
@@ -843,7 +839,7 @@ func (client *DomainsClient) transferOutCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -860,7 +856,7 @@ func (client *DomainsClient) transferOutHandleResponse(resp *http.Response) (Dom
 
 // Update - Description for Creates or updates a domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of the domain.
 // domain - Domain registration information.
@@ -900,7 +896,7 @@ func (client *DomainsClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, domain)
@@ -918,7 +914,7 @@ func (client *DomainsClient) updateHandleResponse(resp *http.Response) (DomainsC
 // UpdateOwnershipIdentifier - Description for Creates an ownership identifier for a domain or updates identifier details
 // for an existing identifier
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of domain.
 // name - Name of identifier.
@@ -964,7 +960,7 @@ func (client *DomainsClient) updateOwnershipIdentifierCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, domainOwnershipIdentifier)
