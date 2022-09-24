@@ -133,7 +133,6 @@ func (client *WorkflowRunActionRepetitionsClient) getHandleResponse(resp *http.R
 }
 
 // NewListPager - Get all of a workflow run action repetitions.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -218,7 +217,6 @@ func (client *WorkflowRunActionRepetitionsClient) listHandleResponse(resp *http.
 }
 
 // NewListExpressionTracesPager - Lists a workflow run expression trace.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.

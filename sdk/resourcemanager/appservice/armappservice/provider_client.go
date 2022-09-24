@@ -56,7 +56,6 @@ func NewProviderClient(subscriptionID string, credential azcore.TokenCredential,
 }
 
 // NewGetAvailableStacksPager - Description for Get available application frameworks and their versions
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - ProviderClientGetAvailableStacksOptions contains the optional parameters for the ProviderClient.GetAvailableStacks
 // method.
@@ -115,7 +114,6 @@ func (client *ProviderClient) getAvailableStacksHandleResponse(resp *http.Respon
 }
 
 // NewGetAvailableStacksOnPremPager - Description for Get available application frameworks and their versions
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - ProviderClientGetAvailableStacksOnPremOptions contains the optional parameters for the ProviderClient.GetAvailableStacksOnPrem
 // method.
@@ -178,7 +176,6 @@ func (client *ProviderClient) getAvailableStacksOnPremHandleResponse(resp *http.
 }
 
 // NewGetFunctionAppStacksPager - Description for Get available Function app frameworks and their versions
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - ProviderClientGetFunctionAppStacksOptions contains the optional parameters for the ProviderClient.GetFunctionAppStacks
 // method.
@@ -238,7 +235,6 @@ func (client *ProviderClient) getFunctionAppStacksHandleResponse(resp *http.Resp
 
 // NewGetFunctionAppStacksForLocationPager - Description for Get available Function app frameworks and their versions for
 // location
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // location - Function App stack location.
 // options - ProviderClientGetFunctionAppStacksForLocationOptions contains the optional parameters for the ProviderClient.GetFunctionAppStacksForLocation
@@ -302,7 +298,6 @@ func (client *ProviderClient) getFunctionAppStacksForLocationHandleResponse(resp
 }
 
 // NewGetWebAppStacksPager - Description for Get available Web app frameworks and their versions
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - ProviderClientGetWebAppStacksOptions contains the optional parameters for the ProviderClient.GetWebAppStacks
 // method.
@@ -361,7 +356,6 @@ func (client *ProviderClient) getWebAppStacksHandleResponse(resp *http.Response)
 }
 
 // NewGetWebAppStacksForLocationPager - Description for Get available Web app frameworks and their versions for location
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // location - Web App stack location.
 // options - ProviderClientGetWebAppStacksForLocationOptions contains the optional parameters for the ProviderClient.GetWebAppStacksForLocation
@@ -426,7 +420,6 @@ func (client *ProviderClient) getWebAppStacksForLocationHandleResponse(resp *htt
 
 // NewListOperationsPager - Description for Gets all available operations for the Microsoft.Web resource provider. Also exposes
 // resource metric definitions
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - ProviderClientListOperationsOptions contains the optional parameters for the ProviderClient.ListOperations method.
 func (client *ProviderClient) NewListOperationsPager(options *ProviderClientListOperationsOptions) *runtime.Pager[ProviderClientListOperationsResponse] {
