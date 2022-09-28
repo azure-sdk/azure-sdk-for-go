@@ -1,5 +1,14 @@
 # Release History
 
+## 1.2.0 (2022-09-28)
+### Features Added
+
+- New struct `AppliedScopeProperties`
+- New struct `ReservationSwapProperties`
+- New field `AppliedScopeProperties` in struct `Properties`
+- New field `SwapProperties` in struct `Properties`
+
+
 ## 1.1.0 (2022-09-16)
 ### Features Added
 

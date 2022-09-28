@@ -113,6 +113,41 @@ func (a *AppliedReservationsProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AppliedScopeProperties.
+func (a AppliedScopeProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "displayName", a.DisplayName)
+	populate(objectMap, "managementGroupId", a.ManagementGroupID)
+	populate(objectMap, "tenantId", a.TenantID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AppliedScopeProperties.
+func (a *AppliedScopeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "displayName":
+			err = unpopulate(val, "DisplayName", &a.DisplayName)
+			delete(rawMsg, key)
+		case "managementGroupId":
+			err = unpopulate(val, "ManagementGroupID", &a.ManagementGroupID)
+			delete(rawMsg, key)
+		case "tenantId":
+			err = unpopulate(val, "TenantID", &a.TenantID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type AvailableScopeProperties.
 func (a AvailableScopeProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -1721,6 +1756,7 @@ func (p *Price) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type Properties.
 func (p Properties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "appliedScopeProperties", p.AppliedScopeProperties)
 	populate(objectMap, "appliedScopeType", p.AppliedScopeType)
 	populate(objectMap, "appliedScopes", p.AppliedScopes)
 	populate(objectMap, "archived", p.Archived)
@@ -1747,6 +1783,7 @@ func (p Properties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "reservedResourceType", p.ReservedResourceType)
 	populate(objectMap, "skuDescription", p.SKUDescription)
 	populate(objectMap, "splitProperties", p.SplitProperties)
+	populate(objectMap, "swapProperties", p.SwapProperties)
 	populate(objectMap, "term", p.Term)
 	populate(objectMap, "userFriendlyAppliedScopeType", p.UserFriendlyAppliedScopeType)
 	populate(objectMap, "userFriendlyRenewState", p.UserFriendlyRenewState)
@@ -1763,6 +1800,9 @@ func (p *Properties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "appliedScopeProperties":
+			err = unpopulate(val, "AppliedScopeProperties", &p.AppliedScopeProperties)
+			delete(rawMsg, key)
 		case "appliedScopeType":
 			err = unpopulate(val, "AppliedScopeType", &p.AppliedScopeType)
 			delete(rawMsg, key)
@@ -1840,6 +1880,9 @@ func (p *Properties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "splitProperties":
 			err = unpopulate(val, "SplitProperties", &p.SplitProperties)
+			delete(rawMsg, key)
+		case "swapProperties":
+			err = unpopulate(val, "SwapProperties", &p.SwapProperties)
 			delete(rawMsg, key)
 		case "term":
 			err = unpopulate(val, "Term", &p.Term)
@@ -3185,6 +3228,37 @@ func (r *ReservationSummary) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "succeededCount":
 			err = unpopulate(val, "SucceededCount", &r.SucceededCount)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ReservationSwapProperties.
+func (r ReservationSwapProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "swapDestination", r.SwapDestination)
+	populate(objectMap, "swapSource", r.SwapSource)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ReservationSwapProperties.
+func (r *ReservationSwapProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "swapDestination":
+			err = unpopulate(val, "SwapDestination", &r.SwapDestination)
+			delete(rawMsg, key)
+		case "swapSource":
+			err = unpopulate(val, "SwapSource", &r.SwapSource)
 			delete(rawMsg, key)
 		}
 		if err != nil {

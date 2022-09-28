@@ -34,6 +34,17 @@ type AppliedReservationsProperties struct {
 	ReservationOrderIDs *AppliedReservationList `json:"reservationOrderIds,omitempty"`
 }
 
+type AppliedScopeProperties struct {
+	// Management group display name
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// Management group ID of the format /providers/Microsoft.Management/managementGroups/{managementGroupId}
+	ManagementGroupID *string `json:"managementGroupId,omitempty"`
+
+	// Tenant ID of the applied scope type
+	TenantID *string `json:"tenantId,omitempty"`
+}
+
 type AvailableScopeProperties struct {
 	Properties *SubscriptionScopeProperties `json:"properties,omitempty"`
 }
@@ -546,6 +557,8 @@ type Price struct {
 
 // Properties - The properties of the reservations
 type Properties struct {
+	AppliedScopeProperties *AppliedScopeProperties `json:"appliedScopeProperties,omitempty"`
+
 	// The applied scope type
 	AppliedScopeType *AppliedScopeType `json:"appliedScopeType,omitempty"`
 
@@ -610,6 +623,7 @@ type Properties struct {
 	// Description of the SKU in english.
 	SKUDescription  *string                     `json:"skuDescription,omitempty"`
 	SplitProperties *ReservationSplitProperties `json:"splitProperties,omitempty"`
+	SwapProperties  *ReservationSwapProperties  `json:"swapProperties,omitempty"`
 
 	// Represent the term of Reservation.
 	Term *ReservationTerm `json:"term,omitempty"`
@@ -1230,6 +1244,14 @@ type ReservationSummary struct {
 
 	// READ-ONLY; The number of reservation in Succeeded state
 	SucceededCount *float32 `json:"succeededCount,omitempty" azure:"ro"`
+}
+
+type ReservationSwapProperties struct {
+	// Reservation Resource Id that the original resource gets swapped to. Format of the resource Id is /providers/microsoft.capacity/reservationOrders/{reservationOrderId}/reservations/{reservationId}
+	SwapDestination *string `json:"swapDestination,omitempty"`
+
+	// Resource Id of the Source Reservation that gets swapped. Format of the resource Id is /providers/microsoft.capacity/reservationOrders/{reservationOrderId}/reservations/{reservationId}
+	SwapSource *string `json:"swapSource,omitempty"`
 }
 
 // ReservationToExchange - Reservation refund details
