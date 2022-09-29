@@ -1,5 +1,263 @@
 # Release History
 
+## 2.0.0-beta.1 (2022-09-29)
+### Breaking Changes
+
+- Struct `CustomHostnameAnalysisResultProperties` has been removed
+- Field `ID` of struct `CustomHostnameAnalysisResult` has been removed
+- Field `Name` of struct `CustomHostnameAnalysisResult` has been removed
+- Field `SystemData` of struct `CustomHostnameAnalysisResult` has been removed
+- Field `Type` of struct `CustomHostnameAnalysisResult` has been removed
+- Field `Properties` of struct `CustomHostnameAnalysisResult` has been removed
+
+### Features Added
+
+- New const `IngressTransportMethodTCP`
+- New const `LogLevelWarn`
+- New const `ConnectedEnvironmentProvisioningStateInfrastructureSetupComplete`
+- New const `ConnectedEnvironmentProvisioningStateWaiting`
+- New const `ManagedEnvironmentOutBoundTypeLoadBalancer`
+- New const `LogLevelDebug`
+- New const `ConnectedEnvironmentProvisioningStateSucceeded`
+- New const `ExtendedLocationTypesCustomLocation`
+- New const `ActionDeny`
+- New const `CategoryPremiumSKUMemoryOptimized`
+- New const `IngressClientCertificateModeRequire`
+- New const `IngressClientCertificateModeAccept`
+- New const `ActionAllow`
+- New const `ConnectedEnvironmentProvisioningStateCanceled`
+- New const `ConnectedEnvironmentProvisioningStateScheduledForDelete`
+- New const `CategoryPremiumSKUComputeOptimized`
+- New const `ManagedEnvironmentOutBoundTypeUserDefinedRouting`
+- New const `ConnectedEnvironmentProvisioningStateInfrastructureSetupInProgress`
+- New const `IngressClientCertificateModeIgnore`
+- New const `SKUNamePremium`
+- New const `CategoryPremiumSKUGeneralPurpose`
+- New const `LogLevelInfo`
+- New const `ApplicabilityLocationDefault`
+- New const `LogLevelError`
+- New const `ApplicabilityCustom`
+- New const `ConnectedEnvironmentProvisioningStateFailed`
+- New const `ContainerAppProvisioningStateDeleting`
+- New const `ConnectedEnvironmentProvisioningStateInitializationInProgress`
+- New const `SKUNameConsumption`
+- New type alias `Applicability`
+- New type alias `ExtendedLocationTypes`
+- New type alias `SKUName`
+- New type alias `Category`
+- New type alias `ConnectedEnvironmentProvisioningState`
+- New type alias `Action`
+- New type alias `ManagedEnvironmentOutBoundType`
+- New type alias `LogLevel`
+- New type alias `IngressClientCertificateMode`
+- New function `*ContainerAppsDiagnosticsClient.NewListDetectorsPager(string, string, *ContainerAppsDiagnosticsClientListDetectorsOptions) *runtime.Pager[ContainerAppsDiagnosticsClientListDetectorsResponse]`
+- New function `*ConnectedEnvironmentsDaprComponentsClient.NewListPager(string, string, *ConnectedEnvironmentsDaprComponentsClientListOptions) *runtime.Pager[ConnectedEnvironmentsDaprComponentsClientListResponse]`
+- New function `*ConnectedEnvironmentsClient.BeginDelete(context.Context, string, string, *ConnectedEnvironmentsClientBeginDeleteOptions) (*runtime.Poller[ConnectedEnvironmentsClientDeleteResponse], error)`
+- New function `*ConnectedEnvironmentsClient.NewListBySubscriptionPager(*ConnectedEnvironmentsClientListBySubscriptionOptions) *runtime.Pager[ConnectedEnvironmentsClientListBySubscriptionResponse]`
+- New function `*ContainerAppsClient.GetAuthToken(context.Context, string, string, *ContainerAppsClientGetAuthTokenOptions) (ContainerAppsClientGetAuthTokenResponse, error)`
+- New function `NewManagedEnvironmentsDiagnosticsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedEnvironmentsDiagnosticsClient, error)`
+- New function `*ManagedEnvironmentsDiagnosticsClient.GetRoot(context.Context, string, string, *ManagedEnvironmentsDiagnosticsClientGetRootOptions) (ManagedEnvironmentsDiagnosticsClientGetRootResponse, error)`
+- New function `*BillingMetersClient.Get(context.Context, string, *BillingMetersClientGetOptions) (BillingMetersClientGetResponse, error)`
+- New function `NewBillingMetersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BillingMetersClient, error)`
+- New function `*ConnectedEnvironmentsCertificatesClient.Delete(context.Context, string, string, string, *ConnectedEnvironmentsCertificatesClientDeleteOptions) (ConnectedEnvironmentsCertificatesClientDeleteResponse, error)`
+- New function `*ConnectedEnvironmentsDaprComponentsClient.Delete(context.Context, string, string, string, *ConnectedEnvironmentsDaprComponentsClientDeleteOptions) (ConnectedEnvironmentsDaprComponentsClientDeleteResponse, error)`
+- New function `PossibleManagedEnvironmentOutBoundTypeValues() []ManagedEnvironmentOutBoundType`
+- New function `NewAvailableWorkloadProfilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AvailableWorkloadProfilesClient, error)`
+- New function `PossibleCategoryValues() []Category`
+- New function `NewConnectedEnvironmentsDaprComponentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedEnvironmentsDaprComponentsClient, error)`
+- New function `*ManagedEnvironmentsClient.GetAuthToken(context.Context, string, string, *ManagedEnvironmentsClientGetAuthTokenOptions) (ManagedEnvironmentsClientGetAuthTokenResponse, error)`
+- New function `*ConnectedEnvironmentsClient.NewListByResourceGroupPager(string, *ConnectedEnvironmentsClientListByResourceGroupOptions) *runtime.Pager[ConnectedEnvironmentsClientListByResourceGroupResponse]`
+- New function `PossibleSKUNameValues() []SKUName`
+- New function `PossibleActionValues() []Action`
+- New function `NewConnectedEnvironmentsStoragesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedEnvironmentsStoragesClient, error)`
+- New function `*ContainerAppsDiagnosticsClient.NewListRevisionsPager(string, string, *ContainerAppsDiagnosticsClientListRevisionsOptions) *runtime.Pager[ContainerAppsDiagnosticsClientListRevisionsResponse]`
+- New function `*ConnectedEnvironmentsStoragesClient.Delete(context.Context, string, string, string, *ConnectedEnvironmentsStoragesClientDeleteOptions) (ConnectedEnvironmentsStoragesClientDeleteResponse, error)`
+- New function `*ConnectedEnvironmentsStoragesClient.Get(context.Context, string, string, string, *ConnectedEnvironmentsStoragesClientGetOptions) (ConnectedEnvironmentsStoragesClientGetResponse, error)`
+- New function `*ConnectedEnvironmentsCertificatesClient.CreateOrUpdate(context.Context, string, string, string, *ConnectedEnvironmentsCertificatesClientCreateOrUpdateOptions) (ConnectedEnvironmentsCertificatesClientCreateOrUpdateResponse, error)`
+- New function `PossibleLogLevelValues() []LogLevel`
+- New function `NewManagedEnvironmentDiagnosticsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedEnvironmentDiagnosticsClient, error)`
+- New function `*ConnectedEnvironmentsStoragesClient.List(context.Context, string, string, *ConnectedEnvironmentsStoragesClientListOptions) (ConnectedEnvironmentsStoragesClientListResponse, error)`
+- New function `*AvailableWorkloadProfilesClient.NewGetPager(string, *AvailableWorkloadProfilesClientGetOptions) *runtime.Pager[AvailableWorkloadProfilesClientGetResponse]`
+- New function `*ContainerAppsDiagnosticsClient.GetRoot(context.Context, string, string, *ContainerAppsDiagnosticsClientGetRootOptions) (ContainerAppsDiagnosticsClientGetRootResponse, error)`
+- New function `*ConnectedEnvironmentsStoragesClient.CreateOrUpdate(context.Context, string, string, string, ConnectedEnvironmentStorage, *ConnectedEnvironmentsStoragesClientCreateOrUpdateOptions) (ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse, error)`
+- New function `*ContainerAppsDiagnosticsClient.GetDetector(context.Context, string, string, string, *ContainerAppsDiagnosticsClientGetDetectorOptions) (ContainerAppsDiagnosticsClientGetDetectorResponse, error)`
+- New function `PossibleConnectedEnvironmentProvisioningStateValues() []ConnectedEnvironmentProvisioningState`
+- New function `NewConnectedEnvironmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedEnvironmentsClient, error)`
+- New function `NewConnectedEnvironmentsCertificatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedEnvironmentsCertificatesClient, error)`
+- New function `PossibleIngressClientCertificateModeValues() []IngressClientCertificateMode`
+- New function `*ConnectedEnvironmentsCertificatesClient.Get(context.Context, string, string, string, *ConnectedEnvironmentsCertificatesClientGetOptions) (ConnectedEnvironmentsCertificatesClientGetResponse, error)`
+- New function `*ConnectedEnvironmentsDaprComponentsClient.Get(context.Context, string, string, string, *ConnectedEnvironmentsDaprComponentsClientGetOptions) (ConnectedEnvironmentsDaprComponentsClientGetResponse, error)`
+- New function `*ConnectedEnvironmentsDaprComponentsClient.CreateOrUpdate(context.Context, string, string, string, DaprComponent, *ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateOptions) (ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateResponse, error)`
+- New function `*ConnectedEnvironmentsClient.Get(context.Context, string, string, *ConnectedEnvironmentsClientGetOptions) (ConnectedEnvironmentsClientGetResponse, error)`
+- New function `*ConnectedEnvironmentsCertificatesClient.NewListPager(string, string, *ConnectedEnvironmentsCertificatesClientListOptions) *runtime.Pager[ConnectedEnvironmentsCertificatesClientListResponse]`
+- New function `*ConnectedEnvironmentsClient.Update(context.Context, string, string, *ConnectedEnvironmentsClientUpdateOptions) (ConnectedEnvironmentsClientUpdateResponse, error)`
+- New function `*ConnectedEnvironmentsClient.CheckNameAvailability(context.Context, string, string, CheckNameAvailabilityRequest, *ConnectedEnvironmentsClientCheckNameAvailabilityOptions) (ConnectedEnvironmentsClientCheckNameAvailabilityResponse, error)`
+- New function `NewContainerAppsDiagnosticsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerAppsDiagnosticsClient, error)`
+- New function `PossibleExtendedLocationTypesValues() []ExtendedLocationTypes`
+- New function `PossibleApplicabilityValues() []Applicability`
+- New function `*ContainerAppsDiagnosticsClient.GetRevision(context.Context, string, string, string, *ContainerAppsDiagnosticsClientGetRevisionOptions) (ContainerAppsDiagnosticsClientGetRevisionResponse, error)`
+- New function `*ConnectedEnvironmentsDaprComponentsClient.ListSecrets(context.Context, string, string, string, *ConnectedEnvironmentsDaprComponentsClientListSecretsOptions) (ConnectedEnvironmentsDaprComponentsClientListSecretsResponse, error)`
+- New function `*ConnectedEnvironmentsClient.BeginCreateOrUpdate(context.Context, string, string, ConnectedEnvironment, *ConnectedEnvironmentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ConnectedEnvironmentsClientCreateOrUpdateResponse], error)`
+- New function `*ManagedEnvironmentDiagnosticsClient.ListDetectors(context.Context, string, string, *ManagedEnvironmentDiagnosticsClientListDetectorsOptions) (ManagedEnvironmentDiagnosticsClientListDetectorsResponse, error)`
+- New function `*ConnectedEnvironmentsCertificatesClient.Update(context.Context, string, string, string, CertificatePatch, *ConnectedEnvironmentsCertificatesClientUpdateOptions) (ConnectedEnvironmentsCertificatesClientUpdateResponse, error)`
+- New function `*ManagedEnvironmentDiagnosticsClient.GetDetector(context.Context, string, string, string, *ManagedEnvironmentDiagnosticsClientGetDetectorOptions) (ManagedEnvironmentDiagnosticsClientGetDetectorResponse, error)`
+- New struct `AvailableWorkloadProfile`
+- New struct `AvailableWorkloadProfileProperties`
+- New struct `AvailableWorkloadProfilesClient`
+- New struct `AvailableWorkloadProfilesClientGetOptions`
+- New struct `AvailableWorkloadProfilesClientGetResponse`
+- New struct `AvailableWorkloadProfilesCollection`
+- New struct `BaseContainer`
+- New struct `BillingMeter`
+- New struct `BillingMeterCollection`
+- New struct `BillingMeterProperties`
+- New struct `BillingMetersClient`
+- New struct `BillingMetersClientGetOptions`
+- New struct `BillingMetersClientGetResponse`
+- New struct `ConnectedEnvironment`
+- New struct `ConnectedEnvironmentCollection`
+- New struct `ConnectedEnvironmentProperties`
+- New struct `ConnectedEnvironmentStorage`
+- New struct `ConnectedEnvironmentStorageProperties`
+- New struct `ConnectedEnvironmentStoragesCollection`
+- New struct `ConnectedEnvironmentsCertificatesClient`
+- New struct `ConnectedEnvironmentsCertificatesClientCreateOrUpdateOptions`
+- New struct `ConnectedEnvironmentsCertificatesClientCreateOrUpdateResponse`
+- New struct `ConnectedEnvironmentsCertificatesClientDeleteOptions`
+- New struct `ConnectedEnvironmentsCertificatesClientDeleteResponse`
+- New struct `ConnectedEnvironmentsCertificatesClientGetOptions`
+- New struct `ConnectedEnvironmentsCertificatesClientGetResponse`
+- New struct `ConnectedEnvironmentsCertificatesClientListOptions`
+- New struct `ConnectedEnvironmentsCertificatesClientListResponse`
+- New struct `ConnectedEnvironmentsCertificatesClientUpdateOptions`
+- New struct `ConnectedEnvironmentsCertificatesClientUpdateResponse`
+- New struct `ConnectedEnvironmentsClient`
+- New struct `ConnectedEnvironmentsClientBeginCreateOrUpdateOptions`
+- New struct `ConnectedEnvironmentsClientBeginDeleteOptions`
+- New struct `ConnectedEnvironmentsClientCheckNameAvailabilityOptions`
+- New struct `ConnectedEnvironmentsClientCheckNameAvailabilityResponse`
+- New struct `ConnectedEnvironmentsClientCreateOrUpdateResponse`
+- New struct `ConnectedEnvironmentsClientDeleteResponse`
+- New struct `ConnectedEnvironmentsClientGetOptions`
+- New struct `ConnectedEnvironmentsClientGetResponse`
+- New struct `ConnectedEnvironmentsClientListByResourceGroupOptions`
+- New struct `ConnectedEnvironmentsClientListByResourceGroupResponse`
+- New struct `ConnectedEnvironmentsClientListBySubscriptionOptions`
+- New struct `ConnectedEnvironmentsClientListBySubscriptionResponse`
+- New struct `ConnectedEnvironmentsClientUpdateOptions`
+- New struct `ConnectedEnvironmentsClientUpdateResponse`
+- New struct `ConnectedEnvironmentsDaprComponentsClient`
+- New struct `ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateOptions`
+- New struct `ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateResponse`
+- New struct `ConnectedEnvironmentsDaprComponentsClientDeleteOptions`
+- New struct `ConnectedEnvironmentsDaprComponentsClientDeleteResponse`
+- New struct `ConnectedEnvironmentsDaprComponentsClientGetOptions`
+- New struct `ConnectedEnvironmentsDaprComponentsClientGetResponse`
+- New struct `ConnectedEnvironmentsDaprComponentsClientListOptions`
+- New struct `ConnectedEnvironmentsDaprComponentsClientListResponse`
+- New struct `ConnectedEnvironmentsDaprComponentsClientListSecretsOptions`
+- New struct `ConnectedEnvironmentsDaprComponentsClientListSecretsResponse`
+- New struct `ConnectedEnvironmentsStoragesClient`
+- New struct `ConnectedEnvironmentsStoragesClientCreateOrUpdateOptions`
+- New struct `ConnectedEnvironmentsStoragesClientCreateOrUpdateResponse`
+- New struct `ConnectedEnvironmentsStoragesClientDeleteOptions`
+- New struct `ConnectedEnvironmentsStoragesClientDeleteResponse`
+- New struct `ConnectedEnvironmentsStoragesClientGetOptions`
+- New struct `ConnectedEnvironmentsStoragesClientGetResponse`
+- New struct `ConnectedEnvironmentsStoragesClientListOptions`
+- New struct `ConnectedEnvironmentsStoragesClientListResponse`
+- New struct `ContainerAppAuthToken`
+- New struct `ContainerAppAuthTokenProperties`
+- New struct `ContainerAppsClientGetAuthTokenOptions`
+- New struct `ContainerAppsClientGetAuthTokenResponse`
+- New struct `ContainerAppsDiagnosticsClient`
+- New struct `ContainerAppsDiagnosticsClientGetDetectorOptions`
+- New struct `ContainerAppsDiagnosticsClientGetDetectorResponse`
+- New struct `ContainerAppsDiagnosticsClientGetRevisionOptions`
+- New struct `ContainerAppsDiagnosticsClientGetRevisionResponse`
+- New struct `ContainerAppsDiagnosticsClientGetRootOptions`
+- New struct `ContainerAppsDiagnosticsClientGetRootResponse`
+- New struct `ContainerAppsDiagnosticsClientListDetectorsOptions`
+- New struct `ContainerAppsDiagnosticsClientListDetectorsResponse`
+- New struct `ContainerAppsDiagnosticsClientListRevisionsOptions`
+- New struct `ContainerAppsDiagnosticsClientListRevisionsResponse`
+- New struct `CorsPolicy`
+- New struct `CustomDomainConfiguration`
+- New struct `CustomHostnameAnalysisResultCustomDomainVerificationFailureInfo`
+- New struct `CustomHostnameAnalysisResultCustomDomainVerificationFailureInfoDetailsItem`
+- New struct `DiagnosticDataProviderMetadata`
+- New struct `DiagnosticDataProviderMetadataPropertyBagItem`
+- New struct `DiagnosticDataTableResponseColumn`
+- New struct `DiagnosticDataTableResponseObject`
+- New struct `DiagnosticRendering`
+- New struct `DiagnosticSupportTopic`
+- New struct `Diagnostics`
+- New struct `DiagnosticsCollection`
+- New struct `DiagnosticsDataAPIResponse`
+- New struct `DiagnosticsDefinition`
+- New struct `DiagnosticsProperties`
+- New struct `DiagnosticsStatus`
+- New struct `EnvironmentAuthToken`
+- New struct `EnvironmentAuthTokenProperties`
+- New struct `EnvironmentSKUProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `ExtendedLocation`
+- New struct `IPSecurityRestrictionRule`
+- New struct `InitContainer`
+- New struct `ManagedEnvironmentDiagnosticsClient`
+- New struct `ManagedEnvironmentDiagnosticsClientGetDetectorOptions`
+- New struct `ManagedEnvironmentDiagnosticsClientGetDetectorResponse`
+- New struct `ManagedEnvironmentDiagnosticsClientListDetectorsOptions`
+- New struct `ManagedEnvironmentDiagnosticsClientListDetectorsResponse`
+- New struct `ManagedEnvironmentOutboundSettings`
+- New struct `ManagedEnvironmentsClientGetAuthTokenOptions`
+- New struct `ManagedEnvironmentsClientGetAuthTokenResponse`
+- New struct `ManagedEnvironmentsDiagnosticsClient`
+- New struct `ManagedEnvironmentsDiagnosticsClientGetRootOptions`
+- New struct `ManagedEnvironmentsDiagnosticsClientGetRootResponse`
+- New struct `TCPScaleRule`
+- New struct `WorkloadProfile`
+- New field `MaxInactiveRevisions` in struct `Configuration`
+- New field `InitContainers` in struct `Template`
+- New field `OutboundSettings` in struct `VnetConfiguration`
+- New field `CustomDomainConfiguration` in struct `ManagedEnvironmentProperties`
+- New field `EventStreamEndpoint` in struct `ManagedEnvironmentProperties`
+- New field `WorkloadProfiles` in struct `ManagedEnvironmentProperties`
+- New field `LogLevel` in struct `Dapr`
+- New field `EnableAPILogging` in struct `Dapr`
+- New field `HTTPMaxRequestSize` in struct `Dapr`
+- New field `HTTPReadBufferSize` in struct `Dapr`
+- New field `ExecEndpoint` in struct `ReplicaContainer`
+- New field `LogStreamEndpoint` in struct `ReplicaContainer`
+- New field `WorkloadProfileType` in struct `ContainerAppProperties`
+- New field `EnvironmentID` in struct `ContainerAppProperties`
+- New field `EventStreamEndpoint` in struct `ContainerAppProperties`
+- New field `ClientCertificateMode` in struct `Ingress`
+- New field `CorsPolicy` in struct `Ingress`
+- New field `ExposedPort` in struct `Ingress`
+- New field `IPSecurityRestrictions` in struct `Ingress`
+- New field `ConflictingContainerAppResourceID` in struct `CustomHostnameAnalysisResult`
+- New field `ConflictWithEnvironmentCustomDomain` in struct `CustomHostnameAnalysisResult`
+- New field `CustomDomainVerificationTest` in struct `CustomHostnameAnalysisResult`
+- New field `HostName` in struct `CustomHostnameAnalysisResult`
+- New field `HasConflictOnManagedEnvironment` in struct `CustomHostnameAnalysisResult`
+- New field `ARecords` in struct `CustomHostnameAnalysisResult`
+- New field `IsHostnameAlreadyVerified` in struct `CustomHostnameAnalysisResult`
+- New field `CustomDomainVerificationFailureInfo` in struct `CustomHostnameAnalysisResult`
+- New field `CNameRecords` in struct `CustomHostnameAnalysisResult`
+- New field `AlternateCNameRecords` in struct `CustomHostnameAnalysisResult`
+- New field `AlternateTxtRecords` in struct `CustomHostnameAnalysisResult`
+- New field `TxtRecords` in struct `CustomHostnameAnalysisResult`
+- New field `ExtendedLocation` in struct `ContainerApp`
+- New field `TCP` in struct `ScaleRule`
+- New field `SKU` in struct `ManagedEnvironment`
+- New field `SubjectAlternativeNames` in struct `CertificateProperties`
+- New field `LastActiveTime` in struct `RevisionProperties`
+- New field `SecretStoreComponent` in struct `DaprComponentProperties`
+
+
 ## 1.0.0 (2022-05-25)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appcontainers/armappcontainers` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
