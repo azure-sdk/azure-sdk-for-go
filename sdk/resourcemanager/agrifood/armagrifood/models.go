@@ -11,6 +11,12 @@ package armagrifood
 
 import "time"
 
+// APIProperties - Api properties.
+type APIProperties struct {
+	// Interval in minutes for which the weather data for the api needs to be refreshed.
+	APIFreshnessWindowInMinutes *int32 `json:"apiFreshnessWindowInMinutes,omitempty"`
+}
+
 // ArmAsyncOperation - Arm async operation class. Ref: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/async-operations.
 type ArmAsyncOperation struct {
 	// Status of the async operation.
@@ -111,6 +117,15 @@ type Extension struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// ExtensionInstallationRequest - Extension Installation Request Body.
+type ExtensionInstallationRequest struct {
+	// Additional Api Properties.
+	AdditionalAPIProperties map[string]*APIProperties `json:"additionalApiProperties,omitempty"`
+
+	// Extension Version.
+	ExtensionVersion *string `json:"extensionVersion,omitempty"`
+}
+
 // ExtensionListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
 type ExtensionListResponse struct {
 	// List of requested objects.
@@ -122,6 +137,9 @@ type ExtensionListResponse struct {
 
 // ExtensionProperties - Extension resource properties.
 type ExtensionProperties struct {
+	// READ-ONLY; Additional api properties.
+	AdditionalAPIProperties map[string]*APIProperties `json:"additionalApiProperties,omitempty" azure:"ro"`
+
 	// READ-ONLY; Extension api docs link.
 	ExtensionAPIDocsLink *string `json:"extensionApiDocsLink,omitempty" azure:"ro"`
 
@@ -138,9 +156,10 @@ type ExtensionProperties struct {
 	InstalledExtensionVersion *string `json:"installedExtensionVersion,omitempty" azure:"ro"`
 }
 
-// ExtensionsClientCreateOptions contains the optional parameters for the ExtensionsClient.Create method.
-type ExtensionsClientCreateOptions struct {
-	// placeholder for future optional parameters
+// ExtensionsClientCreateOrUpdateOptions contains the optional parameters for the ExtensionsClient.CreateOrUpdate method.
+type ExtensionsClientCreateOrUpdateOptions struct {
+	// Extension resource request body.
+	RequestBody *ExtensionInstallationRequest
 }
 
 // ExtensionsClientDeleteOptions contains the optional parameters for the ExtensionsClient.Delete method.
@@ -163,11 +182,6 @@ type ExtensionsClientListByFarmBeatsOptions struct {
 	MaxPageSize *int32
 	// Skip token for getting next set of results.
 	SkipToken *string
-}
-
-// ExtensionsClientUpdateOptions contains the optional parameters for the ExtensionsClient.Update method.
-type ExtensionsClientUpdateOptions struct {
-	// placeholder for future optional parameters
 }
 
 // FarmBeats ARM Resource.

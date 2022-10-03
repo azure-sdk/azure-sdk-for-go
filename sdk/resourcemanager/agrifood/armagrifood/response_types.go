@@ -9,8 +9,8 @@
 
 package armagrifood
 
-// ExtensionsClientCreateResponse contains the response from method ExtensionsClient.Create.
-type ExtensionsClientCreateResponse struct {
+// ExtensionsClientCreateOrUpdateResponse contains the response from method ExtensionsClient.CreateOrUpdate.
+type ExtensionsClientCreateOrUpdateResponse struct {
 	Extension
 }
 
@@ -27,11 +27,6 @@ type ExtensionsClientGetResponse struct {
 // ExtensionsClientListByFarmBeatsResponse contains the response from method ExtensionsClient.ListByFarmBeats.
 type ExtensionsClientListByFarmBeatsResponse struct {
 	ExtensionListResponse
-}
-
-// ExtensionsClientUpdateResponse contains the response from method ExtensionsClient.Update.
-type ExtensionsClientUpdateResponse struct {
-	Extension
 }
 
 // FarmBeatsExtensionsClientGetResponse contains the response from method FarmBeatsExtensionsClient.Get.
