@@ -1,5 +1,217 @@
 # Release History
 
+## 2.0.0-beta.1 (2022-10-04)
+### Breaking Changes
+
+- Const `ExecutionStatusTimeout` has been removed
+- Const `ReportOperationStatusTypeTimedOut` has been removed
+- Const `RecurrenceTypeAnnually` has been removed
+- Const `RecurrenceTypeWeekly` has been removed
+- Const `ReportOperationStatusTypeNoDataFound` has been removed
+- Const `GenerateDetailedCostReportMetricTypeAmortizedCost` has been removed
+- Const `RecurrenceTypeMonthly` has been removed
+- Const `ExecutionStatusFailed` has been removed
+- Const `ReportOperationStatusTypeReadyToDownload` has been removed
+- Const `ExecutionStatusCompleted` has been removed
+- Const `ExecutionStatusNewDataNotAvailable` has been removed
+- Const `RecurrenceTypeDaily` has been removed
+- Const `StatusTypeInactive` has been removed
+- Const `ReportOperationStatusTypeFailed` has been removed
+- Const `ExecutionStatusQueued` has been removed
+- Const `ExecutionStatusInProgress` has been removed
+- Const `ExecutionStatusDataNotAvailable` has been removed
+- Const `ReportOperationStatusTypeCompleted` has been removed
+- Const `ReportOperationStatusTypeQueued` has been removed
+- Const `FormatTypeCSV` has been removed
+- Const `GenerateDetailedCostReportMetricTypeActualCost` has been removed
+- Const `ExecutionTypeOnDemand` has been removed
+- Const `ExecutionTypeScheduled` has been removed
+- Const `StatusTypeActive` has been removed
+- Const `ReportOperationStatusTypeInProgress` has been removed
+- Type alias `ReportOperationStatusType` has been removed
+- Type alias `RecurrenceType` has been removed
+- Type alias `StatusType` has been removed
+- Type alias `FormatType` has been removed
+- Type alias `GenerateDetailedCostReportMetricType` has been removed
+- Type alias `ExecutionStatus` has been removed
+- Type alias `ExecutionType` has been removed
+- Function `*ExportsClient.Delete` has been removed
+- Function `*ExportsClient.List` has been removed
+- Function `*ExportsClient.Execute` has been removed
+- Function `*GenerateDetailedCostReportOperationStatusClient.Get` has been removed
+- Function `NewGenerateDetailedCostReportOperationStatusClient` has been removed
+- Function `NewGenerateDetailedCostReportOperationResultsClient` has been removed
+- Function `PossibleStatusTypeValues` has been removed
+- Function `PossibleFormatTypeValues` has been removed
+- Function `PossibleReportOperationStatusTypeValues` has been removed
+- Function `PossibleExecutionTypeValues` has been removed
+- Function `NewExportsClient` has been removed
+- Function `PossibleGenerateDetailedCostReportMetricTypeValues` has been removed
+- Function `*GenerateDetailedCostReportClient.BeginCreateOperation` has been removed
+- Function `PossibleRecurrenceTypeValues` has been removed
+- Function `*GenerateDetailedCostReportOperationResultsClient.Get` has been removed
+- Function `NewGenerateDetailedCostReportClient` has been removed
+- Function `PossibleExecutionStatusValues` has been removed
+- Function `*ExportsClient.Get` has been removed
+- Function `*ExportsClient.CreateOrUpdate` has been removed
+- Function `*ExportsClient.GetExecutionHistory` has been removed
+- Struct `CommonExportProperties` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Export` has been removed
+- Struct `ExportDataset` has been removed
+- Struct `ExportDatasetConfiguration` has been removed
+- Struct `ExportDefinition` has been removed
+- Struct `ExportDeliveryDestination` has been removed
+- Struct `ExportDeliveryInfo` has been removed
+- Struct `ExportExecution` has been removed
+- Struct `ExportExecutionListResult` has been removed
+- Struct `ExportExecutionProperties` has been removed
+- Struct `ExportListResult` has been removed
+- Struct `ExportProperties` has been removed
+- Struct `ExportRecurrencePeriod` has been removed
+- Struct `ExportSchedule` has been removed
+- Struct `ExportTimePeriod` has been removed
+- Struct `ExportsClient` has been removed
+- Struct `ExportsClientCreateOrUpdateOptions` has been removed
+- Struct `ExportsClientCreateOrUpdateResponse` has been removed
+- Struct `ExportsClientDeleteOptions` has been removed
+- Struct `ExportsClientDeleteResponse` has been removed
+- Struct `ExportsClientExecuteOptions` has been removed
+- Struct `ExportsClientExecuteResponse` has been removed
+- Struct `ExportsClientGetExecutionHistoryOptions` has been removed
+- Struct `ExportsClientGetExecutionHistoryResponse` has been removed
+- Struct `ExportsClientGetOptions` has been removed
+- Struct `ExportsClientGetResponse` has been removed
+- Struct `ExportsClientListOptions` has been removed
+- Struct `ExportsClientListResponse` has been removed
+- Struct `GenerateDetailedCostReportClient` has been removed
+- Struct `GenerateDetailedCostReportClientBeginCreateOperationOptions` has been removed
+- Struct `GenerateDetailedCostReportClientCreateOperationResponse` has been removed
+- Struct `GenerateDetailedCostReportDefinition` has been removed
+- Struct `GenerateDetailedCostReportErrorResponse` has been removed
+- Struct `GenerateDetailedCostReportOperationResult` has been removed
+- Struct `GenerateDetailedCostReportOperationResultsClient` has been removed
+- Struct `GenerateDetailedCostReportOperationResultsClientGetOptions` has been removed
+- Struct `GenerateDetailedCostReportOperationResultsClientGetResponse` has been removed
+- Struct `GenerateDetailedCostReportOperationStatusClient` has been removed
+- Struct `GenerateDetailedCostReportOperationStatusClientGetOptions` has been removed
+- Struct `GenerateDetailedCostReportOperationStatusClientGetResponse` has been removed
+- Struct `GenerateDetailedCostReportOperationStatuses` has been removed
+- Struct `GenerateDetailedCostReportTimePeriod` has been removed
+- Struct `Status` has been removed
+
+### Features Added
+
+- New const `BenefitsUtilizationSummariesReportSchemaMinUtilizationPercentage`
+- New const `BenefitsUtilizationSummariesReportSchemaBenefitType`
+- New const `BenefitsUtilizationSummariesReportSchemaUsageDate`
+- New const `SettingTypeTagInheritance`
+- New const `BenefitsUtilizationSummariesReportSchemaMaxUtilizationPercentage`
+- New const `BenefitsUtilizationSummariesReportSchemaARMSKUName`
+- New const `ForecastTimeframeCustom`
+- New const `BenefitsUtilizationSummariesReportSchemaAvgUtilizationPercentage`
+- New const `BenefitsUtilizationSummariesReportSchemaBenefitOrderID`
+- New const `SettingsKindTaginheritance`
+- New const `BenefitsUtilizationSummariesReportSchemaBenefitID`
+- New const `ForecastOperatorTypeIn`
+- New type alias `ForecastTimeframe`
+- New type alias `SettingType`
+- New type alias `SettingsKind`
+- New type alias `ForecastOperatorType`
+- New type alias `BenefitsUtilizationSummariesReportSchema`
+- New function `PossibleSettingsKindValues() []SettingsKind`
+- New function `PossibleSettingTypeValues() []SettingType`
+- New function `*MarkupRulesClient.Delete(context.Context, string, string, string, *MarkupRulesClientDeleteOptions) (MarkupRulesClientDeleteResponse, error)`
+- New function `NewMarkupRulesClient(azcore.TokenCredential, *arm.ClientOptions) (*MarkupRulesClient, error)`
+- New function `*SettingsClient.GetByScope(context.Context, string, SettingType, *SettingsClientGetByScopeOptions) (SettingsClientGetByScopeResponse, error)`
+- New function `*BenefitUtilizationSummariesAsyncClient.GetOperationStatusSavingsPlanOrderScope(context.Context, string, string, *BenefitUtilizationSummariesAsyncClientGetOperationStatusSavingsPlanOrderScopeOptions) (BenefitUtilizationSummariesAsyncClientGetOperationStatusSavingsPlanOrderScopeResponse, error)`
+- New function `*MarkupRulesClient.CreateOrUpdate(context.Context, string, string, string, MarkupRule, *MarkupRulesClientCreateOrUpdateOptions) (MarkupRulesClientCreateOrUpdateResponse, error)`
+- New function `*BenefitUtilizationSummariesAsyncClient.GetOperationStatusBillingProfileScope(context.Context, string, string, string, *BenefitUtilizationSummariesAsyncClientGetOperationStatusBillingProfileScopeOptions) (BenefitUtilizationSummariesAsyncClientGetOperationStatusBillingProfileScopeResponse, error)`
+- New function `*BenefitUtilizationSummariesAsyncClient.GetOperationStatusReservationScope(context.Context, string, string, string, *BenefitUtilizationSummariesAsyncClientGetOperationStatusReservationScopeOptions) (BenefitUtilizationSummariesAsyncClientGetOperationStatusReservationScopeResponse, error)`
+- New function `*SettingsClient.CreateOrUpdateByScope(context.Context, string, SettingType, SettingClassification, *SettingsClientCreateOrUpdateByScopeOptions) (SettingsClientCreateOrUpdateByScopeResponse, error)`
+- New function `*TagInheritanceSetting.GetSetting() *Setting`
+- New function `*GenerateBenefitUtilizationSummariesReportAsyncClient.BeginReservationOrderScope(context.Context, string, *GenerateBenefitUtilizationSummariesReportAsyncClientBeginReservationOrderScopeOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportAsyncClientReservationOrderScopeResponse], error)`
+- New function `NewGenerateBenefitUtilizationSummariesReportAsyncClient(azcore.TokenCredential, *arm.ClientOptions) (*GenerateBenefitUtilizationSummariesReportAsyncClient, error)`
+- New function `NewBenefitUtilizationSummariesAsyncClient(azcore.TokenCredential, *arm.ClientOptions) (*BenefitUtilizationSummariesAsyncClient, error)`
+- New function `*BenefitUtilizationSummariesAsyncClient.GetOperationStatusBillingAccountScope(context.Context, string, string, *BenefitUtilizationSummariesAsyncClientGetOperationStatusBillingAccountScopeOptions) (BenefitUtilizationSummariesAsyncClientGetOperationStatusBillingAccountScopeResponse, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportAsyncClient.BeginBillingProfileScope(context.Context, string, string, string, *GenerateBenefitUtilizationSummariesReportAsyncClientBeginBillingProfileScopeOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportAsyncClientBillingProfileScopeResponse], error)`
+- New function `*Setting.GetSetting() *Setting`
+- New function `*BenefitUtilizationSummariesAsyncClient.GetOperationStatusReservationOrderScope(context.Context, string, string, *BenefitUtilizationSummariesAsyncClientGetOperationStatusReservationOrderScopeOptions) (BenefitUtilizationSummariesAsyncClientGetOperationStatusReservationOrderScopeResponse, error)`
+- New function `*MarkupRulesClient.Get(context.Context, string, string, string, *MarkupRulesClientGetOptions) (MarkupRulesClientGetResponse, error)`
+- New function `*SettingsClient.List(context.Context, string, *SettingsClientListOptions) (SettingsClientListResponse, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportAsyncClient.BeginBillingAccountScope(context.Context, string, string, *GenerateBenefitUtilizationSummariesReportAsyncClientBeginBillingAccountScopeOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportAsyncClientBillingAccountScopeResponse], error)`
+- New function `PossibleBenefitsUtilizationSummariesReportSchemaValues() []BenefitsUtilizationSummariesReportSchema`
+- New function `*SettingsClient.DeleteByScope(context.Context, string, SettingType, *SettingsClientDeleteByScopeOptions) (SettingsClientDeleteByScopeResponse, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportAsyncClient.BeginSavingsPlanScope(context.Context, string, string, *GenerateBenefitUtilizationSummariesReportAsyncClientBeginSavingsPlanScopeOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportAsyncClientSavingsPlanScopeResponse], error)`
+- New function `PossibleForecastOperatorTypeValues() []ForecastOperatorType`
+- New function `NewSettingsClient(azcore.TokenCredential, *arm.ClientOptions) (*SettingsClient, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportAsyncClient.BeginReservationScope(context.Context, string, string, *GenerateBenefitUtilizationSummariesReportAsyncClientBeginReservationScopeOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportAsyncClientReservationScopeResponse], error)`
+- New function `PossibleForecastTimeframeValues() []ForecastTimeframe`
+- New function `*BenefitUtilizationSummariesAsyncClient.GetOperationStatusSavingsPlanScope(context.Context, string, string, string, *BenefitUtilizationSummariesAsyncClientGetOperationStatusSavingsPlanScopeOptions) (BenefitUtilizationSummariesAsyncClientGetOperationStatusSavingsPlanScopeResponse, error)`
+- New function `*GenerateBenefitUtilizationSummariesReportAsyncClient.BeginSavingsPlanOrderScope(context.Context, string, *GenerateBenefitUtilizationSummariesReportAsyncClientBeginSavingsPlanOrderScopeOptions) (*runtime.Poller[GenerateBenefitUtilizationSummariesReportAsyncClientSavingsPlanOrderScopeResponse], error)`
+- New function `*MarkupRulesClient.NewListPager(string, string, *MarkupRulesClientListOptions) *runtime.Pager[MarkupRulesClientListResponse]`
+- New struct `BenefitUtilizationSummariesAsyncClient`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusBillingAccountScopeOptions`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusBillingAccountScopeResponse`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusBillingProfileScopeOptions`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusBillingProfileScopeResponse`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusReservationOrderScopeOptions`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusReservationOrderScopeResponse`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusReservationScopeOptions`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusReservationScopeResponse`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusSavingsPlanOrderScopeOptions`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusSavingsPlanOrderScopeResponse`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusSavingsPlanScopeOptions`
+- New struct `BenefitUtilizationSummariesAsyncClientGetOperationStatusSavingsPlanScopeResponse`
+- New struct `BenefitsUtilizationSummariesOperationStatus`
+- New struct `BenefitsUtilizationSummariesReportURL`
+- New struct `CustomerMetadata`
+- New struct `ForecastComparisonExpression`
+- New struct `ForecastDatasetConfiguration`
+- New struct `ForecastFilter`
+- New struct `ForecastTimePeriod`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClient`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientBeginBillingAccountScopeOptions`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientBeginBillingProfileScopeOptions`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientBeginReservationOrderScopeOptions`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientBeginReservationScopeOptions`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientBeginSavingsPlanOrderScopeOptions`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientBeginSavingsPlanScopeOptions`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientBillingAccountScopeResponse`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientBillingProfileScopeResponse`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientReservationOrderScopeResponse`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientReservationScopeResponse`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientSavingsPlanOrderScopeResponse`
+- New struct `GenerateBenefitUtilizationSummariesReportAsyncClientSavingsPlanScopeResponse`
+- New struct `MarkupRule`
+- New struct `MarkupRulePagedResponse`
+- New struct `MarkupRuleProperties`
+- New struct `MarkupRulesClient`
+- New struct `MarkupRulesClientCreateOrUpdateOptions`
+- New struct `MarkupRulesClientCreateOrUpdateResponse`
+- New struct `MarkupRulesClientDeleteOptions`
+- New struct `MarkupRulesClientDeleteResponse`
+- New struct `MarkupRulesClientGetOptions`
+- New struct `MarkupRulesClientGetResponse`
+- New struct `MarkupRulesClientListOptions`
+- New struct `MarkupRulesClientListResponse`
+- New struct `Setting`
+- New struct `SettingsClient`
+- New struct `SettingsClientCreateOrUpdateByScopeOptions`
+- New struct `SettingsClientCreateOrUpdateByScopeResponse`
+- New struct `SettingsClientDeleteByScopeOptions`
+- New struct `SettingsClientDeleteByScopeResponse`
+- New struct `SettingsClientGetByScopeOptions`
+- New struct `SettingsClientGetByScopeResponse`
+- New struct `SettingsClientListOptions`
+- New struct `SettingsClientListResponse`
+- New struct `SettingsListResult`
+- New struct `TagInheritanceProperties`
+- New struct `TagInheritanceSetting`
+- New field `Skiptoken` in struct `QueryClientUsageByExternalCloudProviderTypeOptions`
+- New field `Skiptoken` in struct `QueryClientUsageOptions`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
