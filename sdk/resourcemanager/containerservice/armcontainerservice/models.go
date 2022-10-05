@@ -73,6 +73,12 @@ type AgentPoolListResult struct {
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
+// AgentPoolNetworkProfile - Network settings of an agent pool.
+type AgentPoolNetworkProfile struct {
+	// IPTags of instance-level public IPs.
+	NodePublicIPTags []*IPTag `json:"nodePublicIPTags,omitempty"`
+}
+
 // AgentPoolUpgradeProfile - The list of available upgrades for an agent pool.
 type AgentPoolUpgradeProfile struct {
 	// REQUIRED; The properties of the agent pool upgrade profile.
@@ -273,206 +279,6 @@ type ExtendedLocation struct {
 	Type *ExtendedLocationTypes `json:"type,omitempty"`
 }
 
-// Fleet - The Fleet resource which contains multiple Kubernetes clusters as its members.
-type Fleet struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-
-	// Properties of a Fleet.
-	Properties *FleetProperties `json:"properties,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// READ-ONLY; Resource Etag.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// FleetCredentialResult - The credential result response.
-type FleetCredentialResult struct {
-	// READ-ONLY; The name of the credential.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Base64-encoded Kubernetes configuration file.
-	Value []byte `json:"value,omitempty" azure:"ro"`
-}
-
-// FleetCredentialResults - The list credential result response.
-type FleetCredentialResults struct {
-	// READ-ONLY; Base64-encoded Kubernetes configuration file.
-	Kubeconfigs []*FleetCredentialResult `json:"kubeconfigs,omitempty" azure:"ro"`
-}
-
-// FleetHubProfile - The FleetHubProfile configures the fleet hub.
-type FleetHubProfile struct {
-	// DNS prefix used to create the FQDN for the Fleet hub.
-	DNSPrefix *string `json:"dnsPrefix,omitempty"`
-
-	// READ-ONLY; The FQDN of the Fleet hub.
-	Fqdn *string `json:"fqdn,omitempty" azure:"ro"`
-
-	// READ-ONLY; The Kubernetes version of the Fleet hub.
-	KubernetesVersion *string `json:"kubernetesVersion,omitempty" azure:"ro"`
-}
-
-// FleetListResult - The response from the List Fleets operation.
-type FleetListResult struct {
-	// The list of Fleets.
-	Value []*Fleet `json:"value,omitempty"`
-
-	// READ-ONLY; The URL to get the next page of Fleets.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
-}
-
-// FleetMember - A member of the Fleet. It contains a reference to an existing Kubernetes cluster on Azure.
-type FleetMember struct {
-	// Properties of a Fleet member.
-	Properties *FleetMemberProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Resource Etag.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// FleetMemberProperties - Properties of a Fleet member.
-type FleetMemberProperties struct {
-	// The ARM resource id of the cluster that joins the Fleet. Must be a valid Azure resource id. e.g.:
-	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/managedClusters/{clusterName}'.
-	ClusterResourceID *string `json:"clusterResourceId,omitempty"`
-
-	// READ-ONLY; The provisioning state of the last accepted operation.
-	ProvisioningState *FleetMemberProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// FleetMembersClientBeginCreateOrUpdateOptions contains the optional parameters for the FleetMembersClient.BeginCreateOrUpdate
-// method.
-type FleetMembersClientBeginCreateOrUpdateOptions struct {
-	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
-	// concurrent changes.
-	IfMatch *string
-	// Set to '*' to allow a new resource to be created and prevent updating an existing resource. Other values will result in
-	// a 412 Pre-condition Failed response.
-	IfNoneMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// FleetMembersClientBeginDeleteOptions contains the optional parameters for the FleetMembersClient.BeginDelete method.
-type FleetMembersClientBeginDeleteOptions struct {
-	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
-	// concurrent changes.
-	IfMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// FleetMembersClientGetOptions contains the optional parameters for the FleetMembersClient.Get method.
-type FleetMembersClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FleetMembersClientListByFleetOptions contains the optional parameters for the FleetMembersClient.ListByFleet method.
-type FleetMembersClientListByFleetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FleetMembersListResult - The response from the List FleetMembers operation.
-type FleetMembersListResult struct {
-	// The list of members in a given Fleet.
-	Value []*FleetMember `json:"value,omitempty"`
-
-	// READ-ONLY; The URL to get the next page of Fleet members.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
-}
-
-// FleetPatch - Properties of a Fleet that can be patched.
-type FleetPatch struct {
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-}
-
-// FleetProperties - Properties of a Fleet.
-type FleetProperties struct {
-	// The FleetHubProfile configures the Fleet's hub.
-	HubProfile *FleetHubProfile `json:"hubProfile,omitempty"`
-
-	// READ-ONLY; The provisioning state of the last accepted operation.
-	ProvisioningState *FleetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// FleetsClientBeginCreateOrUpdateOptions contains the optional parameters for the FleetsClient.BeginCreateOrUpdate method.
-type FleetsClientBeginCreateOrUpdateOptions struct {
-	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
-	// concurrent changes.
-	IfMatch *string
-	// Set to '*' to allow a new resource to be created and prevent updating an existing resource. Other values will result in
-	// a 412 Pre-condition Failed response.
-	IfNoneMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// FleetsClientBeginDeleteOptions contains the optional parameters for the FleetsClient.BeginDelete method.
-type FleetsClientBeginDeleteOptions struct {
-	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
-	// concurrent changes.
-	IfMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// FleetsClientGetOptions contains the optional parameters for the FleetsClient.Get method.
-type FleetsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FleetsClientListByResourceGroupOptions contains the optional parameters for the FleetsClient.ListByResourceGroup method.
-type FleetsClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FleetsClientListCredentialsOptions contains the optional parameters for the FleetsClient.ListCredentials method.
-type FleetsClientListCredentialsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FleetsClientListOptions contains the optional parameters for the FleetsClient.List method.
-type FleetsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// FleetsClientUpdateOptions contains the optional parameters for the FleetsClient.Update method.
-type FleetsClientUpdateOptions struct {
-	// Omit this value to always overwrite the current resource. Specify the last-seen ETag value to prevent accidentally overwriting
-	// concurrent changes.
-	IfMatch *string
-	// The properties of a Fleet to update.
-	Parameters *FleetPatch
-}
-
 // GuardrailsProfile - The Guardrails profile.
 type GuardrailsProfile struct {
 	// REQUIRED; The guardrails level to be used. By default, Guardrails is enabled for all namespaces except those that AKS excludes
@@ -487,6 +293,15 @@ type GuardrailsProfile struct {
 
 	// READ-ONLY; List of namespaces specified by AKS to be excluded from Guardrails
 	SystemExcludedNamespaces []*string `json:"systemExcludedNamespaces,omitempty" azure:"ro"`
+}
+
+// IPTag - Contains the IPTag associated with the object.
+type IPTag struct {
+	// The IP tag type. Example: RoutingPreference.
+	IPTagType *string `json:"ipTagType,omitempty"`
+
+	// The value of the IP tag associated with the public IP. Example: Internet.
+	Tag *string `json:"tag,omitempty"`
 }
 
 // KubeletConfig - See AKS custom node configuration [https://docs.microsoft.com/azure/aks/custom-node-configuration] for
@@ -776,8 +591,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// Whether to enable auto-scaler
 	EnableAutoScaling *bool `json:"enableAutoScaling,omitempty"`
 
-	// When set to true, AKS deploys a daemonset and host services to sync custom certificate authorities from a user-provided
-	// config map into node trust stores. Defaults to false.
+	// When set to true, AKS adds a label to the node indicating that the feature is enabled and deploys a daemonset along with
+	// host services to sync custom certificate authorities from user-provided list of
+	// base64 encoded certificates into node trust stores. Defaults to false.
 	EnableCustomCATrust *bool `json:"enableCustomCATrust,omitempty"`
 
 	// This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption
@@ -831,6 +647,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent pool restrictions
 	// and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools
 	Mode *AgentPoolMode `json:"mode,omitempty"`
+
+	// Network-related settings of an agent pool.
+	NetworkProfile *AgentPoolNetworkProfile `json:"networkProfile,omitempty"`
 
 	// The node labels to be persisted across all nodes in agent pool.
 	NodeLabels map[string]*string `json:"nodeLabels,omitempty"`
@@ -948,8 +767,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// Whether to enable auto-scaler
 	EnableAutoScaling *bool `json:"enableAutoScaling,omitempty"`
 
-	// When set to true, AKS deploys a daemonset and host services to sync custom certificate authorities from a user-provided
-	// config map into node trust stores. Defaults to false.
+	// When set to true, AKS adds a label to the node indicating that the feature is enabled and deploys a daemonset along with
+	// host services to sync custom certificate authorities from user-provided list of
+	// base64 encoded certificates into node trust stores. Defaults to false.
 	EnableCustomCATrust *bool `json:"enableCustomCATrust,omitempty"`
 
 	// This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption
@@ -1003,6 +823,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent pool restrictions
 	// and best practices, see: https://docs.microsoft.com/azure/aks/use-system-pools
 	Mode *AgentPoolMode `json:"mode,omitempty"`
+
+	// Network-related settings of an agent pool.
+	NetworkProfile *AgentPoolNetworkProfile `json:"networkProfile,omitempty"`
 
 	// The node labels to be persisted across all nodes in agent pool.
 	NodeLabels map[string]*string `json:"nodeLabels,omitempty"`
@@ -1593,6 +1416,11 @@ type ManagedClusterSecurityProfile struct {
 	// Azure Key Vault key management service [https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/] settings for
 	// the security profile.
 	AzureKeyVaultKms *AzureKeyVaultKms `json:"azureKeyVaultKms,omitempty"`
+
+	// A list of up to 10 base64 encoded CAs that will be added to the trust store on nodes with the Custom CA Trust feature enabled.
+	// For more information see Custom CA Trust Certificates
+	// [https://learn.microsoft.com/en-us/azure/aks/custom-certificate-authority]
+	CustomCATrustCertificates [][]byte `json:"customCATrustCertificates,omitempty"`
 
 	// Microsoft Defender settings for the security profile.
 	Defender *ManagedClusterSecurityProfileDefender `json:"defender,omitempty"`
