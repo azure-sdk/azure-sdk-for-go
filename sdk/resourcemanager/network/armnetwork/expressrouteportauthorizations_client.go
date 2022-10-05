@@ -260,7 +260,6 @@ func (client *ExpressRoutePortAuthorizationsClient) getHandleResponse(resp *http
 }
 
 // NewListPager - Gets all authorizations in an express route port.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // expressRoutePortName - The name of the express route port.

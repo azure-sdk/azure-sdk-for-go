@@ -205,7 +205,6 @@ func (client *ManagementGroupNetworkManagerConnectionsClient) getHandleResponse(
 }
 
 // NewListPager - List all network manager connections created by this management group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
 // options - ManagementGroupNetworkManagerConnectionsClientListOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.List

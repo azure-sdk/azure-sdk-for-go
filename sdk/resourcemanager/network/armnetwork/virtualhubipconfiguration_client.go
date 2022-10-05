@@ -260,7 +260,6 @@ func (client *VirtualHubIPConfigurationClient) getHandleResponse(resp *http.Resp
 }
 
 // NewListPager - Retrieves the details of all VirtualHubIpConfigurations.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The resource group name of the VirtualHub.
 // virtualHubName - The name of the VirtualHub.

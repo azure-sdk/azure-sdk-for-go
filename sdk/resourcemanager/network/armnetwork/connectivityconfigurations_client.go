@@ -259,7 +259,6 @@ func (client *ConnectivityConfigurationsClient) getHandleResponse(resp *http.Res
 }
 
 // NewListPager - Lists all the network manager connectivity configuration in a specified network manager.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // networkManagerName - The name of the network manager.

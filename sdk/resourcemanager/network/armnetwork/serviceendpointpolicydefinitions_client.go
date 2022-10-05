@@ -260,7 +260,6 @@ func (client *ServiceEndpointPolicyDefinitionsClient) getHandleResponse(resp *ht
 }
 
 // NewListByResourceGroupPager - Gets all service endpoint policy definitions in a service end point policy.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The name of the resource group.
 // serviceEndpointPolicyName - The name of the service endpoint policy name.

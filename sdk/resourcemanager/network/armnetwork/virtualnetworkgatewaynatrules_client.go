@@ -262,7 +262,6 @@ func (client *VirtualNetworkGatewayNatRulesClient) getHandleResponse(resp *http.
 }
 
 // NewListByVirtualNetworkGatewayPager - Retrieves all nat rules for a particular virtual network gateway.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The resource group name of the virtual network gateway.
 // virtualNetworkGatewayName - The name of the gateway.

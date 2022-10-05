@@ -259,7 +259,6 @@ func (client *RoutingIntentClient) getHandleResponse(resp *http.Response) (Routi
 }
 
 // NewListPager - Retrieves the details of all RoutingIntent child resources of the VirtualHub.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The resource group name of the VirtualHub.
 // virtualHubName - The name of the VirtualHub.

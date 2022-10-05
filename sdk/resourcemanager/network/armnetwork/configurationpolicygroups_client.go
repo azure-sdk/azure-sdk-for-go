@@ -260,7 +260,6 @@ func (client *ConfigurationPolicyGroupsClient) getHandleResponse(resp *http.Resp
 }
 
 // NewListByVPNServerConfigurationPager - Lists all the configurationPolicyGroups in a resource group for a vpnServerConfiguration.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // resourceGroupName - The resource group name of the VpnServerConfiguration.
 // vpnServerConfigurationName - The name of the VpnServerConfiguration.

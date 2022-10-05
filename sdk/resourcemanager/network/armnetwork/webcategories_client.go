@@ -111,7 +111,6 @@ func (client *WebCategoriesClient) getHandleResponse(resp *http.Response) (WebCa
 }
 
 // NewListBySubscriptionPager - Gets all the Azure Web Categories in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
 // options - WebCategoriesClientListBySubscriptionOptions contains the optional parameters for the WebCategoriesClient.ListBySubscription
 // method.
