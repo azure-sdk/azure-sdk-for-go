@@ -3407,11 +3407,6 @@ type WebSiteManagementClientListPremierAddOnOffersResponse struct {
 	PremierAddOnOfferCollection
 }
 
-// WebSiteManagementClientListSKUsResponse contains the response from method WebSiteManagementClient.ListSKUs.
-type WebSiteManagementClientListSKUsResponse struct {
-	SKUInfos
-}
-
 // WebSiteManagementClientListSiteIdentifiersAssignedToHostNameResponse contains the response from method WebSiteManagementClient.ListSiteIdentifiersAssignedToHostName.
 type WebSiteManagementClientListSiteIdentifiersAssignedToHostNameResponse struct {
 	IdentifierCollection

@@ -1,5 +1,13 @@
 # Release History
 
+## 3.0.0 (2022-10-06)
+### Breaking Changes
+
+- Function `*WebSiteManagementClient.ListSKUs` has been removed
+- Struct `WebSiteManagementClientListSKUsOptions` has been removed
+- Struct `WebSiteManagementClientListSKUsResponse` has been removed
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 

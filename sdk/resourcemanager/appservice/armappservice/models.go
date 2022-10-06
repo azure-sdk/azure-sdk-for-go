@@ -14003,11 +14003,6 @@ type WebSiteManagementClientListPremierAddOnOffersOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WebSiteManagementClientListSKUsOptions contains the optional parameters for the WebSiteManagementClient.ListSKUs method.
-type WebSiteManagementClientListSKUsOptions struct {
-	// placeholder for future optional parameters
-}
-
 // WebSiteManagementClientListSiteIdentifiersAssignedToHostNameOptions contains the optional parameters for the WebSiteManagementClient.ListSiteIdentifiersAssignedToHostName
 // method.
 type WebSiteManagementClientListSiteIdentifiersAssignedToHostNameOptions struct {
