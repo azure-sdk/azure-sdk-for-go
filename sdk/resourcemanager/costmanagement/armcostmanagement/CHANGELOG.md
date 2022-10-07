@@ -1,5 +1,513 @@
 # Release History
 
+## 2.0.0 (2022-10-07)
+### Breaking Changes
+
+- Const `MetricTypeAHUB` has been removed
+- Const `FormatTypeCSV` has been removed
+- Const `AlertCriteriaUsageThresholdExceeded` has been removed
+- Const `RecurrenceTypeAnnually` has been removed
+- Const `ChartTypeTable` has been removed
+- Const `ForecastTypeUsage` has been removed
+- Const `QueryColumnTypeDimension` has been removed
+- Const `AlertCriteriaCreditThresholdReached` has been removed
+- Const `TimeframeTypeTheLastMonth` has been removed
+- Const `AlertTimeGrainTypeBillingQuarter` has been removed
+- Const `ExportTypeAmortizedCost` has been removed
+- Const `AlertCriteriaGeneralThresholdError` has been removed
+- Const `TimeframeTypeWeekToDate` has been removed
+- Const `ExternalCloudProviderTypeExternalBillingAccounts` has been removed
+- Const `AlertOperatorLessThan` has been removed
+- Const `AlertTimeGrainTypeNone` has been removed
+- Const `AlertCriteriaInvoiceDueDateReached` has been removed
+- Const `ReservationReportSchemaTotalReservedQuantity` has been removed
+- Const `ReportTypeUsage` has been removed
+- Const `AlertTypeCredit` has been removed
+- Const `AlertStatusResolved` has been removed
+- Const `OperatorTypeContains` has been removed
+- Const `ExportTypeActualCost` has been removed
+- Const `ExternalCloudProviderTypeExternalSubscriptions` has been removed
+- Const `AlertCategoryBilling` has been removed
+- Const `QueryOperatorTypeIn` has been removed
+- Const `ReservationReportSchemaSKUName` has been removed
+- Const `AlertTypeXCloud` has been removed
+- Const `AlertCriteriaCrossCloudNewDataAvailable` has been removed
+- Const `ReservationReportSchemaReservedHours` has been removed
+- Const `FunctionTypeSum` has been removed
+- Const `ReportConfigColumnTypeTag` has been removed
+- Const `AlertStatusDismissed` has been removed
+- Const `AlertCategoryUsage` has been removed
+- Const `AlertTypeBudgetForecast` has been removed
+- Const `ReportOperationStatusTypeInProgress` has been removed
+- Const `ExecutionStatusCompleted` has been removed
+- Const `AlertCategorySystem` has been removed
+- Const `AlertOperatorGreaterThanOrEqualTo` has been removed
+- Const `ForecastTimeframeTypeCustom` has been removed
+- Const `ExecutionStatusQueued` has been removed
+- Const `AccumulatedTypeFalse` has been removed
+- Const `AlertTimeGrainTypeQuarterly` has been removed
+- Const `AlertOperatorNone` has been removed
+- Const `TimeframeTypeMonthToDate` has been removed
+- Const `ExecutionStatusFailed` has been removed
+- Const `RecurrenceTypeWeekly` has been removed
+- Const `ChartTypeLine` has been removed
+- Const `StatusTypeActive` has been removed
+- Const `AlertCriteriaQuotaThresholdReached` has been removed
+- Const `AccumulatedTypeTrue` has been removed
+- Const `ReportTimeframeTypeYearToDate` has been removed
+- Const `RecurrenceTypeDaily` has been removed
+- Const `AlertCriteriaCrossCloudCollectionError` has been removed
+- Const `ReportOperationStatusTypeNoDataFound` has been removed
+- Const `AlertSourceUser` has been removed
+- Const `ReservationReportSchemaInstanceID` has been removed
+- Const `PivotTypeDimension` has been removed
+- Const `ReservationReportSchemaUsedHours` has been removed
+- Const `AlertStatusActive` has been removed
+- Const `ReportConfigColumnTypeDimension` has been removed
+- Const `RecurrenceTypeMonthly` has been removed
+- Const `OperationStatusTypeRunning` has been removed
+- Const `AlertOperatorGreaterThan` has been removed
+- Const `AlertCriteriaInvoiceDueDateApproaching` has been removed
+- Const `ForecastTimeframeTypeMonthToDate` has been removed
+- Const `ExecutionStatusTimeout` has been removed
+- Const `ReportGranularityTypeDaily` has been removed
+- Const `ChartTypeGroupedColumn` has been removed
+- Const `ReportTimeframeTypeWeekToDate` has been removed
+- Const `TimeframeTypeBillingMonthToDate` has been removed
+- Const `ReservationReportSchemaUsageDate` has been removed
+- Const `ReportOperationStatusTypeReadyToDownload` has been removed
+- Const `ReportOperationStatusTypeCompleted` has been removed
+- Const `StatusTypeInactive` has been removed
+- Const `AlertCriteriaForecastUsageThresholdExceeded` has been removed
+- Const `AlertTypeBudget` has been removed
+- Const `MetricTypeActualCost` has been removed
+- Const `ChartTypeArea` has been removed
+- Const `ExecutionStatusNewDataNotAvailable` has been removed
+- Const `ReportTimeframeTypeMonthToDate` has been removed
+- Const `ReportConfigSortingTypeDescending` has been removed
+- Const `AlertTimeGrainTypeAnnually` has been removed
+- Const `ReservationReportSchemaInstanceFlexibilityRatio` has been removed
+- Const `KpiTypeForecast` has been removed
+- Const `ReservationReportSchemaKind` has been removed
+- Const `GranularityTypeDaily` has been removed
+- Const `OperationStatusTypeCompleted` has been removed
+- Const `AlertOperatorLessThanOrEqualTo` has been removed
+- Const `AlertTypeGeneral` has been removed
+- Const `AlertCriteriaCostThresholdExceeded` has been removed
+- Const `MetricTypeAmortizedCost` has been removed
+- Const `AlertCategoryCost` has been removed
+- Const `KpiTypeBudget` has been removed
+- Const `AlertStatusOverridden` has been removed
+- Const `ReportOperationStatusTypeTimedOut` has been removed
+- Const `ExportTypeUsage` has been removed
+- Const `PivotTypeTagKey` has been removed
+- Const `ForecastTypeActualCost` has been removed
+- Const `ReportConfigSortingTypeAscending` has been removed
+- Const `AlertTypeInvoice` has been removed
+- Const `ForecastTimeframeTypeTheLastBillingMonth` has been removed
+- Const `QueryColumnTypeTag` has been removed
+- Const `ForecastTimeframeTypeBillingMonthToDate` has been removed
+- Const `AlertTimeGrainTypeBillingAnnual` has been removed
+- Const `ReportOperationStatusTypeFailed` has been removed
+- Const `ExecutionStatusInProgress` has been removed
+- Const `AlertTypeQuota` has been removed
+- Const `ForecastTimeframeTypeTheLastMonth` has been removed
+- Const `AlertTimeGrainTypeBillingMonth` has been removed
+- Const `GenerateDetailedCostReportMetricTypeActualCost` has been removed
+- Const `AlertCriteriaCreditThresholdApproaching` has been removed
+- Const `ForecastTypeAmortizedCost` has been removed
+- Const `ExecutionTypeOnDemand` has been removed
+- Const `ReportOperationStatusTypeQueued` has been removed
+- Const `AlertStatusNone` has been removed
+- Const `OperatorTypeIn` has been removed
+- Const `ExecutionTypeScheduled` has been removed
+- Const `TimeframeTypeCustom` has been removed
+- Const `OperationStatusTypeFailed` has been removed
+- Const `AlertOperatorEqualTo` has been removed
+- Const `ForecastTimeframeTypeWeekToDate` has been removed
+- Const `GenerateDetailedCostReportMetricTypeAmortizedCost` has been removed
+- Const `AlertCriteriaMultiCurrency` has been removed
+- Const `AlertCriteriaForecastCostThresholdExceeded` has been removed
+- Const `AlertTimeGrainTypeMonthly` has been removed
+- Const `ReportTimeframeTypeCustom` has been removed
+- Const `TimeframeTypeTheLastBillingMonth` has been removed
+- Const `ReservationReportSchemaReservationOrderID` has been removed
+- Const `AlertCriteriaQuotaThresholdApproaching` has been removed
+- Const `ReservationReportSchemaReservationID` has been removed
+- Const `ExecutionStatusDataNotAvailable` has been removed
+- Const `ReportGranularityTypeMonthly` has been removed
+- Const `ChartTypeStackedColumn` has been removed
+- Const `ReservationReportSchemaInstanceFlexibilityGroup` has been removed
+- Const `AlertSourcePreset` has been removed
+- Type alias `KpiType` has been removed
+- Type alias `StatusType` has been removed
+- Type alias `ExternalCloudProviderType` has been removed
+- Type alias `ForecastType` has been removed
+- Type alias `ReportConfigColumnType` has been removed
+- Type alias `ExportType` has been removed
+- Type alias `RecurrenceType` has been removed
+- Type alias `ReportOperationStatusType` has been removed
+- Type alias `FunctionType` has been removed
+- Type alias `AlertTimeGrainType` has been removed
+- Type alias `ReportTimeframeType` has been removed
+- Type alias `FormatType` has been removed
+- Type alias `AlertType` has been removed
+- Type alias `AlertStatus` has been removed
+- Type alias `PivotType` has been removed
+- Type alias `ReservationReportSchema` has been removed
+- Type alias `GenerateDetailedCostReportMetricType` has been removed
+- Type alias `GranularityType` has been removed
+- Type alias `ReportType` has been removed
+- Type alias `AlertCriteria` has been removed
+- Type alias `ChartType` has been removed
+- Type alias `AccumulatedType` has been removed
+- Type alias `QueryColumnType` has been removed
+- Type alias `OperatorType` has been removed
+- Type alias `ForecastTimeframeType` has been removed
+- Type alias `ExecutionType` has been removed
+- Type alias `OperationStatusType` has been removed
+- Type alias `AlertCategory` has been removed
+- Type alias `ReportConfigSortingType` has been removed
+- Type alias `ReportGranularityType` has been removed
+- Type alias `ExecutionStatus` has been removed
+- Type alias `TimeframeType` has been removed
+- Type alias `AlertOperator` has been removed
+- Type alias `MetricType` has been removed
+- Type alias `AlertSource` has been removed
+- Type alias `QueryOperatorType` has been removed
+- Function `*AlertsClient.List` has been removed
+- Function `NewGenerateDetailedCostReportClient` has been removed
+- Function `*ViewsClient.CreateOrUpdate` has been removed
+- Function `PossibleAlertTypeValues` has been removed
+- Function `*AlertsClient.Dismiss` has been removed
+- Function `NewQueryClient` has been removed
+- Function `PossibleRecurrenceTypeValues` has been removed
+- Function `*ForecastClient.Usage` has been removed
+- Function `*ExportsClient.Execute` has been removed
+- Function `*ExportsClient.List` has been removed
+- Function `PossibleAlertSourceValues` has been removed
+- Function `PossibleGranularityTypeValues` has been removed
+- Function `PossibleAlertOperatorValues` has been removed
+- Function `NewViewsClient` has been removed
+- Function `*ViewsClient.Delete` has been removed
+- Function `NewGenerateReservationDetailsReportClient` has been removed
+- Function `*ExportsClient.CreateOrUpdate` has been removed
+- Function `PossibleQueryColumnTypeValues` has been removed
+- Function `NewGenerateDetailedCostReportOperationResultsClient` has been removed
+- Function `PossibleReportConfigColumnTypeValues` has been removed
+- Function `PossibleFunctionTypeValues` has been removed
+- Function `*GenerateReservationDetailsReportClient.BeginByBillingProfileID` has been removed
+- Function `*ViewsClient.NewListByScopePager` has been removed
+- Function `PossibleReportTimeframeTypeValues` has been removed
+- Function `PossibleQueryOperatorTypeValues` has been removed
+- Function `PossibleOperationStatusTypeValues` has been removed
+- Function `PossibleForecastTimeframeTypeValues` has been removed
+- Function `NewGenerateDetailedCostReportOperationStatusClient` has been removed
+- Function `PossiblePivotTypeValues` has been removed
+- Function `PossibleAlertCriteriaValues` has been removed
+- Function `PossibleKpiTypeValues` has been removed
+- Function `PossibleMetricTypeValues` has been removed
+- Function `NewForecastClient` has been removed
+- Function `*GenerateDetailedCostReportClient.BeginCreateOperation` has been removed
+- Function `*ExportsClient.Get` has been removed
+- Function `*ViewsClient.Get` has been removed
+- Function `PossibleOperatorTypeValues` has been removed
+- Function `*ViewsClient.GetByScope` has been removed
+- Function `PossibleExecutionStatusValues` has been removed
+- Function `PossibleAccumulatedTypeValues` has been removed
+- Function `PossibleReportConfigSortingTypeValues` has been removed
+- Function `*ViewsClient.CreateOrUpdateByScope` has been removed
+- Function `PossibleFormatTypeValues` has been removed
+- Function `*AlertsClient.Get` has been removed
+- Function `PossibleReservationReportSchemaValues` has been removed
+- Function `*GenerateReservationDetailsReportClient.BeginByBillingAccountID` has been removed
+- Function `PossibleReportGranularityTypeValues` has been removed
+- Function `PossibleStatusTypeValues` has been removed
+- Function `PossibleReportOperationStatusTypeValues` has been removed
+- Function `PossibleGenerateDetailedCostReportMetricTypeValues` has been removed
+- Function `*ExportsClient.Delete` has been removed
+- Function `*ExportsClient.GetExecutionHistory` has been removed
+- Function `PossibleReportTypeValues` has been removed
+- Function `*ViewsClient.NewListPager` has been removed
+- Function `NewExportsClient` has been removed
+- Function `PossibleTimeframeTypeValues` has been removed
+- Function `PossibleAlertStatusValues` has been removed
+- Function `PossibleExecutionTypeValues` has been removed
+- Function `*AlertsClient.ListExternal` has been removed
+- Function `*GenerateDetailedCostReportOperationStatusClient.Get` has been removed
+- Function `*DimensionsClient.NewByExternalCloudProviderTypePager` has been removed
+- Function `PossibleChartTypeValues` has been removed
+- Function `PossibleExportTypeValues` has been removed
+- Function `*ViewsClient.DeleteByScope` has been removed
+- Function `*GenerateDetailedCostReportOperationResultsClient.Get` has been removed
+- Function `*DimensionsClient.NewListPager` has been removed
+- Function `PossibleForecastTypeValues` has been removed
+- Function `NewAlertsClient` has been removed
+- Function `PossibleExternalCloudProviderTypeValues` has been removed
+- Function `*QueryClient.UsageByExternalCloudProviderType` has been removed
+- Function `PossibleAlertCategoryValues` has been removed
+- Function `*QueryClient.Usage` has been removed
+- Function `PossibleAlertTimeGrainTypeValues` has been removed
+- Function `*ForecastClient.ExternalCloudProviderUsage` has been removed
+- Function `NewDimensionsClient` has been removed
+- Struct `Alert` has been removed
+- Struct `AlertProperties` has been removed
+- Struct `AlertPropertiesDefinition` has been removed
+- Struct `AlertPropertiesDetails` has been removed
+- Struct `AlertsClient` has been removed
+- Struct `AlertsClientDismissOptions` has been removed
+- Struct `AlertsClientDismissResponse` has been removed
+- Struct `AlertsClientGetOptions` has been removed
+- Struct `AlertsClientGetResponse` has been removed
+- Struct `AlertsClientListExternalOptions` has been removed
+- Struct `AlertsClientListExternalResponse` has been removed
+- Struct `AlertsClientListOptions` has been removed
+- Struct `AlertsClientListResponse` has been removed
+- Struct `AlertsResult` has been removed
+- Struct `CommonExportProperties` has been removed
+- Struct `Dimension` has been removed
+- Struct `DimensionProperties` has been removed
+- Struct `DimensionsClient` has been removed
+- Struct `DimensionsClientByExternalCloudProviderTypeOptions` has been removed
+- Struct `DimensionsClientByExternalCloudProviderTypeResponse` has been removed
+- Struct `DimensionsClientListOptions` has been removed
+- Struct `DimensionsClientListResponse` has been removed
+- Struct `DimensionsListResult` has been removed
+- Struct `DismissAlertPayload` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Export` has been removed
+- Struct `ExportDataset` has been removed
+- Struct `ExportDatasetConfiguration` has been removed
+- Struct `ExportDefinition` has been removed
+- Struct `ExportDeliveryDestination` has been removed
+- Struct `ExportDeliveryInfo` has been removed
+- Struct `ExportExecution` has been removed
+- Struct `ExportExecutionListResult` has been removed
+- Struct `ExportExecutionProperties` has been removed
+- Struct `ExportListResult` has been removed
+- Struct `ExportProperties` has been removed
+- Struct `ExportRecurrencePeriod` has been removed
+- Struct `ExportSchedule` has been removed
+- Struct `ExportTimePeriod` has been removed
+- Struct `ExportsClient` has been removed
+- Struct `ExportsClientCreateOrUpdateOptions` has been removed
+- Struct `ExportsClientCreateOrUpdateResponse` has been removed
+- Struct `ExportsClientDeleteOptions` has been removed
+- Struct `ExportsClientDeleteResponse` has been removed
+- Struct `ExportsClientExecuteOptions` has been removed
+- Struct `ExportsClientExecuteResponse` has been removed
+- Struct `ExportsClientGetExecutionHistoryOptions` has been removed
+- Struct `ExportsClientGetExecutionHistoryResponse` has been removed
+- Struct `ExportsClientGetOptions` has been removed
+- Struct `ExportsClientGetResponse` has been removed
+- Struct `ExportsClientListOptions` has been removed
+- Struct `ExportsClientListResponse` has been removed
+- Struct `ForecastClient` has been removed
+- Struct `ForecastClientExternalCloudProviderUsageOptions` has been removed
+- Struct `ForecastClientExternalCloudProviderUsageResponse` has been removed
+- Struct `ForecastClientUsageOptions` has been removed
+- Struct `ForecastClientUsageResponse` has been removed
+- Struct `ForecastDataset` has been removed
+- Struct `ForecastDefinition` has been removed
+- Struct `GenerateDetailedCostReportClient` has been removed
+- Struct `GenerateDetailedCostReportClientBeginCreateOperationOptions` has been removed
+- Struct `GenerateDetailedCostReportClientCreateOperationResponse` has been removed
+- Struct `GenerateDetailedCostReportDefinition` has been removed
+- Struct `GenerateDetailedCostReportErrorResponse` has been removed
+- Struct `GenerateDetailedCostReportOperationResult` has been removed
+- Struct `GenerateDetailedCostReportOperationResultsClient` has been removed
+- Struct `GenerateDetailedCostReportOperationResultsClientGetOptions` has been removed
+- Struct `GenerateDetailedCostReportOperationResultsClientGetResponse` has been removed
+- Struct `GenerateDetailedCostReportOperationStatusClient` has been removed
+- Struct `GenerateDetailedCostReportOperationStatusClientGetOptions` has been removed
+- Struct `GenerateDetailedCostReportOperationStatusClientGetResponse` has been removed
+- Struct `GenerateDetailedCostReportOperationStatuses` has been removed
+- Struct `GenerateDetailedCostReportTimePeriod` has been removed
+- Struct `GenerateReservationDetailsReportClient` has been removed
+- Struct `GenerateReservationDetailsReportClientBeginByBillingAccountIDOptions` has been removed
+- Struct `GenerateReservationDetailsReportClientBeginByBillingProfileIDOptions` has been removed
+- Struct `GenerateReservationDetailsReportClientByBillingAccountIDResponse` has been removed
+- Struct `GenerateReservationDetailsReportClientByBillingProfileIDResponse` has been removed
+- Struct `KpiProperties` has been removed
+- Struct `OperationStatus` has been removed
+- Struct `PivotProperties` has been removed
+- Struct `QueryAggregation` has been removed
+- Struct `QueryClient` has been removed
+- Struct `QueryClientUsageByExternalCloudProviderTypeOptions` has been removed
+- Struct `QueryClientUsageByExternalCloudProviderTypeResponse` has been removed
+- Struct `QueryClientUsageOptions` has been removed
+- Struct `QueryClientUsageResponse` has been removed
+- Struct `QueryColumn` has been removed
+- Struct `QueryComparisonExpression` has been removed
+- Struct `QueryDataset` has been removed
+- Struct `QueryDatasetConfiguration` has been removed
+- Struct `QueryDefinition` has been removed
+- Struct `QueryFilter` has been removed
+- Struct `QueryGrouping` has been removed
+- Struct `QueryProperties` has been removed
+- Struct `QueryResult` has been removed
+- Struct `QueryTimePeriod` has been removed
+- Struct `ReportConfigAggregation` has been removed
+- Struct `ReportConfigComparisonExpression` has been removed
+- Struct `ReportConfigDataset` has been removed
+- Struct `ReportConfigDatasetConfiguration` has been removed
+- Struct `ReportConfigDefinition` has been removed
+- Struct `ReportConfigFilter` has been removed
+- Struct `ReportConfigGrouping` has been removed
+- Struct `ReportConfigSorting` has been removed
+- Struct `ReportConfigTimePeriod` has been removed
+- Struct `ReportURL` has been removed
+- Struct `Status` has been removed
+- Struct `View` has been removed
+- Struct `ViewListResult` has been removed
+- Struct `ViewProperties` has been removed
+- Struct `ViewsClient` has been removed
+- Struct `ViewsClientCreateOrUpdateByScopeOptions` has been removed
+- Struct `ViewsClientCreateOrUpdateByScopeResponse` has been removed
+- Struct `ViewsClientCreateOrUpdateOptions` has been removed
+- Struct `ViewsClientCreateOrUpdateResponse` has been removed
+- Struct `ViewsClientDeleteByScopeOptions` has been removed
+- Struct `ViewsClientDeleteByScopeResponse` has been removed
+- Struct `ViewsClientDeleteOptions` has been removed
+- Struct `ViewsClientDeleteResponse` has been removed
+- Struct `ViewsClientGetByScopeOptions` has been removed
+- Struct `ViewsClientGetByScopeResponse` has been removed
+- Struct `ViewsClientGetOptions` has been removed
+- Struct `ViewsClientGetResponse` has been removed
+- Struct `ViewsClientListByScopeOptions` has been removed
+- Struct `ViewsClientListByScopeResponse` has been removed
+- Struct `ViewsClientListOptions` has been removed
+- Struct `ViewsClientListResponse` has been removed
+- Field `ETag` of struct `ProxyResource` has been removed
+- Field `ETag` of struct `Resource` has been removed
+- Field `Location` of struct `Resource` has been removed
+- Field `SKU` of struct `Resource` has been removed
+- Field `Tags` of struct `Resource` has been removed
+
+### Features Added
+
+- New const `DaysOfWeekThursday`
+- New const `ScheduleFrequencyWeekly`
+- New const `CostDetailsMetricTypeAmortizedCostCostDetailsMetricType`
+- New const `CreatedByTypeApplication`
+- New const `CostDetailsStatusTypeFailedCostDetailsStatusType`
+- New const `WeeksOfMonthFourth`
+- New const `ScheduledActionStatusEnabled`
+- New const `CostDetailsStatusTypeNoDataFoundCostDetailsStatusType`
+- New const `DaysOfWeekFriday`
+- New const `ScheduledActionStatusDisabled`
+- New const `CreatedByTypeKey`
+- New const `WeeksOfMonthThird`
+- New const `ScheduledActionStatusExpired`
+- New const `WeeksOfMonthFirst`
+- New const `CostDetailsStatusTypeCompletedCostDetailsStatusType`
+- New const `CheckNameAvailabilityReasonAlreadyExists`
+- New const `CostDetailsDataFormatCSVCostDetailsDataFormat`
+- New const `ScheduleFrequencyMonthly`
+- New const `ScheduledActionKindEmail`
+- New const `WeeksOfMonthSecond`
+- New const `CreatedByTypeManagedIdentity`
+- New const `ScheduledActionKindInsightAlert`
+- New const `DaysOfWeekSunday`
+- New const `DaysOfWeekTuesday`
+- New const `CheckNameAvailabilityReasonInvalid`
+- New const `WeeksOfMonthLast`
+- New const `DaysOfWeekSaturday`
+- New const `CostDetailsMetricTypeActualCostCostDetailsMetricType`
+- New const `CreatedByTypeUser`
+- New const `DaysOfWeekMonday`
+- New const `FileFormatCSV`
+- New const `ScheduleFrequencyDaily`
+- New const `DaysOfWeekWednesday`
+- New type alias `CostDetailsMetricType`
+- New type alias `DaysOfWeek`
+- New type alias `FileFormat`
+- New type alias `ScheduleFrequency`
+- New type alias `CheckNameAvailabilityReason`
+- New type alias `CostDetailsStatusType`
+- New type alias `ScheduledActionStatus`
+- New type alias `CreatedByType`
+- New type alias `ScheduledActionKind`
+- New type alias `CostDetailsDataFormat`
+- New type alias `WeeksOfMonth`
+- New function `PossibleCostDetailsStatusTypeValues() []CostDetailsStatusType`
+- New function `*ScheduledActionsClient.Get(context.Context, string, *ScheduledActionsClientGetOptions) (ScheduledActionsClientGetResponse, error)`
+- New function `PossibleCostDetailsDataFormatValues() []CostDetailsDataFormat`
+- New function `PossibleCostDetailsMetricTypeValues() []CostDetailsMetricType`
+- New function `PossibleDaysOfWeekValues() []DaysOfWeek`
+- New function `*GenerateCostDetailsReportClient.BeginCreateOperation(context.Context, string, GenerateCostDetailsReportRequestDefinition, *GenerateCostDetailsReportClientBeginCreateOperationOptions) (*runtime.Poller[GenerateCostDetailsReportClientCreateOperationResponse], error)`
+- New function `PossibleScheduleFrequencyValues() []ScheduleFrequency`
+- New function `*ScheduledActionsClient.Delete(context.Context, string, *ScheduledActionsClientDeleteOptions) (ScheduledActionsClientDeleteResponse, error)`
+- New function `*ScheduledActionsClient.GetByScope(context.Context, string, string, *ScheduledActionsClientGetByScopeOptions) (ScheduledActionsClientGetByScopeResponse, error)`
+- New function `*ScheduledActionsClient.DeleteByScope(context.Context, string, string, *ScheduledActionsClientDeleteByScopeOptions) (ScheduledActionsClientDeleteByScopeResponse, error)`
+- New function `PossibleCreatedByTypeValues() []CreatedByType`
+- New function `*GenerateCostDetailsReportClient.BeginGetOperationResults(context.Context, string, string, *GenerateCostDetailsReportClientBeginGetOperationResultsOptions) (*runtime.Poller[GenerateCostDetailsReportClientGetOperationResultsResponse], error)`
+- New function `PossibleWeeksOfMonthValues() []WeeksOfMonth`
+- New function `*ScheduledActionsClient.CreateOrUpdate(context.Context, string, ScheduledAction, *ScheduledActionsClientCreateOrUpdateOptions) (ScheduledActionsClientCreateOrUpdateResponse, error)`
+- New function `PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason`
+- New function `NewGenerateCostDetailsReportClient(azcore.TokenCredential, *arm.ClientOptions) (*GenerateCostDetailsReportClient, error)`
+- New function `*ScheduledActionsClient.Execute(context.Context, string, *ScheduledActionsClientExecuteOptions) (ScheduledActionsClientExecuteResponse, error)`
+- New function `*ScheduledActionsClient.CheckNameAvailability(context.Context, CheckNameAvailabilityRequest, *ScheduledActionsClientCheckNameAvailabilityOptions) (ScheduledActionsClientCheckNameAvailabilityResponse, error)`
+- New function `PossibleScheduledActionStatusValues() []ScheduledActionStatus`
+- New function `*ScheduledActionsClient.NewListByScopePager(string, *ScheduledActionsClientListByScopeOptions) *runtime.Pager[ScheduledActionsClientListByScopeResponse]`
+- New function `PossibleScheduledActionKindValues() []ScheduledActionKind`
+- New function `*ScheduledActionsClient.CheckNameAvailabilityByScope(context.Context, string, CheckNameAvailabilityRequest, *ScheduledActionsClientCheckNameAvailabilityByScopeOptions) (ScheduledActionsClientCheckNameAvailabilityByScopeResponse, error)`
+- New function `*ScheduledActionsClient.ExecuteByScope(context.Context, string, string, *ScheduledActionsClientExecuteByScopeOptions) (ScheduledActionsClientExecuteByScopeResponse, error)`
+- New function `PossibleFileFormatValues() []FileFormat`
+- New function `NewScheduledActionsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScheduledActionsClient, error)`
+- New function `*ScheduledActionsClient.NewListPager(*ScheduledActionsClientListOptions) *runtime.Pager[ScheduledActionsClientListResponse]`
+- New function `*ScheduledActionsClient.CreateOrUpdateByScope(context.Context, string, string, ScheduledAction, *ScheduledActionsClientCreateOrUpdateByScopeOptions) (ScheduledActionsClientCreateOrUpdateByScopeResponse, error)`
+- New struct `BlobInfo`
+- New struct `CheckNameAvailabilityRequest`
+- New struct `CheckNameAvailabilityResponse`
+- New struct `CostDetailsOperationResults`
+- New struct `CostDetailsTimePeriod`
+- New struct `FileDestination`
+- New struct `GenerateCostDetailsReportClient`
+- New struct `GenerateCostDetailsReportClientBeginCreateOperationOptions`
+- New struct `GenerateCostDetailsReportClientBeginGetOperationResultsOptions`
+- New struct `GenerateCostDetailsReportClientCreateOperationResponse`
+- New struct `GenerateCostDetailsReportClientGetOperationResultsResponse`
+- New struct `GenerateCostDetailsReportErrorResponse`
+- New struct `GenerateCostDetailsReportRequestDefinition`
+- New struct `NotificationProperties`
+- New struct `ReportManifest`
+- New struct `RequestContext`
+- New struct `ScheduleProperties`
+- New struct `ScheduledAction`
+- New struct `ScheduledActionListResult`
+- New struct `ScheduledActionProperties`
+- New struct `ScheduledActionProxyResource`
+- New struct `ScheduledActionsClient`
+- New struct `ScheduledActionsClientCheckNameAvailabilityByScopeOptions`
+- New struct `ScheduledActionsClientCheckNameAvailabilityByScopeResponse`
+- New struct `ScheduledActionsClientCheckNameAvailabilityOptions`
+- New struct `ScheduledActionsClientCheckNameAvailabilityResponse`
+- New struct `ScheduledActionsClientCreateOrUpdateByScopeOptions`
+- New struct `ScheduledActionsClientCreateOrUpdateByScopeResponse`
+- New struct `ScheduledActionsClientCreateOrUpdateOptions`
+- New struct `ScheduledActionsClientCreateOrUpdateResponse`
+- New struct `ScheduledActionsClientDeleteByScopeOptions`
+- New struct `ScheduledActionsClientDeleteByScopeResponse`
+- New struct `ScheduledActionsClientDeleteOptions`
+- New struct `ScheduledActionsClientDeleteResponse`
+- New struct `ScheduledActionsClientExecuteByScopeOptions`
+- New struct `ScheduledActionsClientExecuteByScopeResponse`
+- New struct `ScheduledActionsClientExecuteOptions`
+- New struct `ScheduledActionsClientExecuteResponse`
+- New struct `ScheduledActionsClientGetByScopeOptions`
+- New struct `ScheduledActionsClientGetByScopeResponse`
+- New struct `ScheduledActionsClientGetOptions`
+- New struct `ScheduledActionsClientGetResponse`
+- New struct `ScheduledActionsClientListByScopeOptions`
+- New struct `ScheduledActionsClientListByScopeResponse`
+- New struct `ScheduledActionsClientListOptions`
+- New struct `ScheduledActionsClientListResponse`
+- New struct `SystemData`
+- New field `SystemData` in struct `ProxyResource`
+- New field `SystemData` in struct `Resource`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
