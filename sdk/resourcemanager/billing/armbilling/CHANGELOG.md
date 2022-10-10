@@ -1,5 +1,15 @@
 # Release History
 
+## 0.6.0 (2022-10-10)
+### Breaking Changes
+
+- Struct `OperationsErrorDetails` has been removed
+- Struct `OperationsErrorResponse` has been removed
+- Struct `ProfileInfo` has been removed
+- Field `BillingProfileInfo` of struct `AgreementProperties` has been removed
+- Field `TotalCount` of struct `ProfileListResult` has been removed
+
+
 ## 0.5.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/billing/armbilling` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.5.0, which contains breaking changes.
