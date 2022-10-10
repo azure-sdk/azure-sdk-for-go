@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v3.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -628,6 +628,30 @@ func PossibleAzureFirewallNetworkRuleProtocolValues() []AzureFirewallNetworkRule
 		AzureFirewallNetworkRuleProtocolICMP,
 		AzureFirewallNetworkRuleProtocolTCP,
 		AzureFirewallNetworkRuleProtocolUDP,
+	}
+}
+
+// AzureFirewallPacketCaptureFlagsType - The flags type to be captured.
+type AzureFirewallPacketCaptureFlagsType string
+
+const (
+	AzureFirewallPacketCaptureFlagsTypeTCPAct  AzureFirewallPacketCaptureFlagsType = "tcp-act"
+	AzureFirewallPacketCaptureFlagsTypeTCPFin  AzureFirewallPacketCaptureFlagsType = "tcp-fin"
+	AzureFirewallPacketCaptureFlagsTypeTCPPush AzureFirewallPacketCaptureFlagsType = "tcp-push"
+	AzureFirewallPacketCaptureFlagsTypeTCPRst  AzureFirewallPacketCaptureFlagsType = "tcp-rst"
+	AzureFirewallPacketCaptureFlagsTypeTCPSyn  AzureFirewallPacketCaptureFlagsType = "tcp-syn"
+	AzureFirewallPacketCaptureFlagsTypeTCPUrg  AzureFirewallPacketCaptureFlagsType = "tcp-urg"
+)
+
+// PossibleAzureFirewallPacketCaptureFlagsTypeValues returns the possible values for the AzureFirewallPacketCaptureFlagsType const type.
+func PossibleAzureFirewallPacketCaptureFlagsTypeValues() []AzureFirewallPacketCaptureFlagsType {
+	return []AzureFirewallPacketCaptureFlagsType{
+		AzureFirewallPacketCaptureFlagsTypeTCPAct,
+		AzureFirewallPacketCaptureFlagsTypeTCPFin,
+		AzureFirewallPacketCaptureFlagsTypeTCPPush,
+		AzureFirewallPacketCaptureFlagsTypeTCPRst,
+		AzureFirewallPacketCaptureFlagsTypeTCPSyn,
+		AzureFirewallPacketCaptureFlagsTypeTCPUrg,
 	}
 }
 
@@ -1639,6 +1663,7 @@ type FirewallPolicyRuleApplicationProtocolType string
 const (
 	FirewallPolicyRuleApplicationProtocolTypeHTTP  FirewallPolicyRuleApplicationProtocolType = "Http"
 	FirewallPolicyRuleApplicationProtocolTypeHTTPS FirewallPolicyRuleApplicationProtocolType = "Https"
+	FirewallPolicyRuleApplicationProtocolTypeMssql FirewallPolicyRuleApplicationProtocolType = "Mssql"
 )
 
 // PossibleFirewallPolicyRuleApplicationProtocolTypeValues returns the possible values for the FirewallPolicyRuleApplicationProtocolType const type.
@@ -1646,6 +1671,7 @@ func PossibleFirewallPolicyRuleApplicationProtocolTypeValues() []FirewallPolicyR
 	return []FirewallPolicyRuleApplicationProtocolType{
 		FirewallPolicyRuleApplicationProtocolTypeHTTP,
 		FirewallPolicyRuleApplicationProtocolTypeHTTPS,
+		FirewallPolicyRuleApplicationProtocolTypeMssql,
 	}
 }
 

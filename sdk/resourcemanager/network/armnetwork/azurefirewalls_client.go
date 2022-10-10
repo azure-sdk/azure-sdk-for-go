@@ -429,6 +429,72 @@ func (client *AzureFirewallsClient) listLearnedPrefixesCreateRequest(ctx context
 	return req, nil
 }
 
+// BeginPacketCapture - Runs a packet capture on AzureFirewall.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-05-01
+// resourceGroupName - The name of the resource group.
+// azureFirewallName - The name of the Azure Firewall.
+// parameters - Parameters supplied to update azure firewall tags.
+// options - AzureFirewallsClientBeginPacketCaptureOptions contains the optional parameters for the AzureFirewallsClient.BeginPacketCapture
+// method.
+func (client *AzureFirewallsClient) BeginPacketCapture(ctx context.Context, resourceGroupName string, azureFirewallName string, parameters FirewallPacketCaptureParameters, options *AzureFirewallsClientBeginPacketCaptureOptions) (*runtime.Poller[AzureFirewallsClientPacketCaptureResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.packetCapture(ctx, resourceGroupName, azureFirewallName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[AzureFirewallsClientPacketCaptureResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[AzureFirewallsClientPacketCaptureResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// PacketCapture - Runs a packet capture on AzureFirewall.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-05-01
+func (client *AzureFirewallsClient) packetCapture(ctx context.Context, resourceGroupName string, azureFirewallName string, parameters FirewallPacketCaptureParameters, options *AzureFirewallsClientBeginPacketCaptureOptions) (*http.Response, error) {
+	req, err := client.packetCaptureCreateRequest(ctx, resourceGroupName, azureFirewallName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// packetCaptureCreateRequest creates the PacketCapture request.
+func (client *AzureFirewallsClient) packetCaptureCreateRequest(ctx context.Context, resourceGroupName string, azureFirewallName string, parameters FirewallPacketCaptureParameters, options *AzureFirewallsClientBeginPacketCaptureOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/azureFirewalls/{azureFirewallName}/packetCapture"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if azureFirewallName == "" {
+		return nil, errors.New("parameter azureFirewallName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{azureFirewallName}", url.PathEscape(azureFirewallName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-05-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, parameters)
+}
+
 // BeginUpdateTags - Updates tags of an Azure Firewall resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01

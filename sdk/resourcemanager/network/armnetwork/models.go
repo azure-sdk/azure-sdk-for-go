@@ -2880,6 +2880,24 @@ type AzureFirewallNetworkRuleCollectionPropertiesFormat struct {
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
+// AzureFirewallPacketCaptureFlags - Properties of the AzureFirewallRCAction.
+type AzureFirewallPacketCaptureFlags struct {
+	// Flags to capture
+	Type *AzureFirewallPacketCaptureFlagsType `json:"type,omitempty"`
+}
+
+// AzureFirewallPacketCaptureRule - Group of src/dest ips and ports to be captured.
+type AzureFirewallPacketCaptureRule struct {
+	// List of ports to be captured.
+	DestinationPorts []*string `json:"destinationPorts,omitempty"`
+
+	// List of destination IP addresses/subnets to be captured.
+	Destinations []*string `json:"destinations,omitempty"`
+
+	// List of source IP addresses/subnets to be captured.
+	Sources []*string `json:"sources,omitempty"`
+}
+
 // AzureFirewallPropertiesFormat - Properties of the Azure Firewall.
 type AzureFirewallPropertiesFormat struct {
 	// The additional properties used to further config this azure firewall.
@@ -2959,6 +2977,13 @@ type AzureFirewallsClientBeginDeleteOptions struct {
 // AzureFirewallsClientBeginListLearnedPrefixesOptions contains the optional parameters for the AzureFirewallsClient.BeginListLearnedPrefixes
 // method.
 type AzureFirewallsClientBeginListLearnedPrefixesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AzureFirewallsClientBeginPacketCaptureOptions contains the optional parameters for the AzureFirewallsClient.BeginPacketCapture
+// method.
+type AzureFirewallsClientBeginPacketCaptureOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -5312,8 +5337,8 @@ type ExclusionManagedRuleSet struct {
 	RuleGroups []*ExclusionManagedRuleGroup `json:"ruleGroups,omitempty"`
 }
 
-// ExplicitProxySettings - Explicit Proxy Settings in Firewall Policy.
-type ExplicitProxySettings struct {
+// ExplicitProxy - Explicit Proxy Settings in Firewall Policy.
+type ExplicitProxy struct {
 	// When set to true, explicit proxy mode is enabled.
 	EnableExplicitProxy *bool `json:"enableExplicitProxy,omitempty"`
 
@@ -6230,9 +6255,6 @@ type ExpressRouteGatewayProperties struct {
 	// REQUIRED; The Virtual Hub where the ExpressRoute gateway is or will be deployed.
 	VirtualHub *VirtualHubID `json:"virtualHub,omitempty"`
 
-	// Configures this gateway to accept traffic from non Virtual WAN networks.
-	AllowNonVirtualWanTraffic *bool `json:"allowNonVirtualWanTraffic,omitempty"`
-
 	// Configuration for auto scaling.
 	AutoScaleConfiguration *ExpressRouteGatewayPropertiesAutoScaleConfiguration `json:"autoScaleConfiguration,omitempty"`
 
@@ -6767,6 +6789,39 @@ type FilterItems struct {
 	Values []*string `json:"values,omitempty"`
 }
 
+// FirewallPacketCaptureParameters - Azure Firewall Packet Capture Parameters resource.
+type FirewallPacketCaptureParameters struct {
+	// Resource ID.
+	ID *string `json:"id,omitempty"`
+
+	// Properties of the azure firewall.
+	Properties *FirewallPacketCaptureParametersFormat `json:"properties,omitempty"`
+}
+
+// FirewallPacketCaptureParametersFormat - Packet capture parameters on azure firewall.
+type FirewallPacketCaptureParametersFormat struct {
+	// Duration of packet capture in seconds.
+	DurationInSeconds *string `json:"durationInSeconds,omitempty"`
+
+	// Name of file to be uploaded to sasURL
+	FileName *string `json:"fileName,omitempty"`
+
+	// Rules to filter packet captures.
+	Filters []*AzureFirewallPacketCaptureRule `json:"filters,omitempty"`
+
+	// The tcp-flag type to be captured. Used with protocol TCP
+	Flags []*AzureFirewallPacketCaptureFlags `json:"flags,omitempty"`
+
+	// Number of packets to be captured.
+	NumberOfPacketsToCapture *string `json:"numberOfPacketsToCapture,omitempty"`
+
+	// The protocol of packets to capture
+	Protocol *AzureFirewallNetworkRuleProtocol `json:"protocol,omitempty"`
+
+	// Upload capture location
+	SasURL *string `json:"sasUrl,omitempty"`
+}
+
 // FirewallPoliciesClientBeginCreateOrUpdateOptions contains the optional parameters for the FirewallPoliciesClient.BeginCreateOrUpdate
 // method.
 type FirewallPoliciesClientBeginCreateOrUpdateOptions struct {
@@ -7046,7 +7101,7 @@ type FirewallPolicyPropertiesFormat struct {
 	DNSSettings *DNSSettings `json:"dnsSettings,omitempty"`
 
 	// Explicit Proxy Settings definition.
-	ExplicitProxySettings *ExplicitProxySettings `json:"explicitProxySettings,omitempty"`
+	ExplicitProxy *ExplicitProxy `json:"explicitProxy,omitempty"`
 
 	// Insights on Firewall Policy.
 	Insights *FirewallPolicyInsights `json:"insights,omitempty"`
@@ -16286,13 +16341,6 @@ type VirtualNetworkGatewayPolicyGroupProperties struct {
 type VirtualNetworkGatewayPropertiesFormat struct {
 	// ActiveActive flag.
 	Active *bool `json:"activeActive,omitempty"`
-
-	// Configure this gateway to accept traffic from other Azure Virtual Networks. This configuration does not support connectivity
-	// to Azure Virtual WAN.
-	AllowRemoteVnetTraffic *bool `json:"allowRemoteVnetTraffic,omitempty"`
-
-	// Configures this gateway to accept traffic from remote Virtual WAN networks.
-	AllowVirtualWanTraffic *bool `json:"allowVirtualWanTraffic,omitempty"`
 
 	// Virtual network gateway's BGP speaker settings.
 	BgpSettings *BgpSettings `json:"bgpSettings,omitempty"`

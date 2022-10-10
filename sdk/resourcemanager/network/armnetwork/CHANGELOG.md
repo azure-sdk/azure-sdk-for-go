@@ -1,5 +1,36 @@
 # Release History
 
+## 3.0.0 (2022-10-10)
+### Breaking Changes
+
+- Struct `ExplicitProxySettings` has been removed
+- Field `AllowNonVirtualWanTraffic` of struct `ExpressRouteGatewayProperties` has been removed
+- Field `ExplicitProxySettings` of struct `FirewallPolicyPropertiesFormat` has been removed
+- Field `AllowRemoteVnetTraffic` of struct `VirtualNetworkGatewayPropertiesFormat` has been removed
+- Field `AllowVirtualWanTraffic` of struct `VirtualNetworkGatewayPropertiesFormat` has been removed
+
+### Features Added
+
+- New const `AzureFirewallPacketCaptureFlagsTypeTCPSyn`
+- New const `AzureFirewallPacketCaptureFlagsTypeTCPUrg`
+- New const `AzureFirewallPacketCaptureFlagsTypeTCPAct`
+- New const `AzureFirewallPacketCaptureFlagsTypeTCPPush`
+- New const `FirewallPolicyRuleApplicationProtocolTypeMssql`
+- New const `AzureFirewallPacketCaptureFlagsTypeTCPRst`
+- New const `AzureFirewallPacketCaptureFlagsTypeTCPFin`
+- New type alias `AzureFirewallPacketCaptureFlagsType`
+- New function `PossibleAzureFirewallPacketCaptureFlagsTypeValues() []AzureFirewallPacketCaptureFlagsType`
+- New function `*AzureFirewallsClient.BeginPacketCapture(context.Context, string, string, FirewallPacketCaptureParameters, *AzureFirewallsClientBeginPacketCaptureOptions) (*runtime.Poller[AzureFirewallsClientPacketCaptureResponse], error)`
+- New struct `AzureFirewallPacketCaptureFlags`
+- New struct `AzureFirewallPacketCaptureRule`
+- New struct `AzureFirewallsClientBeginPacketCaptureOptions`
+- New struct `AzureFirewallsClientPacketCaptureResponse`
+- New struct `ExplicitProxy`
+- New struct `FirewallPacketCaptureParameters`
+- New struct `FirewallPacketCaptureParametersFormat`
+- New field `ExplicitProxy` in struct `FirewallPolicyPropertiesFormat`
+
+
 ## 2.0.0 (2022-09-29)
 ### Breaking Changes
 
