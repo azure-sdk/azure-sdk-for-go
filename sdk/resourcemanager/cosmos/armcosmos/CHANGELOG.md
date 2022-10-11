@@ -1,5 +1,48 @@
 # Release History
 
+## 2.2.0-beta.2 (2022-10-11)
+### Breaking Changes
+
+- Const `OperationTypeRecreate` has been removed
+- Function `*SQLResourcesClient.BeginSQLDatabaseRetrieveThroughputDistribution` has been removed
+- Function `*MongoDBResourcesClient.BeginMongoDBDatabaseRetrieveThroughputDistribution` has been removed
+- Function `*SQLResourcesClient.BeginSQLDatabaseRedistributeThroughput` has been removed
+- Function `*MongoDBResourcesClient.BeginMongoDBDatabaseRedistributeThroughput` has been removed
+- Struct `MongoDBResourcesClientBeginMongoDBDatabaseRedistributeThroughputOptions` has been removed
+- Struct `MongoDBResourcesClientBeginMongoDBDatabaseRetrieveThroughputDistributionOptions` has been removed
+- Struct `MongoDBResourcesClientMongoDBDatabaseRedistributeThroughputResponse` has been removed
+- Struct `MongoDBResourcesClientMongoDBDatabaseRetrieveThroughputDistributionResponse` has been removed
+- Struct `ResourceRestoreParameters` has been removed
+- Struct `RestoreParametersBase` has been removed
+- Struct `SQLResourcesClientBeginSQLDatabaseRedistributeThroughputOptions` has been removed
+- Struct `SQLResourcesClientBeginSQLDatabaseRetrieveThroughputDistributionOptions` has been removed
+- Struct `SQLResourcesClientSQLDatabaseRedistributeThroughputResponse` has been removed
+- Struct `SQLResourcesClientSQLDatabaseRetrieveThroughputDistributionResponse` has been removed
+- Field `CreateMode` of struct `SQLContainerGetPropertiesResource` has been removed
+- Field `RestoreParameters` of struct `SQLContainerGetPropertiesResource` has been removed
+- Field `RestoreParameters` of struct `MongoDBCollectionResource` has been removed
+- Field `CreateMode` of struct `MongoDBCollectionResource` has been removed
+- Field `RestoreParameters` of struct `SQLContainerResource` has been removed
+- Field `CreateMode` of struct `SQLContainerResource` has been removed
+- Field `CreateMode` of struct `MongoDBDatabaseResource` has been removed
+- Field `RestoreParameters` of struct `MongoDBDatabaseResource` has been removed
+- Field `CreateMode` of struct `SQLDatabaseGetPropertiesResource` has been removed
+- Field `RestoreParameters` of struct `SQLDatabaseGetPropertiesResource` has been removed
+- Field `CreateMode` of struct `RestorableSQLDatabasePropertiesResourceDatabase` has been removed
+- Field `RestoreParameters` of struct `RestorableSQLDatabasePropertiesResourceDatabase` has been removed
+- Field `CreateMode` of struct `SQLDatabaseResource` has been removed
+- Field `RestoreParameters` of struct `SQLDatabaseResource` has been removed
+- Field `EnablePartitionMerge` of struct `DatabaseAccountGetProperties` has been removed
+- Field `RestoreParameters` of struct `RestorableSQLContainerPropertiesResourceContainer` has been removed
+- Field `CreateMode` of struct `RestorableSQLContainerPropertiesResourceContainer` has been removed
+- Field `CreateMode` of struct `MongoDBDatabaseGetPropertiesResource` has been removed
+- Field `RestoreParameters` of struct `MongoDBDatabaseGetPropertiesResource` has been removed
+- Field `EnablePartitionMerge` of struct `DatabaseAccountUpdateProperties` has been removed
+- Field `CreateMode` of struct `MongoDBCollectionGetPropertiesResource` has been removed
+- Field `RestoreParameters` of struct `MongoDBCollectionGetPropertiesResource` has been removed
+- Field `EnablePartitionMerge` of struct `DatabaseAccountCreateUpdateProperties` has been removed
+
+
 ## 2.2.0-beta.1 (2022-10-09)
 ### Features Added
 
