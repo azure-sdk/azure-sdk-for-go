@@ -1,5 +1,28 @@
 # Release History
 
+## 2.0.0 (2022-10-11)
+### Breaking Changes
+
+- Type of `SQLMISource.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Type of `SynapseSparkJobReference.ReferenceName` has been changed from `*string` to `interface{}`
+- Type of `SQLSource.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Type of `AzureSQLSource.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Type of `SQLServerSource.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Type of `AzureSQLSink.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Type of `SQLServerSink.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Type of `AmazonRdsForSQLServerSource.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Type of `SQLSink.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Type of `SQLMISink.StoredProcedureParameters` has been changed from `map[string]*StoredProcedureParameter` to `interface{}`
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New field `WorkspaceResourceID` in struct `AzureSynapseArtifactsLinkedServiceTypeProperties`
+- New field `FilesV2` in struct `SynapseSparkJobActivityTypeProperties`
+- New field `PythonCodeReference` in struct `SynapseSparkJobActivityTypeProperties`
+
+
 ## 1.3.0 (2022-09-07)
 ### Features Added
 
