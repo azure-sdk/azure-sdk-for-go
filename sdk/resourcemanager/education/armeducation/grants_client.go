@@ -108,8 +108,62 @@ func (client *GrantsClient) getHandleResponse(resp *http.Response) (GrantsClient
 	return result, nil
 }
 
-// NewListPager - Get details for a specific grant linked to the provided billing account and billing profile.
+// GetV2 - Get details for a specific grant linked to the provided billing account and billing profile.
 // If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-10-01-preview
+// billingAccountName - Billing account name.
+// billingProfileName - Billing profile name.
+// options - GrantsClientGetV2Options contains the optional parameters for the GrantsClient.GetV2 method.
+func (client *GrantsClient) GetV2(ctx context.Context, billingAccountName string, billingProfileName string, options *GrantsClientGetV2Options) (GrantsClientGetV2Response, error) {
+	req, err := client.getV2CreateRequest(ctx, billingAccountName, billingProfileName, options)
+	if err != nil {
+		return GrantsClientGetV2Response{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return GrantsClientGetV2Response{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return GrantsClientGetV2Response{}, runtime.NewResponseError(resp)
+	}
+	return client.getV2HandleResponse(resp)
+}
+
+// getV2CreateRequest creates the GetV2 request.
+func (client *GrantsClient) getV2CreateRequest(ctx context.Context, billingAccountName string, billingProfileName string, options *GrantsClientGetV2Options) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.Education/grants/default"
+	if billingAccountName == "" {
+		return nil, errors.New("parameter billingAccountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{billingAccountName}", url.PathEscape(billingAccountName))
+	if billingProfileName == "" {
+		return nil, errors.New("parameter billingProfileName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{billingProfileName}", url.PathEscape(billingProfileName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	if options != nil && options.IncludeAllocatedBudget != nil {
+		reqQP.Set("includeAllocatedBudget", strconv.FormatBool(*options.IncludeAllocatedBudget))
+	}
+	reqQP.Set("api-version", "2022-10-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getV2HandleResponse handles the GetV2 response.
+func (client *GrantsClient) getV2HandleResponse(resp *http.Response) (GrantsClientGetV2Response, error) {
+	result := GrantsClientGetV2Response{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GrantDetailsV2); err != nil {
+		return GrantsClientGetV2Response{}, err
+	}
+	return result, nil
+}
+
+// NewListPager - Get details for a specific grant linked to the provided billing account and billing profile.
 // Generated from API version 2021-12-01-preview
 // billingAccountName - Billing account name.
 // billingProfileName - Billing profile name.
@@ -177,7 +231,6 @@ func (client *GrantsClient) listHandleResponse(resp *http.Response) (GrantsClien
 }
 
 // NewListAllPager - Get a list of grants that Microsoft has provided.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // options - GrantsClientListAllOptions contains the optional parameters for the GrantsClient.ListAll method.
 func (client *GrantsClient) NewListAllPager(options *GrantsClientListAllOptions) *runtime.Pager[GrantsClientListAllResponse] {
@@ -230,6 +283,130 @@ func (client *GrantsClient) listAllHandleResponse(resp *http.Response) (GrantsCl
 	result := GrantsClientListAllResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.GrantListResponse); err != nil {
 		return GrantsClientListAllResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListAllV2Pager - Get a list of grants that Microsoft has provided.
+// Generated from API version 2022-10-01-preview
+// options - GrantsClientListAllV2Options contains the optional parameters for the GrantsClient.ListAllV2 method.
+func (client *GrantsClient) NewListAllV2Pager(options *GrantsClientListAllV2Options) *runtime.Pager[GrantsClientListAllV2Response] {
+	return runtime.NewPager(runtime.PagingHandler[GrantsClientListAllV2Response]{
+		More: func(page GrantsClientListAllV2Response) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *GrantsClientListAllV2Response) (GrantsClientListAllV2Response, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listAllV2CreateRequest(ctx, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return GrantsClientListAllV2Response{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return GrantsClientListAllV2Response{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return GrantsClientListAllV2Response{}, runtime.NewResponseError(resp)
+			}
+			return client.listAllV2HandleResponse(resp)
+		},
+	})
+}
+
+// listAllV2CreateRequest creates the ListAllV2 request.
+func (client *GrantsClient) listAllV2CreateRequest(ctx context.Context, options *GrantsClientListAllV2Options) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Education/grants"
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	if options != nil && options.IncludeAllocatedBudget != nil {
+		reqQP.Set("includeAllocatedBudget", strconv.FormatBool(*options.IncludeAllocatedBudget))
+	}
+	reqQP.Set("api-version", "2022-10-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listAllV2HandleResponse handles the ListAllV2 response.
+func (client *GrantsClient) listAllV2HandleResponse(resp *http.Response) (GrantsClientListAllV2Response, error) {
+	result := GrantsClientListAllV2Response{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GrantListResponseV2); err != nil {
+		return GrantsClientListAllV2Response{}, err
+	}
+	return result, nil
+}
+
+// NewListV2Pager - Get details for a specific grant linked to the provided billing account and billing profile.
+// Generated from API version 2022-10-01-preview
+// billingAccountName - Billing account name.
+// billingProfileName - Billing profile name.
+// options - GrantsClientListV2Options contains the optional parameters for the GrantsClient.ListV2 method.
+func (client *GrantsClient) NewListV2Pager(billingAccountName string, billingProfileName string, options *GrantsClientListV2Options) *runtime.Pager[GrantsClientListV2Response] {
+	return runtime.NewPager(runtime.PagingHandler[GrantsClientListV2Response]{
+		More: func(page GrantsClientListV2Response) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *GrantsClientListV2Response) (GrantsClientListV2Response, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listV2CreateRequest(ctx, billingAccountName, billingProfileName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return GrantsClientListV2Response{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return GrantsClientListV2Response{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return GrantsClientListV2Response{}, runtime.NewResponseError(resp)
+			}
+			return client.listV2HandleResponse(resp)
+		},
+	})
+}
+
+// listV2CreateRequest creates the ListV2 request.
+func (client *GrantsClient) listV2CreateRequest(ctx context.Context, billingAccountName string, billingProfileName string, options *GrantsClientListV2Options) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Billing/billingAccounts/{billingAccountName}/billingProfiles/{billingProfileName}/providers/Microsoft.Education/grants"
+	if billingAccountName == "" {
+		return nil, errors.New("parameter billingAccountName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{billingAccountName}", url.PathEscape(billingAccountName))
+	if billingProfileName == "" {
+		return nil, errors.New("parameter billingProfileName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{billingProfileName}", url.PathEscape(billingProfileName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	if options != nil && options.IncludeAllocatedBudget != nil {
+		reqQP.Set("includeAllocatedBudget", strconv.FormatBool(*options.IncludeAllocatedBudget))
+	}
+	reqQP.Set("api-version", "2022-10-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listV2HandleResponse handles the ListV2 response.
+func (client *GrantsClient) listV2HandleResponse(resp *http.Response) (GrantsClientListV2Response, error) {
+	result := GrantsClientListV2Response{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.GrantListResponseV2); err != nil {
+		return GrantsClientListV2Response{}, err
 	}
 	return result, nil
 }

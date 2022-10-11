@@ -100,7 +100,6 @@ func (client *StudentLabsClient) getHandleResponse(resp *http.Response) (Student
 }
 
 // NewListAllPager - Get a list of all labs associated with the caller of the API.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // options - StudentLabsClientListAllOptions contains the optional parameters for the StudentLabsClient.ListAll method.
 func (client *StudentLabsClient) NewListAllPager(options *StudentLabsClientListAllOptions) *runtime.Pager[StudentLabsClientListAllResponse] {

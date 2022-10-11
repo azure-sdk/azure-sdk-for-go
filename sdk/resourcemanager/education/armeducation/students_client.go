@@ -233,7 +233,6 @@ func (client *StudentsClient) getHandleResponse(resp *http.Response) (StudentsCl
 }
 
 // NewListPager - Get a list of details about students that are associated with the specified lab.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // billingAccountName - Billing account name.
 // billingProfileName - Billing profile name.

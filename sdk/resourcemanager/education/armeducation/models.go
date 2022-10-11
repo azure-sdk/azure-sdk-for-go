@@ -36,10 +36,39 @@ type ErrorResponseBody struct {
 	Error *ErrorResponse `json:"error,omitempty"`
 }
 
+// GrantClientRenewalOptions contains the optional parameters for the GrantClient.Renewal method.
+type GrantClientRenewalOptions struct {
+	// placeholder for future optional parameters
+}
+
 // GrantDetailProperties - Grant detail properties
 type GrantDetailProperties struct {
 	// READ-ONLY; allocated budget
 	AllocatedBudget *Amount `json:"allocatedBudget,omitempty" azure:"ro"`
+
+	// READ-ONLY; Grant Effective Date
+	EffectiveDate *time.Time `json:"effectiveDate,omitempty" azure:"ro"`
+
+	// READ-ONLY; Expiration Date
+	ExpirationDate *time.Time `json:"expirationDate,omitempty" azure:"ro"`
+
+	// READ-ONLY; Offer Cap
+	OfferCap *Amount `json:"offerCap,omitempty" azure:"ro"`
+
+	// READ-ONLY; Grant Offer Type
+	OfferType *GrantType `json:"offerType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Grant status
+	Status *GrantStatus `json:"status,omitempty" azure:"ro"`
+}
+
+// GrantDetailPropertiesV2 - Grant detail properties
+type GrantDetailPropertiesV2 struct {
+	// READ-ONLY; allocated budget
+	AllocatedBudget *Amount `json:"allocatedBudget,omitempty" azure:"ro"`
+
+	// READ-ONLY; Grant display name
+	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Grant Effective Date
 	EffectiveDate *time.Time `json:"effectiveDate,omitempty" azure:"ro"`
@@ -75,6 +104,24 @@ type GrantDetails struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// GrantDetailsV2 - Grant details.
+type GrantDetailsV2 struct {
+	// Grant detail properties.
+	Properties *GrantDetailPropertiesV2 `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
 // GrantListResponse - List of Grants info.
 type GrantListResponse struct {
 	// READ-ONLY; The link (url) to the next page of results.
@@ -84,8 +131,23 @@ type GrantListResponse struct {
 	Value []*GrantDetails `json:"value,omitempty" azure:"ro"`
 }
 
+// GrantListResponseV2 - List of Grants info.
+type GrantListResponseV2 struct {
+	// READ-ONLY; The link (url) to the next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; The list of labs.
+	Value []*GrantDetailsV2 `json:"value,omitempty" azure:"ro"`
+}
+
 // GrantsClientGetOptions contains the optional parameters for the GrantsClient.Get method.
 type GrantsClientGetOptions struct {
+	// May be used to include information about budget that has been allocated.
+	IncludeAllocatedBudget *bool
+}
+
+// GrantsClientGetV2Options contains the optional parameters for the GrantsClient.GetV2 method.
+type GrantsClientGetV2Options struct {
 	// May be used to include information about budget that has been allocated.
 	IncludeAllocatedBudget *bool
 }
@@ -96,8 +158,20 @@ type GrantsClientListAllOptions struct {
 	IncludeAllocatedBudget *bool
 }
 
+// GrantsClientListAllV2Options contains the optional parameters for the GrantsClient.ListAllV2 method.
+type GrantsClientListAllV2Options struct {
+	// May be used to include information about budget that has been allocated.
+	IncludeAllocatedBudget *bool
+}
+
 // GrantsClientListOptions contains the optional parameters for the GrantsClient.List method.
 type GrantsClientListOptions struct {
+	// May be used to include information about budget that has been allocated.
+	IncludeAllocatedBudget *bool
+}
+
+// GrantsClientListV2Options contains the optional parameters for the GrantsClient.ListV2 method.
+type GrantsClientListV2Options struct {
 	// May be used to include information about budget that has been allocated.
 	IncludeAllocatedBudget *bool
 }
@@ -292,6 +366,11 @@ type Operation struct {
 	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
 	// value is "user,system"
 	Origin *Origin `json:"origin,omitempty" azure:"ro"`
+}
+
+// OperationClientStatusOptions contains the optional parameters for the OperationClient.Status method.
+type OperationClientStatusOptions struct {
+	// placeholder for future optional parameters
 }
 
 // OperationDisplay - Localized display information for this particular operation.

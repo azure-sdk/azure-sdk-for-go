@@ -222,7 +222,6 @@ func (client *JoinRequestsClient) getHandleResponse(resp *http.Response) (JoinRe
 }
 
 // NewListPager - get student join requests
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // billingAccountName - Billing account name.
 // billingProfileName - Billing profile name.

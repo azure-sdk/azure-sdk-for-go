@@ -284,7 +284,6 @@ func (client *LabsClient) getHandleResponse(resp *http.Response) (LabsClientGetR
 
 // NewListPager - Get the details for a specific lab associated with the provided billing account name, billing profile name,
 // and invoice section name.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // billingAccountName - Billing account name.
 // billingProfileName - Billing profile name.
@@ -357,7 +356,6 @@ func (client *LabsClient) listHandleResponse(resp *http.Response) (LabsClientLis
 }
 
 // NewListAllPager - Get a list of labs associated with the provided billing account name and billing profile name.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // billingAccountName - Billing account name.
 // billingProfileName - Billing profile name.

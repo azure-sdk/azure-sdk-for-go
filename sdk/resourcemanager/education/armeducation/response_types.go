@@ -9,9 +9,23 @@
 
 package armeducation
 
+// GrantClientRenewalResponse contains the response from method GrantClient.Renewal.
+type GrantClientRenewalResponse struct {
+	// Location contains the information returned from the Location header response.
+	Location *string
+
+	// RetryAfter contains the information returned from the Retry-After header response.
+	RetryAfter *string
+}
+
 // GrantsClientGetResponse contains the response from method GrantsClient.Get.
 type GrantsClientGetResponse struct {
 	GrantDetails
+}
+
+// GrantsClientGetV2Response contains the response from method GrantsClient.GetV2.
+type GrantsClientGetV2Response struct {
+	GrantDetailsV2
 }
 
 // GrantsClientListAllResponse contains the response from method GrantsClient.ListAll.
@@ -19,9 +33,19 @@ type GrantsClientListAllResponse struct {
 	GrantListResponse
 }
 
+// GrantsClientListAllV2Response contains the response from method GrantsClient.ListAllV2.
+type GrantsClientListAllV2Response struct {
+	GrantListResponseV2
+}
+
 // GrantsClientListResponse contains the response from method GrantsClient.List.
 type GrantsClientListResponse struct {
 	GrantListResponse
+}
+
+// GrantsClientListV2Response contains the response from method GrantsClient.ListV2.
+type GrantsClientListV2Response struct {
+	GrantListResponseV2
 }
 
 // JoinRequestsClientApproveResponse contains the response from method JoinRequestsClient.Approve.
@@ -77,6 +101,15 @@ type LabsClientListResponse struct {
 // ManagementClientRedeemInvitationCodeResponse contains the response from method ManagementClient.RedeemInvitationCode.
 type ManagementClientRedeemInvitationCodeResponse struct {
 	// placeholder for future response values
+}
+
+// OperationClientStatusResponse contains the response from method OperationClient.Status.
+type OperationClientStatusResponse struct {
+	// Location contains the information returned from the Location header response.
+	Location *string
+
+	// RetryAfter contains the information returned from the Retry-After header response.
+	RetryAfter *string
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.List.
