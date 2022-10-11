@@ -1,5 +1,12 @@
 # Release History
 
+## 1.1.0 (2022-10-11)
+### Features Added
+
+- New const `PublicNetworkAccessDisbled`
+- New field `PublicNetworkAccess` in struct `NetworkRuleSetProperties`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/relay/armrelay` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
