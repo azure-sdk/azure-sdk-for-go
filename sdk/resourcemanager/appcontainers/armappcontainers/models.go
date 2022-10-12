@@ -921,6 +921,9 @@ type ContainerAppProbeTCPSocket struct {
 
 // ContainerAppProperties - ContainerApp resource specific properties
 type ContainerAppProperties struct {
+	// Current state of the app. Controls if the app is enabled or disabled.
+	AppState *AppState `json:"appState,omitempty"`
+
 	// Non versioned Container App configuration properties.
 	Configuration *Configuration `json:"configuration,omitempty"`
 
@@ -941,6 +944,9 @@ type ContainerAppProperties struct {
 
 	// READ-ONLY; The endpoint of the eventstream of the container app.
 	EventStreamEndpoint *string `json:"eventStreamEndpoint,omitempty" azure:"ro"`
+
+	// READ-ONLY; Name of the latest ready revision of the Container App.
+	LatestReadyRevisionName *string `json:"latestReadyRevisionName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Fully Qualified Domain Name of the latest revision of the Container App.
 	LatestRevisionFqdn *string `json:"latestRevisionFqdn,omitempty" azure:"ro"`

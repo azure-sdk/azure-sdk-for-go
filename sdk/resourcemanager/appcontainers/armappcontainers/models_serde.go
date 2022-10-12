@@ -1899,10 +1899,12 @@ func (c *ContainerAppProbeTCPSocket) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ContainerAppProperties.
 func (c ContainerAppProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "appState", c.AppState)
 	populate(objectMap, "configuration", c.Configuration)
 	populate(objectMap, "customDomainVerificationId", c.CustomDomainVerificationID)
 	populate(objectMap, "environmentId", c.EnvironmentID)
 	populate(objectMap, "eventStreamEndpoint", c.EventStreamEndpoint)
+	populate(objectMap, "latestReadyRevisionName", c.LatestReadyRevisionName)
 	populate(objectMap, "latestRevisionFqdn", c.LatestRevisionFqdn)
 	populate(objectMap, "latestRevisionName", c.LatestRevisionName)
 	populate(objectMap, "managedEnvironmentId", c.ManagedEnvironmentID)
@@ -1922,6 +1924,9 @@ func (c *ContainerAppProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "appState":
+			err = unpopulate(val, "AppState", &c.AppState)
+			delete(rawMsg, key)
 		case "configuration":
 			err = unpopulate(val, "Configuration", &c.Configuration)
 			delete(rawMsg, key)
@@ -1933,6 +1938,9 @@ func (c *ContainerAppProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "eventStreamEndpoint":
 			err = unpopulate(val, "EventStreamEndpoint", &c.EventStreamEndpoint)
+			delete(rawMsg, key)
+		case "latestReadyRevisionName":
+			err = unpopulate(val, "LatestReadyRevisionName", &c.LatestReadyRevisionName)
 			delete(rawMsg, key)
 		case "latestRevisionFqdn":
 			err = unpopulate(val, "LatestRevisionFqdn", &c.LatestRevisionFqdn)
