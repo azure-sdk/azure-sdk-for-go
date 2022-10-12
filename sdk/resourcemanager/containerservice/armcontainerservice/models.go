@@ -1432,7 +1432,7 @@ type ManagedClusterProperties struct {
 	// This is of the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/diskEncryptionSets/{encryptionSetName}'
 	DiskEncryptionSetID *string `json:"diskEncryptionSetID,omitempty"`
 
-	// The default value is false. It can be enabled/disabled on creation and updation of the managed cluster. See https://aka.ms/NamespaceARMResource
+	// The default value is false. It can be enabled/disabled on creation and updating of the managed cluster. See https://aka.ms/NamespaceARMResource
 	// [https://aka.ms/NamespaceARMResource] for more details
 	// on Namespace as a ARM Resource.
 	EnableNamespaceResources *bool `json:"enableNamespaceResources,omitempty"`
