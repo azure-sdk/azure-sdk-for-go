@@ -1,5 +1,22 @@
 # Release History
 
+## 2.2.0-beta.3 (2022-10-12)
+### Features Added
+
+- New const `ProtocolTCP`
+- New const `ProtocolUDP`
+- New const `EbpfDataplaneCilium`
+- New type alias `Protocol`
+- New type alias `EbpfDataplane`
+- New function `PossibleProtocolValues() []Protocol`
+- New function `PossibleEbpfDataplaneValues() []EbpfDataplane`
+- New struct `PortRange`
+- New field `EbpfDataplane` in struct `NetworkProfile`
+- New field `ApplicationSecurityGroups` in struct `AgentPoolNetworkProfile`
+- New field `AllowedHostPorts` in struct `AgentPoolNetworkProfile`
+- New field `CustomCATrustCertificates` in struct `ManagedClusterSecurityProfile`
+
+
 ## 2.2.0-beta.2 (2022-09-29)
 ### Features Added
 
