@@ -2636,40 +2636,6 @@ type GalleryApplication struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// GalleryApplicationCustomAction - A custom action that can be performed with a Gallery Application Version.
-type GalleryApplicationCustomAction struct {
-	// REQUIRED; The name of the custom action. Must be unique within the Gallery Application Version.
-	Name *string `json:"name,omitempty"`
-
-	// REQUIRED; The script to run when executing this custom action.
-	Script *string `json:"script,omitempty"`
-
-	// Description to help the users understand what this custom action does.
-	Description *string `json:"description,omitempty"`
-
-	// The parameters that this custom action uses
-	Parameters []*GalleryApplicationCustomActionParameter `json:"parameters,omitempty"`
-}
-
-// GalleryApplicationCustomActionParameter - The definition of a parameter that can be passed to a custom action of a Gallery
-// Application Version.
-type GalleryApplicationCustomActionParameter struct {
-	// REQUIRED; The name of the custom action. Must be unique within the Gallery Application Version.
-	Name *string `json:"name,omitempty"`
-
-	// The default value of the parameter. Only applies to string types
-	DefaultValue *string `json:"defaultValue,omitempty"`
-
-	// A description to help users understand what this parameter means
-	Description *string `json:"description,omitempty"`
-
-	// Indicates whether this parameter must be passed when running the custom action.
-	Required *bool `json:"required,omitempty"`
-
-	// Specifies the type of the custom action parameter. Possible values are: String, ConfigurationDataBlob or LogOutputBlob
-	Type *GalleryApplicationCustomActionParameterType `json:"type,omitempty"`
-}
-
 // GalleryApplicationList - The List Gallery Applications operation response.
 type GalleryApplicationList struct {
 	// REQUIRED; A list of Gallery Applications.
@@ -2687,9 +2653,6 @@ type GalleryApplicationProperties struct {
 	// Windows
 	// Linux
 	SupportedOSType *OperatingSystemTypes `json:"supportedOSType,omitempty"`
-
-	// A list of custom actions that can be performed with all of the Gallery Application Versions within this Gallery Application.
-	CustomActions []*GalleryApplicationCustomAction `json:"customActions,omitempty"`
 
 	// The description of this gallery Application Definition resource. This property is updatable.
 	Description *string `json:"description,omitempty"`
@@ -2762,9 +2725,6 @@ type GalleryApplicationVersionProperties struct {
 	// REQUIRED; The publishing profile of a gallery image version.
 	PublishingProfile *GalleryApplicationVersionPublishingProfile `json:"publishingProfile,omitempty"`
 
-	// The safety profile of the Gallery Application Version.
-	SafetyProfile *GalleryApplicationVersionSafetyProfile `json:"safetyProfile,omitempty"`
-
 	// READ-ONLY; The provisioning state, which only appears in the response.
 	ProvisioningState *GalleryProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 
@@ -2779,9 +2739,6 @@ type GalleryApplicationVersionPublishingProfile struct {
 
 	// Optional. Additional settings to pass to the vm-application-manager extension. For advanced use only.
 	AdvancedSettings map[string]*string `json:"advancedSettings,omitempty"`
-
-	// A list of custom actions that can be performed with this Gallery Application Version.
-	CustomActions []*GalleryApplicationCustomAction `json:"customActions,omitempty"`
 
 	// Optional. Whether or not this application reports health.
 	EnableHealthCheck *bool `json:"enableHealthCheck,omitempty"`
@@ -2816,12 +2773,6 @@ type GalleryApplicationVersionPublishingProfile struct {
 
 	// READ-ONLY; The timestamp for when the gallery image version is published.
 	PublishedDate *time.Time `json:"publishedDate,omitempty" azure:"ro"`
-}
-
-// GalleryApplicationVersionSafetyProfile - The safety profile of the Gallery Application Version.
-type GalleryApplicationVersionSafetyProfile struct {
-	// Indicates whether or not removing this Gallery Image Version from replicated regions is allowed.
-	AllowDeletionOfReplicatedLocations *bool `json:"allowDeletionOfReplicatedLocations,omitempty"`
 }
 
 // GalleryApplicationVersionUpdate - Specifies information about the gallery Application Version that you want to update.
@@ -2937,31 +2888,19 @@ type GalleryArtifactPublishingProfileBase struct {
 	PublishedDate *time.Time `json:"publishedDate,omitempty" azure:"ro"`
 }
 
-// GalleryArtifactSafetyProfileBase - This is the safety profile of the Gallery Artifact Version.
-type GalleryArtifactSafetyProfileBase struct {
-	// Indicates whether or not removing this Gallery Image Version from replicated regions is allowed.
-	AllowDeletionOfReplicatedLocations *bool `json:"allowDeletionOfReplicatedLocations,omitempty"`
-}
-
 // GalleryArtifactSource - The source image from which the Image Version is going to be created.
 type GalleryArtifactSource struct {
 	// REQUIRED; The managed artifact.
 	ManagedImage *ManagedArtifact `json:"managedImage,omitempty"`
 }
 
-// GalleryArtifactVersionFullSource - The source of the gallery artifact version.
-type GalleryArtifactVersionFullSource struct {
-	// The resource Id of the source Community Gallery Image. Only required when using Community Gallery Image as a source.
-	CommunityGalleryImageID *string `json:"communityGalleryImageId,omitempty"`
-
-	// The id of the gallery artifact version source. Can specify a disk uri, snapshot uri, user image or storage account resource.
-	ID *string `json:"id,omitempty"`
-}
-
 // GalleryArtifactVersionSource - The gallery artifact version source.
 type GalleryArtifactVersionSource struct {
 	// The id of the gallery artifact version source. Can specify a disk uri, snapshot uri, user image or storage account resource.
 	ID *string `json:"id,omitempty"`
+
+	// The uri of the gallery artifact version source. Currently used to specify vhd/blob source.
+	URI *string `json:"uri,omitempty"`
 }
 
 // GalleryDataDiskImage - This is the data disk image.
@@ -2974,8 +2913,8 @@ type GalleryDataDiskImage struct {
 	// The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'
 	HostCaching *HostCaching `json:"hostCaching,omitempty"`
 
-	// The source for the disk image.
-	Source *GalleryDiskImageSource `json:"source,omitempty"`
+	// The gallery artifact version source.
+	Source *GalleryArtifactVersionSource `json:"source,omitempty"`
 
 	// READ-ONLY; This property indicates the size of the VHD to be created.
 	SizeInGB *int32 `json:"sizeInGB,omitempty" azure:"ro"`
@@ -2986,23 +2925,11 @@ type GalleryDiskImage struct {
 	// The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'
 	HostCaching *HostCaching `json:"hostCaching,omitempty"`
 
-	// The source for the disk image.
-	Source *GalleryDiskImageSource `json:"source,omitempty"`
+	// The gallery artifact version source.
+	Source *GalleryArtifactVersionSource `json:"source,omitempty"`
 
 	// READ-ONLY; This property indicates the size of the VHD to be created.
 	SizeInGB *int32 `json:"sizeInGB,omitempty" azure:"ro"`
-}
-
-// GalleryDiskImageSource - The source for the disk image.
-type GalleryDiskImageSource struct {
-	// The id of the gallery artifact version source. Can specify a disk uri, snapshot uri, user image or storage account resource.
-	ID *string `json:"id,omitempty"`
-
-	// The Storage Account Id that contains the vhd blob being used as a source for this artifact version.
-	StorageAccountID *string `json:"storageAccountId,omitempty"`
-
-	// The uri of the gallery artifact version source. Currently used to specify vhd/blob source.
-	URI *string `json:"uri,omitempty"`
 }
 
 // GalleryExtendedLocation - The name of the extended location.
@@ -3182,9 +3109,6 @@ type GalleryImageVersionProperties struct {
 	// The publishing profile of a gallery image Version.
 	PublishingProfile *GalleryImageVersionPublishingProfile `json:"publishingProfile,omitempty"`
 
-	// This is the safety profile of the Gallery Image Version.
-	SafetyProfile *GalleryImageVersionSafetyProfile `json:"safetyProfile,omitempty"`
-
 	// READ-ONLY; The provisioning state, which only appears in the response.
 	ProvisioningState *GalleryProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 
@@ -3221,18 +3145,6 @@ type GalleryImageVersionPublishingProfile struct {
 	PublishedDate *time.Time `json:"publishedDate,omitempty" azure:"ro"`
 }
 
-// GalleryImageVersionSafetyProfile - This is the safety profile of the Gallery Image Version.
-type GalleryImageVersionSafetyProfile struct {
-	// Indicates whether or not removing this Gallery Image Version from replicated regions is allowed.
-	AllowDeletionOfReplicatedLocations *bool `json:"allowDeletionOfReplicatedLocations,omitempty"`
-
-	// READ-ONLY; A list of Policy Violations that have been reported for this Gallery Image Version.
-	PolicyViolations []*PolicyViolation `json:"policyViolations,omitempty" azure:"ro"`
-
-	// READ-ONLY; Indicates whether this image has been reported as violating Microsoft's policies.
-	ReportedForPolicyViolation *bool `json:"reportedForPolicyViolation,omitempty" azure:"ro"`
-}
-
 // GalleryImageVersionStorageProfile - This is the storage profile of a Gallery Image Version.
 type GalleryImageVersionStorageProfile struct {
 	// A list of data disk images.
@@ -3241,8 +3153,8 @@ type GalleryImageVersionStorageProfile struct {
 	// This is the OS disk image.
 	OSDiskImage *GalleryOSDiskImage `json:"osDiskImage,omitempty"`
 
-	// The source of the gallery artifact version.
-	Source *GalleryArtifactVersionFullSource `json:"source,omitempty"`
+	// The gallery artifact version source.
+	Source *GalleryArtifactVersionSource `json:"source,omitempty"`
 }
 
 // GalleryImageVersionUpdate - Specifies information about the gallery image version that you want to update.
@@ -3339,8 +3251,8 @@ type GalleryOSDiskImage struct {
 	// The host caching of the disk. Valid values are 'None', 'ReadOnly', and 'ReadWrite'
 	HostCaching *HostCaching `json:"hostCaching,omitempty"`
 
-	// The source for the disk image.
-	Source *GalleryDiskImageSource `json:"source,omitempty"`
+	// The gallery artifact version source.
+	Source *GalleryArtifactVersionSource `json:"source,omitempty"`
 
 	// READ-ONLY; This property indicates the size of the VHD to be created.
 	SizeInGB *int32 `json:"sizeInGB,omitempty" azure:"ro"`
@@ -3857,15 +3769,6 @@ type LastPatchInstallationSummary struct {
 	// At that point it will become "Unknown", "Failed", "Succeeded", or
 	// "CompletedWithWarnings."
 	Status *PatchOperationStatus `json:"status,omitempty" azure:"ro"`
-}
-
-// LatestGalleryImageVersion - The gallery image version with latest version in a particular region.
-type LatestGalleryImageVersion struct {
-	// The name of the latest version in the region.
-	LatestVersionName *string `json:"latestVersionName,omitempty"`
-
-	// region of the Gallery Image Version.
-	Location *string `json:"location,omitempty"`
 }
 
 // LinuxConfiguration - Specifies the Linux operating system settings on the virtual machine.
@@ -4531,15 +4434,6 @@ type Plan struct {
 
 	// The publisher ID.
 	Publisher *string `json:"publisher,omitempty"`
-}
-
-// PolicyViolation - A policy violation reported against a gallery artifact.
-type PolicyViolation struct {
-	// Describes the nature of the policy violation.
-	Category *PolicyViolationCategory `json:"category,omitempty"`
-
-	// Describes specific details about why this policy violation was reported.
-	Details *string `json:"details,omitempty"`
 }
 
 // PriorityMixPolicy - Specifies the target splits for Spot and Regular priority VMs within a scale set with flexible orchestration
@@ -5935,17 +5829,11 @@ type SharedGalleryImageProperties struct {
 	// is updatable.
 	EndOfLifeDate *time.Time `json:"endOfLifeDate,omitempty"`
 
-	// End-user license agreement for the current community gallery image.
-	Eula *string `json:"eula,omitempty"`
-
 	// A list of gallery image features.
 	Features []*GalleryImageFeature `json:"features,omitempty"`
 
 	// The hypervisor generation of the Virtual Machine. Applicable to OS disks only.
 	HyperVGeneration *HyperVGeneration `json:"hyperVGeneration,omitempty"`
-
-	// Privacy statement uri for the current community gallery image.
-	PrivacyStatementURI *string `json:"privacyStatementUri,omitempty"`
 
 	// Describes the gallery image definition purchase plan. This is used by marketplace images.
 	PurchasePlan *ImagePurchasePlan `json:"purchasePlan,omitempty"`
@@ -6427,9 +6315,6 @@ type TargetRegion struct {
 
 	// Optional. Allows users to provide customer managed keys for encrypting the OS and data disks in the gallery artifact.
 	Encryption *EncryptionImages `json:"encryption,omitempty"`
-
-	// Contains the flag setting to hide an image when users specify version='latest'
-	ExcludeFromLatest *bool `json:"excludeFromLatest,omitempty"`
 
 	// The number of replicas of the Image Version to be created per region. This property is updatable.
 	RegionalReplicaCount *int32 `json:"regionalReplicaCount,omitempty"`

@@ -1,5 +1,45 @@
 # Release History
 
+## 5.0.0 (2022-10-13)
+### Breaking Changes
+
+- Type of `GalleryDataDiskImage.Source` has been changed from `*GalleryDiskImageSource` to `*GalleryArtifactVersionSource`
+- Type of `GalleryDiskImage.Source` has been changed from `*GalleryDiskImageSource` to `*GalleryArtifactVersionSource`
+- Type of `GalleryImageVersionStorageProfile.Source` has been changed from `*GalleryArtifactVersionFullSource` to `*GalleryArtifactVersionSource`
+- Type of `GalleryOSDiskImage.Source` has been changed from `*GalleryDiskImageSource` to `*GalleryArtifactVersionSource`
+- Const `PolicyViolationCategoryCopyrightValidation` has been removed
+- Const `GalleryApplicationCustomActionParameterTypeConfigurationDataBlob` has been removed
+- Const `GalleryApplicationCustomActionParameterTypeString` has been removed
+- Const `PolicyViolationCategoryIPTheft` has been removed
+- Const `PolicyViolationCategoryImageFlaggedUnsafe` has been removed
+- Const `GalleryApplicationCustomActionParameterTypeLogOutputBlob` has been removed
+- Const `PolicyViolationCategoryOther` has been removed
+- Type alias `GalleryApplicationCustomActionParameterType` has been removed
+- Type alias `PolicyViolationCategory` has been removed
+- Function `PossiblePolicyViolationCategoryValues` has been removed
+- Function `PossibleGalleryApplicationCustomActionParameterTypeValues` has been removed
+- Struct `GalleryApplicationCustomAction` has been removed
+- Struct `GalleryApplicationCustomActionParameter` has been removed
+- Struct `GalleryApplicationVersionSafetyProfile` has been removed
+- Struct `GalleryArtifactSafetyProfileBase` has been removed
+- Struct `GalleryArtifactVersionFullSource` has been removed
+- Struct `GalleryDiskImageSource` has been removed
+- Struct `GalleryImageVersionSafetyProfile` has been removed
+- Struct `LatestGalleryImageVersion` has been removed
+- Struct `PolicyViolation` has been removed
+- Field `SafetyProfile` of struct `GalleryApplicationVersionProperties` has been removed
+- Field `SafetyProfile` of struct `GalleryImageVersionProperties` has been removed
+- Field `CustomActions` of struct `GalleryApplicationVersionPublishingProfile` has been removed
+- Field `CustomActions` of struct `GalleryApplicationProperties` has been removed
+- Field `ExcludeFromLatest` of struct `TargetRegion` has been removed
+- Field `Eula` of struct `SharedGalleryImageProperties` has been removed
+- Field `PrivacyStatementURI` of struct `SharedGalleryImageProperties` has been removed
+
+### Features Added
+
+- New field `URI` in struct `GalleryArtifactVersionSource`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 

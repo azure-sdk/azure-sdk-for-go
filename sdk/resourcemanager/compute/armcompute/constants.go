@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v5.0.0"
 )
 
 type AccessLevel string
@@ -731,25 +731,6 @@ func PossibleExtendedLocationTypesValues() []ExtendedLocationTypes {
 	}
 }
 
-// GalleryApplicationCustomActionParameterType - Specifies the type of the custom action parameter. Possible values are: String,
-// ConfigurationDataBlob or LogOutputBlob
-type GalleryApplicationCustomActionParameterType string
-
-const (
-	GalleryApplicationCustomActionParameterTypeString                GalleryApplicationCustomActionParameterType = "String"
-	GalleryApplicationCustomActionParameterTypeConfigurationDataBlob GalleryApplicationCustomActionParameterType = "ConfigurationDataBlob"
-	GalleryApplicationCustomActionParameterTypeLogOutputBlob         GalleryApplicationCustomActionParameterType = "LogOutputBlob"
-)
-
-// PossibleGalleryApplicationCustomActionParameterTypeValues returns the possible values for the GalleryApplicationCustomActionParameterType const type.
-func PossibleGalleryApplicationCustomActionParameterTypeValues() []GalleryApplicationCustomActionParameterType {
-	return []GalleryApplicationCustomActionParameterType{
-		GalleryApplicationCustomActionParameterTypeString,
-		GalleryApplicationCustomActionParameterTypeConfigurationDataBlob,
-		GalleryApplicationCustomActionParameterTypeLogOutputBlob,
-	}
-}
-
 type GalleryExpandParams string
 
 const (
@@ -1254,26 +1235,6 @@ func PossiblePatchOperationStatusValues() []PatchOperationStatus {
 		PatchOperationStatusInProgress,
 		PatchOperationStatusSucceeded,
 		PatchOperationStatusUnknown,
-	}
-}
-
-// PolicyViolationCategory - Describes the nature of the policy violation.
-type PolicyViolationCategory string
-
-const (
-	PolicyViolationCategoryCopyrightValidation PolicyViolationCategory = "CopyrightValidation"
-	PolicyViolationCategoryIPTheft             PolicyViolationCategory = "IpTheft"
-	PolicyViolationCategoryImageFlaggedUnsafe  PolicyViolationCategory = "ImageFlaggedUnsafe"
-	PolicyViolationCategoryOther               PolicyViolationCategory = "Other"
-)
-
-// PossiblePolicyViolationCategoryValues returns the possible values for the PolicyViolationCategory const type.
-func PossiblePolicyViolationCategoryValues() []PolicyViolationCategory {
-	return []PolicyViolationCategory{
-		PolicyViolationCategoryCopyrightValidation,
-		PolicyViolationCategoryIPTheft,
-		PolicyViolationCategoryImageFlaggedUnsafe,
-		PolicyViolationCategoryOther,
 	}
 }
 
