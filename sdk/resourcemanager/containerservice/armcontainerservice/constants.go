@@ -11,7 +11,7 @@ package armcontainerservice
 
 const (
 	moduleName    = "armcontainerservice"
-	moduleVersion = "v2.2.0-beta.2"
+	moduleVersion = "v2.2.0-beta.3"
 )
 
 // AgentPoolMode - A cluster must have at least one 'System' Agent Pool at all times. For additional information on agent
@@ -143,6 +143,21 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// EbpfDataplane - The eBPF dataplane used for building the Kubernetes network.
+type EbpfDataplane string
+
+const (
+	// EbpfDataplaneCilium - Use Cilium for networking in the Kubernetes cluster.
+	EbpfDataplaneCilium EbpfDataplane = "cilium"
+)
+
+// PossibleEbpfDataplaneValues returns the possible values for the EbpfDataplane const type.
+func PossibleEbpfDataplaneValues() []EbpfDataplane {
+	return []EbpfDataplane{
+		EbpfDataplaneCilium,
 	}
 }
 
@@ -668,6 +683,24 @@ func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpoin
 		PrivateEndpointConnectionProvisioningStateDeleting,
 		PrivateEndpointConnectionProvisioningStateFailed,
 		PrivateEndpointConnectionProvisioningStateSucceeded,
+	}
+}
+
+// Protocol - The network protocol of the port.
+type Protocol string
+
+const (
+	// ProtocolTCP - TCP protocol.
+	ProtocolTCP Protocol = "TCP"
+	// ProtocolUDP - UDP protocol.
+	ProtocolUDP Protocol = "UDP"
+)
+
+// PossibleProtocolValues returns the possible values for the Protocol const type.
+func PossibleProtocolValues() []Protocol {
+	return []Protocol{
+		ProtocolTCP,
+		ProtocolUDP,
 	}
 }
 
