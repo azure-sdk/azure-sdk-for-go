@@ -1,5 +1,21 @@
 # Release History
 
+## 3.0.0 (2022-10-13)
+### Breaking Changes
+
+- Struct `CommonProperties` has been removed
+- Struct `CreateProperties` has been removed
+- Struct `Properties` has been removed
+- Struct `UpdateProperties` has been removed
+
+### Features Added
+
+- New field `GeoReplicatedPrimaryHostName` in struct `LinkedServerCreateProperties`
+- New field `PrimaryHostName` in struct `LinkedServerCreateProperties`
+- New field `GeoReplicatedPrimaryHostName` in struct `LinkedServerProperties`
+- New field `PrimaryHostName` in struct `LinkedServerProperties`
+
+
 ## 2.0.0 (2022-09-01)
 ### Breaking Changes
 
