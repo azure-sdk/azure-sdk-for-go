@@ -104,42 +104,6 @@ type ClientRegenerateKeyOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CommonProperties - Create/Update/Get common properties of the redis cache.
-type CommonProperties struct {
-	// Specifies whether the non-ssl Redis server port (6379) is enabled.
-	EnableNonSSLPort *bool `json:"enableNonSslPort,omitempty"`
-
-	// Optional: requires clients to use a specified TLS version (or higher) to connect (e,g, '1.0', '1.1', '1.2')
-	MinimumTLSVersion *TLSVersion `json:"minimumTlsVersion,omitempty"`
-
-	// Whether or not public endpoint access is allowed for this cache. Value is optional but if passed in, must be 'Enabled'
-	// or 'Disabled'. If 'Disabled', private endpoints are the exclusive access method.
-	// Default value is 'Enabled'
-	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
-
-	// All Redis Settings. Few possible keys:
-	// rdb-backup-enabled,rdb-storage-connection-string,rdb-backup-frequency,maxmemory-delta,maxmemory-policy,notify-keyspace-events,maxmemory-samples,slowlog-log-slower-than,slowlog-max-len,list-max-ziplist-entries,list-max-ziplist-value,hash-max-ziplist-entries,hash-max-ziplist-value,set-max-intset-entries,zset-max-ziplist-entries,zset-max-ziplist-value
-	// etc.
-	RedisConfiguration *CommonPropertiesRedisConfiguration `json:"redisConfiguration,omitempty"`
-
-	// Redis version. This should be in the form 'major[.minor]' (only 'major' is required) or the value 'latest' which refers
-	// to the latest stable Redis version that is available. Supported versions: 4.0,
-	// 6.0 (latest). Default value is 'latest'.
-	RedisVersion *string `json:"redisVersion,omitempty"`
-
-	// The number of replicas to be created per primary.
-	ReplicasPerMaster *int32 `json:"replicasPerMaster,omitempty"`
-
-	// The number of replicas to be created per primary.
-	ReplicasPerPrimary *int32 `json:"replicasPerPrimary,omitempty"`
-
-	// The number of shards to be created on a Premium Cluster Cache.
-	ShardCount *int32 `json:"shardCount,omitempty"`
-
-	// A dictionary of tenant settings
-	TenantSettings map[string]*string `json:"tenantSettings,omitempty"`
-}
-
 // CommonPropertiesRedisConfiguration - All Redis Settings. Few possible keys:
 // rdb-backup-enabled,rdb-storage-connection-string,rdb-backup-frequency,maxmemory-delta,maxmemory-policy,notify-keyspace-events,maxmemory-samples,slowlog-log-slower-than,slowlog-max-len,list-max-ziplist-entries,list-max-ziplist-value,hash-max-ziplist-entries,hash-max-ziplist-value,set-max-intset-entries,zset-max-ziplist-entries,zset-max-ziplist-value
 // etc.
@@ -178,7 +142,7 @@ type CommonPropertiesRedisConfiguration struct {
 	// Specifies whether the rdb backup is enabled
 	RdbBackupEnabled *string `json:"rdb-backup-enabled,omitempty"`
 
-	// Specifies the frequency for creating rdb backup
+	// Specifies the frequency for creating rdb backup in minutes. Valid values: (15, 30, 60, 360, 720, 1440)
 	RdbBackupFrequency *string `json:"rdb-backup-frequency,omitempty"`
 
 	// Specifies the maximum number of snapshots for rdb backup
@@ -485,6 +449,14 @@ type LinkedServerCreateProperties struct {
 
 	// REQUIRED; Role of the linked server.
 	ServerRole *ReplicationRole `json:"serverRole,omitempty"`
+
+	// READ-ONLY; The unchanging DNS name which will always point to current geo-primary cache among the linked redis caches for
+	// seamless Geo Failover experience.
+	GeoReplicatedPrimaryHostName *string `json:"geoReplicatedPrimaryHostName,omitempty" azure:"ro"`
+
+	// READ-ONLY; The changing DNS name that resolves to the current geo-primary cache among the linked redis caches before or
+	// after the Geo Failover.
+	PrimaryHostName *string `json:"primaryHostName,omitempty" azure:"ro"`
 }
 
 // LinkedServerProperties - Properties of a linked server to be returned in get/put response
@@ -497,6 +469,14 @@ type LinkedServerProperties struct {
 
 	// REQUIRED; Role of the linked server.
 	ServerRole *ReplicationRole `json:"serverRole,omitempty"`
+
+	// READ-ONLY; The unchanging DNS name which will always point to current geo-primary cache among the linked redis caches for
+	// seamless Geo Failover experience.
+	GeoReplicatedPrimaryHostName *string `json:"geoReplicatedPrimaryHostName,omitempty" azure:"ro"`
+
+	// READ-ONLY; The changing DNS name that resolves to the current geo-primary cache among the linked redis caches before or
+	// after the Geo Failover.
+	PrimaryHostName *string `json:"primaryHostName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Terminal state of the link between primary and secondary redis cache.
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`

@@ -78,65 +78,6 @@ func (c *CheckNameAvailabilityParameters) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type CommonProperties.
-func (c CommonProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "enableNonSslPort", c.EnableNonSSLPort)
-	populate(objectMap, "minimumTlsVersion", c.MinimumTLSVersion)
-	populate(objectMap, "publicNetworkAccess", c.PublicNetworkAccess)
-	populate(objectMap, "redisConfiguration", c.RedisConfiguration)
-	populate(objectMap, "redisVersion", c.RedisVersion)
-	populate(objectMap, "replicasPerMaster", c.ReplicasPerMaster)
-	populate(objectMap, "replicasPerPrimary", c.ReplicasPerPrimary)
-	populate(objectMap, "shardCount", c.ShardCount)
-	populate(objectMap, "tenantSettings", c.TenantSettings)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type CommonProperties.
-func (c *CommonProperties) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "enableNonSslPort":
-			err = unpopulate(val, "EnableNonSSLPort", &c.EnableNonSSLPort)
-			delete(rawMsg, key)
-		case "minimumTlsVersion":
-			err = unpopulate(val, "MinimumTLSVersion", &c.MinimumTLSVersion)
-			delete(rawMsg, key)
-		case "publicNetworkAccess":
-			err = unpopulate(val, "PublicNetworkAccess", &c.PublicNetworkAccess)
-			delete(rawMsg, key)
-		case "redisConfiguration":
-			err = unpopulate(val, "RedisConfiguration", &c.RedisConfiguration)
-			delete(rawMsg, key)
-		case "redisVersion":
-			err = unpopulate(val, "RedisVersion", &c.RedisVersion)
-			delete(rawMsg, key)
-		case "replicasPerMaster":
-			err = unpopulate(val, "ReplicasPerMaster", &c.ReplicasPerMaster)
-			delete(rawMsg, key)
-		case "replicasPerPrimary":
-			err = unpopulate(val, "ReplicasPerPrimary", &c.ReplicasPerPrimary)
-			delete(rawMsg, key)
-		case "shardCount":
-			err = unpopulate(val, "ShardCount", &c.ShardCount)
-			delete(rawMsg, key)
-		case "tenantSettings":
-			err = unpopulate(val, "TenantSettings", &c.TenantSettings)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type CommonPropertiesRedisConfiguration.
 func (c CommonPropertiesRedisConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -842,8 +783,10 @@ func (l *LinkedServerCreateParameters) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LinkedServerCreateProperties.
 func (l LinkedServerCreateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "geoReplicatedPrimaryHostName", l.GeoReplicatedPrimaryHostName)
 	populate(objectMap, "linkedRedisCacheId", l.LinkedRedisCacheID)
 	populate(objectMap, "linkedRedisCacheLocation", l.LinkedRedisCacheLocation)
+	populate(objectMap, "primaryHostName", l.PrimaryHostName)
 	populate(objectMap, "serverRole", l.ServerRole)
 	return json.Marshal(objectMap)
 }
@@ -857,11 +800,17 @@ func (l *LinkedServerCreateProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "geoReplicatedPrimaryHostName":
+			err = unpopulate(val, "GeoReplicatedPrimaryHostName", &l.GeoReplicatedPrimaryHostName)
+			delete(rawMsg, key)
 		case "linkedRedisCacheId":
 			err = unpopulate(val, "LinkedRedisCacheID", &l.LinkedRedisCacheID)
 			delete(rawMsg, key)
 		case "linkedRedisCacheLocation":
 			err = unpopulate(val, "LinkedRedisCacheLocation", &l.LinkedRedisCacheLocation)
+			delete(rawMsg, key)
+		case "primaryHostName":
+			err = unpopulate(val, "PrimaryHostName", &l.PrimaryHostName)
 			delete(rawMsg, key)
 		case "serverRole":
 			err = unpopulate(val, "ServerRole", &l.ServerRole)
@@ -877,8 +826,10 @@ func (l *LinkedServerCreateProperties) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LinkedServerProperties.
 func (l LinkedServerProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "geoReplicatedPrimaryHostName", l.GeoReplicatedPrimaryHostName)
 	populate(objectMap, "linkedRedisCacheId", l.LinkedRedisCacheID)
 	populate(objectMap, "linkedRedisCacheLocation", l.LinkedRedisCacheLocation)
+	populate(objectMap, "primaryHostName", l.PrimaryHostName)
 	populate(objectMap, "provisioningState", l.ProvisioningState)
 	populate(objectMap, "serverRole", l.ServerRole)
 	return json.Marshal(objectMap)
@@ -893,11 +844,17 @@ func (l *LinkedServerProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "geoReplicatedPrimaryHostName":
+			err = unpopulate(val, "GeoReplicatedPrimaryHostName", &l.GeoReplicatedPrimaryHostName)
+			delete(rawMsg, key)
 		case "linkedRedisCacheId":
 			err = unpopulate(val, "LinkedRedisCacheID", &l.LinkedRedisCacheID)
 			delete(rawMsg, key)
 		case "linkedRedisCacheLocation":
 			err = unpopulate(val, "LinkedRedisCacheLocation", &l.LinkedRedisCacheLocation)
+			delete(rawMsg, key)
+		case "primaryHostName":
+			err = unpopulate(val, "PrimaryHostName", &l.PrimaryHostName)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &l.ProvisioningState)
