@@ -1099,7 +1099,7 @@ func (a AmazonRdsForSQLServerSource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlReaderStoredProcedureName", &a.SQLReaderStoredProcedureName)
 	populate(objectMap, "sourceRetryCount", &a.SourceRetryCount)
 	populate(objectMap, "sourceRetryWait", &a.SourceRetryWait)
-	populate(objectMap, "storedProcedureParameters", a.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &a.StoredProcedureParameters)
 	objectMap["type"] = "AmazonRdsForSqlServerSource"
 	if a.AdditionalProperties != nil {
 		for key, val := range a.AdditionalProperties {
@@ -8708,7 +8708,7 @@ func (a AzureSQLSink) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlWriterUseTableLock", &a.SQLWriterUseTableLock)
 	populate(objectMap, "sinkRetryCount", &a.SinkRetryCount)
 	populate(objectMap, "sinkRetryWait", &a.SinkRetryWait)
-	populate(objectMap, "storedProcedureParameters", a.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &a.StoredProcedureParameters)
 	populate(objectMap, "storedProcedureTableTypeParameterName", &a.StoredProcedureTableTypeParameterName)
 	populate(objectMap, "tableOption", &a.TableOption)
 	objectMap["type"] = "AzureSqlSink"
@@ -8813,7 +8813,7 @@ func (a AzureSQLSource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlReaderStoredProcedureName", &a.SQLReaderStoredProcedureName)
 	populate(objectMap, "sourceRetryCount", &a.SourceRetryCount)
 	populate(objectMap, "sourceRetryWait", &a.SourceRetryWait)
-	populate(objectMap, "storedProcedureParameters", a.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &a.StoredProcedureParameters)
 	objectMap["type"] = "AzureSqlSource"
 	if a.AdditionalProperties != nil {
 		for key, val := range a.AdditionalProperties {
@@ -9438,6 +9438,7 @@ func (a AzureSynapseArtifactsLinkedServiceTypeProperties) MarshalJSON() ([]byte,
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "authentication", &a.Authentication)
 	populate(objectMap, "endpoint", &a.Endpoint)
+	populate(objectMap, "workspaceResourceId", &a.WorkspaceResourceID)
 	return json.Marshal(objectMap)
 }
 
@@ -9455,6 +9456,9 @@ func (a *AzureSynapseArtifactsLinkedServiceTypeProperties) UnmarshalJSON(data []
 			delete(rawMsg, key)
 		case "endpoint":
 			err = unpopulate(val, "Endpoint", &a.Endpoint)
+			delete(rawMsg, key)
+		case "workspaceResourceId":
+			err = unpopulate(val, "WorkspaceResourceID", &a.WorkspaceResourceID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -10858,72 +10862,6 @@ func (c *ChainingTriggerTypeProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "runDimension":
 			err = unpopulate(val, "RunDimension", &c.RunDimension)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type CloudError.
-func (c CloudError) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "error", c.Error)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type CloudError.
-func (c *CloudError) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "error":
-			err = unpopulate(val, "Error", &c.Error)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type CloudErrorBody.
-func (c CloudErrorBody) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "code", c.Code)
-	populate(objectMap, "details", c.Details)
-	populate(objectMap, "message", c.Message)
-	populate(objectMap, "target", c.Target)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type CloudErrorBody.
-func (c *CloudErrorBody) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "code":
-			err = unpopulate(val, "Code", &c.Code)
-			delete(rawMsg, key)
-		case "details":
-			err = unpopulate(val, "Details", &c.Details)
-			delete(rawMsg, key)
-		case "message":
-			err = unpopulate(val, "Message", &c.Message)
-			delete(rawMsg, key)
-		case "target":
-			err = unpopulate(val, "Target", &c.Target)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -19498,6 +19436,7 @@ func (f FactoryGitHubConfiguration) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "clientId", f.ClientID)
 	populate(objectMap, "clientSecret", f.ClientSecret)
 	populate(objectMap, "collaborationBranch", f.CollaborationBranch)
+	populate(objectMap, "disablePublish", f.DisablePublish)
 	populate(objectMap, "hostName", f.HostName)
 	populate(objectMap, "lastCommitId", f.LastCommitID)
 	populate(objectMap, "repositoryName", f.RepositoryName)
@@ -19526,6 +19465,9 @@ func (f *FactoryGitHubConfiguration) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "collaborationBranch":
 			err = unpopulate(val, "CollaborationBranch", &f.CollaborationBranch)
+			delete(rawMsg, key)
+		case "disablePublish":
+			err = unpopulate(val, "DisablePublish", &f.DisablePublish)
 			delete(rawMsg, key)
 		case "hostName":
 			err = unpopulate(val, "HostName", &f.HostName)
@@ -19680,6 +19622,7 @@ func (f FactoryRepoConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "accountName", f.AccountName)
 	populate(objectMap, "collaborationBranch", f.CollaborationBranch)
+	populate(objectMap, "disablePublish", f.DisablePublish)
 	populate(objectMap, "lastCommitId", f.LastCommitID)
 	populate(objectMap, "repositoryName", f.RepositoryName)
 	populate(objectMap, "rootFolder", f.RootFolder)
@@ -19701,6 +19644,9 @@ func (f *FactoryRepoConfiguration) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "collaborationBranch":
 			err = unpopulate(val, "CollaborationBranch", &f.CollaborationBranch)
+			delete(rawMsg, key)
+		case "disablePublish":
+			err = unpopulate(val, "DisablePublish", &f.DisablePublish)
 			delete(rawMsg, key)
 		case "lastCommitId":
 			err = unpopulate(val, "LastCommitID", &f.LastCommitID)
@@ -19820,6 +19766,7 @@ func (f FactoryVSTSConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "accountName", f.AccountName)
 	populate(objectMap, "collaborationBranch", f.CollaborationBranch)
+	populate(objectMap, "disablePublish", f.DisablePublish)
 	populate(objectMap, "lastCommitId", f.LastCommitID)
 	populate(objectMap, "projectName", f.ProjectName)
 	populate(objectMap, "repositoryName", f.RepositoryName)
@@ -19843,6 +19790,9 @@ func (f *FactoryVSTSConfiguration) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "collaborationBranch":
 			err = unpopulate(val, "CollaborationBranch", &f.CollaborationBranch)
+			delete(rawMsg, key)
+		case "disablePublish":
+			err = unpopulate(val, "DisablePublish", &f.DisablePublish)
 			delete(rawMsg, key)
 		case "lastCommitId":
 			err = unpopulate(val, "LastCommitID", &f.LastCommitID)
@@ -39242,7 +39192,7 @@ func (s SQLMISink) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlWriterUseTableLock", &s.SQLWriterUseTableLock)
 	populate(objectMap, "sinkRetryCount", &s.SinkRetryCount)
 	populate(objectMap, "sinkRetryWait", &s.SinkRetryWait)
-	populate(objectMap, "storedProcedureParameters", s.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &s.StoredProcedureParameters)
 	populate(objectMap, "storedProcedureTableTypeParameterName", &s.StoredProcedureTableTypeParameterName)
 	populate(objectMap, "tableOption", &s.TableOption)
 	objectMap["type"] = "SqlMISink"
@@ -39347,7 +39297,7 @@ func (s SQLMISource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlReaderStoredProcedureName", &s.SQLReaderStoredProcedureName)
 	populate(objectMap, "sourceRetryCount", &s.SourceRetryCount)
 	populate(objectMap, "sourceRetryWait", &s.SourceRetryWait)
-	populate(objectMap, "storedProcedureParameters", s.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &s.StoredProcedureParameters)
 	objectMap["type"] = "SqlMISource"
 	if s.AdditionalProperties != nil {
 		for key, val := range s.AdditionalProperties {
@@ -39574,7 +39524,7 @@ func (s SQLServerSink) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlWriterUseTableLock", &s.SQLWriterUseTableLock)
 	populate(objectMap, "sinkRetryCount", &s.SinkRetryCount)
 	populate(objectMap, "sinkRetryWait", &s.SinkRetryWait)
-	populate(objectMap, "storedProcedureParameters", s.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &s.StoredProcedureParameters)
 	populate(objectMap, "storedProcedureTableTypeParameterName", &s.StoredProcedureTableTypeParameterName)
 	populate(objectMap, "tableOption", &s.TableOption)
 	objectMap["type"] = "SqlServerSink"
@@ -39679,7 +39629,7 @@ func (s SQLServerSource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlReaderStoredProcedureName", &s.SQLReaderStoredProcedureName)
 	populate(objectMap, "sourceRetryCount", &s.SourceRetryCount)
 	populate(objectMap, "sourceRetryWait", &s.SourceRetryWait)
-	populate(objectMap, "storedProcedureParameters", s.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &s.StoredProcedureParameters)
 	objectMap["type"] = "SqlServerSource"
 	if s.AdditionalProperties != nil {
 		for key, val := range s.AdditionalProperties {
@@ -39976,7 +39926,7 @@ func (s SQLSink) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlWriterUseTableLock", &s.SQLWriterUseTableLock)
 	populate(objectMap, "sinkRetryCount", &s.SinkRetryCount)
 	populate(objectMap, "sinkRetryWait", &s.SinkRetryWait)
-	populate(objectMap, "storedProcedureParameters", s.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &s.StoredProcedureParameters)
 	populate(objectMap, "storedProcedureTableTypeParameterName", &s.StoredProcedureTableTypeParameterName)
 	populate(objectMap, "tableOption", &s.TableOption)
 	objectMap["type"] = "SqlSink"
@@ -40081,7 +40031,7 @@ func (s SQLSource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "sqlReaderStoredProcedureName", &s.SQLReaderStoredProcedureName)
 	populate(objectMap, "sourceRetryCount", &s.SourceRetryCount)
 	populate(objectMap, "sourceRetryWait", &s.SourceRetryWait)
-	populate(objectMap, "storedProcedureParameters", s.StoredProcedureParameters)
+	populate(objectMap, "storedProcedureParameters", &s.StoredProcedureParameters)
 	objectMap["type"] = "SqlSource"
 	if s.AdditionalProperties != nil {
 		for key, val := range s.AdditionalProperties {
@@ -48319,7 +48269,9 @@ func (s SynapseSparkJobActivityTypeProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "executorSize", &s.ExecutorSize)
 	populate(objectMap, "file", &s.File)
 	populate(objectMap, "files", s.Files)
+	populate(objectMap, "filesV2", s.FilesV2)
 	populate(objectMap, "numExecutors", s.NumExecutors)
+	populate(objectMap, "pythonCodeReference", s.PythonCodeReference)
 	populate(objectMap, "sparkJob", s.SparkJob)
 	populate(objectMap, "targetBigDataPool", s.TargetBigDataPool)
 	return json.Marshal(objectMap)
@@ -48355,8 +48307,14 @@ func (s *SynapseSparkJobActivityTypeProperties) UnmarshalJSON(data []byte) error
 		case "files":
 			err = unpopulate(val, "Files", &s.Files)
 			delete(rawMsg, key)
+		case "filesV2":
+			err = unpopulate(val, "FilesV2", &s.FilesV2)
+			delete(rawMsg, key)
 		case "numExecutors":
 			err = unpopulate(val, "NumExecutors", &s.NumExecutors)
+			delete(rawMsg, key)
+		case "pythonCodeReference":
+			err = unpopulate(val, "PythonCodeReference", &s.PythonCodeReference)
 			delete(rawMsg, key)
 		case "sparkJob":
 			err = unpopulate(val, "SparkJob", &s.SparkJob)
@@ -48445,7 +48403,7 @@ func (s *SynapseSparkJobDefinitionActivity) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type SynapseSparkJobReference.
 func (s SynapseSparkJobReference) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "referenceName", s.ReferenceName)
+	populate(objectMap, "referenceName", &s.ReferenceName)
 	populate(objectMap, "type", s.Type)
 	return json.Marshal(objectMap)
 }
