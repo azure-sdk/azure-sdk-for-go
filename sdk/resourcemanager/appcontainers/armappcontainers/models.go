@@ -921,6 +921,9 @@ type ContainerAppProbeTCPSocket struct {
 
 // ContainerAppProperties - ContainerApp resource specific properties
 type ContainerAppProperties struct {
+	// Current state of the app. Controls if the app is enabled or disabled.
+	AppState *AppState `json:"appState,omitempty"`
+
 	// Non versioned Container App configuration properties.
 	Configuration *Configuration `json:"configuration,omitempty"`
 
@@ -941,6 +944,9 @@ type ContainerAppProperties struct {
 
 	// READ-ONLY; The endpoint of the eventstream of the container app.
 	EventStreamEndpoint *string `json:"eventStreamEndpoint,omitempty" azure:"ro"`
+
+	// READ-ONLY; Name of the latest ready revision of the Container App.
+	LatestReadyRevisionName *string `json:"latestReadyRevisionName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Fully Qualified Domain Name of the latest revision of the Container App.
 	LatestRevisionFqdn *string `json:"latestRevisionFqdn,omitempty" azure:"ro"`
@@ -1159,6 +1165,27 @@ type CookieExpiration struct {
 
 	// The time after the request is made when the session cookie should expire.
 	TimeToExpiration *string `json:"timeToExpiration,omitempty"`
+}
+
+// CorsPolicy - Cross-Origin-Resource-Sharing policy
+type CorsPolicy struct {
+	// REQUIRED; allowed origins
+	AllowedOrigins []*string `json:"allowedOrigins,omitempty"`
+
+	// allow credential or not
+	AllowCredentials *bool `json:"allowCredentials,omitempty"`
+
+	// allowed HTTP headers
+	AllowedHeaders []*string `json:"allowedHeaders,omitempty"`
+
+	// allowed HTTP methods
+	AllowedMethods []*string `json:"allowedMethods,omitempty"`
+
+	// expose HTTP headers
+	ExposeHeaders []*string `json:"exposeHeaders,omitempty"`
+
+	// max time client can cache the result
+	MaxAge *int32 `json:"maxAge,omitempty"`
 }
 
 // CustomDomain - Custom Domain of a Container App
@@ -1889,6 +1916,14 @@ type Ingress struct {
 	// Bool indicating if HTTP connections to is allowed. If set to false HTTP connections are automatically redirected to HTTPS
 	// connections
 	AllowInsecure *bool `json:"allowInsecure,omitempty"`
+
+	// Client certificate mode for mTLS authentication. Ignore indicates server drops client certificate on forwarding. Accept
+	// indicates server forwards client certificate but does not require a client
+	// certificate. Require indicates server requires a client certificate.
+	ClientCertificateMode *IngressClientCertificateMode `json:"clientCertificateMode,omitempty"`
+
+	// CORS policy for container app
+	CorsPolicy *CorsPolicy `json:"corsPolicy,omitempty"`
 
 	// custom domain bindings for Container Apps' hostnames.
 	CustomDomains []*CustomDomain `json:"customDomains,omitempty"`
