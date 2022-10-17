@@ -949,7 +949,7 @@ func (c *ContentKeyPolicyConfiguration) GetContentKeyPolicyConfiguration() *Cont
 
 // ContentKeyPolicyFairPlayConfiguration - Specifies a configuration for FairPlay licenses.
 type ContentKeyPolicyFairPlayConfiguration struct {
-	// REQUIRED; The key that must be used as FairPlay Application Secret key.
+	// REQUIRED; The key that must be used as FairPlay Application Secret key. This needs to be base64 encoded.
 	Ask []byte `json:"ask,omitempty"`
 
 	// REQUIRED; The Base64 representation of FairPlay certificate in PKCS 12 (pfx) format (including private key).
