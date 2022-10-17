@@ -1,5 +1,15 @@
 # Release History
 
+## 0.5.0 (2022-10-17)
+### Breaking Changes
+
+- Function `*PipelineJobsClient.BeginCancel` return value(s) have been changed from `(*armruntime.Poller[PipelineJobsClientCancelResponse], error)` to `(*runtime.Poller[PipelineJobsClientCancelResponse], error)`
+- Function `*LivePipelinesClient.BeginDeactivate` return value(s) have been changed from `(*armruntime.Poller[LivePipelinesClientDeactivateResponse], error)` to `(*runtime.Poller[LivePipelinesClientDeactivateResponse], error)`
+- Function `*VideoAnalyzersClient.BeginCreateOrUpdate` return value(s) have been changed from `(*armruntime.Poller[VideoAnalyzersClientCreateOrUpdateResponse], error)` to `(*runtime.Poller[VideoAnalyzersClientCreateOrUpdateResponse], error)`
+- Function `*VideoAnalyzersClient.BeginUpdate` return value(s) have been changed from `(*armruntime.Poller[VideoAnalyzersClientUpdateResponse], error)` to `(*runtime.Poller[VideoAnalyzersClientUpdateResponse], error)`
+- Function `*LivePipelinesClient.BeginActivate` return value(s) have been changed from `(*armruntime.Poller[LivePipelinesClientActivateResponse], error)` to `(*runtime.Poller[LivePipelinesClientActivateResponse], error)`
+
+
 ## 0.4.2 (2022-05-16)
 ### Deprecated
 - We’re retiring the Azure Video Analyzer preview service; you're advised to transition your applications off of Video Analyzer by 01 December 2022. This SDK is no longer maintained and won’t work after the service is retired. To learn how to transition off, please refer to: https://aka.ms/azsdk/videoanalyzer/transitionoffguidance.
