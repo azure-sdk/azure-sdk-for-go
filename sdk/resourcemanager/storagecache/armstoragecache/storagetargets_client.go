@@ -64,12 +64,11 @@ func NewStorageTargetsClient(subscriptionID string, credential azcore.TokenCrede
 // resourceGroupName - Target resource group.
 // cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
 // storageTargetName - Name of Storage Target.
-// storagetarget - Object containing the definition of a Storage Target.
 // options - StorageTargetsClientBeginCreateOrUpdateOptions contains the optional parameters for the StorageTargetsClient.BeginCreateOrUpdate
 // method.
-func (client *StorageTargetsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, storagetarget StorageTarget, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*runtime.Poller[StorageTargetsClientCreateOrUpdateResponse], error) {
+func (client *StorageTargetsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*runtime.Poller[StorageTargetsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, cacheName, storageTargetName, storagetarget, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, cacheName, storageTargetName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -84,8 +83,8 @@ func (client *StorageTargetsClient) BeginCreateOrUpdate(ctx context.Context, res
 // is healthy again.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
-func (client *StorageTargetsClient) createOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, storagetarget StorageTarget, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, cacheName, storageTargetName, storagetarget, options)
+func (client *StorageTargetsClient) createOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, cacheName, storageTargetName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +99,7 @@ func (client *StorageTargetsClient) createOrUpdate(ctx context.Context, resource
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *StorageTargetsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, storagetarget StorageTarget, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *StorageTargetsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.StorageCache/caches/{cacheName}/storageTargets/{storageTargetName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -126,7 +125,10 @@ func (client *StorageTargetsClient) createOrUpdateCreateRequest(ctx context.Cont
 	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, storagetarget)
+	if options != nil && options.Storagetarget != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Storagetarget)
+	}
+	return req, nil
 }
 
 // BeginDNSRefresh - Tells a storage target to refresh its DNS information.
@@ -338,7 +340,6 @@ func (client *StorageTargetsClient) getHandleResponse(resp *http.Response) (Stor
 }
 
 // NewListByCachePager - Returns a list of Storage Targets for the specified Cache.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
 // resourceGroupName - Target resource group.
 // cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.

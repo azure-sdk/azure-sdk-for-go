@@ -1,5 +1,20 @@
 # Release History
 
+## 3.0.0 (2022-10-17)
+### Breaking Changes
+
+- Function `*CachesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, Cache, *CachesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, *CachesClientBeginCreateOrUpdateOptions)`
+- Function `*CachesClient.Update` parameter(s) have been changed from `(context.Context, string, string, Cache, *CachesClientUpdateOptions)` to `(context.Context, string, string, *CachesClientUpdateOptions)`
+- Function `*StorageTargetsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, StorageTarget, *StorageTargetsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, *StorageTargetsClientBeginCreateOrUpdateOptions)`
+- Struct `CloudError` has been removed
+
+### Features Added
+
+- New field `Storagetarget` in struct `StorageTargetsClientBeginCreateOrUpdateOptions`
+- New field `Cache` in struct `CachesClientBeginCreateOrUpdateOptions`
+- New field `Cache` in struct `CachesClientUpdateOptions`
+
+
 ## 2.0.0 (2022-07-06)
 ### Breaking Changes
 

@@ -61,13 +61,11 @@ func NewCachesClient(subscriptionID string, credential azcore.TokenCredential, o
 // Generated from API version 2022-05-01
 // resourceGroupName - Target resource group.
 // cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// cache - Object containing the user-selectable properties of the new Cache. If read-only properties are included, they must
-// match the existing values of those properties.
 // options - CachesClientBeginCreateOrUpdateOptions contains the optional parameters for the CachesClient.BeginCreateOrUpdate
 // method.
-func (client *CachesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientBeginCreateOrUpdateOptions) (*runtime.Poller[CachesClientCreateOrUpdateResponse], error) {
+func (client *CachesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginCreateOrUpdateOptions) (*runtime.Poller[CachesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, cacheName, cache, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, cacheName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -80,8 +78,8 @@ func (client *CachesClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 // CreateOrUpdate - Create or update a Cache.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
-func (client *CachesClient) createOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, cacheName, cache, options)
+func (client *CachesClient) createOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, cacheName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +94,7 @@ func (client *CachesClient) createOrUpdate(ctx context.Context, resourceGroupNam
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *CachesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *CachesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.StorageCache/caches/{cacheName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -118,7 +116,10 @@ func (client *CachesClient) createOrUpdateCreateRequest(ctx context.Context, res
 	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, cache)
+	if options != nil && options.Cache != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Cache)
+	}
+	return req, nil
 }
 
 // BeginDebugInfo - Tells a Cache to write generate debug info for support to process.
@@ -370,7 +371,6 @@ func (client *CachesClient) getHandleResponse(resp *http.Response) (CachesClient
 }
 
 // NewListPager - Returns all Caches the user has access to under a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
 // options - CachesClientListOptions contains the optional parameters for the CachesClient.List method.
 func (client *CachesClient) NewListPager(options *CachesClientListOptions) *runtime.Pager[CachesClientListResponse] {
@@ -429,7 +429,6 @@ func (client *CachesClient) listHandleResponse(resp *http.Response) (CachesClien
 }
 
 // NewListByResourceGroupPager - Returns all Caches the user has access to under a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
 // resourceGroupName - Target resource group.
 // options - CachesClientListByResourceGroupOptions contains the optional parameters for the CachesClient.ListByResourceGroup
@@ -966,11 +965,9 @@ func (client *CachesClient) stopPrimingJobCreateRequest(ctx context.Context, res
 // Generated from API version 2022-05-01
 // resourceGroupName - Target resource group.
 // cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// cache - Object containing the user-selectable properties of the Cache. If read-only properties are included, they must
-// match the existing values of those properties.
 // options - CachesClientUpdateOptions contains the optional parameters for the CachesClient.Update method.
-func (client *CachesClient) Update(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientUpdateOptions) (CachesClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, cacheName, cache, options)
+func (client *CachesClient) Update(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientUpdateOptions) (CachesClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, cacheName, options)
 	if err != nil {
 		return CachesClientUpdateResponse{}, err
 	}
@@ -985,7 +982,7 @@ func (client *CachesClient) Update(ctx context.Context, resourceGroupName string
 }
 
 // updateCreateRequest creates the Update request.
-func (client *CachesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientUpdateOptions) (*policy.Request, error) {
+func (client *CachesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.StorageCache/caches/{cacheName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -1007,7 +1004,10 @@ func (client *CachesClient) updateCreateRequest(ctx context.Context, resourceGro
 	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, cache)
+	if options != nil && options.Cache != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Cache)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.

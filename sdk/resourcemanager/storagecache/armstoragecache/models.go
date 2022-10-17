@@ -389,6 +389,9 @@ type CacheUsernameDownloadSettingsCredentials struct {
 
 // CachesClientBeginCreateOrUpdateOptions contains the optional parameters for the CachesClient.BeginCreateOrUpdate method.
 type CachesClientBeginCreateOrUpdateOptions struct {
+	// Object containing the user-selectable properties of the new Cache. If read-only properties are included, they must match
+	// the existing values of those properties.
+	Cache *Cache
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -486,7 +489,9 @@ type CachesClientListOptions struct {
 
 // CachesClientUpdateOptions contains the optional parameters for the CachesClient.Update method.
 type CachesClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Object containing the user-selectable properties of the Cache. If read-only properties are included, they must match the
+	// existing values of those properties.
+	Cache *Cache
 }
 
 // CachesListResult - Result of the request to list Caches. It contains a list of Caches and a URL link to get the next set
@@ -503,12 +508,6 @@ type CachesListResult struct {
 type ClfsTarget struct {
 	// Resource ID of storage container.
 	Target *string `json:"target,omitempty"`
-}
-
-// CloudError - An error response.
-type CloudError struct {
-	// The body of the error.
-	Error *CloudErrorBody `json:"error,omitempty"`
 }
 
 // CloudErrorBody - An error response.
@@ -922,6 +921,8 @@ type StorageTargetSpaceAllocation struct {
 type StorageTargetsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+	// Object containing the definition of a Storage Target.
+	Storagetarget *StorageTarget
 }
 
 // StorageTargetsClientBeginDNSRefreshOptions contains the optional parameters for the StorageTargetsClient.BeginDNSRefresh

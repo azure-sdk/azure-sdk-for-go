@@ -57,7 +57,6 @@ func NewAscUsagesClient(subscriptionID string, credential azcore.TokenCredential
 }
 
 // NewListPager - Gets the quantity used and quota limit for resources
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-05-01
 // location - The name of the region to query for usage information.
 // options - AscUsagesClientListOptions contains the optional parameters for the AscUsagesClient.List method.
