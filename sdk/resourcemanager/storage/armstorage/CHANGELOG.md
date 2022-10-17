@@ -1,5 +1,18 @@
 # Release History
 
+## 2.0.0 (2022-10-17)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New struct `BlobInventoryPolicyFilterTime`
+- New field `CreationTime` in struct `BlobInventoryPolicyFilter`
+- New field `LastModified` in struct `BlobInventoryPolicyFilter`
+
+
 ## 1.1.0 (2022-08-10)
 ### Features Added
 

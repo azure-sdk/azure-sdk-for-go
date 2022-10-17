@@ -888,6 +888,9 @@ type BlobInventoryPolicyFilter struct {
 	// 'Blob'.
 	BlobTypes []*string `json:"blobTypes,omitempty"`
 
+	// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CreationTime *BlobInventoryPolicyFilterTime `json:"Creation-Time,omitempty"`
+
 	// An array of strings with maximum 10 blob prefixes to be excluded from the inventory.
 	ExcludePrefix []*string `json:"excludePrefix,omitempty"`
 
@@ -907,8 +910,18 @@ type BlobInventoryPolicyFilter struct {
 	// if this property is set to true, else it must be excluded.
 	IncludeSnapshots *bool `json:"includeSnapshots,omitempty"`
 
+	// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	LastModified *BlobInventoryPolicyFilterTime `json:"Last-Modified,omitempty"`
+
 	// An array of strings with maximum 10 blob prefixes to be included in the inventory.
 	PrefixMatch []*string `json:"prefixMatch,omitempty"`
+}
+
+// BlobInventoryPolicyFilterTime -
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+type BlobInventoryPolicyFilterTime struct {
+	// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	LastNDays *int32 `json:"LastNDays,omitempty"`
 }
 
 // BlobInventoryPolicyProperties - The storage account blob inventory policy properties.
@@ -1083,27 +1096,6 @@ type CheckNameAvailabilityResult struct {
 	// READ-ONLY; Gets the reason that a storage account name could not be used. The Reason element is only returned if NameAvailable
 	// is false.
 	Reason *Reason `json:"reason,omitempty" azure:"ro"`
-}
-
-// CloudError - An error response from the Storage service.
-type CloudError struct {
-	// An error response from the Storage service.
-	Error *CloudErrorBody `json:"error,omitempty"`
-}
-
-// CloudErrorBody - An error response from the Storage service.
-type CloudErrorBody struct {
-	// An identifier for the error. Codes are invariant and are intended to be consumed programmatically.
-	Code *string `json:"code,omitempty"`
-
-	// A list of additional details about the error.
-	Details []*CloudErrorBody `json:"details,omitempty"`
-
-	// A message describing the error, intended to be suitable for display in a user interface.
-	Message *string `json:"message,omitempty"`
-
-	// The target of the particular error. For example, the name of the property in error.
-	Target *string `json:"target,omitempty"`
 }
 
 // ContainerProperties - The properties of a container.
