@@ -1,5 +1,17 @@
 # Release History
 
+## 4.1.0 (2022-10-17)
+### Features Added
+
+- New struct `OSProfileProvisioningData`
+- New field `ExactVersion` in struct `VirtualMachineScaleSetVMReimageParameters`
+- New field `OSProfile` in struct `VirtualMachineScaleSetVMReimageParameters`
+- New field `ExactVersion` in struct `VirtualMachineScaleSetReimageParameters`
+- New field `OSProfile` in struct `VirtualMachineScaleSetReimageParameters`
+- New field `OSProfile` in struct `VirtualMachineReimageParameters`
+- New field `ExactVersion` in struct `VirtualMachineReimageParameters`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 

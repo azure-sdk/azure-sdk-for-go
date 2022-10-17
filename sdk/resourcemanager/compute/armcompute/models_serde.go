@@ -7979,6 +7979,37 @@ func (o *OSProfile) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type OSProfileProvisioningData.
+func (o OSProfileProvisioningData) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "adminPassword", o.AdminPassword)
+	populate(objectMap, "customData", o.CustomData)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type OSProfileProvisioningData.
+func (o *OSProfileProvisioningData) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", o, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "adminPassword":
+			err = unpopulate(val, "AdminPassword", &o.AdminPassword)
+			delete(rawMsg, key)
+		case "customData":
+			err = unpopulate(val, "CustomData", &o.CustomData)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type OSVersion.
 func (o OSVersion) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -15345,6 +15376,8 @@ func (v *VirtualMachinePublicIPAddressDNSSettingsConfiguration) UnmarshalJSON(da
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineReimageParameters.
 func (v VirtualMachineReimageParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "exactVersion", v.ExactVersion)
+	populate(objectMap, "osProfile", v.OSProfile)
 	populate(objectMap, "tempDisk", v.TempDisk)
 	return json.Marshal(objectMap)
 }
@@ -15358,6 +15391,12 @@ func (v *VirtualMachineReimageParameters) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "exactVersion":
+			err = unpopulate(val, "ExactVersion", &v.ExactVersion)
+			delete(rawMsg, key)
+		case "osProfile":
+			err = unpopulate(val, "OSProfile", &v.OSProfile)
+			delete(rawMsg, key)
 		case "tempDisk":
 			err = unpopulate(val, "TempDisk", &v.TempDisk)
 			delete(rawMsg, key)
@@ -16873,7 +16912,9 @@ func (v *VirtualMachineScaleSetPublicIPAddressConfigurationProperties) Unmarshal
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetReimageParameters.
 func (v VirtualMachineScaleSetReimageParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "exactVersion", v.ExactVersion)
 	populate(objectMap, "instanceIds", v.InstanceIDs)
+	populate(objectMap, "osProfile", v.OSProfile)
 	populate(objectMap, "tempDisk", v.TempDisk)
 	return json.Marshal(objectMap)
 }
@@ -16887,8 +16928,14 @@ func (v *VirtualMachineScaleSetReimageParameters) UnmarshalJSON(data []byte) err
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "exactVersion":
+			err = unpopulate(val, "ExactVersion", &v.ExactVersion)
+			delete(rawMsg, key)
 		case "instanceIds":
 			err = unpopulate(val, "InstanceIDs", &v.InstanceIDs)
+			delete(rawMsg, key)
+		case "osProfile":
+			err = unpopulate(val, "OSProfile", &v.OSProfile)
 			delete(rawMsg, key)
 		case "tempDisk":
 			err = unpopulate(val, "TempDisk", &v.TempDisk)
@@ -18199,6 +18246,8 @@ func (v *VirtualMachineScaleSetVMProtectionPolicy) UnmarshalJSON(data []byte) er
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetVMReimageParameters.
 func (v VirtualMachineScaleSetVMReimageParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "exactVersion", v.ExactVersion)
+	populate(objectMap, "osProfile", v.OSProfile)
 	populate(objectMap, "tempDisk", v.TempDisk)
 	return json.Marshal(objectMap)
 }
@@ -18212,6 +18261,12 @@ func (v *VirtualMachineScaleSetVMReimageParameters) UnmarshalJSON(data []byte) e
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "exactVersion":
+			err = unpopulate(val, "ExactVersion", &v.ExactVersion)
+			delete(rawMsg, key)
+		case "osProfile":
+			err = unpopulate(val, "OSProfile", &v.OSProfile)
+			delete(rawMsg, key)
 		case "tempDisk":
 			err = unpopulate(val, "TempDisk", &v.TempDisk)
 			delete(rawMsg, key)

@@ -4309,6 +4309,35 @@ type OSProfile struct {
 	WindowsConfiguration *WindowsConfiguration `json:"windowsConfiguration,omitempty"`
 }
 
+// OSProfileProvisioningData - Additional parameters for Reimaging Non-Ephemeral Virtual Machine.
+type OSProfileProvisioningData struct {
+	// Specifies the password of the administrator account.
+	// Minimum-length (Windows): 8 characters
+	// Minimum-length (Linux): 6 characters
+	// Max-length (Windows): 123 characters
+	// Max-length (Linux): 72 characters
+	// Complexity requirements: 3 out of 4 conditions below need to be fulfilled
+	// Has lower characters
+	// Has upper characters
+	// Has a digit
+	// Has a special character (Regex match [\W_])
+	// Disallowed values: "abc@123", "P@$$w0rd", "P@ssw0rd", "P@ssword123", "Pa$$word", "pass@word1", "Password!", "Password1",
+	// "Password22", "iloveyou!"
+	// For resetting the password, see How to reset the Remote Desktop service or its login password in a Windows VM [https://docs.microsoft.com/troubleshoot/azure/virtual-machines/reset-rdp]
+	// For resetting root password, see Manage users, SSH, and check or repair disks on Azure Linux VMs using the VMAccess Extension
+	// [https://docs.microsoft.com/troubleshoot/azure/virtual-machines/troubleshoot-ssh-connection]
+	AdminPassword *string `json:"adminPassword,omitempty"`
+
+	// Specifies a base-64 encoded string of custom data. The base-64 encoded string is decoded to a binary array that is saved
+	// as a file on the Virtual Machine. The maximum length of the binary array is
+	// 65535 bytes.
+	// Note: Do not pass any secrets or passwords in customData property
+	// This property cannot be updated after the VM is created.
+	// customData is passed to the VM to be saved as a file, for more information see Custom Data on Azure VMs [https://azure.microsoft.com/blog/custom-data-and-cloud-init-on-windows-azure/]
+	// For using cloud-init for your Linux VM, see Using cloud-init to customize a Linux VM during creation [https://docs.microsoft.com/azure/virtual-machines/linux/using-cloud-init]
+	CustomData *string `json:"customData,omitempty"`
+}
+
 // OSVersion - Describes a cloud service OS version.
 type OSVersion struct {
 	// OS version properties.
@@ -7702,6 +7731,13 @@ type VirtualMachinePublicIPAddressDNSSettingsConfiguration struct {
 // VirtualMachineReimageParameters - Parameters for Reimaging Virtual Machine. NOTE: Virtual Machine OS disk will always be
 // reimaged
 type VirtualMachineReimageParameters struct {
+	// Specifies in decimal number, the version the OS disk should be reimaged to. If exact version is not provided, the OS disk
+	// is reimaged to the existing version of OS Disk.
+	ExactVersion *string `json:"exactVersion,omitempty"`
+
+	// Specifies information required for reimaging the non-ephemeral OS disk.
+	OSProfile *OSProfileProvisioningData `json:"osProfile,omitempty"`
+
 	// Specifies whether to reimage temp disk. Default value: false. Note: This temp disk reimage parameter is only supported
 	// for VM/VMSS with Ephemeral OS disk.
 	TempDisk *bool `json:"tempDisk,omitempty"`
@@ -8535,9 +8571,16 @@ type VirtualMachineScaleSetPublicIPAddressConfigurationProperties struct {
 
 // VirtualMachineScaleSetReimageParameters - Describes a Virtual Machine Scale Set VM Reimage Parameters.
 type VirtualMachineScaleSetReimageParameters struct {
+	// Specifies in decimal number, the version the OS disk should be reimaged to. If exact version is not provided, the OS disk
+	// is reimaged to the existing version of OS Disk.
+	ExactVersion *string `json:"exactVersion,omitempty"`
+
 	// The virtual machine scale set instance ids. Omitting the virtual machine scale set instance ids will result in the operation
 	// being performed on all virtual machines in the virtual machine scale set.
 	InstanceIDs []*string `json:"instanceIds,omitempty"`
+
+	// Specifies information required for reimaging the non-ephemeral OS disk.
+	OSProfile *OSProfileProvisioningData `json:"osProfile,omitempty"`
 
 	// Specifies whether to reimage temp disk. Default value: false. Note: This temp disk reimage parameter is only supported
 	// for VM/VMSS with Ephemeral OS disk.
@@ -9247,6 +9290,13 @@ type VirtualMachineScaleSetVMProtectionPolicy struct {
 
 // VirtualMachineScaleSetVMReimageParameters - Describes a Virtual Machine Scale Set VM Reimage Parameters.
 type VirtualMachineScaleSetVMReimageParameters struct {
+	// Specifies in decimal number, the version the OS disk should be reimaged to. If exact version is not provided, the OS disk
+	// is reimaged to the existing version of OS Disk.
+	ExactVersion *string `json:"exactVersion,omitempty"`
+
+	// Specifies information required for reimaging the non-ephemeral OS disk.
+	OSProfile *OSProfileProvisioningData `json:"osProfile,omitempty"`
+
 	// Specifies whether to reimage temp disk. Default value: false. Note: This temp disk reimage parameter is only supported
 	// for VM/VMSS with Ephemeral OS disk.
 	TempDisk *bool `json:"tempDisk,omitempty"`
