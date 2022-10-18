@@ -4822,6 +4822,15 @@ type Delegation struct {
 	Etag *string `json:"etag,omitempty" azure:"ro"`
 }
 
+// DelegationProperties - Properties of the delegation.
+type DelegationProperties struct {
+	// The service name to which the NVA is delegated.
+	ServiceName *string `json:"serviceName,omitempty"`
+
+	// READ-ONLY; The current provisioning state.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
 // DeviceProperties - List of properties of the device.
 type DeviceProperties struct {
 	// Model of the device.
@@ -10783,6 +10792,18 @@ type Parameter struct {
 	RoutePrefix []*string `json:"routePrefix,omitempty"`
 }
 
+// PartnerManagedResourceProperties - Properties of the partner managed resource.
+type PartnerManagedResourceProperties struct {
+	// READ-ONLY; The partner managed resource id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The partner managed ILB resource id
+	InternalLoadBalancerID *string `json:"internalLoadBalancerId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The partner managed SLB resource id
+	StandardLoadBalancerID *string `json:"standardLoadBalancerId,omitempty" azure:"ro"`
+}
+
 // PatchObject - Object for patch operations.
 type PatchObject struct {
 	// Resource tags.
@@ -10921,6 +10942,12 @@ type PeerRouteList struct {
 
 // PolicySettings - Defines contents of a web application firewall global configuration.
 type PolicySettings struct {
+	// If the action type is block, customer can override the response body. The body must be specified in base64 encoding.
+	CustomBlockResponseBody *string `json:"customBlockResponseBody,omitempty"`
+
+	// If the action type is block, customer can override the response status code.
+	CustomBlockResponseStatusCode *int32 `json:"customBlockResponseStatusCode,omitempty"`
+
 	// Maximum file upload size in Mb for WAF.
 	FileUploadLimitInMb *int32 `json:"fileUploadLimitInMb,omitempty"`
 
@@ -15201,13 +15228,19 @@ type VirtualAppliancePropertiesFormat struct {
 	// CloudInitConfigurationBlob storage URLs.
 	CloudInitConfigurationBlobs []*string `json:"cloudInitConfigurationBlobs,omitempty"`
 
+	// The delegation for the Virtual Appliance
+	Delegation *DelegationProperties `json:"delegation,omitempty"`
+
 	// Network Virtual Appliance SKU.
 	NvaSKU *VirtualApplianceSKUProperties `json:"nvaSku,omitempty"`
+
+	// The delegation for the Virtual Appliance
+	PartnerManagedResource *PartnerManagedResourceProperties `json:"partnerManagedResource,omitempty"`
 
 	// Public key for SSH login.
 	SSHPublicKey *string `json:"sshPublicKey,omitempty"`
 
-	// VirtualAppliance ASN.
+	// VirtualAppliance ASN. Microsoft private, public and IANA reserved ASN are not supported.
 	VirtualApplianceAsn *int64 `json:"virtualApplianceAsn,omitempty"`
 
 	// The Virtual Hub where Network Virtual Appliance is being deployed.
@@ -15215,6 +15248,9 @@ type VirtualAppliancePropertiesFormat struct {
 
 	// READ-ONLY; Address Prefix.
 	AddressPrefix *string `json:"addressPrefix,omitempty" azure:"ro"`
+
+	// READ-ONLY; The deployment type. PartnerManaged for the SaaS NVA
+	DeploymentType *string `json:"deploymentType,omitempty" azure:"ro"`
 
 	// READ-ONLY; List of references to InboundSecurityRules.
 	InboundSecurityRules []*SubResource `json:"inboundSecurityRules,omitempty" azure:"ro"`
