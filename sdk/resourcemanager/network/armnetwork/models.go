@@ -5312,8 +5312,8 @@ type ExclusionManagedRuleSet struct {
 	RuleGroups []*ExclusionManagedRuleGroup `json:"ruleGroups,omitempty"`
 }
 
-// ExplicitProxySettings - Explicit Proxy Settings in Firewall Policy.
-type ExplicitProxySettings struct {
+// ExplicitProxy - Explicit Proxy Settings in Firewall Policy.
+type ExplicitProxy struct {
 	// When set to true, explicit proxy mode is enabled.
 	EnableExplicitProxy *bool `json:"enableExplicitProxy,omitempty"`
 
@@ -6230,9 +6230,6 @@ type ExpressRouteGatewayProperties struct {
 	// REQUIRED; The Virtual Hub where the ExpressRoute gateway is or will be deployed.
 	VirtualHub *VirtualHubID `json:"virtualHub,omitempty"`
 
-	// Configures this gateway to accept traffic from non Virtual WAN networks.
-	AllowNonVirtualWanTraffic *bool `json:"allowNonVirtualWanTraffic,omitempty"`
-
 	// Configuration for auto scaling.
 	AutoScaleConfiguration *ExpressRouteGatewayPropertiesAutoScaleConfiguration `json:"autoScaleConfiguration,omitempty"`
 
@@ -7046,7 +7043,7 @@ type FirewallPolicyPropertiesFormat struct {
 	DNSSettings *DNSSettings `json:"dnsSettings,omitempty"`
 
 	// Explicit Proxy Settings definition.
-	ExplicitProxySettings *ExplicitProxySettings `json:"explicitProxySettings,omitempty"`
+	ExplicitProxy *ExplicitProxy `json:"explicitProxy,omitempty"`
 
 	// Insights on Firewall Policy.
 	Insights *FirewallPolicyInsights `json:"insights,omitempty"`
@@ -16286,13 +16283,6 @@ type VirtualNetworkGatewayPolicyGroupProperties struct {
 type VirtualNetworkGatewayPropertiesFormat struct {
 	// ActiveActive flag.
 	Active *bool `json:"activeActive,omitempty"`
-
-	// Configure this gateway to accept traffic from other Azure Virtual Networks. This configuration does not support connectivity
-	// to Azure Virtual WAN.
-	AllowRemoteVnetTraffic *bool `json:"allowRemoteVnetTraffic,omitempty"`
-
-	// Configures this gateway to accept traffic from remote Virtual WAN networks.
-	AllowVirtualWanTraffic *bool `json:"allowVirtualWanTraffic,omitempty"`
 
 	// Virtual network gateway's BGP speaker settings.
 	BgpSettings *BgpSettings `json:"bgpSettings,omitempty"`

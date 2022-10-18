@@ -11393,8 +11393,8 @@ func (e *ExclusionManagedRuleSet) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type ExplicitProxySettings.
-func (e ExplicitProxySettings) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type ExplicitProxy.
+func (e ExplicitProxy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "enableExplicitProxy", e.EnableExplicitProxy)
 	populate(objectMap, "enablePacFile", e.EnablePacFile)
@@ -11405,8 +11405,8 @@ func (e ExplicitProxySettings) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type ExplicitProxySettings.
-func (e *ExplicitProxySettings) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExplicitProxy.
+func (e *ExplicitProxy) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", e, err)
@@ -12975,7 +12975,6 @@ func (e *ExpressRouteGatewayList) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ExpressRouteGatewayProperties.
 func (e ExpressRouteGatewayProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "allowNonVirtualWanTraffic", e.AllowNonVirtualWanTraffic)
 	populate(objectMap, "autoScaleConfiguration", e.AutoScaleConfiguration)
 	populate(objectMap, "expressRouteConnections", e.ExpressRouteConnections)
 	populate(objectMap, "provisioningState", e.ProvisioningState)
@@ -12992,9 +12991,6 @@ func (e *ExpressRouteGatewayProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "allowNonVirtualWanTraffic":
-			err = unpopulate(val, "AllowNonVirtualWanTraffic", &e.AllowNonVirtualWanTraffic)
-			delete(rawMsg, key)
 		case "autoScaleConfiguration":
 			err = unpopulate(val, "AutoScaleConfiguration", &e.AutoScaleConfiguration)
 			delete(rawMsg, key)
@@ -14514,7 +14510,7 @@ func (f FirewallPolicyPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "basePolicy", f.BasePolicy)
 	populate(objectMap, "childPolicies", f.ChildPolicies)
 	populate(objectMap, "dnsSettings", f.DNSSettings)
-	populate(objectMap, "explicitProxySettings", f.ExplicitProxySettings)
+	populate(objectMap, "explicitProxy", f.ExplicitProxy)
 	populate(objectMap, "firewalls", f.Firewalls)
 	populate(objectMap, "insights", f.Insights)
 	populate(objectMap, "intrusionDetection", f.IntrusionDetection)
@@ -14547,8 +14543,8 @@ func (f *FirewallPolicyPropertiesFormat) UnmarshalJSON(data []byte) error {
 		case "dnsSettings":
 			err = unpopulate(val, "DNSSettings", &f.DNSSettings)
 			delete(rawMsg, key)
-		case "explicitProxySettings":
-			err = unpopulate(val, "ExplicitProxySettings", &f.ExplicitProxySettings)
+		case "explicitProxy":
+			err = unpopulate(val, "ExplicitProxy", &f.ExplicitProxy)
 			delete(rawMsg, key)
 		case "firewalls":
 			err = unpopulate(val, "Firewalls", &f.Firewalls)
@@ -32034,8 +32030,6 @@ func (v *VirtualNetworkGatewayPolicyGroupProperties) UnmarshalJSON(data []byte) 
 func (v VirtualNetworkGatewayPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "activeActive", v.Active)
-	populate(objectMap, "allowRemoteVnetTraffic", v.AllowRemoteVnetTraffic)
-	populate(objectMap, "allowVirtualWanTraffic", v.AllowVirtualWanTraffic)
 	populate(objectMap, "bgpSettings", v.BgpSettings)
 	populate(objectMap, "customRoutes", v.CustomRoutes)
 	populate(objectMap, "disableIPSecReplayProtection", v.DisableIPSecReplayProtection)
@@ -32070,12 +32064,6 @@ func (v *VirtualNetworkGatewayPropertiesFormat) UnmarshalJSON(data []byte) error
 		switch key {
 		case "activeActive":
 			err = unpopulate(val, "Active", &v.Active)
-			delete(rawMsg, key)
-		case "allowRemoteVnetTraffic":
-			err = unpopulate(val, "AllowRemoteVnetTraffic", &v.AllowRemoteVnetTraffic)
-			delete(rawMsg, key)
-		case "allowVirtualWanTraffic":
-			err = unpopulate(val, "AllowVirtualWanTraffic", &v.AllowVirtualWanTraffic)
 			delete(rawMsg, key)
 		case "bgpSettings":
 			err = unpopulate(val, "BgpSettings", &v.BgpSettings)

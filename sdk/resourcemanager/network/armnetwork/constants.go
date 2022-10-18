@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.0.1"
+	moduleVersion = "v3.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -1639,6 +1639,7 @@ type FirewallPolicyRuleApplicationProtocolType string
 const (
 	FirewallPolicyRuleApplicationProtocolTypeHTTP  FirewallPolicyRuleApplicationProtocolType = "Http"
 	FirewallPolicyRuleApplicationProtocolTypeHTTPS FirewallPolicyRuleApplicationProtocolType = "Https"
+	FirewallPolicyRuleApplicationProtocolTypeMssql FirewallPolicyRuleApplicationProtocolType = "Mssql"
 )
 
 // PossibleFirewallPolicyRuleApplicationProtocolTypeValues returns the possible values for the FirewallPolicyRuleApplicationProtocolType const type.
@@ -1646,6 +1647,7 @@ func PossibleFirewallPolicyRuleApplicationProtocolTypeValues() []FirewallPolicyR
 	return []FirewallPolicyRuleApplicationProtocolType{
 		FirewallPolicyRuleApplicationProtocolTypeHTTP,
 		FirewallPolicyRuleApplicationProtocolTypeHTTPS,
+		FirewallPolicyRuleApplicationProtocolTypeMssql,
 	}
 }
 

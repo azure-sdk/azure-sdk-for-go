@@ -1,5 +1,21 @@
 # Release History
 
+## 3.0.0 (2022-10-18)
+### Breaking Changes
+
+- Struct `ExplicitProxySettings` has been removed
+- Field `ExplicitProxySettings` of struct `FirewallPolicyPropertiesFormat` has been removed
+- Field `AllowVirtualWanTraffic` of struct `VirtualNetworkGatewayPropertiesFormat` has been removed
+- Field `AllowRemoteVnetTraffic` of struct `VirtualNetworkGatewayPropertiesFormat` has been removed
+- Field `AllowNonVirtualWanTraffic` of struct `ExpressRouteGatewayProperties` has been removed
+
+### Features Added
+
+- New const `FirewallPolicyRuleApplicationProtocolTypeMssql`
+- New struct `ExplicitProxy`
+- New field `ExplicitProxy` in struct `FirewallPolicyPropertiesFormat`
+
+
 ## 2.0.1 (2022-10-14)
 ### Others Changes
 - Update live test dependencies
