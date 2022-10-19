@@ -1013,6 +1013,11 @@ type StaticSitesClientCreateOrUpdateStaticSiteAppSettingsResponse struct {
 	StringDictionary
 }
 
+// StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse contains the response from method StaticSitesClient.CreateOrUpdateStaticSiteBasicAuth.
+type StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse struct {
+	StaticSiteBasicAuthPropertiesARMResource
+}
+
 // StaticSitesClientCreateOrUpdateStaticSiteBuildAppSettingsResponse contains the response from method StaticSitesClient.CreateOrUpdateStaticSiteBuildAppSettings.
 type StaticSitesClientCreateOrUpdateStaticSiteBuildAppSettingsResponse struct {
 	StringDictionary
@@ -1132,6 +1137,11 @@ type StaticSitesClientGetPrivateEndpointConnectionResponse struct {
 // StaticSitesClientGetPrivateLinkResourcesResponse contains the response from method StaticSitesClient.GetPrivateLinkResources.
 type StaticSitesClientGetPrivateLinkResourcesResponse struct {
 	PrivateLinkResourcesWrapper
+}
+
+// StaticSitesClientGetStaticSiteBasicAuthResponse contains the response from method StaticSitesClient.GetStaticSiteBasicAuth.
+type StaticSitesClientGetStaticSiteBasicAuthResponse struct {
+	StaticSiteBasicAuthPropertiesARMResource
 }
 
 // StaticSitesClientGetStaticSiteBuildResponse contains the response from method StaticSitesClient.GetStaticSiteBuild.

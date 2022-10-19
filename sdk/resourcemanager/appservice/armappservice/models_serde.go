@@ -20109,6 +20109,92 @@ func (s *StaticSiteARMResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type StaticSiteBasicAuthPropertiesARMResource.
+func (s StaticSiteBasicAuthPropertiesARMResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", s.ID)
+	populate(objectMap, "kind", s.Kind)
+	populate(objectMap, "name", s.Name)
+	populate(objectMap, "properties", s.Properties)
+	populate(objectMap, "type", s.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type StaticSiteBasicAuthPropertiesARMResource.
+func (s *StaticSiteBasicAuthPropertiesARMResource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &s.ID)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, "Kind", &s.Kind)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &s.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &s.Properties)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &s.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type StaticSiteBasicAuthPropertiesARMResourceProperties.
+func (s StaticSiteBasicAuthPropertiesARMResourceProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "applicableEnvironmentsMode", s.ApplicableEnvironmentsMode)
+	populate(objectMap, "environments", s.Environments)
+	populate(objectMap, "password", s.Password)
+	populate(objectMap, "secretState", s.SecretState)
+	populate(objectMap, "secretUrl", s.SecretURL)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type StaticSiteBasicAuthPropertiesARMResourceProperties.
+func (s *StaticSiteBasicAuthPropertiesARMResourceProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "applicableEnvironmentsMode":
+			err = unpopulate(val, "ApplicableEnvironmentsMode", &s.ApplicableEnvironmentsMode)
+			delete(rawMsg, key)
+		case "environments":
+			err = unpopulate(val, "Environments", &s.Environments)
+			delete(rawMsg, key)
+		case "password":
+			err = unpopulate(val, "Password", &s.Password)
+			delete(rawMsg, key)
+		case "secretState":
+			err = unpopulate(val, "SecretState", &s.SecretState)
+			delete(rawMsg, key)
+		case "secretUrl":
+			err = unpopulate(val, "SecretURL", &s.SecretURL)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type StaticSiteBuildARMResource.
 func (s StaticSiteBuildARMResource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})

@@ -51,7 +51,6 @@ func NewCertificateRegistrationProviderClient(credential azcore.TokenCredential,
 
 // NewListOperationsPager - Description for Implements Csm operations Api to exposes the list of available Csm Apis under
 // the resource provider
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - CertificateRegistrationProviderClientListOperationsOptions contains the optional parameters for the CertificateRegistrationProviderClient.ListOperations
 // method.

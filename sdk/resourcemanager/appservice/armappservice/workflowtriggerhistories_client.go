@@ -129,7 +129,6 @@ func (client *WorkflowTriggerHistoriesClient) getHandleResponse(resp *http.Respo
 }
 
 // NewListPager - Gets a list of workflow trigger histories.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.

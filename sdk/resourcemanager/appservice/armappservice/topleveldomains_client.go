@@ -107,7 +107,6 @@ func (client *TopLevelDomainsClient) getHandleResponse(resp *http.Response) (Top
 }
 
 // NewListPager - Description for Get all top-level domains supported for registration.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - TopLevelDomainsClientListOptions contains the optional parameters for the TopLevelDomainsClient.List method.
 func (client *TopLevelDomainsClient) NewListPager(options *TopLevelDomainsClientListOptions) *runtime.Pager[TopLevelDomainsClientListResponse] {
@@ -166,7 +165,6 @@ func (client *TopLevelDomainsClient) listHandleResponse(resp *http.Response) (To
 }
 
 // NewListAgreementsPager - Description for Gets all legal agreements that user needs to accept before purchasing a domain.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // name - Name of the top-level domain.
 // agreementOption - Domain agreement options.

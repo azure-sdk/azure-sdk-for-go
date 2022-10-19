@@ -9535,6 +9535,40 @@ type StaticSiteARMResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// StaticSiteBasicAuthPropertiesARMResource - Static site basic auth properties ARM resource.
+type StaticSiteBasicAuthPropertiesARMResource struct {
+	// Kind of resource.
+	Kind *string `json:"kind,omitempty"`
+
+	// StaticSiteBasicAuthPropertiesARMResource resource specific properties
+	Properties *StaticSiteBasicAuthPropertiesARMResourceProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource Name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// StaticSiteBasicAuthPropertiesARMResourceProperties - StaticSiteBasicAuthPropertiesARMResource resource specific properties
+type StaticSiteBasicAuthPropertiesARMResourceProperties struct {
+	// REQUIRED; State indicating if basic auth is enabled and for what environments it is active.
+	ApplicableEnvironmentsMode *string   `json:"applicableEnvironmentsMode,omitempty"`
+	Environments               []*string `json:"environments,omitempty"`
+
+	// The password for basic auth.
+	Password *string `json:"password,omitempty"`
+
+	// Url to the secret in Key Vault.
+	SecretURL *string `json:"secretUrl,omitempty"`
+
+	// READ-ONLY; State indicating if basic auth has a secret and what type it is.
+	SecretState *string `json:"secretState,omitempty" azure:"ro"`
+}
+
 // StaticSiteBuildARMResource - Static Site Build ARM resource.
 type StaticSiteBuildARMResource struct {
 	// Kind of resource.
@@ -10195,6 +10229,12 @@ type StaticSitesClientCreateOrUpdateStaticSiteAppSettingsOptions struct {
 	// placeholder for future optional parameters
 }
 
+// StaticSitesClientCreateOrUpdateStaticSiteBasicAuthOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateStaticSiteBasicAuth
+// method.
+type StaticSitesClientCreateOrUpdateStaticSiteBasicAuthOptions struct {
+	// placeholder for future optional parameters
+}
+
 // StaticSitesClientCreateOrUpdateStaticSiteBuildAppSettingsOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateStaticSiteBuildAppSettings
 // method.
 type StaticSitesClientCreateOrUpdateStaticSiteBuildAppSettingsOptions struct {
@@ -10275,6 +10315,12 @@ type StaticSitesClientGetPrivateEndpointConnectionOptions struct {
 // StaticSitesClientGetPrivateLinkResourcesOptions contains the optional parameters for the StaticSitesClient.GetPrivateLinkResources
 // method.
 type StaticSitesClientGetPrivateLinkResourcesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientGetStaticSiteBasicAuthOptions contains the optional parameters for the StaticSitesClient.GetStaticSiteBasicAuth
+// method.
+type StaticSitesClientGetStaticSiteBasicAuthOptions struct {
 	// placeholder for future optional parameters
 }
 

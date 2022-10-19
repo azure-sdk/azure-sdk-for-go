@@ -239,7 +239,6 @@ func (client *KubeEnvironmentsClient) getHandleResponse(resp *http.Response) (Ku
 }
 
 // NewListByResourceGroupPager - Description for Get all the Kubernetes Environments in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - KubeEnvironmentsClientListByResourceGroupOptions contains the optional parameters for the KubeEnvironmentsClient.ListByResourceGroup
@@ -304,7 +303,6 @@ func (client *KubeEnvironmentsClient) listByResourceGroupHandleResponse(resp *ht
 }
 
 // NewListBySubscriptionPager - Description for Get all Kubernetes Environments for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - KubeEnvironmentsClientListBySubscriptionOptions contains the optional parameters for the KubeEnvironmentsClient.ListBySubscription
 // method.

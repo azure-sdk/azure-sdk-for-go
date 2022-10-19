@@ -249,6 +249,64 @@ func (client *StaticSitesClient) createOrUpdateStaticSiteAppSettingsHandleRespon
 	return result, nil
 }
 
+// CreateOrUpdateStaticSiteBasicAuth - Adds or updates basic auth for a static site.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-03-01
+// resourceGroupName - Name of the resource group to which the resource belongs.
+// name - Name of the static site.
+// basicAuthEnvelope - A JSON representation of the basic auth properties.
+// options - StaticSitesClientCreateOrUpdateStaticSiteBasicAuthOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateStaticSiteBasicAuth
+// method.
+func (client *StaticSitesClient) CreateOrUpdateStaticSiteBasicAuth(ctx context.Context, resourceGroupName string, name string, basicAuthEnvelope StaticSiteBasicAuthPropertiesARMResource, options *StaticSitesClientCreateOrUpdateStaticSiteBasicAuthOptions) (StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse, error) {
+	req, err := client.createOrUpdateStaticSiteBasicAuthCreateRequest(ctx, resourceGroupName, name, basicAuthEnvelope, options)
+	if err != nil {
+		return StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.createOrUpdateStaticSiteBasicAuthHandleResponse(resp)
+}
+
+// createOrUpdateStaticSiteBasicAuthCreateRequest creates the CreateOrUpdateStaticSiteBasicAuth request.
+func (client *StaticSitesClient) createOrUpdateStaticSiteBasicAuthCreateRequest(ctx context.Context, resourceGroupName string, name string, basicAuthEnvelope StaticSiteBasicAuthPropertiesARMResource, options *StaticSitesClientCreateOrUpdateStaticSiteBasicAuthOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/config/basicAuth"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-03-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, basicAuthEnvelope)
+}
+
+// createOrUpdateStaticSiteBasicAuthHandleResponse handles the CreateOrUpdateStaticSiteBasicAuth response.
+func (client *StaticSitesClient) createOrUpdateStaticSiteBasicAuthHandleResponse(resp *http.Response) (StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse, error) {
+	result := StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.StaticSiteBasicAuthPropertiesARMResource); err != nil {
+		return StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse{}, err
+	}
+	return result, nil
+}
+
 // CreateOrUpdateStaticSiteBuildAppSettings - Description for Creates or updates the app settings of a static site build.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
@@ -1328,7 +1386,6 @@ func (client *StaticSitesClient) getLinkedBackendForBuildHandleResponse(resp *ht
 }
 
 // NewGetLinkedBackendsPager - Returns details of all backends linked to a static site
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site
@@ -1398,7 +1455,6 @@ func (client *StaticSitesClient) getLinkedBackendsHandleResponse(resp *http.Resp
 }
 
 // NewGetLinkedBackendsForBuildPager - Returns details of all backends linked to a static site build
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site
@@ -1536,7 +1592,6 @@ func (client *StaticSitesClient) getPrivateEndpointConnectionHandleResponse(resp
 
 // NewGetPrivateEndpointConnectionListPager - Description for Gets the list of private endpoint connections associated with
 // a static site
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -1719,6 +1774,63 @@ func (client *StaticSitesClient) getStaticSiteHandleResponse(resp *http.Response
 	return result, nil
 }
 
+// GetStaticSiteBasicAuth - Gets the basic auth state of a static site.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-03-01
+// resourceGroupName - Name of the resource group to which the resource belongs.
+// name - Name of the static site.
+// options - StaticSitesClientGetStaticSiteBasicAuthOptions contains the optional parameters for the StaticSitesClient.GetStaticSiteBasicAuth
+// method.
+func (client *StaticSitesClient) GetStaticSiteBasicAuth(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientGetStaticSiteBasicAuthOptions) (StaticSitesClientGetStaticSiteBasicAuthResponse, error) {
+	req, err := client.getStaticSiteBasicAuthCreateRequest(ctx, resourceGroupName, name, options)
+	if err != nil {
+		return StaticSitesClientGetStaticSiteBasicAuthResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return StaticSitesClientGetStaticSiteBasicAuthResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return StaticSitesClientGetStaticSiteBasicAuthResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getStaticSiteBasicAuthHandleResponse(resp)
+}
+
+// getStaticSiteBasicAuthCreateRequest creates the GetStaticSiteBasicAuth request.
+func (client *StaticSitesClient) getStaticSiteBasicAuthCreateRequest(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientGetStaticSiteBasicAuthOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/config/basicAuth"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-03-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getStaticSiteBasicAuthHandleResponse handles the GetStaticSiteBasicAuth response.
+func (client *StaticSitesClient) getStaticSiteBasicAuthHandleResponse(resp *http.Response) (StaticSitesClientGetStaticSiteBasicAuthResponse, error) {
+	result := StaticSitesClientGetStaticSiteBasicAuthResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.StaticSiteBasicAuthPropertiesARMResource); err != nil {
+		return StaticSitesClientGetStaticSiteBasicAuthResponse{}, err
+	}
+	return result, nil
+}
+
 // GetStaticSiteBuild - Description for Gets the details of a static site build.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
@@ -1782,7 +1894,6 @@ func (client *StaticSitesClient) getStaticSiteBuildHandleResponse(resp *http.Res
 }
 
 // NewGetStaticSiteBuildsPager - Description for Gets all static site builds for a particular static site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -1914,7 +2025,6 @@ func (client *StaticSitesClient) getStaticSiteCustomDomainHandleResponse(resp *h
 }
 
 // NewGetStaticSitesByResourceGroupPager - Description for Gets all static sites in the specified resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - StaticSitesClientGetStaticSitesByResourceGroupOptions contains the optional parameters for the StaticSitesClient.GetStaticSitesByResourceGroup
@@ -2111,7 +2221,6 @@ func (client *StaticSitesClient) getUserProvidedFunctionAppForStaticSiteBuildHan
 
 // NewGetUserProvidedFunctionAppsForStaticSitePager - Description for Gets the details of the user provided function apps
 // registered with a static site
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -2182,7 +2291,6 @@ func (client *StaticSitesClient) getUserProvidedFunctionAppsForStaticSiteHandleR
 
 // NewGetUserProvidedFunctionAppsForStaticSiteBuildPager - Description for Gets the details of the user provided function
 // apps registered with a static site build
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -2400,7 +2508,6 @@ func (client *StaticSitesClient) linkBackendToBuildCreateRequest(ctx context.Con
 }
 
 // NewListPager - Description for Get all Static Sites for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - StaticSitesClientListOptions contains the optional parameters for the StaticSitesClient.List method.
 func (client *StaticSitesClient) NewListPager(options *StaticSitesClientListOptions) *runtime.Pager[StaticSitesClientListResponse] {
@@ -2640,7 +2747,6 @@ func (client *StaticSitesClient) listStaticSiteBuildFunctionAppSettingsHandleRes
 }
 
 // NewListStaticSiteBuildFunctionsPager - Description for Gets the functions of a particular static site build.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -2772,7 +2878,6 @@ func (client *StaticSitesClient) listStaticSiteConfiguredRolesHandleResponse(res
 }
 
 // NewListStaticSiteCustomDomainsPager - Description for Gets all static site custom domains for a particular static site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site resource to search in.
@@ -2899,7 +3004,6 @@ func (client *StaticSitesClient) listStaticSiteFunctionAppSettingsHandleResponse
 }
 
 // NewListStaticSiteFunctionsPager - Description for Gets the functions of a static site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -3026,7 +3130,6 @@ func (client *StaticSitesClient) listStaticSiteSecretsHandleResponse(resp *http.
 }
 
 // NewListStaticSiteUsersPager - Description for Gets the list of users of a static site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.

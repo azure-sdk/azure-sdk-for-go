@@ -243,7 +243,6 @@ func (client *WebSiteManagementClient) getSubscriptionDeploymentLocationsHandleR
 }
 
 // NewListBillingMetersPager - Description for Gets a list of meters for a given location.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - WebSiteManagementClientListBillingMetersOptions contains the optional parameters for the WebSiteManagementClient.ListBillingMeters
 // method.
@@ -309,7 +308,6 @@ func (client *WebSiteManagementClient) listBillingMetersHandleResponse(resp *htt
 }
 
 // NewListCustomHostNameSitesPager - Get custom hostnames under this subscription
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - WebSiteManagementClientListCustomHostNameSitesOptions contains the optional parameters for the WebSiteManagementClient.ListCustomHostNameSites
 // method.
@@ -372,7 +370,6 @@ func (client *WebSiteManagementClient) listCustomHostNameSitesHandleResponse(res
 }
 
 // NewListGeoRegionsPager - Description for Get a list of available geographical regions.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - WebSiteManagementClientListGeoRegionsOptions contains the optional parameters for the WebSiteManagementClient.ListGeoRegions
 // method.
@@ -444,7 +441,6 @@ func (client *WebSiteManagementClient) listGeoRegionsHandleResponse(resp *http.R
 }
 
 // NewListPremierAddOnOffersPager - Description for List all premier add-on offers.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - WebSiteManagementClientListPremierAddOnOffersOptions contains the optional parameters for the WebSiteManagementClient.ListPremierAddOnOffers
 // method.
@@ -551,7 +547,6 @@ func (client *WebSiteManagementClient) listSKUsHandleResponse(resp *http.Respons
 }
 
 // NewListSiteIdentifiersAssignedToHostNamePager - Description for List all apps that are assigned to a hostname.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // nameIdentifier - Hostname information.
 // options - WebSiteManagementClientListSiteIdentifiersAssignedToHostNameOptions contains the optional parameters for the
@@ -612,7 +607,6 @@ func (client *WebSiteManagementClient) listSiteIdentifiersAssignedToHostNameHand
 }
 
 // NewListSourceControlsPager - Description for Gets the source controls available for Azure websites.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - WebSiteManagementClientListSourceControlsOptions contains the optional parameters for the WebSiteManagementClient.ListSourceControls
 // method.

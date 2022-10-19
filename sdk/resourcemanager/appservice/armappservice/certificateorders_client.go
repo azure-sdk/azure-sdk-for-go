@@ -408,7 +408,6 @@ func (client *CertificateOrdersClient) getCertificateHandleResponse(resp *http.R
 }
 
 // NewListPager - Description for List all certificate orders in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - CertificateOrdersClientListOptions contains the optional parameters for the CertificateOrdersClient.List method.
 func (client *CertificateOrdersClient) NewListPager(options *CertificateOrdersClientListOptions) *runtime.Pager[CertificateOrdersClientListResponse] {
@@ -467,7 +466,6 @@ func (client *CertificateOrdersClient) listHandleResponse(resp *http.Response) (
 }
 
 // NewListByResourceGroupPager - Description for Get certificate orders in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - CertificateOrdersClientListByResourceGroupOptions contains the optional parameters for the CertificateOrdersClient.ListByResourceGroup
@@ -532,7 +530,6 @@ func (client *CertificateOrdersClient) listByResourceGroupHandleResponse(resp *h
 }
 
 // NewListCertificatesPager - Description for List all certificates associated with a certificate order.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // certificateOrderName - Name of the certificate order.

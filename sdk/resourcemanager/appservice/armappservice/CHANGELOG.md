@@ -1,5 +1,18 @@
 # Release History
 
+## 2.1.0 (2022-10-19)
+### Features Added
+
+- New function `*StaticSitesClient.CreateOrUpdateStaticSiteBasicAuth(context.Context, string, string, StaticSiteBasicAuthPropertiesARMResource, *StaticSitesClientCreateOrUpdateStaticSiteBasicAuthOptions) (StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse, error)`
+- New function `*StaticSitesClient.GetStaticSiteBasicAuth(context.Context, string, string, *StaticSitesClientGetStaticSiteBasicAuthOptions) (StaticSitesClientGetStaticSiteBasicAuthResponse, error)`
+- New struct `StaticSiteBasicAuthPropertiesARMResource`
+- New struct `StaticSiteBasicAuthPropertiesARMResourceProperties`
+- New struct `StaticSitesClientCreateOrUpdateStaticSiteBasicAuthOptions`
+- New struct `StaticSitesClientCreateOrUpdateStaticSiteBasicAuthResponse`
+- New struct `StaticSitesClientGetStaticSiteBasicAuthOptions`
+- New struct `StaticSitesClientGetStaticSiteBasicAuthResponse`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 
