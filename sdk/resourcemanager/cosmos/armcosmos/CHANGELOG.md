@@ -1,5 +1,13 @@
 # Release History
 
+## 2.2.0-beta.2 (2022-10-20)
+### Features Added
+
+- New const `DataTransferComponentCosmosDBMongo`
+- New function `*MongoDataTransferDataSourceSink.GetDataTransferDataSourceSink() *DataTransferDataSourceSink`
+- New struct `MongoDataTransferDataSourceSink`
+
+
 ## 2.2.0-beta.1 (2022-10-09)
 ### Features Added
 
