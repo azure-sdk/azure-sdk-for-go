@@ -1,5 +1,11 @@
 # Release History
 
+## 2.2.0-beta.2 (2022-10-21)
+### Features Added
+
+- New field `SourceBackupLocation` in struct `RestoreParameters`
+
+
 ## 2.2.0-beta.1 (2022-10-09)
 ### Features Added
 

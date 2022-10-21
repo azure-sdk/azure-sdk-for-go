@@ -5102,6 +5102,9 @@ type RestoreParameters struct {
 	// Time to which the account has to be restored (ISO-8601 format).
 	RestoreTimestampInUTC *time.Time `json:"restoreTimestampInUtc,omitempty"`
 
+	// The source backup location for restore.
+	SourceBackupLocation *string `json:"sourceBackupLocation,omitempty"`
+
 	// List of specific tables available for restore.
 	TablesToRestore []*string `json:"tablesToRestore,omitempty"`
 }

@@ -10336,6 +10336,7 @@ func (r RestoreParameters) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "restoreMode", r.RestoreMode)
 	populate(objectMap, "restoreSource", r.RestoreSource)
 	populateTimeRFC3339(objectMap, "restoreTimestampInUtc", r.RestoreTimestampInUTC)
+	populate(objectMap, "sourceBackupLocation", r.SourceBackupLocation)
 	populate(objectMap, "tablesToRestore", r.TablesToRestore)
 	return json.Marshal(objectMap)
 }
@@ -10363,6 +10364,9 @@ func (r *RestoreParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "restoreTimestampInUtc":
 			err = unpopulateTimeRFC3339(val, "RestoreTimestampInUTC", &r.RestoreTimestampInUTC)
+			delete(rawMsg, key)
+		case "sourceBackupLocation":
+			err = unpopulate(val, "SourceBackupLocation", &r.SourceBackupLocation)
 			delete(rawMsg, key)
 		case "tablesToRestore":
 			err = unpopulate(val, "TablesToRestore", &r.TablesToRestore)
