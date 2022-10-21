@@ -118,9 +118,6 @@ type GitHubWorkflowProfile struct {
 	// The Azure Kubernetes Cluster Resource the application will be deployed to.
 	AksResourceID *string `json:"aksResourceId,omitempty"`
 
-	// Determines the type of manifests within the repository.
-	AuthStatus *ManifestType `json:"authStatus,omitempty"`
-
 	// Repository Branch Name
 	BranchName           *string               `json:"branchName,omitempty"`
 	DeploymentProperties *DeploymentProperties `json:"deploymentProperties,omitempty"`
@@ -143,6 +140,9 @@ type GitHubWorkflowProfile struct {
 
 	// Repository Owner
 	RepositoryOwner *string `json:"repositoryOwner,omitempty"`
+
+	// READ-ONLY; Determines the authorization status of requests.
+	AuthStatus *AuthorizationStatus `json:"authStatus,omitempty" azure:"ro"`
 
 	// READ-ONLY; The status of the Pull Request submitted against the users repository.
 	PrStatus *PullRequestStatus `json:"prStatus,omitempty" azure:"ro"`

@@ -11,7 +11,7 @@ package armdevhub
 
 const (
 	moduleName    = "armdevhub"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v0.3.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -25,6 +25,27 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AuthorizationStatus - Determines the authorization status of requests.
+type AuthorizationStatus string
+
+const (
+	// AuthorizationStatusAuthorized - Requests authorized successfully
+	AuthorizationStatusAuthorized AuthorizationStatus = "Authorized"
+	// AuthorizationStatusError - Requests returned other error response
+	AuthorizationStatusError AuthorizationStatus = "Error"
+	// AuthorizationStatusNotFound - Requests returned NotFound response
+	AuthorizationStatusNotFound AuthorizationStatus = "NotFound"
+)
+
+// PossibleAuthorizationStatusValues returns the possible values for the AuthorizationStatus const type.
+func PossibleAuthorizationStatusValues() []AuthorizationStatus {
+	return []AuthorizationStatus{
+		AuthorizationStatusAuthorized,
+		AuthorizationStatusError,
+		AuthorizationStatusNotFound,
 	}
 }
 

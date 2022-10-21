@@ -1,5 +1,19 @@
 # Release History
 
+## 0.3.0 (2022-10-21)
+### Breaking Changes
+
+- Type of `GitHubWorkflowProfile.AuthStatus` has been changed from `*ManifestType` to `*AuthorizationStatus`
+
+### Features Added
+
+- New const `AuthorizationStatusAuthorized`
+- New const `AuthorizationStatusError`
+- New const `AuthorizationStatusNotFound`
+- New type alias `AuthorizationStatus`
+- New function `PossibleAuthorizationStatusValues() []AuthorizationStatus`
+
+
 ## 0.2.0 (2022-10-13)
 ### Breaking Changes
 
