@@ -949,7 +949,7 @@ type ContainerAppProperties struct {
 	LatestRevisionName *string `json:"latestRevisionName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Outbound IP Addresses for container app.
-	OutboundIPAddresses []*string `json:"outboundIPAddresses,omitempty" azure:"ro"`
+	OutboundIPAddresses []*string `json:"outboundIpAddresses,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning state of the Container App.
 	ProvisioningState *ContainerAppProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -1987,6 +1987,92 @@ type LoginRoutes struct {
 type LoginScopes struct {
 	// A list of the scopes that should be requested while authenticating.
 	Scopes []*string `json:"scopes,omitempty"`
+}
+
+// ManagedCertificate - Managed certificates used for Custom Domain bindings of Container Apps in a Managed Environment
+type ManagedCertificate struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Certificate resource specific properties
+	Properties *ManagedCertificateProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedCertificateCollection - Collection of Managed Certificates.
+type ManagedCertificateCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*ManagedCertificate `json:"value,omitempty"`
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// ManagedCertificatePatch - A managed certificate to update
+type ManagedCertificatePatch struct {
+	// Application-specific metadata in the form of key-value pairs.
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// ManagedCertificateProperties - Certificate resource specific properties
+type ManagedCertificateProperties struct {
+	// Selected type of domain control validation for managed certificates.
+	DomainControlValidation *ManagedCertificateDomainControlValidation `json:"domainControlValidation,omitempty"`
+
+	// Subject name of the certificate.
+	SubjectName *string `json:"subjectName,omitempty"`
+
+	// READ-ONLY; Any error occurred during the certificate provision.
+	Error *string `json:"error,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state of the certificate.
+	ProvisioningState *CertificateProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; A TXT token used for DNS TXT domain control validation when issuing this type of managed certificates.
+	ValidationToken *string `json:"validationToken,omitempty" azure:"ro"`
+}
+
+// ManagedCertificatesClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedCertificatesClient.BeginCreateOrUpdate
+// method.
+type ManagedCertificatesClientBeginCreateOrUpdateOptions struct {
+	// Managed Certificate to be created or updated
+	ManagedCertificateEnvelope *ManagedCertificate
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedCertificatesClientDeleteOptions contains the optional parameters for the ManagedCertificatesClient.Delete method.
+type ManagedCertificatesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedCertificatesClientGetOptions contains the optional parameters for the ManagedCertificatesClient.Get method.
+type ManagedCertificatesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedCertificatesClientListOptions contains the optional parameters for the ManagedCertificatesClient.List method.
+type ManagedCertificatesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedCertificatesClientUpdateOptions contains the optional parameters for the ManagedCertificatesClient.Update method.
+type ManagedCertificatesClientUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ManagedEnvironment - An environment for hosting container apps

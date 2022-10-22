@@ -1,5 +1,38 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-10-22)
+### Features Added
+
+- New const `ManagedCertificateDomainControlValidationCNAME`
+- New const `ManagedCertificateDomainControlValidationHTTP`
+- New const `ManagedCertificateDomainControlValidationTXT`
+- New type alias `ManagedCertificateDomainControlValidation`
+- New function `PossibleManagedCertificateDomainControlValidationValues() []ManagedCertificateDomainControlValidation`
+- New function `*ManagedCertificatesClient.Update(context.Context, string, string, string, ManagedCertificatePatch, *ManagedCertificatesClientUpdateOptions) (ManagedCertificatesClientUpdateResponse, error)`
+- New function `*ManagedCertificatesClient.NewListPager(string, string, *ManagedCertificatesClientListOptions) *runtime.Pager[ManagedCertificatesClientListResponse]`
+- New function `*ManagedCertificatesClient.Delete(context.Context, string, string, string, *ManagedCertificatesClientDeleteOptions) (ManagedCertificatesClientDeleteResponse, error)`
+- New function `*ManagedCertificatesClient.Get(context.Context, string, string, string, *ManagedCertificatesClientGetOptions) (ManagedCertificatesClientGetResponse, error)`
+- New function `*ManagedCertificatesClient.BeginCreateOrUpdate(context.Context, string, string, string, *ManagedCertificatesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedCertificatesClientCreateOrUpdateResponse], error)`
+- New function `NewManagedCertificatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedCertificatesClient, error)`
+- New struct `ManagedCertificate`
+- New struct `ManagedCertificateCollection`
+- New struct `ManagedCertificatePatch`
+- New struct `ManagedCertificateProperties`
+- New struct `ManagedCertificatesClient`
+- New struct `ManagedCertificatesClientBeginCreateOrUpdateOptions`
+- New struct `ManagedCertificatesClientCreateOrUpdateResponse`
+- New struct `ManagedCertificatesClientDeleteOptions`
+- New struct `ManagedCertificatesClientDeleteResponse`
+- New struct `ManagedCertificatesClientGetOptions`
+- New struct `ManagedCertificatesClientGetResponse`
+- New struct `ManagedCertificatesClientListOptions`
+- New struct `ManagedCertificatesClientListResponse`
+- New struct `ManagedCertificatesClientUpdateOptions`
+- New struct `ManagedCertificatesClientUpdateResponse`
+- New anonymous field `ManagedEnvironment` in struct `ManagedEnvironmentsClientUpdateResponse`
+- New anonymous field `ContainerApp` in struct `ContainerAppsClientUpdateResponse`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
