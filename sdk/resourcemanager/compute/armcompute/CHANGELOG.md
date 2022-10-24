@@ -1,5 +1,12 @@
 # Release History
 
+## 4.1.0 (2022-10-24)
+### Features Added
+
+- New struct `OSImageNotificationProfile`
+- New field `OSImageNotificationProfile` in struct `ScheduledEventsProfile`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 
