@@ -1,5 +1,34 @@
 # Release History
 
+## 2.0.0 (2022-10-24)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+
+### Features Added
+
+- New const `ImmutabilityStateDisabled`
+- New const `ImmutabilityStateUnlocked`
+- New const `ImmutabilityStateLocked`
+- New const `CrossRegionRestoreDisabled`
+- New const `StandardTierStorageRedundancyGeoRedundant`
+- New const `CrossRegionRestoreEnabled`
+- New const `StandardTierStorageRedundancyZoneRedundant`
+- New const `StandardTierStorageRedundancyLocallyRedundant`
+- New type alias `ImmutabilityState`
+- New type alias `StandardTierStorageRedundancy`
+- New type alias `CrossRegionRestore`
+- New function `PossibleCrossRegionRestoreValues() []CrossRegionRestore`
+- New function `PossibleImmutabilityStateValues() []ImmutabilityState`
+- New function `PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundancy`
+- New struct `ImmutabilitySettings`
+- New struct `SecuritySettings`
+- New struct `VaultPropertiesRedundancySettings`
+- New field `RedundancySettings` in struct `VaultProperties`
+- New field `SecuritySettings` in struct `VaultProperties`
+- New field `AADAudience` in struct `ResourceCertificateAndAADDetails`
+
+
 ## 1.1.0 (2022-07-22)
 ### Features Added
 
