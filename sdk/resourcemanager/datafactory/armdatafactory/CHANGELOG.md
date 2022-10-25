@@ -1,5 +1,21 @@
 # Release History
 
+## 3.0.0 (2022-10-25)
+### Breaking Changes
+
+- Type of `SynapseSparkJobReference.ReferenceName` has been changed from `*string` to `interface{}`
+
+### Features Added
+
+- New field `WorkspaceResourceID` in struct `AzureSynapseArtifactsLinkedServiceTypeProperties`
+- New field `DisablePublish` in struct `FactoryVSTSConfiguration`
+- New field `DisablePublish` in struct `FactoryRepoConfiguration`
+- New field `ScriptBlockExecutionTimeout` in struct `ScriptActivityTypeProperties`
+- New field `FilesV2` in struct `SynapseSparkJobActivityTypeProperties`
+- New field `PythonCodeReference` in struct `SynapseSparkJobActivityTypeProperties`
+- New field `DisablePublish` in struct `FactoryGitHubConfiguration`
+
+
 ## 2.0.0 (2022-10-10)
 ### Breaking Changes
 
