@@ -1,5 +1,485 @@
 # Release History
 
+## 3.0.0 (2022-10-25)
+### Breaking Changes
+
+- Const `EnablementRulesTicketing` has been removed
+- Const `PrincipalTypeUser` has been removed
+- Const `NotificationLevelAll` has been removed
+- Const `MemberTypeDirect` has been removed
+- Const `NotificationLevelCritical` has been removed
+- Const `StatusPendingApproval` has been removed
+- Const `RecipientTypeApprover` has been removed
+- Const `RecipientTypeRequestor` has been removed
+- Const `ApprovalModeSingleStage` has been removed
+- Const `StatusPendingExternalProvisioning` has been removed
+- Const `StatusPendingScheduleCreation` has been removed
+- Const `NotificationLevelNone` has been removed
+- Const `PrincipalTypeGroup` has been removed
+- Const `StatusFailedAsResourceIsLocked` has been removed
+- Const `StatusProvisioningStarted` has been removed
+- Const `RequestTypeAdminRemove` has been removed
+- Const `ApprovalModeParallel` has been removed
+- Const `TypeNoExpiration` has been removed
+- Const `AssignmentTypeActivated` has been removed
+- Const `EnablementRulesJustification` has been removed
+- Const `StatusDenied` has been removed
+- Const `PrincipalTypeDevice` has been removed
+- Const `RoleManagementPolicyRuleTypeRoleManagementPolicyEnablementRule` has been removed
+- Const `MemberTypeGroup` has been removed
+- Const `RequestTypeAdminExtend` has been removed
+- Const `AssignmentTypeAssigned` has been removed
+- Const `TypeAfterDuration` has been removed
+- Const `ApprovalModeNoApproval` has been removed
+- Const `PrincipalTypeForeignGroup` has been removed
+- Const `RequestTypeAdminAssign` has been removed
+- Const `StatusScheduleCreated` has been removed
+- Const `StatusPendingEvaluation` has been removed
+- Const `RequestTypeAdminRenew` has been removed
+- Const `RequestTypeSelfExtend` has been removed
+- Const `StatusGranted` has been removed
+- Const `RoleManagementPolicyRuleTypeRoleManagementPolicyAuthenticationContextRule` has been removed
+- Const `StatusPendingApprovalProvisioning` has been removed
+- Const `StatusInvalid` has been removed
+- Const `StatusRevoked` has been removed
+- Const `RequestTypeAdminUpdate` has been removed
+- Const `StatusCanceled` has been removed
+- Const `StatusPendingAdminDecision` has been removed
+- Const `StatusAccepted` has been removed
+- Const `EnablementRulesMultiFactorAuthentication` has been removed
+- Const `RequestTypeSelfRenew` has been removed
+- Const `StatusAdminDenied` has been removed
+- Const `StatusPendingRevocation` has been removed
+- Const `UserTypeGroup` has been removed
+- Const `TypeAfterDateTime` has been removed
+- Const `RecipientTypeAdmin` has been removed
+- Const `RoleManagementPolicyRuleTypeRoleManagementPolicyExpirationRule` has been removed
+- Const `ApprovalModeSerial` has been removed
+- Const `StatusProvisioned` has been removed
+- Const `RoleManagementPolicyRuleTypeRoleManagementPolicyApprovalRule` has been removed
+- Const `RequestTypeSelfActivate` has been removed
+- Const `StatusFailed` has been removed
+- Const `RequestTypeSelfDeactivate` has been removed
+- Const `RoleManagementPolicyRuleTypeRoleManagementPolicyNotificationRule` has been removed
+- Const `StatusTimedOut` has been removed
+- Const `StatusPendingProvisioning` has been removed
+- Const `StatusAdminApproved` has been removed
+- Const `MemberTypeInherited` has been removed
+- Const `PrincipalTypeServicePrincipal` has been removed
+- Const `UserTypeUser` has been removed
+- Const `NotificationDeliveryMechanismEmail` has been removed
+- Type alias `RequestType` has been removed
+- Type alias `RoleManagementPolicyRuleType` has been removed
+- Type alias `EnablementRules` has been removed
+- Type alias `MemberType` has been removed
+- Type alias `NotificationLevel` has been removed
+- Type alias `ApprovalMode` has been removed
+- Type alias `AssignmentType` has been removed
+- Type alias `PrincipalType` has been removed
+- Type alias `Type` has been removed
+- Type alias `RecipientType` has been removed
+- Type alias `NotificationDeliveryMechanism` has been removed
+- Type alias `Status` has been removed
+- Type alias `UserType` has been removed
+- Function `NewGlobalAdministratorClient` has been removed
+- Function `NewDenyAssignmentsClient` has been removed
+- Function `NewRoleManagementPolicyAssignmentsClient` has been removed
+- Function `NewProviderOperationsMetadataClient` has been removed
+- Function `*DenyAssignmentsClient.NewListPager` has been removed
+- Function `*RoleAssignmentsClient.GetByID` has been removed
+- Function `*RoleManagementPolicyExpirationRule.GetRoleManagementPolicyRule` has been removed
+- Function `*RoleManagementPolicyAssignmentsClient.Get` has been removed
+- Function `*RoleDefinitionsClient.Delete` has been removed
+- Function `*RoleDefinitionsClient.NewListPager` has been removed
+- Function `*RoleDefinitionsClient.Get` has been removed
+- Function `*EligibleChildResourcesClient.NewGetPager` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.Create` has been removed
+- Function `NewRoleManagementPoliciesClient` has been removed
+- Function `*RoleEligibilitySchedulesClient.NewListForScopePager` has been removed
+- Function `*PermissionsClient.NewListForResourceGroupPager` has been removed
+- Function `NewClassicAdministratorsClient` has been removed
+- Function `NewPermissionsClient` has been removed
+- Function `*ProviderOperationsMetadataClient.NewListPager` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.NewListForScopePager` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.Get` has been removed
+- Function `*ProviderOperationsMetadataClient.Get` has been removed
+- Function `*RoleManagementPolicyApprovalRule.GetRoleManagementPolicyRule` has been removed
+- Function `NewRoleAssignmentSchedulesClient` has been removed
+- Function `*RoleManagementPolicyAuthenticationContextRule.GetRoleManagementPolicyRule` has been removed
+- Function `*RoleManagementPoliciesClient.Update` has been removed
+- Function `*RoleAssignmentsClient.Create` has been removed
+- Function `PossibleMemberTypeValues` has been removed
+- Function `*DenyAssignmentsClient.Get` has been removed
+- Function `PossibleUserTypeValues` has been removed
+- Function `PossibleRoleManagementPolicyRuleTypeValues` has been removed
+- Function `*RoleEligibilitySchedulesClient.Get` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.Validate` has been removed
+- Function `*RoleEligibilityScheduleInstancesClient.Get` has been removed
+- Function `PossibleApprovalModeValues` has been removed
+- Function `*RoleManagementPolicyAssignmentsClient.NewListForScopePager` has been removed
+- Function `*RoleManagementPolicyNotificationRule.GetRoleManagementPolicyRule` has been removed
+- Function `*RoleAssignmentScheduleInstancesClient.NewListForScopePager` has been removed
+- Function `*ClassicAdministratorsClient.NewListPager` has been removed
+- Function `*RoleAssignmentsClient.NewListForResourcePager` has been removed
+- Function `*DenyAssignmentsClient.NewListForResourcePager` has been removed
+- Function `*RoleDefinitionsClient.CreateOrUpdate` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.Create` has been removed
+- Function `*PermissionsClient.NewListForResourcePager` has been removed
+- Function `*RoleAssignmentsClient.NewListForResourceGroupPager` has been removed
+- Function `*RoleManagementPolicyAssignmentsClient.Delete` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.NewListForScopePager` has been removed
+- Function `NewRoleEligibilitySchedulesClient` has been removed
+- Function `NewRoleEligibilityScheduleRequestsClient` has been removed
+- Function `*RoleManagementPolicyEnablementRule.GetRoleManagementPolicyRule` has been removed
+- Function `*DenyAssignmentsClient.NewListForScopePager` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.Cancel` has been removed
+- Function `*RoleAssignmentsClient.Delete` has been removed
+- Function `*RoleAssignmentsClient.Get` has been removed
+- Function `PossibleRecipientTypeValues` has been removed
+- Function `*RoleAssignmentScheduleInstancesClient.Get` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.Get` has been removed
+- Function `*RoleDefinitionsClient.GetByID` has been removed
+- Function `PossibleNotificationDeliveryMechanismValues` has been removed
+- Function `*RoleAssignmentsClient.DeleteByID` has been removed
+- Function `NewRoleAssignmentScheduleInstancesClient` has been removed
+- Function `*RoleAssignmentsClient.NewListForScopePager` has been removed
+- Function `PossibleAssignmentTypeValues` has been removed
+- Function `*RoleManagementPolicyRule.GetRoleManagementPolicyRule` has been removed
+- Function `PossibleStatusValues` has been removed
+- Function `*RoleManagementPoliciesClient.Delete` has been removed
+- Function `PossiblePrincipalTypeValues` has been removed
+- Function `*DenyAssignmentsClient.GetByID` has been removed
+- Function `*RoleAssignmentsClient.CreateByID` has been removed
+- Function `*RoleAssignmentsClient.NewListForSubscriptionPager` has been removed
+- Function `PossibleRequestTypeValues` has been removed
+- Function `*RoleAssignmentSchedulesClient.Get` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.Validate` has been removed
+- Function `*RoleManagementPoliciesClient.Get` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.Cancel` has been removed
+- Function `NewRoleDefinitionsClient` has been removed
+- Function `PossibleEnablementRulesValues` has been removed
+- Function `NewRoleAssignmentScheduleRequestsClient` has been removed
+- Function `*RoleEligibilityScheduleInstancesClient.NewListForScopePager` has been removed
+- Function `*DenyAssignmentsClient.NewListForResourceGroupPager` has been removed
+- Function `PossibleTypeValues` has been removed
+- Function `*RoleManagementPoliciesClient.NewListForScopePager` has been removed
+- Function `*RoleAssignmentSchedulesClient.NewListForScopePager` has been removed
+- Function `NewEligibleChildResourcesClient` has been removed
+- Function `NewRoleEligibilityScheduleInstancesClient` has been removed
+- Function `*RoleManagementPolicyAssignmentsClient.Create` has been removed
+- Function `PossibleNotificationLevelValues` has been removed
+- Function `*GlobalAdministratorClient.ElevateAccess` has been removed
+- Function `NewRoleAssignmentsClient` has been removed
+- Struct `ApprovalSettings` has been removed
+- Struct `ApprovalStage` has been removed
+- Struct `ClassicAdministrator` has been removed
+- Struct `ClassicAdministratorListResult` has been removed
+- Struct `ClassicAdministratorProperties` has been removed
+- Struct `ClassicAdministratorsClient` has been removed
+- Struct `ClassicAdministratorsClientListOptions` has been removed
+- Struct `ClassicAdministratorsClientListResponse` has been removed
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+- Struct `DenyAssignment` has been removed
+- Struct `DenyAssignmentFilter` has been removed
+- Struct `DenyAssignmentListResult` has been removed
+- Struct `DenyAssignmentPermission` has been removed
+- Struct `DenyAssignmentProperties` has been removed
+- Struct `DenyAssignmentsClient` has been removed
+- Struct `DenyAssignmentsClientGetByIDOptions` has been removed
+- Struct `DenyAssignmentsClientGetByIDResponse` has been removed
+- Struct `DenyAssignmentsClientGetOptions` has been removed
+- Struct `DenyAssignmentsClientGetResponse` has been removed
+- Struct `DenyAssignmentsClientListForResourceGroupOptions` has been removed
+- Struct `DenyAssignmentsClientListForResourceGroupResponse` has been removed
+- Struct `DenyAssignmentsClientListForResourceOptions` has been removed
+- Struct `DenyAssignmentsClientListForResourceResponse` has been removed
+- Struct `DenyAssignmentsClientListForScopeOptions` has been removed
+- Struct `DenyAssignmentsClientListForScopeResponse` has been removed
+- Struct `DenyAssignmentsClientListOptions` has been removed
+- Struct `DenyAssignmentsClientListResponse` has been removed
+- Struct `EligibleChildResource` has been removed
+- Struct `EligibleChildResourcesClient` has been removed
+- Struct `EligibleChildResourcesClientGetOptions` has been removed
+- Struct `EligibleChildResourcesClientGetResponse` has been removed
+- Struct `EligibleChildResourcesListResult` has been removed
+- Struct `ErrorAdditionalInfo` has been removed
+- Struct `ErrorDetail` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `ExpandedProperties` has been removed
+- Struct `ExpandedPropertiesPrincipal` has been removed
+- Struct `ExpandedPropertiesRoleDefinition` has been removed
+- Struct `ExpandedPropertiesScope` has been removed
+- Struct `GlobalAdministratorClient` has been removed
+- Struct `GlobalAdministratorClientElevateAccessOptions` has been removed
+- Struct `GlobalAdministratorClientElevateAccessResponse` has been removed
+- Struct `Permission` has been removed
+- Struct `PermissionGetResult` has been removed
+- Struct `PermissionsClient` has been removed
+- Struct `PermissionsClientListForResourceGroupOptions` has been removed
+- Struct `PermissionsClientListForResourceGroupResponse` has been removed
+- Struct `PermissionsClientListForResourceOptions` has been removed
+- Struct `PermissionsClientListForResourceResponse` has been removed
+- Struct `PolicyAssignmentProperties` has been removed
+- Struct `PolicyAssignmentPropertiesPolicy` has been removed
+- Struct `PolicyAssignmentPropertiesRoleDefinition` has been removed
+- Struct `PolicyAssignmentPropertiesScope` has been removed
+- Struct `PolicyProperties` has been removed
+- Struct `PolicyPropertiesScope` has been removed
+- Struct `Principal` has been removed
+- Struct `ProviderOperation` has been removed
+- Struct `ProviderOperationsMetadata` has been removed
+- Struct `ProviderOperationsMetadataClient` has been removed
+- Struct `ProviderOperationsMetadataClientGetOptions` has been removed
+- Struct `ProviderOperationsMetadataClientGetResponse` has been removed
+- Struct `ProviderOperationsMetadataClientListOptions` has been removed
+- Struct `ProviderOperationsMetadataClientListResponse` has been removed
+- Struct `ProviderOperationsMetadataListResult` has been removed
+- Struct `ResourceType` has been removed
+- Struct `RoleAssignment` has been removed
+- Struct `RoleAssignmentCreateParameters` has been removed
+- Struct `RoleAssignmentFilter` has been removed
+- Struct `RoleAssignmentListResult` has been removed
+- Struct `RoleAssignmentProperties` has been removed
+- Struct `RoleAssignmentSchedule` has been removed
+- Struct `RoleAssignmentScheduleFilter` has been removed
+- Struct `RoleAssignmentScheduleInstance` has been removed
+- Struct `RoleAssignmentScheduleInstanceFilter` has been removed
+- Struct `RoleAssignmentScheduleInstanceListResult` has been removed
+- Struct `RoleAssignmentScheduleInstanceProperties` has been removed
+- Struct `RoleAssignmentScheduleInstancesClient` has been removed
+- Struct `RoleAssignmentScheduleInstancesClientGetOptions` has been removed
+- Struct `RoleAssignmentScheduleInstancesClientGetResponse` has been removed
+- Struct `RoleAssignmentScheduleInstancesClientListForScopeOptions` has been removed
+- Struct `RoleAssignmentScheduleInstancesClientListForScopeResponse` has been removed
+- Struct `RoleAssignmentScheduleListResult` has been removed
+- Struct `RoleAssignmentScheduleProperties` has been removed
+- Struct `RoleAssignmentScheduleRequest` has been removed
+- Struct `RoleAssignmentScheduleRequestFilter` has been removed
+- Struct `RoleAssignmentScheduleRequestListResult` has been removed
+- Struct `RoleAssignmentScheduleRequestProperties` has been removed
+- Struct `RoleAssignmentScheduleRequestPropertiesScheduleInfo` has been removed
+- Struct `RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration` has been removed
+- Struct `RoleAssignmentScheduleRequestPropertiesTicketInfo` has been removed
+- Struct `RoleAssignmentScheduleRequestsClient` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientCancelOptions` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientCancelResponse` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientCreateOptions` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientCreateResponse` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientGetOptions` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientGetResponse` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientListForScopeOptions` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientListForScopeResponse` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientValidateOptions` has been removed
+- Struct `RoleAssignmentScheduleRequestsClientValidateResponse` has been removed
+- Struct `RoleAssignmentSchedulesClient` has been removed
+- Struct `RoleAssignmentSchedulesClientGetOptions` has been removed
+- Struct `RoleAssignmentSchedulesClientGetResponse` has been removed
+- Struct `RoleAssignmentSchedulesClientListForScopeOptions` has been removed
+- Struct `RoleAssignmentSchedulesClientListForScopeResponse` has been removed
+- Struct `RoleAssignmentsClient` has been removed
+- Struct `RoleAssignmentsClientCreateByIDOptions` has been removed
+- Struct `RoleAssignmentsClientCreateByIDResponse` has been removed
+- Struct `RoleAssignmentsClientCreateOptions` has been removed
+- Struct `RoleAssignmentsClientCreateResponse` has been removed
+- Struct `RoleAssignmentsClientDeleteByIDOptions` has been removed
+- Struct `RoleAssignmentsClientDeleteByIDResponse` has been removed
+- Struct `RoleAssignmentsClientDeleteOptions` has been removed
+- Struct `RoleAssignmentsClientDeleteResponse` has been removed
+- Struct `RoleAssignmentsClientGetByIDOptions` has been removed
+- Struct `RoleAssignmentsClientGetByIDResponse` has been removed
+- Struct `RoleAssignmentsClientGetOptions` has been removed
+- Struct `RoleAssignmentsClientGetResponse` has been removed
+- Struct `RoleAssignmentsClientListForResourceGroupOptions` has been removed
+- Struct `RoleAssignmentsClientListForResourceGroupResponse` has been removed
+- Struct `RoleAssignmentsClientListForResourceOptions` has been removed
+- Struct `RoleAssignmentsClientListForResourceResponse` has been removed
+- Struct `RoleAssignmentsClientListForScopeOptions` has been removed
+- Struct `RoleAssignmentsClientListForScopeResponse` has been removed
+- Struct `RoleAssignmentsClientListForSubscriptionOptions` has been removed
+- Struct `RoleAssignmentsClientListForSubscriptionResponse` has been removed
+- Struct `RoleDefinition` has been removed
+- Struct `RoleDefinitionFilter` has been removed
+- Struct `RoleDefinitionListResult` has been removed
+- Struct `RoleDefinitionProperties` has been removed
+- Struct `RoleDefinitionsClient` has been removed
+- Struct `RoleDefinitionsClientCreateOrUpdateOptions` has been removed
+- Struct `RoleDefinitionsClientCreateOrUpdateResponse` has been removed
+- Struct `RoleDefinitionsClientDeleteOptions` has been removed
+- Struct `RoleDefinitionsClientDeleteResponse` has been removed
+- Struct `RoleDefinitionsClientGetByIDOptions` has been removed
+- Struct `RoleDefinitionsClientGetByIDResponse` has been removed
+- Struct `RoleDefinitionsClientGetOptions` has been removed
+- Struct `RoleDefinitionsClientGetResponse` has been removed
+- Struct `RoleDefinitionsClientListOptions` has been removed
+- Struct `RoleDefinitionsClientListResponse` has been removed
+- Struct `RoleEligibilitySchedule` has been removed
+- Struct `RoleEligibilityScheduleFilter` has been removed
+- Struct `RoleEligibilityScheduleInstance` has been removed
+- Struct `RoleEligibilityScheduleInstanceFilter` has been removed
+- Struct `RoleEligibilityScheduleInstanceListResult` has been removed
+- Struct `RoleEligibilityScheduleInstanceProperties` has been removed
+- Struct `RoleEligibilityScheduleInstancesClient` has been removed
+- Struct `RoleEligibilityScheduleInstancesClientGetOptions` has been removed
+- Struct `RoleEligibilityScheduleInstancesClientGetResponse` has been removed
+- Struct `RoleEligibilityScheduleInstancesClientListForScopeOptions` has been removed
+- Struct `RoleEligibilityScheduleInstancesClientListForScopeResponse` has been removed
+- Struct `RoleEligibilityScheduleListResult` has been removed
+- Struct `RoleEligibilityScheduleProperties` has been removed
+- Struct `RoleEligibilityScheduleRequest` has been removed
+- Struct `RoleEligibilityScheduleRequestFilter` has been removed
+- Struct `RoleEligibilityScheduleRequestListResult` has been removed
+- Struct `RoleEligibilityScheduleRequestProperties` has been removed
+- Struct `RoleEligibilityScheduleRequestPropertiesScheduleInfo` has been removed
+- Struct `RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration` has been removed
+- Struct `RoleEligibilityScheduleRequestPropertiesTicketInfo` has been removed
+- Struct `RoleEligibilityScheduleRequestsClient` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientCancelOptions` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientCancelResponse` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientCreateOptions` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientCreateResponse` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientGetOptions` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientGetResponse` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientListForScopeOptions` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientListForScopeResponse` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientValidateOptions` has been removed
+- Struct `RoleEligibilityScheduleRequestsClientValidateResponse` has been removed
+- Struct `RoleEligibilitySchedulesClient` has been removed
+- Struct `RoleEligibilitySchedulesClientGetOptions` has been removed
+- Struct `RoleEligibilitySchedulesClientGetResponse` has been removed
+- Struct `RoleEligibilitySchedulesClientListForScopeOptions` has been removed
+- Struct `RoleEligibilitySchedulesClientListForScopeResponse` has been removed
+- Struct `RoleManagementPoliciesClient` has been removed
+- Struct `RoleManagementPoliciesClientDeleteOptions` has been removed
+- Struct `RoleManagementPoliciesClientDeleteResponse` has been removed
+- Struct `RoleManagementPoliciesClientGetOptions` has been removed
+- Struct `RoleManagementPoliciesClientGetResponse` has been removed
+- Struct `RoleManagementPoliciesClientListForScopeOptions` has been removed
+- Struct `RoleManagementPoliciesClientListForScopeResponse` has been removed
+- Struct `RoleManagementPoliciesClientUpdateOptions` has been removed
+- Struct `RoleManagementPoliciesClientUpdateResponse` has been removed
+- Struct `RoleManagementPolicy` has been removed
+- Struct `RoleManagementPolicyApprovalRule` has been removed
+- Struct `RoleManagementPolicyAssignment` has been removed
+- Struct `RoleManagementPolicyAssignmentListResult` has been removed
+- Struct `RoleManagementPolicyAssignmentProperties` has been removed
+- Struct `RoleManagementPolicyAssignmentsClient` has been removed
+- Struct `RoleManagementPolicyAssignmentsClientCreateOptions` has been removed
+- Struct `RoleManagementPolicyAssignmentsClientCreateResponse` has been removed
+- Struct `RoleManagementPolicyAssignmentsClientDeleteOptions` has been removed
+- Struct `RoleManagementPolicyAssignmentsClientDeleteResponse` has been removed
+- Struct `RoleManagementPolicyAssignmentsClientGetOptions` has been removed
+- Struct `RoleManagementPolicyAssignmentsClientGetResponse` has been removed
+- Struct `RoleManagementPolicyAssignmentsClientListForScopeOptions` has been removed
+- Struct `RoleManagementPolicyAssignmentsClientListForScopeResponse` has been removed
+- Struct `RoleManagementPolicyAuthenticationContextRule` has been removed
+- Struct `RoleManagementPolicyEnablementRule` has been removed
+- Struct `RoleManagementPolicyExpirationRule` has been removed
+- Struct `RoleManagementPolicyListResult` has been removed
+- Struct `RoleManagementPolicyNotificationRule` has been removed
+- Struct `RoleManagementPolicyProperties` has been removed
+- Struct `RoleManagementPolicyRule` has been removed
+- Struct `RoleManagementPolicyRuleTarget` has been removed
+- Struct `UserSet` has been removed
+- Struct `ValidationResponse` has been removed
+- Struct `ValidationResponseErrorInfo` has been removed
+
+### Features Added
+
+- New const `SeverityLevelLow`
+- New const `SeverityLevelMedium`
+- New const `SeverityLevelHigh`
+- New type alias `SeverityLevel`
+- New function `*AlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `NewAlertDefinitionsClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertDefinitionsClient, error)`
+- New function `*AzureRolesAssignedOutsidePimAlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `*AlertDefinitionsClient.Get(context.Context, string, string, *AlertDefinitionsClientGetOptions) (AlertDefinitionsClientGetResponse, error)`
+- New function `*TooManyOwnersAssignedToResourceAlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `*AlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `*AzureRolesAssignedOutsidePimAlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `*AlertDefinitionsClient.NewListForScopePager(string, *AlertDefinitionsClientListForScopeOptions) *runtime.Pager[AlertDefinitionsClientListForScopeResponse]`
+- New function `*AlertIncidentsClient.Get(context.Context, string, string, string, *AlertIncidentsClientGetOptions) (AlertIncidentsClientGetResponse, error)`
+- New function `*AlertIncidentsClient.Remediate(context.Context, string, string, string, *AlertIncidentsClientRemediateOptions) (AlertIncidentsClientRemediateResponse, error)`
+- New function `*AlertsClient.NewListForScopePager(string, *AlertsClientListForScopeOptions) *runtime.Pager[AlertsClientListForScopeResponse]`
+- New function `*AlertsClient.BeginRefreshAll(context.Context, string, *AlertsClientBeginRefreshAllOptions) (*runtime.Poller[AlertsClientRefreshAllResponse], error)`
+- New function `*AlertsClient.Get(context.Context, string, string, *AlertsClientGetOptions) (AlertsClientGetResponse, error)`
+- New function `NewAlertsClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertsClient, error)`
+- New function `*TooManyPermanentOwnersAssignedToResourceAlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `*AlertConfigurationsClient.Update(context.Context, string, string, AlertConfiguration, *AlertConfigurationsClientUpdateOptions) (AlertConfigurationsClientUpdateResponse, error)`
+- New function `NewAlertOperationClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertOperationClient, error)`
+- New function `*TooManyPermanentOwnersAssignedToResourceAlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `*DuplicateRoleCreatedAlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `*AlertsClient.BeginRefresh(context.Context, string, string, *AlertsClientBeginRefreshOptions) (*runtime.Poller[AlertsClientRefreshResponse], error)`
+- New function `*AlertsClient.Update(context.Context, string, string, Alert, *AlertsClientUpdateOptions) (AlertsClientUpdateResponse, error)`
+- New function `*AlertConfigurationsClient.Get(context.Context, string, string, *AlertConfigurationsClientGetOptions) (AlertConfigurationsClientGetResponse, error)`
+- New function `*AlertIncidentsClient.NewListForScopePager(string, string, *AlertIncidentsClientListForScopeOptions) *runtime.Pager[AlertIncidentsClientListForScopeResponse]`
+- New function `NewAlertConfigurationsClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertConfigurationsClient, error)`
+- New function `*AlertConfigurationsClient.NewListForScopePager(string, *AlertConfigurationsClientListForScopeOptions) *runtime.Pager[AlertConfigurationsClientListForScopeResponse]`
+- New function `*TooManyOwnersAssignedToResourceAlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `*AlertOperationClient.ListForScope(context.Context, string, *AlertOperationClientListForScopeOptions) (AlertOperationClientListForScopeResponse, error)`
+- New function `NewAlertIncidentsClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertIncidentsClient, error)`
+- New function `*DuplicateRoleCreatedAlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `*AlertOperationClient.Get(context.Context, string, string, *AlertOperationClientGetOptions) (AlertOperationClientGetResponse, error)`
+- New function `PossibleSeverityLevelValues() []SeverityLevel`
+- New struct `Alert`
+- New struct `AlertConfiguration`
+- New struct `AlertConfigurationListResult`
+- New struct `AlertConfigurationProperties`
+- New struct `AlertConfigurationsClient`
+- New struct `AlertConfigurationsClientGetOptions`
+- New struct `AlertConfigurationsClientGetResponse`
+- New struct `AlertConfigurationsClientListForScopeOptions`
+- New struct `AlertConfigurationsClientListForScopeResponse`
+- New struct `AlertConfigurationsClientUpdateOptions`
+- New struct `AlertConfigurationsClientUpdateResponse`
+- New struct `AlertDefinition`
+- New struct `AlertDefinitionListResult`
+- New struct `AlertDefinitionProperties`
+- New struct `AlertDefinitionsClient`
+- New struct `AlertDefinitionsClientGetOptions`
+- New struct `AlertDefinitionsClientGetResponse`
+- New struct `AlertDefinitionsClientListForScopeOptions`
+- New struct `AlertDefinitionsClientListForScopeResponse`
+- New struct `AlertIncident`
+- New struct `AlertIncidentListResult`
+- New struct `AlertIncidentProperties`
+- New struct `AlertIncidentsClient`
+- New struct `AlertIncidentsClientGetOptions`
+- New struct `AlertIncidentsClientGetResponse`
+- New struct `AlertIncidentsClientListForScopeOptions`
+- New struct `AlertIncidentsClientListForScopeResponse`
+- New struct `AlertIncidentsClientRemediateOptions`
+- New struct `AlertIncidentsClientRemediateResponse`
+- New struct `AlertListResult`
+- New struct `AlertOperationClient`
+- New struct `AlertOperationClientGetOptions`
+- New struct `AlertOperationClientGetResponse`
+- New struct `AlertOperationClientListForScopeOptions`
+- New struct `AlertOperationClientListForScopeResponse`
+- New struct `AlertOperationListResult`
+- New struct `AlertOperationResult`
+- New struct `AlertProperties`
+- New struct `AlertsClient`
+- New struct `AlertsClientBeginRefreshAllOptions`
+- New struct `AlertsClientBeginRefreshOptions`
+- New struct `AlertsClientGetOptions`
+- New struct `AlertsClientGetResponse`
+- New struct `AlertsClientListForScopeOptions`
+- New struct `AlertsClientListForScopeResponse`
+- New struct `AlertsClientRefreshAllResponse`
+- New struct `AlertsClientRefreshResponse`
+- New struct `AlertsClientUpdateOptions`
+- New struct `AlertsClientUpdateResponse`
+- New struct `AzureRolesAssignedOutsidePimAlertConfigurationProperties`
+- New struct `AzureRolesAssignedOutsidePimAlertIncidentProperties`
+- New struct `DuplicateRoleCreatedAlertConfigurationProperties`
+- New struct `DuplicateRoleCreatedAlertIncidentProperties`
+- New struct `TooManyOwnersAssignedToResourceAlertConfigurationProperties`
+- New struct `TooManyOwnersAssignedToResourceAlertIncidentProperties`
+- New struct `TooManyPermanentOwnersAssignedToResourceAlertConfigurationProperties`
+- New struct `TooManyPermanentOwnersAssignedToResourceAlertIncidentProperties`
+
+
 ## 2.0.0 (2022-09-26)
 ### Breaking Changes
 
