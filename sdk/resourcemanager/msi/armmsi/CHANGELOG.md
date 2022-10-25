@@ -1,5 +1,16 @@
 # Release History
 
+## 0.8.0 (2022-10-25)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New field `TypeDisplayName` in struct `AzureResource`
+
+
 ## 0.7.0 (2022-06-27)
 ### Features Added
 

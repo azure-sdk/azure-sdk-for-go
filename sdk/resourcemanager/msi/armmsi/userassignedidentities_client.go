@@ -220,7 +220,6 @@ func (client *UserAssignedIdentitiesClient) getHandleResponse(resp *http.Respons
 }
 
 // NewListAssociatedResourcesPager - Lists the associated resources for this identity.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-31-preview
 // resourceGroupName - The name of the Resource Group to which the identity belongs.
 // resourceName - The name of the identity resource.
@@ -305,7 +304,6 @@ func (client *UserAssignedIdentitiesClient) listAssociatedResourcesHandleRespons
 }
 
 // NewListByResourceGroupPager - Lists all the userAssignedIdentities available under the specified ResourceGroup.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-31-preview
 // resourceGroupName - The name of the Resource Group to which the identity belongs.
 // options - UserAssignedIdentitiesClientListByResourceGroupOptions contains the optional parameters for the UserAssignedIdentitiesClient.ListByResourceGroup
@@ -370,7 +368,6 @@ func (client *UserAssignedIdentitiesClient) listByResourceGroupHandleResponse(re
 }
 
 // NewListBySubscriptionPager - Lists all the userAssignedIdentities available under the specified subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-31-preview
 // options - UserAssignedIdentitiesClientListBySubscriptionOptions contains the optional parameters for the UserAssignedIdentitiesClient.ListBySubscription
 // method.

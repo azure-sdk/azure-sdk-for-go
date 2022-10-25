@@ -40,27 +40,9 @@ type AzureResource struct {
 
 	// READ-ONLY; The type of this resource.
 	Type *string `json:"type,omitempty" azure:"ro"`
-}
 
-// CloudError - An error response from the ManagedServiceIdentity service.
-type CloudError struct {
-	// A list of additional details about the error.
-	Error *CloudErrorBody `json:"error,omitempty"`
-}
-
-// CloudErrorBody - An error response from the ManagedServiceIdentity service.
-type CloudErrorBody struct {
-	// An identifier for the error.
-	Code *string `json:"code,omitempty"`
-
-	// A list of additional details about the error.
-	Details []*CloudErrorBody `json:"details,omitempty"`
-
-	// A message describing the error, intended to be suitable for display in a user interface.
-	Message *string `json:"message,omitempty"`
-
-	// The target of the particular error. For example, the name of the property in error.
-	Target *string `json:"target,omitempty"`
+	// READ-ONLY; The name of the type of this resource.
+	TypeDisplayName *string `json:"typeDisplayName,omitempty" azure:"ro"`
 }
 
 // FederatedIdentityCredential - Describes a federated identity credential.
