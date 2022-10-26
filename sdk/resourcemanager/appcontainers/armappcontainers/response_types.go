@@ -214,6 +214,11 @@ type ContainerAppsClientUpdateResponse struct {
 	// placeholder for future response values
 }
 
+// ContainerAppsDiagnosticsClientGetAuthConfigsResponse contains the response from method ContainerAppsDiagnosticsClient.GetAuthConfigs.
+type ContainerAppsDiagnosticsClientGetAuthConfigsResponse struct {
+	AuthConfig
+}
+
 // ContainerAppsDiagnosticsClientGetDetectorResponse contains the response from method ContainerAppsDiagnosticsClient.GetDetector.
 type ContainerAppsDiagnosticsClientGetDetectorResponse struct {
 	Diagnostics
@@ -369,9 +374,29 @@ type ManagedEnvironmentsClientUpdateResponse struct {
 	// placeholder for future response values
 }
 
+// ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.GetCertificates.
+type ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse struct {
+	Certificate
+}
+
+// ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.GetDaprComponents.
+type ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse struct {
+	DaprComponent
+}
+
 // ManagedEnvironmentsDiagnosticsClientGetRootResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.GetRoot.
 type ManagedEnvironmentsDiagnosticsClientGetRootResponse struct {
 	ManagedEnvironment
+}
+
+// ManagedEnvironmentsDiagnosticsClientListCertificatesResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.ListCertificates.
+type ManagedEnvironmentsDiagnosticsClientListCertificatesResponse struct {
+	CertificateCollection
+}
+
+// ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.ListDaprComponents.
+type ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse struct {
+	DaprComponentsCollection
 }
 
 // ManagedEnvironmentsStoragesClientCreateOrUpdateResponse contains the response from method ManagedEnvironmentsStoragesClient.CreateOrUpdate.

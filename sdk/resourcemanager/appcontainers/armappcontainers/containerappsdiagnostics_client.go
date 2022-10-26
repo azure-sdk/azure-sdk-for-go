@@ -55,9 +55,66 @@ func NewContainerAppsDiagnosticsClient(subscriptionID string, credential azcore.
 	return client, nil
 }
 
+// GetAuthConfigs - Get the authentication configurations of a Container App.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-10-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// containerAppName - Name of the Container App.
+// options - ContainerAppsDiagnosticsClientGetAuthConfigsOptions contains the optional parameters for the ContainerAppsDiagnosticsClient.GetAuthConfigs
+// method.
+func (client *ContainerAppsDiagnosticsClient) GetAuthConfigs(ctx context.Context, resourceGroupName string, containerAppName string, options *ContainerAppsDiagnosticsClientGetAuthConfigsOptions) (ContainerAppsDiagnosticsClientGetAuthConfigsResponse, error) {
+	req, err := client.getAuthConfigsCreateRequest(ctx, resourceGroupName, containerAppName, options)
+	if err != nil {
+		return ContainerAppsDiagnosticsClientGetAuthConfigsResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ContainerAppsDiagnosticsClientGetAuthConfigsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ContainerAppsDiagnosticsClientGetAuthConfigsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getAuthConfigsHandleResponse(resp)
+}
+
+// getAuthConfigsCreateRequest creates the GetAuthConfigs request.
+func (client *ContainerAppsDiagnosticsClient) getAuthConfigsCreateRequest(ctx context.Context, resourceGroupName string, containerAppName string, options *ContainerAppsDiagnosticsClientGetAuthConfigsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/containerApps/{containerAppName}/detectorProperties/authConfigsApi/"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if containerAppName == "" {
+		return nil, errors.New("parameter containerAppName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{containerAppName}", url.PathEscape(containerAppName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getAuthConfigsHandleResponse handles the GetAuthConfigs response.
+func (client *ContainerAppsDiagnosticsClient) getAuthConfigsHandleResponse(resp *http.Response) (ContainerAppsDiagnosticsClientGetAuthConfigsResponse, error) {
+	result := ContainerAppsDiagnosticsClientGetAuthConfigsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AuthConfig); err != nil {
+		return ContainerAppsDiagnosticsClientGetAuthConfigsResponse{}, err
+	}
+	return result, nil
+}
+
 // GetDetector - Get a diagnostics result of a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-10-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // containerAppName - Name of the Container App.
 // detectorName - Name of the Container App Detector.
@@ -102,7 +159,7 @@ func (client *ContainerAppsDiagnosticsClient) getDetectorCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -119,7 +176,7 @@ func (client *ContainerAppsDiagnosticsClient) getDetectorHandleResponse(resp *ht
 
 // GetRevision - Get a revision of a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-10-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // containerAppName - Name of the Container App.
 // revisionName - Name of the Container App Revision.
@@ -164,7 +221,7 @@ func (client *ContainerAppsDiagnosticsClient) getRevisionCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,7 +238,7 @@ func (client *ContainerAppsDiagnosticsClient) getRevisionHandleResponse(resp *ht
 
 // GetRoot - Get the properties of a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-10-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // containerAppName - Name of the Container App.
 // options - ContainerAppsDiagnosticsClientGetRootOptions contains the optional parameters for the ContainerAppsDiagnosticsClient.GetRoot
@@ -221,7 +278,7 @@ func (client *ContainerAppsDiagnosticsClient) getRootCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -237,7 +294,7 @@ func (client *ContainerAppsDiagnosticsClient) getRootHandleResponse(resp *http.R
 }
 
 // NewListDetectorsPager - Get the list of diagnostics for a given Container App.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-10-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // containerAppName - Name of the Container App for which detector info is needed.
 // options - ContainerAppsDiagnosticsClientListDetectorsOptions contains the optional parameters for the ContainerAppsDiagnosticsClient.ListDetectors
@@ -290,7 +347,7 @@ func (client *ContainerAppsDiagnosticsClient) listDetectorsCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -306,7 +363,7 @@ func (client *ContainerAppsDiagnosticsClient) listDetectorsHandleResponse(resp *
 }
 
 // NewListRevisionsPager - Get the Revisions for a given Container App.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-10-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // containerAppName - Name of the Container App for which Revisions are needed.
 // options - ContainerAppsDiagnosticsClientListRevisionsOptions contains the optional parameters for the ContainerAppsDiagnosticsClient.ListRevisions
@@ -359,7 +416,7 @@ func (client *ContainerAppsDiagnosticsClient) listRevisionsCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

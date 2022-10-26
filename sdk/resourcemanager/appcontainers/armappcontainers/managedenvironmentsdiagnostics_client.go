@@ -55,9 +55,133 @@ func NewManagedEnvironmentsDiagnosticsClient(subscriptionID string, credential a
 	return client, nil
 }
 
+// GetCertificates - Get the specified Certificate of a Managed Environment used to host container apps.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-10-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// environmentName - Name of the Environment.
+// certificateName - Name of the Certificate.
+// options - ManagedEnvironmentsDiagnosticsClientGetCertificatesOptions contains the optional parameters for the ManagedEnvironmentsDiagnosticsClient.GetCertificates
+// method.
+func (client *ManagedEnvironmentsDiagnosticsClient) GetCertificates(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *ManagedEnvironmentsDiagnosticsClientGetCertificatesOptions) (ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse, error) {
+	req, err := client.getCertificatesCreateRequest(ctx, resourceGroupName, environmentName, certificateName, options)
+	if err != nil {
+		return ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getCertificatesHandleResponse(resp)
+}
+
+// getCertificatesCreateRequest creates the GetCertificates request.
+func (client *ManagedEnvironmentsDiagnosticsClient) getCertificatesCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *ManagedEnvironmentsDiagnosticsClientGetCertificatesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/detectorProperties/certificatesApi/{certificateName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if environmentName == "" {
+		return nil, errors.New("parameter environmentName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
+	if certificateName == "" {
+		return nil, errors.New("parameter certificateName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{certificateName}", url.PathEscape(certificateName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getCertificatesHandleResponse handles the GetCertificates response.
+func (client *ManagedEnvironmentsDiagnosticsClient) getCertificatesHandleResponse(resp *http.Response) (ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse, error) {
+	result := ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Certificate); err != nil {
+		return ManagedEnvironmentsDiagnosticsClientGetCertificatesResponse{}, err
+	}
+	return result, nil
+}
+
+// GetDaprComponents - Get the Dapr component of a Managed Environment used to host container apps.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-10-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// environmentName - Name of the Environment.
+// componentName - Name of the Dapr Component.
+// options - ManagedEnvironmentsDiagnosticsClientGetDaprComponentsOptions contains the optional parameters for the ManagedEnvironmentsDiagnosticsClient.GetDaprComponents
+// method.
+func (client *ManagedEnvironmentsDiagnosticsClient) GetDaprComponents(ctx context.Context, resourceGroupName string, environmentName string, componentName string, options *ManagedEnvironmentsDiagnosticsClientGetDaprComponentsOptions) (ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse, error) {
+	req, err := client.getDaprComponentsCreateRequest(ctx, resourceGroupName, environmentName, componentName, options)
+	if err != nil {
+		return ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getDaprComponentsHandleResponse(resp)
+}
+
+// getDaprComponentsCreateRequest creates the GetDaprComponents request.
+func (client *ManagedEnvironmentsDiagnosticsClient) getDaprComponentsCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, componentName string, options *ManagedEnvironmentsDiagnosticsClientGetDaprComponentsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/detectorProperties/daprApi/{componentName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if environmentName == "" {
+		return nil, errors.New("parameter environmentName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
+	if componentName == "" {
+		return nil, errors.New("parameter componentName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{componentName}", url.PathEscape(componentName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getDaprComponentsHandleResponse handles the GetDaprComponents response.
+func (client *ManagedEnvironmentsDiagnosticsClient) getDaprComponentsHandleResponse(resp *http.Response) (ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse, error) {
+	result := ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.DaprComponent); err != nil {
+		return ManagedEnvironmentsDiagnosticsClientGetDaprComponentsResponse{}, err
+	}
+	return result, nil
+}
+
 // GetRoot - Get the properties of a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-10-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Environment.
 // options - ManagedEnvironmentsDiagnosticsClientGetRootOptions contains the optional parameters for the ManagedEnvironmentsDiagnosticsClient.GetRoot
@@ -97,7 +221,7 @@ func (client *ManagedEnvironmentsDiagnosticsClient) getRootCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,6 +232,144 @@ func (client *ManagedEnvironmentsDiagnosticsClient) getRootHandleResponse(resp *
 	result := ManagedEnvironmentsDiagnosticsClientGetRootResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ManagedEnvironment); err != nil {
 		return ManagedEnvironmentsDiagnosticsClientGetRootResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListCertificatesPager - Get the Certificates of a Managed Environment used to host container apps.
+// Generated from API version 2022-10-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// environmentName - Name of the Environment.
+// options - ManagedEnvironmentsDiagnosticsClientListCertificatesOptions contains the optional parameters for the ManagedEnvironmentsDiagnosticsClient.ListCertificates
+// method.
+func (client *ManagedEnvironmentsDiagnosticsClient) NewListCertificatesPager(resourceGroupName string, environmentName string, options *ManagedEnvironmentsDiagnosticsClientListCertificatesOptions) *runtime.Pager[ManagedEnvironmentsDiagnosticsClientListCertificatesResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ManagedEnvironmentsDiagnosticsClientListCertificatesResponse]{
+		More: func(page ManagedEnvironmentsDiagnosticsClientListCertificatesResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ManagedEnvironmentsDiagnosticsClientListCertificatesResponse) (ManagedEnvironmentsDiagnosticsClientListCertificatesResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listCertificatesCreateRequest(ctx, resourceGroupName, environmentName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ManagedEnvironmentsDiagnosticsClientListCertificatesResponse{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return ManagedEnvironmentsDiagnosticsClientListCertificatesResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ManagedEnvironmentsDiagnosticsClientListCertificatesResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listCertificatesHandleResponse(resp)
+		},
+	})
+}
+
+// listCertificatesCreateRequest creates the ListCertificates request.
+func (client *ManagedEnvironmentsDiagnosticsClient) listCertificatesCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsDiagnosticsClientListCertificatesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/detectorProperties/certificatesApi/"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if environmentName == "" {
+		return nil, errors.New("parameter environmentName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listCertificatesHandleResponse handles the ListCertificates response.
+func (client *ManagedEnvironmentsDiagnosticsClient) listCertificatesHandleResponse(resp *http.Response) (ManagedEnvironmentsDiagnosticsClientListCertificatesResponse, error) {
+	result := ManagedEnvironmentsDiagnosticsClientListCertificatesResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.CertificateCollection); err != nil {
+		return ManagedEnvironmentsDiagnosticsClientListCertificatesResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListDaprComponentsPager - Get the Dapr components of a Managed Environment used to host container apps.
+// Generated from API version 2022-10-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// environmentName - Name of the Environment.
+// options - ManagedEnvironmentsDiagnosticsClientListDaprComponentsOptions contains the optional parameters for the ManagedEnvironmentsDiagnosticsClient.ListDaprComponents
+// method.
+func (client *ManagedEnvironmentsDiagnosticsClient) NewListDaprComponentsPager(resourceGroupName string, environmentName string, options *ManagedEnvironmentsDiagnosticsClientListDaprComponentsOptions) *runtime.Pager[ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse]{
+		More: func(page ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse) (ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listDaprComponentsCreateRequest(ctx, resourceGroupName, environmentName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listDaprComponentsHandleResponse(resp)
+		},
+	})
+}
+
+// listDaprComponentsCreateRequest creates the ListDaprComponents request.
+func (client *ManagedEnvironmentsDiagnosticsClient) listDaprComponentsCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsDiagnosticsClientListDaprComponentsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/detectorProperties/daprApi/"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if environmentName == "" {
+		return nil, errors.New("parameter environmentName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{environmentName}", url.PathEscape(environmentName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listDaprComponentsHandleResponse handles the ListDaprComponents response.
+func (client *ManagedEnvironmentsDiagnosticsClient) listDaprComponentsHandleResponse(resp *http.Response) (ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse, error) {
+	result := ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.DaprComponentsCollection); err != nil {
+		return ManagedEnvironmentsDiagnosticsClientListDaprComponentsResponse{}, err
 	}
 	return result, nil
 }
