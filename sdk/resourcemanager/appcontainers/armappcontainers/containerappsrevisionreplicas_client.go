@@ -57,7 +57,7 @@ func NewContainerAppsRevisionReplicasClient(subscriptionID string, credential az
 
 // GetReplica - Get a replica for a Container App Revision.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // containerAppName - Name of the Container App.
 // revisionName - Name of the Container App Revision.
@@ -107,7 +107,7 @@ func (client *ContainerAppsRevisionReplicasClient) getReplicaCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -124,7 +124,7 @@ func (client *ContainerAppsRevisionReplicasClient) getReplicaHandleResponse(resp
 
 // ListReplicas - List replicas for a Container App Revision.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // containerAppName - Name of the Container App.
 // revisionName - Name of the Container App Revision.
@@ -169,7 +169,7 @@ func (client *ContainerAppsRevisionReplicasClient) listReplicasCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

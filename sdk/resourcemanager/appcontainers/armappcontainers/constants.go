@@ -11,7 +11,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // AccessMode - Access mode for storage
@@ -373,6 +373,24 @@ func PossibleLogLevelValues() []LogLevel {
 		LogLevelError,
 		LogLevelInfo,
 		LogLevelWarn,
+	}
+}
+
+// ManagedCertificateDomainControlValidation - Selected type of domain control validation for managed certificates.
+type ManagedCertificateDomainControlValidation string
+
+const (
+	ManagedCertificateDomainControlValidationCNAME ManagedCertificateDomainControlValidation = "CNAME"
+	ManagedCertificateDomainControlValidationHTTP  ManagedCertificateDomainControlValidation = "HTTP"
+	ManagedCertificateDomainControlValidationTXT   ManagedCertificateDomainControlValidation = "TXT"
+)
+
+// PossibleManagedCertificateDomainControlValidationValues returns the possible values for the ManagedCertificateDomainControlValidation const type.
+func PossibleManagedCertificateDomainControlValidationValues() []ManagedCertificateDomainControlValidation {
+	return []ManagedCertificateDomainControlValidation{
+		ManagedCertificateDomainControlValidationCNAME,
+		ManagedCertificateDomainControlValidationHTTP,
+		ManagedCertificateDomainControlValidationTXT,
 	}
 }
 
