@@ -5287,6 +5287,9 @@ type RestorePointSourceMetadata struct {
 	// Gets the storage profile.
 	StorageProfile *RestorePointSourceVMStorageProfile `json:"storageProfile,omitempty"`
 
+	// UserData associated with the source VM for which restore point is captured, which is a base-64 encoded value.
+	UserData *string `json:"userData,omitempty"`
+
 	// Gets the virtual machine unique id.
 	VMID *string `json:"vmId,omitempty"`
 }
