@@ -1,5 +1,11 @@
 # Release History
 
+## 4.1.0 (2022-10-27)
+### Features Added
+
+- New const `StorageAccountTypeStandardSSDLRS`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 
