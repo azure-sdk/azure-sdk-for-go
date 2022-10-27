@@ -1,5 +1,175 @@
 # Release History
 
+## 1.1.0 (2022-10-27)
+### Features Added
+
+- New const `AuthorizationTypeOAuth2`
+- New const `OAuth2GrantTypeClientCredentials`
+- New const `NatGatewayStateDisabled`
+- New const `NatGatewayStateEnabled`
+- New const `TranslateRequiredQueryParametersConductQuery`
+- New const `PortalSettingsCspModeReportOnly`
+- New const `TranslateRequiredQueryParametersConductTemplate`
+- New const `PolicyFragmentContentFormatXML`
+- New const `PortalSettingsCspModeEnabled`
+- New const `PolicyFragmentContentFormatRawxml`
+- New const `OAuth2GrantTypeAuthorizationCode`
+- New const `PortalSettingsCspModeDisabled`
+- New type alias `TranslateRequiredQueryParametersConduct`
+- New type alias `PortalSettingsCspMode`
+- New type alias `NatGatewayState`
+- New type alias `PolicyFragmentContentFormat`
+- New type alias `AuthorizationType`
+- New type alias `OAuth2GrantType`
+- New function `*AuthorizationClient.Delete(context.Context, string, string, string, string, string, *AuthorizationClientDeleteOptions) (AuthorizationClientDeleteResponse, error)`
+- New function `*AuthorizationProviderClient.Delete(context.Context, string, string, string, string, *AuthorizationProviderClientDeleteOptions) (AuthorizationProviderClientDeleteResponse, error)`
+- New function `PossiblePortalSettingsCspModeValues() []PortalSettingsCspMode`
+- New function `*AuthorizationClient.NewListByAuthorizationProviderPager(string, string, string, *AuthorizationClientListByAuthorizationProviderOptions) *runtime.Pager[AuthorizationClientListByAuthorizationProviderResponse]`
+- New function `*PortalConfigClient.ListByService(context.Context, string, string, *PortalConfigClientListByServiceOptions) (PortalConfigClientListByServiceResponse, error)`
+- New function `*PortalConfigClient.GetEntityTag(context.Context, string, string, string, *PortalConfigClientGetEntityTagOptions) (PortalConfigClientGetEntityTagResponse, error)`
+- New function `*AuthorizationAccessPolicyClient.Delete(context.Context, string, string, string, string, string, string, *AuthorizationAccessPolicyClientDeleteOptions) (AuthorizationAccessPolicyClientDeleteResponse, error)`
+- New function `*AuthorizationClient.CreateOrUpdate(context.Context, string, string, string, string, AuthorizationContract, *AuthorizationClientCreateOrUpdateOptions) (AuthorizationClientCreateOrUpdateResponse, error)`
+- New function `*ServiceClient.BeginMigrateToStv2(context.Context, string, string, *ServiceClientBeginMigrateToStv2Options) (*runtime.Poller[ServiceClientMigrateToStv2Response], error)`
+- New function `*AuthorizationAccessPolicyClient.Get(context.Context, string, string, string, string, string, *AuthorizationAccessPolicyClientGetOptions) (AuthorizationAccessPolicyClientGetResponse, error)`
+- New function `*PolicyFragmentClient.GetEntityTag(context.Context, string, string, string, *PolicyFragmentClientGetEntityTagOptions) (PolicyFragmentClientGetEntityTagResponse, error)`
+- New function `*PortalConfigClient.Get(context.Context, string, string, string, *PortalConfigClientGetOptions) (PortalConfigClientGetResponse, error)`
+- New function `PossibleAuthorizationTypeValues() []AuthorizationType`
+- New function `*PolicyFragmentClient.ListReferences(context.Context, string, string, string, *PolicyFragmentClientListReferencesOptions) (PolicyFragmentClientListReferencesResponse, error)`
+- New function `PossibleNatGatewayStateValues() []NatGatewayState`
+- New function `NewPolicyFragmentClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PolicyFragmentClient, error)`
+- New function `NewAuthorizationProviderClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AuthorizationProviderClient, error)`
+- New function `*AuthorizationAccessPolicyClient.CreateOrUpdate(context.Context, string, string, string, string, string, AuthorizationAccessPolicyContract, *AuthorizationAccessPolicyClientCreateOrUpdateOptions) (AuthorizationAccessPolicyClientCreateOrUpdateResponse, error)`
+- New function `*AuthorizationProviderClient.Get(context.Context, string, string, string, *AuthorizationProviderClientGetOptions) (AuthorizationProviderClientGetResponse, error)`
+- New function `*PolicyFragmentClient.ListByService(context.Context, string, string, *PolicyFragmentClientListByServiceOptions) (PolicyFragmentClientListByServiceResponse, error)`
+- New function `*PolicyFragmentClient.Delete(context.Context, string, string, string, string, *PolicyFragmentClientDeleteOptions) (PolicyFragmentClientDeleteResponse, error)`
+- New function `*AuthorizationProviderClient.CreateOrUpdate(context.Context, string, string, string, AuthorizationProviderContract, *AuthorizationProviderClientCreateOrUpdateOptions) (AuthorizationProviderClientCreateOrUpdateResponse, error)`
+- New function `*PortalConfigClient.CreateOrUpdate(context.Context, string, string, string, string, PortalConfigContract, *PortalConfigClientCreateOrUpdateOptions) (PortalConfigClientCreateOrUpdateResponse, error)`
+- New function `*AuthorizationLoginLinksClient.Post(context.Context, string, string, string, string, AuthorizationLoginRequestContract, *AuthorizationLoginLinksClientPostOptions) (AuthorizationLoginLinksClientPostResponse, error)`
+- New function `NewAuthorizationClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AuthorizationClient, error)`
+- New function `PossibleTranslateRequiredQueryParametersConductValues() []TranslateRequiredQueryParametersConduct`
+- New function `PossibleOAuth2GrantTypeValues() []OAuth2GrantType`
+- New function `NewPortalConfigClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PortalConfigClient, error)`
+- New function `NewAuthorizationLoginLinksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AuthorizationLoginLinksClient, error)`
+- New function `*AuthorizationAccessPolicyClient.NewListByAuthorizationPager(string, string, string, string, *AuthorizationAccessPolicyClientListByAuthorizationOptions) *runtime.Pager[AuthorizationAccessPolicyClientListByAuthorizationResponse]`
+- New function `*AuthorizationClient.Get(context.Context, string, string, string, string, *AuthorizationClientGetOptions) (AuthorizationClientGetResponse, error)`
+- New function `*PolicyFragmentClient.Get(context.Context, string, string, string, *PolicyFragmentClientGetOptions) (PolicyFragmentClientGetResponse, error)`
+- New function `*AuthorizationProviderClient.NewListByServicePager(string, string, *AuthorizationProviderClientListByServiceOptions) *runtime.Pager[AuthorizationProviderClientListByServiceResponse]`
+- New function `*PortalConfigClient.Update(context.Context, string, string, string, string, PortalConfigContract, *PortalConfigClientUpdateOptions) (PortalConfigClientUpdateResponse, error)`
+- New function `*PolicyFragmentClient.BeginCreateOrUpdate(context.Context, string, string, string, PolicyFragmentContract, *PolicyFragmentClientBeginCreateOrUpdateOptions) (*runtime.Poller[PolicyFragmentClientCreateOrUpdateResponse], error)`
+- New function `PossiblePolicyFragmentContentFormatValues() []PolicyFragmentContentFormat`
+- New function `NewAuthorizationAccessPolicyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AuthorizationAccessPolicyClient, error)`
+- New struct `AuthorizationAccessPolicyClient`
+- New struct `AuthorizationAccessPolicyClientCreateOrUpdateOptions`
+- New struct `AuthorizationAccessPolicyClientCreateOrUpdateResponse`
+- New struct `AuthorizationAccessPolicyClientDeleteOptions`
+- New struct `AuthorizationAccessPolicyClientDeleteResponse`
+- New struct `AuthorizationAccessPolicyClientGetOptions`
+- New struct `AuthorizationAccessPolicyClientGetResponse`
+- New struct `AuthorizationAccessPolicyClientListByAuthorizationOptions`
+- New struct `AuthorizationAccessPolicyClientListByAuthorizationResponse`
+- New struct `AuthorizationAccessPolicyCollection`
+- New struct `AuthorizationAccessPolicyContract`
+- New struct `AuthorizationAccessPolicyContractProperties`
+- New struct `AuthorizationClient`
+- New struct `AuthorizationClientCreateOrUpdateOptions`
+- New struct `AuthorizationClientCreateOrUpdateResponse`
+- New struct `AuthorizationClientDeleteOptions`
+- New struct `AuthorizationClientDeleteResponse`
+- New struct `AuthorizationClientGetOptions`
+- New struct `AuthorizationClientGetResponse`
+- New struct `AuthorizationClientListByAuthorizationProviderOptions`
+- New struct `AuthorizationClientListByAuthorizationProviderResponse`
+- New struct `AuthorizationCollection`
+- New struct `AuthorizationContract`
+- New struct `AuthorizationContractProperties`
+- New struct `AuthorizationError`
+- New struct `AuthorizationLoginLinksClient`
+- New struct `AuthorizationLoginLinksClientPostOptions`
+- New struct `AuthorizationLoginLinksClientPostResponse`
+- New struct `AuthorizationLoginRequestContract`
+- New struct `AuthorizationLoginResponseContract`
+- New struct `AuthorizationProviderClient`
+- New struct `AuthorizationProviderClientCreateOrUpdateOptions`
+- New struct `AuthorizationProviderClientCreateOrUpdateResponse`
+- New struct `AuthorizationProviderClientDeleteOptions`
+- New struct `AuthorizationProviderClientDeleteResponse`
+- New struct `AuthorizationProviderClientGetOptions`
+- New struct `AuthorizationProviderClientGetResponse`
+- New struct `AuthorizationProviderClientListByServiceOptions`
+- New struct `AuthorizationProviderClientListByServiceResponse`
+- New struct `AuthorizationProviderCollection`
+- New struct `AuthorizationProviderContract`
+- New struct `AuthorizationProviderContractProperties`
+- New struct `AuthorizationProviderOAuth2GrantTypes`
+- New struct `AuthorizationProviderOAuth2Settings`
+- New struct `PolicyFragmentClient`
+- New struct `PolicyFragmentClientBeginCreateOrUpdateOptions`
+- New struct `PolicyFragmentClientCreateOrUpdateResponse`
+- New struct `PolicyFragmentClientDeleteOptions`
+- New struct `PolicyFragmentClientDeleteResponse`
+- New struct `PolicyFragmentClientGetEntityTagOptions`
+- New struct `PolicyFragmentClientGetEntityTagResponse`
+- New struct `PolicyFragmentClientGetOptions`
+- New struct `PolicyFragmentClientGetResponse`
+- New struct `PolicyFragmentClientListByServiceOptions`
+- New struct `PolicyFragmentClientListByServiceResponse`
+- New struct `PolicyFragmentClientListReferencesOptions`
+- New struct `PolicyFragmentClientListReferencesResponse`
+- New struct `PolicyFragmentCollection`
+- New struct `PolicyFragmentContract`
+- New struct `PolicyFragmentContractProperties`
+- New struct `PortalConfigClient`
+- New struct `PortalConfigClientCreateOrUpdateOptions`
+- New struct `PortalConfigClientCreateOrUpdateResponse`
+- New struct `PortalConfigClientGetEntityTagOptions`
+- New struct `PortalConfigClientGetEntityTagResponse`
+- New struct `PortalConfigClientGetOptions`
+- New struct `PortalConfigClientGetResponse`
+- New struct `PortalConfigClientListByServiceOptions`
+- New struct `PortalConfigClientListByServiceResponse`
+- New struct `PortalConfigClientUpdateOptions`
+- New struct `PortalConfigClientUpdateResponse`
+- New struct `PortalConfigCollection`
+- New struct `PortalConfigContract`
+- New struct `PortalConfigCorsProperties`
+- New struct `PortalConfigCspProperties`
+- New struct `PortalConfigDelegationProperties`
+- New struct `PortalConfigProperties`
+- New struct `PortalConfigPropertiesSignin`
+- New struct `PortalConfigPropertiesSignup`
+- New struct `PortalConfigTermsOfServiceProperties`
+- New struct `ProxyResource`
+- New struct `ResourceCollection`
+- New struct `ResourceCollectionValueItem`
+- New struct `ServiceClientBeginMigrateToStv2Options`
+- New struct `ServiceClientMigrateToStv2Response`
+- New field `UseInAPIDocumentation` in struct `OpenidConnectProviderUpdateContractProperties`
+- New field `UseInTestConsole` in struct `OpenidConnectProviderUpdateContractProperties`
+- New field `UseInAPIDocumentation` in struct `OpenidConnectProviderContractProperties`
+- New field `UseInTestConsole` in struct `OpenidConnectProviderContractProperties`
+- New field `ClientLibrary` in struct `IdentityProviderCreateContractProperties`
+- New field `OAuth2AuthenticationSettings` in struct `AuthenticationSettingsContract`
+- New field `OpenidAuthenticationSettings` in struct `AuthenticationSettingsContract`
+- New field `ClientLibrary` in struct `IdentityProviderUpdateProperties`
+- New field `ClientLibrary` in struct `IdentityProviderBaseParameters`
+- New field `UseInTestConsole` in struct `AuthorizationServerContractProperties`
+- New field `UseInAPIDocumentation` in struct `AuthorizationServerContractProperties`
+- New field `Metrics` in struct `DiagnosticContractProperties`
+- New field `NatGatewayState` in struct `AdditionalLocation`
+- New field `OutboundPublicIPAddresses` in struct `AdditionalLocation`
+- New field `Parameters` in struct `ContentTypeClientCreateOrUpdateOptions`
+- New field `NatGatewayState` in struct `ServiceBaseProperties`
+- New field `OutboundPublicIPAddresses` in struct `ServiceBaseProperties`
+- New field `ClientLibrary` in struct `IdentityProviderContractProperties`
+- New field `NatGatewayState` in struct `ServiceProperties`
+- New field `OutboundPublicIPAddresses` in struct `ServiceProperties`
+- New field `UseInAPIDocumentation` in struct `AuthorizationServerUpdateContractProperties`
+- New field `UseInTestConsole` in struct `AuthorizationServerUpdateContractProperties`
+- New field `OutboundPublicIPAddresses` in struct `ServiceUpdateProperties`
+- New field `NatGatewayState` in struct `ServiceUpdateProperties`
+- New field `TranslateRequiredQueryParametersConduct` in struct `APICreateOrUpdateProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
