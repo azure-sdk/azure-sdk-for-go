@@ -57,7 +57,7 @@ func NewPrivateLinkScopeOperationStatusClient(subscriptionID string, credential 
 
 // Get - Get the status of an azure asynchronous operation associated with a private link scope operation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // asyncOperationID - The operation Id.
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - PrivateLinkScopeOperationStatusClientGetOptions contains the optional parameters for the PrivateLinkScopeOperationStatusClient.Get
@@ -97,7 +97,7 @@ func (client *PrivateLinkScopeOperationStatusClient) getCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -11,24 +11,8 @@ package armmonitor
 
 const (
 	moduleName    = "armmonitor"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.9.0"
 )
-
-// AccessMode - Access mode types.
-type AccessMode string
-
-const (
-	AccessModeOpen        AccessMode = "Open"
-	AccessModePrivateOnly AccessMode = "PrivateOnly"
-)
-
-// PossibleAccessModeValues returns the possible values for the AccessMode const type.
-func PossibleAccessModeValues() []AccessMode {
-	return []AccessMode{
-		AccessModeOpen,
-		AccessModePrivateOnly,
-	}
-}
 
 // AggregationType - the aggregation type of the metric.
 type AggregationType string
@@ -76,16 +60,15 @@ func PossibleAggregationTypeEnumValues() []AggregationTypeEnum {
 	}
 }
 
-// AlertSeverity - Severity of the alert. Should be an integer between [0-4]. Value of 0 is severest. Relevant and required
-// only for rules of the kind LogAlert.
-type AlertSeverity int64
+// AlertSeverity - Severity Level of Alert
+type AlertSeverity string
 
 const (
-	AlertSeverityFour  AlertSeverity = 4
-	AlertSeverityOne   AlertSeverity = 1
-	AlertSeverityThree AlertSeverity = 3
-	AlertSeverityTwo   AlertSeverity = 2
-	AlertSeverityZero  AlertSeverity = 0
+	AlertSeverityFour  AlertSeverity = "4"
+	AlertSeverityOne   AlertSeverity = "1"
+	AlertSeverityThree AlertSeverity = "3"
+	AlertSeverityTwo   AlertSeverity = "2"
+	AlertSeverityZero  AlertSeverity = "0"
 )
 
 // PossibleAlertSeverityValues returns the possible values for the AlertSeverity const type.
@@ -121,15 +104,15 @@ func PossibleBaselineSensitivityValues() []BaselineSensitivity {
 type CategoryType string
 
 const (
-	CategoryTypeLogs    CategoryType = "Logs"
 	CategoryTypeMetrics CategoryType = "Metrics"
+	CategoryTypeLogs    CategoryType = "Logs"
 )
 
 // PossibleCategoryTypeValues returns the possible values for the CategoryType const type.
 func PossibleCategoryTypeValues() []CategoryType {
 	return []CategoryType{
-		CategoryTypeLogs,
 		CategoryTypeMetrics,
+		CategoryTypeLogs,
 	}
 }
 
@@ -165,7 +148,6 @@ const (
 	ConditionOperatorGreaterThanOrEqual ConditionOperator = "GreaterThanOrEqual"
 	ConditionOperatorLessThan           ConditionOperator = "LessThan"
 	ConditionOperatorLessThanOrEqual    ConditionOperator = "LessThanOrEqual"
-	ConditionOperatorEquals             ConditionOperator = "Equals"
 )
 
 // PossibleConditionOperatorValues returns the possible values for the ConditionOperator const type.
@@ -175,7 +157,28 @@ func PossibleConditionOperatorValues() []ConditionOperator {
 		ConditionOperatorGreaterThanOrEqual,
 		ConditionOperatorLessThan,
 		ConditionOperatorLessThanOrEqual,
-		ConditionOperatorEquals,
+	}
+}
+
+// ConditionalOperator - Result Condition Evaluation criteria.
+type ConditionalOperator string
+
+const (
+	ConditionalOperatorEqual              ConditionalOperator = "Equal"
+	ConditionalOperatorGreaterThan        ConditionalOperator = "GreaterThan"
+	ConditionalOperatorGreaterThanOrEqual ConditionalOperator = "GreaterThanOrEqual"
+	ConditionalOperatorLessThan           ConditionalOperator = "LessThan"
+	ConditionalOperatorLessThanOrEqual    ConditionalOperator = "LessThanOrEqual"
+)
+
+// PossibleConditionalOperatorValues returns the possible values for the ConditionalOperator const type.
+func PossibleConditionalOperatorValues() []ConditionalOperator {
+	return []ConditionalOperator{
+		ConditionalOperatorEqual,
+		ConditionalOperatorGreaterThan,
+		ConditionalOperatorGreaterThanOrEqual,
+		ConditionalOperatorLessThan,
+		ConditionalOperatorLessThanOrEqual,
 	}
 }
 
@@ -232,22 +235,6 @@ func PossibleDataStatusValues() []DataStatus {
 	}
 }
 
-// DimensionOperator - Operator for dimension values
-type DimensionOperator string
-
-const (
-	DimensionOperatorExclude DimensionOperator = "Exclude"
-	DimensionOperatorInclude DimensionOperator = "Include"
-)
-
-// PossibleDimensionOperatorValues returns the possible values for the DimensionOperator const type.
-func PossibleDimensionOperatorValues() []DimensionOperator {
-	return []DimensionOperator{
-		DimensionOperatorExclude,
-		DimensionOperatorInclude,
-	}
-}
-
 // DynamicThresholdOperator - The operator used to compare the metric value against the threshold.
 type DynamicThresholdOperator string
 
@@ -285,6 +272,22 @@ func PossibleDynamicThresholdSensitivityValues() []DynamicThresholdSensitivity {
 	}
 }
 
+// Enabled - The flag which indicates whether the Log Search rule is enabled. Value should be true or false
+type Enabled string
+
+const (
+	EnabledFalse Enabled = "false"
+	EnabledTrue  Enabled = "true"
+)
+
+// PossibleEnabledValues returns the possible values for the Enabled const type.
+func PossibleEnabledValues() []Enabled {
+	return []Enabled{
+		EnabledFalse,
+		EnabledTrue,
+	}
+}
+
 // EventLevel - the event level
 type EventLevel string
 
@@ -304,22 +307,6 @@ func PossibleEventLevelValues() []EventLevel {
 		EventLevelWarning,
 		EventLevelInformational,
 		EventLevelVerbose,
-	}
-}
-
-// Kind - Indicates the type of scheduled query rule. The default is LogAlert.
-type Kind string
-
-const (
-	KindLogAlert    Kind = "LogAlert"
-	KindLogToMetric Kind = "LogToMetric"
-)
-
-// PossibleKindValues returns the possible values for the Kind const type.
-func PossibleKindValues() []Kind {
-	return []Kind{
-		KindLogAlert,
-		KindLogToMetric,
 	}
 }
 
@@ -719,6 +706,22 @@ func PossibleMetricStatisticTypeValues() []MetricStatisticType {
 	}
 }
 
+// MetricTriggerType - Metric Trigger Evaluation Type
+type MetricTriggerType string
+
+const (
+	MetricTriggerTypeConsecutive MetricTriggerType = "Consecutive"
+	MetricTriggerTypeTotal       MetricTriggerType = "Total"
+)
+
+// PossibleMetricTriggerTypeValues returns the possible values for the MetricTriggerType const type.
+func PossibleMetricTriggerTypeValues() []MetricTriggerType {
+	return []MetricTriggerType{
+		MetricTriggerTypeConsecutive,
+		MetricTriggerTypeTotal,
+	}
+}
+
 // MetricUnit - The unit of the metric.
 type MetricUnit string
 
@@ -819,6 +822,7 @@ const (
 	OperatorEquals             Operator = "Equals"
 	OperatorGreaterThan        Operator = "GreaterThan"
 	OperatorGreaterThanOrEqual Operator = "GreaterThanOrEqual"
+	OperatorInclude            Operator = "Include"
 	OperatorLessThan           Operator = "LessThan"
 	OperatorLessThanOrEqual    Operator = "LessThanOrEqual"
 )
@@ -829,6 +833,7 @@ func PossibleOperatorValues() []Operator {
 		OperatorEquals,
 		OperatorGreaterThan,
 		OperatorGreaterThanOrEqual,
+		OperatorInclude,
 		OperatorLessThan,
 		OperatorLessThanOrEqual,
 	}
@@ -852,41 +857,37 @@ func PossiblePredictiveAutoscalePolicyScaleModeValues() []PredictiveAutoscalePol
 	}
 }
 
-// PrivateEndpointConnectionProvisioningState - The current provisioning state.
-type PrivateEndpointConnectionProvisioningState string
+// ProvisioningState - Provisioning state of the scheduled query rule
+type ProvisioningState string
 
 const (
-	PrivateEndpointConnectionProvisioningStateCreating  PrivateEndpointConnectionProvisioningState = "Creating"
-	PrivateEndpointConnectionProvisioningStateDeleting  PrivateEndpointConnectionProvisioningState = "Deleting"
-	PrivateEndpointConnectionProvisioningStateFailed    PrivateEndpointConnectionProvisioningState = "Failed"
-	PrivateEndpointConnectionProvisioningStateSucceeded PrivateEndpointConnectionProvisioningState = "Succeeded"
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateDeploying ProvisioningState = "Deploying"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
 )
 
-// PossiblePrivateEndpointConnectionProvisioningStateValues returns the possible values for the PrivateEndpointConnectionProvisioningState const type.
-func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpointConnectionProvisioningState {
-	return []PrivateEndpointConnectionProvisioningState{
-		PrivateEndpointConnectionProvisioningStateCreating,
-		PrivateEndpointConnectionProvisioningStateDeleting,
-		PrivateEndpointConnectionProvisioningStateFailed,
-		PrivateEndpointConnectionProvisioningStateSucceeded,
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateDeploying,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
 	}
 }
 
-// PrivateEndpointServiceConnectionStatus - The private endpoint connection status.
-type PrivateEndpointServiceConnectionStatus string
+// QueryType - Set value to 'ResultAccount'
+type QueryType string
 
 const (
-	PrivateEndpointServiceConnectionStatusApproved PrivateEndpointServiceConnectionStatus = "Approved"
-	PrivateEndpointServiceConnectionStatusPending  PrivateEndpointServiceConnectionStatus = "Pending"
-	PrivateEndpointServiceConnectionStatusRejected PrivateEndpointServiceConnectionStatus = "Rejected"
+	QueryTypeResultCount QueryType = "ResultCount"
 )
 
-// PossiblePrivateEndpointServiceConnectionStatusValues returns the possible values for the PrivateEndpointServiceConnectionStatus const type.
-func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointServiceConnectionStatus {
-	return []PrivateEndpointServiceConnectionStatus{
-		PrivateEndpointServiceConnectionStatusApproved,
-		PrivateEndpointServiceConnectionStatusPending,
-		PrivateEndpointServiceConnectionStatusRejected,
+// PossibleQueryTypeValues returns the possible values for the QueryType const type.
+func PossibleQueryTypeValues() []QueryType {
+	return []QueryType{
+		QueryTypeResultCount,
 	}
 }
 
@@ -1005,28 +1006,6 @@ func PossibleScaleTypeValues() []ScaleType {
 		ScaleTypePercentChangeCount,
 		ScaleTypeExactCount,
 		ScaleTypeServiceAllowedNextValue,
-	}
-}
-
-// TimeAggregation - Aggregation type. Relevant and required only for rules of the kind LogAlert.
-type TimeAggregation string
-
-const (
-	TimeAggregationAverage TimeAggregation = "Average"
-	TimeAggregationCount   TimeAggregation = "Count"
-	TimeAggregationMaximum TimeAggregation = "Maximum"
-	TimeAggregationMinimum TimeAggregation = "Minimum"
-	TimeAggregationTotal   TimeAggregation = "Total"
-)
-
-// PossibleTimeAggregationValues returns the possible values for the TimeAggregation const type.
-func PossibleTimeAggregationValues() []TimeAggregation {
-	return []TimeAggregation{
-		TimeAggregationAverage,
-		TimeAggregationCount,
-		TimeAggregationMaximum,
-		TimeAggregationMinimum,
-		TimeAggregationTotal,
 	}
 }
 

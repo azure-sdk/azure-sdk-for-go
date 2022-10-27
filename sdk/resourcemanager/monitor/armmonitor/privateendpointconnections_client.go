@@ -57,7 +57,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 
 // BeginCreateOrUpdate - Approve or reject a private endpoint connection with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // privateEndpointConnectionName - The name of the private endpoint connection.
@@ -77,7 +77,7 @@ func (client *PrivateEndpointConnectionsClient) BeginCreateOrUpdate(ctx context.
 
 // CreateOrUpdate - Approve or reject a private endpoint connection with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 func (client *PrivateEndpointConnectionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, scopeName string, privateEndpointConnectionName string, parameters PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, scopeName, privateEndpointConnectionName, parameters, options)
 	if err != nil {
@@ -117,7 +117,7 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -125,7 +125,7 @@ func (client *PrivateEndpointConnectionsClient) createOrUpdateCreateRequest(ctx 
 
 // BeginDelete - Deletes a private endpoint connection with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // privateEndpointConnectionName - The name of the private endpoint connection.
@@ -145,7 +145,7 @@ func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context,
 
 // Delete - Deletes a private endpoint connection with a given name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 func (client *PrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, scopeName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, scopeName, privateEndpointConnectionName, options)
 	if err != nil {
@@ -185,15 +185,14 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // Get - Gets a private endpoint connection.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // privateEndpointConnectionName - The name of the private endpoint connection.
@@ -238,7 +237,7 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,26 +252,38 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// ListByPrivateLinkScope - Gets all private endpoint connections on a private link scope.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// NewListByPrivateLinkScopePager - Gets all private endpoint connections on a private link scope.
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // options - PrivateEndpointConnectionsClientListByPrivateLinkScopeOptions contains the optional parameters for the PrivateEndpointConnectionsClient.ListByPrivateLinkScope
 // method.
-func (client *PrivateEndpointConnectionsClient) ListByPrivateLinkScope(ctx context.Context, resourceGroupName string, scopeName string, options *PrivateEndpointConnectionsClientListByPrivateLinkScopeOptions) (PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse, error) {
-	req, err := client.listByPrivateLinkScopeCreateRequest(ctx, resourceGroupName, scopeName, options)
-	if err != nil {
-		return PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse{}, err
-	}
-	resp, err := client.pl.Do(req)
-	if err != nil {
-		return PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.listByPrivateLinkScopeHandleResponse(resp)
+func (client *PrivateEndpointConnectionsClient) NewListByPrivateLinkScopePager(resourceGroupName string, scopeName string, options *PrivateEndpointConnectionsClientListByPrivateLinkScopeOptions) *runtime.Pager[PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse]{
+		More: func(page PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse) (PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByPrivateLinkScopeCreateRequest(ctx, resourceGroupName, scopeName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return PrivateEndpointConnectionsClientListByPrivateLinkScopeResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByPrivateLinkScopeHandleResponse(resp)
+		},
+	})
 }
 
 // listByPrivateLinkScopeCreateRequest creates the ListByPrivateLinkScope request.
@@ -295,7 +306,7 @@ func (client *PrivateEndpointConnectionsClient) listByPrivateLinkScopeCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

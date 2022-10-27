@@ -11,6 +11,26 @@ package armmonitor
 
 import "encoding/json"
 
+func unmarshalActionClassification(rawMsg json.RawMessage) (ActionClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ActionClassification
+	switch m["odata.type"] {
+	case "Microsoft.WindowsAzure.Management.Monitoring.Alerts.Models.Microsoft.AppInsights.Nexus.DataContracts.Resources.ScheduledQueryRules.AlertingAction":
+		b = &AlertingAction{}
+	case "Microsoft.WindowsAzure.Management.Monitoring.Alerts.Models.Microsoft.AppInsights.Nexus.DataContracts.Resources.ScheduledQueryRules.LogToMetricAction":
+		b = &LogToMetricAction{}
+	default:
+		b = &Action{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
 func unmarshalMetricAlertCriteriaClassification(rawMsg json.RawMessage) (MetricAlertCriteriaClassification, error) {
 	if rawMsg == nil {
 		return nil, nil

@@ -54,7 +54,7 @@ func NewDiagnosticSettingsCategoryClient(credential azcore.TokenCredential, opti
 
 // Get - Gets the diagnostic settings category for the specified resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-05-01-preview
+// Generated from API version 2017-05-01-preview
 // resourceURI - The identifier of the resource.
 // name - The name of the diagnostic setting.
 // options - DiagnosticSettingsCategoryClientGetOptions contains the optional parameters for the DiagnosticSettingsCategoryClient.Get
@@ -87,7 +87,7 @@ func (client *DiagnosticSettingsCategoryClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2017-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -102,31 +102,25 @@ func (client *DiagnosticSettingsCategoryClient) getHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// NewListPager - Lists the diagnostic settings categories for the specified resource.
-// Generated from API version 2021-05-01-preview
+// List - Lists the diagnostic settings categories for the specified resource.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2017-05-01-preview
 // resourceURI - The identifier of the resource.
 // options - DiagnosticSettingsCategoryClientListOptions contains the optional parameters for the DiagnosticSettingsCategoryClient.List
 // method.
-func (client *DiagnosticSettingsCategoryClient) NewListPager(resourceURI string, options *DiagnosticSettingsCategoryClientListOptions) *runtime.Pager[DiagnosticSettingsCategoryClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[DiagnosticSettingsCategoryClientListResponse]{
-		More: func(page DiagnosticSettingsCategoryClientListResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *DiagnosticSettingsCategoryClientListResponse) (DiagnosticSettingsCategoryClientListResponse, error) {
-			req, err := client.listCreateRequest(ctx, resourceURI, options)
-			if err != nil {
-				return DiagnosticSettingsCategoryClientListResponse{}, err
-			}
-			resp, err := client.pl.Do(req)
-			if err != nil {
-				return DiagnosticSettingsCategoryClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return DiagnosticSettingsCategoryClientListResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listHandleResponse(resp)
-		},
-	})
+func (client *DiagnosticSettingsCategoryClient) List(ctx context.Context, resourceURI string, options *DiagnosticSettingsCategoryClientListOptions) (DiagnosticSettingsCategoryClientListResponse, error) {
+	req, err := client.listCreateRequest(ctx, resourceURI, options)
+	if err != nil {
+		return DiagnosticSettingsCategoryClientListResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return DiagnosticSettingsCategoryClientListResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return DiagnosticSettingsCategoryClientListResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listHandleResponse(resp)
 }
 
 // listCreateRequest creates the List request.
@@ -138,7 +132,7 @@ func (client *DiagnosticSettingsCategoryClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01-preview")
+	reqQP.Set("api-version", "2017-05-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

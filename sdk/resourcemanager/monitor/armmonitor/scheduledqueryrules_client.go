@@ -55,15 +55,15 @@ func NewScheduledQueryRulesClient(subscriptionID string, credential azcore.Token
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates a scheduled query rule.
+// CreateOrUpdate - Creates or updates an log search rule.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-15
+// Generated from API version 2018-04-16
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // ruleName - The name of the rule.
 // parameters - The parameters of the rule to create or update.
 // options - ScheduledQueryRulesClientCreateOrUpdateOptions contains the optional parameters for the ScheduledQueryRulesClient.CreateOrUpdate
 // method.
-func (client *ScheduledQueryRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, ruleName string, parameters ScheduledQueryRuleResource, options *ScheduledQueryRulesClientCreateOrUpdateOptions) (ScheduledQueryRulesClientCreateOrUpdateResponse, error) {
+func (client *ScheduledQueryRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, ruleName string, parameters LogSearchRuleResource, options *ScheduledQueryRulesClientCreateOrUpdateOptions) (ScheduledQueryRulesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, ruleName, parameters, options)
 	if err != nil {
 		return ScheduledQueryRulesClientCreateOrUpdateResponse{}, err
@@ -79,8 +79,8 @@ func (client *ScheduledQueryRulesClient) CreateOrUpdate(ctx context.Context, res
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ScheduledQueryRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, ruleName string, parameters ScheduledQueryRuleResource, options *ScheduledQueryRulesClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules/{ruleName}"
+func (client *ScheduledQueryRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, ruleName string, parameters LogSearchRuleResource, options *ScheduledQueryRulesClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules/{ruleName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -98,7 +98,7 @@ func (client *ScheduledQueryRulesClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-15")
+	reqQP.Set("api-version", "2018-04-16")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -107,15 +107,15 @@ func (client *ScheduledQueryRulesClient) createOrUpdateCreateRequest(ctx context
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
 func (client *ScheduledQueryRulesClient) createOrUpdateHandleResponse(resp *http.Response) (ScheduledQueryRulesClientCreateOrUpdateResponse, error) {
 	result := ScheduledQueryRulesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ScheduledQueryRuleResource); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.LogSearchRuleResource); err != nil {
 		return ScheduledQueryRulesClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Deletes a scheduled query rule.
+// Delete - Deletes a Log Search rule
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-15
+// Generated from API version 2018-04-16
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // ruleName - The name of the rule.
 // options - ScheduledQueryRulesClientDeleteOptions contains the optional parameters for the ScheduledQueryRulesClient.Delete
@@ -137,11 +137,7 @@ func (client *ScheduledQueryRulesClient) Delete(ctx context.Context, resourceGro
 
 // deleteCreateRequest creates the Delete request.
 func (client *ScheduledQueryRulesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, ruleName string, options *ScheduledQueryRulesClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules/{ruleName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules/{ruleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -150,20 +146,24 @@ func (client *ScheduledQueryRulesClient) deleteCreateRequest(ctx context.Context
 		return nil, errors.New("parameter ruleName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{ruleName}", url.PathEscape(ruleName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-15")
+	reqQP.Set("api-version", "2018-04-16")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// Get - Retrieve an scheduled query rule definition.
+// Get - Gets an Log Search rule
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-15
+// Generated from API version 2018-04-16
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // ruleName - The name of the rule.
 // options - ScheduledQueryRulesClientGetOptions contains the optional parameters for the ScheduledQueryRulesClient.Get method.
@@ -184,11 +184,7 @@ func (client *ScheduledQueryRulesClient) Get(ctx context.Context, resourceGroupN
 
 // getCreateRequest creates the Get request.
 func (client *ScheduledQueryRulesClient) getCreateRequest(ctx context.Context, resourceGroupName string, ruleName string, options *ScheduledQueryRulesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules/{ruleName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules/{ruleName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -197,12 +193,16 @@ func (client *ScheduledQueryRulesClient) getCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter ruleName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{ruleName}", url.PathEscape(ruleName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-15")
+	reqQP.Set("api-version", "2018-04-16")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -211,30 +211,24 @@ func (client *ScheduledQueryRulesClient) getCreateRequest(ctx context.Context, r
 // getHandleResponse handles the Get response.
 func (client *ScheduledQueryRulesClient) getHandleResponse(resp *http.Response) (ScheduledQueryRulesClientGetResponse, error) {
 	result := ScheduledQueryRulesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ScheduledQueryRuleResource); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.LogSearchRuleResource); err != nil {
 		return ScheduledQueryRulesClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByResourceGroupPager - Retrieve scheduled query rule definitions in a resource group.
-// Generated from API version 2022-06-15
+// NewListByResourceGroupPager - List the Log Search rules within a resource group.
+// Generated from API version 2018-04-16
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - ScheduledQueryRulesClientListByResourceGroupOptions contains the optional parameters for the ScheduledQueryRulesClient.ListByResourceGroup
 // method.
 func (client *ScheduledQueryRulesClient) NewListByResourceGroupPager(resourceGroupName string, options *ScheduledQueryRulesClientListByResourceGroupOptions) *runtime.Pager[ScheduledQueryRulesClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ScheduledQueryRulesClientListByResourceGroupResponse]{
 		More: func(page ScheduledQueryRulesClientListByResourceGroupResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
+			return false
 		},
 		Fetcher: func(ctx context.Context, page *ScheduledQueryRulesClientListByResourceGroupResponse) (ScheduledQueryRulesClientListByResourceGroupResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
-			}
+			req, err := client.listByResourceGroupCreateRequest(ctx, resourceGroupName, options)
 			if err != nil {
 				return ScheduledQueryRulesClientListByResourceGroupResponse{}, err
 			}
@@ -252,21 +246,24 @@ func (client *ScheduledQueryRulesClient) NewListByResourceGroupPager(resourceGro
 
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *ScheduledQueryRulesClient) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *ScheduledQueryRulesClientListByResourceGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-15")
+	reqQP.Set("api-version", "2018-04-16")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -275,29 +272,23 @@ func (client *ScheduledQueryRulesClient) listByResourceGroupCreateRequest(ctx co
 // listByResourceGroupHandleResponse handles the ListByResourceGroup response.
 func (client *ScheduledQueryRulesClient) listByResourceGroupHandleResponse(resp *http.Response) (ScheduledQueryRulesClientListByResourceGroupResponse, error) {
 	result := ScheduledQueryRulesClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ScheduledQueryRuleResourceCollection); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.LogSearchRuleResourceCollection); err != nil {
 		return ScheduledQueryRulesClientListByResourceGroupResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListBySubscriptionPager - Retrieve a scheduled query rule definitions in a subscription.
-// Generated from API version 2022-06-15
+// NewListBySubscriptionPager - List the Log Search rules within a subscription group.
+// Generated from API version 2018-04-16
 // options - ScheduledQueryRulesClientListBySubscriptionOptions contains the optional parameters for the ScheduledQueryRulesClient.ListBySubscription
 // method.
 func (client *ScheduledQueryRulesClient) NewListBySubscriptionPager(options *ScheduledQueryRulesClientListBySubscriptionOptions) *runtime.Pager[ScheduledQueryRulesClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ScheduledQueryRulesClientListBySubscriptionResponse]{
 		More: func(page ScheduledQueryRulesClientListBySubscriptionResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
+			return false
 		},
 		Fetcher: func(ctx context.Context, page *ScheduledQueryRulesClientListBySubscriptionResponse) (ScheduledQueryRulesClientListBySubscriptionResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listBySubscriptionCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
-			}
+			req, err := client.listBySubscriptionCreateRequest(ctx, options)
 			if err != nil {
 				return ScheduledQueryRulesClientListBySubscriptionResponse{}, err
 			}
@@ -325,7 +316,10 @@ func (client *ScheduledQueryRulesClient) listBySubscriptionCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-15")
+	reqQP.Set("api-version", "2018-04-16")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -334,21 +328,21 @@ func (client *ScheduledQueryRulesClient) listBySubscriptionCreateRequest(ctx con
 // listBySubscriptionHandleResponse handles the ListBySubscription response.
 func (client *ScheduledQueryRulesClient) listBySubscriptionHandleResponse(resp *http.Response) (ScheduledQueryRulesClientListBySubscriptionResponse, error) {
 	result := ScheduledQueryRulesClientListBySubscriptionResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ScheduledQueryRuleResourceCollection); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.LogSearchRuleResourceCollection); err != nil {
 		return ScheduledQueryRulesClientListBySubscriptionResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Update a scheduled query rule.
+// Update - Update log search Rule.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-15
+// Generated from API version 2018-04-16
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // ruleName - The name of the rule.
 // parameters - The parameters of the rule to update.
 // options - ScheduledQueryRulesClientUpdateOptions contains the optional parameters for the ScheduledQueryRulesClient.Update
 // method.
-func (client *ScheduledQueryRulesClient) Update(ctx context.Context, resourceGroupName string, ruleName string, parameters ScheduledQueryRuleResourcePatch, options *ScheduledQueryRulesClientUpdateOptions) (ScheduledQueryRulesClientUpdateResponse, error) {
+func (client *ScheduledQueryRulesClient) Update(ctx context.Context, resourceGroupName string, ruleName string, parameters LogSearchRuleResourcePatch, options *ScheduledQueryRulesClientUpdateOptions) (ScheduledQueryRulesClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, ruleName, parameters, options)
 	if err != nil {
 		return ScheduledQueryRulesClientUpdateResponse{}, err
@@ -364,8 +358,8 @@ func (client *ScheduledQueryRulesClient) Update(ctx context.Context, resourceGro
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ScheduledQueryRulesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, ruleName string, parameters ScheduledQueryRuleResourcePatch, options *ScheduledQueryRulesClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules/{ruleName}"
+func (client *ScheduledQueryRulesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, ruleName string, parameters LogSearchRuleResourcePatch, options *ScheduledQueryRulesClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Insights/scheduledQueryRules/{ruleName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -383,7 +377,7 @@ func (client *ScheduledQueryRulesClient) updateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-15")
+	reqQP.Set("api-version", "2018-04-16")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -392,7 +386,7 @@ func (client *ScheduledQueryRulesClient) updateCreateRequest(ctx context.Context
 // updateHandleResponse handles the Update response.
 func (client *ScheduledQueryRulesClient) updateHandleResponse(resp *http.Response) (ScheduledQueryRulesClientUpdateResponse, error) {
 	result := ScheduledQueryRulesClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ScheduledQueryRuleResource); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.LogSearchRuleResource); err != nil {
 		return ScheduledQueryRulesClientUpdateResponse{}, err
 	}
 	return result, nil

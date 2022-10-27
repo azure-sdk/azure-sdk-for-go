@@ -58,7 +58,7 @@ func NewPrivateLinkScopesClient(subscriptionID string, credential azcore.TokenCr
 // CreateOrUpdate - Creates (or updates) a Azure Monitor PrivateLinkScope. Note: You cannot specify a different value for
 // InstrumentationKey nor AppId in the Put operation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // azureMonitorPrivateLinkScopePayload - Properties that need to be specified to create or update a Azure Monitor PrivateLinkScope.
@@ -99,7 +99,7 @@ func (client *PrivateLinkScopesClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, azureMonitorPrivateLinkScopePayload)
@@ -116,7 +116,7 @@ func (client *PrivateLinkScopesClient) createOrUpdateHandleResponse(resp *http.R
 
 // BeginDelete - Deletes a Azure Monitor PrivateLinkScope.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // options - PrivateLinkScopesClientBeginDeleteOptions contains the optional parameters for the PrivateLinkScopesClient.BeginDelete
@@ -135,7 +135,7 @@ func (client *PrivateLinkScopesClient) BeginDelete(ctx context.Context, resource
 
 // Delete - Deletes a Azure Monitor PrivateLinkScope.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 func (client *PrivateLinkScopesClient) deleteOperation(ctx context.Context, resourceGroupName string, scopeName string, options *PrivateLinkScopesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, scopeName, options)
 	if err != nil {
@@ -171,15 +171,14 @@ func (client *PrivateLinkScopesClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
 // Get - Returns a Azure Monitor PrivateLinkScope.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // options - PrivateLinkScopesClientGetOptions contains the optional parameters for the PrivateLinkScopesClient.Get method.
@@ -218,7 +217,7 @@ func (client *PrivateLinkScopesClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +233,7 @@ func (client *PrivateLinkScopesClient) getHandleResponse(resp *http.Response) (P
 }
 
 // NewListPager - Gets a list of all Azure Monitor PrivateLinkScopes within a subscription.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // options - PrivateLinkScopesClientListOptions contains the optional parameters for the PrivateLinkScopesClient.List method.
 func (client *PrivateLinkScopesClient) NewListPager(options *PrivateLinkScopesClientListOptions) *runtime.Pager[PrivateLinkScopesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PrivateLinkScopesClientListResponse]{
@@ -276,7 +275,7 @@ func (client *PrivateLinkScopesClient) listCreateRequest(ctx context.Context, op
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -292,7 +291,7 @@ func (client *PrivateLinkScopesClient) listHandleResponse(resp *http.Response) (
 }
 
 // NewListByResourceGroupPager - Gets a list of Azure Monitor PrivateLinkScopes within a resource group.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - PrivateLinkScopesClientListByResourceGroupOptions contains the optional parameters for the PrivateLinkScopesClient.ListByResourceGroup
 // method.
@@ -340,7 +339,7 @@ func (client *PrivateLinkScopesClient) listByResourceGroupCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -357,7 +356,7 @@ func (client *PrivateLinkScopesClient) listByResourceGroupHandleResponse(resp *h
 
 // UpdateTags - Updates an existing PrivateLinkScope's tags. To update other fields use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // privateLinkScopeTags - Updated tag information to set into the PrivateLinkScope instance.
@@ -398,7 +397,7 @@ func (client *PrivateLinkScopesClient) updateTagsCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, privateLinkScopeTags)

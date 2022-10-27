@@ -486,7 +486,7 @@ type PrivateLinkScopesClientUpdateTagsResponse struct {
 
 // ScheduledQueryRulesClientCreateOrUpdateResponse contains the response from method ScheduledQueryRulesClient.CreateOrUpdate.
 type ScheduledQueryRulesClientCreateOrUpdateResponse struct {
-	ScheduledQueryRuleResource
+	LogSearchRuleResource
 }
 
 // ScheduledQueryRulesClientDeleteResponse contains the response from method ScheduledQueryRulesClient.Delete.
@@ -496,22 +496,22 @@ type ScheduledQueryRulesClientDeleteResponse struct {
 
 // ScheduledQueryRulesClientGetResponse contains the response from method ScheduledQueryRulesClient.Get.
 type ScheduledQueryRulesClientGetResponse struct {
-	ScheduledQueryRuleResource
+	LogSearchRuleResource
 }
 
 // ScheduledQueryRulesClientListByResourceGroupResponse contains the response from method ScheduledQueryRulesClient.ListByResourceGroup.
 type ScheduledQueryRulesClientListByResourceGroupResponse struct {
-	ScheduledQueryRuleResourceCollection
+	LogSearchRuleResourceCollection
 }
 
 // ScheduledQueryRulesClientListBySubscriptionResponse contains the response from method ScheduledQueryRulesClient.ListBySubscription.
 type ScheduledQueryRulesClientListBySubscriptionResponse struct {
-	ScheduledQueryRuleResourceCollection
+	LogSearchRuleResourceCollection
 }
 
 // ScheduledQueryRulesClientUpdateResponse contains the response from method ScheduledQueryRulesClient.Update.
 type ScheduledQueryRulesClientUpdateResponse struct {
-	ScheduledQueryRuleResource
+	LogSearchRuleResource
 }
 
 // TenantActivityLogsClientListResponse contains the response from method TenantActivityLogsClient.List.

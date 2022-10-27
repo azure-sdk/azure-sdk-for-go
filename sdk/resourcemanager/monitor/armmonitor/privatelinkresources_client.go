@@ -57,7 +57,7 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 
 // Get - Gets the private link resources that need to be created for a Azure Monitor PrivateLinkScope.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // groupName - The name of the private link resource.
@@ -102,7 +102,7 @@ func (client *PrivateLinkResourcesClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,26 +117,38 @@ func (client *PrivateLinkResourcesClient) getHandleResponse(resp *http.Response)
 	return result, nil
 }
 
-// ListByPrivateLinkScope - Gets the private link resources that need to be created for a Azure Monitor PrivateLinkScope.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-07-01-preview
+// NewListByPrivateLinkScopePager - Gets the private link resources that need to be created for a Azure Monitor PrivateLinkScope.
+// Generated from API version 2019-10-17-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // scopeName - The name of the Azure Monitor PrivateLinkScope resource.
 // options - PrivateLinkResourcesClientListByPrivateLinkScopeOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByPrivateLinkScope
 // method.
-func (client *PrivateLinkResourcesClient) ListByPrivateLinkScope(ctx context.Context, resourceGroupName string, scopeName string, options *PrivateLinkResourcesClientListByPrivateLinkScopeOptions) (PrivateLinkResourcesClientListByPrivateLinkScopeResponse, error) {
-	req, err := client.listByPrivateLinkScopeCreateRequest(ctx, resourceGroupName, scopeName, options)
-	if err != nil {
-		return PrivateLinkResourcesClientListByPrivateLinkScopeResponse{}, err
-	}
-	resp, err := client.pl.Do(req)
-	if err != nil {
-		return PrivateLinkResourcesClientListByPrivateLinkScopeResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return PrivateLinkResourcesClientListByPrivateLinkScopeResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.listByPrivateLinkScopeHandleResponse(resp)
+func (client *PrivateLinkResourcesClient) NewListByPrivateLinkScopePager(resourceGroupName string, scopeName string, options *PrivateLinkResourcesClientListByPrivateLinkScopeOptions) *runtime.Pager[PrivateLinkResourcesClientListByPrivateLinkScopeResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PrivateLinkResourcesClientListByPrivateLinkScopeResponse]{
+		More: func(page PrivateLinkResourcesClientListByPrivateLinkScopeResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *PrivateLinkResourcesClientListByPrivateLinkScopeResponse) (PrivateLinkResourcesClientListByPrivateLinkScopeResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByPrivateLinkScopeCreateRequest(ctx, resourceGroupName, scopeName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return PrivateLinkResourcesClientListByPrivateLinkScopeResponse{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return PrivateLinkResourcesClientListByPrivateLinkScopeResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return PrivateLinkResourcesClientListByPrivateLinkScopeResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByPrivateLinkScopeHandleResponse(resp)
+		},
+	})
 }
 
 // listByPrivateLinkScopeCreateRequest creates the ListByPrivateLinkScope request.
@@ -159,7 +171,7 @@ func (client *PrivateLinkResourcesClient) listByPrivateLinkScopeCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-07-01-preview")
+	reqQP.Set("api-version", "2019-10-17-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
