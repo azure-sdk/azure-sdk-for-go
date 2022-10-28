@@ -1,5 +1,11 @@
 # Release History
 
+## 2.1.0 (2022-10-28)
+### Features Added
+
+- New field `FlowLogs` in struct `VirtualNetworkPropertiesFormat`
+
+
 ## 2.0.1 (2022-10-14)
 ### Others Changes
 - Update live test dependencies

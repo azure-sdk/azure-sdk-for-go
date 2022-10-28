@@ -16681,6 +16681,9 @@ type VirtualNetworkPropertiesFormat struct {
 	// A list of peerings in a Virtual Network.
 	VirtualNetworkPeerings []*VirtualNetworkPeering `json:"virtualNetworkPeerings,omitempty"`
 
+	// READ-ONLY; A collection of references to flow log resources.
+	FlowLogs []*FlowLog `json:"flowLogs,omitempty" azure:"ro"`
+
 	// READ-ONLY; The provisioning state of the virtual network resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 
