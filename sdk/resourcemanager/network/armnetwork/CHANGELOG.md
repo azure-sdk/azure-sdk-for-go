@@ -1,5 +1,15 @@
 # Release History
 
+## 3.0.0 (2022-10-31)
+### Breaking Changes
+
+- Type of `ErrorResponse.Error` has been changed from `*ErrorDetails` to `*Error`
+
+### Features Added
+
+- New field `RunningOperationIDs` in struct `WatcherPropertiesFormat`
+
+
 ## 2.0.1 (2022-10-14)
 ### Others Changes
 - Update live test dependencies

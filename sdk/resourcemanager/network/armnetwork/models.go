@@ -5267,7 +5267,7 @@ type ErrorDetails struct {
 // ErrorResponse - The error object.
 type ErrorResponse struct {
 	// The error details object.
-	Error *ErrorDetails `json:"error,omitempty"`
+	Error *Error `json:"error,omitempty"`
 }
 
 // EvaluatedNetworkSecurityGroup - Results of network security group evaluation.
@@ -17197,6 +17197,9 @@ type WatcherListResult struct {
 
 // WatcherPropertiesFormat - The network watcher properties.
 type WatcherPropertiesFormat struct {
+	// List of running operation IDs.
+	RunningOperationIDs []*int32 `json:"runningOperationIds,omitempty"`
+
 	// READ-ONLY; The provisioning state of the network watcher resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }

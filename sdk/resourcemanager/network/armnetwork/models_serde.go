@@ -33328,6 +33328,7 @@ func (w *WatcherListResult) UnmarshalJSON(data []byte) error {
 func (w WatcherPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "provisioningState", w.ProvisioningState)
+	populate(objectMap, "runningOperationIds", w.RunningOperationIDs)
 	return json.Marshal(objectMap)
 }
 
@@ -33342,6 +33343,9 @@ func (w *WatcherPropertiesFormat) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &w.ProvisioningState)
+			delete(rawMsg, key)
+		case "runningOperationIds":
+			err = unpopulate(val, "RunningOperationIDs", &w.RunningOperationIDs)
 			delete(rawMsg, key)
 		}
 		if err != nil {
