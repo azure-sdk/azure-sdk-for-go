@@ -1,5 +1,276 @@
 # Release History
 
+## 2.0.0 (2022-11-01)
+### Breaking Changes
+
+- Type of `ForecastDefinition.Timeframe` has been changed from `*ForecastTimeframeType` to `*ForecastTimeframe`
+- Type of `ForecastDefinition.TimePeriod` has been changed from `*QueryTimePeriod` to `*ForecastTimePeriod`
+- Type of `OperationListResult.Value` has been changed from `[]*Operation` to `[]*OperationForCostManagement`
+- Type of `ExportExecutionListResult.Value` has been changed from `[]*ExportExecution` to `[]*ExportRun`
+- Type of `ForecastDataset.Filter` has been changed from `*QueryFilter` to `*ForecastFilter`
+- Type of `ForecastDataset.Aggregation` has been changed from `map[string]*QueryAggregation` to `map[string]*ForecastAggregation`
+- Type of `ForecastDataset.Configuration` has been changed from `*QueryDatasetConfiguration` to `*ForecastDatasetConfiguration`
+- Const `ForecastTimeframeTypeBillingMonthToDate` has been removed
+- Const `ForecastTimeframeTypeTheLastMonth` has been removed
+- Const `ForecastTimeframeTypeWeekToDate` has been removed
+- Const `ForecastTimeframeTypeTheLastBillingMonth` has been removed
+- Const `ForecastTimeframeTypeMonthToDate` has been removed
+- Const `ForecastTimeframeTypeCustom` has been removed
+- Type alias `ForecastTimeframeType` has been removed
+- Function `PossibleForecastTimeframeTypeValues` has been removed
+- Function `*GenerateDetailedCostReportOperationResultsClient.Get` has been removed
+- Struct `ExportExecution` has been removed
+- Struct `ExportExecutionProperties` has been removed
+- Struct `GenerateDetailedCostReportOperationResultsClientGetOptions` has been removed
+- Field `QueryResult` of struct `ForecastClientUsageResponse` has been removed
+- Field `ETag` of struct `ProxyResource` has been removed
+- Field `ID` of struct `Operation` has been removed
+- Field `SKU` of struct `Resource` has been removed
+- Field `Tags` of struct `Resource` has been removed
+- Field `ETag` of struct `Resource` has been removed
+- Field `Location` of struct `Resource` has been removed
+- Field `QueryResult` of struct `ForecastClientExternalCloudProviderUsageResponse` has been removed
+
+### Features Added
+
+- New const `DaysOfWeekTuesday`
+- New const `CreatedByTypeUser`
+- New const `WeeksOfMonthFourth`
+- New const `TermP1Y`
+- New const `DaysOfWeekMonday`
+- New const `OriginSystem`
+- New const `ForecastOperatorTypeIn`
+- New const `BenefitKindSavingsPlan`
+- New const `WeeksOfMonthFirst`
+- New const `DaysOfWeekThursday`
+- New const `GrainHourly`
+- New const `GrainParameterDaily`
+- New const `CostDetailsDataFormatCSVCostDetailsDataFormat`
+- New const `CheckNameAvailabilityReasonInvalid`
+- New const `ScheduledActionStatusExpired`
+- New const `FunctionNamePreTaxCostUSD`
+- New const `GrainParameterMonthly`
+- New const `ActionTypeInternal`
+- New const `ForecastTimeframeCustom`
+- New const `ScheduleFrequencyDaily`
+- New const `CreatedByTypeKey`
+- New const `OriginUserSystem`
+- New const `ScopeSingle`
+- New const `CostDetailsStatusTypeCompletedCostDetailsStatusType`
+- New const `LookBackPeriodLast30Days`
+- New const `ScheduledActionKindInsightAlert`
+- New const `LookBackPeriodLast7Days`
+- New const `CheckNameAvailabilityReasonAlreadyExists`
+- New const `CostDetailsMetricTypeActualCostCostDetailsMetricType`
+- New const `TermP3Y`
+- New const `CostDetailsMetricTypeAmortizedCostCostDetailsMetricType`
+- New const `CreatedByTypeApplication`
+- New const `FileFormatCSV`
+- New const `BenefitKindIncludedQuantity`
+- New const `CostDetailsStatusTypeFailedCostDetailsStatusType`
+- New const `GrainMonthly`
+- New const `GrainDaily`
+- New const `ScheduleFrequencyWeekly`
+- New const `GrainParameterHourly`
+- New const `CreatedByTypeManagedIdentity`
+- New const `CostDetailsStatusTypeNoDataFoundCostDetailsStatusType`
+- New const `DaysOfWeekFriday`
+- New const `DaysOfWeekSunday`
+- New const `FunctionNamePreTaxCost`
+- New const `ScopeShared`
+- New const `ScheduledActionStatusEnabled`
+- New const `OriginUser`
+- New const `ScheduleFrequencyMonthly`
+- New const `LookBackPeriodLast60Days`
+- New const `FunctionNameCost`
+- New const `WeeksOfMonthLast`
+- New const `WeeksOfMonthSecond`
+- New const `DaysOfWeekSaturday`
+- New const `DaysOfWeekWednesday`
+- New const `FunctionNameCostUSD`
+- New const `ScheduledActionStatusDisabled`
+- New const `WeeksOfMonthThird`
+- New const `BenefitKindReservation`
+- New const `ScheduledActionKindEmail`
+- New type alias `ScheduleFrequency`
+- New type alias `ForecastTimeframe`
+- New type alias `CostDetailsMetricType`
+- New type alias `ForecastOperatorType`
+- New type alias `ActionType`
+- New type alias `CostDetailsStatusType`
+- New type alias `Term`
+- New type alias `Origin`
+- New type alias `ScheduledActionStatus`
+- New type alias `CreatedByType`
+- New type alias `CheckNameAvailabilityReason`
+- New type alias `GrainParameter`
+- New type alias `Scope`
+- New type alias `FileFormat`
+- New type alias `ScheduledActionKind`
+- New type alias `FunctionName`
+- New type alias `CostDetailsDataFormat`
+- New type alias `BenefitKind`
+- New type alias `DaysOfWeek`
+- New type alias `Grain`
+- New type alias `WeeksOfMonth`
+- New type alias `LookBackPeriod`
+- New function `PossibleGrainParameterValues() []GrainParameter`
+- New function `*PriceSheetClient.BeginDownloadByBillingProfile(context.Context, string, string, *PriceSheetClientBeginDownloadByBillingProfileOptions) (*runtime.Poller[PriceSheetClientDownloadByBillingProfileResponse], error)`
+- New function `*ScheduledActionsClient.Get(context.Context, string, *ScheduledActionsClientGetOptions) (ScheduledActionsClientGetResponse, error)`
+- New function `PossibleLookBackPeriodValues() []LookBackPeriod`
+- New function `*SavingsPlanUtilizationSummary.GetBenefitUtilizationSummary() *BenefitUtilizationSummary`
+- New function `*ScheduledActionsClient.CreateOrUpdateByScope(context.Context, string, string, ScheduledAction, *ScheduledActionsClientCreateOrUpdateByScopeOptions) (ScheduledActionsClientCreateOrUpdateByScopeResponse, error)`
+- New function `NewBenefitRecommendationsClient(azcore.TokenCredential, *arm.ClientOptions) (*BenefitRecommendationsClient, error)`
+- New function `*ScheduledActionsClient.CheckNameAvailabilityByScope(context.Context, string, CheckNameAvailabilityRequest, *ScheduledActionsClientCheckNameAvailabilityByScopeOptions) (ScheduledActionsClientCheckNameAvailabilityByScopeResponse, error)`
+- New function `*ScheduledActionsClient.CreateOrUpdate(context.Context, string, ScheduledAction, *ScheduledActionsClientCreateOrUpdateOptions) (ScheduledActionsClientCreateOrUpdateResponse, error)`
+- New function `PossibleActionTypeValues() []ActionType`
+- New function `PossibleDaysOfWeekValues() []DaysOfWeek`
+- New function `PossibleCheckNameAvailabilityReasonValues() []CheckNameAvailabilityReason`
+- New function `PossibleForecastTimeframeValues() []ForecastTimeframe`
+- New function `NewPriceSheetClient(azcore.TokenCredential, *arm.ClientOptions) (*PriceSheetClient, error)`
+- New function `*SingleScopeBenefitRecommendationProperties.GetBenefitRecommendationProperties() *BenefitRecommendationProperties`
+- New function `*BenefitUtilizationSummariesClient.NewListBySavingsPlanOrderPager(string, *BenefitUtilizationSummariesClientListBySavingsPlanOrderOptions) *runtime.Pager[BenefitUtilizationSummariesClientListBySavingsPlanOrderResponse]`
+- New function `NewBenefitUtilizationSummariesClient(azcore.TokenCredential, *arm.ClientOptions) (*BenefitUtilizationSummariesClient, error)`
+- New function `*ScheduledActionsClient.CheckNameAvailability(context.Context, CheckNameAvailabilityRequest, *ScheduledActionsClientCheckNameAvailabilityOptions) (ScheduledActionsClientCheckNameAvailabilityResponse, error)`
+- New function `*BenefitRecommendationsClient.NewListPager(string, *BenefitRecommendationsClientListOptions) *runtime.Pager[BenefitRecommendationsClientListResponse]`
+- New function `PossibleCostDetailsStatusTypeValues() []CostDetailsStatusType`
+- New function `*BenefitUtilizationSummariesClient.NewListByBillingAccountIDPager(string, *BenefitUtilizationSummariesClientListByBillingAccountIDOptions) *runtime.Pager[BenefitUtilizationSummariesClientListByBillingAccountIDResponse]`
+- New function `*PriceSheetClient.BeginDownload(context.Context, string, string, string, *PriceSheetClientBeginDownloadOptions) (*runtime.Poller[PriceSheetClientDownloadResponse], error)`
+- New function `*ScheduledActionsClient.Run(context.Context, string, *ScheduledActionsClientRunOptions) (ScheduledActionsClientRunResponse, error)`
+- New function `*ScheduledActionsClient.NewListPager(*ScheduledActionsClientListOptions) *runtime.Pager[ScheduledActionsClientListResponse]`
+- New function `*BenefitUtilizationSummariesClient.NewListBySavingsPlanIDPager(string, string, *BenefitUtilizationSummariesClientListBySavingsPlanIDOptions) *runtime.Pager[BenefitUtilizationSummariesClientListBySavingsPlanIDResponse]`
+- New function `PossibleFileFormatValues() []FileFormat`
+- New function `PossibleScheduleFrequencyValues() []ScheduleFrequency`
+- New function `*GenerateCostDetailsReportClient.BeginGetOperationResults(context.Context, string, string, *GenerateCostDetailsReportClientBeginGetOperationResultsOptions) (*runtime.Poller[GenerateCostDetailsReportClientGetOperationResultsResponse], error)`
+- New function `PossibleScheduledActionStatusValues() []ScheduledActionStatus`
+- New function `*BenefitRecommendationProperties.GetBenefitRecommendationProperties() *BenefitRecommendationProperties`
+- New function `PossibleScheduledActionKindValues() []ScheduledActionKind`
+- New function `PossibleOriginValues() []Origin`
+- New function `PossibleCostDetailsDataFormatValues() []CostDetailsDataFormat`
+- New function `PossibleForecastOperatorTypeValues() []ForecastOperatorType`
+- New function `PossibleFunctionNameValues() []FunctionName`
+- New function `PossibleBenefitKindValues() []BenefitKind`
+- New function `PossibleCostDetailsMetricTypeValues() []CostDetailsMetricType`
+- New function `*BenefitUtilizationSummariesClient.NewListByBillingProfileIDPager(string, string, *BenefitUtilizationSummariesClientListByBillingProfileIDOptions) *runtime.Pager[BenefitUtilizationSummariesClientListByBillingProfileIDResponse]`
+- New function `*ScheduledActionsClient.GetByScope(context.Context, string, string, *ScheduledActionsClientGetByScopeOptions) (ScheduledActionsClientGetByScopeResponse, error)`
+- New function `PossibleGrainValues() []Grain`
+- New function `*SharedScopeBenefitRecommendationProperties.GetBenefitRecommendationProperties() *BenefitRecommendationProperties`
+- New function `*ScheduledActionsClient.NewListByScopePager(string, *ScheduledActionsClientListByScopeOptions) *runtime.Pager[ScheduledActionsClientListByScopeResponse]`
+- New function `NewGenerateCostDetailsReportClient(azcore.TokenCredential, *arm.ClientOptions) (*GenerateCostDetailsReportClient, error)`
+- New function `*BenefitUtilizationSummary.GetBenefitUtilizationSummary() *BenefitUtilizationSummary`
+- New function `*ScheduledActionsClient.RunByScope(context.Context, string, string, *ScheduledActionsClientRunByScopeOptions) (ScheduledActionsClientRunByScopeResponse, error)`
+- New function `PossibleTermValues() []Term`
+- New function `*IncludedQuantityUtilizationSummary.GetBenefitUtilizationSummary() *BenefitUtilizationSummary`
+- New function `PossibleWeeksOfMonthValues() []WeeksOfMonth`
+- New function `NewScheduledActionsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScheduledActionsClient, error)`
+- New function `*GenerateDetailedCostReportOperationResultsClient.BeginGet(context.Context, string, string, *GenerateDetailedCostReportOperationResultsClientBeginGetOptions) (*runtime.Poller[GenerateDetailedCostReportOperationResultsClientGetResponse], error)`
+- New function `*ScheduledActionsClient.Delete(context.Context, string, *ScheduledActionsClientDeleteOptions) (ScheduledActionsClientDeleteResponse, error)`
+- New function `*ScheduledActionsClient.DeleteByScope(context.Context, string, string, *ScheduledActionsClientDeleteByScopeOptions) (ScheduledActionsClientDeleteByScopeResponse, error)`
+- New function `PossibleCreatedByTypeValues() []CreatedByType`
+- New function `PossibleScopeValues() []Scope`
+- New function `*GenerateCostDetailsReportClient.BeginCreateOperation(context.Context, string, GenerateCostDetailsReportRequestDefinition, *GenerateCostDetailsReportClientBeginCreateOperationOptions) (*runtime.Poller[GenerateCostDetailsReportClientCreateOperationResponse], error)`
+- New struct `AllSavingsBenefitDetails`
+- New struct `AllSavingsList`
+- New struct `BenefitRecommendationModel`
+- New struct `BenefitRecommendationProperties`
+- New struct `BenefitRecommendationsClient`
+- New struct `BenefitRecommendationsClientListOptions`
+- New struct `BenefitRecommendationsClientListResponse`
+- New struct `BenefitRecommendationsListResult`
+- New struct `BenefitResource`
+- New struct `BenefitUtilizationSummariesClient`
+- New struct `BenefitUtilizationSummariesClientListByBillingAccountIDOptions`
+- New struct `BenefitUtilizationSummariesClientListByBillingAccountIDResponse`
+- New struct `BenefitUtilizationSummariesClientListByBillingProfileIDOptions`
+- New struct `BenefitUtilizationSummariesClientListByBillingProfileIDResponse`
+- New struct `BenefitUtilizationSummariesClientListBySavingsPlanIDOptions`
+- New struct `BenefitUtilizationSummariesClientListBySavingsPlanIDResponse`
+- New struct `BenefitUtilizationSummariesClientListBySavingsPlanOrderOptions`
+- New struct `BenefitUtilizationSummariesClientListBySavingsPlanOrderResponse`
+- New struct `BenefitUtilizationSummariesListResult`
+- New struct `BenefitUtilizationSummary`
+- New struct `BenefitUtilizationSummaryProperties`
+- New struct `BlobInfo`
+- New struct `CheckNameAvailabilityRequest`
+- New struct `CheckNameAvailabilityResponse`
+- New struct `CostDetailsOperationResults`
+- New struct `CostDetailsTimePeriod`
+- New struct `ExportRun`
+- New struct `ExportRunProperties`
+- New struct `FileDestination`
+- New struct `ForecastAggregation`
+- New struct `ForecastColumn`
+- New struct `ForecastComparisonExpression`
+- New struct `ForecastDatasetConfiguration`
+- New struct `ForecastFilter`
+- New struct `ForecastProperties`
+- New struct `ForecastResult`
+- New struct `ForecastTimePeriod`
+- New struct `GenerateCostDetailsReportClient`
+- New struct `GenerateCostDetailsReportClientBeginCreateOperationOptions`
+- New struct `GenerateCostDetailsReportClientBeginGetOperationResultsOptions`
+- New struct `GenerateCostDetailsReportClientCreateOperationResponse`
+- New struct `GenerateCostDetailsReportClientGetOperationResultsResponse`
+- New struct `GenerateCostDetailsReportErrorResponse`
+- New struct `GenerateCostDetailsReportRequestDefinition`
+- New struct `GenerateDetailedCostReportOperationResultsClientBeginGetOptions`
+- New struct `IncludedQuantityUtilizationSummary`
+- New struct `IncludedQuantityUtilizationSummaryProperties`
+- New struct `NotificationProperties`
+- New struct `OperationForCostManagement`
+- New struct `PriceSheetClient`
+- New struct `PriceSheetClientBeginDownloadByBillingProfileOptions`
+- New struct `PriceSheetClientBeginDownloadOptions`
+- New struct `PriceSheetClientDownloadByBillingProfileResponse`
+- New struct `PriceSheetClientDownloadResponse`
+- New struct `ProxyResourceForCostManagement`
+- New struct `RecommendationUsageDetails`
+- New struct `ReportManifest`
+- New struct `RequestContext`
+- New struct `ResourceForCostManagement`
+- New struct `SavingsPlanUtilizationSummary`
+- New struct `SavingsPlanUtilizationSummaryProperties`
+- New struct `ScheduleProperties`
+- New struct `ScheduledAction`
+- New struct `ScheduledActionListResult`
+- New struct `ScheduledActionProperties`
+- New struct `ScheduledActionProxyResource`
+- New struct `ScheduledActionsClient`
+- New struct `ScheduledActionsClientCheckNameAvailabilityByScopeOptions`
+- New struct `ScheduledActionsClientCheckNameAvailabilityByScopeResponse`
+- New struct `ScheduledActionsClientCheckNameAvailabilityOptions`
+- New struct `ScheduledActionsClientCheckNameAvailabilityResponse`
+- New struct `ScheduledActionsClientCreateOrUpdateByScopeOptions`
+- New struct `ScheduledActionsClientCreateOrUpdateByScopeResponse`
+- New struct `ScheduledActionsClientCreateOrUpdateOptions`
+- New struct `ScheduledActionsClientCreateOrUpdateResponse`
+- New struct `ScheduledActionsClientDeleteByScopeOptions`
+- New struct `ScheduledActionsClientDeleteByScopeResponse`
+- New struct `ScheduledActionsClientDeleteOptions`
+- New struct `ScheduledActionsClientDeleteResponse`
+- New struct `ScheduledActionsClientGetByScopeOptions`
+- New struct `ScheduledActionsClientGetByScopeResponse`
+- New struct `ScheduledActionsClientGetOptions`
+- New struct `ScheduledActionsClientGetResponse`
+- New struct `ScheduledActionsClientListByScopeOptions`
+- New struct `ScheduledActionsClientListByScopeResponse`
+- New struct `ScheduledActionsClientListOptions`
+- New struct `ScheduledActionsClientListResponse`
+- New struct `ScheduledActionsClientRunByScopeOptions`
+- New struct `ScheduledActionsClientRunByScopeResponse`
+- New struct `ScheduledActionsClientRunOptions`
+- New struct `ScheduledActionsClientRunResponse`
+- New struct `SharedScopeBenefitRecommendationProperties`
+- New struct `SingleScopeBenefitRecommendationProperties`
+- New struct `SystemData`
+- New anonymous field `ForecastResult` in struct `ForecastClientUsageResponse`
+- New anonymous field `ForecastResult` in struct `ForecastClientExternalCloudProviderUsageResponse`
+- New field `ExpiryTime` in struct `DownloadURL`
+- New field `Origin` in struct `Operation`
+- New field `ActionType` in struct `Operation`
+- New field `IsDataAction` in struct `Operation`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/costmanagement/armcostmanagement` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
