@@ -166,6 +166,7 @@ func (client *SavedSearchesClient) deleteCreateRequest(ctx context.Context, reso
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2020-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -230,26 +231,32 @@ func (client *SavedSearchesClient) getHandleResponse(resp *http.Response) (Saved
 	return result, nil
 }
 
-// ListByWorkspace - Gets the saved searches for a given Log Analytics Workspace
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewListByWorkspacePager - Gets the saved searches for a given Log Analytics Workspace
 // Generated from API version 2020-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
 // options - SavedSearchesClientListByWorkspaceOptions contains the optional parameters for the SavedSearchesClient.ListByWorkspace
 // method.
-func (client *SavedSearchesClient) ListByWorkspace(ctx context.Context, resourceGroupName string, workspaceName string, options *SavedSearchesClientListByWorkspaceOptions) (SavedSearchesClientListByWorkspaceResponse, error) {
-	req, err := client.listByWorkspaceCreateRequest(ctx, resourceGroupName, workspaceName, options)
-	if err != nil {
-		return SavedSearchesClientListByWorkspaceResponse{}, err
-	}
-	resp, err := client.pl.Do(req)
-	if err != nil {
-		return SavedSearchesClientListByWorkspaceResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return SavedSearchesClientListByWorkspaceResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.listByWorkspaceHandleResponse(resp)
+func (client *SavedSearchesClient) NewListByWorkspacePager(resourceGroupName string, workspaceName string, options *SavedSearchesClientListByWorkspaceOptions) *runtime.Pager[SavedSearchesClientListByWorkspaceResponse] {
+	return runtime.NewPager(runtime.PagingHandler[SavedSearchesClientListByWorkspaceResponse]{
+		More: func(page SavedSearchesClientListByWorkspaceResponse) bool {
+			return false
+		},
+		Fetcher: func(ctx context.Context, page *SavedSearchesClientListByWorkspaceResponse) (SavedSearchesClientListByWorkspaceResponse, error) {
+			req, err := client.listByWorkspaceCreateRequest(ctx, resourceGroupName, workspaceName, options)
+			if err != nil {
+				return SavedSearchesClientListByWorkspaceResponse{}, err
+			}
+			resp, err := client.pl.Do(req)
+			if err != nil {
+				return SavedSearchesClientListByWorkspaceResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return SavedSearchesClientListByWorkspaceResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByWorkspaceHandleResponse(resp)
+		},
+	})
 }
 
 // listByWorkspaceCreateRequest creates the ListByWorkspace request.

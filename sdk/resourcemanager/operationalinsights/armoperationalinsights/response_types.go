@@ -52,7 +52,7 @@ type DataExportsClientCreateOrUpdateResponse struct {
 
 // DataExportsClientDeleteResponse contains the response from method DataExportsClient.Delete.
 type DataExportsClientDeleteResponse struct {
-	// placeholder for future response values
+	ErrorResponse
 }
 
 // DataExportsClientGetResponse contains the response from method DataExportsClient.Get.
@@ -206,6 +206,11 @@ type QueryPacksClientCreateOrUpdateResponse struct {
 	LogAnalyticsQueryPack
 }
 
+// QueryPacksClientCreateOrUpdateWithoutNameResponse contains the response from method QueryPacksClient.CreateOrUpdateWithoutName.
+type QueryPacksClientCreateOrUpdateWithoutNameResponse struct {
+	LogAnalyticsQueryPack
+}
+
 // QueryPacksClientDeleteResponse contains the response from method QueryPacksClient.Delete.
 type QueryPacksClientDeleteResponse struct {
 	// placeholder for future response values
@@ -284,6 +289,11 @@ type StorageInsightConfigsClientGetResponse struct {
 // StorageInsightConfigsClientListByWorkspaceResponse contains the response from method StorageInsightConfigsClient.ListByWorkspace.
 type StorageInsightConfigsClientListByWorkspaceResponse struct {
 	StorageInsightListResult
+}
+
+// TablesClientCancelSearchResponse contains the response from method TablesClient.CancelSearch.
+type TablesClientCancelSearchResponse struct {
+	// placeholder for future response values
 }
 
 // TablesClientCreateOrUpdateResponse contains the response from method TablesClient.CreateOrUpdate.
