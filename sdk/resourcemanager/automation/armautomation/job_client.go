@@ -58,7 +58,7 @@ func NewJobClient(subscriptionID string, credential azcore.TokenCredential, opti
 
 // Create - Create a job of the runbook.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // jobName - The job name.
@@ -103,7 +103,7 @@ func (client *JobClient) createCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -123,7 +123,7 @@ func (client *JobClient) createHandleResponse(resp *http.Response) (JobClientCre
 
 // Get - Retrieve the job identified by job name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // jobName - The job name.
@@ -167,7 +167,7 @@ func (client *JobClient) getCreateRequest(ctx context.Context, resourceGroupName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -187,7 +187,7 @@ func (client *JobClient) getHandleResponse(resp *http.Response) (JobClientGetRes
 
 // GetOutput - Retrieve the job output identified by job name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // jobName - The name of the job to be created.
@@ -231,7 +231,7 @@ func (client *JobClient) getOutputCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -254,7 +254,7 @@ func (client *JobClient) getOutputHandleResponse(resp *http.Response) (JobClient
 
 // GetRunbookContent - Retrieve the runbook content of the job identified by job name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // jobName - The job name.
@@ -298,7 +298,7 @@ func (client *JobClient) getRunbookContentCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -320,8 +320,7 @@ func (client *JobClient) getRunbookContentHandleResponse(resp *http.Response) (J
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of jobs.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // options - JobClientListByAutomationAccountOptions contains the optional parameters for the JobClient.ListByAutomationAccount
@@ -377,7 +376,7 @@ func (client *JobClient) listByAutomationAccountCreateRequest(ctx context.Contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -397,7 +396,7 @@ func (client *JobClient) listByAutomationAccountHandleResponse(resp *http.Respon
 
 // Resume - Resume the job identified by jobName.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // jobName - The job name.
@@ -441,7 +440,7 @@ func (client *JobClient) resumeCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -452,7 +451,7 @@ func (client *JobClient) resumeCreateRequest(ctx context.Context, resourceGroupN
 
 // Stop - Stop the job identified by jobName.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // jobName - The job name.
@@ -496,7 +495,7 @@ func (client *JobClient) stopCreateRequest(ctx context.Context, resourceGroupNam
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -507,7 +506,7 @@ func (client *JobClient) stopCreateRequest(ctx context.Context, resourceGroupNam
 
 // Suspend - Suspend the job identified by job name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // jobName - The job name.
@@ -551,7 +550,7 @@ func (client *JobClient) suspendCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}

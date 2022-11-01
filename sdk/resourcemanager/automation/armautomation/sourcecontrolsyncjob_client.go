@@ -58,7 +58,7 @@ func NewSourceControlSyncJobClient(subscriptionID string, credential azcore.Toke
 
 // Create - Creates the sync job for a source control.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // sourceControlName - The source control name.
@@ -106,7 +106,7 @@ func (client *SourceControlSyncJobClient) createCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -123,7 +123,7 @@ func (client *SourceControlSyncJobClient) createHandleResponse(resp *http.Respon
 
 // Get - Retrieve the source control sync job identified by job id.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // sourceControlName - The source control name.
@@ -170,7 +170,7 @@ func (client *SourceControlSyncJobClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -186,8 +186,7 @@ func (client *SourceControlSyncJobClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of source control sync jobs.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // sourceControlName - The source control name.
@@ -248,7 +247,7 @@ func (client *SourceControlSyncJobClient) listByAutomationAccountCreateRequest(c
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

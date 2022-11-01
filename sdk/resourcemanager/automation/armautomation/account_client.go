@@ -58,7 +58,7 @@ func NewAccountClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // CreateOrUpdate - Create or update automation account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // parameters - Parameters supplied to the create or update automation account.
@@ -98,7 +98,7 @@ func (client *AccountClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -115,7 +115,7 @@ func (client *AccountClient) createOrUpdateHandleResponse(resp *http.Response) (
 
 // Delete - Delete an automation account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // options - AccountClientDeleteOptions contains the optional parameters for the AccountClient.Delete method.
@@ -154,7 +154,7 @@ func (client *AccountClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -162,7 +162,7 @@ func (client *AccountClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // Get - Get information about an Automation Account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // options - AccountClientGetOptions contains the optional parameters for the AccountClient.Get method.
@@ -201,7 +201,7 @@ func (client *AccountClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -217,8 +217,7 @@ func (client *AccountClient) getHandleResponse(resp *http.Response) (AccountClie
 }
 
 // NewListPager - Retrieve a list of accounts within a given subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
+// Generated from API version 2022-08-08
 // options - AccountClientListOptions contains the optional parameters for the AccountClient.List method.
 func (client *AccountClient) NewListPager(options *AccountClientListOptions) *runtime.Pager[AccountClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AccountClientListResponse]{
@@ -260,7 +259,7 @@ func (client *AccountClient) listCreateRequest(ctx context.Context, options *Acc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -276,8 +275,7 @@ func (client *AccountClient) listHandleResponse(resp *http.Response) (AccountCli
 }
 
 // NewListByResourceGroupPager - Retrieve a list of accounts within a given resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // options - AccountClientListByResourceGroupOptions contains the optional parameters for the AccountClient.ListByResourceGroup
 // method.
@@ -325,7 +323,7 @@ func (client *AccountClient) listByResourceGroupCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -342,7 +340,7 @@ func (client *AccountClient) listByResourceGroupHandleResponse(resp *http.Respon
 
 // Update - Update an automation account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
+// Generated from API version 2022-08-08
 // resourceGroupName - Name of an Azure Resource group.
 // automationAccountName - The name of the automation account.
 // parameters - Parameters supplied to the update automation account.
@@ -382,7 +380,7 @@ func (client *AccountClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
