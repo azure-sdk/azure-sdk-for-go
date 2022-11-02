@@ -1,5 +1,44 @@
 # Release History
 
+## 2.2.0-beta.3 (2022-11-02)
+### Features Added
+
+- New const `NodeOSUpgradeChannelNone`
+- New const `NodeOSUpgradeChannelNodeImage`
+- New const `NodeOSUpgradeChannelSecurityPatch`
+- New const `EbpfDataplaneCilium`
+- New const `TypeLast`
+- New const `TypeThird`
+- New const `ProtocolUDP`
+- New const `ProtocolTCP`
+- New const `TypeSecond`
+- New const `TypeFourth`
+- New const `NodeOSUpgradeChannelUnmanaged`
+- New const `TypeFirst`
+- New type alias `Type`
+- New type alias `EbpfDataplane`
+- New type alias `Protocol`
+- New type alias `NodeOSUpgradeChannel`
+- New function `PossibleProtocolValues() []Protocol`
+- New function `PossibleEbpfDataplaneValues() []EbpfDataplane`
+- New function `PossibleNodeOSUpgradeChannelValues() []NodeOSUpgradeChannel`
+- New function `PossibleTypeValues() []Type`
+- New struct `AbsoluteMonthlySchedule`
+- New struct `DailySchedule`
+- New struct `DateSpan`
+- New struct `MaintenanceWindow`
+- New struct `PortRange`
+- New struct `RelativeMonthlySchedule`
+- New struct `Schedule`
+- New struct `WeeklySchedule`
+- New field `NodeOSUpgradeChannel` in struct `ManagedClusterAutoUpgradeProfile`
+- New field `CustomCATrustCertificates` in struct `ManagedClusterSecurityProfile`
+- New field `MaintenanceWindow` in struct `MaintenanceConfigurationProperties`
+- New field `AllowedHostPorts` in struct `AgentPoolNetworkProfile`
+- New field `ApplicationSecurityGroups` in struct `AgentPoolNetworkProfile`
+- New field `EbpfDataplane` in struct `NetworkProfile`
+
+
 ## 2.2.0-beta.2 (2022-09-29)
 ### Features Added
 
