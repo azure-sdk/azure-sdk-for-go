@@ -1,5 +1,12 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-11-02)
+### Features Added
+
+- New anonymous field `ManagedEnvironment` in struct `ManagedEnvironmentsClientUpdateResponse`
+- New anonymous field `ContainerApp` in struct `ContainerAppsClientUpdateResponse`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
