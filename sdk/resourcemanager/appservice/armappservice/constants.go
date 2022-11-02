@@ -11,7 +11,7 @@ package armappservice
 
 const (
 	moduleName    = "armappservice"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -2184,6 +2184,26 @@ func PossibleWorkerSizeOptionsValues() []WorkerSizeOptions {
 	}
 }
 
+// WorkflowHealthState - Gets or sets the workflow health state.
+type WorkflowHealthState string
+
+const (
+	WorkflowHealthStateNotSpecified WorkflowHealthState = "NotSpecified"
+	WorkflowHealthStateHealthy      WorkflowHealthState = "Healthy"
+	WorkflowHealthStateUnhealthy    WorkflowHealthState = "Unhealthy"
+	WorkflowHealthStateUnknown      WorkflowHealthState = "Unknown"
+)
+
+// PossibleWorkflowHealthStateValues returns the possible values for the WorkflowHealthState const type.
+func PossibleWorkflowHealthStateValues() []WorkflowHealthState {
+	return []WorkflowHealthState{
+		WorkflowHealthStateNotSpecified,
+		WorkflowHealthStateHealthy,
+		WorkflowHealthStateUnhealthy,
+		WorkflowHealthStateUnknown,
+	}
+}
+
 // WorkflowProvisioningState - The workflow provisioning state.
 type WorkflowProvisioningState string
 
@@ -2264,26 +2284,26 @@ func PossibleWorkflowSKUNameValues() []WorkflowSKUName {
 	}
 }
 
-// WorkflowState - The workflow state.
+// WorkflowState - Gets or sets the state of the workflow.
 type WorkflowState string
 
 const (
-	WorkflowStateCompleted    WorkflowState = "Completed"
-	WorkflowStateDeleted      WorkflowState = "Deleted"
-	WorkflowStateDisabled     WorkflowState = "Disabled"
-	WorkflowStateEnabled      WorkflowState = "Enabled"
 	WorkflowStateNotSpecified WorkflowState = "NotSpecified"
+	WorkflowStateCompleted    WorkflowState = "Completed"
+	WorkflowStateEnabled      WorkflowState = "Enabled"
+	WorkflowStateDisabled     WorkflowState = "Disabled"
+	WorkflowStateDeleted      WorkflowState = "Deleted"
 	WorkflowStateSuspended    WorkflowState = "Suspended"
 )
 
 // PossibleWorkflowStateValues returns the possible values for the WorkflowState const type.
 func PossibleWorkflowStateValues() []WorkflowState {
 	return []WorkflowState{
-		WorkflowStateCompleted,
-		WorkflowStateDeleted,
-		WorkflowStateDisabled,
-		WorkflowStateEnabled,
 		WorkflowStateNotSpecified,
+		WorkflowStateCompleted,
+		WorkflowStateEnabled,
+		WorkflowStateDisabled,
+		WorkflowStateDeleted,
 		WorkflowStateSuspended,
 	}
 }

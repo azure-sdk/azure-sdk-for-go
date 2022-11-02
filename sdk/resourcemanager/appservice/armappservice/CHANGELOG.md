@@ -1,5 +1,45 @@
 # Release History
 
+## 2.1.0 (2022-11-02)
+### Features Added
+
+- New const `WorkflowHealthStateUnhealthy`
+- New const `WorkflowHealthStateNotSpecified`
+- New const `WorkflowHealthStateUnknown`
+- New const `WorkflowHealthStateHealthy`
+- New type alias `WorkflowHealthState`
+- New function `*WebAppsClient.ListInstanceWorkflowsConfigurationConnectionsSlot(context.Context, string, string, string, *WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotOptions) (WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotResponse, error)`
+- New function `*WebAppsClient.GetWorkflow(context.Context, string, string, string, *WebAppsClientGetWorkflowOptions) (WebAppsClientGetWorkflowResponse, error)`
+- New function `PossibleWorkflowHealthStateValues() []WorkflowHealthState`
+- New function `*WebAppsClient.DeployWorkflowArtifactsSlot(context.Context, string, string, string, *WebAppsClientDeployWorkflowArtifactsSlotOptions) (WebAppsClientDeployWorkflowArtifactsSlotResponse, error)`
+- New function `*WebAppsClient.DeployWorkflowArtifacts(context.Context, string, string, *WebAppsClientDeployWorkflowArtifactsOptions) (WebAppsClientDeployWorkflowArtifactsResponse, error)`
+- New function `*WebAppsClient.NewListInstanceWorkflowsSlotPager(string, string, string, *WebAppsClientListInstanceWorkflowsSlotOptions) *runtime.Pager[WebAppsClientListInstanceWorkflowsSlotResponse]`
+- New function `*WebAppsClient.NewListWorkflowsPager(string, string, *WebAppsClientListWorkflowsOptions) *runtime.Pager[WebAppsClientListWorkflowsResponse]`
+- New function `*WebAppsClient.ListWorkflowsConfiguration(context.Context, string, string, *WebAppsClientListWorkflowsConfigurationOptions) (WebAppsClientListWorkflowsConfigurationResponse, error)`
+- New function `*WebAppsClient.GetInstanceWorkflowSlot(context.Context, string, string, string, string, *WebAppsClientGetInstanceWorkflowSlotOptions) (WebAppsClientGetInstanceWorkflowSlotResponse, error)`
+- New struct `WebAppsClientDeployWorkflowArtifactsOptions`
+- New struct `WebAppsClientDeployWorkflowArtifactsResponse`
+- New struct `WebAppsClientDeployWorkflowArtifactsSlotOptions`
+- New struct `WebAppsClientDeployWorkflowArtifactsSlotResponse`
+- New struct `WebAppsClientGetInstanceWorkflowSlotOptions`
+- New struct `WebAppsClientGetInstanceWorkflowSlotResponse`
+- New struct `WebAppsClientGetWorkflowOptions`
+- New struct `WebAppsClientGetWorkflowResponse`
+- New struct `WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotOptions`
+- New struct `WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotResponse`
+- New struct `WebAppsClientListInstanceWorkflowsSlotOptions`
+- New struct `WebAppsClientListInstanceWorkflowsSlotResponse`
+- New struct `WebAppsClientListWorkflowsConfigurationOptions`
+- New struct `WebAppsClientListWorkflowsConfigurationResponse`
+- New struct `WebAppsClientListWorkflowsOptions`
+- New struct `WebAppsClientListWorkflowsResponse`
+- New struct `WorkflowArtifacts`
+- New struct `WorkflowEnvelope`
+- New struct `WorkflowEnvelopeCollection`
+- New struct `WorkflowEnvelopeProperties`
+- New struct `WorkflowHealth`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 

@@ -1772,6 +1772,16 @@ type WebAppsClientDeleteVnetConnectionSlotResponse struct {
 	// placeholder for future response values
 }
 
+// WebAppsClientDeployWorkflowArtifactsResponse contains the response from method WebAppsClient.DeployWorkflowArtifacts.
+type WebAppsClientDeployWorkflowArtifactsResponse struct {
+	// placeholder for future response values
+}
+
+// WebAppsClientDeployWorkflowArtifactsSlotResponse contains the response from method WebAppsClient.DeployWorkflowArtifactsSlot.
+type WebAppsClientDeployWorkflowArtifactsSlotResponse struct {
+	// placeholder for future response values
+}
+
 // WebAppsClientDiscoverBackupResponse contains the response from method WebAppsClient.DiscoverBackup.
 type WebAppsClientDiscoverBackupResponse struct {
 	RestoreRequest
@@ -2044,6 +2054,11 @@ type WebAppsClientGetInstanceProcessResponse struct {
 // WebAppsClientGetInstanceProcessSlotResponse contains the response from method WebAppsClient.GetInstanceProcessSlot.
 type WebAppsClientGetInstanceProcessSlotResponse struct {
 	ProcessInfo
+}
+
+// WebAppsClientGetInstanceWorkflowSlotResponse contains the response from method WebAppsClient.GetInstanceWorkflowSlot.
+type WebAppsClientGetInstanceWorkflowSlotResponse struct {
+	WorkflowEnvelope
 }
 
 // WebAppsClientGetMSDeployLogResponse contains the response from method WebAppsClient.GetMSDeployLog.
@@ -2384,6 +2399,11 @@ type WebAppsClientGetWebSiteContainerLogsSlotResponse struct {
 	Body io.ReadCloser
 }
 
+// WebAppsClientGetWorkflowResponse contains the response from method WebAppsClient.GetWorkflow.
+type WebAppsClientGetWorkflowResponse struct {
+	WorkflowEnvelope
+}
+
 // WebAppsClientInstallSiteExtensionResponse contains the response from method WebAppsClient.InstallSiteExtension.
 type WebAppsClientInstallSiteExtensionResponse struct {
 	SiteExtensionInfo
@@ -2627,6 +2647,16 @@ type WebAppsClientListInstanceProcessesResponse struct {
 // WebAppsClientListInstanceProcessesSlotResponse contains the response from method WebAppsClient.ListInstanceProcessesSlot.
 type WebAppsClientListInstanceProcessesSlotResponse struct {
 	ProcessInfoCollection
+}
+
+// WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotResponse contains the response from method WebAppsClient.ListInstanceWorkflowsConfigurationConnectionsSlot.
+type WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotResponse struct {
+	WorkflowEnvelope
+}
+
+// WebAppsClientListInstanceWorkflowsSlotResponse contains the response from method WebAppsClient.ListInstanceWorkflowsSlot.
+type WebAppsClientListInstanceWorkflowsSlotResponse struct {
+	WorkflowEnvelopeCollection
 }
 
 // WebAppsClientListMetadataResponse contains the response from method WebAppsClient.ListMetadata.
@@ -2896,6 +2926,16 @@ type WebAppsClientListWebJobsResponse struct {
 // WebAppsClientListWebJobsSlotResponse contains the response from method WebAppsClient.ListWebJobsSlot.
 type WebAppsClientListWebJobsSlotResponse struct {
 	WebJobCollection
+}
+
+// WebAppsClientListWorkflowsConfigurationResponse contains the response from method WebAppsClient.ListWorkflowsConfiguration.
+type WebAppsClientListWorkflowsConfigurationResponse struct {
+	WorkflowEnvelope
+}
+
+// WebAppsClientListWorkflowsResponse contains the response from method WebAppsClient.ListWorkflows.
+type WebAppsClientListWorkflowsResponse struct {
+	WorkflowEnvelopeCollection
 }
 
 // WebAppsClientMigrateMySQLResponse contains the response from method WebAppsClient.MigrateMySQL.
