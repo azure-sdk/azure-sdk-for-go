@@ -1,5 +1,29 @@
 # Release History
 
+## 2.2.0-beta.3 (2022-11-03)
+### Features Added
+
+- New const `EbpfDataplaneCilium`
+- New const `NodeOSUpgradeChannelNone`
+- New const `ProtocolTCP`
+- New const `ProtocolUDP`
+- New const `NodeOSUpgradeChannelNodeImage`
+- New const `NodeOSUpgradeChannelUnmanaged`
+- New const `NodeOSUpgradeChannelSecurityPatch`
+- New type alias `Protocol`
+- New type alias `EbpfDataplane`
+- New type alias `NodeOSUpgradeChannel`
+- New function `PossibleNodeOSUpgradeChannelValues() []NodeOSUpgradeChannel`
+- New function `PossibleProtocolValues() []Protocol`
+- New function `PossibleEbpfDataplaneValues() []EbpfDataplane`
+- New struct `PortRange`
+- New field `EbpfDataplane` in struct `NetworkProfile`
+- New field `AllowedHostPorts` in struct `AgentPoolNetworkProfile`
+- New field `ApplicationSecurityGroups` in struct `AgentPoolNetworkProfile`
+- New field `NodeOSUpgradeChannel` in struct `ManagedClusterAutoUpgradeProfile`
+- New field `CustomCATrustCertificates` in struct `ManagedClusterSecurityProfile`
+
+
 ## 2.2.0-beta.2 (2022-09-29)
 ### Features Added
 
