@@ -56,7 +56,6 @@ func NewDeletedWorkspacesClient(subscriptionID string, credential azcore.TokenCr
 }
 
 // NewListPager - Gets recently deleted workspaces in a subscription, available for recovery.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // options - DeletedWorkspacesClientListOptions contains the optional parameters for the DeletedWorkspacesClient.List method.
 func (client *DeletedWorkspacesClient) NewListPager(options *DeletedWorkspacesClientListOptions) *runtime.Pager[DeletedWorkspacesClientListResponse] {
@@ -109,7 +108,6 @@ func (client *DeletedWorkspacesClient) listHandleResponse(resp *http.Response) (
 }
 
 // NewListByResourceGroupPager - Gets recently deleted workspaces in a resource group, available for recovery.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - DeletedWorkspacesClientListByResourceGroupOptions contains the optional parameters for the DeletedWorkspacesClient.ListByResourceGroup

@@ -246,7 +246,6 @@ func (client *WorkspacesClient) getHandleResponse(resp *http.Response) (Workspac
 }
 
 // NewListPager - Gets the workspaces in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // options - WorkspacesClientListOptions contains the optional parameters for the WorkspacesClient.List method.
 func (client *WorkspacesClient) NewListPager(options *WorkspacesClientListOptions) *runtime.Pager[WorkspacesClientListResponse] {
@@ -299,7 +298,6 @@ func (client *WorkspacesClient) listHandleResponse(resp *http.Response) (Workspa
 }
 
 // NewListByResourceGroupPager - Gets workspaces in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - WorkspacesClientListByResourceGroupOptions contains the optional parameters for the WorkspacesClient.ListByResourceGroup

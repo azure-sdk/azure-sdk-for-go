@@ -218,7 +218,6 @@ func (client *QueryPacksClient) getHandleResponse(resp *http.Response) (QueryPac
 }
 
 // NewListPager - Gets a list of all Log Analytics QueryPacks within a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2019-09-01
 // options - QueryPacksClientListOptions contains the optional parameters for the QueryPacksClient.List method.
 func (client *QueryPacksClient) NewListPager(options *QueryPacksClientListOptions) *runtime.Pager[QueryPacksClientListResponse] {
@@ -277,7 +276,6 @@ func (client *QueryPacksClient) listHandleResponse(resp *http.Response) (QueryPa
 }
 
 // NewListByResourceGroupPager - Gets a list of Log Analytics QueryPacks within a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2019-09-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - QueryPacksClientListByResourceGroupOptions contains the optional parameters for the QueryPacksClient.ListByResourceGroup
