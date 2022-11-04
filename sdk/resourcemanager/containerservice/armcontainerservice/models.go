@@ -11,6 +11,15 @@ package armcontainerservice
 
 import "time"
 
+// AbsoluteMonthlySchedule - For schedules like: 'recur every month on the 15th' or 'recur every 3 months on the 20th'.
+type AbsoluteMonthlySchedule struct {
+	// REQUIRED; The date of the month.
+	DayOfMonth *int32 `json:"dayOfMonth,omitempty"`
+
+	// REQUIRED; Specifies the number of months between each set of occurrences.
+	IntervalMonths *int32 `json:"intervalMonths,omitempty"`
+}
+
 // AccessProfile - Profile for enabling a user to access a managed cluster.
 type AccessProfile struct {
 	// Base64-encoded Kubernetes configuration file.
@@ -75,6 +84,12 @@ type AgentPoolListResult struct {
 
 // AgentPoolNetworkProfile - Network settings of an agent pool.
 type AgentPoolNetworkProfile struct {
+	// The port ranges that are allowed to access. The specified ranges are allowed to overlap.
+	AllowedHostPorts []*PortRange `json:"allowedHostPorts,omitempty"`
+
+	// The IDs of the application security groups which agent pool will associate when created.
+	ApplicationSecurityGroups []*string `json:"applicationSecurityGroups,omitempty"`
+
 	// IPTags of instance-level public IPs.
 	NodePublicIPTags []*IPTag `json:"nodePublicIPTags,omitempty"`
 }
@@ -244,6 +259,21 @@ type CredentialResult struct {
 type CredentialResults struct {
 	// READ-ONLY; Base64-encoded Kubernetes configuration file.
 	Kubeconfigs []*CredentialResult `json:"kubeconfigs,omitempty" azure:"ro"`
+}
+
+// DailySchedule - For schedules like: 'recur every day' or 'recur every 3 days'.
+type DailySchedule struct {
+	// REQUIRED; Specifies the number of days between each set of occurrences.
+	IntervalDays *int32 `json:"intervalDays,omitempty"`
+}
+
+// DateSpan - For example, between '2022-12-23' and '2023-01-05'.
+type DateSpan struct {
+	// REQUIRED; The end date of the date span.
+	End *time.Time `json:"end,omitempty"`
+
+	// REQUIRED; The start date of the date span.
+	Start *time.Time `json:"start,omitempty"`
 }
 
 // EndpointDependency - A domain name that AKS agent nodes are reaching at.
@@ -605,6 +635,9 @@ type MaintenanceConfigurationListResult struct {
 
 // MaintenanceConfigurationProperties - Properties used to configure planned maintenance for a Managed Cluster.
 type MaintenanceConfigurationProperties struct {
+	// Maintenance window for the maintenance configuration.
+	MaintenanceWindow *MaintenanceWindow `json:"maintenanceWindow,omitempty"`
+
 	// Time slots on which upgrade is not allowed.
 	NotAllowedTime []*TimeSpan `json:"notAllowedTime,omitempty"`
 
@@ -634,6 +667,33 @@ type MaintenanceConfigurationsClientGetOptions struct {
 // method.
 type MaintenanceConfigurationsClientListByManagedClusterOptions struct {
 	// placeholder for future optional parameters
+}
+
+// MaintenanceWindow - Maintenance window used to configure scheduled auto-upgrade for a Managed Cluster.
+type MaintenanceWindow struct {
+	// REQUIRED; Length of maintenance window range from 4 to 24 hours.
+	DurationHours *int32 `json:"durationHours,omitempty"`
+
+	// REQUIRED; Recurrence schedule for the maintenance window.
+	Schedule *Schedule `json:"schedule,omitempty"`
+
+	// REQUIRED; The start time of the maintenance window. Accepted values are from '00:00' to '23:59'. 'utcOffset' applies to
+	// this field. For example: '02:00' with 'utcOffset: +02:00' means UTC time '00:00'.
+	StartTime *string `json:"startTime,omitempty"`
+
+	// Date ranges on which upgrade is not allowed. 'utcOffset' applies to this field. For example, with 'utcOffset: +02:00' and
+	// 'dateSpan' being '2022-12-23' to '2023-01-03', maintenance will be blocked
+	// from '2022-12-22 22:00' to '2023-01-03 22:00' in UTC time.
+	NotAllowedDates []*DateSpan `json:"notAllowedDates,omitempty"`
+
+	// The date the maintenance window activates. If the current date is before this date, the maintenance window is inactive
+	// and will not be used for upgrades. If not specified, the maintenance window will
+	// be active right away.
+	StartDate *time.Time `json:"startDate,omitempty"`
+
+	// The UTC offset in format +/-HH:mm. For example, '+05:30' for IST and '-07:00' for PST. If not specified, the default is
+	// '+00:00'.
+	UTCOffset *string `json:"utcOffset,omitempty"`
 }
 
 // ManagedCluster - Managed cluster.
@@ -791,8 +851,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// Whether to enable auto-scaler
 	EnableAutoScaling *bool `json:"enableAutoScaling,omitempty"`
 
-	// When set to true, AKS deploys a daemonset and host services to sync custom certificate authorities from a user-provided
-	// config map into node trust stores. Defaults to false.
+	// When set to true, AKS adds a label to the node indicating that the feature is enabled and deploys a daemonset along with
+	// host services to sync custom certificate authorities from user-provided list of
+	// base64 encoded certificates into node trust stores. Defaults to false.
 	EnableCustomCATrust *bool `json:"enableCustomCATrust,omitempty"`
 
 	// This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption
@@ -966,8 +1027,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// Whether to enable auto-scaler
 	EnableAutoScaling *bool `json:"enableAutoScaling,omitempty"`
 
-	// When set to true, AKS deploys a daemonset and host services to sync custom certificate authorities from a user-provided
-	// config map into node trust stores. Defaults to false.
+	// When set to true, AKS adds a label to the node indicating that the feature is enabled and deploys a daemonset along with
+	// host services to sync custom certificate authorities from user-provided list of
+	// base64 encoded certificates into node trust stores. Defaults to false.
 	EnableCustomCATrust *bool `json:"enableCustomCATrust,omitempty"`
 
 	// This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption
@@ -1124,6 +1186,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 
 // ManagedClusterAutoUpgradeProfile - Auto upgrade profile for a managed cluster.
 type ManagedClusterAutoUpgradeProfile struct {
+	// The default is Unmanaged, but may change to either NodeImage or SecurityPatch at GA.
+	NodeOSUpgradeChannel *NodeOSUpgradeChannel `json:"nodeOSUpgradeChannel,omitempty"`
+
 	// For more information see setting the AKS cluster auto-upgrade channel [https://docs.microsoft.com/azure/aks/upgrade-cluster#set-auto-upgrade-channel].
 	UpgradeChannel *UpgradeChannel `json:"upgradeChannel,omitempty"`
 }
@@ -1615,6 +1680,11 @@ type ManagedClusterSecurityProfile struct {
 	// the security profile.
 	AzureKeyVaultKms *AzureKeyVaultKms `json:"azureKeyVaultKms,omitempty"`
 
+	// A list of up to 10 base64 encoded CAs that will be added to the trust store on nodes with the Custom CA Trust feature enabled.
+	// For more information see Custom CA Trust Certificates
+	// [https://learn.microsoft.com/en-us/azure/aks/custom-certificate-authority]
+	CustomCATrustCertificates [][]byte `json:"customCATrustCertificates,omitempty"`
+
 	// Microsoft Defender settings for the security profile.
 	Defender *ManagedClusterSecurityProfileDefender `json:"defender,omitempty"`
 
@@ -2048,6 +2118,9 @@ type NetworkProfile struct {
 	// service address range.
 	DockerBridgeCidr *string `json:"dockerBridgeCidr,omitempty"`
 
+	// The eBPF dataplane used for building the Kubernetes network.
+	EbpfDataplane *EbpfDataplane `json:"ebpfDataplane,omitempty"`
+
 	// IP families are used to determine single-stack or dual-stack clusters. For single-stack, the expected value is IPv4. For
 	// dual-stack, the expected values are IPv4 and IPv6.
 	IPFamilies []*IPFamily `json:"ipFamilies,omitempty"`
@@ -2235,6 +2308,18 @@ type OutboundEnvironmentEndpointCollection struct {
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
+// PortRange - The port range.
+type PortRange struct {
+	// The maximum port that is included in the range. It should be ranged from 1 to 65535, and be greater than or equal to portStart.
+	PortEnd *int32 `json:"portEnd,omitempty"`
+
+	// The minimum port that is included in the range. It should be ranged from 1 to 65535, and be less than or equal to portEnd.
+	PortStart *int32 `json:"portStart,omitempty"`
+
+	// The network protocol of the port.
+	Protocol *Protocol `json:"protocol,omitempty"`
+}
+
 // PowerState - Describes the Power State of the cluster
 type PowerState struct {
 	// Tells whether the cluster is Running or Stopped
@@ -2346,6 +2431,19 @@ type PrivateLinkServiceConnectionState struct {
 	Status *ConnectionStatus `json:"status,omitempty"`
 }
 
+// RelativeMonthlySchedule - For schedules like: 'recur every month on the first Monday' or 'recur every 3 months on last
+// Friday'.
+type RelativeMonthlySchedule struct {
+	// REQUIRED; Specifies on which day of the week the maintenance occurs.
+	DayOfWeek *WeekDay `json:"dayOfWeek,omitempty"`
+
+	// REQUIRED; Specifies the number of months between each set of occurrences.
+	IntervalMonths *int32 `json:"intervalMonths,omitempty"`
+
+	// REQUIRED; Specifies on which instance of the allowed days specified in daysOfWeek the maintenance occurs.
+	WeekIndex *Type `json:"weekIndex,omitempty"`
+}
+
 // ResolvePrivateLinkServiceIDClientPOSTOptions contains the optional parameters for the ResolvePrivateLinkServiceIDClient.POST
 // method.
 type ResolvePrivateLinkServiceIDClientPOSTOptions struct {
@@ -2390,6 +2488,22 @@ type SSHPublicKey struct {
 	// REQUIRED; Certificate public key used to authenticate with VMs through SSH. The certificate must be in PEM format with
 	// or without headers.
 	KeyData *string `json:"keyData,omitempty"`
+}
+
+// Schedule - One and only one of the schedule types should be specified. Choose either 'daily', 'weekly', 'absoluteMonthly'
+// or 'relativeMonthly' for your maintenance schedule.
+type Schedule struct {
+	// For schedules like: 'recur every month on the 15th' or 'recur every 3 months on the 20th'.
+	AbsoluteMonthly *AbsoluteMonthlySchedule `json:"absoluteMonthly,omitempty"`
+
+	// For schedules like: 'recur every day' or 'recur every 3 days'.
+	Daily *DailySchedule `json:"daily,omitempty"`
+
+	// For schedules like: 'recur every month on the first Monday' or 'recur every 3 months on last Friday'.
+	RelativeMonthly *RelativeMonthlySchedule `json:"relativeMonthly,omitempty"`
+
+	// For schedules like: 'recur every Monday' or 'recur every 3 weeks on Wednesday'.
+	Weekly *WeeklySchedule `json:"weekly,omitempty"`
 }
 
 // Snapshot - A node pool snapshot resource.
@@ -2736,6 +2850,15 @@ type UserAssignedIdentity struct {
 
 	// The resource ID of the user assigned identity.
 	ResourceID *string `json:"resourceId,omitempty"`
+}
+
+// WeeklySchedule - For schedules like: 'recur every Monday' or 'recur every 3 weeks on Wednesday'.
+type WeeklySchedule struct {
+	// REQUIRED; Specifies on which day of the week the maintenance occurs.
+	DayOfWeek *WeekDay `json:"dayOfWeek,omitempty"`
+
+	// REQUIRED; Specifies the number of weeks between each set of occurrences.
+	IntervalWeeks *int32 `json:"intervalWeeks,omitempty"`
 }
 
 // WindowsGmsaProfile - Windows gMSA Profile in the managed cluster.
