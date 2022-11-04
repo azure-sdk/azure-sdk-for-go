@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2022-11-04)
+### Breaking Changes
+
+- Type of `LoadTestResourcePatchRequestBody.Tags` has been changed from `interface{}` to `map[string]*string`
+
+
 ## 1.0.0 (2022-10-13)
 ### Features Added
 

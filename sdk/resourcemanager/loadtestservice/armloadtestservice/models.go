@@ -171,7 +171,7 @@ type LoadTestResourcePatchRequestBody struct {
 	Properties *LoadTestResourcePatchRequestBodyProperties `json:"properties,omitempty"`
 
 	// Resource tags.
-	Tags interface{} `json:"tags,omitempty"`
+	Tags map[string]*string `json:"tags,omitempty"`
 }
 
 // LoadTestResourcePatchRequestBodyProperties - Load Test resource properties

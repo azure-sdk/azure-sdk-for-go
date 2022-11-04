@@ -445,7 +445,7 @@ func (l LoadTestResourcePatchRequestBody) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "identity", l.Identity)
 	populate(objectMap, "properties", l.Properties)
-	populate(objectMap, "tags", &l.Tags)
+	populate(objectMap, "tags", l.Tags)
 	return json.Marshal(objectMap)
 }
 
