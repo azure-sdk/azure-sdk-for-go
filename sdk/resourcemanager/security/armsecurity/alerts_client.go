@@ -58,13 +58,13 @@ func NewAlertsClient(subscriptionID string, credential azcore.TokenCredential, o
 // GetResourceGroupLevel - Get an alert that is associated a resource group or a resource in a resource group
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 // alertName - Name of the alert object
+// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // options - AlertsClientGetResourceGroupLevelOptions contains the optional parameters for the AlertsClient.GetResourceGroupLevel
 // method.
-func (client *AlertsClient) GetResourceGroupLevel(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientGetResourceGroupLevelOptions) (AlertsClientGetResourceGroupLevelResponse, error) {
-	req, err := client.getResourceGroupLevelCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
+func (client *AlertsClient) GetResourceGroupLevel(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientGetResourceGroupLevelOptions) (AlertsClientGetResourceGroupLevelResponse, error) {
+	req, err := client.getResourceGroupLevelCreateRequest(ctx, ascLocation, alertName, resourceGroupName, options)
 	if err != nil {
 		return AlertsClientGetResourceGroupLevelResponse{}, err
 	}
@@ -79,16 +79,12 @@ func (client *AlertsClient) GetResourceGroupLevel(ctx context.Context, resourceG
 }
 
 // getResourceGroupLevelCreateRequest creates the GetResourceGroupLevel request.
-func (client *AlertsClient) getResourceGroupLevelCreateRequest(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientGetResourceGroupLevelOptions) (*policy.Request, error) {
+func (client *AlertsClient) getResourceGroupLevelCreateRequest(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientGetResourceGroupLevelOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/locations/{ascLocation}/alerts/{alertName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if ascLocation == "" {
 		return nil, errors.New("parameter ascLocation cannot be empty")
 	}
@@ -97,6 +93,10 @@ func (client *AlertsClient) getResourceGroupLevelCreateRequest(ctx context.Conte
 		return nil, errors.New("parameter alertName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{alertName}", url.PathEscape(alertName))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
@@ -494,13 +494,13 @@ func (client *AlertsClient) simulateCreateRequest(ctx context.Context, ascLocati
 // UpdateResourceGroupLevelStateToActivate - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 // alertName - Name of the alert object
+// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // options - AlertsClientUpdateResourceGroupLevelStateToActivateOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToActivate
 // method.
-func (client *AlertsClient) UpdateResourceGroupLevelStateToActivate(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToActivateOptions) (AlertsClientUpdateResourceGroupLevelStateToActivateResponse, error) {
-	req, err := client.updateResourceGroupLevelStateToActivateCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
+func (client *AlertsClient) UpdateResourceGroupLevelStateToActivate(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientUpdateResourceGroupLevelStateToActivateOptions) (AlertsClientUpdateResourceGroupLevelStateToActivateResponse, error) {
+	req, err := client.updateResourceGroupLevelStateToActivateCreateRequest(ctx, ascLocation, alertName, resourceGroupName, options)
 	if err != nil {
 		return AlertsClientUpdateResourceGroupLevelStateToActivateResponse{}, err
 	}
@@ -515,16 +515,12 @@ func (client *AlertsClient) UpdateResourceGroupLevelStateToActivate(ctx context.
 }
 
 // updateResourceGroupLevelStateToActivateCreateRequest creates the UpdateResourceGroupLevelStateToActivate request.
-func (client *AlertsClient) updateResourceGroupLevelStateToActivateCreateRequest(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToActivateOptions) (*policy.Request, error) {
+func (client *AlertsClient) updateResourceGroupLevelStateToActivateCreateRequest(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientUpdateResourceGroupLevelStateToActivateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/locations/{ascLocation}/alerts/{alertName}/activate"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if ascLocation == "" {
 		return nil, errors.New("parameter ascLocation cannot be empty")
 	}
@@ -533,6 +529,10 @@ func (client *AlertsClient) updateResourceGroupLevelStateToActivateCreateRequest
 		return nil, errors.New("parameter alertName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{alertName}", url.PathEscape(alertName))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
@@ -547,13 +547,13 @@ func (client *AlertsClient) updateResourceGroupLevelStateToActivateCreateRequest
 // UpdateResourceGroupLevelStateToDismiss - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 // alertName - Name of the alert object
+// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // options - AlertsClientUpdateResourceGroupLevelStateToDismissOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToDismiss
 // method.
-func (client *AlertsClient) UpdateResourceGroupLevelStateToDismiss(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToDismissOptions) (AlertsClientUpdateResourceGroupLevelStateToDismissResponse, error) {
-	req, err := client.updateResourceGroupLevelStateToDismissCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
+func (client *AlertsClient) UpdateResourceGroupLevelStateToDismiss(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientUpdateResourceGroupLevelStateToDismissOptions) (AlertsClientUpdateResourceGroupLevelStateToDismissResponse, error) {
+	req, err := client.updateResourceGroupLevelStateToDismissCreateRequest(ctx, ascLocation, alertName, resourceGroupName, options)
 	if err != nil {
 		return AlertsClientUpdateResourceGroupLevelStateToDismissResponse{}, err
 	}
@@ -568,16 +568,12 @@ func (client *AlertsClient) UpdateResourceGroupLevelStateToDismiss(ctx context.C
 }
 
 // updateResourceGroupLevelStateToDismissCreateRequest creates the UpdateResourceGroupLevelStateToDismiss request.
-func (client *AlertsClient) updateResourceGroupLevelStateToDismissCreateRequest(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToDismissOptions) (*policy.Request, error) {
+func (client *AlertsClient) updateResourceGroupLevelStateToDismissCreateRequest(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientUpdateResourceGroupLevelStateToDismissOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/locations/{ascLocation}/alerts/{alertName}/dismiss"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if ascLocation == "" {
 		return nil, errors.New("parameter ascLocation cannot be empty")
 	}
@@ -586,6 +582,10 @@ func (client *AlertsClient) updateResourceGroupLevelStateToDismissCreateRequest(
 		return nil, errors.New("parameter alertName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{alertName}", url.PathEscape(alertName))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
@@ -600,13 +600,13 @@ func (client *AlertsClient) updateResourceGroupLevelStateToDismissCreateRequest(
 // UpdateResourceGroupLevelStateToInProgress - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 // alertName - Name of the alert object
+// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // options - AlertsClientUpdateResourceGroupLevelStateToInProgressOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToInProgress
 // method.
-func (client *AlertsClient) UpdateResourceGroupLevelStateToInProgress(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToInProgressOptions) (AlertsClientUpdateResourceGroupLevelStateToInProgressResponse, error) {
-	req, err := client.updateResourceGroupLevelStateToInProgressCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
+func (client *AlertsClient) UpdateResourceGroupLevelStateToInProgress(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientUpdateResourceGroupLevelStateToInProgressOptions) (AlertsClientUpdateResourceGroupLevelStateToInProgressResponse, error) {
+	req, err := client.updateResourceGroupLevelStateToInProgressCreateRequest(ctx, ascLocation, alertName, resourceGroupName, options)
 	if err != nil {
 		return AlertsClientUpdateResourceGroupLevelStateToInProgressResponse{}, err
 	}
@@ -621,16 +621,12 @@ func (client *AlertsClient) UpdateResourceGroupLevelStateToInProgress(ctx contex
 }
 
 // updateResourceGroupLevelStateToInProgressCreateRequest creates the UpdateResourceGroupLevelStateToInProgress request.
-func (client *AlertsClient) updateResourceGroupLevelStateToInProgressCreateRequest(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToInProgressOptions) (*policy.Request, error) {
+func (client *AlertsClient) updateResourceGroupLevelStateToInProgressCreateRequest(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientUpdateResourceGroupLevelStateToInProgressOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/locations/{ascLocation}/alerts/{alertName}/inProgress"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if ascLocation == "" {
 		return nil, errors.New("parameter ascLocation cannot be empty")
 	}
@@ -639,6 +635,10 @@ func (client *AlertsClient) updateResourceGroupLevelStateToInProgressCreateReque
 		return nil, errors.New("parameter alertName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{alertName}", url.PathEscape(alertName))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
@@ -653,13 +653,13 @@ func (client *AlertsClient) updateResourceGroupLevelStateToInProgressCreateReque
 // UpdateResourceGroupLevelStateToResolve - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
 // alertName - Name of the alert object
+// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // options - AlertsClientUpdateResourceGroupLevelStateToResolveOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToResolve
 // method.
-func (client *AlertsClient) UpdateResourceGroupLevelStateToResolve(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToResolveOptions) (AlertsClientUpdateResourceGroupLevelStateToResolveResponse, error) {
-	req, err := client.updateResourceGroupLevelStateToResolveCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
+func (client *AlertsClient) UpdateResourceGroupLevelStateToResolve(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientUpdateResourceGroupLevelStateToResolveOptions) (AlertsClientUpdateResourceGroupLevelStateToResolveResponse, error) {
+	req, err := client.updateResourceGroupLevelStateToResolveCreateRequest(ctx, ascLocation, alertName, resourceGroupName, options)
 	if err != nil {
 		return AlertsClientUpdateResourceGroupLevelStateToResolveResponse{}, err
 	}
@@ -674,16 +674,12 @@ func (client *AlertsClient) UpdateResourceGroupLevelStateToResolve(ctx context.C
 }
 
 // updateResourceGroupLevelStateToResolveCreateRequest creates the UpdateResourceGroupLevelStateToResolve request.
-func (client *AlertsClient) updateResourceGroupLevelStateToResolveCreateRequest(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToResolveOptions) (*policy.Request, error) {
+func (client *AlertsClient) updateResourceGroupLevelStateToResolveCreateRequest(ctx context.Context, ascLocation string, alertName string, resourceGroupName string, options *AlertsClientUpdateResourceGroupLevelStateToResolveOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/locations/{ascLocation}/alerts/{alertName}/resolve"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if ascLocation == "" {
 		return nil, errors.New("parameter ascLocation cannot be empty")
 	}
@@ -692,6 +688,10 @@ func (client *AlertsClient) updateResourceGroupLevelStateToResolveCreateRequest(
 		return nil, errors.New("parameter alertName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{alertName}", url.PathEscape(alertName))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
