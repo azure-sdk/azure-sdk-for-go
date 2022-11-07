@@ -11,7 +11,7 @@ package armcontainerservice
 
 // AgentPoolsClientAbortLatestOperationResponse contains the response from method AgentPoolsClient.AbortLatestOperation.
 type AgentPoolsClientAbortLatestOperationResponse struct {
-	// placeholder for future response values
+	AgentPool
 }
 
 // AgentPoolsClientCreateOrUpdateResponse contains the response from method AgentPoolsClient.CreateOrUpdate.
@@ -156,7 +156,7 @@ type ManagedClusterSnapshotsClientUpdateTagsResponse struct {
 
 // ManagedClustersClientAbortLatestOperationResponse contains the response from method ManagedClustersClient.AbortLatestOperation.
 type ManagedClustersClientAbortLatestOperationResponse struct {
-	// placeholder for future response values
+	ManagedCluster
 }
 
 // ManagedClustersClientCreateOrUpdateResponse contains the response from method ManagedClustersClient.CreateOrUpdate.
