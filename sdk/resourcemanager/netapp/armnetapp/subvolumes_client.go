@@ -459,9 +459,7 @@ func (client *SubvolumesClient) BeginUpdate(ctx context.Context, resourceGroupNa
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[SubvolumesClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[SubvolumesClientUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[SubvolumesClientUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
