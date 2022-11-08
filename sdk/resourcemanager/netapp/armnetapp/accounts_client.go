@@ -425,6 +425,9 @@ func (client *AccountsClient) renewCredentialsCreateRequest(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-05-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
