@@ -55,32 +55,47 @@ func NewDaprComponentsClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates a Dapr Component in a Managed Environment.
+// BeginCreateOrUpdate - Creates or updates a Dapr Component in a Managed Environment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Managed Environment.
 // componentName - Name of the Dapr Component.
 // daprComponentEnvelope - Configuration details of the Dapr Component.
-// options - DaprComponentsClientCreateOrUpdateOptions contains the optional parameters for the DaprComponentsClient.CreateOrUpdate
+// options - DaprComponentsClientBeginCreateOrUpdateOptions contains the optional parameters for the DaprComponentsClient.BeginCreateOrUpdate
 // method.
-func (client *DaprComponentsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, componentName string, daprComponentEnvelope DaprComponent, options *DaprComponentsClientCreateOrUpdateOptions) (DaprComponentsClientCreateOrUpdateResponse, error) {
+func (client *DaprComponentsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, componentName string, daprComponentEnvelope DaprComponent, options *DaprComponentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DaprComponentsClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, environmentName, componentName, daprComponentEnvelope, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[DaprComponentsClientCreateOrUpdateResponse](resp, client.pl, nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[DaprComponentsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// CreateOrUpdate - Creates or updates a Dapr Component in a Managed Environment.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-11-01-preview
+func (client *DaprComponentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, componentName string, daprComponentEnvelope DaprComponent, options *DaprComponentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, environmentName, componentName, daprComponentEnvelope, options)
 	if err != nil {
-		return DaprComponentsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return DaprComponentsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return DaprComponentsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.createOrUpdateHandleResponse(resp)
+	return resp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *DaprComponentsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, componentName string, daprComponentEnvelope DaprComponent, options *DaprComponentsClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *DaprComponentsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, componentName string, daprComponentEnvelope DaprComponent, options *DaprComponentsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/daprComponents/{componentName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -103,45 +118,52 @@ func (client *DaprComponentsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, daprComponentEnvelope)
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *DaprComponentsClient) createOrUpdateHandleResponse(resp *http.Response) (DaprComponentsClientCreateOrUpdateResponse, error) {
-	result := DaprComponentsClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.DaprComponent); err != nil {
-		return DaprComponentsClientCreateOrUpdateResponse{}, err
+// BeginDelete - Delete a Dapr Component from a Managed Environment.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-11-01-preview
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// environmentName - Name of the Managed Environment.
+// componentName - Name of the Dapr Component.
+// options - DaprComponentsClientBeginDeleteOptions contains the optional parameters for the DaprComponentsClient.BeginDelete
+// method.
+func (client *DaprComponentsClient) BeginDelete(ctx context.Context, resourceGroupName string, environmentName string, componentName string, options *DaprComponentsClientBeginDeleteOptions) (*runtime.Poller[DaprComponentsClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, environmentName, componentName, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[DaprComponentsClientDeleteResponse](resp, client.pl, nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[DaprComponentsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
-	return result, nil
 }
 
 // Delete - Delete a Dapr Component from a Managed Environment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// environmentName - Name of the Managed Environment.
-// componentName - Name of the Dapr Component.
-// options - DaprComponentsClientDeleteOptions contains the optional parameters for the DaprComponentsClient.Delete method.
-func (client *DaprComponentsClient) Delete(ctx context.Context, resourceGroupName string, environmentName string, componentName string, options *DaprComponentsClientDeleteOptions) (DaprComponentsClientDeleteResponse, error) {
+// Generated from API version 2022-11-01-preview
+func (client *DaprComponentsClient) deleteOperation(ctx context.Context, resourceGroupName string, environmentName string, componentName string, options *DaprComponentsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, environmentName, componentName, options)
 	if err != nil {
-		return DaprComponentsClientDeleteResponse{}, err
+		return nil, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return DaprComponentsClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
-		return DaprComponentsClientDeleteResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return DaprComponentsClientDeleteResponse{}, nil
+	return resp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *DaprComponentsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, componentName string, options *DaprComponentsClientDeleteOptions) (*policy.Request, error) {
+func (client *DaprComponentsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, componentName string, options *DaprComponentsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/daprComponents/{componentName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -164,7 +186,7 @@ func (client *DaprComponentsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +194,7 @@ func (client *DaprComponentsClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Get a dapr component.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Managed Environment.
 // componentName - Name of the Dapr Component.
@@ -216,7 +238,7 @@ func (client *DaprComponentsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,7 +254,7 @@ func (client *DaprComponentsClient) getHandleResponse(resp *http.Response) (Dapr
 }
 
 // NewListPager - Get the Dapr Components for a managed environment.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Managed Environment.
 // options - DaprComponentsClientListOptions contains the optional parameters for the DaprComponentsClient.List method.
@@ -284,7 +306,7 @@ func (client *DaprComponentsClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -301,7 +323,7 @@ func (client *DaprComponentsClient) listHandleResponse(resp *http.Response) (Dap
 
 // ListSecrets - List secrets for a dapr component
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Managed Environment.
 // componentName - Name of the Dapr Component.
@@ -346,7 +368,7 @@ func (client *DaprComponentsClient) listSecretsCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -11,7 +11,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // AccessMode - Access mode for storage
@@ -272,6 +272,26 @@ func PossibleDNSVerificationTestResultValues() []DNSVerificationTestResult {
 	}
 }
 
+// DaprComponentProvisioningState - Provisioning state of dapr component.
+type DaprComponentProvisioningState string
+
+const (
+	DaprComponentProvisioningStateCanceled   DaprComponentProvisioningState = "Canceled"
+	DaprComponentProvisioningStateFailed     DaprComponentProvisioningState = "Failed"
+	DaprComponentProvisioningStateInProgress DaprComponentProvisioningState = "InProgress"
+	DaprComponentProvisioningStateSucceeded  DaprComponentProvisioningState = "Succeeded"
+)
+
+// PossibleDaprComponentProvisioningStateValues returns the possible values for the DaprComponentProvisioningState const type.
+func PossibleDaprComponentProvisioningStateValues() []DaprComponentProvisioningState {
+	return []DaprComponentProvisioningState{
+		DaprComponentProvisioningStateCanceled,
+		DaprComponentProvisioningStateFailed,
+		DaprComponentProvisioningStateInProgress,
+		DaprComponentProvisioningStateSucceeded,
+	}
+}
+
 // EnvironmentProvisioningState - Provisioning state of the Environment.
 type EnvironmentProvisioningState string
 
@@ -503,6 +523,26 @@ func PossibleSourceControlOperationStateValues() []SourceControlOperationState {
 		SourceControlOperationStateFailed,
 		SourceControlOperationStateInProgress,
 		SourceControlOperationStateSucceeded,
+	}
+}
+
+// StorageProvisioningState - Provisioning state of storage.
+type StorageProvisioningState string
+
+const (
+	StorageProvisioningStateCanceled   StorageProvisioningState = "Canceled"
+	StorageProvisioningStateFailed     StorageProvisioningState = "Failed"
+	StorageProvisioningStateInProgress StorageProvisioningState = "InProgress"
+	StorageProvisioningStateSucceeded  StorageProvisioningState = "Succeeded"
+)
+
+// PossibleStorageProvisioningStateValues returns the possible values for the StorageProvisioningState const type.
+func PossibleStorageProvisioningStateValues() []StorageProvisioningState {
+	return []StorageProvisioningState{
+		StorageProvisioningStateCanceled,
+		StorageProvisioningStateFailed,
+		StorageProvisioningStateInProgress,
+		StorageProvisioningStateSucceeded,
 	}
 }
 

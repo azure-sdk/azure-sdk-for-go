@@ -447,15 +447,19 @@ type CertificateProperties struct {
 	Valid *bool `json:"valid,omitempty" azure:"ro"`
 }
 
-// CertificatesClientCreateOrUpdateOptions contains the optional parameters for the CertificatesClient.CreateOrUpdate method.
-type CertificatesClientCreateOrUpdateOptions struct {
+// CertificatesClientBeginCreateOrUpdateOptions contains the optional parameters for the CertificatesClient.BeginCreateOrUpdate
+// method.
+type CertificatesClientBeginCreateOrUpdateOptions struct {
 	// Certificate to be created or updated
 	CertificateEnvelope *Certificate
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// CertificatesClientDeleteOptions contains the optional parameters for the CertificatesClient.Delete method.
-type CertificatesClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// CertificatesClientBeginDeleteOptions contains the optional parameters for the CertificatesClient.BeginDelete method.
+type CertificatesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // CertificatesClientGetOptions contains the optional parameters for the CertificatesClient.Get method.
@@ -1176,7 +1180,7 @@ type CustomDomain struct {
 // CustomDomainConfiguration - Configuration properties for apps environment custom domain
 type CustomDomainConfiguration struct {
 	// Certificate password
-	CertificatePassword []byte `json:"certificatePassword,omitempty"`
+	CertificatePassword *string `json:"certificatePassword,omitempty"`
 
 	// PFX or PEM blob
 	CertificateValue []byte `json:"certificateValue,omitempty"`
@@ -1358,17 +1362,22 @@ type DaprComponentProperties struct {
 
 	// Component version
 	Version *string `json:"version,omitempty"`
+
+	// READ-ONLY; Provisioning state of dapr component.
+	ProvisioningState *DaprComponentProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
-// DaprComponentsClientCreateOrUpdateOptions contains the optional parameters for the DaprComponentsClient.CreateOrUpdate
+// DaprComponentsClientBeginCreateOrUpdateOptions contains the optional parameters for the DaprComponentsClient.BeginCreateOrUpdate
 // method.
-type DaprComponentsClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+type DaprComponentsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// DaprComponentsClientDeleteOptions contains the optional parameters for the DaprComponentsClient.Delete method.
-type DaprComponentsClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// DaprComponentsClientBeginDeleteOptions contains the optional parameters for the DaprComponentsClient.BeginDelete method.
+type DaprComponentsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // DaprComponentsClientGetOptions contains the optional parameters for the DaprComponentsClient.Get method.
@@ -2099,6 +2108,9 @@ type ManagedEnvironmentStorage struct {
 type ManagedEnvironmentStorageProperties struct {
 	// Azure file properties
 	AzureFile *AzureFileProperties `json:"azureFile,omitempty"`
+
+	// READ-ONLY; Provisioning state of storage.
+	ProvisioningState *StorageProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // ManagedEnvironmentStoragesCollection - Collection of Storage for Environments
@@ -2172,16 +2184,18 @@ type ManagedEnvironmentsDiagnosticsClientGetRootOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ManagedEnvironmentsStoragesClientCreateOrUpdateOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.CreateOrUpdate
+// ManagedEnvironmentsStoragesClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.BeginCreateOrUpdate
 // method.
-type ManagedEnvironmentsStoragesClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+type ManagedEnvironmentsStoragesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// ManagedEnvironmentsStoragesClientDeleteOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.Delete
+// ManagedEnvironmentsStoragesClientBeginDeleteOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.BeginDelete
 // method.
-type ManagedEnvironmentsStoragesClientDeleteOptions struct {
-	// placeholder for future optional parameters
+type ManagedEnvironmentsStoragesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ManagedEnvironmentsStoragesClientGetOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.Get
