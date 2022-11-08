@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-11-08)
+### Breaking Changes
+
+- Type of `CustomDomainConfiguration.CertificatePassword` has been changed from `[]byte` to `*string`
+
+### Features Added
+
+- New anonymous field `ManagedEnvironment` in struct `ManagedEnvironmentsClientUpdateResponse`
+- New anonymous field `ContainerApp` in struct `ContainerAppsClientUpdateResponse`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 

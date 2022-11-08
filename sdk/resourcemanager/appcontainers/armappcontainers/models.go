@@ -949,7 +949,7 @@ type ContainerAppProperties struct {
 	LatestRevisionName *string `json:"latestRevisionName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Outbound IP Addresses for container app.
-	OutboundIPAddresses []*string `json:"outboundIPAddresses,omitempty" azure:"ro"`
+	OutboundIPAddresses []*string `json:"outboundIpAddresses,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning state of the Container App.
 	ProvisioningState *ContainerAppProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -1176,7 +1176,7 @@ type CustomDomain struct {
 // CustomDomainConfiguration - Configuration properties for apps environment custom domain
 type CustomDomainConfiguration struct {
 	// Certificate password
-	CertificatePassword []byte `json:"certificatePassword,omitempty"`
+	CertificatePassword *string `json:"certificatePassword,omitempty"`
 
 	// PFX or PEM blob
 	CertificateValue []byte `json:"certificateValue,omitempty"`
