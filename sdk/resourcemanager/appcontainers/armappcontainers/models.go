@@ -1176,7 +1176,7 @@ type CustomDomain struct {
 // CustomDomainConfiguration - Configuration properties for apps environment custom domain
 type CustomDomainConfiguration struct {
 	// Certificate password
-	CertificatePassword []byte `json:"certificatePassword,omitempty"`
+	CertificatePassword *string `json:"certificatePassword,omitempty"`
 
 	// PFX or PEM blob
 	CertificateValue []byte `json:"certificateValue,omitempty"`

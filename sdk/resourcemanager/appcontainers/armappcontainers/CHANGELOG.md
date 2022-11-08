@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-11-08)
+### Breaking Changes
+
+- Type of `CustomDomainConfiguration.CertificatePassword` has been changed from `[]byte` to `*string`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
