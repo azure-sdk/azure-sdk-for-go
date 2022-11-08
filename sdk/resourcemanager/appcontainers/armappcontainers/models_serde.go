@@ -2098,7 +2098,7 @@ func (c *CustomDomain) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CustomDomainConfiguration.
 func (c CustomDomainConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populateByteArray(objectMap, "certificatePassword", c.CertificatePassword, runtime.Base64StdFormat)
+	populate(objectMap, "certificatePassword", c.CertificatePassword)
 	populateByteArray(objectMap, "certificateValue", c.CertificateValue, runtime.Base64StdFormat)
 	populate(objectMap, "customDomainVerificationId", c.CustomDomainVerificationID)
 	populate(objectMap, "dnsSuffix", c.DNSSuffix)
@@ -2118,7 +2118,7 @@ func (c *CustomDomainConfiguration) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "certificatePassword":
-			err = runtime.DecodeByteArray(string(val), &c.CertificatePassword, runtime.Base64StdFormat)
+			err = unpopulate(val, "CertificatePassword", &c.CertificatePassword)
 			delete(rawMsg, key)
 		case "certificateValue":
 			err = runtime.DecodeByteArray(string(val), &c.CertificateValue, runtime.Base64StdFormat)
@@ -2466,6 +2466,7 @@ func (d DaprComponentProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "ignoreErrors", d.IgnoreErrors)
 	populate(objectMap, "initTimeout", d.InitTimeout)
 	populate(objectMap, "metadata", d.Metadata)
+	populate(objectMap, "provisioningState", d.ProvisioningState)
 	populate(objectMap, "scopes", d.Scopes)
 	populate(objectMap, "secretStoreComponent", d.SecretStoreComponent)
 	populate(objectMap, "secrets", d.Secrets)
@@ -2493,6 +2494,9 @@ func (d *DaprComponentProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "metadata":
 			err = unpopulate(val, "Metadata", &d.Metadata)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &d.ProvisioningState)
 			delete(rawMsg, key)
 		case "scopes":
 			err = unpopulate(val, "Scopes", &d.Scopes)
@@ -4384,6 +4388,7 @@ func (m *ManagedEnvironmentStorage) UnmarshalJSON(data []byte) error {
 func (m ManagedEnvironmentStorageProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "azureFile", m.AzureFile)
+	populate(objectMap, "provisioningState", m.ProvisioningState)
 	return json.Marshal(objectMap)
 }
 
@@ -4398,6 +4403,9 @@ func (m *ManagedEnvironmentStorageProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "azureFile":
 			err = unpopulate(val, "AzureFile", &m.AzureFile)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &m.ProvisioningState)
 			delete(rawMsg, key)
 		}
 		if err != nil {

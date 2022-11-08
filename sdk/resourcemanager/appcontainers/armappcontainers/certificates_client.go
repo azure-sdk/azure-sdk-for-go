@@ -55,31 +55,46 @@ func NewCertificatesClient(subscriptionID string, credential azcore.TokenCredent
 	return client, nil
 }
 
-// CreateOrUpdate - Create or Update a Certificate.
+// BeginCreateOrUpdate - Create or Update a Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Managed Environment.
 // certificateName - Name of the Certificate.
-// options - CertificatesClientCreateOrUpdateOptions contains the optional parameters for the CertificatesClient.CreateOrUpdate
+// options - CertificatesClientBeginCreateOrUpdateOptions contains the optional parameters for the CertificatesClient.BeginCreateOrUpdate
 // method.
-func (client *CertificatesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientCreateOrUpdateOptions) (CertificatesClientCreateOrUpdateResponse, error) {
+func (client *CertificatesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientBeginCreateOrUpdateOptions) (*runtime.Poller[CertificatesClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, environmentName, certificateName, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[CertificatesClientCreateOrUpdateResponse](resp, client.pl, nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[CertificatesClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// CreateOrUpdate - Create or Update a Certificate.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-11-01-preview
+func (client *CertificatesClient) createOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, environmentName, certificateName, options)
 	if err != nil {
-		return CertificatesClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return CertificatesClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return CertificatesClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.createOrUpdateHandleResponse(resp)
+	return resp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *CertificatesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *CertificatesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/certificates/{certificateName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -102,7 +117,7 @@ func (client *CertificatesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.CertificateEnvelope != nil {
@@ -111,39 +126,46 @@ func (client *CertificatesClient) createOrUpdateCreateRequest(ctx context.Contex
 	return req, nil
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *CertificatesClient) createOrUpdateHandleResponse(resp *http.Response) (CertificatesClientCreateOrUpdateResponse, error) {
-	result := CertificatesClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Certificate); err != nil {
-		return CertificatesClientCreateOrUpdateResponse{}, err
+// BeginDelete - Deletes the specified Certificate.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-11-01-preview
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// environmentName - Name of the Managed Environment.
+// certificateName - Name of the Certificate.
+// options - CertificatesClientBeginDeleteOptions contains the optional parameters for the CertificatesClient.BeginDelete
+// method.
+func (client *CertificatesClient) BeginDelete(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientBeginDeleteOptions) (*runtime.Poller[CertificatesClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, environmentName, certificateName, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[CertificatesClientDeleteResponse](resp, client.pl, nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[CertificatesClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
-	return result, nil
 }
 
 // Delete - Deletes the specified Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// environmentName - Name of the Managed Environment.
-// certificateName - Name of the Certificate.
-// options - CertificatesClientDeleteOptions contains the optional parameters for the CertificatesClient.Delete method.
-func (client *CertificatesClient) Delete(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientDeleteOptions) (CertificatesClientDeleteResponse, error) {
+// Generated from API version 2022-11-01-preview
+func (client *CertificatesClient) deleteOperation(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, environmentName, certificateName, options)
 	if err != nil {
-		return CertificatesClientDeleteResponse{}, err
+		return nil, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return CertificatesClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
-		return CertificatesClientDeleteResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return CertificatesClientDeleteResponse{}, nil
+	return resp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientDeleteOptions) (*policy.Request, error) {
+func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, environmentName string, certificateName string, options *CertificatesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.App/managedEnvironments/{environmentName}/certificates/{certificateName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -166,7 +188,7 @@ func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -174,7 +196,7 @@ func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resou
 
 // Get - Get the specified Certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Managed Environment.
 // certificateName - Name of the Certificate.
@@ -218,7 +240,7 @@ func (client *CertificatesClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,7 +256,7 @@ func (client *CertificatesClient) getHandleResponse(resp *http.Response) (Certif
 }
 
 // NewListPager - Get the Certificates in a given managed environment.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Managed Environment.
 // options - CertificatesClientListOptions contains the optional parameters for the CertificatesClient.List method.
@@ -286,7 +308,7 @@ func (client *CertificatesClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -303,7 +325,7 @@ func (client *CertificatesClient) listHandleResponse(resp *http.Response) (Certi
 
 // Update - Patches a certificate. Currently only patching of tags is supported
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2022-11-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // environmentName - Name of the Managed Environment.
 // certificateName - Name of the Certificate.
@@ -348,7 +370,7 @@ func (client *CertificatesClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, certificateEnvelope)

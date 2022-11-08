@@ -1,5 +1,52 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-11-08)
+### Breaking Changes
+
+- Type of `CustomDomainConfiguration.CertificatePassword` has been changed from `[]byte` to `*string`
+- Function `*CertificatesClient.Delete` has been removed
+- Function `*ManagedEnvironmentsStoragesClient.Delete` has been removed
+- Function `*CertificatesClient.CreateOrUpdate` has been removed
+- Function `*DaprComponentsClient.Delete` has been removed
+- Function `*DaprComponentsClient.CreateOrUpdate` has been removed
+- Function `*ManagedEnvironmentsStoragesClient.CreateOrUpdate` has been removed
+- Struct `CertificatesClientCreateOrUpdateOptions` has been removed
+- Struct `CertificatesClientDeleteOptions` has been removed
+- Struct `DaprComponentsClientCreateOrUpdateOptions` has been removed
+- Struct `DaprComponentsClientDeleteOptions` has been removed
+- Struct `ManagedEnvironmentsStoragesClientCreateOrUpdateOptions` has been removed
+- Struct `ManagedEnvironmentsStoragesClientDeleteOptions` has been removed
+
+### Features Added
+
+- New const `StorageProvisioningStateFailed`
+- New const `StorageProvisioningStateCanceled`
+- New const `DaprComponentProvisioningStateCanceled`
+- New const `DaprComponentProvisioningStateFailed`
+- New const `DaprComponentProvisioningStateInProgress`
+- New const `StorageProvisioningStateSucceeded`
+- New const `DaprComponentProvisioningStateSucceeded`
+- New const `StorageProvisioningStateInProgress`
+- New type alias `StorageProvisioningState`
+- New type alias `DaprComponentProvisioningState`
+- New function `PossibleStorageProvisioningStateValues() []StorageProvisioningState`
+- New function `*CertificatesClient.BeginCreateOrUpdate(context.Context, string, string, string, *CertificatesClientBeginCreateOrUpdateOptions) (*runtime.Poller[CertificatesClientCreateOrUpdateResponse], error)`
+- New function `PossibleDaprComponentProvisioningStateValues() []DaprComponentProvisioningState`
+- New function `*ManagedEnvironmentsStoragesClient.BeginDelete(context.Context, string, string, string, *ManagedEnvironmentsStoragesClientBeginDeleteOptions) (*runtime.Poller[ManagedEnvironmentsStoragesClientDeleteResponse], error)`
+- New function `*CertificatesClient.BeginDelete(context.Context, string, string, string, *CertificatesClientBeginDeleteOptions) (*runtime.Poller[CertificatesClientDeleteResponse], error)`
+- New function `*DaprComponentsClient.BeginDelete(context.Context, string, string, string, *DaprComponentsClientBeginDeleteOptions) (*runtime.Poller[DaprComponentsClientDeleteResponse], error)`
+- New function `*ManagedEnvironmentsStoragesClient.BeginCreateOrUpdate(context.Context, string, string, string, ManagedEnvironmentStorage, *ManagedEnvironmentsStoragesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedEnvironmentsStoragesClientCreateOrUpdateResponse], error)`
+- New function `*DaprComponentsClient.BeginCreateOrUpdate(context.Context, string, string, string, DaprComponent, *DaprComponentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DaprComponentsClientCreateOrUpdateResponse], error)`
+- New struct `CertificatesClientBeginCreateOrUpdateOptions`
+- New struct `CertificatesClientBeginDeleteOptions`
+- New struct `DaprComponentsClientBeginCreateOrUpdateOptions`
+- New struct `DaprComponentsClientBeginDeleteOptions`
+- New struct `ManagedEnvironmentsStoragesClientBeginCreateOrUpdateOptions`
+- New struct `ManagedEnvironmentsStoragesClientBeginDeleteOptions`
+- New field `ProvisioningState` in struct `ManagedEnvironmentStorageProperties`
+- New field `ProvisioningState` in struct `DaprComponentProperties`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
