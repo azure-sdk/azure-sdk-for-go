@@ -14,6 +14,26 @@ type ActivityRunsClientQueryByPipelineRunResponse struct {
 	ActivityRunsQueryResponse
 }
 
+// CredentialOperationsClientCreateOrUpdateResponse contains the response from method CredentialOperationsClient.CreateOrUpdate.
+type CredentialOperationsClientCreateOrUpdateResponse struct {
+	ManagedIdentityCredentialResource
+}
+
+// CredentialOperationsClientDeleteResponse contains the response from method CredentialOperationsClient.Delete.
+type CredentialOperationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// CredentialOperationsClientGetResponse contains the response from method CredentialOperationsClient.Get.
+type CredentialOperationsClientGetResponse struct {
+	ManagedIdentityCredentialResource
+}
+
+// CredentialOperationsClientListByFactoryResponse contains the response from method CredentialOperationsClient.ListByFactory.
+type CredentialOperationsClientListByFactoryResponse struct {
+	CredentialListResponse
+}
+
 // DataFlowDebugSessionClientAddDataFlowResponse contains the response from method DataFlowDebugSessionClient.AddDataFlow.
 type DataFlowDebugSessionClientAddDataFlowResponse struct {
 	AddDataFlowToDebugSessionResponse
