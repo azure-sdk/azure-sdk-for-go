@@ -1,5 +1,12 @@
 # Release History
 
+## 4.1.0 (2022-11-08)
+### Features Added
+
+- New field `ConstrainedMaximumCapacity` in struct `VirtualMachineScaleSetProperties`
+- New field `RequireGuestProvisionSignal` in struct `VirtualMachineScaleSetOSProfile`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 
