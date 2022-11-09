@@ -1338,6 +1338,12 @@ type CertificateOrdersClientRetrieveCertificateEmailHistoryOptions struct {
 	// placeholder for future optional parameters
 }
 
+// CertificateOrdersClientRetrieveCertificateOrderContactOptions contains the optional parameters for the CertificateOrdersClient.RetrieveCertificateOrderContact
+// method.
+type CertificateOrdersClientRetrieveCertificateOrderContactOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CertificateOrdersClientRetrieveSiteSealOptions contains the optional parameters for the CertificateOrdersClient.RetrieveSiteSeal
 // method.
 type CertificateOrdersClientRetrieveSiteSealOptions struct {

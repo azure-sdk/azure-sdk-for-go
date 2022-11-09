@@ -91,6 +91,11 @@ type CertificateOrdersClientRetrieveCertificateEmailHistoryResponse struct {
 	CertificateEmailArray []*CertificateEmail
 }
 
+// CertificateOrdersClientRetrieveCertificateOrderContactResponse contains the response from method CertificateOrdersClient.RetrieveCertificateOrderContact.
+type CertificateOrdersClientRetrieveCertificateOrderContactResponse struct {
+	CertificateOrderContact
+}
+
 // CertificateOrdersClientRetrieveSiteSealResponse contains the response from method CertificateOrdersClient.RetrieveSiteSeal.
 type CertificateOrdersClientRetrieveSiteSealResponse struct {
 	SiteSeal

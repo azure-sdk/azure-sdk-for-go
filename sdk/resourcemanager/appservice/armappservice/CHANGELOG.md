@@ -1,5 +1,13 @@
 # Release History
 
+## 2.1.0 (2022-11-09)
+### Features Added
+
+- New function `*CertificateOrdersClient.RetrieveCertificateOrderContact(context.Context, string, string, *CertificateOrdersClientRetrieveCertificateOrderContactOptions) (CertificateOrdersClientRetrieveCertificateOrderContactResponse, error)`
+- New struct `CertificateOrdersClientRetrieveCertificateOrderContactOptions`
+- New struct `CertificateOrdersClientRetrieveCertificateOrderContactResponse`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 
