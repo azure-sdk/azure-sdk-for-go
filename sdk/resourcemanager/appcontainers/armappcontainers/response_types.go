@@ -211,7 +211,7 @@ type ContainerAppsClientListSecretsResponse struct {
 
 // ContainerAppsClientUpdateResponse contains the response from method ContainerAppsClient.Update.
 type ContainerAppsClientUpdateResponse struct {
-	// placeholder for future response values
+	ContainerApp
 }
 
 // ContainerAppsDiagnosticsClientGetDetectorResponse contains the response from method ContainerAppsDiagnosticsClient.GetDetector.
@@ -366,7 +366,7 @@ type ManagedEnvironmentsClientListWorkloadProfileStatesResponse struct {
 
 // ManagedEnvironmentsClientUpdateResponse contains the response from method ManagedEnvironmentsClient.Update.
 type ManagedEnvironmentsClientUpdateResponse struct {
-	// placeholder for future response values
+	ManagedEnvironment
 }
 
 // ManagedEnvironmentsDiagnosticsClientGetRootResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.GetRoot.

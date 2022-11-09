@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-11-09)
+### Breaking Changes
+
+- Type of `DaprSecretsCollection.Value` has been changed from `[]*Secret` to `[]*DaprSecret`
+
+### Features Added
+
+- New anonymous field `ContainerApp` in struct `ContainerAppsClientUpdateResponse`
+- New anonymous field `ManagedEnvironment` in struct `ManagedEnvironmentsClientUpdateResponse`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
