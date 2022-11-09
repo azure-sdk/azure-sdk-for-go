@@ -1,5 +1,9 @@
 # Release History
 
+## 0.1.2 (2022-11-09)
+### Other Changes
+
+
 ## 0.1.1 (2022-10-12)
 ### Other Changes
 - Loosen Go version requirement.
