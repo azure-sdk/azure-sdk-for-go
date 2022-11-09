@@ -9,6 +9,16 @@
 
 package armstorage
 
+// AccountMigrationsClientGetResponse contains the response from method AccountMigrationsClient.Get.
+type AccountMigrationsClientGetResponse struct {
+	AccountMigration
+}
+
+// AccountMigrationsClientPutResponse contains the response from method AccountMigrationsClient.Put.
+type AccountMigrationsClientPutResponse struct {
+	// placeholder for future response values
+}
+
 // AccountsClientAbortHierarchicalNamespaceMigrationResponse contains the response from method AccountsClient.AbortHierarchicalNamespaceMigration.
 type AccountsClientAbortHierarchicalNamespaceMigrationResponse struct {
 	// placeholder for future response values

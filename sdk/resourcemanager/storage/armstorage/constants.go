@@ -11,7 +11,7 @@ package armstorage
 
 const (
 	moduleName    = "armstorage"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AccessTier - Required for storage accounts where kind = BlobStorage. The access tier is used for billing. The 'Premium'
@@ -53,6 +53,19 @@ func PossibleAccountImmutabilityPolicyStateValues() []AccountImmutabilityPolicyS
 		AccountImmutabilityPolicyStateDisabled,
 		AccountImmutabilityPolicyStateLocked,
 		AccountImmutabilityPolicyStateUnlocked,
+	}
+}
+
+type AccountMigrationName string
+
+const (
+	AccountMigrationNameDefault AccountMigrationName = "default"
+)
+
+// PossibleAccountMigrationNameValues returns the possible values for the AccountMigrationName const type.
+func PossibleAccountMigrationNameValues() []AccountMigrationName {
+	return []AccountMigrationName{
+		AccountMigrationNameDefault,
 	}
 }
 
@@ -677,6 +690,23 @@ func PossibleListContainersIncludeValues() []ListContainersInclude {
 	}
 }
 
+type ListEncryptionScopesInclude string
+
+const (
+	ListEncryptionScopesIncludeAll      ListEncryptionScopesInclude = "All"
+	ListEncryptionScopesIncludeDisabled ListEncryptionScopesInclude = "Disabled"
+	ListEncryptionScopesIncludeEnabled  ListEncryptionScopesInclude = "Enabled"
+)
+
+// PossibleListEncryptionScopesIncludeValues returns the possible values for the ListEncryptionScopesInclude const type.
+func PossibleListEncryptionScopesIncludeValues() []ListEncryptionScopesInclude {
+	return []ListEncryptionScopesInclude{
+		ListEncryptionScopesIncludeAll,
+		ListEncryptionScopesIncludeDisabled,
+		ListEncryptionScopesIncludeEnabled,
+	}
+}
+
 type ManagementPolicyName string
 
 const (
@@ -703,6 +733,28 @@ func PossibleMigrationStateValues() []MigrationState {
 	return []MigrationState{
 		MigrationStateCompleted,
 		MigrationStateInProgress,
+	}
+}
+
+// MigrationStatus - Current status of migration
+type MigrationStatus string
+
+const (
+	MigrationStatusComplete               MigrationStatus = "Complete"
+	MigrationStatusFailed                 MigrationStatus = "Failed"
+	MigrationStatusInProgress             MigrationStatus = "InProgress"
+	MigrationStatusInvalid                MigrationStatus = "Invalid"
+	MigrationStatusSubmittedForConversion MigrationStatus = "SubmittedForConversion"
+)
+
+// PossibleMigrationStatusValues returns the possible values for the MigrationStatus const type.
+func PossibleMigrationStatusValues() []MigrationStatus {
+	return []MigrationStatus{
+		MigrationStatusComplete,
+		MigrationStatusFailed,
+		MigrationStatusInProgress,
+		MigrationStatusInvalid,
+		MigrationStatusSubmittedForConversion,
 	}
 }
 
@@ -1155,6 +1207,30 @@ func PossibleStorageAccountExpandValues() []StorageAccountExpand {
 	return []StorageAccountExpand{
 		StorageAccountExpandGeoReplicationStats,
 		StorageAccountExpandBlobRestoreStatus,
+	}
+}
+
+// TargetSKUName - The target sku name to migrate.
+type TargetSKUName string
+
+const (
+	TargetSKUNameStandardGRS    TargetSKUName = "Standard_GRS"
+	TargetSKUNameStandardGZRS   TargetSKUName = "Standard_GZRS"
+	TargetSKUNameStandardLRS    TargetSKUName = "Standard_LRS"
+	TargetSKUNameStandardRAGRS  TargetSKUName = "Standard_RAGRS"
+	TargetSKUNameStandardRAGZRS TargetSKUName = "Standard_RAGZRS"
+	TargetSKUNameStandardZRS    TargetSKUName = "Standard_ZRS"
+)
+
+// PossibleTargetSKUNameValues returns the possible values for the TargetSKUName const type.
+func PossibleTargetSKUNameValues() []TargetSKUName {
+	return []TargetSKUName{
+		TargetSKUNameStandardGRS,
+		TargetSKUNameStandardGZRS,
+		TargetSKUNameStandardLRS,
+		TargetSKUNameStandardRAGRS,
+		TargetSKUNameStandardRAGZRS,
+		TargetSKUNameStandardZRS,
 	}
 }
 
