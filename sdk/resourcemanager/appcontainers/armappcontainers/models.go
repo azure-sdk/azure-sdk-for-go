@@ -921,6 +921,9 @@ type ContainerAppProbeTCPSocket struct {
 
 // ContainerAppProperties - ContainerApp resource specific properties
 type ContainerAppProperties struct {
+	// Current state of the app. Controls if the app is enabled or disabled.
+	AppState *AppState `json:"appState,omitempty"`
+
 	// Non versioned Container App configuration properties.
 	Configuration *Configuration `json:"configuration,omitempty"`
 
@@ -942,6 +945,9 @@ type ContainerAppProperties struct {
 	// READ-ONLY; The endpoint of the eventstream of the container app.
 	EventStreamEndpoint *string `json:"eventStreamEndpoint,omitempty" azure:"ro"`
 
+	// READ-ONLY; Name of the latest ready revision of the Container App.
+	LatestReadyRevisionName *string `json:"latestReadyRevisionName,omitempty" azure:"ro"`
+
 	// READ-ONLY; Fully Qualified Domain Name of the latest revision of the Container App.
 	LatestRevisionFqdn *string `json:"latestRevisionFqdn,omitempty" azure:"ro"`
 
@@ -949,7 +955,7 @@ type ContainerAppProperties struct {
 	LatestRevisionName *string `json:"latestRevisionName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Outbound IP Addresses for container app.
-	OutboundIPAddresses []*string `json:"outboundIPAddresses,omitempty" azure:"ro"`
+	OutboundIPAddresses []*string `json:"outboundIpAddresses,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning state of the Container App.
 	ProvisioningState *ContainerAppProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -1161,6 +1167,27 @@ type CookieExpiration struct {
 	TimeToExpiration *string `json:"timeToExpiration,omitempty"`
 }
 
+// CorsPolicy - Cross-Origin-Resource-Sharing policy
+type CorsPolicy struct {
+	// REQUIRED; allowed origins
+	AllowedOrigins []*string `json:"allowedOrigins,omitempty"`
+
+	// allow credential or not
+	AllowCredentials *bool `json:"allowCredentials,omitempty"`
+
+	// allowed HTTP headers
+	AllowedHeaders []*string `json:"allowedHeaders,omitempty"`
+
+	// allowed HTTP methods
+	AllowedMethods []*string `json:"allowedMethods,omitempty"`
+
+	// expose HTTP headers
+	ExposeHeaders []*string `json:"exposeHeaders,omitempty"`
+
+	// max time client can cache the result
+	MaxAge *int32 `json:"maxAge,omitempty"`
+}
+
 // CustomDomain - Custom Domain of a Container App
 type CustomDomain struct {
 	// REQUIRED; Resource Id of the Certificate to be bound to this hostname. Must exist in the Managed Environment.
@@ -1176,7 +1203,7 @@ type CustomDomain struct {
 // CustomDomainConfiguration - Configuration properties for apps environment custom domain
 type CustomDomainConfiguration struct {
 	// Certificate password
-	CertificatePassword []byte `json:"certificatePassword,omitempty"`
+	CertificatePassword *string `json:"certificatePassword,omitempty"`
 
 	// PFX or PEM blob
 	CertificateValue []byte `json:"certificateValue,omitempty"`
@@ -1419,7 +1446,7 @@ type DaprSecret struct {
 // DaprSecretsCollection - Dapr component Secrets Collection for ListSecrets Action.
 type DaprSecretsCollection struct {
 	// REQUIRED; Collection of secrets used by a Dapr component
-	Value []*Secret `json:"value,omitempty"`
+	Value []*DaprSecret `json:"value,omitempty"`
 }
 
 // DefaultAuthorizationPolicy - The configuration settings of the Azure Active Directory default authorization policy.
@@ -1889,6 +1916,14 @@ type Ingress struct {
 	// Bool indicating if HTTP connections to is allowed. If set to false HTTP connections are automatically redirected to HTTPS
 	// connections
 	AllowInsecure *bool `json:"allowInsecure,omitempty"`
+
+	// Client certificate mode for mTLS authentication. Ignore indicates server drops client certificate on forwarding. Accept
+	// indicates server forwards client certificate but does not require a client
+	// certificate. Require indicates server requires a client certificate.
+	ClientCertificateMode *IngressClientCertificateMode `json:"clientCertificateMode,omitempty"`
+
+	// CORS policy for container app
+	CorsPolicy *CorsPolicy `json:"corsPolicy,omitempty"`
 
 	// custom domain bindings for Container Apps' hostnames.
 	CustomDomains []*CustomDomain `json:"customDomains,omitempty"`

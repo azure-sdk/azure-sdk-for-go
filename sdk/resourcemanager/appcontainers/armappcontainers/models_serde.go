@@ -1899,14 +1899,16 @@ func (c *ContainerAppProbeTCPSocket) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ContainerAppProperties.
 func (c ContainerAppProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "appState", c.AppState)
 	populate(objectMap, "configuration", c.Configuration)
 	populate(objectMap, "customDomainVerificationId", c.CustomDomainVerificationID)
 	populate(objectMap, "environmentId", c.EnvironmentID)
 	populate(objectMap, "eventStreamEndpoint", c.EventStreamEndpoint)
+	populate(objectMap, "latestReadyRevisionName", c.LatestReadyRevisionName)
 	populate(objectMap, "latestRevisionFqdn", c.LatestRevisionFqdn)
 	populate(objectMap, "latestRevisionName", c.LatestRevisionName)
 	populate(objectMap, "managedEnvironmentId", c.ManagedEnvironmentID)
-	populate(objectMap, "outboundIPAddresses", c.OutboundIPAddresses)
+	populate(objectMap, "outboundIpAddresses", c.OutboundIPAddresses)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "template", c.Template)
 	populate(objectMap, "workloadProfileType", c.WorkloadProfileType)
@@ -1922,6 +1924,9 @@ func (c *ContainerAppProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "appState":
+			err = unpopulate(val, "AppState", &c.AppState)
+			delete(rawMsg, key)
 		case "configuration":
 			err = unpopulate(val, "Configuration", &c.Configuration)
 			delete(rawMsg, key)
@@ -1934,6 +1939,9 @@ func (c *ContainerAppProperties) UnmarshalJSON(data []byte) error {
 		case "eventStreamEndpoint":
 			err = unpopulate(val, "EventStreamEndpoint", &c.EventStreamEndpoint)
 			delete(rawMsg, key)
+		case "latestReadyRevisionName":
+			err = unpopulate(val, "LatestReadyRevisionName", &c.LatestReadyRevisionName)
+			delete(rawMsg, key)
 		case "latestRevisionFqdn":
 			err = unpopulate(val, "LatestRevisionFqdn", &c.LatestRevisionFqdn)
 			delete(rawMsg, key)
@@ -1943,7 +1951,7 @@ func (c *ContainerAppProperties) UnmarshalJSON(data []byte) error {
 		case "managedEnvironmentId":
 			err = unpopulate(val, "ManagedEnvironmentID", &c.ManagedEnvironmentID)
 			delete(rawMsg, key)
-		case "outboundIPAddresses":
+		case "outboundIpAddresses":
 			err = unpopulate(val, "OutboundIPAddresses", &c.OutboundIPAddresses)
 			delete(rawMsg, key)
 		case "provisioningState":
@@ -2060,6 +2068,53 @@ func (c *CookieExpiration) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type CorsPolicy.
+func (c CorsPolicy) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "allowCredentials", c.AllowCredentials)
+	populate(objectMap, "allowedHeaders", c.AllowedHeaders)
+	populate(objectMap, "allowedMethods", c.AllowedMethods)
+	populate(objectMap, "allowedOrigins", c.AllowedOrigins)
+	populate(objectMap, "exposeHeaders", c.ExposeHeaders)
+	populate(objectMap, "maxAge", c.MaxAge)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CorsPolicy.
+func (c *CorsPolicy) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "allowCredentials":
+			err = unpopulate(val, "AllowCredentials", &c.AllowCredentials)
+			delete(rawMsg, key)
+		case "allowedHeaders":
+			err = unpopulate(val, "AllowedHeaders", &c.AllowedHeaders)
+			delete(rawMsg, key)
+		case "allowedMethods":
+			err = unpopulate(val, "AllowedMethods", &c.AllowedMethods)
+			delete(rawMsg, key)
+		case "allowedOrigins":
+			err = unpopulate(val, "AllowedOrigins", &c.AllowedOrigins)
+			delete(rawMsg, key)
+		case "exposeHeaders":
+			err = unpopulate(val, "ExposeHeaders", &c.ExposeHeaders)
+			delete(rawMsg, key)
+		case "maxAge":
+			err = unpopulate(val, "MaxAge", &c.MaxAge)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type CustomDomain.
 func (c CustomDomain) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -2098,7 +2153,7 @@ func (c *CustomDomain) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CustomDomainConfiguration.
 func (c CustomDomainConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populateByteArray(objectMap, "certificatePassword", c.CertificatePassword, runtime.Base64StdFormat)
+	populate(objectMap, "certificatePassword", c.CertificatePassword)
 	populateByteArray(objectMap, "certificateValue", c.CertificateValue, runtime.Base64StdFormat)
 	populate(objectMap, "customDomainVerificationId", c.CustomDomainVerificationID)
 	populate(objectMap, "dnsSuffix", c.DNSSuffix)
@@ -2118,7 +2173,7 @@ func (c *CustomDomainConfiguration) UnmarshalJSON(data []byte) error {
 		var err error
 		switch key {
 		case "certificatePassword":
-			err = runtime.DecodeByteArray(string(val), &c.CertificatePassword, runtime.Base64StdFormat)
+			err = unpopulate(val, "CertificatePassword", &c.CertificatePassword)
 			delete(rawMsg, key)
 		case "certificateValue":
 			err = runtime.DecodeByteArray(string(val), &c.CertificateValue, runtime.Base64StdFormat)
@@ -3915,6 +3970,8 @@ func (i *IdentityProviders) UnmarshalJSON(data []byte) error {
 func (i Ingress) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "allowInsecure", i.AllowInsecure)
+	populate(objectMap, "clientCertificateMode", i.ClientCertificateMode)
+	populate(objectMap, "corsPolicy", i.CorsPolicy)
 	populate(objectMap, "customDomains", i.CustomDomains)
 	populate(objectMap, "exposedPort", i.ExposedPort)
 	populate(objectMap, "external", i.External)
@@ -3937,6 +3994,12 @@ func (i *Ingress) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "allowInsecure":
 			err = unpopulate(val, "AllowInsecure", &i.AllowInsecure)
+			delete(rawMsg, key)
+		case "clientCertificateMode":
+			err = unpopulate(val, "ClientCertificateMode", &i.ClientCertificateMode)
+			delete(rawMsg, key)
+		case "corsPolicy":
+			err = unpopulate(val, "CorsPolicy", &i.CorsPolicy)
 			delete(rawMsg, key)
 		case "customDomains":
 			err = unpopulate(val, "CustomDomains", &i.CustomDomains)
