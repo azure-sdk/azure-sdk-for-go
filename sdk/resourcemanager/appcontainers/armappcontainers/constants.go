@@ -11,7 +11,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // AccessMode - Access mode for storage
@@ -333,6 +333,26 @@ func PossibleForwardProxyConventionValues() []ForwardProxyConvention {
 		ForwardProxyConventionNoProxy,
 		ForwardProxyConventionStandard,
 		ForwardProxyConventionCustom,
+	}
+}
+
+// IngressClientCertificateMode - Client certificate mode for mTLS authentication. Ignore indicates server drops client certificate
+// on forwarding. Accept indicates server forwards client certificate but does not require a client
+// certificate. Require indicates server requires a client certificate.
+type IngressClientCertificateMode string
+
+const (
+	IngressClientCertificateModeAccept  IngressClientCertificateMode = "accept"
+	IngressClientCertificateModeIgnore  IngressClientCertificateMode = "ignore"
+	IngressClientCertificateModeRequire IngressClientCertificateMode = "require"
+)
+
+// PossibleIngressClientCertificateModeValues returns the possible values for the IngressClientCertificateMode const type.
+func PossibleIngressClientCertificateModeValues() []IngressClientCertificateMode {
+	return []IngressClientCertificateMode{
+		IngressClientCertificateModeAccept,
+		IngressClientCertificateModeIgnore,
+		IngressClientCertificateModeRequire,
 	}
 }
 

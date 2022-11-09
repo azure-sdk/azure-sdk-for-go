@@ -1,5 +1,22 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-11-09)
+### Breaking Changes
+
+- Type of `CustomDomainConfiguration.CertificatePassword` has been changed from `[]byte` to `*string`
+
+### Features Added
+
+- New const `IngressClientCertificateModeIgnore`
+- New const `IngressClientCertificateModeAccept`
+- New const `IngressClientCertificateModeRequire`
+- New type alias `IngressClientCertificateMode`
+- New function `PossibleIngressClientCertificateModeValues() []IngressClientCertificateMode`
+- New struct `CorsPolicy`
+- New field `CorsPolicy` in struct `Ingress`
+- New field `ClientCertificateMode` in struct `Ingress`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
