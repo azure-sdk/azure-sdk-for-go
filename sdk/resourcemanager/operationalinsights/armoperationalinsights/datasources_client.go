@@ -166,6 +166,7 @@ func (client *DataSourcesClient) deleteCreateRequest(ctx context.Context, resour
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2020-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
@@ -231,7 +232,6 @@ func (client *DataSourcesClient) getHandleResponse(resp *http.Response) (DataSou
 }
 
 // NewListByWorkspacePager - Gets the first page of data source instances in a workspace with the link to the next page.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2020-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.

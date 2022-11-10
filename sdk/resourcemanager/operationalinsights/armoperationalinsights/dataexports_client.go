@@ -137,7 +137,7 @@ func (client *DataExportsClient) Delete(ctx context.Context, resourceGroupName s
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNotFound) {
 		return DataExportsClientDeleteResponse{}, runtime.NewResponseError(resp)
 	}
-	return DataExportsClientDeleteResponse{}, nil
+	return client.deleteHandleResponse(resp)
 }
 
 // deleteCreateRequest creates the Delete request.
@@ -168,6 +168,15 @@ func (client *DataExportsClient) deleteCreateRequest(ctx context.Context, resour
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
+}
+
+// deleteHandleResponse handles the Delete response.
+func (client *DataExportsClient) deleteHandleResponse(resp *http.Response) (DataExportsClientDeleteResponse, error) {
+	result := DataExportsClientDeleteResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ErrorResponse); err != nil {
+		return DataExportsClientDeleteResponse{}, err
+	}
+	return result, nil
 }
 
 // Get - Gets a data export instance.
@@ -232,7 +241,6 @@ func (client *DataExportsClient) getHandleResponse(resp *http.Response) (DataExp
 }
 
 // NewListByWorkspacePager - Lists the data export instances within a workspace.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2020-08-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - The name of the workspace.
