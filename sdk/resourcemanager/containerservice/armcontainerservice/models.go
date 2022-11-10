@@ -75,6 +75,12 @@ type AgentPoolListResult struct {
 
 // AgentPoolNetworkProfile - Network settings of an agent pool.
 type AgentPoolNetworkProfile struct {
+	// The port ranges that are allowed to access. The specified ranges are allowed to overlap.
+	AllowedHostPorts []*PortRange `json:"allowedHostPorts,omitempty"`
+
+	// The IDs of the application security groups which agent pool will associate when created.
+	ApplicationSecurityGroups []*string `json:"applicationSecurityGroups,omitempty"`
+
 	// IPTags of instance-level public IPs.
 	NodePublicIPTags []*IPTag `json:"nodePublicIPTags,omitempty"`
 }
@@ -134,10 +140,11 @@ type AgentPoolWindowsProfile struct {
 	DisableOutboundNat *bool `json:"disableOutboundNat,omitempty"`
 }
 
-// AgentPoolsClientAbortLatestOperationOptions contains the optional parameters for the AgentPoolsClient.AbortLatestOperation
+// AgentPoolsClientBeginAbortLatestOperationOptions contains the optional parameters for the AgentPoolsClient.BeginAbortLatestOperation
 // method.
-type AgentPoolsClientAbortLatestOperationOptions struct {
-	// placeholder for future optional parameters
+type AgentPoolsClientBeginAbortLatestOperationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // AgentPoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the AgentPoolsClient.BeginCreateOrUpdate
@@ -791,8 +798,9 @@ type ManagedClusterAgentPoolProfile struct {
 	// Whether to enable auto-scaler
 	EnableAutoScaling *bool `json:"enableAutoScaling,omitempty"`
 
-	// When set to true, AKS deploys a daemonset and host services to sync custom certificate authorities from a user-provided
-	// config map into node trust stores. Defaults to false.
+	// When set to true, AKS adds a label to the node indicating that the feature is enabled and deploys a daemonset along with
+	// host services to sync custom certificate authorities from user-provided list of
+	// base64 encoded certificates into node trust stores. Defaults to false.
 	EnableCustomCATrust *bool `json:"enableCustomCATrust,omitempty"`
 
 	// This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption
@@ -966,8 +974,9 @@ type ManagedClusterAgentPoolProfileProperties struct {
 	// Whether to enable auto-scaler
 	EnableAutoScaling *bool `json:"enableAutoScaling,omitempty"`
 
-	// When set to true, AKS deploys a daemonset and host services to sync custom certificate authorities from a user-provided
-	// config map into node trust stores. Defaults to false.
+	// When set to true, AKS adds a label to the node indicating that the feature is enabled and deploys a daemonset along with
+	// host services to sync custom certificate authorities from user-provided list of
+	// base64 encoded certificates into node trust stores. Defaults to false.
 	EnableCustomCATrust *bool `json:"enableCustomCATrust,omitempty"`
 
 	// This is only supported on certain VM sizes and in certain Azure regions. For more information, see: https://docs.microsoft.com/azure/aks/enable-host-encryption
@@ -1615,6 +1624,11 @@ type ManagedClusterSecurityProfile struct {
 	// the security profile.
 	AzureKeyVaultKms *AzureKeyVaultKms `json:"azureKeyVaultKms,omitempty"`
 
+	// A list of up to 10 base64 encoded CAs that will be added to the trust store on nodes with the Custom CA Trust feature enabled.
+	// For more information see Custom CA Trust Certificates
+	// [https://learn.microsoft.com/en-us/azure/aks/custom-certificate-authority]
+	CustomCATrustCertificates [][]byte `json:"customCATrustCertificates,omitempty"`
+
 	// Microsoft Defender settings for the security profile.
 	Defender *ManagedClusterSecurityProfileDefender `json:"defender,omitempty"`
 
@@ -1884,10 +1898,11 @@ type ManagedClusterWorkloadAutoScalerProfileVerticalPodAutoscaler struct {
 	UpdateMode *UpdateMode `json:"updateMode,omitempty"`
 }
 
-// ManagedClustersClientAbortLatestOperationOptions contains the optional parameters for the ManagedClustersClient.AbortLatestOperation
+// ManagedClustersClientBeginAbortLatestOperationOptions contains the optional parameters for the ManagedClustersClient.BeginAbortLatestOperation
 // method.
-type ManagedClustersClientAbortLatestOperationOptions struct {
-	// placeholder for future optional parameters
+type ManagedClustersClientBeginAbortLatestOperationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ManagedClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedClustersClient.BeginCreateOrUpdate
@@ -2047,6 +2062,9 @@ type NetworkProfile struct {
 	// A CIDR notation IP range assigned to the Docker bridge network. It must not overlap with any Subnet IP ranges or the Kubernetes
 	// service address range.
 	DockerBridgeCidr *string `json:"dockerBridgeCidr,omitempty"`
+
+	// The eBPF dataplane used for building the Kubernetes network.
+	EbpfDataplane *EbpfDataplane `json:"ebpfDataplane,omitempty"`
 
 	// IP families are used to determine single-stack or dual-stack clusters. For single-stack, the expected value is IPv4. For
 	// dual-stack, the expected values are IPv4 and IPv6.
@@ -2233,6 +2251,18 @@ type OutboundEnvironmentEndpointCollection struct {
 
 	// READ-ONLY; Link to next page of resources.
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// PortRange - The port range.
+type PortRange struct {
+	// The maximum port that is included in the range. It should be ranged from 1 to 65535, and be greater than or equal to portStart.
+	PortEnd *int32 `json:"portEnd,omitempty"`
+
+	// The minimum port that is included in the range. It should be ranged from 1 to 65535, and be less than or equal to portEnd.
+	PortStart *int32 `json:"portStart,omitempty"`
+
+	// The network protocol of the port.
+	Protocol *Protocol `json:"protocol,omitempty"`
 }
 
 // PowerState - Describes the Power State of the cluster

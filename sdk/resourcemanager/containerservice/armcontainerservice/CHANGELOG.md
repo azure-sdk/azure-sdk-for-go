@@ -1,5 +1,35 @@
 # Release History
 
+## 2.2.0-beta.3 (2022-11-10)
+### Breaking Changes
+
+- Function `*ManagedClustersClient.AbortLatestOperation` has been removed
+- Function `*AgentPoolsClient.AbortLatestOperation` has been removed
+- Struct `AgentPoolsClientAbortLatestOperationOptions` has been removed
+- Struct `ManagedClustersClientAbortLatestOperationOptions` has been removed
+
+### Features Added
+
+- New const `EbpfDataplaneCilium`
+- New const `ProtocolUDP`
+- New const `ProtocolTCP`
+- New type alias `EbpfDataplane`
+- New type alias `Protocol`
+- New function `*AgentPoolsClient.BeginAbortLatestOperation(context.Context, string, string, string, *AgentPoolsClientBeginAbortLatestOperationOptions) (*runtime.Poller[AgentPoolsClientAbortLatestOperationResponse], error)`
+- New function `PossibleProtocolValues() []Protocol`
+- New function `*ManagedClustersClient.BeginAbortLatestOperation(context.Context, string, string, *ManagedClustersClientBeginAbortLatestOperationOptions) (*runtime.Poller[ManagedClustersClientAbortLatestOperationResponse], error)`
+- New function `PossibleEbpfDataplaneValues() []EbpfDataplane`
+- New struct `AgentPoolsClientBeginAbortLatestOperationOptions`
+- New struct `ManagedClustersClientBeginAbortLatestOperationOptions`
+- New struct `PortRange`
+- New field `EbpfDataplane` in struct `NetworkProfile`
+- New field `CustomCATrustCertificates` in struct `ManagedClusterSecurityProfile`
+- New anonymous field `AgentPool` in struct `AgentPoolsClientAbortLatestOperationResponse`
+- New anonymous field `ManagedCluster` in struct `ManagedClustersClientAbortLatestOperationResponse`
+- New field `AllowedHostPorts` in struct `AgentPoolNetworkProfile`
+- New field `ApplicationSecurityGroups` in struct `AgentPoolNetworkProfile`
+
+
 ## 2.2.0-beta.2 (2022-09-29)
 ### Features Added
 

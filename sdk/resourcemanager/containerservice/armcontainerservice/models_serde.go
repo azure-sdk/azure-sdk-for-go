@@ -218,6 +218,8 @@ func (a *AgentPoolListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type AgentPoolNetworkProfile.
 func (a AgentPoolNetworkProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "allowedHostPorts", a.AllowedHostPorts)
+	populate(objectMap, "applicationSecurityGroups", a.ApplicationSecurityGroups)
 	populate(objectMap, "nodePublicIPTags", a.NodePublicIPTags)
 	return json.Marshal(objectMap)
 }
@@ -231,6 +233,12 @@ func (a *AgentPoolNetworkProfile) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "allowedHostPorts":
+			err = unpopulate(val, "AllowedHostPorts", &a.AllowedHostPorts)
+			delete(rawMsg, key)
+		case "applicationSecurityGroups":
+			err = unpopulate(val, "ApplicationSecurityGroups", &a.ApplicationSecurityGroups)
+			delete(rawMsg, key)
 		case "nodePublicIPTags":
 			err = unpopulate(val, "NodePublicIPTags", &a.NodePublicIPTags)
 			delete(rawMsg, key)
@@ -3187,6 +3195,7 @@ func (m *ManagedClusterSKU) UnmarshalJSON(data []byte) error {
 func (m ManagedClusterSecurityProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "azureKeyVaultKms", m.AzureKeyVaultKms)
+	populate(objectMap, "customCATrustCertificates", m.CustomCATrustCertificates)
 	populate(objectMap, "defender", m.Defender)
 	populate(objectMap, "imageCleaner", m.ImageCleaner)
 	populate(objectMap, "nodeRestriction", m.NodeRestriction)
@@ -3205,6 +3214,9 @@ func (m *ManagedClusterSecurityProfile) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "azureKeyVaultKms":
 			err = unpopulate(val, "AzureKeyVaultKms", &m.AzureKeyVaultKms)
+			delete(rawMsg, key)
+		case "customCATrustCertificates":
+			err = unpopulate(val, "CustomCATrustCertificates", &m.CustomCATrustCertificates)
 			delete(rawMsg, key)
 		case "defender":
 			err = unpopulate(val, "Defender", &m.Defender)
@@ -3910,6 +3922,7 @@ func (n NetworkProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "dnsServiceIP", n.DNSServiceIP)
 	populate(objectMap, "dockerBridgeCidr", n.DockerBridgeCidr)
+	populate(objectMap, "ebpfDataplane", n.EbpfDataplane)
 	populate(objectMap, "ipFamilies", n.IPFamilies)
 	populate(objectMap, "kubeProxyConfig", n.KubeProxyConfig)
 	populate(objectMap, "loadBalancerProfile", n.LoadBalancerProfile)
@@ -3941,6 +3954,9 @@ func (n *NetworkProfile) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "dockerBridgeCidr":
 			err = unpopulate(val, "DockerBridgeCidr", &n.DockerBridgeCidr)
+			delete(rawMsg, key)
+		case "ebpfDataplane":
+			err = unpopulate(val, "EbpfDataplane", &n.EbpfDataplane)
 			delete(rawMsg, key)
 		case "ipFamilies":
 			err = unpopulate(val, "IPFamilies", &n.IPFamilies)
@@ -4364,6 +4380,41 @@ func (o *OutboundEnvironmentEndpointCollection) UnmarshalJSON(data []byte) error
 		}
 		if err != nil {
 			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type PortRange.
+func (p PortRange) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "portEnd", p.PortEnd)
+	populate(objectMap, "portStart", p.PortStart)
+	populate(objectMap, "protocol", p.Protocol)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type PortRange.
+func (p *PortRange) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "portEnd":
+			err = unpopulate(val, "PortEnd", &p.PortEnd)
+			delete(rawMsg, key)
+		case "portStart":
+			err = unpopulate(val, "PortStart", &p.PortStart)
+			delete(rawMsg, key)
+		case "protocol":
+			err = unpopulate(val, "Protocol", &p.Protocol)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
 		}
 	}
 	return nil
