@@ -1,5 +1,11 @@
 # Release History
 
+## 4.1.0 (2022-11-10)
+### Features Added
+
+- New field `Zones` in struct `CloudService`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 

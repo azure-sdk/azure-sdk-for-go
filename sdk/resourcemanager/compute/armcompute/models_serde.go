@@ -1135,6 +1135,7 @@ func (c CloudService) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "systemData", c.SystemData)
 	populate(objectMap, "tags", c.Tags)
 	populate(objectMap, "type", c.Type)
+	populate(objectMap, "zones", c.Zones)
 	return json.Marshal(objectMap)
 }
 
@@ -1167,6 +1168,9 @@ func (c *CloudService) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &c.Type)
+			delete(rawMsg, key)
+		case "zones":
+			err = unpopulate(val, "Zones", &c.Zones)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -7238,7 +7242,7 @@ func (l *LoadBalancerConfiguration) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LoadBalancerConfigurationProperties.
 func (l LoadBalancerConfigurationProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
-	populate(objectMap, "frontendIPConfigurations", l.FrontendIPConfigurations)
+	populate(objectMap, "frontendIpConfigurations", l.FrontendIPConfigurations)
 	return json.Marshal(objectMap)
 }
 
@@ -7251,7 +7255,7 @@ func (l *LoadBalancerConfigurationProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "frontendIPConfigurations":
+		case "frontendIpConfigurations":
 			err = unpopulate(val, "FrontendIPConfigurations", &l.FrontendIPConfigurations)
 			delete(rawMsg, key)
 		}
