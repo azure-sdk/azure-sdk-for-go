@@ -11,6 +11,13 @@ package armsqlvirtualmachine
 
 import "time"
 
+// AADAuthenticationSettings - Enable AAD authentication for SQL VM.
+type AADAuthenticationSettings struct {
+	// The client Id of the Managed Identity to query Microsoft Graph API. An empty string must be used for the system assigned
+	// Managed Identity
+	ClientID *string `json:"clientId,omitempty"`
+}
+
 // AdditionalFeaturesServerConfigurations - Additional SQL Server feature settings.
 type AdditionalFeaturesServerConfigurations struct {
 	// Enable or disable R services (SQL 2016 onwards).
@@ -447,6 +454,9 @@ type Properties struct {
 
 	// READ-ONLY; Provisioning state to track the async operation status.
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; Troubleshoot status
+	TroubleshootStatus *TroubleshootStatus `json:"troubleshootStatus,omitempty" azure:"ro"`
 }
 
 // ResourceIdentity - Azure Active Directory identity configuration for a resource.
@@ -550,6 +560,24 @@ type SQLTempDbSettings struct {
 
 	// SQL Server tempdb persist folder location
 	PersistFolderPath *string `json:"persistFolderPath,omitempty"`
+}
+
+// SQLVMTroubleshoot - Details required for SQL VM troubleshoot
+type SQLVMTroubleshoot struct {
+	// End time in UTC format.
+	EndTimeUTC *time.Time `json:"endTimeUtc,omitempty"`
+
+	// Troubleshooting properties
+	Properties *TroubleshootAdditionalProperties `json:"properties,omitempty"`
+
+	// Start time in UTC format.
+	StartTimeUTC *time.Time `json:"startTimeUtc,omitempty"`
+
+	// SQL VM troubleshooting scenario.
+	TroubleShootingScenario *TroubleShootingScenario `json:"troubleShootingScenario,omitempty"`
+
+	// READ-ONLY; Virtual machine resource id for response.
+	VirtualMachineResourceID *string `json:"virtualMachineResourceId,omitempty" azure:"ro"`
 }
 
 // SQLVirtualMachine - A SQL virtual machine.
@@ -667,6 +695,9 @@ type ServerConfigurationsManagementSettings struct {
 	// Additional SQL feature settings.
 	AdditionalFeaturesServerConfigurations *AdditionalFeaturesServerConfigurations `json:"additionalFeaturesServerConfigurations,omitempty"`
 
+	// Azure AD authentication Settings.
+	AzureAdAuthenticationSettings *AADAuthenticationSettings `json:"azureAdAuthenticationSettings,omitempty"`
+
 	// SQL connectivity type settings.
 	SQLConnectivityUpdateSettings *SQLConnectivityUpdateSettings `json:"sqlConnectivityUpdateSettings,omitempty"`
 
@@ -720,6 +751,46 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
+}
+
+// TroubleshootAdditionalProperties - SQL VM Troubleshoot additional properties.
+type TroubleshootAdditionalProperties struct {
+	// The properties describing unhealthy replica
+	UnHealthyReplicaProperties *UnHealthyReplicaProperties `json:"unHealthyReplicaProperties,omitempty"`
+}
+
+// TroubleshootClientBeginTroubleshootOptions contains the optional parameters for the TroubleshootClient.BeginTroubleshoot
+// method.
+type TroubleshootClientBeginTroubleshootOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// TroubleshootStatus - Status of last troubleshooting operation on this SQL VM
+type TroubleshootStatus struct {
+	// READ-ONLY; End time in UTC format.
+	EndTimeUTC *time.Time `json:"endTimeUtc,omitempty" azure:"ro"`
+
+	// READ-ONLY; Last troubleshooting trigger time in UTC
+	LastTriggerTimeUTC *time.Time `json:"lastTriggerTimeUtc,omitempty" azure:"ro"`
+
+	// READ-ONLY; Troubleshooting properties
+	Properties *TroubleshootAdditionalProperties `json:"properties,omitempty" azure:"ro"`
+
+	// READ-ONLY; Root cause of the issue
+	RootCause *string `json:"rootCause,omitempty" azure:"ro"`
+
+	// READ-ONLY; Start time in UTC format.
+	StartTimeUTC *time.Time `json:"startTimeUtc,omitempty" azure:"ro"`
+
+	// READ-ONLY; SQL VM troubleshooting scenario.
+	TroubleShootingScenario *TroubleShootingScenario `json:"troubleShootingScenario,omitempty" azure:"ro"`
+}
+
+// UnHealthyReplicaProperties - SQL VM Troubleshoot UnHealthyReplica scenario properties.
+type UnHealthyReplicaProperties struct {
+	// The name of the availability group
+	AvailabilityGroupName *string `json:"availabilityGroupName,omitempty"`
 }
 
 // Update - An update to a SQL virtual machine.

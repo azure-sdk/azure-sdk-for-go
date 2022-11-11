@@ -1,5 +1,25 @@
 # Release History
 
+## 0.8.0 (2022-11-11)
+### Features Added
+
+- New const `TroubleShootingScenarioUnHealthyReplica`
+- New type alias `TroubleShootingScenario`
+- New function `*TroubleshootClient.BeginTroubleshoot(context.Context, string, string, SQLVMTroubleshoot, *TroubleshootClientBeginTroubleshootOptions) (*runtime.Poller[TroubleshootClientTroubleshootResponse], error)`
+- New function `NewTroubleshootClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TroubleshootClient, error)`
+- New function `PossibleTroubleShootingScenarioValues() []TroubleShootingScenario`
+- New struct `AADAuthenticationSettings`
+- New struct `SQLVMTroubleshoot`
+- New struct `TroubleshootAdditionalProperties`
+- New struct `TroubleshootClient`
+- New struct `TroubleshootClientBeginTroubleshootOptions`
+- New struct `TroubleshootClientTroubleshootResponse`
+- New struct `TroubleshootStatus`
+- New struct `UnHealthyReplicaProperties`
+- New field `AzureAdAuthenticationSettings` in struct `ServerConfigurationsManagementSettings`
+- New field `TroubleshootStatus` in struct `Properties`
+
+
 ## 0.7.0 (2022-09-17)
 ### Features Added
 
