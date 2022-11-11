@@ -54,7 +54,7 @@ func NewCalculateRefundClient(credential azcore.TokenCredential, options *arm.Cl
 
 // Post - Calculate price for returning Reservations if there are no policy errors.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // reservationOrderID - Order Id of the reservation
 // body - Information needed for calculating refund of a reservation.
 // options - CalculateRefundClientPostOptions contains the optional parameters for the CalculateRefundClient.Post method.
@@ -85,7 +85,7 @@ func (client *CalculateRefundClient) postCreateRequest(ctx context.Context, rese
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)

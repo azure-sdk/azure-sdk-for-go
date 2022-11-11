@@ -51,7 +51,7 @@ func NewCalculateExchangeClient(credential azcore.TokenCredential, options *arm.
 
 // BeginPost - Calculates price for exchanging Reservations if there are no policy errors.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // body - Request containing purchases and refunds that need to be executed.
 // options - CalculateExchangeClientBeginPostOptions contains the optional parameters for the CalculateExchangeClient.BeginPost
 // method.
@@ -71,7 +71,7 @@ func (client *CalculateExchangeClient) BeginPost(ctx context.Context, body Calcu
 
 // Post - Calculates price for exchanging Reservations if there are no policy errors.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 func (client *CalculateExchangeClient) post(ctx context.Context, body CalculateExchangeRequest, options *CalculateExchangeClientBeginPostOptions) (*http.Response, error) {
 	req, err := client.postCreateRequest(ctx, body, options)
 	if err != nil {
@@ -95,7 +95,7 @@ func (client *CalculateExchangeClient) postCreateRequest(ctx context.Context, bo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)

@@ -1,5 +1,72 @@
 # Release History
 
+## 2.0.0 (2022-11-11)
+### Breaking Changes
+
+- Const `QuotaRequestStateFailed` has been removed
+- Const `ResourceTypeLowPriority` has been removed
+- Const `ResourceTypeStandard` has been removed
+- Const `QuotaRequestStateInvalid` has been removed
+- Const `ResourceTypeShared` has been removed
+- Const `QuotaRequestStateAccepted` has been removed
+- Const `QuotaRequestStateSucceeded` has been removed
+- Const `ResourceTypeServiceSpecific` has been removed
+- Const `ResourceTypeDedicated` has been removed
+- Const `QuotaRequestStateInProgress` has been removed
+- Type alias `QuotaRequestState` has been removed
+- Type alias `ResourceType` has been removed
+- Function `NewQuotaRequestStatusClient` has been removed
+- Function `*QuotaClient.BeginCreateOrUpdate` has been removed
+- Function `PossibleResourceTypeValues` has been removed
+- Function `NewQuotaClient` has been removed
+- Function `*QuotaClient.BeginUpdate` has been removed
+- Function `PossibleQuotaRequestStateValues` has been removed
+- Function `*QuotaRequestStatusClient.Get` has been removed
+- Function `*QuotaClient.NewListPager` has been removed
+- Function `*QuotaRequestStatusClient.NewListPager` has been removed
+- Function `*QuotaClient.Get` has been removed
+- Struct `CreateGenericQuotaRequestParameters` has been removed
+- Struct `CurrentQuotaLimit` has been removed
+- Struct `CurrentQuotaLimitBase` has been removed
+- Struct `ExceptionResponse` has been removed
+- Struct `QuotaClient` has been removed
+- Struct `QuotaClientBeginCreateOrUpdateOptions` has been removed
+- Struct `QuotaClientBeginUpdateOptions` has been removed
+- Struct `QuotaClientCreateOrUpdateResponse` has been removed
+- Struct `QuotaClientGetOptions` has been removed
+- Struct `QuotaClientGetResponse` has been removed
+- Struct `QuotaClientListOptions` has been removed
+- Struct `QuotaClientListResponse` has been removed
+- Struct `QuotaClientUpdateResponse` has been removed
+- Struct `QuotaLimits` has been removed
+- Struct `QuotaLimitsResponse` has been removed
+- Struct `QuotaProperties` has been removed
+- Struct `QuotaRequestDetails` has been removed
+- Struct `QuotaRequestDetailsList` has been removed
+- Struct `QuotaRequestOneResourceProperties` has been removed
+- Struct `QuotaRequestOneResourceSubmitResponse` has been removed
+- Struct `QuotaRequestProperties` has been removed
+- Struct `QuotaRequestStatusClient` has been removed
+- Struct `QuotaRequestStatusClientGetOptions` has been removed
+- Struct `QuotaRequestStatusClientGetResponse` has been removed
+- Struct `QuotaRequestStatusClientListOptions` has been removed
+- Struct `QuotaRequestStatusClientListResponse` has been removed
+- Struct `QuotaRequestStatusDetails` has been removed
+- Struct `QuotaRequestSubmitResponse` has been removed
+- Struct `QuotaRequestSubmitResponse201` has been removed
+- Struct `ResourceName` has been removed
+- Struct `ServiceError` has been removed
+- Struct `ServiceErrorDetail` has been removed
+- Struct `SubRequest` has been removed
+
+### Features Added
+
+- New struct `AppliedScopeProperties`
+- New struct `ReservationSwapProperties`
+- New field `SwapProperties` in struct `Properties`
+- New field `AppliedScopeProperties` in struct `Properties`
+
+
 ## 1.1.0 (2022-09-16)
 ### Features Added
 

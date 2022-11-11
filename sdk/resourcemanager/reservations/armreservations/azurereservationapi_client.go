@@ -55,7 +55,7 @@ func NewAzureReservationAPIClient(credential azcore.TokenCredential, options *ar
 // GetAppliedReservationList - Get applicable Reservations that are applied to this subscription or a resource group under
 // this subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // subscriptionID - Id of the subscription
 // options - AzureReservationAPIClientGetAppliedReservationListOptions contains the optional parameters for the AzureReservationAPIClient.GetAppliedReservationList
 // method.
@@ -86,7 +86,7 @@ func (client *AzureReservationAPIClient) getAppliedReservationListCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -103,7 +103,7 @@ func (client *AzureReservationAPIClient) getAppliedReservationListHandleResponse
 
 // GetCatalog - Get the regions and skus that are available for RI purchase for the specified Azure subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // subscriptionID - Id of the subscription
 // options - AzureReservationAPIClientGetCatalogOptions contains the optional parameters for the AzureReservationAPIClient.GetCatalog
 // method.
@@ -134,7 +134,7 @@ func (client *AzureReservationAPIClient) getCatalogCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.ReservedResourceType != nil {
 		reqQP.Set("reservedResourceType", *options.ReservedResourceType)
 	}

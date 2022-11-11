@@ -42,40 +42,6 @@ type OperationClientListResponse struct {
 	OperationList
 }
 
-// QuotaClientCreateOrUpdateResponse contains the response from method QuotaClient.CreateOrUpdate.
-type QuotaClientCreateOrUpdateResponse struct {
-	CurrentQuotaLimitBase
-}
-
-// QuotaClientGetResponse contains the response from method QuotaClient.Get.
-type QuotaClientGetResponse struct {
-	CurrentQuotaLimitBase
-	// ETag contains the information returned from the ETag header response.
-	ETag *string
-}
-
-// QuotaClientListResponse contains the response from method QuotaClient.List.
-type QuotaClientListResponse struct {
-	QuotaLimits
-	// ETag contains the information returned from the ETag header response.
-	ETag *string
-}
-
-// QuotaClientUpdateResponse contains the response from method QuotaClient.Update.
-type QuotaClientUpdateResponse struct {
-	CurrentQuotaLimitBase
-}
-
-// QuotaRequestStatusClientGetResponse contains the response from method QuotaRequestStatusClient.Get.
-type QuotaRequestStatusClientGetResponse struct {
-	QuotaRequestDetails
-}
-
-// QuotaRequestStatusClientListResponse contains the response from method QuotaRequestStatusClient.List.
-type QuotaRequestStatusClientListResponse struct {
-	QuotaRequestDetailsList
-}
-
 // ReservationClientArchiveResponse contains the response from method ReservationClient.Archive.
 type ReservationClientArchiveResponse struct {
 	// placeholder for future response values

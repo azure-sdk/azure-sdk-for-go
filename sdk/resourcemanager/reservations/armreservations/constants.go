@@ -11,7 +11,7 @@ package armreservations
 
 const (
 	moduleName    = "armreservations"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AppliedScopeType - Type of the Applied Scope.
@@ -400,28 +400,6 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// QuotaRequestState - The quota request status.
-type QuotaRequestState string
-
-const (
-	QuotaRequestStateAccepted   QuotaRequestState = "Accepted"
-	QuotaRequestStateFailed     QuotaRequestState = "Failed"
-	QuotaRequestStateInProgress QuotaRequestState = "InProgress"
-	QuotaRequestStateInvalid    QuotaRequestState = "Invalid"
-	QuotaRequestStateSucceeded  QuotaRequestState = "Succeeded"
-)
-
-// PossibleQuotaRequestStateValues returns the possible values for the QuotaRequestState const type.
-func PossibleQuotaRequestStateValues() []QuotaRequestState {
-	return []QuotaRequestState{
-		QuotaRequestStateAccepted,
-		QuotaRequestStateFailed,
-		QuotaRequestStateInProgress,
-		QuotaRequestStateInvalid,
-		QuotaRequestStateSucceeded,
-	}
-}
-
 // ReservationBillingPlan - Represent the billing plans.
 type ReservationBillingPlan string
 
@@ -548,28 +526,6 @@ func PossibleReservedResourceTypeValues() []ReservedResourceType {
 		ReservedResourceTypeVMwareCloudSimple,
 		ReservedResourceTypeVirtualMachineSoftware,
 		ReservedResourceTypeVirtualMachines,
-	}
-}
-
-// ResourceType - The resource types.
-type ResourceType string
-
-const (
-	ResourceTypeDedicated       ResourceType = "dedicated"
-	ResourceTypeLowPriority     ResourceType = "lowPriority"
-	ResourceTypeServiceSpecific ResourceType = "serviceSpecific"
-	ResourceTypeShared          ResourceType = "shared"
-	ResourceTypeStandard        ResourceType = "standard"
-)
-
-// PossibleResourceTypeValues returns the possible values for the ResourceType const type.
-func PossibleResourceTypeValues() []ResourceType {
-	return []ResourceType{
-		ResourceTypeDedicated,
-		ResourceTypeLowPriority,
-		ResourceTypeServiceSpecific,
-		ResourceTypeShared,
-		ResourceTypeStandard,
 	}
 }
 
