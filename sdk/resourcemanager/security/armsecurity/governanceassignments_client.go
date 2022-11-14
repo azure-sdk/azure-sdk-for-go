@@ -52,7 +52,7 @@ func NewGovernanceAssignmentsClient(credential azcore.TokenCredential, options *
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or update a security GovernanceAssignment on the given subscription.
+// CreateOrUpdate - Creates or update a GovernanceAssignment on the given subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01-preview
 // scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
@@ -211,7 +211,7 @@ func (client *GovernanceAssignmentsClient) getHandleResponse(resp *http.Response
 	return result, nil
 }
 
-// NewListPager - Get security governanceAssignments on all your resources inside a scope
+// NewListPager - Get governanceAssignments on all your resources inside a scope
 // Generated from API version 2022-01-01-preview
 // scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
 // (/providers/Microsoft.Management/managementGroups/mgName).

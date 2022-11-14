@@ -60,8 +60,8 @@ func NewConnectorGovernanceRulesExecuteStatusClient(subscriptionID string, crede
 // Generated from API version 2022-01-01-preview
 // resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // securityConnectorName - The security connector name.
-// ruleID - The security GovernanceRule key - unique key for the standard GovernanceRule
-// operationID - The security GovernanceRule execution key - unique key for the execution of GovernanceRule
+// ruleID - The GovernanceRule key - unique key for the standard GovernanceRule
+// operationID - The GovernanceRule execution key - unique key for the execution of GovernanceRule
 // options - ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the ConnectorGovernanceRulesExecuteStatusClient.BeginGet
 // method.
 func (client *ConnectorGovernanceRulesExecuteStatusClient) BeginGet(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, operationID string, options *ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions) (*runtime.Poller[ConnectorGovernanceRulesExecuteStatusClientGetResponse], error) {

@@ -1,5 +1,106 @@
 # Release History
 
+## 0.9.0 (2022-11-14)
+### Breaking Changes
+
+- Function `NewGovernanceRulesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Type of `DefenderForServersAwsOfferingVMScannersConfiguration.ExclusionTags` has been changed from `interface{}` to `map[string]*string`
+- Type of `ContactProperties.AlertNotifications` has been changed from `*AlertNotifications` to `*ContactPropertiesAlertNotifications`
+- Const `AlertNotificationsOff` has been removed
+- Const `AlertNotificationsOn` has been removed
+- Const `AlertsToAdminsOff` has been removed
+- Const `AlertsToAdminsOn` has been removed
+- Type alias `AlertsToAdmins` has been removed
+- Type alias `AlertNotifications` has been removed
+- Function `*AWSEnvironmentData.GetEnvironmentData` has been removed
+- Function `*ConnectorGovernanceRulesClient.Delete` has been removed
+- Function `*ContactsClient.Update` has been removed
+- Function `PossibleAlertNotificationsValues` has been removed
+- Function `PossibleAlertsToAdminsValues` has been removed
+- Struct `AWSEnvironmentData` has been removed
+- Struct `ConnectorGovernanceRulesClientDeleteOptions` has been removed
+- Struct `ContactsClientUpdateOptions` has been removed
+- Struct `ContactsClientUpdateResponse` has been removed
+- Struct `DefenderFoDatabasesAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata` has been removed
+- Struct `DefenderForDatabasesGcpOfferingArcAutoProvisioningConfiguration` has been removed
+- Struct `DefenderForServersAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata` has been removed
+- Struct `DefenderForServersGcpOfferingArcAutoProvisioningConfiguration` has been removed
+- Field `ServicePrincipalSecretMetadata` of struct `DefenderFoDatabasesAwsOfferingArcAutoProvisioning` has been removed
+- Field `Configuration` of struct `DefenderForDatabasesGcpOfferingArcAutoProvisioning` has been removed
+- Field `Configuration` of struct `DefenderForServersGcpOfferingArcAutoProvisioning` has been removed
+- Field `ServicePrincipalSecretMetadata` of struct `DefenderForServersAwsOfferingArcAutoProvisioning` has been removed
+- Field `AlertsToAdmins` of struct `ContactProperties` has been removed
+- Field `Email` of struct `ContactProperties` has been removed
+
+### Features Added
+
+- New const `RolesContributor`
+- New const `MinimalSeverityMedium`
+- New const `OfferingTypeDefenderCspmAws`
+- New const `RolesAccountAdmin`
+- New const `MinimalSeverityHigh`
+- New const `OfferingTypeDefenderForDevOpsAzureDevOps`
+- New const `RolesServiceAdmin`
+- New const `OfferingTypeDefenderCspmGcp`
+- New const `ApplicationConditionOperatorEquals`
+- New const `OfferingTypeDefenderForDevOpsGithub`
+- New const `RolesOwner`
+- New const `MinimalSeverityLow`
+- New type alias `MinimalSeverity`
+- New type alias `Roles`
+- New function `*DefenderForDevOpsAzureDevOpsOffering.GetCloudOffering() *CloudOffering`
+- New function `*DefenderForDevOpsGithubOffering.GetCloudOffering() *CloudOffering`
+- New function `PossibleRolesValues() []Roles`
+- New function `NewManagementGroupGovernanceRuleClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementGroupGovernanceRuleClient, error)`
+- New function `PossibleMinimalSeverityValues() []MinimalSeverity`
+- New function `*DefenderCspmAwsOffering.GetCloudOffering() *CloudOffering`
+- New function `*AwsEnvironmentData.GetEnvironmentData() *EnvironmentData`
+- New function `*ManagementGroupGovernanceRulesClient.Get(context.Context, string, *ManagementGroupGovernanceRulesClientGetOptions) (ManagementGroupGovernanceRulesClientGetResponse, error)`
+- New function `*ManagementGroupGovernanceRuleClient.NewListPager(*ManagementGroupGovernanceRuleClientListOptions) *runtime.Pager[ManagementGroupGovernanceRuleClientListResponse]`
+- New function `*ConnectorGovernanceRulesClient.BeginDelete(context.Context, string, string, string, *ConnectorGovernanceRulesClientBeginDeleteOptions) (*runtime.Poller[ConnectorGovernanceRulesClientDeleteResponse], error)`
+- New function `*ManagementGroupGovernanceRulesExecuteStatusClient.BeginGet(context.Context, string, string, *ManagementGroupGovernanceRulesExecuteStatusClientBeginGetOptions) (*runtime.Poller[ManagementGroupGovernanceRulesExecuteStatusClientGetResponse], error)`
+- New function `*ManagementGroupGovernanceRulesClient.CreateOrUpdate(context.Context, string, GovernanceRule, *ManagementGroupGovernanceRulesClientCreateOrUpdateOptions) (ManagementGroupGovernanceRulesClientCreateOrUpdateResponse, error)`
+- New function `*DefenderCspmGcpOffering.GetCloudOffering() *CloudOffering`
+- New function `*ManagementGroupGovernanceRulesClient.BeginDelete(context.Context, string, *ManagementGroupGovernanceRulesClientBeginDeleteOptions) (*runtime.Poller[ManagementGroupGovernanceRulesClientDeleteResponse], error)`
+- New function `NewManagementGroupGovernanceRulesExecuteStatusClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementGroupGovernanceRulesExecuteStatusClient, error)`
+- New function `*GovernanceRulesClient.BeginRuleIDExecuteSingleManagementGroup(context.Context, string, *GovernanceRulesClientBeginRuleIDExecuteSingleManagementGroupOptions) (*runtime.Poller[GovernanceRulesClientRuleIDExecuteSingleManagementGroupResponse], error)`
+- New function `NewManagementGroupGovernanceRulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementGroupGovernanceRulesClient, error)`
+- New struct `AwsEnvironmentData`
+- New struct `ConnectorGovernanceRulesClientBeginDeleteOptions`
+- New struct `ContactPropertiesAlertNotifications`
+- New struct `ContactPropertiesNotificationsByRole`
+- New struct `DefenderCspmAwsOffering`
+- New struct `DefenderCspmAwsOfferingVMScanners`
+- New struct `DefenderCspmAwsOfferingVMScannersConfiguration`
+- New struct `DefenderCspmGcpOffering`
+- New struct `DefenderFoDatabasesAwsOfferingRds`
+- New struct `DefenderForDevOpsAzureDevOpsOffering`
+- New struct `DefenderForDevOpsGithubOffering`
+- New struct `GovernanceRuleMetadata`
+- New struct `GovernanceRulesClientBeginRuleIDExecuteSingleManagementGroupOptions`
+- New struct `GovernanceRulesClientRuleIDExecuteSingleManagementGroupResponse`
+- New struct `ManagementGroupGovernanceRuleClient`
+- New struct `ManagementGroupGovernanceRuleClientListOptions`
+- New struct `ManagementGroupGovernanceRuleClientListResponse`
+- New struct `ManagementGroupGovernanceRulesClient`
+- New struct `ManagementGroupGovernanceRulesClientBeginDeleteOptions`
+- New struct `ManagementGroupGovernanceRulesClientCreateOrUpdateOptions`
+- New struct `ManagementGroupGovernanceRulesClientCreateOrUpdateResponse`
+- New struct `ManagementGroupGovernanceRulesClientDeleteResponse`
+- New struct `ManagementGroupGovernanceRulesClientGetOptions`
+- New struct `ManagementGroupGovernanceRulesClientGetResponse`
+- New struct `ManagementGroupGovernanceRulesExecuteStatusClient`
+- New struct `ManagementGroupGovernanceRulesExecuteStatusClientBeginGetOptions`
+- New struct `ManagementGroupGovernanceRulesExecuteStatusClientGetResponse`
+- New field `ExcludedScopes` in struct `GovernanceRuleProperties`
+- New field `InheritRules` in struct `GovernanceRuleProperties`
+- New field `TenantID` in struct `GovernanceRuleProperties`
+- New field `Metadata` in struct `GovernanceRuleProperties`
+- New field `Rds` in struct `DefenderFoDatabasesAwsOffering`
+- New field `Emails` in struct `ContactProperties`
+- New field `NotificationsByRole` in struct `ContactProperties`
+
+
 ## 0.8.0 (2022-09-13)
 ### Breaking Changes
 

@@ -414,11 +414,6 @@ type ContactsClientListResponse struct {
 	ContactList
 }
 
-// ContactsClientUpdateResponse contains the response from method ContactsClient.Update.
-type ContactsClientUpdateResponse struct {
-	Contact
-}
-
 // CustomAssessmentAutomationsClientCreateResponse contains the response from method CustomAssessmentAutomationsClient.Create.
 type CustomAssessmentAutomationsClientCreateResponse struct {
 	CustomAssessmentAutomation
@@ -557,6 +552,11 @@ type GovernanceRulesClientDeleteResponse struct {
 // GovernanceRulesClientGetResponse contains the response from method GovernanceRulesClient.Get.
 type GovernanceRulesClientGetResponse struct {
 	GovernanceRule
+}
+
+// GovernanceRulesClientRuleIDExecuteSingleManagementGroupResponse contains the response from method GovernanceRulesClient.RuleIDExecuteSingleManagementGroup.
+type GovernanceRulesClientRuleIDExecuteSingleManagementGroupResponse struct {
+	// placeholder for future response values
 }
 
 // GovernanceRulesClientRuleIDExecuteSingleSecurityConnectorResponse contains the response from method GovernanceRulesClient.RuleIDExecuteSingleSecurityConnector.
@@ -727,6 +727,31 @@ type LocationsClientGetResponse struct {
 // LocationsClientListResponse contains the response from method LocationsClient.List.
 type LocationsClientListResponse struct {
 	AscLocationList
+}
+
+// ManagementGroupGovernanceRuleClientListResponse contains the response from method ManagementGroupGovernanceRuleClient.List.
+type ManagementGroupGovernanceRuleClientListResponse struct {
+	GovernanceRuleList
+}
+
+// ManagementGroupGovernanceRulesClientCreateOrUpdateResponse contains the response from method ManagementGroupGovernanceRulesClient.CreateOrUpdate.
+type ManagementGroupGovernanceRulesClientCreateOrUpdateResponse struct {
+	GovernanceRule
+}
+
+// ManagementGroupGovernanceRulesClientDeleteResponse contains the response from method ManagementGroupGovernanceRulesClient.Delete.
+type ManagementGroupGovernanceRulesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagementGroupGovernanceRulesClientGetResponse contains the response from method ManagementGroupGovernanceRulesClient.Get.
+type ManagementGroupGovernanceRulesClientGetResponse struct {
+	GovernanceRule
+}
+
+// ManagementGroupGovernanceRulesExecuteStatusClientGetResponse contains the response from method ManagementGroupGovernanceRulesExecuteStatusClient.Get.
+type ManagementGroupGovernanceRulesExecuteStatusClientGetResponse struct {
+	ExecuteRuleStatus
 }
 
 // MdeOnboardingsClientGetResponse contains the response from method MdeOnboardingsClient.Get.

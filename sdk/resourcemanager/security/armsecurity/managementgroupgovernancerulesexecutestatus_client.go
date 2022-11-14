@@ -23,19 +23,19 @@ import (
 	"strings"
 )
 
-// SubscriptionGovernanceRulesExecuteStatusClient contains the methods for the SubscriptionGovernanceRulesExecuteStatus group.
-// Don't use this type directly, use NewSubscriptionGovernanceRulesExecuteStatusClient() instead.
-type SubscriptionGovernanceRulesExecuteStatusClient struct {
-	host           string
-	subscriptionID string
-	pl             runtime.Pipeline
+// ManagementGroupGovernanceRulesExecuteStatusClient contains the methods for the ManagementGroupGovernanceRulesExecuteStatus group.
+// Don't use this type directly, use NewManagementGroupGovernanceRulesExecuteStatusClient() instead.
+type ManagementGroupGovernanceRulesExecuteStatusClient struct {
+	host              string
+	managementGroupID string
+	pl                runtime.Pipeline
 }
 
-// NewSubscriptionGovernanceRulesExecuteStatusClient creates a new instance of SubscriptionGovernanceRulesExecuteStatusClient with the specified values.
-// subscriptionID - Azure subscription ID
+// NewManagementGroupGovernanceRulesExecuteStatusClient creates a new instance of ManagementGroupGovernanceRulesExecuteStatusClient with the specified values.
+// managementGroupID - Azure Management Group ID
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubscriptionGovernanceRulesExecuteStatusClient, error) {
+func NewManagementGroupGovernanceRulesExecuteStatusClient(managementGroupID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagementGroupGovernanceRulesExecuteStatusClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -47,10 +47,10 @@ func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, cr
 	if err != nil {
 		return nil, err
 	}
-	client := &SubscriptionGovernanceRulesExecuteStatusClient{
-		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+	client := &ManagementGroupGovernanceRulesExecuteStatusClient{
+		managementGroupID: managementGroupID,
+		host:              ep,
+		pl:                pl,
 	}
 	return client, nil
 }
@@ -60,24 +60,24 @@ func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, cr
 // Generated from API version 2022-01-01-preview
 // ruleID - The GovernanceRule key - unique key for the standard GovernanceRule
 // operationID - The GovernanceRule execution key - unique key for the execution of GovernanceRule
-// options - SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the SubscriptionGovernanceRulesExecuteStatusClient.BeginGet
+// options - ManagementGroupGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the ManagementGroupGovernanceRulesExecuteStatusClient.BeginGet
 // method.
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) BeginGet(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions) (*runtime.Poller[SubscriptionGovernanceRulesExecuteStatusClientGetResponse], error) {
+func (client *ManagementGroupGovernanceRulesExecuteStatusClient) BeginGet(ctx context.Context, ruleID string, operationID string, options *ManagementGroupGovernanceRulesExecuteStatusClientBeginGetOptions) (*runtime.Poller[ManagementGroupGovernanceRulesExecuteStatusClientGetResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.get(ctx, ruleID, operationID, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[SubscriptionGovernanceRulesExecuteStatusClientGetResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ManagementGroupGovernanceRulesExecuteStatusClientGetResponse](resp, client.pl, nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[SubscriptionGovernanceRulesExecuteStatusClientGetResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ManagementGroupGovernanceRulesExecuteStatusClientGetResponse](options.ResumeToken, client.pl, nil)
 	}
 }
 
 // Get - Get a specific governanceRule execution status for the requested scope by ruleId and operationId
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01-preview
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) get(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions) (*http.Response, error) {
+func (client *ManagementGroupGovernanceRulesExecuteStatusClient) get(ctx context.Context, ruleID string, operationID string, options *ManagementGroupGovernanceRulesExecuteStatusClientBeginGetOptions) (*http.Response, error) {
 	req, err := client.getCreateRequest(ctx, ruleID, operationID, options)
 	if err != nil {
 		return nil, err
@@ -93,12 +93,12 @@ func (client *SubscriptionGovernanceRulesExecuteStatusClient) get(ctx context.Co
 }
 
 // getCreateRequest creates the Get request.
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) getCreateRequest(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Security/governanceRules/{ruleId}/operationResults/{operationId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+func (client *ManagementGroupGovernanceRulesExecuteStatusClient) getCreateRequest(ctx context.Context, ruleID string, operationID string, options *ManagementGroupGovernanceRulesExecuteStatusClientBeginGetOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Security/governanceRules/{ruleId}/execute/operationResults/{operationId}"
+	if client.managementGroupID == "" {
+		return nil, errors.New("parameter client.managementGroupID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{managementGroupId}", url.PathEscape(client.managementGroupID))
 	if ruleID == "" {
 		return nil, errors.New("parameter ruleID cannot be empty")
 	}
