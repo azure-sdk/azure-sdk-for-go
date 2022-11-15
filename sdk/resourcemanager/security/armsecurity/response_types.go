@@ -9,6 +9,26 @@
 
 package armsecurity
 
+// APICollectionClientGetResponse contains the response from method APICollectionClient.Get.
+type APICollectionClientGetResponse struct {
+	APICollectionResponse
+}
+
+// APICollectionClientListResponse contains the response from method APICollectionClient.List.
+type APICollectionClientListResponse struct {
+	APICollectionResponseList
+}
+
+// APICollectionOffboardingClientDeleteResponse contains the response from method APICollectionOffboardingClient.Delete.
+type APICollectionOffboardingClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// APICollectionOnboardingClientCreateResponse contains the response from method APICollectionOnboardingClient.Create.
+type APICollectionOnboardingClientCreateResponse struct {
+	APICollectionResponse
+}
+
 // AccountConnectorsClientCreateOrUpdateResponse contains the response from method AccountConnectorsClient.CreateOrUpdate.
 type AccountConnectorsClientCreateOrUpdateResponse struct {
 	ConnectorSetting
@@ -412,11 +432,6 @@ type ContactsClientGetResponse struct {
 // ContactsClientListResponse contains the response from method ContactsClient.List.
 type ContactsClientListResponse struct {
 	ContactList
-}
-
-// ContactsClientUpdateResponse contains the response from method ContactsClient.Update.
-type ContactsClientUpdateResponse struct {
-	Contact
 }
 
 // CustomAssessmentAutomationsClientCreateResponse contains the response from method CustomAssessmentAutomationsClient.Create.

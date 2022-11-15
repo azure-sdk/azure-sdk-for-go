@@ -52,20 +52,59 @@ type AADSolutionProperties struct {
 	Workspace *ConnectedWorkspace `json:"workspace,omitempty"`
 }
 
-// AWSEnvironmentData - The aws connector environment data
-type AWSEnvironmentData struct {
-	// REQUIRED; The type of the environment data.
-	EnvironmentType *EnvironmentType `json:"environmentType,omitempty"`
-
-	// The AWS account's organizational data
-	OrganizationalData AwsOrganizationalDataClassification `json:"organizationalData,omitempty"`
+// APICollectionClientGetOptions contains the optional parameters for the APICollectionClient.Get method.
+type APICollectionClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
-// GetEnvironmentData implements the EnvironmentDataClassification interface for type AWSEnvironmentData.
-func (a *AWSEnvironmentData) GetEnvironmentData() *EnvironmentData {
-	return &EnvironmentData{
-		EnvironmentType: a.EnvironmentType,
-	}
+// APICollectionClientListOptions contains the optional parameters for the APICollectionClient.List method.
+type APICollectionClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionOffboardingClientDeleteOptions contains the optional parameters for the APICollectionOffboardingClient.Delete
+// method.
+type APICollectionOffboardingClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionOnboardingClientCreateOptions contains the optional parameters for the APICollectionOnboardingClient.Create
+// method.
+type APICollectionOnboardingClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionProperties - Describes the properties of an API collection.
+type APICollectionProperties struct {
+	// Additional data regarding the API collection.
+	AdditionalData map[string]*string `json:"additionalData,omitempty"`
+
+	// The display name of the Azure API Management API.
+	DisplayName *string `json:"displayName,omitempty"`
+}
+
+// APICollectionResponse - An API collection as represented by Defender for APIs.
+type APICollectionResponse struct {
+	// Describes the properties of an API collection.
+	Properties *APICollectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// APICollectionResponseList - Page of a list of API collections as represented by Defender for APIs.
+type APICollectionResponseList struct {
+	// READ-ONLY; The URI to fetch the next page.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; API collections in this page.
+	Value []*APICollectionResponse `json:"value,omitempty" azure:"ro"`
 }
 
 // AccountConnectorsClientCreateOrUpdateOptions contains the optional parameters for the AccountConnectorsClient.CreateOrUpdate
@@ -1848,6 +1887,22 @@ func (a *AwsCredsAuthenticationDetailsProperties) GetAuthenticationDetailsProper
 	}
 }
 
+// AwsEnvironmentData - The aws connector environment data
+type AwsEnvironmentData struct {
+	// REQUIRED; The type of the environment data.
+	EnvironmentType *EnvironmentType `json:"environmentType,omitempty"`
+
+	// The AWS account's organizational data
+	OrganizationalData AwsOrganizationalDataClassification `json:"organizationalData,omitempty"`
+}
+
+// GetEnvironmentData implements the EnvironmentDataClassification interface for type AwsEnvironmentData.
+func (a *AwsEnvironmentData) GetEnvironmentData() *EnvironmentData {
+	return &EnvironmentData{
+		EnvironmentType: a.EnvironmentType,
+	}
+}
+
 // AwsOrganizationalDataClassification provides polymorphic access to related types.
 // Call the interface's GetAwsOrganizationalData() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -2045,7 +2100,8 @@ type CefSolutionProperties struct {
 // Call the interface's GetCloudOffering() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
 // - *CloudOffering, *CspmMonitorAwsOffering, *CspmMonitorAzureDevOpsOffering, *CspmMonitorGcpOffering, *CspmMonitorGithubOffering,
-// - *DefenderFoDatabasesAwsOffering, *DefenderForContainersAwsOffering, *DefenderForContainersGcpOffering, *DefenderForDatabasesGcpOffering,
+// - *DefenderCspmAwsOffering, *DefenderCspmGcpOffering, *DefenderFoDatabasesAwsOffering, *DefenderForContainersAwsOffering,
+// - *DefenderForContainersGcpOffering, *DefenderForDatabasesGcpOffering, *DefenderForDevOpsAzureDevOpsOffering, *DefenderForDevOpsGithubOffering,
 // - *DefenderForServersAwsOffering, *DefenderForServersGcpOffering, *InformationProtectionAwsOffering
 type CloudOfferingClassification interface {
 	// GetCloudOffering returns the CloudOffering content of the underlying type.
@@ -2492,7 +2548,7 @@ type ConnectorsList struct {
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
-// Contact details for security issues
+// Contact details and configurations for notifications coming from Microsoft Defender for Cloud.
 type Contact struct {
 	// Security contact data
 	Properties *ContactProperties `json:"properties,omitempty"`
@@ -2516,19 +2572,41 @@ type ContactList struct {
 	Value []*Contact `json:"value,omitempty" azure:"ro"`
 }
 
-// ContactProperties - describes security contact properties
+// ContactProperties - Describes security contact properties
 type ContactProperties struct {
-	// REQUIRED; Whether to send security alerts notifications to the security contact
-	AlertNotifications *AlertNotifications `json:"alertNotifications,omitempty"`
+	// Defines whether to send email notifications about new security alerts
+	AlertNotifications *ContactPropertiesAlertNotifications `json:"alertNotifications,omitempty"`
 
-	// REQUIRED; Whether to send security alerts notifications to subscription admins
-	AlertsToAdmins *AlertsToAdmins `json:"alertsToAdmins,omitempty"`
+	// List of email addresses which will get notifications from Microsoft Defender for Cloud by the configurations defined in
+	// this security contact.
+	Emails *string `json:"emails,omitempty"`
 
-	// REQUIRED; The email of this security contact
-	Email *string `json:"email,omitempty"`
+	// Defines whether to send email notifications from Microsoft Defender for Cloud to persons with specific RBAC roles on the
+	// subscription.
+	NotificationsByRole *ContactPropertiesNotificationsByRole `json:"notificationsByRole,omitempty"`
 
-	// The phone number of this security contact
+	// The security contact's phone number
 	Phone *string `json:"phone,omitempty"`
+}
+
+// ContactPropertiesAlertNotifications - Defines whether to send email notifications about new security alerts
+type ContactPropertiesAlertNotifications struct {
+	// Defines the minimal alert severity which will be sent as email notifications
+	MinimalSeverity *MinimalSeverity `json:"minimalSeverity,omitempty"`
+
+	// Defines if email notifications will be sent about new security alerts
+	State *State `json:"state,omitempty"`
+}
+
+// ContactPropertiesNotificationsByRole - Defines whether to send email notifications from Microsoft Defender for Cloud to
+// persons with specific RBAC roles on the subscription.
+type ContactPropertiesNotificationsByRole struct {
+	// Defines which RBAC roles will get email notifications from Microsoft Defender for Cloud. List of allowed RBAC roles:
+	Roles []*Roles `json:"roles,omitempty"`
+
+	// Defines whether to send email notifications from AMicrosoft Defender for Cloud to persons with specific RBAC roles on the
+	// subscription.
+	State *State `json:"state,omitempty"`
 }
 
 // ContactsClientCreateOptions contains the optional parameters for the ContactsClient.Create method.
@@ -2548,11 +2626,6 @@ type ContactsClientGetOptions struct {
 
 // ContactsClientListOptions contains the optional parameters for the ContactsClient.List method.
 type ContactsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ContactsClientUpdateOptions contains the optional parameters for the ContactsClient.Update method.
-type ContactsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -2944,6 +3017,64 @@ func (d *DataExportSettings) GetSetting() *Setting {
 	}
 }
 
+// DefenderCspmAwsOffering - The CSPM P1 for Aws offering
+type DefenderCspmAwsOffering struct {
+	// REQUIRED; The type of the security offering.
+	OfferingType *OfferingType `json:"offeringType,omitempty"`
+
+	// The Microsoft Defender for Server VM scanning configuration
+	VMScanners *DefenderCspmAwsOfferingVMScanners `json:"vmScanners,omitempty"`
+
+	// READ-ONLY; The offering description.
+	Description *string `json:"description,omitempty" azure:"ro"`
+}
+
+// GetCloudOffering implements the CloudOfferingClassification interface for type DefenderCspmAwsOffering.
+func (d *DefenderCspmAwsOffering) GetCloudOffering() *CloudOffering {
+	return &CloudOffering{
+		OfferingType: d.OfferingType,
+		Description:  d.Description,
+	}
+}
+
+// DefenderCspmAwsOfferingVMScanners - The Microsoft Defender for Server VM scanning configuration
+type DefenderCspmAwsOfferingVMScanners struct {
+	// configuration for Microsoft Defender for Server VM scanning
+	Configuration *DefenderCspmAwsOfferingVMScannersConfiguration `json:"configuration,omitempty"`
+
+	// Is Microsoft Defender for Server VM scanning enabled
+	Enabled *bool `json:"enabled,omitempty"`
+}
+
+// DefenderCspmAwsOfferingVMScannersConfiguration - configuration for Microsoft Defender for Server VM scanning
+type DefenderCspmAwsOfferingVMScannersConfiguration struct {
+	// The cloud role ARN in AWS for this feature
+	CloudRoleArn *string `json:"cloudRoleArn,omitempty"`
+
+	// VM tags that indicates that VM should not be scanned
+	ExclusionTags map[string]*string `json:"exclusionTags,omitempty"`
+
+	// The scanning mode for the vm scan.
+	ScanningMode *ScanningMode `json:"scanningMode,omitempty"`
+}
+
+// DefenderCspmGcpOffering - The CSPM P1 for GCP offering
+type DefenderCspmGcpOffering struct {
+	// REQUIRED; The type of the security offering.
+	OfferingType *OfferingType `json:"offeringType,omitempty"`
+
+	// READ-ONLY; The offering description.
+	Description *string `json:"description,omitempty" azure:"ro"`
+}
+
+// GetCloudOffering implements the CloudOfferingClassification interface for type DefenderCspmGcpOffering.
+func (d *DefenderCspmGcpOffering) GetCloudOffering() *CloudOffering {
+	return &CloudOffering{
+		OfferingType: d.OfferingType,
+		Description:  d.Description,
+	}
+}
+
 // DefenderFoDatabasesAwsOffering - The Defender for Databases AWS offering
 type DefenderFoDatabasesAwsOffering struct {
 	// REQUIRED; The type of the security offering.
@@ -2951,6 +3082,9 @@ type DefenderFoDatabasesAwsOffering struct {
 
 	// The ARC autoprovisioning configuration
 	ArcAutoProvisioning *DefenderFoDatabasesAwsOfferingArcAutoProvisioning `json:"arcAutoProvisioning,omitempty"`
+
+	// The RDS configuration
+	Rds *DefenderFoDatabasesAwsOfferingRds `json:"rds,omitempty"`
 
 	// READ-ONLY; The offering description.
 	Description *string `json:"description,omitempty" azure:"ro"`
@@ -2971,22 +3105,15 @@ type DefenderFoDatabasesAwsOfferingArcAutoProvisioning struct {
 
 	// Is arc auto provisioning enabled
 	Enabled *bool `json:"enabled,omitempty"`
-
-	// Metadata of Service Principal secret for autoprovisioning
-	ServicePrincipalSecretMetadata *DefenderFoDatabasesAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata `json:"servicePrincipalSecretMetadata,omitempty"`
 }
 
-// DefenderFoDatabasesAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata - Metadata of Service Principal secret
-// for autoprovisioning
-type DefenderFoDatabasesAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata struct {
-	// expiration date of service principal secret
-	ExpiryDate *time.Time `json:"expiryDate,omitempty"`
+// DefenderFoDatabasesAwsOfferingRds - The RDS configuration
+type DefenderFoDatabasesAwsOfferingRds struct {
+	// The cloud role ARN in AWS for this feature
+	CloudRoleArn *string `json:"cloudRoleArn,omitempty"`
 
-	// name of secret resource in parameter store
-	ParameterNameInStore *string `json:"parameterNameInStore,omitempty"`
-
-	// region of parameter store where secret is kept
-	ParameterStoreRegion *string `json:"parameterStoreRegion,omitempty"`
+	// Is RDS protection enabled
+	Enabled *bool `json:"enabled,omitempty"`
 }
 
 // DefenderForContainersAwsOffering - The Defender for Containers AWS offering
@@ -3147,20 +3274,8 @@ func (d *DefenderForDatabasesGcpOffering) GetCloudOffering() *CloudOffering {
 
 // DefenderForDatabasesGcpOfferingArcAutoProvisioning - The ARC autoprovisioning configuration
 type DefenderForDatabasesGcpOfferingArcAutoProvisioning struct {
-	// Configuration for ARC autoprovisioning
-	Configuration *DefenderForDatabasesGcpOfferingArcAutoProvisioningConfiguration `json:"configuration,omitempty"`
-
 	// Is arc auto provisioning enabled
 	Enabled *bool `json:"enabled,omitempty"`
-}
-
-// DefenderForDatabasesGcpOfferingArcAutoProvisioningConfiguration - Configuration for ARC autoprovisioning
-type DefenderForDatabasesGcpOfferingArcAutoProvisioningConfiguration struct {
-	// The agent onboarding service account numeric id
-	AgentOnboardingServiceAccountNumericID *string `json:"agentOnboardingServiceAccountNumericId,omitempty"`
-
-	// The Azure service principal client id for agent onboarding
-	ClientID *string `json:"clientId,omitempty"`
 }
 
 // DefenderForDatabasesGcpOfferingDefenderForDatabasesArcAutoProvisioning - The native cloud connection configuration
@@ -3170,6 +3285,40 @@ type DefenderForDatabasesGcpOfferingDefenderForDatabasesArcAutoProvisioning stru
 
 	// The GCP workload identity provider id for this offering
 	WorkloadIdentityProviderID *string `json:"workloadIdentityProviderId,omitempty"`
+}
+
+// DefenderForDevOpsAzureDevOpsOffering - The Defender for DevOps for Azure DevOps offering
+type DefenderForDevOpsAzureDevOpsOffering struct {
+	// REQUIRED; The type of the security offering.
+	OfferingType *OfferingType `json:"offeringType,omitempty"`
+
+	// READ-ONLY; The offering description.
+	Description *string `json:"description,omitempty" azure:"ro"`
+}
+
+// GetCloudOffering implements the CloudOfferingClassification interface for type DefenderForDevOpsAzureDevOpsOffering.
+func (d *DefenderForDevOpsAzureDevOpsOffering) GetCloudOffering() *CloudOffering {
+	return &CloudOffering{
+		OfferingType: d.OfferingType,
+		Description:  d.Description,
+	}
+}
+
+// DefenderForDevOpsGithubOffering - The Defender for DevOps for Github offering
+type DefenderForDevOpsGithubOffering struct {
+	// REQUIRED; The type of the security offering.
+	OfferingType *OfferingType `json:"offeringType,omitempty"`
+
+	// READ-ONLY; The offering description.
+	Description *string `json:"description,omitempty" azure:"ro"`
+}
+
+// GetCloudOffering implements the CloudOfferingClassification interface for type DefenderForDevOpsGithubOffering.
+func (d *DefenderForDevOpsGithubOffering) GetCloudOffering() *CloudOffering {
+	return &CloudOffering{
+		OfferingType: d.OfferingType,
+		Description:  d.Description,
+	}
 }
 
 // DefenderForServersAwsOffering - The Defender for Servers AWS offering
@@ -3214,22 +3363,6 @@ type DefenderForServersAwsOfferingArcAutoProvisioning struct {
 
 	// Is arc auto provisioning enabled
 	Enabled *bool `json:"enabled,omitempty"`
-
-	// Metadata of Service Principal secret for autoprovisioning
-	ServicePrincipalSecretMetadata *DefenderForServersAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata `json:"servicePrincipalSecretMetadata,omitempty"`
-}
-
-// DefenderForServersAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata - Metadata of Service Principal secret for
-// autoprovisioning
-type DefenderForServersAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata struct {
-	// expiration date of service principal secret
-	ExpiryDate *string `json:"expiryDate,omitempty"`
-
-	// name of secret resource in parameter store
-	ParameterNameInStore *string `json:"parameterNameInStore,omitempty"`
-
-	// region of parameter store where secret is kept
-	ParameterStoreRegion *string `json:"parameterStoreRegion,omitempty"`
 }
 
 // DefenderForServersAwsOfferingDefenderForServers - The Defender for servers connection configuration
@@ -3268,7 +3401,7 @@ type DefenderForServersAwsOfferingVMScannersConfiguration struct {
 	CloudRoleArn *string `json:"cloudRoleArn,omitempty"`
 
 	// VM tags that indicates that VM should not be scanned
-	ExclusionTags interface{} `json:"exclusionTags,omitempty"`
+	ExclusionTags map[string]*string `json:"exclusionTags,omitempty"`
 
 	// The scanning mode for the vm scan.
 	ScanningMode *ScanningMode `json:"scanningMode,omitempty"`
@@ -3323,20 +3456,8 @@ func (d *DefenderForServersGcpOffering) GetCloudOffering() *CloudOffering {
 
 // DefenderForServersGcpOfferingArcAutoProvisioning - The ARC autoprovisioning configuration
 type DefenderForServersGcpOfferingArcAutoProvisioning struct {
-	// Configuration for ARC autoprovisioning
-	Configuration *DefenderForServersGcpOfferingArcAutoProvisioningConfiguration `json:"configuration,omitempty"`
-
 	// Is arc auto provisioning enabled
 	Enabled *bool `json:"enabled,omitempty"`
-}
-
-// DefenderForServersGcpOfferingArcAutoProvisioningConfiguration - Configuration for ARC autoprovisioning
-type DefenderForServersGcpOfferingArcAutoProvisioningConfiguration struct {
-	// The agent onboarding service account numeric id
-	AgentOnboardingServiceAccountNumericID *string `json:"agentOnboardingServiceAccountNumericId,omitempty"`
-
-	// The Azure service principal client id for agent onboarding
-	ClientID *string `json:"clientId,omitempty"`
 }
 
 // DefenderForServersGcpOfferingDefenderForServers - The Defender for servers connection configuration
@@ -3613,7 +3734,7 @@ type EffectiveNetworkSecurityGroups struct {
 // EnvironmentDataClassification provides polymorphic access to related types.
 // Call the interface's GetEnvironmentData() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AWSEnvironmentData, *AzureDevOpsScopeEnvironmentData, *EnvironmentData, *GcpProjectEnvironmentData, *GithubScopeEnvironmentData
+// - *AwsEnvironmentData, *AzureDevOpsScopeEnvironmentData, *EnvironmentData, *GcpProjectEnvironmentData, *GithubScopeEnvironmentData
 type EnvironmentDataClassification interface {
 	// GetEnvironmentData returns the EnvironmentData content of the underlying type.
 	GetEnvironmentData() *EnvironmentData
@@ -3635,6 +3756,31 @@ type ErrorAdditionalInfo struct {
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail `json:"details,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error message.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error target.
+	Target *string `json:"target,omitempty" azure:"ro"`
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail `json:"error,omitempty"`
 }
 
 // ExecuteGovernanceRuleParams - Governance rule execution parameters
