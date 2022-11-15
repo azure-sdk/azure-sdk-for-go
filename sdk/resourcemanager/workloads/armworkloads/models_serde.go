@@ -163,6 +163,7 @@ func (c *CentralServerConfiguration) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type CentralServerVMDetails.
 func (c CentralServerVMDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "storageDetails", c.StorageDetails)
 	populate(objectMap, "type", c.Type)
 	populate(objectMap, "virtualMachineId", c.VirtualMachineID)
 	return json.Marshal(objectMap)
@@ -177,6 +178,9 @@ func (c *CentralServerVMDetails) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "storageDetails":
+			err = unpopulate(val, "StorageDetails", &c.StorageDetails)
+			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &c.Type)
 			delete(rawMsg, key)
@@ -201,6 +205,8 @@ func (d DB2ProviderInstanceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dbUsername", d.DbUsername)
 	populate(objectMap, "hostname", d.Hostname)
 	objectMap["providerType"] = "Db2"
+	populate(objectMap, "sslCertificateUri", d.SSLCertificateURI)
+	populate(objectMap, "sslPreference", d.SSLPreference)
 	populate(objectMap, "sapSid", d.SapSid)
 	return json.Marshal(objectMap)
 }
@@ -234,6 +240,12 @@ func (d *DB2ProviderInstanceProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "providerType":
 			err = unpopulate(val, "ProviderType", &d.ProviderType)
+			delete(rawMsg, key)
+		case "sslCertificateUri":
+			err = unpopulate(val, "SSLCertificateURI", &d.SSLCertificateURI)
+			delete(rawMsg, key)
+		case "sslPreference":
+			err = unpopulate(val, "SSLPreference", &d.SSLPreference)
 			delete(rawMsg, key)
 		case "sapSid":
 			err = unpopulate(val, "SapSid", &d.SapSid)
@@ -360,6 +372,7 @@ func (d *DatabaseProfile) UnmarshalJSON(data []byte) error {
 func (d DatabaseVMDetails) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "status", d.Status)
+	populate(objectMap, "storageDetails", d.StorageDetails)
 	populate(objectMap, "virtualMachineId", d.VirtualMachineID)
 	return json.Marshal(objectMap)
 }
@@ -375,6 +388,9 @@ func (d *DatabaseVMDetails) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "status":
 			err = unpopulate(val, "Status", &d.Status)
+			delete(rawMsg, key)
+		case "storageDetails":
+			err = unpopulate(val, "StorageDetails", &d.StorageDetails)
 			delete(rawMsg, key)
 		case "virtualMachineId":
 			err = unpopulate(val, "VirtualMachineID", &d.VirtualMachineID)
@@ -862,6 +878,37 @@ func (e *ErrorResponse) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ExternalInstallationSoftwareConfiguration.
+func (e ExternalInstallationSoftwareConfiguration) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "centralServerVmId", e.CentralServerVMID)
+	objectMap["softwareInstallationType"] = SAPSoftwareInstallationTypeExternal
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExternalInstallationSoftwareConfiguration.
+func (e *ExternalInstallationSoftwareConfiguration) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "centralServerVmId":
+			err = unpopulate(val, "CentralServerVMID", &e.CentralServerVMID)
+			delete(rawMsg, key)
+		case "softwareInstallationType":
+			err = unpopulate(val, "SoftwareInstallationType", &e.SoftwareInstallationType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type FileshareProfile.
 func (f FileshareProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -948,7 +995,9 @@ func (h HanaDbProviderInstanceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "instanceNumber", h.InstanceNumber)
 	objectMap["providerType"] = "SapHana"
 	populate(objectMap, "sqlPort", h.SQLPort)
+	populate(objectMap, "sslCertificateUri", h.SSLCertificateURI)
 	populate(objectMap, "sslHostNameInCertificate", h.SSLHostNameInCertificate)
+	populate(objectMap, "sslPreference", h.SSLPreference)
 	return json.Marshal(objectMap)
 }
 
@@ -988,8 +1037,14 @@ func (h *HanaDbProviderInstanceProperties) UnmarshalJSON(data []byte) error {
 		case "sqlPort":
 			err = unpopulate(val, "SQLPort", &h.SQLPort)
 			delete(rawMsg, key)
+		case "sslCertificateUri":
+			err = unpopulate(val, "SSLCertificateURI", &h.SSLCertificateURI)
+			delete(rawMsg, key)
 		case "sslHostNameInCertificate":
 			err = unpopulate(val, "SSLHostNameInCertificate", &h.SSLHostNameInCertificate)
+			delete(rawMsg, key)
+		case "sslPreference":
+			err = unpopulate(val, "SSLPreference", &h.SSLPreference)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1174,6 +1229,33 @@ func (l *LinuxConfiguration) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type LoadBalancerDetails.
+func (l LoadBalancerDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", l.ID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type LoadBalancerDetails.
+func (l *LoadBalancerDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", l, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &l.ID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", l, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ManagedRGConfiguration.
 func (m ManagedRGConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -1349,6 +1431,8 @@ func (m MonitorProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "msiArmId", m.MsiArmID)
 	populate(objectMap, "provisioningState", m.ProvisioningState)
 	populate(objectMap, "routingPreference", m.RoutingPreference)
+	populate(objectMap, "storageAccountArmId", m.StorageAccountArmID)
+	populate(objectMap, "zoneRedundancyPreference", m.ZoneRedundancyPreference)
 	return json.Marshal(objectMap)
 }
 
@@ -1384,6 +1468,12 @@ func (m *MonitorProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "routingPreference":
 			err = unpopulate(val, "RoutingPreference", &m.RoutingPreference)
+			delete(rawMsg, key)
+		case "storageAccountArmId":
+			err = unpopulate(val, "StorageAccountArmID", &m.StorageAccountArmID)
+			delete(rawMsg, key)
+		case "zoneRedundancyPreference":
+			err = unpopulate(val, "ZoneRedundancyPreference", &m.ZoneRedundancyPreference)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1445,6 +1535,8 @@ func (m MsSQLServerProviderInstanceProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "dbUsername", m.DbUsername)
 	populate(objectMap, "hostname", m.Hostname)
 	objectMap["providerType"] = "MsSqlServer"
+	populate(objectMap, "sslCertificateUri", m.SSLCertificateURI)
+	populate(objectMap, "sslPreference", m.SSLPreference)
 	populate(objectMap, "sapSid", m.SapSid)
 	return json.Marshal(objectMap)
 }
@@ -1475,6 +1567,12 @@ func (m *MsSQLServerProviderInstanceProperties) UnmarshalJSON(data []byte) error
 			delete(rawMsg, key)
 		case "providerType":
 			err = unpopulate(val, "ProviderType", &m.ProviderType)
+			delete(rawMsg, key)
+		case "sslCertificateUri":
+			err = unpopulate(val, "SSLCertificateURI", &m.SSLCertificateURI)
+			delete(rawMsg, key)
+		case "sslPreference":
+			err = unpopulate(val, "SSLPreference", &m.SSLPreference)
 			delete(rawMsg, key)
 		case "sapSid":
 			err = unpopulate(val, "SapSid", &m.SapSid)
@@ -2423,6 +2521,8 @@ func (p PrometheusHaClusterProviderInstanceProperties) MarshalJSON() ([]byte, er
 	populate(objectMap, "hostname", p.Hostname)
 	populate(objectMap, "prometheusUrl", p.PrometheusURL)
 	objectMap["providerType"] = "PrometheusHaCluster"
+	populate(objectMap, "sslCertificateUri", p.SSLCertificateURI)
+	populate(objectMap, "sslPreference", p.SSLPreference)
 	populate(objectMap, "sid", p.Sid)
 	return json.Marshal(objectMap)
 }
@@ -2448,6 +2548,12 @@ func (p *PrometheusHaClusterProviderInstanceProperties) UnmarshalJSON(data []byt
 		case "providerType":
 			err = unpopulate(val, "ProviderType", &p.ProviderType)
 			delete(rawMsg, key)
+		case "sslCertificateUri":
+			err = unpopulate(val, "SSLCertificateURI", &p.SSLCertificateURI)
+			delete(rawMsg, key)
+		case "sslPreference":
+			err = unpopulate(val, "SSLPreference", &p.SSLPreference)
+			delete(rawMsg, key)
 		case "sid":
 			err = unpopulate(val, "Sid", &p.Sid)
 			delete(rawMsg, key)
@@ -2464,6 +2570,8 @@ func (p PrometheusOSProviderInstanceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "prometheusUrl", p.PrometheusURL)
 	objectMap["providerType"] = "PrometheusOS"
+	populate(objectMap, "sslCertificateUri", p.SSLCertificateURI)
+	populate(objectMap, "sslPreference", p.SSLPreference)
 	return json.Marshal(objectMap)
 }
 
@@ -2481,6 +2589,12 @@ func (p *PrometheusOSProviderInstanceProperties) UnmarshalJSON(data []byte) erro
 			delete(rawMsg, key)
 		case "providerType":
 			err = unpopulate(val, "ProviderType", &p.ProviderType)
+			delete(rawMsg, key)
+		case "sslCertificateUri":
+			err = unpopulate(val, "SSLCertificateURI", &p.SSLCertificateURI)
+			delete(rawMsg, key)
+		case "sslPreference":
+			err = unpopulate(val, "SSLPreference", &p.SSLPreference)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2879,6 +2993,7 @@ func (s SAPApplicationServerProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "kernelVersion", s.KernelVersion)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
 	populate(objectMap, "status", s.Status)
+	populate(objectMap, "storageDetails", s.StorageDetails)
 	populate(objectMap, "subnet", s.Subnet)
 	populate(objectMap, "virtualMachineId", s.VirtualMachineID)
 	return json.Marshal(objectMap)
@@ -2928,6 +3043,9 @@ func (s *SAPApplicationServerProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "status":
 			err = unpopulate(val, "Status", &s.Status)
+			delete(rawMsg, key)
+		case "storageDetails":
+			err = unpopulate(val, "StorageDetails", &s.StorageDetails)
 			delete(rawMsg, key)
 		case "subnet":
 			err = unpopulate(val, "Subnet", &s.Subnet)
@@ -3129,6 +3247,7 @@ func (s SAPCentralServerProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "instanceNo", s.InstanceNo)
 	populate(objectMap, "kernelPatch", s.KernelPatch)
 	populate(objectMap, "kernelVersion", s.KernelVersion)
+	populate(objectMap, "loadBalancerDetails", s.LoadBalancerDetails)
 	populate(objectMap, "messageServerProperties", s.MessageServerProperties)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
 	populate(objectMap, "status", s.Status)
@@ -3169,6 +3288,9 @@ func (s *SAPCentralServerProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "kernelVersion":
 			err = unpopulate(val, "KernelVersion", &s.KernelVersion)
+			delete(rawMsg, key)
+		case "loadBalancerDetails":
+			err = unpopulate(val, "LoadBalancerDetails", &s.LoadBalancerDetails)
 			delete(rawMsg, key)
 		case "messageServerProperties":
 			err = unpopulate(val, "MessageServerProperties", &s.MessageServerProperties)
@@ -3309,6 +3431,7 @@ func (s SAPDatabaseProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "databaseType", s.DatabaseType)
 	populate(objectMap, "errors", s.Errors)
 	populate(objectMap, "ipAddress", s.IPAddress)
+	populate(objectMap, "loadBalancerDetails", s.LoadBalancerDetails)
 	populate(objectMap, "provisioningState", s.ProvisioningState)
 	populate(objectMap, "status", s.Status)
 	populate(objectMap, "subnet", s.Subnet)
@@ -3336,6 +3459,9 @@ func (s *SAPDatabaseProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "ipAddress":
 			err = unpopulate(val, "IPAddress", &s.IPAddress)
+			delete(rawMsg, key)
+		case "loadBalancerDetails":
+			err = unpopulate(val, "LoadBalancerDetails", &s.LoadBalancerDetails)
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &s.ProvisioningState)
@@ -4344,6 +4470,8 @@ func (s *SSHPublicKey) UnmarshalJSON(data []byte) error {
 func (s SapNetWeaverProviderInstanceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	objectMap["providerType"] = "SapNetWeaver"
+	populate(objectMap, "sslCertificateUri", s.SSLCertificateURI)
+	populate(objectMap, "sslPreference", s.SSLPreference)
 	populate(objectMap, "sapClientId", s.SapClientID)
 	populate(objectMap, "sapHostFileEntries", s.SapHostFileEntries)
 	populate(objectMap, "sapHostname", s.SapHostname)
@@ -4368,6 +4496,12 @@ func (s *SapNetWeaverProviderInstanceProperties) UnmarshalJSON(data []byte) erro
 		switch key {
 		case "providerType":
 			err = unpopulate(val, "ProviderType", &s.ProviderType)
+			delete(rawMsg, key)
+		case "sslCertificateUri":
+			err = unpopulate(val, "SSLCertificateURI", &s.SSLCertificateURI)
+			delete(rawMsg, key)
+		case "sslPreference":
+			err = unpopulate(val, "SSLPreference", &s.SSLPreference)
 			delete(rawMsg, key)
 		case "sapClientId":
 			err = unpopulate(val, "SapClientID", &s.SapClientID)
@@ -4659,6 +4793,33 @@ func (s *StopRequest) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "hardStop":
 			err = unpopulate(val, "HardStop", &s.HardStop)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type StorageInformation.
+func (s StorageInformation) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", s.ID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type StorageInformation.
+func (s *StorageInformation) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &s.ID)
 			delete(rawMsg, key)
 		}
 		if err != nil {
