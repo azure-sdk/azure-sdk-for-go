@@ -1,5 +1,55 @@
 # Release History
 
+## 2.2.0-beta.3 (2022-11-15)
+### Breaking Changes
+
+- Function `*AgentPoolsClient.AbortLatestOperation` has been removed
+- Function `*ManagedClustersClient.AbortLatestOperation` has been removed
+- Struct `AgentPoolsClientAbortLatestOperationOptions` has been removed
+- Struct `ManagedClustersClientAbortLatestOperationOptions` has been removed
+
+### Features Added
+
+- New const `TypeFourth`
+- New const `NodeOSUpgradeChannelNodeImage`
+- New const `TypeLast`
+- New const `TypeFirst`
+- New const `NodeOSUpgradeChannelSecurityPatch`
+- New const `NodeOSUpgradeChannelNone`
+- New const `TypeSecond`
+- New const `TypeThird`
+- New const `NodeOSUpgradeChannelUnmanaged`
+- New const `ProtocolUDP`
+- New const `ProtocolTCP`
+- New const `EbpfDataplaneCilium`
+- New type alias `EbpfDataplane`
+- New type alias `Protocol`
+- New type alias `NodeOSUpgradeChannel`
+- New type alias `Type`
+- New function `PossibleNodeOSUpgradeChannelValues() []NodeOSUpgradeChannel`
+- New function `*ManagedClustersClient.BeginAbortLatestOperation(context.Context, string, string, *ManagedClustersClientBeginAbortLatestOperationOptions) (*runtime.Poller[ManagedClustersClientAbortLatestOperationResponse], error)`
+- New function `*AgentPoolsClient.BeginAbortLatestOperation(context.Context, string, string, string, *AgentPoolsClientBeginAbortLatestOperationOptions) (*runtime.Poller[AgentPoolsClientAbortLatestOperationResponse], error)`
+- New function `PossibleEbpfDataplaneValues() []EbpfDataplane`
+- New function `PossibleProtocolValues() []Protocol`
+- New function `PossibleTypeValues() []Type`
+- New struct `AbsoluteMonthlySchedule`
+- New struct `AgentPoolsClientBeginAbortLatestOperationOptions`
+- New struct `DailySchedule`
+- New struct `DateSpan`
+- New struct `MaintenanceWindow`
+- New struct `ManagedClustersClientBeginAbortLatestOperationOptions`
+- New struct `PortRange`
+- New struct `RelativeMonthlySchedule`
+- New struct `Schedule`
+- New struct `WeeklySchedule`
+- New field `MaintenanceWindow` in struct `MaintenanceConfigurationProperties`
+- New field `NodeOSUpgradeChannel` in struct `ManagedClusterAutoUpgradeProfile`
+- New field `EbpfDataplane` in struct `NetworkProfile`
+- New field `CustomCATrustCertificates` in struct `ManagedClusterSecurityProfile`
+- New field `AllowedHostPorts` in struct `AgentPoolNetworkProfile`
+- New field `ApplicationSecurityGroups` in struct `AgentPoolNetworkProfile`
+
+
 ## 2.2.0-beta.2 (2022-09-29)
 ### Features Added
 
