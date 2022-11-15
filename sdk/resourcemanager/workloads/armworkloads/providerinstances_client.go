@@ -142,7 +142,9 @@ func (client *ProviderInstancesClient) BeginDelete(ctx context.Context, resource
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ProviderInstancesClientDeleteResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[ProviderInstancesClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[ProviderInstancesClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -260,7 +262,6 @@ func (client *ProviderInstancesClient) getHandleResponse(resp *http.Response) (P
 
 // NewListPager - Gets a list of provider instances in the specified SAP monitor. The operations returns various properties
 // of each provider instances.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // monitorName - Name of the SAP monitor resource.
