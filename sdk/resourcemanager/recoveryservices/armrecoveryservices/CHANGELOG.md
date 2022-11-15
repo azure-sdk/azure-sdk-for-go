@@ -1,5 +1,55 @@
 # Release History
 
+## 2.0.0 (2022-11-15)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+
+### Features Added
+
+- New const `ImmutabilityStateLocked`
+- New const `PublicNetworkAccessDisabled`
+- New const `VaultSubResourceTypeAzureBackupSecondary`
+- New const `StandardTierStorageRedundancyZoneRedundant`
+- New const `ImmutabilityStateUnlocked`
+- New const `StandardTierStorageRedundancyGeoRedundant`
+- New const `CrossRegionRestoreDisabled`
+- New const `StandardTierStorageRedundancyLocallyRedundant`
+- New const `VaultSubResourceTypeAzureSiteRecovery`
+- New const `VaultSubResourceTypeAzureBackup`
+- New const `PublicNetworkAccessEnabled`
+- New const `ImmutabilityStateDisabled`
+- New const `CrossRegionRestoreEnabled`
+- New type alias `VaultSubResourceType`
+- New type alias `PublicNetworkAccess`
+- New type alias `CrossRegionRestore`
+- New type alias `ImmutabilityState`
+- New type alias `StandardTierStorageRedundancy`
+- New function `PossiblePublicNetworkAccessValues() []PublicNetworkAccess`
+- New function `PossibleStandardTierStorageRedundancyValues() []StandardTierStorageRedundancy`
+- New function `PossibleImmutabilityStateValues() []ImmutabilityState`
+- New function `PossibleVaultSubResourceTypeValues() []VaultSubResourceType`
+- New function `*Client.Capabilities(context.Context, string, ResourceCapabilities, *ClientCapabilitiesOptions) (ClientCapabilitiesResponse, error)`
+- New function `PossibleCrossRegionRestoreValues() []CrossRegionRestore`
+- New struct `CapabilitiesProperties`
+- New struct `CapabilitiesResponse`
+- New struct `CapabilitiesResponseProperties`
+- New struct `ClientCapabilitiesOptions`
+- New struct `ClientCapabilitiesResponse`
+- New struct `DNSZone`
+- New struct `DNSZoneResponse`
+- New struct `ImmutabilitySettings`
+- New struct `ResourceCapabilities`
+- New struct `ResourceCapabilitiesBase`
+- New struct `SecuritySettings`
+- New struct `VaultPropertiesRedundancySettings`
+- New field `PublicNetworkAccess` in struct `VaultProperties`
+- New field `SecuritySettings` in struct `VaultProperties`
+- New field `RedundancySettings` in struct `VaultProperties`
+- New field `GroupIDs` in struct `PrivateEndpointConnection`
+- New field `AADAudience` in struct `ResourceCertificateAndAADDetails`
+
+
 ## 1.1.0 (2022-07-22)
 ### Features Added
 
