@@ -1,5 +1,845 @@
 # Release History
 
+## 3.0.0-beta.1 (2022-11-16)
+### Breaking Changes
+
+- Type of `CommandJob.Resources` has been changed from `*ResourceConfiguration` to `*JobResourceConfiguration`
+- Type of `Kubernetes.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `HDInsight.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `TrialComponent.Resources` has been changed from `*ResourceConfiguration` to `*JobResourceConfiguration`
+- Type of `UsernamePasswordAuthTypeWorkspaceConnectionProperties.Category` has been changed from `*ConnectionCategory` to `*string`
+- Type of `Compute.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `SynapseSpark.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `AmlCompute.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `DataFactory.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `BatchDeploymentProperties.Resources` has been changed from `*ResourceConfiguration` to `*DeploymentResourceConfiguration`
+- Type of `Databricks.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `ManagedIdentityAuthTypeWorkspaceConnectionProperties.Category` has been changed from `*ConnectionCategory` to `*string`
+- Type of `ComputeInstance.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `NoneAuthTypeWorkspaceConnectionProperties.Category` has been changed from `*ConnectionCategory` to `*string`
+- Type of `AKS.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `DataLakeAnalytics.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `WorkspaceConnectionPropertiesV2.Category` has been changed from `*ConnectionCategory` to `*string`
+- Type of `WorkspaceProperties.ProvisioningState` has been changed from `*ProvisioningState` to `*WorkspaceProvisioningState`
+- Type of `VirtualMachine.ProvisioningState` has been changed from `*ProvisioningState` to `*ComputeProvisioningState`
+- Type of `SASAuthTypeWorkspaceConnectionProperties.Category` has been changed from `*ConnectionCategory` to `*string`
+- Type of `PATAuthTypeWorkspaceConnectionProperties.Category` has been changed from `*ConnectionCategory` to `*string`
+- Const `ProvisioningStateSucceeded` has been removed
+- Const `ProvisioningStateUpdating` has been removed
+- Const `ProvisioningStateUnknown` has been removed
+- Const `ProvisioningStateCreating` has been removed
+- Const `ProvisioningStateCanceled` has been removed
+- Const `ConnectionCategoryGit` has been removed
+- Const `ConnectionCategoryContainerRegistry` has been removed
+- Const `ProvisioningStateFailed` has been removed
+- Const `ProvisioningStateDeleting` has been removed
+- Const `ConnectionCategoryPythonFeed` has been removed
+- Type alias `ProvisioningState` has been removed
+- Type alias `ConnectionCategory` has been removed
+- Function `PossibleProvisioningStateValues` has been removed
+- Function `PossibleConnectionCategoryValues` has been removed
+
+### Features Added
+
+- New const `StochasticOptimizerAdam`
+- New const `AutoRebuildSettingDisabled`
+- New const `TargetAggregationFunctionNone`
+- New const `TargetAggregationFunctionMin`
+- New const `MLFlowAutologgerStateDisabled`
+- New const `NCrossValidationsModeAuto`
+- New const `TaskTypeImageObjectDetection`
+- New const `ComputeProvisioningStateUnknown`
+- New const `SparkJobEntryTypeSparkJobScalaEntry`
+- New const `JobTypeSpark`
+- New const `ScheduleProvisioningStatusFailed`
+- New const `SeasonalityModeAuto`
+- New const `UseStlSeasonTrend`
+- New const `AssetProvisioningStateUpdating`
+- New const `LearningRateSchedulerStep`
+- New const `RegressionModelsElasticNet`
+- New const `ForecastingModelsProphet`
+- New const `WeekDayWednesday`
+- New const `ForecastingModelsExtremeRandomTrees`
+- New const `ModelSizeSmall`
+- New const `ClassificationPrimaryMetricsPrecisionScoreWeighted`
+- New const `ScheduleListViewTypeAll`
+- New const `MlflowAutologgerEnabled`
+- New const `RegressionModelsKNN`
+- New const `ClassificationPrimaryMetricsAveragePrecisionScoreWeighted`
+- New const `VolumeDefinitionTypeTmpfs`
+- New const `InstanceSegmentationPrimaryMetricsMeanAveragePrecision`
+- New const `ForecastingModelsTCNForecaster`
+- New const `ClassificationModelsLogisticRegression`
+- New const `WeekDayMonday`
+- New const `ClassificationModelsGradientBoosting`
+- New const `JobProvisioningStateFailed`
+- New const `NlpLearningRateSchedulerNone`
+- New const `LearningRateSchedulerWarmupCosine`
+- New const `ImageAnnotationTypeInstanceSegmentation`
+- New const `MediaTypeImage`
+- New const `SparkJobEntryTypeSparkJobPythonEntry`
+- New const `BlockedTransformersWordEmbedding`
+- New const `ForecastingModelsSGD`
+- New const `ClassificationPrimaryMetricsAccuracy`
+- New const `ForecastingModelsDecisionTree`
+- New const `StochasticOptimizerNone`
+- New const `ConnectionAuthTypeAccessKey`
+- New const `ContainerTypeModelDataCollector`
+- New const `TrainingModeNonDistributed`
+- New const `RegressionPrimaryMetricsNormalizedMeanAbsoluteError`
+- New const `NCrossValidationsModeCustom`
+- New const `TaskTypeTextClassificationMultilabel`
+- New const `NlpLearningRateSchedulerConstantWithWarmup`
+- New const `NlpLearningRateSchedulerCosine`
+- New const `ExportFormatTypeDataset`
+- New const `TaskTypeForecasting`
+- New const `PublicNetworkAccessTypeDisabled`
+- New const `TaskTypeRegression`
+- New const `ClassificationModelsExtremeRandomTrees`
+- New const `IncrementalDataRefreshEnabled`
+- New const `BlockedTransformersTfIdf`
+- New const `TargetRollingWindowSizeModeAuto`
+- New const `WorkspaceProvisioningStateUnknown`
+- New const `ImageTypeAzureml`
+- New const `RegressionPrimaryMetricsR2Score`
+- New const `TriggerTypeRecurrence`
+- New const `ClassificationMultilabelPrimaryMetricsAveragePrecisionScoreWeighted`
+- New const `ClassificationModelsBernoulliNaiveBayes`
+- New const `JobProvisioningStateInProgress`
+- New const `StackMetaLearnerTypeLinearRegression`
+- New const `BlockedTransformersCatTargetEncoder`
+- New const `RegressionModelsExtremeRandomTrees`
+- New const `ScheduleListViewTypeDisabledOnly`
+- New const `RegressionPrimaryMetricsNormalizedRootMeanSquaredError`
+- New const `MlflowAutologgerDisabled`
+- New const `BlockedTransformersHashOneHotEncoder`
+- New const `ForecastingModelsLassoLars`
+- New const `RecurrenceFrequencyMonth`
+- New const `VolumeDefinitionTypeVolume`
+- New const `LogVerbosityInfo`
+- New const `RegressionModelsLightGBM`
+- New const `ScheduleProvisioningStatusUpdating`
+- New const `ScheduleProvisioningStatusCreating`
+- New const `TaskTypeImageInstanceSegmentation`
+- New const `BlockedTransformersCountVectorizer`
+- New const `BlockedTransformersOneHotEncoder`
+- New const `ClassificationMultilabelPrimaryMetricsAccuracy`
+- New const `TaskTypeTextClassification`
+- New const `StatusMessageLevelInformation`
+- New const `WeekDaySaturday`
+- New const `WorkspaceProvisioningStateCreating`
+- New const `ComputeProvisioningStateSucceeded`
+- New const `ForecastingModelsAutoArima`
+- New const `ImageAnnotationTypeBoundingBox`
+- New const `ComputeProvisioningStateDeleting`
+- New const `ClassificationModelsSGD`
+- New const `StackMetaLearnerTypeElasticNetCV`
+- New const `LogVerbosityWarning`
+- New const `RegressionModelsGradientBoosting`
+- New const `JobTypeLabeling`
+- New const `TextAnnotationTypeNamedEntityRecognition`
+- New const `AssetProvisioningStateCreating`
+- New const `ClassificationModelsMultinomialNaiveBayes`
+- New const `MultiSelectEnabled`
+- New const `ShortSeriesHandlingConfigurationNone`
+- New const `AssetProvisioningStateCanceled`
+- New const `CredentialsTypeKerberosKeytab`
+- New const `TargetAggregationFunctionSum`
+- New const `ForecastingModelsElasticNet`
+- New const `TrainingModeAuto`
+- New const `TargetRollingWindowSizeModeCustom`
+- New const `UseStlNone`
+- New const `ScheduleListViewTypeEnabledOnly`
+- New const `TargetAggregationFunctionMean`
+- New const `StackMetaLearnerTypeLightGBMClassifier`
+- New const `ComputeProvisioningStateFailed`
+- New const `FeaturizationModeAuto`
+- New const `ValidationMetricTypeNone`
+- New const `ScheduleActionTypeInvokeBatchEndpoint`
+- New const `MultiSelectDisabled`
+- New const `VolumeDefinitionTypeBind`
+- New const `ProtocolUDP`
+- New const `RecurrenceFrequencyWeek`
+- New const `LearningRateSchedulerNone`
+- New const `BlockedTransformersLabelEncoder`
+- New const `MLAssistConfigurationTypeDisabled`
+- New const `FeatureLagsNone`
+- New const `TaskTypeImageClassification`
+- New const `ModelSizeLarge`
+- New const `RegressionModelsXGBoostRegressor`
+- New const `ForecastingModelsArimax`
+- New const `OutputDeliveryModeDirect`
+- New const `TaskTypeTextNER`
+- New const `ComputeProvisioningStateUpdating`
+- New const `ForecastingModelsRandomForest`
+- New const `ForecastingModelsGradientBoosting`
+- New const `BlockedTransformersWoETargetEncoder`
+- New const `ClassificationModelsDecisionTree`
+- New const `TargetLagsModeCustom`
+- New const `RegressionModelsLassoLars`
+- New const `ClassificationModelsRandomForest`
+- New const `FeaturizationModeOff`
+- New const `ForecastingModelsKNN`
+- New const `WorkspaceProvisioningStateDeleting`
+- New const `SeasonalityModeCustom`
+- New const `JobProvisioningStateCanceled`
+- New const `ScheduleProvisioningStatusSucceeded`
+- New const `ForecastingModelsNaive`
+- New const `ClassificationPrimaryMetricsAUCWeighted`
+- New const `ClassificationModelsKNN`
+- New const `EgressPublicNetworkAccessTypeDisabled`
+- New const `TargetLagsModeAuto`
+- New const `TargetAggregationFunctionMax`
+- New const `ForecastingModelsSeasonalNaive`
+- New const `RegressionPrimaryMetricsSpearmanCorrelation`
+- New const `WeekDayTuesday`
+- New const `StochasticOptimizerAdamw`
+- New const `StackMetaLearnerTypeLogisticRegressionCV`
+- New const `MLAssistConfigurationTypeEnabled`
+- New const `RecurrenceFrequencyHour`
+- New const `WeekDayThursday`
+- New const `NlpLearningRateSchedulerLinear`
+- New const `TextAnnotationTypeClassification`
+- New const `WorkspaceProvisioningStateSoftDeleted`
+- New const `ProtocolHTTP`
+- New const `NodesValueTypeCustom`
+- New const `ClassificationPrimaryMetricsNormMacroRecall`
+- New const `EgressPublicNetworkAccessTypeEnabled`
+- New const `TrainingModeDistributed`
+- New const `WeekDayFriday`
+- New const `ExportFormatTypeCSV`
+- New const `AutoRebuildSettingOnBaseImageUpdate`
+- New const `AssetProvisioningStateFailed`
+- New const `ComputeProvisioningStateCanceled`
+- New const `VolumeDefinitionTypeNpipe`
+- New const `ModelSizeExtraLarge`
+- New const `ClassificationMultilabelPrimaryMetricsIOU`
+- New const `BlockedTransformersNaiveBayes`
+- New const `StackMetaLearnerTypeLightGBMRegressor`
+- New const `LogVerbosityDebug`
+- New const `ComputeProvisioningStateCreating`
+- New const `ClassificationMultilabelPrimaryMetricsNormMacroRecall`
+- New const `ProtocolTCP`
+- New const `ForecastingModelsExponentialSmoothing`
+- New const `ForecastingModelsSeasonalAverage`
+- New const `StackMetaLearnerTypeNone`
+- New const `StatusMessageLevelError`
+- New const `ClassificationModelsSVM`
+- New const `ObjectDetectionPrimaryMetricsMeanAveragePrecision`
+- New const `WeekDaySunday`
+- New const `ForecastingModelsLightGBM`
+- New const `ShortSeriesHandlingConfigurationPad`
+- New const `NodesValueTypeAll`
+- New const `JobProvisioningStateSucceeded`
+- New const `ValidationMetricTypeCocoVoc`
+- New const `JobTypeAutoML`
+- New const `FeatureLagsAuto`
+- New const `ConnectionAuthTypeServicePrincipal`
+- New const `ScheduleActionTypeCreateJob`
+- New const `RecurrenceFrequencyMinute`
+- New const `SecretsTypeKerberosKeytab`
+- New const `WorkspaceProvisioningStateUpdating`
+- New const `ModelSizeMedium`
+- New const `LogVerbosityNotSet`
+- New const `ClassificationMultilabelPrimaryMetricsAUCWeighted`
+- New const `StackMetaLearnerTypeElasticNet`
+- New const `ClassificationModelsLightGBM`
+- New const `RecurrenceFrequencyDay`
+- New const `TriggerTypeCron`
+- New const `StackMetaLearnerTypeLogisticRegression`
+- New const `PublicNetworkAccessTypeEnabled`
+- New const `JobStatusScheduled`
+- New const `ShortSeriesHandlingConfigurationDrop`
+- New const `TaskTypeImageClassificationMultilabel`
+- New const `LogVerbosityError`
+- New const `AssetProvisioningStateSucceeded`
+- New const `IncrementalDataRefreshDisabled`
+- New const `ScheduleProvisioningStatusDeleting`
+- New const `CredentialsTypeKerberosPassword`
+- New const `ExportFormatTypeCoco`
+- New const `ShortSeriesHandlingConfigurationAuto`
+- New const `ForecastingModelsXGBoostRegressor`
+- New const `ImageTypeDocker`
+- New const `ScheduleProvisioningStatusCanceled`
+- New const `StatusMessageLevelWarning`
+- New const `ClassificationModelsLinearSVM`
+- New const `RegressionModelsRandomForest`
+- New const `WorkspaceProvisioningStateSucceeded`
+- New const `WorkspaceProvisioningStateFailed`
+- New const `ClassificationMultilabelPrimaryMetricsPrecisionScoreWeighted`
+- New const `FeaturizationModeCustom`
+- New const `ClassificationModelsXGBoostClassifier`
+- New const `ForecastHorizonModeAuto`
+- New const `StochasticOptimizerSgd`
+- New const `ModelSizeNone`
+- New const `BlockedTransformersTextTargetEncoder`
+- New const `NlpLearningRateSchedulerPolynomial`
+- New const `LogVerbosityCritical`
+- New const `AssetProvisioningStateDeleting`
+- New const `DatastoreTypeHdfs`
+- New const `ValidationMetricTypeVoc`
+- New const `MLFlowAutologgerStateEnabled`
+- New const `UseStlSeason`
+- New const `SecretsTypeKerberosPassword`
+- New const `EnvironmentVariableTypeLocal`
+- New const `ForecastingPrimaryMetricsR2Score`
+- New const `MediaTypeText`
+- New const `ForecastingPrimaryMetricsNormalizedMeanAbsoluteError`
+- New const `TaskTypeClassification`
+- New const `RegressionModelsDecisionTree`
+- New const `ImageAnnotationTypeClassification`
+- New const `NlpLearningRateSchedulerCosineWithRestarts`
+- New const `NlpLearningRateSchedulerConstant`
+- New const `ForecastHorizonModeCustom`
+- New const `ValidationMetricTypeCoco`
+- New const `ForecastingPrimaryMetricsSpearmanCorrelation`
+- New const `RegressionModelsSGD`
+- New const `WorkspaceProvisioningStateCanceled`
+- New const `ForecastingPrimaryMetricsNormalizedRootMeanSquaredError`
+- New const `ForecastingModelsAverage`
+- New type alias `ScheduleProvisioningStatus`
+- New type alias `RecurrenceFrequency`
+- New type alias `UseStl`
+- New type alias `StochasticOptimizer`
+- New type alias `BlockedTransformers`
+- New type alias `MediaType`
+- New type alias `ScheduleActionType`
+- New type alias `ClassificationPrimaryMetrics`
+- New type alias `EgressPublicNetworkAccessType`
+- New type alias `ShortSeriesHandlingConfiguration`
+- New type alias `VolumeDefinitionType`
+- New type alias `ClassificationModels`
+- New type alias `MLFlowAutologgerState`
+- New type alias `ExportFormatType`
+- New type alias `TargetAggregationFunction`
+- New type alias `ScheduleListViewType`
+- New type alias `ValidationMetricType`
+- New type alias `WeekDay`
+- New type alias `NlpLearningRateScheduler`
+- New type alias `EnvironmentVariableType`
+- New type alias `MultiSelect`
+- New type alias `TrainingMode`
+- New type alias `ClassificationMultilabelPrimaryMetrics`
+- New type alias `IncrementalDataRefresh`
+- New type alias `ForecastingModels`
+- New type alias `ComputeProvisioningState`
+- New type alias `AutoRebuildSetting`
+- New type alias `TaskType`
+- New type alias `StatusMessageLevel`
+- New type alias `NodesValueType`
+- New type alias `ObjectDetectionPrimaryMetrics`
+- New type alias `ForecastingPrimaryMetrics`
+- New type alias `ModelSize`
+- New type alias `MLAssistConfigurationType`
+- New type alias `ImageType`
+- New type alias `TargetRollingWindowSizeMode`
+- New type alias `MlflowAutologger`
+- New type alias `RegressionPrimaryMetrics`
+- New type alias `ForecastHorizonMode`
+- New type alias `SparkJobEntryType`
+- New type alias `StackMetaLearnerType`
+- New type alias `LogVerbosity`
+- New type alias `InstanceSegmentationPrimaryMetrics`
+- New type alias `FeaturizationMode`
+- New type alias `LearningRateScheduler`
+- New type alias `RegressionModels`
+- New type alias `NCrossValidationsMode`
+- New type alias `TargetLagsMode`
+- New type alias `WorkspaceProvisioningState`
+- New type alias `Protocol`
+- New type alias `SeasonalityMode`
+- New type alias `PublicNetworkAccessType`
+- New type alias `TriggerType`
+- New type alias `JobProvisioningState`
+- New type alias `TextAnnotationType`
+- New type alias `ImageAnnotationType`
+- New type alias `FeatureLags`
+- New type alias `AssetProvisioningState`
+- New function `PossibleRecurrenceFrequencyValues() []RecurrenceFrequency`
+- New function `*CustomTargetLags.GetTargetLags() *TargetLags`
+- New function `*CustomForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `*RegistryComponentVersionsClient.Get(context.Context, string, string, string, string, *RegistryComponentVersionsClientGetOptions) (RegistryComponentVersionsClientGetResponse, error)`
+- New function `*MLAssistConfigurationDisabled.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `*RegistriesClient.NewListBySubscriptionPager(*RegistriesClientListBySubscriptionOptions) *runtime.Pager[RegistriesClientListBySubscriptionResponse]`
+- New function `*RegistryComponentVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryComponentVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryComponentVersionsClientDeleteResponse], error)`
+- New function `*RegistryEnvironmentContainersClient.Get(context.Context, string, string, string, *RegistryEnvironmentContainersClientGetOptions) (RegistryEnvironmentContainersClientGetResponse, error)`
+- New function `PossibleJobProvisioningStateValues() []JobProvisioningState`
+- New function `*TextClassificationMultilabel.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleScheduleListViewTypeValues() []ScheduleListViewType`
+- New function `PossibleLogVerbosityValues() []LogVerbosity`
+- New function `*NCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `NewRegistryCodeVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryCodeVersionsClient, error)`
+- New function `*LabelingJobsClient.BeginResume(context.Context, string, string, string, *LabelingJobsClientBeginResumeOptions) (*runtime.Poller[LabelingJobsClientResumeResponse], error)`
+- New function `PossibleExportFormatTypeValues() []ExportFormatType`
+- New function `NewRegistryModelVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryModelVersionsClient, error)`
+- New function `*Seasonality.GetSeasonality() *Seasonality`
+- New function `*AutoForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `PossibleMlflowAutologgerValues() []MlflowAutologger`
+- New function `*KerberosKeytabSecrets.GetDatastoreSecrets() *DatastoreSecrets`
+- New function `*RegistryCodeContainersClient.Get(context.Context, string, string, string, *RegistryCodeContainersClientGetOptions) (RegistryCodeContainersClientGetResponse, error)`
+- New function `*RegistryEnvironmentContainersClient.NewListPager(string, string, *RegistryEnvironmentContainersClientListOptions) *runtime.Pager[RegistryEnvironmentContainersClientListResponse]`
+- New function `*Regression.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleForecastHorizonModeValues() []ForecastHorizonMode`
+- New function `*ServicePrincipalAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*ImageClassification.GetAutoMLVertical() *AutoMLVertical`
+- New function `*ImageClassificationMultilabel.GetAutoMLVertical() *AutoMLVertical`
+- New function `*LabelingJobsClient.Delete(context.Context, string, string, string, *LabelingJobsClientDeleteOptions) (LabelingJobsClientDeleteResponse, error)`
+- New function `*RegistryCodeVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, CodeVersion, *RegistryCodeVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryCodeVersionsClientCreateOrUpdateResponse], error)`
+- New function `PossibleWorkspaceProvisioningStateValues() []WorkspaceProvisioningState`
+- New function `PossibleSeasonalityModeValues() []SeasonalityMode`
+- New function `PossibleStatusMessageLevelValues() []StatusMessageLevel`
+- New function `*AutoMLJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `PossibleTextAnnotationTypeValues() []TextAnnotationType`
+- New function `PossibleClassificationModelsValues() []ClassificationModels`
+- New function `*RegistryEnvironmentVersionsClient.Get(context.Context, string, string, string, string, *RegistryEnvironmentVersionsClientGetOptions) (RegistryEnvironmentVersionsClientGetResponse, error)`
+- New function `*TargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `*CSVExportSummary.GetExportSummary() *ExportSummary`
+- New function `PossibleStochasticOptimizerValues() []StochasticOptimizer`
+- New function `*Nodes.GetNodes() *Nodes`
+- New function `*TargetLags.GetTargetLags() *TargetLags`
+- New function `PossibleScheduleProvisioningStatusValues() []ScheduleProvisioningStatus`
+- New function `*LabelingJobsClient.BeginCreateOrUpdate(context.Context, string, string, string, LabelingJob, *LabelingJobsClientBeginCreateOrUpdateOptions) (*runtime.Poller[LabelingJobsClientCreateOrUpdateResponse], error)`
+- New function `PossibleBlockedTransformersValues() []BlockedTransformers`
+- New function `PossibleStackMetaLearnerTypeValues() []StackMetaLearnerType`
+- New function `PossibleClassificationPrimaryMetricsValues() []ClassificationPrimaryMetrics`
+- New function `PossibleNodesValueTypeValues() []NodesValueType`
+- New function `PossibleEnvironmentVariableTypeValues() []EnvironmentVariableType`
+- New function `PossibleFeatureLagsValues() []FeatureLags`
+- New function `*ScheduleActionBase.GetScheduleActionBase() *ScheduleActionBase`
+- New function `PossibleValidationMetricTypeValues() []ValidationMetricType`
+- New function `*RegistryEnvironmentContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, EnvironmentContainer, *RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEnvironmentContainersClientCreateOrUpdateResponse], error)`
+- New function `*AutoTargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `PossiblePublicNetworkAccessTypeValues() []PublicNetworkAccessType`
+- New function `*DatasetExportSummary.GetExportSummary() *ExportSummary`
+- New function `*RegistryCodeVersionsClient.NewListPager(string, string, string, *RegistryCodeVersionsClientListOptions) *runtime.Pager[RegistryCodeVersionsClientListResponse]`
+- New function `PossibleImageTypeValues() []ImageType`
+- New function `*AccessKeyAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `PossibleTrainingModeValues() []TrainingMode`
+- New function `*Forecasting.GetAutoMLVertical() *AutoMLVertical`
+- New function `*RegistryComponentContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, ComponentContainer, *RegistryComponentContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryComponentContainersClientCreateOrUpdateResponse], error)`
+- New function `PossibleVolumeDefinitionTypeValues() []VolumeDefinitionType`
+- New function `PossibleForecastingModelsValues() []ForecastingModels`
+- New function `*RegistriesClient.NewListPager(string, *RegistriesClientListOptions) *runtime.Pager[RegistriesClientListResponse]`
+- New function `PossibleModelSizeValues() []ModelSize`
+- New function `*RegistryModelContainersClient.Get(context.Context, string, string, string, *RegistryModelContainersClientGetOptions) (RegistryModelContainersClientGetResponse, error)`
+- New function `*RecurrenceTrigger.GetTriggerBase() *TriggerBase`
+- New function `*AutoNCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `*RegistryModelVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryModelVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryModelVersionsClientDeleteResponse], error)`
+- New function `*RegistryModelContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, ModelContainer, *RegistryModelContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryModelContainersClientCreateOrUpdateResponse], error)`
+- New function `*KerberosPasswordCredentials.GetDatastoreCredentials() *DatastoreCredentials`
+- New function `*TextNer.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleLearningRateSchedulerValues() []LearningRateScheduler`
+- New function `*RegistryComponentContainersClient.Get(context.Context, string, string, string, *RegistryComponentContainersClientGetOptions) (RegistryComponentContainersClientGetResponse, error)`
+- New function `*RegistryCodeContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, CodeContainer, *RegistryCodeContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryCodeContainersClientCreateOrUpdateResponse], error)`
+- New function `PossibleTargetLagsModeValues() []TargetLagsMode`
+- New function `*RegistryComponentVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, ComponentVersion, *RegistryComponentVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryComponentVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryEnvironmentContainersClient.BeginDelete(context.Context, string, string, string, *RegistryEnvironmentContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryEnvironmentContainersClientDeleteResponse], error)`
+- New function `*MLAssistConfiguration.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `*LabelingJobImageProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `*EndpointScheduleAction.GetScheduleActionBase() *ScheduleActionBase`
+- New function `*AutoMLVertical.GetAutoMLVertical() *AutoMLVertical`
+- New function `*SparkJobScalaEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*CocoExportSummary.GetExportSummary() *ExportSummary`
+- New function `*RegistryEnvironmentVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, EnvironmentVersion, *RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEnvironmentVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryComponentContainersClient.BeginDelete(context.Context, string, string, string, *RegistryComponentContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryComponentContainersClientDeleteResponse], error)`
+- New function `PossibleComputeProvisioningStateValues() []ComputeProvisioningState`
+- New function `*RegistriesClient.Update(context.Context, string, string, PartialRegistryPartialTrackedResource, *RegistriesClientUpdateOptions) (RegistriesClientUpdateResponse, error)`
+- New function `*Classification.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleMediaTypeValues() []MediaType`
+- New function `*LabelingJobsClient.BeginExportLabels(context.Context, string, string, string, ExportSummaryClassification, *LabelingJobsClientBeginExportLabelsOptions) (*runtime.Poller[LabelingJobsClientExportLabelsResponse], error)`
+- New function `PossibleMultiSelectValues() []MultiSelect`
+- New function `*LabelingJobsClient.Get(context.Context, string, string, string, *LabelingJobsClientGetOptions) (LabelingJobsClientGetResponse, error)`
+- New function `PossibleFeaturizationModeValues() []FeaturizationMode`
+- New function `NewRegistryCodeContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryCodeContainersClient, error)`
+- New function `PossibleClassificationMultilabelPrimaryMetricsValues() []ClassificationMultilabelPrimaryMetrics`
+- New function `PossibleTargetAggregationFunctionValues() []TargetAggregationFunction`
+- New function `*SparkJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `NewLabelingJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LabelingJobsClient, error)`
+- New function `NewRegistryComponentContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryComponentContainersClient, error)`
+- New function `*ForecastHorizon.GetForecastHorizon() *ForecastHorizon`
+- New function `*RegistryModelContainersClient.BeginDelete(context.Context, string, string, string, *RegistryModelContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryModelContainersClientDeleteResponse], error)`
+- New function `*RegistryComponentVersionsClient.NewListPager(string, string, string, *RegistryComponentVersionsClientListOptions) *runtime.Pager[RegistryComponentVersionsClientListResponse]`
+- New function `*SparkJobPythonEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*LabelingJobProperties.GetJobBaseProperties() *JobBaseProperties`
+- New function `NewRegistryModelContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryModelContainersClient, error)`
+- New function `*RegistriesClient.BeginCreateOrUpdate(context.Context, string, string, Registry, *RegistriesClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistriesClientCreateOrUpdateResponse], error)`
+- New function `*SchedulesClient.Get(context.Context, string, string, string, *SchedulesClientGetOptions) (SchedulesClientGetResponse, error)`
+- New function `*RegistriesClient.BeginDelete(context.Context, string, string, *RegistriesClientBeginDeleteOptions) (*runtime.Poller[RegistriesClientDeleteResponse], error)`
+- New function `NewRegistryComponentVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryComponentVersionsClient, error)`
+- New function `PossibleObjectDetectionPrimaryMetricsValues() []ObjectDetectionPrimaryMetrics`
+- New function `*CustomTargetRollingWindowSize.GetTargetRollingWindowSize() *TargetRollingWindowSize`
+- New function `PossibleAutoRebuildSettingValues() []AutoRebuildSetting`
+- New function `*LabelingJobTextProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `PossibleImageAnnotationTypeValues() []ImageAnnotationType`
+- New function `*RegistryModelVersionsClient.Get(context.Context, string, string, string, string, *RegistryModelVersionsClientGetOptions) (RegistryModelVersionsClientGetResponse, error)`
+- New function `PossibleEgressPublicNetworkAccessTypeValues() []EgressPublicNetworkAccessType`
+- New function `*AutoTargetLags.GetTargetLags() *TargetLags`
+- New function `*ExportSummary.GetExportSummary() *ExportSummary`
+- New function `*AllNodes.GetNodes() *Nodes`
+- New function `*RegistryEnvironmentVersionsClient.NewListPager(string, string, string, *RegistryEnvironmentVersionsClientListOptions) *runtime.Pager[RegistryEnvironmentVersionsClientListResponse]`
+- New function `NewRegistryEnvironmentContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEnvironmentContainersClient, error)`
+- New function `*RegistryCodeContainersClient.NewListPager(string, string, *RegistryCodeContainersClientListOptions) *runtime.Pager[RegistryCodeContainersClientListResponse]`
+- New function `*RegistriesClient.Get(context.Context, string, string, *RegistriesClientGetOptions) (RegistriesClientGetResponse, error)`
+- New function `*HdfsDatastore.GetDatastoreProperties() *DatastoreProperties`
+- New function `PossibleIncrementalDataRefreshValues() []IncrementalDataRefresh`
+- New function `*RegistryCodeVersionsClient.Get(context.Context, string, string, string, string, *RegistryCodeVersionsClientGetOptions) (RegistryCodeVersionsClientGetResponse, error)`
+- New function `PossibleRegressionModelsValues() []RegressionModels`
+- New function `*RegistryCodeContainersClient.BeginDelete(context.Context, string, string, string, *RegistryCodeContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryCodeContainersClientDeleteResponse], error)`
+- New function `PossibleTriggerTypeValues() []TriggerType`
+- New function `*TriggerBase.GetTriggerBase() *TriggerBase`
+- New function `*MLAssistConfigurationEnabled.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `PossibleAssetProvisioningStateValues() []AssetProvisioningState`
+- New function `*RegistryModelVersionsClient.NewListPager(string, string, string, *RegistryModelVersionsClientListOptions) *runtime.Pager[RegistryModelVersionsClientListResponse]`
+- New function `PossibleSparkJobEntryTypeValues() []SparkJobEntryType`
+- New function `*LabelingJobsClient.NewListPager(string, string, *LabelingJobsClientListOptions) *runtime.Pager[LabelingJobsClientListResponse]`
+- New function `*SchedulesClient.BeginCreateOrUpdate(context.Context, string, string, string, Schedule, *SchedulesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SchedulesClientCreateOrUpdateResponse], error)`
+- New function `*CustomNCrossValidations.GetNCrossValidations() *NCrossValidations`
+- New function `*ImageObjectDetection.GetAutoMLVertical() *AutoMLVertical`
+- New function `NewRegistriesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistriesClient, error)`
+- New function `*KerberosKeytabCredentials.GetDatastoreCredentials() *DatastoreCredentials`
+- New function `*JobScheduleAction.GetScheduleActionBase() *ScheduleActionBase`
+- New function `*ComputeClient.UpdateCustomServices(context.Context, string, string, string, []*CustomService, *ComputeClientUpdateCustomServicesOptions) (ComputeClientUpdateCustomServicesResponse, error)`
+- New function `PossibleNCrossValidationsModeValues() []NCrossValidationsMode`
+- New function `*ImageInstanceSegmentation.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleShortSeriesHandlingConfigurationValues() []ShortSeriesHandlingConfiguration`
+- New function `*KerberosPasswordSecrets.GetDatastoreSecrets() *DatastoreSecrets`
+- New function `*RegistryModelContainersClient.NewListPager(string, string, *RegistryModelContainersClientListOptions) *runtime.Pager[RegistryModelContainersClientListResponse]`
+- New function `PossibleMLFlowAutologgerStateValues() []MLFlowAutologgerState`
+- New function `PossibleRegressionPrimaryMetricsValues() []RegressionPrimaryMetrics`
+- New function `PossibleProtocolValues() []Protocol`
+- New function `PossibleNlpLearningRateSchedulerValues() []NlpLearningRateScheduler`
+- New function `PossibleScheduleActionTypeValues() []ScheduleActionType`
+- New function `*RegistryComponentContainersClient.NewListPager(string, string, *RegistryComponentContainersClientListOptions) *runtime.Pager[RegistryComponentContainersClientListResponse]`
+- New function `*TextClassification.GetAutoMLVertical() *AutoMLVertical`
+- New function `PossibleTaskTypeValues() []TaskType`
+- New function `PossibleUseStlValues() []UseStl`
+- New function `*LabelingJobsClient.Pause(context.Context, string, string, string, *LabelingJobsClientPauseOptions) (LabelingJobsClientPauseResponse, error)`
+- New function `*SchedulesClient.NewListPager(string, string, *SchedulesClientListOptions) *runtime.Pager[SchedulesClientListResponse]`
+- New function `*SchedulesClient.BeginDelete(context.Context, string, string, string, *SchedulesClientBeginDeleteOptions) (*runtime.Poller[SchedulesClientDeleteResponse], error)`
+- New function `PossibleMLAssistConfigurationTypeValues() []MLAssistConfigurationType`
+- New function `*AutoSeasonality.GetSeasonality() *Seasonality`
+- New function `*RegistryModelVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, ModelVersion, *RegistryModelVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryModelVersionsClientCreateOrUpdateResponse], error)`
+- New function `NewSchedulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SchedulesClient, error)`
+- New function `*RegistryCodeVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryCodeVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryCodeVersionsClientDeleteResponse], error)`
+- New function `PossibleInstanceSegmentationPrimaryMetricsValues() []InstanceSegmentationPrimaryMetrics`
+- New function `*CustomSeasonality.GetSeasonality() *Seasonality`
+- New function `*SparkJobEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*ComputeClient.UpdateIdleShutdownSetting(context.Context, string, string, string, IdleShutdownSetting, *ComputeClientUpdateIdleShutdownSettingOptions) (ComputeClientUpdateIdleShutdownSettingResponse, error)`
+- New function `NewRegistryEnvironmentVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEnvironmentVersionsClient, error)`
+- New function `*LabelingJobMediaProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `PossibleForecastingPrimaryMetricsValues() []ForecastingPrimaryMetrics`
+- New function `PossibleWeekDayValues() []WeekDay`
+- New function `PossibleTargetRollingWindowSizeModeValues() []TargetRollingWindowSizeMode`
+- New function `*CronTrigger.GetTriggerBase() *TriggerBase`
+- New function `*RegistryEnvironmentVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryEnvironmentVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryEnvironmentVersionsClientDeleteResponse], error)`
+- New struct `AccessKeyAuthTypeWorkspaceConnectionProperties`
+- New struct `AcrDetails`
+- New struct `AllNodes`
+- New struct `ArmResourceID`
+- New struct `AutoForecastHorizon`
+- New struct `AutoMLJob`
+- New struct `AutoMLVertical`
+- New struct `AutoNCrossValidations`
+- New struct `AutoSeasonality`
+- New struct `AutoTargetLags`
+- New struct `AutoTargetRollingWindowSize`
+- New struct `AutologgerSettings`
+- New struct `AzureDatastore`
+- New struct `BindOptions`
+- New struct `CSVExportSummary`
+- New struct `Classification`
+- New struct `ClassificationTrainingSettings`
+- New struct `CocoExportSummary`
+- New struct `ColumnTransformer`
+- New struct `ComputeClientUpdateCustomServicesOptions`
+- New struct `ComputeClientUpdateCustomServicesResponse`
+- New struct `ComputeClientUpdateIdleShutdownSettingOptions`
+- New struct `ComputeClientUpdateIdleShutdownSettingResponse`
+- New struct `ComputeInstanceAutologgerSettings`
+- New struct `Cron`
+- New struct `CronTrigger`
+- New struct `CustomForecastHorizon`
+- New struct `CustomNCrossValidations`
+- New struct `CustomSeasonality`
+- New struct `CustomService`
+- New struct `CustomTargetLags`
+- New struct `CustomTargetRollingWindowSize`
+- New struct `DatasetExportSummary`
+- New struct `DeploymentResourceConfiguration`
+- New struct `Docker`
+- New struct `EncryptionKeyVaultUpdateProperties`
+- New struct `EncryptionUpdateProperties`
+- New struct `Endpoint`
+- New struct `EndpointScheduleAction`
+- New struct `EnvironmentVariable`
+- New struct `ExportSummary`
+- New struct `FeaturizationSettings`
+- New struct `ForecastHorizon`
+- New struct `Forecasting`
+- New struct `ForecastingSettings`
+- New struct `ForecastingTrainingSettings`
+- New struct `HdfsDatastore`
+- New struct `IdleShutdownSetting`
+- New struct `Image`
+- New struct `ImageClassification`
+- New struct `ImageClassificationBase`
+- New struct `ImageClassificationMultilabel`
+- New struct `ImageInstanceSegmentation`
+- New struct `ImageLimitSettings`
+- New struct `ImageMetadata`
+- New struct `ImageModelDistributionSettings`
+- New struct `ImageModelDistributionSettingsClassification`
+- New struct `ImageModelDistributionSettingsObjectDetection`
+- New struct `ImageModelSettings`
+- New struct `ImageModelSettingsClassification`
+- New struct `ImageModelSettingsObjectDetection`
+- New struct `ImageObjectDetection`
+- New struct `ImageObjectDetectionBase`
+- New struct `ImageSweepSettings`
+- New struct `ImageVertical`
+- New struct `JobResourceConfiguration`
+- New struct `JobScheduleAction`
+- New struct `KerberosCredentials`
+- New struct `KerberosKeytabCredentials`
+- New struct `KerberosKeytabSecrets`
+- New struct `KerberosPasswordCredentials`
+- New struct `KerberosPasswordSecrets`
+- New struct `LabelCategory`
+- New struct `LabelClass`
+- New struct `LabelingDataConfiguration`
+- New struct `LabelingJob`
+- New struct `LabelingJobImageProperties`
+- New struct `LabelingJobInstructions`
+- New struct `LabelingJobMediaProperties`
+- New struct `LabelingJobProperties`
+- New struct `LabelingJobResourceArmPaginatedResult`
+- New struct `LabelingJobTextProperties`
+- New struct `LabelingJobsClient`
+- New struct `LabelingJobsClientBeginCreateOrUpdateOptions`
+- New struct `LabelingJobsClientBeginExportLabelsOptions`
+- New struct `LabelingJobsClientBeginResumeOptions`
+- New struct `LabelingJobsClientCreateOrUpdateResponse`
+- New struct `LabelingJobsClientDeleteOptions`
+- New struct `LabelingJobsClientDeleteResponse`
+- New struct `LabelingJobsClientExportLabelsResponse`
+- New struct `LabelingJobsClientGetOptions`
+- New struct `LabelingJobsClientGetResponse`
+- New struct `LabelingJobsClientListOptions`
+- New struct `LabelingJobsClientListResponse`
+- New struct `LabelingJobsClientPauseOptions`
+- New struct `LabelingJobsClientPauseResponse`
+- New struct `LabelingJobsClientResumeResponse`
+- New struct `MLAssistConfiguration`
+- New struct `MLAssistConfigurationDisabled`
+- New struct `MLAssistConfigurationEnabled`
+- New struct `NCrossValidations`
+- New struct `NlpFixedParameters`
+- New struct `NlpParameterSubspace`
+- New struct `NlpSweepSettings`
+- New struct `NlpVertical`
+- New struct `NlpVerticalFeaturizationSettings`
+- New struct `NlpVerticalLimitSettings`
+- New struct `Nodes`
+- New struct `PartialRegistryPartialTrackedResource`
+- New struct `ProgressMetrics`
+- New struct `Recurrence`
+- New struct `RecurrenceSchedule`
+- New struct `RecurrenceTrigger`
+- New struct `RegistriesClient`
+- New struct `RegistriesClientBeginCreateOrUpdateOptions`
+- New struct `RegistriesClientBeginDeleteOptions`
+- New struct `RegistriesClientCreateOrUpdateResponse`
+- New struct `RegistriesClientDeleteResponse`
+- New struct `RegistriesClientGetOptions`
+- New struct `RegistriesClientGetResponse`
+- New struct `RegistriesClientListBySubscriptionOptions`
+- New struct `RegistriesClientListBySubscriptionResponse`
+- New struct `RegistriesClientListOptions`
+- New struct `RegistriesClientListResponse`
+- New struct `RegistriesClientUpdateOptions`
+- New struct `RegistriesClientUpdateResponse`
+- New struct `Registry`
+- New struct `RegistryCodeContainersClient`
+- New struct `RegistryCodeContainersClientBeginCreateOrUpdateOptions`
+- New struct `RegistryCodeContainersClientBeginDeleteOptions`
+- New struct `RegistryCodeContainersClientCreateOrUpdateResponse`
+- New struct `RegistryCodeContainersClientDeleteResponse`
+- New struct `RegistryCodeContainersClientGetOptions`
+- New struct `RegistryCodeContainersClientGetResponse`
+- New struct `RegistryCodeContainersClientListOptions`
+- New struct `RegistryCodeContainersClientListResponse`
+- New struct `RegistryCodeVersionsClient`
+- New struct `RegistryCodeVersionsClientBeginCreateOrUpdateOptions`
+- New struct `RegistryCodeVersionsClientBeginDeleteOptions`
+- New struct `RegistryCodeVersionsClientCreateOrUpdateResponse`
+- New struct `RegistryCodeVersionsClientDeleteResponse`
+- New struct `RegistryCodeVersionsClientGetOptions`
+- New struct `RegistryCodeVersionsClientGetResponse`
+- New struct `RegistryCodeVersionsClientListOptions`
+- New struct `RegistryCodeVersionsClientListResponse`
+- New struct `RegistryComponentContainersClient`
+- New struct `RegistryComponentContainersClientBeginCreateOrUpdateOptions`
+- New struct `RegistryComponentContainersClientBeginDeleteOptions`
+- New struct `RegistryComponentContainersClientCreateOrUpdateResponse`
+- New struct `RegistryComponentContainersClientDeleteResponse`
+- New struct `RegistryComponentContainersClientGetOptions`
+- New struct `RegistryComponentContainersClientGetResponse`
+- New struct `RegistryComponentContainersClientListOptions`
+- New struct `RegistryComponentContainersClientListResponse`
+- New struct `RegistryComponentVersionsClient`
+- New struct `RegistryComponentVersionsClientBeginCreateOrUpdateOptions`
+- New struct `RegistryComponentVersionsClientBeginDeleteOptions`
+- New struct `RegistryComponentVersionsClientCreateOrUpdateResponse`
+- New struct `RegistryComponentVersionsClientDeleteResponse`
+- New struct `RegistryComponentVersionsClientGetOptions`
+- New struct `RegistryComponentVersionsClientGetResponse`
+- New struct `RegistryComponentVersionsClientListOptions`
+- New struct `RegistryComponentVersionsClientListResponse`
+- New struct `RegistryEnvironmentContainersClient`
+- New struct `RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions`
+- New struct `RegistryEnvironmentContainersClientBeginDeleteOptions`
+- New struct `RegistryEnvironmentContainersClientCreateOrUpdateResponse`
+- New struct `RegistryEnvironmentContainersClientDeleteResponse`
+- New struct `RegistryEnvironmentContainersClientGetOptions`
+- New struct `RegistryEnvironmentContainersClientGetResponse`
+- New struct `RegistryEnvironmentContainersClientListOptions`
+- New struct `RegistryEnvironmentContainersClientListResponse`
+- New struct `RegistryEnvironmentVersionsClient`
+- New struct `RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions`
+- New struct `RegistryEnvironmentVersionsClientBeginDeleteOptions`
+- New struct `RegistryEnvironmentVersionsClientCreateOrUpdateResponse`
+- New struct `RegistryEnvironmentVersionsClientDeleteResponse`
+- New struct `RegistryEnvironmentVersionsClientGetOptions`
+- New struct `RegistryEnvironmentVersionsClientGetResponse`
+- New struct `RegistryEnvironmentVersionsClientListOptions`
+- New struct `RegistryEnvironmentVersionsClientListResponse`
+- New struct `RegistryModelContainersClient`
+- New struct `RegistryModelContainersClientBeginCreateOrUpdateOptions`
+- New struct `RegistryModelContainersClientBeginDeleteOptions`
+- New struct `RegistryModelContainersClientCreateOrUpdateResponse`
+- New struct `RegistryModelContainersClientDeleteResponse`
+- New struct `RegistryModelContainersClientGetOptions`
+- New struct `RegistryModelContainersClientGetResponse`
+- New struct `RegistryModelContainersClientListOptions`
+- New struct `RegistryModelContainersClientListResponse`
+- New struct `RegistryModelVersionsClient`
+- New struct `RegistryModelVersionsClientBeginCreateOrUpdateOptions`
+- New struct `RegistryModelVersionsClientBeginDeleteOptions`
+- New struct `RegistryModelVersionsClientCreateOrUpdateResponse`
+- New struct `RegistryModelVersionsClientDeleteResponse`
+- New struct `RegistryModelVersionsClientGetOptions`
+- New struct `RegistryModelVersionsClientGetResponse`
+- New struct `RegistryModelVersionsClientListOptions`
+- New struct `RegistryModelVersionsClientListResponse`
+- New struct `RegistryProperties`
+- New struct `RegistryRegionArmDetails`
+- New struct `RegistryTrackedResourceArmPaginatedResult`
+- New struct `Regression`
+- New struct `RegressionTrainingSettings`
+- New struct `Schedule`
+- New struct `ScheduleActionBase`
+- New struct `ScheduleProperties`
+- New struct `ScheduleResourceArmPaginatedResult`
+- New struct `SchedulesClient`
+- New struct `SchedulesClientBeginCreateOrUpdateOptions`
+- New struct `SchedulesClientBeginDeleteOptions`
+- New struct `SchedulesClientCreateOrUpdateResponse`
+- New struct `SchedulesClientDeleteResponse`
+- New struct `SchedulesClientGetOptions`
+- New struct `SchedulesClientGetResponse`
+- New struct `SchedulesClientListOptions`
+- New struct `SchedulesClientListResponse`
+- New struct `Seasonality`
+- New struct `ServicePrincipalAuthTypeWorkspaceConnectionProperties`
+- New struct `SparkJob`
+- New struct `SparkJobEntry`
+- New struct `SparkJobPythonEntry`
+- New struct `SparkJobScalaEntry`
+- New struct `SparkResourceConfiguration`
+- New struct `StackEnsembleSettings`
+- New struct `StatusMessage`
+- New struct `StorageAccountDetails`
+- New struct `SystemCreatedAcrAccount`
+- New struct `SystemCreatedStorageAccount`
+- New struct `TableFixedParameters`
+- New struct `TableParameterSubspace`
+- New struct `TableSweepSettings`
+- New struct `TableVertical`
+- New struct `TableVerticalFeaturizationSettings`
+- New struct `TableVerticalLimitSettings`
+- New struct `TargetLags`
+- New struct `TargetRollingWindowSize`
+- New struct `TextClassification`
+- New struct `TextClassificationMultilabel`
+- New struct `TextNer`
+- New struct `TmpfsOptions`
+- New struct `TrainingSettings`
+- New struct `TriggerBase`
+- New struct `UserCreatedAcrAccount`
+- New struct `UserCreatedStorageAccount`
+- New struct `VolumeDefinition`
+- New struct `VolumeOptions`
+- New struct `WorkspaceConnectionAccessKey`
+- New struct `WorkspaceConnectionServicePrincipal`
+- New field `AutoRebuild` in struct `EnvironmentVersionProperties`
+- New field `ProvisioningState` in struct `EnvironmentVersionProperties`
+- New field `AssetName` in struct `MLTableJobOutput`
+- New field `AssetVersion` in struct `MLTableJobOutput`
+- New field `Cron` in struct `ComputeStartStopSchedule`
+- New field `Recurrence` in struct `ComputeStartStopSchedule`
+- New field `Status` in struct `ComputeStartStopSchedule`
+- New field `TriggerType` in struct `ComputeStartStopSchedule`
+- New field `SourceJobID` in struct `PipelineJob`
+- New field `ComponentID` in struct `PipelineJob`
+- New field `ProvisioningState` in struct `ComponentContainerProperties`
+- New field `EgressPublicNetworkAccess` in struct `OnlineDeploymentProperties`
+- New field `AssetName` in struct `AssetJobOutput`
+- New field `AssetVersion` in struct `AssetJobOutput`
+- New field `ProvisioningState` in struct `CodeContainerProperties`
+- New field `SubscriptionID` in struct `AzureBlobDatastore`
+- New field `ResourceGroup` in struct `AzureBlobDatastore`
+- New field `PublicNetworkAccess` in struct `OnlineEndpointProperties`
+- New field `MirrorTraffic` in struct `OnlineEndpointProperties`
+- New field `Logbase` in struct `RandomSamplingAlgorithm`
+- New field `AssetName` in struct `TritonModelJobOutput`
+- New field `AssetVersion` in struct `TritonModelJobOutput`
+- New field `AssetVersion` in struct `URIFolderJobOutput`
+- New field `AssetName` in struct `URIFolderJobOutput`
+- New field `ComponentID` in struct `SweepJob`
+- New field `SubscriptionID` in struct `AzureDataLakeGen1Datastore`
+- New field `ResourceGroup` in struct `AzureDataLakeGen1Datastore`
+- New field `OSImageMetadata` in struct `ComputeInstanceProperties`
+- New field `CustomServices` in struct `ComputeInstanceProperties`
+- New field `IdleTimeBeforeShutdown` in struct `ComputeInstanceProperties`
+- New field `AutologgerSettings` in struct `ComputeInstanceProperties`
+- New field `Encryption` in struct `WorkspacePropertiesUpdateParameters`
+- New field `ProvisioningState` in struct `ModelVersionProperties`
+- New field `ComponentID` in struct `JobBaseProperties`
+- New field `ScheduledPurgeDate` in struct `WorkspaceProperties`
+- New field `SoftDeletedAt` in struct `WorkspaceProperties`
+- New field `SubscriptionID` in struct `AzureDataLakeGen2Datastore`
+- New field `ResourceGroup` in struct `AzureDataLakeGen2Datastore`
+- New field `ComponentID` in struct `CommandJob`
+- New field `AutologgerSettings` in struct `CommandJob`
+- New field `ScheduleID` in struct `JobsClientListOptions`
+- New field `Scheduled` in struct `JobsClientListOptions`
+- New field `AssetName` in struct `URIFileJobOutput`
+- New field `AssetVersion` in struct `URIFileJobOutput`
+- New field `AssetName` in struct `MLFlowModelJobOutput`
+- New field `AssetVersion` in struct `MLFlowModelJobOutput`
+- New field `SubscriptionID` in struct `AzureFileDatastore`
+- New field `ResourceGroup` in struct `AzureFileDatastore`
+- New field `AssetName` in struct `CustomModelJobOutput`
+- New field `AssetVersion` in struct `CustomModelJobOutput`
+- New field `ProvisioningState` in struct `EnvironmentContainerProperties`
+- New field `ProvisioningState` in struct `ModelContainerProperties`
+- New field `EgressPublicNetworkAccess` in struct `ManagedOnlineDeployment`
+- New field `Nodes` in struct `JobService`
+- New field `EgressPublicNetworkAccess` in struct `KubernetesOnlineDeployment`
+- New field `ProvisioningState` in struct `ComponentVersionProperties`
+- New field `ProvisioningState` in struct `CodeVersionProperties`
+
+
 ## 2.0.0 (2022-06-09)
 ### Breaking Changes
 
