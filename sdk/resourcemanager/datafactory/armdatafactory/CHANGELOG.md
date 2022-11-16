@@ -1,5 +1,45 @@
 # Release History
 
+## 3.0.0 (2022-11-16)
+### Breaking Changes
+
+- Type of `SynapseSparkJobReference.ReferenceName` has been changed from `*string` to `interface{}`
+
+### Features Added
+
+- New function `*ServicePrincipalCredential.GetCredential() *Credential`
+- New function `*CredentialOperationsClient.CreateOrUpdate(context.Context, string, string, string, ManagedIdentityCredentialResource, *CredentialOperationsClientCreateOrUpdateOptions) (CredentialOperationsClientCreateOrUpdateResponse, error)`
+- New function `NewCredentialOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CredentialOperationsClient, error)`
+- New function `*CredentialOperationsClient.Delete(context.Context, string, string, string, *CredentialOperationsClientDeleteOptions) (CredentialOperationsClientDeleteResponse, error)`
+- New function `*ManagedIdentityCredential.GetCredential() *Credential`
+- New function `*CredentialOperationsClient.Get(context.Context, string, string, string, *CredentialOperationsClientGetOptions) (CredentialOperationsClientGetResponse, error)`
+- New function `*Credential.GetCredential() *Credential`
+- New function `*CredentialOperationsClient.NewListByFactoryPager(string, string, *CredentialOperationsClientListByFactoryOptions) *runtime.Pager[CredentialOperationsClientListByFactoryResponse]`
+- New struct `Credential`
+- New struct `CredentialListResponse`
+- New struct `CredentialOperationsClient`
+- New struct `CredentialOperationsClientCreateOrUpdateOptions`
+- New struct `CredentialOperationsClientCreateOrUpdateResponse`
+- New struct `CredentialOperationsClientDeleteOptions`
+- New struct `CredentialOperationsClientDeleteResponse`
+- New struct `CredentialOperationsClientGetOptions`
+- New struct `CredentialOperationsClientGetResponse`
+- New struct `CredentialOperationsClientListByFactoryOptions`
+- New struct `CredentialOperationsClientListByFactoryResponse`
+- New struct `ManagedIdentityCredential`
+- New struct `ManagedIdentityCredentialResource`
+- New struct `ManagedIdentityTypeProperties`
+- New struct `ServicePrincipalCredential`
+- New struct `ServicePrincipalCredentialTypeProperties`
+- New field `ScriptBlockExecutionTimeout` in struct `ScriptActivityTypeProperties`
+- New field `WorkspaceResourceID` in struct `AzureSynapseArtifactsLinkedServiceTypeProperties`
+- New field `FilesV2` in struct `SynapseSparkJobActivityTypeProperties`
+- New field `PythonCodeReference` in struct `SynapseSparkJobActivityTypeProperties`
+- New field `DisablePublish` in struct `FactoryVSTSConfiguration`
+- New field `DisablePublish` in struct `FactoryRepoConfiguration`
+- New field `DisablePublish` in struct `FactoryGitHubConfiguration`
+
+
 ## 2.0.0 (2022-10-10)
 ### Breaking Changes
 
