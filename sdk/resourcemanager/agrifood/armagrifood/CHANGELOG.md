@@ -1,5 +1,26 @@
 # Release History
 
+## 0.8.0 (2022-11-17)
+### Breaking Changes
+
+- Function `*ExtensionsClient.Create` has been removed
+- Function `*ExtensionsClient.Update` has been removed
+- Struct `ExtensionsClientCreateOptions` has been removed
+- Struct `ExtensionsClientCreateResponse` has been removed
+- Struct `ExtensionsClientUpdateOptions` has been removed
+- Struct `ExtensionsClientUpdateResponse` has been removed
+
+### Features Added
+
+- New function `*ExtensionsClient.CreateOrUpdate(context.Context, string, string, string, *ExtensionsClientCreateOrUpdateOptions) (ExtensionsClientCreateOrUpdateResponse, error)`
+- New struct `APIProperties`
+- New struct `ExtensionInstallationRequest`
+- New struct `ExtensionsClientCreateOrUpdateOptions`
+- New struct `ExtensionsClientCreateOrUpdateResponse`
+- New field `AdditionalAPIProperties` in struct `ExtensionProperties`
+- New field `GroupIDs` in struct `PrivateEndpointConnectionProperties`
+
+
 ## 0.7.0 (2022-08-23)
 ### Breaking Changes
 

@@ -16,6 +16,33 @@ import (
 	"reflect"
 )
 
+// MarshalJSON implements the json.Marshaller interface for type APIProperties.
+func (a APIProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "apiFreshnessWindowInMinutes", a.APIFreshnessWindowInMinutes)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type APIProperties.
+func (a *APIProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "apiFreshnessWindowInMinutes":
+			err = unpopulate(val, "APIFreshnessWindowInMinutes", &a.APIFreshnessWindowInMinutes)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ArmAsyncOperation.
 func (a ArmAsyncOperation) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -300,6 +327,37 @@ func (e *Extension) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ExtensionInstallationRequest.
+func (e ExtensionInstallationRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "additionalApiProperties", e.AdditionalAPIProperties)
+	populate(objectMap, "extensionVersion", e.ExtensionVersion)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtensionInstallationRequest.
+func (e *ExtensionInstallationRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "additionalApiProperties":
+			err = unpopulate(val, "AdditionalAPIProperties", &e.AdditionalAPIProperties)
+			delete(rawMsg, key)
+		case "extensionVersion":
+			err = unpopulate(val, "ExtensionVersion", &e.ExtensionVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ExtensionListResponse.
 func (e ExtensionListResponse) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -334,6 +392,7 @@ func (e *ExtensionListResponse) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ExtensionProperties.
 func (e ExtensionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "additionalApiProperties", e.AdditionalAPIProperties)
 	populate(objectMap, "extensionApiDocsLink", e.ExtensionAPIDocsLink)
 	populate(objectMap, "extensionAuthLink", e.ExtensionAuthLink)
 	populate(objectMap, "extensionCategory", e.ExtensionCategory)
@@ -351,6 +410,9 @@ func (e *ExtensionProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "additionalApiProperties":
+			err = unpopulate(val, "AdditionalAPIProperties", &e.AdditionalAPIProperties)
+			delete(rawMsg, key)
 		case "extensionApiDocsLink":
 			err = unpopulate(val, "ExtensionAPIDocsLink", &e.ExtensionAPIDocsLink)
 			delete(rawMsg, key)
@@ -958,6 +1020,7 @@ func (p *PrivateEndpointConnectionListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type PrivateEndpointConnectionProperties.
 func (p PrivateEndpointConnectionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "groupIds", p.GroupIDs)
 	populate(objectMap, "privateEndpoint", p.PrivateEndpoint)
 	populate(objectMap, "privateLinkServiceConnectionState", p.PrivateLinkServiceConnectionState)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
@@ -973,6 +1036,9 @@ func (p *PrivateEndpointConnectionProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "groupIds":
+			err = unpopulate(val, "GroupIDs", &p.GroupIDs)
+			delete(rawMsg, key)
 		case "privateEndpoint":
 			err = unpopulate(val, "PrivateEndpoint", &p.PrivateEndpoint)
 			delete(rawMsg, key)

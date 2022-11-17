@@ -11,6 +11,12 @@ package armagrifood
 
 import "time"
 
+// APIProperties - Api properties.
+type APIProperties struct {
+	// Interval in minutes for which the weather data for the api needs to be refreshed.
+	APIFreshnessWindowInMinutes *int32 `json:"apiFreshnessWindowInMinutes,omitempty"`
+}
+
 // ArmAsyncOperation - Arm async operation class. Ref: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/async-operations.
 type ArmAsyncOperation struct {
 	// Status of the async operation.
@@ -98,7 +104,7 @@ type Extension struct {
 	// READ-ONLY; The ETag value to implement optimistic concurrency.
 	ETag *string `json:"eTag,omitempty" azure:"ro"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -109,6 +115,15 @@ type Extension struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ExtensionInstallationRequest - Extension Installation Request Body.
+type ExtensionInstallationRequest struct {
+	// Additional Api Properties.
+	AdditionalAPIProperties map[string]*APIProperties `json:"additionalApiProperties,omitempty"`
+
+	// Extension Version.
+	ExtensionVersion *string `json:"extensionVersion,omitempty"`
 }
 
 // ExtensionListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
@@ -122,6 +137,9 @@ type ExtensionListResponse struct {
 
 // ExtensionProperties - Extension resource properties.
 type ExtensionProperties struct {
+	// READ-ONLY; Additional api properties.
+	AdditionalAPIProperties map[string]*APIProperties `json:"additionalApiProperties,omitempty" azure:"ro"`
+
 	// READ-ONLY; Extension api docs link.
 	ExtensionAPIDocsLink *string `json:"extensionApiDocsLink,omitempty" azure:"ro"`
 
@@ -138,9 +156,10 @@ type ExtensionProperties struct {
 	InstalledExtensionVersion *string `json:"installedExtensionVersion,omitempty" azure:"ro"`
 }
 
-// ExtensionsClientCreateOptions contains the optional parameters for the ExtensionsClient.Create method.
-type ExtensionsClientCreateOptions struct {
-	// placeholder for future optional parameters
+// ExtensionsClientCreateOrUpdateOptions contains the optional parameters for the ExtensionsClient.CreateOrUpdate method.
+type ExtensionsClientCreateOrUpdateOptions struct {
+	// Extension resource request body.
+	RequestBody *ExtensionInstallationRequest
 }
 
 // ExtensionsClientDeleteOptions contains the optional parameters for the ExtensionsClient.Delete method.
@@ -165,11 +184,6 @@ type ExtensionsClientListByFarmBeatsOptions struct {
 	SkipToken *string
 }
 
-// ExtensionsClientUpdateOptions contains the optional parameters for the ExtensionsClient.Update method.
-type ExtensionsClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
 // FarmBeats ARM Resource.
 type FarmBeats struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -184,7 +198,7 @@ type FarmBeats struct {
 	// Resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -202,7 +216,7 @@ type FarmBeatsExtension struct {
 	// FarmBeatsExtension properties.
 	Properties *FarmBeatsExtensionProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -345,7 +359,7 @@ type FarmBeatsProperties struct {
 	// READ-ONLY; Uri of the FarmBeats instance.
 	InstanceURI *string `json:"instanceUri,omitempty" azure:"ro"`
 
-	// READ-ONLY; The Private Endpoint Connection resource.
+	// READ-ONLY; The private endpoint connection resource.
 	PrivateEndpointConnections *PrivateEndpointConnection `json:"privateEndpointConnections,omitempty" azure:"ro"`
 
 	// READ-ONLY; FarmBeats instance provisioning state.
@@ -381,10 +395,10 @@ type Identity struct {
 	// The identity type.
 	Type *string `json:"type,omitempty"`
 
-	// READ-ONLY; The principal ID of resource identity.
+	// READ-ONLY; The principal ID of resource identity. The value must be an UUID.
 	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
 
-	// READ-ONLY; The tenant ID of resource.
+	// READ-ONLY; The tenant ID of resource. The value must be an UUID.
 	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
 }
 
@@ -448,18 +462,18 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpoint - The Private Endpoint resource.
+// PrivateEndpoint - The private endpoint resource.
 type PrivateEndpoint struct {
-	// READ-ONLY; The ARM identifier for Private Endpoint
+	// READ-ONLY; The ARM identifier for private endpoint.
 	ID *string `json:"id,omitempty" azure:"ro"`
 }
 
-// PrivateEndpointConnection - The Private Endpoint Connection resource.
+// PrivateEndpointConnection - The private endpoint connection resource.
 type PrivateEndpointConnection struct {
 	// Resource properties.
 	Properties *PrivateEndpointConnectionProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -472,19 +486,22 @@ type PrivateEndpointConnection struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// PrivateEndpointConnectionListResult - List of private endpoint connection associated with the specified storage account
+// PrivateEndpointConnectionListResult - List of private endpoint connections associated with the specified resource.
 type PrivateEndpointConnectionListResult struct {
-	// Array of private endpoint connections
+	// Array of private endpoint connections.
 	Value []*PrivateEndpointConnection `json:"value,omitempty"`
 }
 
-// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+// PrivateEndpointConnectionProperties - Properties of the private endpoint connection.
 type PrivateEndpointConnectionProperties struct {
 	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
 
-	// The resource of private end point.
+	// The private endpoint resource.
 	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
+
+	// READ-ONLY; The group ids for the private endpoint resource.
+	GroupIDs []*string `json:"groupIds,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of the private endpoint connection resource.
 	ProvisioningState *PrivateEndpointConnectionProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -515,12 +532,12 @@ type PrivateEndpointConnectionsClientListByResourceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResource - A private link resource
+// PrivateLinkResource - A private link resource.
 type PrivateLinkResource struct {
 	// Resource properties.
 	Properties *PrivateLinkResourceProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -533,7 +550,7 @@ type PrivateLinkResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// PrivateLinkResourceListResult - A list of private link resources
+// PrivateLinkResourceListResult - A list of private link resources.
 type PrivateLinkResourceListResult struct {
 	// Array of private link resources
 	Value []*PrivateLinkResource `json:"value,omitempty"`
@@ -541,7 +558,7 @@ type PrivateLinkResourceListResult struct {
 
 // PrivateLinkResourceProperties - Properties of a private link resource.
 type PrivateLinkResourceProperties struct {
-	// The private link resource Private link DNS zone name.
+	// The private link resource private link DNS zone name.
 	RequiredZoneNames []*string `json:"requiredZoneNames,omitempty"`
 
 	// READ-ONLY; The private link resource group id.
@@ -578,7 +595,7 @@ type PrivateLinkServiceConnectionState struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -593,7 +610,7 @@ type ProxyResource struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -649,7 +666,7 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
