@@ -11,7 +11,7 @@ package armworkloads
 
 const (
 	moduleName    = "armworkloads"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v0.3.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -93,6 +93,24 @@ func PossibleCentralServerVirtualMachineTypeValues() []CentralServerVirtualMachi
 		CentralServerVirtualMachineTypeSecondary,
 		CentralServerVirtualMachineTypeStandby,
 		CentralServerVirtualMachineTypeUnknown,
+	}
+}
+
+// ConfigurationType - The type of file share config.
+type ConfigurationType string
+
+const (
+	ConfigurationTypeCreateAndMount ConfigurationType = "CreateAndMount"
+	ConfigurationTypeMount          ConfigurationType = "Mount"
+	ConfigurationTypeSkip           ConfigurationType = "Skip"
+)
+
+// PossibleConfigurationTypeValues returns the possible values for the ConfigurationType const type.
+func PossibleConfigurationTypeValues() []ConfigurationType {
+	return []ConfigurationType{
+		ConfigurationTypeCreateAndMount,
+		ConfigurationTypeMount,
+		ConfigurationTypeSkip,
 	}
 }
 
@@ -552,7 +570,7 @@ func PossibleSAPDatabaseTypeValues() []SAPDatabaseType {
 	}
 }
 
-// SAPDeploymentType - The deployment Type.
+// SAPDeploymentType - The type of SAP deployment, single server or Three tier.
 type SAPDeploymentType string
 
 const (
@@ -584,7 +602,7 @@ func PossibleSAPEnvironmentTypeValues() []SAPEnvironmentType {
 	}
 }
 
-// SAPHealthState - Defines the SAP Instance health.
+// SAPHealthState - Defines the health of SAP Instances.
 type SAPHealthState string
 
 const (
@@ -643,6 +661,7 @@ func PossibleSAPProductTypeValues() []SAPProductType {
 type SAPSoftwareInstallationType string
 
 const (
+	SAPSoftwareInstallationTypeExternal                  SAPSoftwareInstallationType = "External"
 	SAPSoftwareInstallationTypeSAPInstallWithoutOSConfig SAPSoftwareInstallationType = "SAPInstallWithoutOSConfig"
 	SAPSoftwareInstallationTypeServiceInitiated          SAPSoftwareInstallationType = "ServiceInitiated"
 )
@@ -650,6 +669,7 @@ const (
 // PossibleSAPSoftwareInstallationTypeValues returns the possible values for the SAPSoftwareInstallationType const type.
 func PossibleSAPSoftwareInstallationTypeValues() []SAPSoftwareInstallationType {
 	return []SAPSoftwareInstallationType{
+		SAPSoftwareInstallationTypeExternal,
 		SAPSoftwareInstallationTypeSAPInstallWithoutOSConfig,
 		SAPSoftwareInstallationTypeServiceInitiated,
 	}
@@ -666,6 +686,8 @@ const (
 	SAPVirtualInstanceStateInfrastructureDeploymentInProgress SAPVirtualInstanceState = "InfrastructureDeploymentInProgress"
 	SAPVirtualInstanceStateInfrastructureDeploymentPending    SAPVirtualInstanceState = "InfrastructureDeploymentPending"
 	SAPVirtualInstanceStateRegistrationComplete               SAPVirtualInstanceState = "RegistrationComplete"
+	SAPVirtualInstanceStateSoftwareDetectionFailed            SAPVirtualInstanceState = "SoftwareDetectionFailed"
+	SAPVirtualInstanceStateSoftwareDetectionInProgress        SAPVirtualInstanceState = "SoftwareDetectionInProgress"
 	SAPVirtualInstanceStateSoftwareInstallationFailed         SAPVirtualInstanceState = "SoftwareInstallationFailed"
 	SAPVirtualInstanceStateSoftwareInstallationInProgress     SAPVirtualInstanceState = "SoftwareInstallationInProgress"
 	SAPVirtualInstanceStateSoftwareInstallationPending        SAPVirtualInstanceState = "SoftwareInstallationPending"
@@ -681,6 +703,8 @@ func PossibleSAPVirtualInstanceStateValues() []SAPVirtualInstanceState {
 		SAPVirtualInstanceStateInfrastructureDeploymentInProgress,
 		SAPVirtualInstanceStateInfrastructureDeploymentPending,
 		SAPVirtualInstanceStateRegistrationComplete,
+		SAPVirtualInstanceStateSoftwareDetectionFailed,
+		SAPVirtualInstanceStateSoftwareDetectionInProgress,
 		SAPVirtualInstanceStateSoftwareInstallationFailed,
 		SAPVirtualInstanceStateSoftwareInstallationInProgress,
 		SAPVirtualInstanceStateSoftwareInstallationPending,
@@ -783,6 +807,24 @@ func PossibleSKUTierValues() []SKUTier {
 		SKUTierBasic,
 		SKUTierStandard,
 		SKUTierPremium,
+	}
+}
+
+// SSLPreference - Gets or sets certificate preference if secure communication is enabled.
+type SSLPreference string
+
+const (
+	SSLPreferenceDisabled          SSLPreference = "Disabled"
+	SSLPreferenceRootCertificate   SSLPreference = "RootCertificate"
+	SSLPreferenceServerCertificate SSLPreference = "ServerCertificate"
+)
+
+// PossibleSSLPreferenceValues returns the possible values for the SSLPreference const type.
+func PossibleSSLPreferenceValues() []SSLPreference {
+	return []SSLPreference{
+		SSLPreferenceDisabled,
+		SSLPreferenceRootCertificate,
+		SSLPreferenceServerCertificate,
 	}
 }
 
