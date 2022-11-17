@@ -7920,6 +7920,37 @@ func (o *OSFamilyProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type OSImageNotificationProfile.
+func (o OSImageNotificationProfile) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "enable", o.Enable)
+	populate(objectMap, "notBeforeTimeout", o.NotBeforeTimeout)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type OSImageNotificationProfile.
+func (o *OSImageNotificationProfile) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", o, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "enable":
+			err = unpopulate(val, "Enable", &o.Enable)
+			delete(rawMsg, key)
+		case "notBeforeTimeout":
+			err = unpopulate(val, "NotBeforeTimeout", &o.NotBeforeTimeout)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", o, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type OSProfile.
 func (o OSProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -10741,6 +10772,7 @@ func (r RollingUpgradePolicy) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "enableCrossZoneUpgrade", r.EnableCrossZoneUpgrade)
 	populate(objectMap, "maxBatchInstancePercent", r.MaxBatchInstancePercent)
+	populate(objectMap, "maxSurge", r.MaxSurge)
 	populate(objectMap, "maxUnhealthyInstancePercent", r.MaxUnhealthyInstancePercent)
 	populate(objectMap, "maxUnhealthyUpgradedInstancePercent", r.MaxUnhealthyUpgradedInstancePercent)
 	populate(objectMap, "pauseTimeBetweenBatches", r.PauseTimeBetweenBatches)
@@ -10762,6 +10794,9 @@ func (r *RollingUpgradePolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "maxBatchInstancePercent":
 			err = unpopulate(val, "MaxBatchInstancePercent", &r.MaxBatchInstancePercent)
+			delete(rawMsg, key)
+		case "maxSurge":
+			err = unpopulate(val, "MaxSurge", &r.MaxSurge)
 			delete(rawMsg, key)
 		case "maxUnhealthyInstancePercent":
 			err = unpopulate(val, "MaxUnhealthyInstancePercent", &r.MaxUnhealthyInstancePercent)
@@ -11502,6 +11537,7 @@ func (s *ScaleInPolicy) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ScheduledEventsProfile.
 func (s ScheduledEventsProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "osImageNotificationProfile", s.OSImageNotificationProfile)
 	populate(objectMap, "terminateNotificationProfile", s.TerminateNotificationProfile)
 	return json.Marshal(objectMap)
 }
@@ -11515,6 +11551,9 @@ func (s *ScheduledEventsProfile) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "osImageNotificationProfile":
+			err = unpopulate(val, "OSImageNotificationProfile", &s.OSImageNotificationProfile)
+			delete(rawMsg, key)
 		case "terminateNotificationProfile":
 			err = unpopulate(val, "TerminateNotificationProfile", &s.TerminateNotificationProfile)
 			delete(rawMsg, key)

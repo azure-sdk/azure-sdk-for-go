@@ -1,5 +1,13 @@
 # Release History
 
+## 4.1.0 (2022-11-17)
+### Features Added
+
+- New struct `OSImageNotificationProfile`
+- New field `OSImageNotificationProfile` in struct `ScheduledEventsProfile`
+- New field `MaxSurge` in struct `RollingUpgradePolicy`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 

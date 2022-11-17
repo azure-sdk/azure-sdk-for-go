@@ -4240,6 +4240,16 @@ type OSFamilyProperties struct {
 	Versions []*OSVersionPropertiesBase `json:"versions,omitempty" azure:"ro"`
 }
 
+type OSImageNotificationProfile struct {
+	// Specifies whether the OS Image Scheduled event is enabled or disabled.
+	Enable *bool `json:"enable,omitempty"`
+
+	// Length of time a Virtual Machine being reimaged or having its OS upgraded will have to potentially approve the OS Image
+	// Scheduled Event before the event is auto approved (timed out). The configuration
+	// is specified in ISO 8601 format, with the value set to 15 minutes (PT15M)
+	NotBeforeTimeout *string `json:"notBeforeTimeout,omitempty"`
+}
+
 // OSProfile - Specifies the operating system settings for the virtual machine. Some of the settings cannot be changed once
 // VM is provisioned.
 type OSProfile struct {
@@ -5468,6 +5478,11 @@ type RollingUpgradePolicy struct {
 	// is 20%.
 	MaxBatchInstancePercent *int32 `json:"maxBatchInstancePercent,omitempty"`
 
+	// Create new virtual machines to upgrade the scale set, rather than updating the existing virtual machines. Existing virtual
+	// machines will be deleted once the new virtual machines are created for each
+	// batch.
+	MaxSurge *bool `json:"maxSurge,omitempty"`
+
 	// The maximum percentage of the total virtual machine instances in the scale set that can be simultaneously unhealthy, either
 	// as a result of being upgraded, or by being found in an unhealthy state by
 	// the virtual machine health checks before the rolling upgrade aborts. This constraint will be checked prior to starting
@@ -5806,6 +5821,9 @@ type ScaleInPolicy struct {
 }
 
 type ScheduledEventsProfile struct {
+	// Specifies OS Image Scheduled Event related configurations.
+	OSImageNotificationProfile *OSImageNotificationProfile `json:"osImageNotificationProfile,omitempty"`
+
 	// Specifies Terminate Scheduled Event related configurations.
 	TerminateNotificationProfile *TerminateNotificationProfile `json:"terminateNotificationProfile,omitempty"`
 }
