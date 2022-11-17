@@ -11,7 +11,7 @@ package armappservice
 
 const (
 	moduleName    = "armappservice"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -682,6 +682,22 @@ func PossibleDaysOfWeekValues() []DaysOfWeek {
 		DaysOfWeekThursday,
 		DaysOfWeekFriday,
 		DaysOfWeekSaturday,
+	}
+}
+
+// DefaultAction - Default action for main access restriction if no rules are matched.
+type DefaultAction string
+
+const (
+	DefaultActionAllow DefaultAction = "Allow"
+	DefaultActionDeny  DefaultAction = "Deny"
+)
+
+// PossibleDefaultActionValues returns the possible values for the DefaultAction const type.
+func PossibleDefaultActionValues() []DefaultAction {
+	return []DefaultAction{
+		DefaultActionAllow,
+		DefaultActionDeny,
 	}
 }
 

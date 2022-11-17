@@ -17611,6 +17611,7 @@ func (s SiteConfig) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "healthCheckPath", s.HealthCheckPath)
 	populate(objectMap, "http20Enabled", s.Http20Enabled)
 	populate(objectMap, "ipSecurityRestrictions", s.IPSecurityRestrictions)
+	populate(objectMap, "ipSecurityRestrictionsDefaultAction", s.IPSecurityRestrictionsDefaultAction)
 	populate(objectMap, "javaContainer", s.JavaContainer)
 	populate(objectMap, "javaContainerVersion", s.JavaContainerVersion)
 	populate(objectMap, "javaVersion", s.JavaVersion)
@@ -17640,6 +17641,7 @@ func (s SiteConfig) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "requestTracingEnabled", s.RequestTracingEnabled)
 	populateTimeRFC3339(objectMap, "requestTracingExpirationTime", s.RequestTracingExpirationTime)
 	populate(objectMap, "scmIpSecurityRestrictions", s.ScmIPSecurityRestrictions)
+	populate(objectMap, "scmIpSecurityRestrictionsDefaultAction", s.ScmIPSecurityRestrictionsDefaultAction)
 	populate(objectMap, "scmIpSecurityRestrictionsUseMain", s.ScmIPSecurityRestrictionsUseMain)
 	populate(objectMap, "scmMinTlsVersion", s.ScmMinTLSVersion)
 	populate(objectMap, "scmType", s.ScmType)
@@ -17740,6 +17742,9 @@ func (s *SiteConfig) UnmarshalJSON(data []byte) error {
 		case "ipSecurityRestrictions":
 			err = unpopulate(val, "IPSecurityRestrictions", &s.IPSecurityRestrictions)
 			delete(rawMsg, key)
+		case "ipSecurityRestrictionsDefaultAction":
+			err = unpopulate(val, "IPSecurityRestrictionsDefaultAction", &s.IPSecurityRestrictionsDefaultAction)
+			delete(rawMsg, key)
 		case "javaContainer":
 			err = unpopulate(val, "JavaContainer", &s.JavaContainer)
 			delete(rawMsg, key)
@@ -17826,6 +17831,9 @@ func (s *SiteConfig) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "scmIpSecurityRestrictions":
 			err = unpopulate(val, "ScmIPSecurityRestrictions", &s.ScmIPSecurityRestrictions)
+			delete(rawMsg, key)
+		case "scmIpSecurityRestrictionsDefaultAction":
+			err = unpopulate(val, "ScmIPSecurityRestrictionsDefaultAction", &s.ScmIPSecurityRestrictionsDefaultAction)
 			delete(rawMsg, key)
 		case "scmIpSecurityRestrictionsUseMain":
 			err = unpopulate(val, "ScmIPSecurityRestrictionsUseMain", &s.ScmIPSecurityRestrictionsUseMain)
