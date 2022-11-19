@@ -1,5 +1,95 @@
 # Release History
 
+## 0.9.0 (2022-11-19)
+### Breaking Changes
+
+- Type of `DefenderForServersAwsOfferingVMScannersConfiguration.ExclusionTags` has been changed from `interface{}` to `map[string]*string`
+- Type of `ContactProperties.AlertNotifications` has been changed from `*AlertNotifications` to `*ContactPropertiesAlertNotifications`
+- Const `AlertNotificationsOff` has been removed
+- Const `AlertsToAdminsOff` has been removed
+- Const `AlertNotificationsOn` has been removed
+- Const `AlertsToAdminsOn` has been removed
+- Type alias `AlertNotifications` has been removed
+- Type alias `AlertsToAdmins` has been removed
+- Function `PossibleAlertNotificationsValues` has been removed
+- Function `*AWSEnvironmentData.GetEnvironmentData` has been removed
+- Function `PossibleAlertsToAdminsValues` has been removed
+- Function `*ContactsClient.Update` has been removed
+- Struct `AWSEnvironmentData` has been removed
+- Struct `ContactsClientUpdateOptions` has been removed
+- Struct `ContactsClientUpdateResponse` has been removed
+- Struct `DefenderFoDatabasesAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata` has been removed
+- Struct `DefenderForDatabasesGcpOfferingArcAutoProvisioningConfiguration` has been removed
+- Struct `DefenderForServersAwsOfferingArcAutoProvisioningServicePrincipalSecretMetadata` has been removed
+- Struct `DefenderForServersGcpOfferingArcAutoProvisioningConfiguration` has been removed
+- Field `Configuration` of struct `DefenderForDatabasesGcpOfferingArcAutoProvisioning` has been removed
+- Field `Configuration` of struct `DefenderForServersGcpOfferingArcAutoProvisioning` has been removed
+- Field `Email` of struct `ContactProperties` has been removed
+- Field `AlertsToAdmins` of struct `ContactProperties` has been removed
+- Field `ServicePrincipalSecretMetadata` of struct `DefenderForServersAwsOfferingArcAutoProvisioning` has been removed
+- Field `ServicePrincipalSecretMetadata` of struct `DefenderFoDatabasesAwsOfferingArcAutoProvisioning` has been removed
+
+### Features Added
+
+- New const `OfferingTypeDefenderForDevOpsGithub`
+- New const `RolesServiceAdmin`
+- New const `MinimalSeverityHigh`
+- New const `OfferingTypeDefenderCspmGcp`
+- New const `RolesOwner`
+- New const `OfferingTypeDefenderForDevOpsAzureDevOps`
+- New const `MinimalSeverityMedium`
+- New const `OfferingTypeDefenderCspmAws`
+- New const `MinimalSeverityLow`
+- New const `ApplicationConditionOperatorEquals`
+- New const `RolesAccountAdmin`
+- New const `RolesContributor`
+- New type alias `MinimalSeverity`
+- New type alias `Roles`
+- New function `NewAPICollectionOffboardingClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionOffboardingClient, error)`
+- New function `*APICollectionOffboardingClient.Delete(context.Context, string, string, string, *APICollectionOffboardingClientDeleteOptions) (APICollectionOffboardingClientDeleteResponse, error)`
+- New function `NewAPICollectionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionClient, error)`
+- New function `NewAPICollectionOnboardingClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionOnboardingClient, error)`
+- New function `*DefenderCspmAwsOffering.GetCloudOffering() *CloudOffering`
+- New function `*APICollectionClient.Get(context.Context, string, string, string, *APICollectionClientGetOptions) (APICollectionClientGetResponse, error)`
+- New function `*DefenderForDevOpsGithubOffering.GetCloudOffering() *CloudOffering`
+- New function `*DefenderForDevOpsAzureDevOpsOffering.GetCloudOffering() *CloudOffering`
+- New function `PossibleMinimalSeverityValues() []MinimalSeverity`
+- New function `*AwsEnvironmentData.GetEnvironmentData() *EnvironmentData`
+- New function `*APICollectionClient.NewListPager(string, string, *APICollectionClientListOptions) *runtime.Pager[APICollectionClientListResponse]`
+- New function `PossibleRolesValues() []Roles`
+- New function `*DefenderCspmGcpOffering.GetCloudOffering() *CloudOffering`
+- New function `*APICollectionOnboardingClient.Create(context.Context, string, string, string, *APICollectionOnboardingClientCreateOptions) (APICollectionOnboardingClientCreateResponse, error)`
+- New struct `APICollectionClient`
+- New struct `APICollectionClientGetOptions`
+- New struct `APICollectionClientGetResponse`
+- New struct `APICollectionClientListOptions`
+- New struct `APICollectionClientListResponse`
+- New struct `APICollectionOffboardingClient`
+- New struct `APICollectionOffboardingClientDeleteOptions`
+- New struct `APICollectionOffboardingClientDeleteResponse`
+- New struct `APICollectionOnboardingClient`
+- New struct `APICollectionOnboardingClientCreateOptions`
+- New struct `APICollectionOnboardingClientCreateResponse`
+- New struct `APICollectionProperties`
+- New struct `APICollectionResponse`
+- New struct `APICollectionResponseList`
+- New struct `AwsEnvironmentData`
+- New struct `ContactPropertiesAlertNotifications`
+- New struct `ContactPropertiesNotificationsByRole`
+- New struct `DefenderCspmAwsOffering`
+- New struct `DefenderCspmAwsOfferingVMScanners`
+- New struct `DefenderCspmAwsOfferingVMScannersConfiguration`
+- New struct `DefenderCspmGcpOffering`
+- New struct `DefenderFoDatabasesAwsOfferingRds`
+- New struct `DefenderForDevOpsAzureDevOpsOffering`
+- New struct `DefenderForDevOpsGithubOffering`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New field `Rds` in struct `DefenderFoDatabasesAwsOffering`
+- New field `Emails` in struct `ContactProperties`
+- New field `NotificationsByRole` in struct `ContactProperties`
+
+
 ## 0.8.0 (2022-09-13)
 ### Breaking Changes
 
