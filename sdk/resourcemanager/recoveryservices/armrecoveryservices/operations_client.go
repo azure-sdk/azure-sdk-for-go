@@ -32,7 +32,7 @@ type OperationsClient struct {
 }
 
 // NewOperationsClient creates a new instance of OperationsClient with the specified values.
-// subscriptionID - The subscription Id.
+// subscriptionID - The ID of the target subscription.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
 func NewOperationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OperationsClient, error) {
@@ -57,8 +57,8 @@ func NewOperationsClient(subscriptionID string, credential azcore.TokenCredentia
 
 // GetOperationResult - Gets the operation result for a resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-04-01
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
+// Generated from API version 2022-10-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
 // vaultName - The name of the recovery services vault.
 // options - OperationsClientGetOperationResultOptions contains the optional parameters for the OperationsClient.GetOperationResult
 // method.
@@ -101,7 +101,7 @@ func (client *OperationsClient) getOperationResultCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,8 +117,7 @@ func (client *OperationsClient) getOperationResultHandleResponse(resp *http.Resp
 }
 
 // NewListPager - Returns the list of available operations.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-04-01
+// Generated from API version 2022-10-01
 // options - OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 func (client *OperationsClient) NewListPager(options *OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[OperationsClientListResponse]{
@@ -156,7 +155,7 @@ func (client *OperationsClient) listCreateRequest(ctx context.Context, options *
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,8 +172,8 @@ func (client *OperationsClient) listHandleResponse(resp *http.Response) (Operati
 
 // OperationStatusGet - Gets the operation status for a resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-04-01
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
+// Generated from API version 2022-10-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
 // vaultName - The name of the recovery services vault.
 // options - OperationsClientOperationStatusGetOptions contains the optional parameters for the OperationsClient.OperationStatusGet
 // method.
@@ -217,7 +216,7 @@ func (client *OperationsClient) operationStatusGetCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
