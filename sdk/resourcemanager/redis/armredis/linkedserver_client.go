@@ -58,7 +58,7 @@ func NewLinkedServerClient(subscriptionID string, credential azcore.TokenCredent
 
 // BeginCreate - Adds a linked server to the Redis cache (requires Premium SKU).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01
+// Generated from API version 2021-06-01
 // resourceGroupName - The name of the resource group.
 // name - The name of the Redis cache.
 // linkedServerName - The name of the linked server that is being added to the Redis cache.
@@ -79,7 +79,7 @@ func (client *LinkedServerClient) BeginCreate(ctx context.Context, resourceGroup
 
 // Create - Adds a linked server to the Redis cache (requires Premium SKU).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01
+// Generated from API version 2021-06-01
 func (client *LinkedServerClient) create(ctx context.Context, resourceGroupName string, name string, linkedServerName string, parameters LinkedServerCreateParameters, options *LinkedServerClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, name, linkedServerName, parameters, options)
 	if err != nil {
@@ -119,52 +119,36 @@ func (client *LinkedServerClient) createCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2021-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
-// BeginDelete - Deletes the linked server from a redis cache (requires Premium SKU).
+// Delete - Deletes the linked server from a redis cache (requires Premium SKU).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01
+// Generated from API version 2021-06-01
 // resourceGroupName - The name of the resource group.
 // name - The name of the redis cache.
 // linkedServerName - The name of the linked server that is being added to the Redis cache.
-// options - LinkedServerClientBeginDeleteOptions contains the optional parameters for the LinkedServerClient.BeginDelete
-// method.
-func (client *LinkedServerClient) BeginDelete(ctx context.Context, resourceGroupName string, name string, linkedServerName string, options *LinkedServerClientBeginDeleteOptions) (*runtime.Poller[LinkedServerClientDeleteResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, name, linkedServerName, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller[LinkedServerClientDeleteResponse](resp, client.pl, nil)
-	} else {
-		return runtime.NewPollerFromResumeToken[LinkedServerClientDeleteResponse](options.ResumeToken, client.pl, nil)
-	}
-}
-
-// Delete - Deletes the linked server from a redis cache (requires Premium SKU).
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01
-func (client *LinkedServerClient) deleteOperation(ctx context.Context, resourceGroupName string, name string, linkedServerName string, options *LinkedServerClientBeginDeleteOptions) (*http.Response, error) {
+// options - LinkedServerClientDeleteOptions contains the optional parameters for the LinkedServerClient.Delete method.
+func (client *LinkedServerClient) Delete(ctx context.Context, resourceGroupName string, name string, linkedServerName string, options *LinkedServerClientDeleteOptions) (LinkedServerClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, name, linkedServerName, options)
 	if err != nil {
-		return nil, err
+		return LinkedServerClientDeleteResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return nil, err
+		return LinkedServerClientDeleteResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
-		return nil, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
+		return LinkedServerClientDeleteResponse{}, runtime.NewResponseError(resp)
 	}
-	return resp, nil
+	return LinkedServerClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *LinkedServerClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, name string, linkedServerName string, options *LinkedServerClientBeginDeleteOptions) (*policy.Request, error) {
+func (client *LinkedServerClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, name string, linkedServerName string, options *LinkedServerClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redis/{name}/linkedServers/{linkedServerName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -187,7 +171,7 @@ func (client *LinkedServerClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2021-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -195,7 +179,7 @@ func (client *LinkedServerClient) deleteCreateRequest(ctx context.Context, resou
 
 // Get - Gets the detailed information about a linked server of a redis cache (requires Premium SKU).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01
+// Generated from API version 2021-06-01
 // resourceGroupName - The name of the resource group.
 // name - The name of the redis cache.
 // linkedServerName - The name of the linked server.
@@ -239,7 +223,7 @@ func (client *LinkedServerClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2021-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -255,7 +239,7 @@ func (client *LinkedServerClient) getHandleResponse(resp *http.Response) (Linked
 }
 
 // NewListPager - Gets the list of linked servers associated with this redis cache (requires Premium SKU).
-// Generated from API version 2022-06-01
+// Generated from API version 2021-06-01
 // resourceGroupName - The name of the resource group.
 // name - The name of the redis cache.
 // options - LinkedServerClientListOptions contains the optional parameters for the LinkedServerClient.List method.
@@ -307,7 +291,7 @@ func (client *LinkedServerClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2021-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -1,5 +1,31 @@
 # Release History
 
+## 3.0.0 (2022-11-23)
+### Breaking Changes
+
+- Function `*Client.BeginUpdate` has been removed
+- Function `*LinkedServerClient.BeginDelete` has been removed
+- Struct `ClientBeginUpdateOptions` has been removed
+- Struct `CreateProperties` has been removed
+- Struct `LinkedServerClientBeginDeleteOptions` has been removed
+- Struct `OperationStatus` has been removed
+- Struct `Properties` has been removed
+- Struct `UpdateProperties` has been removed
+- Field `PreferredDataArchiveAuthMethod` of struct `ExportRDBParameters` has been removed
+- Field `PreferredDataArchiveAuthMethod` of struct `ImportRDBParameters` has been removed
+- Field `GeoReplicatedPrimaryHostName` of struct `LinkedServerCreateProperties` has been removed
+- Field `PrimaryHostName` of struct `LinkedServerCreateProperties` has been removed
+- Field `GeoReplicatedPrimaryHostName` of struct `LinkedServerProperties` has been removed
+- Field `PrimaryHostName` of struct `LinkedServerProperties` has been removed
+
+### Features Added
+
+- New function `*Client.Update(context.Context, string, string, UpdateParameters, *ClientUpdateOptions) (ClientUpdateResponse, error)`
+- New function `*LinkedServerClient.Delete(context.Context, string, string, string, *LinkedServerClientDeleteOptions) (LinkedServerClientDeleteResponse, error)`
+- New struct `ClientUpdateOptions`
+- New struct `LinkedServerClientDeleteOptions`
+
+
 ## 2.1.0 (2022-10-14)
 
 ### Features Added
