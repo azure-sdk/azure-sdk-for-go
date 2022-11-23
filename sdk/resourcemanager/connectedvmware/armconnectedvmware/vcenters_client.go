@@ -66,14 +66,13 @@ func NewVCentersClient(subscriptionID string, credential azcore.TokenCredential,
 
 // BeginCreate - Create Or Update vCenter.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // vcenterName - Name of the vCenter.
-// body - Request payload.
 // options - VCentersClientBeginCreateOptions contains the optional parameters for the VCentersClient.BeginCreate method.
-func (client *VCentersClient) BeginCreate(ctx context.Context, resourceGroupName string, vcenterName string, body VCenter, options *VCentersClientBeginCreateOptions) (*runtime.Poller[VCentersClientCreateResponse], error) {
+func (client *VCentersClient) BeginCreate(ctx context.Context, resourceGroupName string, vcenterName string, options *VCentersClientBeginCreateOptions) (*runtime.Poller[VCentersClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, vcenterName, body, options)
+		resp, err := client.create(ctx, resourceGroupName, vcenterName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -87,9 +86,9 @@ func (client *VCentersClient) BeginCreate(ctx context.Context, resourceGroupName
 
 // Create - Create Or Update vCenter.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
-func (client *VCentersClient) create(ctx context.Context, resourceGroupName string, vcenterName string, body VCenter, options *VCentersClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, vcenterName, body, options)
+// Generated from API version 2022-07-15-preview
+func (client *VCentersClient) create(ctx context.Context, resourceGroupName string, vcenterName string, options *VCentersClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, vcenterName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +103,7 @@ func (client *VCentersClient) create(ctx context.Context, resourceGroupName stri
 }
 
 // createCreateRequest creates the Create request.
-func (client *VCentersClient) createCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, body VCenter, options *VCentersClientBeginCreateOptions) (*policy.Request, error) {
+func (client *VCentersClient) createCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, options *VCentersClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/vcenters/{vcenterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -123,15 +122,18 @@ func (client *VCentersClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // BeginDelete - Implements vCenter DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // vcenterName - Name of the vCenter.
 // options - VCentersClientBeginDeleteOptions contains the optional parameters for the VCentersClient.BeginDelete method.
@@ -149,7 +151,7 @@ func (client *VCentersClient) BeginDelete(ctx context.Context, resourceGroupName
 
 // Delete - Implements vCenter DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 func (client *VCentersClient) deleteOperation(ctx context.Context, resourceGroupName string, vcenterName string, options *VCentersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, vcenterName, options)
 	if err != nil {
@@ -185,7 +187,7 @@ func (client *VCentersClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -196,7 +198,7 @@ func (client *VCentersClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Implements vCenter GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // vcenterName - Name of the vCenter.
 // options - VCentersClientGetOptions contains the optional parameters for the VCentersClient.Get method.
@@ -235,7 +237,7 @@ func (client *VCentersClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,8 +253,7 @@ func (client *VCentersClient) getHandleResponse(resp *http.Response) (VCentersCl
 }
 
 // NewListPager - List of vCenters in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // options - VCentersClientListOptions contains the optional parameters for the VCentersClient.List method.
 func (client *VCentersClient) NewListPager(options *VCentersClientListOptions) *runtime.Pager[VCentersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VCentersClientListResponse]{
@@ -294,7 +295,7 @@ func (client *VCentersClient) listCreateRequest(ctx context.Context, options *VC
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -310,8 +311,7 @@ func (client *VCentersClient) listHandleResponse(resp *http.Response) (VCentersC
 }
 
 // NewListByResourceGroupPager - List of vCenters in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // options - VCentersClientListByResourceGroupOptions contains the optional parameters for the VCentersClient.ListByResourceGroup
 // method.
@@ -359,7 +359,7 @@ func (client *VCentersClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -376,13 +376,12 @@ func (client *VCentersClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // Update - API to update certain properties of the vCenter resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // vcenterName - Name of the vCenter.
-// body - Resource properties to update.
 // options - VCentersClientUpdateOptions contains the optional parameters for the VCentersClient.Update method.
-func (client *VCentersClient) Update(ctx context.Context, resourceGroupName string, vcenterName string, body ResourcePatch, options *VCentersClientUpdateOptions) (VCentersClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, vcenterName, body, options)
+func (client *VCentersClient) Update(ctx context.Context, resourceGroupName string, vcenterName string, options *VCentersClientUpdateOptions) (VCentersClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, vcenterName, options)
 	if err != nil {
 		return VCentersClientUpdateResponse{}, err
 	}
@@ -397,7 +396,7 @@ func (client *VCentersClient) Update(ctx context.Context, resourceGroupName stri
 }
 
 // updateCreateRequest creates the Update request.
-func (client *VCentersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, body ResourcePatch, options *VCentersClientUpdateOptions) (*policy.Request, error) {
+func (client *VCentersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, vcenterName string, options *VCentersClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/vcenters/{vcenterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -416,10 +415,13 @@ func (client *VCentersClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.

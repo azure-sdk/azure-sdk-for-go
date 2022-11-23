@@ -66,14 +66,13 @@ func NewClustersClient(subscriptionID string, credential azcore.TokenCredential,
 
 // BeginCreate - Create Or Update cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // clusterName - Name of the cluster.
-// body - Request payload.
 // options - ClustersClientBeginCreateOptions contains the optional parameters for the ClustersClient.BeginCreate method.
-func (client *ClustersClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, body Cluster, options *ClustersClientBeginCreateOptions) (*runtime.Poller[ClustersClientCreateResponse], error) {
+func (client *ClustersClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginCreateOptions) (*runtime.Poller[ClustersClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, clusterName, body, options)
+		resp, err := client.create(ctx, resourceGroupName, clusterName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -87,9 +86,9 @@ func (client *ClustersClient) BeginCreate(ctx context.Context, resourceGroupName
 
 // Create - Create Or Update cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
-func (client *ClustersClient) create(ctx context.Context, resourceGroupName string, clusterName string, body Cluster, options *ClustersClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, body, options)
+// Generated from API version 2022-07-15-preview
+func (client *ClustersClient) create(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +103,7 @@ func (client *ClustersClient) create(ctx context.Context, resourceGroupName stri
 }
 
 // createCreateRequest creates the Create request.
-func (client *ClustersClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, body Cluster, options *ClustersClientBeginCreateOptions) (*policy.Request, error) {
+func (client *ClustersClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/clusters/{clusterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -123,15 +122,18 @@ func (client *ClustersClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // BeginDelete - Implements cluster DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // clusterName - Name of the cluster.
 // options - ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
@@ -149,7 +151,7 @@ func (client *ClustersClient) BeginDelete(ctx context.Context, resourceGroupName
 
 // Delete - Implements cluster DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 func (client *ClustersClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
@@ -185,7 +187,7 @@ func (client *ClustersClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -196,7 +198,7 @@ func (client *ClustersClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Implements cluster GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // clusterName - Name of the cluster.
 // options - ClustersClientGetOptions contains the optional parameters for the ClustersClient.Get method.
@@ -235,7 +237,7 @@ func (client *ClustersClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,8 +253,7 @@ func (client *ClustersClient) getHandleResponse(resp *http.Response) (ClustersCl
 }
 
 // NewListPager - List of clusters in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // options - ClustersClientListOptions contains the optional parameters for the ClustersClient.List method.
 func (client *ClustersClient) NewListPager(options *ClustersClientListOptions) *runtime.Pager[ClustersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClustersClientListResponse]{
@@ -294,7 +295,7 @@ func (client *ClustersClient) listCreateRequest(ctx context.Context, options *Cl
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -310,8 +311,7 @@ func (client *ClustersClient) listHandleResponse(resp *http.Response) (ClustersC
 }
 
 // NewListByResourceGroupPager - List of clusters in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // options - ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.ListByResourceGroup
 // method.
@@ -359,7 +359,7 @@ func (client *ClustersClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -376,13 +376,12 @@ func (client *ClustersClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // Update - API to update certain properties of the cluster resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
+// Generated from API version 2022-07-15-preview
 // resourceGroupName - The Resource Group Name.
 // clusterName - Name of the cluster.
-// body - Resource properties to update.
 // options - ClustersClientUpdateOptions contains the optional parameters for the ClustersClient.Update method.
-func (client *ClustersClient) Update(ctx context.Context, resourceGroupName string, clusterName string, body ResourcePatch, options *ClustersClientUpdateOptions) (ClustersClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, body, options)
+func (client *ClustersClient) Update(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientUpdateOptions) (ClustersClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
 		return ClustersClientUpdateResponse{}, err
 	}
@@ -397,7 +396,7 @@ func (client *ClustersClient) Update(ctx context.Context, resourceGroupName stri
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, body ResourcePatch, options *ClustersClientUpdateOptions) (*policy.Request, error) {
+func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/clusters/{clusterName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -416,10 +415,13 @@ func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, body)
+	if options != nil && options.Body != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Body)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
