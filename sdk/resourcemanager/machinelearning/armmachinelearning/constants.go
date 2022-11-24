@@ -11,7 +11,7 @@ package armmachinelearning
 
 const (
 	moduleName    = "armmachinelearning"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v4.0.0-beta.1"
 )
 
 // AllocationState - Allocation state of the compute. Possible values are: steady - Indicates that the compute is not resizing.
@@ -52,19 +52,27 @@ func PossibleApplicationSharingPolicyValues() []ApplicationSharingPolicy {
 	}
 }
 
-// AutoRebuildSetting - AutoRebuild setting for the derived image
-type AutoRebuildSetting string
+// AssetProvisioningState - Provisioning state of registry asset.
+type AssetProvisioningState string
 
 const (
-	AutoRebuildSettingDisabled          AutoRebuildSetting = "Disabled"
-	AutoRebuildSettingOnBaseImageUpdate AutoRebuildSetting = "OnBaseImageUpdate"
+	AssetProvisioningStateCanceled  AssetProvisioningState = "Canceled"
+	AssetProvisioningStateCreating  AssetProvisioningState = "Creating"
+	AssetProvisioningStateDeleting  AssetProvisioningState = "Deleting"
+	AssetProvisioningStateFailed    AssetProvisioningState = "Failed"
+	AssetProvisioningStateSucceeded AssetProvisioningState = "Succeeded"
+	AssetProvisioningStateUpdating  AssetProvisioningState = "Updating"
 )
 
-// PossibleAutoRebuildSettingValues returns the possible values for the AutoRebuildSetting const type.
-func PossibleAutoRebuildSettingValues() []AutoRebuildSetting {
-	return []AutoRebuildSetting{
-		AutoRebuildSettingDisabled,
-		AutoRebuildSettingOnBaseImageUpdate,
+// PossibleAssetProvisioningStateValues returns the possible values for the AssetProvisioningState const type.
+func PossibleAssetProvisioningStateValues() []AssetProvisioningState {
+	return []AssetProvisioningState{
+		AssetProvisioningStateCanceled,
+		AssetProvisioningStateCreating,
+		AssetProvisioningStateDeleting,
+		AssetProvisioningStateFailed,
+		AssetProvisioningStateSucceeded,
+		AssetProvisioningStateUpdating,
 	}
 }
 
@@ -420,7 +428,7 @@ func PossibleComputeInstanceStateValues() []ComputeInstanceState {
 	}
 }
 
-// ComputePowerAction - The compute power action.
+// ComputePowerAction - [Required] The compute power action.
 type ComputePowerAction string
 
 const (
@@ -433,6 +441,33 @@ func PossibleComputePowerActionValues() []ComputePowerAction {
 	return []ComputePowerAction{
 		ComputePowerActionStart,
 		ComputePowerActionStop,
+	}
+}
+
+// ComputeProvisioningState - The provision state of the cluster. Valid values are Unknown, Updating, Provisioning, Succeeded,
+// and Failed.
+type ComputeProvisioningState string
+
+const (
+	ComputeProvisioningStateCanceled  ComputeProvisioningState = "Canceled"
+	ComputeProvisioningStateCreating  ComputeProvisioningState = "Creating"
+	ComputeProvisioningStateDeleting  ComputeProvisioningState = "Deleting"
+	ComputeProvisioningStateFailed    ComputeProvisioningState = "Failed"
+	ComputeProvisioningStateSucceeded ComputeProvisioningState = "Succeeded"
+	ComputeProvisioningStateUnknown   ComputeProvisioningState = "Unknown"
+	ComputeProvisioningStateUpdating  ComputeProvisioningState = "Updating"
+)
+
+// PossibleComputeProvisioningStateValues returns the possible values for the ComputeProvisioningState const type.
+func PossibleComputeProvisioningStateValues() []ComputeProvisioningState {
+	return []ComputeProvisioningState{
+		ComputeProvisioningStateCanceled,
+		ComputeProvisioningStateCreating,
+		ComputeProvisioningStateDeleting,
+		ComputeProvisioningStateFailed,
+		ComputeProvisioningStateSucceeded,
+		ComputeProvisioningStateUnknown,
+		ComputeProvisioningStateUpdating,
 	}
 }
 
@@ -472,39 +507,25 @@ func PossibleComputeTypeValues() []ComputeType {
 type ConnectionAuthType string
 
 const (
+	ConnectionAuthTypeAccessKey        ConnectionAuthType = "AccessKey"
 	ConnectionAuthTypeManagedIdentity  ConnectionAuthType = "ManagedIdentity"
 	ConnectionAuthTypeNone             ConnectionAuthType = "None"
 	ConnectionAuthTypePAT              ConnectionAuthType = "PAT"
 	ConnectionAuthTypeSAS              ConnectionAuthType = "SAS"
+	ConnectionAuthTypeServicePrincipal ConnectionAuthType = "ServicePrincipal"
 	ConnectionAuthTypeUsernamePassword ConnectionAuthType = "UsernamePassword"
 )
 
 // PossibleConnectionAuthTypeValues returns the possible values for the ConnectionAuthType const type.
 func PossibleConnectionAuthTypeValues() []ConnectionAuthType {
 	return []ConnectionAuthType{
+		ConnectionAuthTypeAccessKey,
 		ConnectionAuthTypeManagedIdentity,
 		ConnectionAuthTypeNone,
 		ConnectionAuthTypePAT,
 		ConnectionAuthTypeSAS,
+		ConnectionAuthTypeServicePrincipal,
 		ConnectionAuthTypeUsernamePassword,
-	}
-}
-
-// ConnectionCategory - Category of the connection
-type ConnectionCategory string
-
-const (
-	ConnectionCategoryContainerRegistry ConnectionCategory = "ContainerRegistry"
-	ConnectionCategoryGit               ConnectionCategory = "Git"
-	ConnectionCategoryPythonFeed        ConnectionCategory = "PythonFeed"
-)
-
-// PossibleConnectionCategoryValues returns the possible values for the ConnectionCategory const type.
-func PossibleConnectionCategoryValues() []ConnectionCategory {
-	return []ConnectionCategory{
-		ConnectionCategoryContainerRegistry,
-		ConnectionCategoryGit,
-		ConnectionCategoryPythonFeed,
 	}
 }
 
@@ -549,6 +570,8 @@ type CredentialsType string
 const (
 	CredentialsTypeAccountKey       CredentialsType = "AccountKey"
 	CredentialsTypeCertificate      CredentialsType = "Certificate"
+	CredentialsTypeKerberosKeytab   CredentialsType = "KerberosKeytab"
+	CredentialsTypeKerberosPassword CredentialsType = "KerberosPassword"
 	CredentialsTypeNone             CredentialsType = "None"
 	CredentialsTypeSas              CredentialsType = "Sas"
 	CredentialsTypeServicePrincipal CredentialsType = "ServicePrincipal"
@@ -559,6 +582,8 @@ func PossibleCredentialsTypeValues() []CredentialsType {
 	return []CredentialsType{
 		CredentialsTypeAccountKey,
 		CredentialsTypeCertificate,
+		CredentialsTypeKerberosKeytab,
+		CredentialsTypeKerberosPassword,
 		CredentialsTypeNone,
 		CredentialsTypeSas,
 		CredentialsTypeServicePrincipal,
@@ -591,6 +616,7 @@ const (
 	DatastoreTypeAzureDataLakeGen1 DatastoreType = "AzureDataLakeGen1"
 	DatastoreTypeAzureDataLakeGen2 DatastoreType = "AzureDataLakeGen2"
 	DatastoreTypeAzureFile         DatastoreType = "AzureFile"
+	DatastoreTypeHdfs              DatastoreType = "Hdfs"
 )
 
 // PossibleDatastoreTypeValues returns the possible values for the DatastoreType const type.
@@ -600,6 +626,7 @@ func PossibleDatastoreTypeValues() []DatastoreType {
 		DatastoreTypeAzureDataLakeGen1,
 		DatastoreTypeAzureDataLakeGen2,
 		DatastoreTypeAzureFile,
+		DatastoreTypeHdfs,
 	}
 }
 
@@ -787,6 +814,38 @@ func PossibleEnvironmentTypeValues() []EnvironmentType {
 	return []EnvironmentType{
 		EnvironmentTypeCurated,
 		EnvironmentTypeUserCreated,
+	}
+}
+
+// EnvironmentVariableType - Type of the Environment Variable. Possible values are: local - For local variable
+type EnvironmentVariableType string
+
+const (
+	EnvironmentVariableTypeLocal EnvironmentVariableType = "local"
+)
+
+// PossibleEnvironmentVariableTypeValues returns the possible values for the EnvironmentVariableType const type.
+func PossibleEnvironmentVariableTypeValues() []EnvironmentVariableType {
+	return []EnvironmentVariableType{
+		EnvironmentVariableTypeLocal,
+	}
+}
+
+// ExportFormatType - The format of exported labels.
+type ExportFormatType string
+
+const (
+	ExportFormatTypeCSV     ExportFormatType = "CSV"
+	ExportFormatTypeCoco    ExportFormatType = "Coco"
+	ExportFormatTypeDataset ExportFormatType = "Dataset"
+)
+
+// PossibleExportFormatTypeValues returns the possible values for the ExportFormatType const type.
+func PossibleExportFormatTypeValues() []ExportFormatType {
+	return []ExportFormatType{
+		ExportFormatTypeCSV,
+		ExportFormatTypeCoco,
+		ExportFormatTypeDataset,
 	}
 }
 
@@ -1006,6 +1065,40 @@ func PossibleIdentityConfigurationTypeValues() []IdentityConfigurationType {
 	}
 }
 
+// ImageAnnotationType - Annotation type of image data.
+type ImageAnnotationType string
+
+const (
+	ImageAnnotationTypeBoundingBox          ImageAnnotationType = "BoundingBox"
+	ImageAnnotationTypeClassification       ImageAnnotationType = "Classification"
+	ImageAnnotationTypeInstanceSegmentation ImageAnnotationType = "InstanceSegmentation"
+)
+
+// PossibleImageAnnotationTypeValues returns the possible values for the ImageAnnotationType const type.
+func PossibleImageAnnotationTypeValues() []ImageAnnotationType {
+	return []ImageAnnotationType{
+		ImageAnnotationTypeBoundingBox,
+		ImageAnnotationTypeClassification,
+		ImageAnnotationTypeInstanceSegmentation,
+	}
+}
+
+// ImageType - Type of the image. Possible values are: docker - For docker images. azureml - For AzureML images
+type ImageType string
+
+const (
+	ImageTypeAzureml ImageType = "azureml"
+	ImageTypeDocker  ImageType = "docker"
+)
+
+// PossibleImageTypeValues returns the possible values for the ImageType const type.
+func PossibleImageTypeValues() []ImageType {
+	return []ImageType{
+		ImageTypeAzureml,
+		ImageTypeDocker,
+	}
+}
+
 // InputDeliveryMode - Enum to determine the input data delivery mode.
 type InputDeliveryMode string
 
@@ -1111,6 +1204,26 @@ func PossibleJobOutputTypeValues() []JobOutputType {
 	}
 }
 
+// JobProvisioningState - Enum to determine the job provisioning state.
+type JobProvisioningState string
+
+const (
+	JobProvisioningStateCanceled   JobProvisioningState = "Canceled"
+	JobProvisioningStateFailed     JobProvisioningState = "Failed"
+	JobProvisioningStateInProgress JobProvisioningState = "InProgress"
+	JobProvisioningStateSucceeded  JobProvisioningState = "Succeeded"
+)
+
+// PossibleJobProvisioningStateValues returns the possible values for the JobProvisioningState const type.
+func PossibleJobProvisioningStateValues() []JobProvisioningState {
+	return []JobProvisioningState{
+		JobProvisioningStateCanceled,
+		JobProvisioningStateFailed,
+		JobProvisioningStateInProgress,
+		JobProvisioningStateSucceeded,
+	}
+}
+
 // JobStatus - The status of a job.
 type JobStatus string
 
@@ -1144,6 +1257,8 @@ const (
 	JobStatusQueued JobStatus = "Queued"
 	// JobStatusRunning - The job started to run in the compute target.
 	JobStatusRunning JobStatus = "Running"
+	// JobStatusScheduled - The job is in a scheduled state. Job is not in any active state.
+	JobStatusScheduled JobStatus = "Scheduled"
 	// JobStatusStarting - Run has started. The user has a run ID.
 	JobStatusStarting JobStatus = "Starting"
 	// JobStatusUnknown - Default job status if not mapped to all other statuses
@@ -1165,6 +1280,7 @@ func PossibleJobStatusValues() []JobStatus {
 		JobStatusProvisioning,
 		JobStatusQueued,
 		JobStatusRunning,
+		JobStatusScheduled,
 		JobStatusStarting,
 		JobStatusUnknown,
 	}
@@ -1176,7 +1292,9 @@ type JobType string
 const (
 	JobTypeAutoML   JobType = "AutoML"
 	JobTypeCommand  JobType = "Command"
+	JobTypeLabeling JobType = "Labeling"
 	JobTypePipeline JobType = "Pipeline"
+	JobTypeSpark    JobType = "Spark"
 	JobTypeSweep    JobType = "Sweep"
 )
 
@@ -1185,7 +1303,9 @@ func PossibleJobTypeValues() []JobType {
 	return []JobType{
 		JobTypeAutoML,
 		JobTypeCommand,
+		JobTypeLabeling,
 		JobTypePipeline,
+		JobTypeSpark,
 		JobTypeSweep,
 	}
 }
@@ -1289,6 +1409,37 @@ func PossibleLogVerbosityValues() []LogVerbosity {
 	}
 }
 
+type MLAssistConfigurationType string
+
+const (
+	MLAssistConfigurationTypeDisabled MLAssistConfigurationType = "Disabled"
+	MLAssistConfigurationTypeEnabled  MLAssistConfigurationType = "Enabled"
+)
+
+// PossibleMLAssistConfigurationTypeValues returns the possible values for the MLAssistConfigurationType const type.
+func PossibleMLAssistConfigurationTypeValues() []MLAssistConfigurationType {
+	return []MLAssistConfigurationType{
+		MLAssistConfigurationTypeDisabled,
+		MLAssistConfigurationTypeEnabled,
+	}
+}
+
+// MLFlowAutologgerState - Enum to determine the state of mlflow autologger.
+type MLFlowAutologgerState string
+
+const (
+	MLFlowAutologgerStateDisabled MLFlowAutologgerState = "Disabled"
+	MLFlowAutologgerStateEnabled  MLFlowAutologgerState = "Enabled"
+)
+
+// PossibleMLFlowAutologgerStateValues returns the possible values for the MLFlowAutologgerState const type.
+func PossibleMLFlowAutologgerStateValues() []MLFlowAutologgerState {
+	return []MLFlowAutologgerState{
+		MLFlowAutologgerStateDisabled,
+		MLFlowAutologgerStateEnabled,
+	}
+}
+
 // ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
 type ManagedServiceIdentityType string
 
@@ -1306,6 +1457,38 @@ func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
 		ManagedServiceIdentityTypeSystemAssigned,
 		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
 		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
+// MediaType - Media type of data asset.
+type MediaType string
+
+const (
+	MediaTypeImage MediaType = "Image"
+	MediaTypeText  MediaType = "Text"
+)
+
+// PossibleMediaTypeValues returns the possible values for the MediaType const type.
+func PossibleMediaTypeValues() []MediaType {
+	return []MediaType{
+		MediaTypeImage,
+		MediaTypeText,
+	}
+}
+
+// MlflowAutologger - Indicates whether mlflow autologger is enabled for notebooks.
+type MlflowAutologger string
+
+const (
+	MlflowAutologgerDisabled MlflowAutologger = "Disabled"
+	MlflowAutologgerEnabled  MlflowAutologger = "Enabled"
+)
+
+// PossibleMlflowAutologgerValues returns the possible values for the MlflowAutologger const type.
+func PossibleMlflowAutologgerValues() []MlflowAutologger {
+	return []MlflowAutologger{
+		MlflowAutologgerDisabled,
+		MlflowAutologgerEnabled,
 	}
 }
 
@@ -1411,6 +1594,39 @@ func PossibleNetworkValues() []Network {
 	}
 }
 
+// NlpLearningRateScheduler - Enum of learning rate schedulers that aligns with those supported by HF
+type NlpLearningRateScheduler string
+
+const (
+	// NlpLearningRateSchedulerConstant - Constant learning rate.
+	NlpLearningRateSchedulerConstant NlpLearningRateScheduler = "Constant"
+	// NlpLearningRateSchedulerConstantWithWarmup - Linear warmup followed by constant value.
+	NlpLearningRateSchedulerConstantWithWarmup NlpLearningRateScheduler = "ConstantWithWarmup"
+	// NlpLearningRateSchedulerCosine - Linear warmup then cosine decay.
+	NlpLearningRateSchedulerCosine NlpLearningRateScheduler = "Cosine"
+	// NlpLearningRateSchedulerCosineWithRestarts - Linear warmup, cosine decay, then restart to initial LR.
+	NlpLearningRateSchedulerCosineWithRestarts NlpLearningRateScheduler = "CosineWithRestarts"
+	// NlpLearningRateSchedulerLinear - Linear warmup and decay.
+	NlpLearningRateSchedulerLinear NlpLearningRateScheduler = "Linear"
+	// NlpLearningRateSchedulerNone - No learning rate schedule.
+	NlpLearningRateSchedulerNone NlpLearningRateScheduler = "None"
+	// NlpLearningRateSchedulerPolynomial - Increase linearly then polynomially decay.
+	NlpLearningRateSchedulerPolynomial NlpLearningRateScheduler = "Polynomial"
+)
+
+// PossibleNlpLearningRateSchedulerValues returns the possible values for the NlpLearningRateScheduler const type.
+func PossibleNlpLearningRateSchedulerValues() []NlpLearningRateScheduler {
+	return []NlpLearningRateScheduler{
+		NlpLearningRateSchedulerConstant,
+		NlpLearningRateSchedulerConstantWithWarmup,
+		NlpLearningRateSchedulerCosine,
+		NlpLearningRateSchedulerCosineWithRestarts,
+		NlpLearningRateSchedulerLinear,
+		NlpLearningRateSchedulerNone,
+		NlpLearningRateSchedulerPolynomial,
+	}
+}
+
 // NodeState - State of the compute node. Values are idle, running, preparing, unusable, leaving and preempted.
 type NodeState string
 
@@ -1432,6 +1648,22 @@ func PossibleNodeStateValues() []NodeState {
 		NodeStatePreparing,
 		NodeStateRunning,
 		NodeStateUnusable,
+	}
+}
+
+// NodesValueType - The enumerated types for the nodes value
+type NodesValueType string
+
+const (
+	NodesValueTypeAll    NodesValueType = "All"
+	NodesValueTypeCustom NodesValueType = "Custom"
+)
+
+// PossibleNodesValueTypeValues returns the possible values for the NodesValueType const type.
+func PossibleNodesValueTypeValues() []NodesValueType {
+	return []NodesValueType{
+		NodesValueTypeAll,
+		NodesValueTypeCustom,
 	}
 }
 
@@ -1576,6 +1808,7 @@ func PossibleOsTypeValues() []OsType {
 type OutputDeliveryMode string
 
 const (
+	OutputDeliveryModeDirect         OutputDeliveryMode = "Direct"
 	OutputDeliveryModeReadWriteMount OutputDeliveryMode = "ReadWriteMount"
 	OutputDeliveryModeUpload         OutputDeliveryMode = "Upload"
 )
@@ -1583,6 +1816,7 @@ const (
 // PossibleOutputDeliveryModeValues returns the possible values for the OutputDeliveryMode const type.
 func PossibleOutputDeliveryModeValues() []OutputDeliveryMode {
 	return []OutputDeliveryMode{
+		OutputDeliveryModeDirect,
 		OutputDeliveryModeReadWriteMount,
 		OutputDeliveryModeUpload,
 	}
@@ -1630,30 +1864,21 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProvisioningState - The current deployment state of workspace resource. The provisioningState is to indicate states for
-// resource provisioning.
-type ProvisioningState string
+// Protocol - Protocol over which communication will happen over this endpoint
+type Protocol string
 
 const (
-	ProvisioningStateCanceled  ProvisioningState = "Canceled"
-	ProvisioningStateCreating  ProvisioningState = "Creating"
-	ProvisioningStateDeleting  ProvisioningState = "Deleting"
-	ProvisioningStateFailed    ProvisioningState = "Failed"
-	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	ProvisioningStateUnknown   ProvisioningState = "Unknown"
-	ProvisioningStateUpdating  ProvisioningState = "Updating"
+	ProtocolHTTP Protocol = "http"
+	ProtocolTCP  Protocol = "tcp"
+	ProtocolUDP  Protocol = "udp"
 )
 
-// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
-func PossibleProvisioningStateValues() []ProvisioningState {
-	return []ProvisioningState{
-		ProvisioningStateCanceled,
-		ProvisioningStateCreating,
-		ProvisioningStateDeleting,
-		ProvisioningStateFailed,
-		ProvisioningStateSucceeded,
-		ProvisioningStateUnknown,
-		ProvisioningStateUpdating,
+// PossibleProtocolValues returns the possible values for the Protocol const type.
+func PossibleProtocolValues() []Protocol {
+	return []Protocol{
+		ProtocolHTTP,
+		ProtocolTCP,
+		ProtocolUDP,
 	}
 }
 
@@ -2111,6 +2336,8 @@ type SecretsType string
 const (
 	SecretsTypeAccountKey       SecretsType = "AccountKey"
 	SecretsTypeCertificate      SecretsType = "Certificate"
+	SecretsTypeKerberosKeytab   SecretsType = "KerberosKeytab"
+	SecretsTypeKerberosPassword SecretsType = "KerberosPassword"
 	SecretsTypeSas              SecretsType = "Sas"
 	SecretsTypeServicePrincipal SecretsType = "ServicePrincipal"
 )
@@ -2120,6 +2347,8 @@ func PossibleSecretsTypeValues() []SecretsType {
 	return []SecretsType{
 		SecretsTypeAccountKey,
 		SecretsTypeCertificate,
+		SecretsTypeKerberosKeytab,
+		SecretsTypeKerberosPassword,
 		SecretsTypeSas,
 		SecretsTypeServicePrincipal,
 	}
@@ -2190,6 +2419,21 @@ func PossibleSourceTypeValues() []SourceType {
 	}
 }
 
+type SparkJobEntryType string
+
+const (
+	SparkJobEntryTypeSparkJobPythonEntry SparkJobEntryType = "SparkJobPythonEntry"
+	SparkJobEntryTypeSparkJobScalaEntry  SparkJobEntryType = "SparkJobScalaEntry"
+)
+
+// PossibleSparkJobEntryTypeValues returns the possible values for the SparkJobEntryType const type.
+func PossibleSparkJobEntryTypeValues() []SparkJobEntryType {
+	return []SparkJobEntryType{
+		SparkJobEntryTypeSparkJobPythonEntry,
+		SparkJobEntryTypeSparkJobScalaEntry,
+	}
+}
+
 // StackMetaLearnerType - The meta-learner is a model trained on the output of the individual heterogeneous models. Default
 // meta-learners are LogisticRegression for classification tasks (or LogisticRegressionCV if
 // cross-validation is enabled) and ElasticNet for regression/forecasting tasks (or ElasticNetCV if cross-validation is enabled).
@@ -2252,6 +2496,23 @@ func PossibleStatusValues() []Status {
 		StatusOperationNotSupportedForSKU,
 		StatusSuccess,
 		StatusUndefined,
+	}
+}
+
+type StatusMessageLevel string
+
+const (
+	StatusMessageLevelError       StatusMessageLevel = "Error"
+	StatusMessageLevelInformation StatusMessageLevel = "Information"
+	StatusMessageLevelWarning     StatusMessageLevel = "Warning"
+)
+
+// PossibleStatusMessageLevelValues returns the possible values for the StatusMessageLevel const type.
+func PossibleStatusMessageLevelValues() []StatusMessageLevel {
+	return []StatusMessageLevel{
+		StatusMessageLevelError,
+		StatusMessageLevelInformation,
+		StatusMessageLevelWarning,
 	}
 }
 
@@ -2411,6 +2672,22 @@ func PossibleTaskTypeValues() []TaskType {
 		TaskTypeTextClassification,
 		TaskTypeTextClassificationMultilabel,
 		TaskTypeTextNER,
+	}
+}
+
+// TextAnnotationType - Annotation type of text data.
+type TextAnnotationType string
+
+const (
+	TextAnnotationTypeClassification         TextAnnotationType = "Classification"
+	TextAnnotationTypeNamedEntityRecognition TextAnnotationType = "NamedEntityRecognition"
+)
+
+// PossibleTextAnnotationTypeValues returns the possible values for the TextAnnotationType const type.
+func PossibleTextAnnotationTypeValues() []TextAnnotationType {
+	return []TextAnnotationType{
+		TextAnnotationTypeClassification,
+		TextAnnotationTypeNamedEntityRecognition,
 	}
 }
 
@@ -2579,6 +2856,26 @@ func PossibleValueFormatValues() []ValueFormat {
 	}
 }
 
+// VolumeDefinitionType - Type of Volume Definition. Possible Values: bind,volume,tmpfs,npipe
+type VolumeDefinitionType string
+
+const (
+	VolumeDefinitionTypeBind   VolumeDefinitionType = "bind"
+	VolumeDefinitionTypeNpipe  VolumeDefinitionType = "npipe"
+	VolumeDefinitionTypeTmpfs  VolumeDefinitionType = "tmpfs"
+	VolumeDefinitionTypeVolume VolumeDefinitionType = "volume"
+)
+
+// PossibleVolumeDefinitionTypeValues returns the possible values for the VolumeDefinitionType const type.
+func PossibleVolumeDefinitionTypeValues() []VolumeDefinitionType {
+	return []VolumeDefinitionType{
+		VolumeDefinitionTypeBind,
+		VolumeDefinitionTypeNpipe,
+		VolumeDefinitionTypeTmpfs,
+		VolumeDefinitionTypeVolume,
+	}
+}
+
 // WeekDay - Enum of weekday
 type WeekDay string
 
@@ -2609,5 +2906,34 @@ func PossibleWeekDayValues() []WeekDay {
 		WeekDayThursday,
 		WeekDayTuesday,
 		WeekDayWednesday,
+	}
+}
+
+// WorkspaceProvisioningState - The current deployment state of workspace resource. The provisioningState is to indicate states
+// for resource provisioning.
+type WorkspaceProvisioningState string
+
+const (
+	WorkspaceProvisioningStateCanceled    WorkspaceProvisioningState = "Canceled"
+	WorkspaceProvisioningStateCreating    WorkspaceProvisioningState = "Creating"
+	WorkspaceProvisioningStateDeleting    WorkspaceProvisioningState = "Deleting"
+	WorkspaceProvisioningStateFailed      WorkspaceProvisioningState = "Failed"
+	WorkspaceProvisioningStateSoftDeleted WorkspaceProvisioningState = "SoftDeleted"
+	WorkspaceProvisioningStateSucceeded   WorkspaceProvisioningState = "Succeeded"
+	WorkspaceProvisioningStateUnknown     WorkspaceProvisioningState = "Unknown"
+	WorkspaceProvisioningStateUpdating    WorkspaceProvisioningState = "Updating"
+)
+
+// PossibleWorkspaceProvisioningStateValues returns the possible values for the WorkspaceProvisioningState const type.
+func PossibleWorkspaceProvisioningStateValues() []WorkspaceProvisioningState {
+	return []WorkspaceProvisioningState{
+		WorkspaceProvisioningStateCanceled,
+		WorkspaceProvisioningStateCreating,
+		WorkspaceProvisioningStateDeleting,
+		WorkspaceProvisioningStateFailed,
+		WorkspaceProvisioningStateSoftDeleted,
+		WorkspaceProvisioningStateSucceeded,
+		WorkspaceProvisioningStateUnknown,
+		WorkspaceProvisioningStateUpdating,
 	}
 }

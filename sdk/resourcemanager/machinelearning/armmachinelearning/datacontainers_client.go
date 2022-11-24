@@ -57,7 +57,7 @@ func NewDataContainersClient(subscriptionID string, credential azcore.TokenCrede
 
 // CreateOrUpdate - Create or update container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // name - Container name.
@@ -103,7 +103,7 @@ func (client *DataContainersClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -120,7 +120,7 @@ func (client *DataContainersClient) createOrUpdateHandleResponse(resp *http.Resp
 
 // Delete - Delete container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // name - Container name.
@@ -164,7 +164,7 @@ func (client *DataContainersClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,7 +172,7 @@ func (client *DataContainersClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Get container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // name - Container name.
@@ -216,7 +216,7 @@ func (client *DataContainersClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,7 +232,7 @@ func (client *DataContainersClient) getHandleResponse(resp *http.Response) (Data
 }
 
 // NewListPager - List data containers.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // options - DataContainersClientListOptions contains the optional parameters for the DataContainersClient.List method.
@@ -284,7 +284,7 @@ func (client *DataContainersClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
