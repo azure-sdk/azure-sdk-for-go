@@ -1,5 +1,18 @@
 # Release History
 
+## 2.2.0-beta.1 (2022-11-24)
+### Features Added
+
+- New const `ContainerGroupPriorityRegular`
+- New const `ContainerGroupPrioritySpot`
+- New const `ContainerGroupSKUConfidential`
+- New type alias `ContainerGroupPriority`
+- New function `PossibleContainerGroupPriorityValues() []ContainerGroupPriority`
+- New struct `ConfidentialComputeProperties`
+- New field `ConfidentialComputeProperties` in struct `ContainerGroupPropertiesProperties`
+- New field `Priority` in struct `ContainerGroupPropertiesProperties`
+
+
 ## 2.1.0 (2022-11-08)
 ### Features Added
 
