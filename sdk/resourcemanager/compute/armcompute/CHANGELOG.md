@@ -1,5 +1,15 @@
 # Release History
 
+## 4.1.0 (2022-11-25)
+### Features Added
+
+- New const `ExpandTypesForGetVMsInstanceView`
+- New type alias `ExpandTypesForGetVMs`
+- New function `PossibleExpandTypesForGetVMsValues() []ExpandTypesForGetVMs`
+- New field `Expand` in struct `VirtualMachinesClientListAllOptions`
+- New field `Expand` in struct `VirtualMachinesClientListOptions`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 

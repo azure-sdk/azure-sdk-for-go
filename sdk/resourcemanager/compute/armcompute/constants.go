@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v4.1.0"
 )
 
 type AccessLevel string
@@ -700,6 +700,19 @@ const (
 func PossibleExpandTypesForGetVMScaleSetsValues() []ExpandTypesForGetVMScaleSets {
 	return []ExpandTypesForGetVMScaleSets{
 		ExpandTypesForGetVMScaleSetsUserData,
+	}
+}
+
+type ExpandTypesForGetVMs string
+
+const (
+	ExpandTypesForGetVMsInstanceView ExpandTypesForGetVMs = "instanceView"
+)
+
+// PossibleExpandTypesForGetVMsValues returns the possible values for the ExpandTypesForGetVMs const type.
+func PossibleExpandTypesForGetVMsValues() []ExpandTypesForGetVMs {
+	return []ExpandTypesForGetVMs{
+		ExpandTypesForGetVMsInstanceView,
 	}
 }
 

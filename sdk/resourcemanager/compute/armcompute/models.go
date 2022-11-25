@@ -9824,6 +9824,9 @@ type VirtualMachinesClientInstanceViewOptions struct {
 
 // VirtualMachinesClientListAllOptions contains the optional parameters for the VirtualMachinesClient.ListAll method.
 type VirtualMachinesClientListAllOptions struct {
+	// The expand expression to apply on operation. 'instanceView' enables fetching run time status of all Virtual Machines, this
+	// can only be specified if a valid $filter option is specified
+	Expand *ExpandTypesForGetVMs
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
 	Filter *string
@@ -9845,6 +9848,9 @@ type VirtualMachinesClientListByLocationOptions struct {
 
 // VirtualMachinesClientListOptions contains the optional parameters for the VirtualMachinesClient.List method.
 type VirtualMachinesClientListOptions struct {
+	// The expand expression to apply on operation. 'instanceView' enables fetching run time status of all Virtual Machines, this
+	// can only be specified if a valid $filter option is specified
+	Expand *ExpandTypesForGetVMs
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
 	Filter *string
