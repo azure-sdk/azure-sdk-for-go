@@ -5627,6 +5627,21 @@ type RunCommandListResult struct {
 	NextLink *string `json:"nextLink,omitempty"`
 }
 
+// RunCommandManagedIdentity - Contains clientId or objectId (use only one, not both) of a user-assigned managed identity
+// that has access to storage blob used in Run Command. Use an empty RunCommandManagedIdentity object in case of
+// system-assigned identity. Make sure the Azure storage blob exists in case of scriptUri, and managed identity has been given
+// access to blob's container with 'Storage Blob Data Reader' role assignment
+// with scriptUri blob and 'Storage Blob Data Contributor' for Append blobs(outputBlobUri, errorBlobUri). In case of user
+// assigned identity, make sure you add it under VM's identity. For more info on
+// managed identity and Run Command, refer https://aka.ms/ManagedIdentity and https://aka.ms/RunCommandManaged.
+type RunCommandManagedIdentity struct {
+	// Client Id (GUID value) of the user-assigned managed identity. ObjectId should not be used if this is provided.
+	ClientID *string `json:"clientId,omitempty"`
+
+	// Object Id (GUID value) of the user-assigned managed identity. ClientId should not be used if this is provided.
+	ObjectID *string `json:"objectId,omitempty"`
+}
+
 // RunCommandParameterDefinition - Describes the properties of a run command parameter.
 type RunCommandParameterDefinition struct {
 	// REQUIRED; The run command parameter name.
@@ -7760,10 +7775,28 @@ type VirtualMachineRunCommandProperties struct {
 	// Optional. If set to true, provisioning will complete as soon as the script starts and will not wait for script to complete.
 	AsyncExecution *bool `json:"asyncExecution,omitempty"`
 
-	// Specifies the Azure storage blob where script error stream will be uploaded.
+	// User-assigned managed identity that has access to errorBlobUri storage blob. Use an empty object in case of system-assigned
+	// identity. Make sure managed identity has been given access to blob's
+	// container with 'Storage Blob Data Contributor' role assignment. In case of user-assigned identity, make sure you add it
+	// under VM's identity. For more info on managed identity and Run Command, refer
+	// https://aka.ms/ManagedIdentity and https://aka.ms/RunCommandManaged
+	ErrorBlobManagedIdentity *RunCommandManagedIdentity `json:"errorBlobManagedIdentity,omitempty"`
+
+	// Specifies the Azure storage blob where script error stream will be uploaded. Use a SAS URI with read, append, create, write
+	// access OR use managed identity to provide the VM access to the blob. Refer
+	// errorBlobManagedIdentity parameter.
 	ErrorBlobURI *string `json:"errorBlobUri,omitempty"`
 
-	// Specifies the Azure storage blob where script output stream will be uploaded.
+	// User-assigned managed identity that has access to outputBlobUri storage blob. Use an empty object in case of system-assigned
+	// identity. Make sure managed identity has been given access to blob's
+	// container with 'Storage Blob Data Contributor' role assignment. In case of user-assigned identity, make sure you add it
+	// under VM's identity. For more info on managed identity and Run Command, refer
+	// https://aka.ms/ManagedIdentity and https://aka.ms/RunCommandManaged
+	OutputBlobManagedIdentity *RunCommandManagedIdentity `json:"outputBlobManagedIdentity,omitempty"`
+
+	// Specifies the Azure storage blob where script output stream will be uploaded. Use a SAS URI with read, append, create,
+	// write access OR use managed identity to provide the VM access to the blob. Refer
+	// outputBlobManagedIdentity parameter.
 	OutputBlobURI *string `json:"outputBlobUri,omitempty"`
 
 	// The parameters used by the script.
@@ -7791,7 +7824,8 @@ type VirtualMachineRunCommandProperties struct {
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 }
 
-// VirtualMachineRunCommandScriptSource - Describes the script sources for run command.
+// VirtualMachineRunCommandScriptSource - Describes the script sources for run command. Use only one of script, scriptUri,
+// commandId.
 type VirtualMachineRunCommandScriptSource struct {
 	// Specifies a commandId of predefined built-in script.
 	CommandID *string `json:"commandId,omitempty"`
@@ -7799,8 +7833,15 @@ type VirtualMachineRunCommandScriptSource struct {
 	// Specifies the script content to be executed on the VM.
 	Script *string `json:"script,omitempty"`
 
-	// Specifies the script download location.
+	// Specifies the script download location. It can be either SAS URI of an Azure storage blob with read access or public URI.
 	ScriptURI *string `json:"scriptUri,omitempty"`
+
+	// User-assigned managed identity that has access to scriptUri in case of Azure storage blob. Use an empty object in case
+	// of system-assigned identity. Make sure the Azure storage blob exists, and managed
+	// identity has been given access to blob's container with 'Storage Blob Data Reader' role assignment. In case of user-assigned
+	// identity, make sure you add it under VM's identity. For more info on
+	// managed identity and Run Command, refer https://aka.ms/ManagedIdentity and https://aka.ms/RunCommandManaged.
+	ScriptURIManagedIdentity *RunCommandManagedIdentity `json:"scriptUriManagedIdentity,omitempty"`
 }
 
 // VirtualMachineRunCommandUpdate - Describes a Virtual Machine run command.

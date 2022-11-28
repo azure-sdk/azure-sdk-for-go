@@ -11138,6 +11138,37 @@ func (r *RunCommandListResult) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type RunCommandManagedIdentity.
+func (r RunCommandManagedIdentity) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "clientId", r.ClientID)
+	populate(objectMap, "objectId", r.ObjectID)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RunCommandManagedIdentity.
+func (r *RunCommandManagedIdentity) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "clientId":
+			err = unpopulate(val, "ClientID", &r.ClientID)
+			delete(rawMsg, key)
+		case "objectId":
+			err = unpopulate(val, "ObjectID", &r.ObjectID)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type RunCommandParameterDefinition.
 func (r RunCommandParameterDefinition) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -15475,8 +15506,10 @@ func (v *VirtualMachineRunCommandInstanceView) UnmarshalJSON(data []byte) error 
 func (v VirtualMachineRunCommandProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "asyncExecution", v.AsyncExecution)
+	populate(objectMap, "errorBlobManagedIdentity", v.ErrorBlobManagedIdentity)
 	populate(objectMap, "errorBlobUri", v.ErrorBlobURI)
 	populate(objectMap, "instanceView", v.InstanceView)
+	populate(objectMap, "outputBlobManagedIdentity", v.OutputBlobManagedIdentity)
 	populate(objectMap, "outputBlobUri", v.OutputBlobURI)
 	populate(objectMap, "parameters", v.Parameters)
 	populate(objectMap, "protectedParameters", v.ProtectedParameters)
@@ -15500,11 +15533,17 @@ func (v *VirtualMachineRunCommandProperties) UnmarshalJSON(data []byte) error {
 		case "asyncExecution":
 			err = unpopulate(val, "AsyncExecution", &v.AsyncExecution)
 			delete(rawMsg, key)
+		case "errorBlobManagedIdentity":
+			err = unpopulate(val, "ErrorBlobManagedIdentity", &v.ErrorBlobManagedIdentity)
+			delete(rawMsg, key)
 		case "errorBlobUri":
 			err = unpopulate(val, "ErrorBlobURI", &v.ErrorBlobURI)
 			delete(rawMsg, key)
 		case "instanceView":
 			err = unpopulate(val, "InstanceView", &v.InstanceView)
+			delete(rawMsg, key)
+		case "outputBlobManagedIdentity":
+			err = unpopulate(val, "OutputBlobManagedIdentity", &v.OutputBlobManagedIdentity)
 			delete(rawMsg, key)
 		case "outputBlobUri":
 			err = unpopulate(val, "OutputBlobURI", &v.OutputBlobURI)
@@ -15544,6 +15583,7 @@ func (v VirtualMachineRunCommandScriptSource) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "commandId", v.CommandID)
 	populate(objectMap, "script", v.Script)
 	populate(objectMap, "scriptUri", v.ScriptURI)
+	populate(objectMap, "scriptUriManagedIdentity", v.ScriptURIManagedIdentity)
 	return json.Marshal(objectMap)
 }
 
@@ -15564,6 +15604,9 @@ func (v *VirtualMachineRunCommandScriptSource) UnmarshalJSON(data []byte) error 
 			delete(rawMsg, key)
 		case "scriptUri":
 			err = unpopulate(val, "ScriptURI", &v.ScriptURI)
+			delete(rawMsg, key)
+		case "scriptUriManagedIdentity":
+			err = unpopulate(val, "ScriptURIManagedIdentity", &v.ScriptURIManagedIdentity)
 			delete(rawMsg, key)
 		}
 		if err != nil {

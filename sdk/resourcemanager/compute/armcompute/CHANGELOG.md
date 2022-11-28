@@ -1,5 +1,14 @@
 # Release History
 
+## 4.1.0 (2022-11-28)
+### Features Added
+
+- New struct `RunCommandManagedIdentity`
+- New field `ErrorBlobManagedIdentity` in struct `VirtualMachineRunCommandProperties`
+- New field `OutputBlobManagedIdentity` in struct `VirtualMachineRunCommandProperties`
+- New field `ScriptURIManagedIdentity` in struct `VirtualMachineRunCommandScriptSource`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 
