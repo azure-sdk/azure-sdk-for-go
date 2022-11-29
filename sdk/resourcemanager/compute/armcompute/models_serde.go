@@ -222,6 +222,37 @@ func (a *AdditionalUnattendContent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AlternativeOption.
+func (a AlternativeOption) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "type", a.Type)
+	populate(objectMap, "value", a.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AlternativeOption.
+func (a *AlternativeOption) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "type":
+			err = unpopulate(val, "Type", &a.Type)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &a.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ApplicationProfile.
 func (a ApplicationProfile) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -6256,6 +6287,41 @@ func (i *ImageDataDisk) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "storageAccountType":
 			err = unpopulate(val, "StorageAccountType", &i.StorageAccountType)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ImageDeprecationStatus.
+func (i ImageDeprecationStatus) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "alternativeOption", i.AlternativeOption)
+	populate(objectMap, "imageState", i.ImageState)
+	populateTimeRFC3339(objectMap, "scheduledDeprecationTime", i.ScheduledDeprecationTime)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ImageDeprecationStatus.
+func (i *ImageDeprecationStatus) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "alternativeOption":
+			err = unpopulate(val, "AlternativeOption", &i.AlternativeOption)
+			delete(rawMsg, key)
+		case "imageState":
+			err = unpopulate(val, "ImageState", &i.ImageState)
+			delete(rawMsg, key)
+		case "scheduledDeprecationTime":
+			err = unpopulateTimeRFC3339(val, "ScheduledDeprecationTime", &i.ScheduledDeprecationTime)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -14547,6 +14613,7 @@ func (v VirtualMachineImageProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "disallowed", v.Disallowed)
 	populate(objectMap, "features", v.Features)
 	populate(objectMap, "hyperVGeneration", v.HyperVGeneration)
+	populate(objectMap, "imageDeprecationStatus", v.ImageDeprecationStatus)
 	populate(objectMap, "osDiskImage", v.OSDiskImage)
 	populate(objectMap, "plan", v.Plan)
 	return json.Marshal(objectMap)
@@ -14578,6 +14645,9 @@ func (v *VirtualMachineImageProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "hyperVGeneration":
 			err = unpopulate(val, "HyperVGeneration", &v.HyperVGeneration)
+			delete(rawMsg, key)
+		case "imageDeprecationStatus":
+			err = unpopulate(val, "ImageDeprecationStatus", &v.ImageDeprecationStatus)
 			delete(rawMsg, key)
 		case "osDiskImage":
 			err = unpopulate(val, "OSDiskImage", &v.OSDiskImage)

@@ -86,6 +86,16 @@ type AdditionalUnattendContent struct {
 	SettingName *SettingNames `json:"settingName,omitempty"`
 }
 
+// AlternativeOption - Describes the alternative option specified by the Publisher for this image when this image is deprecated.
+type AlternativeOption struct {
+	// Describes the type of the alternative option.
+	Type *AlternativeType `json:"type,omitempty"`
+
+	// Indicates the alternative option value specified by the Publisher. This is the Offer name when the type is Offer or the
+	// Plan name when the type is Plan.
+	Value *string `json:"value,omitempty"`
+}
+
 // ApplicationProfile - Contains the list of gallery applications that should be made available to the VM/VMSS
 type ApplicationProfile struct {
 	// Specifies the gallery applications that should be made available to the VM/VMSS
@@ -3500,6 +3510,18 @@ type ImageDataDisk struct {
 	// Specifies the storage account type for the managed disk. NOTE: UltraSSD_LRS can only be used with data disks, it cannot
 	// be used with OS Disk.
 	StorageAccountType *StorageAccountTypes `json:"storageAccountType,omitempty"`
+}
+
+// ImageDeprecationStatus - Describes image deprecation status properties on the image.
+type ImageDeprecationStatus struct {
+	// Describes the alternative option specified by the Publisher for this image when this image is deprecated.
+	AlternativeOption *AlternativeOption `json:"alternativeOption,omitempty"`
+
+	// Describes the state of the image.
+	ImageState *ImageState `json:"imageState,omitempty"`
+
+	// The time, in future, at which this image will be marked as deprecated. This scheduled time is chosen by the Publisher.
+	ScheduledDeprecationTime *time.Time `json:"scheduledDeprecationTime,omitempty"`
 }
 
 // ImageDisk - Describes a image disk.
@@ -7208,6 +7230,9 @@ type VirtualMachineImageProperties struct {
 
 	// Specifies the HyperVGeneration Type
 	HyperVGeneration *HyperVGenerationTypes `json:"hyperVGeneration,omitempty"`
+
+	// Describes image deprecation status properties on the image.
+	ImageDeprecationStatus *ImageDeprecationStatus `json:"imageDeprecationStatus,omitempty"`
 
 	// Contains the os disk image information.
 	OSDiskImage *OSDiskImage `json:"osDiskImage,omitempty"`

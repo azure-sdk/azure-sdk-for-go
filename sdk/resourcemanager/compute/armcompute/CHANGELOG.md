@@ -1,5 +1,23 @@
 # Release History
 
+## 4.1.0 (2022-11-29)
+### Features Added
+
+- New const `AlternativeTypeNone`
+- New const `AlternativeTypeOffer`
+- New const `AlternativeTypePlan`
+- New const `ImageStateActive`
+- New const `ImageStateDeprecated`
+- New const `ImageStateScheduledForDeprecation`
+- New type alias `AlternativeType`
+- New type alias `ImageState`
+- New function `PossibleAlternativeTypeValues() []AlternativeType`
+- New function `PossibleImageStateValues() []ImageState`
+- New struct `AlternativeOption`
+- New struct `ImageDeprecationStatus`
+- New field `ImageDeprecationStatus` in struct `VirtualMachineImageProperties`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 
