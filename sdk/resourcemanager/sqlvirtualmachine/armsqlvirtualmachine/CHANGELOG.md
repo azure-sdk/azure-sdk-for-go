@@ -1,5 +1,11 @@
 # Release History
 
+## 0.8.0 (2022-11-29)
+### Features Added
+
+- New const `LeastPrivilegeModeNotSet`
+
+
 ## 0.7.0 (2022-09-17)
 ### Features Added
 
