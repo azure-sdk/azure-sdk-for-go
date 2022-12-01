@@ -5934,7 +5934,6 @@ func (client *WebAppsClient) getAppSettingKeyVaultReferenceSlotHandleResponse(re
 }
 
 // NewGetAppSettingsKeyVaultReferencesPager - Description for Gets the config reference app settings and status of an app
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -6005,7 +6004,6 @@ func (client *WebAppsClient) getAppSettingsKeyVaultReferencesHandleResponse(resp
 
 // NewGetAppSettingsKeyVaultReferencesSlotPager - Description for Gets the config reference app settings and status of an
 // app
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -10229,7 +10227,6 @@ func (client *WebAppsClient) getPrivateEndpointConnectionHandleResponse(resp *ht
 
 // NewGetPrivateEndpointConnectionListPager - Description for Gets the list of private endpoint connections associated with
 // a site
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the site.
@@ -10300,7 +10297,6 @@ func (client *WebAppsClient) getPrivateEndpointConnectionListHandleResponse(resp
 
 // NewGetPrivateEndpointConnectionListSlotPager - Description for Gets the list of private endpoint connections associated
 // with a site
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the site.
@@ -11510,7 +11506,6 @@ func (client *WebAppsClient) getSiteConnectionStringKeyVaultReferenceSlotHandleR
 
 // NewGetSiteConnectionStringKeyVaultReferencesPager - Description for Gets the config reference app settings and status of
 // an app
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -11581,7 +11576,6 @@ func (client *WebAppsClient) getSiteConnectionStringKeyVaultReferencesHandleResp
 
 // NewGetSiteConnectionStringKeyVaultReferencesSlotPager - Description for Gets the config reference app settings and status
 // of an app
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -13306,7 +13300,6 @@ func (client *WebAppsClient) isCloneableSlotHandleResponse(resp *http.Response) 
 }
 
 // NewListPager - Description for Get all apps for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - WebAppsClientListOptions contains the optional parameters for the WebAppsClient.List method.
 func (client *WebAppsClient) NewListPager(options *WebAppsClientListOptions) *runtime.Pager[WebAppsClientListResponse] {
@@ -13740,7 +13733,6 @@ func (client *WebAppsClient) listBackupStatusSecretsSlotHandleResponse(resp *htt
 }
 
 // NewListBackupsPager - Description for Gets existing backups of an app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -13809,7 +13801,6 @@ func (client *WebAppsClient) listBackupsHandleResponse(resp *http.Response) (Web
 }
 
 // NewListBackupsSlotPager - Description for Gets existing backups of an app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -13884,7 +13875,6 @@ func (client *WebAppsClient) listBackupsSlotHandleResponse(resp *http.Response) 
 
 // NewListBasicPublishingCredentialsPoliciesPager - Description for Returns whether Scm basic auth is allowed and whether
 // Ftp is allowed for a given site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -13955,7 +13945,6 @@ func (client *WebAppsClient) listBasicPublishingCredentialsPoliciesHandleRespons
 
 // NewListBasicPublishingCredentialsPoliciesSlotPager - Description for Returns whether Scm basic auth is allowed and whether
 // Ftp is allowed for a given site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -14029,7 +14018,6 @@ func (client *WebAppsClient) listBasicPublishingCredentialsPoliciesSlotHandleRes
 }
 
 // NewListByResourceGroupPager - Description for Gets all web, mobile, and API apps in the specified resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - WebAppsClientListByResourceGroupOptions contains the optional parameters for the WebAppsClient.ListByResourceGroup
@@ -14098,7 +14086,6 @@ func (client *WebAppsClient) listByResourceGroupHandleResponse(resp *http.Respon
 
 // NewListConfigurationSnapshotInfoPager - Description for Gets a list of web app configuration snapshots identifiers. Each
 // element of the list contains a timestamp and the ID of the snapshot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -14169,7 +14156,6 @@ func (client *WebAppsClient) listConfigurationSnapshotInfoHandleResponse(resp *h
 
 // NewListConfigurationSnapshotInfoSlotPager - Description for Gets a list of web app configuration snapshots identifiers.
 // Each element of the list contains a timestamp and the ID of the snapshot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -14244,7 +14230,6 @@ func (client *WebAppsClient) listConfigurationSnapshotInfoSlotHandleResponse(res
 }
 
 // NewListConfigurationsPager - Description for List the configurations of an app
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -14314,7 +14299,6 @@ func (client *WebAppsClient) listConfigurationsHandleResponse(resp *http.Respons
 }
 
 // NewListConfigurationsSlotPager - Description for List the configurations of an app
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -14509,7 +14493,6 @@ func (client *WebAppsClient) listConnectionStringsSlotHandleResponse(resp *http.
 }
 
 // NewListContinuousWebJobsPager - Description for List continuous web jobs for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -14579,7 +14562,6 @@ func (client *WebAppsClient) listContinuousWebJobsHandleResponse(resp *http.Resp
 }
 
 // NewListContinuousWebJobsSlotPager - Description for List continuous web jobs for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -14783,7 +14765,6 @@ func (client *WebAppsClient) listDeploymentLogSlotHandleResponse(resp *http.Resp
 }
 
 // NewListDeploymentsPager - Description for List deployments for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -14852,7 +14833,6 @@ func (client *WebAppsClient) listDeploymentsHandleResponse(resp *http.Response) 
 }
 
 // NewListDeploymentsSlotPager - Description for List deployments for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -14927,7 +14907,6 @@ func (client *WebAppsClient) listDeploymentsSlotHandleResponse(resp *http.Respon
 }
 
 // NewListDomainOwnershipIdentifiersPager - Description for Lists ownership identifiers for domain associated with web app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -14998,7 +14977,6 @@ func (client *WebAppsClient) listDomainOwnershipIdentifiersHandleResponse(resp *
 
 // NewListDomainOwnershipIdentifiersSlotPager - Description for Lists ownership identifiers for domain associated with web
 // app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -15331,7 +15309,6 @@ func (client *WebAppsClient) listFunctionSecretsSlotHandleResponse(resp *http.Re
 }
 
 // NewListFunctionsPager - Description for List the functions for a web site, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -15518,7 +15495,6 @@ func (client *WebAppsClient) listHostKeysSlotHandleResponse(resp *http.Response)
 }
 
 // NewListHostNameBindingsPager - Description for Get hostname bindings for an app or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -15588,7 +15564,6 @@ func (client *WebAppsClient) listHostNameBindingsHandleResponse(resp *http.Respo
 }
 
 // NewListHostNameBindingsSlotPager - Description for Get hostname bindings for an app or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -15782,7 +15757,6 @@ func (client *WebAppsClient) listHybridConnectionsSlotHandleResponse(resp *http.
 }
 
 // NewListInstanceFunctionsSlotPager - Description for List the functions for a web site, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -15857,7 +15831,6 @@ func (client *WebAppsClient) listInstanceFunctionsSlotHandleResponse(resp *http.
 }
 
 // NewListInstanceIdentifiersPager - Description for Gets all scale-out instances of an app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -15927,7 +15900,6 @@ func (client *WebAppsClient) listInstanceIdentifiersHandleResponse(resp *http.Re
 }
 
 // NewListInstanceIdentifiersSlotPager - Description for Gets all scale-out instances of an app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -16003,7 +15975,6 @@ func (client *WebAppsClient) listInstanceIdentifiersSlotHandleResponse(resp *htt
 
 // NewListInstanceProcessModulesPager - Description for List module information for a process by its ID for a specific scaled-out
 // instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -16085,7 +16056,6 @@ func (client *WebAppsClient) listInstanceProcessModulesHandleResponse(resp *http
 
 // NewListInstanceProcessModulesSlotPager - Description for List module information for a process by its ID for a specific
 // scaled-out instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -16172,7 +16142,6 @@ func (client *WebAppsClient) listInstanceProcessModulesSlotHandleResponse(resp *
 
 // NewListInstanceProcessThreadsPager - Description for List the threads in a process by its ID for a specific scaled-out
 // instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -16254,7 +16223,6 @@ func (client *WebAppsClient) listInstanceProcessThreadsHandleResponse(resp *http
 
 // NewListInstanceProcessThreadsSlotPager - Description for List the threads in a process by its ID for a specific scaled-out
 // instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -16341,7 +16309,6 @@ func (client *WebAppsClient) listInstanceProcessThreadsSlotHandleResponse(resp *
 
 // NewListInstanceProcessesPager - Description for Get list of processes for a web site, or a deployment slot, or for a specific
 // scaled-out instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -16418,7 +16385,6 @@ func (client *WebAppsClient) listInstanceProcessesHandleResponse(resp *http.Resp
 
 // NewListInstanceProcessesSlotPager - Description for Get list of processes for a web site, or a deployment slot, or for
 // a specific scaled-out instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -16746,7 +16712,6 @@ func (client *WebAppsClient) listNetworkFeaturesSlotHandleResponse(resp *http.Re
 }
 
 // NewListPerfMonCountersPager - Description for Gets perfmon counters for web app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of web app.
@@ -16821,7 +16786,6 @@ func (client *WebAppsClient) listPerfMonCountersHandleResponse(resp *http.Respon
 }
 
 // NewListPerfMonCountersSlotPager - Description for Gets perfmon counters for web app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of web app.
@@ -17022,7 +16986,6 @@ func (client *WebAppsClient) listPremierAddOnsSlotHandleResponse(resp *http.Resp
 
 // NewListProcessModulesPager - Description for List module information for a process by its ID for a specific scaled-out
 // instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -17098,7 +17061,6 @@ func (client *WebAppsClient) listProcessModulesHandleResponse(resp *http.Respons
 
 // NewListProcessModulesSlotPager - Description for List module information for a process by its ID for a specific scaled-out
 // instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -17179,7 +17141,6 @@ func (client *WebAppsClient) listProcessModulesSlotHandleResponse(resp *http.Res
 
 // NewListProcessThreadsPager - Description for List the threads in a process by its ID for a specific scaled-out instance
 // in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -17255,7 +17216,6 @@ func (client *WebAppsClient) listProcessThreadsHandleResponse(resp *http.Respons
 
 // NewListProcessThreadsSlotPager - Description for List the threads in a process by its ID for a specific scaled-out instance
 // in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -17336,7 +17296,6 @@ func (client *WebAppsClient) listProcessThreadsSlotHandleResponse(resp *http.Res
 
 // NewListProcessesPager - Description for Get list of processes for a web site, or a deployment slot, or for a specific scaled-out
 // instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -17406,7 +17365,6 @@ func (client *WebAppsClient) listProcessesHandleResponse(resp *http.Response) (W
 
 // NewListProcessesSlotPager - Description for Get list of processes for a web site, or a deployment slot, or for a specific
 // scaled-out instance in a web site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -17481,7 +17439,6 @@ func (client *WebAppsClient) listProcessesSlotHandleResponse(resp *http.Response
 }
 
 // NewListProductionSiteDeploymentStatusesPager - List deployment statuses for an app (or deployment slot, if specified).
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -17551,7 +17508,6 @@ func (client *WebAppsClient) listProductionSiteDeploymentStatusesHandleResponse(
 }
 
 // NewListPublicCertificatesPager - Description for Get public certificates for an app or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -17621,7 +17577,6 @@ func (client *WebAppsClient) listPublicCertificatesHandleResponse(resp *http.Res
 }
 
 // NewListPublicCertificatesSlotPager - Description for Get public certificates for an app or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -18058,7 +18013,6 @@ func (client *WebAppsClient) listRelayServiceConnectionsSlotHandleResponse(resp 
 }
 
 // NewListSiteBackupsPager - Description for Gets existing backups of an app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -18127,7 +18081,6 @@ func (client *WebAppsClient) listSiteBackupsHandleResponse(resp *http.Response) 
 }
 
 // NewListSiteBackupsSlotPager - Description for Gets existing backups of an app.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -18202,7 +18155,6 @@ func (client *WebAppsClient) listSiteBackupsSlotHandleResponse(resp *http.Respon
 }
 
 // NewListSiteExtensionsPager - Description for Get list of siteextensions for a web site, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -18272,7 +18224,6 @@ func (client *WebAppsClient) listSiteExtensionsHandleResponse(resp *http.Respons
 }
 
 // NewListSiteExtensionsSlotPager - Description for Get list of siteextensions for a web site, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -18525,7 +18476,6 @@ func (client *WebAppsClient) listSlotConfigurationNamesHandleResponse(resp *http
 
 // NewListSlotDifferencesFromProductionPager - Description for Get the difference in configuration settings between two web
 // app slots.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -18596,7 +18546,6 @@ func (client *WebAppsClient) listSlotDifferencesFromProductionHandleResponse(res
 }
 
 // NewListSlotDifferencesSlotPager - Description for Get the difference in configuration settings between two web app slots.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -18672,7 +18621,6 @@ func (client *WebAppsClient) listSlotDifferencesSlotHandleResponse(resp *http.Re
 }
 
 // NewListSlotSiteDeploymentStatusesSlotPager - List deployment statuses for an app (or deployment slot, if specified).
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -18748,7 +18696,6 @@ func (client *WebAppsClient) listSlotSiteDeploymentStatusesSlotHandleResponse(re
 }
 
 // NewListSlotsPager - Description for Gets an app's deployment slots.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -18817,7 +18764,6 @@ func (client *WebAppsClient) listSlotsHandleResponse(resp *http.Response) (WebAp
 }
 
 // NewListSnapshotsPager - Description for Returns all Snapshots to the user.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Website Name.
@@ -18886,7 +18832,6 @@ func (client *WebAppsClient) listSnapshotsHandleResponse(resp *http.Response) (W
 }
 
 // NewListSnapshotsFromDRSecondaryPager - Description for Returns all Snapshots to the user from DRSecondary endpoint.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Website Name.
@@ -18956,7 +18901,6 @@ func (client *WebAppsClient) listSnapshotsFromDRSecondaryHandleResponse(resp *ht
 }
 
 // NewListSnapshotsFromDRSecondarySlotPager - Description for Returns all Snapshots to the user from DRSecondary endpoint.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Website Name.
@@ -19031,7 +18975,6 @@ func (client *WebAppsClient) listSnapshotsFromDRSecondarySlotHandleResponse(resp
 }
 
 // NewListSnapshotsSlotPager - Description for Returns all Snapshots to the user.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Website Name.
@@ -19325,7 +19268,6 @@ func (client *WebAppsClient) listSyncStatusSlotCreateRequest(ctx context.Context
 }
 
 // NewListTriggeredWebJobHistoryPager - Description for List a triggered web job's history for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -19401,7 +19343,6 @@ func (client *WebAppsClient) listTriggeredWebJobHistoryHandleResponse(resp *http
 
 // NewListTriggeredWebJobHistorySlotPager - Description for List a triggered web job's history for an app, or a deployment
 // slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -19481,7 +19422,6 @@ func (client *WebAppsClient) listTriggeredWebJobHistorySlotHandleResponse(resp *
 }
 
 // NewListTriggeredWebJobsPager - Description for List triggered web jobs for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -19551,7 +19491,6 @@ func (client *WebAppsClient) listTriggeredWebJobsHandleResponse(resp *http.Respo
 }
 
 // NewListTriggeredWebJobsSlotPager - Description for List triggered web jobs for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -19626,7 +19565,6 @@ func (client *WebAppsClient) listTriggeredWebJobsSlotHandleResponse(resp *http.R
 }
 
 // NewListUsagesPager - Description for Gets the quota usage information of an app (or deployment slot, if specified).
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -19700,7 +19638,6 @@ func (client *WebAppsClient) listUsagesHandleResponse(resp *http.Response) (WebA
 }
 
 // NewListUsagesSlotPager - Description for Gets the quota usage information of an app (or deployment slot, if specified).
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the app.
@@ -19899,7 +19836,6 @@ func (client *WebAppsClient) listVnetConnectionsSlotHandleResponse(resp *http.Re
 }
 
 // NewListWebJobsPager - Description for List webjobs for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
@@ -19968,7 +19904,6 @@ func (client *WebAppsClient) listWebJobsHandleResponse(resp *http.Response) (Web
 }
 
 // NewListWebJobsSlotPager - Description for List webjobs for an app, or a deployment slot.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.

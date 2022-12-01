@@ -180,7 +180,6 @@ func (client *WorkflowRunsClient) getHandleResponse(resp *http.Response) (Workfl
 }
 
 // NewListPager - Gets a list of workflow runs.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.

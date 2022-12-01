@@ -1328,7 +1328,6 @@ func (client *StaticSitesClient) getLinkedBackendForBuildHandleResponse(resp *ht
 }
 
 // NewGetLinkedBackendsPager - Returns details of all backends linked to a static site
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site
@@ -1398,7 +1397,6 @@ func (client *StaticSitesClient) getLinkedBackendsHandleResponse(resp *http.Resp
 }
 
 // NewGetLinkedBackendsForBuildPager - Returns details of all backends linked to a static site build
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site
@@ -1536,7 +1534,6 @@ func (client *StaticSitesClient) getPrivateEndpointConnectionHandleResponse(resp
 
 // NewGetPrivateEndpointConnectionListPager - Description for Gets the list of private endpoint connections associated with
 // a static site
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -1782,7 +1779,6 @@ func (client *StaticSitesClient) getStaticSiteBuildHandleResponse(resp *http.Res
 }
 
 // NewGetStaticSiteBuildsPager - Description for Gets all static site builds for a particular static site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -1914,7 +1910,6 @@ func (client *StaticSitesClient) getStaticSiteCustomDomainHandleResponse(resp *h
 }
 
 // NewGetStaticSitesByResourceGroupPager - Description for Gets all static sites in the specified resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - StaticSitesClientGetStaticSitesByResourceGroupOptions contains the optional parameters for the StaticSitesClient.GetStaticSitesByResourceGroup
@@ -2111,7 +2106,6 @@ func (client *StaticSitesClient) getUserProvidedFunctionAppForStaticSiteBuildHan
 
 // NewGetUserProvidedFunctionAppsForStaticSitePager - Description for Gets the details of the user provided function apps
 // registered with a static site
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -2182,7 +2176,6 @@ func (client *StaticSitesClient) getUserProvidedFunctionAppsForStaticSiteHandleR
 
 // NewGetUserProvidedFunctionAppsForStaticSiteBuildPager - Description for Gets the details of the user provided function
 // apps registered with a static site build
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -2400,7 +2393,6 @@ func (client *StaticSitesClient) linkBackendToBuildCreateRequest(ctx context.Con
 }
 
 // NewListPager - Description for Get all Static Sites for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - StaticSitesClientListOptions contains the optional parameters for the StaticSitesClient.List method.
 func (client *StaticSitesClient) NewListPager(options *StaticSitesClientListOptions) *runtime.Pager[StaticSitesClientListResponse] {
@@ -2640,7 +2632,6 @@ func (client *StaticSitesClient) listStaticSiteBuildFunctionAppSettingsHandleRes
 }
 
 // NewListStaticSiteBuildFunctionsPager - Description for Gets the functions of a particular static site build.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -2772,7 +2763,6 @@ func (client *StaticSitesClient) listStaticSiteConfiguredRolesHandleResponse(res
 }
 
 // NewListStaticSiteCustomDomainsPager - Description for Gets all static site custom domains for a particular static site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site resource to search in.
@@ -2899,7 +2889,6 @@ func (client *StaticSitesClient) listStaticSiteFunctionAppSettingsHandleResponse
 }
 
 // NewListStaticSiteFunctionsPager - Description for Gets the functions of a static site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.
@@ -3026,7 +3015,6 @@ func (client *StaticSitesClient) listStaticSiteSecretsHandleResponse(resp *http.
 }
 
 // NewListStaticSiteUsersPager - Description for Gets the list of users of a static site.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the static site.

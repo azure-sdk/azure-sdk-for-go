@@ -781,7 +781,6 @@ func (client *PlansClient) getVnetGatewayHandleResponse(resp *http.Response) (Pl
 }
 
 // NewListPager - Description for Get all App Service plans for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - PlansClientListOptions contains the optional parameters for the PlansClient.List method.
 func (client *PlansClient) NewListPager(options *PlansClientListOptions) *runtime.Pager[PlansClientListResponse] {
@@ -843,7 +842,6 @@ func (client *PlansClient) listHandleResponse(resp *http.Response) (PlansClientL
 }
 
 // NewListByResourceGroupPager - Description for Get all App Service plans in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - PlansClientListByResourceGroupOptions contains the optional parameters for the PlansClient.ListByResourceGroup
@@ -1031,7 +1029,6 @@ func (client *PlansClient) listHybridConnectionKeysHandleResponse(resp *http.Res
 }
 
 // NewListHybridConnectionsPager - Description for Retrieve all Hybrid Connections in use in an App Service plan.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the App Service plan.
@@ -1162,7 +1159,6 @@ func (client *PlansClient) listRoutesForVnetHandleResponse(resp *http.Response) 
 }
 
 // NewListUsagesPager - Description for Gets server farm usage information
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of App Service Plan
@@ -1292,7 +1288,6 @@ func (client *PlansClient) listVnetsHandleResponse(resp *http.Response) (PlansCl
 }
 
 // NewListWebAppsPager - Description for Get all apps associated with an App Service plan.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the App Service plan.
@@ -1372,7 +1367,6 @@ func (client *PlansClient) listWebAppsHandleResponse(resp *http.Response) (Plans
 }
 
 // NewListWebAppsByHybridConnectionPager - Description for Get all apps that use a Hybrid Connection in an App Service Plan.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of the App Service plan.

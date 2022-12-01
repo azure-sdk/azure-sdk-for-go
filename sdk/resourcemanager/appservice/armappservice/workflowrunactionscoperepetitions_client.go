@@ -133,7 +133,6 @@ func (client *WorkflowRunActionScopeRepetitionsClient) getHandleResponse(resp *h
 }
 
 // NewListPager - List the workflow run action scoped repetitions.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.

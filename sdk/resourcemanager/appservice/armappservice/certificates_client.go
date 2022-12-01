@@ -217,7 +217,6 @@ func (client *CertificatesClient) getHandleResponse(resp *http.Response) (Certif
 }
 
 // NewListPager - Description for Get all certificates for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - CertificatesClientListOptions contains the optional parameters for the CertificatesClient.List method.
 func (client *CertificatesClient) NewListPager(options *CertificatesClientListOptions) *runtime.Pager[CertificatesClientListResponse] {
@@ -281,7 +280,6 @@ func (client *CertificatesClient) listHandleResponse(resp *http.Response) (Certi
 }
 
 // NewListByResourceGroupPager - Description for Get all certificates in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - CertificatesClientListByResourceGroupOptions contains the optional parameters for the CertificatesClient.ListByResourceGroup

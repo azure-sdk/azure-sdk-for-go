@@ -130,7 +130,6 @@ func (client *CertificateOrdersDiagnosticsClient) getAppServiceCertificateOrderD
 
 // NewListAppServiceCertificateOrderDetectorResponsePager - Description for Microsoft.CertificateRegistration to get the list
 // of detectors for this RP.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // certificateOrderName - The certificate order name for which the response is needed.

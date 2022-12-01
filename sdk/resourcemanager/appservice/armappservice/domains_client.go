@@ -501,7 +501,6 @@ func (client *DomainsClient) getOwnershipIdentifierHandleResponse(resp *http.Res
 }
 
 // NewListPager - Description for Get all domains in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - DomainsClientListOptions contains the optional parameters for the DomainsClient.List method.
 func (client *DomainsClient) NewListPager(options *DomainsClientListOptions) *runtime.Pager[DomainsClientListResponse] {
@@ -560,7 +559,6 @@ func (client *DomainsClient) listHandleResponse(resp *http.Response) (DomainsCli
 }
 
 // NewListByResourceGroupPager - Description for Get all domains in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - DomainsClientListByResourceGroupOptions contains the optional parameters for the DomainsClient.ListByResourceGroup
@@ -625,7 +623,6 @@ func (client *DomainsClient) listByResourceGroupHandleResponse(resp *http.Respon
 }
 
 // NewListOwnershipIdentifiersPager - Description for Lists domain ownership identifiers.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // domainName - Name of domain.
@@ -695,7 +692,6 @@ func (client *DomainsClient) listOwnershipIdentifiersHandleResponse(resp *http.R
 }
 
 // NewListRecommendationsPager - Description for Get domain name recommendations based on keywords.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // parameters - Search parameters for domain name recommendations.
 // options - DomainsClientListRecommendationsOptions contains the optional parameters for the DomainsClient.ListRecommendations

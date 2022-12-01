@@ -996,7 +996,6 @@ func (client *DiagnosticsClient) getSiteDiagnosticCategorySlotHandleResponse(res
 }
 
 // NewListHostingEnvironmentDetectorResponsesPager - Description for List Hosting Environment Detector Responses
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site Name
@@ -1066,7 +1065,6 @@ func (client *DiagnosticsClient) listHostingEnvironmentDetectorResponsesHandleRe
 }
 
 // NewListSiteAnalysesPager - Description for Get Site Analyses
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // siteName - Site Name
@@ -1141,7 +1139,6 @@ func (client *DiagnosticsClient) listSiteAnalysesHandleResponse(resp *http.Respo
 }
 
 // NewListSiteAnalysesSlotPager - Description for Get Site Analyses
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // siteName - Site Name
@@ -1221,7 +1218,6 @@ func (client *DiagnosticsClient) listSiteAnalysesSlotHandleResponse(resp *http.R
 }
 
 // NewListSiteDetectorResponsesPager - Description for List Site Detector Responses
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // siteName - Site Name
@@ -1291,7 +1287,6 @@ func (client *DiagnosticsClient) listSiteDetectorResponsesHandleResponse(resp *h
 }
 
 // NewListSiteDetectorResponsesSlotPager - Description for List Site Detector Responses
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // siteName - Site Name
@@ -1366,7 +1361,6 @@ func (client *DiagnosticsClient) listSiteDetectorResponsesSlotHandleResponse(res
 }
 
 // NewListSiteDetectorsPager - Description for Get Detectors
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // siteName - Site Name
@@ -1441,7 +1435,6 @@ func (client *DiagnosticsClient) listSiteDetectorsHandleResponse(resp *http.Resp
 }
 
 // NewListSiteDetectorsSlotPager - Description for Get Detectors
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // siteName - Site Name
@@ -1521,7 +1514,6 @@ func (client *DiagnosticsClient) listSiteDetectorsSlotHandleResponse(resp *http.
 }
 
 // NewListSiteDiagnosticCategoriesPager - Description for Get Diagnostics Categories
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // siteName - Site Name
@@ -1591,7 +1583,6 @@ func (client *DiagnosticsClient) listSiteDiagnosticCategoriesHandleResponse(resp
 }
 
 // NewListSiteDiagnosticCategoriesSlotPager - Description for Get Diagnostics Categories
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // siteName - Site Name

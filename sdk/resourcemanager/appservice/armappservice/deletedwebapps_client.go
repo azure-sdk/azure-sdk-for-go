@@ -112,7 +112,6 @@ func (client *DeletedWebAppsClient) getDeletedWebAppByLocationHandleResponse(res
 }
 
 // NewListPager - Description for Get all deleted apps for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - DeletedWebAppsClientListOptions contains the optional parameters for the DeletedWebAppsClient.List method.
 func (client *DeletedWebAppsClient) NewListPager(options *DeletedWebAppsClientListOptions) *runtime.Pager[DeletedWebAppsClientListResponse] {
@@ -171,7 +170,6 @@ func (client *DeletedWebAppsClient) listHandleResponse(resp *http.Response) (Del
 }
 
 // NewListByLocationPager - Description for Get all deleted apps for a subscription at location
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - DeletedWebAppsClientListByLocationOptions contains the optional parameters for the DeletedWebAppsClient.ListByLocation
 // method.

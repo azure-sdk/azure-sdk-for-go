@@ -175,7 +175,6 @@ func (client *ResourceHealthMetadataClient) getBySiteSlotHandleResponse(resp *ht
 }
 
 // NewListPager - Description for List all ResourceHealthMetadata for all sites in the subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - ResourceHealthMetadataClientListOptions contains the optional parameters for the ResourceHealthMetadataClient.List
 // method.
@@ -236,7 +235,6 @@ func (client *ResourceHealthMetadataClient) listHandleResponse(resp *http.Respon
 
 // NewListByResourceGroupPager - Description for List all ResourceHealthMetadata for all sites in the resource group in the
 // subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - ResourceHealthMetadataClientListByResourceGroupOptions contains the optional parameters for the ResourceHealthMetadataClient.ListByResourceGroup
@@ -301,7 +299,6 @@ func (client *ResourceHealthMetadataClient) listByResourceGroupHandleResponse(re
 }
 
 // NewListBySitePager - Description for Gets the category of ResourceHealthMetadata to use for the given site as a collection
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of web app.
@@ -371,7 +368,6 @@ func (client *ResourceHealthMetadataClient) listBySiteHandleResponse(resp *http.
 }
 
 // NewListBySiteSlotPager - Description for Gets the category of ResourceHealthMetadata to use for the given site as a collection
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Name of web app.

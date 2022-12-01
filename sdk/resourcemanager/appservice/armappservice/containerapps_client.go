@@ -238,7 +238,6 @@ func (client *ContainerAppsClient) getHandleResponse(resp *http.Response) (Conta
 }
 
 // NewListByResourceGroupPager - Get the Container Apps in a given resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // options - ContainerAppsClientListByResourceGroupOptions contains the optional parameters for the ContainerAppsClient.ListByResourceGroup
@@ -303,7 +302,6 @@ func (client *ContainerAppsClient) listByResourceGroupHandleResponse(resp *http.
 }
 
 // NewListBySubscriptionPager - Get the Container Apps in a given subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-03-01
 // options - ContainerAppsClientListBySubscriptionOptions contains the optional parameters for the ContainerAppsClient.ListBySubscription
 // method.
