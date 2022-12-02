@@ -9,8 +9,8 @@
 
 package armagrifood
 
-// ExtensionsClientCreateResponse contains the response from method ExtensionsClient.Create.
-type ExtensionsClientCreateResponse struct {
+// ExtensionsClientCreateOrUpdateResponse contains the response from method ExtensionsClient.CreateOrUpdate.
+type ExtensionsClientCreateOrUpdateResponse struct {
 	Extension
 }
 
@@ -27,11 +27,6 @@ type ExtensionsClientGetResponse struct {
 // ExtensionsClientListByFarmBeatsResponse contains the response from method ExtensionsClient.ListByFarmBeats.
 type ExtensionsClientListByFarmBeatsResponse struct {
 	ExtensionListResponse
-}
-
-// ExtensionsClientUpdateResponse contains the response from method ExtensionsClient.Update.
-type ExtensionsClientUpdateResponse struct {
-	Extension
 }
 
 // FarmBeatsExtensionsClientGetResponse contains the response from method FarmBeatsExtensionsClient.Get.
@@ -117,4 +112,34 @@ type PrivateLinkResourcesClientGetResponse struct {
 // PrivateLinkResourcesClientListByResourceResponse contains the response from method PrivateLinkResourcesClient.ListByResource.
 type PrivateLinkResourcesClientListByResourceResponse struct {
 	PrivateLinkResourceListResult
+}
+
+// SolutionsClientCreateOrUpdateResponse contains the response from method SolutionsClient.CreateOrUpdate.
+type SolutionsClientCreateOrUpdateResponse struct {
+	Solution
+}
+
+// SolutionsClientDeleteResponse contains the response from method SolutionsClient.Delete.
+type SolutionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SolutionsClientGetResponse contains the response from method SolutionsClient.Get.
+type SolutionsClientGetResponse struct {
+	Solution
+}
+
+// SolutionsClientListResponse contains the response from method SolutionsClient.List.
+type SolutionsClientListResponse struct {
+	SolutionListResponse
+}
+
+// SolutionsDiscoverabilityClientGetResponse contains the response from method SolutionsDiscoverabilityClient.Get.
+type SolutionsDiscoverabilityClientGetResponse struct {
+	FarmBeatsSolution
+}
+
+// SolutionsDiscoverabilityClientListResponse contains the response from method SolutionsDiscoverabilityClient.List.
+type SolutionsDiscoverabilityClientListResponse struct {
+	FarmBeatsSolutionListResponse
 }
