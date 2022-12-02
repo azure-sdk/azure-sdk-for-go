@@ -8340,6 +8340,9 @@ type SiteConfig struct {
 	// IP security restrictions for main.
 	IPSecurityRestrictions []*IPSecurityRestriction `json:"ipSecurityRestrictions,omitempty"`
 
+	// Default action for main access restriction if no rules are matched.
+	IPSecurityRestrictionsDefaultAction *DefaultAction `json:"ipSecurityRestrictionsDefaultAction,omitempty"`
+
 	// Java container.
 	JavaContainer *string `json:"javaContainer,omitempty"`
 
@@ -8423,6 +8426,9 @@ type SiteConfig struct {
 
 	// IP security restrictions for scm.
 	ScmIPSecurityRestrictions []*IPSecurityRestriction `json:"scmIpSecurityRestrictions,omitempty"`
+
+	// Default action for scm access restriction if no rules are matched.
+	ScmIPSecurityRestrictionsDefaultAction *DefaultAction `json:"scmIpSecurityRestrictionsDefaultAction,omitempty"`
 
 	// IP security restrictions for scm to use main.
 	ScmIPSecurityRestrictionsUseMain *bool `json:"scmIpSecurityRestrictionsUseMain,omitempty"`

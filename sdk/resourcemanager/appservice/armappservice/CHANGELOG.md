@@ -1,5 +1,13 @@
 # Release History
 
+## 2.1.0 (2022-12-02)
+### Features Added
+
+- New type alias `DefaultAction` with values `DefaultActionAllow`, `DefaultActionDeny`
+- New field `IPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+- New field `ScmIPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 
