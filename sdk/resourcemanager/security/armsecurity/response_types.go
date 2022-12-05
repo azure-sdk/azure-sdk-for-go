@@ -9,6 +9,26 @@
 
 package armsecurity
 
+// APICollectionClientGetResponse contains the response from method APICollectionClient.Get.
+type APICollectionClientGetResponse struct {
+	APICollectionResponse
+}
+
+// APICollectionClientListResponse contains the response from method APICollectionClient.List.
+type APICollectionClientListResponse struct {
+	APICollectionResponseList
+}
+
+// APICollectionOffboardingClientDeleteResponse contains the response from method APICollectionOffboardingClient.Delete.
+type APICollectionOffboardingClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// APICollectionOnboardingClientCreateResponse contains the response from method APICollectionOnboardingClient.Create.
+type APICollectionOnboardingClientCreateResponse struct {
+	APICollectionResponse
+}
+
 // AccountConnectorsClientCreateOrUpdateResponse contains the response from method AccountConnectorsClient.CreateOrUpdate.
 type AccountConnectorsClientCreateOrUpdateResponse struct {
 	ConnectorSetting
@@ -362,6 +382,8 @@ type ConnectorGovernanceRulesClientGetResponse struct {
 // ConnectorGovernanceRulesExecuteStatusClientGetResponse contains the response from method ConnectorGovernanceRulesExecuteStatusClient.Get.
 type ConnectorGovernanceRulesExecuteStatusClientGetResponse struct {
 	ExecuteRuleStatus
+	// Location contains the information returned from the location header response.
+	Location *string
 }
 
 // ConnectorsClientCreateOrUpdateResponse contains the response from method ConnectorsClient.CreateOrUpdate.
@@ -554,6 +576,11 @@ type GovernanceRulesClientGetResponse struct {
 	GovernanceRule
 }
 
+// GovernanceRulesClientRuleIDExecuteSingleManagementGroupResponse contains the response from method GovernanceRulesClient.RuleIDExecuteSingleManagementGroup.
+type GovernanceRulesClientRuleIDExecuteSingleManagementGroupResponse struct {
+	// placeholder for future response values
+}
+
 // GovernanceRulesClientRuleIDExecuteSingleSecurityConnectorResponse contains the response from method GovernanceRulesClient.RuleIDExecuteSingleSecurityConnector.
 type GovernanceRulesClientRuleIDExecuteSingleSecurityConnectorResponse struct {
 	// placeholder for future response values
@@ -722,6 +749,39 @@ type LocationsClientGetResponse struct {
 // LocationsClientListResponse contains the response from method LocationsClient.List.
 type LocationsClientListResponse struct {
 	AscLocationList
+}
+
+// ManagementGroupGovernanceRuleClientListResponse contains the response from method ManagementGroupGovernanceRuleClient.List.
+type ManagementGroupGovernanceRuleClientListResponse struct {
+	GovernanceRuleList
+}
+
+// ManagementGroupGovernanceRulesClientCreateOrUpdateResponse contains the response from method ManagementGroupGovernanceRulesClient.CreateOrUpdate.
+type ManagementGroupGovernanceRulesClientCreateOrUpdateResponse struct {
+	GovernanceRule
+}
+
+// ManagementGroupGovernanceRulesClientDeleteResponse contains the response from method ManagementGroupGovernanceRulesClient.Delete.
+type ManagementGroupGovernanceRulesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagementGroupGovernanceRulesClientGetResponse contains the response from method ManagementGroupGovernanceRulesClient.Get.
+type ManagementGroupGovernanceRulesClientGetResponse struct {
+	GovernanceRule
+}
+
+// ManagementGroupGovernanceRulesDeleteStatusClientGetResponse contains the response from method ManagementGroupGovernanceRulesDeleteStatusClient.Get.
+type ManagementGroupGovernanceRulesDeleteStatusClientGetResponse struct {
+	// Location contains the information returned from the location header response.
+	Location *string
+}
+
+// ManagementGroupGovernanceRulesExecuteStatusClientGetResponse contains the response from method ManagementGroupGovernanceRulesExecuteStatusClient.Get.
+type ManagementGroupGovernanceRulesExecuteStatusClientGetResponse struct {
+	ExecuteRuleStatus
+	// Location contains the information returned from the location header response.
+	Location *string
 }
 
 // MdeOnboardingsClientGetResponse contains the response from method MdeOnboardingsClient.Get.
@@ -967,6 +1027,8 @@ type SubAssessmentsClientListResponse struct {
 // SubscriptionGovernanceRulesExecuteStatusClientGetResponse contains the response from method SubscriptionGovernanceRulesExecuteStatusClient.Get.
 type SubscriptionGovernanceRulesExecuteStatusClientGetResponse struct {
 	ExecuteRuleStatus
+	// Location contains the information returned from the location header response.
+	Location *string
 }
 
 // TasksClientGetResourceGroupLevelTaskResponse contains the response from method TasksClient.GetResourceGroupLevelTask.
