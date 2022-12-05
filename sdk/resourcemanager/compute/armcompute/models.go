@@ -5486,6 +5486,9 @@ type RollingUpgradePolicy struct {
 
 	// Upgrade all unhealthy instances in a scale set before any healthy instances.
 	PrioritizeUnhealthyInstances *bool `json:"prioritizeUnhealthyInstances,omitempty"`
+
+	// Rollback failed instances to previous model if the Rolling Upgrade policy is violated.
+	RollbackFailedInstancesOnPolicyBreach *bool `json:"rollbackFailedInstancesOnPolicyBreach,omitempty"`
 }
 
 // RollingUpgradeProgressInfo - Information about the number of virtual machine instances in each upgrade state.

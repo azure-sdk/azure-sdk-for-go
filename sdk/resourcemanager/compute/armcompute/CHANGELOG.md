@@ -1,5 +1,11 @@
 # Release History
 
+## 4.1.0 (2022-12-05)
+### Features Added
+
+- New field `RollbackFailedInstancesOnPolicyBreach` in struct `RollingUpgradePolicy`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 

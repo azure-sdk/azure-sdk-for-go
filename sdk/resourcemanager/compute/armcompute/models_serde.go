@@ -10745,6 +10745,7 @@ func (r RollingUpgradePolicy) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "maxUnhealthyUpgradedInstancePercent", r.MaxUnhealthyUpgradedInstancePercent)
 	populate(objectMap, "pauseTimeBetweenBatches", r.PauseTimeBetweenBatches)
 	populate(objectMap, "prioritizeUnhealthyInstances", r.PrioritizeUnhealthyInstances)
+	populate(objectMap, "rollbackFailedInstancesOnPolicyBreach", r.RollbackFailedInstancesOnPolicyBreach)
 	return json.Marshal(objectMap)
 }
 
@@ -10774,6 +10775,9 @@ func (r *RollingUpgradePolicy) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "prioritizeUnhealthyInstances":
 			err = unpopulate(val, "PrioritizeUnhealthyInstances", &r.PrioritizeUnhealthyInstances)
+			delete(rawMsg, key)
+		case "rollbackFailedInstancesOnPolicyBreach":
+			err = unpopulate(val, "RollbackFailedInstancesOnPolicyBreach", &r.RollbackFailedInstancesOnPolicyBreach)
 			delete(rawMsg, key)
 		}
 		if err != nil {
