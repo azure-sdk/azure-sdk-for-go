@@ -54,46 +54,6 @@ type APIPortalsClientValidateDomainResponse struct {
 	CustomDomainValidateResult
 }
 
-// ApplicationAcceleratorsClientCreateOrUpdateResponse contains the response from method ApplicationAcceleratorsClient.CreateOrUpdate.
-type ApplicationAcceleratorsClientCreateOrUpdateResponse struct {
-	ApplicationAcceleratorResource
-}
-
-// ApplicationAcceleratorsClientDeleteResponse contains the response from method ApplicationAcceleratorsClient.Delete.
-type ApplicationAcceleratorsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// ApplicationAcceleratorsClientGetResponse contains the response from method ApplicationAcceleratorsClient.Get.
-type ApplicationAcceleratorsClientGetResponse struct {
-	ApplicationAcceleratorResource
-}
-
-// ApplicationAcceleratorsClientListResponse contains the response from method ApplicationAcceleratorsClient.List.
-type ApplicationAcceleratorsClientListResponse struct {
-	ApplicationAcceleratorResourceCollection
-}
-
-// ApplicationLiveViewsClientCreateOrUpdateResponse contains the response from method ApplicationLiveViewsClient.CreateOrUpdate.
-type ApplicationLiveViewsClientCreateOrUpdateResponse struct {
-	ApplicationLiveViewResource
-}
-
-// ApplicationLiveViewsClientDeleteResponse contains the response from method ApplicationLiveViewsClient.Delete.
-type ApplicationLiveViewsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// ApplicationLiveViewsClientGetResponse contains the response from method ApplicationLiveViewsClient.Get.
-type ApplicationLiveViewsClientGetResponse struct {
-	ApplicationLiveViewResource
-}
-
-// ApplicationLiveViewsClientListResponse contains the response from method ApplicationLiveViewsClient.List.
-type ApplicationLiveViewsClientListResponse struct {
-	ApplicationLiveViewResourceCollection
-}
-
 // AppsClientCreateOrUpdateResponse contains the response from method AppsClient.CreateOrUpdate.
 type AppsClientCreateOrUpdateResponse struct {
 	AppResource
@@ -374,31 +334,6 @@ type CustomDomainsClientUpdateResponse struct {
 	CustomDomainResource
 }
 
-// CustomizedAcceleratorsClientCreateOrUpdateResponse contains the response from method CustomizedAcceleratorsClient.CreateOrUpdate.
-type CustomizedAcceleratorsClientCreateOrUpdateResponse struct {
-	CustomizedAcceleratorResource
-}
-
-// CustomizedAcceleratorsClientDeleteResponse contains the response from method CustomizedAcceleratorsClient.Delete.
-type CustomizedAcceleratorsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// CustomizedAcceleratorsClientGetResponse contains the response from method CustomizedAcceleratorsClient.Get.
-type CustomizedAcceleratorsClientGetResponse struct {
-	CustomizedAcceleratorResource
-}
-
-// CustomizedAcceleratorsClientListResponse contains the response from method CustomizedAcceleratorsClient.List.
-type CustomizedAcceleratorsClientListResponse struct {
-	CustomizedAcceleratorResourceCollection
-}
-
-// CustomizedAcceleratorsClientValidateResponse contains the response from method CustomizedAcceleratorsClient.Validate.
-type CustomizedAcceleratorsClientValidateResponse struct {
-	CustomizedAcceleratorValidateResult
-}
-
 // DeploymentsClientCreateOrUpdateResponse contains the response from method DeploymentsClient.CreateOrUpdate.
 type DeploymentsClientCreateOrUpdateResponse struct {
 	DeploymentResource
@@ -479,26 +414,6 @@ type DeploymentsClientUpdateResponse struct {
 	DeploymentResource
 }
 
-// DevToolPortalsClientCreateOrUpdateResponse contains the response from method DevToolPortalsClient.CreateOrUpdate.
-type DevToolPortalsClientCreateOrUpdateResponse struct {
-	DevToolPortalResource
-}
-
-// DevToolPortalsClientDeleteResponse contains the response from method DevToolPortalsClient.Delete.
-type DevToolPortalsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// DevToolPortalsClientGetResponse contains the response from method DevToolPortalsClient.Get.
-type DevToolPortalsClientGetResponse struct {
-	DevToolPortalResource
-}
-
-// DevToolPortalsClientListResponse contains the response from method DevToolPortalsClient.List.
-type DevToolPortalsClientListResponse struct {
-	DevToolPortalResourceCollection
-}
-
 // GatewayCustomDomainsClientCreateOrUpdateResponse contains the response from method GatewayCustomDomainsClient.CreateOrUpdate.
 type GatewayCustomDomainsClientCreateOrUpdateResponse struct {
 	GatewayCustomDomainResource
@@ -554,12 +469,6 @@ type GatewaysClientGetResponse struct {
 	GatewayResource
 }
 
-// GatewaysClientListEnvSecretsResponse contains the response from method GatewaysClient.ListEnvSecrets.
-type GatewaysClientListEnvSecretsResponse struct {
-	// Sensitive properties for Spring Cloud Gateway
-	Value map[string]*string
-}
-
 // GatewaysClientListResponse contains the response from method GatewaysClient.List.
 type GatewaysClientListResponse struct {
 	GatewayResourceCollection
@@ -588,26 +497,6 @@ type MonitoringSettingsClientUpdatePutResponse struct {
 // OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	AvailableOperations
-}
-
-// PredefinedAcceleratorsClientDisableResponse contains the response from method PredefinedAcceleratorsClient.Disable.
-type PredefinedAcceleratorsClientDisableResponse struct {
-	// placeholder for future response values
-}
-
-// PredefinedAcceleratorsClientEnableResponse contains the response from method PredefinedAcceleratorsClient.Enable.
-type PredefinedAcceleratorsClientEnableResponse struct {
-	// placeholder for future response values
-}
-
-// PredefinedAcceleratorsClientGetResponse contains the response from method PredefinedAcceleratorsClient.Get.
-type PredefinedAcceleratorsClientGetResponse struct {
-	PredefinedAcceleratorResource
-}
-
-// PredefinedAcceleratorsClientListResponse contains the response from method PredefinedAcceleratorsClient.List.
-type PredefinedAcceleratorsClientListResponse struct {
-	PredefinedAcceleratorResourceCollection
 }
 
 // RuntimeVersionsClientListRuntimeVersionsResponse contains the response from method RuntimeVersionsClient.ListRuntimeVersions.
