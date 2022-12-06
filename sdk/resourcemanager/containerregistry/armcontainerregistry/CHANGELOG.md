@@ -1,5 +1,283 @@
 # Release History
 
+## 1.0.0 (2022-12-06)
+### Breaking Changes
+
+- Type alias `ActivationStatus` has been removed
+- Type alias `Architecture` has been removed
+- Type alias `AuditLogStatus` has been removed
+- Type alias `AzureADAuthenticationAsArmPolicyStatus` has been removed
+- Type alias `BaseImageDependencyType` has been removed
+- Type alias `BaseImageTriggerType` has been removed
+- Type alias `CertificateType` has been removed
+- Type alias `ConnectedRegistryMode` has been removed
+- Type alias `ConnectionState` has been removed
+- Type alias `LogLevel` has been removed
+- Type alias `OS` has been removed
+- Type alias `PipelineOptions` has been removed
+- Type alias `PipelineRunSourceType` has been removed
+- Type alias `PipelineRunTargetType` has been removed
+- Type alias `PipelineSourceType` has been removed
+- Type alias `RunStatus` has been removed
+- Type alias `RunType` has been removed
+- Type alias `SecretObjectType` has been removed
+- Type alias `SourceControlType` has been removed
+- Type alias `SourceRegistryLoginMode` has been removed
+- Type alias `SourceTriggerEvent` has been removed
+- Type alias `StepType` has been removed
+- Type alias `TLSStatus` has been removed
+- Type alias `TaskStatus` has been removed
+- Type alias `TokenCertificateName` has been removed
+- Type alias `TokenPasswordName` has been removed
+- Type alias `TokenStatus` has been removed
+- Type alias `TokenType` has been removed
+- Type alias `TriggerStatus` has been removed
+- Type alias `UpdateTriggerPayloadType` has been removed
+- Type alias `Variant` has been removed
+- Function `NewAgentPoolsClient` has been removed
+- Function `*AgentPoolsClient.BeginCreate` has been removed
+- Function `*AgentPoolsClient.BeginDelete` has been removed
+- Function `*AgentPoolsClient.Get` has been removed
+- Function `*AgentPoolsClient.GetQueueStatus` has been removed
+- Function `*AgentPoolsClient.NewListPager` has been removed
+- Function `*AgentPoolsClient.BeginUpdate` has been removed
+- Function `NewConnectedRegistriesClient` has been removed
+- Function `*ConnectedRegistriesClient.BeginCreate` has been removed
+- Function `*ConnectedRegistriesClient.BeginDeactivate` has been removed
+- Function `*ConnectedRegistriesClient.BeginDelete` has been removed
+- Function `*ConnectedRegistriesClient.Get` has been removed
+- Function `*ConnectedRegistriesClient.NewListPager` has been removed
+- Function `*ConnectedRegistriesClient.BeginUpdate` has been removed
+- Function `*DockerBuildRequest.GetRunRequest` has been removed
+- Function `*DockerBuildStep.GetTaskStepProperties` has been removed
+- Function `*DockerBuildStepUpdateParameters.GetTaskStepUpdateParameters` has been removed
+- Function `*EncodedTaskRunRequest.GetRunRequest` has been removed
+- Function `*EncodedTaskStep.GetTaskStepProperties` has been removed
+- Function `*EncodedTaskStepUpdateParameters.GetTaskStepUpdateParameters` has been removed
+- Function `NewExportPipelinesClient` has been removed
+- Function `*ExportPipelinesClient.BeginCreate` has been removed
+- Function `*ExportPipelinesClient.BeginDelete` has been removed
+- Function `*ExportPipelinesClient.Get` has been removed
+- Function `*ExportPipelinesClient.NewListPager` has been removed
+- Function `*FileTaskRunRequest.GetRunRequest` has been removed
+- Function `*FileTaskStep.GetTaskStepProperties` has been removed
+- Function `*FileTaskStepUpdateParameters.GetTaskStepUpdateParameters` has been removed
+- Function `NewImportPipelinesClient` has been removed
+- Function `*ImportPipelinesClient.BeginCreate` has been removed
+- Function `*ImportPipelinesClient.BeginDelete` has been removed
+- Function `*ImportPipelinesClient.Get` has been removed
+- Function `*ImportPipelinesClient.NewListPager` has been removed
+- Function `NewPipelineRunsClient` has been removed
+- Function `*PipelineRunsClient.BeginCreate` has been removed
+- Function `*PipelineRunsClient.BeginDelete` has been removed
+- Function `*PipelineRunsClient.Get` has been removed
+- Function `*PipelineRunsClient.NewListPager` has been removed
+- Function `*RegistriesClient.BeginGenerateCredentials` has been removed
+- Function `*RegistriesClient.GetBuildSourceUploadURL` has been removed
+- Function `*RegistriesClient.BeginScheduleRun` has been removed
+- Function `*RunRequest.GetRunRequest` has been removed
+- Function `NewRunsClient` has been removed
+- Function `*RunsClient.BeginCancel` has been removed
+- Function `*RunsClient.Get` has been removed
+- Function `*RunsClient.GetLogSasURL` has been removed
+- Function `*RunsClient.NewListPager` has been removed
+- Function `*RunsClient.BeginUpdate` has been removed
+- Function `NewScopeMapsClient` has been removed
+- Function `*ScopeMapsClient.BeginCreate` has been removed
+- Function `*ScopeMapsClient.BeginDelete` has been removed
+- Function `*ScopeMapsClient.Get` has been removed
+- Function `*ScopeMapsClient.NewListPager` has been removed
+- Function `*ScopeMapsClient.BeginUpdate` has been removed
+- Function `*TaskRunRequest.GetRunRequest` has been removed
+- Function `NewTaskRunsClient` has been removed
+- Function `*TaskRunsClient.BeginCreate` has been removed
+- Function `*TaskRunsClient.BeginDelete` has been removed
+- Function `*TaskRunsClient.Get` has been removed
+- Function `*TaskRunsClient.GetDetails` has been removed
+- Function `*TaskRunsClient.NewListPager` has been removed
+- Function `*TaskRunsClient.BeginUpdate` has been removed
+- Function `*TaskStepProperties.GetTaskStepProperties` has been removed
+- Function `*TaskStepUpdateParameters.GetTaskStepUpdateParameters` has been removed
+- Function `NewTasksClient` has been removed
+- Function `*TasksClient.BeginCreate` has been removed
+- Function `*TasksClient.BeginDelete` has been removed
+- Function `*TasksClient.Get` has been removed
+- Function `*TasksClient.GetDetails` has been removed
+- Function `*TasksClient.NewListPager` has been removed
+- Function `*TasksClient.BeginUpdate` has been removed
+- Function `NewTokensClient` has been removed
+- Function `*TokensClient.BeginCreate` has been removed
+- Function `*TokensClient.BeginDelete` has been removed
+- Function `*TokensClient.Get` has been removed
+- Function `*TokensClient.NewListPager` has been removed
+- Function `*TokensClient.BeginUpdate` has been removed
+- Struct `ActivationProperties` has been removed
+- Struct `ActiveDirectoryObject` has been removed
+- Struct `AgentPool` has been removed
+- Struct `AgentPoolListResult` has been removed
+- Struct `AgentPoolProperties` has been removed
+- Struct `AgentPoolPropertiesUpdateParameters` has been removed
+- Struct `AgentPoolQueueStatus` has been removed
+- Struct `AgentPoolUpdateParameters` has been removed
+- Struct `AgentPoolsClient` has been removed
+- Struct `AgentPoolsClientCreateResponse` has been removed
+- Struct `AgentPoolsClientDeleteResponse` has been removed
+- Struct `AgentPoolsClientListResponse` has been removed
+- Struct `AgentPoolsClientUpdateResponse` has been removed
+- Struct `AgentProperties` has been removed
+- Struct `Argument` has been removed
+- Struct `AuthInfo` has been removed
+- Struct `AuthInfoUpdateParameters` has been removed
+- Struct `AzureADAuthenticationAsArmPolicy` has been removed
+- Struct `BaseImageDependency` has been removed
+- Struct `BaseImageTrigger` has been removed
+- Struct `BaseImageTriggerUpdateParameters` has been removed
+- Struct `ConnectedRegistriesClient` has been removed
+- Struct `ConnectedRegistriesClientCreateResponse` has been removed
+- Struct `ConnectedRegistriesClientDeactivateResponse` has been removed
+- Struct `ConnectedRegistriesClientDeleteResponse` has been removed
+- Struct `ConnectedRegistriesClientListResponse` has been removed
+- Struct `ConnectedRegistriesClientUpdateResponse` has been removed
+- Struct `ConnectedRegistry` has been removed
+- Struct `ConnectedRegistryListResult` has been removed
+- Struct `ConnectedRegistryProperties` has been removed
+- Struct `ConnectedRegistryUpdateParameters` has been removed
+- Struct `ConnectedRegistryUpdateProperties` has been removed
+- Struct `Credentials` has been removed
+- Struct `CustomRegistryCredentials` has been removed
+- Struct `DockerBuildRequest` has been removed
+- Struct `DockerBuildStep` has been removed
+- Struct `DockerBuildStepUpdateParameters` has been removed
+- Struct `EncodedTaskRunRequest` has been removed
+- Struct `EncodedTaskStep` has been removed
+- Struct `EncodedTaskStepUpdateParameters` has been removed
+- Struct `ExportPipeline` has been removed
+- Struct `ExportPipelineListResult` has been removed
+- Struct `ExportPipelineProperties` has been removed
+- Struct `ExportPipelineTargetProperties` has been removed
+- Struct `ExportPipelinesClient` has been removed
+- Struct `ExportPipelinesClientCreateResponse` has been removed
+- Struct `ExportPipelinesClientDeleteResponse` has been removed
+- Struct `ExportPipelinesClientListResponse` has been removed
+- Struct `FileTaskRunRequest` has been removed
+- Struct `FileTaskStep` has been removed
+- Struct `FileTaskStepUpdateParameters` has been removed
+- Struct `GenerateCredentialsParameters` has been removed
+- Struct `GenerateCredentialsResult` has been removed
+- Struct `ImageDescriptor` has been removed
+- Struct `ImageUpdateTrigger` has been removed
+- Struct `ImportPipeline` has been removed
+- Struct `ImportPipelineListResult` has been removed
+- Struct `ImportPipelineProperties` has been removed
+- Struct `ImportPipelineSourceProperties` has been removed
+- Struct `ImportPipelinesClient` has been removed
+- Struct `ImportPipelinesClientCreateResponse` has been removed
+- Struct `ImportPipelinesClientDeleteResponse` has been removed
+- Struct `ImportPipelinesClientListResponse` has been removed
+- Struct `LoggingProperties` has been removed
+- Struct `LoginServerProperties` has been removed
+- Struct `OverrideTaskStepProperties` has been removed
+- Struct `ParentProperties` has been removed
+- Struct `PipelineRun` has been removed
+- Struct `PipelineRunListResult` has been removed
+- Struct `PipelineRunProperties` has been removed
+- Struct `PipelineRunRequest` has been removed
+- Struct `PipelineRunResponse` has been removed
+- Struct `PipelineRunSourceProperties` has been removed
+- Struct `PipelineRunTargetProperties` has been removed
+- Struct `PipelineRunsClient` has been removed
+- Struct `PipelineRunsClientCreateResponse` has been removed
+- Struct `PipelineRunsClientDeleteResponse` has been removed
+- Struct `PipelineRunsClientListResponse` has been removed
+- Struct `PipelineSourceTriggerDescriptor` has been removed
+- Struct `PipelineSourceTriggerProperties` has been removed
+- Struct `PipelineTriggerDescriptor` has been removed
+- Struct `PipelineTriggerProperties` has been removed
+- Struct `PlatformProperties` has been removed
+- Struct `PlatformUpdateParameters` has been removed
+- Struct `ProgressProperties` has been removed
+- Struct `RegistriesClientGenerateCredentialsResponse` has been removed
+- Struct `RegistriesClientScheduleRunResponse` has been removed
+- Struct `Run` has been removed
+- Struct `RunFilter` has been removed
+- Struct `RunGetLogResult` has been removed
+- Struct `RunListResult` has been removed
+- Struct `RunProperties` has been removed
+- Struct `RunUpdateParameters` has been removed
+- Struct `RunsClient` has been removed
+- Struct `RunsClientCancelResponse` has been removed
+- Struct `RunsClientListResponse` has been removed
+- Struct `RunsClientUpdateResponse` has been removed
+- Struct `ScopeMap` has been removed
+- Struct `ScopeMapListResult` has been removed
+- Struct `ScopeMapProperties` has been removed
+- Struct `ScopeMapPropertiesUpdateParameters` has been removed
+- Struct `ScopeMapUpdateParameters` has been removed
+- Struct `ScopeMapsClient` has been removed
+- Struct `ScopeMapsClientCreateResponse` has been removed
+- Struct `ScopeMapsClientDeleteResponse` has been removed
+- Struct `ScopeMapsClientListResponse` has been removed
+- Struct `ScopeMapsClientUpdateResponse` has been removed
+- Struct `SecretObject` has been removed
+- Struct `SetValue` has been removed
+- Struct `SoftDeletePolicy` has been removed
+- Struct `SourceProperties` has been removed
+- Struct `SourceRegistryCredentials` has been removed
+- Struct `SourceTrigger` has been removed
+- Struct `SourceTriggerDescriptor` has been removed
+- Struct `SourceTriggerUpdateParameters` has been removed
+- Struct `SourceUpdateParameters` has been removed
+- Struct `SourceUploadDefinition` has been removed
+- Struct `StatusDetailProperties` has been removed
+- Struct `SyncProperties` has been removed
+- Struct `SyncUpdateProperties` has been removed
+- Struct `TLSCertificateProperties` has been removed
+- Struct `TLSProperties` has been removed
+- Struct `Task` has been removed
+- Struct `TaskListResult` has been removed
+- Struct `TaskProperties` has been removed
+- Struct `TaskPropertiesUpdateParameters` has been removed
+- Struct `TaskRun` has been removed
+- Struct `TaskRunListResult` has been removed
+- Struct `TaskRunProperties` has been removed
+- Struct `TaskRunPropertiesUpdateParameters` has been removed
+- Struct `TaskRunRequest` has been removed
+- Struct `TaskRunUpdateParameters` has been removed
+- Struct `TaskRunsClient` has been removed
+- Struct `TaskRunsClientCreateResponse` has been removed
+- Struct `TaskRunsClientDeleteResponse` has been removed
+- Struct `TaskRunsClientListResponse` has been removed
+- Struct `TaskRunsClientUpdateResponse` has been removed
+- Struct `TaskUpdateParameters` has been removed
+- Struct `TasksClient` has been removed
+- Struct `TasksClientCreateResponse` has been removed
+- Struct `TasksClientDeleteResponse` has been removed
+- Struct `TasksClientListResponse` has been removed
+- Struct `TasksClientUpdateResponse` has been removed
+- Struct `TimerTrigger` has been removed
+- Struct `TimerTriggerDescriptor` has been removed
+- Struct `TimerTriggerUpdateParameters` has been removed
+- Struct `Token` has been removed
+- Struct `TokenCertificate` has been removed
+- Struct `TokenCredentialsProperties` has been removed
+- Struct `TokenListResult` has been removed
+- Struct `TokenPassword` has been removed
+- Struct `TokenProperties` has been removed
+- Struct `TokenUpdateParameters` has been removed
+- Struct `TokenUpdateProperties` has been removed
+- Struct `TokensClient` has been removed
+- Struct `TokensClientCreateResponse` has been removed
+- Struct `TokensClientDeleteResponse` has been removed
+- Struct `TokensClientListResponse` has been removed
+- Struct `TokensClientUpdateResponse` has been removed
+- Struct `TriggerProperties` has been removed
+- Struct `TriggerUpdateParameters` has been removed
+- Field `AzureADAuthenticationAsArmPolicy` of struct `Policies` has been removed
+- Field `SoftDeletePolicy` of struct `Policies` has been removed
+- Field `AnonymousPullEnabled` of struct `RegistryProperties` has been removed
+- Field `AnonymousPullEnabled` of struct `RegistryPropertiesUpdateParameters` has been removed
+
+
 ## 0.6.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerregistry/armcontainerregistry` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.6.0, which contains breaking changes.
