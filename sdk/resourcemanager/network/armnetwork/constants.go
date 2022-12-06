@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.0.1"
+	moduleVersion = "v3.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -2988,6 +2988,63 @@ func PossibleScopeConnectionStateValues() []ScopeConnectionState {
 	}
 }
 
+// ScrubbingRuleEntryMatchOperator - When matchVariable is a collection, operate on the selector to specify which elements
+// in the collection this rule applies to.
+type ScrubbingRuleEntryMatchOperator string
+
+const (
+	ScrubbingRuleEntryMatchOperatorEquals    ScrubbingRuleEntryMatchOperator = "Equals"
+	ScrubbingRuleEntryMatchOperatorEqualsAny ScrubbingRuleEntryMatchOperator = "EqualsAny"
+)
+
+// PossibleScrubbingRuleEntryMatchOperatorValues returns the possible values for the ScrubbingRuleEntryMatchOperator const type.
+func PossibleScrubbingRuleEntryMatchOperatorValues() []ScrubbingRuleEntryMatchOperator {
+	return []ScrubbingRuleEntryMatchOperator{
+		ScrubbingRuleEntryMatchOperatorEquals,
+		ScrubbingRuleEntryMatchOperatorEqualsAny,
+	}
+}
+
+// ScrubbingRuleEntryMatchVariable - The variable to be scrubbed from the logs.
+type ScrubbingRuleEntryMatchVariable string
+
+const (
+	ScrubbingRuleEntryMatchVariableRequestArgNames     ScrubbingRuleEntryMatchVariable = "RequestArgNames"
+	ScrubbingRuleEntryMatchVariableRequestCookieNames  ScrubbingRuleEntryMatchVariable = "RequestCookieNames"
+	ScrubbingRuleEntryMatchVariableRequestHeaderNames  ScrubbingRuleEntryMatchVariable = "RequestHeaderNames"
+	ScrubbingRuleEntryMatchVariableRequestIPAddress    ScrubbingRuleEntryMatchVariable = "RequestIPAddress"
+	ScrubbingRuleEntryMatchVariableRequestJSONArgNames ScrubbingRuleEntryMatchVariable = "RequestJSONArgNames"
+	ScrubbingRuleEntryMatchVariableRequestPostArgNames ScrubbingRuleEntryMatchVariable = "RequestPostArgNames"
+)
+
+// PossibleScrubbingRuleEntryMatchVariableValues returns the possible values for the ScrubbingRuleEntryMatchVariable const type.
+func PossibleScrubbingRuleEntryMatchVariableValues() []ScrubbingRuleEntryMatchVariable {
+	return []ScrubbingRuleEntryMatchVariable{
+		ScrubbingRuleEntryMatchVariableRequestArgNames,
+		ScrubbingRuleEntryMatchVariableRequestCookieNames,
+		ScrubbingRuleEntryMatchVariableRequestHeaderNames,
+		ScrubbingRuleEntryMatchVariableRequestIPAddress,
+		ScrubbingRuleEntryMatchVariableRequestJSONArgNames,
+		ScrubbingRuleEntryMatchVariableRequestPostArgNames,
+	}
+}
+
+// ScrubbingRuleEntryState - Defines the state of log scrubbing rule. Default value is Enabled.
+type ScrubbingRuleEntryState string
+
+const (
+	ScrubbingRuleEntryStateDisabled ScrubbingRuleEntryState = "Disabled"
+	ScrubbingRuleEntryStateEnabled  ScrubbingRuleEntryState = "Enabled"
+)
+
+// PossibleScrubbingRuleEntryStateValues returns the possible values for the ScrubbingRuleEntryState const type.
+func PossibleScrubbingRuleEntryStateValues() []ScrubbingRuleEntryState {
+	return []ScrubbingRuleEntryState{
+		ScrubbingRuleEntryStateDisabled,
+		ScrubbingRuleEntryStateEnabled,
+	}
+}
+
 // SecurityConfigurationRuleAccess - Whether network traffic is allowed or denied.
 type SecurityConfigurationRuleAccess string
 
@@ -3922,6 +3979,22 @@ func PossibleWebApplicationFirewallRuleTypeValues() []WebApplicationFirewallRule
 	return []WebApplicationFirewallRuleType{
 		WebApplicationFirewallRuleTypeInvalid,
 		WebApplicationFirewallRuleTypeMatchRule,
+	}
+}
+
+// WebApplicationFirewallScrubbingState - State of the log scrubbing config. Default value is Enabled.
+type WebApplicationFirewallScrubbingState string
+
+const (
+	WebApplicationFirewallScrubbingStateDisabled WebApplicationFirewallScrubbingState = "Disabled"
+	WebApplicationFirewallScrubbingStateEnabled  WebApplicationFirewallScrubbingState = "Enabled"
+)
+
+// PossibleWebApplicationFirewallScrubbingStateValues returns the possible values for the WebApplicationFirewallScrubbingState const type.
+func PossibleWebApplicationFirewallScrubbingStateValues() []WebApplicationFirewallScrubbingState {
+	return []WebApplicationFirewallScrubbingState{
+		WebApplicationFirewallScrubbingStateDisabled,
+		WebApplicationFirewallScrubbingStateEnabled,
 	}
 }
 

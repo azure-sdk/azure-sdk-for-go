@@ -1,5 +1,35 @@
 # Release History
 
+## 3.0.0 (2022-12-06)
+### Breaking Changes
+
+- Struct `PeerRouteList` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse` has been removed
+
+### Features Added
+
+- New type alias `ScrubbingRuleEntryMatchOperator` with values `ScrubbingRuleEntryMatchOperatorEquals`, `ScrubbingRuleEntryMatchOperatorEqualsAny`
+- New type alias `ScrubbingRuleEntryMatchVariable` with values `ScrubbingRuleEntryMatchVariableRequestArgNames`, `ScrubbingRuleEntryMatchVariableRequestCookieNames`, `ScrubbingRuleEntryMatchVariableRequestHeaderNames`, `ScrubbingRuleEntryMatchVariableRequestIPAddress`, `ScrubbingRuleEntryMatchVariableRequestJSONArgNames`, `ScrubbingRuleEntryMatchVariableRequestPostArgNames`
+- New type alias `ScrubbingRuleEntryState` with values `ScrubbingRuleEntryStateDisabled`, `ScrubbingRuleEntryStateEnabled`
+- New type alias `WebApplicationFirewallScrubbingState` with values `WebApplicationFirewallScrubbingStateDisabled`, `WebApplicationFirewallScrubbingStateEnabled`
+- New struct `DelegationProperties`
+- New struct `PartnerManagedResourceProperties`
+- New struct `PolicySettingsLogScrubbing`
+- New struct `WebApplicationFirewallScrubbingRules`
+- New field `VirtualNetwork` in struct `BackendAddressPoolPropertiesFormat`
+- New field `AuthorizationStatus` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `CustomBlockResponseBody` in struct `PolicySettings`
+- New field `CustomBlockResponseStatusCode` in struct `PolicySettings`
+- New field `LogScrubbing` in struct `PolicySettings`
+- New field `PrivateEndpointLocation` in struct `PrivateEndpointConnectionProperties`
+- New field `Delegation` in struct `VirtualAppliancePropertiesFormat`
+- New field `DeploymentType` in struct `VirtualAppliancePropertiesFormat`
+- New field `PartnerManagedResource` in struct `VirtualAppliancePropertiesFormat`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse`
+
+
 ## 2.0.1 (2022-10-14)
 ### Others Changes
 - Update live test dependencies
