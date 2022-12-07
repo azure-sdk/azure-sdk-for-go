@@ -5827,6 +5827,14 @@ type SecurityProfile struct {
 	UefiSettings *UefiSettings `json:"uefiSettings,omitempty"`
 }
 
+// ServiceArtifactReference - Specifies the service artifact reference id used to set same image version for all virtual machines
+// in the scale set when using 'latest' image version. Minimum api-version: 2022-11-01
+type ServiceArtifactReference struct {
+	// The service artifact reference id in the form of
+	// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/galleries/{galleryName}/serviceArtifacts/{serviceArtifactName}/vmArtifactsProfiles/{vmArtifactsProfilesName}
+	ID *string `json:"id,omitempty"`
+}
+
 type ShareInfoElement struct {
 	// READ-ONLY; A relative URI containing the ID of the VM that has the disk attached.
 	VMURI *string `json:"vmUri,omitempty" azure:"ro"`
@@ -9152,6 +9160,10 @@ type VirtualMachineScaleSetVMProfile struct {
 
 	// Specifies the Security related profile settings for the virtual machines in the scale set.
 	SecurityProfile *SecurityProfile `json:"securityProfile,omitempty"`
+
+	// Specifies the service artifact reference id used to set same image version for all virtual machines in the scale set when
+	// using 'latest' image version. Minimum api-version: 2022-11-01
+	ServiceArtifactReference *ServiceArtifactReference `json:"serviceArtifactReference,omitempty"`
 
 	// Specifies the storage settings for the virtual machine disks.
 	StorageProfile *VirtualMachineScaleSetStorageProfile `json:"storageProfile,omitempty"`

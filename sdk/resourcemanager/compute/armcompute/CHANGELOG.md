@@ -1,5 +1,12 @@
 # Release History
 
+## 4.1.0 (2022-12-07)
+### Features Added
+
+- New struct `ServiceArtifactReference`
+- New field `ServiceArtifactReference` in struct `VirtualMachineScaleSetVMProfile`
+
+
 ## 4.0.0 (2022-10-04)
 ### Breaking Changes
 
