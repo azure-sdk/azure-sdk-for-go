@@ -57,7 +57,7 @@ func NewApplicationGatewayWafDynamicManifestsClient(subscriptionID string, crede
 }
 
 // NewGetPager - Gets the regional application gateway waf manifest.
-// Generated from API version 2022-05-01
+// Generated from API version 2022-06-01-preview
 // location - The region where the nrp are located at.
 // options - ApplicationGatewayWafDynamicManifestsClientGetOptions contains the optional parameters for the ApplicationGatewayWafDynamicManifestsClient.Get
 // method.
@@ -105,7 +105,7 @@ func (client *ApplicationGatewayWafDynamicManifestsClient) getCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2022-06-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
