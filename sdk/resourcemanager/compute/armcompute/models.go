@@ -8410,6 +8410,9 @@ type VirtualMachineScaleSetOSProfile struct {
 	// For a list of supported Linux distributions, see Linux on Azure-Endorsed Distributions [https://docs.microsoft.com/azure/virtual-machines/linux/endorsed-distros].
 	LinuxConfiguration *LinuxConfiguration `json:"linuxConfiguration,omitempty"`
 
+	// Optional property which must either be set to True or omitted.
+	RequireGuestProvisionSignal *bool `json:"requireGuestProvisionSignal,omitempty"`
+
 	// Specifies set of certificates that should be installed onto the virtual machines in the scale set. To install certificates
 	// on a virtual machine it is recommended to use the Azure Key Vault virtual
 	// machine extension for Linux [https://docs.microsoft.com/azure/virtual-machines/extensions/key-vault-linux] or the Azure
@@ -8430,6 +8433,9 @@ type VirtualMachineScaleSetProperties struct {
 
 	// Policy for automatic repairs.
 	AutomaticRepairsPolicy *AutomaticRepairsPolicy `json:"automaticRepairsPolicy,omitempty"`
+
+	// Optional property which must either be set to True or omitted.
+	ConstrainedMaximumCapacity *bool `json:"constrainedMaximumCapacity,omitempty"`
 
 	// When Overprovision is enabled, extensions are launched only on the requested number of VMs which are finally kept. This
 	// property will hence ensure that the extensions do not run on the extra

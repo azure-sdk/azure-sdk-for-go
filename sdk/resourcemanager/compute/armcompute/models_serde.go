@@ -16620,6 +16620,7 @@ func (v VirtualMachineScaleSetOSProfile) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "computerNamePrefix", v.ComputerNamePrefix)
 	populate(objectMap, "customData", v.CustomData)
 	populate(objectMap, "linuxConfiguration", v.LinuxConfiguration)
+	populate(objectMap, "requireGuestProvisionSignal", v.RequireGuestProvisionSignal)
 	populate(objectMap, "secrets", v.Secrets)
 	populate(objectMap, "windowsConfiguration", v.WindowsConfiguration)
 	return json.Marshal(objectMap)
@@ -16652,6 +16653,9 @@ func (v *VirtualMachineScaleSetOSProfile) UnmarshalJSON(data []byte) error {
 		case "linuxConfiguration":
 			err = unpopulate(val, "LinuxConfiguration", &v.LinuxConfiguration)
 			delete(rawMsg, key)
+		case "requireGuestProvisionSignal":
+			err = unpopulate(val, "RequireGuestProvisionSignal", &v.RequireGuestProvisionSignal)
+			delete(rawMsg, key)
 		case "secrets":
 			err = unpopulate(val, "Secrets", &v.Secrets)
 			delete(rawMsg, key)
@@ -16671,6 +16675,7 @@ func (v VirtualMachineScaleSetProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "additionalCapabilities", v.AdditionalCapabilities)
 	populate(objectMap, "automaticRepairsPolicy", v.AutomaticRepairsPolicy)
+	populate(objectMap, "constrainedMaximumCapacity", v.ConstrainedMaximumCapacity)
 	populate(objectMap, "doNotRunExtensionsOnOverprovisionedVMs", v.DoNotRunExtensionsOnOverprovisionedVMs)
 	populate(objectMap, "hostGroup", v.HostGroup)
 	populate(objectMap, "orchestrationMode", v.OrchestrationMode)
@@ -16704,6 +16709,9 @@ func (v *VirtualMachineScaleSetProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "automaticRepairsPolicy":
 			err = unpopulate(val, "AutomaticRepairsPolicy", &v.AutomaticRepairsPolicy)
+			delete(rawMsg, key)
+		case "constrainedMaximumCapacity":
+			err = unpopulate(val, "ConstrainedMaximumCapacity", &v.ConstrainedMaximumCapacity)
 			delete(rawMsg, key)
 		case "doNotRunExtensionsOnOverprovisionedVMs":
 			err = unpopulate(val, "DoNotRunExtensionsOnOverprovisionedVMs", &v.DoNotRunExtensionsOnOverprovisionedVMs)
