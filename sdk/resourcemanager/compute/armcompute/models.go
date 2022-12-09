@@ -610,6 +610,10 @@ type CloudService struct {
 	// Resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
 
+	// List of logical availability zone of the resource. List should contain only 1 zone where cloud service should be provisioned.
+	// This field is optional.
+	Zones []*string `json:"zones,omitempty"`
+
 	// READ-ONLY; Resource Id.
 	ID *string `json:"id,omitempty" azure:"ro"`
 
@@ -3957,7 +3961,7 @@ type LoadBalancerConfiguration struct {
 type LoadBalancerConfigurationProperties struct {
 	// REQUIRED; Specifies the frontend IP to be used for the load balancer. Only IPv4 frontend IP address is supported. Each
 	// load balancer configuration must have exactly one frontend IP configuration.
-	FrontendIPConfigurations []*LoadBalancerFrontendIPConfiguration `json:"frontendIPConfigurations,omitempty"`
+	FrontendIPConfigurations []*LoadBalancerFrontendIPConfiguration `json:"frontendIpConfigurations,omitempty"`
 }
 
 // LoadBalancerFrontendIPConfiguration - Specifies the frontend IP to be used for the load balancer. Only IPv4 frontend IP
