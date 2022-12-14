@@ -1,5 +1,29 @@
 # Release History
 
+## 3.1.0 (2022-12-14)
+### Features Added
+
+- New function `*Credential.GetCredential() *Credential`
+- New function `NewCredentialOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CredentialOperationsClient, error)`
+- New function `*CredentialOperationsClient.CreateOrUpdate(context.Context, string, string, string, ManagedIdentityCredentialResource, *CredentialOperationsClientCreateOrUpdateOptions) (CredentialOperationsClientCreateOrUpdateResponse, error)`
+- New function `*CredentialOperationsClient.Delete(context.Context, string, string, string, *CredentialOperationsClientDeleteOptions) (CredentialOperationsClientDeleteResponse, error)`
+- New function `*CredentialOperationsClient.Get(context.Context, string, string, string, *CredentialOperationsClientGetOptions) (CredentialOperationsClientGetResponse, error)`
+- New function `*CredentialOperationsClient.NewListByFactoryPager(string, string, *CredentialOperationsClientListByFactoryOptions) *runtime.Pager[CredentialOperationsClientListByFactoryResponse]`
+- New function `*ManagedIdentityCredential.GetCredential() *Credential`
+- New function `*PowerBILinkedService.GetLinkedService() *LinkedService`
+- New function `*ServicePrincipalCredential.GetCredential() *Credential`
+- New struct `CredentialListResponse`
+- New struct `CredentialOperationsClient`
+- New struct `CredentialOperationsClientListByFactoryResponse`
+- New struct `ManagedIdentityCredential`
+- New struct `ManagedIdentityCredentialResource`
+- New struct `ManagedIdentityTypeProperties`
+- New struct `PowerBILinkedService`
+- New struct `PowerBILinkedServiceTypeProperties`
+- New struct `ServicePrincipalCredential`
+- New struct `ServicePrincipalCredentialTypeProperties`
+
+
 ## 3.0.0 (2022-10-27)
 ### Breaking Changes
 
