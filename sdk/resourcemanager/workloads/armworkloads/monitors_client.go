@@ -132,7 +132,9 @@ func (client *MonitorsClient) BeginDelete(ctx context.Context, resourceGroupName
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[MonitorsClientDeleteResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[MonitorsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[MonitorsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -240,7 +242,6 @@ func (client *MonitorsClient) getHandleResponse(resp *http.Response) (MonitorsCl
 
 // NewListPager - Gets a list of SAP monitors in the specified subscription. The operations returns various properties of
 // each SAP monitor.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // options - MonitorsClientListOptions contains the optional parameters for the MonitorsClient.List method.
 func (client *MonitorsClient) NewListPager(options *MonitorsClientListOptions) *runtime.Pager[MonitorsClientListResponse] {
@@ -299,7 +300,6 @@ func (client *MonitorsClient) listHandleResponse(resp *http.Response) (MonitorsC
 }
 
 // NewListByResourceGroupPager - Gets a list of SAP monitors in the specified resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - MonitorsClientListByResourceGroupOptions contains the optional parameters for the MonitorsClient.ListByResourceGroup
