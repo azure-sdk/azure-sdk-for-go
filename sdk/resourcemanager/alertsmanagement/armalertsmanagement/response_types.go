@@ -85,6 +85,36 @@ type OperationsClientListResponse struct {
 	OperationsList
 }
 
+// PrometheusRuleGroupsClientCreateOrUpdateResponse contains the response from method PrometheusRuleGroupsClient.CreateOrUpdate.
+type PrometheusRuleGroupsClientCreateOrUpdateResponse struct {
+	PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupsClientDeleteResponse contains the response from method PrometheusRuleGroupsClient.Delete.
+type PrometheusRuleGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PrometheusRuleGroupsClientGetResponse contains the response from method PrometheusRuleGroupsClient.Get.
+type PrometheusRuleGroupsClientGetResponse struct {
+	PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupsClientListByResourceGroupResponse contains the response from method PrometheusRuleGroupsClient.ListByResourceGroup.
+type PrometheusRuleGroupsClientListByResourceGroupResponse struct {
+	PrometheusRuleGroupResourceCollection
+}
+
+// PrometheusRuleGroupsClientListBySubscriptionResponse contains the response from method PrometheusRuleGroupsClient.ListBySubscription.
+type PrometheusRuleGroupsClientListBySubscriptionResponse struct {
+	PrometheusRuleGroupResourceCollection
+}
+
+// PrometheusRuleGroupsClientUpdateResponse contains the response from method PrometheusRuleGroupsClient.Update.
+type PrometheusRuleGroupsClientUpdateResponse struct {
+	PrometheusRuleGroupResource
+}
+
 // SmartGroupsClientChangeStateResponse contains the response from method SmartGroupsClient.ChangeState.
 type SmartGroupsClientChangeStateResponse struct {
 	SmartGroup
