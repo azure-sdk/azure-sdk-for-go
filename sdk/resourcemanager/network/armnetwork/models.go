@@ -3141,6 +3141,9 @@ type BackendAddressPoolPropertiesFormat struct {
 	// An array of gateway load balancer tunnel interfaces.
 	TunnelInterfaces []*GatewayLoadBalancerTunnelInterface `json:"tunnelInterfaces,omitempty"`
 
+	// A reference to a virtual network.
+	VirtualNetwork *SubResource `json:"virtualNetwork,omitempty"`
+
 	// READ-ONLY; An array of references to IP addresses defined in network interfaces.
 	BackendIPConfigurations []*InterfaceIPConfiguration `json:"backendIPConfigurations,omitempty" azure:"ro"`
 
@@ -4657,7 +4660,7 @@ type DdosProtectionPlanPropertiesFormat struct {
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; The list of public IPs associated with the DDoS protection plan resource. This list is read-only.
-	PublicIPAddresses []*SubResource `json:"publicIpAddresses,omitempty" azure:"ro"`
+	PublicIPAddresses []*SubResource `json:"publicIPAddresses,omitempty" azure:"ro"`
 
 	// READ-ONLY; The resource GUID property of the DDoS protection plan resource. It uniquely identifies the resource, even if
 	// the user changes its name or migrate the resource across subscriptions or resource groups.
@@ -4820,6 +4823,15 @@ type Delegation struct {
 
 	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
 	Etag *string `json:"etag,omitempty" azure:"ro"`
+}
+
+// DelegationProperties - Properties of the delegation.
+type DelegationProperties struct {
+	// The service name to which the NVA is delegated.
+	ServiceName *string `json:"serviceName,omitempty"`
+
+	// READ-ONLY; The current provisioning state.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // DeviceProperties - List of properties of the device.
@@ -6780,6 +6792,30 @@ type FirewallPoliciesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// FirewallPoliciesClientBeginDeployDraftOptions contains the optional parameters for the FirewallPoliciesClient.BeginDeployDraft
+// method.
+type FirewallPoliciesClientBeginDeployDraftOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FirewallPoliciesClientCreateOrUpdateDraftOptions contains the optional parameters for the FirewallPoliciesClient.CreateOrUpdateDraft
+// method.
+type FirewallPoliciesClientCreateOrUpdateDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPoliciesClientDeleteDraftOptions contains the optional parameters for the FirewallPoliciesClient.DeleteDraft method.
+type FirewallPoliciesClientDeleteDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPoliciesClientGetDraftOptions contains the optional parameters for the FirewallPoliciesClient.GetDraft method.
+type FirewallPoliciesClientGetDraftOptions struct {
+	// Expands referenced resources.
+	Expand *string
+}
+
 // FirewallPoliciesClientGetOptions contains the optional parameters for the FirewallPoliciesClient.Get method.
 type FirewallPoliciesClientGetOptions struct {
 	// Expands referenced resources.
@@ -6835,6 +6871,53 @@ type FirewallPolicyCertificateAuthority struct {
 
 	// Name of the CA certificate.
 	Name *string `json:"name,omitempty"`
+}
+
+// FirewallPolicyDraft Resource.
+type FirewallPolicyDraft struct {
+	// Properties of the draft firewall policy
+	Properties *FirewallPolicyDraftPropertiesFormat `json:"properties,omitempty"`
+}
+
+type FirewallPolicyDraftPropertiesFormat struct {
+	// DNS Proxy Settings definition.
+	DNSSettings *DNSSettings `json:"dnsSettings,omitempty"`
+
+	// Explicit Proxy Settings definition.
+	ExplicitProxy *ExplicitProxySettings `json:"explicitProxy,omitempty"`
+
+	// Insights on Firewall Policy.
+	Insights *FirewallPolicyInsights `json:"insights,omitempty"`
+
+	// The configuration for Intrusion detection.
+	IntrusionDetection *FirewallPolicyIntrusionDetection `json:"intrusionDetection,omitempty"`
+
+	// SQL Settings definition.
+	SQL *FirewallPolicySQL `json:"sql,omitempty"`
+
+	// The private IP addresses/IP ranges to which traffic will not be SNAT.
+	Snat *FirewallPolicySNAT `json:"snat,omitempty"`
+
+	// The operation mode for Threat Intelligence.
+	ThreatIntelMode *AzureFirewallThreatIntelMode `json:"threatIntelMode,omitempty"`
+
+	// ThreatIntel Whitelist for Firewall Policy.
+	ThreatIntelWhitelist *FirewallPolicyThreatIntelWhitelist `json:"threatIntelWhitelist,omitempty"`
+}
+
+// FirewallPolicyDraftRuleCollectionGroup - Rule Collection Group resource.
+type FirewallPolicyDraftRuleCollectionGroup struct {
+	// The properties of the firewall policy rule collection group.
+	Properties *FirewallPolicyDraftRuleCollectionGroupProperties `json:"properties,omitempty"`
+}
+
+// FirewallPolicyDraftRuleCollectionGroupProperties - Properties of the rule collection group.
+type FirewallPolicyDraftRuleCollectionGroupProperties struct {
+	// Priority of the Firewall Policy Rule Collection Group resource.
+	Priority *int32 `json:"priority,omitempty"`
+
+	// Group of Firewall Policy rule collections.
+	RuleCollections []FirewallPolicyRuleCollectionClassification `json:"ruleCollections,omitempty"`
 }
 
 // FirewallPolicyFilterRuleCollection - Firewall Policy Filter Rule Collection.
@@ -7195,6 +7278,24 @@ type FirewallPolicyRuleCollectionGroupsClientBeginCreateOrUpdateOptions struct {
 type FirewallPolicyRuleCollectionGroupsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.CreateOrUpdateDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.DeleteDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FirewallPolicyRuleCollectionGroupsClientGetDraftOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.GetDraft
+// method.
+type FirewallPolicyRuleCollectionGroupsClientGetDraftOptions struct {
+	// placeholder for future optional parameters
 }
 
 // FirewallPolicyRuleCollectionGroupsClientGetOptions contains the optional parameters for the FirewallPolicyRuleCollectionGroupsClient.Get
@@ -10783,6 +10884,18 @@ type Parameter struct {
 	RoutePrefix []*string `json:"routePrefix,omitempty"`
 }
 
+// PartnerManagedResourceProperties - Properties of the partner managed resource.
+type PartnerManagedResourceProperties struct {
+	// READ-ONLY; The partner managed resource id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The partner managed ILB resource id
+	InternalLoadBalancerID *string `json:"internalLoadBalancerId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The partner managed SLB resource id
+	StandardLoadBalancerID *string `json:"standardLoadBalancerId,omitempty" azure:"ro"`
+}
+
 // PatchObject - Object for patch operations.
 type PatchObject struct {
 	// Resource tags.
@@ -10921,6 +11034,12 @@ type PeerRouteList struct {
 
 // PolicySettings - Defines contents of a web application firewall global configuration.
 type PolicySettings struct {
+	// If the action type is block, customer can override the response body. The body must be specified in base64 encoding.
+	CustomBlockResponseBody *string `json:"customBlockResponseBody,omitempty"`
+
+	// If the action type is block, customer can override the response status code.
+	CustomBlockResponseStatusCode *int32 `json:"customBlockResponseStatusCode,omitempty"`
+
 	// Maximum file upload size in Mb for WAF.
 	FileUploadLimitInMb *int32 `json:"fileUploadLimitInMb,omitempty"`
 
@@ -15201,13 +15320,19 @@ type VirtualAppliancePropertiesFormat struct {
 	// CloudInitConfigurationBlob storage URLs.
 	CloudInitConfigurationBlobs []*string `json:"cloudInitConfigurationBlobs,omitempty"`
 
+	// The delegation for the Virtual Appliance
+	Delegation *DelegationProperties `json:"delegation,omitempty"`
+
 	// Network Virtual Appliance SKU.
 	NvaSKU *VirtualApplianceSKUProperties `json:"nvaSku,omitempty"`
+
+	// The delegation for the Virtual Appliance
+	PartnerManagedResource *PartnerManagedResourceProperties `json:"partnerManagedResource,omitempty"`
 
 	// Public key for SSH login.
 	SSHPublicKey *string `json:"sshPublicKey,omitempty"`
 
-	// VirtualAppliance ASN.
+	// VirtualAppliance ASN. Microsoft private, public and IANA reserved ASN are not supported.
 	VirtualApplianceAsn *int64 `json:"virtualApplianceAsn,omitempty"`
 
 	// The Virtual Hub where Network Virtual Appliance is being deployed.
@@ -15215,6 +15340,9 @@ type VirtualAppliancePropertiesFormat struct {
 
 	// READ-ONLY; Address Prefix.
 	AddressPrefix *string `json:"addressPrefix,omitempty" azure:"ro"`
+
+	// READ-ONLY; The deployment type. PartnerManaged for the SaaS NVA
+	DeploymentType *string `json:"deploymentType,omitempty" azure:"ro"`
 
 	// READ-ONLY; List of references to InboundSecurityRules.
 	InboundSecurityRules []*SubResource `json:"inboundSecurityRules,omitempty" azure:"ro"`
@@ -16680,6 +16808,9 @@ type VirtualNetworkPropertiesFormat struct {
 
 	// A list of peerings in a Virtual Network.
 	VirtualNetworkPeerings []*VirtualNetworkPeering `json:"virtualNetworkPeerings,omitempty"`
+
+	// READ-ONLY; A collection of references to flow log resources.
+	FlowLogs []*FlowLog `json:"flowLogs,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of the virtual network resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`

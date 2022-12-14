@@ -1,5 +1,31 @@
 # Release History
 
+## 2.1.0 (2022-12-14)
+### Features Added
+
+- New function `*FirewallPoliciesClient.CreateOrUpdateDraft(context.Context, string, string, FirewallPolicyDraft, *FirewallPoliciesClientCreateOrUpdateDraftOptions) (FirewallPoliciesClientCreateOrUpdateDraftResponse, error)`
+- New function `*FirewallPoliciesClient.DeleteDraft(context.Context, string, string, *FirewallPoliciesClientDeleteDraftOptions) (FirewallPoliciesClientDeleteDraftResponse, error)`
+- New function `*FirewallPoliciesClient.BeginDeployDraft(context.Context, string, string, *FirewallPoliciesClientBeginDeployDraftOptions) (*runtime.Poller[FirewallPoliciesClientDeployDraftResponse], error)`
+- New function `*FirewallPoliciesClient.GetDraft(context.Context, string, string, *FirewallPoliciesClientGetDraftOptions) (FirewallPoliciesClientGetDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.CreateOrUpdateDraft(context.Context, string, string, string, FirewallPolicyDraftRuleCollectionGroup, *FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftOptions) (FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.DeleteDraft(context.Context, string, string, string, FirewallPolicyRuleCollectionGroup, *FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions) (FirewallPolicyRuleCollectionGroupsClientDeleteDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.GetDraft(context.Context, string, string, string, FirewallPolicyRuleCollectionGroup, *FirewallPolicyRuleCollectionGroupsClientGetDraftOptions) (FirewallPolicyRuleCollectionGroupsClientGetDraftResponse, error)`
+- New struct `DelegationProperties`
+- New struct `FirewallPoliciesClientDeployDraftResponse`
+- New struct `FirewallPolicyDraft`
+- New struct `FirewallPolicyDraftPropertiesFormat`
+- New struct `FirewallPolicyDraftRuleCollectionGroup`
+- New struct `FirewallPolicyDraftRuleCollectionGroupProperties`
+- New struct `PartnerManagedResourceProperties`
+- New field `VirtualNetwork` in struct `BackendAddressPoolPropertiesFormat`
+- New field `CustomBlockResponseBody` in struct `PolicySettings`
+- New field `CustomBlockResponseStatusCode` in struct `PolicySettings`
+- New field `Delegation` in struct `VirtualAppliancePropertiesFormat`
+- New field `DeploymentType` in struct `VirtualAppliancePropertiesFormat`
+- New field `PartnerManagedResource` in struct `VirtualAppliancePropertiesFormat`
+- New field `FlowLogs` in struct `VirtualNetworkPropertiesFormat`
+
+
 ## 2.0.1 (2022-10-14)
 ### Others Changes
 - Update live test dependencies
