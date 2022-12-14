@@ -59,7 +59,7 @@ func NewComputeClient(subscriptionID string, credential azcore.TokenCredential, 
 // operation. If your intent is to create a new compute, do a GET first to verify that it does not
 // exist yet.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -82,7 +82,7 @@ func (client *ComputeClient) BeginCreateOrUpdate(ctx context.Context, resourceGr
 // operation. If your intent is to create a new compute, do a GET first to verify that it does not
 // exist yet.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 func (client *ComputeClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, parameters ComputeResource, options *ComputeClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, computeName, parameters, options)
 	if err != nil {
@@ -122,7 +122,7 @@ func (client *ComputeClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -130,7 +130,7 @@ func (client *ComputeClient) createOrUpdateCreateRequest(ctx context.Context, re
 
 // BeginDelete - Deletes specified Machine Learning compute.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -151,7 +151,7 @@ func (client *ComputeClient) BeginDelete(ctx context.Context, resourceGroupName 
 
 // Delete - Deletes specified Machine Learning compute.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 func (client *ComputeClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, underlyingResourceAction UnderlyingResourceAction, options *ComputeClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, computeName, underlyingResourceAction, options)
 	if err != nil {
@@ -191,7 +191,7 @@ func (client *ComputeClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	reqQP.Set("underlyingResourceAction", string(underlyingResourceAction))
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -201,7 +201,7 @@ func (client *ComputeClient) deleteCreateRequest(ctx context.Context, resourceGr
 // Get - Gets compute definition by its name. Any secrets (storage keys, service credentials, etc) are not returned - use
 // 'keys' nested resource to get them.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -245,7 +245,7 @@ func (client *ComputeClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -261,7 +261,7 @@ func (client *ComputeClient) getHandleResponse(resp *http.Response) (ComputeClie
 }
 
 // NewListPager - Gets computes in specified workspace.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // options - ComputeClientListOptions contains the optional parameters for the ComputeClient.List method.
@@ -313,7 +313,7 @@ func (client *ComputeClient) listCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
@@ -333,7 +333,7 @@ func (client *ComputeClient) listHandleResponse(resp *http.Response) (ComputeCli
 
 // ListKeys - Gets secrets related to Machine Learning compute (storage keys, service credentials, etc).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -377,7 +377,7 @@ func (client *ComputeClient) listKeysCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -393,7 +393,7 @@ func (client *ComputeClient) listKeysHandleResponse(resp *http.Response) (Comput
 }
 
 // NewListNodesPager - Get the details (e.g IP address, port etc) of all the compute nodes in the compute.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -450,7 +450,7 @@ func (client *ComputeClient) listNodesCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -467,7 +467,7 @@ func (client *ComputeClient) listNodesHandleResponse(resp *http.Response) (Compu
 
 // BeginRestart - Posts a restart action to a compute instance
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -486,7 +486,7 @@ func (client *ComputeClient) BeginRestart(ctx context.Context, resourceGroupName
 
 // Restart - Posts a restart action to a compute instance
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 func (client *ComputeClient) restart(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, options *ComputeClientBeginRestartOptions) (*http.Response, error) {
 	req, err := client.restartCreateRequest(ctx, resourceGroupName, workspaceName, computeName, options)
 	if err != nil {
@@ -526,7 +526,7 @@ func (client *ComputeClient) restartCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -534,7 +534,7 @@ func (client *ComputeClient) restartCreateRequest(ctx context.Context, resourceG
 
 // BeginStart - Posts a start action to a compute instance
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -553,7 +553,7 @@ func (client *ComputeClient) BeginStart(ctx context.Context, resourceGroupName s
 
 // Start - Posts a start action to a compute instance
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 func (client *ComputeClient) start(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, options *ComputeClientBeginStartOptions) (*http.Response, error) {
 	req, err := client.startCreateRequest(ctx, resourceGroupName, workspaceName, computeName, options)
 	if err != nil {
@@ -593,7 +593,7 @@ func (client *ComputeClient) startCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -601,7 +601,7 @@ func (client *ComputeClient) startCreateRequest(ctx context.Context, resourceGro
 
 // BeginStop - Posts a stop action to a compute instance
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -620,7 +620,7 @@ func (client *ComputeClient) BeginStop(ctx context.Context, resourceGroupName st
 
 // Stop - Posts a stop action to a compute instance
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 func (client *ComputeClient) stop(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, options *ComputeClientBeginStopOptions) (*http.Response, error) {
 	req, err := client.stopCreateRequest(ctx, resourceGroupName, workspaceName, computeName, options)
 	if err != nil {
@@ -660,7 +660,7 @@ func (client *ComputeClient) stopCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -669,7 +669,7 @@ func (client *ComputeClient) stopCreateRequest(ctx context.Context, resourceGrou
 // BeginUpdate - Updates properties of a compute. This call will overwrite a compute if it exists. This is a nonrecoverable
 // operation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // workspaceName - Name of Azure Machine Learning workspace.
 // computeName - Name of the Azure Machine Learning compute.
@@ -689,7 +689,7 @@ func (client *ComputeClient) BeginUpdate(ctx context.Context, resourceGroupName 
 
 // Update - Updates properties of a compute. This call will overwrite a compute if it exists. This is a nonrecoverable operation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01-preview
 func (client *ComputeClient) update(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, parameters ClusterUpdateParameters, options *ComputeClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, workspaceName, computeName, parameters, options)
 	if err != nil {
@@ -729,7 +729,115 @@ func (client *ComputeClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, parameters)
+}
+
+// UpdateCustomServices - Updates the custom services list. The list of custom services provided shall be overwritten
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-12-01-preview
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// workspaceName - Name of Azure Machine Learning workspace.
+// computeName - Name of the Azure Machine Learning compute.
+// customServices - New list of Custom Services.
+// options - ComputeClientUpdateCustomServicesOptions contains the optional parameters for the ComputeClient.UpdateCustomServices
+// method.
+func (client *ComputeClient) UpdateCustomServices(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, customServices []*CustomService, options *ComputeClientUpdateCustomServicesOptions) (ComputeClientUpdateCustomServicesResponse, error) {
+	req, err := client.updateCustomServicesCreateRequest(ctx, resourceGroupName, workspaceName, computeName, customServices, options)
+	if err != nil {
+		return ComputeClientUpdateCustomServicesResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ComputeClientUpdateCustomServicesResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ComputeClientUpdateCustomServicesResponse{}, runtime.NewResponseError(resp)
+	}
+	return ComputeClientUpdateCustomServicesResponse{}, nil
+}
+
+// updateCustomServicesCreateRequest creates the UpdateCustomServices request.
+func (client *ComputeClient) updateCustomServicesCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, customServices []*CustomService, options *ComputeClientUpdateCustomServicesOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/computes/{computeName}/customServices"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if computeName == "" {
+		return nil, errors.New("parameter computeName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{computeName}", url.PathEscape(computeName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-12-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, customServices)
+}
+
+// UpdateIdleShutdownSetting - Updates the idle shutdown setting of a compute instance.
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-12-01-preview
+// resourceGroupName - The name of the resource group. The name is case insensitive.
+// workspaceName - Name of Azure Machine Learning workspace.
+// computeName - Name of the Azure Machine Learning compute.
+// parameters - The object for updating idle shutdown setting of specified ComputeInstance.
+// options - ComputeClientUpdateIdleShutdownSettingOptions contains the optional parameters for the ComputeClient.UpdateIdleShutdownSetting
+// method.
+func (client *ComputeClient) UpdateIdleShutdownSetting(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, parameters IdleShutdownSetting, options *ComputeClientUpdateIdleShutdownSettingOptions) (ComputeClientUpdateIdleShutdownSettingResponse, error) {
+	req, err := client.updateIdleShutdownSettingCreateRequest(ctx, resourceGroupName, workspaceName, computeName, parameters, options)
+	if err != nil {
+		return ComputeClientUpdateIdleShutdownSettingResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return ComputeClientUpdateIdleShutdownSettingResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ComputeClientUpdateIdleShutdownSettingResponse{}, runtime.NewResponseError(resp)
+	}
+	return ComputeClientUpdateIdleShutdownSettingResponse{}, nil
+}
+
+// updateIdleShutdownSettingCreateRequest creates the UpdateIdleShutdownSetting request.
+func (client *ComputeClient) updateIdleShutdownSettingCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, computeName string, parameters IdleShutdownSetting, options *ComputeClientUpdateIdleShutdownSettingOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/computes/{computeName}/updateIdleShutdownSetting"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if computeName == "" {
+		return nil, errors.New("parameter computeName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{computeName}", url.PathEscape(computeName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
