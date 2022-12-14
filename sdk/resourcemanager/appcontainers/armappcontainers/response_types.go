@@ -211,7 +211,7 @@ type ContainerAppsClientListSecretsResponse struct {
 
 // ContainerAppsClientUpdateResponse contains the response from method ContainerAppsClient.Update.
 type ContainerAppsClientUpdateResponse struct {
-	// placeholder for future response values
+	ContainerApp
 }
 
 // ContainerAppsDiagnosticsClientGetDetectorResponse contains the response from method ContainerAppsDiagnosticsClient.GetDetector.
@@ -319,6 +319,31 @@ type DaprComponentsClientListSecretsResponse struct {
 	DaprSecretsCollection
 }
 
+// ManagedCertificatesClientCreateOrUpdateResponse contains the response from method ManagedCertificatesClient.CreateOrUpdate.
+type ManagedCertificatesClientCreateOrUpdateResponse struct {
+	ManagedCertificate
+}
+
+// ManagedCertificatesClientDeleteResponse contains the response from method ManagedCertificatesClient.Delete.
+type ManagedCertificatesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagedCertificatesClientGetResponse contains the response from method ManagedCertificatesClient.Get.
+type ManagedCertificatesClientGetResponse struct {
+	ManagedCertificate
+}
+
+// ManagedCertificatesClientListResponse contains the response from method ManagedCertificatesClient.List.
+type ManagedCertificatesClientListResponse struct {
+	ManagedCertificateCollection
+}
+
+// ManagedCertificatesClientUpdateResponse contains the response from method ManagedCertificatesClient.Update.
+type ManagedCertificatesClientUpdateResponse struct {
+	ManagedCertificate
+}
+
 // ManagedEnvironmentDiagnosticsClientGetDetectorResponse contains the response from method ManagedEnvironmentDiagnosticsClient.GetDetector.
 type ManagedEnvironmentDiagnosticsClientGetDetectorResponse struct {
 	Diagnostics
@@ -366,7 +391,7 @@ type ManagedEnvironmentsClientListWorkloadProfileStatesResponse struct {
 
 // ManagedEnvironmentsClientUpdateResponse contains the response from method ManagedEnvironmentsClient.Update.
 type ManagedEnvironmentsClientUpdateResponse struct {
-	// placeholder for future response values
+	ManagedEnvironment
 }
 
 // ManagedEnvironmentsDiagnosticsClientGetRootResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.GetRoot.
