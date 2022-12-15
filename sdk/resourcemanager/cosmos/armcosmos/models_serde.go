@@ -6878,6 +6878,41 @@ func (m *MongoDBDatabaseResource) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type MongoDataTransferDataSourceSink.
+func (m MongoDataTransferDataSourceSink) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "collectionName", m.CollectionName)
+	objectMap["component"] = DataTransferComponentCosmosDBMongo
+	populate(objectMap, "databaseName", m.DatabaseName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type MongoDataTransferDataSourceSink.
+func (m *MongoDataTransferDataSourceSink) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "collectionName":
+			err = unpopulate(val, "CollectionName", &m.CollectionName)
+			delete(rawMsg, key)
+		case "component":
+			err = unpopulate(val, "Component", &m.Component)
+			delete(rawMsg, key)
+		case "databaseName":
+			err = unpopulate(val, "DatabaseName", &m.DatabaseName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type MongoIndex.
 func (m MongoIndex) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})

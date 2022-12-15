@@ -11,7 +11,7 @@ package armcosmos
 
 const (
 	moduleName    = "armcosmos"
-	moduleVersion = "v2.2.0-beta.1"
+	moduleVersion = "v2.2.0-beta.2"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -255,6 +255,7 @@ type DataTransferComponent string
 const (
 	DataTransferComponentAzureBlobStorage  DataTransferComponent = "AzureBlobStorage"
 	DataTransferComponentCosmosDBCassandra DataTransferComponent = "CosmosDBCassandra"
+	DataTransferComponentCosmosDBMongo     DataTransferComponent = "CosmosDBMongo"
 	DataTransferComponentCosmosDBSQL       DataTransferComponent = "CosmosDBSql"
 )
 
@@ -263,6 +264,7 @@ func PossibleDataTransferComponentValues() []DataTransferComponent {
 	return []DataTransferComponent{
 		DataTransferComponentAzureBlobStorage,
 		DataTransferComponentCosmosDBCassandra,
+		DataTransferComponentCosmosDBMongo,
 		DataTransferComponentCosmosDBSQL,
 	}
 }

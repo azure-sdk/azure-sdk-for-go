@@ -1435,7 +1435,8 @@ type DataCenterResourceProperties struct {
 // DataTransferDataSourceSinkClassification provides polymorphic access to related types.
 // Call the interface's GetDataTransferDataSourceSink() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureBlobDataTransferDataSourceSink, *CassandraDataTransferDataSourceSink, *DataTransferDataSourceSink, *SQLDataTransferDataSourceSink
+// - *AzureBlobDataTransferDataSourceSink, *CassandraDataTransferDataSourceSink, *DataTransferDataSourceSink, *MongoDataTransferDataSourceSink,
+// - *SQLDataTransferDataSourceSink
 type DataTransferDataSourceSinkClassification interface {
 	// GetDataTransferDataSourceSink returns the DataTransferDataSourceSink content of the underlying type.
 	GetDataTransferDataSourceSink() *DataTransferDataSourceSink
@@ -3638,6 +3639,25 @@ type MongoDBResourcesClientListMongoRoleDefinitionsOptions struct {
 // method.
 type MongoDBResourcesClientListMongoUserDefinitionsOptions struct {
 	// placeholder for future optional parameters
+}
+
+// MongoDataTransferDataSourceSink - A CosmosDB Cassandra API data source/sink
+type MongoDataTransferDataSourceSink struct {
+	// REQUIRED
+	CollectionName *string `json:"collectionName,omitempty"`
+
+	// REQUIRED
+	Component *DataTransferComponent `json:"component,omitempty"`
+
+	// REQUIRED
+	DatabaseName *string `json:"databaseName,omitempty"`
+}
+
+// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type MongoDataTransferDataSourceSink.
+func (m *MongoDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
+	return &DataTransferDataSourceSink{
+		Component: m.Component,
+	}
 }
 
 // MongoIndex - Cosmos DB MongoDB collection index key
