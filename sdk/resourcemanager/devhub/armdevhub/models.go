@@ -26,6 +26,39 @@ type ACR struct {
 	AcrSubscriptionID *string `json:"acrSubscriptionId,omitempty"`
 }
 
+// ArtifactGenerationProperties - Properties used for generating artifacts such as Dockerfiles and manifests.
+type ArtifactGenerationProperties struct {
+	// The name of the app.
+	AppName *string `json:"appName,omitempty"`
+
+	// The version of the language image used for building the code in the generated dockerfile.
+	BuilderVersion *string `json:"builderVersion,omitempty"`
+
+	// The mode of generation to be used for generating Dockerfiles.
+	DockerfileGenerationMode *DockerfileGenerationMode `json:"dockerfileGenerationMode,omitempty"`
+
+	// The directory to output the generated Dockerfile to.
+	DockerfileOutputDirectory *string `json:"dockerfileOutputDirectory,omitempty"`
+
+	// The programming language used.
+	GenerationLanguage *GenerationLanguage `json:"generationLanguage,omitempty"`
+
+	// The version of the language image used for execution in the generated dockerfile.
+	LanguageVersion *string `json:"languageVersion,omitempty"`
+
+	// The mode of generation to be used for generating Dockerfiles.
+	ManifestGenerationMode *ManifestGenerationMode `json:"manifestGenerationMode,omitempty"`
+
+	// The directory to output the generated manifests to.
+	ManifestOutputDirectory *string `json:"manifestOutputDirectory,omitempty"`
+
+	// Determines the type of manifests within the repository.
+	ManifestType *ManifestType `json:"manifestType,omitempty"`
+
+	// The port the application is exposed on.
+	Port *string `json:"port,omitempty"`
+}
+
 // DeleteWorkflowResponse - delete response if content must be provided on delete operation
 type DeleteWorkflowResponse struct {
 	// delete status message
@@ -118,8 +151,8 @@ type GitHubWorkflowProfile struct {
 	// The Azure Kubernetes Cluster Resource the application will be deployed to.
 	AksResourceID *string `json:"aksResourceId,omitempty"`
 
-	// Determines the type of manifests within the repository.
-	AuthStatus *ManifestType `json:"authStatus,omitempty"`
+	// Properties used for generating artifacts such as Dockerfiles and manifests.
+	ArtifactGenerationProperties *ArtifactGenerationProperties `json:"artifactGenerationProperties,omitempty"`
 
 	// Repository Branch Name
 	BranchName           *string               `json:"branchName,omitempty"`
@@ -143,6 +176,9 @@ type GitHubWorkflowProfile struct {
 
 	// Repository Owner
 	RepositoryOwner *string `json:"repositoryOwner,omitempty"`
+
+	// READ-ONLY; Determines the authorization status of requests.
+	AuthStatus *AuthorizationStatus `json:"authStatus,omitempty" azure:"ro"`
 
 	// READ-ONLY; The status of the Pull Request submitted against the users repository.
 	PrStatus *PullRequestStatus `json:"prStatus,omitempty" azure:"ro"`
@@ -285,8 +321,6 @@ type WorkflowClientGetOptions struct {
 
 // WorkflowClientListByResourceGroupOptions contains the optional parameters for the WorkflowClient.ListByResourceGroup method.
 type WorkflowClientListByResourceGroupOptions struct {
-	// The ManagedCluster resource associated with the workflows.
-	ManagedClusterResource *string
 }
 
 // WorkflowClientListOptions contains the optional parameters for the WorkflowClient.List method.
