@@ -1,5 +1,31 @@
 # Release History
 
+## 3.0.0 (2022-12-16)
+### Breaking Changes
+
+- Struct `PeerRouteList` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse` has been removed
+
+### Features Added
+
+- New struct `DelegationProperties`
+- New struct `PartnerManagedResourceProperties`
+- New field `VirtualNetwork` in struct `BackendAddressPoolPropertiesFormat`
+- New field `AuthorizationStatus` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `CustomBlockResponseBody` in struct `PolicySettings`
+- New field `CustomBlockResponseStatusCode` in struct `PolicySettings`
+- New field `FileUploadEnforcement` in struct `PolicySettings`
+- New field `RequestBodyEnforcement` in struct `PolicySettings`
+- New field `RequestBodyInspectLimitInKB` in struct `PolicySettings`
+- New field `PrivateEndpointLocation` in struct `PrivateEndpointConnectionProperties`
+- New field `Delegation` in struct `VirtualAppliancePropertiesFormat`
+- New field `DeploymentType` in struct `VirtualAppliancePropertiesFormat`
+- New field `PartnerManagedResource` in struct `VirtualAppliancePropertiesFormat`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse`
+
+
 ## 2.0.1 (2022-10-14)
 ### Others Changes
 - Update live test dependencies
