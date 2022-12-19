@@ -1,5 +1,23 @@
 # Release History
 
+## 2.0.0 (2022-12-19)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+- Struct `ListQueryKeysResult` has been removed
+- Struct `PrivateEndpointConnectionListResult` has been removed
+- Struct `PrivateLinkResourcesResult` has been removed
+- Struct `ServiceListResult` has been removed
+- Struct `SharedPrivateLinkResourceListResult` has been removed
+
+### Features Added
+
+- New type alias `PrivateLinkServiceConnectionProvisioningState` with values `PrivateLinkServiceConnectionProvisioningStateCanceled`, `PrivateLinkServiceConnectionProvisioningStateDeleting`, `PrivateLinkServiceConnectionProvisioningStateFailed`, `PrivateLinkServiceConnectionProvisioningStateIncomplete`, `PrivateLinkServiceConnectionProvisioningStateSucceeded`, `PrivateLinkServiceConnectionProvisioningStateUpdating`
+- New field `GroupID` in struct `PrivateEndpointConnectionProperties`
+- New field `ProvisioningState` in struct `PrivateEndpointConnectionProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/search/armsearch` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
