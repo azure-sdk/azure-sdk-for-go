@@ -1,5 +1,24 @@
 # Release History
 
+## 1.1.0-beta.2 (2022-12-19)
+### Features Added
+
+- New type alias `AggregateErrors` with values `AggregateErrorsFalse`, `AggregateErrorsTrue`
+- New type alias `MedtechMappingValidationCategory` with values `MedtechMappingValidationCategoryFHIRTRANSFORMATION`, `MedtechMappingValidationCategoryNORMALIZATION`
+- New type alias `MedtechMappingValidationErrorLevel` with values `MedtechMappingValidationErrorLevelERROR`, `MedtechMappingValidationErrorLevelWARN`
+- New function `*ServicesClient.ValidateMedtechMappings(context.Context, ValidateMedtechMappingsParameters, *ServicesClientValidateMedtechMappingsOptions) (ServicesClientValidateMedtechMappingsResponse, error)`
+- New struct `CorsConfiguration`
+- New struct `MedtechMappingValidationError`
+- New struct `MedtechMappingValidationLineInfo`
+- New struct `MedtechMeasurement`
+- New struct `MedtechMeasurementProperty`
+- New struct `ValidateMedtechMappingsDeviceResult`
+- New struct `ValidateMedtechMappingsParameters`
+- New struct `ValidateMedtechMappingsResult`
+- New struct `ValidateMedtechMappingsResultTemplateResult`
+- New field `CorsConfiguration` in struct `DicomServiceProperties`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
