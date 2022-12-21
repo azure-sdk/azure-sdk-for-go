@@ -58,7 +58,7 @@ func NewClusterPrincipalAssignmentsClient(subscriptionID string, credential azco
 
 // CheckNameAvailability - Checks that the principal assignment name is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // principalAssignmentName - The name of the principal assignment.
@@ -99,7 +99,7 @@ func (client *ClusterPrincipalAssignmentsClient) checkNameAvailabilityCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, principalAssignmentName)
@@ -116,7 +116,7 @@ func (client *ClusterPrincipalAssignmentsClient) checkNameAvailabilityHandleResp
 
 // BeginCreateOrUpdate - Create a Kusto cluster principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // principalAssignmentName - The name of the Kusto principalAssignment.
@@ -137,7 +137,7 @@ func (client *ClusterPrincipalAssignmentsClient) BeginCreateOrUpdate(ctx context
 
 // CreateOrUpdate - Create a Kusto cluster principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClusterPrincipalAssignmentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, principalAssignmentName string, parameters ClusterPrincipalAssignment, options *ClusterPrincipalAssignmentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, clusterName, principalAssignmentName, parameters, options)
 	if err != nil {
@@ -177,7 +177,7 @@ func (client *ClusterPrincipalAssignmentsClient) createOrUpdateCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -185,7 +185,7 @@ func (client *ClusterPrincipalAssignmentsClient) createOrUpdateCreateRequest(ctx
 
 // BeginDelete - Deletes a Kusto cluster principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // principalAssignmentName - The name of the Kusto principalAssignment.
@@ -205,7 +205,7 @@ func (client *ClusterPrincipalAssignmentsClient) BeginDelete(ctx context.Context
 
 // Delete - Deletes a Kusto cluster principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClusterPrincipalAssignmentsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, principalAssignmentName string, options *ClusterPrincipalAssignmentsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, principalAssignmentName, options)
 	if err != nil {
@@ -245,7 +245,7 @@ func (client *ClusterPrincipalAssignmentsClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +253,7 @@ func (client *ClusterPrincipalAssignmentsClient) deleteCreateRequest(ctx context
 
 // Get - Gets a Kusto cluster principalAssignment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // principalAssignmentName - The name of the Kusto principalAssignment.
@@ -298,7 +298,7 @@ func (client *ClusterPrincipalAssignmentsClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -314,7 +314,7 @@ func (client *ClusterPrincipalAssignmentsClient) getHandleResponse(resp *http.Re
 }
 
 // NewListPager - Lists all Kusto cluster principalAssignments.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClusterPrincipalAssignmentsClientListOptions contains the optional parameters for the ClusterPrincipalAssignmentsClient.List
@@ -361,7 +361,7 @@ func (client *ClusterPrincipalAssignmentsClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -352,6 +352,9 @@ type ClusterProperties struct {
 	// KeyVault properties for the cluster encryption.
 	KeyVaultProperties *KeyVaultProperties `json:"keyVaultProperties,omitempty"`
 
+	// List of the cluster's language extensions.
+	LanguageExtensions *LanguageExtensionsList `json:"languageExtensions,omitempty"`
+
 	// Optimized auto scale definition.
 	OptimizedAutoscale *OptimizedAutoscale `json:"optimizedAutoscale,omitempty"`
 
@@ -376,9 +379,6 @@ type ClusterProperties struct {
 
 	// READ-ONLY; The cluster data ingestion URI.
 	DataIngestionURI *string `json:"dataIngestionUri,omitempty" azure:"ro"`
-
-	// READ-ONLY; List of the cluster's language extensions.
-	LanguageExtensions *LanguageExtensionsList `json:"languageExtensions,omitempty" azure:"ro"`
 
 	// READ-ONLY; A list of private endpoint connections.
 	PrivateEndpointConnections []*PrivateEndpointConnection `json:"privateEndpointConnections,omitempty" azure:"ro"`
@@ -547,10 +547,74 @@ type ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalpr
 	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
 }
 
+// CosmosDbDataConnection - Class representing a CosmosDb data connection.
+type CosmosDbDataConnection struct {
+	// REQUIRED; Kind of the endpoint for the data connection
+	Kind *DataConnectionKind `json:"kind,omitempty"`
+
+	// Resource location.
+	Location *string `json:"location,omitempty"`
+
+	// The properties of the CosmosDb data connection.
+	Properties *CosmosDbDataConnectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GetDataConnection implements the DataConnectionClassification interface for type CosmosDbDataConnection.
+func (c *CosmosDbDataConnection) GetDataConnection() *DataConnection {
+	return &DataConnection{
+		Location: c.Location,
+		Kind:     c.Kind,
+		ID:       c.ID,
+		Name:     c.Name,
+		Type:     c.Type,
+	}
+}
+
+// CosmosDbDataConnectionProperties - Class representing the Kusto CosmosDb data connection properties.
+type CosmosDbDataConnectionProperties struct {
+	// REQUIRED; The resource ID of the Cosmos DB account used to create the data connection.
+	CosmosDbAccountResourceID *string `json:"cosmosDbAccountResourceId,omitempty"`
+
+	// REQUIRED; The name of an existing container in the Cosmos DB database.
+	CosmosDbContainer *string `json:"cosmosDbContainer,omitempty"`
+
+	// REQUIRED; The name of an existing database in the Cosmos DB account.
+	CosmosDbDatabase *string `json:"cosmosDbDatabase,omitempty"`
+
+	// REQUIRED; The resource ID of a managed system or user-assigned identity. The identity is used to authenticate with Cosmos
+	// DB.
+	ManagedIdentityResourceID *string `json:"managedIdentityResourceId,omitempty"`
+
+	// REQUIRED; The case-sensitive name of the existing target table in your cluster. Retrieved data is ingested into this table.
+	TableName *string `json:"tableName,omitempty"`
+
+	// The name of an existing mapping rule to use when ingesting the retrieved data.
+	MappingRuleName *string `json:"mappingRuleName,omitempty"`
+
+	// Optional. If defined, the data connection retrieves Cosmos DB documents created or updated after the specified retrieval
+	// start date.
+	RetrievalStartDate *time.Time `json:"retrievalStartDate,omitempty"`
+
+	// READ-ONLY; The object ID of the managed identity resource.
+	ManagedIdentityObjectID *string `json:"managedIdentityObjectId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The provisioned state of the resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
 // DataConnectionClassification provides polymorphic access to related types.
 // Call the interface's GetDataConnection() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *DataConnection, *EventGridDataConnection, *EventHubDataConnection, *IotHubDataConnection
+// - *CosmosDbDataConnection, *DataConnection, *EventGridDataConnection, *EventHubDataConnection, *IotHubDataConnection
 type DataConnectionClassification interface {
 	// GetDataConnection returns the DataConnection content of the underlying type.
 	GetDataConnection() *DataConnection
@@ -1174,6 +1238,9 @@ type KeyVaultProperties struct {
 
 // LanguageExtension - The language extension object.
 type LanguageExtension struct {
+	// The language extension image name.
+	LanguageExtensionImageName *LanguageExtensionImageName `json:"languageExtensionImageName,omitempty"`
+
 	// The language extension name.
 	LanguageExtensionName *LanguageExtensionName `json:"languageExtensionName,omitempty"`
 }
@@ -1684,6 +1751,24 @@ type ReadWriteDatabaseProperties struct {
 	Statistics *DatabaseStatistics `json:"statistics,omitempty" azure:"ro"`
 }
 
+// ResourceSKUCapabilities - Describes The SKU capabilities object.
+type ResourceSKUCapabilities struct {
+	// READ-ONLY; An invariant to describe the feature.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; An invariant if the feature is measured by quantity.
+	Value *string `json:"value,omitempty" azure:"ro"`
+}
+
+// ResourceSKUZoneDetails - Describes The zonal capabilities of a SKU.
+type ResourceSKUZoneDetails struct {
+	// READ-ONLY; A list of capabilities that are available for the SKU in the specified list of zones.
+	Capabilities []*ResourceSKUCapabilities `json:"capabilities,omitempty" azure:"ro"`
+
+	// READ-ONLY; The set of zones that the SKU is available in with the specified capabilities.
+	Name []*string `json:"name,omitempty" azure:"ro"`
+}
+
 // SKUDescription - The Kusto SKU description of given resource type
 type SKUDescription struct {
 	// READ-ONLY; Locations and zones
@@ -1716,8 +1801,16 @@ type SKULocationInfoItem struct {
 	// REQUIRED; The available location of the SKU.
 	Location *string `json:"location,omitempty"`
 
+	// Gets details of capabilities available to a SKU in specific zones.
+	ZoneDetails []*ResourceSKUZoneDetails `json:"zoneDetails,omitempty"`
+
 	// The available zone of the SKU.
 	Zones []*string `json:"zones,omitempty"`
+}
+
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
+type SKUsClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
 // Script - Class representing a database script.
