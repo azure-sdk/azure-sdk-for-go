@@ -58,7 +58,7 @@ func NewAccountsClient(subscriptionID string, credential azcore.TokenCredential,
 // BeginCreate - Create Cognitive Services Account. Accounts is a resource group wide resource type. It holds the keys for
 // developer to access intelligent APIs. It's also the resource type for billing.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // account - The parameters to provide for the created account.
@@ -78,7 +78,7 @@ func (client *AccountsClient) BeginCreate(ctx context.Context, resourceGroupName
 // Create - Create Cognitive Services Account. Accounts is a resource group wide resource type. It holds the keys for developer
 // to access intelligent APIs. It's also the resource type for billing.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 func (client *AccountsClient) create(ctx context.Context, resourceGroupName string, accountName string, account Account, options *AccountsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, account, options)
 	if err != nil {
@@ -114,7 +114,7 @@ func (client *AccountsClient) createCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, account)
@@ -122,7 +122,7 @@ func (client *AccountsClient) createCreateRequest(ctx context.Context, resourceG
 
 // BeginDelete - Deletes a Cognitive Services account from the resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // options - AccountsClientBeginDeleteOptions contains the optional parameters for the AccountsClient.BeginDelete method.
@@ -140,7 +140,7 @@ func (client *AccountsClient) BeginDelete(ctx context.Context, resourceGroupName
 
 // Delete - Deletes a Cognitive Services account from the resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 func (client *AccountsClient) deleteOperation(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -176,7 +176,7 @@ func (client *AccountsClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -184,7 +184,7 @@ func (client *AccountsClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Returns a Cognitive Services account specified by the parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // options - AccountsClientGetOptions contains the optional parameters for the AccountsClient.Get method.
@@ -223,7 +223,7 @@ func (client *AccountsClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,7 +239,7 @@ func (client *AccountsClient) getHandleResponse(resp *http.Response) (AccountsCl
 }
 
 // NewListPager - Returns all the resources of a particular type belonging to a subscription.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // options - AccountsClientListOptions contains the optional parameters for the AccountsClient.List method.
 func (client *AccountsClient) NewListPager(options *AccountsClientListOptions) *runtime.Pager[AccountsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AccountsClientListResponse]{
@@ -281,7 +281,7 @@ func (client *AccountsClient) listCreateRequest(ctx context.Context, options *Ac
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -297,7 +297,7 @@ func (client *AccountsClient) listHandleResponse(resp *http.Response) (AccountsC
 }
 
 // NewListByResourceGroupPager - Returns all the resources of a particular type belonging to a resource group
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - AccountsClientListByResourceGroupOptions contains the optional parameters for the AccountsClient.ListByResourceGroup
 // method.
@@ -345,7 +345,7 @@ func (client *AccountsClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -362,7 +362,7 @@ func (client *AccountsClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // ListKeys - Lists the account keys for the specified Cognitive Services account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // options - AccountsClientListKeysOptions contains the optional parameters for the AccountsClient.ListKeys method.
@@ -401,7 +401,7 @@ func (client *AccountsClient) listKeysCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -417,7 +417,7 @@ func (client *AccountsClient) listKeysHandleResponse(resp *http.Response) (Accou
 }
 
 // NewListModelsPager - List available Models for the requested Cognitive Services account
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // options - AccountsClientListModelsOptions contains the optional parameters for the AccountsClient.ListModels method.
@@ -469,7 +469,7 @@ func (client *AccountsClient) listModelsCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -486,7 +486,7 @@ func (client *AccountsClient) listModelsHandleResponse(resp *http.Response) (Acc
 
 // ListSKUs - List available SKUs for the requested Cognitive Services account
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // options - AccountsClientListSKUsOptions contains the optional parameters for the AccountsClient.ListSKUs method.
@@ -525,7 +525,7 @@ func (client *AccountsClient) listSKUsCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -542,7 +542,7 @@ func (client *AccountsClient) listSKUsHandleResponse(resp *http.Response) (Accou
 
 // ListUsages - Get usages for the requested Cognitive Services account
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // options - AccountsClientListUsagesOptions contains the optional parameters for the AccountsClient.ListUsages method.
@@ -581,7 +581,7 @@ func (client *AccountsClient) listUsagesCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -601,7 +601,7 @@ func (client *AccountsClient) listUsagesHandleResponse(resp *http.Response) (Acc
 
 // RegenerateKey - Regenerates the specified account key for the specified Cognitive Services account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // parameters - regenerate key parameters.
@@ -641,7 +641,7 @@ func (client *AccountsClient) regenerateKeyCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -658,7 +658,7 @@ func (client *AccountsClient) regenerateKeyHandleResponse(resp *http.Response) (
 
 // BeginUpdate - Updates a Cognitive Services account
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // accountName - The name of Cognitive Services account.
 // account - The parameters to provide for the created account.
@@ -677,7 +677,7 @@ func (client *AccountsClient) BeginUpdate(ctx context.Context, resourceGroupName
 
 // Update - Updates a Cognitive Services account
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+// Generated from API version 2022-12-01
 func (client *AccountsClient) update(ctx context.Context, resourceGroupName string, accountName string, account Account, options *AccountsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, account, options)
 	if err != nil {
@@ -713,7 +713,7 @@ func (client *AccountsClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, account)
