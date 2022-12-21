@@ -52,6 +52,61 @@ type AADSolutionProperties struct {
 	Workspace *ConnectedWorkspace `json:"workspace,omitempty"`
 }
 
+// APICollectionClientGetOptions contains the optional parameters for the APICollectionClient.Get method.
+type APICollectionClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionClientListOptions contains the optional parameters for the APICollectionClient.List method.
+type APICollectionClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionOffboardingClientDeleteOptions contains the optional parameters for the APICollectionOffboardingClient.Delete
+// method.
+type APICollectionOffboardingClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionOnboardingClientCreateOptions contains the optional parameters for the APICollectionOnboardingClient.Create
+// method.
+type APICollectionOnboardingClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionProperties - Describes the properties of an API collection.
+type APICollectionProperties struct {
+	// Additional data regarding the API collection.
+	AdditionalData map[string]*string `json:"additionalData,omitempty"`
+
+	// The display name of the Azure API Management API.
+	DisplayName *string `json:"displayName,omitempty"`
+}
+
+// APICollectionResponse - An API collection as represented by Defender for APIs.
+type APICollectionResponse struct {
+	// Describes the properties of an API collection.
+	Properties *APICollectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// APICollectionResponseList - Page of a list of API collections as represented by Defender for APIs.
+type APICollectionResponseList struct {
+	// READ-ONLY; The URI to fetch the next page.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; API collections in this page.
+	Value []*APICollectionResponse `json:"value,omitempty" azure:"ro"`
+}
+
 // AccountConnectorsClientCreateOrUpdateOptions contains the optional parameters for the AccountConnectorsClient.CreateOrUpdate
 // method.
 type AccountConnectorsClientCreateOrUpdateOptions struct {
@@ -1592,13 +1647,17 @@ type AutomationActionEventHub struct {
 	// REQUIRED; The type of the action that will be triggered by the Automation
 	ActionType *ActionType `json:"actionType,omitempty"`
 
-	// The target Event Hub connection string (it will not be included in any response).
+	// The target Event Hub connection string (it will not be included in any response). Should be provided only when isTrustedServiceEnabled
+	// is set to false.
 	ConnectionString *string `json:"connectionString,omitempty"`
 
 	// The target Event Hub Azure Resource ID.
 	EventHubResourceID *string `json:"eventHubResourceId,omitempty"`
 
-	// READ-ONLY; The target Event Hub SAS policy name.
+	// Indicates whether trusted service authentication is enabled.
+	IsTrustedServiceEnabled *bool `json:"isTrustedServiceEnabled,omitempty"`
+
+	// READ-ONLY; The target Event Hub SAS policy name. Should be provided only when isTrustedServiceEnabled is set to false.
 	SasPolicyName *string `json:"sasPolicyName,omitempty" azure:"ro"`
 }
 
@@ -2377,15 +2436,16 @@ type ConnectorGovernanceRuleClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ConnectorGovernanceRulesClientBeginDeleteOptions contains the optional parameters for the ConnectorGovernanceRulesClient.BeginDelete
+// method.
+type ConnectorGovernanceRulesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ConnectorGovernanceRulesClientCreateOrUpdateOptions contains the optional parameters for the ConnectorGovernanceRulesClient.CreateOrUpdate
 // method.
 type ConnectorGovernanceRulesClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ConnectorGovernanceRulesClientDeleteOptions contains the optional parameters for the ConnectorGovernanceRulesClient.Delete
-// method.
-type ConnectorGovernanceRulesClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -2394,11 +2454,10 @@ type ConnectorGovernanceRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the ConnectorGovernanceRulesExecuteStatusClient.BeginGet
+// ConnectorGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the ConnectorGovernanceRulesExecuteStatusClient.Get
 // method.
-type ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+type ConnectorGovernanceRulesExecuteStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ConnectorProperties - A set of properties that defines the security connector configuration.
@@ -3703,15 +3762,40 @@ type ErrorAdditionalInfo struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail `json:"details,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error message.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error target.
+	Target *string `json:"target,omitempty" azure:"ro"`
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail `json:"error,omitempty"`
+}
+
 // ExecuteGovernanceRuleParams - Governance rule execution parameters
 type ExecuteGovernanceRuleParams struct {
 	// Describe if governance rule should be override
 	Override *bool `json:"override,omitempty"`
 }
 
-// ExecuteRuleStatus - Execute status of Security GovernanceRule over a given scope
+// ExecuteRuleStatus - Execute status of governance rule over a given scope
 type ExecuteRuleStatus struct {
-	// READ-ONLY; Unique key for the execution of GovernanceRule
+	// READ-ONLY; Unique key for the execution of governance rule
 	OperationID *string `json:"operationId,omitempty" azure:"ro"`
 }
 
@@ -4053,9 +4137,9 @@ func (g *GithubScopeEnvironmentData) GetEnvironmentData() *EnvironmentData {
 	}
 }
 
-// GovernanceAssignment - Security GovernanceAssignment over a given scope
+// GovernanceAssignment - Governance assignment over a given scope
 type GovernanceAssignment struct {
-	// Properties of a security governanceAssignment
+	// The properties of a governance assignment
 	Properties *GovernanceAssignmentProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource Id
@@ -4068,15 +4152,15 @@ type GovernanceAssignment struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// GovernanceAssignmentAdditionalData - Describe the additional data of GovernanceAssignment - optional
+// GovernanceAssignmentAdditionalData - Describe the additional data of governance assignment - optional
 type GovernanceAssignmentAdditionalData struct {
-	// Ticket link associated with this GovernanceAssignment - for example: https://snow.com
+	// Ticket link associated with this governance assignment - for example: https://snow.com
 	TicketLink *string `json:"ticketLink,omitempty"`
 
-	// Ticket number associated with this GovernanceAssignment
+	// Ticket number associated with this governance assignment
 	TicketNumber *int32 `json:"ticketNumber,omitempty"`
 
-	// The ticket status associated with this GovernanceAssignment - for example: Active
+	// The ticket status associated with this governance assignment - for example: Active
 	TicketStatus *string `json:"ticketStatus,omitempty"`
 }
 
@@ -4122,7 +4206,7 @@ type GovernanceAssignmentsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GovernanceAssignmentsList - Page of a security governance assignments list
+// GovernanceAssignmentsList - Page of a governance assignments list
 type GovernanceAssignmentsList struct {
 	// READ-ONLY; The URI to fetch the next page
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
@@ -4140,9 +4224,9 @@ type GovernanceEmailNotification struct {
 	DisableOwnerEmailNotification *bool `json:"disableOwnerEmailNotification,omitempty"`
 }
 
-// GovernanceRule - Security GovernanceRule over a given scope
+// GovernanceRule - Governance rule over a given scope
 type GovernanceRule struct {
-	// Properties of a security governanceRule
+	// Properties of a governance rule
 	Properties *GovernanceRuleProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource Id
@@ -4160,22 +4244,37 @@ type GovernanceRuleClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GovernanceRuleEmailNotification - The governance email weekly notification configuration.
+// GovernanceRuleEmailNotification - The governance email weekly notification configuration
 type GovernanceRuleEmailNotification struct {
-	// Defines whether manager email notifications are disabled.
+	// Defines whether manager email notifications are disabled
 	DisableManagerEmailNotification *bool `json:"disableManagerEmailNotification,omitempty"`
 
-	// Defines whether owner email notifications are disabled.
+	// Defines whether owner email notifications are disabled
 	DisableOwnerEmailNotification *bool `json:"disableOwnerEmailNotification,omitempty"`
 }
 
-// GovernanceRuleList - Page of a security governanceRules list
+// GovernanceRuleList - Page of a governance rules list
 type GovernanceRuleList struct {
 	// READ-ONLY; The URI to fetch the next page
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 
-	// READ-ONLY; Collection of governanceRules in this page
+	// READ-ONLY; Collection of governance rules in this page
 	Value []*GovernanceRule `json:"value,omitempty" azure:"ro"`
+}
+
+// GovernanceRuleMetadata - The governance rule metadata
+type GovernanceRuleMetadata struct {
+	// READ-ONLY; Governance rule Created by object id (GUID)
+	CreatedBy *string `json:"createdBy,omitempty" azure:"ro"`
+
+	// READ-ONLY; Governance rule creation date
+	CreatedOn *time.Time `json:"createdOn,omitempty" azure:"ro"`
+
+	// READ-ONLY; Governance rule last updated by object id (GUID)
+	UpdatedBy *string `json:"updatedBy,omitempty" azure:"ro"`
+
+	// READ-ONLY; Governance rule last update date
+	UpdatedOn *time.Time `json:"updatedOn,omitempty" azure:"ro"`
 }
 
 // GovernanceRuleOwnerSource - Describe the owner source of governance rule
@@ -4187,15 +4286,15 @@ type GovernanceRuleOwnerSource struct {
 	Value *string `json:"value,omitempty"`
 }
 
-// GovernanceRuleProperties - Describes properties of an governanceRule
+// GovernanceRuleProperties - Describes properties of an governance rule
 type GovernanceRuleProperties struct {
 	// REQUIRED; The governance rule conditionSets - see examples
 	ConditionSets []interface{} `json:"conditionSets,omitempty"`
 
-	// REQUIRED; display name of the governanceRule
+	// REQUIRED; Display name of the governance rule
 	DisplayName *string `json:"displayName,omitempty"`
 
-	// REQUIRED; The Owner source for the governance rule - e.g. Manually by user@contoso.com - see example
+	// REQUIRED; The owner source for the governance rule - e.g. Manually by user@contoso.com - see example
 	OwnerSource *GovernanceRuleOwnerSource `json:"ownerSource,omitempty"`
 
 	// REQUIRED; The governance rule priority, priority to the lower number. Rules with the same priority on the same subscription
@@ -4208,11 +4307,17 @@ type GovernanceRuleProperties struct {
 	// REQUIRED; The governance rule source, what the rule affects, e.g. Assessments
 	SourceResourceType *GovernanceRuleSourceResourceType `json:"sourceResourceType,omitempty"`
 
-	// description of the governanceRule
+	// Description of the governance rule
 	Description *string `json:"description,omitempty"`
+
+	// Excluded scopes, filter out the descendants of the scope (on management scopes)
+	ExcludedScopes []*string `json:"excludedScopes,omitempty"`
 
 	// The email notifications settings for the governance rule, states whether to disable notifications for mangers and owners
 	GovernanceEmailNotification *GovernanceRuleEmailNotification `json:"governanceEmailNotification,omitempty"`
+
+	// Defines whether the rule is management scope rule (master connector as a single scope or management scope)
+	IncludeMemberScopes *bool `json:"includeMemberScopes,omitempty"`
 
 	// Defines whether the rule is active/inactive
 	IsDisabled *bool `json:"isDisabled,omitempty"`
@@ -4220,15 +4325,30 @@ type GovernanceRuleProperties struct {
 	// Defines whether there is a grace period on the governance rule
 	IsGracePeriod *bool `json:"isGracePeriod,omitempty"`
 
+	// The governance rule metadata
+	Metadata *GovernanceRuleMetadata `json:"metadata,omitempty"`
+
 	// Governance rule remediation timeframe - this is the time that will affect on the grace-period duration e.g. 7.00:00:00
 	// - means 7 days
 	RemediationTimeframe *string `json:"remediationTimeframe,omitempty"`
+
+	// READ-ONLY; The tenantId (GUID)
+	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+}
+
+// GovernanceRulesClientBeginRuleIDExecuteSingleManagementGroupOptions contains the optional parameters for the GovernanceRulesClient.BeginRuleIDExecuteSingleManagementGroup
+// method.
+type GovernanceRulesClientBeginRuleIDExecuteSingleManagementGroupOptions struct {
+	// Execute governance rule over a given scope
+	ExecuteGovernanceRuleParams *ExecuteGovernanceRuleParams
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // GovernanceRulesClientBeginRuleIDExecuteSingleSecurityConnectorOptions contains the optional parameters for the GovernanceRulesClient.BeginRuleIDExecuteSingleSecurityConnector
 // method.
 type GovernanceRulesClientBeginRuleIDExecuteSingleSecurityConnectorOptions struct {
-	// GovernanceRule over a subscription scope
+	// Execute governance rule over a given scope
 	ExecuteGovernanceRuleParams *ExecuteGovernanceRuleParams
 	// Resumes the LRO from the provided token.
 	ResumeToken string
@@ -4237,7 +4357,7 @@ type GovernanceRulesClientBeginRuleIDExecuteSingleSecurityConnectorOptions struc
 // GovernanceRulesClientBeginRuleIDExecuteSingleSubscriptionOptions contains the optional parameters for the GovernanceRulesClient.BeginRuleIDExecuteSingleSubscription
 // method.
 type GovernanceRulesClientBeginRuleIDExecuteSingleSubscriptionOptions struct {
-	// GovernanceRule over a subscription scope
+	// Execute governance rule over a given scope
 	ExecuteGovernanceRuleParams *ExecuteGovernanceRuleParams
 	// Resumes the LRO from the provided token.
 	ResumeToken string
@@ -5364,6 +5484,43 @@ func (l *LogAnalyticsIdentifier) GetResourceIdentifier() *ResourceIdentifier {
 	return &ResourceIdentifier{
 		Type: l.Type,
 	}
+}
+
+// ManagementGroupGovernanceRuleClientListOptions contains the optional parameters for the ManagementGroupGovernanceRuleClient.List
+// method.
+type ManagementGroupGovernanceRuleClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupGovernanceRulesClientBeginDeleteOptions contains the optional parameters for the ManagementGroupGovernanceRulesClient.BeginDelete
+// method.
+type ManagementGroupGovernanceRulesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagementGroupGovernanceRulesClientCreateOrUpdateOptions contains the optional parameters for the ManagementGroupGovernanceRulesClient.CreateOrUpdate
+// method.
+type ManagementGroupGovernanceRulesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupGovernanceRulesClientGetOptions contains the optional parameters for the ManagementGroupGovernanceRulesClient.Get
+// method.
+type ManagementGroupGovernanceRulesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupGovernanceRulesDeleteStatusClientGetOptions contains the optional parameters for the ManagementGroupGovernanceRulesDeleteStatusClient.Get
+// method.
+type ManagementGroupGovernanceRulesDeleteStatusClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the ManagementGroupGovernanceRulesExecuteStatusClient.Get
+// method.
+type ManagementGroupGovernanceRulesExecuteStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 // MdeOnboardingData - The resource of the configuration or data needed to onboard the machine to MDE
@@ -7093,11 +7250,10 @@ type SubAssessmentsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the SubscriptionGovernanceRulesExecuteStatusClient.BeginGet
+// SubscriptionGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the SubscriptionGovernanceRulesExecuteStatusClient.Get
 // method.
-type SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+type SubscriptionGovernanceRulesExecuteStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 type SuppressionAlertsScope struct {
