@@ -1,5 +1,36 @@
 # Release History
 
+## 3.0.0 (2022-12-23)
+### Breaking Changes
+
+- Function `NewDiagnosticsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, *time.Time, *time.Time, *string, azcore.TokenCredential, *arm.ClientOptions)`
+
+### Features Added
+
+- New type alias `DefaultAction` with values `DefaultActionAllow`, `DefaultActionDeny`
+- New type alias `WorkflowHealthState` with values `WorkflowHealthStateHealthy`, `WorkflowHealthStateNotSpecified`, `WorkflowHealthStateUnhealthy`, `WorkflowHealthStateUnknown`
+- New function `*DiagnosticsClient.GetProviderDetectorResponse(context.Context, string, string, string, *DiagnosticsClientGetProviderDetectorResponseOptions) (DiagnosticsClientGetProviderDetectorResponseResponse, error)`
+- New function `*DiagnosticsClient.NewListProviderDetectorResponsesPager(string, string, *DiagnosticsClientListProviderDetectorResponsesOptions) *runtime.Pager[DiagnosticsClientListProviderDetectorResponsesResponse]`
+- New function `*WebAppsClient.DeployWorkflowArtifacts(context.Context, string, string, *WebAppsClientDeployWorkflowArtifactsOptions) (WebAppsClientDeployWorkflowArtifactsResponse, error)`
+- New function `*WebAppsClient.DeployWorkflowArtifactsSlot(context.Context, string, string, string, *WebAppsClientDeployWorkflowArtifactsSlotOptions) (WebAppsClientDeployWorkflowArtifactsSlotResponse, error)`
+- New function `*WebAppsClient.GetInstanceWorkflowSlot(context.Context, string, string, string, string, *WebAppsClientGetInstanceWorkflowSlotOptions) (WebAppsClientGetInstanceWorkflowSlotResponse, error)`
+- New function `*WebAppsClient.GetWorkflow(context.Context, string, string, string, *WebAppsClientGetWorkflowOptions) (WebAppsClientGetWorkflowResponse, error)`
+- New function `*WebAppsClient.ListInstanceWorkflowsConfigurationConnectionsSlot(context.Context, string, string, string, *WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotOptions) (WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotResponse, error)`
+- New function `*WebAppsClient.NewListInstanceWorkflowsSlotPager(string, string, string, *WebAppsClientListInstanceWorkflowsSlotOptions) *runtime.Pager[WebAppsClientListInstanceWorkflowsSlotResponse]`
+- New function `*WebAppsClient.ListWorkflowsConfiguration(context.Context, string, string, *WebAppsClientListWorkflowsConfigurationOptions) (WebAppsClientListWorkflowsConfigurationResponse, error)`
+- New function `*WebAppsClient.NewListWorkflowsPager(string, string, *WebAppsClientListWorkflowsOptions) *runtime.Pager[WebAppsClientListWorkflowsResponse]`
+- New struct `DiagnosticsClientListProviderDetectorResponsesResponse`
+- New struct `WebAppsClientListInstanceWorkflowsSlotResponse`
+- New struct `WebAppsClientListWorkflowsResponse`
+- New struct `WorkflowArtifacts`
+- New struct `WorkflowEnvelope`
+- New struct `WorkflowEnvelopeCollection`
+- New struct `WorkflowEnvelopeProperties`
+- New struct `WorkflowHealth`
+- New field `IPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+- New field `ScmIPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 

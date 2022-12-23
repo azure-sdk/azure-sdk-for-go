@@ -2949,6 +2949,11 @@ type DiagnosticsClientGetHostingEnvironmentDetectorResponseOptions struct {
 	TimeGrain *string
 }
 
+// DiagnosticsClientGetProviderDetectorResponseOptions contains the optional parameters for the DiagnosticsClient.GetProviderDetectorResponse
+// method.
+type DiagnosticsClientGetProviderDetectorResponseOptions struct {
+}
+
 // DiagnosticsClientGetSiteAnalysisOptions contains the optional parameters for the DiagnosticsClient.GetSiteAnalysis method.
 type DiagnosticsClientGetSiteAnalysisOptions struct {
 	// placeholder for future optional parameters
@@ -3008,6 +3013,12 @@ type DiagnosticsClientGetSiteDiagnosticCategorySlotOptions struct {
 // DiagnosticsClientListHostingEnvironmentDetectorResponsesOptions contains the optional parameters for the DiagnosticsClient.ListHostingEnvironmentDetectorResponses
 // method.
 type DiagnosticsClientListHostingEnvironmentDetectorResponsesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DiagnosticsClientListProviderDetectorResponsesOptions contains the optional parameters for the DiagnosticsClient.ListProviderDetectorResponses
+// method.
+type DiagnosticsClientListProviderDetectorResponsesOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -8340,6 +8351,9 @@ type SiteConfig struct {
 	// IP security restrictions for main.
 	IPSecurityRestrictions []*IPSecurityRestriction `json:"ipSecurityRestrictions,omitempty"`
 
+	// Default action for main access restriction if no rules are matched.
+	IPSecurityRestrictionsDefaultAction *DefaultAction `json:"ipSecurityRestrictionsDefaultAction,omitempty"`
+
 	// Java container.
 	JavaContainer *string `json:"javaContainer,omitempty"`
 
@@ -8423,6 +8437,9 @@ type SiteConfig struct {
 
 	// IP security restrictions for scm.
 	ScmIPSecurityRestrictions []*IPSecurityRestriction `json:"scmIpSecurityRestrictions,omitempty"`
+
+	// Default action for scm access restriction if no rules are matched.
+	ScmIPSecurityRestrictionsDefaultAction *DefaultAction `json:"scmIpSecurityRestrictionsDefaultAction,omitempty"`
 
 	// IP security restrictions for scm to use main.
 	ScmIPSecurityRestrictionsUseMain *bool `json:"scmIpSecurityRestrictionsUseMain,omitempty"`
@@ -12219,6 +12236,20 @@ type WebAppsClientDeleteVnetConnectionSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
+// WebAppsClientDeployWorkflowArtifactsOptions contains the optional parameters for the WebAppsClient.DeployWorkflowArtifacts
+// method.
+type WebAppsClientDeployWorkflowArtifactsOptions struct {
+	// Application settings and files of the workflow.
+	WorkflowArtifacts *WorkflowArtifacts
+}
+
+// WebAppsClientDeployWorkflowArtifactsSlotOptions contains the optional parameters for the WebAppsClient.DeployWorkflowArtifactsSlot
+// method.
+type WebAppsClientDeployWorkflowArtifactsSlotOptions struct {
+	// Application settings and files of the workflow.
+	WorkflowArtifacts *WorkflowArtifacts
+}
+
 // WebAppsClientDiscoverBackupOptions contains the optional parameters for the WebAppsClient.DiscoverBackup method.
 type WebAppsClientDiscoverBackupOptions struct {
 	// placeholder for future optional parameters
@@ -12519,6 +12550,12 @@ type WebAppsClientGetInstanceProcessOptions struct {
 // WebAppsClientGetInstanceProcessSlotOptions contains the optional parameters for the WebAppsClient.GetInstanceProcessSlot
 // method.
 type WebAppsClientGetInstanceProcessSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientGetInstanceWorkflowSlotOptions contains the optional parameters for the WebAppsClient.GetInstanceWorkflowSlot
+// method.
+type WebAppsClientGetInstanceWorkflowSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -12870,6 +12907,11 @@ type WebAppsClientGetWebSiteContainerLogsSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
+// WebAppsClientGetWorkflowOptions contains the optional parameters for the WebAppsClient.GetWorkflow method.
+type WebAppsClientGetWorkflowOptions struct {
+	// placeholder for future optional parameters
+}
+
 // WebAppsClientIsCloneableOptions contains the optional parameters for the WebAppsClient.IsCloneable method.
 type WebAppsClientIsCloneableOptions struct {
 	// placeholder for future optional parameters
@@ -13135,6 +13177,18 @@ type WebAppsClientListInstanceProcessesOptions struct {
 // WebAppsClientListInstanceProcessesSlotOptions contains the optional parameters for the WebAppsClient.ListInstanceProcessesSlot
 // method.
 type WebAppsClientListInstanceProcessesSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotOptions contains the optional parameters for the WebAppsClient.ListInstanceWorkflowsConfigurationConnectionsSlot
+// method.
+type WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientListInstanceWorkflowsSlotOptions contains the optional parameters for the WebAppsClient.ListInstanceWorkflowsSlot
+// method.
+type WebAppsClientListInstanceWorkflowsSlotOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -13428,6 +13482,17 @@ type WebAppsClientListWebJobsOptions struct {
 
 // WebAppsClientListWebJobsSlotOptions contains the optional parameters for the WebAppsClient.ListWebJobsSlot method.
 type WebAppsClientListWebJobsSlotOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientListWorkflowsConfigurationOptions contains the optional parameters for the WebAppsClient.ListWorkflowsConfiguration
+// method.
+type WebAppsClientListWorkflowsConfigurationOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WebAppsClientListWorkflowsOptions contains the optional parameters for the WebAppsClient.ListWorkflows method.
+type WebAppsClientListWorkflowsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -14153,10 +14218,73 @@ type Workflow struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// WorkflowArtifacts - The workflow filter.
+type WorkflowArtifacts struct {
+	// Application settings of the workflow.
+	AppSettings interface{} `json:"appSettings,omitempty"`
+
+	// Files of the app.
+	Files map[string]interface{} `json:"files,omitempty"`
+
+	// Files of the app to delete.
+	FilesToDelete []*string `json:"filesToDelete,omitempty"`
+}
+
+// WorkflowEnvelope - Workflow properties definition.
+type WorkflowEnvelope struct {
+	// The resource kind.
+	Kind *string `json:"kind,omitempty"`
+
+	// The resource location.
+	Location *string `json:"location,omitempty"`
+
+	// Additional workflow properties.
+	Properties *WorkflowEnvelopeProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; The resource id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// WorkflowEnvelopeCollection - Collection of Kudu workflow information elements.
+type WorkflowEnvelopeCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*WorkflowEnvelope `json:"value,omitempty"`
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// WorkflowEnvelopeProperties - Additional workflow properties.
+type WorkflowEnvelopeProperties struct {
+	// Gets or sets the files.
+	Files map[string]interface{} `json:"files,omitempty"`
+
+	// Gets or sets the state of the workflow.
+	FlowState *WorkflowState `json:"flowState,omitempty"`
+
+	// Gets or sets workflow health.
+	Health *WorkflowHealth `json:"health,omitempty"`
+}
+
 // WorkflowFilter - The workflow filter.
 type WorkflowFilter struct {
 	// The state of workflows.
 	State *WorkflowState `json:"state,omitempty"`
+}
+
+// WorkflowHealth - Represents the workflow health.
+type WorkflowHealth struct {
+	// REQUIRED; Gets or sets the workflow health state.
+	State *WorkflowHealthState `json:"state,omitempty"`
+
+	// Gets or sets the workflow error.
+	Error *ErrorEntity `json:"error,omitempty"`
 }
 
 // WorkflowListResult - The list of workflows.

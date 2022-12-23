@@ -17611,6 +17611,7 @@ func (s SiteConfig) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "healthCheckPath", s.HealthCheckPath)
 	populate(objectMap, "http20Enabled", s.Http20Enabled)
 	populate(objectMap, "ipSecurityRestrictions", s.IPSecurityRestrictions)
+	populate(objectMap, "ipSecurityRestrictionsDefaultAction", s.IPSecurityRestrictionsDefaultAction)
 	populate(objectMap, "javaContainer", s.JavaContainer)
 	populate(objectMap, "javaContainerVersion", s.JavaContainerVersion)
 	populate(objectMap, "javaVersion", s.JavaVersion)
@@ -17640,6 +17641,7 @@ func (s SiteConfig) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "requestTracingEnabled", s.RequestTracingEnabled)
 	populateTimeRFC3339(objectMap, "requestTracingExpirationTime", s.RequestTracingExpirationTime)
 	populate(objectMap, "scmIpSecurityRestrictions", s.ScmIPSecurityRestrictions)
+	populate(objectMap, "scmIpSecurityRestrictionsDefaultAction", s.ScmIPSecurityRestrictionsDefaultAction)
 	populate(objectMap, "scmIpSecurityRestrictionsUseMain", s.ScmIPSecurityRestrictionsUseMain)
 	populate(objectMap, "scmMinTlsVersion", s.ScmMinTLSVersion)
 	populate(objectMap, "scmType", s.ScmType)
@@ -17740,6 +17742,9 @@ func (s *SiteConfig) UnmarshalJSON(data []byte) error {
 		case "ipSecurityRestrictions":
 			err = unpopulate(val, "IPSecurityRestrictions", &s.IPSecurityRestrictions)
 			delete(rawMsg, key)
+		case "ipSecurityRestrictionsDefaultAction":
+			err = unpopulate(val, "IPSecurityRestrictionsDefaultAction", &s.IPSecurityRestrictionsDefaultAction)
+			delete(rawMsg, key)
 		case "javaContainer":
 			err = unpopulate(val, "JavaContainer", &s.JavaContainer)
 			delete(rawMsg, key)
@@ -17826,6 +17831,9 @@ func (s *SiteConfig) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "scmIpSecurityRestrictions":
 			err = unpopulate(val, "ScmIPSecurityRestrictions", &s.ScmIPSecurityRestrictions)
+			delete(rawMsg, key)
+		case "scmIpSecurityRestrictionsDefaultAction":
+			err = unpopulate(val, "ScmIPSecurityRestrictionsDefaultAction", &s.ScmIPSecurityRestrictionsDefaultAction)
 			delete(rawMsg, key)
 		case "scmIpSecurityRestrictionsUseMain":
 			err = unpopulate(val, "ScmIPSecurityRestrictionsUseMain", &s.ScmIPSecurityRestrictionsUseMain)
@@ -24662,6 +24670,154 @@ func (w *Workflow) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type WorkflowArtifacts.
+func (w WorkflowArtifacts) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "appSettings", &w.AppSettings)
+	populate(objectMap, "files", w.Files)
+	populate(objectMap, "filesToDelete", w.FilesToDelete)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type WorkflowArtifacts.
+func (w *WorkflowArtifacts) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", w, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "appSettings":
+			err = unpopulate(val, "AppSettings", &w.AppSettings)
+			delete(rawMsg, key)
+		case "files":
+			err = unpopulate(val, "Files", &w.Files)
+			delete(rawMsg, key)
+		case "filesToDelete":
+			err = unpopulate(val, "FilesToDelete", &w.FilesToDelete)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", w, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type WorkflowEnvelope.
+func (w WorkflowEnvelope) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", w.ID)
+	populate(objectMap, "kind", w.Kind)
+	populate(objectMap, "location", w.Location)
+	populate(objectMap, "name", w.Name)
+	populate(objectMap, "properties", w.Properties)
+	populate(objectMap, "type", w.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type WorkflowEnvelope.
+func (w *WorkflowEnvelope) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", w, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &w.ID)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, "Kind", &w.Kind)
+			delete(rawMsg, key)
+		case "location":
+			err = unpopulate(val, "Location", &w.Location)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &w.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &w.Properties)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &w.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", w, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type WorkflowEnvelopeCollection.
+func (w WorkflowEnvelopeCollection) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "nextLink", w.NextLink)
+	populate(objectMap, "value", w.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type WorkflowEnvelopeCollection.
+func (w *WorkflowEnvelopeCollection) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", w, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &w.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &w.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", w, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type WorkflowEnvelopeProperties.
+func (w WorkflowEnvelopeProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "files", w.Files)
+	populate(objectMap, "flowState", w.FlowState)
+	populate(objectMap, "health", w.Health)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type WorkflowEnvelopeProperties.
+func (w *WorkflowEnvelopeProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", w, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "files":
+			err = unpopulate(val, "Files", &w.Files)
+			delete(rawMsg, key)
+		case "flowState":
+			err = unpopulate(val, "FlowState", &w.FlowState)
+			delete(rawMsg, key)
+		case "health":
+			err = unpopulate(val, "Health", &w.Health)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", w, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type WorkflowFilter.
 func (w WorkflowFilter) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -24678,6 +24834,37 @@ func (w *WorkflowFilter) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "state":
+			err = unpopulate(val, "State", &w.State)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", w, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type WorkflowHealth.
+func (w WorkflowHealth) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "error", w.Error)
+	populate(objectMap, "state", w.State)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type WorkflowHealth.
+func (w *WorkflowHealth) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", w, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "error":
+			err = unpopulate(val, "Error", &w.Error)
+			delete(rawMsg, key)
 		case "state":
 			err = unpopulate(val, "State", &w.State)
 			delete(rawMsg, key)
