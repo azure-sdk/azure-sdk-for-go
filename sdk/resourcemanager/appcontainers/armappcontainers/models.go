@@ -949,7 +949,7 @@ type ContainerAppProperties struct {
 	LatestRevisionName *string `json:"latestRevisionName,omitempty" azure:"ro"`
 
 	// READ-ONLY; Outbound IP Addresses for container app.
-	OutboundIPAddresses []*string `json:"outboundIPAddresses,omitempty" azure:"ro"`
+	OutboundIPAddresses []*string `json:"outboundIpAddresses,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning state of the Container App.
 	ProvisioningState *ContainerAppProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -1161,6 +1161,27 @@ type CookieExpiration struct {
 	TimeToExpiration *string `json:"timeToExpiration,omitempty"`
 }
 
+// CorsPolicy - Cross-Origin-Resource-Sharing policy
+type CorsPolicy struct {
+	// REQUIRED; allowed origins
+	AllowedOrigins []*string `json:"allowedOrigins,omitempty"`
+
+	// allow credential or not
+	AllowCredentials *bool `json:"allowCredentials,omitempty"`
+
+	// allowed HTTP headers
+	AllowedHeaders []*string `json:"allowedHeaders,omitempty"`
+
+	// allowed HTTP methods
+	AllowedMethods []*string `json:"allowedMethods,omitempty"`
+
+	// expose HTTP headers
+	ExposeHeaders []*string `json:"exposeHeaders,omitempty"`
+
+	// max time client can cache the result
+	MaxAge *int32 `json:"maxAge,omitempty"`
+}
+
 // CustomDomain - Custom Domain of a Container App
 type CustomDomain struct {
 	// REQUIRED; Resource Id of the Certificate to be bound to this hostname. Must exist in the Managed Environment.
@@ -1176,7 +1197,7 @@ type CustomDomain struct {
 // CustomDomainConfiguration - Configuration properties for apps environment custom domain
 type CustomDomainConfiguration struct {
 	// Certificate password
-	CertificatePassword []byte `json:"certificatePassword,omitempty"`
+	CertificatePassword *string `json:"certificatePassword,omitempty"`
 
 	// PFX or PEM blob
 	CertificateValue []byte `json:"certificateValue,omitempty"`
@@ -1395,6 +1416,12 @@ type DaprComponentsCollection struct {
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
+// DaprConfiguration - Configuration properties Dapr component
+type DaprConfiguration struct {
+	// READ-ONLY; The version of Dapr
+	Version *string `json:"version,omitempty" azure:"ro"`
+}
+
 // DaprMetadata - Dapr component metadata.
 type DaprMetadata struct {
 	// Metadata property name.
@@ -1419,7 +1446,7 @@ type DaprSecret struct {
 // DaprSecretsCollection - Dapr component Secrets Collection for ListSecrets Action.
 type DaprSecretsCollection struct {
 	// REQUIRED; Collection of secrets used by a Dapr component
-	Value []*Secret `json:"value,omitempty"`
+	Value []*DaprSecret `json:"value,omitempty"`
 }
 
 // DefaultAuthorizationPolicy - The configuration settings of the Azure Active Directory default authorization policy.
@@ -1890,6 +1917,14 @@ type Ingress struct {
 	// connections
 	AllowInsecure *bool `json:"allowInsecure,omitempty"`
 
+	// Client certificate mode for mTLS authentication. Ignore indicates server drops client certificate on forwarding. Accept
+	// indicates server forwards client certificate but does not require a client
+	// certificate. Require indicates server requires a client certificate.
+	ClientCertificateMode *IngressClientCertificateMode `json:"clientCertificateMode,omitempty"`
+
+	// CORS policy for container app
+	CorsPolicy *CorsPolicy `json:"corsPolicy,omitempty"`
+
 	// custom domain bindings for Container Apps' hostnames.
 	CustomDomains []*CustomDomain `json:"customDomains,omitempty"`
 
@@ -1902,6 +1937,9 @@ type Ingress struct {
 	// Rules to restrict incoming IP address.
 	IPSecurityRestrictions []*IPSecurityRestrictionRule `json:"ipSecurityRestrictions,omitempty"`
 
+	// Sticky Sessions for Single Revision Mode
+	StickySessions *IngressStickySessions `json:"stickySessions,omitempty"`
+
 	// Target Port in containers for traffic from ingress
 	TargetPort *int32 `json:"targetPort,omitempty"`
 
@@ -1913,6 +1951,12 @@ type Ingress struct {
 
 	// READ-ONLY; Hostname.
 	Fqdn *string `json:"fqdn,omitempty" azure:"ro"`
+}
+
+// IngressStickySessions - Sticky Sessions for Single Revision Mode
+type IngressStickySessions struct {
+	// Sticky Session Affinity
+	Affinity *Affinity `json:"affinity,omitempty"`
 }
 
 // InitContainer - Container App init container definition
@@ -1946,6 +1990,12 @@ type JwtClaimChecks struct {
 
 	// The list of the allowed groups.
 	AllowedGroups []*string `json:"allowedGroups,omitempty"`
+}
+
+// KedaConfiguration - Configuration properties Keda component
+type KedaConfiguration struct {
+	// READ-ONLY; The version of Keda
+	Version *string `json:"version,omitempty" azure:"ro"`
 }
 
 // LogAnalyticsConfiguration - Log analytics configuration
@@ -1989,10 +2039,99 @@ type LoginScopes struct {
 	Scopes []*string `json:"scopes,omitempty"`
 }
 
+// ManagedCertificate - Managed certificates used for Custom Domain bindings of Container Apps in a Managed Environment
+type ManagedCertificate struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Certificate resource specific properties
+	Properties *ManagedCertificateProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedCertificateCollection - Collection of Managed Certificates.
+type ManagedCertificateCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*ManagedCertificate `json:"value,omitempty"`
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// ManagedCertificatePatch - A managed certificate to update
+type ManagedCertificatePatch struct {
+	// Application-specific metadata in the form of key-value pairs.
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// ManagedCertificateProperties - Certificate resource specific properties
+type ManagedCertificateProperties struct {
+	// Selected type of domain control validation for managed certificates.
+	DomainControlValidation *ManagedCertificateDomainControlValidation `json:"domainControlValidation,omitempty"`
+
+	// Subject name of the certificate.
+	SubjectName *string `json:"subjectName,omitempty"`
+
+	// READ-ONLY; Any error occurred during the certificate provision.
+	Error *string `json:"error,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state of the certificate.
+	ProvisioningState *CertificateProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; A TXT token used for DNS TXT domain control validation when issuing this type of managed certificates.
+	ValidationToken *string `json:"validationToken,omitempty" azure:"ro"`
+}
+
+// ManagedCertificatesClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedCertificatesClient.BeginCreateOrUpdate
+// method.
+type ManagedCertificatesClientBeginCreateOrUpdateOptions struct {
+	// Managed Certificate to be created or updated
+	ManagedCertificateEnvelope *ManagedCertificate
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagedCertificatesClientDeleteOptions contains the optional parameters for the ManagedCertificatesClient.Delete method.
+type ManagedCertificatesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedCertificatesClientGetOptions contains the optional parameters for the ManagedCertificatesClient.Get method.
+type ManagedCertificatesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedCertificatesClientListOptions contains the optional parameters for the ManagedCertificatesClient.List method.
+type ManagedCertificatesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedCertificatesClientUpdateOptions contains the optional parameters for the ManagedCertificatesClient.Update method.
+type ManagedCertificatesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ManagedEnvironment - An environment for hosting container apps
 type ManagedEnvironment struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string `json:"location,omitempty"`
+
+	// Kind of the Environment.
+	Kind *string `json:"kind,omitempty"`
 
 	// Managed environment resource specific properties
 	Properties *ManagedEnvironmentProperties `json:"properties,omitempty"`
@@ -2051,6 +2190,12 @@ type ManagedEnvironmentProperties struct {
 
 	// Azure Monitor instrumentation key used by Dapr to export Service to Service communication telemetry
 	DaprAIInstrumentationKey *string `json:"daprAIInstrumentationKey,omitempty"`
+
+	// The configuration of Dapr component.
+	DaprConfiguration *DaprConfiguration `json:"daprConfiguration,omitempty"`
+
+	// The configuration of Keda component.
+	KedaConfiguration *KedaConfiguration `json:"kedaConfiguration,omitempty"`
 
 	// Vnet configuration for the environment
 	VnetConfiguration *VnetConfiguration `json:"vnetConfiguration,omitempty"`
@@ -2716,11 +2861,16 @@ type UserAssignedIdentity struct {
 
 // VnetConfiguration - Configuration properties for apps environment to join a Virtual Network
 type VnetConfiguration struct {
+	// Resource ID of a subnet for control plane components. This subnet must be in the same VNET as the subnet defined in infrastructureSubnetId.
+	// Must not overlap with any other provided IP ranges.
+	ControlPlaneSubnetID *string `json:"controlPlaneSubnetId,omitempty"`
+
 	// CIDR notation IP range assigned to the Docker bridge, network. Must not overlap with any other provided IP ranges.
 	DockerBridgeCidr *string `json:"dockerBridgeCidr,omitempty"`
 
-	// Resource ID of a subnet for infrastructure components. This subnet must be in the same VNET as the subnet defined in runtimeSubnetId.
-	// Must not overlap with any other provided IP ranges.
+	// Resource ID of a subnet for infrastructure components. This subnet must be in the same VNET as the subnet defined in controlPlaneSubnetId
+	// if provided. Must not overlap with any other provided IP
+	// ranges.
 	InfrastructureSubnetID *string `json:"infrastructureSubnetId,omitempty"`
 
 	// Boolean indicating the environment only has an internal load balancer. These environments do not have a public static IP
@@ -2738,9 +2888,8 @@ type VnetConfiguration struct {
 	// An IP address from the IP range defined by platformReservedCidr that will be reserved for the internal DNS server.
 	PlatformReservedDNSIP *string `json:"platformReservedDnsIP,omitempty"`
 
-	// Resource ID of a subnet that Container App containers are injected into. This subnet must be in the same VNET as the subnet
-	// defined in infrastructureSubnetId. Must not overlap with any other provided
-	// IP ranges.
+	// This field is deprecated and not used. If you wish to provide your own subnet that Container App containers are injected
+	// into, then you should leverage the infrastructureSubnetId.
 	RuntimeSubnetID *string `json:"runtimeSubnetId,omitempty"`
 }
 
