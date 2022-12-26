@@ -1,5 +1,68 @@
 # Release History
 
+## 0.10.0 (2022-12-26)
+### Breaking Changes
+
+- Function `NewGovernanceRulesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `NewConnectorGovernanceRulesExecuteStatusClient` has been removed
+- Function `*ConnectorGovernanceRulesExecuteStatusClient.BeginGet` has been removed
+- Function `NewSubscriptionGovernanceRulesExecuteStatusClient` has been removed
+- Function `*SubscriptionGovernanceRulesExecuteStatusClient.BeginGet` has been removed
+- Operation `*ConnectorGovernanceRulesClient.Delete` has been changed to LRO, use `*ConnectorGovernanceRulesClient.BeginDelete` instead.
+- Struct `ConnectorGovernanceRulesExecuteStatusClient` has been removed
+- Struct `ConnectorGovernanceRulesExecuteStatusClientGetResponse` has been removed
+- Struct `ExecuteRuleStatus` has been removed
+- Struct `SubscriptionGovernanceRulesExecuteStatusClient` has been removed
+- Struct `SubscriptionGovernanceRulesExecuteStatusClientGetResponse` has been removed
+
+### Features Added
+
+- New type alias `OperationResult` with values `OperationResultCanceled`, `OperationResultFailed`, `OperationResultSucceeded`
+- New function `NewAPICollectionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionClient, error)`
+- New function `*APICollectionClient.Get(context.Context, string, string, string, *APICollectionClientGetOptions) (APICollectionClientGetResponse, error)`
+- New function `*APICollectionClient.NewListPager(string, string, *APICollectionClientListOptions) *runtime.Pager[APICollectionClientListResponse]`
+- New function `NewAPICollectionOffboardingClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionOffboardingClient, error)`
+- New function `*APICollectionOffboardingClient.Delete(context.Context, string, string, string, *APICollectionOffboardingClientDeleteOptions) (APICollectionOffboardingClientDeleteResponse, error)`
+- New function `NewAPICollectionOnboardingClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionOnboardingClient, error)`
+- New function `*APICollectionOnboardingClient.Create(context.Context, string, string, string, *APICollectionOnboardingClientCreateOptions) (APICollectionOnboardingClientCreateResponse, error)`
+- New function `NewConnectorGovernanceRulesOperationResultClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectorGovernanceRulesOperationResultClient, error)`
+- New function `*ConnectorGovernanceRulesOperationResultClient.Get(context.Context, string, string, string, string, *ConnectorGovernanceRulesOperationResultClientGetOptions) (ConnectorGovernanceRulesOperationResultClientGetResponse, error)`
+- New function `*GovernanceRulesClient.BeginRuleIDExecuteSingleManagementGroup(context.Context, string, *GovernanceRulesClientBeginRuleIDExecuteSingleManagementGroupOptions) (*runtime.Poller[GovernanceRulesClientRuleIDExecuteSingleManagementGroupResponse], error)`
+- New function `NewManagementGroupGovernanceRuleClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementGroupGovernanceRuleClient, error)`
+- New function `*ManagementGroupGovernanceRuleClient.NewListPager(*ManagementGroupGovernanceRuleClientListOptions) *runtime.Pager[ManagementGroupGovernanceRuleClientListResponse]`
+- New function `NewManagementGroupGovernanceRulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementGroupGovernanceRulesClient, error)`
+- New function `*ManagementGroupGovernanceRulesClient.CreateOrUpdate(context.Context, string, GovernanceRule, *ManagementGroupGovernanceRulesClientCreateOrUpdateOptions) (ManagementGroupGovernanceRulesClientCreateOrUpdateResponse, error)`
+- New function `*ManagementGroupGovernanceRulesClient.BeginDelete(context.Context, string, *ManagementGroupGovernanceRulesClientBeginDeleteOptions) (*runtime.Poller[ManagementGroupGovernanceRulesClientDeleteResponse], error)`
+- New function `*ManagementGroupGovernanceRulesClient.Get(context.Context, string, *ManagementGroupGovernanceRulesClientGetOptions) (ManagementGroupGovernanceRulesClientGetResponse, error)`
+- New function `NewManagementGroupGovernanceRulesOperationResultClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagementGroupGovernanceRulesOperationResultClient, error)`
+- New function `*ManagementGroupGovernanceRulesOperationResultClient.Get(context.Context, string, string, *ManagementGroupGovernanceRulesOperationResultClientGetOptions) (ManagementGroupGovernanceRulesOperationResultClientGetResponse, error)`
+- New function `NewSubscriptionGovernanceRulesOperationResultClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SubscriptionGovernanceRulesOperationResultClient, error)`
+- New function `*SubscriptionGovernanceRulesOperationResultClient.Get(context.Context, string, string, *SubscriptionGovernanceRulesOperationResultClientGetOptions) (SubscriptionGovernanceRulesOperationResultClientGetResponse, error)`
+- New struct `APICollectionClient`
+- New struct `APICollectionClientListResponse`
+- New struct `APICollectionOffboardingClient`
+- New struct `APICollectionOnboardingClient`
+- New struct `APICollectionProperties`
+- New struct `APICollectionResponse`
+- New struct `APICollectionResponseList`
+- New struct `ConnectorGovernanceRulesOperationResultClient`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `GovernanceRuleMetadata`
+- New struct `GovernanceRulesClientRuleIDExecuteSingleManagementGroupResponse`
+- New struct `ManagementGroupGovernanceRuleClient`
+- New struct `ManagementGroupGovernanceRuleClientListResponse`
+- New struct `ManagementGroupGovernanceRulesClient`
+- New struct `ManagementGroupGovernanceRulesClientDeleteResponse`
+- New struct `ManagementGroupGovernanceRulesOperationResultClient`
+- New struct `OperationResultAutoGenerated`
+- New struct `SubscriptionGovernanceRulesOperationResultClient`
+- New field `ExcludedScopes` in struct `GovernanceRuleProperties`
+- New field `IncludeMemberScopes` in struct `GovernanceRuleProperties`
+- New field `Metadata` in struct `GovernanceRuleProperties`
+- New field `TenantID` in struct `GovernanceRuleProperties`
+
+
 ## 0.9.0 (2022-11-15)
 ### Breaking Changes
 

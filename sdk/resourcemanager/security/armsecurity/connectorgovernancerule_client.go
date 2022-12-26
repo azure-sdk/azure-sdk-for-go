@@ -55,7 +55,7 @@ func NewConnectorGovernanceRuleClient(subscriptionID string, credential azcore.T
 	return client, nil
 }
 
-// NewListPager - Get a list of all relevant governanceRules over a security connector level scope
+// NewListPager - Get a list of all relevant governance rules over a security connector level scope
 // Generated from API version 2022-01-01-preview
 // resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // securityConnectorName - The security connector name.

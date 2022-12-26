@@ -55,13 +55,13 @@ func NewConnectorGovernanceRulesClient(subscriptionID string, credential azcore.
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or update a security GovernanceRule on the given security connector.
+// CreateOrUpdate - Creates or updates a governance rule on the given security connector
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01-preview
 // resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // securityConnectorName - The security connector name.
-// ruleID - The security GovernanceRule key - unique key for the standard GovernanceRule
-// governanceRule - GovernanceRule over a subscription scope
+// ruleID - The governance rule key - unique key for the standard governance rule (GUID)
+// governanceRule - Governance rule over a given scope
 // options - ConnectorGovernanceRulesClientCreateOrUpdateOptions contains the optional parameters for the ConnectorGovernanceRulesClient.CreateOrUpdate
 // method.
 func (client *ConnectorGovernanceRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, governanceRule GovernanceRule, options *ConnectorGovernanceRulesClientCreateOrUpdateOptions) (ConnectorGovernanceRulesClientCreateOrUpdateResponse, error) {
@@ -118,31 +118,48 @@ func (client *ConnectorGovernanceRulesClient) createOrUpdateHandleResponse(resp 
 	return result, nil
 }
 
-// Delete - Delete a GovernanceRule over a given scope
+// BeginDelete - Delete a Governance rule over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01-preview
 // resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // securityConnectorName - The security connector name.
-// ruleID - The security GovernanceRule key - unique key for the standard GovernanceRule
-// options - ConnectorGovernanceRulesClientDeleteOptions contains the optional parameters for the ConnectorGovernanceRulesClient.Delete
+// ruleID - The governance rule key - unique key for the standard governance rule (GUID)
+// options - ConnectorGovernanceRulesClientBeginDeleteOptions contains the optional parameters for the ConnectorGovernanceRulesClient.BeginDelete
 // method.
-func (client *ConnectorGovernanceRulesClient) Delete(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, options *ConnectorGovernanceRulesClientDeleteOptions) (ConnectorGovernanceRulesClientDeleteResponse, error) {
+func (client *ConnectorGovernanceRulesClient) BeginDelete(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, options *ConnectorGovernanceRulesClientBeginDeleteOptions) (*runtime.Poller[ConnectorGovernanceRulesClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, securityConnectorName, ruleID, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[ConnectorGovernanceRulesClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[ConnectorGovernanceRulesClientDeleteResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// Delete - Delete a Governance rule over a given scope
+// If the operation fails it returns an *azcore.ResponseError type.
+// Generated from API version 2022-01-01-preview
+func (client *ConnectorGovernanceRulesClient) deleteOperation(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, options *ConnectorGovernanceRulesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, securityConnectorName, ruleID, options)
 	if err != nil {
-		return ConnectorGovernanceRulesClientDeleteResponse{}, err
+		return nil, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return ConnectorGovernanceRulesClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
-		return ConnectorGovernanceRulesClientDeleteResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return ConnectorGovernanceRulesClientDeleteResponse{}, nil
+	return resp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ConnectorGovernanceRulesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, options *ConnectorGovernanceRulesClientDeleteOptions) (*policy.Request, error) {
+func (client *ConnectorGovernanceRulesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, options *ConnectorGovernanceRulesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName}/providers/Microsoft.Security/governanceRules/{ruleId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -170,12 +187,12 @@ func (client *ConnectorGovernanceRulesClient) deleteCreateRequest(ctx context.Co
 	return req, nil
 }
 
-// Get - Get a specific governanceRule for the requested scope by ruleId
+// Get - Get a specific governance rule for the requested scope by ruleId
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01-preview
 // resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
 // securityConnectorName - The security connector name.
-// ruleID - The security GovernanceRule key - unique key for the standard GovernanceRule
+// ruleID - The governance rule key - unique key for the standard governance rule (GUID)
 // options - ConnectorGovernanceRulesClientGetOptions contains the optional parameters for the ConnectorGovernanceRulesClient.Get
 // method.
 func (client *ConnectorGovernanceRulesClient) Get(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, options *ConnectorGovernanceRulesClientGetOptions) (ConnectorGovernanceRulesClientGetResponse, error) {

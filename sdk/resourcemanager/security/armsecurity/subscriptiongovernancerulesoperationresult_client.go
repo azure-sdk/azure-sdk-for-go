@@ -23,19 +23,19 @@ import (
 	"strings"
 )
 
-// SubscriptionGovernanceRulesExecuteStatusClient contains the methods for the SubscriptionGovernanceRulesExecuteStatus group.
-// Don't use this type directly, use NewSubscriptionGovernanceRulesExecuteStatusClient() instead.
-type SubscriptionGovernanceRulesExecuteStatusClient struct {
+// SubscriptionGovernanceRulesOperationResultClient contains the methods for the SubscriptionGovernanceRulesOperationResult group.
+// Don't use this type directly, use NewSubscriptionGovernanceRulesOperationResultClient() instead.
+type SubscriptionGovernanceRulesOperationResultClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewSubscriptionGovernanceRulesExecuteStatusClient creates a new instance of SubscriptionGovernanceRulesExecuteStatusClient with the specified values.
+// NewSubscriptionGovernanceRulesOperationResultClient creates a new instance of SubscriptionGovernanceRulesOperationResultClient with the specified values.
 // subscriptionID - Azure subscription ID
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
-func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubscriptionGovernanceRulesExecuteStatusClient, error) {
+func NewSubscriptionGovernanceRulesOperationResultClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubscriptionGovernanceRulesOperationResultClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -47,7 +47,7 @@ func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, cr
 	if err != nil {
 		return nil, err
 	}
-	client := &SubscriptionGovernanceRulesExecuteStatusClient{
+	client := &SubscriptionGovernanceRulesOperationResultClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -55,45 +55,30 @@ func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, cr
 	return client, nil
 }
 
-// BeginGet - Get a specific governanceRule execution status for the requested scope by ruleId and operationId
+// Get - Get governance rules long run operation result for the requested scope by ruleId and operationId
 // If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2022-01-01-preview
-// ruleID - The security GovernanceRule key - unique key for the standard GovernanceRule
-// operationID - The security GovernanceRule execution key - unique key for the execution of GovernanceRule
-// options - SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the SubscriptionGovernanceRulesExecuteStatusClient.BeginGet
+// ruleID - The governance rule key - unique key for the standard governance rule (GUID)
+// operationID - The governance rule execution key - unique key for the execution of governance rule
+// options - SubscriptionGovernanceRulesOperationResultClientGetOptions contains the optional parameters for the SubscriptionGovernanceRulesOperationResultClient.Get
 // method.
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) BeginGet(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions) (*runtime.Poller[SubscriptionGovernanceRulesExecuteStatusClientGetResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.get(ctx, ruleID, operationID, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller[SubscriptionGovernanceRulesExecuteStatusClientGetResponse](resp, client.pl, nil)
-	} else {
-		return runtime.NewPollerFromResumeToken[SubscriptionGovernanceRulesExecuteStatusClientGetResponse](options.ResumeToken, client.pl, nil)
-	}
-}
-
-// Get - Get a specific governanceRule execution status for the requested scope by ruleId and operationId
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-01-preview
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) get(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions) (*http.Response, error) {
+func (client *SubscriptionGovernanceRulesOperationResultClient) Get(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesOperationResultClientGetOptions) (SubscriptionGovernanceRulesOperationResultClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, ruleID, operationID, options)
 	if err != nil {
-		return nil, err
+		return SubscriptionGovernanceRulesOperationResultClientGetResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return nil, err
+		return SubscriptionGovernanceRulesOperationResultClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
-		return nil, runtime.NewResponseError(resp)
+		return SubscriptionGovernanceRulesOperationResultClientGetResponse{}, runtime.NewResponseError(resp)
 	}
-	return resp, nil
+	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) getCreateRequest(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions) (*policy.Request, error) {
+func (client *SubscriptionGovernanceRulesOperationResultClient) getCreateRequest(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesOperationResultClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Security/governanceRules/{ruleId}/operationResults/{operationId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -116,4 +101,16 @@ func (client *SubscriptionGovernanceRulesExecuteStatusClient) getCreateRequest(c
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *SubscriptionGovernanceRulesOperationResultClient) getHandleResponse(resp *http.Response) (SubscriptionGovernanceRulesOperationResultClientGetResponse, error) {
+	result := SubscriptionGovernanceRulesOperationResultClientGetResponse{}
+	if val := resp.Header.Get("location"); val != "" {
+		result.Location = &val
+	}
+	if err := runtime.UnmarshalAsJSON(resp, &result.OperationResultAutoGenerated); err != nil {
+		return SubscriptionGovernanceRulesOperationResultClientGetResponse{}, err
+	}
+	return result, nil
 }
