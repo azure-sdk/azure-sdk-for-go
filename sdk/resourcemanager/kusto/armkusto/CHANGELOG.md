@@ -1,5 +1,24 @@
 # Release History
 
+## 1.2.0 (2022-12-27)
+### Features Added
+
+- New value `DataConnectionKindCosmosDb` added to type alias `DataConnectionKind`
+- New value `ProvisioningStateCanceled` added to type alias `ProvisioningState`
+- New type alias `LanguageExtensionImageName` with values `LanguageExtensionImageNamePython3108`, `LanguageExtensionImageNamePython365`, `LanguageExtensionImageNamePython3912`, `LanguageExtensionImageNamePython3912IncludeDeepLearning`, `LanguageExtensionImageNameR`
+- New function `*CosmosDbDataConnection.GetDataConnection() *DataConnection`
+- New function `NewSKUsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SKUsClient, error)`
+- New function `*SKUsClient.NewListPager(string, *SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse]`
+- New struct `CosmosDbDataConnection`
+- New struct `CosmosDbDataConnectionProperties`
+- New struct `ResourceSKUCapabilities`
+- New struct `ResourceSKUZoneDetails`
+- New struct `SKUsClient`
+- New struct `SKUsClientListResponse`
+- New field `LanguageExtensionImageName` in struct `LanguageExtension`
+- New field `ZoneDetails` in struct `SKULocationInfoItem`
+
+
 ## 1.1.0 (2022-09-15)
 ### Features Added
 

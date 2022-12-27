@@ -21,6 +21,8 @@ func unmarshalDataConnectionClassification(rawMsg json.RawMessage) (DataConnecti
 	}
 	var b DataConnectionClassification
 	switch m["kind"] {
+	case string(DataConnectionKindCosmosDb):
+		b = &CosmosDbDataConnection{}
 	case string(DataConnectionKindEventGrid):
 		b = &EventGridDataConnection{}
 	case string(DataConnectionKindEventHub):

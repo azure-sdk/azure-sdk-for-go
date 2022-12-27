@@ -58,7 +58,7 @@ func NewClustersClient(subscriptionID string, credential azcore.TokenCredential,
 
 // BeginAddLanguageExtensions - Add a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // languageExtensionsToAdd - The language extensions to add.
@@ -78,7 +78,7 @@ func (client *ClustersClient) BeginAddLanguageExtensions(ctx context.Context, re
 
 // AddLanguageExtensions - Add a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) addLanguageExtensions(ctx context.Context, resourceGroupName string, clusterName string, languageExtensionsToAdd LanguageExtensionsList, options *ClustersClientBeginAddLanguageExtensionsOptions) (*http.Response, error) {
 	req, err := client.addLanguageExtensionsCreateRequest(ctx, resourceGroupName, clusterName, languageExtensionsToAdd, options)
 	if err != nil {
@@ -114,7 +114,7 @@ func (client *ClustersClient) addLanguageExtensionsCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, languageExtensionsToAdd)
@@ -122,7 +122,7 @@ func (client *ClustersClient) addLanguageExtensionsCreateRequest(ctx context.Con
 
 // CheckNameAvailability - Checks that the cluster name is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // location - Azure location (region) name.
 // clusterName - The name of the cluster.
 // options - ClustersClientCheckNameAvailabilityOptions contains the optional parameters for the ClustersClient.CheckNameAvailability
@@ -158,7 +158,7 @@ func (client *ClustersClient) checkNameAvailabilityCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, clusterName)
@@ -175,7 +175,7 @@ func (client *ClustersClient) checkNameAvailabilityHandleResponse(resp *http.Res
 
 // BeginCreateOrUpdate - Create or update a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // parameters - The Kusto cluster parameters supplied to the CreateOrUpdate operation.
@@ -195,7 +195,7 @@ func (client *ClustersClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 
 // CreateOrUpdate - Create or update a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, parameters Cluster, options *ClustersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, clusterName, parameters, options)
 	if err != nil {
@@ -231,7 +231,7 @@ func (client *ClustersClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -245,7 +245,7 @@ func (client *ClustersClient) createOrUpdateCreateRequest(ctx context.Context, r
 
 // BeginDelete - Deletes a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
@@ -263,7 +263,7 @@ func (client *ClustersClient) BeginDelete(ctx context.Context, resourceGroupName
 
 // Delete - Deletes a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
@@ -299,7 +299,7 @@ func (client *ClustersClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -307,7 +307,7 @@ func (client *ClustersClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // BeginDetachFollowerDatabases - Detaches all followers of a database owned by this cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // followerDatabaseToRemove - The follower databases properties to remove.
@@ -327,7 +327,7 @@ func (client *ClustersClient) BeginDetachFollowerDatabases(ctx context.Context, 
 
 // DetachFollowerDatabases - Detaches all followers of a database owned by this cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) detachFollowerDatabases(ctx context.Context, resourceGroupName string, clusterName string, followerDatabaseToRemove FollowerDatabaseDefinition, options *ClustersClientBeginDetachFollowerDatabasesOptions) (*http.Response, error) {
 	req, err := client.detachFollowerDatabasesCreateRequest(ctx, resourceGroupName, clusterName, followerDatabaseToRemove, options)
 	if err != nil {
@@ -363,7 +363,7 @@ func (client *ClustersClient) detachFollowerDatabasesCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, followerDatabaseToRemove)
@@ -372,7 +372,7 @@ func (client *ClustersClient) detachFollowerDatabasesCreateRequest(ctx context.C
 // BeginDiagnoseVirtualNetwork - Diagnoses network connectivity status for external resources on which the service is dependent
 // on.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientBeginDiagnoseVirtualNetworkOptions contains the optional parameters for the ClustersClient.BeginDiagnoseVirtualNetwork
@@ -394,7 +394,7 @@ func (client *ClustersClient) BeginDiagnoseVirtualNetwork(ctx context.Context, r
 // DiagnoseVirtualNetwork - Diagnoses network connectivity status for external resources on which the service is dependent
 // on.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) diagnoseVirtualNetwork(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginDiagnoseVirtualNetworkOptions) (*http.Response, error) {
 	req, err := client.diagnoseVirtualNetworkCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
@@ -430,7 +430,7 @@ func (client *ClustersClient) diagnoseVirtualNetworkCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -438,7 +438,7 @@ func (client *ClustersClient) diagnoseVirtualNetworkCreateRequest(ctx context.Co
 
 // Get - Gets a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientGetOptions contains the optional parameters for the ClustersClient.Get method.
@@ -477,7 +477,7 @@ func (client *ClustersClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -493,7 +493,7 @@ func (client *ClustersClient) getHandleResponse(resp *http.Response) (ClustersCl
 }
 
 // NewListPager - Lists all Kusto clusters within a subscription.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // options - ClustersClientListOptions contains the optional parameters for the ClustersClient.List method.
 func (client *ClustersClient) NewListPager(options *ClustersClientListOptions) *runtime.Pager[ClustersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClustersClientListResponse]{
@@ -529,7 +529,7 @@ func (client *ClustersClient) listCreateRequest(ctx context.Context, options *Cl
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -545,7 +545,7 @@ func (client *ClustersClient) listHandleResponse(resp *http.Response) (ClustersC
 }
 
 // NewListByResourceGroupPager - Lists all Kusto clusters within a resource group.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // options - ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.ListByResourceGroup
 // method.
@@ -587,7 +587,7 @@ func (client *ClustersClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -604,7 +604,7 @@ func (client *ClustersClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // NewListFollowerDatabasesPager - Returns a list of databases that are owned by this cluster and were followed by another
 // cluster.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientListFollowerDatabasesOptions contains the optional parameters for the ClustersClient.ListFollowerDatabases
@@ -651,7 +651,7 @@ func (client *ClustersClient) listFollowerDatabasesCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -667,7 +667,7 @@ func (client *ClustersClient) listFollowerDatabasesHandleResponse(resp *http.Res
 }
 
 // NewListLanguageExtensionsPager - Returns a list of language extensions that can run within KQL queries.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientListLanguageExtensionsOptions contains the optional parameters for the ClustersClient.ListLanguageExtensions
@@ -714,7 +714,7 @@ func (client *ClustersClient) listLanguageExtensionsCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -730,7 +730,7 @@ func (client *ClustersClient) listLanguageExtensionsHandleResponse(resp *http.Re
 }
 
 // NewListOutboundNetworkDependenciesEndpointsPager - Gets the network endpoints of all outbound dependencies of a Kusto cluster
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientListOutboundNetworkDependenciesEndpointsOptions contains the optional parameters for the ClustersClient.ListOutboundNetworkDependenciesEndpoints
@@ -783,7 +783,7 @@ func (client *ClustersClient) listOutboundNetworkDependenciesEndpointsCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -799,7 +799,7 @@ func (client *ClustersClient) listOutboundNetworkDependenciesEndpointsHandleResp
 }
 
 // NewListSKUsPager - Lists eligible SKUs for Kusto resource provider.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // options - ClustersClientListSKUsOptions contains the optional parameters for the ClustersClient.ListSKUs method.
 func (client *ClustersClient) NewListSKUsPager(options *ClustersClientListSKUsOptions) *runtime.Pager[ClustersClientListSKUsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClustersClientListSKUsResponse]{
@@ -835,7 +835,7 @@ func (client *ClustersClient) listSKUsCreateRequest(ctx context.Context, options
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -851,7 +851,7 @@ func (client *ClustersClient) listSKUsHandleResponse(resp *http.Response) (Clust
 }
 
 // NewListSKUsByResourcePager - Returns the SKUs available for the provided resource.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientListSKUsByResourceOptions contains the optional parameters for the ClustersClient.ListSKUsByResource
@@ -898,7 +898,7 @@ func (client *ClustersClient) listSKUsByResourceCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -915,7 +915,7 @@ func (client *ClustersClient) listSKUsByResourceHandleResponse(resp *http.Respon
 
 // BeginRemoveLanguageExtensions - Remove a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // languageExtensionsToRemove - The language extensions to remove.
@@ -935,7 +935,7 @@ func (client *ClustersClient) BeginRemoveLanguageExtensions(ctx context.Context,
 
 // RemoveLanguageExtensions - Remove a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) removeLanguageExtensions(ctx context.Context, resourceGroupName string, clusterName string, languageExtensionsToRemove LanguageExtensionsList, options *ClustersClientBeginRemoveLanguageExtensionsOptions) (*http.Response, error) {
 	req, err := client.removeLanguageExtensionsCreateRequest(ctx, resourceGroupName, clusterName, languageExtensionsToRemove, options)
 	if err != nil {
@@ -971,7 +971,7 @@ func (client *ClustersClient) removeLanguageExtensionsCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, languageExtensionsToRemove)
@@ -979,7 +979,7 @@ func (client *ClustersClient) removeLanguageExtensionsCreateRequest(ctx context.
 
 // BeginStart - Starts a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientBeginStartOptions contains the optional parameters for the ClustersClient.BeginStart method.
@@ -997,7 +997,7 @@ func (client *ClustersClient) BeginStart(ctx context.Context, resourceGroupName 
 
 // Start - Starts a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) start(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginStartOptions) (*http.Response, error) {
 	req, err := client.startCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
@@ -1033,7 +1033,7 @@ func (client *ClustersClient) startCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1041,7 +1041,7 @@ func (client *ClustersClient) startCreateRequest(ctx context.Context, resourceGr
 
 // BeginStop - Stops a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // options - ClustersClientBeginStopOptions contains the optional parameters for the ClustersClient.BeginStop method.
@@ -1059,7 +1059,7 @@ func (client *ClustersClient) BeginStop(ctx context.Context, resourceGroupName s
 
 // Stop - Stops a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) stop(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginStopOptions) (*http.Response, error) {
 	req, err := client.stopCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
@@ -1095,7 +1095,7 @@ func (client *ClustersClient) stopCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -1103,7 +1103,7 @@ func (client *ClustersClient) stopCreateRequest(ctx context.Context, resourceGro
 
 // BeginUpdate - Update a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 // resourceGroupName - The name of the resource group containing the Kusto cluster.
 // clusterName - The name of the Kusto cluster.
 // parameters - The Kusto cluster parameters supplied to the Update operation.
@@ -1122,7 +1122,7 @@ func (client *ClustersClient) BeginUpdate(ctx context.Context, resourceGroupName
 
 // Update - Update a Kusto cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-07
+// Generated from API version 2022-11-11
 func (client *ClustersClient) update(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterUpdate, options *ClustersClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, parameters, options)
 	if err != nil {
@@ -1158,7 +1158,7 @@ func (client *ClustersClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-07")
+	reqQP.Set("api-version", "2022-11-11")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}

@@ -860,6 +860,112 @@ func (c *ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAddition
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type CosmosDbDataConnection.
+func (c CosmosDbDataConnection) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "id", c.ID)
+	objectMap["kind"] = DataConnectionKindCosmosDb
+	populate(objectMap, "location", c.Location)
+	populate(objectMap, "name", c.Name)
+	populate(objectMap, "properties", c.Properties)
+	populate(objectMap, "type", c.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CosmosDbDataConnection.
+func (c *CosmosDbDataConnection) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &c.ID)
+			delete(rawMsg, key)
+		case "kind":
+			err = unpopulate(val, "Kind", &c.Kind)
+			delete(rawMsg, key)
+		case "location":
+			err = unpopulate(val, "Location", &c.Location)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &c.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &c.Properties)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &c.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CosmosDbDataConnectionProperties.
+func (c CosmosDbDataConnectionProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "cosmosDbAccountResourceId", c.CosmosDbAccountResourceID)
+	populate(objectMap, "cosmosDbContainer", c.CosmosDbContainer)
+	populate(objectMap, "cosmosDbDatabase", c.CosmosDbDatabase)
+	populate(objectMap, "managedIdentityObjectId", c.ManagedIdentityObjectID)
+	populate(objectMap, "managedIdentityResourceId", c.ManagedIdentityResourceID)
+	populate(objectMap, "mappingRuleName", c.MappingRuleName)
+	populate(objectMap, "provisioningState", c.ProvisioningState)
+	populateTimeRFC3339(objectMap, "retrievalStartDate", c.RetrievalStartDate)
+	populate(objectMap, "tableName", c.TableName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CosmosDbDataConnectionProperties.
+func (c *CosmosDbDataConnectionProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "cosmosDbAccountResourceId":
+			err = unpopulate(val, "CosmosDbAccountResourceID", &c.CosmosDbAccountResourceID)
+			delete(rawMsg, key)
+		case "cosmosDbContainer":
+			err = unpopulate(val, "CosmosDbContainer", &c.CosmosDbContainer)
+			delete(rawMsg, key)
+		case "cosmosDbDatabase":
+			err = unpopulate(val, "CosmosDbDatabase", &c.CosmosDbDatabase)
+			delete(rawMsg, key)
+		case "managedIdentityObjectId":
+			err = unpopulate(val, "ManagedIdentityObjectID", &c.ManagedIdentityObjectID)
+			delete(rawMsg, key)
+		case "managedIdentityResourceId":
+			err = unpopulate(val, "ManagedIdentityResourceID", &c.ManagedIdentityResourceID)
+			delete(rawMsg, key)
+		case "mappingRuleName":
+			err = unpopulate(val, "MappingRuleName", &c.MappingRuleName)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)
+			delete(rawMsg, key)
+		case "retrievalStartDate":
+			err = unpopulateTimeRFC3339(val, "RetrievalStartDate", &c.RetrievalStartDate)
+			delete(rawMsg, key)
+		case "tableName":
+			err = unpopulate(val, "TableName", &c.TableName)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type DataConnection.
 func (d DataConnection) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -1986,6 +2092,7 @@ func (k *KeyVaultProperties) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LanguageExtension.
 func (l LanguageExtension) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "languageExtensionImageName", l.LanguageExtensionImageName)
 	populate(objectMap, "languageExtensionName", l.LanguageExtensionName)
 	return json.Marshal(objectMap)
 }
@@ -1999,6 +2106,9 @@ func (l *LanguageExtension) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "languageExtensionImageName":
+			err = unpopulate(val, "LanguageExtensionImageName", &l.LanguageExtensionImageName)
+			delete(rawMsg, key)
 		case "languageExtensionName":
 			err = unpopulate(val, "LanguageExtensionName", &l.LanguageExtensionName)
 			delete(rawMsg, key)
@@ -3062,6 +3172,68 @@ func (r *ReadWriteDatabaseProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ResourceSKUCapabilities.
+func (r ResourceSKUCapabilities) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "name", r.Name)
+	populate(objectMap, "value", r.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ResourceSKUCapabilities.
+func (r *ResourceSKUCapabilities) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "name":
+			err = unpopulate(val, "Name", &r.Name)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &r.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ResourceSKUZoneDetails.
+func (r ResourceSKUZoneDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]interface{})
+	populate(objectMap, "capabilities", r.Capabilities)
+	populate(objectMap, "name", r.Name)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ResourceSKUZoneDetails.
+func (r *ResourceSKUZoneDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "capabilities":
+			err = unpopulate(val, "Capabilities", &r.Capabilities)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &r.Name)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type SKUDescription.
 func (s SKUDescription) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -3140,6 +3312,7 @@ func (s *SKUDescriptionList) UnmarshalJSON(data []byte) error {
 func (s SKULocationInfoItem) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "location", s.Location)
+	populate(objectMap, "zoneDetails", s.ZoneDetails)
 	populate(objectMap, "zones", s.Zones)
 	return json.Marshal(objectMap)
 }
@@ -3155,6 +3328,9 @@ func (s *SKULocationInfoItem) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "location":
 			err = unpopulate(val, "Location", &s.Location)
+			delete(rawMsg, key)
+		case "zoneDetails":
+			err = unpopulate(val, "ZoneDetails", &s.ZoneDetails)
 			delete(rawMsg, key)
 		case "zones":
 			err = unpopulate(val, "Zones", &s.Zones)

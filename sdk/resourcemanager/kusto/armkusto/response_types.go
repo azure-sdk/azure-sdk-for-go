@@ -389,6 +389,11 @@ type PrivateLinkResourcesClientListResponse struct {
 	PrivateLinkResourceListResult
 }
 
+// SKUsClientListResponse contains the response from method SKUsClient.List.
+type SKUsClientListResponse struct {
+	SKUDescriptionList
+}
+
 // ScriptsClientCheckNameAvailabilityResponse contains the response from method ScriptsClient.CheckNameAvailability.
 type ScriptsClientCheckNameAvailabilityResponse struct {
 	CheckNameResult
