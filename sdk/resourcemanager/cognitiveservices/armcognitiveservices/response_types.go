@@ -64,9 +64,29 @@ type AccountsClientUpdateResponse struct {
 	Account
 }
 
+// CommitmentPlansClientCreateOrUpdateAssociationResponse contains the response from method CommitmentPlansClient.CreateOrUpdateAssociation.
+type CommitmentPlansClientCreateOrUpdateAssociationResponse struct {
+	CommitmentPlanAccountAssociation
+}
+
+// CommitmentPlansClientCreateOrUpdatePlanResponse contains the response from method CommitmentPlansClient.CreateOrUpdatePlan.
+type CommitmentPlansClientCreateOrUpdatePlanResponse struct {
+	CommitmentPlan
+}
+
 // CommitmentPlansClientCreateOrUpdateResponse contains the response from method CommitmentPlansClient.CreateOrUpdate.
 type CommitmentPlansClientCreateOrUpdateResponse struct {
 	CommitmentPlan
+}
+
+// CommitmentPlansClientDeleteAssociationResponse contains the response from method CommitmentPlansClient.DeleteAssociation.
+type CommitmentPlansClientDeleteAssociationResponse struct {
+	// placeholder for future response values
+}
+
+// CommitmentPlansClientDeletePlanResponse contains the response from method CommitmentPlansClient.DeletePlan.
+type CommitmentPlansClientDeletePlanResponse struct {
+	// placeholder for future response values
 }
 
 // CommitmentPlansClientDeleteResponse contains the response from method CommitmentPlansClient.Delete.
@@ -74,14 +94,44 @@ type CommitmentPlansClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// CommitmentPlansClientGetAssociationResponse contains the response from method CommitmentPlansClient.GetAssociation.
+type CommitmentPlansClientGetAssociationResponse struct {
+	CommitmentPlanAccountAssociation
+}
+
+// CommitmentPlansClientGetPlanResponse contains the response from method CommitmentPlansClient.GetPlan.
+type CommitmentPlansClientGetPlanResponse struct {
+	CommitmentPlan
+}
+
 // CommitmentPlansClientGetResponse contains the response from method CommitmentPlansClient.Get.
 type CommitmentPlansClientGetResponse struct {
 	CommitmentPlan
 }
 
+// CommitmentPlansClientListAssociationsResponse contains the response from method CommitmentPlansClient.ListAssociations.
+type CommitmentPlansClientListAssociationsResponse struct {
+	CommitmentPlanAccountAssociationListResult
+}
+
+// CommitmentPlansClientListPlansByResourceGroupResponse contains the response from method CommitmentPlansClient.ListPlansByResourceGroup.
+type CommitmentPlansClientListPlansByResourceGroupResponse struct {
+	CommitmentPlanListResult
+}
+
+// CommitmentPlansClientListPlansBySubscriptionResponse contains the response from method CommitmentPlansClient.ListPlansBySubscription.
+type CommitmentPlansClientListPlansBySubscriptionResponse struct {
+	CommitmentPlanListResult
+}
+
 // CommitmentPlansClientListResponse contains the response from method CommitmentPlansClient.List.
 type CommitmentPlansClientListResponse struct {
 	CommitmentPlanListResult
+}
+
+// CommitmentPlansClientUpdatePlanResponse contains the response from method CommitmentPlansClient.UpdatePlan.
+type CommitmentPlansClientUpdatePlanResponse struct {
+	CommitmentPlan
 }
 
 // CommitmentTiersClientListResponse contains the response from method CommitmentTiersClient.List.
