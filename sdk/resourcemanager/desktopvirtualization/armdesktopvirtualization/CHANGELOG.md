@@ -1,5 +1,81 @@
 # Release History
 
+## 2.0.0-beta.2 (2022-12-27)
+### Breaking Changes
+
+- Type alias `Operation` has been removed
+- Struct `CloudError` has been removed
+- Struct `MigrationRequestProperties` has been removed
+- Field `MigrationRequest` of struct `ApplicationGroupProperties` has been removed
+- Field `MigrationRequest` of struct `HostPoolProperties` has been removed
+
+### Features Added
+
+- New function `NewScalingPlanPooledSchedulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ScalingPlanPooledSchedulesClient, error)`
+- New function `*ScalingPlanPooledSchedulesClient.Create(context.Context, string, string, string, ScalingPlanPooledSchedule, *ScalingPlanPooledSchedulesClientCreateOptions) (ScalingPlanPooledSchedulesClientCreateResponse, error)`
+- New function `*ScalingPlanPooledSchedulesClient.Delete(context.Context, string, string, string, *ScalingPlanPooledSchedulesClientDeleteOptions) (ScalingPlanPooledSchedulesClientDeleteResponse, error)`
+- New function `*ScalingPlanPooledSchedulesClient.Get(context.Context, string, string, string, *ScalingPlanPooledSchedulesClientGetOptions) (ScalingPlanPooledSchedulesClientGetResponse, error)`
+- New function `*ScalingPlanPooledSchedulesClient.NewListPager(string, string, *ScalingPlanPooledSchedulesClientListOptions) *runtime.Pager[ScalingPlanPooledSchedulesClientListResponse]`
+- New function `*ScalingPlanPooledSchedulesClient.Update(context.Context, string, string, string, *ScalingPlanPooledSchedulesClientUpdateOptions) (ScalingPlanPooledSchedulesClientUpdateResponse, error)`
+- New struct `ScalingPlanPooledSchedule`
+- New struct `ScalingPlanPooledScheduleList`
+- New struct `ScalingPlanPooledSchedulePatch`
+- New struct `ScalingPlanPooledScheduleProperties`
+- New struct `ScalingPlanPooledSchedulesClient`
+- New struct `ScalingPlanPooledSchedulesClientListResponse`
+- New field `InitialSkip` in struct `ApplicationGroupsClientListByResourceGroupOptions`
+- New field `IsDescending` in struct `ApplicationGroupsClientListByResourceGroupOptions`
+- New field `PageSize` in struct `ApplicationGroupsClientListByResourceGroupOptions`
+- New field `InitialSkip` in struct `ApplicationsClientListOptions`
+- New field `IsDescending` in struct `ApplicationsClientListOptions`
+- New field `PageSize` in struct `ApplicationsClientListOptions`
+- New field `InitialSkip` in struct `DesktopsClientListOptions`
+- New field `IsDescending` in struct `DesktopsClientListOptions`
+- New field `PageSize` in struct `DesktopsClientListOptions`
+- New field `InitialSkip` in struct `HostPoolsClientListByResourceGroupOptions`
+- New field `IsDescending` in struct `HostPoolsClientListByResourceGroupOptions`
+- New field `PageSize` in struct `HostPoolsClientListByResourceGroupOptions`
+- New field `InitialSkip` in struct `HostPoolsClientListOptions`
+- New field `IsDescending` in struct `HostPoolsClientListOptions`
+- New field `PageSize` in struct `HostPoolsClientListOptions`
+- New field `InitialSkip` in struct `MSIXPackagesClientListOptions`
+- New field `IsDescending` in struct `MSIXPackagesClientListOptions`
+- New field `PageSize` in struct `MSIXPackagesClientListOptions`
+- New field `InitialSkip` in struct `PrivateEndpointConnectionsClientListByHostPoolOptions`
+- New field `IsDescending` in struct `PrivateEndpointConnectionsClientListByHostPoolOptions`
+- New field `PageSize` in struct `PrivateEndpointConnectionsClientListByHostPoolOptions`
+- New field `InitialSkip` in struct `PrivateLinkResourcesClientListByHostPoolOptions`
+- New field `IsDescending` in struct `PrivateLinkResourcesClientListByHostPoolOptions`
+- New field `PageSize` in struct `PrivateLinkResourcesClientListByHostPoolOptions`
+- New field `InitialSkip` in struct `PrivateLinkResourcesClientListByWorkspaceOptions`
+- New field `IsDescending` in struct `PrivateLinkResourcesClientListByWorkspaceOptions`
+- New field `PageSize` in struct `PrivateLinkResourcesClientListByWorkspaceOptions`
+- New field `InitialSkip` in struct `ScalingPlansClientListByHostPoolOptions`
+- New field `IsDescending` in struct `ScalingPlansClientListByHostPoolOptions`
+- New field `PageSize` in struct `ScalingPlansClientListByHostPoolOptions`
+- New field `InitialSkip` in struct `ScalingPlansClientListByResourceGroupOptions`
+- New field `IsDescending` in struct `ScalingPlansClientListByResourceGroupOptions`
+- New field `PageSize` in struct `ScalingPlansClientListByResourceGroupOptions`
+- New field `InitialSkip` in struct `ScalingPlansClientListBySubscriptionOptions`
+- New field `IsDescending` in struct `ScalingPlansClientListBySubscriptionOptions`
+- New field `PageSize` in struct `ScalingPlansClientListBySubscriptionOptions`
+- New field `InitialSkip` in struct `SessionHostsClientListOptions`
+- New field `IsDescending` in struct `SessionHostsClientListOptions`
+- New field `PageSize` in struct `SessionHostsClientListOptions`
+- New field `InitialSkip` in struct `StartMenuItemsClientListOptions`
+- New field `IsDescending` in struct `StartMenuItemsClientListOptions`
+- New field `PageSize` in struct `StartMenuItemsClientListOptions`
+- New field `InitialSkip` in struct `UserSessionsClientListByHostPoolOptions`
+- New field `IsDescending` in struct `UserSessionsClientListByHostPoolOptions`
+- New field `PageSize` in struct `UserSessionsClientListByHostPoolOptions`
+- New field `InitialSkip` in struct `UserSessionsClientListOptions`
+- New field `IsDescending` in struct `UserSessionsClientListOptions`
+- New field `PageSize` in struct `UserSessionsClientListOptions`
+- New field `InitialSkip` in struct `WorkspacesClientListByResourceGroupOptions`
+- New field `IsDescending` in struct `WorkspacesClientListByResourceGroupOptions`
+- New field `PageSize` in struct `WorkspacesClientListByResourceGroupOptions`
+
+
 ## 2.0.0-beta.1 (2022-05-24)
 ### Breaking Changes
 
