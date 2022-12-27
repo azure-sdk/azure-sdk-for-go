@@ -1,5 +1,227 @@
 # Release History
 
+## 2.0.0-beta.1 (2022-12-27)
+### Breaking Changes
+
+- Function `*ServerDevOpsAuditSettingsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, ServerDevOpsAuditingSettings, *ServerDevOpsAuditSettingsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, DevOpsAuditingSettingsName, ServerDevOpsAuditingSettings, *ServerDevOpsAuditSettingsClientBeginCreateOrUpdateOptions)`
+- Function `*ServerDevOpsAuditSettingsClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, *ServerDevOpsAuditSettingsClientGetOptions)` to `(context.Context, string, string, DevOpsAuditingSettingsName, *ServerDevOpsAuditSettingsClientGetOptions)`
+- Type of `ManagedDatabaseRestoreDetailsProperties.NumberOfFilesDetected` has been changed from `*int64` to `*int32`
+- Type of `ManagedDatabaseRestoreDetailsProperties.PercentCompleted` has been changed from `*float64` to `*int32`
+- Type of `ManagedDatabaseRestoreDetailsProperties.UnrestorableFiles` has been changed from `[]*string` to `[]*ManagedDatabaseRestoreDetailsUnrestorableFileProperties`
+- Type alias `DNSRefreshConfigurationPropertiesStatus` has been removed
+- Operation `*ReplicationLinksClient.Delete` has been changed to LRO, use `*ReplicationLinksClient.BeginDelete` instead.
+- Operation `*VirtualClustersClient.UpdateDNSServers` has been changed to LRO, use `*VirtualClustersClient.BeginUpdateDNSServers` instead.
+- Struct `DNSRefreshConfigurationProperties` has been removed
+- Struct `UpdateManagedInstanceDNSServersOperation` has been removed
+- Field `Family` of struct `VirtualClusterProperties` has been removed
+- Field `MaintenanceConfigurationID` of struct `VirtualClusterProperties` has been removed
+
+### Features Added
+
+- New value `ReplicationLinkTypeSTANDBY` added to type alias `ReplicationLinkType`
+- New value `SecondaryTypeStandby` added to type alias `SecondaryType`
+- New type alias `AlwaysEncryptedEnclaveType` with values `AlwaysEncryptedEnclaveTypeDefault`, `AlwaysEncryptedEnclaveTypeVBS`
+- New type alias `BaselineName` with values `BaselineNameDefault`
+- New type alias `DNSRefreshOperationStatus` with values `DNSRefreshOperationStatusFailed`, `DNSRefreshOperationStatusInProgress`, `DNSRefreshOperationStatusSucceeded`
+- New type alias `DevOpsAuditingSettingsName` with values `DevOpsAuditingSettingsNameDefault`
+- New type alias `DtcName` with values `DtcNameCurrent`
+- New type alias `MoveOperationMode` with values `MoveOperationModeCopy`, `MoveOperationModeMove`
+- New type alias `RuleSeverity` with values `RuleSeverityHigh`, `RuleSeverityInformational`, `RuleSeverityLow`, `RuleSeverityMedium`, `RuleSeverityObsolete`
+- New type alias `RuleStatus` with values `RuleStatusFinding`, `RuleStatusInternalError`, `RuleStatusNonFinding`
+- New type alias `RuleType` with values `RuleTypeBaselineExpected`, `RuleTypeBinary`, `RuleTypeNegativeList`, `RuleTypePositiveList`
+- New type alias `SQLVulnerabilityAssessmentName` with values `SQLVulnerabilityAssessmentNameDefault`
+- New type alias `SQLVulnerabilityAssessmentState` with values `SQLVulnerabilityAssessmentStateDisabled`, `SQLVulnerabilityAssessmentStateEnabled`
+- New function `NewDatabaseSQLVulnerabilityAssessmentBaselinesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseSQLVulnerabilityAssessmentBaselinesClient, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentBaselinesClient.CreateOrUpdate(context.Context, string, string, string, VulnerabilityAssessmentName, BaselineName, DatabaseSQLVulnerabilityAssessmentRuleBaselineListInput, *DatabaseSQLVulnerabilityAssessmentBaselinesClientCreateOrUpdateOptions) (DatabaseSQLVulnerabilityAssessmentBaselinesClientCreateOrUpdateResponse, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentBaselinesClient.Get(context.Context, string, string, string, VulnerabilityAssessmentName, BaselineName, *DatabaseSQLVulnerabilityAssessmentBaselinesClientGetOptions) (DatabaseSQLVulnerabilityAssessmentBaselinesClientGetResponse, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentBaselinesClient.NewListBySQLVulnerabilityAssessmentPager(string, string, string, VulnerabilityAssessmentName, *DatabaseSQLVulnerabilityAssessmentBaselinesClientListBySQLVulnerabilityAssessmentOptions) *runtime.Pager[DatabaseSQLVulnerabilityAssessmentBaselinesClientListBySQLVulnerabilityAssessmentResponse]`
+- New function `NewDatabaseSQLVulnerabilityAssessmentExecuteScanClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseSQLVulnerabilityAssessmentExecuteScanClient, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentExecuteScanClient.BeginExecute(context.Context, string, string, string, VulnerabilityAssessmentName, *DatabaseSQLVulnerabilityAssessmentExecuteScanClientBeginExecuteOptions) (*runtime.Poller[DatabaseSQLVulnerabilityAssessmentExecuteScanClientExecuteResponse], error)`
+- New function `NewDatabaseSQLVulnerabilityAssessmentRuleBaselinesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseSQLVulnerabilityAssessmentRuleBaselinesClient, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentRuleBaselinesClient.CreateOrUpdate(context.Context, string, string, string, VulnerabilityAssessmentName, BaselineName, string, DatabaseSQLVulnerabilityAssessmentRuleBaselineInput, *DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientCreateOrUpdateOptions) (DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientCreateOrUpdateResponse, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentRuleBaselinesClient.Delete(context.Context, string, string, string, VulnerabilityAssessmentName, BaselineName, string, *DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientDeleteOptions) (DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientDeleteResponse, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentRuleBaselinesClient.Get(context.Context, string, string, string, VulnerabilityAssessmentName, BaselineName, string, *DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientGetOptions) (DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientGetResponse, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentRuleBaselinesClient.NewListByBaselinePager(string, string, string, VulnerabilityAssessmentName, BaselineName, *DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientListByBaselineOptions) *runtime.Pager[DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientListByBaselineResponse]`
+- New function `NewDatabaseSQLVulnerabilityAssessmentScanResultClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseSQLVulnerabilityAssessmentScanResultClient, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentScanResultClient.Get(context.Context, string, string, string, SQLVulnerabilityAssessmentName, string, string, *DatabaseSQLVulnerabilityAssessmentScanResultClientGetOptions) (DatabaseSQLVulnerabilityAssessmentScanResultClientGetResponse, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentScanResultClient.NewListByScanPager(string, string, string, SQLVulnerabilityAssessmentName, string, *DatabaseSQLVulnerabilityAssessmentScanResultClientListByScanOptions) *runtime.Pager[DatabaseSQLVulnerabilityAssessmentScanResultClientListByScanResponse]`
+- New function `NewDatabaseSQLVulnerabilityAssessmentScansClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseSQLVulnerabilityAssessmentScansClient, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentScansClient.Get(context.Context, string, string, string, VulnerabilityAssessmentName, string, *DatabaseSQLVulnerabilityAssessmentScansClientGetOptions) (DatabaseSQLVulnerabilityAssessmentScansClientGetResponse, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentScansClient.NewListBySQLVulnerabilityAssessmentsPager(string, string, string, VulnerabilityAssessmentName, *DatabaseSQLVulnerabilityAssessmentScansClientListBySQLVulnerabilityAssessmentsOptions) *runtime.Pager[DatabaseSQLVulnerabilityAssessmentScansClientListBySQLVulnerabilityAssessmentsResponse]`
+- New function `NewDatabaseSQLVulnerabilityAssessmentsSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DatabaseSQLVulnerabilityAssessmentsSettingsClient, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentsSettingsClient.Get(context.Context, string, string, string, SQLVulnerabilityAssessmentName, *DatabaseSQLVulnerabilityAssessmentsSettingsClientGetOptions) (DatabaseSQLVulnerabilityAssessmentsSettingsClientGetResponse, error)`
+- New function `*DatabaseSQLVulnerabilityAssessmentsSettingsClient.NewListByDatabasePager(string, string, string, *DatabaseSQLVulnerabilityAssessmentsSettingsClientListByDatabaseOptions) *runtime.Pager[DatabaseSQLVulnerabilityAssessmentsSettingsClientListByDatabaseResponse]`
+- New function `NewManagedDatabaseAdvancedThreatProtectionSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedDatabaseAdvancedThreatProtectionSettingsClient, error)`
+- New function `*ManagedDatabaseAdvancedThreatProtectionSettingsClient.CreateOrUpdate(context.Context, string, string, string, AdvancedThreatProtectionName, ManagedDatabaseAdvancedThreatProtection, *ManagedDatabaseAdvancedThreatProtectionSettingsClientCreateOrUpdateOptions) (ManagedDatabaseAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse, error)`
+- New function `*ManagedDatabaseAdvancedThreatProtectionSettingsClient.Get(context.Context, string, string, string, AdvancedThreatProtectionName, *ManagedDatabaseAdvancedThreatProtectionSettingsClientGetOptions) (ManagedDatabaseAdvancedThreatProtectionSettingsClientGetResponse, error)`
+- New function `*ManagedDatabaseAdvancedThreatProtectionSettingsClient.NewListByDatabasePager(string, string, string, *ManagedDatabaseAdvancedThreatProtectionSettingsClientListByDatabaseOptions) *runtime.Pager[ManagedDatabaseAdvancedThreatProtectionSettingsClientListByDatabaseResponse]`
+- New function `NewManagedDatabaseMoveOperationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedDatabaseMoveOperationsClient, error)`
+- New function `*ManagedDatabaseMoveOperationsClient.Get(context.Context, string, string, string, *ManagedDatabaseMoveOperationsClientGetOptions) (ManagedDatabaseMoveOperationsClientGetResponse, error)`
+- New function `*ManagedDatabaseMoveOperationsClient.NewListByLocationPager(string, string, *ManagedDatabaseMoveOperationsClientListByLocationOptions) *runtime.Pager[ManagedDatabaseMoveOperationsClientListByLocationResponse]`
+- New function `*ManagedDatabasesClient.BeginCancelMove(context.Context, string, string, string, ManagedDatabaseMoveDefinition, *ManagedDatabasesClientBeginCancelMoveOptions) (*runtime.Poller[ManagedDatabasesClientCancelMoveResponse], error)`
+- New function `*ManagedDatabasesClient.BeginCompleteMove(context.Context, string, string, string, ManagedDatabaseMoveDefinition, *ManagedDatabasesClientBeginCompleteMoveOptions) (*runtime.Poller[ManagedDatabasesClientCompleteMoveResponse], error)`
+- New function `*ManagedDatabasesClient.BeginStartMove(context.Context, string, string, string, ManagedDatabaseStartMoveDefinition, *ManagedDatabasesClientBeginStartMoveOptions) (*runtime.Poller[ManagedDatabasesClientStartMoveResponse], error)`
+- New function `NewManagedInstanceAdvancedThreatProtectionSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedInstanceAdvancedThreatProtectionSettingsClient, error)`
+- New function `*ManagedInstanceAdvancedThreatProtectionSettingsClient.BeginCreateOrUpdate(context.Context, string, string, AdvancedThreatProtectionName, ManagedInstanceAdvancedThreatProtection, *ManagedInstanceAdvancedThreatProtectionSettingsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedInstanceAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse], error)`
+- New function `*ManagedInstanceAdvancedThreatProtectionSettingsClient.Get(context.Context, string, string, AdvancedThreatProtectionName, *ManagedInstanceAdvancedThreatProtectionSettingsClientGetOptions) (ManagedInstanceAdvancedThreatProtectionSettingsClientGetResponse, error)`
+- New function `*ManagedInstanceAdvancedThreatProtectionSettingsClient.NewListByInstancePager(string, string, *ManagedInstanceAdvancedThreatProtectionSettingsClientListByInstanceOptions) *runtime.Pager[ManagedInstanceAdvancedThreatProtectionSettingsClientListByInstanceResponse]`
+- New function `NewManagedInstanceDtcsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedInstanceDtcsClient, error)`
+- New function `*ManagedInstanceDtcsClient.BeginCreateOrUpdate(context.Context, string, string, DtcName, ManagedInstanceDtc, *ManagedInstanceDtcsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedInstanceDtcsClientCreateOrUpdateResponse], error)`
+- New function `*ManagedInstanceDtcsClient.Get(context.Context, string, string, DtcName, *ManagedInstanceDtcsClientGetOptions) (ManagedInstanceDtcsClientGetResponse, error)`
+- New function `*ManagedInstanceDtcsClient.NewListByManagedInstancePager(string, string, *ManagedInstanceDtcsClientListByManagedInstanceOptions) *runtime.Pager[ManagedInstanceDtcsClientListByManagedInstanceResponse]`
+- New function `NewManagedServerDNSAliasesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedServerDNSAliasesClient, error)`
+- New function `*ManagedServerDNSAliasesClient.BeginAcquire(context.Context, string, string, string, ManagedServerDNSAliasAcquisition, *ManagedServerDNSAliasesClientBeginAcquireOptions) (*runtime.Poller[ManagedServerDNSAliasesClientAcquireResponse], error)`
+- New function `*ManagedServerDNSAliasesClient.BeginCreateOrUpdate(context.Context, string, string, string, ManagedServerDNSAliasCreation, *ManagedServerDNSAliasesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedServerDNSAliasesClientCreateOrUpdateResponse], error)`
+- New function `*ManagedServerDNSAliasesClient.BeginDelete(context.Context, string, string, string, *ManagedServerDNSAliasesClientBeginDeleteOptions) (*runtime.Poller[ManagedServerDNSAliasesClientDeleteResponse], error)`
+- New function `*ManagedServerDNSAliasesClient.Get(context.Context, string, string, string, *ManagedServerDNSAliasesClientGetOptions) (ManagedServerDNSAliasesClientGetResponse, error)`
+- New function `*ManagedServerDNSAliasesClient.NewListByManagedInstancePager(string, string, *ManagedServerDNSAliasesClientListByManagedInstanceOptions) *runtime.Pager[ManagedServerDNSAliasesClientListByManagedInstanceResponse]`
+- New function `NewSynapseLinkWorkspacesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SynapseLinkWorkspacesClient, error)`
+- New function `*SynapseLinkWorkspacesClient.NewListByDatabasePager(string, string, string, *SynapseLinkWorkspacesClientListByDatabaseOptions) *runtime.Pager[SynapseLinkWorkspacesClientListByDatabaseResponse]`
+- New function `NewVulnerabilityAssessmentBaselineClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentBaselineClient, error)`
+- New function `*VulnerabilityAssessmentBaselineClient.Get(context.Context, string, string, VulnerabilityAssessmentName, BaselineName, *VulnerabilityAssessmentBaselineClientGetOptions) (VulnerabilityAssessmentBaselineClientGetResponse, error)`
+- New function `*VulnerabilityAssessmentBaselineClient.NewListBySQLVulnerabilityAssessmentPager(string, string, VulnerabilityAssessmentName, *VulnerabilityAssessmentBaselineClientListBySQLVulnerabilityAssessmentOptions) *runtime.Pager[VulnerabilityAssessmentBaselineClientListBySQLVulnerabilityAssessmentResponse]`
+- New function `NewVulnerabilityAssessmentBaselinesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentBaselinesClient, error)`
+- New function `*VulnerabilityAssessmentBaselinesClient.CreateOrUpdate(context.Context, string, string, VulnerabilityAssessmentName, BaselineName, DatabaseSQLVulnerabilityAssessmentRuleBaselineListInput, *VulnerabilityAssessmentBaselinesClientCreateOrUpdateOptions) (VulnerabilityAssessmentBaselinesClientCreateOrUpdateResponse, error)`
+- New function `NewVulnerabilityAssessmentExecuteScanClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentExecuteScanClient, error)`
+- New function `*VulnerabilityAssessmentExecuteScanClient.BeginExecute(context.Context, string, string, VulnerabilityAssessmentName, *VulnerabilityAssessmentExecuteScanClientBeginExecuteOptions) (*runtime.Poller[VulnerabilityAssessmentExecuteScanClientExecuteResponse], error)`
+- New function `NewVulnerabilityAssessmentRuleBaselineClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentRuleBaselineClient, error)`
+- New function `*VulnerabilityAssessmentRuleBaselineClient.CreateOrUpdate(context.Context, string, string, VulnerabilityAssessmentName, BaselineName, string, DatabaseSQLVulnerabilityAssessmentRuleBaselineInput, *VulnerabilityAssessmentRuleBaselineClientCreateOrUpdateOptions) (VulnerabilityAssessmentRuleBaselineClientCreateOrUpdateResponse, error)`
+- New function `*VulnerabilityAssessmentRuleBaselineClient.Get(context.Context, string, string, VulnerabilityAssessmentName, BaselineName, string, *VulnerabilityAssessmentRuleBaselineClientGetOptions) (VulnerabilityAssessmentRuleBaselineClientGetResponse, error)`
+- New function `*VulnerabilityAssessmentRuleBaselineClient.NewListByBaselinePager(string, string, VulnerabilityAssessmentName, BaselineName, *VulnerabilityAssessmentRuleBaselineClientListByBaselineOptions) *runtime.Pager[VulnerabilityAssessmentRuleBaselineClientListByBaselineResponse]`
+- New function `NewVulnerabilityAssessmentRuleBaselinesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentRuleBaselinesClient, error)`
+- New function `*VulnerabilityAssessmentRuleBaselinesClient.Delete(context.Context, string, string, VulnerabilityAssessmentName, BaselineName, string, *VulnerabilityAssessmentRuleBaselinesClientDeleteOptions) (VulnerabilityAssessmentRuleBaselinesClientDeleteResponse, error)`
+- New function `NewVulnerabilityAssessmentScanResultClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentScanResultClient, error)`
+- New function `*VulnerabilityAssessmentScanResultClient.Get(context.Context, string, string, SQLVulnerabilityAssessmentName, string, string, *VulnerabilityAssessmentScanResultClientGetOptions) (VulnerabilityAssessmentScanResultClientGetResponse, error)`
+- New function `*VulnerabilityAssessmentScanResultClient.NewListByScanPager(string, string, SQLVulnerabilityAssessmentName, string, *VulnerabilityAssessmentScanResultClientListByScanOptions) *runtime.Pager[VulnerabilityAssessmentScanResultClientListByScanResponse]`
+- New function `NewVulnerabilityAssessmentScansClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentScansClient, error)`
+- New function `*VulnerabilityAssessmentScansClient.Get(context.Context, string, string, VulnerabilityAssessmentName, string, *VulnerabilityAssessmentScansClientGetOptions) (VulnerabilityAssessmentScansClientGetResponse, error)`
+- New function `*VulnerabilityAssessmentScansClient.NewListBySQLVulnerabilityAssessmentsPager(string, string, VulnerabilityAssessmentName, *VulnerabilityAssessmentScansClientListBySQLVulnerabilityAssessmentsOptions) *runtime.Pager[VulnerabilityAssessmentScansClientListBySQLVulnerabilityAssessmentsResponse]`
+- New function `NewVulnerabilityAssessmentsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentsClient, error)`
+- New function `*VulnerabilityAssessmentsClient.Delete(context.Context, string, string, VulnerabilityAssessmentName, *VulnerabilityAssessmentsClientDeleteOptions) (VulnerabilityAssessmentsClientDeleteResponse, error)`
+- New function `NewVulnerabilityAssessmentsSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VulnerabilityAssessmentsSettingsClient, error)`
+- New function `*VulnerabilityAssessmentsSettingsClient.CreateOrUpdate(context.Context, string, string, VulnerabilityAssessmentName, VulnerabilityAssessment, *VulnerabilityAssessmentsSettingsClientCreateOrUpdateOptions) (VulnerabilityAssessmentsSettingsClientCreateOrUpdateResponse, error)`
+- New function `*VulnerabilityAssessmentsSettingsClient.Get(context.Context, string, string, SQLVulnerabilityAssessmentName, *VulnerabilityAssessmentsSettingsClientGetOptions) (VulnerabilityAssessmentsSettingsClientGetResponse, error)`
+- New function `*VulnerabilityAssessmentsSettingsClient.NewListByServerPager(string, string, *VulnerabilityAssessmentsSettingsClientListByServerOptions) *runtime.Pager[VulnerabilityAssessmentsSettingsClientListByServerResponse]`
+- New struct `Baseline`
+- New struct `BaselineAdjustedResult`
+- New struct `BenchmarkReference`
+- New struct `DatabaseSQLVulnerabilityAssessmentBaselineSet`
+- New struct `DatabaseSQLVulnerabilityAssessmentBaselineSetListResult`
+- New struct `DatabaseSQLVulnerabilityAssessmentBaselineSetProperties`
+- New struct `DatabaseSQLVulnerabilityAssessmentBaselinesClient`
+- New struct `DatabaseSQLVulnerabilityAssessmentBaselinesClientListBySQLVulnerabilityAssessmentResponse`
+- New struct `DatabaseSQLVulnerabilityAssessmentExecuteScanClient`
+- New struct `DatabaseSQLVulnerabilityAssessmentExecuteScanClientExecuteResponse`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaseline`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaselineInput`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaselineInputProperties`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaselineListInput`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaselineListInputProperties`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaselineListResult`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaselineProperties`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaselinesClient`
+- New struct `DatabaseSQLVulnerabilityAssessmentRuleBaselinesClientListByBaselineResponse`
+- New struct `DatabaseSQLVulnerabilityAssessmentScanResultClient`
+- New struct `DatabaseSQLVulnerabilityAssessmentScanResultClientListByScanResponse`
+- New struct `DatabaseSQLVulnerabilityAssessmentScansClient`
+- New struct `DatabaseSQLVulnerabilityAssessmentScansClientListBySQLVulnerabilityAssessmentsResponse`
+- New struct `DatabaseSQLVulnerabilityAssessmentsSettingsClient`
+- New struct `DatabaseSQLVulnerabilityAssessmentsSettingsClientListByDatabaseResponse`
+- New struct `ManagedDatabaseAdvancedThreatProtection`
+- New struct `ManagedDatabaseAdvancedThreatProtectionListResult`
+- New struct `ManagedDatabaseAdvancedThreatProtectionSettingsClient`
+- New struct `ManagedDatabaseAdvancedThreatProtectionSettingsClientListByDatabaseResponse`
+- New struct `ManagedDatabaseMoveDefinition`
+- New struct `ManagedDatabaseMoveOperationListResult`
+- New struct `ManagedDatabaseMoveOperationResult`
+- New struct `ManagedDatabaseMoveOperationResultProperties`
+- New struct `ManagedDatabaseMoveOperationsClient`
+- New struct `ManagedDatabaseMoveOperationsClientListByLocationResponse`
+- New struct `ManagedDatabaseRestoreDetailsBackupSetProperties`
+- New struct `ManagedDatabaseRestoreDetailsUnrestorableFileProperties`
+- New struct `ManagedDatabaseStartMoveDefinition`
+- New struct `ManagedDatabasesClientCancelMoveResponse`
+- New struct `ManagedDatabasesClientCompleteMoveResponse`
+- New struct `ManagedDatabasesClientStartMoveResponse`
+- New struct `ManagedInstanceAdvancedThreatProtection`
+- New struct `ManagedInstanceAdvancedThreatProtectionListResult`
+- New struct `ManagedInstanceAdvancedThreatProtectionSettingsClient`
+- New struct `ManagedInstanceAdvancedThreatProtectionSettingsClientCreateOrUpdateResponse`
+- New struct `ManagedInstanceAdvancedThreatProtectionSettingsClientListByInstanceResponse`
+- New struct `ManagedInstanceDtc`
+- New struct `ManagedInstanceDtcListResult`
+- New struct `ManagedInstanceDtcProperties`
+- New struct `ManagedInstanceDtcSecuritySettings`
+- New struct `ManagedInstanceDtcTransactionManagerCommunicationSettings`
+- New struct `ManagedInstanceDtcsClient`
+- New struct `ManagedInstanceDtcsClientCreateOrUpdateResponse`
+- New struct `ManagedInstanceDtcsClientListByManagedInstanceResponse`
+- New struct `ManagedServerDNSAlias`
+- New struct `ManagedServerDNSAliasAcquisition`
+- New struct `ManagedServerDNSAliasCreation`
+- New struct `ManagedServerDNSAliasListResult`
+- New struct `ManagedServerDNSAliasProperties`
+- New struct `ManagedServerDNSAliasesClient`
+- New struct `ManagedServerDNSAliasesClientAcquireResponse`
+- New struct `ManagedServerDNSAliasesClientCreateOrUpdateResponse`
+- New struct `ManagedServerDNSAliasesClientDeleteResponse`
+- New struct `ManagedServerDNSAliasesClientListByManagedInstanceResponse`
+- New struct `QueryCheck`
+- New struct `Remediation`
+- New struct `SynapseLinkWorkspace`
+- New struct `SynapseLinkWorkspaceInfoProperties`
+- New struct `SynapseLinkWorkspaceListResult`
+- New struct `SynapseLinkWorkspaceProperties`
+- New struct `SynapseLinkWorkspacesClient`
+- New struct `SynapseLinkWorkspacesClientListByDatabaseResponse`
+- New struct `UpdateVirtualClusterDNSServersOperation`
+- New struct `VaRule`
+- New struct `VirtualClusterDNSServersProperties`
+- New struct `VulnerabilityAssessment`
+- New struct `VulnerabilityAssessmentBaselineClient`
+- New struct `VulnerabilityAssessmentBaselineClientListBySQLVulnerabilityAssessmentResponse`
+- New struct `VulnerabilityAssessmentBaselinesClient`
+- New struct `VulnerabilityAssessmentExecuteScanClient`
+- New struct `VulnerabilityAssessmentExecuteScanClientExecuteResponse`
+- New struct `VulnerabilityAssessmentListResult`
+- New struct `VulnerabilityAssessmentPolicyProperties`
+- New struct `VulnerabilityAssessmentRuleBaselineClient`
+- New struct `VulnerabilityAssessmentRuleBaselineClientListByBaselineResponse`
+- New struct `VulnerabilityAssessmentRuleBaselinesClient`
+- New struct `VulnerabilityAssessmentScanForSQLError`
+- New struct `VulnerabilityAssessmentScanListResult`
+- New struct `VulnerabilityAssessmentScanRecordForSQL`
+- New struct `VulnerabilityAssessmentScanRecordForSQLListResult`
+- New struct `VulnerabilityAssessmentScanRecordForSQLProperties`
+- New struct `VulnerabilityAssessmentScanResultClient`
+- New struct `VulnerabilityAssessmentScanResultClientListByScanResponse`
+- New struct `VulnerabilityAssessmentScanResultProperties`
+- New struct `VulnerabilityAssessmentScanResults`
+- New struct `VulnerabilityAssessmentScansClient`
+- New struct `VulnerabilityAssessmentScansClientListBySQLVulnerabilityAssessmentsResponse`
+- New struct `VulnerabilityAssessmentsClient`
+- New struct `VulnerabilityAssessmentsSettingsClient`
+- New struct `VulnerabilityAssessmentsSettingsClientListByServerResponse`
+- New field `PreferredEnclaveType` in struct `DatabaseProperties`
+- New field `PreferredEnclaveType` in struct `DatabaseUpdateProperties`
+- New field `StorageContainerIdentity` in struct `ManagedDatabaseProperties`
+- New field `CurrentBackupType` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `CurrentRestorePlanSizeMB` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `CurrentRestoredSizeMB` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `DiffBackupSets` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `FullBackupSets` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `LogBackupSets` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `NumberOfFilesQueued` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `NumberOfFilesRestored` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `NumberOfFilesRestoring` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `NumberOfFilesSkipped` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `NumberOfFilesUnrestorable` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `Type` in struct `ManagedDatabaseRestoreDetailsProperties`
+- New field `IsManagedIdentityInUse` in struct `ServerDevOpsAuditSettingsProperties`
+- New field `Version` in struct `VirtualClusterProperties`
+- New anonymous field `UpdateVirtualClusterDNSServersOperation` in struct `VirtualClustersClientUpdateDNSServersResponse`
+
+
 ## 1.0.0 (2022-06-02)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sql/armsql` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
