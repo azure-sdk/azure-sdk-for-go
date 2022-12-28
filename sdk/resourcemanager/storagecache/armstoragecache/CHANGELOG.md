@@ -1,5 +1,26 @@
 # Release History
 
+## 3.0.0 (2022-12-28)
+### Breaking Changes
+
+- Function `*CachesClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, Cache, *CachesClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, *CachesClientBeginCreateOrUpdateOptions)`
+- Function `*StorageTargetsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, StorageTarget, *StorageTargetsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, *StorageTargetsClientBeginCreateOrUpdateOptions)`
+- Type of `PrimingJob.PrimingManifestURL` has been changed from `*string` to `interface{}`
+- Operation `*CachesClient.Update` has been changed to LRO, use `*CachesClient.BeginUpdate` instead.
+- Struct `CloudError` has been removed
+
+### Features Added
+
+- New function `*StorageTargetsClient.BeginRestoreDefaults(context.Context, string, string, string, *StorageTargetsClientBeginRestoreDefaultsOptions) (*runtime.Poller[StorageTargetsClientRestoreDefaultsResponse], error)`
+- New struct `StorageTargetsClientRestoreDefaultsResponse`
+- New field `VerificationTimer` in struct `BlobNfsTarget`
+- New field `WriteBackTimer` in struct `BlobNfsTarget`
+- New field `Cache` in struct `CachesClientBeginCreateOrUpdateOptions`
+- New field `VerificationTimer` in struct `Nfs3Target`
+- New field `WriteBackTimer` in struct `Nfs3Target`
+- New field `Storagetarget` in struct `StorageTargetsClientBeginCreateOrUpdateOptions`
+
+
 ## 2.0.0 (2022-07-06)
 ### Breaking Changes
 

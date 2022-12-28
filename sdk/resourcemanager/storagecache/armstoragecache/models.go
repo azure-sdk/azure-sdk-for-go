@@ -116,6 +116,12 @@ type BlobNfsTarget struct {
 
 	// Identifies the StorageCache usage model to be used for this storage target.
 	UsageModel *string `json:"usageModel,omitempty"`
+
+	// Amount of time (in seconds) the cache waits before it checks the back-end storage for file updates.
+	VerificationTimer *int32 `json:"verificationTimer,omitempty"`
+
+	// Amount of time (in seconds) the cache waits after the last file change before it copies the changed file to back-end storage.
+	WriteBackTimer *int32 `json:"writeBackTimer,omitempty"`
 }
 
 // Cache - A Cache instance. Follows Azure Resource Manager standards: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/resource-api-reference.md
@@ -389,6 +395,9 @@ type CacheUsernameDownloadSettingsCredentials struct {
 
 // CachesClientBeginCreateOrUpdateOptions contains the optional parameters for the CachesClient.BeginCreateOrUpdate method.
 type CachesClientBeginCreateOrUpdateOptions struct {
+	// Object containing the user-selectable properties of the new Cache. If read-only properties are included, they must match
+	// the existing values of those properties.
+	Cache *Cache
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -463,6 +472,15 @@ type CachesClientBeginStopPrimingJobOptions struct {
 	ResumeToken string
 }
 
+// CachesClientBeginUpdateOptions contains the optional parameters for the CachesClient.BeginUpdate method.
+type CachesClientBeginUpdateOptions struct {
+	// Object containing the user-selectable properties of the Cache. If read-only properties are included, they must match the
+	// existing values of those properties.
+	Cache *Cache
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // CachesClientBeginUpgradeFirmwareOptions contains the optional parameters for the CachesClient.BeginUpgradeFirmware method.
 type CachesClientBeginUpgradeFirmwareOptions struct {
 	// Resumes the LRO from the provided token.
@@ -484,11 +502,6 @@ type CachesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CachesClientUpdateOptions contains the optional parameters for the CachesClient.Update method.
-type CachesClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
 // CachesListResult - Result of the request to list Caches. It contains a list of Caches and a URL link to get the next set
 // of results.
 type CachesListResult struct {
@@ -503,12 +516,6 @@ type CachesListResult struct {
 type ClfsTarget struct {
 	// Resource ID of storage container.
 	Target *string `json:"target,omitempty"`
-}
-
-// CloudError - An error response.
-type CloudError struct {
-	// The body of the error.
-	Error *CloudErrorBody `json:"error,omitempty"`
 }
 
 // CloudErrorBody - An error response.
@@ -632,6 +639,12 @@ type Nfs3Target struct {
 
 	// Identifies the StorageCache usage model to be used for this storage target.
 	UsageModel *string `json:"usageModel,omitempty"`
+
+	// Amount of time (in seconds) the cache waits before it checks the back-end storage for file updates.
+	VerificationTimer *int32 `json:"verificationTimer,omitempty"`
+
+	// Amount of time (in seconds) the cache waits after the last file change before it copies the changed file to back-end storage.
+	WriteBackTimer *int32 `json:"writeBackTimer,omitempty"`
 }
 
 // NfsAccessPolicy - A set of rules describing access policies applied to NFSv3 clients of the cache.
@@ -687,7 +700,7 @@ type PrimingJob struct {
 	// REQUIRED; The URL for the priming manifest file to download. This file must be readable from the HPC Cache. When the file
 	// is in Azure blob storage the URL should include a Shared Access Signature (SAS) granting
 	// read permissions on the blob.
-	PrimingManifestURL *string `json:"primingManifestUrl,omitempty"`
+	PrimingManifestURL interface{} `json:"primingManifestUrl,omitempty"`
 
 	// READ-ONLY; The job details or error information if any.
 	PrimingJobDetails *string `json:"primingJobDetails,omitempty" azure:"ro"`
@@ -922,6 +935,8 @@ type StorageTargetSpaceAllocation struct {
 type StorageTargetsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+	// Object containing the definition of a Storage Target.
+	Storagetarget *StorageTarget
 }
 
 // StorageTargetsClientBeginDNSRefreshOptions contains the optional parameters for the StorageTargetsClient.BeginDNSRefresh
@@ -936,6 +951,13 @@ type StorageTargetsClientBeginDeleteOptions struct {
 	// Boolean value requesting the force delete operation for a storage target. Force delete discards unwritten-data in the cache
 	// instead of flushing it to back-end storage.
 	Force *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// StorageTargetsClientBeginRestoreDefaultsOptions contains the optional parameters for the StorageTargetsClient.BeginRestoreDefaults
+// method.
+type StorageTargetsClientBeginRestoreDefaultsOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }

@@ -270,6 +270,8 @@ func (b BlobNfsTarget) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "target", b.Target)
 	populate(objectMap, "usageModel", b.UsageModel)
+	populate(objectMap, "verificationTimer", b.VerificationTimer)
+	populate(objectMap, "writeBackTimer", b.WriteBackTimer)
 	return json.Marshal(objectMap)
 }
 
@@ -287,6 +289,12 @@ func (b *BlobNfsTarget) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "usageModel":
 			err = unpopulate(val, "UsageModel", &b.UsageModel)
+			delete(rawMsg, key)
+		case "verificationTimer":
+			err = unpopulate(val, "VerificationTimer", &b.VerificationTimer)
+			delete(rawMsg, key)
+		case "writeBackTimer":
+			err = unpopulate(val, "WriteBackTimer", &b.WriteBackTimer)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -983,33 +991,6 @@ func (c *ClfsTarget) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type CloudError.
-func (c CloudError) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
-	populate(objectMap, "error", c.Error)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type CloudError.
-func (c *CloudError) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "error":
-			err = unpopulate(val, "Error", &c.Error)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type CloudErrorBody.
 func (c CloudErrorBody) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
@@ -1338,6 +1319,8 @@ func (n Nfs3Target) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "target", n.Target)
 	populate(objectMap, "usageModel", n.UsageModel)
+	populate(objectMap, "verificationTimer", n.VerificationTimer)
+	populate(objectMap, "writeBackTimer", n.WriteBackTimer)
 	return json.Marshal(objectMap)
 }
 
@@ -1355,6 +1338,12 @@ func (n *Nfs3Target) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "usageModel":
 			err = unpopulate(val, "UsageModel", &n.UsageModel)
+			delete(rawMsg, key)
+		case "verificationTimer":
+			err = unpopulate(val, "VerificationTimer", &n.VerificationTimer)
+			delete(rawMsg, key)
+		case "writeBackTimer":
+			err = unpopulate(val, "WriteBackTimer", &n.WriteBackTimer)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -1459,7 +1448,7 @@ func (p PrimingJob) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "primingJobPercentComplete", p.PrimingJobPercentComplete)
 	populate(objectMap, "primingJobState", p.PrimingJobState)
 	populate(objectMap, "primingJobStatus", p.PrimingJobStatus)
-	populate(objectMap, "primingManifestUrl", p.PrimingManifestURL)
+	populate(objectMap, "primingManifestUrl", &p.PrimingManifestURL)
 	return json.Marshal(objectMap)
 }
 
