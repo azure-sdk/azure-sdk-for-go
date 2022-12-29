@@ -1,5 +1,17 @@
 # Release History
 
+## 1.1.0-beta.2 (2022-12-29)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New field `Etag` in struct `MHSMPrivateEndpointConnectionItem`
+- New field `ID` in struct `MHSMPrivateEndpointConnectionItem`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
