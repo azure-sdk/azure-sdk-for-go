@@ -55,7 +55,7 @@ func NewGovernanceRuleClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// NewListPager - Get a list of all relevant governanceRules over a subscription level scope
+// NewListPager - Get a list of the governance rules on the subscription level scope
 // Generated from API version 2022-01-01-preview
 // options - GovernanceRuleClientListOptions contains the optional parameters for the GovernanceRuleClient.List method.
 func (client *GovernanceRuleClient) NewListPager(options *GovernanceRuleClientListOptions) *runtime.Pager[GovernanceRuleClientListResponse] {
