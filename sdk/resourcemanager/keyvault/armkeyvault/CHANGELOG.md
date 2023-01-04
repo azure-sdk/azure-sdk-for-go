@@ -1,5 +1,19 @@
 # Release History
 
+## 1.1.0-beta.2 (2023-01-04)
+### Breaking Changes
+
+- Function `*VaultsClient.NewListPager` parameter(s) have been changed from `(*VaultsClientListOptions)` to `(ResourceManagerAPIVersions, *VaultsClientListOptions)`
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New type alias `ResourceManagerAPIVersions` with values `ResourceManagerAPIVersionsTwoThousandFifteen1101`, `ResourceManagerAPIVersionsTwoThousandTwentyTwo0201Preview`
+- New field `Etag` in struct `MHSMPrivateEndpointConnectionItem`
+- New field `ID` in struct `MHSMPrivateEndpointConnectionItem`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
