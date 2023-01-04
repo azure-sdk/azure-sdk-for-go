@@ -211,7 +211,7 @@ type ContainerAppsClientListSecretsResponse struct {
 
 // ContainerAppsClientUpdateResponse contains the response from method ContainerAppsClient.Update.
 type ContainerAppsClientUpdateResponse struct {
-	// placeholder for future response values
+	ContainerApp
 }
 
 // ContainerAppsDiagnosticsClientGetDetectorResponse contains the response from method ContainerAppsDiagnosticsClient.GetDetector.
@@ -319,6 +319,91 @@ type DaprComponentsClientListSecretsResponse struct {
 	DaprSecretsCollection
 }
 
+// DaprResiliencyCircuitBreakerPoliciesClientCreateOrUpdateResponse contains the response from method DaprResiliencyCircuitBreakerPoliciesClient.CreateOrUpdate.
+type DaprResiliencyCircuitBreakerPoliciesClientCreateOrUpdateResponse struct {
+	DaprResiliencyCircuitBreakerPolicy
+}
+
+// DaprResiliencyCircuitBreakerPoliciesClientDeleteResponse contains the response from method DaprResiliencyCircuitBreakerPoliciesClient.Delete.
+type DaprResiliencyCircuitBreakerPoliciesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DaprResiliencyCircuitBreakerPoliciesClientGetResponse contains the response from method DaprResiliencyCircuitBreakerPoliciesClient.Get.
+type DaprResiliencyCircuitBreakerPoliciesClientGetResponse struct {
+	DaprResiliencyCircuitBreakerPolicy
+}
+
+// DaprResiliencyCircuitBreakerPoliciesClientListResponse contains the response from method DaprResiliencyCircuitBreakerPoliciesClient.List.
+type DaprResiliencyCircuitBreakerPoliciesClientListResponse struct {
+	DaprResiliencyCircuitBreakerPoliciesCollection
+}
+
+// DaprResiliencyRetryPoliciesClientCreateOrUpdateResponse contains the response from method DaprResiliencyRetryPoliciesClient.CreateOrUpdate.
+type DaprResiliencyRetryPoliciesClientCreateOrUpdateResponse struct {
+	DaprResiliencyRetryPolicy
+}
+
+// DaprResiliencyRetryPoliciesClientDeleteResponse contains the response from method DaprResiliencyRetryPoliciesClient.Delete.
+type DaprResiliencyRetryPoliciesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DaprResiliencyRetryPoliciesClientGetResponse contains the response from method DaprResiliencyRetryPoliciesClient.Get.
+type DaprResiliencyRetryPoliciesClientGetResponse struct {
+	DaprResiliencyRetryPolicy
+}
+
+// DaprResiliencyRetryPoliciesClientListResponse contains the response from method DaprResiliencyRetryPoliciesClient.List.
+type DaprResiliencyRetryPoliciesClientListResponse struct {
+	DaprResiliencyRetryPoliciesCollection
+}
+
+// DaprResiliencyTimeoutPoliciesClientCreateOrUpdateResponse contains the response from method DaprResiliencyTimeoutPoliciesClient.CreateOrUpdate.
+type DaprResiliencyTimeoutPoliciesClientCreateOrUpdateResponse struct {
+	DaprResiliencyTimeoutPolicy
+}
+
+// DaprResiliencyTimeoutPoliciesClientDeleteResponse contains the response from method DaprResiliencyTimeoutPoliciesClient.Delete.
+type DaprResiliencyTimeoutPoliciesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DaprResiliencyTimeoutPoliciesClientGetResponse contains the response from method DaprResiliencyTimeoutPoliciesClient.Get.
+type DaprResiliencyTimeoutPoliciesClientGetResponse struct {
+	DaprResiliencyTimeoutPolicy
+}
+
+// DaprResiliencyTimeoutPoliciesClientListResponse contains the response from method DaprResiliencyTimeoutPoliciesClient.List.
+type DaprResiliencyTimeoutPoliciesClientListResponse struct {
+	DaprResiliencyTimeoutPoliciesCollection
+}
+
+// ManagedCertificatesClientCreateOrUpdateResponse contains the response from method ManagedCertificatesClient.CreateOrUpdate.
+type ManagedCertificatesClientCreateOrUpdateResponse struct {
+	ManagedCertificate
+}
+
+// ManagedCertificatesClientDeleteResponse contains the response from method ManagedCertificatesClient.Delete.
+type ManagedCertificatesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagedCertificatesClientGetResponse contains the response from method ManagedCertificatesClient.Get.
+type ManagedCertificatesClientGetResponse struct {
+	ManagedCertificate
+}
+
+// ManagedCertificatesClientListResponse contains the response from method ManagedCertificatesClient.List.
+type ManagedCertificatesClientListResponse struct {
+	ManagedCertificateCollection
+}
+
+// ManagedCertificatesClientUpdateResponse contains the response from method ManagedCertificatesClient.Update.
+type ManagedCertificatesClientUpdateResponse struct {
+	ManagedCertificate
+}
+
 // ManagedEnvironmentDiagnosticsClientGetDetectorResponse contains the response from method ManagedEnvironmentDiagnosticsClient.GetDetector.
 type ManagedEnvironmentDiagnosticsClientGetDetectorResponse struct {
 	Diagnostics
@@ -366,7 +451,7 @@ type ManagedEnvironmentsClientListWorkloadProfileStatesResponse struct {
 
 // ManagedEnvironmentsClientUpdateResponse contains the response from method ManagedEnvironmentsClient.Update.
 type ManagedEnvironmentsClientUpdateResponse struct {
-	// placeholder for future response values
+	ManagedEnvironment
 }
 
 // ManagedEnvironmentsDiagnosticsClientGetRootResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.GetRoot.

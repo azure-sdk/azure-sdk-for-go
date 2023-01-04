@@ -1,5 +1,76 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-01-04)
+### Breaking Changes
+
+- Type of `CustomDomainConfiguration.CertificatePassword` has been changed from `[]byte` to `*string`
+- Type of `DaprSecretsCollection.Value` has been changed from `[]*Secret` to `[]*DaprSecret`
+
+### Features Added
+
+- New type alias `Affinity` with values `AffinityNone`, `AffinitySticky`
+- New type alias `IngressClientCertificateMode` with values `IngressClientCertificateModeAccept`, `IngressClientCertificateModeIgnore`, `IngressClientCertificateModeRequire`
+- New type alias `ManagedCertificateDomainControlValidation` with values `ManagedCertificateDomainControlValidationCNAME`, `ManagedCertificateDomainControlValidationHTTP`, `ManagedCertificateDomainControlValidationTXT`
+- New function `NewDaprResiliencyCircuitBreakerPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DaprResiliencyCircuitBreakerPoliciesClient, error)`
+- New function `*DaprResiliencyCircuitBreakerPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyCircuitBreakerPolicy, *DaprResiliencyCircuitBreakerPoliciesClientCreateOrUpdateOptions) (DaprResiliencyCircuitBreakerPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*DaprResiliencyCircuitBreakerPoliciesClient.Delete(context.Context, string, string, string, *DaprResiliencyCircuitBreakerPoliciesClientDeleteOptions) (DaprResiliencyCircuitBreakerPoliciesClientDeleteResponse, error)`
+- New function `*DaprResiliencyCircuitBreakerPoliciesClient.Get(context.Context, string, string, string, *DaprResiliencyCircuitBreakerPoliciesClientGetOptions) (DaprResiliencyCircuitBreakerPoliciesClientGetResponse, error)`
+- New function `*DaprResiliencyCircuitBreakerPoliciesClient.NewListPager(string, string, *DaprResiliencyCircuitBreakerPoliciesClientListOptions) *runtime.Pager[DaprResiliencyCircuitBreakerPoliciesClientListResponse]`
+- New function `NewDaprResiliencyRetryPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DaprResiliencyRetryPoliciesClient, error)`
+- New function `*DaprResiliencyRetryPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyRetryPolicy, *DaprResiliencyRetryPoliciesClientCreateOrUpdateOptions) (DaprResiliencyRetryPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*DaprResiliencyRetryPoliciesClient.Delete(context.Context, string, string, string, *DaprResiliencyRetryPoliciesClientDeleteOptions) (DaprResiliencyRetryPoliciesClientDeleteResponse, error)`
+- New function `*DaprResiliencyRetryPoliciesClient.Get(context.Context, string, string, string, *DaprResiliencyRetryPoliciesClientGetOptions) (DaprResiliencyRetryPoliciesClientGetResponse, error)`
+- New function `*DaprResiliencyRetryPoliciesClient.NewListPager(string, string, *DaprResiliencyRetryPoliciesClientListOptions) *runtime.Pager[DaprResiliencyRetryPoliciesClientListResponse]`
+- New function `NewDaprResiliencyTimeoutPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DaprResiliencyTimeoutPoliciesClient, error)`
+- New function `*DaprResiliencyTimeoutPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyTimeoutPolicy, *DaprResiliencyTimeoutPoliciesClientCreateOrUpdateOptions) (DaprResiliencyTimeoutPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*DaprResiliencyTimeoutPoliciesClient.Delete(context.Context, string, string, string, *DaprResiliencyTimeoutPoliciesClientDeleteOptions) (DaprResiliencyTimeoutPoliciesClientDeleteResponse, error)`
+- New function `*DaprResiliencyTimeoutPoliciesClient.Get(context.Context, string, string, string, *DaprResiliencyTimeoutPoliciesClientGetOptions) (DaprResiliencyTimeoutPoliciesClientGetResponse, error)`
+- New function `*DaprResiliencyTimeoutPoliciesClient.NewListPager(string, string, *DaprResiliencyTimeoutPoliciesClientListOptions) *runtime.Pager[DaprResiliencyTimeoutPoliciesClientListResponse]`
+- New function `NewManagedCertificatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedCertificatesClient, error)`
+- New function `*ManagedCertificatesClient.BeginCreateOrUpdate(context.Context, string, string, string, *ManagedCertificatesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedCertificatesClientCreateOrUpdateResponse], error)`
+- New function `*ManagedCertificatesClient.Delete(context.Context, string, string, string, *ManagedCertificatesClientDeleteOptions) (ManagedCertificatesClientDeleteResponse, error)`
+- New function `*ManagedCertificatesClient.Get(context.Context, string, string, string, *ManagedCertificatesClientGetOptions) (ManagedCertificatesClientGetResponse, error)`
+- New function `*ManagedCertificatesClient.NewListPager(string, string, *ManagedCertificatesClientListOptions) *runtime.Pager[ManagedCertificatesClientListResponse]`
+- New function `*ManagedCertificatesClient.Update(context.Context, string, string, string, ManagedCertificatePatch, *ManagedCertificatesClientUpdateOptions) (ManagedCertificatesClientUpdateResponse, error)`
+- New struct `CorsPolicy`
+- New struct `DaprConfiguration`
+- New struct `DaprResiliencyCircuitBreakerPoliciesClient`
+- New struct `DaprResiliencyCircuitBreakerPoliciesClientListResponse`
+- New struct `DaprResiliencyCircuitBreakerPoliciesCollection`
+- New struct `DaprResiliencyCircuitBreakerPolicy`
+- New struct `DaprResiliencyCircuitBreakerPolicyProperties`
+- New struct `DaprResiliencyDefaults`
+- New struct `DaprResiliencyRetryPoliciesClient`
+- New struct `DaprResiliencyRetryPoliciesClientListResponse`
+- New struct `DaprResiliencyRetryPoliciesCollection`
+- New struct `DaprResiliencyRetryPolicy`
+- New struct `DaprResiliencyRetryPolicyProperties`
+- New struct `DaprResiliencyTimeoutPoliciesClient`
+- New struct `DaprResiliencyTimeoutPoliciesClientListResponse`
+- New struct `DaprResiliencyTimeoutPoliciesCollection`
+- New struct `DaprResiliencyTimeoutPolicy`
+- New struct `DaprResiliencyTimeoutPolicyProperties`
+- New struct `IngressStickySessions`
+- New struct `KedaConfiguration`
+- New struct `ManagedCertificate`
+- New struct `ManagedCertificateCollection`
+- New struct `ManagedCertificatePatch`
+- New struct `ManagedCertificateProperties`
+- New struct `ManagedCertificatesClient`
+- New struct `ManagedCertificatesClientCreateOrUpdateResponse`
+- New struct `ManagedCertificatesClientListResponse`
+- New anonymous field `ContainerApp` in struct `ContainerAppsClientUpdateResponse`
+- New field `ClientCertificateMode` in struct `Ingress`
+- New field `CorsPolicy` in struct `Ingress`
+- New field `StickySessions` in struct `Ingress`
+- New field `Kind` in struct `ManagedEnvironment`
+- New field `DaprConfiguration` in struct `ManagedEnvironmentProperties`
+- New field `DaprResiliencyDefaults` in struct `ManagedEnvironmentProperties`
+- New field `KedaConfiguration` in struct `ManagedEnvironmentProperties`
+- New anonymous field `ManagedEnvironment` in struct `ManagedEnvironmentsClientUpdateResponse`
+- New field `ControlPlaneSubnetID` in struct `VnetConfiguration`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
