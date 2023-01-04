@@ -154,6 +154,11 @@ type StorageTargetsClientListByCacheResponse struct {
 	StorageTargetsResult
 }
 
+// StorageTargetsClientRestoreDefaultsResponse contains the response from method StorageTargetsClient.RestoreDefaults.
+type StorageTargetsClientRestoreDefaultsResponse struct {
+	// placeholder for future response values
+}
+
 // UsageModelsClientListResponse contains the response from method UsageModelsClient.List.
 type UsageModelsClientListResponse struct {
 	UsageModelsResult
