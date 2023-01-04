@@ -9,6 +9,11 @@
 
 package armrecoveryservices
 
+// ClientCapabilitiesResponse contains the response from method Client.Capabilities.
+type ClientCapabilitiesResponse struct {
+	CapabilitiesResponse
+}
+
 // ClientCheckNameAvailabilityResponse contains the response from method Client.CheckNameAvailability.
 type ClientCheckNameAvailabilityResponse struct {
 	CheckNameAvailabilityResult

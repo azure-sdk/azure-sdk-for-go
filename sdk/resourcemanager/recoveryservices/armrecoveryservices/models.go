@@ -16,6 +16,25 @@ type AzureMonitorAlertSettings struct {
 	AlertsForAllJobFailures *AlertsState `json:"alertsForAllJobFailures,omitempty"`
 }
 
+// CapabilitiesProperties - Capabilities information
+type CapabilitiesProperties struct {
+	DNSZones []*DNSZone `json:"dnsZones,omitempty"`
+}
+
+// CapabilitiesResponse - Capabilities response for Microsoft.RecoveryServices
+type CapabilitiesResponse struct {
+	// REQUIRED; Describes the Resource type: Microsoft.RecoveryServices/Vaults
+	Type *string `json:"type,omitempty"`
+
+	// Capabilities properties in response
+	Properties *CapabilitiesResponseProperties `json:"properties,omitempty"`
+}
+
+// CapabilitiesResponseProperties - Capabilities properties in response
+type CapabilitiesResponseProperties struct {
+	DNSZones []*DNSZoneResponse `json:"dnsZones,omitempty"`
+}
+
 // CertificateRequest - Details of the certificate to be uploaded to the vault.
 type CertificateRequest struct {
 	// Raw certificate data.
@@ -42,6 +61,11 @@ type CheckNameAvailabilityResult struct {
 // ClassicAlertSettings - Settings for classic alerts
 type ClassicAlertSettings struct {
 	AlertsForCriticalOperations *AlertsState `json:"alertsForCriticalOperations,omitempty"`
+}
+
+// ClientCapabilitiesOptions contains the optional parameters for the Client.Capabilities method.
+type ClientCapabilitiesOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ClientCheckNameAvailabilityOptions contains the optional parameters for the Client.CheckNameAvailability method.
@@ -112,12 +136,6 @@ type ClientDiscoveryValueForSingleAPI struct {
 	Properties *ClientDiscoveryForProperties `json:"properties,omitempty"`
 }
 
-// CloudError - An error response from Azure Backup.
-type CloudError struct {
-	// The resource management error response.
-	Error *Error `json:"error,omitempty"`
-}
-
 // CmkKekIdentity - The details of the identity used for CMK
 type CmkKekIdentity struct {
 	// Indicate that system assigned identity should be used. Mutually exclusive with 'userAssignedIdentity' field
@@ -131,6 +149,21 @@ type CmkKekIdentity struct {
 type CmkKeyVaultProperties struct {
 	// The key uri of the Customer Managed Key
 	KeyURI *string `json:"keyUri,omitempty"`
+}
+
+// DNSZone information
+type DNSZone struct {
+	// Subresource type for vault AzureBackup, AzureBackup_secondary or AzureSiteRecovery
+	SubResource *VaultSubResourceType `json:"subResource,omitempty"`
+}
+
+// DNSZoneResponse - DNSZone information for Microsoft.RecoveryServices
+type DNSZoneResponse struct {
+	// The private link resource Private link DNS zone names.
+	RequiredZoneNames []*string `json:"requiredZoneNames,omitempty"`
+
+	// Subresource type for vault AzureBackup, AzureBackup_secondary or AzureSiteRecovery
+	SubResource *VaultSubResourceType `json:"subResource,omitempty"`
 }
 
 // Error - The resource management error response.
@@ -177,6 +210,11 @@ type IdentityData struct {
 
 	// READ-ONLY; The tenant ID of resource.
 	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+}
+
+// ImmutabilitySettings - Immutability Settings of vault
+type ImmutabilitySettings struct {
+	State *ImmutabilityState `json:"state,omitempty"`
 }
 
 // JobsSummary - Summary of the replication job data for this vault.
@@ -328,6 +366,9 @@ type PrivateEndpoint struct {
 
 // PrivateEndpointConnection - Private Endpoint Connection Response Properties.
 type PrivateEndpointConnection struct {
+	// Group Ids for the Private Endpoint
+	GroupIDs []*VaultSubResourceType `json:"groupIds,omitempty"`
+
 	// READ-ONLY; The Private Endpoint network resource that is linked to the Private Endpoint connection.
 	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty" azure:"ro"`
 
@@ -474,6 +515,21 @@ type Resource struct {
 
 	// READ-ONLY; Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ResourceCapabilities - Input to get capabilities information for Microsoft.RecoveryServices
+type ResourceCapabilities struct {
+	// REQUIRED; Describes the Resource type: Microsoft.RecoveryServices/Vaults
+	Type *string `json:"type,omitempty"`
+
+	// Capabilities information
+	Properties *CapabilitiesProperties `json:"properties,omitempty"`
+}
+
+// ResourceCapabilitiesBase - Base class for request and response capabilities information for Microsoft.RecoveryServices
+type ResourceCapabilitiesBase struct {
+	// REQUIRED; Describes the Resource type: Microsoft.RecoveryServices/Vaults
+	Type *string `json:"type,omitempty"`
 }
 
 // ResourceCertificateAndAADDetails - Certificate details representing the Vault credentials for AAD.
@@ -658,6 +714,12 @@ type SKU struct {
 
 	// The Sku tier.
 	Tier *string `json:"tier,omitempty"`
+}
+
+// SecuritySettings - Security Settings of the vault
+type SecuritySettings struct {
+	// Immutability Settings of a vault
+	ImmutabilitySettings *ImmutabilitySettings `json:"immutabilitySettings,omitempty"`
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -868,8 +930,14 @@ type VaultProperties struct {
 	// The details of the latest move operation performed on the Azure Resource
 	MoveDetails *VaultPropertiesMoveDetails `json:"moveDetails,omitempty"`
 
+	// property to enable or disable resource provider inbound network traffic from public clients
+	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
+
 	// The redundancy Settings of a Vault
 	RedundancySettings *VaultPropertiesRedundancySettings `json:"redundancySettings,omitempty"`
+
+	// Security Settings of the vault
+	SecuritySettings *SecuritySettings `json:"securitySettings,omitempty"`
 
 	// Details for upgrading vault.
 	UpgradeDetails *UpgradeDetails `json:"upgradeDetails,omitempty"`

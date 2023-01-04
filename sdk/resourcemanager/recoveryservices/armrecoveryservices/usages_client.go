@@ -32,7 +32,7 @@ type UsagesClient struct {
 }
 
 // NewUsagesClient creates a new instance of UsagesClient with the specified values.
-// subscriptionID - The subscription Id.
+// subscriptionID - The ID of the target subscription.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
 func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsagesClient, error) {
@@ -56,9 +56,8 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListByVaultsPager - Fetches the usages of the vault.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-04-01
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
+// Generated from API version 2023-01-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
 // vaultName - The name of the recovery services vault.
 // options - UsagesClientListByVaultsOptions contains the optional parameters for the UsagesClient.ListByVaults method.
 func (client *UsagesClient) NewListByVaultsPager(resourceGroupName string, vaultName string, options *UsagesClientListByVaultsOptions) *runtime.Pager[UsagesClientListByVaultsResponse] {
@@ -103,7 +102,7 @@ func (client *UsagesClient) listByVaultsCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
