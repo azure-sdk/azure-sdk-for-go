@@ -58,7 +58,7 @@ func NewResourceQuotaLimitsClient(subscriptionID string, credential azcore.Token
 
 // Get - Get the default and current subscription quota limit
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-05-01
+// Generated from API version 2022-11-01-preview
 // location - The location
 // quotaLimitName - The name of the Quota Limit
 // options - ResourceQuotaLimitsClientGetOptions contains the optional parameters for the ResourceQuotaLimitsClient.Get method.
@@ -97,7 +97,7 @@ func (client *ResourceQuotaLimitsClient) getCreateRequest(ctx context.Context, l
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -113,7 +113,7 @@ func (client *ResourceQuotaLimitsClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListPager - Get the default and current limits for quotas
-// Generated from API version 2022-05-01
+// Generated from API version 2022-11-01-preview
 // location - The location
 // options - ResourceQuotaLimitsClientListOptions contains the optional parameters for the ResourceQuotaLimitsClient.List
 // method.
@@ -155,7 +155,7 @@ func (client *ResourceQuotaLimitsClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-05-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
