@@ -32,7 +32,7 @@ type VaultExtendedInfoClient struct {
 }
 
 // NewVaultExtendedInfoClient creates a new instance of VaultExtendedInfoClient with the specified values.
-// subscriptionID - The subscription Id.
+// subscriptionID - The ID of the target subscription.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
 func NewVaultExtendedInfoClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VaultExtendedInfoClient, error) {
@@ -57,8 +57,8 @@ func NewVaultExtendedInfoClient(subscriptionID string, credential azcore.TokenCr
 
 // CreateOrUpdate - Create vault extended info.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-04-01
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
+// Generated from API version 2023-01-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
 // vaultName - The name of the recovery services vault.
 // resourceExtendedInfoDetails - Details of ResourceExtendedInfo
 // options - VaultExtendedInfoClientCreateOrUpdateOptions contains the optional parameters for the VaultExtendedInfoClient.CreateOrUpdate
@@ -98,7 +98,7 @@ func (client *VaultExtendedInfoClient) createOrUpdateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, resourceExtendedInfoDetails)
@@ -115,8 +115,8 @@ func (client *VaultExtendedInfoClient) createOrUpdateHandleResponse(resp *http.R
 
 // Get - Get the vault extended info.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-04-01
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
+// Generated from API version 2023-01-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
 // vaultName - The name of the recovery services vault.
 // options - VaultExtendedInfoClientGetOptions contains the optional parameters for the VaultExtendedInfoClient.Get method.
 func (client *VaultExtendedInfoClient) Get(ctx context.Context, resourceGroupName string, vaultName string, options *VaultExtendedInfoClientGetOptions) (VaultExtendedInfoClientGetResponse, error) {
@@ -154,7 +154,7 @@ func (client *VaultExtendedInfoClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -171,8 +171,8 @@ func (client *VaultExtendedInfoClient) getHandleResponse(resp *http.Response) (V
 
 // Update - Update vault extended info.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-04-01
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
+// Generated from API version 2023-01-01
+// resourceGroupName - The name of the resource group. The name is case insensitive.
 // vaultName - The name of the recovery services vault.
 // resourceExtendedInfoDetails - Details of ResourceExtendedInfo
 // options - VaultExtendedInfoClientUpdateOptions contains the optional parameters for the VaultExtendedInfoClient.Update
@@ -212,7 +212,7 @@ func (client *VaultExtendedInfoClient) updateCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-04-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, resourceExtendedInfoDetails)
