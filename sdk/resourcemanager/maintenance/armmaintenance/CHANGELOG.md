@@ -1,5 +1,14 @@
 # Release History
 
+## 1.1.0-beta.2 (2023-01-05)
+### Features Added
+
+- New value `MaintenanceScopeResource` added to type alias `MaintenanceScope`
+- New struct `ConfigurationOverrides`
+- New struct `OverrideProperties`
+- New field `Overrides` in struct `ConfigurationProperties`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
