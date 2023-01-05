@@ -1,5 +1,19 @@
 # Release History
 
+## 2.0.0 (2023-01-05)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New value `APIVersionParameterTwoThousandTwentyTwo1101` added to type alias `APIVersionParameter`
+- New struct `ContactProfileThirdPartyConfiguration`
+- New field `ThirdPartyConfigurations` in struct `ContactProfileProperties`
+- New field `ThirdPartyConfigurations` in struct `ContactProfilesProperties`
+
+
 ## 1.0.0 (2022-05-19)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/orbital/armorbital` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
