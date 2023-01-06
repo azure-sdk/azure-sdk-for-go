@@ -45,6 +45,8 @@ func unmarshalDataTransferDataSourceSinkClassification(rawMsg json.RawMessage) (
 		b = &AzureBlobDataTransferDataSourceSink{}
 	case string(DataTransferComponentCosmosDBCassandra):
 		b = &CassandraDataTransferDataSourceSink{}
+	case string(DataTransferComponentCosmosDBMongo):
+		b = &MongoDataTransferDataSourceSink{}
 	case string(DataTransferComponentCosmosDBSQL):
 		b = &SQLDataTransferDataSourceSink{}
 	default:
