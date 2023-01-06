@@ -7770,6 +7770,69 @@ type CreateRunResponse struct {
 	RunID *string `json:"runId,omitempty"`
 }
 
+// CredentialClassification provides polymorphic access to related types.
+// Call the interface's GetCredential() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *Credential, *ManagedIdentityCredential, *ServicePrincipalCredential
+type CredentialClassification interface {
+	// GetCredential returns the Credential content of the underlying type.
+	GetCredential() *Credential
+}
+
+// Credential - The Azure Data Factory nested object which contains the information and credential which can be used to connect
+// with related store or compute resource.
+type Credential struct {
+	// REQUIRED; Type of credential.
+	Type *string `json:"type,omitempty"`
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]interface{}
+
+	// List of tags that can be used for describing the Credential.
+	Annotations []interface{} `json:"annotations,omitempty"`
+
+	// Credential description.
+	Description *string `json:"description,omitempty"`
+}
+
+// GetCredential implements the CredentialClassification interface for type Credential.
+func (c *Credential) GetCredential() *Credential { return c }
+
+// CredentialListResponse - A list of credential resources.
+type CredentialListResponse struct {
+	// REQUIRED; List of credentials.
+	Value []*ManagedIdentityCredentialResource `json:"value,omitempty"`
+
+	// The link to the next page of results, if any remaining results exist.
+	NextLink *string `json:"nextLink,omitempty"`
+}
+
+// CredentialOperationsClientCreateOrUpdateOptions contains the optional parameters for the CredentialOperationsClient.CreateOrUpdate
+// method.
+type CredentialOperationsClientCreateOrUpdateOptions struct {
+	// ETag of the credential entity. Should only be specified for update, for which it should match existing entity or can be
+	// * for unconditional update.
+	IfMatch *string
+}
+
+// CredentialOperationsClientDeleteOptions contains the optional parameters for the CredentialOperationsClient.Delete method.
+type CredentialOperationsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CredentialOperationsClientGetOptions contains the optional parameters for the CredentialOperationsClient.Get method.
+type CredentialOperationsClientGetOptions struct {
+	// ETag of the credential entity. Should only be specified for get. If the ETag matches the existing entity tag, or if * was
+	// provided, then no content will be returned.
+	IfNoneMatch *string
+}
+
+// CredentialOperationsClientListByFactoryOptions contains the optional parameters for the CredentialOperationsClient.ListByFactory
+// method.
+type CredentialOperationsClientListByFactoryOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CredentialReference - Credential reference type.
 type CredentialReference struct {
 	// REQUIRED; Reference credential name.
@@ -16738,6 +16801,58 @@ func (m *MagentoSource) GetTabularSource() *TabularSource {
 		DisableMetricsCollection: m.DisableMetricsCollection,
 		AdditionalProperties:     m.AdditionalProperties,
 	}
+}
+
+// ManagedIdentityCredential - Managed identity credential.
+type ManagedIdentityCredential struct {
+	// REQUIRED; Type of credential.
+	Type *string `json:"type,omitempty"`
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]interface{}
+
+	// List of tags that can be used for describing the Credential.
+	Annotations []interface{} `json:"annotations,omitempty"`
+
+	// Credential description.
+	Description *string `json:"description,omitempty"`
+
+	// Managed identity credential properties.
+	TypeProperties *ManagedIdentityTypeProperties `json:"typeProperties,omitempty"`
+}
+
+// GetCredential implements the CredentialClassification interface for type ManagedIdentityCredential.
+func (m *ManagedIdentityCredential) GetCredential() *Credential {
+	return &Credential{
+		Type:                 m.Type,
+		Description:          m.Description,
+		Annotations:          m.Annotations,
+		AdditionalProperties: m.AdditionalProperties,
+	}
+}
+
+// ManagedIdentityCredentialResource - Credential resource type.
+type ManagedIdentityCredentialResource struct {
+	// REQUIRED; Managed Identity Credential properties.
+	Properties *ManagedIdentityCredential `json:"properties,omitempty"`
+
+	// READ-ONLY; Etag identifies change in the resource.
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; The resource identifier.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedIdentityTypeProperties - Managed identity type properties.
+type ManagedIdentityTypeProperties struct {
+	// The resource id of user assigned managed identity
+	ResourceID *string `json:"resourceId,omitempty"`
 }
 
 // ManagedIntegrationRuntime - Managed integration runtime, including managed elastic and managed dedicated integration runtimes.
@@ -25979,6 +26094,46 @@ func (s *ServiceNowSource) GetTabularSource() *TabularSource {
 	}
 }
 
+// ServicePrincipalCredential - Service principal credential.
+type ServicePrincipalCredential struct {
+	// REQUIRED; Type of credential.
+	Type *string `json:"type,omitempty"`
+
+	// REQUIRED; Service Principal credential properties.
+	TypeProperties *ServicePrincipalCredentialTypeProperties `json:"typeProperties,omitempty"`
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]interface{}
+
+	// List of tags that can be used for describing the Credential.
+	Annotations []interface{} `json:"annotations,omitempty"`
+
+	// Credential description.
+	Description *string `json:"description,omitempty"`
+}
+
+// GetCredential implements the CredentialClassification interface for type ServicePrincipalCredential.
+func (s *ServicePrincipalCredential) GetCredential() *Credential {
+	return &Credential{
+		Type:                 s.Type,
+		Description:          s.Description,
+		Annotations:          s.Annotations,
+		AdditionalProperties: s.AdditionalProperties,
+	}
+}
+
+// ServicePrincipalCredentialTypeProperties - Service Principal credential type properties.
+type ServicePrincipalCredentialTypeProperties struct {
+	// The app ID of the service principal used to authenticate
+	ServicePrincipalID interface{} `json:"servicePrincipalId,omitempty"`
+
+	// The key of the service principal used to authenticate.
+	ServicePrincipalKey *AzureKeyVaultSecretReference `json:"servicePrincipalKey,omitempty"`
+
+	// The ID of the tenant to which the service principal belongs
+	Tenant interface{} `json:"tenant,omitempty"`
+}
+
 // SetVariableActivity - Set value for a Variable.
 type SetVariableActivity struct {
 	// REQUIRED; Activity name.
@@ -26823,6 +26978,9 @@ func (s *SnowflakeSink) GetCopySink() *CopySink {
 
 // SnowflakeSource - A copy activity snowflake source.
 type SnowflakeSource struct {
+	// REQUIRED; Snowflake export settings.
+	ExportSettings *SnowflakeExportCopyCommand `json:"exportSettings,omitempty"`
+
 	// REQUIRED; Copy source type.
 	Type *string `json:"type,omitempty"`
 
@@ -26831,9 +26989,6 @@ type SnowflakeSource struct {
 
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection interface{} `json:"disableMetricsCollection,omitempty"`
-
-	// Snowflake export settings.
-	ExportSettings *SnowflakeExportCopyCommand `json:"exportSettings,omitempty"`
 
 	// The maximum concurrent connection count for the source data store. Type: integer (or Expression with resultType integer).
 	MaxConcurrentConnections interface{} `json:"maxConcurrentConnections,omitempty"`
@@ -26858,6 +27013,15 @@ func (s *SnowflakeSource) GetCopySource() *CopySource {
 		DisableMetricsCollection: s.DisableMetricsCollection,
 		AdditionalProperties:     s.AdditionalProperties,
 	}
+}
+
+// SparkConfigurationParametrizationReference - Spark configuration reference.
+type SparkConfigurationParametrizationReference struct {
+	// REQUIRED; Reference spark configuration name. Type: string (or Expression with resultType string).
+	ReferenceName interface{} `json:"referenceName,omitempty"`
+
+	// REQUIRED; Spark configuration reference type.
+	Type *SparkConfigurationReferenceType `json:"type,omitempty"`
 }
 
 // SparkDatasetTypeProperties - Spark Properties
@@ -27928,6 +28092,9 @@ type SynapseSparkJobActivityTypeProperties struct {
 	// Spark configuration properties, which will override the 'conf' of the spark job definition you provide.
 	Conf interface{} `json:"conf,omitempty"`
 
+	// The type of the spark config.
+	ConfigurationType *ConfigurationType `json:"configurationType,omitempty"`
+
 	// Number of core and memory to be used for driver allocated in the specified Spark pool for the job, which will be used for
 	// overriding 'driverCores' and 'driverMemory' of the spark job definition you
 	// provide. Type: string (or Expression with resultType string).
@@ -27951,15 +28118,27 @@ type SynapseSparkJobActivityTypeProperties struct {
 	FilesV2 []interface{} `json:"filesV2,omitempty"`
 
 	// Number of executors to launch for this job, which will override the 'numExecutors' of the spark job definition you provide.
-	NumExecutors *int32 `json:"numExecutors,omitempty"`
+	// Type: integer (or Expression with resultType integer).
+	NumExecutors interface{} `json:"numExecutors,omitempty"`
 
 	// Additional python code files used for reference in the main definition file, which will override the 'pyFiles' of the spark
 	// job definition you provide.
 	PythonCodeReference []interface{} `json:"pythonCodeReference,omitempty"`
 
+	// Scanning subfolders from the root folder of the main definition file, these files will be added as reference files. The
+	// folders named 'jars', 'pyFiles', 'files' or 'archives' will be scanned, and the
+	// folders name are case sensitive. Type: boolean (or Expression with resultType boolean).
+	ScanFolder interface{} `json:"scanFolder,omitempty"`
+
+	// Spark configuration property.
+	SparkConfig map[string]interface{} `json:"sparkConfig,omitempty"`
+
 	// The name of the big data pool which will be used to execute the spark batch job, which will override the 'targetBigDataPool'
 	// of the spark job definition you provide.
 	TargetBigDataPool *BigDataPoolParametrizationReference `json:"targetBigDataPool,omitempty"`
+
+	// The spark configuration of the spark job.
+	TargetSparkConfiguration *SparkConfigurationParametrizationReference `json:"targetSparkConfiguration,omitempty"`
 }
 
 // SynapseSparkJobDefinitionActivity - Execute spark job activity.
