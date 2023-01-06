@@ -58,7 +58,7 @@ func NewCustomDomainsClient(subscriptionID string, credential azcore.TokenCreden
 
 // BeginCreateOrUpdate - Create or update custom domain of one lifecycle application.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-01-06
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
 // serviceName - The name of the Service resource.
@@ -81,7 +81,7 @@ func (client *CustomDomainsClient) BeginCreateOrUpdate(ctx context.Context, reso
 
 // CreateOrUpdate - Create or update custom domain of one lifecycle application.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-01-06
 func (client *CustomDomainsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, appName string, domainName string, domainResource CustomDomainResource, options *CustomDomainsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, appName, domainName, domainResource, options)
 	if err != nil {
@@ -125,7 +125,7 @@ func (client *CustomDomainsClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, domainResource)
@@ -133,7 +133,7 @@ func (client *CustomDomainsClient) createOrUpdateCreateRequest(ctx context.Conte
 
 // BeginDelete - Delete the custom domain of one lifecycle application.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-01-06
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
 // serviceName - The name of the Service resource.
@@ -155,7 +155,7 @@ func (client *CustomDomainsClient) BeginDelete(ctx context.Context, resourceGrou
 
 // Delete - Delete the custom domain of one lifecycle application.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-01-06
 func (client *CustomDomainsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, appName string, domainName string, options *CustomDomainsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, appName, domainName, options)
 	if err != nil {
@@ -199,7 +199,7 @@ func (client *CustomDomainsClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -207,7 +207,7 @@ func (client *CustomDomainsClient) deleteCreateRequest(ctx context.Context, reso
 
 // Get - Get the custom domain of one lifecycle application.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-01-06
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
 // serviceName - The name of the Service resource.
@@ -257,7 +257,7 @@ func (client *CustomDomainsClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -273,7 +273,7 @@ func (client *CustomDomainsClient) getHandleResponse(resp *http.Response) (Custo
 }
 
 // NewListPager - List the custom domains of one lifecycle application.
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-01-06
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
 // serviceName - The name of the Service resource.
@@ -331,7 +331,7 @@ func (client *CustomDomainsClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -348,7 +348,7 @@ func (client *CustomDomainsClient) listHandleResponse(resp *http.Response) (Cust
 
 // BeginUpdate - Update custom domain of one lifecycle application.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-01-06
 // resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
 // Resource Manager API or the portal.
 // serviceName - The name of the Service resource.
@@ -371,7 +371,7 @@ func (client *CustomDomainsClient) BeginUpdate(ctx context.Context, resourceGrou
 
 // Update - Update custom domain of one lifecycle application.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+// Generated from API version 2023-01-06
 func (client *CustomDomainsClient) update(ctx context.Context, resourceGroupName string, serviceName string, appName string, domainName string, domainResource CustomDomainResource, options *CustomDomainsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, serviceName, appName, domainName, domainResource, options)
 	if err != nil {
@@ -415,7 +415,7 @@ func (client *CustomDomainsClient) updateCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-06")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, domainResource)
