@@ -57,7 +57,7 @@ func NewWorkflowRunActionRepetitionsRequestHistoriesClient(subscriptionID string
 
 // Get - Gets a workflow run repetition request history.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
 // workflowName - The workflow name.
@@ -122,7 +122,7 @@ func (client *WorkflowRunActionRepetitionsRequestHistoriesClient) getCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -138,8 +138,7 @@ func (client *WorkflowRunActionRepetitionsRequestHistoriesClient) getHandleRespo
 }
 
 // NewListPager - List a workflow run repetition request history.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-09-01
 // resourceGroupName - Name of the resource group to which the resource belongs.
 // name - Site name.
 // workflowName - The workflow name.
@@ -212,7 +211,7 @@ func (client *WorkflowRunActionRepetitionsRequestHistoriesClient) listCreateRequ
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
