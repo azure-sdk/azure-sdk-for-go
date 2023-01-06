@@ -1,5 +1,12 @@
 # Release History
 
+## 2.2.0 (2023-01-06)
+### Features Added
+
+- New field `EnableKerberos` in struct `BastionHostPropertiesFormat`
+- New field `FlowLogs` in struct `VirtualNetworkPropertiesFormat`
+
+
 ## 2.1.0 (2022-12-23)
 ### Features Added
 

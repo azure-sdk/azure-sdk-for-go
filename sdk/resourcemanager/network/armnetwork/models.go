@@ -3324,6 +3324,9 @@ type BastionHostPropertiesFormat struct {
 	// Enable/Disable IP Connect feature of the Bastion Host resource.
 	EnableIPConnect *bool `json:"enableIpConnect,omitempty"`
 
+	// Enable/Disable Kerberos feature of the Bastion Host resource.
+	EnableKerberos *bool `json:"enableKerberos,omitempty"`
+
 	// Enable/Disable Shareable Link of the Bastion Host resource.
 	EnableShareableLink *bool `json:"enableShareableLink,omitempty"`
 
@@ -16719,6 +16722,9 @@ type VirtualNetworkPropertiesFormat struct {
 
 	// A list of peerings in a Virtual Network.
 	VirtualNetworkPeerings []*VirtualNetworkPeering `json:"virtualNetworkPeerings,omitempty"`
+
+	// READ-ONLY; A collection of references to flow log resources.
+	FlowLogs []*FlowLog `json:"flowLogs,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of the virtual network resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`

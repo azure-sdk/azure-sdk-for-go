@@ -7121,6 +7121,7 @@ func (b BastionHostPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "disableCopyPaste", b.DisableCopyPaste)
 	populate(objectMap, "enableFileCopy", b.EnableFileCopy)
 	populate(objectMap, "enableIpConnect", b.EnableIPConnect)
+	populate(objectMap, "enableKerberos", b.EnableKerberos)
 	populate(objectMap, "enableShareableLink", b.EnableShareableLink)
 	populate(objectMap, "enableTunneling", b.EnableTunneling)
 	populate(objectMap, "ipConfigurations", b.IPConfigurations)
@@ -7149,6 +7150,9 @@ func (b *BastionHostPropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "enableIpConnect":
 			err = unpopulate(val, "EnableIPConnect", &b.EnableIPConnect)
+			delete(rawMsg, key)
+		case "enableKerberos":
+			err = unpopulate(val, "EnableKerberos", &b.EnableKerberos)
 			delete(rawMsg, key)
 		case "enableShareableLink":
 			err = unpopulate(val, "EnableShareableLink", &b.EnableShareableLink)
@@ -32495,6 +32499,7 @@ func (v VirtualNetworkPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableDdosProtection", v.EnableDdosProtection)
 	populate(objectMap, "enableVmProtection", v.EnableVMProtection)
 	populate(objectMap, "encryption", v.Encryption)
+	populate(objectMap, "flowLogs", v.FlowLogs)
 	populate(objectMap, "flowTimeoutInMinutes", v.FlowTimeoutInMinutes)
 	populate(objectMap, "ipAllocations", v.IPAllocations)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
@@ -32533,6 +32538,9 @@ func (v *VirtualNetworkPropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "encryption":
 			err = unpopulate(val, "Encryption", &v.Encryption)
+			delete(rawMsg, key)
+		case "flowLogs":
+			err = unpopulate(val, "FlowLogs", &v.FlowLogs)
 			delete(rawMsg, key)
 		case "flowTimeoutInMinutes":
 			err = unpopulate(val, "FlowTimeoutInMinutes", &v.FlowTimeoutInMinutes)
