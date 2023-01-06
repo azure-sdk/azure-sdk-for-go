@@ -101,7 +101,6 @@ func (client *FarmBeatsExtensionsClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListPager - Get list of farmBeats extension.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-09-01-preview
 // options - FarmBeatsExtensionsClientListOptions contains the optional parameters for the FarmBeatsExtensionsClient.List
 // method.
