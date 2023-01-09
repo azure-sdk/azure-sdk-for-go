@@ -1,5 +1,25 @@
 # Release History
 
+## 1.1.0-beta.2 (2023-01-09)
+### Breaking Changes
+
+- Function `*VaultsClient.NewListPager` parameter(s) have been changed from `(*VaultsClientListOptions)` to `(ResourceManagerAPIVersions, *VaultsClientListOptions)`
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New type alias `ActivationStatus` with values `ActivationStatusActive`, `ActivationStatusFailed`, `ActivationStatusNotActivated`, `ActivationStatusUnknown`
+- New type alias `ResourceManagerAPIVersions` with values `ResourceManagerAPIVersionsTwoThousandFifteen1101`, `ResourceManagerAPIVersionsTwoThousandTwentyTwo0201Preview`
+- New function `*ManagedHsmsClient.CheckMhsmNameAvailability(context.Context, CheckMhsmNameAvailabilityParameters, *ManagedHsmsClientCheckMhsmNameAvailabilityOptions) (ManagedHsmsClientCheckMhsmNameAvailabilityResponse, error)`
+- New struct `CheckMhsmNameAvailabilityParameters`
+- New struct `CheckMhsmNameAvailabilityResult`
+- New struct `ManagedHSMSecurityDomainProperties`
+- New field `Etag` in struct `MHSMPrivateEndpointConnectionItem`
+- New field `ID` in struct `MHSMPrivateEndpointConnectionItem`
+- New field `SecurityDomainProperties` in struct `ManagedHsmProperties`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
