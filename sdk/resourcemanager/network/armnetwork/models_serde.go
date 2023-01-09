@@ -9238,6 +9238,7 @@ func (c *ConnectivityIssue) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ConnectivityParameters.
 func (c ConnectivityParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
+	populate(objectMap, "analysisModes", c.AnalysisModes)
 	populate(objectMap, "destination", c.Destination)
 	populate(objectMap, "preferredIPVersion", c.PreferredIPVersion)
 	populate(objectMap, "protocol", c.Protocol)
@@ -9255,6 +9256,9 @@ func (c *ConnectivityParameters) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "analysisModes":
+			err = unpopulate(val, "AnalysisModes", &c.AnalysisModes)
+			delete(rawMsg, key)
 		case "destination":
 			err = unpopulate(val, "Destination", &c.Destination)
 			delete(rawMsg, key)
@@ -9283,6 +9287,7 @@ func (c ConnectivitySource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]interface{})
 	populate(objectMap, "port", c.Port)
 	populate(objectMap, "resourceId", c.ResourceID)
+	populate(objectMap, "vmssIndex", c.VmssIndex)
 	return json.Marshal(objectMap)
 }
 
@@ -9300,6 +9305,9 @@ func (c *ConnectivitySource) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "resourceId":
 			err = unpopulate(val, "ResourceID", &c.ResourceID)
+			delete(rawMsg, key)
+		case "vmssIndex":
+			err = unpopulate(val, "VmssIndex", &c.VmssIndex)
 			delete(rawMsg, key)
 		}
 		if err != nil {

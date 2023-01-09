@@ -1,5 +1,15 @@
 # Release History
 
+## 2.2.0 (2023-01-09)
+### Features Added
+
+- New value `ApplicationGatewaySKUNameStandardBasic` added to type alias `ApplicationGatewaySKUName`
+- New value `ApplicationGatewayTierStandardBasic` added to type alias `ApplicationGatewayTier`
+- New type alias `AnalysisModes` with values `AnalysisModesDefault`, `AnalysisModesNCD`, `AnalysisModesNextHop`, `AnalysisModesPortScan`
+- New field `AnalysisModes` in struct `ConnectivityParameters`
+- New field `VmssIndex` in struct `ConnectivitySource`
+
+
 ## 2.1.0 (2022-12-23)
 ### Features Added
 

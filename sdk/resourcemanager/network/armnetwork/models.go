@@ -4278,6 +4278,9 @@ type ConnectivityParameters struct {
 	// REQUIRED; The source of the connection.
 	Source *ConnectivitySource `json:"source,omitempty"`
 
+	// Analysis Modes.
+	AnalysisModes *AnalysisModes `json:"analysisModes,omitempty"`
+
 	// Preferred IP version of the connection.
 	PreferredIPVersion *IPVersion `json:"preferredIPVersion,omitempty"`
 
@@ -4295,6 +4298,9 @@ type ConnectivitySource struct {
 
 	// The source port from which a connectivity check will be performed.
 	Port *int32 `json:"port,omitempty"`
+
+	// The vmss instance name from which a connectivity check will be performed.
+	VmssIndex *string `json:"vmssIndex,omitempty"`
 }
 
 // Container - Reference to container resource in remote resource provider.
