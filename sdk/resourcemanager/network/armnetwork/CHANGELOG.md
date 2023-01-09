@@ -1,5 +1,12 @@
 # Release History
 
+## 2.2.0 (2023-01-09)
+### Features Added
+
+- New value `ApplicationGatewaySKUNameStandardBasic` added to type alias `ApplicationGatewaySKUName`
+- New value `ApplicationGatewayTierStandardBasic` added to type alias `ApplicationGatewayTier`
+
+
 ## 2.1.0 (2022-12-23)
 ### Features Added
 
