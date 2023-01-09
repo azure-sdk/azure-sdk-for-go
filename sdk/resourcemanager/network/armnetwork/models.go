@@ -14571,6 +14571,8 @@ type VPNGatewaysClientBeginDeleteOptions struct {
 
 // VPNGatewaysClientBeginResetOptions contains the optional parameters for the VPNGatewaysClient.BeginReset method.
 type VPNGatewaysClientBeginResetOptions struct {
+	// VpnGateway ipConfigurationId to specify the gateway instance.
+	IPConfigurationID *string
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -16719,6 +16721,9 @@ type VirtualNetworkPropertiesFormat struct {
 
 	// A list of peerings in a Virtual Network.
 	VirtualNetworkPeerings []*VirtualNetworkPeering `json:"virtualNetworkPeerings,omitempty"`
+
+	// READ-ONLY; A collection of references to flow log resources.
+	FlowLogs []*FlowLog `json:"flowLogs,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of the virtual network resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
