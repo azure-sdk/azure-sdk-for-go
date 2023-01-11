@@ -1,5 +1,45 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-01-11)
+### Breaking Changes
+
+- Type of `CustomDomainConfiguration.CertificatePassword` has been changed from `[]byte` to `*string`
+- Type of `DaprSecretsCollection.Value` has been changed from `[]*Secret` to `[]*DaprSecret`
+
+### Features Added
+
+- New type alias `Affinity` with values `AffinityNone`, `AffinitySticky`
+- New type alias `IngressClientCertificateMode` with values `IngressClientCertificateModeAccept`, `IngressClientCertificateModeIgnore`, `IngressClientCertificateModeRequire`
+- New type alias `ManagedCertificateDomainControlValidation` with values `ManagedCertificateDomainControlValidationCNAME`, `ManagedCertificateDomainControlValidationHTTP`, `ManagedCertificateDomainControlValidationTXT`
+- New function `NewManagedCertificatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedCertificatesClient, error)`
+- New function `*ManagedCertificatesClient.BeginCreateOrUpdate(context.Context, string, string, string, *ManagedCertificatesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedCertificatesClientCreateOrUpdateResponse], error)`
+- New function `*ManagedCertificatesClient.Delete(context.Context, string, string, string, *ManagedCertificatesClientDeleteOptions) (ManagedCertificatesClientDeleteResponse, error)`
+- New function `*ManagedCertificatesClient.Get(context.Context, string, string, string, *ManagedCertificatesClientGetOptions) (ManagedCertificatesClientGetResponse, error)`
+- New function `*ManagedCertificatesClient.NewListPager(string, string, *ManagedCertificatesClientListOptions) *runtime.Pager[ManagedCertificatesClientListResponse]`
+- New function `*ManagedCertificatesClient.Update(context.Context, string, string, string, ManagedCertificatePatch, *ManagedCertificatesClientUpdateOptions) (ManagedCertificatesClientUpdateResponse, error)`
+- New struct `CorsPolicy`
+- New struct `DaprConfiguration`
+- New struct `IngressStickySessions`
+- New struct `KedaConfiguration`
+- New struct `ManagedCertificate`
+- New struct `ManagedCertificateCollection`
+- New struct `ManagedCertificatePatch`
+- New struct `ManagedCertificateProperties`
+- New struct `ManagedCertificatesClient`
+- New struct `ManagedCertificatesClientCreateOrUpdateResponse`
+- New struct `ManagedCertificatesClientListResponse`
+- New field `ManagedBy` in struct `ContainerApp`
+- New field `LatestReadyRevisionName` in struct `ContainerAppProperties`
+- New anonymous field `ContainerApp` in struct `ContainerAppsClientUpdateResponse`
+- New field `ClientCertificateMode` in struct `Ingress`
+- New field `CorsPolicy` in struct `Ingress`
+- New field `StickySessions` in struct `Ingress`
+- New field `Kind` in struct `ManagedEnvironment`
+- New field `DaprConfiguration` in struct `ManagedEnvironmentProperties`
+- New field `KedaConfiguration` in struct `ManagedEnvironmentProperties`
+- New anonymous field `ManagedEnvironment` in struct `ManagedEnvironmentsClientUpdateResponse`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
