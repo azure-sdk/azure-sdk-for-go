@@ -54,7 +54,7 @@ func NewReservationOrderClient(credential azcore.TokenCredential, options *arm.C
 
 // Calculate - Calculate price for placing a ReservationOrder.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // body - Information needed for calculate or purchase reservation
 // options - ReservationOrderClientCalculateOptions contains the optional parameters for the ReservationOrderClient.Calculate
 // method.
@@ -81,7 +81,7 @@ func (client *ReservationOrderClient) calculateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -98,7 +98,7 @@ func (client *ReservationOrderClient) calculateHandleResponse(resp *http.Respons
 
 // ChangeDirectory - Change directory (tenant) of ReservationOrder and all Reservation under it to specified tenant id
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // reservationOrderID - Order Id of the reservation
 // body - Information needed to change directory of reservation order
 // options - ReservationOrderClientChangeDirectoryOptions contains the optional parameters for the ReservationOrderClient.ChangeDirectory
@@ -130,7 +130,7 @@ func (client *ReservationOrderClient) changeDirectoryCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -147,7 +147,7 @@ func (client *ReservationOrderClient) changeDirectoryHandleResponse(resp *http.R
 
 // Get - Get the details of the ReservationOrder.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // reservationOrderID - Order Id of the reservation
 // options - ReservationOrderClientGetOptions contains the optional parameters for the ReservationOrderClient.Get method.
 func (client *ReservationOrderClient) Get(ctx context.Context, reservationOrderID string, options *ReservationOrderClientGetOptions) (ReservationOrderClientGetResponse, error) {
@@ -177,7 +177,7 @@ func (client *ReservationOrderClient) getCreateRequest(ctx context.Context, rese
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -196,7 +196,7 @@ func (client *ReservationOrderClient) getHandleResponse(resp *http.Response) (Re
 }
 
 // NewListPager - List of all the ReservationOrders that the user has access to in the current tenant.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // options - ReservationOrderClientListOptions contains the optional parameters for the ReservationOrderClient.List method.
 func (client *ReservationOrderClient) NewListPager(options *ReservationOrderClientListOptions) *runtime.Pager[ReservationOrderClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReservationOrderClientListResponse]{
@@ -234,7 +234,7 @@ func (client *ReservationOrderClient) listCreateRequest(ctx context.Context, opt
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -251,7 +251,7 @@ func (client *ReservationOrderClient) listHandleResponse(resp *http.Response) (R
 
 // BeginPurchase - Purchase ReservationOrder and create resource under the specified URI.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 // reservationOrderID - Order Id of the reservation
 // body - Information needed for calculate or purchase reservation
 // options - ReservationOrderClientBeginPurchaseOptions contains the optional parameters for the ReservationOrderClient.BeginPurchase
@@ -272,7 +272,7 @@ func (client *ReservationOrderClient) BeginPurchase(ctx context.Context, reserva
 
 // Purchase - Purchase ReservationOrder and create resource under the specified URI.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 func (client *ReservationOrderClient) purchase(ctx context.Context, reservationOrderID string, body PurchaseRequest, options *ReservationOrderClientBeginPurchaseOptions) (*http.Response, error) {
 	req, err := client.purchaseCreateRequest(ctx, reservationOrderID, body, options)
 	if err != nil {
@@ -300,7 +300,7 @@ func (client *ReservationOrderClient) purchaseCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)

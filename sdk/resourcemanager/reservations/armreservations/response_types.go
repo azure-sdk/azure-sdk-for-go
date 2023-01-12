@@ -18,8 +18,7 @@ type AzureReservationAPIClientGetAppliedReservationListResponse struct {
 
 // AzureReservationAPIClientGetCatalogResponse contains the response from method AzureReservationAPIClient.GetCatalog.
 type AzureReservationAPIClientGetCatalogResponse struct {
-	// Array of Catalog
-	CatalogArray []*Catalog
+	CatalogsResult
 }
 
 // CalculateExchangeClientPostResponse contains the response from method CalculateExchangeClient.Post.
@@ -166,6 +165,4 @@ type ReservationOrderClientPurchaseResponse struct {
 // ReturnClientPostResponse contains the response from method ReturnClient.Post.
 type ReturnClientPostResponse struct {
 	RefundResponse
-	// Location contains the information returned from the Location header response.
-	Location *string
 }
