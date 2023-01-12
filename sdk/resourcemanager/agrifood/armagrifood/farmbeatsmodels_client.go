@@ -33,7 +33,7 @@ type FarmBeatsModelsClient struct {
 }
 
 // NewFarmBeatsModelsClient creates a new instance of FarmBeatsModelsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
+// subscriptionID - The ID of the target subscription. The value must be an UUID.
 // credential - used to authorize requests. Usually a credential from azidentity.
 // options - pass nil to accept the default values.
 func NewFarmBeatsModelsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FarmBeatsModelsClient, error) {
@@ -73,7 +73,7 @@ func (client *FarmBeatsModelsClient) CreateOrUpdate(ctx context.Context, resourc
 	if err != nil {
 		return FarmBeatsModelsClientCreateOrUpdateResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
+	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
 		return FarmBeatsModelsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.createOrUpdateHandleResponse(resp)
@@ -82,9 +82,6 @@ func (client *FarmBeatsModelsClient) CreateOrUpdate(ctx context.Context, resourc
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *FarmBeatsModelsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, body FarmBeats, options *FarmBeatsModelsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{farmBeatsResourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -138,9 +135,6 @@ func (client *FarmBeatsModelsClient) Delete(ctx context.Context, resourceGroupNa
 // deleteCreateRequest creates the Delete request.
 func (client *FarmBeatsModelsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, options *FarmBeatsModelsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{farmBeatsResourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -185,9 +179,6 @@ func (client *FarmBeatsModelsClient) Get(ctx context.Context, resourceGroupName 
 // getCreateRequest creates the Get request.
 func (client *FarmBeatsModelsClient) getCreateRequest(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, options *FarmBeatsModelsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{farmBeatsResourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -243,9 +234,6 @@ func (client *FarmBeatsModelsClient) GetOperationResult(ctx context.Context, res
 // getOperationResultCreateRequest creates the GetOperationResult request.
 func (client *FarmBeatsModelsClient) getOperationResultCreateRequest(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, operationResultsID string, options *FarmBeatsModelsClientGetOperationResultOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{farmBeatsResourceName}/operationResults/{operationResultsId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -280,7 +268,6 @@ func (client *FarmBeatsModelsClient) getOperationResultHandleResponse(resp *http
 }
 
 // NewListByResourceGroupPager - Lists the FarmBeats instances for a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-09-01-preview
 // resourceGroupName - The name of the resource group. The name is case insensitive.
 // options - FarmBeatsModelsClientListByResourceGroupOptions contains the optional parameters for the FarmBeatsModelsClient.ListByResourceGroup
@@ -320,9 +307,6 @@ func (client *FarmBeatsModelsClient) listByResourceGroupCreateRequest(ctx contex
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
@@ -351,7 +335,6 @@ func (client *FarmBeatsModelsClient) listByResourceGroupHandleResponse(resp *htt
 }
 
 // NewListBySubscriptionPager - Lists the FarmBeats instances for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
 // Generated from API version 2021-09-01-preview
 // options - FarmBeatsModelsClientListBySubscriptionOptions contains the optional parameters for the FarmBeatsModelsClient.ListBySubscription
 // method.
@@ -386,9 +369,6 @@ func (client *FarmBeatsModelsClient) NewListBySubscriptionPager(options *FarmBea
 // listBySubscriptionCreateRequest creates the ListBySubscription request.
 func (client *FarmBeatsModelsClient) listBySubscriptionCreateRequest(ctx context.Context, options *FarmBeatsModelsClientListBySubscriptionOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AgFoodPlatform/farmBeats"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
@@ -459,9 +439,6 @@ func (client *FarmBeatsModelsClient) update(ctx context.Context, resourceGroupNa
 // updateCreateRequest creates the Update request.
 func (client *FarmBeatsModelsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, farmBeatsResourceName string, body FarmBeatsUpdateRequestModel, options *FarmBeatsModelsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AgFoodPlatform/farmBeats/{farmBeatsResourceName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
