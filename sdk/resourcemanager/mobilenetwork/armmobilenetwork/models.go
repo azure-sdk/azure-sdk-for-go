@@ -290,11 +290,9 @@ type DataNetworkConfiguration struct {
 	// The default PDU session type, which is used if the UE does not request a specific session type.
 	DefaultSessionType *PduSessionType `json:"defaultSessionType,omitempty"`
 
-	// Default QoS Flow 5G QoS Indicator value. The 5QI identifies a specific QoS forwarding treatment to be provided to a flow.
-	// This must not be a standardized 5QI value corresponding to a GBR (guaranteed
-	// bit rate) QoS Flow. The illegal GBR 5QI values are: 1, 2, 3, 4, 65, 66, 67, 71, 72, 73, 74, 75, 76, 82, 83, 84, and 85.
-	// See 3GPP TS23.501 section 5.7.2.1 for a full description of the 5QI parameter,
-	// and table 5.7.4-1 for the definition of which are the GBR 5QI values.
+	// Default 5G QoS Flow Indicator value. The 5QI identifies a specific QoS forwarding treatment to be provided to a flow. See
+	// 3GPP TS23.501 section 5.7.2.1 for a full description of the 5QI parameter, and
+	// table 5.7.4-1 for the definition the 5QI values.
 	FiveQi *int32 `json:"5qi,omitempty"`
 
 	// The maximum number of downlink packets to buffer at the user plane for High Latency Communication - Extended Buffering.
@@ -960,11 +958,9 @@ type PccRuleQosPolicy struct {
 	// section 5.7.2.2 for a full description of the ARP parameters.
 	AllocationAndRetentionPriorityLevel *int32 `json:"allocationAndRetentionPriorityLevel,omitempty"`
 
-	// QoS Flow 5G QoS Indicator value. The 5QI identifies a specific QoS forwarding treatment to be provided to a flow. This
-	// must not be a standardized 5QI value corresponding to a GBR (guaranteed bit rate)
-	// QoS Flow. The illegal GBR 5QI values are: 1, 2, 3, 4, 65, 66, 67, 71, 72, 73, 74, 75, 76, 82, 83, 84, and 85. See 3GPP
+	// 5G QoS Flow Indicator value. The 5QI identifies a specific QoS forwarding treatment to be provided to a flow. See 3GPP
 	// TS23.501 section 5.7.2.1 for a full description of the 5QI parameter, and table
-	// 5.7.4-1 for the definition of which are the GBR 5QI values.
+	// 5.7.4-1 for the definition the 5QI values.
 	FiveQi *int32 `json:"5qi,omitempty"`
 
 	// The guaranteed bit rate (GBR) for all service data flows that use this data flow policy rule. This is an optional setting.
@@ -1112,11 +1108,9 @@ type QosPolicy struct {
 	// section 5.7.2.2 for a full description of the ARP parameters.
 	AllocationAndRetentionPriorityLevel *int32 `json:"allocationAndRetentionPriorityLevel,omitempty"`
 
-	// QoS Flow 5G QoS Indicator value. The 5QI identifies a specific QoS forwarding treatment to be provided to a flow. This
-	// must not be a standardized 5QI value corresponding to a GBR (guaranteed bit rate)
-	// QoS Flow. The illegal GBR 5QI values are: 1, 2, 3, 4, 65, 66, 67, 71, 72, 73, 74, 75, 76, 82, 83, 84, and 85. See 3GPP
+	// 5G QoS Flow Indicator value. The 5QI identifies a specific QoS forwarding treatment to be provided to a flow. See 3GPP
 	// TS23.501 section 5.7.2.1 for a full description of the 5QI parameter, and table
-	// 5.7.4-1 for the definition of which are the GBR 5QI values.
+	// 5.7.4-1 for the definition the 5QI values.
 	FiveQi *int32 `json:"5qi,omitempty"`
 
 	// QoS Flow preemption capability. The preemption capability of a QoS Flow controls whether it can preempt another QoS Flow
