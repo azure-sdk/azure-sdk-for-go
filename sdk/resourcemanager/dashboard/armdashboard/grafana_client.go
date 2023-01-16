@@ -32,9 +32,9 @@ type GrafanaClient struct {
 }
 
 // NewGrafanaClient creates a new instance of GrafanaClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGrafanaClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GrafanaClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,10 +58,11 @@ func NewGrafanaClient(subscriptionID string, credential azcore.TokenCredential, 
 // BeginCreate - Create or update a workspace for Grafana resource. This API is idempotent, so user can either create a new
 // grafana or update an existing grafana.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The workspace name of Azure Managed Grafana.
-// options - GrafanaClientBeginCreateOptions contains the optional parameters for the GrafanaClient.BeginCreate method.
+//
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The workspace name of Azure Managed Grafana.
+//   - options - GrafanaClientBeginCreateOptions contains the optional parameters for the GrafanaClient.BeginCreate method.
 func (client *GrafanaClient) BeginCreate(ctx context.Context, resourceGroupName string, workspaceName string, requestBodyParameters ManagedGrafana, options *GrafanaClientBeginCreateOptions) (*runtime.Poller[GrafanaClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, workspaceName, requestBodyParameters, options)
@@ -79,7 +80,8 @@ func (client *GrafanaClient) BeginCreate(ctx context.Context, resourceGroupName 
 // Create - Create or update a workspace for Grafana resource. This API is idempotent, so user can either create a new grafana
 // or update an existing grafana.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
+//
+// Generated from API version 2022-10-01-preview
 func (client *GrafanaClient) create(ctx context.Context, resourceGroupName string, workspaceName string, requestBodyParameters ManagedGrafana, options *GrafanaClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, workspaceName, requestBodyParameters, options)
 	if err != nil {
@@ -115,7 +117,7 @@ func (client *GrafanaClient) createCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, requestBodyParameters)
@@ -123,10 +125,11 @@ func (client *GrafanaClient) createCreateRequest(ctx context.Context, resourceGr
 
 // BeginDelete - Delete a workspace for Grafana resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The workspace name of Azure Managed Grafana.
-// options - GrafanaClientBeginDeleteOptions contains the optional parameters for the GrafanaClient.BeginDelete method.
+//
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The workspace name of Azure Managed Grafana.
+//   - options - GrafanaClientBeginDeleteOptions contains the optional parameters for the GrafanaClient.BeginDelete method.
 func (client *GrafanaClient) BeginDelete(ctx context.Context, resourceGroupName string, workspaceName string, options *GrafanaClientBeginDeleteOptions) (*runtime.Poller[GrafanaClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, workspaceName, options)
@@ -143,7 +146,8 @@ func (client *GrafanaClient) BeginDelete(ctx context.Context, resourceGroupName 
 
 // Delete - Delete a workspace for Grafana resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
+//
+// Generated from API version 2022-10-01-preview
 func (client *GrafanaClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, options *GrafanaClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, options)
 	if err != nil {
@@ -179,7 +183,7 @@ func (client *GrafanaClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -187,10 +191,11 @@ func (client *GrafanaClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // Get - Get the properties of a specific workspace for Grafana resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The workspace name of Azure Managed Grafana.
-// options - GrafanaClientGetOptions contains the optional parameters for the GrafanaClient.Get method.
+//
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The workspace name of Azure Managed Grafana.
+//   - options - GrafanaClientGetOptions contains the optional parameters for the GrafanaClient.Get method.
 func (client *GrafanaClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, options *GrafanaClientGetOptions) (GrafanaClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, options)
 	if err != nil {
@@ -226,7 +231,7 @@ func (client *GrafanaClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -242,9 +247,9 @@ func (client *GrafanaClient) getHandleResponse(resp *http.Response) (GrafanaClie
 }
 
 // NewListPager - List all resources of workspaces for Grafana under the specified subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// options - GrafanaClientListOptions contains the optional parameters for the GrafanaClient.List method.
+//
+// Generated from API version 2022-10-01-preview
+//   - options - GrafanaClientListOptions contains the optional parameters for the GrafanaClient.NewListPager method.
 func (client *GrafanaClient) NewListPager(options *GrafanaClientListOptions) *runtime.Pager[GrafanaClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GrafanaClientListResponse]{
 		More: func(page GrafanaClientListResponse) bool {
@@ -285,7 +290,7 @@ func (client *GrafanaClient) listCreateRequest(ctx context.Context, options *Gra
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -301,11 +306,11 @@ func (client *GrafanaClient) listHandleResponse(resp *http.Response) (GrafanaCli
 }
 
 // NewListByResourceGroupPager - List all resources of workspaces for Grafana under the specified resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - GrafanaClientListByResourceGroupOptions contains the optional parameters for the GrafanaClient.ListByResourceGroup
-// method.
+//
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - GrafanaClientListByResourceGroupOptions contains the optional parameters for the GrafanaClient.NewListByResourceGroupPager
+//     method.
 func (client *GrafanaClient) NewListByResourceGroupPager(resourceGroupName string, options *GrafanaClientListByResourceGroupOptions) *runtime.Pager[GrafanaClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GrafanaClientListByResourceGroupResponse]{
 		More: func(page GrafanaClientListByResourceGroupResponse) bool {
@@ -350,7 +355,7 @@ func (client *GrafanaClient) listByResourceGroupCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -367,10 +372,11 @@ func (client *GrafanaClient) listByResourceGroupHandleResponse(resp *http.Respon
 
 // Update - Update a workspace for Grafana resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The workspace name of Azure Managed Grafana.
-// options - GrafanaClientUpdateOptions contains the optional parameters for the GrafanaClient.Update method.
+//
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The workspace name of Azure Managed Grafana.
+//   - options - GrafanaClientUpdateOptions contains the optional parameters for the GrafanaClient.Update method.
 func (client *GrafanaClient) Update(ctx context.Context, resourceGroupName string, workspaceName string, requestBodyParameters ManagedGrafanaUpdateParameters, options *GrafanaClientUpdateOptions) (GrafanaClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, workspaceName, requestBodyParameters, options)
 	if err != nil {
@@ -406,7 +412,7 @@ func (client *GrafanaClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, requestBodyParameters)

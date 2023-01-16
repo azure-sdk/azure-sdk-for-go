@@ -17,10 +17,33 @@ type AzureMonitorWorkspaceIntegration struct {
 	AzureMonitorWorkspaceResourceID *string `json:"azureMonitorWorkspaceResourceId,omitempty"`
 }
 
+// EnterpriseConfigurations - Enterprise settings of a Grafana instance
+type EnterpriseConfigurations struct {
+	// The AutoRenew setting of the Enterprise subscription
+	MarketplaceAutoRenew *MarketplaceAutoRenew `json:"marketplaceAutoRenew,omitempty"`
+
+	// The Plan Id of the Azure Marketplace subscription for the Enterprise plugins
+	MarketplacePlanID *string `json:"marketplacePlanId,omitempty"`
+}
+
+// EnterpriseDetails - Enterprise details of a Grafana instance
+type EnterpriseDetails struct {
+	// The allocation details of the per subscription free trial slot of the subscription.
+	MarketplaceTrialQuota *MarketplaceTrialQuota `json:"marketplaceTrialQuota,omitempty"`
+
+	// SaaS subscription details of a Grafana instance
+	SaasSubscriptionDetails *SaasSubscriptionDetails `json:"saasSubscriptionDetails,omitempty"`
+}
+
+// EnterpriseDetailsClientPostOptions contains the optional parameters for the EnterpriseDetailsClient.Post method.
+type EnterpriseDetailsClientPostOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -68,12 +91,13 @@ type GrafanaClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GrafanaClientListByResourceGroupOptions contains the optional parameters for the GrafanaClient.ListByResourceGroup method.
+// GrafanaClientListByResourceGroupOptions contains the optional parameters for the GrafanaClient.NewListByResourceGroupPager
+// method.
 type GrafanaClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GrafanaClientListOptions contains the optional parameters for the GrafanaClient.List method.
+// GrafanaClientListOptions contains the optional parameters for the GrafanaClient.NewListPager method.
 type GrafanaClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -81,6 +105,12 @@ type GrafanaClientListOptions struct {
 // GrafanaClientUpdateOptions contains the optional parameters for the GrafanaClient.Update method.
 type GrafanaClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// GrafanaConfigurations - Server configurations of a Grafana instance
+type GrafanaConfigurations struct {
+	// Email server settings. https://grafana.com/docs/grafana/v9.0/setup-grafana/configure-grafana/#smtp
+	SMTP *SMTP `json:"smtp,omitempty"`
 }
 
 // GrafanaIntegrations is a bundled observability experience (e.g. pre-configured data source, tailored Grafana dashboards,
@@ -135,6 +165,12 @@ type ManagedGrafanaProperties struct {
 	// Whether a Grafana instance uses deterministic outbound IPs.
 	DeterministicOutboundIP *DeterministicOutboundIP `json:"deterministicOutboundIP,omitempty"`
 
+	// Enterprise settings of a Grafana instance
+	EnterpriseConfigurations *EnterpriseConfigurations `json:"enterpriseConfigurations,omitempty"`
+
+	// Server configurations of a Grafana instance
+	GrafanaConfigurations *GrafanaConfigurations `json:"grafanaConfigurations,omitempty"`
+
 	// GrafanaIntegrations is a bundled observability experience (e.g. pre-configured data source, tailored Grafana dashboards,
 	// alerting defaults) for common monitoring scenarios.
 	GrafanaIntegrations *GrafanaIntegrations `json:"grafanaIntegrations,omitempty"`
@@ -168,6 +204,12 @@ type ManagedGrafanaPropertiesUpdateParameters struct {
 
 	// Whether a Grafana instance uses deterministic outbound IPs.
 	DeterministicOutboundIP *DeterministicOutboundIP `json:"deterministicOutboundIP,omitempty"`
+
+	// Enterprise settings of a Grafana instance
+	EnterpriseConfigurations *EnterpriseConfigurations `json:"enterpriseConfigurations,omitempty"`
+
+	// Server configurations of a Grafana instance
+	GrafanaConfigurations *GrafanaConfigurations `json:"grafanaConfigurations,omitempty"`
 
 	// GrafanaIntegrations is a bundled observability experience (e.g. pre-configured data source, tailored Grafana dashboards,
 	// alerting defaults) for common monitoring scenarios.
@@ -210,6 +252,21 @@ type ManagedServiceIdentity struct {
 
 	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
 	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+}
+
+// MarketplaceTrialQuota - The allocation details of the per subscription free trial slot of the subscription.
+type MarketplaceTrialQuota struct {
+	// Available enterprise promotion for the subscription
+	AvailablePromotion *AvailablePromotion `json:"availablePromotion,omitempty"`
+
+	// Resource Id of the Grafana resource which is doing the trial.
+	GrafanaResourceID *string `json:"grafanaResourceId,omitempty"`
+
+	// The date and time in UTC of when the trial ends.
+	TrialEndAt *time.Time `json:"trialEndAt,omitempty"`
+
+	// The date and time in UTC of when the trial starts.
+	TrialStartAt *time.Time `json:"trialStartAt,omitempty"`
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -261,7 +318,7 @@ type OperationListResult struct {
 	Value []*Operation `json:"value,omitempty" azure:"ro"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -317,6 +374,7 @@ type PrivateEndpointConnectionProperties struct {
 // PrivateEndpointConnectionsClientBeginApproveOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginApprove
 // method.
 type PrivateEndpointConnectionsClientBeginApproveOptions struct {
+	Body *PrivateEndpointConnection
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -334,7 +392,7 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
+// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
 // method.
 type PrivateEndpointConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -387,7 +445,8 @@ type PrivateLinkResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.List method.
+// PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListPager
+// method.
 type PrivateLinkResourcesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -423,6 +482,53 @@ type Resource struct {
 type ResourceSKU struct {
 	// REQUIRED
 	Name *string `json:"name,omitempty"`
+}
+
+// SMTP - Email server settings. https://grafana.com/docs/grafana/v9.0/setup-grafana/configure-grafana/#smtp
+type SMTP struct {
+	// Enable this to allow Grafana to send email. Default is false
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// Address used when sending out emails https://pkg.go.dev/net/mail#Address
+	FromAddress *string `json:"fromAddress,omitempty"`
+
+	// Name to be used when sending out emails. Default is "Azure Managed Grafana Notification" https://pkg.go.dev/net/mail#Address
+	FromName *string `json:"fromName,omitempty"`
+
+	// SMTP server hostname with port, e.g. test.email.net:587
+	Host *string `json:"host,omitempty"`
+
+	// Password of SMTP auth. If the password contains # or ;, then you have to wrap it with triple quotes. Example: """#password;"""
+	Password *string `json:"password,omitempty"`
+
+	// Verify SSL for SMTP server. Default is false https://pkg.go.dev/crypto/tls#Config
+	SkipVerify *bool `json:"skipVerify,omitempty"`
+
+	// The StartTLSPolicy setting of the SMTP configuration https://pkg.go.dev/github.com/go-mail/mail#StartTLSPolicy
+	StartTLSPolicy *StartTLSPolicy `json:"startTLSPolicy,omitempty"`
+
+	// User of SMTP auth
+	User *string `json:"user,omitempty"`
+}
+
+// SaasSubscriptionDetails - SaaS subscription details of a Grafana instance
+type SaasSubscriptionDetails struct {
+	OfferID     *string `json:"offerId,omitempty"`
+	PlanID      *string `json:"planId,omitempty"`
+	PublisherID *string `json:"publisherId,omitempty"`
+
+	// The current billing term of the SaaS Subscription.
+	Term *SubscriptionTerm `json:"term,omitempty"`
+}
+
+// SubscriptionTerm - The current billing term of the SaaS Subscription.
+type SubscriptionTerm struct {
+	// The date and time in UTC of when the billing term ends.
+	EndDate *time.Time `json:"endDate,omitempty"`
+
+	// The date and time in UTC of when the billing term starts.
+	StartDate *time.Time `json:"startDate,omitempty"`
+	TermUnit  *string    `json:"termUnit,omitempty"`
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.

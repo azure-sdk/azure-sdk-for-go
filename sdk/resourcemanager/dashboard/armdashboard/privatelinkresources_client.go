@@ -32,9 +32,9 @@ type PrivateLinkResourcesClient struct {
 }
 
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateLinkResourcesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 
 // Get - Get specific private link resource information for this grafana resource
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The workspace name of Azure Managed Grafana.
-// options - PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get
-// method.
+//
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The workspace name of Azure Managed Grafana.
+//   - options - PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get
+//     method.
 func (client *PrivateLinkResourcesClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, privateLinkResourceName string, options *PrivateLinkResourcesClientGetOptions) (PrivateLinkResourcesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, privateLinkResourceName, options)
 	if err != nil {
@@ -101,7 +102,7 @@ func (client *PrivateLinkResourcesClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,12 +118,12 @@ func (client *PrivateLinkResourcesClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListPager - List all private link resources information for this grafana resource
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The workspace name of Azure Managed Grafana.
-// options - PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.List
-// method.
+//
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The workspace name of Azure Managed Grafana.
+//   - options - PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListPager
+//     method.
 func (client *PrivateLinkResourcesClient) NewListPager(resourceGroupName string, workspaceName string, options *PrivateLinkResourcesClientListOptions) *runtime.Pager[PrivateLinkResourcesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PrivateLinkResourcesClientListResponse]{
 		More: func(page PrivateLinkResourcesClientListResponse) bool {
@@ -171,7 +172,7 @@ func (client *PrivateLinkResourcesClient) listCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

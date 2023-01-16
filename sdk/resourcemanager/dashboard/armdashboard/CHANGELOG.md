@@ -1,5 +1,33 @@
 # Release History
 
+## 2.0.0-beta.1 (2023-01-16)
+### Breaking Changes
+
+- Function `*PrivateEndpointConnectionsClient.BeginApprove` parameter(s) have been changed from `(context.Context, string, string, string, PrivateEndpointConnection, *PrivateEndpointConnectionsClientBeginApproveOptions)` to `(context.Context, string, string, string, *PrivateEndpointConnectionsClientBeginApproveOptions)`
+- Type of `ErrorAdditionalInfo.Info` has been changed from `interface{}` to `any`
+
+### Features Added
+
+- New type alias `AvailablePromotion` with values `AvailablePromotionFreeTrial`, `AvailablePromotionNone`
+- New type alias `MarketplaceAutoRenew` with values `MarketplaceAutoRenewDisabled`, `MarketplaceAutoRenewEnabled`
+- New type alias `StartTLSPolicy` with values `StartTLSPolicyMandatoryStartTLS`, `StartTLSPolicyNoStartTLS`, `StartTLSPolicyOpportunisticStartTLS`
+- New function `NewEnterpriseDetailsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*EnterpriseDetailsClient, error)`
+- New function `*EnterpriseDetailsClient.Post(context.Context, string, string, *EnterpriseDetailsClientPostOptions) (EnterpriseDetailsClientPostResponse, error)`
+- New struct `EnterpriseConfigurations`
+- New struct `EnterpriseDetails`
+- New struct `EnterpriseDetailsClient`
+- New struct `GrafanaConfigurations`
+- New struct `MarketplaceTrialQuota`
+- New struct `SMTP`
+- New struct `SaasSubscriptionDetails`
+- New struct `SubscriptionTerm`
+- New field `EnterpriseConfigurations` in struct `ManagedGrafanaProperties`
+- New field `GrafanaConfigurations` in struct `ManagedGrafanaProperties`
+- New field `EnterpriseConfigurations` in struct `ManagedGrafanaPropertiesUpdateParameters`
+- New field `GrafanaConfigurations` in struct `ManagedGrafanaPropertiesUpdateParameters`
+- New field `Body` in struct `PrivateEndpointConnectionsClientBeginApproveOptions`
+
+
 ## 1.0.0 (2022-08-09)
 ### Breaking Changes
 
