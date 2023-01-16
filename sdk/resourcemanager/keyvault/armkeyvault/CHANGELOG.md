@@ -1,5 +1,23 @@
 # Release History
 
+## 1.1.0-beta.2 (2023-01-16)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
+### Features Added
+
+- New type alias `ActivationStatus` with values `ActivationStatusActive`, `ActivationStatusFailed`, `ActivationStatusNotActivated`, `ActivationStatusUnknown`
+- New function `*ManagedHsmsClient.CheckMhsmNameAvailability(context.Context, CheckMhsmNameAvailabilityParameters, *ManagedHsmsClientCheckMhsmNameAvailabilityOptions) (ManagedHsmsClientCheckMhsmNameAvailabilityResponse, error)`
+- New struct `CheckMhsmNameAvailabilityParameters`
+- New struct `CheckMhsmNameAvailabilityResult`
+- New struct `ManagedHSMSecurityDomainProperties`
+- New field `Etag` in struct `MHSMPrivateEndpointConnectionItem`
+- New field `ID` in struct `MHSMPrivateEndpointConnectionItem`
+- New field `SecurityDomainProperties` in struct `ManagedHsmProperties`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
