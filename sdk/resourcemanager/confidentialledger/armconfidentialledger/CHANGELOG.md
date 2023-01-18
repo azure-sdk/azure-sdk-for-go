@@ -1,5 +1,12 @@
 # Release History
 
+## 2.0.0 (2023-01-18)
+### Breaking Changes
+
+- Type of `ErrorAdditionalInfo.Info` has been changed from `interface{}` to `any`
+- Field `LedgerInternalNamespace` of struct `LedgerProperties` has been removed
+
+
 ## 1.0.0 (2022-05-24)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confidentialledger/armconfidentialledger` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
