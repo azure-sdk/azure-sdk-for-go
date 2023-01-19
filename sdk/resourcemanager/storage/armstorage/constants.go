@@ -11,7 +11,7 @@ package armstorage
 
 const (
 	moduleName    = "armstorage"
-	moduleVersion = "v1.2.0"
+	moduleVersion = "v1.3.0"
 )
 
 // AccessTier - Required for storage accounts where kind = BlobStorage. The access tier is used for billing. The 'Premium'
@@ -756,6 +756,43 @@ func PossibleNameValues() []Name {
 	}
 }
 
+// NetworkSecurityPerimeterConfigurationProvisioningState - Provisioning state of Network Security Perimeter configuration
+// propagation
+type NetworkSecurityPerimeterConfigurationProvisioningState string
+
+const (
+	NetworkSecurityPerimeterConfigurationProvisioningStateAccepted  NetworkSecurityPerimeterConfigurationProvisioningState = "Accepted"
+	NetworkSecurityPerimeterConfigurationProvisioningStateDeleting  NetworkSecurityPerimeterConfigurationProvisioningState = "Deleting"
+	NetworkSecurityPerimeterConfigurationProvisioningStateFailed    NetworkSecurityPerimeterConfigurationProvisioningState = "Failed"
+	NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded NetworkSecurityPerimeterConfigurationProvisioningState = "Succeeded"
+)
+
+// PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues returns the possible values for the NetworkSecurityPerimeterConfigurationProvisioningState const type.
+func PossibleNetworkSecurityPerimeterConfigurationProvisioningStateValues() []NetworkSecurityPerimeterConfigurationProvisioningState {
+	return []NetworkSecurityPerimeterConfigurationProvisioningState{
+		NetworkSecurityPerimeterConfigurationProvisioningStateAccepted,
+		NetworkSecurityPerimeterConfigurationProvisioningStateDeleting,
+		NetworkSecurityPerimeterConfigurationProvisioningStateFailed,
+		NetworkSecurityPerimeterConfigurationProvisioningStateSucceeded,
+	}
+}
+
+// NspAccessRuleDirection - Direction of Access Rule
+type NspAccessRuleDirection string
+
+const (
+	NspAccessRuleDirectionInbound  NspAccessRuleDirection = "Inbound"
+	NspAccessRuleDirectionOutbound NspAccessRuleDirection = "Outbound"
+)
+
+// PossibleNspAccessRuleDirectionValues returns the possible values for the NspAccessRuleDirection const type.
+func PossibleNspAccessRuleDirectionValues() []NspAccessRuleDirection {
+	return []NspAccessRuleDirection{
+		NspAccessRuleDirectionInbound,
+		NspAccessRuleDirectionOutbound,
+	}
+}
+
 // ObjectType - This is a required field. This field specifies the scope of the inventory created either at the blob or container
 // level.
 type ObjectType string
@@ -840,6 +877,38 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
+// ProvisioningIssuePropertiesIssueType - Type of issue
+type ProvisioningIssuePropertiesIssueType string
+
+const (
+	ProvisioningIssuePropertiesIssueTypeConfigurationPropagationFailure ProvisioningIssuePropertiesIssueType = "ConfigurationPropagationFailure"
+	ProvisioningIssuePropertiesIssueTypeUnknown                         ProvisioningIssuePropertiesIssueType = "Unknown"
+)
+
+// PossibleProvisioningIssuePropertiesIssueTypeValues returns the possible values for the ProvisioningIssuePropertiesIssueType const type.
+func PossibleProvisioningIssuePropertiesIssueTypeValues() []ProvisioningIssuePropertiesIssueType {
+	return []ProvisioningIssuePropertiesIssueType{
+		ProvisioningIssuePropertiesIssueTypeConfigurationPropagationFailure,
+		ProvisioningIssuePropertiesIssueTypeUnknown,
+	}
+}
+
+// ProvisioningIssuePropertiesSeverity - Severity of the issue.
+type ProvisioningIssuePropertiesSeverity string
+
+const (
+	ProvisioningIssuePropertiesSeverityError   ProvisioningIssuePropertiesSeverity = "Error"
+	ProvisioningIssuePropertiesSeverityWarning ProvisioningIssuePropertiesSeverity = "Warning"
+)
+
+// PossibleProvisioningIssuePropertiesSeverityValues returns the possible values for the ProvisioningIssuePropertiesSeverity const type.
+func PossibleProvisioningIssuePropertiesSeverityValues() []ProvisioningIssuePropertiesSeverity {
+	return []ProvisioningIssuePropertiesSeverity{
+		ProvisioningIssuePropertiesSeverityError,
+		ProvisioningIssuePropertiesSeverityWarning,
+	}
+}
+
 // ProvisioningState - Gets the status of the storage account at the time the operation was called.
 type ProvisioningState string
 
@@ -876,13 +945,15 @@ func PossiblePublicAccessValues() []PublicAccess {
 	}
 }
 
-// PublicNetworkAccess - Allow or disallow public network access to Storage Account. Value is optional but if passed in, must
-// be 'Enabled' or 'Disabled'.
+// PublicNetworkAccess - Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access
+// to Storage Account. Value is optional but if passed in, must be 'Enabled', 'Disabled' or
+// 'SecuredByPerimeter'.
 type PublicNetworkAccess string
 
 const (
-	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
@@ -890,6 +961,7 @@ func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
 		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
+		PublicNetworkAccessSecuredByPerimeter,
 	}
 }
 
@@ -925,6 +997,24 @@ func PossibleReasonCodeValues() []ReasonCode {
 	return []ReasonCode{
 		ReasonCodeNotAvailableForSubscription,
 		ReasonCodeQuotaID,
+	}
+}
+
+// ResourceAssociationAccessMode - Access Mode of the resource association
+type ResourceAssociationAccessMode string
+
+const (
+	ResourceAssociationAccessModeAudit    ResourceAssociationAccessMode = "Audit"
+	ResourceAssociationAccessModeEnforced ResourceAssociationAccessMode = "Enforced"
+	ResourceAssociationAccessModeLearning ResourceAssociationAccessMode = "Learning"
+)
+
+// PossibleResourceAssociationAccessModeValues returns the possible values for the ResourceAssociationAccessMode const type.
+func PossibleResourceAssociationAccessModeValues() []ResourceAssociationAccessMode {
+	return []ResourceAssociationAccessMode{
+		ResourceAssociationAccessModeAudit,
+		ResourceAssociationAccessModeEnforced,
+		ResourceAssociationAccessModeLearning,
 	}
 }
 

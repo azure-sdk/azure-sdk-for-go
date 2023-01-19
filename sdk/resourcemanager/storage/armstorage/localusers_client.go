@@ -32,9 +32,9 @@ type LocalUsersClient struct {
 }
 
 // NewLocalUsersClient creates a new instance of LocalUsersClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewLocalUsersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LocalUsersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,15 +57,16 @@ func NewLocalUsersClient(subscriptionID string, credential azcore.TokenCredentia
 
 // CreateOrUpdate - Create or update the properties of a local user associated with the storage account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
-// within the storage account.
-// properties - The local user associated with a storage account.
-// options - LocalUsersClientCreateOrUpdateOptions contains the optional parameters for the LocalUsersClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
+//     within the storage account.
+//   - properties - The local user associated with a storage account.
+//   - options - LocalUsersClientCreateOrUpdateOptions contains the optional parameters for the LocalUsersClient.CreateOrUpdate
+//     method.
 func (client *LocalUsersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, accountName string, username string, properties LocalUser, options *LocalUsersClientCreateOrUpdateOptions) (LocalUsersClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, accountName, username, properties, options)
 	if err != nil {
@@ -122,13 +123,14 @@ func (client *LocalUsersClient) createOrUpdateHandleResponse(resp *http.Response
 
 // Delete - Deletes the local user associated with the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
-// within the storage account.
-// options - LocalUsersClientDeleteOptions contains the optional parameters for the LocalUsersClient.Delete method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
+//     within the storage account.
+//   - options - LocalUsersClientDeleteOptions contains the optional parameters for the LocalUsersClient.Delete method.
 func (client *LocalUsersClient) Delete(ctx context.Context, resourceGroupName string, accountName string, username string, options *LocalUsersClientDeleteOptions) (LocalUsersClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, username, options)
 	if err != nil {
@@ -176,13 +178,14 @@ func (client *LocalUsersClient) deleteCreateRequest(ctx context.Context, resourc
 
 // Get - Get the local user of the storage account by username.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
-// within the storage account.
-// options - LocalUsersClientGetOptions contains the optional parameters for the LocalUsersClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
+//     within the storage account.
+//   - options - LocalUsersClientGetOptions contains the optional parameters for the LocalUsersClient.Get method.
 func (client *LocalUsersClient) Get(ctx context.Context, resourceGroupName string, accountName string, username string, options *LocalUsersClientGetOptions) (LocalUsersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, username, options)
 	if err != nil {
@@ -238,11 +241,12 @@ func (client *LocalUsersClient) getHandleResponse(resp *http.Response) (LocalUse
 }
 
 // NewListPager - List the local users associated with the storage account.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - LocalUsersClientListOptions contains the optional parameters for the LocalUsersClient.List method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - LocalUsersClientListOptions contains the optional parameters for the LocalUsersClient.NewListPager method.
 func (client *LocalUsersClient) NewListPager(resourceGroupName string, accountName string, options *LocalUsersClientListOptions) *runtime.Pager[LocalUsersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LocalUsersClientListResponse]{
 		More: func(page LocalUsersClientListResponse) bool {
@@ -302,13 +306,14 @@ func (client *LocalUsersClient) listHandleResponse(resp *http.Response) (LocalUs
 
 // ListKeys - List SSH authorized keys and shared key of the local user.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
-// within the storage account.
-// options - LocalUsersClientListKeysOptions contains the optional parameters for the LocalUsersClient.ListKeys method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
+//     within the storage account.
+//   - options - LocalUsersClientListKeysOptions contains the optional parameters for the LocalUsersClient.ListKeys method.
 func (client *LocalUsersClient) ListKeys(ctx context.Context, resourceGroupName string, accountName string, username string, options *LocalUsersClientListKeysOptions) (LocalUsersClientListKeysResponse, error) {
 	req, err := client.listKeysCreateRequest(ctx, resourceGroupName, accountName, username, options)
 	if err != nil {
@@ -365,14 +370,15 @@ func (client *LocalUsersClient) listKeysHandleResponse(resp *http.Response) (Loc
 
 // RegeneratePassword - Regenerate the local user SSH password.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
-// within the storage account.
-// options - LocalUsersClientRegeneratePasswordOptions contains the optional parameters for the LocalUsersClient.RegeneratePassword
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - username - The name of local user. The username must contain lowercase letters and numbers only. It must be unique only
+//     within the storage account.
+//   - options - LocalUsersClientRegeneratePasswordOptions contains the optional parameters for the LocalUsersClient.RegeneratePassword
+//     method.
 func (client *LocalUsersClient) RegeneratePassword(ctx context.Context, resourceGroupName string, accountName string, username string, options *LocalUsersClientRegeneratePasswordOptions) (LocalUsersClientRegeneratePasswordResponse, error) {
 	req, err := client.regeneratePasswordCreateRequest(ctx, resourceGroupName, accountName, username, options)
 	if err != nil {

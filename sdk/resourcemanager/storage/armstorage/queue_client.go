@@ -32,9 +32,9 @@ type QueueClient struct {
 }
 
 // NewQueueClient creates a new instance of QueueClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewQueueClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*QueueClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,15 +57,16 @@ func NewQueueClient(subscriptionID string, credential azcore.TokenCredential, op
 
 // Create - Creates a new queue with the specified queue name, under the specified account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
-// comprise of lowercase alphanumeric and dash(-) characters only, it should begin and end with
-// an alphanumeric character and it cannot have two consecutive dash(-) characters.
-// queue - Queue properties and metadata to be created with
-// options - QueueClientCreateOptions contains the optional parameters for the QueueClient.Create method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
+//     comprise of lowercase alphanumeric and dash(-) characters only, it should begin and end with
+//     an alphanumeric character and it cannot have two consecutive dash(-) characters.
+//   - queue - Queue properties and metadata to be created with
+//   - options - QueueClientCreateOptions contains the optional parameters for the QueueClient.Create method.
 func (client *QueueClient) Create(ctx context.Context, resourceGroupName string, accountName string, queueName string, queue Queue, options *QueueClientCreateOptions) (QueueClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, queueName, queue, options)
 	if err != nil {
@@ -122,14 +123,15 @@ func (client *QueueClient) createHandleResponse(resp *http.Response) (QueueClien
 
 // Delete - Deletes the queue with the specified queue name, under the specified account if it exists.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
-// comprise of lowercase alphanumeric and dash(-) characters only, it should begin and end with
-// an alphanumeric character and it cannot have two consecutive dash(-) characters.
-// options - QueueClientDeleteOptions contains the optional parameters for the QueueClient.Delete method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
+//     comprise of lowercase alphanumeric and dash(-) characters only, it should begin and end with
+//     an alphanumeric character and it cannot have two consecutive dash(-) characters.
+//   - options - QueueClientDeleteOptions contains the optional parameters for the QueueClient.Delete method.
 func (client *QueueClient) Delete(ctx context.Context, resourceGroupName string, accountName string, queueName string, options *QueueClientDeleteOptions) (QueueClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, queueName, options)
 	if err != nil {
@@ -177,14 +179,15 @@ func (client *QueueClient) deleteCreateRequest(ctx context.Context, resourceGrou
 
 // Get - Gets the queue with the specified queue name, under the specified account if it exists.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
-// comprise of lowercase alphanumeric and dash(-) characters only, it should begin and end with
-// an alphanumeric character and it cannot have two consecutive dash(-) characters.
-// options - QueueClientGetOptions contains the optional parameters for the QueueClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
+//     comprise of lowercase alphanumeric and dash(-) characters only, it should begin and end with
+//     an alphanumeric character and it cannot have two consecutive dash(-) characters.
+//   - options - QueueClientGetOptions contains the optional parameters for the QueueClient.Get method.
 func (client *QueueClient) Get(ctx context.Context, resourceGroupName string, accountName string, queueName string, options *QueueClientGetOptions) (QueueClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, queueName, options)
 	if err != nil {
@@ -240,11 +243,12 @@ func (client *QueueClient) getHandleResponse(resp *http.Response) (QueueClientGe
 }
 
 // NewListPager - Gets a list of all the queues under the specified storage account
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - QueueClientListOptions contains the optional parameters for the QueueClient.List method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - QueueClientListOptions contains the optional parameters for the QueueClient.NewListPager method.
 func (client *QueueClient) NewListPager(resourceGroupName string, accountName string, options *QueueClientListOptions) *runtime.Pager[QueueClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[QueueClientListResponse]{
 		More: func(page QueueClientListResponse) bool {
@@ -316,15 +320,16 @@ func (client *QueueClient) listHandleResponse(resp *http.Response) (QueueClientL
 
 // Update - Creates a new queue with the specified queue name, under the specified account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
-// comprise of lowercase alphanumeric and dash(-) characters only, it should begin and end with
-// an alphanumeric character and it cannot have two consecutive dash(-) characters.
-// queue - Queue properties and metadata to be created with
-// options - QueueClientUpdateOptions contains the optional parameters for the QueueClient.Update method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - queueName - A queue name must be unique within a storage account and must be between 3 and 63 characters.The name must
+//     comprise of lowercase alphanumeric and dash(-) characters only, it should begin and end with
+//     an alphanumeric character and it cannot have two consecutive dash(-) characters.
+//   - queue - Queue properties and metadata to be created with
+//   - options - QueueClientUpdateOptions contains the optional parameters for the QueueClient.Update method.
 func (client *QueueClient) Update(ctx context.Context, resourceGroupName string, accountName string, queueName string, queue Queue, options *QueueClientUpdateOptions) (QueueClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, queueName, queue, options)
 	if err != nil {

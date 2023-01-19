@@ -236,7 +236,9 @@ type AccountProperties struct {
 	// Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property.
 	MinimumTLSVersion *MinimumTLSVersion `json:"minimumTlsVersion,omitempty"`
 
-	// Allow or disallow public network access to Storage Account. Value is optional but if passed in, must be 'Enabled' or 'Disabled'.
+	// Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access to Storage Account.
+	// Value is optional but if passed in, must be 'Enabled', 'Disabled' or
+	// 'SecuredByPerimeter'.
 	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 
 	// Maintains information about the network routing choice opted by the user for data transfer
@@ -387,7 +389,9 @@ type AccountPropertiesCreateParameters struct {
 	// Network rule set
 	NetworkRuleSet *NetworkRuleSet `json:"networkAcls,omitempty"`
 
-	// Allow or disallow public network access to Storage Account. Value is optional but if passed in, must be 'Enabled' or 'Disabled'.
+	// Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access to Storage Account.
+	// Value is optional but if passed in, must be 'Enabled', 'Disabled' or
+	// 'SecuredByPerimeter'.
 	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 
 	// Maintains information about the network routing choice opted by the user for data transfer
@@ -464,7 +468,9 @@ type AccountPropertiesUpdateParameters struct {
 	// Network rule set
 	NetworkRuleSet *NetworkRuleSet `json:"networkAcls,omitempty"`
 
-	// Allow or disallow public network access to Storage Account. Value is optional but if passed in, must be 'Enabled' or 'Disabled'.
+	// Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access to Storage Account.
+	// Value is optional but if passed in, must be 'Enabled', 'Disabled' or
+	// 'SecuredByPerimeter'.
 	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 
 	// Maintains information about the network routing choice opted by the user for data transfer
@@ -606,7 +612,8 @@ type AccountsClientListAccountSASOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AccountsClientListByResourceGroupOptions contains the optional parameters for the AccountsClient.ListByResourceGroup method.
+// AccountsClientListByResourceGroupOptions contains the optional parameters for the AccountsClient.NewListByResourceGroupPager
+// method.
 type AccountsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
@@ -617,7 +624,7 @@ type AccountsClientListKeysOptions struct {
 	Expand *string
 }
 
-// AccountsClientListOptions contains the optional parameters for the AccountsClient.List method.
+// AccountsClientListOptions contains the optional parameters for the AccountsClient.NewListPager method.
 type AccountsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -782,7 +789,7 @@ type BlobContainersClientLeaseOptions struct {
 	Parameters *LeaseContainerRequest
 }
 
-// BlobContainersClientListOptions contains the optional parameters for the BlobContainersClient.List method.
+// BlobContainersClientListOptions contains the optional parameters for the BlobContainersClient.NewListPager method.
 type BlobContainersClientListOptions struct {
 	// Optional. When specified, only container names starting with the filter will be listed.
 	Filter *string
@@ -824,7 +831,8 @@ type BlobInventoryPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BlobInventoryPoliciesClientListOptions contains the optional parameters for the BlobInventoryPoliciesClient.List method.
+// BlobInventoryPoliciesClientListOptions contains the optional parameters for the BlobInventoryPoliciesClient.NewListPager
+// method.
 type BlobInventoryPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1053,7 +1061,7 @@ type BlobServicesClientGetServicePropertiesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BlobServicesClientListOptions contains the optional parameters for the BlobServicesClient.List method.
+// BlobServicesClientListOptions contains the optional parameters for the BlobServicesClient.NewListPager method.
 type BlobServicesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1284,7 +1292,7 @@ type DeletedAccountsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DeletedAccountsClientListOptions contains the optional parameters for the DeletedAccountsClient.List method.
+// DeletedAccountsClientListOptions contains the optional parameters for the DeletedAccountsClient.NewListPager method.
 type DeletedAccountsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1404,7 +1412,7 @@ type EncryptionScopesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// EncryptionScopesClientListOptions contains the optional parameters for the EncryptionScopesClient.List method.
+// EncryptionScopesClientListOptions contains the optional parameters for the EncryptionScopesClient.NewListPager method.
 type EncryptionScopesClientListOptions struct {
 	// Optional. When specified, only encryption scope names starting with the filter will be listed.
 	Filter *string
@@ -1702,7 +1710,7 @@ type FileSharesClientLeaseOptions struct {
 	XMSSnapshot *string
 }
 
-// FileSharesClientListOptions contains the optional parameters for the FileSharesClient.List method.
+// FileSharesClientListOptions contains the optional parameters for the FileSharesClient.NewListPager method.
 type FileSharesClientListOptions struct {
 	// Optional, used to expand the properties within share's properties. Valid values are: deleted, snapshots. Should be passed
 	// as a string with delimiter ','
@@ -2161,7 +2169,7 @@ type LocalUsersClientListKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LocalUsersClientListOptions contains the optional parameters for the LocalUsersClient.List method.
+// LocalUsersClientListOptions contains the optional parameters for the LocalUsersClient.NewListPager method.
 type LocalUsersClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2383,6 +2391,139 @@ type NetworkRuleSet struct {
 	VirtualNetworkRules []*VirtualNetworkRule `json:"virtualNetworkRules,omitempty"`
 }
 
+// NetworkSecurityPerimeter related information
+type NetworkSecurityPerimeter struct {
+	// The ARM identifier of the resource
+	ID *string `json:"id,omitempty"`
+
+	// Location of the resource
+	Location *string `json:"location,omitempty"`
+
+	// Guid of the resource
+	PerimeterGUID *string `json:"perimeterGuid,omitempty"`
+}
+
+// NetworkSecurityPerimeterConfiguration - The Network Security Perimeter configuration resource.
+type NetworkSecurityPerimeterConfiguration struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Properties of the Network Security Perimeter Configuration
+	Properties *NetworkSecurityPerimeterConfigurationProperties `json:"properties,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// NetworkSecurityPerimeterConfigurationList - Result of the List Network Security Perimeter configuration operation.
+type NetworkSecurityPerimeterConfigurationList struct {
+	// READ-ONLY; A collection of Network Security Perimeter configurations
+	Value []*NetworkSecurityPerimeterConfiguration `json:"value,omitempty" azure:"ro"`
+}
+
+// NetworkSecurityPerimeterConfigurationProperties - Properties of the Network Security Perimeter Configuration
+type NetworkSecurityPerimeterConfigurationProperties struct {
+	// READ-ONLY; NetworkSecurityPerimeter related information
+	NetworkSecurityPerimeter *NetworkSecurityPerimeter `json:"networkSecurityPerimeter,omitempty" azure:"ro"`
+
+	// READ-ONLY; Network Security Perimeter profile
+	Profile *NetworkSecurityPerimeterConfigurationPropertiesProfile `json:"profile,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of Provisioning Issues if any
+	ProvisioningIssues []*ProvisioningIssue `json:"provisioningIssues,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state of Network Security Perimeter configuration propagation
+	ProvisioningState *NetworkSecurityPerimeterConfigurationProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; Information about resource association
+	ResourceAssociation *NetworkSecurityPerimeterConfigurationPropertiesResourceAssociation `json:"resourceAssociation,omitempty" azure:"ro"`
+}
+
+// NetworkSecurityPerimeterConfigurationPropertiesProfile - Network Security Perimeter profile
+type NetworkSecurityPerimeterConfigurationPropertiesProfile struct {
+	// List of Access Rules
+	AccessRules []*NspAccessRule `json:"accessRules,omitempty"`
+
+	// Current access rules version
+	AccessRulesVersion *float32 `json:"accessRulesVersion,omitempty"`
+
+	// Diagnostic settings version
+	DiagnosticSettingsVersion *float32 `json:"diagnosticSettingsVersion,omitempty"`
+
+	// Enabled logging categories
+	EnabledLogCategories []*string `json:"enabledLogCategories,omitempty"`
+
+	// Name of the resource
+	Name *string `json:"name,omitempty"`
+}
+
+// NetworkSecurityPerimeterConfigurationPropertiesResourceAssociation - Information about resource association
+type NetworkSecurityPerimeterConfigurationPropertiesResourceAssociation struct {
+	// Access Mode of the resource association
+	AccessMode *ResourceAssociationAccessMode `json:"accessMode,omitempty"`
+
+	// Name of the resource association
+	Name *string `json:"name,omitempty"`
+}
+
+// NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.BeginReconcile
+// method.
+type NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// NetworkSecurityPerimeterConfigurationsClientGetOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.Get
+// method.
+type NetworkSecurityPerimeterConfigurationsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NetworkSecurityPerimeterConfigurationsClientListOptions contains the optional parameters for the NetworkSecurityPerimeterConfigurationsClient.List
+// method.
+type NetworkSecurityPerimeterConfigurationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// NspAccessRule - Information of Access Rule in Network Security Perimeter profile
+type NspAccessRule struct {
+	// Name of the resource
+	Name *string `json:"name,omitempty"`
+
+	// READ-ONLY; Properties of Access Rule
+	Properties *NspAccessRuleProperties `json:"properties,omitempty" azure:"ro"`
+}
+
+// NspAccessRuleProperties - Properties of Access Rule
+type NspAccessRuleProperties struct {
+	// Address prefixes in the CIDR format for inbound rules
+	AddressPrefixes []*string `json:"addressPrefixes,omitempty"`
+
+	// Direction of Access Rule
+	Direction *NspAccessRuleDirection `json:"direction,omitempty"`
+
+	// Subscriptions for inbound rules
+	Subscriptions []*NspAccessRulePropertiesSubscriptionsItem `json:"subscriptions,omitempty"`
+
+	// READ-ONLY; FQDN for outbound rules
+	FullyQualifiedDomainNames []*string `json:"fullyQualifiedDomainNames,omitempty" azure:"ro"`
+
+	// READ-ONLY; NetworkSecurityPerimeters for inbound rules
+	NetworkSecurityPerimeters []*NetworkSecurityPerimeter `json:"networkSecurityPerimeters,omitempty" azure:"ro"`
+}
+
+// NspAccessRulePropertiesSubscriptionsItem - Subscription for inbound rule
+type NspAccessRulePropertiesSubscriptionsItem struct {
+	// The ARM identifier of subscription
+	ID *string `json:"id,omitempty"`
+}
+
 // ObjectReplicationPolicies - List storage account object replication policies.
 type ObjectReplicationPolicies struct {
 	// The replication policy between two storage accounts.
@@ -2407,7 +2548,7 @@ type ObjectReplicationPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ObjectReplicationPoliciesClientListOptions contains the optional parameters for the ObjectReplicationPoliciesClient.List
+// ObjectReplicationPoliciesClientListOptions contains the optional parameters for the ObjectReplicationPoliciesClient.NewListPager
 // method.
 type ObjectReplicationPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
@@ -2516,7 +2657,7 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification `json:"serviceSpecification,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2584,7 +2725,7 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
+// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
 // method.
 type PrivateEndpointConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -2665,6 +2806,27 @@ type ProtocolSettings struct {
 	Smb *SmbSetting `json:"smb,omitempty"`
 }
 
+// ProvisioningIssue - Describes provisioning issue for given NetworkSecurityPerimeterConfiguration
+type ProvisioningIssue struct {
+	// Name of the issue
+	Name *string `json:"name,omitempty"`
+
+	// READ-ONLY; Properties of provisioning issue
+	Properties *ProvisioningIssueProperties `json:"properties,omitempty" azure:"ro"`
+}
+
+// ProvisioningIssueProperties - Properties of provisioning issue
+type ProvisioningIssueProperties struct {
+	// Description of the issue
+	Description *string `json:"description,omitempty"`
+
+	// Type of issue
+	IssueType *ProvisioningIssuePropertiesIssueType `json:"issueType,omitempty"`
+
+	// Severity of the issue.
+	Severity *ProvisioningIssuePropertiesSeverity `json:"severity,omitempty"`
+}
+
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -2673,6 +2835,22 @@ type ProxyResource struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ProxyResourceAutoGenerated - The resource model definition for a Azure Resource Manager proxy resource. It will not have
+// tags and a location
+type ProxyResourceAutoGenerated struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -2707,7 +2885,7 @@ type QueueClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// QueueClientListOptions contains the optional parameters for the QueueClient.List method.
+// QueueClientListOptions contains the optional parameters for the QueueClient.NewListPager method.
 type QueueClientListOptions struct {
 	// Optional, When specified, only the queues with a name starting with the given filter will be listed.
 	Filter *string
@@ -2788,6 +2966,21 @@ type ResourceAccessRule struct {
 
 	// Tenant Id
 	TenantID *string `json:"tenantId,omitempty"`
+}
+
+// ResourceAutoGenerated - Common fields that are returned in the response for all Azure Resource Manager resources
+type ResourceAutoGenerated struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // RestorePolicyProperties - The blob service properties for blob restore policy
@@ -2887,7 +3080,7 @@ type SKUListResult struct {
 	Value []*SKUInformation `json:"value,omitempty" azure:"ro"`
 }
 
-// SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
 type SKUsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3069,7 +3262,7 @@ type TableClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TableClientListOptions contains the optional parameters for the TableClient.List method.
+// TableClientListOptions contains the optional parameters for the TableClient.NewListPager method.
 type TableClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3251,7 +3444,7 @@ type UsageName struct {
 	Value *string `json:"value,omitempty" azure:"ro"`
 }
 
-// UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.ListByLocation method.
+// UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.NewListByLocationPager method.
 type UsagesClientListByLocationOptions struct {
 	// placeholder for future optional parameters
 }

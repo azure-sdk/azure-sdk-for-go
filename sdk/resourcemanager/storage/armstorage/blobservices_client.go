@@ -32,9 +32,9 @@ type BlobServicesClient struct {
 }
 
 // NewBlobServicesClient creates a new instance of BlobServicesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBlobServicesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BlobServicesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewBlobServicesClient(subscriptionID string, credential azcore.TokenCredent
 // GetServiceProperties - Gets the properties of a storage account’s Blob service, including properties for Storage Analytics
 // and CORS (Cross-Origin Resource Sharing) rules.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - BlobServicesClientGetServicePropertiesOptions contains the optional parameters for the BlobServicesClient.GetServiceProperties
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - BlobServicesClientGetServicePropertiesOptions contains the optional parameters for the BlobServicesClient.GetServiceProperties
+//     method.
 func (client *BlobServicesClient) GetServiceProperties(ctx context.Context, resourceGroupName string, accountName string, options *BlobServicesClientGetServicePropertiesOptions) (BlobServicesClientGetServicePropertiesResponse, error) {
 	req, err := client.getServicePropertiesCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -116,11 +117,12 @@ func (client *BlobServicesClient) getServicePropertiesHandleResponse(resp *http.
 }
 
 // NewListPager - List blob services of storage account. It returns a collection of one object named default.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - BlobServicesClientListOptions contains the optional parameters for the BlobServicesClient.List method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - BlobServicesClientListOptions contains the optional parameters for the BlobServicesClient.NewListPager method.
 func (client *BlobServicesClient) NewListPager(resourceGroupName string, accountName string, options *BlobServicesClientListOptions) *runtime.Pager[BlobServicesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BlobServicesClientListResponse]{
 		More: func(page BlobServicesClientListResponse) bool {
@@ -181,14 +183,15 @@ func (client *BlobServicesClient) listHandleResponse(resp *http.Response) (BlobS
 // SetServiceProperties - Sets the properties of a storage account’s Blob service, including properties for Storage Analytics
 // and CORS (Cross-Origin Resource Sharing) rules.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// parameters - The properties of a storage account’s Blob service, including properties for Storage Analytics and CORS (Cross-Origin
-// Resource Sharing) rules.
-// options - BlobServicesClientSetServicePropertiesOptions contains the optional parameters for the BlobServicesClient.SetServiceProperties
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - parameters - The properties of a storage account’s Blob service, including properties for Storage Analytics and CORS (Cross-Origin
+//     Resource Sharing) rules.
+//   - options - BlobServicesClientSetServicePropertiesOptions contains the optional parameters for the BlobServicesClient.SetServiceProperties
+//     method.
 func (client *BlobServicesClient) SetServiceProperties(ctx context.Context, resourceGroupName string, accountName string, parameters BlobServiceProperties, options *BlobServicesClientSetServicePropertiesOptions) (BlobServicesClientSetServicePropertiesResponse, error) {
 	req, err := client.setServicePropertiesCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
 	if err != nil {

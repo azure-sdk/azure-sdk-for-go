@@ -32,9 +32,9 @@ type ObjectReplicationPoliciesClient struct {
 }
 
 // NewObjectReplicationPoliciesClient creates a new instance of ObjectReplicationPoliciesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewObjectReplicationPoliciesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ObjectReplicationPoliciesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,16 +57,17 @@ func NewObjectReplicationPoliciesClient(subscriptionID string, credential azcore
 
 // CreateOrUpdate - Create or update the object replication policy of the storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
-// account first. For the source account, provide the value of the policy ID that is returned when you
-// download the policy that was defined on the destination account. The policy is downloaded as a JSON file.
-// properties - The object replication policy set to a storage account. A unique policy ID will be created if absent.
-// options - ObjectReplicationPoliciesClientCreateOrUpdateOptions contains the optional parameters for the ObjectReplicationPoliciesClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
+//     account first. For the source account, provide the value of the policy ID that is returned when you
+//     download the policy that was defined on the destination account. The policy is downloaded as a JSON file.
+//   - properties - The object replication policy set to a storage account. A unique policy ID will be created if absent.
+//   - options - ObjectReplicationPoliciesClientCreateOrUpdateOptions contains the optional parameters for the ObjectReplicationPoliciesClient.CreateOrUpdate
+//     method.
 func (client *ObjectReplicationPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, accountName string, objectReplicationPolicyID string, properties ObjectReplicationPolicy, options *ObjectReplicationPoliciesClientCreateOrUpdateOptions) (ObjectReplicationPoliciesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, accountName, objectReplicationPolicyID, properties, options)
 	if err != nil {
@@ -123,15 +124,16 @@ func (client *ObjectReplicationPoliciesClient) createOrUpdateHandleResponse(resp
 
 // Delete - Deletes the object replication policy associated with the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
-// account first. For the source account, provide the value of the policy ID that is returned when you
-// download the policy that was defined on the destination account. The policy is downloaded as a JSON file.
-// options - ObjectReplicationPoliciesClientDeleteOptions contains the optional parameters for the ObjectReplicationPoliciesClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
+//     account first. For the source account, provide the value of the policy ID that is returned when you
+//     download the policy that was defined on the destination account. The policy is downloaded as a JSON file.
+//   - options - ObjectReplicationPoliciesClientDeleteOptions contains the optional parameters for the ObjectReplicationPoliciesClient.Delete
+//     method.
 func (client *ObjectReplicationPoliciesClient) Delete(ctx context.Context, resourceGroupName string, accountName string, objectReplicationPolicyID string, options *ObjectReplicationPoliciesClientDeleteOptions) (ObjectReplicationPoliciesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, objectReplicationPolicyID, options)
 	if err != nil {
@@ -179,15 +181,16 @@ func (client *ObjectReplicationPoliciesClient) deleteCreateRequest(ctx context.C
 
 // Get - Get the object replication policy of the storage account by policy ID.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
-// account first. For the source account, provide the value of the policy ID that is returned when you
-// download the policy that was defined on the destination account. The policy is downloaded as a JSON file.
-// options - ObjectReplicationPoliciesClientGetOptions contains the optional parameters for the ObjectReplicationPoliciesClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - objectReplicationPolicyID - For the destination account, provide the value 'default'. Configure the policy on the destination
+//     account first. For the source account, provide the value of the policy ID that is returned when you
+//     download the policy that was defined on the destination account. The policy is downloaded as a JSON file.
+//   - options - ObjectReplicationPoliciesClientGetOptions contains the optional parameters for the ObjectReplicationPoliciesClient.Get
+//     method.
 func (client *ObjectReplicationPoliciesClient) Get(ctx context.Context, resourceGroupName string, accountName string, objectReplicationPolicyID string, options *ObjectReplicationPoliciesClientGetOptions) (ObjectReplicationPoliciesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, objectReplicationPolicyID, options)
 	if err != nil {
@@ -243,12 +246,13 @@ func (client *ObjectReplicationPoliciesClient) getHandleResponse(resp *http.Resp
 }
 
 // NewListPager - List the object replication policies associated with the storage account.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - ObjectReplicationPoliciesClientListOptions contains the optional parameters for the ObjectReplicationPoliciesClient.List
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - ObjectReplicationPoliciesClientListOptions contains the optional parameters for the ObjectReplicationPoliciesClient.NewListPager
+//     method.
 func (client *ObjectReplicationPoliciesClient) NewListPager(resourceGroupName string, accountName string, options *ObjectReplicationPoliciesClientListOptions) *runtime.Pager[ObjectReplicationPoliciesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ObjectReplicationPoliciesClientListResponse]{
 		More: func(page ObjectReplicationPoliciesClientListResponse) bool {
