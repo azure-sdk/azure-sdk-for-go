@@ -1,5 +1,17 @@
 # Release History
 
+## 1.1.0-beta.3 (2023-01-20)
+### Breaking Changes
+
+- Type of `Operation.Properties` has been changed from `interface{}` to `any`
+
+### Features Added
+
+- New struct `ConfigurationOverrides`
+- New struct `OverrideProperties`
+- New field `Overrides` in struct `ConfigurationProperties`
+
+
 ## 1.1.0-beta.2 (2023-01-27)
 ### Features Added
 
