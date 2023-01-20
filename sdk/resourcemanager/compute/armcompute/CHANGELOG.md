@@ -1,5 +1,24 @@
 # Release History
 
+## 5.0.0 (2023-01-20)
+### Breaking Changes
+
+- Type of `CloudServiceExtensionProperties.ProtectedSettings` has been changed from `interface{}` to `any`
+- Type of `CloudServiceExtensionProperties.Settings` has been changed from `interface{}` to `any`
+- Type of `VirtualMachineCaptureResult.Parameters` has been changed from `interface{}` to `any`
+- Type of `VirtualMachineCaptureResult.Resources` has been changed from `[]interface{}` to `[]any`
+- Type of `VirtualMachineExtensionProperties.ProtectedSettings` has been changed from `interface{}` to `any`
+- Type of `VirtualMachineExtensionProperties.Settings` has been changed from `interface{}` to `any`
+- Type of `VirtualMachineExtensionUpdateProperties.ProtectedSettings` has been changed from `interface{}` to `any`
+- Type of `VirtualMachineExtensionUpdateProperties.Settings` has been changed from `interface{}` to `any`
+- Type of `VirtualMachineScaleSetExtensionProperties.ProtectedSettings` has been changed from `interface{}` to `any`
+- Type of `VirtualMachineScaleSetExtensionProperties.Settings` has been changed from `interface{}` to `any`
+
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to type alias `StorageAccountType`
+
+
 ## 4.1.0 (2023-01-27)
 ### Features Added
 
