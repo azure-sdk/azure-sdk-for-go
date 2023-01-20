@@ -11,7 +11,7 @@ package armmediaservices
 
 const (
 	moduleName    = "armmediaservices"
-	moduleVersion = "v3.2.0"
+	moduleVersion = "v4.0.0"
 )
 
 // AacAudioProfile - The encoding profile to be used when encoding audio with AAC.
@@ -1162,6 +1162,31 @@ func PossibleMetricUnitValues() []MetricUnit {
 	}
 }
 
+// MinimumTLSVersion - The minimum TLS version allowed for this account's requests. This is an optional property. If unspecified,
+// a secure default value will be used.
+type MinimumTLSVersion string
+
+const (
+	// MinimumTLSVersionTls10 - Minimum TLS version is TLS 1.0.
+	MinimumTLSVersionTls10 MinimumTLSVersion = "Tls10"
+	// MinimumTLSVersionTls11 - Minimum TLS version is TLS 1.1.
+	MinimumTLSVersionTls11 MinimumTLSVersion = "Tls11"
+	// MinimumTLSVersionTls12 - Minimum TLS version is TLS 1.2.
+	MinimumTLSVersionTls12 MinimumTLSVersion = "Tls12"
+	// MinimumTLSVersionTls13 - Minimum TLS version is TLS 1.3.
+	MinimumTLSVersionTls13 MinimumTLSVersion = "Tls13"
+)
+
+// PossibleMinimumTLSVersionValues returns the possible values for the MinimumTLSVersion const type.
+func PossibleMinimumTLSVersionValues() []MinimumTLSVersion {
+	return []MinimumTLSVersion{
+		MinimumTLSVersionTls10,
+		MinimumTLSVersionTls11,
+		MinimumTLSVersionTls12,
+		MinimumTLSVersionTls13,
+	}
+}
+
 // OnErrorType - A Transform can define more than one outputs. This property defines what the service should do when one output
 // fails - either continue to produce other outputs, or, stop the other outputs. The overall
 // Job state will not reflect failures of outputs that are specified with 'ContinueJob'. The default is 'StopProcessingJob'.
@@ -1244,7 +1269,7 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProvisioningState - Provisioning state of the Media Services account.
+// ProvisioningState - Provisioning state of the asset track.
 type ProvisioningState string
 
 const (

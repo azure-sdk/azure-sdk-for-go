@@ -1,5 +1,16 @@
 # Release History
 
+## 4.0.0 (2023-01-20)
+### Breaking Changes
+
+- Type of `ErrorAdditionalInfo.Info` has been changed from `interface{}` to `any`
+
+### Features Added
+
+- New type alias `MinimumTLSVersion` with values `MinimumTLSVersionTls10`, `MinimumTLSVersionTls11`, `MinimumTLSVersionTls12`, `MinimumTLSVersionTls13`
+- New field `MinimumTLSVersion` in struct `MediaServiceProperties`
+
+
 ## 3.2.0 (2023-01-13)
 ### Features Added
 
