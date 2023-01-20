@@ -1,5 +1,32 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-01-20)
+### Breaking Changes
+
+- Type of `ComponentPurgeBodyFilters.Value` has been changed from `interface{}` to `any`
+- Type of `ErrorDefinition.Innererror` has been changed from `interface{}` to `any`
+- Type of `OperationLive.Properties` has been changed from `interface{}` to `any`
+- Type of `WorkbookErrorDefinition.InnerError` has been changed from `interface{}` to `*WorkbookInnerErrorTrace`
+- Type of `WorkbookTemplateLocalizedGallery.TemplateData` has been changed from `interface{}` to `any`
+- Type of `WorkbookTemplateProperties.TemplateData` has been changed from `interface{}` to `any`
+
+### Features Added
+
+- New value `WebTestKindStandard` added to type alias `WebTestKind`
+- New function `NewOperationsClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsClient, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New struct `ErrorFieldContract`
+- New struct `HeaderField`
+- New struct `OperationsClient`
+- New struct `OperationsClientListResponse`
+- New struct `WebTestPropertiesRequest`
+- New struct `WebTestPropertiesValidationRules`
+- New struct `WebTestPropertiesValidationRulesContentValidation`
+- New field `Details` in struct `ErrorResponse`
+- New field `Request` in struct `WebTestProperties`
+- New field `ValidationRules` in struct `WebTestProperties`
+
+
 ## 2.0.0-beta.1 (2022-06-02)
 ### Breaking Changes
 
