@@ -31,8 +31,8 @@ type PacketCoreControlPlaneVersionsClient struct {
 }
 
 // NewPacketCoreControlPlaneVersionsClient creates a new instance of PacketCoreControlPlaneVersionsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPacketCoreControlPlaneVersionsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*PacketCoreControlPlaneVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -54,10 +54,11 @@ func NewPacketCoreControlPlaneVersionsClient(credential azcore.TokenCredential, 
 
 // Get - Gets information about the specified packet core control plane version.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// versionName - The name of the packet core control plane version.
-// options - PacketCoreControlPlaneVersionsClientGetOptions contains the optional parameters for the PacketCoreControlPlaneVersionsClient.Get
-// method.
+//   - versionName - The name of the packet core control plane version.
+//   - options - PacketCoreControlPlaneVersionsClientGetOptions contains the optional parameters for the PacketCoreControlPlaneVersionsClient.Get
+//     method.
 func (client *PacketCoreControlPlaneVersionsClient) Get(ctx context.Context, versionName string, options *PacketCoreControlPlaneVersionsClientGetOptions) (PacketCoreControlPlaneVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, versionName, options)
 	if err != nil {
@@ -101,9 +102,10 @@ func (client *PacketCoreControlPlaneVersionsClient) getHandleResponse(resp *http
 }
 
 // NewListPager - Lists all supported packet core control planes versions.
+//
 // Generated from API version 2022-11-01
-// options - PacketCoreControlPlaneVersionsClientListOptions contains the optional parameters for the PacketCoreControlPlaneVersionsClient.List
-// method.
+//   - options - PacketCoreControlPlaneVersionsClientListOptions contains the optional parameters for the PacketCoreControlPlaneVersionsClient.NewListPager
+//     method.
 func (client *PacketCoreControlPlaneVersionsClient) NewListPager(options *PacketCoreControlPlaneVersionsClientListOptions) *runtime.Pager[PacketCoreControlPlaneVersionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PacketCoreControlPlaneVersionsClientListResponse]{
 		More: func(page PacketCoreControlPlaneVersionsClientListResponse) bool {

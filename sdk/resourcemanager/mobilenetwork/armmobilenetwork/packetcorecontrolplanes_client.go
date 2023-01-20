@@ -32,9 +32,9 @@ type PacketCoreControlPlanesClient struct {
 }
 
 // NewPacketCoreControlPlanesClient creates a new instance of PacketCoreControlPlanesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPacketCoreControlPlanesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PacketCoreControlPlanesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewPacketCoreControlPlanesClient(subscriptionID string, credential azcore.T
 // BeginCollectDiagnosticsPackage - Collect a diagnostics package for the specified packet core control plane. This action
 // will upload the diagnostics to a storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// parameters - Parameters supplied to the packet core control plane collect diagnostics package operation.
-// options - PacketCoreControlPlanesClientBeginCollectDiagnosticsPackageOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginCollectDiagnosticsPackage
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - parameters - Parameters supplied to the packet core control plane collect diagnostics package operation.
+//   - options - PacketCoreControlPlanesClientBeginCollectDiagnosticsPackageOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginCollectDiagnosticsPackage
+//     method.
 func (client *PacketCoreControlPlanesClient) BeginCollectDiagnosticsPackage(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, parameters PacketCoreControlPlaneCollectDiagnosticsPackage, options *PacketCoreControlPlanesClientBeginCollectDiagnosticsPackageOptions) (*runtime.Poller[PacketCoreControlPlanesClientCollectDiagnosticsPackageResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.collectDiagnosticsPackage(ctx, resourceGroupName, packetCoreControlPlaneName, parameters, options)
@@ -81,6 +82,7 @@ func (client *PacketCoreControlPlanesClient) BeginCollectDiagnosticsPackage(ctx 
 // CollectDiagnosticsPackage - Collect a diagnostics package for the specified packet core control plane. This action will
 // upload the diagnostics to a storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *PacketCoreControlPlanesClient) collectDiagnosticsPackage(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, parameters PacketCoreControlPlaneCollectDiagnosticsPackage, options *PacketCoreControlPlanesClientBeginCollectDiagnosticsPackageOptions) (*http.Response, error) {
 	req, err := client.collectDiagnosticsPackageCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, parameters, options)
@@ -125,12 +127,13 @@ func (client *PacketCoreControlPlanesClient) collectDiagnosticsPackageCreateRequ
 
 // BeginCreateOrUpdate - Creates or updates a packet core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// parameters - Parameters supplied to the create or update packet core control plane operation.
-// options - PacketCoreControlPlanesClientBeginCreateOrUpdateOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - parameters - Parameters supplied to the create or update packet core control plane operation.
+//   - options - PacketCoreControlPlanesClientBeginCreateOrUpdateOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginCreateOrUpdate
+//     method.
 func (client *PacketCoreControlPlanesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, parameters PacketCoreControlPlane, options *PacketCoreControlPlanesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PacketCoreControlPlanesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, packetCoreControlPlaneName, parameters, options)
@@ -147,6 +150,7 @@ func (client *PacketCoreControlPlanesClient) BeginCreateOrUpdate(ctx context.Con
 
 // CreateOrUpdate - Creates or updates a packet core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *PacketCoreControlPlanesClient) createOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, parameters PacketCoreControlPlane, options *PacketCoreControlPlanesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, parameters, options)
@@ -191,11 +195,12 @@ func (client *PacketCoreControlPlanesClient) createOrUpdateCreateRequest(ctx con
 
 // BeginDelete - Deletes the specified packet core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// options - PacketCoreControlPlanesClientBeginDeleteOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - options - PacketCoreControlPlanesClientBeginDeleteOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginDelete
+//     method.
 func (client *PacketCoreControlPlanesClient) BeginDelete(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreControlPlanesClientBeginDeleteOptions) (*runtime.Poller[PacketCoreControlPlanesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, packetCoreControlPlaneName, options)
@@ -212,6 +217,7 @@ func (client *PacketCoreControlPlanesClient) BeginDelete(ctx context.Context, re
 
 // Delete - Deletes the specified packet core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *PacketCoreControlPlanesClient) deleteOperation(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreControlPlanesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, options)
@@ -256,11 +262,12 @@ func (client *PacketCoreControlPlanesClient) deleteCreateRequest(ctx context.Con
 
 // Get - Gets information about the specified packet core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// options - PacketCoreControlPlanesClientGetOptions contains the optional parameters for the PacketCoreControlPlanesClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - options - PacketCoreControlPlanesClientGetOptions contains the optional parameters for the PacketCoreControlPlanesClient.Get
+//     method.
 func (client *PacketCoreControlPlanesClient) Get(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreControlPlanesClientGetOptions) (PacketCoreControlPlanesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, options)
 	if err != nil {
@@ -312,10 +319,11 @@ func (client *PacketCoreControlPlanesClient) getHandleResponse(resp *http.Respon
 }
 
 // NewListByResourceGroupPager - Lists all the packet core control planes in a resource group.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - PacketCoreControlPlanesClientListByResourceGroupOptions contains the optional parameters for the PacketCoreControlPlanesClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - PacketCoreControlPlanesClientListByResourceGroupOptions contains the optional parameters for the PacketCoreControlPlanesClient.NewListByResourceGroupPager
+//     method.
 func (client *PacketCoreControlPlanesClient) NewListByResourceGroupPager(resourceGroupName string, options *PacketCoreControlPlanesClientListByResourceGroupOptions) *runtime.Pager[PacketCoreControlPlanesClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PacketCoreControlPlanesClientListByResourceGroupResponse]{
 		More: func(page PacketCoreControlPlanesClientListByResourceGroupResponse) bool {
@@ -376,9 +384,10 @@ func (client *PacketCoreControlPlanesClient) listByResourceGroupHandleResponse(r
 }
 
 // NewListBySubscriptionPager - Lists all the packet core control planes in a subscription.
+//
 // Generated from API version 2022-11-01
-// options - PacketCoreControlPlanesClientListBySubscriptionOptions contains the optional parameters for the PacketCoreControlPlanesClient.ListBySubscription
-// method.
+//   - options - PacketCoreControlPlanesClientListBySubscriptionOptions contains the optional parameters for the PacketCoreControlPlanesClient.NewListBySubscriptionPager
+//     method.
 func (client *PacketCoreControlPlanesClient) NewListBySubscriptionPager(options *PacketCoreControlPlanesClientListBySubscriptionOptions) *runtime.Pager[PacketCoreControlPlanesClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PacketCoreControlPlanesClientListBySubscriptionResponse]{
 		More: func(page PacketCoreControlPlanesClientListBySubscriptionResponse) bool {
@@ -437,11 +446,12 @@ func (client *PacketCoreControlPlanesClient) listBySubscriptionHandleResponse(re
 // BeginReinstall - Reinstall the specified packet core control plane. This action will remove any transaction state from
 // the packet core to return it to a known state. This action will cause a service outage.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// options - PacketCoreControlPlanesClientBeginReinstallOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginReinstall
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - options - PacketCoreControlPlanesClientBeginReinstallOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginReinstall
+//     method.
 func (client *PacketCoreControlPlanesClient) BeginReinstall(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreControlPlanesClientBeginReinstallOptions) (*runtime.Poller[PacketCoreControlPlanesClientReinstallResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.reinstall(ctx, resourceGroupName, packetCoreControlPlaneName, options)
@@ -459,6 +469,7 @@ func (client *PacketCoreControlPlanesClient) BeginReinstall(ctx context.Context,
 // Reinstall - Reinstall the specified packet core control plane. This action will remove any transaction state from the packet
 // core to return it to a known state. This action will cause a service outage.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *PacketCoreControlPlanesClient) reinstall(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreControlPlanesClientBeginReinstallOptions) (*http.Response, error) {
 	req, err := client.reinstallCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, options)
@@ -504,11 +515,12 @@ func (client *PacketCoreControlPlanesClient) reinstallCreateRequest(ctx context.
 // BeginRollback - Roll back the specified packet core control plane to the previous version, "rollbackVersion". Multiple
 // consecutive rollbacks are not possible. This action may cause a service outage.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// options - PacketCoreControlPlanesClientBeginRollbackOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginRollback
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - options - PacketCoreControlPlanesClientBeginRollbackOptions contains the optional parameters for the PacketCoreControlPlanesClient.BeginRollback
+//     method.
 func (client *PacketCoreControlPlanesClient) BeginRollback(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreControlPlanesClientBeginRollbackOptions) (*runtime.Poller[PacketCoreControlPlanesClientRollbackResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.rollback(ctx, resourceGroupName, packetCoreControlPlaneName, options)
@@ -526,6 +538,7 @@ func (client *PacketCoreControlPlanesClient) BeginRollback(ctx context.Context, 
 // Rollback - Roll back the specified packet core control plane to the previous version, "rollbackVersion". Multiple consecutive
 // rollbacks are not possible. This action may cause a service outage.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *PacketCoreControlPlanesClient) rollback(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreControlPlanesClientBeginRollbackOptions) (*http.Response, error) {
 	req, err := client.rollbackCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, options)
@@ -570,12 +583,13 @@ func (client *PacketCoreControlPlanesClient) rollbackCreateRequest(ctx context.C
 
 // UpdateTags - Updates packet core control planes tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// parameters - Parameters supplied to update packet core control plane tags.
-// options - PacketCoreControlPlanesClientUpdateTagsOptions contains the optional parameters for the PacketCoreControlPlanesClient.UpdateTags
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - parameters - Parameters supplied to update packet core control plane tags.
+//   - options - PacketCoreControlPlanesClientUpdateTagsOptions contains the optional parameters for the PacketCoreControlPlanesClient.UpdateTags
+//     method.
 func (client *PacketCoreControlPlanesClient) UpdateTags(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, parameters TagsObject, options *PacketCoreControlPlanesClientUpdateTagsOptions) (PacketCoreControlPlanesClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, parameters, options)
 	if err != nil {
