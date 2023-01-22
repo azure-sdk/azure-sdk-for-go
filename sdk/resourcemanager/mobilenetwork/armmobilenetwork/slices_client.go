@@ -32,9 +32,9 @@ type SlicesClient struct {
 }
 
 // NewSlicesClient creates a new instance of SlicesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSlicesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SlicesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewSlicesClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // BeginCreateOrUpdate - Creates or updates a network slice. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// sliceName - The name of the network slice.
-// parameters - Parameters supplied to the create or update network slice operation.
-// options - SlicesClientBeginCreateOrUpdateOptions contains the optional parameters for the SlicesClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - sliceName - The name of the network slice.
+//   - parameters - Parameters supplied to the create or update network slice operation.
+//   - options - SlicesClientBeginCreateOrUpdateOptions contains the optional parameters for the SlicesClient.BeginCreateOrUpdate
+//     method.
 func (client *SlicesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, parameters Slice, options *SlicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SlicesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, sliceName, parameters, options)
@@ -80,6 +81,7 @@ func (client *SlicesClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 
 // CreateOrUpdate - Creates or updates a network slice. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *SlicesClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, parameters Slice, options *SlicesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, sliceName, parameters, options)
@@ -128,11 +130,12 @@ func (client *SlicesClient) createOrUpdateCreateRequest(ctx context.Context, res
 
 // BeginDelete - Deletes the specified network slice.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// sliceName - The name of the network slice.
-// options - SlicesClientBeginDeleteOptions contains the optional parameters for the SlicesClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - sliceName - The name of the network slice.
+//   - options - SlicesClientBeginDeleteOptions contains the optional parameters for the SlicesClient.BeginDelete method.
 func (client *SlicesClient) BeginDelete(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, options *SlicesClientBeginDeleteOptions) (*runtime.Poller[SlicesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, mobileNetworkName, sliceName, options)
@@ -149,6 +152,7 @@ func (client *SlicesClient) BeginDelete(ctx context.Context, resourceGroupName s
 
 // Delete - Deletes the specified network slice.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *SlicesClient) deleteOperation(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, options *SlicesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, mobileNetworkName, sliceName, options)
@@ -197,11 +201,12 @@ func (client *SlicesClient) deleteCreateRequest(ctx context.Context, resourceGro
 
 // Get - Gets information about the specified network slice.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// sliceName - The name of the network slice.
-// options - SlicesClientGetOptions contains the optional parameters for the SlicesClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - sliceName - The name of the network slice.
+//   - options - SlicesClientGetOptions contains the optional parameters for the SlicesClient.Get method.
 func (client *SlicesClient) Get(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, options *SlicesClientGetOptions) (SlicesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, mobileNetworkName, sliceName, options)
 	if err != nil {
@@ -257,11 +262,12 @@ func (client *SlicesClient) getHandleResponse(resp *http.Response) (SlicesClient
 }
 
 // NewListByMobileNetworkPager - Lists all slices in the mobile network.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// options - SlicesClientListByMobileNetworkOptions contains the optional parameters for the SlicesClient.ListByMobileNetwork
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - options - SlicesClientListByMobileNetworkOptions contains the optional parameters for the SlicesClient.NewListByMobileNetworkPager
+//     method.
 func (client *SlicesClient) NewListByMobileNetworkPager(resourceGroupName string, mobileNetworkName string, options *SlicesClientListByMobileNetworkOptions) *runtime.Pager[SlicesClientListByMobileNetworkResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SlicesClientListByMobileNetworkResponse]{
 		More: func(page SlicesClientListByMobileNetworkResponse) bool {
@@ -327,12 +333,13 @@ func (client *SlicesClient) listByMobileNetworkHandleResponse(resp *http.Respons
 
 // UpdateTags - Updates slice tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// sliceName - The name of the network slice.
-// parameters - Parameters supplied to update network slice tags.
-// options - SlicesClientUpdateTagsOptions contains the optional parameters for the SlicesClient.UpdateTags method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - sliceName - The name of the network slice.
+//   - parameters - Parameters supplied to update network slice tags.
+//   - options - SlicesClientUpdateTagsOptions contains the optional parameters for the SlicesClient.UpdateTags method.
 func (client *SlicesClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, sliceName string, parameters TagsObject, options *SlicesClientUpdateTagsOptions) (SlicesClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, sliceName, parameters, options)
 	if err != nil {

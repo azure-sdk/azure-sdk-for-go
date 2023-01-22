@@ -1,5 +1,13 @@
 # Release History
 
+## 3.0.0 (2023-01-22)
+### Breaking Changes
+
+- Type of `AsyncOperationStatus.Properties` has been changed from `interface{}` to `any`
+- Type of `ErrorAdditionalInfo.Info` has been changed from `interface{}` to `any`
+- Type of `PacketCoreControlPlanePropertiesFormat.InteropSettings` has been changed from `interface{}` to `any`
+
+
 ## 2.0.0 (2023-01-27)
 ### Breaking Changes
 
