@@ -32,10 +32,10 @@ type ApplyUpdatesClient struct {
 }
 
 // NewApplyUpdatesClient creates a new instance of ApplyUpdatesClient with the specified values.
-// subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewApplyUpdatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplyUpdatesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewApplyUpdatesClient(subscriptionID string, credential azcore.TokenCredent
 
 // CreateOrUpdate - Apply maintenance updates to resource
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - Resource group name
-// providerName - Resource provider name
-// resourceType - Resource type
-// resourceName - Resource identifier
-// options - ApplyUpdatesClientCreateOrUpdateOptions contains the optional parameters for the ApplyUpdatesClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - Resource group name
+//   - providerName - Resource provider name
+//   - resourceType - Resource type
+//   - resourceName - Resource identifier
+//   - options - ApplyUpdatesClientCreateOrUpdateOptions contains the optional parameters for the ApplyUpdatesClient.CreateOrUpdate
+//     method.
 func (client *ApplyUpdatesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, providerName string, resourceType string, resourceName string, options *ApplyUpdatesClientCreateOrUpdateOptions) (ApplyUpdatesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, providerName, resourceType, resourceName, options)
 	if err != nil {
@@ -108,7 +109,7 @@ func (client *ApplyUpdatesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -125,15 +126,16 @@ func (client *ApplyUpdatesClient) createOrUpdateHandleResponse(resp *http.Respon
 
 // CreateOrUpdateParent - Apply maintenance updates to resource with parent
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - Resource group name
-// providerName - Resource provider name
-// resourceParentType - Resource parent type
-// resourceParentName - Resource parent identifier
-// resourceType - Resource type
-// resourceName - Resource identifier
-// options - ApplyUpdatesClientCreateOrUpdateParentOptions contains the optional parameters for the ApplyUpdatesClient.CreateOrUpdateParent
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - Resource group name
+//   - providerName - Resource provider name
+//   - resourceParentType - Resource parent type
+//   - resourceParentName - Resource parent identifier
+//   - resourceType - Resource type
+//   - resourceName - Resource identifier
+//   - options - ApplyUpdatesClientCreateOrUpdateParentOptions contains the optional parameters for the ApplyUpdatesClient.CreateOrUpdateParent
+//     method.
 func (client *ApplyUpdatesClient) CreateOrUpdateParent(ctx context.Context, resourceGroupName string, providerName string, resourceParentType string, resourceParentName string, resourceType string, resourceName string, options *ApplyUpdatesClientCreateOrUpdateParentOptions) (ApplyUpdatesClientCreateOrUpdateParentResponse, error) {
 	req, err := client.createOrUpdateParentCreateRequest(ctx, resourceGroupName, providerName, resourceParentType, resourceParentName, resourceType, resourceName, options)
 	if err != nil {
@@ -185,7 +187,7 @@ func (client *ApplyUpdatesClient) createOrUpdateParentCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -202,13 +204,14 @@ func (client *ApplyUpdatesClient) createOrUpdateParentHandleResponse(resp *http.
 
 // Get - Track maintenance updates to resource
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - Resource group name
-// providerName - Resource provider name
-// resourceType - Resource type
-// resourceName - Resource identifier
-// applyUpdateName - applyUpdate Id
-// options - ApplyUpdatesClientGetOptions contains the optional parameters for the ApplyUpdatesClient.Get method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - Resource group name
+//   - providerName - Resource provider name
+//   - resourceType - Resource type
+//   - resourceName - Resource identifier
+//   - applyUpdateName - applyUpdate Id
+//   - options - ApplyUpdatesClientGetOptions contains the optional parameters for the ApplyUpdatesClient.Get method.
 func (client *ApplyUpdatesClient) Get(ctx context.Context, resourceGroupName string, providerName string, resourceType string, resourceName string, applyUpdateName string, options *ApplyUpdatesClientGetOptions) (ApplyUpdatesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, providerName, resourceType, resourceName, applyUpdateName, options)
 	if err != nil {
@@ -256,7 +259,7 @@ func (client *ApplyUpdatesClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -271,17 +274,18 @@ func (client *ApplyUpdatesClient) getHandleResponse(resp *http.Response) (ApplyU
 	return result, nil
 }
 
-// GetParent - Track maintenance updates to resource with parent
+// GetParent - Track apply maintenance updates to resource with parent
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - Resource group name
-// resourceParentType - Resource parent type
-// resourceParentName - Resource parent identifier
-// providerName - Resource provider name
-// resourceType - Resource type
-// resourceName - Resource identifier
-// applyUpdateName - applyUpdate Id
-// options - ApplyUpdatesClientGetParentOptions contains the optional parameters for the ApplyUpdatesClient.GetParent method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - Resource group name
+//   - resourceParentType - Resource parent type
+//   - resourceParentName - Resource parent identifier
+//   - providerName - Resource provider name
+//   - resourceType - Resource type
+//   - resourceName - Resource identifier
+//   - applyUpdateName - applyUpdate Id
+//   - options - ApplyUpdatesClientGetParentOptions contains the optional parameters for the ApplyUpdatesClient.GetParent method.
 func (client *ApplyUpdatesClient) GetParent(ctx context.Context, resourceGroupName string, resourceParentType string, resourceParentName string, providerName string, resourceType string, resourceName string, applyUpdateName string, options *ApplyUpdatesClientGetParentOptions) (ApplyUpdatesClientGetParentResponse, error) {
 	req, err := client.getParentCreateRequest(ctx, resourceGroupName, resourceParentType, resourceParentName, providerName, resourceType, resourceName, applyUpdateName, options)
 	if err != nil {
@@ -337,7 +341,7 @@ func (client *ApplyUpdatesClient) getParentCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -353,8 +357,9 @@ func (client *ApplyUpdatesClient) getParentHandleResponse(resp *http.Response) (
 }
 
 // NewListPager - Get Configuration records within a subscription
-// Generated from API version 2022-07-01-preview
-// options - ApplyUpdatesClientListOptions contains the optional parameters for the ApplyUpdatesClient.List method.
+//
+// Generated from API version 2022-11-01-preview
+//   - options - ApplyUpdatesClientListOptions contains the optional parameters for the ApplyUpdatesClient.NewListPager method.
 func (client *ApplyUpdatesClient) NewListPager(options *ApplyUpdatesClientListOptions) *runtime.Pager[ApplyUpdatesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ApplyUpdatesClientListResponse]{
 		More: func(page ApplyUpdatesClientListResponse) bool {
@@ -389,7 +394,7 @@ func (client *ApplyUpdatesClient) listCreateRequest(ctx context.Context, options
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
