@@ -32,9 +32,9 @@ type FrontendsInterfaceClient struct {
 }
 
 // NewFrontendsInterfaceClient creates a new instance of FrontendsInterfaceClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewFrontendsInterfaceClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FrontendsInterfaceClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewFrontendsInterfaceClient(subscriptionID string, credential azcore.TokenC
 
 // BeginCreateOrUpdate - Create a Traffic Controller Frontend
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// frontendName - Frontends
-// resource - Resource create parameters.
-// options - FrontendsInterfaceClientBeginCreateOrUpdateOptions contains the optional parameters for the FrontendsInterfaceClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - frontendName - Frontends
+//   - resource - Resource create parameters.
+//   - options - FrontendsInterfaceClientBeginCreateOrUpdateOptions contains the optional parameters for the FrontendsInterfaceClient.BeginCreateOrUpdate
+//     method.
 func (client *FrontendsInterfaceClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, trafficControllerName string, frontendName string, resource Frontend, options *FrontendsInterfaceClientBeginCreateOrUpdateOptions) (*runtime.Poller[FrontendsInterfaceClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, trafficControllerName, frontendName, resource, options)
@@ -80,6 +81,7 @@ func (client *FrontendsInterfaceClient) BeginCreateOrUpdate(ctx context.Context,
 
 // CreateOrUpdate - Create a Traffic Controller Frontend
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
 func (client *FrontendsInterfaceClient) createOrUpdate(ctx context.Context, resourceGroupName string, trafficControllerName string, frontendName string, resource Frontend, options *FrontendsInterfaceClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, trafficControllerName, frontendName, resource, options)
@@ -128,12 +130,13 @@ func (client *FrontendsInterfaceClient) createOrUpdateCreateRequest(ctx context.
 
 // BeginDelete - Delete a Traffic Controller Frontend
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// frontendName - Frontends
-// options - FrontendsInterfaceClientBeginDeleteOptions contains the optional parameters for the FrontendsInterfaceClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - frontendName - Frontends
+//   - options - FrontendsInterfaceClientBeginDeleteOptions contains the optional parameters for the FrontendsInterfaceClient.BeginDelete
+//     method.
 func (client *FrontendsInterfaceClient) BeginDelete(ctx context.Context, resourceGroupName string, trafficControllerName string, frontendName string, options *FrontendsInterfaceClientBeginDeleteOptions) (*runtime.Poller[FrontendsInterfaceClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, trafficControllerName, frontendName, options)
@@ -150,6 +153,7 @@ func (client *FrontendsInterfaceClient) BeginDelete(ctx context.Context, resourc
 
 // Delete - Delete a Traffic Controller Frontend
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
 func (client *FrontendsInterfaceClient) deleteOperation(ctx context.Context, resourceGroupName string, trafficControllerName string, frontendName string, options *FrontendsInterfaceClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, trafficControllerName, frontendName, options)
@@ -198,11 +202,12 @@ func (client *FrontendsInterfaceClient) deleteCreateRequest(ctx context.Context,
 
 // Get - Get a Traffic Controller Frontend
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// frontendName - Frontends
-// options - FrontendsInterfaceClientGetOptions contains the optional parameters for the FrontendsInterfaceClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - frontendName - Frontends
+//   - options - FrontendsInterfaceClientGetOptions contains the optional parameters for the FrontendsInterfaceClient.Get method.
 func (client *FrontendsInterfaceClient) Get(ctx context.Context, resourceGroupName string, trafficControllerName string, frontendName string, options *FrontendsInterfaceClientGetOptions) (FrontendsInterfaceClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, trafficControllerName, frontendName, options)
 	if err != nil {
@@ -258,11 +263,12 @@ func (client *FrontendsInterfaceClient) getHandleResponse(resp *http.Response) (
 }
 
 // NewListByTrafficControllerPager - List Frontend resources by TrafficController
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// options - FrontendsInterfaceClientListByTrafficControllerOptions contains the optional parameters for the FrontendsInterfaceClient.ListByTrafficController
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - options - FrontendsInterfaceClientListByTrafficControllerOptions contains the optional parameters for the FrontendsInterfaceClient.NewListByTrafficControllerPager
+//     method.
 func (client *FrontendsInterfaceClient) NewListByTrafficControllerPager(resourceGroupName string, trafficControllerName string, options *FrontendsInterfaceClientListByTrafficControllerOptions) *runtime.Pager[FrontendsInterfaceClientListByTrafficControllerResponse] {
 	return runtime.NewPager(runtime.PagingHandler[FrontendsInterfaceClientListByTrafficControllerResponse]{
 		More: func(page FrontendsInterfaceClientListByTrafficControllerResponse) bool {
@@ -328,13 +334,14 @@ func (client *FrontendsInterfaceClient) listByTrafficControllerHandleResponse(re
 
 // Update - Update a Traffic Controller Frontend
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// frontendName - Frontends
-// properties - The resource properties to be updated.
-// options - FrontendsInterfaceClientUpdateOptions contains the optional parameters for the FrontendsInterfaceClient.Update
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - frontendName - Frontends
+//   - properties - The resource properties to be updated.
+//   - options - FrontendsInterfaceClientUpdateOptions contains the optional parameters for the FrontendsInterfaceClient.Update
+//     method.
 func (client *FrontendsInterfaceClient) Update(ctx context.Context, resourceGroupName string, trafficControllerName string, frontendName string, properties FrontendUpdate, options *FrontendsInterfaceClientUpdateOptions) (FrontendsInterfaceClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, trafficControllerName, frontendName, properties, options)
 	if err != nil {

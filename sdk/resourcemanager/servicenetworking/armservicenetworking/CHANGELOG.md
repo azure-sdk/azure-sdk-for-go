@@ -1,5 +1,11 @@
 # Release History
 
+## 0.2.0 (2023-01-22)
+### Breaking Changes
+
+- Type of `TrafficControllerUpdate.Properties` has been changed from `interface{}` to `any`
+
+
 ## 0.1.0 (2023-01-11)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicenetworking/armservicenetworking` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html).

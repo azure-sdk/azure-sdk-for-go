@@ -32,9 +32,9 @@ type TrafficControllerInterfaceClient struct {
 }
 
 // NewTrafficControllerInterfaceClient creates a new instance of TrafficControllerInterfaceClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTrafficControllerInterfaceClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TrafficControllerInterfaceClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewTrafficControllerInterfaceClient(subscriptionID string, credential azcor
 
 // BeginCreateOrUpdate - Create a TrafficController
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// resource - Resource create parameters.
-// options - TrafficControllerInterfaceClientBeginCreateOrUpdateOptions contains the optional parameters for the TrafficControllerInterfaceClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - resource - Resource create parameters.
+//   - options - TrafficControllerInterfaceClientBeginCreateOrUpdateOptions contains the optional parameters for the TrafficControllerInterfaceClient.BeginCreateOrUpdate
+//     method.
 func (client *TrafficControllerInterfaceClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, trafficControllerName string, resource TrafficController, options *TrafficControllerInterfaceClientBeginCreateOrUpdateOptions) (*runtime.Poller[TrafficControllerInterfaceClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, trafficControllerName, resource, options)
@@ -79,6 +80,7 @@ func (client *TrafficControllerInterfaceClient) BeginCreateOrUpdate(ctx context.
 
 // CreateOrUpdate - Create a TrafficController
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
 func (client *TrafficControllerInterfaceClient) createOrUpdate(ctx context.Context, resourceGroupName string, trafficControllerName string, resource TrafficController, options *TrafficControllerInterfaceClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, trafficControllerName, resource, options)
@@ -123,11 +125,12 @@ func (client *TrafficControllerInterfaceClient) createOrUpdateCreateRequest(ctx 
 
 // BeginDelete - Delete a TrafficController
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// options - TrafficControllerInterfaceClientBeginDeleteOptions contains the optional parameters for the TrafficControllerInterfaceClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - options - TrafficControllerInterfaceClientBeginDeleteOptions contains the optional parameters for the TrafficControllerInterfaceClient.BeginDelete
+//     method.
 func (client *TrafficControllerInterfaceClient) BeginDelete(ctx context.Context, resourceGroupName string, trafficControllerName string, options *TrafficControllerInterfaceClientBeginDeleteOptions) (*runtime.Poller[TrafficControllerInterfaceClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, trafficControllerName, options)
@@ -144,6 +147,7 @@ func (client *TrafficControllerInterfaceClient) BeginDelete(ctx context.Context,
 
 // Delete - Delete a TrafficController
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
 func (client *TrafficControllerInterfaceClient) deleteOperation(ctx context.Context, resourceGroupName string, trafficControllerName string, options *TrafficControllerInterfaceClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, trafficControllerName, options)
@@ -188,11 +192,12 @@ func (client *TrafficControllerInterfaceClient) deleteCreateRequest(ctx context.
 
 // Get - Get a TrafficController
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// options - TrafficControllerInterfaceClientGetOptions contains the optional parameters for the TrafficControllerInterfaceClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - options - TrafficControllerInterfaceClientGetOptions contains the optional parameters for the TrafficControllerInterfaceClient.Get
+//     method.
 func (client *TrafficControllerInterfaceClient) Get(ctx context.Context, resourceGroupName string, trafficControllerName string, options *TrafficControllerInterfaceClientGetOptions) (TrafficControllerInterfaceClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, trafficControllerName, options)
 	if err != nil {
@@ -244,10 +249,11 @@ func (client *TrafficControllerInterfaceClient) getHandleResponse(resp *http.Res
 }
 
 // NewListByResourceGroupPager - List TrafficController resources by resource group
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - TrafficControllerInterfaceClientListByResourceGroupOptions contains the optional parameters for the TrafficControllerInterfaceClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - TrafficControllerInterfaceClientListByResourceGroupOptions contains the optional parameters for the TrafficControllerInterfaceClient.NewListByResourceGroupPager
+//     method.
 func (client *TrafficControllerInterfaceClient) NewListByResourceGroupPager(resourceGroupName string, options *TrafficControllerInterfaceClientListByResourceGroupOptions) *runtime.Pager[TrafficControllerInterfaceClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TrafficControllerInterfaceClientListByResourceGroupResponse]{
 		More: func(page TrafficControllerInterfaceClientListByResourceGroupResponse) bool {
@@ -308,9 +314,10 @@ func (client *TrafficControllerInterfaceClient) listByResourceGroupHandleRespons
 }
 
 // NewListBySubscriptionPager - List TrafficController resources by subscription ID
+//
 // Generated from API version 2022-10-01-preview
-// options - TrafficControllerInterfaceClientListBySubscriptionOptions contains the optional parameters for the TrafficControllerInterfaceClient.ListBySubscription
-// method.
+//   - options - TrafficControllerInterfaceClientListBySubscriptionOptions contains the optional parameters for the TrafficControllerInterfaceClient.NewListBySubscriptionPager
+//     method.
 func (client *TrafficControllerInterfaceClient) NewListBySubscriptionPager(options *TrafficControllerInterfaceClientListBySubscriptionOptions) *runtime.Pager[TrafficControllerInterfaceClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TrafficControllerInterfaceClientListBySubscriptionResponse]{
 		More: func(page TrafficControllerInterfaceClientListBySubscriptionResponse) bool {
@@ -368,12 +375,13 @@ func (client *TrafficControllerInterfaceClient) listBySubscriptionHandleResponse
 
 // Update - Update a TrafficController
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// properties - The resource properties to be updated.
-// options - TrafficControllerInterfaceClientUpdateOptions contains the optional parameters for the TrafficControllerInterfaceClient.Update
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - properties - The resource properties to be updated.
+//   - options - TrafficControllerInterfaceClientUpdateOptions contains the optional parameters for the TrafficControllerInterfaceClient.Update
+//     method.
 func (client *TrafficControllerInterfaceClient) Update(ctx context.Context, resourceGroupName string, trafficControllerName string, properties TrafficControllerUpdate, options *TrafficControllerInterfaceClientUpdateOptions) (TrafficControllerInterfaceClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, trafficControllerName, properties, options)
 	if err != nil {
