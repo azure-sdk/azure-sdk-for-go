@@ -11,7 +11,7 @@ package armdataprotection
 
 const (
 	moduleName    = "armdataprotection"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0"
 )
 
 type AbsoluteMarker string
@@ -67,6 +67,24 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// CrossSubscriptionRestoreState - CrossSubscriptionRestore state
+type CrossSubscriptionRestoreState string
+
+const (
+	CrossSubscriptionRestoreStateDisabled            CrossSubscriptionRestoreState = "Disabled"
+	CrossSubscriptionRestoreStateEnabled             CrossSubscriptionRestoreState = "Enabled"
+	CrossSubscriptionRestoreStatePermanentlyDisabled CrossSubscriptionRestoreState = "PermanentlyDisabled"
+)
+
+// PossibleCrossSubscriptionRestoreStateValues returns the possible values for the CrossSubscriptionRestoreState const type.
+func PossibleCrossSubscriptionRestoreStateValues() []CrossSubscriptionRestoreState {
+	return []CrossSubscriptionRestoreState{
+		CrossSubscriptionRestoreStateDisabled,
+		CrossSubscriptionRestoreStateEnabled,
+		CrossSubscriptionRestoreStatePermanentlyDisabled,
 	}
 }
 
@@ -146,23 +164,6 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 		DayOfWeekThursday,
 		DayOfWeekTuesday,
 		DayOfWeekWednesday,
-	}
-}
-
-// ExistingResourcePolicy - Gets or sets the Conflict Policy property. This property sets policy during conflict of resources
-// during restore.
-type ExistingResourcePolicy string
-
-const (
-	ExistingResourcePolicyPatch ExistingResourcePolicy = "Patch"
-	ExistingResourcePolicySkip  ExistingResourcePolicy = "Skip"
-)
-
-// PossibleExistingResourcePolicyValues returns the possible values for the ExistingResourcePolicy const type.
-func PossibleExistingResourcePolicyValues() []ExistingResourcePolicy {
-	return []ExistingResourcePolicy{
-		ExistingResourcePolicyPatch,
-		ExistingResourcePolicySkip,
 	}
 }
 
@@ -259,23 +260,6 @@ func PossibleMonthValues() []Month {
 	}
 }
 
-// PersistentVolumeRestoreMode - Gets or sets the PV Restore Mode property. This property sets whether volumes needs to be
-// restored.
-type PersistentVolumeRestoreMode string
-
-const (
-	PersistentVolumeRestoreModeRestoreWithVolumeData    PersistentVolumeRestoreMode = "RestoreWithVolumeData"
-	PersistentVolumeRestoreModeRestoreWithoutVolumeData PersistentVolumeRestoreMode = "RestoreWithoutVolumeData"
-)
-
-// PossiblePersistentVolumeRestoreModeValues returns the possible values for the PersistentVolumeRestoreMode const type.
-func PossiblePersistentVolumeRestoreModeValues() []PersistentVolumeRestoreMode {
-	return []PersistentVolumeRestoreMode{
-		PersistentVolumeRestoreModeRestoreWithVolumeData,
-		PersistentVolumeRestoreModeRestoreWithoutVolumeData,
-	}
-}
-
 // ProvisioningState - Provisioning state of the BackupVault resource
 type ProvisioningState string
 
@@ -348,28 +332,6 @@ func PossibleRehydrationStatusValues() []RehydrationStatus {
 		RehydrationStatusDELETED,
 		RehydrationStatusDELETEINPROGRESS,
 		RehydrationStatusFAILED,
-	}
-}
-
-// ResourceGuardProvisioningState - Provisioning state of the BackupVault resource
-type ResourceGuardProvisioningState string
-
-const (
-	ResourceGuardProvisioningStateFailed       ResourceGuardProvisioningState = "Failed"
-	ResourceGuardProvisioningStateProvisioning ResourceGuardProvisioningState = "Provisioning"
-	ResourceGuardProvisioningStateSucceeded    ResourceGuardProvisioningState = "Succeeded"
-	ResourceGuardProvisioningStateUnknown      ResourceGuardProvisioningState = "Unknown"
-	ResourceGuardProvisioningStateUpdating     ResourceGuardProvisioningState = "Updating"
-)
-
-// PossibleResourceGuardProvisioningStateValues returns the possible values for the ResourceGuardProvisioningState const type.
-func PossibleResourceGuardProvisioningStateValues() []ResourceGuardProvisioningState {
-	return []ResourceGuardProvisioningState{
-		ResourceGuardProvisioningStateFailed,
-		ResourceGuardProvisioningStateProvisioning,
-		ResourceGuardProvisioningStateSucceeded,
-		ResourceGuardProvisioningStateUnknown,
-		ResourceGuardProvisioningStateUpdating,
 	}
 }
 
@@ -482,15 +444,17 @@ func PossibleSoftDeleteStateValues() []SoftDeleteState {
 type SourceDataStoreType string
 
 const (
-	SourceDataStoreTypeArchiveStore  SourceDataStoreType = "ArchiveStore"
-	SourceDataStoreTypeSnapshotStore SourceDataStoreType = "SnapshotStore"
-	SourceDataStoreTypeVaultStore    SourceDataStoreType = "VaultStore"
+	SourceDataStoreTypeArchiveStore     SourceDataStoreType = "ArchiveStore"
+	SourceDataStoreTypeOperationalStore SourceDataStoreType = "OperationalStore"
+	SourceDataStoreTypeSnapshotStore    SourceDataStoreType = "SnapshotStore"
+	SourceDataStoreTypeVaultStore       SourceDataStoreType = "VaultStore"
 )
 
 // PossibleSourceDataStoreTypeValues returns the possible values for the SourceDataStoreType const type.
 func PossibleSourceDataStoreTypeValues() []SourceDataStoreType {
 	return []SourceDataStoreType{
 		SourceDataStoreTypeArchiveStore,
+		SourceDataStoreTypeOperationalStore,
 		SourceDataStoreTypeSnapshotStore,
 		SourceDataStoreTypeVaultStore,
 	}
@@ -524,16 +488,16 @@ func PossibleStatusValues() []Status {
 type StorageSettingStoreTypes string
 
 const (
-	StorageSettingStoreTypesArchiveStore  StorageSettingStoreTypes = "ArchiveStore"
-	StorageSettingStoreTypesSnapshotStore StorageSettingStoreTypes = "SnapshotStore"
-	StorageSettingStoreTypesVaultStore    StorageSettingStoreTypes = "VaultStore"
+	StorageSettingStoreTypesArchiveStore     StorageSettingStoreTypes = "ArchiveStore"
+	StorageSettingStoreTypesOperationalStore StorageSettingStoreTypes = "OperationalStore"
+	StorageSettingStoreTypesVaultStore       StorageSettingStoreTypes = "VaultStore"
 )
 
 // PossibleStorageSettingStoreTypesValues returns the possible values for the StorageSettingStoreTypes const type.
 func PossibleStorageSettingStoreTypesValues() []StorageSettingStoreTypes {
 	return []StorageSettingStoreTypes{
 		StorageSettingStoreTypesArchiveStore,
-		StorageSettingStoreTypesSnapshotStore,
+		StorageSettingStoreTypesOperationalStore,
 		StorageSettingStoreTypesVaultStore,
 	}
 }
