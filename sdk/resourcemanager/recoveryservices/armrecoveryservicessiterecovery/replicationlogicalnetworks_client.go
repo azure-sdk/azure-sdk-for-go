@@ -34,11 +34,11 @@ type ReplicationLogicalNetworksClient struct {
 }
 
 // NewReplicationLogicalNetworksClient creates a new instance of ReplicationLogicalNetworksClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationLogicalNetworksClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationLogicalNetworksClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,11 +63,12 @@ func NewReplicationLogicalNetworksClient(resourceName string, resourceGroupName 
 
 // Get - Gets the details of a logical network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Server Id.
-// logicalNetworkName - Logical network name.
-// options - ReplicationLogicalNetworksClientGetOptions contains the optional parameters for the ReplicationLogicalNetworksClient.Get
-// method.
+//   - fabricName - Server Id.
+//   - logicalNetworkName - Logical network name.
+//   - options - ReplicationLogicalNetworksClientGetOptions contains the optional parameters for the ReplicationLogicalNetworksClient.Get
+//     method.
 func (client *ReplicationLogicalNetworksClient) Get(ctx context.Context, fabricName string, logicalNetworkName string, options *ReplicationLogicalNetworksClientGetOptions) (ReplicationLogicalNetworksClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, logicalNetworkName, options)
 	if err != nil {
@@ -127,10 +128,11 @@ func (client *ReplicationLogicalNetworksClient) getHandleResponse(resp *http.Res
 }
 
 // NewListByReplicationFabricsPager - Lists all the logical networks of the Azure Site Recovery fabric.
+//
 // Generated from API version 2022-10-01
-// fabricName - Server Id.
-// options - ReplicationLogicalNetworksClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationLogicalNetworksClient.ListByReplicationFabrics
-// method.
+//   - fabricName - Server Id.
+//   - options - ReplicationLogicalNetworksClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationLogicalNetworksClient.NewListByReplicationFabricsPager
+//     method.
 func (client *ReplicationLogicalNetworksClient) NewListByReplicationFabricsPager(fabricName string, options *ReplicationLogicalNetworksClientListByReplicationFabricsOptions) *runtime.Pager[ReplicationLogicalNetworksClientListByReplicationFabricsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationLogicalNetworksClientListByReplicationFabricsResponse]{
 		More: func(page ReplicationLogicalNetworksClientListByReplicationFabricsResponse) bool {

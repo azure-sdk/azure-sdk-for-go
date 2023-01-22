@@ -34,11 +34,11 @@ type ReplicationMigrationItemsClient struct {
 }
 
 // NewReplicationMigrationItemsClient creates a new instance of ReplicationMigrationItemsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationMigrationItemsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationMigrationItemsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,13 +63,14 @@ func NewReplicationMigrationItemsClient(resourceName string, resourceGroupName s
 
 // BeginCreate - The operation to create an ASR migration item (enable migration).
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// input - Enable migration input.
-// options - ReplicationMigrationItemsClientBeginCreateOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginCreate
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - input - Enable migration input.
+//   - options - ReplicationMigrationItemsClientBeginCreateOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginCreate
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginCreate(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, input EnableMigrationInput, options *ReplicationMigrationItemsClientBeginCreateOptions) (*runtime.Poller[ReplicationMigrationItemsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, fabricName, protectionContainerName, migrationItemName, input, options)
@@ -84,6 +85,7 @@ func (client *ReplicationMigrationItemsClient) BeginCreate(ctx context.Context, 
 
 // Create - The operation to create an ASR migration item (enable migration).
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) create(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, input EnableMigrationInput, options *ReplicationMigrationItemsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, input, options)
@@ -140,12 +142,13 @@ func (client *ReplicationMigrationItemsClient) createCreateRequest(ctx context.C
 
 // BeginDelete - The operation to delete an ASR migration item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// options - ReplicationMigrationItemsClientBeginDeleteOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginDelete
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - options - ReplicationMigrationItemsClientBeginDeleteOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginDelete
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginDelete(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, options *ReplicationMigrationItemsClientBeginDeleteOptions) (*runtime.Poller[ReplicationMigrationItemsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, fabricName, protectionContainerName, migrationItemName, options)
@@ -160,6 +163,7 @@ func (client *ReplicationMigrationItemsClient) BeginDelete(ctx context.Context, 
 
 // Delete - The operation to delete an ASR migration item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) deleteOperation(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, options *ReplicationMigrationItemsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, options)
@@ -218,12 +222,13 @@ func (client *ReplicationMigrationItemsClient) deleteCreateRequest(ctx context.C
 
 // Get - Gets the details of a migration item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric unique name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// options - ReplicationMigrationItemsClientGetOptions contains the optional parameters for the ReplicationMigrationItemsClient.Get
-// method.
+//   - fabricName - Fabric unique name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - options - ReplicationMigrationItemsClientGetOptions contains the optional parameters for the ReplicationMigrationItemsClient.Get
+//     method.
 func (client *ReplicationMigrationItemsClient) Get(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, options *ReplicationMigrationItemsClientGetOptions) (ReplicationMigrationItemsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, options)
 	if err != nil {
@@ -287,9 +292,10 @@ func (client *ReplicationMigrationItemsClient) getHandleResponse(resp *http.Resp
 }
 
 // NewListPager - Gets the list of migration items in the vault.
+//
 // Generated from API version 2022-10-01
-// options - ReplicationMigrationItemsClientListOptions contains the optional parameters for the ReplicationMigrationItemsClient.List
-// method.
+//   - options - ReplicationMigrationItemsClientListOptions contains the optional parameters for the ReplicationMigrationItemsClient.NewListPager
+//     method.
 func (client *ReplicationMigrationItemsClient) NewListPager(options *ReplicationMigrationItemsClientListOptions) *runtime.Pager[ReplicationMigrationItemsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationMigrationItemsClientListResponse]{
 		More: func(page ReplicationMigrationItemsClientListResponse) bool {
@@ -363,11 +369,12 @@ func (client *ReplicationMigrationItemsClient) listHandleResponse(resp *http.Res
 }
 
 // NewListByReplicationProtectionContainersPager - Gets the list of ASR migration items in the protection container.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// options - ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions contains the optional parameters
-// for the ReplicationMigrationItemsClient.ListByReplicationProtectionContainers method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - options - ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions contains the optional parameters
+//     for the ReplicationMigrationItemsClient.NewListByReplicationProtectionContainersPager method.
 func (client *ReplicationMigrationItemsClient) NewListByReplicationProtectionContainersPager(fabricName string, protectionContainerName string, options *ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions) *runtime.Pager[ReplicationMigrationItemsClientListByReplicationProtectionContainersResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationMigrationItemsClientListByReplicationProtectionContainersResponse]{
 		More: func(page ReplicationMigrationItemsClientListByReplicationProtectionContainersResponse) bool {
@@ -450,13 +457,14 @@ func (client *ReplicationMigrationItemsClient) listByReplicationProtectionContai
 
 // BeginMigrate - The operation to initiate migration of the item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// migrateInput - Migrate input.
-// options - ReplicationMigrationItemsClientBeginMigrateOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginMigrate
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - migrateInput - Migrate input.
+//   - options - ReplicationMigrationItemsClientBeginMigrateOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginMigrate
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginMigrate(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, migrateInput MigrateInput, options *ReplicationMigrationItemsClientBeginMigrateOptions) (*runtime.Poller[ReplicationMigrationItemsClientMigrateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.migrate(ctx, fabricName, protectionContainerName, migrationItemName, migrateInput, options)
@@ -471,6 +479,7 @@ func (client *ReplicationMigrationItemsClient) BeginMigrate(ctx context.Context,
 
 // Migrate - The operation to initiate migration of the item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) migrate(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, migrateInput MigrateInput, options *ReplicationMigrationItemsClientBeginMigrateOptions) (*http.Response, error) {
 	req, err := client.migrateCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, migrateInput, options)
@@ -527,13 +536,14 @@ func (client *ReplicationMigrationItemsClient) migrateCreateRequest(ctx context.
 
 // BeginPauseReplication - The operation to initiate pause replication of the item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// pauseReplicationInput - Pause replication input.
-// options - ReplicationMigrationItemsClientBeginPauseReplicationOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginPauseReplication
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - pauseReplicationInput - Pause replication input.
+//   - options - ReplicationMigrationItemsClientBeginPauseReplicationOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginPauseReplication
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginPauseReplication(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, pauseReplicationInput PauseReplicationInput, options *ReplicationMigrationItemsClientBeginPauseReplicationOptions) (*runtime.Poller[ReplicationMigrationItemsClientPauseReplicationResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.pauseReplication(ctx, fabricName, protectionContainerName, migrationItemName, pauseReplicationInput, options)
@@ -548,6 +558,7 @@ func (client *ReplicationMigrationItemsClient) BeginPauseReplication(ctx context
 
 // PauseReplication - The operation to initiate pause replication of the item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) pauseReplication(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, pauseReplicationInput PauseReplicationInput, options *ReplicationMigrationItemsClientBeginPauseReplicationOptions) (*http.Response, error) {
 	req, err := client.pauseReplicationCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, pauseReplicationInput, options)
@@ -604,13 +615,14 @@ func (client *ReplicationMigrationItemsClient) pauseReplicationCreateRequest(ctx
 
 // BeginResumeReplication - The operation to initiate resume replication of the item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// resumeReplicationInput - Resume replication input.
-// options - ReplicationMigrationItemsClientBeginResumeReplicationOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginResumeReplication
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - resumeReplicationInput - Resume replication input.
+//   - options - ReplicationMigrationItemsClientBeginResumeReplicationOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginResumeReplication
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginResumeReplication(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, resumeReplicationInput ResumeReplicationInput, options *ReplicationMigrationItemsClientBeginResumeReplicationOptions) (*runtime.Poller[ReplicationMigrationItemsClientResumeReplicationResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.resumeReplication(ctx, fabricName, protectionContainerName, migrationItemName, resumeReplicationInput, options)
@@ -625,6 +637,7 @@ func (client *ReplicationMigrationItemsClient) BeginResumeReplication(ctx contex
 
 // ResumeReplication - The operation to initiate resume replication of the item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) resumeReplication(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, resumeReplicationInput ResumeReplicationInput, options *ReplicationMigrationItemsClientBeginResumeReplicationOptions) (*http.Response, error) {
 	req, err := client.resumeReplicationCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, resumeReplicationInput, options)
@@ -681,13 +694,14 @@ func (client *ReplicationMigrationItemsClient) resumeReplicationCreateRequest(ct
 
 // BeginResync - The operation to resynchronize replication of an ASR migration item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// input - Resync input.
-// options - ReplicationMigrationItemsClientBeginResyncOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginResync
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - input - Resync input.
+//   - options - ReplicationMigrationItemsClientBeginResyncOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginResync
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginResync(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, input ResyncInput, options *ReplicationMigrationItemsClientBeginResyncOptions) (*runtime.Poller[ReplicationMigrationItemsClientResyncResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.resync(ctx, fabricName, protectionContainerName, migrationItemName, input, options)
@@ -702,6 +716,7 @@ func (client *ReplicationMigrationItemsClient) BeginResync(ctx context.Context, 
 
 // Resync - The operation to resynchronize replication of an ASR migration item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) resync(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, input ResyncInput, options *ReplicationMigrationItemsClientBeginResyncOptions) (*http.Response, error) {
 	req, err := client.resyncCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, input, options)
@@ -758,13 +773,14 @@ func (client *ReplicationMigrationItemsClient) resyncCreateRequest(ctx context.C
 
 // BeginTestMigrate - The operation to initiate test migration of the item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// testMigrateInput - Test migrate input.
-// options - ReplicationMigrationItemsClientBeginTestMigrateOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginTestMigrate
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - testMigrateInput - Test migrate input.
+//   - options - ReplicationMigrationItemsClientBeginTestMigrateOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginTestMigrate
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginTestMigrate(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, testMigrateInput TestMigrateInput, options *ReplicationMigrationItemsClientBeginTestMigrateOptions) (*runtime.Poller[ReplicationMigrationItemsClientTestMigrateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.testMigrate(ctx, fabricName, protectionContainerName, migrationItemName, testMigrateInput, options)
@@ -779,6 +795,7 @@ func (client *ReplicationMigrationItemsClient) BeginTestMigrate(ctx context.Cont
 
 // TestMigrate - The operation to initiate test migration of the item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) testMigrate(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, testMigrateInput TestMigrateInput, options *ReplicationMigrationItemsClientBeginTestMigrateOptions) (*http.Response, error) {
 	req, err := client.testMigrateCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, testMigrateInput, options)
@@ -835,13 +852,14 @@ func (client *ReplicationMigrationItemsClient) testMigrateCreateRequest(ctx cont
 
 // BeginTestMigrateCleanup - The operation to initiate test migrate cleanup.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// testMigrateCleanupInput - Test migrate cleanup input.
-// options - ReplicationMigrationItemsClientBeginTestMigrateCleanupOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginTestMigrateCleanup
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - testMigrateCleanupInput - Test migrate cleanup input.
+//   - options - ReplicationMigrationItemsClientBeginTestMigrateCleanupOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginTestMigrateCleanup
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginTestMigrateCleanup(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, testMigrateCleanupInput TestMigrateCleanupInput, options *ReplicationMigrationItemsClientBeginTestMigrateCleanupOptions) (*runtime.Poller[ReplicationMigrationItemsClientTestMigrateCleanupResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.testMigrateCleanup(ctx, fabricName, protectionContainerName, migrationItemName, testMigrateCleanupInput, options)
@@ -856,6 +874,7 @@ func (client *ReplicationMigrationItemsClient) BeginTestMigrateCleanup(ctx conte
 
 // TestMigrateCleanup - The operation to initiate test migrate cleanup.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) testMigrateCleanup(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, testMigrateCleanupInput TestMigrateCleanupInput, options *ReplicationMigrationItemsClientBeginTestMigrateCleanupOptions) (*http.Response, error) {
 	req, err := client.testMigrateCleanupCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, testMigrateCleanupInput, options)
@@ -912,13 +931,14 @@ func (client *ReplicationMigrationItemsClient) testMigrateCleanupCreateRequest(c
 
 // BeginUpdate - The operation to update the recovery settings of an ASR migration item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// input - Update migration item input.
-// options - ReplicationMigrationItemsClientBeginUpdateOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginUpdate
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - input - Update migration item input.
+//   - options - ReplicationMigrationItemsClientBeginUpdateOptions contains the optional parameters for the ReplicationMigrationItemsClient.BeginUpdate
+//     method.
 func (client *ReplicationMigrationItemsClient) BeginUpdate(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, input UpdateMigrationItemInput, options *ReplicationMigrationItemsClientBeginUpdateOptions) (*runtime.Poller[ReplicationMigrationItemsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, fabricName, protectionContainerName, migrationItemName, input, options)
@@ -933,6 +953,7 @@ func (client *ReplicationMigrationItemsClient) BeginUpdate(ctx context.Context, 
 
 // Update - The operation to update the recovery settings of an ASR migration item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationMigrationItemsClient) update(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, input UpdateMigrationItemInput, options *ReplicationMigrationItemsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, input, options)

@@ -34,11 +34,11 @@ type TargetComputeSizesClient struct {
 }
 
 // NewTargetComputeSizesClient creates a new instance of TargetComputeSizesClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTargetComputeSizesClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TargetComputeSizesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -62,12 +62,13 @@ func NewTargetComputeSizesClient(resourceName string, resourceGroupName string, 
 }
 
 // NewListByReplicationProtectedItemsPager - Lists the available target compute sizes for a replication protected item.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - protection container name.
-// replicatedProtectedItemName - Replication protected item name.
-// options - TargetComputeSizesClientListByReplicationProtectedItemsOptions contains the optional parameters for the TargetComputeSizesClient.ListByReplicationProtectedItems
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - protection container name.
+//   - replicatedProtectedItemName - Replication protected item name.
+//   - options - TargetComputeSizesClientListByReplicationProtectedItemsOptions contains the optional parameters for the TargetComputeSizesClient.NewListByReplicationProtectedItemsPager
+//     method.
 func (client *TargetComputeSizesClient) NewListByReplicationProtectedItemsPager(fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *TargetComputeSizesClientListByReplicationProtectedItemsOptions) *runtime.Pager[TargetComputeSizesClientListByReplicationProtectedItemsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TargetComputeSizesClientListByReplicationProtectedItemsResponse]{
 		More: func(page TargetComputeSizesClientListByReplicationProtectedItemsResponse) bool {
