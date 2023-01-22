@@ -32,9 +32,9 @@ type BotConnectionClient struct {
 }
 
 // NewBotConnectionClient creates a new instance of BotConnectionClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBotConnectionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BotConnectionClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewBotConnectionClient(subscriptionID string, credential azcore.TokenCreden
 
 // Create - Register a new Auth Connection for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// connectionName - The name of the Bot Service Connection Setting resource.
-// parameters - The parameters to provide for creating the Connection Setting.
-// options - BotConnectionClientCreateOptions contains the optional parameters for the BotConnectionClient.Create method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - connectionName - The name of the Bot Service Connection Setting resource.
+//   - parameters - The parameters to provide for creating the Connection Setting.
+//   - options - BotConnectionClientCreateOptions contains the optional parameters for the BotConnectionClient.Create method.
 func (client *BotConnectionClient) Create(ctx context.Context, resourceGroupName string, resourceName string, connectionName string, parameters ConnectionSetting, options *BotConnectionClientCreateOptions) (BotConnectionClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, resourceName, connectionName, parameters, options)
 	if err != nil {
@@ -119,11 +120,12 @@ func (client *BotConnectionClient) createHandleResponse(resp *http.Response) (Bo
 
 // Delete - Deletes a Connection Setting registration for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// connectionName - The name of the Bot Service Connection Setting resource.
-// options - BotConnectionClientDeleteOptions contains the optional parameters for the BotConnectionClient.Delete method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - connectionName - The name of the Bot Service Connection Setting resource.
+//   - options - BotConnectionClientDeleteOptions contains the optional parameters for the BotConnectionClient.Delete method.
 func (client *BotConnectionClient) Delete(ctx context.Context, resourceGroupName string, resourceName string, connectionName string, options *BotConnectionClientDeleteOptions) (BotConnectionClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, connectionName, options)
 	if err != nil {
@@ -171,11 +173,12 @@ func (client *BotConnectionClient) deleteCreateRequest(ctx context.Context, reso
 
 // Get - Get a Connection Setting registration for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// connectionName - The name of the Bot Service Connection Setting resource.
-// options - BotConnectionClientGetOptions contains the optional parameters for the BotConnectionClient.Get method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - connectionName - The name of the Bot Service Connection Setting resource.
+//   - options - BotConnectionClientGetOptions contains the optional parameters for the BotConnectionClient.Get method.
 func (client *BotConnectionClient) Get(ctx context.Context, resourceGroupName string, resourceName string, connectionName string, options *BotConnectionClientGetOptions) (BotConnectionClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, connectionName, options)
 	if err != nil {
@@ -231,11 +234,12 @@ func (client *BotConnectionClient) getHandleResponse(resp *http.Response) (BotCo
 }
 
 // NewListByBotServicePager - Returns all the Connection Settings registered to a particular BotService resource
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// options - BotConnectionClientListByBotServiceOptions contains the optional parameters for the BotConnectionClient.ListByBotService
-// method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - options - BotConnectionClientListByBotServiceOptions contains the optional parameters for the BotConnectionClient.NewListByBotServicePager
+//     method.
 func (client *BotConnectionClient) NewListByBotServicePager(resourceGroupName string, resourceName string, options *BotConnectionClientListByBotServiceOptions) *runtime.Pager[BotConnectionClientListByBotServiceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BotConnectionClientListByBotServiceResponse]{
 		More: func(page BotConnectionClientListByBotServiceResponse) bool {
@@ -301,9 +305,10 @@ func (client *BotConnectionClient) listByBotServiceHandleResponse(resp *http.Res
 
 // ListServiceProviders - Lists the available Service Providers for creating Connection Settings
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// options - BotConnectionClientListServiceProvidersOptions contains the optional parameters for the BotConnectionClient.ListServiceProviders
-// method.
+//   - options - BotConnectionClientListServiceProvidersOptions contains the optional parameters for the BotConnectionClient.ListServiceProviders
+//     method.
 func (client *BotConnectionClient) ListServiceProviders(ctx context.Context, options *BotConnectionClientListServiceProvidersOptions) (BotConnectionClientListServiceProvidersResponse, error) {
 	req, err := client.listServiceProvidersCreateRequest(ctx, options)
 	if err != nil {
@@ -348,12 +353,13 @@ func (client *BotConnectionClient) listServiceProvidersHandleResponse(resp *http
 
 // ListWithSecrets - Get a Connection Setting registration for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// connectionName - The name of the Bot Service Connection Setting resource.
-// options - BotConnectionClientListWithSecretsOptions contains the optional parameters for the BotConnectionClient.ListWithSecrets
-// method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - connectionName - The name of the Bot Service Connection Setting resource.
+//   - options - BotConnectionClientListWithSecretsOptions contains the optional parameters for the BotConnectionClient.ListWithSecrets
+//     method.
 func (client *BotConnectionClient) ListWithSecrets(ctx context.Context, resourceGroupName string, resourceName string, connectionName string, options *BotConnectionClientListWithSecretsOptions) (BotConnectionClientListWithSecretsResponse, error) {
 	req, err := client.listWithSecretsCreateRequest(ctx, resourceGroupName, resourceName, connectionName, options)
 	if err != nil {
@@ -410,12 +416,13 @@ func (client *BotConnectionClient) listWithSecretsHandleResponse(resp *http.Resp
 
 // Update - Updates a Connection Setting registration for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// connectionName - The name of the Bot Service Connection Setting resource.
-// parameters - The parameters to provide for updating the Connection Setting.
-// options - BotConnectionClientUpdateOptions contains the optional parameters for the BotConnectionClient.Update method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - connectionName - The name of the Bot Service Connection Setting resource.
+//   - parameters - The parameters to provide for updating the Connection Setting.
+//   - options - BotConnectionClientUpdateOptions contains the optional parameters for the BotConnectionClient.Update method.
 func (client *BotConnectionClient) Update(ctx context.Context, resourceGroupName string, resourceName string, connectionName string, parameters ConnectionSetting, options *BotConnectionClientUpdateOptions) (BotConnectionClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, resourceName, connectionName, parameters, options)
 	if err != nil {

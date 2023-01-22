@@ -32,9 +32,9 @@ type PrivateLinkResourcesClient struct {
 }
 
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateLinkResourcesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 
 // ListByBotResource - Gets the private link resources that need to be created for a Bot.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// options - PrivateLinkResourcesClientListByBotResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByBotResource
-// method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - options - PrivateLinkResourcesClientListByBotResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByBotResource
+//     method.
 func (client *PrivateLinkResourcesClient) ListByBotResource(ctx context.Context, resourceGroupName string, resourceName string, options *PrivateLinkResourcesClientListByBotResourceOptions) (PrivateLinkResourcesClientListByBotResourceResponse, error) {
 	req, err := client.listByBotResourceCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {

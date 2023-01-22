@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2023-01-22)
+### Breaking Changes
+
+- Type of `OperationEntity.Properties` has been changed from `interface{}` to `any`
+
+
 ## 1.0.0 (2023-01-13)
 ### Breaking Changes
 

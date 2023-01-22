@@ -32,9 +32,9 @@ type EmailClient struct {
 }
 
 // NewEmailClient creates a new instance of EmailClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewEmailClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EmailClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewEmailClient(subscriptionID string, credential azcore.TokenCredential, op
 
 // CreateSignInURL - Creates an email channel sign in url for a Bot Service
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// options - EmailClientCreateSignInURLOptions contains the optional parameters for the EmailClient.CreateSignInURL method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - options - EmailClientCreateSignInURLOptions contains the optional parameters for the EmailClient.CreateSignInURL method.
 func (client *EmailClient) CreateSignInURL(ctx context.Context, resourceGroupName string, resourceName string, options *EmailClientCreateSignInURLOptions) (EmailClientCreateSignInURLResponse, error) {
 	req, err := client.createSignInURLCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {

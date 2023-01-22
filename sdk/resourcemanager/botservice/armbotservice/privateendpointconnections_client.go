@@ -32,9 +32,9 @@ type PrivateEndpointConnectionsClient struct {
 }
 
 // NewPrivateEndpointConnectionsClient creates a new instance of PrivateEndpointConnectionsClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateEndpointConnectionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 
 // Create - Update the state of specified private endpoint connection associated with the Bot.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
-// properties - The private endpoint connection properties.
-// options - PrivateEndpointConnectionsClientCreateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Create
-// method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
+//   - properties - The private endpoint connection properties.
+//   - options - PrivateEndpointConnectionsClientCreateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Create
+//     method.
 func (client *PrivateEndpointConnectionsClient) Create(ctx context.Context, resourceGroupName string, resourceName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, options *PrivateEndpointConnectionsClientCreateOptions) (PrivateEndpointConnectionsClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, resourceName, privateEndpointConnectionName, properties, options)
 	if err != nil {
@@ -120,12 +121,13 @@ func (client *PrivateEndpointConnectionsClient) createHandleResponse(resp *http.
 
 // Delete - Deletes the specified private endpoint connection associated with the Bot.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
-// options - PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
-// method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
+//   - options - PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
+//     method.
 func (client *PrivateEndpointConnectionsClient) Delete(ctx context.Context, resourceGroupName string, resourceName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientDeleteOptions) (PrivateEndpointConnectionsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, privateEndpointConnectionName, options)
 	if err != nil {
@@ -173,12 +175,13 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 
 // Get - Gets the specified private endpoint connection associated with the Bot.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
-// options - PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
-// method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
+//   - options - PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
+//     method.
 func (client *PrivateEndpointConnectionsClient) Get(ctx context.Context, resourceGroupName string, resourceName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientGetOptions) (PrivateEndpointConnectionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, privateEndpointConnectionName, options)
 	if err != nil {
@@ -234,11 +237,12 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 }
 
 // NewListPager - List all the private endpoint connections associated with the Bot.
+//
 // Generated from API version 2022-09-15
-// resourceGroupName - The name of the Bot resource group in the user subscription.
-// resourceName - The name of the Bot resource.
-// options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
-// method.
+//   - resourceGroupName - The name of the Bot resource group in the user subscription.
+//   - resourceName - The name of the Bot resource.
+//   - options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
+//     method.
 func (client *PrivateEndpointConnectionsClient) NewListPager(resourceGroupName string, resourceName string, options *PrivateEndpointConnectionsClientListOptions) *runtime.Pager[PrivateEndpointConnectionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PrivateEndpointConnectionsClientListResponse]{
 		More: func(page PrivateEndpointConnectionsClientListResponse) bool {

@@ -32,9 +32,9 @@ type QnAMakerEndpointKeysClient struct {
 }
 
 // NewQnAMakerEndpointKeysClient creates a new instance of QnAMakerEndpointKeysClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewQnAMakerEndpointKeysClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*QnAMakerEndpointKeysClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewQnAMakerEndpointKeysClient(subscriptionID string, credential azcore.Toke
 
 // Get - Lists the QnA Maker endpoint keys
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// parameters - The request body parameters to provide for the check name availability request
-// options - QnAMakerEndpointKeysClientGetOptions contains the optional parameters for the QnAMakerEndpointKeysClient.Get
-// method.
+//   - parameters - The request body parameters to provide for the check name availability request
+//   - options - QnAMakerEndpointKeysClientGetOptions contains the optional parameters for the QnAMakerEndpointKeysClient.Get
+//     method.
 func (client *QnAMakerEndpointKeysClient) Get(ctx context.Context, parameters QnAMakerEndpointKeysRequestBody, options *QnAMakerEndpointKeysClientGetOptions) (QnAMakerEndpointKeysClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, parameters, options)
 	if err != nil {

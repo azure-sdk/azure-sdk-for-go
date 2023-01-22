@@ -32,9 +32,9 @@ type HostSettingsClient struct {
 }
 
 // NewHostSettingsClient creates a new instance of HostSettingsClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewHostSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*HostSettingsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,8 +57,9 @@ func NewHostSettingsClient(subscriptionID string, credential azcore.TokenCredent
 
 // Get - Get per subscription settings needed to host bot in compute resource such as Azure App Service
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// options - HostSettingsClientGetOptions contains the optional parameters for the HostSettingsClient.Get method.
+//   - options - HostSettingsClientGetOptions contains the optional parameters for the HostSettingsClient.Get method.
 func (client *HostSettingsClient) Get(ctx context.Context, options *HostSettingsClientGetOptions) (HostSettingsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, options)
 	if err != nil {

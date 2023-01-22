@@ -32,9 +32,9 @@ type OperationResultsClient struct {
 }
 
 // NewOperationResultsClient creates a new instance of OperationResultsClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewOperationResultsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OperationResultsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewOperationResultsClient(subscriptionID string, credential azcore.TokenCre
 
 // BeginGet - Get the operation result for a long running operation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
-// operationResultID - The ID of the operation result to get.
-// options - OperationResultsClientBeginGetOptions contains the optional parameters for the OperationResultsClient.BeginGet
-// method.
+//   - operationResultID - The ID of the operation result to get.
+//   - options - OperationResultsClientBeginGetOptions contains the optional parameters for the OperationResultsClient.BeginGet
+//     method.
 func (client *OperationResultsClient) BeginGet(ctx context.Context, operationResultID string, options *OperationResultsClientBeginGetOptions) (*runtime.Poller[OperationResultsClientGetResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.get(ctx, operationResultID, options)
@@ -75,6 +76,7 @@ func (client *OperationResultsClient) BeginGet(ctx context.Context, operationRes
 
 // Get - Get the operation result for a long running operation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-15
 func (client *OperationResultsClient) get(ctx context.Context, operationResultID string, options *OperationResultsClientBeginGetOptions) (*http.Response, error) {
 	req, err := client.getCreateRequest(ctx, operationResultID, options)
