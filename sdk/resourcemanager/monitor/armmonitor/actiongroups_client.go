@@ -32,9 +32,9 @@ type ActionGroupsClient struct {
 }
 
 // NewActionGroupsClient creates a new instance of ActionGroupsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewActionGroupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ActionGroupsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewActionGroupsClient(subscriptionID string, credential azcore.TokenCredent
 
 // BeginCreateNotificationsAtActionGroupResourceLevel - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// actionGroupName - The name of the action group.
-// notificationRequest - The notification request body which includes the contact details
-// options - ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions contains the optional parameters
-// for the ActionGroupsClient.BeginCreateNotificationsAtActionGroupResourceLevel method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - notificationRequest - The notification request body which includes the contact details
+//   - options - ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions contains the optional parameters
+//     for the ActionGroupsClient.BeginCreateNotificationsAtActionGroupResourceLevel method.
 func (client *ActionGroupsClient) BeginCreateNotificationsAtActionGroupResourceLevel(ctx context.Context, resourceGroupName string, actionGroupName string, notificationRequest NotificationRequestBody, options *ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions) (*runtime.Poller[ActionGroupsClientCreateNotificationsAtActionGroupResourceLevelResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createNotificationsAtActionGroupResourceLevel(ctx, resourceGroupName, actionGroupName, notificationRequest, options)
@@ -79,6 +80,7 @@ func (client *ActionGroupsClient) BeginCreateNotificationsAtActionGroupResourceL
 
 // CreateNotificationsAtActionGroupResourceLevel - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
 func (client *ActionGroupsClient) createNotificationsAtActionGroupResourceLevel(ctx context.Context, resourceGroupName string, actionGroupName string, notificationRequest NotificationRequestBody, options *ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions) (*http.Response, error) {
 	req, err := client.createNotificationsAtActionGroupResourceLevelCreateRequest(ctx, resourceGroupName, actionGroupName, notificationRequest, options)
@@ -123,11 +125,12 @@ func (client *ActionGroupsClient) createNotificationsAtActionGroupResourceLevelC
 
 // BeginCreateNotificationsAtResourceGroupLevel - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// notificationRequest - The notification request body which includes the contact details
-// options - ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions contains the optional parameters for the
-// ActionGroupsClient.BeginCreateNotificationsAtResourceGroupLevel method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - notificationRequest - The notification request body which includes the contact details
+//   - options - ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions contains the optional parameters for the
+//     ActionGroupsClient.BeginCreateNotificationsAtResourceGroupLevel method.
 func (client *ActionGroupsClient) BeginCreateNotificationsAtResourceGroupLevel(ctx context.Context, resourceGroupName string, notificationRequest NotificationRequestBody, options *ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions) (*runtime.Poller[ActionGroupsClientCreateNotificationsAtResourceGroupLevelResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createNotificationsAtResourceGroupLevel(ctx, resourceGroupName, notificationRequest, options)
@@ -144,6 +147,7 @@ func (client *ActionGroupsClient) BeginCreateNotificationsAtResourceGroupLevel(c
 
 // CreateNotificationsAtResourceGroupLevel - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
 func (client *ActionGroupsClient) createNotificationsAtResourceGroupLevel(ctx context.Context, resourceGroupName string, notificationRequest NotificationRequestBody, options *ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions) (*http.Response, error) {
 	req, err := client.createNotificationsAtResourceGroupLevelCreateRequest(ctx, resourceGroupName, notificationRequest, options)
@@ -184,12 +188,13 @@ func (client *ActionGroupsClient) createNotificationsAtResourceGroupLevelCreateR
 
 // CreateOrUpdate - Create a new action group or update an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// actionGroupName - The name of the action group.
-// actionGroup - The action group to create or use for the update.
-// options - ActionGroupsClientCreateOrUpdateOptions contains the optional parameters for the ActionGroupsClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - actionGroup - The action group to create or use for the update.
+//   - options - ActionGroupsClientCreateOrUpdateOptions contains the optional parameters for the ActionGroupsClient.CreateOrUpdate
+//     method.
 func (client *ActionGroupsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, actionGroupName string, actionGroup ActionGroupResource, options *ActionGroupsClientCreateOrUpdateOptions) (ActionGroupsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, actionGroupName, actionGroup, options)
 	if err != nil {
@@ -242,10 +247,11 @@ func (client *ActionGroupsClient) createOrUpdateHandleResponse(resp *http.Respon
 
 // Delete - Delete an action group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// actionGroupName - The name of the action group.
-// options - ActionGroupsClientDeleteOptions contains the optional parameters for the ActionGroupsClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - options - ActionGroupsClientDeleteOptions contains the optional parameters for the ActionGroupsClient.Delete method.
 func (client *ActionGroupsClient) Delete(ctx context.Context, resourceGroupName string, actionGroupName string, options *ActionGroupsClientDeleteOptions) (ActionGroupsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, actionGroupName, options)
 	if err != nil {
@@ -290,12 +296,13 @@ func (client *ActionGroupsClient) deleteCreateRequest(ctx context.Context, resou
 // EnableReceiver - Enable a receiver in an action group. This changes the receiver's status from Disabled to Enabled. This
 // operation is only supported for Email or SMS receivers.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// actionGroupName - The name of the action group.
-// enableRequest - The receiver to re-enable.
-// options - ActionGroupsClientEnableReceiverOptions contains the optional parameters for the ActionGroupsClient.EnableReceiver
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - enableRequest - The receiver to re-enable.
+//   - options - ActionGroupsClientEnableReceiverOptions contains the optional parameters for the ActionGroupsClient.EnableReceiver
+//     method.
 func (client *ActionGroupsClient) EnableReceiver(ctx context.Context, resourceGroupName string, actionGroupName string, enableRequest EnableRequest, options *ActionGroupsClientEnableReceiverOptions) (ActionGroupsClientEnableReceiverResponse, error) {
 	req, err := client.enableReceiverCreateRequest(ctx, resourceGroupName, actionGroupName, enableRequest, options)
 	if err != nil {
@@ -339,10 +346,11 @@ func (client *ActionGroupsClient) enableReceiverCreateRequest(ctx context.Contex
 
 // Get - Get an action group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// actionGroupName - The name of the action group.
-// options - ActionGroupsClientGetOptions contains the optional parameters for the ActionGroupsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - options - ActionGroupsClientGetOptions contains the optional parameters for the ActionGroupsClient.Get method.
 func (client *ActionGroupsClient) Get(ctx context.Context, resourceGroupName string, actionGroupName string, options *ActionGroupsClientGetOptions) (ActionGroupsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, actionGroupName, options)
 	if err != nil {
@@ -395,10 +403,11 @@ func (client *ActionGroupsClient) getHandleResponse(resp *http.Response) (Action
 
 // GetTestNotifications - Get the test notifications by the notification id
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// notificationID - The notification id
-// options - ActionGroupsClientGetTestNotificationsOptions contains the optional parameters for the ActionGroupsClient.GetTestNotifications
-// method.
+//   - notificationID - The notification id
+//   - options - ActionGroupsClientGetTestNotificationsOptions contains the optional parameters for the ActionGroupsClient.GetTestNotifications
+//     method.
 func (client *ActionGroupsClient) GetTestNotifications(ctx context.Context, notificationID string, options *ActionGroupsClientGetTestNotificationsOptions) (ActionGroupsClientGetTestNotificationsResponse, error) {
 	req, err := client.getTestNotificationsCreateRequest(ctx, notificationID, options)
 	if err != nil {
@@ -447,12 +456,13 @@ func (client *ActionGroupsClient) getTestNotificationsHandleResponse(resp *http.
 
 // GetTestNotificationsAtActionGroupResourceLevel - Get the test notifications by the notification id
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// actionGroupName - The name of the action group.
-// notificationID - The notification id
-// options - ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions contains the optional parameters for
-// the ActionGroupsClient.GetTestNotificationsAtActionGroupResourceLevel method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - notificationID - The notification id
+//   - options - ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions contains the optional parameters for
+//     the ActionGroupsClient.GetTestNotificationsAtActionGroupResourceLevel method.
 func (client *ActionGroupsClient) GetTestNotificationsAtActionGroupResourceLevel(ctx context.Context, resourceGroupName string, actionGroupName string, notificationID string, options *ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions) (ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelResponse, error) {
 	req, err := client.getTestNotificationsAtActionGroupResourceLevelCreateRequest(ctx, resourceGroupName, actionGroupName, notificationID, options)
 	if err != nil {
@@ -509,11 +519,12 @@ func (client *ActionGroupsClient) getTestNotificationsAtActionGroupResourceLevel
 
 // GetTestNotificationsAtResourceGroupLevel - Get the test notifications by the notification id
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// notificationID - The notification id
-// options - ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions contains the optional parameters for the ActionGroupsClient.GetTestNotificationsAtResourceGroupLevel
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - notificationID - The notification id
+//   - options - ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions contains the optional parameters for the ActionGroupsClient.GetTestNotificationsAtResourceGroupLevel
+//     method.
 func (client *ActionGroupsClient) GetTestNotificationsAtResourceGroupLevel(ctx context.Context, resourceGroupName string, notificationID string, options *ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions) (ActionGroupsClientGetTestNotificationsAtResourceGroupLevelResponse, error) {
 	req, err := client.getTestNotificationsAtResourceGroupLevelCreateRequest(ctx, resourceGroupName, notificationID, options)
 	if err != nil {
@@ -565,10 +576,11 @@ func (client *ActionGroupsClient) getTestNotificationsAtResourceGroupLevelHandle
 }
 
 // NewListByResourceGroupPager - Get a list of all action groups in a resource group.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - ActionGroupsClientListByResourceGroupOptions contains the optional parameters for the ActionGroupsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - ActionGroupsClientListByResourceGroupOptions contains the optional parameters for the ActionGroupsClient.NewListByResourceGroupPager
+//     method.
 func (client *ActionGroupsClient) NewListByResourceGroupPager(resourceGroupName string, options *ActionGroupsClientListByResourceGroupOptions) *runtime.Pager[ActionGroupsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ActionGroupsClientListByResourceGroupResponse]{
 		More: func(page ActionGroupsClientListByResourceGroupResponse) bool {
@@ -623,9 +635,10 @@ func (client *ActionGroupsClient) listByResourceGroupHandleResponse(resp *http.R
 }
 
 // NewListBySubscriptionIDPager - Get a list of all action groups in a subscription.
+//
 // Generated from API version 2022-06-01
-// options - ActionGroupsClientListBySubscriptionIDOptions contains the optional parameters for the ActionGroupsClient.ListBySubscriptionID
-// method.
+//   - options - ActionGroupsClientListBySubscriptionIDOptions contains the optional parameters for the ActionGroupsClient.NewListBySubscriptionIDPager
+//     method.
 func (client *ActionGroupsClient) NewListBySubscriptionIDPager(options *ActionGroupsClientListBySubscriptionIDOptions) *runtime.Pager[ActionGroupsClientListBySubscriptionIDResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ActionGroupsClientListBySubscriptionIDResponse]{
 		More: func(page ActionGroupsClientListBySubscriptionIDResponse) bool {
@@ -677,10 +690,11 @@ func (client *ActionGroupsClient) listBySubscriptionIDHandleResponse(resp *http.
 
 // BeginPostTestNotifications - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// notificationRequest - The notification request body which includes the contact details
-// options - ActionGroupsClientBeginPostTestNotificationsOptions contains the optional parameters for the ActionGroupsClient.BeginPostTestNotifications
-// method.
+//   - notificationRequest - The notification request body which includes the contact details
+//   - options - ActionGroupsClientBeginPostTestNotificationsOptions contains the optional parameters for the ActionGroupsClient.BeginPostTestNotifications
+//     method.
 func (client *ActionGroupsClient) BeginPostTestNotifications(ctx context.Context, notificationRequest NotificationRequestBody, options *ActionGroupsClientBeginPostTestNotificationsOptions) (*runtime.Poller[ActionGroupsClientPostTestNotificationsResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.postTestNotifications(ctx, notificationRequest, options)
@@ -697,6 +711,7 @@ func (client *ActionGroupsClient) BeginPostTestNotifications(ctx context.Context
 
 // PostTestNotifications - Send test notifications to a set of provided receivers
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
 func (client *ActionGroupsClient) postTestNotifications(ctx context.Context, notificationRequest NotificationRequestBody, options *ActionGroupsClientBeginPostTestNotificationsOptions) (*http.Response, error) {
 	req, err := client.postTestNotificationsCreateRequest(ctx, notificationRequest, options)
@@ -733,11 +748,12 @@ func (client *ActionGroupsClient) postTestNotificationsCreateRequest(ctx context
 
 // Update - Updates an existing action group's tags. To update other fields use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// actionGroupName - The name of the action group.
-// actionGroupPatch - Parameters supplied to the operation.
-// options - ActionGroupsClientUpdateOptions contains the optional parameters for the ActionGroupsClient.Update method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - actionGroupName - The name of the action group.
+//   - actionGroupPatch - Parameters supplied to the operation.
+//   - options - ActionGroupsClientUpdateOptions contains the optional parameters for the ActionGroupsClient.Update method.
 func (client *ActionGroupsClient) Update(ctx context.Context, resourceGroupName string, actionGroupName string, actionGroupPatch ActionGroupPatchBody, options *ActionGroupsClientUpdateOptions) (ActionGroupsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, actionGroupName, actionGroupPatch, options)
 	if err != nil {
