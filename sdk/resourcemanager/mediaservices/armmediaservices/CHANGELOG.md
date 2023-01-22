@@ -1,5 +1,11 @@
 # Release History
 
+## 4.0.0 (2023-01-22)
+### Breaking Changes
+
+- Type of `ErrorAdditionalInfo.Info` has been changed from `interface{}` to `any`
+
+
 ## 3.2.0 (2023-01-13)
 ### Features Added
 
