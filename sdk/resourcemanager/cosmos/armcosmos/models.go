@@ -273,19 +273,19 @@ type CassandraClustersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraClustersClientListBackupsOptions contains the optional parameters for the CassandraClustersClient.ListBackups
+// CassandraClustersClientListBackupsOptions contains the optional parameters for the CassandraClustersClient.NewListBackupsPager
 // method.
 type CassandraClustersClientListBackupsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraClustersClientListByResourceGroupOptions contains the optional parameters for the CassandraClustersClient.ListByResourceGroup
+// CassandraClustersClientListByResourceGroupOptions contains the optional parameters for the CassandraClustersClient.NewListByResourceGroupPager
 // method.
 type CassandraClustersClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraClustersClientListBySubscriptionOptions contains the optional parameters for the CassandraClustersClient.ListBySubscription
+// CassandraClustersClientListBySubscriptionOptions contains the optional parameters for the CassandraClustersClient.NewListBySubscriptionPager
 // method.
 type CassandraClustersClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -322,7 +322,8 @@ type CassandraDataCentersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraDataCentersClientListOptions contains the optional parameters for the CassandraDataCentersClient.List method.
+// CassandraDataCentersClientListOptions contains the optional parameters for the CassandraDataCentersClient.NewListPager
+// method.
 type CassandraDataCentersClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -599,19 +600,19 @@ type CassandraResourcesClientGetCassandraViewThroughputOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraResourcesClientListCassandraKeyspacesOptions contains the optional parameters for the CassandraResourcesClient.ListCassandraKeyspaces
+// CassandraResourcesClientListCassandraKeyspacesOptions contains the optional parameters for the CassandraResourcesClient.NewListCassandraKeyspacesPager
 // method.
 type CassandraResourcesClientListCassandraKeyspacesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraResourcesClientListCassandraTablesOptions contains the optional parameters for the CassandraResourcesClient.ListCassandraTables
+// CassandraResourcesClientListCassandraTablesOptions contains the optional parameters for the CassandraResourcesClient.NewListCassandraTablesPager
 // method.
 type CassandraResourcesClientListCassandraTablesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CassandraResourcesClientListCassandraViewsOptions contains the optional parameters for the CassandraResourcesClient.ListCassandraViews
+// CassandraResourcesClientListCassandraViewsOptions contains the optional parameters for the CassandraResourcesClient.NewListCassandraViewsPager
 // method.
 type CassandraResourcesClientListCassandraViewsOptions struct {
 	// placeholder for future optional parameters
@@ -1081,31 +1082,31 @@ type ClusterResourceProperties struct {
 	SeedNodes []*SeedNode `json:"seedNodes,omitempty" azure:"ro"`
 }
 
-// CollectionClientListMetricDefinitionsOptions contains the optional parameters for the CollectionClient.ListMetricDefinitions
+// CollectionClientListMetricDefinitionsOptions contains the optional parameters for the CollectionClient.NewListMetricDefinitionsPager
 // method.
 type CollectionClientListMetricDefinitionsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CollectionClientListMetricsOptions contains the optional parameters for the CollectionClient.ListMetrics method.
+// CollectionClientListMetricsOptions contains the optional parameters for the CollectionClient.NewListMetricsPager method.
 type CollectionClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CollectionClientListUsagesOptions contains the optional parameters for the CollectionClient.ListUsages method.
+// CollectionClientListUsagesOptions contains the optional parameters for the CollectionClient.NewListUsagesPager method.
 type CollectionClientListUsagesOptions struct {
 	// An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of
 	// the metric, can have an or of multiple names).
 	Filter *string
 }
 
-// CollectionPartitionClientListMetricsOptions contains the optional parameters for the CollectionPartitionClient.ListMetrics
+// CollectionPartitionClientListMetricsOptions contains the optional parameters for the CollectionPartitionClient.NewListMetricsPager
 // method.
 type CollectionPartitionClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CollectionPartitionClientListUsagesOptions contains the optional parameters for the CollectionPartitionClient.ListUsages
+// CollectionPartitionClientListUsagesOptions contains the optional parameters for the CollectionPartitionClient.NewListUsagesPager
 // method.
 type CollectionPartitionClientListUsagesOptions struct {
 	// An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of
@@ -1113,13 +1114,14 @@ type CollectionPartitionClientListUsagesOptions struct {
 	Filter *string
 }
 
-// CollectionPartitionRegionClientListMetricsOptions contains the optional parameters for the CollectionPartitionRegionClient.ListMetrics
+// CollectionPartitionRegionClientListMetricsOptions contains the optional parameters for the CollectionPartitionRegionClient.NewListMetricsPager
 // method.
 type CollectionPartitionRegionClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CollectionRegionClientListMetricsOptions contains the optional parameters for the CollectionRegionClient.ListMetrics method.
+// CollectionRegionClientListMetricsOptions contains the optional parameters for the CollectionRegionClient.NewListMetricsPager
+// method.
 type CollectionRegionClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1435,7 +1437,8 @@ type DataCenterResourceProperties struct {
 // DataTransferDataSourceSinkClassification provides polymorphic access to related types.
 // Call the interface's GetDataTransferDataSourceSink() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
-// - *AzureBlobDataTransferDataSourceSink, *CassandraDataTransferDataSourceSink, *DataTransferDataSourceSink, *SQLDataTransferDataSourceSink
+// - *AzureBlobDataTransferDataSourceSink, *CassandraDataTransferDataSourceSink, *DataTransferDataSourceSink, *MongoDataTransferDataSourceSink,
+// - *SQLDataTransferDataSourceSink
 type DataTransferDataSourceSinkClassification interface {
 	// GetDataTransferDataSourceSink returns the DataTransferDataSourceSink content of the underlying type.
 	GetDataTransferDataSourceSink() *DataTransferDataSourceSink
@@ -1521,7 +1524,7 @@ type DataTransferJobsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataTransferJobsClientListByDatabaseAccountOptions contains the optional parameters for the DataTransferJobsClient.ListByDatabaseAccount
+// DataTransferJobsClientListByDatabaseAccountOptions contains the optional parameters for the DataTransferJobsClient.NewListByDatabaseAccountPager
 // method.
 type DataTransferJobsClientListByDatabaseAccountOptions struct {
 	// placeholder for future optional parameters
@@ -1561,7 +1564,7 @@ type DataTransferServiceResourceProperties struct {
 	ServiceType *ServiceType `json:"serviceType,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// Instance count for the service.
 	InstanceCount *int32 `json:"instanceCount,omitempty"`
@@ -1944,7 +1947,7 @@ type DatabaseAccountRegenerateKeyParameters struct {
 	KeyKind *KeyKind `json:"keyKind,omitempty"`
 }
 
-// DatabaseAccountRegionClientListMetricsOptions contains the optional parameters for the DatabaseAccountRegionClient.ListMetrics
+// DatabaseAccountRegionClientListMetricsOptions contains the optional parameters for the DatabaseAccountRegionClient.NewListMetricsPager
 // method.
 type DatabaseAccountRegionClientListMetricsOptions struct {
 	// placeholder for future optional parameters
@@ -2125,7 +2128,7 @@ type DatabaseAccountsClientGetReadOnlyKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatabaseAccountsClientListByResourceGroupOptions contains the optional parameters for the DatabaseAccountsClient.ListByResourceGroup
+// DatabaseAccountsClientListByResourceGroupOptions contains the optional parameters for the DatabaseAccountsClient.NewListByResourceGroupPager
 // method.
 type DatabaseAccountsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
@@ -2142,18 +2145,19 @@ type DatabaseAccountsClientListKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatabaseAccountsClientListMetricDefinitionsOptions contains the optional parameters for the DatabaseAccountsClient.ListMetricDefinitions
+// DatabaseAccountsClientListMetricDefinitionsOptions contains the optional parameters for the DatabaseAccountsClient.NewListMetricDefinitionsPager
 // method.
 type DatabaseAccountsClientListMetricDefinitionsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatabaseAccountsClientListMetricsOptions contains the optional parameters for the DatabaseAccountsClient.ListMetrics method.
+// DatabaseAccountsClientListMetricsOptions contains the optional parameters for the DatabaseAccountsClient.NewListMetricsPager
+// method.
 type DatabaseAccountsClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatabaseAccountsClientListOptions contains the optional parameters for the DatabaseAccountsClient.List method.
+// DatabaseAccountsClientListOptions contains the optional parameters for the DatabaseAccountsClient.NewListPager method.
 type DatabaseAccountsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2164,7 +2168,8 @@ type DatabaseAccountsClientListReadOnlyKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatabaseAccountsClientListUsagesOptions contains the optional parameters for the DatabaseAccountsClient.ListUsages method.
+// DatabaseAccountsClientListUsagesOptions contains the optional parameters for the DatabaseAccountsClient.NewListUsagesPager
+// method.
 type DatabaseAccountsClientListUsagesOptions struct {
 	// An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of
 	// the metric, can have an or of multiple names).
@@ -2177,18 +2182,18 @@ type DatabaseAccountsListResult struct {
 	Value []*DatabaseAccountGetResults `json:"value,omitempty" azure:"ro"`
 }
 
-// DatabaseClientListMetricDefinitionsOptions contains the optional parameters for the DatabaseClient.ListMetricDefinitions
+// DatabaseClientListMetricDefinitionsOptions contains the optional parameters for the DatabaseClient.NewListMetricDefinitionsPager
 // method.
 type DatabaseClientListMetricDefinitionsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatabaseClientListMetricsOptions contains the optional parameters for the DatabaseClient.ListMetrics method.
+// DatabaseClientListMetricsOptions contains the optional parameters for the DatabaseClient.NewListMetricsPager method.
 type DatabaseClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatabaseClientListUsagesOptions contains the optional parameters for the DatabaseClient.ListUsages method.
+// DatabaseClientListUsagesOptions contains the optional parameters for the DatabaseClient.NewListUsagesPager method.
 type DatabaseClientListUsagesOptions struct {
 	// An OData filter expression that describes a subset of usages to return. The supported parameter is name.value (name of
 	// the metric, can have an or of multiple names).
@@ -2284,7 +2289,7 @@ type GraphAPIComputeServiceResourceProperties struct {
 	ServiceType *ServiceType `json:"serviceType,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// GraphAPICompute endpoint for the service.
 	GraphAPIComputeEndpoint *string `json:"graphApiComputeEndpoint,omitempty"`
@@ -2427,7 +2432,8 @@ type GraphResourcesClientGetGraphOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GraphResourcesClientListGraphsOptions contains the optional parameters for the GraphResourcesClient.ListGraphs method.
+// GraphResourcesClientListGraphsOptions contains the optional parameters for the GraphResourcesClient.NewListGraphsPager
+// method.
 type GraphResourcesClientListGraphsOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2798,13 +2804,13 @@ type GremlinResourcesClientGetGremlinGraphThroughputOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GremlinResourcesClientListGremlinDatabasesOptions contains the optional parameters for the GremlinResourcesClient.ListGremlinDatabases
+// GremlinResourcesClientListGremlinDatabasesOptions contains the optional parameters for the GremlinResourcesClient.NewListGremlinDatabasesPager
 // method.
 type GremlinResourcesClientListGremlinDatabasesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GremlinResourcesClientListGremlinGraphsOptions contains the optional parameters for the GremlinResourcesClient.ListGremlinGraphs
+// GremlinResourcesClientListGremlinGraphsOptions contains the optional parameters for the GremlinResourcesClient.NewListGremlinGraphsPager
 // method.
 type GremlinResourcesClientListGremlinGraphsOptions struct {
 	// placeholder for future optional parameters
@@ -2964,7 +2970,7 @@ type LocationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LocationsClientListOptions contains the optional parameters for the LocationsClient.List method.
+// LocationsClientListOptions contains the optional parameters for the LocationsClient.NewListPager method.
 type LocationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3060,7 +3066,7 @@ type MaterializedViewsBuilderServiceResourceProperties struct {
 	ServiceType *ServiceType `json:"serviceType,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// Instance count for the service.
 	InstanceCount *int32 `json:"instanceCount,omitempty"`
@@ -3616,28 +3622,47 @@ type MongoDBResourcesClientGetMongoUserDefinitionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MongoDBResourcesClientListMongoDBCollectionsOptions contains the optional parameters for the MongoDBResourcesClient.ListMongoDBCollections
+// MongoDBResourcesClientListMongoDBCollectionsOptions contains the optional parameters for the MongoDBResourcesClient.NewListMongoDBCollectionsPager
 // method.
 type MongoDBResourcesClientListMongoDBCollectionsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MongoDBResourcesClientListMongoDBDatabasesOptions contains the optional parameters for the MongoDBResourcesClient.ListMongoDBDatabases
+// MongoDBResourcesClientListMongoDBDatabasesOptions contains the optional parameters for the MongoDBResourcesClient.NewListMongoDBDatabasesPager
 // method.
 type MongoDBResourcesClientListMongoDBDatabasesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MongoDBResourcesClientListMongoRoleDefinitionsOptions contains the optional parameters for the MongoDBResourcesClient.ListMongoRoleDefinitions
+// MongoDBResourcesClientListMongoRoleDefinitionsOptions contains the optional parameters for the MongoDBResourcesClient.NewListMongoRoleDefinitionsPager
 // method.
 type MongoDBResourcesClientListMongoRoleDefinitionsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MongoDBResourcesClientListMongoUserDefinitionsOptions contains the optional parameters for the MongoDBResourcesClient.ListMongoUserDefinitions
+// MongoDBResourcesClientListMongoUserDefinitionsOptions contains the optional parameters for the MongoDBResourcesClient.NewListMongoUserDefinitionsPager
 // method.
 type MongoDBResourcesClientListMongoUserDefinitionsOptions struct {
 	// placeholder for future optional parameters
+}
+
+// MongoDataTransferDataSourceSink - A CosmosDB Cassandra API data source/sink
+type MongoDataTransferDataSourceSink struct {
+	// REQUIRED
+	CollectionName *string `json:"collectionName,omitempty"`
+
+	// REQUIRED
+	Component *DataTransferComponent `json:"component,omitempty"`
+
+	// REQUIRED
+	DatabaseName *string `json:"databaseName,omitempty"`
+}
+
+// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type MongoDataTransferDataSourceSink.
+func (m *MongoDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
+	return &DataTransferDataSourceSink{
+		Component: m.Component,
+	}
 }
 
 // MongoIndex - Cosmos DB MongoDB collection index key
@@ -3843,7 +3868,7 @@ type NotebookWorkspacesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// NotebookWorkspacesClientListByDatabaseAccountOptions contains the optional parameters for the NotebookWorkspacesClient.ListByDatabaseAccount
+// NotebookWorkspacesClientListByDatabaseAccountOptions contains the optional parameters for the NotebookWorkspacesClient.NewListByDatabaseAccountPager
 // method.
 type NotebookWorkspacesClientListByDatabaseAccountOptions struct {
 	// placeholder for future optional parameters
@@ -3889,7 +3914,7 @@ type OperationListResult struct {
 	Value []*Operation `json:"value,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3904,13 +3929,13 @@ type OptionsResource struct {
 	Throughput *int32 `json:"throughput,omitempty"`
 }
 
-// PartitionKeyRangeIDClientListMetricsOptions contains the optional parameters for the PartitionKeyRangeIDClient.ListMetrics
+// PartitionKeyRangeIDClientListMetricsOptions contains the optional parameters for the PartitionKeyRangeIDClient.NewListMetricsPager
 // method.
 type PartitionKeyRangeIDClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PartitionKeyRangeIDRegionClientListMetricsOptions contains the optional parameters for the PartitionKeyRangeIDRegionClient.ListMetrics
+// PartitionKeyRangeIDRegionClientListMetricsOptions contains the optional parameters for the PartitionKeyRangeIDRegionClient.NewListMetricsPager
 // method.
 type PartitionKeyRangeIDRegionClientListMetricsOptions struct {
 	// placeholder for future optional parameters
@@ -3979,7 +4004,7 @@ type PartitionUsagesResult struct {
 	Value []*PartitionUsage `json:"value,omitempty" azure:"ro"`
 }
 
-// PercentileClientListMetricsOptions contains the optional parameters for the PercentileClient.ListMetrics method.
+// PercentileClientListMetricsOptions contains the optional parameters for the PercentileClient.NewListMetricsPager method.
 type PercentileClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
@@ -4053,13 +4078,14 @@ type PercentileMetricValue struct {
 	Total *float64 `json:"total,omitempty" azure:"ro"`
 }
 
-// PercentileSourceTargetClientListMetricsOptions contains the optional parameters for the PercentileSourceTargetClient.ListMetrics
+// PercentileSourceTargetClientListMetricsOptions contains the optional parameters for the PercentileSourceTargetClient.NewListMetricsPager
 // method.
 type PercentileSourceTargetClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PercentileTargetClientListMetricsOptions contains the optional parameters for the PercentileTargetClient.ListMetrics method.
+// PercentileTargetClientListMetricsOptions contains the optional parameters for the PercentileTargetClient.NewListMetricsPager
+// method.
 type PercentileTargetClientListMetricsOptions struct {
 	// placeholder for future optional parameters
 }
@@ -4239,7 +4265,7 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListByDatabaseAccountOptions contains the optional parameters for the PrivateEndpointConnectionsClient.ListByDatabaseAccount
+// PrivateEndpointConnectionsClientListByDatabaseAccountOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByDatabaseAccountPager
 // method.
 type PrivateEndpointConnectionsClientListByDatabaseAccountOptions struct {
 	// placeholder for future optional parameters
@@ -4289,7 +4315,7 @@ type PrivateLinkResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResourcesClientListByDatabaseAccountOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByDatabaseAccount
+// PrivateLinkResourcesClientListByDatabaseAccountOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByDatabaseAccountPager
 // method.
 type PrivateLinkResourcesClientListByDatabaseAccountOptions struct {
 	// placeholder for future optional parameters
@@ -4469,13 +4495,13 @@ type RestorableDatabaseAccountsClientGetByLocationOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RestorableDatabaseAccountsClientListByLocationOptions contains the optional parameters for the RestorableDatabaseAccountsClient.ListByLocation
+// RestorableDatabaseAccountsClientListByLocationOptions contains the optional parameters for the RestorableDatabaseAccountsClient.NewListByLocationPager
 // method.
 type RestorableDatabaseAccountsClientListByLocationOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RestorableDatabaseAccountsClientListOptions contains the optional parameters for the RestorableDatabaseAccountsClient.List
+// RestorableDatabaseAccountsClientListOptions contains the optional parameters for the RestorableDatabaseAccountsClient.NewListPager
 // method.
 type RestorableDatabaseAccountsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -4527,7 +4553,7 @@ type RestorableGremlinDatabasePropertiesResource struct {
 	Rid *string `json:"_rid,omitempty" azure:"ro"`
 }
 
-// RestorableGremlinDatabasesClientListOptions contains the optional parameters for the RestorableGremlinDatabasesClient.List
+// RestorableGremlinDatabasesClientListOptions contains the optional parameters for the RestorableGremlinDatabasesClient.NewListPager
 // method.
 type RestorableGremlinDatabasesClientListOptions struct {
 	// placeholder for future optional parameters
@@ -4579,7 +4605,8 @@ type RestorableGremlinGraphPropertiesResource struct {
 	Rid *string `json:"_rid,omitempty" azure:"ro"`
 }
 
-// RestorableGremlinGraphsClientListOptions contains the optional parameters for the RestorableGremlinGraphsClient.List method.
+// RestorableGremlinGraphsClientListOptions contains the optional parameters for the RestorableGremlinGraphsClient.NewListPager
+// method.
 type RestorableGremlinGraphsClientListOptions struct {
 	// Restorable Gremlin graphs event feed end time.
 	EndTime *string
@@ -4595,7 +4622,7 @@ type RestorableGremlinGraphsListResult struct {
 	Value []*RestorableGremlinGraphGetResult `json:"value,omitempty" azure:"ro"`
 }
 
-// RestorableGremlinResourcesClientListOptions contains the optional parameters for the RestorableGremlinResourcesClient.List
+// RestorableGremlinResourcesClientListOptions contains the optional parameters for the RestorableGremlinResourcesClient.NewListPager
 // method.
 type RestorableGremlinResourcesClientListOptions struct {
 	// The location where the restorable resources are located.
@@ -4682,7 +4709,7 @@ type RestorableMongodbCollectionPropertiesResource struct {
 	Rid *string `json:"_rid,omitempty" azure:"ro"`
 }
 
-// RestorableMongodbCollectionsClientListOptions contains the optional parameters for the RestorableMongodbCollectionsClient.List
+// RestorableMongodbCollectionsClientListOptions contains the optional parameters for the RestorableMongodbCollectionsClient.NewListPager
 // method.
 type RestorableMongodbCollectionsClientListOptions struct {
 	// Restorable MongoDB collections event feed end time.
@@ -4739,7 +4766,7 @@ type RestorableMongodbDatabasePropertiesResource struct {
 	Rid *string `json:"_rid,omitempty" azure:"ro"`
 }
 
-// RestorableMongodbDatabasesClientListOptions contains the optional parameters for the RestorableMongodbDatabasesClient.List
+// RestorableMongodbDatabasesClientListOptions contains the optional parameters for the RestorableMongodbDatabasesClient.NewListPager
 // method.
 type RestorableMongodbDatabasesClientListOptions struct {
 	// placeholder for future optional parameters
@@ -4752,7 +4779,7 @@ type RestorableMongodbDatabasesListResult struct {
 	Value []*RestorableMongodbDatabaseGetResult `json:"value,omitempty" azure:"ro"`
 }
 
-// RestorableMongodbResourcesClientListOptions contains the optional parameters for the RestorableMongodbResourcesClient.List
+// RestorableMongodbResourcesClientListOptions contains the optional parameters for the RestorableMongodbResourcesClient.NewListPager
 // method.
 type RestorableMongodbResourcesClientListOptions struct {
 	// The location where the restorable resources are located.
@@ -4873,7 +4900,8 @@ type RestorableSQLContainerPropertiesResourceContainer struct {
 	Ts *float32 `json:"_ts,omitempty" azure:"ro"`
 }
 
-// RestorableSQLContainersClientListOptions contains the optional parameters for the RestorableSQLContainersClient.List method.
+// RestorableSQLContainersClientListOptions contains the optional parameters for the RestorableSQLContainersClient.NewListPager
+// method.
 type RestorableSQLContainersClientListOptions struct {
 	// Restorable Sql containers event feed end time.
 	EndTime *string
@@ -4961,7 +4989,8 @@ type RestorableSQLDatabasePropertiesResourceDatabase struct {
 	Users *string `json:"_users,omitempty" azure:"ro"`
 }
 
-// RestorableSQLDatabasesClientListOptions contains the optional parameters for the RestorableSQLDatabasesClient.List method.
+// RestorableSQLDatabasesClientListOptions contains the optional parameters for the RestorableSQLDatabasesClient.NewListPager
+// method.
 type RestorableSQLDatabasesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -4972,7 +5001,8 @@ type RestorableSQLDatabasesListResult struct {
 	Value []*RestorableSQLDatabaseGetResult `json:"value,omitempty" azure:"ro"`
 }
 
-// RestorableSQLResourcesClientListOptions contains the optional parameters for the RestorableSQLResourcesClient.List method.
+// RestorableSQLResourcesClientListOptions contains the optional parameters for the RestorableSQLResourcesClient.NewListPager
+// method.
 type RestorableSQLResourcesClientListOptions struct {
 	// The location where the restorable resources are located.
 	RestoreLocation *string
@@ -5043,7 +5073,7 @@ type RestorableTablePropertiesResource struct {
 	Rid *string `json:"_rid,omitempty" azure:"ro"`
 }
 
-// RestorableTableResourcesClientListOptions contains the optional parameters for the RestorableTableResourcesClient.List
+// RestorableTableResourcesClientListOptions contains the optional parameters for the RestorableTableResourcesClient.NewListPager
 // method.
 type RestorableTableResourcesClientListOptions struct {
 	// The location where the restorable resources are located.
@@ -5070,7 +5100,7 @@ type RestorableTableResourcesListResult struct {
 	Value []*RestorableTableResourcesGetResult `json:"value,omitempty" azure:"ro"`
 }
 
-// RestorableTablesClientListOptions contains the optional parameters for the RestorableTablesClient.List method.
+// RestorableTablesClientListOptions contains the optional parameters for the RestorableTablesClient.NewListPager method.
 type RestorableTablesClientListOptions struct {
 	// Restorable Tables event feed end time.
 	EndTime *string
@@ -5497,7 +5527,7 @@ type SQLDedicatedGatewayServiceResourceProperties struct {
 	ServiceType *ServiceType `json:"serviceType,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// Instance count for the service.
 	InstanceCount *int32 `json:"instanceCount,omitempty"`
@@ -5776,48 +5806,49 @@ type SQLResourcesClientGetSQLUserDefinedFunctionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLResourcesClientListClientEncryptionKeysOptions contains the optional parameters for the SQLResourcesClient.ListClientEncryptionKeys
+// SQLResourcesClientListClientEncryptionKeysOptions contains the optional parameters for the SQLResourcesClient.NewListClientEncryptionKeysPager
 // method.
 type SQLResourcesClientListClientEncryptionKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLResourcesClientListSQLContainersOptions contains the optional parameters for the SQLResourcesClient.ListSQLContainers
+// SQLResourcesClientListSQLContainersOptions contains the optional parameters for the SQLResourcesClient.NewListSQLContainersPager
 // method.
 type SQLResourcesClientListSQLContainersOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLResourcesClientListSQLDatabasesOptions contains the optional parameters for the SQLResourcesClient.ListSQLDatabases
+// SQLResourcesClientListSQLDatabasesOptions contains the optional parameters for the SQLResourcesClient.NewListSQLDatabasesPager
 // method.
 type SQLResourcesClientListSQLDatabasesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLResourcesClientListSQLRoleAssignmentsOptions contains the optional parameters for the SQLResourcesClient.ListSQLRoleAssignments
+// SQLResourcesClientListSQLRoleAssignmentsOptions contains the optional parameters for the SQLResourcesClient.NewListSQLRoleAssignmentsPager
 // method.
 type SQLResourcesClientListSQLRoleAssignmentsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLResourcesClientListSQLRoleDefinitionsOptions contains the optional parameters for the SQLResourcesClient.ListSQLRoleDefinitions
+// SQLResourcesClientListSQLRoleDefinitionsOptions contains the optional parameters for the SQLResourcesClient.NewListSQLRoleDefinitionsPager
 // method.
 type SQLResourcesClientListSQLRoleDefinitionsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLResourcesClientListSQLStoredProceduresOptions contains the optional parameters for the SQLResourcesClient.ListSQLStoredProcedures
+// SQLResourcesClientListSQLStoredProceduresOptions contains the optional parameters for the SQLResourcesClient.NewListSQLStoredProceduresPager
 // method.
 type SQLResourcesClientListSQLStoredProceduresOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLResourcesClientListSQLTriggersOptions contains the optional parameters for the SQLResourcesClient.ListSQLTriggers method.
+// SQLResourcesClientListSQLTriggersOptions contains the optional parameters for the SQLResourcesClient.NewListSQLTriggersPager
+// method.
 type SQLResourcesClientListSQLTriggersOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLResourcesClientListSQLUserDefinedFunctionsOptions contains the optional parameters for the SQLResourcesClient.ListSQLUserDefinedFunctions
+// SQLResourcesClientListSQLUserDefinedFunctionsOptions contains the optional parameters for the SQLResourcesClient.NewListSQLUserDefinedFunctionsPager
 // method.
 type SQLResourcesClientListSQLUserDefinedFunctionsOptions struct {
 	// placeholder for future optional parameters
@@ -6250,7 +6281,7 @@ type ServiceClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServiceClientListOptions contains the optional parameters for the ServiceClient.List method.
+// ServiceClientListOptions contains the optional parameters for the ServiceClient.NewListPager method.
 type ServiceClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -6310,7 +6341,7 @@ type ServiceResourceProperties struct {
 	ServiceType *ServiceType `json:"serviceType,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// Instance count for the service.
 	InstanceCount *int32 `json:"instanceCount,omitempty"`
@@ -6518,7 +6549,8 @@ type TableResourcesClientGetTableThroughputOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TableResourcesClientListTablesOptions contains the optional parameters for the TableResourcesClient.ListTables method.
+// TableResourcesClientListTablesOptions contains the optional parameters for the TableResourcesClient.NewListTablesPager
+// method.
 type TableResourcesClientListTablesOptions struct {
 	// placeholder for future optional parameters
 }

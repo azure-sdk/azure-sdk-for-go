@@ -32,9 +32,9 @@ type GraphResourcesClient struct {
 }
 
 // NewGraphResourcesClient creates a new instance of GraphResourcesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGraphResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GraphResourcesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewGraphResourcesClient(subscriptionID string, credential azcore.TokenCrede
 
 // BeginCreateUpdateGraph - Create or update an Azure Cosmos DB Graph.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-15-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// accountName - Cosmos DB database account name.
-// graphName - Cosmos DB graph resource name.
-// createUpdateGraphParameters - The parameters to provide for the current graph.
-// options - GraphResourcesClientBeginCreateUpdateGraphOptions contains the optional parameters for the GraphResourcesClient.BeginCreateUpdateGraph
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - accountName - Cosmos DB database account name.
+//   - graphName - Cosmos DB graph resource name.
+//   - createUpdateGraphParameters - The parameters to provide for the current graph.
+//   - options - GraphResourcesClientBeginCreateUpdateGraphOptions contains the optional parameters for the GraphResourcesClient.BeginCreateUpdateGraph
+//     method.
 func (client *GraphResourcesClient) BeginCreateUpdateGraph(ctx context.Context, resourceGroupName string, accountName string, graphName string, createUpdateGraphParameters GraphResourceCreateUpdateParameters, options *GraphResourcesClientBeginCreateUpdateGraphOptions) (*runtime.Poller[GraphResourcesClientCreateUpdateGraphResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createUpdateGraph(ctx, resourceGroupName, accountName, graphName, createUpdateGraphParameters, options)
@@ -78,6 +79,7 @@ func (client *GraphResourcesClient) BeginCreateUpdateGraph(ctx context.Context, 
 
 // CreateUpdateGraph - Create or update an Azure Cosmos DB Graph.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-15-preview
 func (client *GraphResourcesClient) createUpdateGraph(ctx context.Context, resourceGroupName string, accountName string, graphName string, createUpdateGraphParameters GraphResourceCreateUpdateParameters, options *GraphResourcesClientBeginCreateUpdateGraphOptions) (*http.Response, error) {
 	req, err := client.createUpdateGraphCreateRequest(ctx, resourceGroupName, accountName, graphName, createUpdateGraphParameters, options)
@@ -126,12 +128,13 @@ func (client *GraphResourcesClient) createUpdateGraphCreateRequest(ctx context.C
 
 // BeginDeleteGraphResource - Deletes an existing Azure Cosmos DB Graph Resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-15-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// accountName - Cosmos DB database account name.
-// graphName - Cosmos DB graph resource name.
-// options - GraphResourcesClientBeginDeleteGraphResourceOptions contains the optional parameters for the GraphResourcesClient.BeginDeleteGraphResource
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - accountName - Cosmos DB database account name.
+//   - graphName - Cosmos DB graph resource name.
+//   - options - GraphResourcesClientBeginDeleteGraphResourceOptions contains the optional parameters for the GraphResourcesClient.BeginDeleteGraphResource
+//     method.
 func (client *GraphResourcesClient) BeginDeleteGraphResource(ctx context.Context, resourceGroupName string, accountName string, graphName string, options *GraphResourcesClientBeginDeleteGraphResourceOptions) (*runtime.Poller[GraphResourcesClientDeleteGraphResourceResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteGraphResource(ctx, resourceGroupName, accountName, graphName, options)
@@ -146,6 +149,7 @@ func (client *GraphResourcesClient) BeginDeleteGraphResource(ctx context.Context
 
 // DeleteGraphResource - Deletes an existing Azure Cosmos DB Graph Resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-15-preview
 func (client *GraphResourcesClient) deleteGraphResource(ctx context.Context, resourceGroupName string, accountName string, graphName string, options *GraphResourcesClientBeginDeleteGraphResourceOptions) (*http.Response, error) {
 	req, err := client.deleteGraphResourceCreateRequest(ctx, resourceGroupName, accountName, graphName, options)
@@ -193,11 +197,12 @@ func (client *GraphResourcesClient) deleteGraphResourceCreateRequest(ctx context
 
 // GetGraph - Gets the Graph resource under an existing Azure Cosmos DB database account with the provided name.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-15-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// accountName - Cosmos DB database account name.
-// graphName - Cosmos DB graph resource name.
-// options - GraphResourcesClientGetGraphOptions contains the optional parameters for the GraphResourcesClient.GetGraph method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - accountName - Cosmos DB database account name.
+//   - graphName - Cosmos DB graph resource name.
+//   - options - GraphResourcesClientGetGraphOptions contains the optional parameters for the GraphResourcesClient.GetGraph method.
 func (client *GraphResourcesClient) GetGraph(ctx context.Context, resourceGroupName string, accountName string, graphName string, options *GraphResourcesClientGetGraphOptions) (GraphResourcesClientGetGraphResponse, error) {
 	req, err := client.getGraphCreateRequest(ctx, resourceGroupName, accountName, graphName, options)
 	if err != nil {
@@ -253,11 +258,12 @@ func (client *GraphResourcesClient) getGraphHandleResponse(resp *http.Response) 
 }
 
 // NewListGraphsPager - Lists the graphs under an existing Azure Cosmos DB database account.
+//
 // Generated from API version 2022-08-15-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// accountName - Cosmos DB database account name.
-// options - GraphResourcesClientListGraphsOptions contains the optional parameters for the GraphResourcesClient.ListGraphs
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - accountName - Cosmos DB database account name.
+//   - options - GraphResourcesClientListGraphsOptions contains the optional parameters for the GraphResourcesClient.NewListGraphsPager
+//     method.
 func (client *GraphResourcesClient) NewListGraphsPager(resourceGroupName string, accountName string, options *GraphResourcesClientListGraphsOptions) *runtime.Pager[GraphResourcesClientListGraphsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GraphResourcesClientListGraphsResponse]{
 		More: func(page GraphResourcesClientListGraphsResponse) bool {

@@ -15,7 +15,7 @@ func unmarshalBackupPolicyClassification(rawMsg json.RawMessage) (BackupPolicyCl
 	if rawMsg == nil {
 		return nil, nil
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
@@ -35,7 +35,7 @@ func unmarshalDataTransferDataSourceSinkClassification(rawMsg json.RawMessage) (
 	if rawMsg == nil {
 		return nil, nil
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
@@ -45,6 +45,8 @@ func unmarshalDataTransferDataSourceSinkClassification(rawMsg json.RawMessage) (
 		b = &AzureBlobDataTransferDataSourceSink{}
 	case string(DataTransferComponentCosmosDBCassandra):
 		b = &CassandraDataTransferDataSourceSink{}
+	case string(DataTransferComponentCosmosDBMongo):
+		b = &MongoDataTransferDataSourceSink{}
 	case string(DataTransferComponentCosmosDBSQL):
 		b = &SQLDataTransferDataSourceSink{}
 	default:
@@ -57,7 +59,7 @@ func unmarshalServiceResourcePropertiesClassification(rawMsg json.RawMessage) (S
 	if rawMsg == nil {
 		return nil, nil
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}

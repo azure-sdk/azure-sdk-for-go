@@ -1,5 +1,21 @@
 # Release History
 
+## 2.2.0-beta.2 (2023-01-22)
+### Breaking Changes
+
+- Type of `DataTransferServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `GraphAPIComputeServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `MaterializedViewsBuilderServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `SQLDedicatedGatewayServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `ServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+
+### Features Added
+
+- New value `DataTransferComponentCosmosDBMongo` added to type alias `DataTransferComponent`
+- New function `*MongoDataTransferDataSourceSink.GetDataTransferDataSourceSink() *DataTransferDataSourceSink`
+- New struct `MongoDataTransferDataSourceSink`
+
+
 ## 2.2.0-beta.1 (2022-10-09)
 ### Features Added
 
