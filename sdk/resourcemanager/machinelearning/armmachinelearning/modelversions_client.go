@@ -33,9 +33,9 @@ type ModelVersionsClient struct {
 }
 
 // NewModelVersionsClient creates a new instance of ModelVersionsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewModelVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ModelVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,14 +58,15 @@ func NewModelVersionsClient(subscriptionID string, credential azcore.TokenCreden
 
 // CreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// version - Version identifier. This is case-sensitive.
-// body - Version entity to create or update.
-// options - ModelVersionsClientCreateOrUpdateOptions contains the optional parameters for the ModelVersionsClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - body - Version entity to create or update.
+//   - options - ModelVersionsClientCreateOrUpdateOptions contains the optional parameters for the ModelVersionsClient.CreateOrUpdate
+//     method.
 func (client *ModelVersionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body ModelVersion, options *ModelVersionsClientCreateOrUpdateOptions) (ModelVersionsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
 	if err != nil {
@@ -126,12 +127,13 @@ func (client *ModelVersionsClient) createOrUpdateHandleResponse(resp *http.Respo
 
 // Delete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// version - Version identifier. This is case-sensitive.
-// options - ModelVersionsClientDeleteOptions contains the optional parameters for the ModelVersionsClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - options - ModelVersionsClientDeleteOptions contains the optional parameters for the ModelVersionsClient.Delete method.
 func (client *ModelVersionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *ModelVersionsClientDeleteOptions) (ModelVersionsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
@@ -183,12 +185,13 @@ func (client *ModelVersionsClient) deleteCreateRequest(ctx context.Context, reso
 
 // Get - Get version.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// version - Version identifier. This is case-sensitive.
-// options - ModelVersionsClientGetOptions contains the optional parameters for the ModelVersionsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - options - ModelVersionsClientGetOptions contains the optional parameters for the ModelVersionsClient.Get method.
 func (client *ModelVersionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *ModelVersionsClientGetOptions) (ModelVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
@@ -248,11 +251,12 @@ func (client *ModelVersionsClient) getHandleResponse(resp *http.Response) (Model
 }
 
 // NewListPager - List model versions.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Model name. This is case-sensitive.
-// options - ModelVersionsClientListOptions contains the optional parameters for the ModelVersionsClient.List method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Model name. This is case-sensitive.
+//   - options - ModelVersionsClientListOptions contains the optional parameters for the ModelVersionsClient.NewListPager method.
 func (client *ModelVersionsClient) NewListPager(resourceGroupName string, workspaceName string, name string, options *ModelVersionsClientListOptions) *runtime.Pager[ModelVersionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ModelVersionsClientListResponse]{
 		More: func(page ModelVersionsClientListResponse) bool {

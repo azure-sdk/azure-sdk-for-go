@@ -33,9 +33,9 @@ type DatastoresClient struct {
 }
 
 // NewDatastoresClient creates a new instance of DatastoresClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDatastoresClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DatastoresClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewDatastoresClient(subscriptionID string, credential azcore.TokenCredentia
 
 // CreateOrUpdate - Create or update datastore.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Datastore name.
-// body - Datastore entity to create or update.
-// options - DatastoresClientCreateOrUpdateOptions contains the optional parameters for the DatastoresClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Datastore name.
+//   - body - Datastore entity to create or update.
+//   - options - DatastoresClientCreateOrUpdateOptions contains the optional parameters for the DatastoresClient.CreateOrUpdate
+//     method.
 func (client *DatastoresClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, body Datastore, options *DatastoresClientCreateOrUpdateOptions) (DatastoresClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, body, options)
 	if err != nil {
@@ -124,11 +125,12 @@ func (client *DatastoresClient) createOrUpdateHandleResponse(resp *http.Response
 
 // Delete - Delete datastore.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Datastore name.
-// options - DatastoresClientDeleteOptions contains the optional parameters for the DatastoresClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Datastore name.
+//   - options - DatastoresClientDeleteOptions contains the optional parameters for the DatastoresClient.Delete method.
 func (client *DatastoresClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *DatastoresClientDeleteOptions) (DatastoresClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {
@@ -176,11 +178,12 @@ func (client *DatastoresClient) deleteCreateRequest(ctx context.Context, resourc
 
 // Get - Get datastore.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Datastore name.
-// options - DatastoresClientGetOptions contains the optional parameters for the DatastoresClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Datastore name.
+//   - options - DatastoresClientGetOptions contains the optional parameters for the DatastoresClient.Get method.
 func (client *DatastoresClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *DatastoresClientGetOptions) (DatastoresClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {
@@ -236,10 +239,11 @@ func (client *DatastoresClient) getHandleResponse(resp *http.Response) (Datastor
 }
 
 // NewListPager - List datastores.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// options - DatastoresClientListOptions contains the optional parameters for the DatastoresClient.List method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - options - DatastoresClientListOptions contains the optional parameters for the DatastoresClient.NewListPager method.
 func (client *DatastoresClient) NewListPager(resourceGroupName string, workspaceName string, options *DatastoresClientListOptions) *runtime.Pager[DatastoresClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DatastoresClientListResponse]{
 		More: func(page DatastoresClientListResponse) bool {
@@ -326,11 +330,12 @@ func (client *DatastoresClient) listHandleResponse(resp *http.Response) (Datasto
 
 // ListSecrets - Get datastore secrets.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Datastore name.
-// options - DatastoresClientListSecretsOptions contains the optional parameters for the DatastoresClient.ListSecrets method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Datastore name.
+//   - options - DatastoresClientListSecretsOptions contains the optional parameters for the DatastoresClient.ListSecrets method.
 func (client *DatastoresClient) ListSecrets(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *DatastoresClientListSecretsOptions) (DatastoresClientListSecretsResponse, error) {
 	req, err := client.listSecretsCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {

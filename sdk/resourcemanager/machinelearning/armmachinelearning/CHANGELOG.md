@@ -1,5 +1,34 @@
 # Release History
 
+## 4.0.0 (2023-01-23)
+### Breaking Changes
+
+- Type of `AmlComputeProperties.PropertyBag` has been changed from `interface{}` to `any`
+- Type of `ColumnTransformer.Parameters` has been changed from `interface{}` to `any`
+- Type of `CommandJob.Parameters` has been changed from `interface{}` to `any`
+- Type of `ComponentVersionProperties.ComponentSpec` has been changed from `interface{}` to `any`
+- Type of `ComputeInstanceContainer.Services` has been changed from `[]interface{}` to `[]any`
+- Type of `DeploymentResourceConfiguration.Properties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.ContainerRegistry` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.Nsg` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.KeyVault` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.Udr` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.DNSResolution` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.Others` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.ResourceLock` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.ApplicationInsights` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `DiagnoseRequestProperties.StorageAccount` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `EndpointScheduleAction.EndpointInvocationDefinition` has been changed from `interface{}` to `any`
+- Type of `ErrorAdditionalInfo.Info` has been changed from `interface{}` to `any`
+- Type of `JobResourceConfiguration.Properties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `PartialManagedServiceIdentity.UserAssignedIdentities` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `PipelineJob.Jobs` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `PipelineJob.Settings` has been changed from `interface{}` to `any`
+- Type of `ResourceConfiguration.Properties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `StackEnsembleSettings.StackMetaLearnerKWargs` has been changed from `interface{}` to `any`
+- Type of `SweepJob.SearchSpace` has been changed from `interface{}` to `any`
+
+
 ## 3.0.0 (2022-11-01)
 ### Breaking Changes
 

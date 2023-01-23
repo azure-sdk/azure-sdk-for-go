@@ -32,9 +32,9 @@ type JobsClient struct {
 }
 
 // NewJobsClient creates a new instance of JobsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewJobsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewJobsClient(subscriptionID string, credential azcore.TokenCredential, opt
 
 // BeginCancel - Cancels a Job (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// id - The name and identifier for the Job. This is case-sensitive.
-// options - JobsClientBeginCancelOptions contains the optional parameters for the JobsClient.BeginCancel method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - id - The name and identifier for the Job. This is case-sensitive.
+//   - options - JobsClientBeginCancelOptions contains the optional parameters for the JobsClient.BeginCancel method.
 func (client *JobsClient) BeginCancel(ctx context.Context, resourceGroupName string, workspaceName string, id string, options *JobsClientBeginCancelOptions) (*runtime.Poller[JobsClientCancelResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.cancel(ctx, resourceGroupName, workspaceName, id, options)
@@ -78,6 +79,7 @@ func (client *JobsClient) BeginCancel(ctx context.Context, resourceGroupName str
 
 // Cancel - Cancels a Job (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *JobsClient) cancel(ctx context.Context, resourceGroupName string, workspaceName string, id string, options *JobsClientBeginCancelOptions) (*http.Response, error) {
 	req, err := client.cancelCreateRequest(ctx, resourceGroupName, workspaceName, id, options)
@@ -126,12 +128,13 @@ func (client *JobsClient) cancelCreateRequest(ctx context.Context, resourceGroup
 
 // CreateOrUpdate - Creates and executes a Job.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// id - The name and identifier for the Job. This is case-sensitive.
-// body - Job definition object.
-// options - JobsClientCreateOrUpdateOptions contains the optional parameters for the JobsClient.CreateOrUpdate method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - id - The name and identifier for the Job. This is case-sensitive.
+//   - body - Job definition object.
+//   - options - JobsClientCreateOrUpdateOptions contains the optional parameters for the JobsClient.CreateOrUpdate method.
 func (client *JobsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, id string, body JobBase, options *JobsClientCreateOrUpdateOptions) (JobsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, id, body, options)
 	if err != nil {
@@ -188,11 +191,12 @@ func (client *JobsClient) createOrUpdateHandleResponse(resp *http.Response) (Job
 
 // BeginDelete - Deletes a Job (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// id - The name and identifier for the Job. This is case-sensitive.
-// options - JobsClientBeginDeleteOptions contains the optional parameters for the JobsClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - id - The name and identifier for the Job. This is case-sensitive.
+//   - options - JobsClientBeginDeleteOptions contains the optional parameters for the JobsClient.BeginDelete method.
 func (client *JobsClient) BeginDelete(ctx context.Context, resourceGroupName string, workspaceName string, id string, options *JobsClientBeginDeleteOptions) (*runtime.Poller[JobsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, workspaceName, id, options)
@@ -207,6 +211,7 @@ func (client *JobsClient) BeginDelete(ctx context.Context, resourceGroupName str
 
 // Delete - Deletes a Job (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *JobsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, id string, options *JobsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, id, options)
@@ -255,11 +260,12 @@ func (client *JobsClient) deleteCreateRequest(ctx context.Context, resourceGroup
 
 // Get - Gets a Job by name/id.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// id - The name and identifier for the Job. This is case-sensitive.
-// options - JobsClientGetOptions contains the optional parameters for the JobsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - id - The name and identifier for the Job. This is case-sensitive.
+//   - options - JobsClientGetOptions contains the optional parameters for the JobsClient.Get method.
 func (client *JobsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, id string, options *JobsClientGetOptions) (JobsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, id, options)
 	if err != nil {
@@ -315,10 +321,11 @@ func (client *JobsClient) getHandleResponse(resp *http.Response) (JobsClientGetR
 }
 
 // NewListPager - Lists Jobs in the workspace.
+//
 // Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// options - JobsClientListOptions contains the optional parameters for the JobsClient.List method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - options - JobsClientListOptions contains the optional parameters for the JobsClient.NewListPager method.
 func (client *JobsClient) NewListPager(resourceGroupName string, workspaceName string, options *JobsClientListOptions) *runtime.Pager[JobsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[JobsClientListResponse]{
 		More: func(page JobsClientListResponse) bool {

@@ -32,9 +32,9 @@ type QuotasClient struct {
 }
 
 // NewQuotasClient creates a new instance of QuotasClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewQuotasClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*QuotasClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,9 +56,10 @@ func NewQuotasClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListPager - Gets the currently assigned Workspace Quotas based on VMFamily.
+//
 // Generated from API version 2022-10-01
-// location - The location for which resource usage is queried.
-// options - QuotasClientListOptions contains the optional parameters for the QuotasClient.List method.
+//   - location - The location for which resource usage is queried.
+//   - options - QuotasClientListOptions contains the optional parameters for the QuotasClient.NewListPager method.
 func (client *QuotasClient) NewListPager(location string, options *QuotasClientListOptions) *runtime.Pager[QuotasClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[QuotasClientListResponse]{
 		More: func(page QuotasClientListResponse) bool {
@@ -120,10 +121,11 @@ func (client *QuotasClient) listHandleResponse(resp *http.Response) (QuotasClien
 
 // Update - Update quota for each VM family in workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// location - The location for update quota is queried.
-// parameters - Quota update parameters.
-// options - QuotasClientUpdateOptions contains the optional parameters for the QuotasClient.Update method.
+//   - location - The location for update quota is queried.
+//   - parameters - Quota update parameters.
+//   - options - QuotasClientUpdateOptions contains the optional parameters for the QuotasClient.Update method.
 func (client *QuotasClient) Update(ctx context.Context, location string, parameters QuotaUpdateParameters, options *QuotasClientUpdateOptions) (QuotasClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, location, parameters, options)
 	if err != nil {
