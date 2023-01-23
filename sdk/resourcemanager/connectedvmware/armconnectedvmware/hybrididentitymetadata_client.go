@@ -40,9 +40,9 @@ type HybridIdentityMetadataClient struct {
 }
 
 // NewHybridIdentityMetadataClient creates a new instance of HybridIdentityMetadataClient with the specified values.
-// subscriptionID - The Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewHybridIdentityMetadataClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*HybridIdentityMetadataClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,13 +65,14 @@ func NewHybridIdentityMetadataClient(subscriptionID string, credential azcore.To
 
 // Create - Create Or Update HybridIdentityMetadata.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
-// resourceGroupName - The Resource Group Name.
-// virtualMachineName - Name of the vm.
-// metadataName - Name of the hybridIdentityMetadata.
-// body - Request payload.
-// options - HybridIdentityMetadataClientCreateOptions contains the optional parameters for the HybridIdentityMetadataClient.Create
-// method.
+//
+// Generated from API version 2022-07-15-preview
+//   - resourceGroupName - The Resource Group Name.
+//   - virtualMachineName - Name of the vm.
+//   - metadataName - Name of the hybridIdentityMetadata.
+//   - body - Request payload.
+//   - options - HybridIdentityMetadataClientCreateOptions contains the optional parameters for the HybridIdentityMetadataClient.Create
+//     method.
 func (client *HybridIdentityMetadataClient) Create(ctx context.Context, resourceGroupName string, virtualMachineName string, metadataName string, body HybridIdentityMetadata, options *HybridIdentityMetadataClientCreateOptions) (HybridIdentityMetadataClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, virtualMachineName, metadataName, body, options)
 	if err != nil {
@@ -111,7 +112,7 @@ func (client *HybridIdentityMetadataClient) createCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -128,12 +129,13 @@ func (client *HybridIdentityMetadataClient) createHandleResponse(resp *http.Resp
 
 // Delete - Implements HybridIdentityMetadata DELETE method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
-// resourceGroupName - The Resource Group Name.
-// virtualMachineName - Name of the vm.
-// metadataName - Name of the HybridIdentityMetadata.
-// options - HybridIdentityMetadataClientDeleteOptions contains the optional parameters for the HybridIdentityMetadataClient.Delete
-// method.
+//
+// Generated from API version 2022-07-15-preview
+//   - resourceGroupName - The Resource Group Name.
+//   - virtualMachineName - Name of the vm.
+//   - metadataName - Name of the HybridIdentityMetadata.
+//   - options - HybridIdentityMetadataClientDeleteOptions contains the optional parameters for the HybridIdentityMetadataClient.Delete
+//     method.
 func (client *HybridIdentityMetadataClient) Delete(ctx context.Context, resourceGroupName string, virtualMachineName string, metadataName string, options *HybridIdentityMetadataClientDeleteOptions) (HybridIdentityMetadataClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, virtualMachineName, metadataName, options)
 	if err != nil {
@@ -173,7 +175,7 @@ func (client *HybridIdentityMetadataClient) deleteCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,12 +183,13 @@ func (client *HybridIdentityMetadataClient) deleteCreateRequest(ctx context.Cont
 
 // Get - Implements HybridIdentityMetadata GET method.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
-// resourceGroupName - The Resource Group Name.
-// virtualMachineName - Name of the vm.
-// metadataName - Name of the HybridIdentityMetadata.
-// options - HybridIdentityMetadataClientGetOptions contains the optional parameters for the HybridIdentityMetadataClient.Get
-// method.
+//
+// Generated from API version 2022-07-15-preview
+//   - resourceGroupName - The Resource Group Name.
+//   - virtualMachineName - Name of the vm.
+//   - metadataName - Name of the HybridIdentityMetadata.
+//   - options - HybridIdentityMetadataClientGetOptions contains the optional parameters for the HybridIdentityMetadataClient.Get
+//     method.
 func (client *HybridIdentityMetadataClient) Get(ctx context.Context, resourceGroupName string, virtualMachineName string, metadataName string, options *HybridIdentityMetadataClientGetOptions) (HybridIdentityMetadataClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, virtualMachineName, metadataName, options)
 	if err != nil {
@@ -226,7 +229,7 @@ func (client *HybridIdentityMetadataClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -241,43 +244,43 @@ func (client *HybridIdentityMetadataClient) getHandleResponse(resp *http.Respons
 	return result, nil
 }
 
-// NewListByVMPager - Returns the list of HybridIdentityMetadata of the given vm.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-10-preview
-// resourceGroupName - The Resource Group Name.
-// virtualMachineName - Name of the vm.
-// options - HybridIdentityMetadataClientListByVMOptions contains the optional parameters for the HybridIdentityMetadataClient.ListByVM
-// method.
-func (client *HybridIdentityMetadataClient) NewListByVMPager(resourceGroupName string, virtualMachineName string, options *HybridIdentityMetadataClientListByVMOptions) *runtime.Pager[HybridIdentityMetadataClientListByVMResponse] {
-	return runtime.NewPager(runtime.PagingHandler[HybridIdentityMetadataClientListByVMResponse]{
-		More: func(page HybridIdentityMetadataClientListByVMResponse) bool {
+// NewListPager - Returns the list of HybridIdentityMetadata of the given vm.
+//
+// Generated from API version 2022-07-15-preview
+//   - resourceGroupName - The Resource Group Name.
+//   - virtualMachineName - Name of the vm.
+//   - options - HybridIdentityMetadataClientListOptions contains the optional parameters for the HybridIdentityMetadataClient.NewListPager
+//     method.
+func (client *HybridIdentityMetadataClient) NewListPager(resourceGroupName string, virtualMachineName string, options *HybridIdentityMetadataClientListOptions) *runtime.Pager[HybridIdentityMetadataClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[HybridIdentityMetadataClientListResponse]{
+		More: func(page HybridIdentityMetadataClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *HybridIdentityMetadataClientListByVMResponse) (HybridIdentityMetadataClientListByVMResponse, error) {
+		Fetcher: func(ctx context.Context, page *HybridIdentityMetadataClientListResponse) (HybridIdentityMetadataClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listByVMCreateRequest(ctx, resourceGroupName, virtualMachineName, options)
+				req, err = client.listCreateRequest(ctx, resourceGroupName, virtualMachineName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return HybridIdentityMetadataClientListByVMResponse{}, err
+				return HybridIdentityMetadataClientListResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return HybridIdentityMetadataClientListByVMResponse{}, err
+				return HybridIdentityMetadataClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return HybridIdentityMetadataClientListByVMResponse{}, runtime.NewResponseError(resp)
+				return HybridIdentityMetadataClientListResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listByVMHandleResponse(resp)
+			return client.listHandleResponse(resp)
 		},
 	})
 }
 
-// listByVMCreateRequest creates the ListByVM request.
-func (client *HybridIdentityMetadataClient) listByVMCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineName string, options *HybridIdentityMetadataClientListByVMOptions) (*policy.Request, error) {
+// listCreateRequest creates the List request.
+func (client *HybridIdentityMetadataClient) listCreateRequest(ctx context.Context, resourceGroupName string, virtualMachineName string, options *HybridIdentityMetadataClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConnectedVMwarevSphere/virtualMachines/{virtualMachineName}/hybridIdentityMetadata"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -296,17 +299,17 @@ func (client *HybridIdentityMetadataClient) listByVMCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-01-10-preview")
+	reqQP.Set("api-version", "2022-07-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listByVMHandleResponse handles the ListByVM response.
-func (client *HybridIdentityMetadataClient) listByVMHandleResponse(resp *http.Response) (HybridIdentityMetadataClientListByVMResponse, error) {
-	result := HybridIdentityMetadataClientListByVMResponse{}
+// listHandleResponse handles the List response.
+func (client *HybridIdentityMetadataClient) listHandleResponse(resp *http.Response) (HybridIdentityMetadataClientListResponse, error) {
+	result := HybridIdentityMetadataClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.HybridIdentityMetadataList); err != nil {
-		return HybridIdentityMetadataClientListByVMResponse{}, err
+		return HybridIdentityMetadataClientListResponse{}, err
 	}
 	return result, nil
 }
