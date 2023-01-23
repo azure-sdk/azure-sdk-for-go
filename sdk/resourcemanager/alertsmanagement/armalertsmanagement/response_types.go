@@ -29,14 +29,14 @@ type AlertProcessingRulesClientGetByNameResponse struct {
 	XMSRequestID *string
 }
 
-// AlertProcessingRulesClientListByResourceGroupResponse contains the response from method AlertProcessingRulesClient.ListByResourceGroup.
+// AlertProcessingRulesClientListByResourceGroupResponse contains the response from method AlertProcessingRulesClient.NewListByResourceGroupPager.
 type AlertProcessingRulesClientListByResourceGroupResponse struct {
 	AlertProcessingRulesList
 	// XMSRequestID contains the information returned from the x-ms-request-id header response.
 	XMSRequestID *string
 }
 
-// AlertProcessingRulesClientListBySubscriptionResponse contains the response from method AlertProcessingRulesClient.ListBySubscription.
+// AlertProcessingRulesClientListBySubscriptionResponse contains the response from method AlertProcessingRulesClient.NewListBySubscriptionPager.
 type AlertProcessingRulesClientListBySubscriptionResponse struct {
 	AlertProcessingRulesList
 	// XMSRequestID contains the information returned from the x-ms-request-id header response.
@@ -55,7 +55,7 @@ type AlertsClientChangeStateResponse struct {
 	Alert
 }
 
-// AlertsClientGetAllResponse contains the response from method AlertsClient.GetAll.
+// AlertsClientGetAllResponse contains the response from method AlertsClient.NewGetAllPager.
 type AlertsClientGetAllResponse struct {
 	AlertsList
 }
@@ -80,9 +80,39 @@ type AlertsClientMetaDataResponse struct {
 	AlertsMetaData
 }
 
-// OperationsClientListResponse contains the response from method OperationsClient.List.
+// ClientPrometheusRuleGroupsListBySubscriptionResponse contains the response from method Client.NewPrometheusRuleGroupsListBySubscriptionPager.
+type ClientPrometheusRuleGroupsListBySubscriptionResponse struct {
+	PrometheusRuleGroupResourceCollection
+}
+
+// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationsList
+}
+
+// PrometheusRuleGroupsClientCreateOrUpdateResponse contains the response from method PrometheusRuleGroupsClient.CreateOrUpdate.
+type PrometheusRuleGroupsClientCreateOrUpdateResponse struct {
+	PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupsClientDeleteResponse contains the response from method PrometheusRuleGroupsClient.Delete.
+type PrometheusRuleGroupsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PrometheusRuleGroupsClientGetResponse contains the response from method PrometheusRuleGroupsClient.Get.
+type PrometheusRuleGroupsClientGetResponse struct {
+	PrometheusRuleGroupResource
+}
+
+// PrometheusRuleGroupsClientListByResourceGroupResponse contains the response from method PrometheusRuleGroupsClient.NewListByResourceGroupPager.
+type PrometheusRuleGroupsClientListByResourceGroupResponse struct {
+	PrometheusRuleGroupResourceCollection
+}
+
+// PrometheusRuleGroupsClientUpdateResponse contains the response from method PrometheusRuleGroupsClient.Update.
+type PrometheusRuleGroupsClientUpdateResponse struct {
+	PrometheusRuleGroupResource
 }
 
 // SmartGroupsClientChangeStateResponse contains the response from method SmartGroupsClient.ChangeState.
@@ -92,7 +122,7 @@ type SmartGroupsClientChangeStateResponse struct {
 	XMSRequestID *string
 }
 
-// SmartGroupsClientGetAllResponse contains the response from method SmartGroupsClient.GetAll.
+// SmartGroupsClientGetAllResponse contains the response from method SmartGroupsClient.NewGetAllPager.
 type SmartGroupsClientGetAllResponse struct {
 	SmartGroupsList
 }
