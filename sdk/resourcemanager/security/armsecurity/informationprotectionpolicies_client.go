@@ -31,8 +31,8 @@ type InformationProtectionPoliciesClient struct {
 }
 
 // NewInformationProtectionPoliciesClient creates a new instance of InformationProtectionPoliciesClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewInformationProtectionPoliciesClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*InformationProtectionPoliciesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -54,13 +54,14 @@ func NewInformationProtectionPoliciesClient(credential azcore.TokenCredential, o
 
 // CreateOrUpdate - Details of the information protection policy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// informationProtectionPolicyName - Name of the information protection policy.
-// informationProtectionPolicy - Information protection policy.
-// options - InformationProtectionPoliciesClientCreateOrUpdateOptions contains the optional parameters for the InformationProtectionPoliciesClient.CreateOrUpdate
-// method.
+//   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
+//     (/providers/Microsoft.Management/managementGroups/mgName).
+//   - informationProtectionPolicyName - Name of the information protection policy.
+//   - informationProtectionPolicy - Information protection policy.
+//   - options - InformationProtectionPoliciesClientCreateOrUpdateOptions contains the optional parameters for the InformationProtectionPoliciesClient.CreateOrUpdate
+//     method.
 func (client *InformationProtectionPoliciesClient) CreateOrUpdate(ctx context.Context, scope string, informationProtectionPolicyName InformationProtectionPolicyName, informationProtectionPolicy InformationProtectionPolicy, options *InformationProtectionPoliciesClientCreateOrUpdateOptions) (InformationProtectionPoliciesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, scope, informationProtectionPolicyName, informationProtectionPolicy, options)
 	if err != nil {
@@ -106,12 +107,13 @@ func (client *InformationProtectionPoliciesClient) createOrUpdateHandleResponse(
 
 // Get - Details of the information protection policy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// informationProtectionPolicyName - Name of the information protection policy.
-// options - InformationProtectionPoliciesClientGetOptions contains the optional parameters for the InformationProtectionPoliciesClient.Get
-// method.
+//   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
+//     (/providers/Microsoft.Management/managementGroups/mgName).
+//   - informationProtectionPolicyName - Name of the information protection policy.
+//   - options - InformationProtectionPoliciesClientGetOptions contains the optional parameters for the InformationProtectionPoliciesClient.Get
+//     method.
 func (client *InformationProtectionPoliciesClient) Get(ctx context.Context, scope string, informationProtectionPolicyName InformationProtectionPolicyName, options *InformationProtectionPoliciesClientGetOptions) (InformationProtectionPoliciesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, scope, informationProtectionPolicyName, options)
 	if err != nil {
@@ -156,11 +158,12 @@ func (client *InformationProtectionPoliciesClient) getHandleResponse(resp *http.
 }
 
 // NewListPager - Information protection policies of a specific management group.
+//
 // Generated from API version 2017-08-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// options - InformationProtectionPoliciesClientListOptions contains the optional parameters for the InformationProtectionPoliciesClient.List
-// method.
+//   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
+//     (/providers/Microsoft.Management/managementGroups/mgName).
+//   - options - InformationProtectionPoliciesClientListOptions contains the optional parameters for the InformationProtectionPoliciesClient.NewListPager
+//     method.
 func (client *InformationProtectionPoliciesClient) NewListPager(scope string, options *InformationProtectionPoliciesClientListOptions) *runtime.Pager[InformationProtectionPoliciesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[InformationProtectionPoliciesClientListResponse]{
 		More: func(page InformationProtectionPoliciesClientListResponse) bool {

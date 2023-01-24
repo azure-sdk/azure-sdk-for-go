@@ -32,9 +32,9 @@ type SecureScoreControlsClient struct {
 }
 
 // NewSecureScoreControlsClient creates a new instance of SecureScoreControlsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSecureScoreControlsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SecureScoreControlsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,9 +56,10 @@ func NewSecureScoreControlsClient(subscriptionID string, credential azcore.Token
 }
 
 // NewListPager - Get all security controls within a scope
+//
 // Generated from API version 2020-01-01
-// options - SecureScoreControlsClientListOptions contains the optional parameters for the SecureScoreControlsClient.List
-// method.
+//   - options - SecureScoreControlsClientListOptions contains the optional parameters for the SecureScoreControlsClient.NewListPager
+//     method.
 func (client *SecureScoreControlsClient) NewListPager(options *SecureScoreControlsClientListOptions) *runtime.Pager[SecureScoreControlsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SecureScoreControlsClientListResponse]{
 		More: func(page SecureScoreControlsClientListResponse) bool {
@@ -118,10 +119,11 @@ func (client *SecureScoreControlsClient) listHandleResponse(resp *http.Response)
 }
 
 // NewListBySecureScorePager - Get all security controls for a specific initiative within a scope
+//
 // Generated from API version 2020-01-01
-// secureScoreName - The initiative name. For the ASC Default initiative, use 'ascScore' as in the sample request below.
-// options - SecureScoreControlsClientListBySecureScoreOptions contains the optional parameters for the SecureScoreControlsClient.ListBySecureScore
-// method.
+//   - secureScoreName - The initiative name. For the ASC Default initiative, use 'ascScore' as in the sample request below.
+//   - options - SecureScoreControlsClientListBySecureScoreOptions contains the optional parameters for the SecureScoreControlsClient.NewListBySecureScorePager
+//     method.
 func (client *SecureScoreControlsClient) NewListBySecureScorePager(secureScoreName string, options *SecureScoreControlsClientListBySecureScoreOptions) *runtime.Pager[SecureScoreControlsClientListBySecureScoreResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SecureScoreControlsClientListBySecureScoreResponse]{
 		More: func(page SecureScoreControlsClientListBySecureScoreResponse) bool {

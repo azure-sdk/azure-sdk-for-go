@@ -32,9 +32,9 @@ type IotSecuritySolutionClient struct {
 }
 
 // NewIotSecuritySolutionClient creates a new instance of IotSecuritySolutionClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewIotSecuritySolutionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IotSecuritySolutionClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewIotSecuritySolutionClient(subscriptionID string, credential azcore.Token
 
 // CreateOrUpdate - Use this method to create or update yours IoT Security solution
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// solutionName - The name of the IoT Security solution.
-// iotSecuritySolutionData - The security solution data
-// options - IotSecuritySolutionClientCreateOrUpdateOptions contains the optional parameters for the IotSecuritySolutionClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - solutionName - The name of the IoT Security solution.
+//   - iotSecuritySolutionData - The security solution data
+//   - options - IotSecuritySolutionClientCreateOrUpdateOptions contains the optional parameters for the IotSecuritySolutionClient.CreateOrUpdate
+//     method.
 func (client *IotSecuritySolutionClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, solutionName string, iotSecuritySolutionData IoTSecuritySolutionModel, options *IotSecuritySolutionClientCreateOrUpdateOptions) (IotSecuritySolutionClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, solutionName, iotSecuritySolutionData, options)
 	if err != nil {
@@ -115,11 +116,12 @@ func (client *IotSecuritySolutionClient) createOrUpdateHandleResponse(resp *http
 
 // Delete - Use this method to delete yours IoT Security solution
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// solutionName - The name of the IoT Security solution.
-// options - IotSecuritySolutionClientDeleteOptions contains the optional parameters for the IotSecuritySolutionClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - solutionName - The name of the IoT Security solution.
+//   - options - IotSecuritySolutionClientDeleteOptions contains the optional parameters for the IotSecuritySolutionClient.Delete
+//     method.
 func (client *IotSecuritySolutionClient) Delete(ctx context.Context, resourceGroupName string, solutionName string, options *IotSecuritySolutionClientDeleteOptions) (IotSecuritySolutionClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, solutionName, options)
 	if err != nil {
@@ -163,10 +165,11 @@ func (client *IotSecuritySolutionClient) deleteCreateRequest(ctx context.Context
 
 // Get - User this method to get details of a specific IoT Security solution based on solution name
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// solutionName - The name of the IoT Security solution.
-// options - IotSecuritySolutionClientGetOptions contains the optional parameters for the IotSecuritySolutionClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - solutionName - The name of the IoT Security solution.
+//   - options - IotSecuritySolutionClientGetOptions contains the optional parameters for the IotSecuritySolutionClient.Get method.
 func (client *IotSecuritySolutionClient) Get(ctx context.Context, resourceGroupName string, solutionName string, options *IotSecuritySolutionClientGetOptions) (IotSecuritySolutionClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, solutionName, options)
 	if err != nil {
@@ -218,10 +221,11 @@ func (client *IotSecuritySolutionClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListByResourceGroupPager - Use this method to get the list IoT Security solutions organized by resource group.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - IotSecuritySolutionClientListByResourceGroupOptions contains the optional parameters for the IotSecuritySolutionClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - IotSecuritySolutionClientListByResourceGroupOptions contains the optional parameters for the IotSecuritySolutionClient.NewListByResourceGroupPager
+//     method.
 func (client *IotSecuritySolutionClient) NewListByResourceGroupPager(resourceGroupName string, options *IotSecuritySolutionClientListByResourceGroupOptions) *runtime.Pager[IotSecuritySolutionClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[IotSecuritySolutionClientListByResourceGroupResponse]{
 		More: func(page IotSecuritySolutionClientListByResourceGroupResponse) bool {
@@ -285,9 +289,10 @@ func (client *IotSecuritySolutionClient) listByResourceGroupHandleResponse(resp 
 }
 
 // NewListBySubscriptionPager - Use this method to get the list of IoT Security solutions by subscription.
+//
 // Generated from API version 2019-08-01
-// options - IotSecuritySolutionClientListBySubscriptionOptions contains the optional parameters for the IotSecuritySolutionClient.ListBySubscription
-// method.
+//   - options - IotSecuritySolutionClientListBySubscriptionOptions contains the optional parameters for the IotSecuritySolutionClient.NewListBySubscriptionPager
+//     method.
 func (client *IotSecuritySolutionClient) NewListBySubscriptionPager(options *IotSecuritySolutionClientListBySubscriptionOptions) *runtime.Pager[IotSecuritySolutionClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[IotSecuritySolutionClientListBySubscriptionResponse]{
 		More: func(page IotSecuritySolutionClientListBySubscriptionResponse) bool {
@@ -349,12 +354,13 @@ func (client *IotSecuritySolutionClient) listBySubscriptionHandleResponse(resp *
 // Update - Use this method to update existing IoT Security solution tags or user defined resources. To update other fields
 // use the CreateOrUpdate method.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// solutionName - The name of the IoT Security solution.
-// updateIotSecuritySolutionData - The security solution data
-// options - IotSecuritySolutionClientUpdateOptions contains the optional parameters for the IotSecuritySolutionClient.Update
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - solutionName - The name of the IoT Security solution.
+//   - updateIotSecuritySolutionData - The security solution data
+//   - options - IotSecuritySolutionClientUpdateOptions contains the optional parameters for the IotSecuritySolutionClient.Update
+//     method.
 func (client *IotSecuritySolutionClient) Update(ctx context.Context, resourceGroupName string, solutionName string, updateIotSecuritySolutionData UpdateIotSecuritySolutionData, options *IotSecuritySolutionClientUpdateOptions) (IotSecuritySolutionClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, solutionName, updateIotSecuritySolutionData, options)
 	if err != nil {

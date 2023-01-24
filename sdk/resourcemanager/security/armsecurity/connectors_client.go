@@ -32,9 +32,9 @@ type ConnectorsClient struct {
 }
 
 // NewConnectorsClient creates a new instance of ConnectorsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectorsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewConnectorsClient(subscriptionID string, credential azcore.TokenCredentia
 // CreateOrUpdate - Creates or updates a security connector. If a security connector is already created and a subsequent request
 // is issued for the same security connector id, then it will be updated.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// securityConnector - The security connector resource
-// options - ConnectorsClientCreateOrUpdateOptions contains the optional parameters for the ConnectorsClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - securityConnector - The security connector resource
+//   - options - ConnectorsClientCreateOrUpdateOptions contains the optional parameters for the ConnectorsClient.CreateOrUpdate
+//     method.
 func (client *ConnectorsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, securityConnectorName string, securityConnector Connector, options *ConnectorsClientCreateOrUpdateOptions) (ConnectorsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, securityConnectorName, securityConnector, options)
 	if err != nil {
@@ -116,10 +117,11 @@ func (client *ConnectorsClient) createOrUpdateHandleResponse(resp *http.Response
 
 // Delete - Deletes a security connector.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// options - ConnectorsClientDeleteOptions contains the optional parameters for the ConnectorsClient.Delete method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - options - ConnectorsClientDeleteOptions contains the optional parameters for the ConnectorsClient.Delete method.
 func (client *ConnectorsClient) Delete(ctx context.Context, resourceGroupName string, securityConnectorName string, options *ConnectorsClientDeleteOptions) (ConnectorsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, securityConnectorName, options)
 	if err != nil {
@@ -163,10 +165,11 @@ func (client *ConnectorsClient) deleteCreateRequest(ctx context.Context, resourc
 
 // Get - Retrieves details of a specific security connector
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// options - ConnectorsClientGetOptions contains the optional parameters for the ConnectorsClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - options - ConnectorsClientGetOptions contains the optional parameters for the ConnectorsClient.Get method.
 func (client *ConnectorsClient) Get(ctx context.Context, resourceGroupName string, securityConnectorName string, options *ConnectorsClientGetOptions) (ConnectorsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, securityConnectorName, options)
 	if err != nil {
@@ -219,8 +222,9 @@ func (client *ConnectorsClient) getHandleResponse(resp *http.Response) (Connecto
 
 // NewListPager - Lists all the security connectors in the specified subscription. Use the 'nextLink' property in the response
 // to get the next page of security connectors for the specified subscription.
+//
 // Generated from API version 2022-08-01-preview
-// options - ConnectorsClientListOptions contains the optional parameters for the ConnectorsClient.List method.
+//   - options - ConnectorsClientListOptions contains the optional parameters for the ConnectorsClient.NewListPager method.
 func (client *ConnectorsClient) NewListPager(options *ConnectorsClientListOptions) *runtime.Pager[ConnectorsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectorsClientListResponse]{
 		More: func(page ConnectorsClientListResponse) bool {
@@ -278,10 +282,11 @@ func (client *ConnectorsClient) listHandleResponse(resp *http.Response) (Connect
 
 // NewListByResourceGroupPager - Lists all the security connectors in the specified resource group. Use the 'nextLink' property
 // in the response to get the next page of security connectors for the specified resource group.
+//
 // Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - ConnectorsClientListByResourceGroupOptions contains the optional parameters for the ConnectorsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - ConnectorsClientListByResourceGroupOptions contains the optional parameters for the ConnectorsClient.NewListByResourceGroupPager
+//     method.
 func (client *ConnectorsClient) NewListByResourceGroupPager(resourceGroupName string, options *ConnectorsClientListByResourceGroupOptions) *runtime.Pager[ConnectorsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectorsClientListByResourceGroupResponse]{
 		More: func(page ConnectorsClientListByResourceGroupResponse) bool {
@@ -343,11 +348,12 @@ func (client *ConnectorsClient) listByResourceGroupHandleResponse(resp *http.Res
 
 // Update - Updates a security connector
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// securityConnector - The security connector resource
-// options - ConnectorsClientUpdateOptions contains the optional parameters for the ConnectorsClient.Update method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - securityConnector - The security connector resource
+//   - options - ConnectorsClientUpdateOptions contains the optional parameters for the ConnectorsClient.Update method.
 func (client *ConnectorsClient) Update(ctx context.Context, resourceGroupName string, securityConnectorName string, securityConnector Connector, options *ConnectorsClientUpdateOptions) (ConnectorsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, securityConnectorName, securityConnector, options)
 	if err != nil {

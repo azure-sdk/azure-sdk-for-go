@@ -31,8 +31,8 @@ type GovernanceAssignmentsClient struct {
 }
 
 // NewGovernanceAssignmentsClient creates a new instance of GovernanceAssignmentsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGovernanceAssignmentsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*GovernanceAssignmentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -52,16 +52,18 @@ func NewGovernanceAssignmentsClient(credential azcore.TokenCredential, options *
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or update a security GovernanceAssignment on the given subscription.
+// CreateOrUpdate - Creates or updates a governance assignment on the given subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// assignmentKey - The security governance assignment key - the assessment key of the required governance assignment
-// governanceAssignment - GovernanceAssignment over a subscription scope
-// options - GovernanceAssignmentsClientCreateOrUpdateOptions contains the optional parameters for the GovernanceAssignmentsClient.CreateOrUpdate
-// method.
+//   - scope - The scope of the Governance assignments. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'),
+//     or security connector (format:
+//     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName})'
+//   - assessmentName - The Assessment Key - A unique key for the assessment type
+//   - assignmentKey - The governance assignment key - the assessment key of the required governance assignment
+//   - governanceAssignment - Governance assignment over a subscription scope
+//   - options - GovernanceAssignmentsClientCreateOrUpdateOptions contains the optional parameters for the GovernanceAssignmentsClient.CreateOrUpdate
+//     method.
 func (client *GovernanceAssignmentsClient) CreateOrUpdate(ctx context.Context, scope string, assessmentName string, assignmentKey string, governanceAssignment GovernanceAssignment, options *GovernanceAssignmentsClientCreateOrUpdateOptions) (GovernanceAssignmentsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, scope, assessmentName, assignmentKey, governanceAssignment, options)
 	if err != nil {
@@ -80,7 +82,10 @@ func (client *GovernanceAssignmentsClient) CreateOrUpdate(ctx context.Context, s
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *GovernanceAssignmentsClient) createOrUpdateCreateRequest(ctx context.Context, scope string, assessmentName string, assignmentKey string, governanceAssignment GovernanceAssignment, options *GovernanceAssignmentsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Security/assessments/{assessmentName}/governanceAssignments/{assignmentKey}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+	if scope == "" {
+		return nil, errors.New("parameter scope cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", url.PathEscape(scope))
 	if assessmentName == "" {
 		return nil, errors.New("parameter assessmentName cannot be empty")
 	}
@@ -111,13 +116,15 @@ func (client *GovernanceAssignmentsClient) createOrUpdateHandleResponse(resp *ht
 
 // Delete - Delete a GovernanceAssignment over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// assignmentKey - The security governance assignment key - the assessment key of the required governance assignment
-// options - GovernanceAssignmentsClientDeleteOptions contains the optional parameters for the GovernanceAssignmentsClient.Delete
-// method.
+//   - scope - The scope of the Governance assignments. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'),
+//     or security connector (format:
+//     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName})'
+//   - assessmentName - The Assessment Key - A unique key for the assessment type
+//   - assignmentKey - The governance assignment key - the assessment key of the required governance assignment
+//   - options - GovernanceAssignmentsClientDeleteOptions contains the optional parameters for the GovernanceAssignmentsClient.Delete
+//     method.
 func (client *GovernanceAssignmentsClient) Delete(ctx context.Context, scope string, assessmentName string, assignmentKey string, options *GovernanceAssignmentsClientDeleteOptions) (GovernanceAssignmentsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, scope, assessmentName, assignmentKey, options)
 	if err != nil {
@@ -136,7 +143,10 @@ func (client *GovernanceAssignmentsClient) Delete(ctx context.Context, scope str
 // deleteCreateRequest creates the Delete request.
 func (client *GovernanceAssignmentsClient) deleteCreateRequest(ctx context.Context, scope string, assessmentName string, assignmentKey string, options *GovernanceAssignmentsClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Security/assessments/{assessmentName}/governanceAssignments/{assignmentKey}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+	if scope == "" {
+		return nil, errors.New("parameter scope cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", url.PathEscape(scope))
 	if assessmentName == "" {
 		return nil, errors.New("parameter assessmentName cannot be empty")
 	}
@@ -157,13 +167,15 @@ func (client *GovernanceAssignmentsClient) deleteCreateRequest(ctx context.Conte
 
 // Get - Get a specific governanceAssignment for the requested scope by AssignmentKey
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// assignmentKey - The security governance assignment key - the assessment key of the required governance assignment
-// options - GovernanceAssignmentsClientGetOptions contains the optional parameters for the GovernanceAssignmentsClient.Get
-// method.
+//   - scope - The scope of the Governance assignments. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'),
+//     or security connector (format:
+//     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName})'
+//   - assessmentName - The Assessment Key - A unique key for the assessment type
+//   - assignmentKey - The governance assignment key - the assessment key of the required governance assignment
+//   - options - GovernanceAssignmentsClientGetOptions contains the optional parameters for the GovernanceAssignmentsClient.Get
+//     method.
 func (client *GovernanceAssignmentsClient) Get(ctx context.Context, scope string, assessmentName string, assignmentKey string, options *GovernanceAssignmentsClientGetOptions) (GovernanceAssignmentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, scope, assessmentName, assignmentKey, options)
 	if err != nil {
@@ -182,7 +194,10 @@ func (client *GovernanceAssignmentsClient) Get(ctx context.Context, scope string
 // getCreateRequest creates the Get request.
 func (client *GovernanceAssignmentsClient) getCreateRequest(ctx context.Context, scope string, assessmentName string, assignmentKey string, options *GovernanceAssignmentsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Security/assessments/{assessmentName}/governanceAssignments/{assignmentKey}"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+	if scope == "" {
+		return nil, errors.New("parameter scope cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", url.PathEscape(scope))
 	if assessmentName == "" {
 		return nil, errors.New("parameter assessmentName cannot be empty")
 	}
@@ -211,13 +226,15 @@ func (client *GovernanceAssignmentsClient) getHandleResponse(resp *http.Response
 	return result, nil
 }
 
-// NewListPager - Get security governanceAssignments on all your resources inside a scope
+// NewListPager - Get governance assignments on all of your resources inside a scope
+//
 // Generated from API version 2022-01-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// options - GovernanceAssignmentsClientListOptions contains the optional parameters for the GovernanceAssignmentsClient.List
-// method.
+//   - scope - The scope of the Governance assignments. Valid scopes are: subscription (format: 'subscriptions/{subscriptionId}'),
+//     or security connector (format:
+//     'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName})'
+//   - assessmentName - The Assessment Key - A unique key for the assessment type
+//   - options - GovernanceAssignmentsClientListOptions contains the optional parameters for the GovernanceAssignmentsClient.NewListPager
+//     method.
 func (client *GovernanceAssignmentsClient) NewListPager(scope string, assessmentName string, options *GovernanceAssignmentsClientListOptions) *runtime.Pager[GovernanceAssignmentsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GovernanceAssignmentsClientListResponse]{
 		More: func(page GovernanceAssignmentsClientListResponse) bool {
@@ -249,7 +266,10 @@ func (client *GovernanceAssignmentsClient) NewListPager(scope string, assessment
 // listCreateRequest creates the List request.
 func (client *GovernanceAssignmentsClient) listCreateRequest(ctx context.Context, scope string, assessmentName string, options *GovernanceAssignmentsClientListOptions) (*policy.Request, error) {
 	urlPath := "/{scope}/providers/Microsoft.Security/assessments/{assessmentName}/governanceAssignments"
-	urlPath = strings.ReplaceAll(urlPath, "{scope}", scope)
+	if scope == "" {
+		return nil, errors.New("parameter scope cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{scope}", url.PathEscape(scope))
 	if assessmentName == "" {
 		return nil, errors.New("parameter assessmentName cannot be empty")
 	}

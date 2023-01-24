@@ -32,9 +32,9 @@ type ConnectorApplicationsClient struct {
 }
 
 // NewConnectorApplicationsClient creates a new instance of ConnectorApplicationsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectorApplicationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectorApplicationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,11 +56,12 @@ func NewConnectorApplicationsClient(subscriptionID string, credential azcore.Tok
 }
 
 // NewListPager - Get a list of all relevant applications over a security connector level scope
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// options - ConnectorApplicationsClientListOptions contains the optional parameters for the ConnectorApplicationsClient.List
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - options - ConnectorApplicationsClientListOptions contains the optional parameters for the ConnectorApplicationsClient.NewListPager
+//     method.
 func (client *ConnectorApplicationsClient) NewListPager(resourceGroupName string, securityConnectorName string, options *ConnectorApplicationsClientListOptions) *runtime.Pager[ConnectorApplicationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectorApplicationsClientListResponse]{
 		More: func(page ConnectorApplicationsClientListResponse) bool {

@@ -33,9 +33,9 @@ type IotSecuritySolutionsAnalyticsRecommendationClient struct {
 }
 
 // NewIotSecuritySolutionsAnalyticsRecommendationClient creates a new instance of IotSecuritySolutionsAnalyticsRecommendationClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewIotSecuritySolutionsAnalyticsRecommendationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IotSecuritySolutionsAnalyticsRecommendationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,12 +59,13 @@ func NewIotSecuritySolutionsAnalyticsRecommendationClient(subscriptionID string,
 // Get - Use this method to get the aggregated security analytics recommendation of yours IoT Security solution. This aggregation
 // is performed by recommendation name.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// solutionName - The name of the IoT Security solution.
-// aggregatedRecommendationName - Name of the recommendation aggregated for this query.
-// options - IotSecuritySolutionsAnalyticsRecommendationClientGetOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsRecommendationClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - solutionName - The name of the IoT Security solution.
+//   - aggregatedRecommendationName - Name of the recommendation aggregated for this query.
+//   - options - IotSecuritySolutionsAnalyticsRecommendationClientGetOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsRecommendationClient.Get
+//     method.
 func (client *IotSecuritySolutionsAnalyticsRecommendationClient) Get(ctx context.Context, resourceGroupName string, solutionName string, aggregatedRecommendationName string, options *IotSecuritySolutionsAnalyticsRecommendationClientGetOptions) (IotSecuritySolutionsAnalyticsRecommendationClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, solutionName, aggregatedRecommendationName, options)
 	if err != nil {
@@ -120,11 +121,12 @@ func (client *IotSecuritySolutionsAnalyticsRecommendationClient) getHandleRespon
 }
 
 // NewListPager - Use this method to get the list of aggregated security analytics recommendations of yours IoT Security solution.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// solutionName - The name of the IoT Security solution.
-// options - IotSecuritySolutionsAnalyticsRecommendationClientListOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsRecommendationClient.List
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - solutionName - The name of the IoT Security solution.
+//   - options - IotSecuritySolutionsAnalyticsRecommendationClientListOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsRecommendationClient.NewListPager
+//     method.
 func (client *IotSecuritySolutionsAnalyticsRecommendationClient) NewListPager(resourceGroupName string, solutionName string, options *IotSecuritySolutionsAnalyticsRecommendationClientListOptions) *runtime.Pager[IotSecuritySolutionsAnalyticsRecommendationClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[IotSecuritySolutionsAnalyticsRecommendationClientListResponse]{
 		More: func(page IotSecuritySolutionsAnalyticsRecommendationClientListResponse) bool {

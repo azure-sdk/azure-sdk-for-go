@@ -32,9 +32,9 @@ type ApplicationsClient struct {
 }
 
 // NewApplicationsClient creates a new instance of ApplicationsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewApplicationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,8 +56,9 @@ func NewApplicationsClient(subscriptionID string, credential azcore.TokenCredent
 }
 
 // NewListPager - Get a list of all relevant applications over a subscription level scope
+//
 // Generated from API version 2022-07-01-preview
-// options - ApplicationsClientListOptions contains the optional parameters for the ApplicationsClient.List method.
+//   - options - ApplicationsClientListOptions contains the optional parameters for the ApplicationsClient.NewListPager method.
 func (client *ApplicationsClient) NewListPager(options *ApplicationsClientListOptions) *runtime.Pager[ApplicationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ApplicationsClientListResponse]{
 		More: func(page ApplicationsClientListResponse) bool {
