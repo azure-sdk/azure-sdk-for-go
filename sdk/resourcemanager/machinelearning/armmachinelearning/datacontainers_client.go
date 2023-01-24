@@ -32,9 +32,9 @@ type DataContainersClient struct {
 }
 
 // NewDataContainersClient creates a new instance of DataContainersClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDataContainersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DataContainersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewDataContainersClient(subscriptionID string, credential azcore.TokenCrede
 
 // CreateOrUpdate - Create or update container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name.
-// body - Container entity to create or update.
-// options - DataContainersClientCreateOrUpdateOptions contains the optional parameters for the DataContainersClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-12-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name.
+//   - body - Container entity to create or update.
+//   - options - DataContainersClientCreateOrUpdateOptions contains the optional parameters for the DataContainersClient.CreateOrUpdate
+//     method.
 func (client *DataContainersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, body DataContainer, options *DataContainersClientCreateOrUpdateOptions) (DataContainersClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, body, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *DataContainersClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -120,11 +121,12 @@ func (client *DataContainersClient) createOrUpdateHandleResponse(resp *http.Resp
 
 // Delete - Delete container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name.
-// options - DataContainersClientDeleteOptions contains the optional parameters for the DataContainersClient.Delete method.
+//
+// Generated from API version 2022-12-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name.
+//   - options - DataContainersClientDeleteOptions contains the optional parameters for the DataContainersClient.Delete method.
 func (client *DataContainersClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *DataContainersClientDeleteOptions) (DataContainersClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {
@@ -164,7 +166,7 @@ func (client *DataContainersClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,11 +174,12 @@ func (client *DataContainersClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Get container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name.
-// options - DataContainersClientGetOptions contains the optional parameters for the DataContainersClient.Get method.
+//
+// Generated from API version 2022-12-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name.
+//   - options - DataContainersClientGetOptions contains the optional parameters for the DataContainersClient.Get method.
 func (client *DataContainersClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *DataContainersClientGetOptions) (DataContainersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {
@@ -216,7 +219,7 @@ func (client *DataContainersClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,10 +235,11 @@ func (client *DataContainersClient) getHandleResponse(resp *http.Response) (Data
 }
 
 // NewListPager - List data containers.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// options - DataContainersClientListOptions contains the optional parameters for the DataContainersClient.List method.
+//
+// Generated from API version 2022-12-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - options - DataContainersClientListOptions contains the optional parameters for the DataContainersClient.NewListPager method.
 func (client *DataContainersClient) NewListPager(resourceGroupName string, workspaceName string, options *DataContainersClientListOptions) *runtime.Pager[DataContainersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DataContainersClientListResponse]{
 		More: func(page DataContainersClientListResponse) bool {
@@ -284,7 +288,7 @@ func (client *DataContainersClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}
