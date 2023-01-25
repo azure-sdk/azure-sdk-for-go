@@ -1,5 +1,69 @@
 # Release History
 
+## 2.2.0-beta.2 (2023-01-25)
+### Breaking Changes
+
+- Type of `DataTransferServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `GraphAPIComputeServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `MaterializedViewsBuilderServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `SQLDedicatedGatewayServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `ServiceResourceProperties.AdditionalProperties` has been changed from `map[string]interface{}` to `map[string]any`
+- Const `AuthenticationMethodLdap` from type alias `AuthenticationMethod` has been removed
+- Function `*CassandraClustersClient.GetBackup` has been removed
+- Function `*CassandraClustersClient.NewListBackupsPager` has been removed
+- Struct `AuthenticationMethodLdapProperties` has been removed
+- Struct `BackupResource` has been removed
+- Struct `BackupResourceProperties` has been removed
+- Struct `CassandraClustersClientListBackupsResponse` has been removed
+- Struct `ListBackups` has been removed
+- Field `AuthenticationMethodLdapProperties` of struct `DataCenterResourceProperties` has been removed
+
+### Features Added
+
+- New value `DataTransferComponentCosmosDBMongo` added to type alias `DataTransferComponent`
+- New type alias `CassandraRepairRunStateEnum` with values `CassandraRepairRunStateEnumABORTED`, `CassandraRepairRunStateEnumDELETED`, `CassandraRepairRunStateEnumDONE`, `CassandraRepairRunStateEnumERROR`, `CassandraRepairRunStateEnumNOTSTARTED`, `CassandraRepairRunStateEnumPAUSED`, `CassandraRepairRunStateEnumRUNNING`
+- New function `NewCassandraRepairClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CassandraRepairClient, error)`
+- New function `*CassandraRepairClient.BeginAbortSegment(context.Context, string, string, string, string, *CassandraRepairClientBeginAbortSegmentOptions) (*runtime.Poller[CassandraRepairClientAbortSegmentResponse], error)`
+- New function `*CassandraRepairClient.BeginCreate(context.Context, string, string, CassandraClusterRepairPublicResource, *CassandraRepairClientBeginCreateOptions) (*runtime.Poller[CassandraRepairClientCreateResponse], error)`
+- New function `*CassandraRepairClient.BeginDelete(context.Context, string, string, string, string, *CassandraRepairClientBeginDeleteOptions) (*runtime.Poller[CassandraRepairClientDeleteResponse], error)`
+- New function `*CassandraRepairClient.BeginGetClusterStatus(context.Context, string, string, *CassandraRepairClientBeginGetClusterStatusOptions) (*runtime.Poller[CassandraRepairClientGetClusterStatusResponse], error)`
+- New function `*CassandraRepairClient.BeginGetTableStatus(context.Context, string, string, *CassandraRepairClientBeginGetTableStatusOptions) (*runtime.Poller[CassandraRepairClientGetTableStatusResponse], error)`
+- New function `*CassandraRepairClient.BeginList(context.Context, string, string, *CassandraRepairClientBeginListOptions) (*runtime.Poller[CassandraRepairClientListResponse], error)`
+- New function `*CassandraRepairClient.BeginListSegments(context.Context, string, string, string, *CassandraRepairClientBeginListSegmentsOptions) (*runtime.Poller[CassandraRepairClientListSegmentsResponse], error)`
+- New function `*CassandraRepairClient.BeginPause(context.Context, string, string, string, *CassandraRepairClientBeginPauseOptions) (*runtime.Poller[CassandraRepairClientPauseResponse], error)`
+- New function `*CassandraRepairClient.BeginResume(context.Context, string, string, string, *CassandraRepairClientBeginResumeOptions) (*runtime.Poller[CassandraRepairClientResumeResponse], error)`
+- New function `*CassandraRepairClient.BeginShow(context.Context, string, string, string, *CassandraRepairClientBeginShowOptions) (*runtime.Poller[CassandraRepairClientShowResponse], error)`
+- New function `*CassandraRepairClient.BeginUpdate(context.Context, string, string, string, string, *CassandraRepairClientBeginUpdateOptions) (*runtime.Poller[CassandraRepairClientUpdateResponse], error)`
+- New function `*MongoDataTransferDataSourceSink.GetDataTransferDataSourceSink() *DataTransferDataSourceSink`
+- New struct `CassandraClusterRepairListFilter`
+- New struct `CassandraClusterRepairPublicProperties`
+- New struct `CassandraClusterRepairPublicResource`
+- New struct `CassandraReaperClusterStatus`
+- New struct `CassandraReaperEndpointState`
+- New struct `CassandraReaperGossipInfo`
+- New struct `CassandraReaperNodeStatus`
+- New struct `CassandraReaperRunStatus`
+- New struct `CassandraReaperRunStatusFeedResponse`
+- New struct `CassandraReaperScheduleStatus`
+- New struct `CassandraRepairClient`
+- New struct `CassandraRepairClientAbortSegmentResponse`
+- New struct `CassandraRepairClientCreateResponse`
+- New struct `CassandraRepairClientDeleteResponse`
+- New struct `CassandraRepairClientGetClusterStatusResponse`
+- New struct `CassandraRepairClientGetTableStatusResponse`
+- New struct `CassandraRepairClientListResponse`
+- New struct `CassandraRepairClientListSegmentsResponse`
+- New struct `CassandraRepairClientPauseResponse`
+- New struct `CassandraRepairClientResumeResponse`
+- New struct `CassandraRepairClientShowResponse`
+- New struct `CassandraRepairClientUpdateResponse`
+- New struct `CassandraRepairRingRange`
+- New struct `CassandraRepairSegment`
+- New struct `CassandraRepairSegmentResourceFeedResponse`
+- New struct `CassandraRepairTokenRange`
+- New struct `MongoDataTransferDataSourceSink`
+
+
 ## 2.2.0-beta.1 (2022-10-09)
 ### Features Added
 

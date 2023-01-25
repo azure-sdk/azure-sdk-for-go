@@ -11,7 +11,7 @@ package armcosmos
 
 const (
 	moduleName    = "armcosmos"
-	moduleVersion = "v2.2.0-beta.1"
+	moduleVersion = "v2.2.0-beta.2"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -56,12 +56,11 @@ func PossibleAnalyticalStorageSchemaTypeValues() []AnalyticalStorageSchemaType {
 
 // AuthenticationMethod - Which authentication method Cassandra should use to authenticate clients. 'None' turns off authentication,
 // so should not be used except in emergencies. 'Cassandra' is the default password based
-// authentication. The default is 'Cassandra'. 'Ldap' is in preview.
+// authentication. The default is 'Cassandra'.
 type AuthenticationMethod string
 
 const (
 	AuthenticationMethodCassandra AuthenticationMethod = "Cassandra"
-	AuthenticationMethodLdap      AuthenticationMethod = "Ldap"
 	AuthenticationMethodNone      AuthenticationMethod = "None"
 )
 
@@ -69,7 +68,6 @@ const (
 func PossibleAuthenticationMethodValues() []AuthenticationMethod {
 	return []AuthenticationMethod{
 		AuthenticationMethodCassandra,
-		AuthenticationMethodLdap,
 		AuthenticationMethodNone,
 	}
 }
@@ -125,6 +123,32 @@ func PossibleBackupStorageRedundancyValues() []BackupStorageRedundancy {
 		BackupStorageRedundancyGeo,
 		BackupStorageRedundancyLocal,
 		BackupStorageRedundancyZone,
+	}
+}
+
+// CassandraRepairRunStateEnum - Valid states of repair run.
+type CassandraRepairRunStateEnum string
+
+const (
+	CassandraRepairRunStateEnumABORTED    CassandraRepairRunStateEnum = "ABORTED"
+	CassandraRepairRunStateEnumDELETED    CassandraRepairRunStateEnum = "DELETED"
+	CassandraRepairRunStateEnumDONE       CassandraRepairRunStateEnum = "DONE"
+	CassandraRepairRunStateEnumERROR      CassandraRepairRunStateEnum = "ERROR"
+	CassandraRepairRunStateEnumNOTSTARTED CassandraRepairRunStateEnum = "NOT_STARTED"
+	CassandraRepairRunStateEnumPAUSED     CassandraRepairRunStateEnum = "PAUSED"
+	CassandraRepairRunStateEnumRUNNING    CassandraRepairRunStateEnum = "RUNNING"
+)
+
+// PossibleCassandraRepairRunStateEnumValues returns the possible values for the CassandraRepairRunStateEnum const type.
+func PossibleCassandraRepairRunStateEnumValues() []CassandraRepairRunStateEnum {
+	return []CassandraRepairRunStateEnum{
+		CassandraRepairRunStateEnumABORTED,
+		CassandraRepairRunStateEnumDELETED,
+		CassandraRepairRunStateEnumDONE,
+		CassandraRepairRunStateEnumERROR,
+		CassandraRepairRunStateEnumNOTSTARTED,
+		CassandraRepairRunStateEnumPAUSED,
+		CassandraRepairRunStateEnumRUNNING,
 	}
 }
 
@@ -255,6 +279,7 @@ type DataTransferComponent string
 const (
 	DataTransferComponentAzureBlobStorage  DataTransferComponent = "AzureBlobStorage"
 	DataTransferComponentCosmosDBCassandra DataTransferComponent = "CosmosDBCassandra"
+	DataTransferComponentCosmosDBMongo     DataTransferComponent = "CosmosDBMongo"
 	DataTransferComponentCosmosDBSQL       DataTransferComponent = "CosmosDBSql"
 )
 
@@ -263,6 +288,7 @@ func PossibleDataTransferComponentValues() []DataTransferComponent {
 	return []DataTransferComponent{
 		DataTransferComponentAzureBlobStorage,
 		DataTransferComponentCosmosDBCassandra,
+		DataTransferComponentCosmosDBMongo,
 		DataTransferComponentCosmosDBSQL,
 	}
 }
