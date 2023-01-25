@@ -32,10 +32,10 @@ type DscpConfigurationClient struct {
 }
 
 // NewDscpConfigurationClient creates a new instance of DscpConfigurationClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDscpConfigurationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DscpConfigurationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewDscpConfigurationClient(subscriptionID string, credential azcore.TokenCr
 
 // BeginCreateOrUpdate - Creates or updates a DSCP Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// dscpConfigurationName - The name of the resource.
-// parameters - Parameters supplied to the create or update dscp configuration operation.
-// options - DscpConfigurationClientBeginCreateOrUpdateOptions contains the optional parameters for the DscpConfigurationClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - dscpConfigurationName - The name of the resource.
+//   - parameters - Parameters supplied to the create or update dscp configuration operation.
+//   - options - DscpConfigurationClientBeginCreateOrUpdateOptions contains the optional parameters for the DscpConfigurationClient.BeginCreateOrUpdate
+//     method.
 func (client *DscpConfigurationClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, dscpConfigurationName string, parameters DscpConfiguration, options *DscpConfigurationClientBeginCreateOrUpdateOptions) (*runtime.Poller[DscpConfigurationClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, dscpConfigurationName, parameters, options)
@@ -80,6 +81,7 @@ func (client *DscpConfigurationClient) BeginCreateOrUpdate(ctx context.Context, 
 
 // CreateOrUpdate - Creates or updates a DSCP Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *DscpConfigurationClient) createOrUpdate(ctx context.Context, resourceGroupName string, dscpConfigurationName string, parameters DscpConfiguration, options *DscpConfigurationClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, dscpConfigurationName, parameters, options)
@@ -124,11 +126,12 @@ func (client *DscpConfigurationClient) createOrUpdateCreateRequest(ctx context.C
 
 // BeginDelete - Deletes a DSCP Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// dscpConfigurationName - The name of the resource.
-// options - DscpConfigurationClientBeginDeleteOptions contains the optional parameters for the DscpConfigurationClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - dscpConfigurationName - The name of the resource.
+//   - options - DscpConfigurationClientBeginDeleteOptions contains the optional parameters for the DscpConfigurationClient.BeginDelete
+//     method.
 func (client *DscpConfigurationClient) BeginDelete(ctx context.Context, resourceGroupName string, dscpConfigurationName string, options *DscpConfigurationClientBeginDeleteOptions) (*runtime.Poller[DscpConfigurationClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, dscpConfigurationName, options)
@@ -145,6 +148,7 @@ func (client *DscpConfigurationClient) BeginDelete(ctx context.Context, resource
 
 // Delete - Deletes a DSCP Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *DscpConfigurationClient) deleteOperation(ctx context.Context, resourceGroupName string, dscpConfigurationName string, options *DscpConfigurationClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, dscpConfigurationName, options)
@@ -189,10 +193,11 @@ func (client *DscpConfigurationClient) deleteCreateRequest(ctx context.Context, 
 
 // Get - Gets a DSCP Configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// dscpConfigurationName - The name of the resource.
-// options - DscpConfigurationClientGetOptions contains the optional parameters for the DscpConfigurationClient.Get method.
+//   - resourceGroupName - The name of the resource group.
+//   - dscpConfigurationName - The name of the resource.
+//   - options - DscpConfigurationClientGetOptions contains the optional parameters for the DscpConfigurationClient.Get method.
 func (client *DscpConfigurationClient) Get(ctx context.Context, resourceGroupName string, dscpConfigurationName string, options *DscpConfigurationClientGetOptions) (DscpConfigurationClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, dscpConfigurationName, options)
 	if err != nil {
@@ -244,9 +249,11 @@ func (client *DscpConfigurationClient) getHandleResponse(resp *http.Response) (D
 }
 
 // NewListPager - Gets a DSCP Configuration.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// options - DscpConfigurationClientListOptions contains the optional parameters for the DscpConfigurationClient.List method.
+//   - resourceGroupName - The name of the resource group.
+//   - options - DscpConfigurationClientListOptions contains the optional parameters for the DscpConfigurationClient.NewListPager
+//     method.
 func (client *DscpConfigurationClient) NewListPager(resourceGroupName string, options *DscpConfigurationClientListOptions) *runtime.Pager[DscpConfigurationClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DscpConfigurationClientListResponse]{
 		More: func(page DscpConfigurationClientListResponse) bool {
@@ -307,9 +314,10 @@ func (client *DscpConfigurationClient) listHandleResponse(resp *http.Response) (
 }
 
 // NewListAllPager - Gets all dscp configurations in a subscription.
+//
 // Generated from API version 2022-07-01
-// options - DscpConfigurationClientListAllOptions contains the optional parameters for the DscpConfigurationClient.ListAll
-// method.
+//   - options - DscpConfigurationClientListAllOptions contains the optional parameters for the DscpConfigurationClient.NewListAllPager
+//     method.
 func (client *DscpConfigurationClient) NewListAllPager(options *DscpConfigurationClientListAllOptions) *runtime.Pager[DscpConfigurationClientListAllResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DscpConfigurationClientListAllResponse]{
 		More: func(page DscpConfigurationClientListAllResponse) bool {
