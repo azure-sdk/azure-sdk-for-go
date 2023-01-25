@@ -5,8 +5,8 @@
 ``` yaml
 azure-arm: true
 require:
-- https://github.com/Azure/azure-rest-api-specs/blob/14677ba21f6b5676e79b33d699f7a103dd8f255f/specification/cosmos-db/resource-manager/readme.md
-- https://github.com/Azure/azure-rest-api-specs/blob/14677ba21f6b5676e79b33d699f7a103dd8f255f/specification/cosmos-db/resource-manager/readme.go.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/cosmos-db/resource-manager/readme.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/cosmos-db/resource-manager/readme.go.md
 license-header: MICROSOFT_MIT_NO_VERSION
-module-version: 2.2.0-beta.1
+module-version: 3.0.0
 ```
