@@ -32,10 +32,10 @@ type StorageTargetsClient struct {
 }
 
 // NewStorageTargetsClient creates a new instance of StorageTargetsClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewStorageTargetsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*StorageTargetsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -60,16 +60,16 @@ func NewStorageTargetsClient(subscriptionID string, credential azcore.TokenCrede
 // or unhealthy, the actual creation/modification of the Storage Target may be delayed until the Cache
 // is healthy again.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// storageTargetName - Name of Storage Target.
-// storagetarget - Object containing the definition of a Storage Target.
-// options - StorageTargetsClientBeginCreateOrUpdateOptions contains the optional parameters for the StorageTargetsClient.BeginCreateOrUpdate
-// method.
-func (client *StorageTargetsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, storagetarget StorageTarget, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*runtime.Poller[StorageTargetsClientCreateOrUpdateResponse], error) {
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - storageTargetName - Name of Storage Target.
+//   - options - StorageTargetsClientBeginCreateOrUpdateOptions contains the optional parameters for the StorageTargetsClient.BeginCreateOrUpdate
+//     method.
+func (client *StorageTargetsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*runtime.Poller[StorageTargetsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, cacheName, storageTargetName, storagetarget, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, cacheName, storageTargetName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -83,9 +83,10 @@ func (client *StorageTargetsClient) BeginCreateOrUpdate(ctx context.Context, res
 // unhealthy, the actual creation/modification of the Storage Target may be delayed until the Cache
 // is healthy again.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-func (client *StorageTargetsClient) createOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, storagetarget StorageTarget, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, cacheName, storageTargetName, storagetarget, options)
+func (client *StorageTargetsClient) createOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, cacheName, storageTargetName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +101,7 @@ func (client *StorageTargetsClient) createOrUpdate(ctx context.Context, resource
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *StorageTargetsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, storagetarget StorageTarget, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *StorageTargetsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.StorageCache/caches/{cacheName}/storageTargets/{storageTargetName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -126,17 +127,21 @@ func (client *StorageTargetsClient) createOrUpdateCreateRequest(ctx context.Cont
 	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, storagetarget)
+	if options != nil && options.Storagetarget != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Storagetarget)
+	}
+	return req, nil
 }
 
 // BeginDNSRefresh - Tells a storage target to refresh its DNS information.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// storageTargetName - Name of Storage Target.
-// options - StorageTargetsClientBeginDNSRefreshOptions contains the optional parameters for the StorageTargetsClient.BeginDNSRefresh
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - storageTargetName - Name of Storage Target.
+//   - options - StorageTargetsClientBeginDNSRefreshOptions contains the optional parameters for the StorageTargetsClient.BeginDNSRefresh
+//     method.
 func (client *StorageTargetsClient) BeginDNSRefresh(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginDNSRefreshOptions) (*runtime.Poller[StorageTargetsClientDNSRefreshResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.dNSRefresh(ctx, resourceGroupName, cacheName, storageTargetName, options)
@@ -153,6 +158,7 @@ func (client *StorageTargetsClient) BeginDNSRefresh(ctx context.Context, resourc
 
 // DNSRefresh - Tells a storage target to refresh its DNS information.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *StorageTargetsClient) dNSRefresh(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginDNSRefreshOptions) (*http.Response, error) {
 	req, err := client.dnsRefreshCreateRequest(ctx, resourceGroupName, cacheName, storageTargetName, options)
@@ -204,12 +210,13 @@ func (client *StorageTargetsClient) dnsRefreshCreateRequest(ctx context.Context,
 // again. Note that if the Cache has data to flush to the Storage Target, the data will be flushed before the Storage Target
 // will be deleted.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// storageTargetName - Name of Storage Target.
-// options - StorageTargetsClientBeginDeleteOptions contains the optional parameters for the StorageTargetsClient.BeginDelete
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - storageTargetName - Name of Storage Target.
+//   - options - StorageTargetsClientBeginDeleteOptions contains the optional parameters for the StorageTargetsClient.BeginDelete
+//     method.
 func (client *StorageTargetsClient) BeginDelete(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginDeleteOptions) (*runtime.Poller[StorageTargetsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, cacheName, storageTargetName, options)
@@ -227,6 +234,7 @@ func (client *StorageTargetsClient) BeginDelete(ctx context.Context, resourceGro
 // again. Note that if the Cache has data to flush to the Storage Target, the data will be flushed before the Storage Target
 // will be deleted.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *StorageTargetsClient) deleteOperation(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, cacheName, storageTargetName, options)
@@ -278,11 +286,12 @@ func (client *StorageTargetsClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Returns a Storage Target from a Cache.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// storageTargetName - Name of Storage Target.
-// options - StorageTargetsClientGetOptions contains the optional parameters for the StorageTargetsClient.Get method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - storageTargetName - Name of Storage Target.
+//   - options - StorageTargetsClientGetOptions contains the optional parameters for the StorageTargetsClient.Get method.
 func (client *StorageTargetsClient) Get(ctx context.Context, resourceGroupName string, cacheName string, storageTargetName string, options *StorageTargetsClientGetOptions) (StorageTargetsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, cacheName, storageTargetName, options)
 	if err != nil {
@@ -338,12 +347,12 @@ func (client *StorageTargetsClient) getHandleResponse(resp *http.Response) (Stor
 }
 
 // NewListByCachePager - Returns a list of Storage Targets for the specified Cache.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - StorageTargetsClientListByCacheOptions contains the optional parameters for the StorageTargetsClient.ListByCache
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - StorageTargetsClientListByCacheOptions contains the optional parameters for the StorageTargetsClient.NewListByCachePager
+//     method.
 func (client *StorageTargetsClient) NewListByCachePager(resourceGroupName string, cacheName string, options *StorageTargetsClientListByCacheOptions) *runtime.Pager[StorageTargetsClientListByCacheResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StorageTargetsClientListByCacheResponse]{
 		More: func(page StorageTargetsClientListByCacheResponse) bool {

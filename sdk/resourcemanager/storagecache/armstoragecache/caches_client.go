@@ -32,10 +32,10 @@ type CachesClient struct {
 }
 
 // NewCachesClient creates a new instance of CachesClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCachesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CachesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,16 +58,15 @@ func NewCachesClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // BeginCreateOrUpdate - Create or update a Cache.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// cache - Object containing the user-selectable properties of the new Cache. If read-only properties are included, they must
-// match the existing values of those properties.
-// options - CachesClientBeginCreateOrUpdateOptions contains the optional parameters for the CachesClient.BeginCreateOrUpdate
-// method.
-func (client *CachesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientBeginCreateOrUpdateOptions) (*runtime.Poller[CachesClientCreateOrUpdateResponse], error) {
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginCreateOrUpdateOptions contains the optional parameters for the CachesClient.BeginCreateOrUpdate
+//     method.
+func (client *CachesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginCreateOrUpdateOptions) (*runtime.Poller[CachesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, cacheName, cache, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, cacheName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -79,9 +78,10 @@ func (client *CachesClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 
 // CreateOrUpdate - Create or update a Cache.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-func (client *CachesClient) createOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, cacheName, cache, options)
+func (client *CachesClient) createOrUpdate(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, cacheName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (client *CachesClient) createOrUpdate(ctx context.Context, resourceGroupNam
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *CachesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *CachesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.StorageCache/caches/{cacheName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -118,15 +118,19 @@ func (client *CachesClient) createOrUpdateCreateRequest(ctx context.Context, res
 	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, cache)
+	if options != nil && options.Cache != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Cache)
+	}
+	return req, nil
 }
 
 // BeginDebugInfo - Tells a Cache to write generate debug info for support to process.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginDebugInfoOptions contains the optional parameters for the CachesClient.BeginDebugInfo method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginDebugInfoOptions contains the optional parameters for the CachesClient.BeginDebugInfo method.
 func (client *CachesClient) BeginDebugInfo(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginDebugInfoOptions) (*runtime.Poller[CachesClientDebugInfoResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.debugInfo(ctx, resourceGroupName, cacheName, options)
@@ -143,6 +147,7 @@ func (client *CachesClient) BeginDebugInfo(ctx context.Context, resourceGroupNam
 
 // DebugInfo - Tells a Cache to write generate debug info for support to process.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) debugInfo(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginDebugInfoOptions) (*http.Response, error) {
 	req, err := client.debugInfoCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -187,10 +192,11 @@ func (client *CachesClient) debugInfoCreateRequest(ctx context.Context, resource
 
 // BeginDelete - Schedules a Cache for deletion.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginDeleteOptions contains the optional parameters for the CachesClient.BeginDelete method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginDeleteOptions contains the optional parameters for the CachesClient.BeginDelete method.
 func (client *CachesClient) BeginDelete(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginDeleteOptions) (*runtime.Poller[CachesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, cacheName, options)
@@ -205,6 +211,7 @@ func (client *CachesClient) BeginDelete(ctx context.Context, resourceGroupName s
 
 // Delete - Schedules a Cache for deletion.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) deleteOperation(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -250,10 +257,11 @@ func (client *CachesClient) deleteCreateRequest(ctx context.Context, resourceGro
 // BeginFlush - Tells a Cache to write all dirty data to the Storage Target(s). During the flush, clients will see errors
 // returned until the flush is complete.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginFlushOptions contains the optional parameters for the CachesClient.BeginFlush method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginFlushOptions contains the optional parameters for the CachesClient.BeginFlush method.
 func (client *CachesClient) BeginFlush(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginFlushOptions) (*runtime.Poller[CachesClientFlushResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.flush(ctx, resourceGroupName, cacheName, options)
@@ -271,6 +279,7 @@ func (client *CachesClient) BeginFlush(ctx context.Context, resourceGroupName st
 // Flush - Tells a Cache to write all dirty data to the Storage Target(s). During the flush, clients will see errors returned
 // until the flush is complete.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) flush(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginFlushOptions) (*http.Response, error) {
 	req, err := client.flushCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -315,10 +324,11 @@ func (client *CachesClient) flushCreateRequest(ctx context.Context, resourceGrou
 
 // Get - Returns a Cache.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientGetOptions contains the optional parameters for the CachesClient.Get method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientGetOptions contains the optional parameters for the CachesClient.Get method.
 func (client *CachesClient) Get(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientGetOptions) (CachesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, cacheName, options)
 	if err != nil {
@@ -370,9 +380,9 @@ func (client *CachesClient) getHandleResponse(resp *http.Response) (CachesClient
 }
 
 // NewListPager - Returns all Caches the user has access to under a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// options - CachesClientListOptions contains the optional parameters for the CachesClient.List method.
+//   - options - CachesClientListOptions contains the optional parameters for the CachesClient.NewListPager method.
 func (client *CachesClient) NewListPager(options *CachesClientListOptions) *runtime.Pager[CachesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CachesClientListResponse]{
 		More: func(page CachesClientListResponse) bool {
@@ -429,11 +439,11 @@ func (client *CachesClient) listHandleResponse(resp *http.Response) (CachesClien
 }
 
 // NewListByResourceGroupPager - Returns all Caches the user has access to under a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// options - CachesClientListByResourceGroupOptions contains the optional parameters for the CachesClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - Target resource group.
+//   - options - CachesClientListByResourceGroupOptions contains the optional parameters for the CachesClient.NewListByResourceGroupPager
+//     method.
 func (client *CachesClient) NewListByResourceGroupPager(resourceGroupName string, options *CachesClientListByResourceGroupOptions) *runtime.Pager[CachesClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CachesClientListByResourceGroupResponse]{
 		More: func(page CachesClientListByResourceGroupResponse) bool {
@@ -495,11 +505,12 @@ func (client *CachesClient) listByResourceGroupHandleResponse(resp *http.Respons
 
 // BeginPausePrimingJob - Schedule a priming job to be paused.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginPausePrimingJobOptions contains the optional parameters for the CachesClient.BeginPausePrimingJob
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginPausePrimingJobOptions contains the optional parameters for the CachesClient.BeginPausePrimingJob
+//     method.
 func (client *CachesClient) BeginPausePrimingJob(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginPausePrimingJobOptions) (*runtime.Poller[CachesClientPausePrimingJobResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.pausePrimingJob(ctx, resourceGroupName, cacheName, options)
@@ -516,6 +527,7 @@ func (client *CachesClient) BeginPausePrimingJob(ctx context.Context, resourceGr
 
 // PausePrimingJob - Schedule a priming job to be paused.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) pausePrimingJob(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginPausePrimingJobOptions) (*http.Response, error) {
 	req, err := client.pausePrimingJobCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -563,11 +575,12 @@ func (client *CachesClient) pausePrimingJobCreateRequest(ctx context.Context, re
 
 // BeginResumePrimingJob - Resumes a paused priming job.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginResumePrimingJobOptions contains the optional parameters for the CachesClient.BeginResumePrimingJob
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginResumePrimingJobOptions contains the optional parameters for the CachesClient.BeginResumePrimingJob
+//     method.
 func (client *CachesClient) BeginResumePrimingJob(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginResumePrimingJobOptions) (*runtime.Poller[CachesClientResumePrimingJobResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.resumePrimingJob(ctx, resourceGroupName, cacheName, options)
@@ -584,6 +597,7 @@ func (client *CachesClient) BeginResumePrimingJob(ctx context.Context, resourceG
 
 // ResumePrimingJob - Resumes a paused priming job.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) resumePrimingJob(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginResumePrimingJobOptions) (*http.Response, error) {
 	req, err := client.resumePrimingJobCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -631,11 +645,12 @@ func (client *CachesClient) resumePrimingJobCreateRequest(ctx context.Context, r
 
 // BeginSpaceAllocation - Update cache space allocation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginSpaceAllocationOptions contains the optional parameters for the CachesClient.BeginSpaceAllocation
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginSpaceAllocationOptions contains the optional parameters for the CachesClient.BeginSpaceAllocation
+//     method.
 func (client *CachesClient) BeginSpaceAllocation(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginSpaceAllocationOptions) (*runtime.Poller[CachesClientSpaceAllocationResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.spaceAllocation(ctx, resourceGroupName, cacheName, options)
@@ -652,6 +667,7 @@ func (client *CachesClient) BeginSpaceAllocation(ctx context.Context, resourceGr
 
 // SpaceAllocation - Update cache space allocation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) spaceAllocation(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginSpaceAllocationOptions) (*http.Response, error) {
 	req, err := client.spaceAllocationCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -699,10 +715,11 @@ func (client *CachesClient) spaceAllocationCreateRequest(ctx context.Context, re
 
 // BeginStart - Tells a Stopped state Cache to transition to Active state.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginStartOptions contains the optional parameters for the CachesClient.BeginStart method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginStartOptions contains the optional parameters for the CachesClient.BeginStart method.
 func (client *CachesClient) BeginStart(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginStartOptions) (*runtime.Poller[CachesClientStartResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.start(ctx, resourceGroupName, cacheName, options)
@@ -719,6 +736,7 @@ func (client *CachesClient) BeginStart(ctx context.Context, resourceGroupName st
 
 // Start - Tells a Stopped state Cache to transition to Active state.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) start(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginStartOptions) (*http.Response, error) {
 	req, err := client.startCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -763,11 +781,12 @@ func (client *CachesClient) startCreateRequest(ctx context.Context, resourceGrou
 
 // BeginStartPrimingJob - Create a priming job. This operation is only allowed when the cache is healthy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginStartPrimingJobOptions contains the optional parameters for the CachesClient.BeginStartPrimingJob
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginStartPrimingJobOptions contains the optional parameters for the CachesClient.BeginStartPrimingJob
+//     method.
 func (client *CachesClient) BeginStartPrimingJob(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginStartPrimingJobOptions) (*runtime.Poller[CachesClientStartPrimingJobResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.startPrimingJob(ctx, resourceGroupName, cacheName, options)
@@ -784,6 +803,7 @@ func (client *CachesClient) BeginStartPrimingJob(ctx context.Context, resourceGr
 
 // StartPrimingJob - Create a priming job. This operation is only allowed when the cache is healthy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) startPrimingJob(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginStartPrimingJobOptions) (*http.Response, error) {
 	req, err := client.startPrimingJobCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -831,10 +851,11 @@ func (client *CachesClient) startPrimingJobCreateRequest(ctx context.Context, re
 
 // BeginStop - Tells an Active Cache to transition to Stopped state.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginStopOptions contains the optional parameters for the CachesClient.BeginStop method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginStopOptions contains the optional parameters for the CachesClient.BeginStop method.
 func (client *CachesClient) BeginStop(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginStopOptions) (*runtime.Poller[CachesClientStopResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.stop(ctx, resourceGroupName, cacheName, options)
@@ -851,6 +872,7 @@ func (client *CachesClient) BeginStop(ctx context.Context, resourceGroupName str
 
 // Stop - Tells an Active Cache to transition to Stopped state.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) stop(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginStopOptions) (*http.Response, error) {
 	req, err := client.stopCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -895,11 +917,12 @@ func (client *CachesClient) stopCreateRequest(ctx context.Context, resourceGroup
 
 // BeginStopPrimingJob - Schedule a priming job for deletion.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginStopPrimingJobOptions contains the optional parameters for the CachesClient.BeginStopPrimingJob
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginStopPrimingJobOptions contains the optional parameters for the CachesClient.BeginStopPrimingJob
+//     method.
 func (client *CachesClient) BeginStopPrimingJob(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginStopPrimingJobOptions) (*runtime.Poller[CachesClientStopPrimingJobResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.stopPrimingJob(ctx, resourceGroupName, cacheName, options)
@@ -916,6 +939,7 @@ func (client *CachesClient) BeginStopPrimingJob(ctx context.Context, resourceGro
 
 // StopPrimingJob - Schedule a priming job for deletion.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) stopPrimingJob(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginStopPrimingJobOptions) (*http.Response, error) {
 	req, err := client.stopPrimingJobCreateRequest(ctx, resourceGroupName, cacheName, options)
@@ -963,14 +987,13 @@ func (client *CachesClient) stopPrimingJobCreateRequest(ctx context.Context, res
 
 // Update - Update a Cache instance.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// cache - Object containing the user-selectable properties of the Cache. If read-only properties are included, they must
-// match the existing values of those properties.
-// options - CachesClientUpdateOptions contains the optional parameters for the CachesClient.Update method.
-func (client *CachesClient) Update(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientUpdateOptions) (CachesClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, cacheName, cache, options)
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientUpdateOptions contains the optional parameters for the CachesClient.Update method.
+func (client *CachesClient) Update(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientUpdateOptions) (CachesClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, cacheName, options)
 	if err != nil {
 		return CachesClientUpdateResponse{}, err
 	}
@@ -985,7 +1008,7 @@ func (client *CachesClient) Update(ctx context.Context, resourceGroupName string
 }
 
 // updateCreateRequest creates the Update request.
-func (client *CachesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, cache Cache, options *CachesClientUpdateOptions) (*policy.Request, error) {
+func (client *CachesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.StorageCache/caches/{cacheName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -1007,7 +1030,10 @@ func (client *CachesClient) updateCreateRequest(ctx context.Context, resourceGro
 	reqQP.Set("api-version", "2022-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, cache)
+	if options != nil && options.Cache != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Cache)
+	}
+	return req, nil
 }
 
 // updateHandleResponse handles the Update response.
@@ -1021,11 +1047,12 @@ func (client *CachesClient) updateHandleResponse(resp *http.Response) (CachesCli
 
 // BeginUpgradeFirmware - Upgrade a Cache's firmware if a new version is available. Otherwise, this operation has no effect.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - Target resource group.
-// cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
-// options - CachesClientBeginUpgradeFirmwareOptions contains the optional parameters for the CachesClient.BeginUpgradeFirmware
-// method.
+//   - resourceGroupName - Target resource group.
+//   - cacheName - Name of Cache. Length of name must not be greater than 80 and chars must be from the [-0-9a-zA-Z_] char class.
+//   - options - CachesClientBeginUpgradeFirmwareOptions contains the optional parameters for the CachesClient.BeginUpgradeFirmware
+//     method.
 func (client *CachesClient) BeginUpgradeFirmware(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginUpgradeFirmwareOptions) (*runtime.Poller[CachesClientUpgradeFirmwareResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.upgradeFirmware(ctx, resourceGroupName, cacheName, options)
@@ -1042,6 +1069,7 @@ func (client *CachesClient) BeginUpgradeFirmware(ctx context.Context, resourceGr
 
 // UpgradeFirmware - Upgrade a Cache's firmware if a new version is available. Otherwise, this operation has no effect.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *CachesClient) upgradeFirmware(ctx context.Context, resourceGroupName string, cacheName string, options *CachesClientBeginUpgradeFirmwareOptions) (*http.Response, error) {
 	req, err := client.upgradeFirmwareCreateRequest(ctx, resourceGroupName, cacheName, options)

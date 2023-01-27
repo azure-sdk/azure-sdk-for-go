@@ -32,10 +32,10 @@ type UsageModelsClient struct {
 }
 
 // NewUsageModelsClient creates a new instance of UsageModelsClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewUsageModelsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsageModelsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,9 +57,9 @@ func NewUsageModelsClient(subscriptionID string, credential azcore.TokenCredenti
 }
 
 // NewListPager - Get the list of Cache Usage Models available to this subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// options - UsageModelsClientListOptions contains the optional parameters for the UsageModelsClient.List method.
+//   - options - UsageModelsClientListOptions contains the optional parameters for the UsageModelsClient.NewListPager method.
 func (client *UsageModelsClient) NewListPager(options *UsageModelsClientListOptions) *runtime.Pager[UsageModelsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[UsageModelsClientListResponse]{
 		More: func(page UsageModelsClientListResponse) bool {

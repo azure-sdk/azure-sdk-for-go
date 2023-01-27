@@ -96,7 +96,7 @@ type AscOperation struct {
 // AscOperationProperties - Additional operation-specific output.
 type AscOperationProperties struct {
 	// Additional operation-specific output.
-	Output map[string]interface{} `json:"output,omitempty"`
+	Output map[string]any `json:"output,omitempty"`
 }
 
 // AscOperationsClientGetOptions contains the optional parameters for the AscOperationsClient.Get method.
@@ -104,7 +104,7 @@ type AscOperationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AscUsagesClientListOptions contains the optional parameters for the AscUsagesClient.List method.
+// AscUsagesClientListOptions contains the optional parameters for the AscUsagesClient.NewListPager method.
 type AscUsagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -389,6 +389,9 @@ type CacheUsernameDownloadSettingsCredentials struct {
 
 // CachesClientBeginCreateOrUpdateOptions contains the optional parameters for the CachesClient.BeginCreateOrUpdate method.
 type CachesClientBeginCreateOrUpdateOptions struct {
+	// Object containing the user-selectable properties of the new Cache. If read-only properties are included, they must match
+	// the existing values of those properties.
+	Cache *Cache
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -474,19 +477,22 @@ type CachesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CachesClientListByResourceGroupOptions contains the optional parameters for the CachesClient.ListByResourceGroup method.
+// CachesClientListByResourceGroupOptions contains the optional parameters for the CachesClient.NewListByResourceGroupPager
+// method.
 type CachesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CachesClientListOptions contains the optional parameters for the CachesClient.List method.
+// CachesClientListOptions contains the optional parameters for the CachesClient.NewListPager method.
 type CachesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
 // CachesClientUpdateOptions contains the optional parameters for the CachesClient.Update method.
 type CachesClientUpdateOptions struct {
-	// placeholder for future optional parameters
+	// Object containing the user-selectable properties of the Cache. If read-only properties are included, they must match the
+	// existing values of those properties.
+	Cache *Cache
 }
 
 // CachesListResult - Result of the request to list Caches. It contains a list of Caches and a URL link to get the next set
@@ -503,12 +509,6 @@ type CachesListResult struct {
 type ClfsTarget struct {
 	// Resource ID of storage container.
 	Target *string `json:"target,omitempty"`
-}
-
-// CloudError - An error response.
-type CloudError struct {
-	// The body of the error.
-	Error *CloudErrorBody `json:"error,omitempty"`
 }
 
 // CloudErrorBody - An error response.
@@ -674,7 +674,7 @@ type NfsAccessRule struct {
 	Suid *bool `json:"suid,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -809,7 +809,7 @@ type Restriction struct {
 	Values []*string `json:"values,omitempty" azure:"ro"`
 }
 
-// SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
 type SKUsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -922,6 +922,8 @@ type StorageTargetSpaceAllocation struct {
 type StorageTargetsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+	// Object containing the definition of a Storage Target.
+	Storagetarget *StorageTarget
 }
 
 // StorageTargetsClientBeginDNSRefreshOptions contains the optional parameters for the StorageTargetsClient.BeginDNSRefresh
@@ -945,7 +947,8 @@ type StorageTargetsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// StorageTargetsClientListByCacheOptions contains the optional parameters for the StorageTargetsClient.ListByCache method.
+// StorageTargetsClientListByCacheOptions contains the optional parameters for the StorageTargetsClient.NewListByCachePager
+// method.
 type StorageTargetsClientListByCacheOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1004,7 +1007,7 @@ type UsageModelDisplay struct {
 	Description *string `json:"description,omitempty"`
 }
 
-// UsageModelsClientListOptions contains the optional parameters for the UsageModelsClient.List method.
+// UsageModelsClientListOptions contains the optional parameters for the UsageModelsClient.NewListPager method.
 type UsageModelsClientListOptions struct {
 	// placeholder for future optional parameters
 }
