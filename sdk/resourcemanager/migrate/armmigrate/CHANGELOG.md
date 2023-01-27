@@ -1,5 +1,339 @@
 # Release History
 
+## 2.0.0 (2023-01-27)
+### Breaking Changes
+
+- Function `NewMachinesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(azcore.TokenCredential, *arm.ClientOptions)`
+- Type alias `AssessmentSizingCriterion` has been removed
+- Type alias `AssessmentStage` has been removed
+- Type alias `AssessmentStatus` has been removed
+- Type alias `AzureDiskSize` has been removed
+- Type alias `AzureDiskSuitabilityDetail` has been removed
+- Type alias `AzureDiskSuitabilityExplanation` has been removed
+- Type alias `AzureDiskType` has been removed
+- Type alias `AzureHybridUseBenefit` has been removed
+- Type alias `AzureLocation` has been removed
+- Type alias `AzureNetworkAdapterSuitabilityDetail` has been removed
+- Type alias `AzureNetworkAdapterSuitabilityExplanation` has been removed
+- Type alias `AzureOfferCode` has been removed
+- Type alias `AzurePricingTier` has been removed
+- Type alias `AzureStorageRedundancy` has been removed
+- Type alias `AzureVMFamily` has been removed
+- Type alias `AzureVMSize` has been removed
+- Type alias `AzureVMSuitabilityDetail` has been removed
+- Type alias `AzureVMSuitabilityExplanation` has been removed
+- Type alias `CloudSuitability` has been removed
+- Type alias `Currency` has been removed
+- Type alias `GroupStatus` has been removed
+- Type alias `GroupUpdateOperation` has been removed
+- Type alias `MachineBootType` has been removed
+- Type alias `Percentile` has been removed
+- Type alias `PrivateEndpointConnectionPropertiesProvisioningState` has been removed
+- Type alias `PrivateLinkServiceConnectionStateStatus` has been removed
+- Type alias `ProjectStatus` has been removed
+- Type alias `ProvisioningState` has been removed
+- Type alias `ReservedInstance` has been removed
+- Type alias `TimeRange` has been removed
+- Function `NewAssessedMachinesClient` has been removed
+- Function `*AssessedMachinesClient.Get` has been removed
+- Function `*AssessedMachinesClient.NewListByAssessmentPager` has been removed
+- Function `NewAssessmentsClient` has been removed
+- Function `*AssessmentsClient.Create` has been removed
+- Function `*AssessmentsClient.Delete` has been removed
+- Function `*AssessmentsClient.Get` has been removed
+- Function `*AssessmentsClient.GetReportDownloadURL` has been removed
+- Function `*AssessmentsClient.NewListByGroupPager` has been removed
+- Function `*AssessmentsClient.NewListByProjectPager` has been removed
+- Function `NewGroupsClient` has been removed
+- Function `*GroupsClient.Create` has been removed
+- Function `*GroupsClient.Delete` has been removed
+- Function `*GroupsClient.Get` has been removed
+- Function `*GroupsClient.NewListByProjectPager` has been removed
+- Function `*GroupsClient.UpdateMachines` has been removed
+- Function `NewHyperVCollectorsClient` has been removed
+- Function `*HyperVCollectorsClient.Create` has been removed
+- Function `*HyperVCollectorsClient.Delete` has been removed
+- Function `*HyperVCollectorsClient.Get` has been removed
+- Function `*HyperVCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewImportCollectorsClient` has been removed
+- Function `*ImportCollectorsClient.Create` has been removed
+- Function `*ImportCollectorsClient.Delete` has been removed
+- Function `*ImportCollectorsClient.Get` has been removed
+- Function `*ImportCollectorsClient.NewListByProjectPager` has been removed
+- Function `*MachinesClient.Get` has been removed
+- Function `*MachinesClient.NewListByProjectPager` has been removed
+- Function `NewPrivateEndpointConnectionClient` has been removed
+- Function `*PrivateEndpointConnectionClient.Delete` has been removed
+- Function `*PrivateEndpointConnectionClient.Get` has been removed
+- Function `*PrivateEndpointConnectionClient.ListByProject` has been removed
+- Function `*PrivateEndpointConnectionClient.Update` has been removed
+- Function `NewPrivateLinkResourceClient` has been removed
+- Function `*PrivateLinkResourceClient.Get` has been removed
+- Function `*PrivateLinkResourceClient.ListByProject` has been removed
+- Function `NewProjectsClient` has been removed
+- Function `*ProjectsClient.AssessmentOptions` has been removed
+- Function `*ProjectsClient.NewAssessmentOptionsListPager` has been removed
+- Function `*ProjectsClient.Create` has been removed
+- Function `*ProjectsClient.Delete` has been removed
+- Function `*ProjectsClient.Get` has been removed
+- Function `*ProjectsClient.NewListBySubscriptionPager` has been removed
+- Function `*ProjectsClient.NewListPager` has been removed
+- Function `*ProjectsClient.Update` has been removed
+- Function `NewServerCollectorsClient` has been removed
+- Function `*ServerCollectorsClient.Create` has been removed
+- Function `*ServerCollectorsClient.Delete` has been removed
+- Function `*ServerCollectorsClient.Get` has been removed
+- Function `*ServerCollectorsClient.NewListByProjectPager` has been removed
+- Function `NewVMwareCollectorsClient` has been removed
+- Function `*VMwareCollectorsClient.Create` has been removed
+- Function `*VMwareCollectorsClient.Delete` has been removed
+- Function `*VMwareCollectorsClient.Get` has been removed
+- Function `*VMwareCollectorsClient.NewListByProjectPager` has been removed
+- Struct `AssessedDisk` has been removed
+- Struct `AssessedMachine` has been removed
+- Struct `AssessedMachineProperties` has been removed
+- Struct `AssessedMachineResultList` has been removed
+- Struct `AssessedMachinesClient` has been removed
+- Struct `AssessedMachinesClientListByAssessmentResponse` has been removed
+- Struct `AssessedNetworkAdapter` has been removed
+- Struct `Assessment` has been removed
+- Struct `AssessmentOptions` has been removed
+- Struct `AssessmentOptionsProperties` has been removed
+- Struct `AssessmentOptionsResultList` has been removed
+- Struct `AssessmentProperties` has been removed
+- Struct `AssessmentResultList` has been removed
+- Struct `AssessmentsClient` has been removed
+- Struct `AssessmentsClientListByGroupResponse` has been removed
+- Struct `AssessmentsClientListByProjectResponse` has been removed
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+- Struct `CollectorAgentProperties` has been removed
+- Struct `CollectorBodyAgentSpnProperties` has been removed
+- Struct `CollectorProperties` has been removed
+- Struct `Disk` has been removed
+- Struct `DownloadURL` has been removed
+- Struct `Group` has been removed
+- Struct `GroupBodyProperties` has been removed
+- Struct `GroupProperties` has been removed
+- Struct `GroupResultList` has been removed
+- Struct `GroupsClient` has been removed
+- Struct `GroupsClientListByProjectResponse` has been removed
+- Struct `HyperVCollector` has been removed
+- Struct `HyperVCollectorList` has been removed
+- Struct `HyperVCollectorsClient` has been removed
+- Struct `HyperVCollectorsClientListByProjectResponse` has been removed
+- Struct `ImportCollector` has been removed
+- Struct `ImportCollectorList` has been removed
+- Struct `ImportCollectorProperties` has been removed
+- Struct `ImportCollectorsClient` has been removed
+- Struct `ImportCollectorsClientListByProjectResponse` has been removed
+- Struct `MachineProperties` has been removed
+- Struct `MachineResultList` has been removed
+- Struct `MachinesClientListByProjectResponse` has been removed
+- Struct `NetworkAdapter` has been removed
+- Struct `PrivateEndpointConnection` has been removed
+- Struct `PrivateEndpointConnectionClient` has been removed
+- Struct `PrivateEndpointConnectionCollection` has been removed
+- Struct `PrivateEndpointConnectionProperties` has been removed
+- Struct `PrivateLinkResource` has been removed
+- Struct `PrivateLinkResourceClient` has been removed
+- Struct `PrivateLinkResourceCollection` has been removed
+- Struct `PrivateLinkResourceProperties` has been removed
+- Struct `PrivateLinkServiceConnectionState` has been removed
+- Struct `Project` has been removed
+- Struct `ProjectProperties` has been removed
+- Struct `ProjectResultList` has been removed
+- Struct `ProjectsClient` has been removed
+- Struct `ProjectsClientAssessmentOptionsListResponse` has been removed
+- Struct `ProjectsClientListBySubscriptionResponse` has been removed
+- Struct `ProjectsClientListResponse` has been removed
+- Struct `ResourceID` has been removed
+- Struct `ServerCollector` has been removed
+- Struct `ServerCollectorList` has been removed
+- Struct `ServerCollectorsClient` has been removed
+- Struct `ServerCollectorsClientListByProjectResponse` has been removed
+- Struct `UpdateGroupBody` has been removed
+- Struct `VMFamily` has been removed
+- Struct `VMUptime` has been removed
+- Struct `VMwareCollector` has been removed
+- Struct `VMwareCollectorList` has been removed
+- Struct `VMwareCollectorsClient` has been removed
+- Struct `VMwareCollectorsClientListByProjectResponse` has been removed
+- Field `ETag` of struct `Machine` has been removed
+- Field `Properties` of struct `Machine` has been removed
+
+### Features Added
+
+- New type alias `AgentConfigurationRebootStatus` with values `AgentConfigurationRebootStatusNotRebooted`, `AgentConfigurationRebootStatusRebooted`, `AgentConfigurationRebootStatusUnknown`
+- New type alias `CredentialType` with values `CredentialTypeHyperVFabric`, `CredentialTypeLinuxGuest`, `CredentialTypeLinuxServer`, `CredentialTypeVMwareFabric`, `CredentialTypeWindowsGuest`, `CredentialTypeWindowsServer`
+- New type alias `HighlyAvailable` with values `HighlyAvailableNo`, `HighlyAvailableUnknown`, `HighlyAvailableYes`
+- New type alias `HypervisorConfigurationHypervisorType` with values `HypervisorConfigurationHypervisorTypeHyperv`, `HypervisorConfigurationHypervisorTypeUnknown`
+- New type alias `MachinePropertiesMonitoringState` with values `MachinePropertiesMonitoringStateDiscovered`, `MachinePropertiesMonitoringStateMonitored`
+- New type alias `MachinePropertiesVirtualizationState` with values `MachinePropertiesVirtualizationStateHypervisor`, `MachinePropertiesVirtualizationStatePhysical`, `MachinePropertiesVirtualizationStateUnknown`, `MachinePropertiesVirtualizationStateVirtual`
+- New type alias `MachineResourcesConfigurationCPUSpeedAccuracy` with values `MachineResourcesConfigurationCPUSpeedAccuracyActual`, `MachineResourcesConfigurationCPUSpeedAccuracyEstimated`
+- New type alias `OperatingSystemConfigurationBitness` with values `OperatingSystemConfigurationBitnessSixtyFourBit`, `OperatingSystemConfigurationBitnessThirtyTwoBit`
+- New type alias `OperatingSystemConfigurationFamily` with values `OperatingSystemConfigurationFamilyAix`, `OperatingSystemConfigurationFamilyLinux`, `OperatingSystemConfigurationFamilySolaris`, `OperatingSystemConfigurationFamilyUnknown`, `OperatingSystemConfigurationFamilyWindows`
+- New type alias `VirtualDiskMode` with values `VirtualDiskModeAppend`, `VirtualDiskModeIndependentNonpersistent`, `VirtualDiskModeIndependentPersistent`, `VirtualDiskModeNonpersistent`, `VirtualDiskModePersistent`, `VirtualDiskModeUndoable`
+- New type alias `VirtualMachineConfigurationVirtualMachineType` with values `VirtualMachineConfigurationVirtualMachineTypeHyperv`, `VirtualMachineConfigurationVirtualMachineTypeLdom`, `VirtualMachineConfigurationVirtualMachineTypeLpar`, `VirtualMachineConfigurationVirtualMachineTypeUnknown`, `VirtualMachineConfigurationVirtualMachineTypeVirtualPc`, `VirtualMachineConfigurationVirtualMachineTypeVmware`, `VirtualMachineConfigurationVirtualMachineTypeXen`
+- New function `NewHyperVClusterClient(azcore.TokenCredential, *arm.ClientOptions) (*HyperVClusterClient, error)`
+- New function `*HyperVClusterClient.NewGetAllClustersInSitePager(string, string, string, *HyperVClusterClientGetAllClustersInSiteOptions) *runtime.Pager[HyperVClusterClientGetAllClustersInSiteResponse]`
+- New function `*HyperVClusterClient.GetCluster(context.Context, string, string, string, string, *HyperVClusterClientGetClusterOptions) (HyperVClusterClientGetClusterResponse, error)`
+- New function `*HyperVClusterClient.PutCluster(context.Context, string, string, string, string, HyperVCluster, *HyperVClusterClientPutClusterOptions) (HyperVClusterClientPutClusterResponse, error)`
+- New function `NewHyperVHostClient(azcore.TokenCredential, *arm.ClientOptions) (*HyperVHostClient, error)`
+- New function `*HyperVHostClient.NewGetAllHostsInSitePager(string, string, string, *HyperVHostClientGetAllHostsInSiteOptions) *runtime.Pager[HyperVHostClientGetAllHostsInSiteResponse]`
+- New function `*HyperVHostClient.GetHost(context.Context, string, string, string, string, *HyperVHostClientGetHostOptions) (HyperVHostClientGetHostResponse, error)`
+- New function `*HyperVHostClient.PutHost(context.Context, string, string, string, string, HyperVHost, *HyperVHostClientPutHostOptions) (HyperVHostClientPutHostResponse, error)`
+- New function `NewHyperVJobsClient(azcore.TokenCredential, *arm.ClientOptions) (*HyperVJobsClient, error)`
+- New function `*HyperVJobsClient.NewGetAllJobsInSitePager(string, string, string, *HyperVJobsClientGetAllJobsInSiteOptions) *runtime.Pager[HyperVJobsClientGetAllJobsInSiteResponse]`
+- New function `*HyperVJobsClient.GetJob(context.Context, string, string, string, string, *HyperVJobsClientGetJobOptions) (HyperVJobsClientGetJobResponse, error)`
+- New function `NewHyperVMachinesClient(azcore.TokenCredential, *arm.ClientOptions) (*HyperVMachinesClient, error)`
+- New function `*HyperVMachinesClient.NewGetAllMachinesInSitePager(string, string, string, *HyperVMachinesClientGetAllMachinesInSiteOptions) *runtime.Pager[HyperVMachinesClientGetAllMachinesInSiteResponse]`
+- New function `*HyperVMachinesClient.GetMachine(context.Context, string, string, string, string, *HyperVMachinesClientGetMachineOptions) (HyperVMachinesClientGetMachineResponse, error)`
+- New function `NewHyperVOperationsStatusClient(azcore.TokenCredential, *arm.ClientOptions) (*HyperVOperationsStatusClient, error)`
+- New function `*HyperVOperationsStatusClient.GetOperationStatus(context.Context, string, string, string, string, *HyperVOperationsStatusClientGetOperationStatusOptions) (HyperVOperationsStatusClientGetOperationStatusResponse, error)`
+- New function `NewHyperVRunAsAccountsClient(azcore.TokenCredential, *arm.ClientOptions) (*HyperVRunAsAccountsClient, error)`
+- New function `*HyperVRunAsAccountsClient.NewGetAllRunAsAccountsInSitePager(string, string, string, *HyperVRunAsAccountsClientGetAllRunAsAccountsInSiteOptions) *runtime.Pager[HyperVRunAsAccountsClientGetAllRunAsAccountsInSiteResponse]`
+- New function `*HyperVRunAsAccountsClient.GetRunAsAccount(context.Context, string, string, string, string, *HyperVRunAsAccountsClientGetRunAsAccountOptions) (HyperVRunAsAccountsClientGetRunAsAccountResponse, error)`
+- New function `NewHyperVSitesClient(azcore.TokenCredential, *arm.ClientOptions) (*HyperVSitesClient, error)`
+- New function `*HyperVSitesClient.DeleteSite(context.Context, string, string, string, *HyperVSitesClientDeleteSiteOptions) (HyperVSitesClientDeleteSiteResponse, error)`
+- New function `*HyperVSitesClient.GetSite(context.Context, string, string, string, *HyperVSitesClientGetSiteOptions) (HyperVSitesClientGetSiteResponse, error)`
+- New function `*HyperVSitesClient.NewGetSiteHealthSummaryPager(string, string, string, *HyperVSitesClientGetSiteHealthSummaryOptions) *runtime.Pager[HyperVSitesClientGetSiteHealthSummaryResponse]`
+- New function `*HyperVSitesClient.GetSiteUsage(context.Context, string, string, string, *HyperVSitesClientGetSiteUsageOptions) (HyperVSitesClientGetSiteUsageResponse, error)`
+- New function `*HyperVSitesClient.PatchSite(context.Context, string, string, string, HyperVSite, *HyperVSitesClientPatchSiteOptions) (HyperVSitesClientPatchSiteResponse, error)`
+- New function `*HyperVSitesClient.PutSite(context.Context, string, string, string, HyperVSite, *HyperVSitesClientPutSiteOptions) (HyperVSitesClientPutSiteResponse, error)`
+- New function `*HyperVSitesClient.RefreshSite(context.Context, string, string, string, *HyperVSitesClientRefreshSiteOptions) (HyperVSitesClientRefreshSiteResponse, error)`
+- New function `NewJobsClient(azcore.TokenCredential, *arm.ClientOptions) (*JobsClient, error)`
+- New function `*JobsClient.NewGetAllJobsInSitePager(string, string, string, *JobsClientGetAllJobsInSiteOptions) *runtime.Pager[JobsClientGetAllJobsInSiteResponse]`
+- New function `*JobsClient.GetJob(context.Context, string, string, string, string, *JobsClientGetJobOptions) (JobsClientGetJobResponse, error)`
+- New function `*MachinesClient.NewGetAllMachinesInSitePager(string, string, string, *MachinesClientGetAllMachinesInSiteOptions) *runtime.Pager[MachinesClientGetAllMachinesInSiteResponse]`
+- New function `*MachinesClient.GetMachine(context.Context, string, string, string, string, *MachinesClientGetMachineOptions) (MachinesClientGetMachineResponse, error)`
+- New function `*MachinesClient.StartMachine(context.Context, string, string, string, string, *MachinesClientStartMachineOptions) (MachinesClientStartMachineResponse, error)`
+- New function `*MachinesClient.StopMachine(context.Context, string, string, string, string, *MachinesClientStopMachineOptions) (MachinesClientStopMachineResponse, error)`
+- New function `NewRunAsAccountsClient(azcore.TokenCredential, *arm.ClientOptions) (*RunAsAccountsClient, error)`
+- New function `*RunAsAccountsClient.NewGetAllRunAsAccountsInSitePager(string, string, string, *RunAsAccountsClientGetAllRunAsAccountsInSiteOptions) *runtime.Pager[RunAsAccountsClientGetAllRunAsAccountsInSiteResponse]`
+- New function `*RunAsAccountsClient.GetRunAsAccount(context.Context, string, string, string, string, *RunAsAccountsClientGetRunAsAccountOptions) (RunAsAccountsClientGetRunAsAccountResponse, error)`
+- New function `NewSitesClient(azcore.TokenCredential, *arm.ClientOptions) (*SitesClient, error)`
+- New function `*SitesClient.DeleteSite(context.Context, string, string, string, *SitesClientDeleteSiteOptions) (SitesClientDeleteSiteResponse, error)`
+- New function `*SitesClient.GetSite(context.Context, string, string, string, *SitesClientGetSiteOptions) (SitesClientGetSiteResponse, error)`
+- New function `*SitesClient.NewGetSiteHealthSummaryPager(string, string, string, *SitesClientGetSiteHealthSummaryOptions) *runtime.Pager[SitesClientGetSiteHealthSummaryResponse]`
+- New function `*SitesClient.GetSiteUsage(context.Context, string, string, string, *SitesClientGetSiteUsageOptions) (SitesClientGetSiteUsageResponse, error)`
+- New function `*SitesClient.PatchSite(context.Context, string, string, string, VMwareSite, *SitesClientPatchSiteOptions) (SitesClientPatchSiteResponse, error)`
+- New function `*SitesClient.PutSite(context.Context, string, string, string, VMwareSite, *SitesClientPutSiteOptions) (SitesClientPutSiteResponse, error)`
+- New function `*SitesClient.RefreshSite(context.Context, string, string, string, *SitesClientRefreshSiteOptions) (SitesClientRefreshSiteResponse, error)`
+- New function `NewVCenterClient(azcore.TokenCredential, *arm.ClientOptions) (*VCenterClient, error)`
+- New function `*VCenterClient.DeleteVCenter(context.Context, string, string, string, string, *VCenterClientDeleteVCenterOptions) (VCenterClientDeleteVCenterResponse, error)`
+- New function `*VCenterClient.NewGetAllVCentersInSitePager(string, string, string, *VCenterClientGetAllVCentersInSiteOptions) *runtime.Pager[VCenterClientGetAllVCentersInSiteResponse]`
+- New function `*VCenterClient.GetVCenter(context.Context, string, string, string, string, *VCenterClientGetVCenterOptions) (VCenterClientGetVCenterResponse, error)`
+- New function `*VCenterClient.PutVCenter(context.Context, string, string, string, string, VCenter, *VCenterClientPutVCenterOptions) (VCenterClientPutVCenterResponse, error)`
+- New function `NewVMwareOperationsStatusClient(azcore.TokenCredential, *arm.ClientOptions) (*VMwareOperationsStatusClient, error)`
+- New function `*VMwareOperationsStatusClient.GetOperationStatus(context.Context, string, string, string, string, *VMwareOperationsStatusClientGetOperationStatusOptions) (VMwareOperationsStatusClientGetOperationStatusResponse, error)`
+- New struct `AgentConfiguration`
+- New struct `Application`
+- New struct `AppsAndRoles`
+- New struct `BizTalkServer`
+- New struct `ErrorDetails`
+- New struct `ExchangeServer`
+- New struct `Feature`
+- New struct `GuestOSDetails`
+- New struct `HealthErrorDetails`
+- New struct `HostingConfiguration`
+- New struct `HyperVCluster`
+- New struct `HyperVClusterClient`
+- New struct `HyperVClusterClientGetAllClustersInSiteResponse`
+- New struct `HyperVClusterCollection`
+- New struct `HyperVClusterProperties`
+- New struct `HyperVDisk`
+- New struct `HyperVHost`
+- New struct `HyperVHostClient`
+- New struct `HyperVHostClientGetAllHostsInSiteResponse`
+- New struct `HyperVHostCollection`
+- New struct `HyperVHostProperties`
+- New struct `HyperVJob`
+- New struct `HyperVJobCollection`
+- New struct `HyperVJobsClient`
+- New struct `HyperVJobsClientGetAllJobsInSiteResponse`
+- New struct `HyperVMachine`
+- New struct `HyperVMachineCollection`
+- New struct `HyperVMachineProperties`
+- New struct `HyperVMachinesClient`
+- New struct `HyperVMachinesClientGetAllMachinesInSiteResponse`
+- New struct `HyperVNetworkAdapter`
+- New struct `HyperVOperationsStatusClient`
+- New struct `HyperVRunAsAccount`
+- New struct `HyperVRunAsAccountCollection`
+- New struct `HyperVRunAsAccountsClient`
+- New struct `HyperVRunAsAccountsClientGetAllRunAsAccountsInSiteResponse`
+- New struct `HyperVSite`
+- New struct `HyperVSiteUsage`
+- New struct `HyperVSitesClient`
+- New struct `HyperVSitesClientGetSiteHealthSummaryResponse`
+- New struct `HypervisorConfiguration`
+- New struct `IPv4NetworkInterface`
+- New struct `IPv6NetworkInterface`
+- New struct `JobProperties`
+- New struct `JobsClient`
+- New struct `JobsClientGetAllJobsInSiteResponse`
+- New struct `MachineResourcesConfiguration`
+- New struct `MachinesClientGetAllMachinesInSiteResponse`
+- New struct `NetworkConfiguration`
+- New struct `OperatingSystem`
+- New struct `OperatingSystemConfiguration`
+- New struct `OperationStatus`
+- New struct `OperationStatusError`
+- New struct `OperationStatusProperties`
+- New struct `OtherDatabase`
+- New struct `RunAsAccountProperties`
+- New struct `RunAsAccountsClient`
+- New struct `RunAsAccountsClientGetAllRunAsAccountsInSiteResponse`
+- New struct `SQLServer`
+- New struct `SharePointServer`
+- New struct `SiteAgentProperties`
+- New struct `SiteHealthSummary`
+- New struct `SiteHealthSummaryCollection`
+- New struct `SiteProperties`
+- New struct `SiteSpnProperties`
+- New struct `SitesClient`
+- New struct `SitesClientGetSiteHealthSummaryResponse`
+- New struct `SystemCenter`
+- New struct `Timezone`
+- New struct `VCenter`
+- New struct `VCenterClient`
+- New struct `VCenterClientGetAllVCentersInSiteResponse`
+- New struct `VCenterCollection`
+- New struct `VCenterProperties`
+- New struct `VMwareDisk`
+- New struct `VMwareJob`
+- New struct `VMwareJobCollection`
+- New struct `VMwareMachine`
+- New struct `VMwareMachineCollection`
+- New struct `VMwareMachineProperties`
+- New struct `VMwareNetworkAdapter`
+- New struct `VMwareOperationsStatusClient`
+- New struct `VMwareRunAsAccount`
+- New struct `VMwareRunAsAccountCollection`
+- New struct `VMwareSite`
+- New struct `VMwareSiteUsage`
+- New struct `VirtualMachineConfiguration`
+- New struct `WebApplication`
+- New field `Etag` in struct `Machine`
+- New field `PropertiesAgent` in struct `Machine`
+- New field `PropertiesBootTime` in struct `Machine`
+- New field `PropertiesComputerName` in struct `Machine`
+- New field `PropertiesDisplayName` in struct `Machine`
+- New field `PropertiesFullyQualifiedDomainName` in struct `Machine`
+- New field `PropertiesHosting` in struct `Machine`
+- New field `PropertiesHypervisor` in struct `Machine`
+- New field `PropertiesMonitoringState` in struct `Machine`
+- New field `PropertiesNetworking` in struct `Machine`
+- New field `PropertiesOperatingSystem` in struct `Machine`
+- New field `PropertiesResources` in struct `Machine`
+- New field `PropertiesTimestamp` in struct `Machine`
+- New field `PropertiesTimezone` in struct `Machine`
+- New field `PropertiesVirtualMachine` in struct `Machine`
+- New field `PropertiesVirtualizationState` in struct `Machine`
+- New field `NextLink` in struct `OperationResultList`
+
+
 ## 1.0.0 (2022-06-10)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/migrate/armmigrate` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
