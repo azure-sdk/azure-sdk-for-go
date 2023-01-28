@@ -33,9 +33,9 @@ type SmartGroupsClient struct {
 }
 
 // NewSmartGroupsClient creates a new instance of SmartGroupsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSmartGroupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SmartGroupsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,10 +58,11 @@ func NewSmartGroupsClient(subscriptionID string, credential azcore.TokenCredenti
 
 // ChangeState - Change the state of a Smart Group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-05-05-preview
-// smartGroupID - Smart group unique id.
-// newState - New state of the alert.
-// options - SmartGroupsClientChangeStateOptions contains the optional parameters for the SmartGroupsClient.ChangeState method.
+//   - smartGroupID - Smart group unique id.
+//   - newState - New state of the alert.
+//   - options - SmartGroupsClientChangeStateOptions contains the optional parameters for the SmartGroupsClient.ChangeState method.
 func (client *SmartGroupsClient) ChangeState(ctx context.Context, smartGroupID string, newState AlertState, options *SmartGroupsClientChangeStateOptions) (SmartGroupsClientChangeStateResponse, error) {
 	req, err := client.changeStateCreateRequest(ctx, smartGroupID, newState, options)
 	if err != nil {
@@ -113,9 +114,9 @@ func (client *SmartGroupsClient) changeStateHandleResponse(resp *http.Response) 
 }
 
 // NewGetAllPager - List all the Smart Groups within a specified subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-05-05-preview
-// options - SmartGroupsClientGetAllOptions contains the optional parameters for the SmartGroupsClient.GetAll method.
+//   - options - SmartGroupsClientGetAllOptions contains the optional parameters for the SmartGroupsClient.NewGetAllPager method.
 func (client *SmartGroupsClient) NewGetAllPager(options *SmartGroupsClientGetAllOptions) *runtime.Pager[SmartGroupsClientGetAllResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SmartGroupsClientGetAllResponse]{
 		More: func(page SmartGroupsClientGetAllResponse) bool {
@@ -206,9 +207,10 @@ func (client *SmartGroupsClient) getAllHandleResponse(resp *http.Response) (Smar
 
 // GetByID - Get information related to a specific Smart Group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-05-05-preview
-// smartGroupID - Smart group unique id.
-// options - SmartGroupsClientGetByIDOptions contains the optional parameters for the SmartGroupsClient.GetByID method.
+//   - smartGroupID - Smart group unique id.
+//   - options - SmartGroupsClientGetByIDOptions contains the optional parameters for the SmartGroupsClient.GetByID method.
 func (client *SmartGroupsClient) GetByID(ctx context.Context, smartGroupID string, options *SmartGroupsClientGetByIDOptions) (SmartGroupsClientGetByIDResponse, error) {
 	req, err := client.getByIDCreateRequest(ctx, smartGroupID, options)
 	if err != nil {
@@ -260,9 +262,10 @@ func (client *SmartGroupsClient) getByIDHandleResponse(resp *http.Response) (Sma
 
 // GetHistory - Get the history a smart group, which captures any Smart Group state changes (New/Acknowledged/Closed) .
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-05-05-preview
-// smartGroupID - Smart group unique id.
-// options - SmartGroupsClientGetHistoryOptions contains the optional parameters for the SmartGroupsClient.GetHistory method.
+//   - smartGroupID - Smart group unique id.
+//   - options - SmartGroupsClientGetHistoryOptions contains the optional parameters for the SmartGroupsClient.GetHistory method.
 func (client *SmartGroupsClient) GetHistory(ctx context.Context, smartGroupID string, options *SmartGroupsClientGetHistoryOptions) (SmartGroupsClientGetHistoryResponse, error) {
 	req, err := client.getHistoryCreateRequest(ctx, smartGroupID, options)
 	if err != nil {
