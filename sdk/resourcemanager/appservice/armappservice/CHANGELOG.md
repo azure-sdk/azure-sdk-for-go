@@ -1,5 +1,59 @@
 # Release History
 
+## 3.0.0 (2023-01-29)
+### Breaking Changes
+
+- Type of `ContentLink.Metadata` has been changed from `interface{}` to `any`
+- Type of `ContinuousWebJobProperties.Settings` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `EnvironmentsClientDeleteAseCustomDNSSuffixConfigurationResponse.Interface` has been changed from `interface{}` to `any`
+- Type of `EnvironmentsClientDeletePrivateEndpointConnectionResponse.Interface` has been changed from `interface{}` to `any`
+- Type of `Expression.Value` has been changed from `interface{}` to `any`
+- Type of `ExpressionRoot.Value` has been changed from `interface{}` to `any`
+- Type of `ExpressionTraces.Value` has been changed from `interface{}` to `any`
+- Type of `FunctionEnvelopeProperties.Config` has been changed from `interface{}` to `any`
+- Type of `KeyValuePairStringObject.Value` has been changed from `interface{}` to `any`
+- Type of `OperationResult.Outputs` has been changed from `interface{}` to `any`
+- Type of `OperationResult.TrackedProperties` has been changed from `interface{}` to `any`
+- Type of `OperationResult.Error` has been changed from `interface{}` to `any`
+- Type of `OperationResult.Inputs` has been changed from `interface{}` to `any`
+- Type of `OperationResultProperties.Error` has been changed from `interface{}` to `any`
+- Type of `PlansClientGetServerFarmSKUsResponse.Interface` has been changed from `interface{}` to `any`
+- Type of `Request.Headers` has been changed from `interface{}` to `any`
+- Type of `Response.Headers` has been changed from `interface{}` to `any`
+- Type of `StackMajorVersion.SiteConfigPropertiesDictionary` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `StackMajorVersion.AppSettingsDictionary` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `StaticSitesClientDeletePrivateEndpointConnectionResponse.Interface` has been changed from `interface{}` to `any`
+- Type of `TriggeredWebJobProperties.Settings` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `WebAppsClientCreateOneDeployOperationResponse.Interface` has been changed from `interface{}` to `any`
+- Type of `WebAppsClientDeletePrivateEndpointConnectionResponse.Interface` has been changed from `interface{}` to `any`
+- Type of `WebAppsClientDeletePrivateEndpointConnectionSlotResponse.Interface` has been changed from `interface{}` to `any`
+- Type of `WebAppsClientGetOneDeployStatusResponse.Interface` has been changed from `interface{}` to `any`
+- Type of `WebJobProperties.Settings` has been changed from `map[string]interface{}` to `map[string]any`
+- Type of `WorkflowOutputParameter.Value` has been changed from `interface{}` to `any`
+- Type of `WorkflowOutputParameter.Error` has been changed from `interface{}` to `any`
+- Type of `WorkflowOutputParameter.Metadata` has been changed from `interface{}` to `any`
+- Type of `WorkflowParameter.Metadata` has been changed from `interface{}` to `any`
+- Type of `WorkflowParameter.Value` has been changed from `interface{}` to `any`
+- Type of `WorkflowProperties.Definition` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunActionProperties.TrackedProperties` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunActionProperties.Error` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunActionRepetitionProperties.TrackedProperties` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunActionRepetitionProperties.Inputs` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunActionRepetitionProperties.Error` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunActionRepetitionProperties.Outputs` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunProperties.Error` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunTrigger.Outputs` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunTrigger.TrackedProperties` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunTrigger.Error` has been changed from `interface{}` to `any`
+- Type of `WorkflowRunTrigger.Inputs` has been changed from `interface{}` to `any`
+- Type of `WorkflowTriggerHistoryProperties.Error` has been changed from `interface{}` to `any`
+- Type of `WorkflowVersionProperties.Definition` has been changed from `interface{}` to `any`
+
+### Features Added
+
+- New field `ManagedEnvironment` in struct `SiteProperties`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 
