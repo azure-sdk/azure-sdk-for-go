@@ -32,10 +32,10 @@ type DscCompilationJobStreamClient struct {
 }
 
 // NewDscCompilationJobStreamClient creates a new instance of DscCompilationJobStreamClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDscCompilationJobStreamClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DscCompilationJobStreamClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewDscCompilationJobStreamClient(subscriptionID string, credential azcore.T
 
 // ListByJob - Retrieve all the job streams for the compilation Job.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// jobID - The job id.
-// options - DscCompilationJobStreamClientListByJobOptions contains the optional parameters for the DscCompilationJobStreamClient.ListByJob
-// method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - jobID - The job id.
+//   - options - DscCompilationJobStreamClientListByJobOptions contains the optional parameters for the DscCompilationJobStreamClient.ListByJob
+//     method.
 func (client *DscCompilationJobStreamClient) ListByJob(ctx context.Context, resourceGroupName string, automationAccountName string, jobID string, options *DscCompilationJobStreamClientListByJobOptions) (DscCompilationJobStreamClientListByJobResponse, error) {
 	req, err := client.listByJobCreateRequest(ctx, resourceGroupName, automationAccountName, jobID, options)
 	if err != nil {

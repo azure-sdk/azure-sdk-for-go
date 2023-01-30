@@ -23,20 +23,20 @@ import (
 	"strings"
 )
 
-// CredentialClient contains the methods for the Credential group.
-// Don't use this type directly, use NewCredentialClient() instead.
-type CredentialClient struct {
+// Python3PackageClient contains the methods for the Python3Package group.
+// Don't use this type directly, use NewPython3PackageClient() instead.
+type Python3PackageClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewCredentialClient creates a new instance of CredentialClient with the specified values.
+// NewPython3PackageClient creates a new instance of Python3PackageClient with the specified values.
 //   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
 //     forms part of the URI for every service call.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewCredentialClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CredentialClient, error) {
+func NewPython3PackageClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Python3PackageClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -48,7 +48,7 @@ func NewCredentialClient(subscriptionID string, credential azcore.TokenCredentia
 	if err != nil {
 		return nil, err
 	}
-	client := &CredentialClient{
+	client := &Python3PackageClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -56,34 +56,34 @@ func NewCredentialClient(subscriptionID string, credential azcore.TokenCredentia
 	return client, nil
 }
 
-// CreateOrUpdate - Create a credential.
+// CreateOrUpdate - Create or Update the python 3 package identified by package name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
-//   - credentialName - The parameters supplied to the create or update credential operation.
-//   - parameters - The parameters supplied to the create or update credential operation.
-//   - options - CredentialClientCreateOrUpdateOptions contains the optional parameters for the CredentialClient.CreateOrUpdate
+//   - packageName - The name of python package.
+//   - parameters - The create or update parameters for python package.
+//   - options - Python3PackageClientCreateOrUpdateOptions contains the optional parameters for the Python3PackageClient.CreateOrUpdate
 //     method.
-func (client *CredentialClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, credentialName string, parameters CredentialCreateOrUpdateParameters, options *CredentialClientCreateOrUpdateOptions) (CredentialClientCreateOrUpdateResponse, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, credentialName, parameters, options)
+func (client *Python3PackageClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageCreateParameters, options *Python3PackageClientCreateOrUpdateOptions) (Python3PackageClientCreateOrUpdateResponse, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, parameters, options)
 	if err != nil {
-		return CredentialClientCreateOrUpdateResponse{}, err
+		return Python3PackageClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return CredentialClientCreateOrUpdateResponse{}, err
+		return Python3PackageClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
-		return CredentialClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
+		return Python3PackageClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.createOrUpdateHandleResponse(resp)
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *CredentialClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, credentialName string, parameters CredentialCreateOrUpdateParameters, options *CredentialClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/credentials/{credentialName}"
+func (client *Python3PackageClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageCreateParameters, options *Python3PackageClientCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -92,10 +92,10 @@ func (client *CredentialClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if credentialName == "" {
-		return nil, errors.New("parameter credentialName cannot be empty")
+	if packageName == "" {
+		return nil, errors.New("parameter packageName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{credentialName}", url.PathEscape(credentialName))
+	urlPath = strings.ReplaceAll(urlPath, "{packageName}", url.PathEscape(packageName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -112,40 +112,40 @@ func (client *CredentialClient) createOrUpdateCreateRequest(ctx context.Context,
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *CredentialClient) createOrUpdateHandleResponse(resp *http.Response) (CredentialClientCreateOrUpdateResponse, error) {
-	result := CredentialClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Credential); err != nil {
-		return CredentialClientCreateOrUpdateResponse{}, err
+func (client *Python3PackageClient) createOrUpdateHandleResponse(resp *http.Response) (Python3PackageClientCreateOrUpdateResponse, error) {
+	result := Python3PackageClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
+		return Python3PackageClientCreateOrUpdateResponse{}, err
 	}
 	return result, nil
 }
 
-// Delete - Delete the credential.
+// Delete - Delete the python 3 package by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
-//   - credentialName - The name of credential.
-//   - options - CredentialClientDeleteOptions contains the optional parameters for the CredentialClient.Delete method.
-func (client *CredentialClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, credentialName string, options *CredentialClientDeleteOptions) (CredentialClientDeleteResponse, error) {
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, credentialName, options)
+//   - packageName - The python package name.
+//   - options - Python3PackageClientDeleteOptions contains the optional parameters for the Python3PackageClient.Delete method.
+func (client *Python3PackageClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python3PackageClientDeleteOptions) (Python3PackageClientDeleteResponse, error) {
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, options)
 	if err != nil {
-		return CredentialClientDeleteResponse{}, err
+		return Python3PackageClientDeleteResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return CredentialClientDeleteResponse{}, err
+		return Python3PackageClientDeleteResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return CredentialClientDeleteResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
+		return Python3PackageClientDeleteResponse{}, runtime.NewResponseError(resp)
 	}
-	return CredentialClientDeleteResponse{}, nil
+	return Python3PackageClientDeleteResponse{}, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *CredentialClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, credentialName string, options *CredentialClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/credentials/{credentialName}"
+func (client *Python3PackageClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python3PackageClientDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -154,10 +154,10 @@ func (client *CredentialClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if credentialName == "" {
-		return nil, errors.New("parameter credentialName cannot be empty")
+	if packageName == "" {
+		return nil, errors.New("parameter packageName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{credentialName}", url.PathEscape(credentialName))
+	urlPath = strings.ReplaceAll(urlPath, "{packageName}", url.PathEscape(packageName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -173,32 +173,32 @@ func (client *CredentialClient) deleteCreateRequest(ctx context.Context, resourc
 	return req, nil
 }
 
-// Get - Retrieve the credential identified by credential name.
+// Get - Retrieve the python 3 package identified by package name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
-//   - credentialName - The name of credential.
-//   - options - CredentialClientGetOptions contains the optional parameters for the CredentialClient.Get method.
-func (client *CredentialClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, credentialName string, options *CredentialClientGetOptions) (CredentialClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, credentialName, options)
+//   - packageName - The python package name.
+//   - options - Python3PackageClientGetOptions contains the optional parameters for the Python3PackageClient.Get method.
+func (client *Python3PackageClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python3PackageClientGetOptions) (Python3PackageClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, options)
 	if err != nil {
-		return CredentialClientGetResponse{}, err
+		return Python3PackageClientGetResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return CredentialClientGetResponse{}, err
+		return Python3PackageClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return CredentialClientGetResponse{}, runtime.NewResponseError(resp)
+		return Python3PackageClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *CredentialClient) getCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, credentialName string, options *CredentialClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/credentials/{credentialName}"
+func (client *Python3PackageClient) getCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python3PackageClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -207,10 +207,10 @@ func (client *CredentialClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if credentialName == "" {
-		return nil, errors.New("parameter credentialName cannot be empty")
+	if packageName == "" {
+		return nil, errors.New("parameter packageName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{credentialName}", url.PathEscape(credentialName))
+	urlPath = strings.ReplaceAll(urlPath, "{packageName}", url.PathEscape(packageName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -227,27 +227,27 @@ func (client *CredentialClient) getCreateRequest(ctx context.Context, resourceGr
 }
 
 // getHandleResponse handles the Get response.
-func (client *CredentialClient) getHandleResponse(resp *http.Response) (CredentialClientGetResponse, error) {
-	result := CredentialClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Credential); err != nil {
-		return CredentialClientGetResponse{}, err
+func (client *Python3PackageClient) getHandleResponse(resp *http.Response) (Python3PackageClientGetResponse, error) {
+	result := Python3PackageClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
+		return Python3PackageClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByAutomationAccountPager - Retrieve a list of credentials.
+// NewListByAutomationAccountPager - Retrieve a list of python 3 packages.
 //
 // Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
-//   - options - CredentialClientListByAutomationAccountOptions contains the optional parameters for the CredentialClient.NewListByAutomationAccountPager
+//   - options - Python3PackageClientListByAutomationAccountOptions contains the optional parameters for the Python3PackageClient.NewListByAutomationAccountPager
 //     method.
-func (client *CredentialClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *CredentialClientListByAutomationAccountOptions) *runtime.Pager[CredentialClientListByAutomationAccountResponse] {
-	return runtime.NewPager(runtime.PagingHandler[CredentialClientListByAutomationAccountResponse]{
-		More: func(page CredentialClientListByAutomationAccountResponse) bool {
+func (client *Python3PackageClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *Python3PackageClientListByAutomationAccountOptions) *runtime.Pager[Python3PackageClientListByAutomationAccountResponse] {
+	return runtime.NewPager(runtime.PagingHandler[Python3PackageClientListByAutomationAccountResponse]{
+		More: func(page Python3PackageClientListByAutomationAccountResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *CredentialClientListByAutomationAccountResponse) (CredentialClientListByAutomationAccountResponse, error) {
+		Fetcher: func(ctx context.Context, page *Python3PackageClientListByAutomationAccountResponse) (Python3PackageClientListByAutomationAccountResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -256,14 +256,14 @@ func (client *CredentialClient) NewListByAutomationAccountPager(resourceGroupNam
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return CredentialClientListByAutomationAccountResponse{}, err
+				return Python3PackageClientListByAutomationAccountResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return CredentialClientListByAutomationAccountResponse{}, err
+				return Python3PackageClientListByAutomationAccountResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return CredentialClientListByAutomationAccountResponse{}, runtime.NewResponseError(resp)
+				return Python3PackageClientListByAutomationAccountResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByAutomationAccountHandleResponse(resp)
 		},
@@ -271,8 +271,8 @@ func (client *CredentialClient) NewListByAutomationAccountPager(resourceGroupNam
 }
 
 // listByAutomationAccountCreateRequest creates the ListByAutomationAccount request.
-func (client *CredentialClient) listByAutomationAccountCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, options *CredentialClientListByAutomationAccountOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/credentials"
+func (client *Python3PackageClient) listByAutomationAccountCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, options *Python3PackageClientListByAutomationAccountOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -297,41 +297,41 @@ func (client *CredentialClient) listByAutomationAccountCreateRequest(ctx context
 }
 
 // listByAutomationAccountHandleResponse handles the ListByAutomationAccount response.
-func (client *CredentialClient) listByAutomationAccountHandleResponse(resp *http.Response) (CredentialClientListByAutomationAccountResponse, error) {
-	result := CredentialClientListByAutomationAccountResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CredentialListResult); err != nil {
-		return CredentialClientListByAutomationAccountResponse{}, err
+func (client *Python3PackageClient) listByAutomationAccountHandleResponse(resp *http.Response) (Python3PackageClientListByAutomationAccountResponse, error) {
+	result := Python3PackageClientListByAutomationAccountResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ModuleListResult); err != nil {
+		return Python3PackageClientListByAutomationAccountResponse{}, err
 	}
 	return result, nil
 }
 
-// Update - Update a credential.
+// Update - Update the python 3 package identified by package name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
-//   - credentialName - The parameters supplied to the Update credential operation.
-//   - parameters - The parameters supplied to the Update credential operation.
-//   - options - CredentialClientUpdateOptions contains the optional parameters for the CredentialClient.Update method.
-func (client *CredentialClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, credentialName string, parameters CredentialUpdateParameters, options *CredentialClientUpdateOptions) (CredentialClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, credentialName, parameters, options)
+//   - packageName - The name of python package.
+//   - parameters - The update parameters for python package.
+//   - options - Python3PackageClientUpdateOptions contains the optional parameters for the Python3PackageClient.Update method.
+func (client *Python3PackageClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageUpdateParameters, options *Python3PackageClientUpdateOptions) (Python3PackageClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, parameters, options)
 	if err != nil {
-		return CredentialClientUpdateResponse{}, err
+		return Python3PackageClientUpdateResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return CredentialClientUpdateResponse{}, err
+		return Python3PackageClientUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return CredentialClientUpdateResponse{}, runtime.NewResponseError(resp)
+		return Python3PackageClientUpdateResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.updateHandleResponse(resp)
 }
 
 // updateCreateRequest creates the Update request.
-func (client *CredentialClient) updateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, credentialName string, parameters CredentialUpdateParameters, options *CredentialClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/credentials/{credentialName}"
+func (client *Python3PackageClient) updateCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageUpdateParameters, options *Python3PackageClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -340,10 +340,10 @@ func (client *CredentialClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter automationAccountName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{automationAccountName}", url.PathEscape(automationAccountName))
-	if credentialName == "" {
-		return nil, errors.New("parameter credentialName cannot be empty")
+	if packageName == "" {
+		return nil, errors.New("parameter packageName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{credentialName}", url.PathEscape(credentialName))
+	urlPath = strings.ReplaceAll(urlPath, "{packageName}", url.PathEscape(packageName))
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -360,10 +360,10 @@ func (client *CredentialClient) updateCreateRequest(ctx context.Context, resourc
 }
 
 // updateHandleResponse handles the Update response.
-func (client *CredentialClient) updateHandleResponse(resp *http.Response) (CredentialClientUpdateResponse, error) {
-	result := CredentialClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Credential); err != nil {
-		return CredentialClientUpdateResponse{}, err
+func (client *Python3PackageClient) updateHandleResponse(resp *http.Response) (Python3PackageClientUpdateResponse, error) {
+	result := Python3PackageClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Module); err != nil {
+		return Python3PackageClientUpdateResponse{}, err
 	}
 	return result, nil
 }

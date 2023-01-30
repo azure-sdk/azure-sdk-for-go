@@ -32,10 +32,10 @@ type ActivityClient struct {
 }
 
 // NewActivityClient creates a new instance of ActivityClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewActivityClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ActivityClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewActivityClient(subscriptionID string, credential azcore.TokenCredential,
 
 // Get - Retrieve the activity in the module identified by module name and activity name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// moduleName - The name of module.
-// activityName - The name of activity.
-// options - ActivityClientGetOptions contains the optional parameters for the ActivityClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - moduleName - The name of module.
+//   - activityName - The name of activity.
+//   - options - ActivityClientGetOptions contains the optional parameters for the ActivityClient.Get method.
 func (client *ActivityClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, activityName string, options *ActivityClientGetOptions) (ActivityClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, activityName, options)
 	if err != nil {
@@ -107,7 +108,7 @@ func (client *ActivityClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -123,12 +124,13 @@ func (client *ActivityClient) getHandleResponse(resp *http.Response) (ActivityCl
 }
 
 // NewListByModulePager - Retrieve a list of activities in the module identified by module name.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// moduleName - The name of module.
-// options - ActivityClientListByModuleOptions contains the optional parameters for the ActivityClient.ListByModule method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - moduleName - The name of module.
+//   - options - ActivityClientListByModuleOptions contains the optional parameters for the ActivityClient.NewListByModulePager
+//     method.
 func (client *ActivityClient) NewListByModulePager(resourceGroupName string, automationAccountName string, moduleName string, options *ActivityClientListByModuleOptions) *runtime.Pager[ActivityClientListByModuleResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ActivityClientListByModuleResponse]{
 		More: func(page ActivityClientListByModuleResponse) bool {
@@ -181,7 +183,7 @@ func (client *ActivityClient) listByModuleCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -1,5 +1,37 @@
 # Release History
 
+## 0.8.0 (2023-01-30)
+### Breaking Changes
+
+- Function `*DscConfigurationClient.UpdateWithJSON` parameter(s) have been changed from `(context.Context, string, string, string, DscConfigurationUpdateParameters, *DscConfigurationClientUpdateWithJSONOptions)` to `(context.Context, string, string, string, *DscConfigurationClientUpdateWithJSONOptions)`
+- Function `*DscConfigurationClient.UpdateWithText` parameter(s) have been changed from `(context.Context, string, string, string, string, *DscConfigurationClientUpdateWithTextOptions)` to `(context.Context, string, string, string, *DscConfigurationClientUpdateWithTextOptions)`
+- Type of `Identity.UserAssignedIdentities` has been changed from `map[string]*ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties` to `map[string]*UserAssignedIdentitiesProperties`
+- Struct `ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties` has been removed
+- Field `Value` of struct `DscConfigurationClientGetContentResponse` has been removed
+
+### Features Added
+
+- New function `NewPython3PackageClient(string, azcore.TokenCredential, *arm.ClientOptions) (*Python3PackageClient, error)`
+- New function `*Python3PackageClient.CreateOrUpdate(context.Context, string, string, string, PythonPackageCreateParameters, *Python3PackageClientCreateOrUpdateOptions) (Python3PackageClientCreateOrUpdateResponse, error)`
+- New function `*Python3PackageClient.Delete(context.Context, string, string, string, *Python3PackageClientDeleteOptions) (Python3PackageClientDeleteResponse, error)`
+- New function `*Python3PackageClient.Get(context.Context, string, string, string, *Python3PackageClientGetOptions) (Python3PackageClientGetResponse, error)`
+- New function `*Python3PackageClient.NewListByAutomationAccountPager(string, string, *Python3PackageClientListByAutomationAccountOptions) *runtime.Pager[Python3PackageClientListByAutomationAccountResponse]`
+- New function `*Python3PackageClient.Update(context.Context, string, string, string, PythonPackageUpdateParameters, *Python3PackageClientUpdateOptions) (Python3PackageClientUpdateResponse, error)`
+- New struct `Dimension`
+- New struct `LogSpecification`
+- New struct `MetricSpecification`
+- New struct `OperationPropertiesFormat`
+- New struct `OperationPropertiesFormatServiceSpecification`
+- New struct `Python3PackageClient`
+- New struct `Python3PackageClientListByAutomationAccountResponse`
+- New struct `UserAssignedIdentitiesProperties`
+- New field `Parameters` in struct `DscConfigurationClientUpdateWithJSONOptions`
+- New field `Parameters` in struct `DscConfigurationClientUpdateWithTextOptions`
+- New field `Origin` in struct `Operation`
+- New field `Properties` in struct `Operation`
+- New field `Description` in struct `OperationDisplay`
+
+
 ## 0.7.0 (2022-07-12)
 ### Breaking Changes
 

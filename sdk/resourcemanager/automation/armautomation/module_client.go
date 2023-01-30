@@ -32,10 +32,10 @@ type ModuleClient struct {
 }
 
 // NewModuleClient creates a new instance of ModuleClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewModuleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ModuleClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewModuleClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // CreateOrUpdate - Create or Update the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// moduleName - The name of module.
-// parameters - The create or update parameters for module.
-// options - ModuleClientCreateOrUpdateOptions contains the optional parameters for the ModuleClient.CreateOrUpdate method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - moduleName - The name of module.
+//   - parameters - The create or update parameters for module.
+//   - options - ModuleClientCreateOrUpdateOptions contains the optional parameters for the ModuleClient.CreateOrUpdate method.
 func (client *ModuleClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleCreateOrUpdateParameters, options *ModuleClientCreateOrUpdateOptions) (ModuleClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, parameters, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *ModuleClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -120,11 +121,12 @@ func (client *ModuleClient) createOrUpdateHandleResponse(resp *http.Response) (M
 
 // Delete - Delete the module by name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// moduleName - The module name.
-// options - ModuleClientDeleteOptions contains the optional parameters for the ModuleClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - moduleName - The module name.
+//   - options - ModuleClientDeleteOptions contains the optional parameters for the ModuleClient.Delete method.
 func (client *ModuleClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *ModuleClientDeleteOptions) (ModuleClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, options)
 	if err != nil {
@@ -164,7 +166,7 @@ func (client *ModuleClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,11 +174,12 @@ func (client *ModuleClient) deleteCreateRequest(ctx context.Context, resourceGro
 
 // Get - Retrieve the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// moduleName - The module name.
-// options - ModuleClientGetOptions contains the optional parameters for the ModuleClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - moduleName - The module name.
+//   - options - ModuleClientGetOptions contains the optional parameters for the ModuleClient.Get method.
 func (client *ModuleClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, options *ModuleClientGetOptions) (ModuleClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, options)
 	if err != nil {
@@ -216,7 +219,7 @@ func (client *ModuleClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,12 +235,12 @@ func (client *ModuleClient) getHandleResponse(resp *http.Response) (ModuleClient
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of modules.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - ModuleClientListByAutomationAccountOptions contains the optional parameters for the ModuleClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - ModuleClientListByAutomationAccountOptions contains the optional parameters for the ModuleClient.NewListByAutomationAccountPager
+//     method.
 func (client *ModuleClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *ModuleClientListByAutomationAccountOptions) *runtime.Pager[ModuleClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ModuleClientListByAutomationAccountResponse]{
 		More: func(page ModuleClientListByAutomationAccountResponse) bool {
@@ -286,7 +289,7 @@ func (client *ModuleClient) listByAutomationAccountCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -303,12 +306,13 @@ func (client *ModuleClient) listByAutomationAccountHandleResponse(resp *http.Res
 
 // Update - Update the module identified by module name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// moduleName - The name of module.
-// parameters - The update parameters for module.
-// options - ModuleClientUpdateOptions contains the optional parameters for the ModuleClient.Update method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - moduleName - The name of module.
+//   - parameters - The update parameters for module.
+//   - options - ModuleClientUpdateOptions contains the optional parameters for the ModuleClient.Update method.
 func (client *ModuleClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, moduleName string, parameters ModuleUpdateParameters, options *ModuleClientUpdateOptions) (ModuleClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, moduleName, parameters, options)
 	if err != nil {
@@ -348,7 +352,7 @@ func (client *ModuleClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

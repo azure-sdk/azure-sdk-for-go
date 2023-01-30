@@ -32,10 +32,10 @@ type NodeCountInformationClient struct {
 }
 
 // NewNodeCountInformationClient creates a new instance of NodeCountInformationClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewNodeCountInformationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*NodeCountInformationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewNodeCountInformationClient(subscriptionID string, credential azcore.Toke
 
 // Get - Retrieve counts for Dsc Nodes.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// countType - The type of counts to retrieve
-// options - NodeCountInformationClientGetOptions contains the optional parameters for the NodeCountInformationClient.Get
-// method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - countType - The type of counts to retrieve
+//   - options - NodeCountInformationClientGetOptions contains the optional parameters for the NodeCountInformationClient.Get
+//     method.
 func (client *NodeCountInformationClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, countType CountType, options *NodeCountInformationClientGetOptions) (NodeCountInformationClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, countType, options)
 	if err != nil {

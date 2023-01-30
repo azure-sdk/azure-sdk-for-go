@@ -34,10 +34,10 @@ type DscConfigurationClient struct {
 }
 
 // NewDscConfigurationClient creates a new instance of DscConfigurationClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDscConfigurationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DscConfigurationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -60,13 +60,14 @@ func NewDscConfigurationClient(subscriptionID string, credential azcore.TokenCre
 
 // CreateOrUpdateWithJSON - Create the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// configurationName - The create or update parameters for configuration.
-// parameters - The create or update parameters for configuration.
-// options - DscConfigurationClientCreateOrUpdateWithJSONOptions contains the optional parameters for the DscConfigurationClient.CreateOrUpdateWithJSON
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - configurationName - The create or update parameters for configuration.
+//   - parameters - The create or update parameters for configuration.
+//   - options - DscConfigurationClientCreateOrUpdateWithJSONOptions contains the optional parameters for the DscConfigurationClient.CreateOrUpdateWithJSON
+//     method.
 func (client *DscConfigurationClient) CreateOrUpdateWithJSON(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, parameters DscConfigurationCreateOrUpdateParameters, options *DscConfigurationClientCreateOrUpdateWithJSONOptions) (DscConfigurationClientCreateOrUpdateWithJSONResponse, error) {
 	req, err := client.createOrUpdateWithJSONCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, parameters, options)
 	if err != nil {
@@ -106,7 +107,7 @@ func (client *DscConfigurationClient) createOrUpdateWithJSONCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -123,13 +124,14 @@ func (client *DscConfigurationClient) createOrUpdateWithJSONHandleResponse(resp 
 
 // CreateOrUpdateWithText - Create the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// configurationName - The create or update parameters for configuration.
-// parameters - The create or update parameters for configuration.
-// options - DscConfigurationClientCreateOrUpdateWithTextOptions contains the optional parameters for the DscConfigurationClient.CreateOrUpdateWithText
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - configurationName - The create or update parameters for configuration.
+//   - parameters - The create or update parameters for configuration.
+//   - options - DscConfigurationClientCreateOrUpdateWithTextOptions contains the optional parameters for the DscConfigurationClient.CreateOrUpdateWithText
+//     method.
 func (client *DscConfigurationClient) CreateOrUpdateWithText(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, parameters string, options *DscConfigurationClientCreateOrUpdateWithTextOptions) (DscConfigurationClientCreateOrUpdateWithTextResponse, error) {
 	req, err := client.createOrUpdateWithTextCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, parameters, options)
 	if err != nil {
@@ -169,7 +171,7 @@ func (client *DscConfigurationClient) createOrUpdateWithTextCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	body := streaming.NopCloser(strings.NewReader(parameters))
@@ -187,11 +189,12 @@ func (client *DscConfigurationClient) createOrUpdateWithTextHandleResponse(resp 
 
 // Delete - Delete the dsc configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// configurationName - The configuration name.
-// options - DscConfigurationClientDeleteOptions contains the optional parameters for the DscConfigurationClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - configurationName - The configuration name.
+//   - options - DscConfigurationClientDeleteOptions contains the optional parameters for the DscConfigurationClient.Delete method.
 func (client *DscConfigurationClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *DscConfigurationClientDeleteOptions) (DscConfigurationClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, options)
 	if err != nil {
@@ -231,7 +234,7 @@ func (client *DscConfigurationClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -239,11 +242,12 @@ func (client *DscConfigurationClient) deleteCreateRequest(ctx context.Context, r
 
 // Get - Retrieve the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// configurationName - The configuration name.
-// options - DscConfigurationClientGetOptions contains the optional parameters for the DscConfigurationClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - configurationName - The configuration name.
+//   - options - DscConfigurationClientGetOptions contains the optional parameters for the DscConfigurationClient.Get method.
 func (client *DscConfigurationClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *DscConfigurationClientGetOptions) (DscConfigurationClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, options)
 	if err != nil {
@@ -283,7 +287,7 @@ func (client *DscConfigurationClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -300,12 +304,13 @@ func (client *DscConfigurationClient) getHandleResponse(resp *http.Response) (Ds
 
 // GetContent - Retrieve the configuration script identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// configurationName - The configuration name.
-// options - DscConfigurationClientGetContentOptions contains the optional parameters for the DscConfigurationClient.GetContent
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - configurationName - The configuration name.
+//   - options - DscConfigurationClientGetContentOptions contains the optional parameters for the DscConfigurationClient.GetContent
+//     method.
 func (client *DscConfigurationClient) GetContent(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *DscConfigurationClientGetContentOptions) (DscConfigurationClientGetContentResponse, error) {
 	req, err := client.getContentCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, options)
 	if err != nil {
@@ -315,10 +320,10 @@ func (client *DscConfigurationClient) GetContent(ctx context.Context, resourceGr
 	if err != nil {
 		return DscConfigurationClientGetContentResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated, http.StatusAccepted, http.StatusNoContent) {
 		return DscConfigurationClientGetContentResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.getContentHandleResponse(resp)
+	return DscConfigurationClientGetContentResponse{}, nil
 }
 
 // getContentCreateRequest creates the GetContent request.
@@ -345,31 +350,19 @@ func (client *DscConfigurationClient) getContentCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"text/powershell"}
 	return req, nil
 }
 
-// getContentHandleResponse handles the GetContent response.
-func (client *DscConfigurationClient) getContentHandleResponse(resp *http.Response) (DscConfigurationClientGetContentResponse, error) {
-	result := DscConfigurationClientGetContentResponse{}
-	body, err := runtime.Payload(resp)
-	if err != nil {
-		return DscConfigurationClientGetContentResponse{}, err
-	}
-	txt := string(body)
-	result.Value = &txt
-	return result, nil
-}
-
 // NewListByAutomationAccountPager - Retrieve a list of configurations.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - DscConfigurationClientListByAutomationAccountOptions contains the optional parameters for the DscConfigurationClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - DscConfigurationClientListByAutomationAccountOptions contains the optional parameters for the DscConfigurationClient.NewListByAutomationAccountPager
+//     method.
 func (client *DscConfigurationClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *DscConfigurationClientListByAutomationAccountOptions) *runtime.Pager[DscConfigurationClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DscConfigurationClientListByAutomationAccountResponse]{
 		More: func(page DscConfigurationClientListByAutomationAccountResponse) bool {
@@ -418,7 +411,7 @@ func (client *DscConfigurationClient) listByAutomationAccountCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -447,15 +440,15 @@ func (client *DscConfigurationClient) listByAutomationAccountHandleResponse(resp
 
 // UpdateWithJSON - Create the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// configurationName - The create or update parameters for configuration.
-// parameters - The create or update parameters for configuration.
-// options - DscConfigurationClientUpdateWithJSONOptions contains the optional parameters for the DscConfigurationClient.UpdateWithJSON
-// method.
-func (client *DscConfigurationClient) UpdateWithJSON(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, parameters DscConfigurationUpdateParameters, options *DscConfigurationClientUpdateWithJSONOptions) (DscConfigurationClientUpdateWithJSONResponse, error) {
-	req, err := client.updateWithJSONCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, parameters, options)
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - configurationName - The create or update parameters for configuration.
+//   - options - DscConfigurationClientUpdateWithJSONOptions contains the optional parameters for the DscConfigurationClient.UpdateWithJSON
+//     method.
+func (client *DscConfigurationClient) UpdateWithJSON(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *DscConfigurationClientUpdateWithJSONOptions) (DscConfigurationClientUpdateWithJSONResponse, error) {
+	req, err := client.updateWithJSONCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, options)
 	if err != nil {
 		return DscConfigurationClientUpdateWithJSONResponse{}, err
 	}
@@ -470,7 +463,7 @@ func (client *DscConfigurationClient) UpdateWithJSON(ctx context.Context, resour
 }
 
 // updateWithJSONCreateRequest creates the UpdateWithJSON request.
-func (client *DscConfigurationClient) updateWithJSONCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, parameters DscConfigurationUpdateParameters, options *DscConfigurationClientUpdateWithJSONOptions) (*policy.Request, error) {
+func (client *DscConfigurationClient) updateWithJSONCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *DscConfigurationClientUpdateWithJSONOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/configurations/{configurationName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -493,10 +486,13 @@ func (client *DscConfigurationClient) updateWithJSONCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	if options != nil && options.Parameters != nil {
+		return req, runtime.MarshalAsJSON(req, *options.Parameters)
+	}
+	return req, nil
 }
 
 // updateWithJSONHandleResponse handles the UpdateWithJSON response.
@@ -510,15 +506,15 @@ func (client *DscConfigurationClient) updateWithJSONHandleResponse(resp *http.Re
 
 // UpdateWithText - Create the configuration identified by configuration name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// configurationName - The create or update parameters for configuration.
-// parameters - The create or update parameters for configuration.
-// options - DscConfigurationClientUpdateWithTextOptions contains the optional parameters for the DscConfigurationClient.UpdateWithText
-// method.
-func (client *DscConfigurationClient) UpdateWithText(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, parameters string, options *DscConfigurationClientUpdateWithTextOptions) (DscConfigurationClientUpdateWithTextResponse, error) {
-	req, err := client.updateWithTextCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, parameters, options)
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - configurationName - The create or update parameters for configuration.
+//   - options - DscConfigurationClientUpdateWithTextOptions contains the optional parameters for the DscConfigurationClient.UpdateWithText
+//     method.
+func (client *DscConfigurationClient) UpdateWithText(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *DscConfigurationClientUpdateWithTextOptions) (DscConfigurationClientUpdateWithTextResponse, error) {
+	req, err := client.updateWithTextCreateRequest(ctx, resourceGroupName, automationAccountName, configurationName, options)
 	if err != nil {
 		return DscConfigurationClientUpdateWithTextResponse{}, err
 	}
@@ -533,7 +529,7 @@ func (client *DscConfigurationClient) UpdateWithText(ctx context.Context, resour
 }
 
 // updateWithTextCreateRequest creates the UpdateWithText request.
-func (client *DscConfigurationClient) updateWithTextCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, parameters string, options *DscConfigurationClientUpdateWithTextOptions) (*policy.Request, error) {
+func (client *DscConfigurationClient) updateWithTextCreateRequest(ctx context.Context, resourceGroupName string, automationAccountName string, configurationName string, options *DscConfigurationClientUpdateWithTextOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/configurations/{configurationName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -556,11 +552,14 @@ func (client *DscConfigurationClient) updateWithTextCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	body := streaming.NopCloser(strings.NewReader(parameters))
-	return req, req.SetBody(body, "text/plain; charset=utf-8")
+	if options != nil && options.Parameters != nil {
+		body := streaming.NopCloser(strings.NewReader(*options.Parameters))
+		return req, req.SetBody(body, "text/plain; charset=utf-8")
+	}
+	return req, nil
 }
 
 // updateWithTextHandleResponse handles the UpdateWithText response.

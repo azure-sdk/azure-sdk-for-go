@@ -32,10 +32,10 @@ type StatisticsClient struct {
 }
 
 // NewStatisticsClient creates a new instance of StatisticsClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewStatisticsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*StatisticsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,12 @@ func NewStatisticsClient(subscriptionID string, credential azcore.TokenCredentia
 }
 
 // NewListByAutomationAccountPager - Retrieve the statistics for the account.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - StatisticsClientListByAutomationAccountOptions contains the optional parameters for the StatisticsClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - StatisticsClientListByAutomationAccountOptions contains the optional parameters for the StatisticsClient.NewListByAutomationAccountPager
+//     method.
 func (client *StatisticsClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *StatisticsClientListByAutomationAccountOptions) *runtime.Pager[StatisticsClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StatisticsClientListByAutomationAccountResponse]{
 		More: func(page StatisticsClientListByAutomationAccountResponse) bool {
@@ -108,7 +108,7 @@ func (client *StatisticsClient) listByAutomationAccountCreateRequest(ctx context
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

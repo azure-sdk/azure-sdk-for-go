@@ -32,10 +32,10 @@ type CertificateClient struct {
 }
 
 // NewCertificateClient creates a new instance of CertificateClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCertificateClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CertificateClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewCertificateClient(subscriptionID string, credential azcore.TokenCredenti
 
 // CreateOrUpdate - Create a certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// certificateName - The parameters supplied to the create or update certificate operation.
-// parameters - The parameters supplied to the create or update certificate operation.
-// options - CertificateClientCreateOrUpdateOptions contains the optional parameters for the CertificateClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - certificateName - The parameters supplied to the create or update certificate operation.
+//   - parameters - The parameters supplied to the create or update certificate operation.
+//   - options - CertificateClientCreateOrUpdateOptions contains the optional parameters for the CertificateClient.CreateOrUpdate
+//     method.
 func (client *CertificateClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateCreateOrUpdateParameters, options *CertificateClientCreateOrUpdateOptions) (CertificateClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, certificateName, parameters, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *CertificateClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -121,11 +122,12 @@ func (client *CertificateClient) createOrUpdateHandleResponse(resp *http.Respons
 
 // Delete - Delete the certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// certificateName - The name of certificate.
-// options - CertificateClientDeleteOptions contains the optional parameters for the CertificateClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - certificateName - The name of certificate.
+//   - options - CertificateClientDeleteOptions contains the optional parameters for the CertificateClient.Delete method.
 func (client *CertificateClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, options *CertificateClientDeleteOptions) (CertificateClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, certificateName, options)
 	if err != nil {
@@ -165,7 +167,7 @@ func (client *CertificateClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,11 +175,12 @@ func (client *CertificateClient) deleteCreateRequest(ctx context.Context, resour
 
 // Get - Retrieve the certificate identified by certificate name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// certificateName - The name of certificate.
-// options - CertificateClientGetOptions contains the optional parameters for the CertificateClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - certificateName - The name of certificate.
+//   - options - CertificateClientGetOptions contains the optional parameters for the CertificateClient.Get method.
 func (client *CertificateClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, options *CertificateClientGetOptions) (CertificateClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, certificateName, options)
 	if err != nil {
@@ -217,7 +220,7 @@ func (client *CertificateClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -233,12 +236,12 @@ func (client *CertificateClient) getHandleResponse(resp *http.Response) (Certifi
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of certificates.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - CertificateClientListByAutomationAccountOptions contains the optional parameters for the CertificateClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - CertificateClientListByAutomationAccountOptions contains the optional parameters for the CertificateClient.NewListByAutomationAccountPager
+//     method.
 func (client *CertificateClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *CertificateClientListByAutomationAccountOptions) *runtime.Pager[CertificateClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CertificateClientListByAutomationAccountResponse]{
 		More: func(page CertificateClientListByAutomationAccountResponse) bool {
@@ -287,7 +290,7 @@ func (client *CertificateClient) listByAutomationAccountCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -304,12 +307,13 @@ func (client *CertificateClient) listByAutomationAccountHandleResponse(resp *htt
 
 // Update - Update a certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// certificateName - The parameters supplied to the update certificate operation.
-// parameters - The parameters supplied to the update certificate operation.
-// options - CertificateClientUpdateOptions contains the optional parameters for the CertificateClient.Update method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - certificateName - The parameters supplied to the update certificate operation.
+//   - parameters - The parameters supplied to the update certificate operation.
+//   - options - CertificateClientUpdateOptions contains the optional parameters for the CertificateClient.Update method.
 func (client *CertificateClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, certificateName string, parameters CertificateUpdateParameters, options *CertificateClientUpdateOptions) (CertificateClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, certificateName, parameters, options)
 	if err != nil {
@@ -349,7 +353,7 @@ func (client *CertificateClient) updateCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

@@ -32,10 +32,10 @@ type Python2PackageClient struct {
 }
 
 // NewPython2PackageClient creates a new instance of Python2PackageClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPython2PackageClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Python2PackageClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewPython2PackageClient(subscriptionID string, credential azcore.TokenCrede
 
 // CreateOrUpdate - Create or Update the python 2 package identified by package name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// packageName - The name of python package.
-// parameters - The create or update parameters for python package.
-// options - Python2PackageClientCreateOrUpdateOptions contains the optional parameters for the Python2PackageClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - packageName - The name of python package.
+//   - parameters - The create or update parameters for python package.
+//   - options - Python2PackageClientCreateOrUpdateOptions contains the optional parameters for the Python2PackageClient.CreateOrUpdate
+//     method.
 func (client *Python2PackageClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageCreateParameters, options *Python2PackageClientCreateOrUpdateOptions) (Python2PackageClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, parameters, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *Python2PackageClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -121,11 +122,12 @@ func (client *Python2PackageClient) createOrUpdateHandleResponse(resp *http.Resp
 
 // Delete - Delete the python 2 package by name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// packageName - The python package name.
-// options - Python2PackageClientDeleteOptions contains the optional parameters for the Python2PackageClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - packageName - The python package name.
+//   - options - Python2PackageClientDeleteOptions contains the optional parameters for the Python2PackageClient.Delete method.
 func (client *Python2PackageClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python2PackageClientDeleteOptions) (Python2PackageClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, options)
 	if err != nil {
@@ -165,7 +167,7 @@ func (client *Python2PackageClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,11 +175,12 @@ func (client *Python2PackageClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Retrieve the python 2 package identified by package name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// packageName - The python package name.
-// options - Python2PackageClientGetOptions contains the optional parameters for the Python2PackageClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - packageName - The python package name.
+//   - options - Python2PackageClientGetOptions contains the optional parameters for the Python2PackageClient.Get method.
 func (client *Python2PackageClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, options *Python2PackageClientGetOptions) (Python2PackageClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, options)
 	if err != nil {
@@ -217,7 +220,7 @@ func (client *Python2PackageClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -233,12 +236,12 @@ func (client *Python2PackageClient) getHandleResponse(resp *http.Response) (Pyth
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of python 2 packages.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - Python2PackageClientListByAutomationAccountOptions contains the optional parameters for the Python2PackageClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - Python2PackageClientListByAutomationAccountOptions contains the optional parameters for the Python2PackageClient.NewListByAutomationAccountPager
+//     method.
 func (client *Python2PackageClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *Python2PackageClientListByAutomationAccountOptions) *runtime.Pager[Python2PackageClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[Python2PackageClientListByAutomationAccountResponse]{
 		More: func(page Python2PackageClientListByAutomationAccountResponse) bool {
@@ -287,7 +290,7 @@ func (client *Python2PackageClient) listByAutomationAccountCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -304,12 +307,13 @@ func (client *Python2PackageClient) listByAutomationAccountHandleResponse(resp *
 
 // Update - Update the python 2 package identified by package name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// packageName - The name of python package.
-// parameters - The update parameters for python package.
-// options - Python2PackageClientUpdateOptions contains the optional parameters for the Python2PackageClient.Update method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - packageName - The name of python package.
+//   - parameters - The update parameters for python package.
+//   - options - Python2PackageClientUpdateOptions contains the optional parameters for the Python2PackageClient.Update method.
 func (client *Python2PackageClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, packageName string, parameters PythonPackageUpdateParameters, options *Python2PackageClientUpdateOptions) (Python2PackageClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, packageName, parameters, options)
 	if err != nil {
@@ -349,7 +353,7 @@ func (client *Python2PackageClient) updateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

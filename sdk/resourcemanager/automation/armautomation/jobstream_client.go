@@ -32,10 +32,10 @@ type JobStreamClient struct {
 }
 
 // NewJobStreamClient creates a new instance of JobStreamClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewJobStreamClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobStreamClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewJobStreamClient(subscriptionID string, credential azcore.TokenCredential
 
 // Get - Retrieve the job stream identified by job stream id.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// jobName - The job name.
-// jobStreamID - The job stream id.
-// options - JobStreamClientGetOptions contains the optional parameters for the JobStreamClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - jobName - The job name.
+//   - jobStreamID - The job stream id.
+//   - options - JobStreamClientGetOptions contains the optional parameters for the JobStreamClient.Get method.
 func (client *JobStreamClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, jobName string, jobStreamID string, options *JobStreamClientGetOptions) (JobStreamClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, jobName, jobStreamID, options)
 	if err != nil {
@@ -107,7 +108,7 @@ func (client *JobStreamClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -126,12 +127,12 @@ func (client *JobStreamClient) getHandleResponse(resp *http.Response) (JobStream
 }
 
 // NewListByJobPager - Retrieve a list of jobs streams identified by job name.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// jobName - The job name.
-// options - JobStreamClientListByJobOptions contains the optional parameters for the JobStreamClient.ListByJob method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - jobName - The job name.
+//   - options - JobStreamClientListByJobOptions contains the optional parameters for the JobStreamClient.NewListByJobPager method.
 func (client *JobStreamClient) NewListByJobPager(resourceGroupName string, automationAccountName string, jobName string, options *JobStreamClientListByJobOptions) *runtime.Pager[JobStreamClientListByJobResponse] {
 	return runtime.NewPager(runtime.PagingHandler[JobStreamClientListByJobResponse]{
 		More: func(page JobStreamClientListByJobResponse) bool {
@@ -187,7 +188,7 @@ func (client *JobStreamClient) listByJobCreateRequest(ctx context.Context, resou
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}

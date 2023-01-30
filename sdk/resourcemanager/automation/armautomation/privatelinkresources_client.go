@@ -32,10 +32,10 @@ type PrivateLinkResourcesClient struct {
 }
 
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateLinkResourcesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,12 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 }
 
 // NewAutomationPager - Gets the private link resources that need to be created for Automation account.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - PrivateLinkResourcesClientAutomationOptions contains the optional parameters for the PrivateLinkResourcesClient.Automation
-// method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - PrivateLinkResourcesClientAutomationOptions contains the optional parameters for the PrivateLinkResourcesClient.NewAutomationPager
+//     method.
 func (client *PrivateLinkResourcesClient) NewAutomationPager(resourceGroupName string, automationAccountName string, options *PrivateLinkResourcesClientAutomationOptions) *runtime.Pager[PrivateLinkResourcesClientAutomationResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PrivateLinkResourcesClientAutomationResponse]{
 		More: func(page PrivateLinkResourcesClientAutomationResponse) bool {

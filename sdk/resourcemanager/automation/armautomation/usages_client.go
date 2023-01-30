@@ -32,10 +32,10 @@ type UsagesClient struct {
 }
 
 // NewUsagesClient creates a new instance of UsagesClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsagesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,12 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListByAutomationAccountPager - Retrieve the usage for the account id.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - UsagesClientListByAutomationAccountOptions contains the optional parameters for the UsagesClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - UsagesClientListByAutomationAccountOptions contains the optional parameters for the UsagesClient.NewListByAutomationAccountPager
+//     method.
 func (client *UsagesClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *UsagesClientListByAutomationAccountOptions) *runtime.Pager[UsagesClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[UsagesClientListByAutomationAccountResponse]{
 		More: func(page UsagesClientListByAutomationAccountResponse) bool {
@@ -105,7 +105,7 @@ func (client *UsagesClient) listByAutomationAccountCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
