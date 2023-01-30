@@ -11,7 +11,7 @@ package armextendedlocation
 
 const (
 	moduleName    = "armextendedlocation"
-	moduleVersion = "v1.1.0-beta.1"
+	moduleVersion = "v1.1.0-beta.2"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -38,12 +38,16 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 type HostType string
 
 const (
+	HostTypeAWS        HostType = "AWS"
+	HostTypeGCP        HostType = "GCP"
 	HostTypeKubernetes HostType = "Kubernetes"
 )
 
 // PossibleHostTypeValues returns the possible values for the HostType const type.
 func PossibleHostTypeValues() []HostType {
 	return []HostType{
+		HostTypeAWS,
+		HostTypeGCP,
 		HostTypeKubernetes,
 	}
 }

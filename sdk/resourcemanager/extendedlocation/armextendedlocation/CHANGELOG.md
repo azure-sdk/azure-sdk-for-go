@@ -1,5 +1,17 @@
 # Release History
 
+## 1.1.0-beta.2 (2023-01-30)
+### Features Added
+
+- New value `HostTypeAWS`, `HostTypeGCP` added to type alias `HostType`
+- New struct `AwsCloudProfile`
+- New struct `GCPCloudProfile`
+- New struct `OrganizationProject`
+- New struct `SingleProject`
+- New field `AwsCloudProfile` in struct `CustomLocationProperties`
+- New field `GcpCloudProfile` in struct `CustomLocationProperties`
+
+
 ## 1.1.0-beta.1 (2022-06-28)
 ### Features Added
 

@@ -11,6 +11,15 @@ package armextendedlocation
 
 import "time"
 
+// AwsCloudProfile - Cloud profile for AWS
+type AwsCloudProfile struct {
+	// Account id for the AWS account
+	AccountID *string `json:"accountId,omitempty"`
+
+	// List of AWS accounts which needs to be excluded
+	ExcludedAccounts []*string `json:"excludedAccounts,omitempty"`
+}
+
 // CustomLocation - Custom Locations definition.
 type CustomLocation struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -110,11 +119,17 @@ type CustomLocationProperties struct {
 	// This is optional input that contains the authentication that should be used to generate the namespace.
 	Authentication *CustomLocationPropertiesAuthentication `json:"authentication,omitempty"`
 
+	// Contains the aws account details of the customer
+	AwsCloudProfile *AwsCloudProfile `json:"awsCloudProfile,omitempty"`
+
 	// Contains the reference to the add-on that contains charts to deploy CRDs and operators.
 	ClusterExtensionIDs []*string `json:"clusterExtensionIds,omitempty"`
 
 	// Display name for the Custom Locations location.
 	DisplayName *string `json:"displayName,omitempty"`
+
+	// Contains the gcp account details of the customer
+	GcpCloudProfile *GCPCloudProfile `json:"gcpCloudProfile,omitempty"`
 
 	// Connected Cluster or AKS Cluster. The Custom Locations RP will perform a checkAccess API for listAdminCredentials permissions.
 	HostResourceID *string `json:"hostResourceId,omitempty"`
@@ -163,25 +178,25 @@ type CustomLocationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomLocationsClientListByResourceGroupOptions contains the optional parameters for the CustomLocationsClient.ListByResourceGroup
+// CustomLocationsClientListByResourceGroupOptions contains the optional parameters for the CustomLocationsClient.NewListByResourceGroupPager
 // method.
 type CustomLocationsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomLocationsClientListBySubscriptionOptions contains the optional parameters for the CustomLocationsClient.ListBySubscription
+// CustomLocationsClientListBySubscriptionOptions contains the optional parameters for the CustomLocationsClient.NewListBySubscriptionPager
 // method.
 type CustomLocationsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomLocationsClientListEnabledResourceTypesOptions contains the optional parameters for the CustomLocationsClient.ListEnabledResourceTypes
+// CustomLocationsClientListEnabledResourceTypesOptions contains the optional parameters for the CustomLocationsClient.NewListEnabledResourceTypesPager
 // method.
 type CustomLocationsClientListEnabledResourceTypesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomLocationsClientListOperationsOptions contains the optional parameters for the CustomLocationsClient.ListOperations
+// CustomLocationsClientListOperationsOptions contains the optional parameters for the CustomLocationsClient.NewListOperationsPager
 // method.
 type CustomLocationsClientListOperationsOptions struct {
 	// placeholder for future optional parameters
@@ -246,7 +261,7 @@ type EnabledResourceTypesListResult struct {
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -277,6 +292,15 @@ type ErrorResponse struct {
 	Error *ErrorDetail `json:"error,omitempty"`
 }
 
+// GCPCloudProfile - Cloud profile for GCP
+type GCPCloudProfile struct {
+	// Project details for an organization project in GCP account
+	OrganizationProject *OrganizationProject `json:"organizationProject,omitempty"`
+
+	// Project details for a single project in GCP account
+	SingleProject *SingleProject `json:"singleProject,omitempty"`
+}
+
 // Identity for the resource.
 type Identity struct {
 	// The identity type.
@@ -299,6 +323,18 @@ type MatchExpressionsProperties struct {
 
 	// The label value
 	Values []*string `json:"values,omitempty"`
+}
+
+// OrganizationProject - Project details for an organization project in GCP account
+type OrganizationProject struct {
+	// List of folder id's that needs to be excluded
+	ExcludedFolderIDs []*string `json:"excludedFolderIds,omitempty"`
+
+	// List of project numbers that needs to be excluded
+	ExcludedProjectNumbers []*string `json:"excludedProjectNumbers,omitempty"`
+
+	// Organization id for the GCP organization
+	OrganizationID *string `json:"organizationId,omitempty"`
 }
 
 // PatchableCustomLocations - The Custom Locations patchable resource definition.
@@ -451,10 +487,19 @@ type ResourceSyncRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ResourceSyncRulesClientListByCustomLocationIDOptions contains the optional parameters for the ResourceSyncRulesClient.ListByCustomLocationID
+// ResourceSyncRulesClientListByCustomLocationIDOptions contains the optional parameters for the ResourceSyncRulesClient.NewListByCustomLocationIDPager
 // method.
 type ResourceSyncRulesClientListByCustomLocationIDOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SingleProject - Project details for a single project in GCP account
+type SingleProject struct {
+	// Project id for the GCP single account
+	ProjectID *string `json:"projectId,omitempty"`
+
+	// Project number for GCP single account
+	ProjectNumber *string `json:"projectNumber,omitempty"`
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
