@@ -32,9 +32,9 @@ type ReplicasClient struct {
 }
 
 // NewReplicasClient creates a new instance of ReplicasClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicasClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicasClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,10 +56,12 @@ func NewReplicasClient(subscriptionID string, credential azcore.TokenCredential,
 }
 
 // NewListByServerPager - List all the replicas for a given server.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// options - ReplicasClientListByServerOptions contains the optional parameters for the ReplicasClient.ListByServer method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - options - ReplicasClientListByServerOptions contains the optional parameters for the ReplicasClient.NewListByServerPager
+//     method.
 func (client *ReplicasClient) NewListByServerPager(resourceGroupName string, serverName string, options *ReplicasClientListByServerOptions) *runtime.Pager[ReplicasClientListByServerResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicasClientListByServerResponse]{
 		More: func(page ReplicasClientListByServerResponse) bool {
