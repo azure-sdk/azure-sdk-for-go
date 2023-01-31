@@ -32,10 +32,10 @@ type BackupsClient struct {
 }
 
 // NewBackupsClient creates a new instance of BackupsClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BackupsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,14 +58,15 @@ func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // BeginCreate - Create a backup for the volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// backupName - The name of the backup
-// body - Backup object supplied in the body of the operation.
-// options - BackupsClientBeginCreateOptions contains the optional parameters for the BackupsClient.BeginCreate method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - backupName - The name of the backup
+//   - body - Backup object supplied in the body of the operation.
+//   - options - BackupsClientBeginCreateOptions contains the optional parameters for the BackupsClient.BeginCreate method.
 func (client *BackupsClient) BeginCreate(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, backupName string, body Backup, options *BackupsClientBeginCreateOptions) (*runtime.Poller[BackupsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, accountName, poolName, volumeName, backupName, body, options)
@@ -82,6 +83,7 @@ func (client *BackupsClient) BeginCreate(ctx context.Context, resourceGroupName 
 
 // Create - Create a backup for the volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *BackupsClient) create(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, backupName string, body Backup, options *BackupsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, backupName, body, options)
@@ -138,13 +140,14 @@ func (client *BackupsClient) createCreateRequest(ctx context.Context, resourceGr
 
 // BeginDelete - Delete a backup of the volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// backupName - The name of the backup
-// options - BackupsClientBeginDeleteOptions contains the optional parameters for the BackupsClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - backupName - The name of the backup
+//   - options - BackupsClientBeginDeleteOptions contains the optional parameters for the BackupsClient.BeginDelete method.
 func (client *BackupsClient) BeginDelete(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, backupName string, options *BackupsClientBeginDeleteOptions) (*runtime.Poller[BackupsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, accountName, poolName, volumeName, backupName, options)
@@ -161,6 +164,7 @@ func (client *BackupsClient) BeginDelete(ctx context.Context, resourceGroupName 
 
 // Delete - Delete a backup of the volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *BackupsClient) deleteOperation(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, backupName string, options *BackupsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, backupName, options)
@@ -216,13 +220,14 @@ func (client *BackupsClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // Get - Gets the specified backup of the volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// backupName - The name of the backup
-// options - BackupsClientGetOptions contains the optional parameters for the BackupsClient.Get method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - backupName - The name of the backup
+//   - options - BackupsClientGetOptions contains the optional parameters for the BackupsClient.Get method.
 func (client *BackupsClient) Get(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, backupName string, options *BackupsClientGetOptions) (BackupsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, backupName, options)
 	if err != nil {
@@ -287,12 +292,13 @@ func (client *BackupsClient) getHandleResponse(resp *http.Response) (BackupsClie
 
 // GetStatus - Get the status of the backup for a volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// options - BackupsClientGetStatusOptions contains the optional parameters for the BackupsClient.GetStatus method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - options - BackupsClientGetStatusOptions contains the optional parameters for the BackupsClient.GetStatus method.
 func (client *BackupsClient) GetStatus(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientGetStatusOptions) (BackupsClientGetStatusResponse, error) {
 	req, err := client.getStatusCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, options)
 	if err != nil {
@@ -353,13 +359,14 @@ func (client *BackupsClient) getStatusHandleResponse(resp *http.Response) (Backu
 
 // GetVolumeRestoreStatus - Get the status of the restore for a volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// options - BackupsClientGetVolumeRestoreStatusOptions contains the optional parameters for the BackupsClient.GetVolumeRestoreStatus
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - options - BackupsClientGetVolumeRestoreStatusOptions contains the optional parameters for the BackupsClient.GetVolumeRestoreStatus
+//     method.
 func (client *BackupsClient) GetVolumeRestoreStatus(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientGetVolumeRestoreStatusOptions) (BackupsClientGetVolumeRestoreStatusResponse, error) {
 	req, err := client.getVolumeRestoreStatusCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, options)
 	if err != nil {
@@ -419,12 +426,13 @@ func (client *BackupsClient) getVolumeRestoreStatusHandleResponse(resp *http.Res
 }
 
 // NewListPager - List all backups for a volume
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// options - BackupsClientListOptions contains the optional parameters for the BackupsClient.List method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - options - BackupsClientListOptions contains the optional parameters for the BackupsClient.NewListPager method.
 func (client *BackupsClient) NewListPager(resourceGroupName string, accountName string, poolName string, volumeName string, options *BackupsClientListOptions) *runtime.Pager[BackupsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BackupsClientListResponse]{
 		More: func(page BackupsClientListResponse) bool {
@@ -492,14 +500,15 @@ func (client *BackupsClient) listHandleResponse(resp *http.Response) (BackupsCli
 
 // BeginUpdate - Patch a backup for the volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// backupName - The name of the backup
-// body - Backup object supplied in the body of the operation.
-// options - BackupsClientBeginUpdateOptions contains the optional parameters for the BackupsClient.BeginUpdate method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - backupName - The name of the backup
+//   - body - Backup object supplied in the body of the operation.
+//   - options - BackupsClientBeginUpdateOptions contains the optional parameters for the BackupsClient.BeginUpdate method.
 func (client *BackupsClient) BeginUpdate(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, backupName string, body BackupPatch, options *BackupsClientBeginUpdateOptions) (*runtime.Poller[BackupsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, accountName, poolName, volumeName, backupName, body, options)
@@ -516,6 +525,7 @@ func (client *BackupsClient) BeginUpdate(ctx context.Context, resourceGroupName 
 
 // Update - Patch a backup for the volume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *BackupsClient) update(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, backupName string, body BackupPatch, options *BackupsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, backupName, body, options)

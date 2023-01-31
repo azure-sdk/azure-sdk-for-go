@@ -32,10 +32,10 @@ type SnapshotPoliciesClient struct {
 }
 
 // NewSnapshotPoliciesClient creates a new instance of SnapshotPoliciesClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSnapshotPoliciesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SnapshotPoliciesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewSnapshotPoliciesClient(subscriptionID string, credential azcore.TokenCre
 
 // Create - Create a snapshot policy
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// snapshotPolicyName - The name of the snapshot policy
-// body - Snapshot policy object supplied in the body of the operation.
-// options - SnapshotPoliciesClientCreateOptions contains the optional parameters for the SnapshotPoliciesClient.Create method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - snapshotPolicyName - The name of the snapshot policy
+//   - body - Snapshot policy object supplied in the body of the operation.
+//   - options - SnapshotPoliciesClientCreateOptions contains the optional parameters for the SnapshotPoliciesClient.Create method.
 func (client *SnapshotPoliciesClient) Create(ctx context.Context, resourceGroupName string, accountName string, snapshotPolicyName string, body SnapshotPolicy, options *SnapshotPoliciesClientCreateOptions) (SnapshotPoliciesClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, snapshotPolicyName, body, options)
 	if err != nil {
@@ -120,12 +121,13 @@ func (client *SnapshotPoliciesClient) createHandleResponse(resp *http.Response) 
 
 // BeginDelete - Delete snapshot policy
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// snapshotPolicyName - The name of the snapshot policy
-// options - SnapshotPoliciesClientBeginDeleteOptions contains the optional parameters for the SnapshotPoliciesClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - snapshotPolicyName - The name of the snapshot policy
+//   - options - SnapshotPoliciesClientBeginDeleteOptions contains the optional parameters for the SnapshotPoliciesClient.BeginDelete
+//     method.
 func (client *SnapshotPoliciesClient) BeginDelete(ctx context.Context, resourceGroupName string, accountName string, snapshotPolicyName string, options *SnapshotPoliciesClientBeginDeleteOptions) (*runtime.Poller[SnapshotPoliciesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, accountName, snapshotPolicyName, options)
@@ -142,6 +144,7 @@ func (client *SnapshotPoliciesClient) BeginDelete(ctx context.Context, resourceG
 
 // Delete - Delete snapshot policy
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *SnapshotPoliciesClient) deleteOperation(ctx context.Context, resourceGroupName string, accountName string, snapshotPolicyName string, options *SnapshotPoliciesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, snapshotPolicyName, options)
@@ -189,11 +192,12 @@ func (client *SnapshotPoliciesClient) deleteCreateRequest(ctx context.Context, r
 
 // Get - Get a snapshot Policy
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// snapshotPolicyName - The name of the snapshot policy
-// options - SnapshotPoliciesClientGetOptions contains the optional parameters for the SnapshotPoliciesClient.Get method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - snapshotPolicyName - The name of the snapshot policy
+//   - options - SnapshotPoliciesClientGetOptions contains the optional parameters for the SnapshotPoliciesClient.Get method.
 func (client *SnapshotPoliciesClient) Get(ctx context.Context, resourceGroupName string, accountName string, snapshotPolicyName string, options *SnapshotPoliciesClientGetOptions) (SnapshotPoliciesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, snapshotPolicyName, options)
 	if err != nil {
@@ -249,10 +253,12 @@ func (client *SnapshotPoliciesClient) getHandleResponse(resp *http.Response) (Sn
 }
 
 // NewListPager - List snapshot policy
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// options - SnapshotPoliciesClientListOptions contains the optional parameters for the SnapshotPoliciesClient.List method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - options - SnapshotPoliciesClientListOptions contains the optional parameters for the SnapshotPoliciesClient.NewListPager
+//     method.
 func (client *SnapshotPoliciesClient) NewListPager(resourceGroupName string, accountName string, options *SnapshotPoliciesClientListOptions) *runtime.Pager[SnapshotPoliciesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SnapshotPoliciesClientListResponse]{
 		More: func(page SnapshotPoliciesClientListResponse) bool {
@@ -312,12 +318,13 @@ func (client *SnapshotPoliciesClient) listHandleResponse(resp *http.Response) (S
 
 // ListVolumes - Get volumes associated with snapshot policy
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// snapshotPolicyName - The name of the snapshot policy
-// options - SnapshotPoliciesClientListVolumesOptions contains the optional parameters for the SnapshotPoliciesClient.ListVolumes
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - snapshotPolicyName - The name of the snapshot policy
+//   - options - SnapshotPoliciesClientListVolumesOptions contains the optional parameters for the SnapshotPoliciesClient.ListVolumes
+//     method.
 func (client *SnapshotPoliciesClient) ListVolumes(ctx context.Context, resourceGroupName string, accountName string, snapshotPolicyName string, options *SnapshotPoliciesClientListVolumesOptions) (SnapshotPoliciesClientListVolumesResponse, error) {
 	req, err := client.listVolumesCreateRequest(ctx, resourceGroupName, accountName, snapshotPolicyName, options)
 	if err != nil {
@@ -374,13 +381,14 @@ func (client *SnapshotPoliciesClient) listVolumesHandleResponse(resp *http.Respo
 
 // BeginUpdate - Patch a snapshot policy
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// snapshotPolicyName - The name of the snapshot policy
-// body - Snapshot policy object supplied in the body of the operation.
-// options - SnapshotPoliciesClientBeginUpdateOptions contains the optional parameters for the SnapshotPoliciesClient.BeginUpdate
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - snapshotPolicyName - The name of the snapshot policy
+//   - body - Snapshot policy object supplied in the body of the operation.
+//   - options - SnapshotPoliciesClientBeginUpdateOptions contains the optional parameters for the SnapshotPoliciesClient.BeginUpdate
+//     method.
 func (client *SnapshotPoliciesClient) BeginUpdate(ctx context.Context, resourceGroupName string, accountName string, snapshotPolicyName string, body SnapshotPolicyPatch, options *SnapshotPoliciesClientBeginUpdateOptions) (*runtime.Poller[SnapshotPoliciesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, accountName, snapshotPolicyName, body, options)
@@ -397,6 +405,7 @@ func (client *SnapshotPoliciesClient) BeginUpdate(ctx context.Context, resourceG
 
 // Update - Patch a snapshot policy
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *SnapshotPoliciesClient) update(ctx context.Context, resourceGroupName string, accountName string, snapshotPolicyName string, body SnapshotPolicyPatch, options *SnapshotPoliciesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, snapshotPolicyName, body, options)

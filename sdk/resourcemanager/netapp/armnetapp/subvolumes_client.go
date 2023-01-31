@@ -32,10 +32,10 @@ type SubvolumesClient struct {
 }
 
 // NewSubvolumesClient creates a new instance of SubvolumesClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSubvolumesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubvolumesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,14 +58,15 @@ func NewSubvolumesClient(subscriptionID string, credential azcore.TokenCredentia
 
 // BeginCreate - Creates a subvolume in the path or clones the subvolume mentioned in the parentPath
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// subvolumeName - The name of the subvolume.
-// body - Subvolume object supplied in the body of the operation.
-// options - SubvolumesClientBeginCreateOptions contains the optional parameters for the SubvolumesClient.BeginCreate method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - subvolumeName - The name of the subvolume.
+//   - body - Subvolume object supplied in the body of the operation.
+//   - options - SubvolumesClientBeginCreateOptions contains the optional parameters for the SubvolumesClient.BeginCreate method.
 func (client *SubvolumesClient) BeginCreate(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, body SubvolumeInfo, options *SubvolumesClientBeginCreateOptions) (*runtime.Poller[SubvolumesClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, body, options)
@@ -82,6 +83,7 @@ func (client *SubvolumesClient) BeginCreate(ctx context.Context, resourceGroupNa
 
 // Create - Creates a subvolume in the path or clones the subvolume mentioned in the parentPath
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *SubvolumesClient) create(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, body SubvolumeInfo, options *SubvolumesClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, body, options)
@@ -138,13 +140,14 @@ func (client *SubvolumesClient) createCreateRequest(ctx context.Context, resourc
 
 // BeginDelete - Delete subvolume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// subvolumeName - The name of the subvolume.
-// options - SubvolumesClientBeginDeleteOptions contains the optional parameters for the SubvolumesClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - subvolumeName - The name of the subvolume.
+//   - options - SubvolumesClientBeginDeleteOptions contains the optional parameters for the SubvolumesClient.BeginDelete method.
 func (client *SubvolumesClient) BeginDelete(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, options *SubvolumesClientBeginDeleteOptions) (*runtime.Poller[SubvolumesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, options)
@@ -161,6 +164,7 @@ func (client *SubvolumesClient) BeginDelete(ctx context.Context, resourceGroupNa
 
 // Delete - Delete subvolume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *SubvolumesClient) deleteOperation(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, options *SubvolumesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, options)
@@ -216,13 +220,14 @@ func (client *SubvolumesClient) deleteCreateRequest(ctx context.Context, resourc
 
 // Get - Returns the path associated with the subvolumeName provided
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// subvolumeName - The name of the subvolume.
-// options - SubvolumesClientGetOptions contains the optional parameters for the SubvolumesClient.Get method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - subvolumeName - The name of the subvolume.
+//   - options - SubvolumesClientGetOptions contains the optional parameters for the SubvolumesClient.Get method.
 func (client *SubvolumesClient) Get(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, options *SubvolumesClientGetOptions) (SubvolumesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, options)
 	if err != nil {
@@ -287,14 +292,15 @@ func (client *SubvolumesClient) getHandleResponse(resp *http.Response) (Subvolum
 
 // BeginGetMetadata - Get details of the specified subvolume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// subvolumeName - The name of the subvolume.
-// options - SubvolumesClientBeginGetMetadataOptions contains the optional parameters for the SubvolumesClient.BeginGetMetadata
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - subvolumeName - The name of the subvolume.
+//   - options - SubvolumesClientBeginGetMetadataOptions contains the optional parameters for the SubvolumesClient.BeginGetMetadata
+//     method.
 func (client *SubvolumesClient) BeginGetMetadata(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, options *SubvolumesClientBeginGetMetadataOptions) (*runtime.Poller[SubvolumesClientGetMetadataResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.getMetadata(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, options)
@@ -311,6 +317,7 @@ func (client *SubvolumesClient) BeginGetMetadata(ctx context.Context, resourceGr
 
 // GetMetadata - Get details of the specified subvolume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *SubvolumesClient) getMetadata(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, options *SubvolumesClientBeginGetMetadataOptions) (*http.Response, error) {
 	req, err := client.getMetadataCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, options)
@@ -366,12 +373,14 @@ func (client *SubvolumesClient) getMetadataCreateRequest(ctx context.Context, re
 }
 
 // NewListByVolumePager - Returns a list of the subvolumes in the volume
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// options - SubvolumesClientListByVolumeOptions contains the optional parameters for the SubvolumesClient.ListByVolume method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - options - SubvolumesClientListByVolumeOptions contains the optional parameters for the SubvolumesClient.NewListByVolumePager
+//     method.
 func (client *SubvolumesClient) NewListByVolumePager(resourceGroupName string, accountName string, poolName string, volumeName string, options *SubvolumesClientListByVolumeOptions) *runtime.Pager[SubvolumesClientListByVolumeResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SubvolumesClientListByVolumeResponse]{
 		More: func(page SubvolumesClientListByVolumeResponse) bool {
@@ -445,14 +454,15 @@ func (client *SubvolumesClient) listByVolumeHandleResponse(resp *http.Response) 
 
 // BeginUpdate - Patch a subvolume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// poolName - The name of the capacity pool
-// volumeName - The name of the volume
-// subvolumeName - The name of the subvolume.
-// body - Subvolume object supplied in the body of the operation.
-// options - SubvolumesClientBeginUpdateOptions contains the optional parameters for the SubvolumesClient.BeginUpdate method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - poolName - The name of the capacity pool
+//   - volumeName - The name of the volume
+//   - subvolumeName - The name of the subvolume.
+//   - body - Subvolume object supplied in the body of the operation.
+//   - options - SubvolumesClientBeginUpdateOptions contains the optional parameters for the SubvolumesClient.BeginUpdate method.
 func (client *SubvolumesClient) BeginUpdate(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, body SubvolumePatchRequest, options *SubvolumesClientBeginUpdateOptions) (*runtime.Poller[SubvolumesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, body, options)
@@ -469,6 +479,7 @@ func (client *SubvolumesClient) BeginUpdate(ctx context.Context, resourceGroupNa
 
 // Update - Patch a subvolume
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *SubvolumesClient) update(ctx context.Context, resourceGroupName string, accountName string, poolName string, volumeName string, subvolumeName string, body SubvolumePatchRequest, options *SubvolumesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, poolName, volumeName, subvolumeName, body, options)

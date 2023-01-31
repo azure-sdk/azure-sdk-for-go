@@ -32,10 +32,10 @@ type VaultsClient struct {
 }
 
 // NewVaultsClient creates a new instance of VaultsClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewVaultsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VaultsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewVaultsClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListPager - List vaults for a Netapp Account
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// options - VaultsClientListOptions contains the optional parameters for the VaultsClient.List method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - options - VaultsClientListOptions contains the optional parameters for the VaultsClient.NewListPager method.
 func (client *VaultsClient) NewListPager(resourceGroupName string, accountName string, options *VaultsClientListOptions) *runtime.Pager[VaultsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VaultsClientListResponse]{
 		More: func(page VaultsClientListResponse) bool {

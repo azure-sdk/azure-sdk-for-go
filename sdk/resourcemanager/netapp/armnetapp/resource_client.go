@@ -32,10 +32,10 @@ type ResourceClient struct {
 }
 
 // NewResourceClient creates a new instance of ResourceClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewResourceClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ResourceClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,11 +58,12 @@ func NewResourceClient(subscriptionID string, credential azcore.TokenCredential,
 
 // CheckFilePathAvailability - Check if a file path is available.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// location - The location
-// body - File path availability request.
-// options - ResourceClientCheckFilePathAvailabilityOptions contains the optional parameters for the ResourceClient.CheckFilePathAvailability
-// method.
+//   - location - The location
+//   - body - File path availability request.
+//   - options - ResourceClientCheckFilePathAvailabilityOptions contains the optional parameters for the ResourceClient.CheckFilePathAvailability
+//     method.
 func (client *ResourceClient) CheckFilePathAvailability(ctx context.Context, location string, body FilePathAvailabilityRequest, options *ResourceClientCheckFilePathAvailabilityOptions) (ResourceClientCheckFilePathAvailabilityResponse, error) {
 	req, err := client.checkFilePathAvailabilityCreateRequest(ctx, location, body, options)
 	if err != nil {
@@ -111,11 +112,12 @@ func (client *ResourceClient) checkFilePathAvailabilityHandleResponse(resp *http
 
 // CheckNameAvailability - Check if a resource name is available.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// location - The location
-// body - Name availability request.
-// options - ResourceClientCheckNameAvailabilityOptions contains the optional parameters for the ResourceClient.CheckNameAvailability
-// method.
+//   - location - The location
+//   - body - Name availability request.
+//   - options - ResourceClientCheckNameAvailabilityOptions contains the optional parameters for the ResourceClient.CheckNameAvailability
+//     method.
 func (client *ResourceClient) CheckNameAvailability(ctx context.Context, location string, body ResourceNameAvailabilityRequest, options *ResourceClientCheckNameAvailabilityOptions) (ResourceClientCheckNameAvailabilityResponse, error) {
 	req, err := client.checkNameAvailabilityCreateRequest(ctx, location, body, options)
 	if err != nil {
@@ -164,11 +166,12 @@ func (client *ResourceClient) checkNameAvailabilityHandleResponse(resp *http.Res
 
 // CheckQuotaAvailability - Check if a quota is available.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// location - The location
-// body - Quota availability request.
-// options - ResourceClientCheckQuotaAvailabilityOptions contains the optional parameters for the ResourceClient.CheckQuotaAvailability
-// method.
+//   - location - The location
+//   - body - Quota availability request.
+//   - options - ResourceClientCheckQuotaAvailabilityOptions contains the optional parameters for the ResourceClient.CheckQuotaAvailability
+//     method.
 func (client *ResourceClient) CheckQuotaAvailability(ctx context.Context, location string, body QuotaAvailabilityRequest, options *ResourceClientCheckQuotaAvailabilityOptions) (ResourceClientCheckQuotaAvailabilityResponse, error) {
 	req, err := client.checkQuotaAvailabilityCreateRequest(ctx, location, body, options)
 	if err != nil {
@@ -217,10 +220,11 @@ func (client *ResourceClient) checkQuotaAvailabilityHandleResponse(resp *http.Re
 
 // QueryRegionInfo - Provides storage to network proximity and logical zone mapping information.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// location - The location
-// options - ResourceClientQueryRegionInfoOptions contains the optional parameters for the ResourceClient.QueryRegionInfo
-// method.
+//   - location - The location
+//   - options - ResourceClientQueryRegionInfoOptions contains the optional parameters for the ResourceClient.QueryRegionInfo
+//     method.
 func (client *ResourceClient) QueryRegionInfo(ctx context.Context, location string, options *ResourceClientQueryRegionInfoOptions) (ResourceClientQueryRegionInfoResponse, error) {
 	req, err := client.queryRegionInfoCreateRequest(ctx, location, options)
 	if err != nil {

@@ -32,10 +32,10 @@ type ResourceQuotaLimitsClient struct {
 }
 
 // NewResourceQuotaLimitsClient creates a new instance of ResourceQuotaLimitsClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewResourceQuotaLimitsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ResourceQuotaLimitsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,10 +58,11 @@ func NewResourceQuotaLimitsClient(subscriptionID string, credential azcore.Token
 
 // Get - Get the default and current subscription quota limit
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// location - The location
-// quotaLimitName - The name of the Quota Limit
-// options - ResourceQuotaLimitsClientGetOptions contains the optional parameters for the ResourceQuotaLimitsClient.Get method.
+//   - location - The location
+//   - quotaLimitName - The name of the Quota Limit
+//   - options - ResourceQuotaLimitsClientGetOptions contains the optional parameters for the ResourceQuotaLimitsClient.Get method.
 func (client *ResourceQuotaLimitsClient) Get(ctx context.Context, location string, quotaLimitName string, options *ResourceQuotaLimitsClientGetOptions) (ResourceQuotaLimitsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, location, quotaLimitName, options)
 	if err != nil {
@@ -113,10 +114,11 @@ func (client *ResourceQuotaLimitsClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListPager - Get the default and current limits for quotas
+//
 // Generated from API version 2022-05-01
-// location - The location
-// options - ResourceQuotaLimitsClientListOptions contains the optional parameters for the ResourceQuotaLimitsClient.List
-// method.
+//   - location - The location
+//   - options - ResourceQuotaLimitsClientListOptions contains the optional parameters for the ResourceQuotaLimitsClient.NewListPager
+//     method.
 func (client *ResourceQuotaLimitsClient) NewListPager(location string, options *ResourceQuotaLimitsClientListOptions) *runtime.Pager[ResourceQuotaLimitsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ResourceQuotaLimitsClientListResponse]{
 		More: func(page ResourceQuotaLimitsClientListResponse) bool {
