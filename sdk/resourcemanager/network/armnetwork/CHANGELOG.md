@@ -1,5 +1,13 @@
 # Release History
 
+## 2.2.0 (2023-01-31)
+### Features Added
+
+- New field `AuthorizationStatus` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `IPConfigurationID` in struct `VPNGatewaysClientBeginResetOptions`
+- New field `FlowLogs` in struct `VirtualNetworkPropertiesFormat`
+
+
 ## 2.1.0 (2022-12-23)
 ### Features Added
 
