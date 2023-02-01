@@ -1,5 +1,26 @@
 # Release History
 
+## 0.6.0 (2023-02-01)
+### Breaking Changes
+
+- Function `*ExperimentsClient.BeginCancel` has been removed
+- Function `*ExperimentsClient.BeginCreateOrUpdate` has been removed
+
+### Features Added
+
+- New type alias `FilterType` with values `FilterTypeSimple`
+- New function `*ExperimentsClient.Cancel(context.Context, string, string, *ExperimentsClientCancelOptions) (ExperimentsClientCancelResponse, error)`
+- New function `*ExperimentsClient.CreateOrUpdate(context.Context, string, string, Experiment, *ExperimentsClientCreateOrUpdateOptions) (ExperimentsClientCreateOrUpdateResponse, error)`
+- New function `*Filter.GetFilter() *Filter`
+- New function `*SimpleFilter.GetFilter() *Filter`
+- New struct `CapabilityTypePropertiesRuntimeProperties`
+- New struct `SimpleFilter`
+- New struct `SimpleFilterParameters`
+- New field `Kind` in struct `CapabilityTypeProperties`
+- New field `RuntimeProperties` in struct `CapabilityTypeProperties`
+- New field `Filter` in struct `Selector`
+
+
 ## 0.5.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/chaos/armchaos` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.5.0, which contains breaking changes.
