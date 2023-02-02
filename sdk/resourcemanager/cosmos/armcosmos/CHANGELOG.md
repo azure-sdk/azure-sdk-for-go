@@ -1,5 +1,24 @@
 # Release History
 
+## 2.2.0-beta.2 (2023-02-02)
+### Features Added
+
+- New value `DataTransferComponentCosmosDBMongo` added to type alias `DataTransferComponent`
+- New type alias `ClusterType` with values `ClusterTypeNonProduction`, `ClusterTypeProduction`
+- New function `*MongoDataTransferDataSourceSink.GetDataTransferDataSourceSink() *DataTransferDataSourceSink`
+- New struct `BackupSchedule`
+- New struct `CassandraError`
+- New struct `MongoDataTransferDataSourceSink`
+- New field `Errors` in struct `CassandraClusterPublicStatus`
+- New field `XMSForceDeallocate` in struct `CassandraClustersClientBeginDeallocateOptions`
+- New field `BackupSchedules` in struct `ClusterResourceProperties`
+- New field `ClusterType` in struct `ClusterResourceProperties`
+- New field `Extensions` in struct `ClusterResourceProperties`
+- New field `ProvisionError` in struct `ClusterResourceProperties`
+- New field `Deallocated` in struct `DataCenterResourceProperties`
+- New field `ProvisionError` in struct `DataCenterResourceProperties`
+
+
 ## 2.2.0-beta.1 (2022-10-09)
 ### Features Added
 

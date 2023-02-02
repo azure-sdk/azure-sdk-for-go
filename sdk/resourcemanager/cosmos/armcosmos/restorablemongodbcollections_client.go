@@ -32,9 +32,9 @@ type RestorableMongodbCollectionsClient struct {
 }
 
 // NewRestorableMongodbCollectionsClient creates a new instance of RestorableMongodbCollectionsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewRestorableMongodbCollectionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RestorableMongodbCollectionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,11 +58,12 @@ func NewRestorableMongodbCollectionsClient(subscriptionID string, credential azc
 // NewListPager - Show the event feed of all mutations done on all the Azure Cosmos DB MongoDB collections under a specific
 // database. This helps in scenario where container was accidentally deleted. This API requires
 // 'Microsoft.DocumentDB/locations/restorableDatabaseAccounts/…/read' permission
+//
 // Generated from API version 2022-08-15-preview
-// location - Cosmos DB region, with spaces between words and each word capitalized.
-// instanceID - The instanceId GUID of a restorable database account.
-// options - RestorableMongodbCollectionsClientListOptions contains the optional parameters for the RestorableMongodbCollectionsClient.List
-// method.
+//   - location - Cosmos DB region, with spaces between words and each word capitalized.
+//   - instanceID - The instanceId GUID of a restorable database account.
+//   - options - RestorableMongodbCollectionsClientListOptions contains the optional parameters for the RestorableMongodbCollectionsClient.NewListPager
+//     method.
 func (client *RestorableMongodbCollectionsClient) NewListPager(location string, instanceID string, options *RestorableMongodbCollectionsClientListOptions) *runtime.Pager[RestorableMongodbCollectionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[RestorableMongodbCollectionsClientListResponse]{
 		More: func(page RestorableMongodbCollectionsClientListResponse) bool {
