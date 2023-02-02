@@ -32,10 +32,10 @@ type LoadBalancersClient struct {
 }
 
 // NewLoadBalancersClient creates a new instance of LoadBalancersClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewLoadBalancersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LoadBalancersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewLoadBalancersClient(subscriptionID string, credential azcore.TokenCreden
 
 // BeginCreateOrUpdate - Creates or updates a load balancer.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// parameters - Parameters supplied to the create or update load balancer operation.
-// options - LoadBalancersClientBeginCreateOrUpdateOptions contains the optional parameters for the LoadBalancersClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - parameters - Parameters supplied to the create or update load balancer operation.
+//   - options - LoadBalancersClientBeginCreateOrUpdateOptions contains the optional parameters for the LoadBalancersClient.BeginCreateOrUpdate
+//     method.
 func (client *LoadBalancersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, loadBalancerName string, parameters LoadBalancer, options *LoadBalancersClientBeginCreateOrUpdateOptions) (*runtime.Poller[LoadBalancersClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, loadBalancerName, parameters, options)
@@ -80,6 +81,7 @@ func (client *LoadBalancersClient) BeginCreateOrUpdate(ctx context.Context, reso
 
 // CreateOrUpdate - Creates or updates a load balancer.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *LoadBalancersClient) createOrUpdate(ctx context.Context, resourceGroupName string, loadBalancerName string, parameters LoadBalancer, options *LoadBalancersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, loadBalancerName, parameters, options)
@@ -124,11 +126,12 @@ func (client *LoadBalancersClient) createOrUpdateCreateRequest(ctx context.Conte
 
 // BeginDelete - Deletes the specified load balancer.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// options - LoadBalancersClientBeginDeleteOptions contains the optional parameters for the LoadBalancersClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - options - LoadBalancersClientBeginDeleteOptions contains the optional parameters for the LoadBalancersClient.BeginDelete
+//     method.
 func (client *LoadBalancersClient) BeginDelete(ctx context.Context, resourceGroupName string, loadBalancerName string, options *LoadBalancersClientBeginDeleteOptions) (*runtime.Poller[LoadBalancersClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, loadBalancerName, options)
@@ -145,6 +148,7 @@ func (client *LoadBalancersClient) BeginDelete(ctx context.Context, resourceGrou
 
 // Delete - Deletes the specified load balancer.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *LoadBalancersClient) deleteOperation(ctx context.Context, resourceGroupName string, loadBalancerName string, options *LoadBalancersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, loadBalancerName, options)
@@ -189,10 +193,11 @@ func (client *LoadBalancersClient) deleteCreateRequest(ctx context.Context, reso
 
 // Get - Gets the specified load balancer.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// options - LoadBalancersClientGetOptions contains the optional parameters for the LoadBalancersClient.Get method.
+//   - resourceGroupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - options - LoadBalancersClientGetOptions contains the optional parameters for the LoadBalancersClient.Get method.
 func (client *LoadBalancersClient) Get(ctx context.Context, resourceGroupName string, loadBalancerName string, options *LoadBalancersClientGetOptions) (LoadBalancersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, loadBalancerName, options)
 	if err != nil {
@@ -247,9 +252,10 @@ func (client *LoadBalancersClient) getHandleResponse(resp *http.Response) (LoadB
 }
 
 // NewListPager - Gets all the load balancers in a resource group.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// options - LoadBalancersClientListOptions contains the optional parameters for the LoadBalancersClient.List method.
+//   - resourceGroupName - The name of the resource group.
+//   - options - LoadBalancersClientListOptions contains the optional parameters for the LoadBalancersClient.NewListPager method.
 func (client *LoadBalancersClient) NewListPager(resourceGroupName string, options *LoadBalancersClientListOptions) *runtime.Pager[LoadBalancersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LoadBalancersClientListResponse]{
 		More: func(page LoadBalancersClientListResponse) bool {
@@ -310,8 +316,10 @@ func (client *LoadBalancersClient) listHandleResponse(resp *http.Response) (Load
 }
 
 // NewListAllPager - Gets all the load balancers in a subscription.
+//
 // Generated from API version 2022-07-01
-// options - LoadBalancersClientListAllOptions contains the optional parameters for the LoadBalancersClient.ListAll method.
+//   - options - LoadBalancersClientListAllOptions contains the optional parameters for the LoadBalancersClient.NewListAllPager
+//     method.
 func (client *LoadBalancersClient) NewListAllPager(options *LoadBalancersClientListAllOptions) *runtime.Pager[LoadBalancersClientListAllResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LoadBalancersClientListAllResponse]{
 		More: func(page LoadBalancersClientListAllResponse) bool {
@@ -369,13 +377,14 @@ func (client *LoadBalancersClient) listAllHandleResponse(resp *http.Response) (L
 
 // BeginListInboundNatRulePortMappings - List of inbound NAT rule port mappings.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// groupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// backendPoolName - The name of the load balancer backend address pool.
-// parameters - Query inbound NAT rule port mapping request.
-// options - LoadBalancersClientBeginListInboundNatRulePortMappingsOptions contains the optional parameters for the LoadBalancersClient.BeginListInboundNatRulePortMappings
-// method.
+//   - groupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - backendPoolName - The name of the load balancer backend address pool.
+//   - parameters - Query inbound NAT rule port mapping request.
+//   - options - LoadBalancersClientBeginListInboundNatRulePortMappingsOptions contains the optional parameters for the LoadBalancersClient.BeginListInboundNatRulePortMappings
+//     method.
 func (client *LoadBalancersClient) BeginListInboundNatRulePortMappings(ctx context.Context, groupName string, loadBalancerName string, backendPoolName string, parameters QueryInboundNatRulePortMappingRequest, options *LoadBalancersClientBeginListInboundNatRulePortMappingsOptions) (*runtime.Poller[LoadBalancersClientListInboundNatRulePortMappingsResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.listInboundNatRulePortMappings(ctx, groupName, loadBalancerName, backendPoolName, parameters, options)
@@ -392,6 +401,7 @@ func (client *LoadBalancersClient) BeginListInboundNatRulePortMappings(ctx conte
 
 // ListInboundNatRulePortMappings - List of inbound NAT rule port mappings.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *LoadBalancersClient) listInboundNatRulePortMappings(ctx context.Context, groupName string, loadBalancerName string, backendPoolName string, parameters QueryInboundNatRulePortMappingRequest, options *LoadBalancersClientBeginListInboundNatRulePortMappingsOptions) (*http.Response, error) {
 	req, err := client.listInboundNatRulePortMappingsCreateRequest(ctx, groupName, loadBalancerName, backendPoolName, parameters, options)
@@ -440,11 +450,12 @@ func (client *LoadBalancersClient) listInboundNatRulePortMappingsCreateRequest(c
 
 // BeginSwapPublicIPAddresses - Swaps VIPs between two load balancers.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// location - The region where load balancers are located at.
-// parameters - Parameters that define which VIPs should be swapped.
-// options - LoadBalancersClientBeginSwapPublicIPAddressesOptions contains the optional parameters for the LoadBalancersClient.BeginSwapPublicIPAddresses
-// method.
+//   - location - The region where load balancers are located at.
+//   - parameters - Parameters that define which VIPs should be swapped.
+//   - options - LoadBalancersClientBeginSwapPublicIPAddressesOptions contains the optional parameters for the LoadBalancersClient.BeginSwapPublicIPAddresses
+//     method.
 func (client *LoadBalancersClient) BeginSwapPublicIPAddresses(ctx context.Context, location string, parameters LoadBalancerVipSwapRequest, options *LoadBalancersClientBeginSwapPublicIPAddressesOptions) (*runtime.Poller[LoadBalancersClientSwapPublicIPAddressesResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.swapPublicIPAddresses(ctx, location, parameters, options)
@@ -461,6 +472,7 @@ func (client *LoadBalancersClient) BeginSwapPublicIPAddresses(ctx context.Contex
 
 // SwapPublicIPAddresses - Swaps VIPs between two load balancers.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *LoadBalancersClient) swapPublicIPAddresses(ctx context.Context, location string, parameters LoadBalancerVipSwapRequest, options *LoadBalancersClientBeginSwapPublicIPAddressesOptions) (*http.Response, error) {
 	req, err := client.swapPublicIPAddressesCreateRequest(ctx, location, parameters, options)
@@ -501,12 +513,13 @@ func (client *LoadBalancersClient) swapPublicIPAddressesCreateRequest(ctx contex
 
 // UpdateTags - Updates a load balancer tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// parameters - Parameters supplied to update load balancer tags.
-// options - LoadBalancersClientUpdateTagsOptions contains the optional parameters for the LoadBalancersClient.UpdateTags
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - parameters - Parameters supplied to update load balancer tags.
+//   - options - LoadBalancersClientUpdateTagsOptions contains the optional parameters for the LoadBalancersClient.UpdateTags
+//     method.
 func (client *LoadBalancersClient) UpdateTags(ctx context.Context, resourceGroupName string, loadBalancerName string, parameters TagsObject, options *LoadBalancersClientUpdateTagsOptions) (LoadBalancersClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, loadBalancerName, parameters, options)
 	if err != nil {

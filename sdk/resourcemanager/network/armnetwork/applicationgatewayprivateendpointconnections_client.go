@@ -32,10 +32,10 @@ type ApplicationGatewayPrivateEndpointConnectionsClient struct {
 }
 
 // NewApplicationGatewayPrivateEndpointConnectionsClient creates a new instance of ApplicationGatewayPrivateEndpointConnectionsClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewApplicationGatewayPrivateEndpointConnectionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationGatewayPrivateEndpointConnectionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewApplicationGatewayPrivateEndpointConnectionsClient(subscriptionID string
 
 // BeginDelete - Deletes the specified private endpoint connection on application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// applicationGatewayName - The name of the application gateway.
-// connectionName - The name of the application gateway private endpoint connection.
-// options - ApplicationGatewayPrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the
-// ApplicationGatewayPrivateEndpointConnectionsClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group.
+//   - applicationGatewayName - The name of the application gateway.
+//   - connectionName - The name of the application gateway private endpoint connection.
+//   - options - ApplicationGatewayPrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the
+//     ApplicationGatewayPrivateEndpointConnectionsClient.BeginDelete method.
 func (client *ApplicationGatewayPrivateEndpointConnectionsClient) BeginDelete(ctx context.Context, resourceGroupName string, applicationGatewayName string, connectionName string, options *ApplicationGatewayPrivateEndpointConnectionsClientBeginDeleteOptions) (*runtime.Poller[ApplicationGatewayPrivateEndpointConnectionsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, applicationGatewayName, connectionName, options)
@@ -80,6 +81,7 @@ func (client *ApplicationGatewayPrivateEndpointConnectionsClient) BeginDelete(ct
 
 // Delete - Deletes the specified private endpoint connection on application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *ApplicationGatewayPrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, applicationGatewayName string, connectionName string, options *ApplicationGatewayPrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, applicationGatewayName, connectionName, options)
@@ -128,12 +130,13 @@ func (client *ApplicationGatewayPrivateEndpointConnectionsClient) deleteCreateRe
 
 // Get - Gets the specified private endpoint connection on application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// applicationGatewayName - The name of the application gateway.
-// connectionName - The name of the application gateway private endpoint connection.
-// options - ApplicationGatewayPrivateEndpointConnectionsClientGetOptions contains the optional parameters for the ApplicationGatewayPrivateEndpointConnectionsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - applicationGatewayName - The name of the application gateway.
+//   - connectionName - The name of the application gateway private endpoint connection.
+//   - options - ApplicationGatewayPrivateEndpointConnectionsClientGetOptions contains the optional parameters for the ApplicationGatewayPrivateEndpointConnectionsClient.Get
+//     method.
 func (client *ApplicationGatewayPrivateEndpointConnectionsClient) Get(ctx context.Context, resourceGroupName string, applicationGatewayName string, connectionName string, options *ApplicationGatewayPrivateEndpointConnectionsClientGetOptions) (ApplicationGatewayPrivateEndpointConnectionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, applicationGatewayName, connectionName, options)
 	if err != nil {
@@ -189,11 +192,12 @@ func (client *ApplicationGatewayPrivateEndpointConnectionsClient) getHandleRespo
 }
 
 // NewListPager - Lists all private endpoint connections on an application gateway.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// applicationGatewayName - The name of the application gateway.
-// options - ApplicationGatewayPrivateEndpointConnectionsClientListOptions contains the optional parameters for the ApplicationGatewayPrivateEndpointConnectionsClient.List
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - applicationGatewayName - The name of the application gateway.
+//   - options - ApplicationGatewayPrivateEndpointConnectionsClientListOptions contains the optional parameters for the ApplicationGatewayPrivateEndpointConnectionsClient.NewListPager
+//     method.
 func (client *ApplicationGatewayPrivateEndpointConnectionsClient) NewListPager(resourceGroupName string, applicationGatewayName string, options *ApplicationGatewayPrivateEndpointConnectionsClientListOptions) *runtime.Pager[ApplicationGatewayPrivateEndpointConnectionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ApplicationGatewayPrivateEndpointConnectionsClientListResponse]{
 		More: func(page ApplicationGatewayPrivateEndpointConnectionsClientListResponse) bool {
@@ -259,13 +263,14 @@ func (client *ApplicationGatewayPrivateEndpointConnectionsClient) listHandleResp
 
 // BeginUpdate - Updates the specified private endpoint connection on application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// applicationGatewayName - The name of the application gateway.
-// connectionName - The name of the application gateway private endpoint connection.
-// parameters - Parameters supplied to update application gateway private endpoint connection operation.
-// options - ApplicationGatewayPrivateEndpointConnectionsClientBeginUpdateOptions contains the optional parameters for the
-// ApplicationGatewayPrivateEndpointConnectionsClient.BeginUpdate method.
+//   - resourceGroupName - The name of the resource group.
+//   - applicationGatewayName - The name of the application gateway.
+//   - connectionName - The name of the application gateway private endpoint connection.
+//   - parameters - Parameters supplied to update application gateway private endpoint connection operation.
+//   - options - ApplicationGatewayPrivateEndpointConnectionsClientBeginUpdateOptions contains the optional parameters for the
+//     ApplicationGatewayPrivateEndpointConnectionsClient.BeginUpdate method.
 func (client *ApplicationGatewayPrivateEndpointConnectionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, applicationGatewayName string, connectionName string, parameters ApplicationGatewayPrivateEndpointConnection, options *ApplicationGatewayPrivateEndpointConnectionsClientBeginUpdateOptions) (*runtime.Poller[ApplicationGatewayPrivateEndpointConnectionsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, applicationGatewayName, connectionName, parameters, options)
@@ -282,6 +287,7 @@ func (client *ApplicationGatewayPrivateEndpointConnectionsClient) BeginUpdate(ct
 
 // Update - Updates the specified private endpoint connection on application gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *ApplicationGatewayPrivateEndpointConnectionsClient) update(ctx context.Context, resourceGroupName string, applicationGatewayName string, connectionName string, parameters ApplicationGatewayPrivateEndpointConnection, options *ApplicationGatewayPrivateEndpointConnectionsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, applicationGatewayName, connectionName, parameters, options)

@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -286,6 +286,7 @@ func PossibleApplicationGatewayRuleSetStatusOptionsValues() []ApplicationGateway
 type ApplicationGatewaySKUName string
 
 const (
+	ApplicationGatewaySKUNameStandardBasic  ApplicationGatewaySKUName = "Standard_Basic"
 	ApplicationGatewaySKUNameStandardLarge  ApplicationGatewaySKUName = "Standard_Large"
 	ApplicationGatewaySKUNameStandardMedium ApplicationGatewaySKUName = "Standard_Medium"
 	ApplicationGatewaySKUNameStandardSmall  ApplicationGatewaySKUName = "Standard_Small"
@@ -298,6 +299,7 @@ const (
 // PossibleApplicationGatewaySKUNameValues returns the possible values for the ApplicationGatewaySKUName const type.
 func PossibleApplicationGatewaySKUNameValues() []ApplicationGatewaySKUName {
 	return []ApplicationGatewaySKUName{
+		ApplicationGatewaySKUNameStandardBasic,
 		ApplicationGatewaySKUNameStandardLarge,
 		ApplicationGatewaySKUNameStandardMedium,
 		ApplicationGatewaySKUNameStandardSmall,
@@ -440,16 +442,18 @@ func PossibleApplicationGatewaySSLProtocolValues() []ApplicationGatewaySSLProtoc
 type ApplicationGatewayTier string
 
 const (
-	ApplicationGatewayTierStandard   ApplicationGatewayTier = "Standard"
-	ApplicationGatewayTierStandardV2 ApplicationGatewayTier = "Standard_v2"
-	ApplicationGatewayTierWAF        ApplicationGatewayTier = "WAF"
-	ApplicationGatewayTierWAFV2      ApplicationGatewayTier = "WAF_v2"
+	ApplicationGatewayTierStandard      ApplicationGatewayTier = "Standard"
+	ApplicationGatewayTierStandardBasic ApplicationGatewayTier = "Standard_Basic"
+	ApplicationGatewayTierStandardV2    ApplicationGatewayTier = "Standard_v2"
+	ApplicationGatewayTierWAF           ApplicationGatewayTier = "WAF"
+	ApplicationGatewayTierWAFV2         ApplicationGatewayTier = "WAF_v2"
 )
 
 // PossibleApplicationGatewayTierValues returns the possible values for the ApplicationGatewayTier const type.
 func PossibleApplicationGatewayTierValues() []ApplicationGatewayTier {
 	return []ApplicationGatewayTier{
 		ApplicationGatewayTierStandard,
+		ApplicationGatewayTierStandardBasic,
 		ApplicationGatewayTierStandardV2,
 		ApplicationGatewayTierWAF,
 		ApplicationGatewayTierWAFV2,
