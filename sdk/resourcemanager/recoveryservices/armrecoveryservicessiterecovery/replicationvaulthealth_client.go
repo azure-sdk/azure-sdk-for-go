@@ -34,11 +34,11 @@ type ReplicationVaultHealthClient struct {
 }
 
 // NewReplicationVaultHealthClient creates a new instance of ReplicationVaultHealthClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationVaultHealthClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationVaultHealthClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,9 +63,10 @@ func NewReplicationVaultHealthClient(resourceName string, resourceGroupName stri
 
 // Get - Gets the health details of the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// options - ReplicationVaultHealthClientGetOptions contains the optional parameters for the ReplicationVaultHealthClient.Get
-// method.
+//   - options - ReplicationVaultHealthClientGetOptions contains the optional parameters for the ReplicationVaultHealthClient.Get
+//     method.
 func (client *ReplicationVaultHealthClient) Get(ctx context.Context, options *ReplicationVaultHealthClientGetOptions) (ReplicationVaultHealthClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, options)
 	if err != nil {
@@ -118,9 +119,10 @@ func (client *ReplicationVaultHealthClient) getHandleResponse(resp *http.Respons
 
 // BeginRefresh - Refreshes health summary of the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// options - ReplicationVaultHealthClientBeginRefreshOptions contains the optional parameters for the ReplicationVaultHealthClient.BeginRefresh
-// method.
+//   - options - ReplicationVaultHealthClientBeginRefreshOptions contains the optional parameters for the ReplicationVaultHealthClient.BeginRefresh
+//     method.
 func (client *ReplicationVaultHealthClient) BeginRefresh(ctx context.Context, options *ReplicationVaultHealthClientBeginRefreshOptions) (*runtime.Poller[ReplicationVaultHealthClientRefreshResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.refresh(ctx, options)
@@ -135,6 +137,7 @@ func (client *ReplicationVaultHealthClient) BeginRefresh(ctx context.Context, op
 
 // Refresh - Refreshes health summary of the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationVaultHealthClient) refresh(ctx context.Context, options *ReplicationVaultHealthClientBeginRefreshOptions) (*http.Response, error) {
 	req, err := client.refreshCreateRequest(ctx, options)
