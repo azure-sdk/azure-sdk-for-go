@@ -32,10 +32,10 @@ type DeletedAutomationAccountsClient struct {
 }
 
 // NewDeletedAutomationAccountsClient creates a new instance of DeletedAutomationAccountsClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDeletedAutomationAccountsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DeletedAutomationAccountsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,9 +58,10 @@ func NewDeletedAutomationAccountsClient(subscriptionID string, credential azcore
 
 // ListBySubscription - Retrieve deleted automation account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-31
-// options - DeletedAutomationAccountsClientListBySubscriptionOptions contains the optional parameters for the DeletedAutomationAccountsClient.ListBySubscription
-// method.
+//   - options - DeletedAutomationAccountsClientListBySubscriptionOptions contains the optional parameters for the DeletedAutomationAccountsClient.ListBySubscription
+//     method.
 func (client *DeletedAutomationAccountsClient) ListBySubscription(ctx context.Context, options *DeletedAutomationAccountsClientListBySubscriptionOptions) (DeletedAutomationAccountsClientListBySubscriptionResponse, error) {
 	req, err := client.listBySubscriptionCreateRequest(ctx, options)
 	if err != nil {

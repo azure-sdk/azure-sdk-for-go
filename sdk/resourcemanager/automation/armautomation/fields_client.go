@@ -32,10 +32,10 @@ type FieldsClient struct {
 }
 
 // NewFieldsClient creates a new instance of FieldsClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewFieldsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FieldsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,13 @@ func NewFieldsClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListByTypePager - Retrieve a list of fields of a given type identified by module name.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// moduleName - The name of module.
-// typeName - The name of type.
-// options - FieldsClientListByTypeOptions contains the optional parameters for the FieldsClient.ListByType method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - moduleName - The name of module.
+//   - typeName - The name of type.
+//   - options - FieldsClientListByTypeOptions contains the optional parameters for the FieldsClient.NewListByTypePager method.
 func (client *FieldsClient) NewListByTypePager(resourceGroupName string, automationAccountName string, moduleName string, typeName string, options *FieldsClientListByTypeOptions) *runtime.Pager[FieldsClientListByTypeResponse] {
 	return runtime.NewPager(runtime.PagingHandler[FieldsClientListByTypeResponse]{
 		More: func(page FieldsClientListByTypeResponse) bool {
@@ -114,7 +114,7 @@ func (client *FieldsClient) listByTypeCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

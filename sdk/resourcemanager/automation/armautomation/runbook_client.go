@@ -32,10 +32,10 @@ type RunbookClient struct {
 }
 
 // NewRunbookClient creates a new instance of RunbookClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewRunbookClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RunbookClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewRunbookClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // CreateOrUpdate - Create the runbook identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// parameters - The create or update parameters for runbook. Provide either content link for a published runbook or draft,
-// not both.
-// options - RunbookClientCreateOrUpdateOptions contains the optional parameters for the RunbookClient.CreateOrUpdate method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - parameters - The create or update parameters for runbook. Provide either content link for a published runbook or draft,
+//     not both.
+//   - options - RunbookClientCreateOrUpdateOptions contains the optional parameters for the RunbookClient.CreateOrUpdate method.
 func (client *RunbookClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, parameters RunbookCreateOrUpdateParameters, options *RunbookClientCreateOrUpdateOptions) (RunbookClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, parameters, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *RunbookClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -121,11 +122,12 @@ func (client *RunbookClient) createOrUpdateHandleResponse(resp *http.Response) (
 
 // Delete - Delete the runbook by name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// options - RunbookClientDeleteOptions contains the optional parameters for the RunbookClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - options - RunbookClientDeleteOptions contains the optional parameters for the RunbookClient.Delete method.
 func (client *RunbookClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookClientDeleteOptions) (RunbookClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, options)
 	if err != nil {
@@ -165,7 +167,7 @@ func (client *RunbookClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,11 +175,12 @@ func (client *RunbookClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // Get - Retrieve the runbook identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// options - RunbookClientGetOptions contains the optional parameters for the RunbookClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - options - RunbookClientGetOptions contains the optional parameters for the RunbookClient.Get method.
 func (client *RunbookClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookClientGetOptions) (RunbookClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, options)
 	if err != nil {
@@ -217,7 +220,7 @@ func (client *RunbookClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,11 +237,12 @@ func (client *RunbookClient) getHandleResponse(resp *http.Response) (RunbookClie
 
 // GetContent - Retrieve the content of runbook identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// options - RunbookClientGetContentOptions contains the optional parameters for the RunbookClient.GetContent method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - options - RunbookClientGetContentOptions contains the optional parameters for the RunbookClient.GetContent method.
 func (client *RunbookClient) GetContent(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookClientGetContentOptions) (RunbookClientGetContentResponse, error) {
 	req, err := client.getContentCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, options)
 	if err != nil {
@@ -278,19 +282,19 @@ func (client *RunbookClient) getContentCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"text/powershell"}
 	return req, nil
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of runbooks.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - RunbookClientListByAutomationAccountOptions contains the optional parameters for the RunbookClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - RunbookClientListByAutomationAccountOptions contains the optional parameters for the RunbookClient.NewListByAutomationAccountPager
+//     method.
 func (client *RunbookClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *RunbookClientListByAutomationAccountOptions) *runtime.Pager[RunbookClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[RunbookClientListByAutomationAccountResponse]{
 		More: func(page RunbookClientListByAutomationAccountResponse) bool {
@@ -339,7 +343,7 @@ func (client *RunbookClient) listByAutomationAccountCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -356,11 +360,12 @@ func (client *RunbookClient) listByAutomationAccountHandleResponse(resp *http.Re
 
 // BeginPublish - Publish runbook draft.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The parameters supplied to the publish runbook operation.
-// options - RunbookClientBeginPublishOptions contains the optional parameters for the RunbookClient.BeginPublish method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The parameters supplied to the publish runbook operation.
+//   - options - RunbookClientBeginPublishOptions contains the optional parameters for the RunbookClient.BeginPublish method.
 func (client *RunbookClient) BeginPublish(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookClientBeginPublishOptions) (*runtime.Poller[RunbookClientPublishResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.publish(ctx, resourceGroupName, automationAccountName, runbookName, options)
@@ -375,7 +380,8 @@ func (client *RunbookClient) BeginPublish(ctx context.Context, resourceGroupName
 
 // Publish - Publish runbook draft.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
+//
+// Generated from API version 2022-08-08
 func (client *RunbookClient) publish(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookClientBeginPublishOptions) (*http.Response, error) {
 	req, err := client.publishCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, options)
 	if err != nil {
@@ -415,7 +421,7 @@ func (client *RunbookClient) publishCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -423,12 +429,13 @@ func (client *RunbookClient) publishCreateRequest(ctx context.Context, resourceG
 
 // Update - Update the runbook identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// parameters - The update parameters for runbook.
-// options - RunbookClientUpdateOptions contains the optional parameters for the RunbookClient.Update method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - parameters - The update parameters for runbook.
+//   - options - RunbookClientUpdateOptions contains the optional parameters for the RunbookClient.Update method.
 func (client *RunbookClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, parameters RunbookUpdateParameters, options *RunbookClientUpdateOptions) (RunbookClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, parameters, options)
 	if err != nil {
@@ -468,7 +475,7 @@ func (client *RunbookClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

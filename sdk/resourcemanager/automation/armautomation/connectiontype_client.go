@@ -32,10 +32,10 @@ type ConnectionTypeClient struct {
 }
 
 // NewConnectionTypeClient creates a new instance of ConnectionTypeClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectionTypeClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectionTypeClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewConnectionTypeClient(subscriptionID string, credential azcore.TokenCrede
 
 // CreateOrUpdate - Create a connection type.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// connectionTypeName - The parameters supplied to the create or update connection type operation.
-// parameters - The parameters supplied to the create or update connection type operation.
-// options - ConnectionTypeClientCreateOrUpdateOptions contains the optional parameters for the ConnectionTypeClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - connectionTypeName - The parameters supplied to the create or update connection type operation.
+//   - parameters - The parameters supplied to the create or update connection type operation.
+//   - options - ConnectionTypeClientCreateOrUpdateOptions contains the optional parameters for the ConnectionTypeClient.CreateOrUpdate
+//     method.
 func (client *ConnectionTypeClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, connectionTypeName string, parameters ConnectionTypeCreateOrUpdateParameters, options *ConnectionTypeClientCreateOrUpdateOptions) (ConnectionTypeClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, connectionTypeName, parameters, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *ConnectionTypeClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -121,11 +122,12 @@ func (client *ConnectionTypeClient) createOrUpdateHandleResponse(resp *http.Resp
 
 // Delete - Delete the connection type.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// connectionTypeName - The name of connection type.
-// options - ConnectionTypeClientDeleteOptions contains the optional parameters for the ConnectionTypeClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - connectionTypeName - The name of connection type.
+//   - options - ConnectionTypeClientDeleteOptions contains the optional parameters for the ConnectionTypeClient.Delete method.
 func (client *ConnectionTypeClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, connectionTypeName string, options *ConnectionTypeClientDeleteOptions) (ConnectionTypeClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, connectionTypeName, options)
 	if err != nil {
@@ -165,7 +167,7 @@ func (client *ConnectionTypeClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,11 +175,12 @@ func (client *ConnectionTypeClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Retrieve the connection type identified by connection type name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// connectionTypeName - The name of connection type.
-// options - ConnectionTypeClientGetOptions contains the optional parameters for the ConnectionTypeClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - connectionTypeName - The name of connection type.
+//   - options - ConnectionTypeClientGetOptions contains the optional parameters for the ConnectionTypeClient.Get method.
 func (client *ConnectionTypeClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, connectionTypeName string, options *ConnectionTypeClientGetOptions) (ConnectionTypeClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, connectionTypeName, options)
 	if err != nil {
@@ -217,7 +220,7 @@ func (client *ConnectionTypeClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -233,12 +236,12 @@ func (client *ConnectionTypeClient) getHandleResponse(resp *http.Response) (Conn
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of connection types.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - ConnectionTypeClientListByAutomationAccountOptions contains the optional parameters for the ConnectionTypeClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - ConnectionTypeClientListByAutomationAccountOptions contains the optional parameters for the ConnectionTypeClient.NewListByAutomationAccountPager
+//     method.
 func (client *ConnectionTypeClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *ConnectionTypeClientListByAutomationAccountOptions) *runtime.Pager[ConnectionTypeClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectionTypeClientListByAutomationAccountResponse]{
 		More: func(page ConnectionTypeClientListByAutomationAccountResponse) bool {
@@ -287,7 +290,7 @@ func (client *ConnectionTypeClient) listByAutomationAccountCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

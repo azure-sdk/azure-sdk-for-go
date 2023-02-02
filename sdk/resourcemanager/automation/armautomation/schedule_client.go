@@ -32,10 +32,10 @@ type ScheduleClient struct {
 }
 
 // NewScheduleClient creates a new instance of ScheduleClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewScheduleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ScheduleClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewScheduleClient(subscriptionID string, credential azcore.TokenCredential,
 
 // CreateOrUpdate - Create a schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// scheduleName - The schedule name.
-// parameters - The parameters supplied to the create or update schedule operation.
-// options - ScheduleClientCreateOrUpdateOptions contains the optional parameters for the ScheduleClient.CreateOrUpdate method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - scheduleName - The schedule name.
+//   - parameters - The parameters supplied to the create or update schedule operation.
+//   - options - ScheduleClientCreateOrUpdateOptions contains the optional parameters for the ScheduleClient.CreateOrUpdate method.
 func (client *ScheduleClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, scheduleName string, parameters ScheduleCreateOrUpdateParameters, options *ScheduleClientCreateOrUpdateOptions) (ScheduleClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, scheduleName, parameters, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *ScheduleClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -120,11 +121,12 @@ func (client *ScheduleClient) createOrUpdateHandleResponse(resp *http.Response) 
 
 // Delete - Delete the schedule identified by schedule name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// scheduleName - The schedule name.
-// options - ScheduleClientDeleteOptions contains the optional parameters for the ScheduleClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - scheduleName - The schedule name.
+//   - options - ScheduleClientDeleteOptions contains the optional parameters for the ScheduleClient.Delete method.
 func (client *ScheduleClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, scheduleName string, options *ScheduleClientDeleteOptions) (ScheduleClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, scheduleName, options)
 	if err != nil {
@@ -164,7 +166,7 @@ func (client *ScheduleClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,11 +174,12 @@ func (client *ScheduleClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Retrieve the schedule identified by schedule name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// scheduleName - The schedule name.
-// options - ScheduleClientGetOptions contains the optional parameters for the ScheduleClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - scheduleName - The schedule name.
+//   - options - ScheduleClientGetOptions contains the optional parameters for the ScheduleClient.Get method.
 func (client *ScheduleClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, scheduleName string, options *ScheduleClientGetOptions) (ScheduleClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, scheduleName, options)
 	if err != nil {
@@ -216,7 +219,7 @@ func (client *ScheduleClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,12 +235,12 @@ func (client *ScheduleClient) getHandleResponse(resp *http.Response) (ScheduleCl
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of schedules.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - ScheduleClientListByAutomationAccountOptions contains the optional parameters for the ScheduleClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - ScheduleClientListByAutomationAccountOptions contains the optional parameters for the ScheduleClient.NewListByAutomationAccountPager
+//     method.
 func (client *ScheduleClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *ScheduleClientListByAutomationAccountOptions) *runtime.Pager[ScheduleClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ScheduleClientListByAutomationAccountResponse]{
 		More: func(page ScheduleClientListByAutomationAccountResponse) bool {
@@ -286,7 +289,7 @@ func (client *ScheduleClient) listByAutomationAccountCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -303,12 +306,13 @@ func (client *ScheduleClient) listByAutomationAccountHandleResponse(resp *http.R
 
 // Update - Update the schedule identified by schedule name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// scheduleName - The schedule name.
-// parameters - The parameters supplied to the update schedule operation.
-// options - ScheduleClientUpdateOptions contains the optional parameters for the ScheduleClient.Update method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - scheduleName - The schedule name.
+//   - parameters - The parameters supplied to the update schedule operation.
+//   - options - ScheduleClientUpdateOptions contains the optional parameters for the ScheduleClient.Update method.
 func (client *ScheduleClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, scheduleName string, parameters ScheduleUpdateParameters, options *ScheduleClientUpdateOptions) (ScheduleClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, scheduleName, parameters, options)
 	if err != nil {
@@ -348,7 +352,7 @@ func (client *ScheduleClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

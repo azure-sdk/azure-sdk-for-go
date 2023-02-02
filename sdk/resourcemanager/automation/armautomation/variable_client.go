@@ -32,10 +32,10 @@ type VariableClient struct {
 }
 
 // NewVariableClient creates a new instance of VariableClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewVariableClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VariableClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewVariableClient(subscriptionID string, credential azcore.TokenCredential,
 
 // CreateOrUpdate - Create a variable.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// variableName - The variable name.
-// parameters - The parameters supplied to the create or update variable operation.
-// options - VariableClientCreateOrUpdateOptions contains the optional parameters for the VariableClient.CreateOrUpdate method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - variableName - The variable name.
+//   - parameters - The parameters supplied to the create or update variable operation.
+//   - options - VariableClientCreateOrUpdateOptions contains the optional parameters for the VariableClient.CreateOrUpdate method.
 func (client *VariableClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, variableName string, parameters VariableCreateOrUpdateParameters, options *VariableClientCreateOrUpdateOptions) (VariableClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, variableName, parameters, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *VariableClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -120,11 +121,12 @@ func (client *VariableClient) createOrUpdateHandleResponse(resp *http.Response) 
 
 // Delete - Delete the variable.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// variableName - The name of variable.
-// options - VariableClientDeleteOptions contains the optional parameters for the VariableClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - variableName - The name of variable.
+//   - options - VariableClientDeleteOptions contains the optional parameters for the VariableClient.Delete method.
 func (client *VariableClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, variableName string, options *VariableClientDeleteOptions) (VariableClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, variableName, options)
 	if err != nil {
@@ -164,7 +166,7 @@ func (client *VariableClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -172,11 +174,12 @@ func (client *VariableClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Retrieve the variable identified by variable name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// variableName - The name of variable.
-// options - VariableClientGetOptions contains the optional parameters for the VariableClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - variableName - The name of variable.
+//   - options - VariableClientGetOptions contains the optional parameters for the VariableClient.Get method.
 func (client *VariableClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, variableName string, options *VariableClientGetOptions) (VariableClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, variableName, options)
 	if err != nil {
@@ -216,7 +219,7 @@ func (client *VariableClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -232,12 +235,12 @@ func (client *VariableClient) getHandleResponse(resp *http.Response) (VariableCl
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of variables.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - VariableClientListByAutomationAccountOptions contains the optional parameters for the VariableClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - VariableClientListByAutomationAccountOptions contains the optional parameters for the VariableClient.NewListByAutomationAccountPager
+//     method.
 func (client *VariableClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *VariableClientListByAutomationAccountOptions) *runtime.Pager[VariableClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VariableClientListByAutomationAccountResponse]{
 		More: func(page VariableClientListByAutomationAccountResponse) bool {
@@ -286,7 +289,7 @@ func (client *VariableClient) listByAutomationAccountCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -303,12 +306,13 @@ func (client *VariableClient) listByAutomationAccountHandleResponse(resp *http.R
 
 // Update - Update a variable.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// variableName - The variable name.
-// parameters - The parameters supplied to the update variable operation.
-// options - VariableClientUpdateOptions contains the optional parameters for the VariableClient.Update method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - variableName - The variable name.
+//   - parameters - The parameters supplied to the update variable operation.
+//   - options - VariableClientUpdateOptions contains the optional parameters for the VariableClient.Update method.
 func (client *VariableClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, variableName string, parameters VariableUpdateParameters, options *VariableClientUpdateOptions) (VariableClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, variableName, parameters, options)
 	if err != nil {
@@ -348,7 +352,7 @@ func (client *VariableClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

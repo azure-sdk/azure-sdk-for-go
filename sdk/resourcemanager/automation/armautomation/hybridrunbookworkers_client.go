@@ -32,10 +32,10 @@ type HybridRunbookWorkersClient struct {
 }
 
 // NewHybridRunbookWorkersClient creates a new instance of HybridRunbookWorkersClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewHybridRunbookWorkersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*HybridRunbookWorkersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,14 +58,15 @@ func NewHybridRunbookWorkersClient(subscriptionID string, credential azcore.Toke
 
 // Create - Create a hybrid runbook worker.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// hybridRunbookWorkerGroupName - The hybrid runbook worker group name
-// hybridRunbookWorkerID - The hybrid runbook worker id
-// hybridRunbookWorkerCreationParameters - The create or update parameters for hybrid runbook worker.
-// options - HybridRunbookWorkersClientCreateOptions contains the optional parameters for the HybridRunbookWorkersClient.Create
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
+//   - hybridRunbookWorkerID - The hybrid runbook worker id
+//   - hybridRunbookWorkerCreationParameters - The create or update parameters for hybrid runbook worker.
+//   - options - HybridRunbookWorkersClientCreateOptions contains the optional parameters for the HybridRunbookWorkersClient.Create
+//     method.
 func (client *HybridRunbookWorkersClient) Create(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, hybridRunbookWorkerCreationParameters HybridRunbookWorkerCreateParameters, options *HybridRunbookWorkersClientCreateOptions) (HybridRunbookWorkersClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, hybridRunbookWorkerID, hybridRunbookWorkerCreationParameters, options)
 	if err != nil {
@@ -75,7 +76,7 @@ func (client *HybridRunbookWorkersClient) Create(ctx context.Context, resourceGr
 	if err != nil {
 		return HybridRunbookWorkersClientCreateResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return HybridRunbookWorkersClientCreateResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.createHandleResponse(resp)
@@ -109,7 +110,7 @@ func (client *HybridRunbookWorkersClient) createCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, hybridRunbookWorkerCreationParameters)
@@ -126,13 +127,14 @@ func (client *HybridRunbookWorkersClient) createHandleResponse(resp *http.Respon
 
 // Delete - Delete a hybrid runbook worker.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// hybridRunbookWorkerGroupName - The hybrid runbook worker group name
-// hybridRunbookWorkerID - The hybrid runbook worker id
-// options - HybridRunbookWorkersClientDeleteOptions contains the optional parameters for the HybridRunbookWorkersClient.Delete
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
+//   - hybridRunbookWorkerID - The hybrid runbook worker id
+//   - options - HybridRunbookWorkersClientDeleteOptions contains the optional parameters for the HybridRunbookWorkersClient.Delete
+//     method.
 func (client *HybridRunbookWorkersClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, options *HybridRunbookWorkersClientDeleteOptions) (HybridRunbookWorkersClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, hybridRunbookWorkerID, options)
 	if err != nil {
@@ -176,7 +178,7 @@ func (client *HybridRunbookWorkersClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -184,13 +186,14 @@ func (client *HybridRunbookWorkersClient) deleteCreateRequest(ctx context.Contex
 
 // Get - Retrieve a hybrid runbook worker.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// hybridRunbookWorkerGroupName - The hybrid runbook worker group name
-// hybridRunbookWorkerID - The hybrid runbook worker id
-// options - HybridRunbookWorkersClientGetOptions contains the optional parameters for the HybridRunbookWorkersClient.Get
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
+//   - hybridRunbookWorkerID - The hybrid runbook worker id
+//   - options - HybridRunbookWorkersClientGetOptions contains the optional parameters for the HybridRunbookWorkersClient.Get
+//     method.
 func (client *HybridRunbookWorkersClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, options *HybridRunbookWorkersClientGetOptions) (HybridRunbookWorkersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, hybridRunbookWorkerID, options)
 	if err != nil {
@@ -234,7 +237,7 @@ func (client *HybridRunbookWorkersClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,13 +253,13 @@ func (client *HybridRunbookWorkersClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListByHybridRunbookWorkerGroupPager - Retrieve a list of hybrid runbook workers.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// hybridRunbookWorkerGroupName - The hybrid runbook worker group name
-// options - HybridRunbookWorkersClientListByHybridRunbookWorkerGroupOptions contains the optional parameters for the HybridRunbookWorkersClient.ListByHybridRunbookWorkerGroup
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
+//   - options - HybridRunbookWorkersClientListByHybridRunbookWorkerGroupOptions contains the optional parameters for the HybridRunbookWorkersClient.NewListByHybridRunbookWorkerGroupPager
+//     method.
 func (client *HybridRunbookWorkersClient) NewListByHybridRunbookWorkerGroupPager(resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, options *HybridRunbookWorkersClientListByHybridRunbookWorkerGroupOptions) *runtime.Pager[HybridRunbookWorkersClientListByHybridRunbookWorkerGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[HybridRunbookWorkersClientListByHybridRunbookWorkerGroupResponse]{
 		More: func(page HybridRunbookWorkersClientListByHybridRunbookWorkerGroupResponse) bool {
@@ -312,7 +315,7 @@ func (client *HybridRunbookWorkersClient) listByHybridRunbookWorkerGroupCreateRe
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -329,14 +332,15 @@ func (client *HybridRunbookWorkersClient) listByHybridRunbookWorkerGroupHandleRe
 
 // Move - Move a hybrid worker to a different group.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// hybridRunbookWorkerGroupName - The hybrid runbook worker group name
-// hybridRunbookWorkerID - The hybrid runbook worker id
-// hybridRunbookWorkerMoveParameters - The hybrid runbook worker move parameters
-// options - HybridRunbookWorkersClientMoveOptions contains the optional parameters for the HybridRunbookWorkersClient.Move
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - hybridRunbookWorkerGroupName - The hybrid runbook worker group name
+//   - hybridRunbookWorkerID - The hybrid runbook worker id
+//   - hybridRunbookWorkerMoveParameters - The hybrid runbook worker move parameters
+//   - options - HybridRunbookWorkersClientMoveOptions contains the optional parameters for the HybridRunbookWorkersClient.Move
+//     method.
 func (client *HybridRunbookWorkersClient) Move(ctx context.Context, resourceGroupName string, automationAccountName string, hybridRunbookWorkerGroupName string, hybridRunbookWorkerID string, hybridRunbookWorkerMoveParameters HybridRunbookWorkerMoveParameters, options *HybridRunbookWorkersClientMoveOptions) (HybridRunbookWorkersClientMoveResponse, error) {
 	req, err := client.moveCreateRequest(ctx, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, hybridRunbookWorkerID, hybridRunbookWorkerMoveParameters, options)
 	if err != nil {
@@ -380,7 +384,7 @@ func (client *HybridRunbookWorkersClient) moveCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, hybridRunbookWorkerMoveParameters)

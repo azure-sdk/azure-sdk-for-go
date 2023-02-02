@@ -32,10 +32,10 @@ type JobScheduleClient struct {
 }
 
 // NewJobScheduleClient creates a new instance of JobScheduleClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewJobScheduleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JobScheduleClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewJobScheduleClient(subscriptionID string, credential azcore.TokenCredenti
 
 // Create - Create a job schedule.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// jobScheduleID - The job schedule name.
-// parameters - The parameters supplied to the create job schedule operation.
-// options - JobScheduleClientCreateOptions contains the optional parameters for the JobScheduleClient.Create method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - jobScheduleID - The job schedule name.
+//   - parameters - The parameters supplied to the create job schedule operation.
+//   - options - JobScheduleClientCreateOptions contains the optional parameters for the JobScheduleClient.Create method.
 func (client *JobScheduleClient) Create(ctx context.Context, resourceGroupName string, automationAccountName string, jobScheduleID string, parameters JobScheduleCreateParameters, options *JobScheduleClientCreateOptions) (JobScheduleClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, automationAccountName, jobScheduleID, parameters, options)
 	if err != nil {
@@ -100,7 +101,7 @@ func (client *JobScheduleClient) createCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -117,11 +118,12 @@ func (client *JobScheduleClient) createHandleResponse(resp *http.Response) (JobS
 
 // Delete - Delete the job schedule identified by job schedule name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// jobScheduleID - The job schedule name.
-// options - JobScheduleClientDeleteOptions contains the optional parameters for the JobScheduleClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - jobScheduleID - The job schedule name.
+//   - options - JobScheduleClientDeleteOptions contains the optional parameters for the JobScheduleClient.Delete method.
 func (client *JobScheduleClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, jobScheduleID string, options *JobScheduleClientDeleteOptions) (JobScheduleClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, jobScheduleID, options)
 	if err != nil {
@@ -158,7 +160,7 @@ func (client *JobScheduleClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -166,11 +168,12 @@ func (client *JobScheduleClient) deleteCreateRequest(ctx context.Context, resour
 
 // Get - Retrieve the job schedule identified by job schedule name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// jobScheduleID - The job schedule name.
-// options - JobScheduleClientGetOptions contains the optional parameters for the JobScheduleClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - jobScheduleID - The job schedule name.
+//   - options - JobScheduleClientGetOptions contains the optional parameters for the JobScheduleClient.Get method.
 func (client *JobScheduleClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, jobScheduleID string, options *JobScheduleClientGetOptions) (JobScheduleClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, jobScheduleID, options)
 	if err != nil {
@@ -207,7 +210,7 @@ func (client *JobScheduleClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -223,12 +226,12 @@ func (client *JobScheduleClient) getHandleResponse(resp *http.Response) (JobSche
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of job schedules.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - JobScheduleClientListByAutomationAccountOptions contains the optional parameters for the JobScheduleClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - JobScheduleClientListByAutomationAccountOptions contains the optional parameters for the JobScheduleClient.NewListByAutomationAccountPager
+//     method.
 func (client *JobScheduleClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *JobScheduleClientListByAutomationAccountOptions) *runtime.Pager[JobScheduleClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[JobScheduleClientListByAutomationAccountResponse]{
 		More: func(page JobScheduleClientListByAutomationAccountResponse) bool {
@@ -280,7 +283,7 @@ func (client *JobScheduleClient) listByAutomationAccountCreateRequest(ctx contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

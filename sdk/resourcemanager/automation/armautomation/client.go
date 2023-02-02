@@ -32,10 +32,10 @@ type Client struct {
 }
 
 // NewClient creates a new instance of Client with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Client, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 
 // ConvertGraphRunbookContent - Post operation to serialize or deserialize GraphRunbookContent
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// parameters - Input data describing the graphical runbook.
-// options - ClientConvertGraphRunbookContentOptions contains the optional parameters for the Client.ConvertGraphRunbookContent
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - parameters - Input data describing the graphical runbook.
+//   - options - ClientConvertGraphRunbookContentOptions contains the optional parameters for the Client.ConvertGraphRunbookContent
+//     method.
 func (client *Client) ConvertGraphRunbookContent(ctx context.Context, resourceGroupName string, automationAccountName string, parameters GraphicalRunbookContent, options *ClientConvertGraphRunbookContentOptions) (ClientConvertGraphRunbookContentResponse, error) {
 	req, err := client.convertGraphRunbookContentCreateRequest(ctx, resourceGroupName, automationAccountName, parameters, options)
 	if err != nil {
@@ -99,7 +100,7 @@ func (client *Client) convertGraphRunbookContentCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
