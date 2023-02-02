@@ -32,9 +32,9 @@ type BillingMetersClient struct {
 }
 
 // NewBillingMetersClient creates a new instance of BillingMetersClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBillingMetersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BillingMetersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,9 +57,10 @@ func NewBillingMetersClient(subscriptionID string, credential azcore.TokenCreden
 
 // Get - Get all billingMeters for a location.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// location - The name of Azure region.
-// options - BillingMetersClientGetOptions contains the optional parameters for the BillingMetersClient.Get method.
+//
+// Generated from API version 2022-11-01-preview
+//   - location - The name of Azure region.
+//   - options - BillingMetersClientGetOptions contains the optional parameters for the BillingMetersClient.Get method.
 func (client *BillingMetersClient) Get(ctx context.Context, location string, options *BillingMetersClientGetOptions) (BillingMetersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, location, options)
 	if err != nil {
@@ -91,7 +92,7 @@ func (client *BillingMetersClient) getCreateRequest(ctx context.Context, locatio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

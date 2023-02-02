@@ -32,9 +32,9 @@ type ConnectedEnvironmentsClient struct {
 }
 
 // NewConnectedEnvironmentsClient creates a new instance of ConnectedEnvironmentsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectedEnvironmentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectedEnvironmentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewConnectedEnvironmentsClient(subscriptionID string, credential azcore.Tok
 
 // CheckNameAvailability - Checks if resource connectedEnvironmentName is available.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the Managed Environment.
-// checkNameAvailabilityRequest - The check connectedEnvironmentName availability request.
-// options - ConnectedEnvironmentsClientCheckNameAvailabilityOptions contains the optional parameters for the ConnectedEnvironmentsClient.CheckNameAvailability
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the Managed Environment.
+//   - checkNameAvailabilityRequest - The check connectedEnvironmentName availability request.
+//   - options - ConnectedEnvironmentsClientCheckNameAvailabilityOptions contains the optional parameters for the ConnectedEnvironmentsClient.CheckNameAvailability
+//     method.
 func (client *ConnectedEnvironmentsClient) CheckNameAvailability(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, checkNameAvailabilityRequest CheckNameAvailabilityRequest, options *ConnectedEnvironmentsClientCheckNameAvailabilityOptions) (ConnectedEnvironmentsClientCheckNameAvailabilityResponse, error) {
 	req, err := client.checkNameAvailabilityCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, checkNameAvailabilityRequest, options)
 	if err != nil {
@@ -98,7 +99,7 @@ func (client *ConnectedEnvironmentsClient) checkNameAvailabilityCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityRequest)
@@ -115,12 +116,13 @@ func (client *ConnectedEnvironmentsClient) checkNameAvailabilityHandleResponse(r
 
 // BeginCreateOrUpdate - Creates or updates an connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connectedEnvironment.
-// environmentEnvelope - Configuration details of the connectedEnvironment.
-// options - ConnectedEnvironmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connectedEnvironment.
+//   - environmentEnvelope - Configuration details of the connectedEnvironment.
+//   - options - ConnectedEnvironmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsClient.BeginCreateOrUpdate
+//     method.
 func (client *ConnectedEnvironmentsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, environmentEnvelope ConnectedEnvironment, options *ConnectedEnvironmentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ConnectedEnvironmentsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, connectedEnvironmentName, environmentEnvelope, options)
@@ -135,7 +137,8 @@ func (client *ConnectedEnvironmentsClient) BeginCreateOrUpdate(ctx context.Conte
 
 // CreateOrUpdate - Creates or updates an connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+//
+// Generated from API version 2022-11-01-preview
 func (client *ConnectedEnvironmentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, environmentEnvelope ConnectedEnvironment, options *ConnectedEnvironmentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, environmentEnvelope, options)
 	if err != nil {
@@ -171,7 +174,7 @@ func (client *ConnectedEnvironmentsClient) createOrUpdateCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, environmentEnvelope)
@@ -179,11 +182,12 @@ func (client *ConnectedEnvironmentsClient) createOrUpdateCreateRequest(ctx conte
 
 // BeginDelete - Delete an connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connectedEnvironment.
-// options - ConnectedEnvironmentsClientBeginDeleteOptions contains the optional parameters for the ConnectedEnvironmentsClient.BeginDelete
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connectedEnvironment.
+//   - options - ConnectedEnvironmentsClientBeginDeleteOptions contains the optional parameters for the ConnectedEnvironmentsClient.BeginDelete
+//     method.
 func (client *ConnectedEnvironmentsClient) BeginDelete(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, options *ConnectedEnvironmentsClientBeginDeleteOptions) (*runtime.Poller[ConnectedEnvironmentsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, connectedEnvironmentName, options)
@@ -198,7 +202,8 @@ func (client *ConnectedEnvironmentsClient) BeginDelete(ctx context.Context, reso
 
 // Delete - Delete an connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
+//
+// Generated from API version 2022-11-01-preview
 func (client *ConnectedEnvironmentsClient) deleteOperation(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, options *ConnectedEnvironmentsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, options)
 	if err != nil {
@@ -234,7 +239,7 @@ func (client *ConnectedEnvironmentsClient) deleteCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -242,11 +247,12 @@ func (client *ConnectedEnvironmentsClient) deleteCreateRequest(ctx context.Conte
 
 // Get - Get the properties of an connectedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connectedEnvironment.
-// options - ConnectedEnvironmentsClientGetOptions contains the optional parameters for the ConnectedEnvironmentsClient.Get
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connectedEnvironment.
+//   - options - ConnectedEnvironmentsClientGetOptions contains the optional parameters for the ConnectedEnvironmentsClient.Get
+//     method.
 func (client *ConnectedEnvironmentsClient) Get(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, options *ConnectedEnvironmentsClientGetOptions) (ConnectedEnvironmentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, options)
 	if err != nil {
@@ -282,7 +288,7 @@ func (client *ConnectedEnvironmentsClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -298,10 +304,11 @@ func (client *ConnectedEnvironmentsClient) getHandleResponse(resp *http.Response
 }
 
 // NewListByResourceGroupPager - Get all connectedEnvironments in a resource group.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - ConnectedEnvironmentsClientListByResourceGroupOptions contains the optional parameters for the ConnectedEnvironmentsClient.ListByResourceGroup
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - ConnectedEnvironmentsClientListByResourceGroupOptions contains the optional parameters for the ConnectedEnvironmentsClient.NewListByResourceGroupPager
+//     method.
 func (client *ConnectedEnvironmentsClient) NewListByResourceGroupPager(resourceGroupName string, options *ConnectedEnvironmentsClientListByResourceGroupOptions) *runtime.Pager[ConnectedEnvironmentsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectedEnvironmentsClientListByResourceGroupResponse]{
 		More: func(page ConnectedEnvironmentsClientListByResourceGroupResponse) bool {
@@ -346,7 +353,7 @@ func (client *ConnectedEnvironmentsClient) listByResourceGroupCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -362,9 +369,10 @@ func (client *ConnectedEnvironmentsClient) listByResourceGroupHandleResponse(res
 }
 
 // NewListBySubscriptionPager - Get all connectedEnvironments for a subscription.
-// Generated from API version 2022-06-01-preview
-// options - ConnectedEnvironmentsClientListBySubscriptionOptions contains the optional parameters for the ConnectedEnvironmentsClient.ListBySubscription
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - options - ConnectedEnvironmentsClientListBySubscriptionOptions contains the optional parameters for the ConnectedEnvironmentsClient.NewListBySubscriptionPager
+//     method.
 func (client *ConnectedEnvironmentsClient) NewListBySubscriptionPager(options *ConnectedEnvironmentsClientListBySubscriptionOptions) *runtime.Pager[ConnectedEnvironmentsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectedEnvironmentsClientListBySubscriptionResponse]{
 		More: func(page ConnectedEnvironmentsClientListBySubscriptionResponse) bool {
@@ -405,7 +413,7 @@ func (client *ConnectedEnvironmentsClient) listBySubscriptionCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -422,11 +430,12 @@ func (client *ConnectedEnvironmentsClient) listBySubscriptionHandleResponse(resp
 
 // Update - Patches a Managed Environment. Only patching of tags is supported currently
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connectedEnvironment.
-// options - ConnectedEnvironmentsClientUpdateOptions contains the optional parameters for the ConnectedEnvironmentsClient.Update
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connectedEnvironment.
+//   - options - ConnectedEnvironmentsClientUpdateOptions contains the optional parameters for the ConnectedEnvironmentsClient.Update
+//     method.
 func (client *ConnectedEnvironmentsClient) Update(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, options *ConnectedEnvironmentsClientUpdateOptions) (ConnectedEnvironmentsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, options)
 	if err != nil {
@@ -462,7 +471,7 @@ func (client *ConnectedEnvironmentsClient) updateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
