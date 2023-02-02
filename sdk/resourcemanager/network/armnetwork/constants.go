@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -79,6 +79,26 @@ func PossibleAdminRuleKindValues() []AdminRuleKind {
 	return []AdminRuleKind{
 		AdminRuleKindCustom,
 		AdminRuleKindDefault,
+	}
+}
+
+// AnalysisModes - Analysis Modes.
+type AnalysisModes string
+
+const (
+	AnalysisModesDefault  AnalysisModes = "Default"
+	AnalysisModesNCD      AnalysisModes = "NCD"
+	AnalysisModesNextHop  AnalysisModes = "NextHop"
+	AnalysisModesPortScan AnalysisModes = "PortScan"
+)
+
+// PossibleAnalysisModesValues returns the possible values for the AnalysisModes const type.
+func PossibleAnalysisModesValues() []AnalysisModes {
+	return []AnalysisModes{
+		AnalysisModesDefault,
+		AnalysisModesNCD,
+		AnalysisModesNextHop,
+		AnalysisModesPortScan,
 	}
 }
 
@@ -1094,6 +1114,28 @@ func PossibleDestinationPortBehaviorValues() []DestinationPortBehavior {
 	return []DestinationPortBehavior{
 		DestinationPortBehaviorListenIfAvailable,
 		DestinationPortBehaviorNone,
+	}
+}
+
+// DestinationPortStatus - Port Status at the Destination.
+type DestinationPortStatus string
+
+const (
+	DestinationPortStatusNoConnection DestinationPortStatus = "NoConnection"
+	DestinationPortStatusReachable    DestinationPortStatus = "Reachable"
+	DestinationPortStatusTimeout      DestinationPortStatus = "Timeout"
+	DestinationPortStatusUnknown      DestinationPortStatus = "Unknown"
+	DestinationPortStatusUnstable     DestinationPortStatus = "Unstable"
+)
+
+// PossibleDestinationPortStatusValues returns the possible values for the DestinationPortStatus const type.
+func PossibleDestinationPortStatusValues() []DestinationPortStatus {
+	return []DestinationPortStatus{
+		DestinationPortStatusNoConnection,
+		DestinationPortStatusReachable,
+		DestinationPortStatusTimeout,
+		DestinationPortStatusUnknown,
+		DestinationPortStatusUnstable,
 	}
 }
 
@@ -3191,6 +3233,28 @@ func PossibleSlotTypeValues() []SlotType {
 	return []SlotType{
 		SlotTypeProduction,
 		SlotTypeStaging,
+	}
+}
+
+// SourcePortStatus - Port Status at the Source.
+type SourcePortStatus string
+
+const (
+	SourcePortStatusNoConnection SourcePortStatus = "NoConnection"
+	SourcePortStatusReachable    SourcePortStatus = "Reachable"
+	SourcePortStatusTimeout      SourcePortStatus = "Timeout"
+	SourcePortStatusUnknown      SourcePortStatus = "Unknown"
+	SourcePortStatusUnstable     SourcePortStatus = "Unstable"
+)
+
+// PossibleSourcePortStatusValues returns the possible values for the SourcePortStatus const type.
+func PossibleSourcePortStatusValues() []SourcePortStatus {
+	return []SourcePortStatus{
+		SourcePortStatusNoConnection,
+		SourcePortStatusReachable,
+		SourcePortStatusTimeout,
+		SourcePortStatusUnknown,
+		SourcePortStatusUnstable,
 	}
 }
 
