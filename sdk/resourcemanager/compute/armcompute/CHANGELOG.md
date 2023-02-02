@@ -1,5 +1,15 @@
 # Release History
 
+## 4.2.0 (2023-02-02)
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to type alias `StorageAccountType`
+- New field `ComputerName` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `HyperVGeneration` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `OSName` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `OSVersion` in struct `VirtualMachineScaleSetVMInstanceView`
+
+
 ## 4.1.0 (2023-01-27)
 ### Features Added
 

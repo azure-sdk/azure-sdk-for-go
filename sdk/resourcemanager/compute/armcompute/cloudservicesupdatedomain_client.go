@@ -33,10 +33,10 @@ type CloudServicesUpdateDomainClient struct {
 }
 
 // NewCloudServicesUpdateDomainClient creates a new instance of CloudServicesUpdateDomainClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCloudServicesUpdateDomainClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CloudServicesUpdateDomainClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -60,13 +60,14 @@ func NewCloudServicesUpdateDomainClient(subscriptionID string, credential azcore
 // GetUpdateDomain - Gets the specified update domain of a cloud service. Use nextLink property in the response to get the
 // next page of update domains. Do this till nextLink is null to fetch all the update domains.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - Name of the resource group.
-// cloudServiceName - Name of the cloud service.
-// updateDomain - Specifies an integer value that identifies the update domain. Update domains are identified with a zero-based
-// index: the first update domain has an ID of 0, the second has an ID of 1, and so on.
-// options - CloudServicesUpdateDomainClientGetUpdateDomainOptions contains the optional parameters for the CloudServicesUpdateDomainClient.GetUpdateDomain
-// method.
+//   - resourceGroupName - Name of the resource group.
+//   - cloudServiceName - Name of the cloud service.
+//   - updateDomain - Specifies an integer value that identifies the update domain. Update domains are identified with a zero-based
+//     index: the first update domain has an ID of 0, the second has an ID of 1, and so on.
+//   - options - CloudServicesUpdateDomainClientGetUpdateDomainOptions contains the optional parameters for the CloudServicesUpdateDomainClient.GetUpdateDomain
+//     method.
 func (client *CloudServicesUpdateDomainClient) GetUpdateDomain(ctx context.Context, resourceGroupName string, cloudServiceName string, updateDomain int32, options *CloudServicesUpdateDomainClientGetUpdateDomainOptions) (CloudServicesUpdateDomainClientGetUpdateDomainResponse, error) {
 	req, err := client.getUpdateDomainCreateRequest(ctx, resourceGroupName, cloudServiceName, updateDomain, options)
 	if err != nil {
@@ -119,11 +120,12 @@ func (client *CloudServicesUpdateDomainClient) getUpdateDomainHandleResponse(res
 }
 
 // NewListUpdateDomainsPager - Gets a list of all update domains in a cloud service.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - Name of the resource group.
-// cloudServiceName - Name of the cloud service.
-// options - CloudServicesUpdateDomainClientListUpdateDomainsOptions contains the optional parameters for the CloudServicesUpdateDomainClient.ListUpdateDomains
-// method.
+//   - resourceGroupName - Name of the resource group.
+//   - cloudServiceName - Name of the cloud service.
+//   - options - CloudServicesUpdateDomainClientListUpdateDomainsOptions contains the optional parameters for the CloudServicesUpdateDomainClient.NewListUpdateDomainsPager
+//     method.
 func (client *CloudServicesUpdateDomainClient) NewListUpdateDomainsPager(resourceGroupName string, cloudServiceName string, options *CloudServicesUpdateDomainClientListUpdateDomainsOptions) *runtime.Pager[CloudServicesUpdateDomainClientListUpdateDomainsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CloudServicesUpdateDomainClientListUpdateDomainsResponse]{
 		More: func(page CloudServicesUpdateDomainClientListUpdateDomainsResponse) bool {
@@ -189,14 +191,15 @@ func (client *CloudServicesUpdateDomainClient) listUpdateDomainsHandleResponse(r
 
 // BeginWalkUpdateDomain - Updates the role instances in the specified update domain.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - Name of the resource group.
-// cloudServiceName - Name of the cloud service.
-// updateDomain - Specifies an integer value that identifies the update domain. Update domains are identified with a zero-based
-// index: the first update domain has an ID of 0, the second has an ID of 1, and so on.
-// parameters - The update domain object.
-// options - CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions contains the optional parameters for the CloudServicesUpdateDomainClient.BeginWalkUpdateDomain
-// method.
+//   - resourceGroupName - Name of the resource group.
+//   - cloudServiceName - Name of the cloud service.
+//   - updateDomain - Specifies an integer value that identifies the update domain. Update domains are identified with a zero-based
+//     index: the first update domain has an ID of 0, the second has an ID of 1, and so on.
+//   - parameters - The update domain object.
+//   - options - CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions contains the optional parameters for the CloudServicesUpdateDomainClient.BeginWalkUpdateDomain
+//     method.
 func (client *CloudServicesUpdateDomainClient) BeginWalkUpdateDomain(ctx context.Context, resourceGroupName string, cloudServiceName string, updateDomain int32, parameters UpdateDomain, options *CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions) (*runtime.Poller[CloudServicesUpdateDomainClientWalkUpdateDomainResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.walkUpdateDomain(ctx, resourceGroupName, cloudServiceName, updateDomain, parameters, options)
@@ -211,6 +214,7 @@ func (client *CloudServicesUpdateDomainClient) BeginWalkUpdateDomain(ctx context
 
 // WalkUpdateDomain - Updates the role instances in the specified update domain.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
 func (client *CloudServicesUpdateDomainClient) walkUpdateDomain(ctx context.Context, resourceGroupName string, cloudServiceName string, updateDomain int32, parameters UpdateDomain, options *CloudServicesUpdateDomainClientBeginWalkUpdateDomainOptions) (*http.Response, error) {
 	req, err := client.walkUpdateDomainCreateRequest(ctx, resourceGroupName, cloudServiceName, updateDomain, parameters, options)
