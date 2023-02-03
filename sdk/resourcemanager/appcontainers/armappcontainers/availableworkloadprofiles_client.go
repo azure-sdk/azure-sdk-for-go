@@ -32,9 +32,9 @@ type AvailableWorkloadProfilesClient struct {
 }
 
 // NewAvailableWorkloadProfilesClient creates a new instance of AvailableWorkloadProfilesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAvailableWorkloadProfilesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AvailableWorkloadProfilesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,10 +56,11 @@ func NewAvailableWorkloadProfilesClient(subscriptionID string, credential azcore
 }
 
 // NewGetPager - Get all available workload profiles for a location.
-// Generated from API version 2022-06-01-preview
-// location - The name of Azure region.
-// options - AvailableWorkloadProfilesClientGetOptions contains the optional parameters for the AvailableWorkloadProfilesClient.Get
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - location - The name of Azure region.
+//   - options - AvailableWorkloadProfilesClientGetOptions contains the optional parameters for the AvailableWorkloadProfilesClient.NewGetPager
+//     method.
 func (client *AvailableWorkloadProfilesClient) NewGetPager(location string, options *AvailableWorkloadProfilesClientGetOptions) *runtime.Pager[AvailableWorkloadProfilesClientGetResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AvailableWorkloadProfilesClientGetResponse]{
 		More: func(page AvailableWorkloadProfilesClientGetResponse) bool {
@@ -104,7 +105,7 @@ func (client *AvailableWorkloadProfilesClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
