@@ -32,9 +32,9 @@ type NamespacesClient struct {
 }
 
 // NewNamespacesClient creates a new instance of NamespacesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewNamespacesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*NamespacesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewNamespacesClient(subscriptionID string, credential azcore.TokenCredentia
 
 // CheckNameAvailability - Checks if resource name is available.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// environmentName - Name of the Managed Environment.
-// checkNameAvailabilityRequest - The check name availability request.
-// options - NamespacesClientCheckNameAvailabilityOptions contains the optional parameters for the NamespacesClient.CheckNameAvailability
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - environmentName - Name of the Managed Environment.
+//   - checkNameAvailabilityRequest - The check name availability request.
+//   - options - NamespacesClientCheckNameAvailabilityOptions contains the optional parameters for the NamespacesClient.CheckNameAvailability
+//     method.
 func (client *NamespacesClient) CheckNameAvailability(ctx context.Context, resourceGroupName string, environmentName string, checkNameAvailabilityRequest CheckNameAvailabilityRequest, options *NamespacesClientCheckNameAvailabilityOptions) (NamespacesClientCheckNameAvailabilityResponse, error) {
 	req, err := client.checkNameAvailabilityCreateRequest(ctx, resourceGroupName, environmentName, checkNameAvailabilityRequest, options)
 	if err != nil {
@@ -98,7 +99,7 @@ func (client *NamespacesClient) checkNameAvailabilityCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkNameAvailabilityRequest)
