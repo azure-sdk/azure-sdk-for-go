@@ -5364,6 +5364,9 @@ type BMSRPQueryObject struct {
 	// In Get Recovery Point, it tells whether extended information about recovery point is asked.
 	ExtendedInfo *bool `json:"extendedInfo,omitempty"`
 
+	// Flag to indicate whether Soft Deleted RPs should be included/excluded from result.
+	IncludeSoftDeletedRP *bool `json:"includeSoftDeletedRP,omitempty"`
+
 	// Whether the RP can be moved to another tier
 	MoveReadyRPOnly *bool `json:"moveReadyRPOnly,omitempty"`
 
@@ -6574,6 +6577,15 @@ type ExportJobsOperationResultsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ExtendedLocation - The extended location of Recovery point where VM was present.
+type ExtendedLocation struct {
+	// Name of the extended location.
+	Name *string `json:"name,omitempty"`
+
+	// Type of the extended location. Possible values include: 'EdgeZone'
+	Type *string `json:"type,omitempty"`
+}
+
 // ExtendedProperties - Extended Properties for Azure IaasVM Backup.
 type ExtendedProperties struct {
 	// Extended Properties for Disk Exclusion.
@@ -7115,6 +7127,9 @@ type IaasVMRestoreRequest struct {
 	// Details needed if the VM was encrypted at the time of backup.
 	EncryptionDetails *EncryptionDetails `json:"encryptionDetails,omitempty"`
 
+	// Target extended location where the VM should be restored, should be null if restore is to be done in public cloud
+	ExtendedLocation *ExtendedLocation `json:"extendedLocation,omitempty"`
+
 	// IaaS VM workload specific restore details for restores using managed identity.
 	IdentityBasedRestoreDetails *IdentityBasedRestoreDetails `json:"identityBasedRestoreDetails,omitempty"`
 
@@ -7197,6 +7212,9 @@ type IaasVMRestoreWithRehydrationRequest struct {
 	// Details needed if the VM was encrypted at the time of backup.
 	EncryptionDetails *EncryptionDetails `json:"encryptionDetails,omitempty"`
 
+	// Target extended location where the VM should be restored, should be null if restore is to be done in public cloud
+	ExtendedLocation *ExtendedLocation `json:"extendedLocation,omitempty"`
+
 	// IaaS VM workload specific restore details for restores using managed identity.
 	IdentityBasedRestoreDetails *IdentityBasedRestoreDetails `json:"identityBasedRestoreDetails,omitempty"`
 
@@ -7277,6 +7295,7 @@ func (i *IaasVMRestoreWithRehydrationRequest) GetIaasVMRestoreRequest() *IaasVMR
 		Zones:                        i.Zones,
 		IdentityInfo:                 i.IdentityInfo,
 		IdentityBasedRestoreDetails:  i.IdentityBasedRestoreDetails,
+		ExtendedLocation:             i.ExtendedLocation,
 		ObjectType:                   i.ObjectType,
 	}
 }
@@ -8924,6 +8943,9 @@ type RecoveryPointMoveReadinessInfo struct {
 type RecoveryPointProperties struct {
 	// Expiry time of Recovery Point in UTC.
 	ExpiryTime *string `json:"expiryTime,omitempty"`
+
+	// Bool to indicate whether RP is in soft delete state or not
+	IsSoftDeleted *bool `json:"isSoftDeleted,omitempty"`
 
 	// Rule name tagged on Recovery Point that governs life cycle
 	RuleName *string `json:"ruleName,omitempty"`

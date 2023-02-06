@@ -1,5 +1,15 @@
 # Release History
 
+## 2.1.0 (2023-02-06)
+### Features Added
+
+- New struct `ExtendedLocation`
+- New field `IncludeSoftDeletedRP` in struct `BMSRPQueryObject`
+- New field `ExtendedLocation` in struct `IaasVMRestoreRequest`
+- New field `ExtendedLocation` in struct `IaasVMRestoreWithRehydrationRequest`
+- New field `IsSoftDeleted` in struct `RecoveryPointProperties`
+
+
 ## 2.0.0 (2023-01-19)
 ### Breaking Changes
 
