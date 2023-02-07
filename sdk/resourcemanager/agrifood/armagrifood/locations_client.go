@@ -11,7 +11,6 @@ package armagrifood
 
 import (
 	"context"
-	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
@@ -32,9 +31,9 @@ type LocationsClient struct {
 }
 
 // NewLocationsClient creates a new instance of LocationsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewLocationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LocationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +56,11 @@ func NewLocationsClient(subscriptionID string, credential azcore.TokenCredential
 
 // CheckNameAvailability - Checks the name availability of the resource with requested resource name.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-09-01-preview
-// body - NameAvailabilityRequest object.
-// options - LocationsClientCheckNameAvailabilityOptions contains the optional parameters for the LocationsClient.CheckNameAvailability
-// method.
+//   - body - NameAvailabilityRequest object.
+//   - options - LocationsClientCheckNameAvailabilityOptions contains the optional parameters for the LocationsClient.CheckNameAvailability
+//     method.
 func (client *LocationsClient) CheckNameAvailability(ctx context.Context, body CheckNameAvailabilityRequest, options *LocationsClientCheckNameAvailabilityOptions) (LocationsClientCheckNameAvailabilityResponse, error) {
 	req, err := client.checkNameAvailabilityCreateRequest(ctx, body, options)
 	if err != nil {
@@ -79,9 +79,6 @@ func (client *LocationsClient) CheckNameAvailability(ctx context.Context, body C
 // checkNameAvailabilityCreateRequest creates the CheckNameAvailability request.
 func (client *LocationsClient) checkNameAvailabilityCreateRequest(ctx context.Context, body CheckNameAvailabilityRequest, options *LocationsClientCheckNameAvailabilityOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.AgFoodPlatform/checkNameAvailability"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {

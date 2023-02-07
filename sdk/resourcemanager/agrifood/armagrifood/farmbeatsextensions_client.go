@@ -32,8 +32,8 @@ type FarmBeatsExtensionsClient struct {
 }
 
 // NewFarmBeatsExtensionsClient creates a new instance of FarmBeatsExtensionsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewFarmBeatsExtensionsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*FarmBeatsExtensionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -55,9 +55,10 @@ func NewFarmBeatsExtensionsClient(credential azcore.TokenCredential, options *ar
 
 // Get - Get farmBeats extension.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-09-01-preview
-// farmBeatsExtensionID - farmBeatsExtensionId to be queried.
-// options - FarmBeatsExtensionsClientGetOptions contains the optional parameters for the FarmBeatsExtensionsClient.Get method.
+//   - farmBeatsExtensionID - farmBeatsExtensionId to be queried.
+//   - options - FarmBeatsExtensionsClientGetOptions contains the optional parameters for the FarmBeatsExtensionsClient.Get method.
 func (client *FarmBeatsExtensionsClient) Get(ctx context.Context, farmBeatsExtensionID string, options *FarmBeatsExtensionsClientGetOptions) (FarmBeatsExtensionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, farmBeatsExtensionID, options)
 	if err != nil {
@@ -101,10 +102,10 @@ func (client *FarmBeatsExtensionsClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListPager - Get list of farmBeats extension.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-09-01-preview
-// options - FarmBeatsExtensionsClientListOptions contains the optional parameters for the FarmBeatsExtensionsClient.List
-// method.
+//   - options - FarmBeatsExtensionsClientListOptions contains the optional parameters for the FarmBeatsExtensionsClient.NewListPager
+//     method.
 func (client *FarmBeatsExtensionsClient) NewListPager(options *FarmBeatsExtensionsClientListOptions) *runtime.Pager[FarmBeatsExtensionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[FarmBeatsExtensionsClientListResponse]{
 		More: func(page FarmBeatsExtensionsClientListResponse) bool {
