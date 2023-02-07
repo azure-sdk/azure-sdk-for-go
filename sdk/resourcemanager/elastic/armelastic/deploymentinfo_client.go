@@ -40,9 +40,9 @@ type DeploymentInfoClient struct {
 }
 
 // NewDeploymentInfoClient creates a new instance of DeploymentInfoClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDeploymentInfoClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DeploymentInfoClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,10 +65,11 @@ func NewDeploymentInfoClient(subscriptionID string, credential azcore.TokenCrede
 
 // List - Fetch information regarding Elastic cloud deployment corresponding to the Elastic monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - DeploymentInfoClientListOptions contains the optional parameters for the DeploymentInfoClient.List method.
+//
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - DeploymentInfoClientListOptions contains the optional parameters for the DeploymentInfoClient.List method.
 func (client *DeploymentInfoClient) List(ctx context.Context, resourceGroupName string, monitorName string, options *DeploymentInfoClientListOptions) (DeploymentInfoClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *DeploymentInfoClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

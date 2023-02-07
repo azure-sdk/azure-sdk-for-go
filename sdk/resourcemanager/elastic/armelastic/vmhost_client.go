@@ -40,9 +40,9 @@ type VMHostClient struct {
 }
 
 // NewVMHostClient creates a new instance of VMHostClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewVMHostClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VMHostClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -64,10 +64,11 @@ func NewVMHostClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListPager - List the vm resources currently being monitored by the Elastic monitor resource.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - VMHostClientListOptions contains the optional parameters for the VMHostClient.List method.
+//
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - VMHostClientListOptions contains the optional parameters for the VMHostClient.NewListPager method.
 func (client *VMHostClient) NewListPager(resourceGroupName string, monitorName string, options *VMHostClientListOptions) *runtime.Pager[VMHostClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VMHostClientListResponse]{
 		More: func(page VMHostClientListResponse) bool {
@@ -116,7 +117,7 @@ func (client *VMHostClient) listCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
