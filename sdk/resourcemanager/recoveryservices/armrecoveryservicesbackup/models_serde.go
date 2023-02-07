@@ -6206,6 +6206,7 @@ func (b BMSRPQueryObject) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populateTimeRFC3339(objectMap, "endDate", b.EndDate)
 	populate(objectMap, "extendedInfo", b.ExtendedInfo)
+	populate(objectMap, "includeSoftDeletedRP", b.IncludeSoftDeletedRP)
 	populate(objectMap, "moveReadyRPOnly", b.MoveReadyRPOnly)
 	populate(objectMap, "restorePointQueryType", b.RestorePointQueryType)
 	populateTimeRFC3339(objectMap, "startDate", b.StartDate)
@@ -6226,6 +6227,9 @@ func (b *BMSRPQueryObject) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "extendedInfo":
 			err = unpopulate(val, "ExtendedInfo", &b.ExtendedInfo)
+			delete(rawMsg, key)
+		case "includeSoftDeletedRP":
+			err = unpopulate(val, "IncludeSoftDeletedRP", &b.IncludeSoftDeletedRP)
 			delete(rawMsg, key)
 		case "moveReadyRPOnly":
 			err = unpopulate(val, "MoveReadyRPOnly", &b.MoveReadyRPOnly)
@@ -8392,6 +8396,37 @@ func (e *ExportJobsOperationResultInfo) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ExtendedLocation.
+func (e ExtendedLocation) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "name", e.Name)
+	populate(objectMap, "type", e.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ExtendedLocation.
+func (e *ExtendedLocation) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "name":
+			err = unpopulate(val, "Name", &e.Name)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &e.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ExtendedProperties.
 func (e ExtendedProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -9179,6 +9214,7 @@ func (i IaasVMRestoreRequest) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "createNewCloudService", i.CreateNewCloudService)
 	populate(objectMap, "diskEncryptionSetId", i.DiskEncryptionSetID)
 	populate(objectMap, "encryptionDetails", i.EncryptionDetails)
+	populate(objectMap, "extendedLocation", i.ExtendedLocation)
 	populate(objectMap, "identityBasedRestoreDetails", i.IdentityBasedRestoreDetails)
 	populate(objectMap, "identityInfo", i.IdentityInfo)
 	objectMap["objectType"] = "IaasVMRestoreRequest"
@@ -9219,6 +9255,9 @@ func (i *IaasVMRestoreRequest) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "encryptionDetails":
 			err = unpopulate(val, "EncryptionDetails", &i.EncryptionDetails)
+			delete(rawMsg, key)
+		case "extendedLocation":
+			err = unpopulate(val, "ExtendedLocation", &i.ExtendedLocation)
 			delete(rawMsg, key)
 		case "identityBasedRestoreDetails":
 			err = unpopulate(val, "IdentityBasedRestoreDetails", &i.IdentityBasedRestoreDetails)
@@ -9286,6 +9325,7 @@ func (i IaasVMRestoreWithRehydrationRequest) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "createNewCloudService", i.CreateNewCloudService)
 	populate(objectMap, "diskEncryptionSetId", i.DiskEncryptionSetID)
 	populate(objectMap, "encryptionDetails", i.EncryptionDetails)
+	populate(objectMap, "extendedLocation", i.ExtendedLocation)
 	populate(objectMap, "identityBasedRestoreDetails", i.IdentityBasedRestoreDetails)
 	populate(objectMap, "identityInfo", i.IdentityInfo)
 	objectMap["objectType"] = "IaasVMRestoreWithRehydrationRequest"
@@ -9327,6 +9367,9 @@ func (i *IaasVMRestoreWithRehydrationRequest) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "encryptionDetails":
 			err = unpopulate(val, "EncryptionDetails", &i.EncryptionDetails)
+			delete(rawMsg, key)
+		case "extendedLocation":
+			err = unpopulate(val, "ExtendedLocation", &i.ExtendedLocation)
 			delete(rawMsg, key)
 		case "identityBasedRestoreDetails":
 			err = unpopulate(val, "IdentityBasedRestoreDetails", &i.IdentityBasedRestoreDetails)
@@ -12384,6 +12427,7 @@ func (r *RecoveryPointMoveReadinessInfo) UnmarshalJSON(data []byte) error {
 func (r RecoveryPointProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "expiryTime", r.ExpiryTime)
+	populate(objectMap, "isSoftDeleted", r.IsSoftDeleted)
 	populate(objectMap, "ruleName", r.RuleName)
 	return json.Marshal(objectMap)
 }
@@ -12399,6 +12443,9 @@ func (r *RecoveryPointProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "expiryTime":
 			err = unpopulate(val, "ExpiryTime", &r.ExpiryTime)
+			delete(rawMsg, key)
+		case "isSoftDeleted":
+			err = unpopulate(val, "IsSoftDeleted", &r.IsSoftDeleted)
 			delete(rawMsg, key)
 		case "ruleName":
 			err = unpopulate(val, "RuleName", &r.RuleName)
