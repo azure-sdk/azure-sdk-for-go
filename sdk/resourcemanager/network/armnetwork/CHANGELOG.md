@@ -1,5 +1,15 @@
 # Release History
 
+## 2.2.0 (2023-02-08)
+### Features Added
+
+- New type alias `WebApplicationFirewallState` with values `WebApplicationFirewallStateDisabled`, `WebApplicationFirewallStateEnabled`
+- New field `AuthorizationStatus` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `IPConfigurationID` in struct `VPNGatewaysClientBeginResetOptions`
+- New field `FlowLogs` in struct `VirtualNetworkPropertiesFormat`
+- New field `State` in struct `WebApplicationFirewallCustomRule`
+
+
 ## 2.1.0 (2022-12-23)
 ### Features Added
 

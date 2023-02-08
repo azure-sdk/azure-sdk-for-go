@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -3922,6 +3922,23 @@ func PossibleWebApplicationFirewallRuleTypeValues() []WebApplicationFirewallRule
 	return []WebApplicationFirewallRuleType{
 		WebApplicationFirewallRuleTypeInvalid,
 		WebApplicationFirewallRuleTypeMatchRule,
+	}
+}
+
+// WebApplicationFirewallState - Describes if the custom rule is in enabled or disabled state. Defaults to Enabled if not
+// specified.
+type WebApplicationFirewallState string
+
+const (
+	WebApplicationFirewallStateDisabled WebApplicationFirewallState = "Disabled"
+	WebApplicationFirewallStateEnabled  WebApplicationFirewallState = "Enabled"
+)
+
+// PossibleWebApplicationFirewallStateValues returns the possible values for the WebApplicationFirewallState const type.
+func PossibleWebApplicationFirewallStateValues() []WebApplicationFirewallState {
+	return []WebApplicationFirewallState{
+		WebApplicationFirewallStateDisabled,
+		WebApplicationFirewallStateEnabled,
 	}
 }
 
