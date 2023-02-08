@@ -33,9 +33,9 @@ type StreamingEndpointsClient struct {
 }
 
 // NewStreamingEndpointsClient creates a new instance of StreamingEndpointsClient with the specified values.
-// subscriptionID - The unique identifier for a Microsoft Azure subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The unique identifier for a Microsoft Azure subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewStreamingEndpointsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*StreamingEndpointsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewStreamingEndpointsClient(subscriptionID string, credential azcore.TokenC
 
 // AsyncOperation - Get a streaming endpoint operation status.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// operationID - The ID of an ongoing async operation.
-// options - StreamingEndpointsClientAsyncOperationOptions contains the optional parameters for the StreamingEndpointsClient.AsyncOperation
-// method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - operationID - The ID of an ongoing async operation.
+//   - options - StreamingEndpointsClientAsyncOperationOptions contains the optional parameters for the StreamingEndpointsClient.AsyncOperation
+//     method.
 func (client *StreamingEndpointsClient) AsyncOperation(ctx context.Context, resourceGroupName string, accountName string, operationID string, options *StreamingEndpointsClientAsyncOperationOptions) (StreamingEndpointsClientAsyncOperationResponse, error) {
 	req, err := client.asyncOperationCreateRequest(ctx, resourceGroupName, accountName, operationID, options)
 	if err != nil {
@@ -120,13 +121,14 @@ func (client *StreamingEndpointsClient) asyncOperationHandleResponse(resp *http.
 
 // BeginCreate - Creates a streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// parameters - Streaming endpoint properties needed for creation.
-// options - StreamingEndpointsClientBeginCreateOptions contains the optional parameters for the StreamingEndpointsClient.BeginCreate
-// method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - parameters - Streaming endpoint properties needed for creation.
+//   - options - StreamingEndpointsClientBeginCreateOptions contains the optional parameters for the StreamingEndpointsClient.BeginCreate
+//     method.
 func (client *StreamingEndpointsClient) BeginCreate(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, parameters StreamingEndpoint, options *StreamingEndpointsClientBeginCreateOptions) (*runtime.Poller[StreamingEndpointsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, accountName, streamingEndpointName, parameters, options)
@@ -141,6 +143,7 @@ func (client *StreamingEndpointsClient) BeginCreate(ctx context.Context, resourc
 
 // Create - Creates a streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
 func (client *StreamingEndpointsClient) create(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, parameters StreamingEndpoint, options *StreamingEndpointsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, parameters, options)
@@ -192,12 +195,13 @@ func (client *StreamingEndpointsClient) createCreateRequest(ctx context.Context,
 
 // BeginDelete - Deletes a streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// options - StreamingEndpointsClientBeginDeleteOptions contains the optional parameters for the StreamingEndpointsClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - options - StreamingEndpointsClientBeginDeleteOptions contains the optional parameters for the StreamingEndpointsClient.BeginDelete
+//     method.
 func (client *StreamingEndpointsClient) BeginDelete(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, options *StreamingEndpointsClientBeginDeleteOptions) (*runtime.Poller[StreamingEndpointsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, accountName, streamingEndpointName, options)
@@ -212,6 +216,7 @@ func (client *StreamingEndpointsClient) BeginDelete(ctx context.Context, resourc
 
 // Delete - Deletes a streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
 func (client *StreamingEndpointsClient) deleteOperation(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, options *StreamingEndpointsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, options)
@@ -260,11 +265,12 @@ func (client *StreamingEndpointsClient) deleteCreateRequest(ctx context.Context,
 
 // Get - Gets a streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// options - StreamingEndpointsClientGetOptions contains the optional parameters for the StreamingEndpointsClient.Get method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - options - StreamingEndpointsClientGetOptions contains the optional parameters for the StreamingEndpointsClient.Get method.
 func (client *StreamingEndpointsClient) Get(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, options *StreamingEndpointsClientGetOptions) (StreamingEndpointsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, options)
 	if err != nil {
@@ -320,10 +326,12 @@ func (client *StreamingEndpointsClient) getHandleResponse(resp *http.Response) (
 }
 
 // NewListPager - Lists the streaming endpoints in the account.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// options - StreamingEndpointsClientListOptions contains the optional parameters for the StreamingEndpointsClient.List method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - options - StreamingEndpointsClientListOptions contains the optional parameters for the StreamingEndpointsClient.NewListPager
+//     method.
 func (client *StreamingEndpointsClient) NewListPager(resourceGroupName string, accountName string, options *StreamingEndpointsClientListOptions) *runtime.Pager[StreamingEndpointsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StreamingEndpointsClientListResponse]{
 		More: func(page StreamingEndpointsClientListResponse) bool {
@@ -389,13 +397,14 @@ func (client *StreamingEndpointsClient) listHandleResponse(resp *http.Response) 
 
 // OperationLocation - Get a streaming endpoint operation status.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// operationID - The ID of an ongoing async operation.
-// options - StreamingEndpointsClientOperationLocationOptions contains the optional parameters for the StreamingEndpointsClient.OperationLocation
-// method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - operationID - The ID of an ongoing async operation.
+//   - options - StreamingEndpointsClientOperationLocationOptions contains the optional parameters for the StreamingEndpointsClient.OperationLocation
+//     method.
 func (client *StreamingEndpointsClient) OperationLocation(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, operationID string, options *StreamingEndpointsClientOperationLocationOptions) (StreamingEndpointsClientOperationLocationResponse, error) {
 	req, err := client.operationLocationCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, operationID, options)
 	if err != nil {
@@ -456,11 +465,12 @@ func (client *StreamingEndpointsClient) operationLocationHandleResponse(resp *ht
 
 // SKUs - List streaming endpoint supported skus.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// options - StreamingEndpointsClientSKUsOptions contains the optional parameters for the StreamingEndpointsClient.SKUs method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - options - StreamingEndpointsClientSKUsOptions contains the optional parameters for the StreamingEndpointsClient.SKUs method.
 func (client *StreamingEndpointsClient) SKUs(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, options *StreamingEndpointsClientSKUsOptions) (StreamingEndpointsClientSKUsResponse, error) {
 	req, err := client.skUsCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, options)
 	if err != nil {
@@ -517,13 +527,14 @@ func (client *StreamingEndpointsClient) skUsHandleResponse(resp *http.Response) 
 
 // BeginScale - Scales an existing streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// parameters - Streaming endpoint scale parameters
-// options - StreamingEndpointsClientBeginScaleOptions contains the optional parameters for the StreamingEndpointsClient.BeginScale
-// method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - parameters - Streaming endpoint scale parameters
+//   - options - StreamingEndpointsClientBeginScaleOptions contains the optional parameters for the StreamingEndpointsClient.BeginScale
+//     method.
 func (client *StreamingEndpointsClient) BeginScale(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, parameters StreamingEntityScaleUnit, options *StreamingEndpointsClientBeginScaleOptions) (*runtime.Poller[StreamingEndpointsClientScaleResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.scale(ctx, resourceGroupName, accountName, streamingEndpointName, parameters, options)
@@ -538,6 +549,7 @@ func (client *StreamingEndpointsClient) BeginScale(ctx context.Context, resource
 
 // Scale - Scales an existing streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
 func (client *StreamingEndpointsClient) scale(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, parameters StreamingEntityScaleUnit, options *StreamingEndpointsClientBeginScaleOptions) (*http.Response, error) {
 	req, err := client.scaleCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, parameters, options)
@@ -586,12 +598,13 @@ func (client *StreamingEndpointsClient) scaleCreateRequest(ctx context.Context, 
 
 // BeginStart - Starts an existing streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// options - StreamingEndpointsClientBeginStartOptions contains the optional parameters for the StreamingEndpointsClient.BeginStart
-// method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - options - StreamingEndpointsClientBeginStartOptions contains the optional parameters for the StreamingEndpointsClient.BeginStart
+//     method.
 func (client *StreamingEndpointsClient) BeginStart(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, options *StreamingEndpointsClientBeginStartOptions) (*runtime.Poller[StreamingEndpointsClientStartResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.start(ctx, resourceGroupName, accountName, streamingEndpointName, options)
@@ -606,6 +619,7 @@ func (client *StreamingEndpointsClient) BeginStart(ctx context.Context, resource
 
 // Start - Starts an existing streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
 func (client *StreamingEndpointsClient) start(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, options *StreamingEndpointsClientBeginStartOptions) (*http.Response, error) {
 	req, err := client.startCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, options)
@@ -654,12 +668,13 @@ func (client *StreamingEndpointsClient) startCreateRequest(ctx context.Context, 
 
 // BeginStop - Stops an existing streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// options - StreamingEndpointsClientBeginStopOptions contains the optional parameters for the StreamingEndpointsClient.BeginStop
-// method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - options - StreamingEndpointsClientBeginStopOptions contains the optional parameters for the StreamingEndpointsClient.BeginStop
+//     method.
 func (client *StreamingEndpointsClient) BeginStop(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, options *StreamingEndpointsClientBeginStopOptions) (*runtime.Poller[StreamingEndpointsClientStopResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.stop(ctx, resourceGroupName, accountName, streamingEndpointName, options)
@@ -674,6 +689,7 @@ func (client *StreamingEndpointsClient) BeginStop(ctx context.Context, resourceG
 
 // Stop - Stops an existing streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
 func (client *StreamingEndpointsClient) stop(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, options *StreamingEndpointsClientBeginStopOptions) (*http.Response, error) {
 	req, err := client.stopCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, options)
@@ -722,13 +738,14 @@ func (client *StreamingEndpointsClient) stopCreateRequest(ctx context.Context, r
 
 // BeginUpdate - Updates a existing streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
-// parameters - Streaming endpoint properties needed for creation.
-// options - StreamingEndpointsClientBeginUpdateOptions contains the optional parameters for the StreamingEndpointsClient.BeginUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingEndpointName - The name of the streaming endpoint, maximum length is 24.
+//   - parameters - Streaming endpoint properties needed for creation.
+//   - options - StreamingEndpointsClientBeginUpdateOptions contains the optional parameters for the StreamingEndpointsClient.BeginUpdate
+//     method.
 func (client *StreamingEndpointsClient) BeginUpdate(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, parameters StreamingEndpoint, options *StreamingEndpointsClientBeginUpdateOptions) (*runtime.Poller[StreamingEndpointsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, accountName, streamingEndpointName, parameters, options)
@@ -743,6 +760,7 @@ func (client *StreamingEndpointsClient) BeginUpdate(ctx context.Context, resourc
 
 // Update - Updates a existing streaming endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-08-01
 func (client *StreamingEndpointsClient) update(ctx context.Context, resourceGroupName string, accountName string, streamingEndpointName string, parameters StreamingEndpoint, options *StreamingEndpointsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, streamingEndpointName, parameters, options)
