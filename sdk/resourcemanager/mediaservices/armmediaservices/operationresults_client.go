@@ -33,9 +33,9 @@ type OperationResultsClient struct {
 }
 
 // NewOperationResultsClient creates a new instance of OperationResultsClient with the specified values.
-// subscriptionID - The unique identifier for a Microsoft Azure subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The unique identifier for a Microsoft Azure subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewOperationResultsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OperationResultsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,10 +58,11 @@ func NewOperationResultsClient(subscriptionID string, credential azcore.TokenCre
 
 // Get - Get media service operation result.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
-// locationName - Location name.
-// operationID - Operation Id.
-// options - OperationResultsClientGetOptions contains the optional parameters for the OperationResultsClient.Get method.
+//   - locationName - Location name.
+//   - operationID - Operation Id.
+//   - options - OperationResultsClientGetOptions contains the optional parameters for the OperationResultsClient.Get method.
 func (client *OperationResultsClient) Get(ctx context.Context, locationName string, operationID string, options *OperationResultsClientGetOptions) (OperationResultsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, locationName, operationID, options)
 	if err != nil {
