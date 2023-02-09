@@ -1,5 +1,31 @@
 # Release History
 
+## 2.1.0 (2023-02-09)
+### Features Added
+
+- New type alias `DefaultAction` with values `DefaultActionAllow`, `DefaultActionDeny`
+- New type alias `WorkflowHealthState` with values `WorkflowHealthStateHealthy`, `WorkflowHealthStateNotSpecified`, `WorkflowHealthStateUnhealthy`, `WorkflowHealthStateUnknown`
+- New function `*WebAppsClient.DeployWorkflowArtifacts(context.Context, string, string, *WebAppsClientDeployWorkflowArtifactsOptions) (WebAppsClientDeployWorkflowArtifactsResponse, error)`
+- New function `*WebAppsClient.DeployWorkflowArtifactsSlot(context.Context, string, string, string, *WebAppsClientDeployWorkflowArtifactsSlotOptions) (WebAppsClientDeployWorkflowArtifactsSlotResponse, error)`
+- New function `*WebAppsClient.GetInstanceWorkflowSlot(context.Context, string, string, string, string, *WebAppsClientGetInstanceWorkflowSlotOptions) (WebAppsClientGetInstanceWorkflowSlotResponse, error)`
+- New function `*WebAppsClient.GetWorkflow(context.Context, string, string, string, *WebAppsClientGetWorkflowOptions) (WebAppsClientGetWorkflowResponse, error)`
+- New function `*WebAppsClient.ListInstanceWorkflowsConfigurationConnectionsSlot(context.Context, string, string, string, string, *WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotOptions) (WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotResponse, error)`
+- New function `*WebAppsClient.NewListInstanceWorkflowsSlotPager(string, string, string, *WebAppsClientListInstanceWorkflowsSlotOptions) *runtime.Pager[WebAppsClientListInstanceWorkflowsSlotResponse]`
+- New function `*WebAppsClient.ListWorkflowsConfiguration(context.Context, string, string, string, *WebAppsClientListWorkflowsConfigurationOptions) (WebAppsClientListWorkflowsConfigurationResponse, error)`
+- New function `*WebAppsClient.NewListWorkflowsPager(string, string, *WebAppsClientListWorkflowsOptions) *runtime.Pager[WebAppsClientListWorkflowsResponse]`
+- New struct `WebAppsClientListInstanceWorkflowsSlotResponse`
+- New struct `WebAppsClientListWorkflowsResponse`
+- New struct `WorkflowArtifacts`
+- New struct `WorkflowEnvelope`
+- New struct `WorkflowEnvelopeCollection`
+- New struct `WorkflowEnvelopeProperties`
+- New struct `WorkflowHealth`
+- New field `IPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+- New field `Metadata` in struct `SiteConfig`
+- New field `ScmIPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+- New field `ManagedEnvironmentID` in struct `SiteProperties`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 
