@@ -32,9 +32,9 @@ type Client struct {
 }
 
 // NewClient creates a new instance of Client with the specified values.
-// subscriptionID - The unique identifier for a Microsoft Azure subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The unique identifier for a Microsoft Azure subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Client, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 
 // BeginCreateOrUpdate - Creates or updates a Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// parameters - The request parameters
-// options - ClientBeginCreateOrUpdateOptions contains the optional parameters for the Client.BeginCreateOrUpdate method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - parameters - The request parameters
+//   - options - ClientBeginCreateOrUpdateOptions contains the optional parameters for the Client.BeginCreateOrUpdate method.
 func (client *Client) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, accountName string, parameters MediaService, options *ClientBeginCreateOrUpdateOptions) (*runtime.Poller[ClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, accountName, parameters, options)
@@ -76,6 +77,7 @@ func (client *Client) BeginCreateOrUpdate(ctx context.Context, resourceGroupName
 
 // CreateOrUpdate - Creates or updates a Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
 func (client *Client) createOrUpdate(ctx context.Context, resourceGroupName string, accountName string, parameters MediaService, options *ClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
@@ -120,10 +122,11 @@ func (client *Client) createOrUpdateCreateRequest(ctx context.Context, resourceG
 
 // Delete - Deletes a Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// options - ClientDeleteOptions contains the optional parameters for the Client.Delete method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - options - ClientDeleteOptions contains the optional parameters for the Client.Delete method.
 func (client *Client) Delete(ctx context.Context, resourceGroupName string, accountName string, options *ClientDeleteOptions) (ClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -167,10 +170,11 @@ func (client *Client) deleteCreateRequest(ctx context.Context, resourceGroupName
 
 // Get - Get the details of a Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// options - ClientGetOptions contains the optional parameters for the Client.Get method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - options - ClientGetOptions contains the optional parameters for the Client.Get method.
 func (client *Client) Get(ctx context.Context, resourceGroupName string, accountName string, options *ClientGetOptions) (ClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -222,9 +226,10 @@ func (client *Client) getHandleResponse(resp *http.Response) (ClientGetResponse,
 }
 
 // NewListPager - List Media Services accounts in the resource group
+//
 // Generated from API version 2021-11-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// options - ClientListOptions contains the optional parameters for the Client.List method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - options - ClientListOptions contains the optional parameters for the Client.NewListPager method.
 func (client *Client) NewListPager(resourceGroupName string, options *ClientListOptions) *runtime.Pager[ClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClientListResponse]{
 		More: func(page ClientListResponse) bool {
@@ -285,8 +290,9 @@ func (client *Client) listHandleResponse(resp *http.Response) (ClientListRespons
 }
 
 // NewListBySubscriptionPager - List Media Services accounts in the subscription.
+//
 // Generated from API version 2021-11-01
-// options - ClientListBySubscriptionOptions contains the optional parameters for the Client.ListBySubscription method.
+//   - options - ClientListBySubscriptionOptions contains the optional parameters for the Client.NewListBySubscriptionPager method.
 func (client *Client) NewListBySubscriptionPager(options *ClientListBySubscriptionOptions) *runtime.Pager[ClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClientListBySubscriptionResponse]{
 		More: func(page ClientListBySubscriptionResponse) bool {
@@ -344,11 +350,12 @@ func (client *Client) listBySubscriptionHandleResponse(resp *http.Response) (Cli
 
 // ListEdgePolicies - List all the media edge policies associated with the Media Services account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// parameters - The request parameters
-// options - ClientListEdgePoliciesOptions contains the optional parameters for the Client.ListEdgePolicies method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - parameters - The request parameters
+//   - options - ClientListEdgePoliciesOptions contains the optional parameters for the Client.ListEdgePolicies method.
 func (client *Client) ListEdgePolicies(ctx context.Context, resourceGroupName string, accountName string, parameters ListEdgePoliciesInput, options *ClientListEdgePoliciesOptions) (ClientListEdgePoliciesResponse, error) {
 	req, err := client.listEdgePoliciesCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
 	if err != nil {
@@ -401,11 +408,12 @@ func (client *Client) listEdgePoliciesHandleResponse(resp *http.Response) (Clien
 
 // SyncStorageKeys - Synchronizes storage account keys for a storage account associated with the Media Service account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// parameters - The request parameters
-// options - ClientSyncStorageKeysOptions contains the optional parameters for the Client.SyncStorageKeys method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - parameters - The request parameters
+//   - options - ClientSyncStorageKeysOptions contains the optional parameters for the Client.SyncStorageKeys method.
 func (client *Client) SyncStorageKeys(ctx context.Context, resourceGroupName string, accountName string, parameters SyncStorageKeysInput, options *ClientSyncStorageKeysOptions) (ClientSyncStorageKeysResponse, error) {
 	req, err := client.syncStorageKeysCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
 	if err != nil {
@@ -449,11 +457,12 @@ func (client *Client) syncStorageKeysCreateRequest(ctx context.Context, resource
 
 // BeginUpdate - Updates an existing Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// parameters - The request parameters
-// options - ClientBeginUpdateOptions contains the optional parameters for the Client.BeginUpdate method.
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - parameters - The request parameters
+//   - options - ClientBeginUpdateOptions contains the optional parameters for the Client.BeginUpdate method.
 func (client *Client) BeginUpdate(ctx context.Context, resourceGroupName string, accountName string, parameters MediaServiceUpdate, options *ClientBeginUpdateOptions) (*runtime.Poller[ClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, accountName, parameters, options)
@@ -468,6 +477,7 @@ func (client *Client) BeginUpdate(ctx context.Context, resourceGroupName string,
 
 // Update - Updates an existing Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-11-01
 func (client *Client) update(ctx context.Context, resourceGroupName string, accountName string, parameters MediaServiceUpdate, options *ClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
