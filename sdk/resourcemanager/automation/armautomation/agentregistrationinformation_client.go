@@ -32,10 +32,10 @@ type AgentRegistrationInformationClient struct {
 }
 
 // NewAgentRegistrationInformationClient creates a new instance of AgentRegistrationInformationClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAgentRegistrationInformationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AgentRegistrationInformationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,11 +58,12 @@ func NewAgentRegistrationInformationClient(subscriptionID string, credential azc
 
 // Get - Retrieve the automation agent registration information.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - AgentRegistrationInformationClientGetOptions contains the optional parameters for the AgentRegistrationInformationClient.Get
-// method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - AgentRegistrationInformationClientGetOptions contains the optional parameters for the AgentRegistrationInformationClient.Get
+//     method.
 func (client *AgentRegistrationInformationClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, options *AgentRegistrationInformationClientGetOptions) (AgentRegistrationInformationClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, options)
 	if err != nil {
@@ -115,12 +116,13 @@ func (client *AgentRegistrationInformationClient) getHandleResponse(resp *http.R
 
 // RegenerateKey - Regenerate a primary or secondary agent registration key
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// parameters - The name of the agent registration key to be regenerated
-// options - AgentRegistrationInformationClientRegenerateKeyOptions contains the optional parameters for the AgentRegistrationInformationClient.RegenerateKey
-// method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - parameters - The name of the agent registration key to be regenerated
+//   - options - AgentRegistrationInformationClientRegenerateKeyOptions contains the optional parameters for the AgentRegistrationInformationClient.RegenerateKey
+//     method.
 func (client *AgentRegistrationInformationClient) RegenerateKey(ctx context.Context, resourceGroupName string, automationAccountName string, parameters AgentRegistrationRegenerateKeyParameter, options *AgentRegistrationInformationClientRegenerateKeyOptions) (AgentRegistrationInformationClientRegenerateKeyResponse, error) {
 	req, err := client.regenerateKeyCreateRequest(ctx, resourceGroupName, automationAccountName, parameters, options)
 	if err != nil {

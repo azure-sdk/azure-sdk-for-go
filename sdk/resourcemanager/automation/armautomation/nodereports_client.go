@@ -32,10 +32,10 @@ type NodeReportsClient struct {
 }
 
 // NewNodeReportsClient creates a new instance of NodeReportsClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewNodeReportsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*NodeReportsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewNodeReportsClient(subscriptionID string, credential azcore.TokenCredenti
 
 // Get - Retrieve the Dsc node report data by node id and report id.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// nodeID - The Dsc node id.
-// reportID - The report id.
-// options - NodeReportsClientGetOptions contains the optional parameters for the NodeReportsClient.Get method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - nodeID - The Dsc node id.
+//   - reportID - The report id.
+//   - options - NodeReportsClientGetOptions contains the optional parameters for the NodeReportsClient.Get method.
 func (client *NodeReportsClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, nodeID string, reportID string, options *NodeReportsClientGetOptions) (NodeReportsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, nodeID, reportID, options)
 	if err != nil {
@@ -124,12 +125,13 @@ func (client *NodeReportsClient) getHandleResponse(resp *http.Response) (NodeRep
 
 // GetContent - Retrieve the Dsc node reports by node id and report id.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// nodeID - The Dsc node id.
-// reportID - The report id.
-// options - NodeReportsClientGetContentOptions contains the optional parameters for the NodeReportsClient.GetContent method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - nodeID - The Dsc node id.
+//   - reportID - The report id.
+//   - options - NodeReportsClientGetContentOptions contains the optional parameters for the NodeReportsClient.GetContent method.
 func (client *NodeReportsClient) GetContent(ctx context.Context, resourceGroupName string, automationAccountName string, nodeID string, reportID string, options *NodeReportsClientGetContentOptions) (NodeReportsClientGetContentResponse, error) {
 	req, err := client.getContentCreateRequest(ctx, resourceGroupName, automationAccountName, nodeID, reportID, options)
 	if err != nil {
@@ -189,12 +191,13 @@ func (client *NodeReportsClient) getContentHandleResponse(resp *http.Response) (
 }
 
 // NewListByNodePager - Retrieve the Dsc node report list by node id.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// nodeID - The parameters supplied to the list operation.
-// options - NodeReportsClientListByNodeOptions contains the optional parameters for the NodeReportsClient.ListByNode method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - nodeID - The parameters supplied to the list operation.
+//   - options - NodeReportsClientListByNodeOptions contains the optional parameters for the NodeReportsClient.NewListByNodePager
+//     method.
 func (client *NodeReportsClient) NewListByNodePager(resourceGroupName string, automationAccountName string, nodeID string, options *NodeReportsClientListByNodeOptions) *runtime.Pager[NodeReportsClientListByNodeResponse] {
 	return runtime.NewPager(runtime.PagingHandler[NodeReportsClientListByNodeResponse]{
 		More: func(page NodeReportsClientListByNodeResponse) bool {

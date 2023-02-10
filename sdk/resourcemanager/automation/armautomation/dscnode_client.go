@@ -33,10 +33,10 @@ type DscNodeClient struct {
 }
 
 // NewDscNodeClient creates a new instance of DscNodeClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDscNodeClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DscNodeClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,11 +59,12 @@ func NewDscNodeClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // Delete - Delete the dsc node identified by node id.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// nodeID - The node id.
-// options - DscNodeClientDeleteOptions contains the optional parameters for the DscNodeClient.Delete method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - nodeID - The node id.
+//   - options - DscNodeClientDeleteOptions contains the optional parameters for the DscNodeClient.Delete method.
 func (client *DscNodeClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, nodeID string, options *DscNodeClientDeleteOptions) (DscNodeClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, nodeID, options)
 	if err != nil {
@@ -111,11 +112,12 @@ func (client *DscNodeClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // Get - Retrieve the dsc node identified by node id.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// nodeID - The node id.
-// options - DscNodeClientGetOptions contains the optional parameters for the DscNodeClient.Get method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - nodeID - The node id.
+//   - options - DscNodeClientGetOptions contains the optional parameters for the DscNodeClient.Get method.
 func (client *DscNodeClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, nodeID string, options *DscNodeClientGetOptions) (DscNodeClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, nodeID, options)
 	if err != nil {
@@ -171,12 +173,12 @@ func (client *DscNodeClient) getHandleResponse(resp *http.Response) (DscNodeClie
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of dsc nodes.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - DscNodeClientListByAutomationAccountOptions contains the optional parameters for the DscNodeClient.ListByAutomationAccount
-// method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - DscNodeClientListByAutomationAccountOptions contains the optional parameters for the DscNodeClient.NewListByAutomationAccountPager
+//     method.
 func (client *DscNodeClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *DscNodeClientListByAutomationAccountOptions) *runtime.Pager[DscNodeClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DscNodeClientListByAutomationAccountResponse]{
 		More: func(page DscNodeClientListByAutomationAccountResponse) bool {
@@ -254,12 +256,13 @@ func (client *DscNodeClient) listByAutomationAccountHandleResponse(resp *http.Re
 
 // Update - Update the dsc node.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// nodeID - Parameters supplied to the update dsc node.
-// dscNodeUpdateParameters - Parameters supplied to the update dsc node.
-// options - DscNodeClientUpdateOptions contains the optional parameters for the DscNodeClient.Update method.
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - nodeID - Parameters supplied to the update dsc node.
+//   - dscNodeUpdateParameters - Parameters supplied to the update dsc node.
+//   - options - DscNodeClientUpdateOptions contains the optional parameters for the DscNodeClient.Update method.
 func (client *DscNodeClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, nodeID string, dscNodeUpdateParameters DscNodeUpdateParameters, options *DscNodeClientUpdateOptions) (DscNodeClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, nodeID, dscNodeUpdateParameters, options)
 	if err != nil {

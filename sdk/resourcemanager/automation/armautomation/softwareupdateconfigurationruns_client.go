@@ -32,10 +32,10 @@ type SoftwareUpdateConfigurationRunsClient struct {
 }
 
 // NewSoftwareUpdateConfigurationRunsClient creates a new instance of SoftwareUpdateConfigurationRunsClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSoftwareUpdateConfigurationRunsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SoftwareUpdateConfigurationRunsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewSoftwareUpdateConfigurationRunsClient(subscriptionID string, credential 
 
 // GetByID - Get a single software update configuration Run by Id.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// softwareUpdateConfigurationRunID - The Id of the software update configuration run.
-// options - SoftwareUpdateConfigurationRunsClientGetByIDOptions contains the optional parameters for the SoftwareUpdateConfigurationRunsClient.GetByID
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - softwareUpdateConfigurationRunID - The Id of the software update configuration run.
+//   - options - SoftwareUpdateConfigurationRunsClientGetByIDOptions contains the optional parameters for the SoftwareUpdateConfigurationRunsClient.GetByID
+//     method.
 func (client *SoftwareUpdateConfigurationRunsClient) GetByID(ctx context.Context, resourceGroupName string, automationAccountName string, softwareUpdateConfigurationRunID string, options *SoftwareUpdateConfigurationRunsClientGetByIDOptions) (SoftwareUpdateConfigurationRunsClientGetByIDResponse, error) {
 	req, err := client.getByIDCreateRequest(ctx, resourceGroupName, automationAccountName, softwareUpdateConfigurationRunID, options)
 	if err != nil {
@@ -100,7 +101,7 @@ func (client *SoftwareUpdateConfigurationRunsClient) getByIDCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["clientRequestId"] = []string{*options.ClientRequestID}
@@ -120,11 +121,12 @@ func (client *SoftwareUpdateConfigurationRunsClient) getByIDHandleResponse(resp 
 
 // List - Return list of software update configuration runs
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2019-06-01
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - SoftwareUpdateConfigurationRunsClientListOptions contains the optional parameters for the SoftwareUpdateConfigurationRunsClient.List
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - SoftwareUpdateConfigurationRunsClientListOptions contains the optional parameters for the SoftwareUpdateConfigurationRunsClient.List
+//     method.
 func (client *SoftwareUpdateConfigurationRunsClient) List(ctx context.Context, resourceGroupName string, automationAccountName string, options *SoftwareUpdateConfigurationRunsClientListOptions) (SoftwareUpdateConfigurationRunsClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, resourceGroupName, automationAccountName, options)
 	if err != nil {
@@ -160,7 +162,7 @@ func (client *SoftwareUpdateConfigurationRunsClient) listCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2019-06-01")
+	reqQP.Set("api-version", "2022-08-08")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

@@ -33,10 +33,10 @@ type RunbookDraftClient struct {
 }
 
 // NewRunbookDraftClient creates a new instance of RunbookDraftClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewRunbookDraftClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RunbookDraftClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,11 +59,12 @@ func NewRunbookDraftClient(subscriptionID string, credential azcore.TokenCredent
 
 // Get - Retrieve the runbook draft identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// options - RunbookDraftClientGetOptions contains the optional parameters for the RunbookDraftClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - options - RunbookDraftClientGetOptions contains the optional parameters for the RunbookDraftClient.Get method.
 func (client *RunbookDraftClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookDraftClientGetOptions) (RunbookDraftClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *RunbookDraftClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -120,11 +121,12 @@ func (client *RunbookDraftClient) getHandleResponse(resp *http.Response) (Runboo
 
 // GetContent - Retrieve the content of runbook draft identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// options - RunbookDraftClientGetContentOptions contains the optional parameters for the RunbookDraftClient.GetContent method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - options - RunbookDraftClientGetContentOptions contains the optional parameters for the RunbookDraftClient.GetContent method.
 func (client *RunbookDraftClient) GetContent(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookDraftClientGetContentOptions) (RunbookDraftClientGetContentResponse, error) {
 	req, err := client.getContentCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, options)
 	if err != nil {
@@ -164,7 +166,7 @@ func (client *RunbookDraftClient) getContentCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"text/powershell"}
 	return req, nil
@@ -172,20 +174,23 @@ func (client *RunbookDraftClient) getContentCreateRequest(ctx context.Context, r
 
 // BeginReplaceContent - Replaces the runbook draft content.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// runbookContent - The runbook draft content.
-// options - RunbookDraftClientBeginReplaceContentOptions contains the optional parameters for the RunbookDraftClient.BeginReplaceContent
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - runbookContent - The runbook draft content.
+//   - options - RunbookDraftClientBeginReplaceContentOptions contains the optional parameters for the RunbookDraftClient.BeginReplaceContent
+//     method.
 func (client *RunbookDraftClient) BeginReplaceContent(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, runbookContent io.ReadSeekCloser, options *RunbookDraftClientBeginReplaceContentOptions) (*runtime.Poller[RunbookDraftClientReplaceContentResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.replaceContent(ctx, resourceGroupName, automationAccountName, runbookName, runbookContent, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[RunbookDraftClientReplaceContentResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[RunbookDraftClientReplaceContentResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[RunbookDraftClientReplaceContentResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -193,7 +198,8 @@ func (client *RunbookDraftClient) BeginReplaceContent(ctx context.Context, resou
 
 // ReplaceContent - Replaces the runbook draft content.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
+//
+// Generated from API version 2022-08-08
 func (client *RunbookDraftClient) replaceContent(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, runbookContent io.ReadSeekCloser, options *RunbookDraftClientBeginReplaceContentOptions) (*http.Response, error) {
 	req, err := client.replaceContentCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, runbookContent, options)
 	if err != nil {
@@ -233,7 +239,7 @@ func (client *RunbookDraftClient) replaceContentCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	runtime.SkipBodyDownload(req)
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -242,11 +248,12 @@ func (client *RunbookDraftClient) replaceContentCreateRequest(ctx context.Contex
 
 // UndoEdit - Undo draft edit to last known published state identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// options - RunbookDraftClientUndoEditOptions contains the optional parameters for the RunbookDraftClient.UndoEdit method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - options - RunbookDraftClientUndoEditOptions contains the optional parameters for the RunbookDraftClient.UndoEdit method.
 func (client *RunbookDraftClient) UndoEdit(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookDraftClientUndoEditOptions) (RunbookDraftClientUndoEditResponse, error) {
 	req, err := client.undoEditCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, options)
 	if err != nil {
@@ -286,7 +293,7 @@ func (client *RunbookDraftClient) undoEditCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

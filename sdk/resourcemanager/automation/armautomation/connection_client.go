@@ -32,10 +32,10 @@ type ConnectionClient struct {
 }
 
 // NewConnectionClient creates a new instance of ConnectionClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectionClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewConnectionClient(subscriptionID string, credential azcore.TokenCredentia
 
 // CreateOrUpdate - Create or update a connection.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// connectionName - The parameters supplied to the create or update connection operation.
-// parameters - The parameters supplied to the create or update connection operation.
-// options - ConnectionClientCreateOrUpdateOptions contains the optional parameters for the ConnectionClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - connectionName - The parameters supplied to the create or update connection operation.
+//   - parameters - The parameters supplied to the create or update connection operation.
+//   - options - ConnectionClientCreateOrUpdateOptions contains the optional parameters for the ConnectionClient.CreateOrUpdate
+//     method.
 func (client *ConnectionClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationAccountName string, connectionName string, parameters ConnectionCreateOrUpdateParameters, options *ConnectionClientCreateOrUpdateOptions) (ConnectionClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationAccountName, connectionName, parameters, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *ConnectionClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -121,11 +122,12 @@ func (client *ConnectionClient) createOrUpdateHandleResponse(resp *http.Response
 
 // Delete - Delete the connection.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// connectionName - The name of connection.
-// options - ConnectionClientDeleteOptions contains the optional parameters for the ConnectionClient.Delete method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - connectionName - The name of connection.
+//   - options - ConnectionClientDeleteOptions contains the optional parameters for the ConnectionClient.Delete method.
 func (client *ConnectionClient) Delete(ctx context.Context, resourceGroupName string, automationAccountName string, connectionName string, options *ConnectionClientDeleteOptions) (ConnectionClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationAccountName, connectionName, options)
 	if err != nil {
@@ -165,7 +167,7 @@ func (client *ConnectionClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,11 +175,12 @@ func (client *ConnectionClient) deleteCreateRequest(ctx context.Context, resourc
 
 // Get - Retrieve the connection identified by connection name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// connectionName - The name of connection.
-// options - ConnectionClientGetOptions contains the optional parameters for the ConnectionClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - connectionName - The name of connection.
+//   - options - ConnectionClientGetOptions contains the optional parameters for the ConnectionClient.Get method.
 func (client *ConnectionClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, connectionName string, options *ConnectionClientGetOptions) (ConnectionClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, connectionName, options)
 	if err != nil {
@@ -217,7 +220,7 @@ func (client *ConnectionClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -233,12 +236,12 @@ func (client *ConnectionClient) getHandleResponse(resp *http.Response) (Connecti
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of connections.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - ConnectionClientListByAutomationAccountOptions contains the optional parameters for the ConnectionClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - ConnectionClientListByAutomationAccountOptions contains the optional parameters for the ConnectionClient.NewListByAutomationAccountPager
+//     method.
 func (client *ConnectionClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, options *ConnectionClientListByAutomationAccountOptions) *runtime.Pager[ConnectionClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectionClientListByAutomationAccountResponse]{
 		More: func(page ConnectionClientListByAutomationAccountResponse) bool {
@@ -287,7 +290,7 @@ func (client *ConnectionClient) listByAutomationAccountCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -304,12 +307,13 @@ func (client *ConnectionClient) listByAutomationAccountHandleResponse(resp *http
 
 // Update - Update a connection.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// connectionName - The parameters supplied to the update a connection operation.
-// parameters - The parameters supplied to the update a connection operation.
-// options - ConnectionClientUpdateOptions contains the optional parameters for the ConnectionClient.Update method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - connectionName - The parameters supplied to the update a connection operation.
+//   - parameters - The parameters supplied to the update a connection operation.
+//   - options - ConnectionClientUpdateOptions contains the optional parameters for the ConnectionClient.Update method.
 func (client *ConnectionClient) Update(ctx context.Context, resourceGroupName string, automationAccountName string, connectionName string, parameters ConnectionUpdateParameters, options *ConnectionClientUpdateOptions) (ConnectionClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, automationAccountName, connectionName, parameters, options)
 	if err != nil {
@@ -349,7 +353,7 @@ func (client *ConnectionClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

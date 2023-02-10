@@ -32,10 +32,10 @@ type TestJobStreamsClient struct {
 }
 
 // NewTestJobStreamsClient creates a new instance of TestJobStreamsClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTestJobStreamsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TestJobStreamsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewTestJobStreamsClient(subscriptionID string, credential azcore.TokenCrede
 
 // Get - Retrieve a test job stream of the test job identified by runbook name and stream id.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// jobStreamID - The job stream id.
-// options - TestJobStreamsClientGetOptions contains the optional parameters for the TestJobStreamsClient.Get method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - jobStreamID - The job stream id.
+//   - options - TestJobStreamsClientGetOptions contains the optional parameters for the TestJobStreamsClient.Get method.
 func (client *TestJobStreamsClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, jobStreamID string, options *TestJobStreamsClientGetOptions) (TestJobStreamsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, jobStreamID, options)
 	if err != nil {
@@ -107,7 +108,7 @@ func (client *TestJobStreamsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -123,13 +124,13 @@ func (client *TestJobStreamsClient) getHandleResponse(resp *http.Response) (Test
 }
 
 // NewListByTestJobPager - Retrieve a list of test job streams identified by runbook name.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2018-06-30
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// runbookName - The runbook name.
-// options - TestJobStreamsClientListByTestJobOptions contains the optional parameters for the TestJobStreamsClient.ListByTestJob
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - runbookName - The runbook name.
+//   - options - TestJobStreamsClientListByTestJobOptions contains the optional parameters for the TestJobStreamsClient.NewListByTestJobPager
+//     method.
 func (client *TestJobStreamsClient) NewListByTestJobPager(resourceGroupName string, automationAccountName string, runbookName string, options *TestJobStreamsClientListByTestJobOptions) *runtime.Pager[TestJobStreamsClientListByTestJobResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TestJobStreamsClientListByTestJobResponse]{
 		More: func(page TestJobStreamsClientListByTestJobResponse) bool {
@@ -185,7 +186,7 @@ func (client *TestJobStreamsClient) listByTestJobCreateRequest(ctx context.Conte
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

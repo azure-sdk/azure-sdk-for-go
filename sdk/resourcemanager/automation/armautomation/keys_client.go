@@ -32,10 +32,10 @@ type KeysClient struct {
 }
 
 // NewKeysClient creates a new instance of KeysClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewKeysClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*KeysClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,11 +58,12 @@ func NewKeysClient(subscriptionID string, credential azcore.TokenCredential, opt
 
 // ListByAutomationAccount - Retrieve the automation keys for an account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-06-22
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// options - KeysClientListByAutomationAccountOptions contains the optional parameters for the KeysClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - options - KeysClientListByAutomationAccountOptions contains the optional parameters for the KeysClient.ListByAutomationAccount
+//     method.
 func (client *KeysClient) ListByAutomationAccount(ctx context.Context, resourceGroupName string, automationAccountName string, options *KeysClientListByAutomationAccountOptions) (KeysClientListByAutomationAccountResponse, error) {
 	req, err := client.listByAutomationAccountCreateRequest(ctx, resourceGroupName, automationAccountName, options)
 	if err != nil {
@@ -98,7 +99,7 @@ func (client *KeysClient) listByAutomationAccountCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-22")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

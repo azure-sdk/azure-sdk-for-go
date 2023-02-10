@@ -32,10 +32,10 @@ type SourceControlSyncJobClient struct {
 }
 
 // NewSourceControlSyncJobClient creates a new instance of SourceControlSyncJobClient with the specified values.
-// subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
-// forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID
+//     forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSourceControlSyncJobClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SourceControlSyncJobClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,14 +58,15 @@ func NewSourceControlSyncJobClient(subscriptionID string, credential azcore.Toke
 
 // Create - Creates the sync job for a source control.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// sourceControlName - The source control name.
-// sourceControlSyncJobID - The source control sync job id.
-// parameters - The parameters supplied to the create source control sync job operation.
-// options - SourceControlSyncJobClientCreateOptions contains the optional parameters for the SourceControlSyncJobClient.Create
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - sourceControlName - The source control name.
+//   - sourceControlSyncJobID - The source control sync job id.
+//   - parameters - The parameters supplied to the create source control sync job operation.
+//   - options - SourceControlSyncJobClientCreateOptions contains the optional parameters for the SourceControlSyncJobClient.Create
+//     method.
 func (client *SourceControlSyncJobClient) Create(ctx context.Context, resourceGroupName string, automationAccountName string, sourceControlName string, sourceControlSyncJobID string, parameters SourceControlSyncJobCreateParameters, options *SourceControlSyncJobClientCreateOptions) (SourceControlSyncJobClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, automationAccountName, sourceControlName, sourceControlSyncJobID, parameters, options)
 	if err != nil {
@@ -106,7 +107,7 @@ func (client *SourceControlSyncJobClient) createCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -123,13 +124,14 @@ func (client *SourceControlSyncJobClient) createHandleResponse(resp *http.Respon
 
 // Get - Retrieve the source control sync job identified by job id.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// sourceControlName - The source control name.
-// sourceControlSyncJobID - The source control sync job id.
-// options - SourceControlSyncJobClientGetOptions contains the optional parameters for the SourceControlSyncJobClient.Get
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - sourceControlName - The source control name.
+//   - sourceControlSyncJobID - The source control sync job id.
+//   - options - SourceControlSyncJobClientGetOptions contains the optional parameters for the SourceControlSyncJobClient.Get
+//     method.
 func (client *SourceControlSyncJobClient) Get(ctx context.Context, resourceGroupName string, automationAccountName string, sourceControlName string, sourceControlSyncJobID string, options *SourceControlSyncJobClientGetOptions) (SourceControlSyncJobClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationAccountName, sourceControlName, sourceControlSyncJobID, options)
 	if err != nil {
@@ -170,7 +172,7 @@ func (client *SourceControlSyncJobClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -186,13 +188,13 @@ func (client *SourceControlSyncJobClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListByAutomationAccountPager - Retrieve a list of source control sync jobs.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2020-01-13-preview
-// resourceGroupName - Name of an Azure Resource group.
-// automationAccountName - The name of the automation account.
-// sourceControlName - The source control name.
-// options - SourceControlSyncJobClientListByAutomationAccountOptions contains the optional parameters for the SourceControlSyncJobClient.ListByAutomationAccount
-// method.
+//
+// Generated from API version 2022-08-08
+//   - resourceGroupName - Name of an Azure Resource group.
+//   - automationAccountName - The name of the automation account.
+//   - sourceControlName - The source control name.
+//   - options - SourceControlSyncJobClientListByAutomationAccountOptions contains the optional parameters for the SourceControlSyncJobClient.NewListByAutomationAccountPager
+//     method.
 func (client *SourceControlSyncJobClient) NewListByAutomationAccountPager(resourceGroupName string, automationAccountName string, sourceControlName string, options *SourceControlSyncJobClientListByAutomationAccountOptions) *runtime.Pager[SourceControlSyncJobClientListByAutomationAccountResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SourceControlSyncJobClientListByAutomationAccountResponse]{
 		More: func(page SourceControlSyncJobClientListByAutomationAccountResponse) bool {
@@ -248,7 +250,7 @@ func (client *SourceControlSyncJobClient) listByAutomationAccountCreateRequest(c
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
