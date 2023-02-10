@@ -52,7 +52,7 @@ type AccountBackupsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AccountBackupsClientListOptions contains the optional parameters for the AccountBackupsClient.List method.
+// AccountBackupsClientListOptions contains the optional parameters for the AccountBackupsClient.NewListPager method.
 type AccountBackupsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -144,12 +144,13 @@ type AccountsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AccountsClientListBySubscriptionOptions contains the optional parameters for the AccountsClient.ListBySubscription method.
+// AccountsClientListBySubscriptionOptions contains the optional parameters for the AccountsClient.NewListBySubscriptionPager
+// method.
 type AccountsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AccountsClientListOptions contains the optional parameters for the AccountsClient.List method.
+// AccountsClientListOptions contains the optional parameters for the AccountsClient.NewListPager method.
 type AccountsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -217,7 +218,7 @@ type ActiveDirectory struct {
 	// NetBIOS name of the SMB server. This name will be registered as a computer account in the AD and used to mount volumes
 	SmbServerName *string `json:"smbServerName,omitempty"`
 
-	// Username of Active Directory domain administrator
+	// A domain user account with permission to create machine accounts
 	Username *string `json:"username,omitempty"`
 
 	// READ-ONLY; Status of the Active Directory
@@ -283,7 +284,7 @@ type BackupPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BackupPoliciesClientListOptions contains the optional parameters for the BackupPoliciesClient.List method.
+// BackupPoliciesClientListOptions contains the optional parameters for the BackupPoliciesClient.NewListPager method.
 type BackupPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -460,7 +461,7 @@ type BackupsClientGetVolumeRestoreStatusOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BackupsClientListOptions contains the optional parameters for the BackupsClient.List method.
+// BackupsClientListOptions contains the optional parameters for the BackupsClient.NewListPager method.
 type BackupsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -843,7 +844,7 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification `json:"serviceSpecification,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -929,7 +930,7 @@ type PoolsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PoolsClientListOptions contains the optional parameters for the PoolsClient.List method.
+// PoolsClientListOptions contains the optional parameters for the PoolsClient.NewListPager method.
 type PoolsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1066,7 +1067,7 @@ type ResourceQuotaLimitsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ResourceQuotaLimitsClientListOptions contains the optional parameters for the ResourceQuotaLimitsClient.List method.
+// ResourceQuotaLimitsClientListOptions contains the optional parameters for the ResourceQuotaLimitsClient.NewListPager method.
 type ResourceQuotaLimitsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1141,7 +1142,7 @@ type SnapshotPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SnapshotPoliciesClientListOptions contains the optional parameters for the SnapshotPoliciesClient.List method.
+// SnapshotPoliciesClientListOptions contains the optional parameters for the SnapshotPoliciesClient.NewListPager method.
 type SnapshotPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1282,7 +1283,7 @@ type SnapshotsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SnapshotsClientListOptions contains the optional parameters for the SnapshotsClient.List method.
+// SnapshotsClientListOptions contains the optional parameters for the SnapshotsClient.NewListPager method.
 type SnapshotsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1451,7 +1452,7 @@ type SubvolumesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SubvolumesClientListByVolumeOptions contains the optional parameters for the SubvolumesClient.ListByVolume method.
+// SubvolumesClientListByVolumeOptions contains the optional parameters for the SubvolumesClient.NewListByVolumePager method.
 type SubvolumesClientListByVolumeOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1522,7 +1523,7 @@ type VaultProperties struct {
 	VaultName *string `json:"vaultName,omitempty"`
 }
 
-// VaultsClientListOptions contains the optional parameters for the VaultsClient.List method.
+// VaultsClientListOptions contains the optional parameters for the VaultsClient.NewListPager method.
 type VaultsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1703,7 +1704,7 @@ type VolumeGroupsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VolumeGroupsClientListByNetAppAccountOptions contains the optional parameters for the VolumeGroupsClient.ListByNetAppAccount
+// VolumeGroupsClientListByNetAppAccountOptions contains the optional parameters for the VolumeGroupsClient.NewListByNetAppAccountPager
 // method.
 type VolumeGroupsClientListByNetAppAccountOptions struct {
 	// placeholder for future optional parameters
@@ -1805,7 +1806,7 @@ type VolumeProperties struct {
 	SubnetID *string `json:"subnetId,omitempty"`
 
 	// REQUIRED; Maximum storage quota allowed for a file system in bytes. This is a soft quota used for alerting only. Minimum
-	// size is 500 GiB. Upper limit is 100TiB, 500Tib for LargeVolume. Specified in bytes.
+	// size is 100 GiB. Upper limit is 100TiB, 500Tib for LargeVolume. Specified in bytes.
 	UsageThreshold *int64 `json:"usageThreshold,omitempty"`
 
 	// Specifies whether the volume is enabled for Azure VMware Solution (AVS) datastore purpose
@@ -2027,7 +2028,7 @@ type VolumeQuotaRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VolumeQuotaRulesClientListByVolumeOptions contains the optional parameters for the VolumeQuotaRulesClient.ListByVolume
+// VolumeQuotaRulesClientListByVolumeOptions contains the optional parameters for the VolumeQuotaRulesClient.NewListByVolumePager
 // method.
 type VolumeQuotaRulesClientListByVolumeOptions struct {
 	// placeholder for future optional parameters
@@ -2177,12 +2178,12 @@ type VolumesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VolumesClientListOptions contains the optional parameters for the VolumesClient.List method.
+// VolumesClientListOptions contains the optional parameters for the VolumesClient.NewListPager method.
 type VolumesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VolumesClientListReplicationsOptions contains the optional parameters for the VolumesClient.ListReplications method.
+// VolumesClientListReplicationsOptions contains the optional parameters for the VolumesClient.NewListReplicationsPager method.
 type VolumesClientListReplicationsOptions struct {
 	// placeholder for future optional parameters
 }

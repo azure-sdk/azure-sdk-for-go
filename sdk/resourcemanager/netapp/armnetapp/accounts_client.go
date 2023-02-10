@@ -32,10 +32,10 @@ type AccountsClient struct {
 }
 
 // NewAccountsClient creates a new instance of AccountsClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAccountsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AccountsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewAccountsClient(subscriptionID string, credential azcore.TokenCredential,
 
 // BeginCreateOrUpdate - Create or update the specified NetApp account within the resource group
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// body - NetApp Account object supplied in the body of the operation.
-// options - AccountsClientBeginCreateOrUpdateOptions contains the optional parameters for the AccountsClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - body - NetApp Account object supplied in the body of the operation.
+//   - options - AccountsClientBeginCreateOrUpdateOptions contains the optional parameters for the AccountsClient.BeginCreateOrUpdate
+//     method.
 func (client *AccountsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, accountName string, body Account, options *AccountsClientBeginCreateOrUpdateOptions) (*runtime.Poller[AccountsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, accountName, body, options)
@@ -80,6 +81,7 @@ func (client *AccountsClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 
 // CreateOrUpdate - Create or update the specified NetApp account within the resource group
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *AccountsClient) createOrUpdate(ctx context.Context, resourceGroupName string, accountName string, body Account, options *AccountsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, accountName, body, options)
@@ -124,10 +126,11 @@ func (client *AccountsClient) createOrUpdateCreateRequest(ctx context.Context, r
 
 // BeginDelete - Delete the specified NetApp account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// options - AccountsClientBeginDeleteOptions contains the optional parameters for the AccountsClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - options - AccountsClientBeginDeleteOptions contains the optional parameters for the AccountsClient.BeginDelete method.
 func (client *AccountsClient) BeginDelete(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginDeleteOptions) (*runtime.Poller[AccountsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, accountName, options)
@@ -144,6 +147,7 @@ func (client *AccountsClient) BeginDelete(ctx context.Context, resourceGroupName
 
 // Delete - Delete the specified NetApp account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *AccountsClient) deleteOperation(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, options)
@@ -187,10 +191,11 @@ func (client *AccountsClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Get the NetApp account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// options - AccountsClientGetOptions contains the optional parameters for the AccountsClient.Get method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - options - AccountsClientGetOptions contains the optional parameters for the AccountsClient.Get method.
 func (client *AccountsClient) Get(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientGetOptions) (AccountsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -242,9 +247,10 @@ func (client *AccountsClient) getHandleResponse(resp *http.Response) (AccountsCl
 }
 
 // NewListPager - List and describe all NetApp accounts in the resource group.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// options - AccountsClientListOptions contains the optional parameters for the AccountsClient.List method.
+//   - resourceGroupName - The name of the resource group.
+//   - options - AccountsClientListOptions contains the optional parameters for the AccountsClient.NewListPager method.
 func (client *AccountsClient) NewListPager(resourceGroupName string, options *AccountsClientListOptions) *runtime.Pager[AccountsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AccountsClientListResponse]{
 		More: func(page AccountsClientListResponse) bool {
@@ -305,9 +311,10 @@ func (client *AccountsClient) listHandleResponse(resp *http.Response) (AccountsC
 }
 
 // NewListBySubscriptionPager - List and describe all NetApp accounts in the subscription.
+//
 // Generated from API version 2022-05-01
-// options - AccountsClientListBySubscriptionOptions contains the optional parameters for the AccountsClient.ListBySubscription
-// method.
+//   - options - AccountsClientListBySubscriptionOptions contains the optional parameters for the AccountsClient.NewListBySubscriptionPager
+//     method.
 func (client *AccountsClient) NewListBySubscriptionPager(options *AccountsClientListBySubscriptionOptions) *runtime.Pager[AccountsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AccountsClientListBySubscriptionResponse]{
 		More: func(page AccountsClientListBySubscriptionResponse) bool {
@@ -367,11 +374,12 @@ func (client *AccountsClient) listBySubscriptionHandleResponse(resp *http.Respon
 // encryption. If encryption.identity.principalId does not match identity.principalId, running this
 // operation will fix it.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// options - AccountsClientBeginRenewCredentialsOptions contains the optional parameters for the AccountsClient.BeginRenewCredentials
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - options - AccountsClientBeginRenewCredentialsOptions contains the optional parameters for the AccountsClient.BeginRenewCredentials
+//     method.
 func (client *AccountsClient) BeginRenewCredentials(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginRenewCredentialsOptions) (*runtime.Poller[AccountsClientRenewCredentialsResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.renewCredentials(ctx, resourceGroupName, accountName, options)
@@ -390,6 +398,7 @@ func (client *AccountsClient) BeginRenewCredentials(ctx context.Context, resourc
 // If encryption.identity.principalId does not match identity.principalId, running this
 // operation will fix it.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *AccountsClient) renewCredentials(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginRenewCredentialsOptions) (*http.Response, error) {
 	req, err := client.renewCredentialsCreateRequest(ctx, resourceGroupName, accountName, options)
@@ -425,16 +434,20 @@ func (client *AccountsClient) renewCredentialsCreateRequest(ctx context.Context,
 	if err != nil {
 		return nil, err
 	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-05-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
 // BeginUpdate - Patch the specified NetApp account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// resourceGroupName - The name of the resource group.
-// accountName - The name of the NetApp account
-// body - NetApp Account object supplied in the body of the operation.
-// options - AccountsClientBeginUpdateOptions contains the optional parameters for the AccountsClient.BeginUpdate method.
+//   - resourceGroupName - The name of the resource group.
+//   - accountName - The name of the NetApp account
+//   - body - NetApp Account object supplied in the body of the operation.
+//   - options - AccountsClientBeginUpdateOptions contains the optional parameters for the AccountsClient.BeginUpdate method.
 func (client *AccountsClient) BeginUpdate(ctx context.Context, resourceGroupName string, accountName string, body AccountPatch, options *AccountsClientBeginUpdateOptions) (*runtime.Poller[AccountsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, accountName, body, options)
@@ -451,6 +464,7 @@ func (client *AccountsClient) BeginUpdate(ctx context.Context, resourceGroupName
 
 // Update - Patch the specified NetApp account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
 func (client *AccountsClient) update(ctx context.Context, resourceGroupName string, accountName string, body AccountPatch, options *AccountsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, body, options)

@@ -1,5 +1,11 @@
 # Release History
 
+## 4.0.0 (2023-02-10)
+### Breaking Changes
+
+- Function `*SnapshotsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, string, interface{}, *SnapshotsClientBeginUpdateOptions)` to `(context.Context, string, string, string, string, string, any, *SnapshotsClientBeginUpdateOptions)`
+
+
 ## 3.0.0 (2022-09-16)
 ### Breaking Changes
 
