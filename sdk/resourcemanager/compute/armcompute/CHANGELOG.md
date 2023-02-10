@@ -1,5 +1,11 @@
 # Release History
 
+## 4.2.0 (2023-02-10)
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to type alias `StorageAccountType`
+
+
 ## 4.1.0 (2023-01-27)
 ### Features Added
 
