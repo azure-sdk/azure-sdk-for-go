@@ -1,5 +1,16 @@
 # Release History
 
+## 2.0.0 (2023-02-10)
+### Breaking Changes
+
+- Function `*ContentItemClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, *ContentItemClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, ContentItemContract, *ContentItemClientCreateOrUpdateOptions)`
+- Function `*ContentTypeClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *ContentTypeClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, ContentTypeContract, *ContentTypeClientCreateOrUpdateOptions)`
+
+### Features Added
+
+- New field `Metrics` in struct `DiagnosticContractProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
