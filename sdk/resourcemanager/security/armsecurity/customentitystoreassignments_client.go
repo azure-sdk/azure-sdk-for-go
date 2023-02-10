@@ -32,9 +32,9 @@ type CustomEntityStoreAssignmentsClient struct {
 }
 
 // NewCustomEntityStoreAssignmentsClient creates a new instance of CustomEntityStoreAssignmentsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCustomEntityStoreAssignmentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CustomEntityStoreAssignmentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewCustomEntityStoreAssignmentsClient(subscriptionID string, credential azc
 
 // Create - Creates a custom entity store assignment for the provided subscription, if not already exists.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
-// customEntityStoreAssignmentRequestBody - Custom entity store assignment body
-// options - CustomEntityStoreAssignmentsClientCreateOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.Create
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
+//   - customEntityStoreAssignmentRequestBody - Custom entity store assignment body
+//   - options - CustomEntityStoreAssignmentsClientCreateOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.Create
+//     method.
 func (client *CustomEntityStoreAssignmentsClient) Create(ctx context.Context, resourceGroupName string, customEntityStoreAssignmentName string, customEntityStoreAssignmentRequestBody CustomEntityStoreAssignmentRequest, options *CustomEntityStoreAssignmentsClientCreateOptions) (CustomEntityStoreAssignmentsClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, customEntityStoreAssignmentName, customEntityStoreAssignmentRequestBody, options)
 	if err != nil {
@@ -115,11 +116,12 @@ func (client *CustomEntityStoreAssignmentsClient) createHandleResponse(resp *htt
 
 // Delete - Delete a custom entity store assignment by name for a provided subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
-// options - CustomEntityStoreAssignmentsClientDeleteOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
+//   - options - CustomEntityStoreAssignmentsClientDeleteOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.Delete
+//     method.
 func (client *CustomEntityStoreAssignmentsClient) Delete(ctx context.Context, resourceGroupName string, customEntityStoreAssignmentName string, options *CustomEntityStoreAssignmentsClientDeleteOptions) (CustomEntityStoreAssignmentsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, customEntityStoreAssignmentName, options)
 	if err != nil {
@@ -163,11 +165,12 @@ func (client *CustomEntityStoreAssignmentsClient) deleteCreateRequest(ctx contex
 
 // Get - Gets a single custom entity store assignment by name for the provided subscription and resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
-// options - CustomEntityStoreAssignmentsClientGetOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - customEntityStoreAssignmentName - Name of the custom entity store assignment. Generated name is GUID.
+//   - options - CustomEntityStoreAssignmentsClientGetOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.Get
+//     method.
 func (client *CustomEntityStoreAssignmentsClient) Get(ctx context.Context, resourceGroupName string, customEntityStoreAssignmentName string, options *CustomEntityStoreAssignmentsClientGetOptions) (CustomEntityStoreAssignmentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, customEntityStoreAssignmentName, options)
 	if err != nil {
@@ -219,10 +222,11 @@ func (client *CustomEntityStoreAssignmentsClient) getHandleResponse(resp *http.R
 }
 
 // NewListByResourceGroupPager - List custom entity store assignments by a provided subscription and resource group
+//
 // Generated from API version 2021-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - CustomEntityStoreAssignmentsClientListByResourceGroupOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - CustomEntityStoreAssignmentsClientListByResourceGroupOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.NewListByResourceGroupPager
+//     method.
 func (client *CustomEntityStoreAssignmentsClient) NewListByResourceGroupPager(resourceGroupName string, options *CustomEntityStoreAssignmentsClientListByResourceGroupOptions) *runtime.Pager[CustomEntityStoreAssignmentsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CustomEntityStoreAssignmentsClientListByResourceGroupResponse]{
 		More: func(page CustomEntityStoreAssignmentsClientListByResourceGroupResponse) bool {
@@ -283,9 +287,10 @@ func (client *CustomEntityStoreAssignmentsClient) listByResourceGroupHandleRespo
 }
 
 // NewListBySubscriptionPager - List custom entity store assignments by provided subscription
+//
 // Generated from API version 2021-07-01-preview
-// options - CustomEntityStoreAssignmentsClientListBySubscriptionOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.ListBySubscription
-// method.
+//   - options - CustomEntityStoreAssignmentsClientListBySubscriptionOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.NewListBySubscriptionPager
+//     method.
 func (client *CustomEntityStoreAssignmentsClient) NewListBySubscriptionPager(options *CustomEntityStoreAssignmentsClientListBySubscriptionOptions) *runtime.Pager[CustomEntityStoreAssignmentsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CustomEntityStoreAssignmentsClientListBySubscriptionResponse]{
 		More: func(page CustomEntityStoreAssignmentsClientListBySubscriptionResponse) bool {

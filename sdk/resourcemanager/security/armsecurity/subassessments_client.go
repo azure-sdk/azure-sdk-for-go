@@ -31,8 +31,8 @@ type SubAssessmentsClient struct {
 }
 
 // NewSubAssessmentsClient creates a new instance of SubAssessmentsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSubAssessmentsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*SubAssessmentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -54,12 +54,13 @@ func NewSubAssessmentsClient(credential azcore.TokenCredential, options *arm.Cli
 
 // Get - Get a security sub-assessment on your scanned resource
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// subAssessmentName - The Sub-Assessment Key - Unique key for the sub-assessment type
-// options - SubAssessmentsClientGetOptions contains the optional parameters for the SubAssessmentsClient.Get method.
+//   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
+//     (/providers/Microsoft.Management/managementGroups/mgName).
+//   - assessmentName - The Assessment Key - Unique key for the assessment type
+//   - subAssessmentName - The Sub-Assessment Key - Unique key for the sub-assessment type
+//   - options - SubAssessmentsClientGetOptions contains the optional parameters for the SubAssessmentsClient.Get method.
 func (client *SubAssessmentsClient) Get(ctx context.Context, scope string, assessmentName string, subAssessmentName string, options *SubAssessmentsClientGetOptions) (SubAssessmentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, scope, assessmentName, subAssessmentName, options)
 	if err != nil {
@@ -108,11 +109,12 @@ func (client *SubAssessmentsClient) getHandleResponse(resp *http.Response) (SubA
 }
 
 // NewListPager - Get security sub-assessments on all your scanned resources inside a scope
+//
 // Generated from API version 2019-01-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// options - SubAssessmentsClientListOptions contains the optional parameters for the SubAssessmentsClient.List method.
+//   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
+//     (/providers/Microsoft.Management/managementGroups/mgName).
+//   - assessmentName - The Assessment Key - Unique key for the assessment type
+//   - options - SubAssessmentsClientListOptions contains the optional parameters for the SubAssessmentsClient.NewListPager method.
 func (client *SubAssessmentsClient) NewListPager(scope string, assessmentName string, options *SubAssessmentsClientListOptions) *runtime.Pager[SubAssessmentsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SubAssessmentsClientListResponse]{
 		More: func(page SubAssessmentsClientListResponse) bool {
@@ -170,10 +172,12 @@ func (client *SubAssessmentsClient) listHandleResponse(resp *http.Response) (Sub
 }
 
 // NewListAllPager - Get security sub-assessments on all your scanned resources inside a subscription scope
+//
 // Generated from API version 2019-01-01-preview
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// options - SubAssessmentsClientListAllOptions contains the optional parameters for the SubAssessmentsClient.ListAll method.
+//   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
+//     (/providers/Microsoft.Management/managementGroups/mgName).
+//   - options - SubAssessmentsClientListAllOptions contains the optional parameters for the SubAssessmentsClient.NewListAllPager
+//     method.
 func (client *SubAssessmentsClient) NewListAllPager(scope string, options *SubAssessmentsClientListAllOptions) *runtime.Pager[SubAssessmentsClientListAllResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SubAssessmentsClientListAllResponse]{
 		More: func(page SubAssessmentsClientListAllResponse) bool {

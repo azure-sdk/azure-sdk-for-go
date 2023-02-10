@@ -31,8 +31,8 @@ type AssessmentsClient struct {
 }
 
 // NewAssessmentsClient creates a new instance of AssessmentsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAssessmentsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*AssessmentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -55,12 +55,13 @@ func NewAssessmentsClient(credential azcore.TokenCredential, options *arm.Client
 // CreateOrUpdate - Create a security assessment on your resource. An assessment metadata that describes this assessment must
 // be predefined with the same name before inserting the assessment result
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// resourceID - The identifier of the resource.
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// assessment - Calculated assessment on a pre-defined assessment metadata
-// options - AssessmentsClientCreateOrUpdateOptions contains the optional parameters for the AssessmentsClient.CreateOrUpdate
-// method.
+//   - resourceID - The identifier of the resource.
+//   - assessmentName - The Assessment Key - Unique key for the assessment type
+//   - assessment - Calculated assessment on a pre-defined assessment metadata
+//   - options - AssessmentsClientCreateOrUpdateOptions contains the optional parameters for the AssessmentsClient.CreateOrUpdate
+//     method.
 func (client *AssessmentsClient) CreateOrUpdate(ctx context.Context, resourceID string, assessmentName string, assessment Assessment, options *AssessmentsClientCreateOrUpdateOptions) (AssessmentsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceID, assessmentName, assessment, options)
 	if err != nil {
@@ -107,10 +108,11 @@ func (client *AssessmentsClient) createOrUpdateHandleResponse(resp *http.Respons
 // Delete - Delete a security assessment on your resource. An assessment metadata that describes this assessment must be predefined
 // with the same name before inserting the assessment result
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// resourceID - The identifier of the resource.
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// options - AssessmentsClientDeleteOptions contains the optional parameters for the AssessmentsClient.Delete method.
+//   - resourceID - The identifier of the resource.
+//   - assessmentName - The Assessment Key - Unique key for the assessment type
+//   - options - AssessmentsClientDeleteOptions contains the optional parameters for the AssessmentsClient.Delete method.
 func (client *AssessmentsClient) Delete(ctx context.Context, resourceID string, assessmentName string, options *AssessmentsClientDeleteOptions) (AssessmentsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceID, assessmentName, options)
 	if err != nil {
@@ -147,10 +149,11 @@ func (client *AssessmentsClient) deleteCreateRequest(ctx context.Context, resour
 
 // Get - Get a security assessment on your scanned resource
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// resourceID - The identifier of the resource.
-// assessmentName - The Assessment Key - Unique key for the assessment type
-// options - AssessmentsClientGetOptions contains the optional parameters for the AssessmentsClient.Get method.
+//   - resourceID - The identifier of the resource.
+//   - assessmentName - The Assessment Key - Unique key for the assessment type
+//   - options - AssessmentsClientGetOptions contains the optional parameters for the AssessmentsClient.Get method.
 func (client *AssessmentsClient) Get(ctx context.Context, resourceID string, assessmentName string, options *AssessmentsClientGetOptions) (AssessmentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceID, assessmentName, options)
 	if err != nil {
@@ -198,10 +201,11 @@ func (client *AssessmentsClient) getHandleResponse(resp *http.Response) (Assessm
 }
 
 // NewListPager - Get security assessments on all your scanned resources inside a scope
+//
 // Generated from API version 2021-06-01
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// options - AssessmentsClientListOptions contains the optional parameters for the AssessmentsClient.List method.
+//   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
+//     (/providers/Microsoft.Management/managementGroups/mgName).
+//   - options - AssessmentsClientListOptions contains the optional parameters for the AssessmentsClient.NewListPager method.
 func (client *AssessmentsClient) NewListPager(scope string, options *AssessmentsClientListOptions) *runtime.Pager[AssessmentsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AssessmentsClientListResponse]{
 		More: func(page AssessmentsClientListResponse) bool {
