@@ -1,5 +1,13 @@
 # Release History
 
+## 1.1.0-beta.3 (2023-02-10)
+### Features Added
+
+- New struct `ConfigurationOverrides`
+- New struct `OverrideProperties`
+- New field `Overrides` in struct `ConfigurationProperties`
+
+
 ## 1.1.0-beta.2 (2023-01-27)
 ### Features Added
 
