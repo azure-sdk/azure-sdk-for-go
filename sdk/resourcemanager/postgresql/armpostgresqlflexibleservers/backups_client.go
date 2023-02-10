@@ -32,9 +32,9 @@ type BackupsClient struct {
 }
 
 // NewBackupsClient creates a new instance of BackupsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BackupsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewBackupsClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // Get - Get specific backup for a given server.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// backupName - The name of the backup.
-// options - BackupsClientGetOptions contains the optional parameters for the BackupsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - backupName - The name of the backup.
+//   - options - BackupsClientGetOptions contains the optional parameters for the BackupsClient.Get method.
 func (client *BackupsClient) Get(ctx context.Context, resourceGroupName string, serverName string, backupName string, options *BackupsClientGetOptions) (BackupsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, backupName, options)
 	if err != nil {
@@ -117,10 +118,12 @@ func (client *BackupsClient) getHandleResponse(resp *http.Response) (BackupsClie
 }
 
 // NewListByServerPager - List all the backups for a given server.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// options - BackupsClientListByServerOptions contains the optional parameters for the BackupsClient.ListByServer method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - options - BackupsClientListByServerOptions contains the optional parameters for the BackupsClient.NewListByServerPager
+//     method.
 func (client *BackupsClient) NewListByServerPager(resourceGroupName string, serverName string, options *BackupsClientListByServerOptions) *runtime.Pager[BackupsClientListByServerResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BackupsClientListByServerResponse]{
 		More: func(page BackupsClientListByServerResponse) bool {

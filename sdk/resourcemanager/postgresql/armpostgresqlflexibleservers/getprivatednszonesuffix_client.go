@@ -28,8 +28,8 @@ type GetPrivateDNSZoneSuffixClient struct {
 }
 
 // NewGetPrivateDNSZoneSuffixClient creates a new instance of GetPrivateDNSZoneSuffixClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGetPrivateDNSZoneSuffixClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*GetPrivateDNSZoneSuffixClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -51,9 +51,10 @@ func NewGetPrivateDNSZoneSuffixClient(credential azcore.TokenCredential, options
 
 // Execute - Get private DNS zone suffix in the cloud
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// options - GetPrivateDNSZoneSuffixClientExecuteOptions contains the optional parameters for the GetPrivateDNSZoneSuffixClient.Execute
-// method.
+//   - options - GetPrivateDNSZoneSuffixClientExecuteOptions contains the optional parameters for the GetPrivateDNSZoneSuffixClient.Execute
+//     method.
 func (client *GetPrivateDNSZoneSuffixClient) Execute(ctx context.Context, options *GetPrivateDNSZoneSuffixClientExecuteOptions) (GetPrivateDNSZoneSuffixClientExecuteResponse, error) {
 	req, err := client.executeCreateRequest(ctx, options)
 	if err != nil {

@@ -32,9 +32,9 @@ type CheckNameAvailabilityWithLocationClient struct {
 }
 
 // NewCheckNameAvailabilityWithLocationClient creates a new instance of CheckNameAvailabilityWithLocationClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCheckNameAvailabilityWithLocationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CheckNameAvailabilityWithLocationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewCheckNameAvailabilityWithLocationClient(subscriptionID string, credentia
 
 // Execute - Check the availability of name for resource
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// locationName - The name of the location.
-// nameAvailabilityRequest - The required parameters for checking if resource name is available.
-// options - CheckNameAvailabilityWithLocationClientExecuteOptions contains the optional parameters for the CheckNameAvailabilityWithLocationClient.Execute
-// method.
+//   - locationName - The name of the location.
+//   - nameAvailabilityRequest - The required parameters for checking if resource name is available.
+//   - options - CheckNameAvailabilityWithLocationClientExecuteOptions contains the optional parameters for the CheckNameAvailabilityWithLocationClient.Execute
+//     method.
 func (client *CheckNameAvailabilityWithLocationClient) Execute(ctx context.Context, locationName string, nameAvailabilityRequest CheckNameAvailabilityRequest, options *CheckNameAvailabilityWithLocationClientExecuteOptions) (CheckNameAvailabilityWithLocationClientExecuteResponse, error) {
 	req, err := client.executeCreateRequest(ctx, locationName, nameAvailabilityRequest, options)
 	if err != nil {

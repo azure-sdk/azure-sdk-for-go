@@ -32,9 +32,9 @@ type DatabasesClient struct {
 }
 
 // NewDatabasesClient creates a new instance of DatabasesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDatabasesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DatabasesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewDatabasesClient(subscriptionID string, credential azcore.TokenCredential
 
 // BeginCreate - Creates a new database or updates an existing database.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// databaseName - The name of the database.
-// parameters - The required parameters for creating or updating a database.
-// options - DatabasesClientBeginCreateOptions contains the optional parameters for the DatabasesClient.BeginCreate method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - databaseName - The name of the database.
+//   - parameters - The required parameters for creating or updating a database.
+//   - options - DatabasesClientBeginCreateOptions contains the optional parameters for the DatabasesClient.BeginCreate method.
 func (client *DatabasesClient) BeginCreate(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters Database, options *DatabasesClientBeginCreateOptions) (*runtime.Poller[DatabasesClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, serverName, databaseName, parameters, options)
@@ -79,6 +80,7 @@ func (client *DatabasesClient) BeginCreate(ctx context.Context, resourceGroupNam
 
 // Create - Creates a new database or updates an existing database.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
 func (client *DatabasesClient) create(ctx context.Context, resourceGroupName string, serverName string, databaseName string, parameters Database, options *DatabasesClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, serverName, databaseName, parameters, options)
@@ -127,11 +129,12 @@ func (client *DatabasesClient) createCreateRequest(ctx context.Context, resource
 
 // BeginDelete - Deletes a database.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// databaseName - The name of the database.
-// options - DatabasesClientBeginDeleteOptions contains the optional parameters for the DatabasesClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - databaseName - The name of the database.
+//   - options - DatabasesClientBeginDeleteOptions contains the optional parameters for the DatabasesClient.BeginDelete method.
 func (client *DatabasesClient) BeginDelete(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientBeginDeleteOptions) (*runtime.Poller[DatabasesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, serverName, databaseName, options)
@@ -148,6 +151,7 @@ func (client *DatabasesClient) BeginDelete(ctx context.Context, resourceGroupNam
 
 // Delete - Deletes a database.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
 func (client *DatabasesClient) deleteOperation(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
@@ -196,11 +200,12 @@ func (client *DatabasesClient) deleteCreateRequest(ctx context.Context, resource
 
 // Get - Gets information about a database.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// databaseName - The name of the database.
-// options - DatabasesClientGetOptions contains the optional parameters for the DatabasesClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - databaseName - The name of the database.
+//   - options - DatabasesClientGetOptions contains the optional parameters for the DatabasesClient.Get method.
 func (client *DatabasesClient) Get(ctx context.Context, resourceGroupName string, serverName string, databaseName string, options *DatabasesClientGetOptions) (DatabasesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, databaseName, options)
 	if err != nil {
@@ -256,10 +261,12 @@ func (client *DatabasesClient) getHandleResponse(resp *http.Response) (Databases
 }
 
 // NewListByServerPager - List all the databases in a given server.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// options - DatabasesClientListByServerOptions contains the optional parameters for the DatabasesClient.ListByServer method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - options - DatabasesClientListByServerOptions contains the optional parameters for the DatabasesClient.NewListByServerPager
+//     method.
 func (client *DatabasesClient) NewListByServerPager(resourceGroupName string, serverName string, options *DatabasesClientListByServerOptions) *runtime.Pager[DatabasesClientListByServerResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DatabasesClientListByServerResponse]{
 		More: func(page DatabasesClientListByServerResponse) bool {
