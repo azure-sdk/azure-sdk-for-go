@@ -1,5 +1,26 @@
 # Release History
 
+## 2.2.0 (2023-02-12)
+### Features Added
+
+- New value `ApplicationGatewayCustomErrorStatusCodeHTTPStatus400`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus404`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus405`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus408`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus499`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus500`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus503`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus504` added to type alias `ApplicationGatewayCustomErrorStatusCode`
+- New type alias `WebApplicationFirewallState` with values `WebApplicationFirewallStateDisabled`, `WebApplicationFirewallStateEnabled`
+- New function `*FirewallPoliciesClient.CreateOrUpdateDraft(context.Context, string, string, FirewallPolicyDraft, *FirewallPoliciesClientCreateOrUpdateDraftOptions) (FirewallPoliciesClientCreateOrUpdateDraftResponse, error)`
+- New function `*FirewallPoliciesClient.DeleteDraft(context.Context, string, string, *FirewallPoliciesClientDeleteDraftOptions) (FirewallPoliciesClientDeleteDraftResponse, error)`
+- New function `*FirewallPoliciesClient.BeginDeployDraft(context.Context, string, string, *FirewallPoliciesClientBeginDeployDraftOptions) (*runtime.Poller[FirewallPoliciesClientDeployDraftResponse], error)`
+- New function `*FirewallPoliciesClient.GetDraft(context.Context, string, string, *FirewallPoliciesClientGetDraftOptions) (FirewallPoliciesClientGetDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.CreateOrUpdateDraft(context.Context, string, string, string, FirewallPolicyDraftRuleCollectionGroup, *FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftOptions) (FirewallPolicyRuleCollectionGroupsClientCreateOrUpdateDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.DeleteDraft(context.Context, string, string, string, FirewallPolicyRuleCollectionGroup, *FirewallPolicyRuleCollectionGroupsClientDeleteDraftOptions) (FirewallPolicyRuleCollectionGroupsClientDeleteDraftResponse, error)`
+- New function `*FirewallPolicyRuleCollectionGroupsClient.GetDraft(context.Context, string, string, string, FirewallPolicyRuleCollectionGroup, *FirewallPolicyRuleCollectionGroupsClientGetDraftOptions) (FirewallPolicyRuleCollectionGroupsClientGetDraftResponse, error)`
+- New struct `FirewallPoliciesClientDeployDraftResponse`
+- New struct `FirewallPolicyDraft`
+- New struct `FirewallPolicyDraftRuleCollectionGroup`
+- New field `AuthorizationStatus` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `IPConfigurationID` in struct `VPNGatewaysClientBeginResetOptions`
+- New field `FlowLogs` in struct `VirtualNetworkPropertiesFormat`
+- New field `State` in struct `WebApplicationFirewallCustomRule`
+
+
 ## 2.1.0 (2022-12-23)
 ### Features Added
 
