@@ -32,9 +32,9 @@ type IotSecuritySolutionAnalyticsClient struct {
 }
 
 // NewIotSecuritySolutionAnalyticsClient creates a new instance of IotSecuritySolutionAnalyticsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewIotSecuritySolutionAnalyticsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IotSecuritySolutionAnalyticsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewIotSecuritySolutionAnalyticsClient(subscriptionID string, credential azc
 
 // Get - Use this method to get IoT Security Analytics metrics.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// solutionName - The name of the IoT Security solution.
-// options - IotSecuritySolutionAnalyticsClientGetOptions contains the optional parameters for the IotSecuritySolutionAnalyticsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - solutionName - The name of the IoT Security solution.
+//   - options - IotSecuritySolutionAnalyticsClientGetOptions contains the optional parameters for the IotSecuritySolutionAnalyticsClient.Get
+//     method.
 func (client *IotSecuritySolutionAnalyticsClient) Get(ctx context.Context, resourceGroupName string, solutionName string, options *IotSecuritySolutionAnalyticsClientGetOptions) (IotSecuritySolutionAnalyticsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, solutionName, options)
 	if err != nil {
@@ -114,11 +115,12 @@ func (client *IotSecuritySolutionAnalyticsClient) getHandleResponse(resp *http.R
 
 // List - Use this method to get IoT security Analytics metrics in an array.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// solutionName - The name of the IoT Security solution.
-// options - IotSecuritySolutionAnalyticsClientListOptions contains the optional parameters for the IotSecuritySolutionAnalyticsClient.List
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - solutionName - The name of the IoT Security solution.
+//   - options - IotSecuritySolutionAnalyticsClientListOptions contains the optional parameters for the IotSecuritySolutionAnalyticsClient.List
+//     method.
 func (client *IotSecuritySolutionAnalyticsClient) List(ctx context.Context, resourceGroupName string, solutionName string, options *IotSecuritySolutionAnalyticsClientListOptions) (IotSecuritySolutionAnalyticsClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, resourceGroupName, solutionName, options)
 	if err != nil {

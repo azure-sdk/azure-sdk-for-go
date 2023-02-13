@@ -32,9 +32,9 @@ type SecureScoreControlDefinitionsClient struct {
 }
 
 // NewSecureScoreControlDefinitionsClient creates a new instance of SecureScoreControlDefinitionsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSecureScoreControlDefinitionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SecureScoreControlDefinitionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,9 +56,10 @@ func NewSecureScoreControlDefinitionsClient(subscriptionID string, credential az
 }
 
 // NewListPager - List the available security controls, their assessments, and the max score
+//
 // Generated from API version 2020-01-01
-// options - SecureScoreControlDefinitionsClientListOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.List
-// method.
+//   - options - SecureScoreControlDefinitionsClientListOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.NewListPager
+//     method.
 func (client *SecureScoreControlDefinitionsClient) NewListPager(options *SecureScoreControlDefinitionsClientListOptions) *runtime.Pager[SecureScoreControlDefinitionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SecureScoreControlDefinitionsClientListResponse]{
 		More: func(page SecureScoreControlDefinitionsClientListResponse) bool {
@@ -112,9 +113,10 @@ func (client *SecureScoreControlDefinitionsClient) listHandleResponse(resp *http
 
 // NewListBySubscriptionPager - For a specified subscription, list the available security controls, their assessments, and
 // the max score
+//
 // Generated from API version 2020-01-01
-// options - SecureScoreControlDefinitionsClientListBySubscriptionOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.ListBySubscription
-// method.
+//   - options - SecureScoreControlDefinitionsClientListBySubscriptionOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.NewListBySubscriptionPager
+//     method.
 func (client *SecureScoreControlDefinitionsClient) NewListBySubscriptionPager(options *SecureScoreControlDefinitionsClientListBySubscriptionOptions) *runtime.Pager[SecureScoreControlDefinitionsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SecureScoreControlDefinitionsClientListBySubscriptionResponse]{
 		More: func(page SecureScoreControlDefinitionsClientListBySubscriptionResponse) bool {

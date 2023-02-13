@@ -32,9 +32,9 @@ type PricingsClient struct {
 }
 
 // NewPricingsClient creates a new instance of PricingsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPricingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PricingsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,9 +57,10 @@ func NewPricingsClient(subscriptionID string, credential azcore.TokenCredential,
 
 // Get - Gets a provided Microsoft Defender for Cloud pricing configuration in the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// pricingName - name of the pricing configuration
-// options - PricingsClientGetOptions contains the optional parameters for the PricingsClient.Get method.
+//   - pricingName - name of the pricing configuration
+//   - options - PricingsClientGetOptions contains the optional parameters for the PricingsClient.Get method.
 func (client *PricingsClient) Get(ctx context.Context, pricingName string, options *PricingsClientGetOptions) (PricingsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, pricingName, options)
 	if err != nil {
@@ -108,8 +109,9 @@ func (client *PricingsClient) getHandleResponse(resp *http.Response) (PricingsCl
 
 // List - Lists Microsoft Defender for Cloud pricing configurations in the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - PricingsClientListOptions contains the optional parameters for the PricingsClient.List method.
+//   - options - PricingsClientListOptions contains the optional parameters for the PricingsClient.List method.
 func (client *PricingsClient) List(ctx context.Context, options *PricingsClientListOptions) (PricingsClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, options)
 	if err != nil {
@@ -154,10 +156,11 @@ func (client *PricingsClient) listHandleResponse(resp *http.Response) (PricingsC
 
 // Update - Updates a provided Microsoft Defender for Cloud pricing configuration in the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// pricingName - name of the pricing configuration
-// pricing - Pricing object
-// options - PricingsClientUpdateOptions contains the optional parameters for the PricingsClient.Update method.
+//   - pricingName - name of the pricing configuration
+//   - pricing - Pricing object
+//   - options - PricingsClientUpdateOptions contains the optional parameters for the PricingsClient.Update method.
 func (client *PricingsClient) Update(ctx context.Context, pricingName string, pricing Pricing, options *PricingsClientUpdateOptions) (PricingsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, pricingName, pricing, options)
 	if err != nil {

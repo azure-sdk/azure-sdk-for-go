@@ -32,9 +32,9 @@ type MdeOnboardingsClient struct {
 }
 
 // NewMdeOnboardingsClient creates a new instance of MdeOnboardingsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewMdeOnboardingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MdeOnboardingsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,8 +57,9 @@ func NewMdeOnboardingsClient(subscriptionID string, credential azcore.TokenCrede
 
 // Get - The default configuration or data needed to onboard the machine to MDE
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-10-01-preview
-// options - MdeOnboardingsClientGetOptions contains the optional parameters for the MdeOnboardingsClient.Get method.
+//   - options - MdeOnboardingsClientGetOptions contains the optional parameters for the MdeOnboardingsClient.Get method.
 func (client *MdeOnboardingsClient) Get(ctx context.Context, options *MdeOnboardingsClientGetOptions) (MdeOnboardingsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, options)
 	if err != nil {
@@ -103,8 +104,9 @@ func (client *MdeOnboardingsClient) getHandleResponse(resp *http.Response) (MdeO
 
 // List - The configuration or data needed to onboard the machine to MDE
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-10-01-preview
-// options - MdeOnboardingsClientListOptions contains the optional parameters for the MdeOnboardingsClient.List method.
+//   - options - MdeOnboardingsClientListOptions contains the optional parameters for the MdeOnboardingsClient.List method.
 func (client *MdeOnboardingsClient) List(ctx context.Context, options *MdeOnboardingsClientListOptions) (MdeOnboardingsClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, options)
 	if err != nil {

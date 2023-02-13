@@ -32,9 +32,9 @@ type AdaptiveNetworkHardeningsClient struct {
 }
 
 // NewAdaptiveNetworkHardeningsClient creates a new instance of AdaptiveNetworkHardeningsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAdaptiveNetworkHardeningsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AdaptiveNetworkHardeningsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,14 +57,15 @@ func NewAdaptiveNetworkHardeningsClient(subscriptionID string, credential azcore
 
 // BeginEnforce - Enforces the given rules on the NSG(s) listed in the request
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// resourceNamespace - The Namespace of the resource.
-// resourceType - The type of the resource.
-// resourceName - Name of the resource.
-// adaptiveNetworkHardeningResourceName - The name of the Adaptive Network Hardening resource.
-// options - AdaptiveNetworkHardeningsClientBeginEnforceOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.BeginEnforce
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceNamespace - The Namespace of the resource.
+//   - resourceType - The type of the resource.
+//   - resourceName - Name of the resource.
+//   - adaptiveNetworkHardeningResourceName - The name of the Adaptive Network Hardening resource.
+//   - options - AdaptiveNetworkHardeningsClientBeginEnforceOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.BeginEnforce
+//     method.
 func (client *AdaptiveNetworkHardeningsClient) BeginEnforce(ctx context.Context, resourceGroupName string, resourceNamespace string, resourceType string, resourceName string, adaptiveNetworkHardeningResourceName string, body AdaptiveNetworkHardeningEnforceRequest, options *AdaptiveNetworkHardeningsClientBeginEnforceOptions) (*runtime.Poller[AdaptiveNetworkHardeningsClientEnforceResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.enforce(ctx, resourceGroupName, resourceNamespace, resourceType, resourceName, adaptiveNetworkHardeningResourceName, body, options)
@@ -79,6 +80,7 @@ func (client *AdaptiveNetworkHardeningsClient) BeginEnforce(ctx context.Context,
 
 // Enforce - Enforces the given rules on the NSG(s) listed in the request
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
 func (client *AdaptiveNetworkHardeningsClient) enforce(ctx context.Context, resourceGroupName string, resourceNamespace string, resourceType string, resourceName string, adaptiveNetworkHardeningResourceName string, body AdaptiveNetworkHardeningEnforceRequest, options *AdaptiveNetworkHardeningsClientBeginEnforceOptions) (*http.Response, error) {
 	req, err := client.enforceCreateRequest(ctx, resourceGroupName, resourceNamespace, resourceType, resourceName, adaptiveNetworkHardeningResourceName, body, options)
@@ -136,14 +138,15 @@ func (client *AdaptiveNetworkHardeningsClient) enforceCreateRequest(ctx context.
 
 // Get - Gets a single Adaptive Network Hardening resource
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// resourceNamespace - The Namespace of the resource.
-// resourceType - The type of the resource.
-// resourceName - Name of the resource.
-// adaptiveNetworkHardeningResourceName - The name of the Adaptive Network Hardening resource.
-// options - AdaptiveNetworkHardeningsClientGetOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceNamespace - The Namespace of the resource.
+//   - resourceType - The type of the resource.
+//   - resourceName - Name of the resource.
+//   - adaptiveNetworkHardeningResourceName - The name of the Adaptive Network Hardening resource.
+//   - options - AdaptiveNetworkHardeningsClientGetOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.Get
+//     method.
 func (client *AdaptiveNetworkHardeningsClient) Get(ctx context.Context, resourceGroupName string, resourceNamespace string, resourceType string, resourceName string, adaptiveNetworkHardeningResourceName string, options *AdaptiveNetworkHardeningsClientGetOptions) (AdaptiveNetworkHardeningsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceNamespace, resourceType, resourceName, adaptiveNetworkHardeningResourceName, options)
 	if err != nil {
@@ -207,13 +210,14 @@ func (client *AdaptiveNetworkHardeningsClient) getHandleResponse(resp *http.Resp
 }
 
 // NewListByExtendedResourcePager - Gets a list of Adaptive Network Hardenings resources in scope of an extended resource.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// resourceNamespace - The Namespace of the resource.
-// resourceType - The type of the resource.
-// resourceName - Name of the resource.
-// options - AdaptiveNetworkHardeningsClientListByExtendedResourceOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.ListByExtendedResource
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceNamespace - The Namespace of the resource.
+//   - resourceType - The type of the resource.
+//   - resourceName - Name of the resource.
+//   - options - AdaptiveNetworkHardeningsClientListByExtendedResourceOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.NewListByExtendedResourcePager
+//     method.
 func (client *AdaptiveNetworkHardeningsClient) NewListByExtendedResourcePager(resourceGroupName string, resourceNamespace string, resourceType string, resourceName string, options *AdaptiveNetworkHardeningsClientListByExtendedResourceOptions) *runtime.Pager[AdaptiveNetworkHardeningsClientListByExtendedResourceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AdaptiveNetworkHardeningsClientListByExtendedResourceResponse]{
 		More: func(page AdaptiveNetworkHardeningsClientListByExtendedResourceResponse) bool {

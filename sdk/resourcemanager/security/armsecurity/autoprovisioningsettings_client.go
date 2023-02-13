@@ -32,9 +32,9 @@ type AutoProvisioningSettingsClient struct {
 }
 
 // NewAutoProvisioningSettingsClient creates a new instance of AutoProvisioningSettingsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAutoProvisioningSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AutoProvisioningSettingsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewAutoProvisioningSettingsClient(subscriptionID string, credential azcore.
 
 // Create - Details of a specific setting
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01-preview
-// settingName - Auto provisioning setting key
-// setting - Auto provisioning setting key
-// options - AutoProvisioningSettingsClientCreateOptions contains the optional parameters for the AutoProvisioningSettingsClient.Create
-// method.
+//   - settingName - Auto provisioning setting key
+//   - setting - Auto provisioning setting key
+//   - options - AutoProvisioningSettingsClientCreateOptions contains the optional parameters for the AutoProvisioningSettingsClient.Create
+//     method.
 func (client *AutoProvisioningSettingsClient) Create(ctx context.Context, settingName string, setting AutoProvisioningSetting, options *AutoProvisioningSettingsClientCreateOptions) (AutoProvisioningSettingsClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, settingName, setting, options)
 	if err != nil {
@@ -110,10 +111,11 @@ func (client *AutoProvisioningSettingsClient) createHandleResponse(resp *http.Re
 
 // Get - Details of a specific setting
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01-preview
-// settingName - Auto provisioning setting key
-// options - AutoProvisioningSettingsClientGetOptions contains the optional parameters for the AutoProvisioningSettingsClient.Get
-// method.
+//   - settingName - Auto provisioning setting key
+//   - options - AutoProvisioningSettingsClientGetOptions contains the optional parameters for the AutoProvisioningSettingsClient.Get
+//     method.
 func (client *AutoProvisioningSettingsClient) Get(ctx context.Context, settingName string, options *AutoProvisioningSettingsClientGetOptions) (AutoProvisioningSettingsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, settingName, options)
 	if err != nil {
@@ -161,9 +163,10 @@ func (client *AutoProvisioningSettingsClient) getHandleResponse(resp *http.Respo
 }
 
 // NewListPager - Exposes the auto provisioning settings of the subscriptions
+//
 // Generated from API version 2017-08-01-preview
-// options - AutoProvisioningSettingsClientListOptions contains the optional parameters for the AutoProvisioningSettingsClient.List
-// method.
+//   - options - AutoProvisioningSettingsClientListOptions contains the optional parameters for the AutoProvisioningSettingsClient.NewListPager
+//     method.
 func (client *AutoProvisioningSettingsClient) NewListPager(options *AutoProvisioningSettingsClientListOptions) *runtime.Pager[AutoProvisioningSettingsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AutoProvisioningSettingsClientListResponse]{
 		More: func(page AutoProvisioningSettingsClientListResponse) bool {
