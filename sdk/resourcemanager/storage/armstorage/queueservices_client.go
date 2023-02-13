@@ -32,9 +32,9 @@ type QueueServicesClient struct {
 }
 
 // NewQueueServicesClient creates a new instance of QueueServicesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewQueueServicesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*QueueServicesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewQueueServicesClient(subscriptionID string, credential azcore.TokenCreden
 // GetServiceProperties - Gets the properties of a storage account’s Queue service, including properties for Storage Analytics
 // and CORS (Cross-Origin Resource Sharing) rules.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - QueueServicesClientGetServicePropertiesOptions contains the optional parameters for the QueueServicesClient.GetServiceProperties
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - QueueServicesClientGetServicePropertiesOptions contains the optional parameters for the QueueServicesClient.GetServiceProperties
+//     method.
 func (client *QueueServicesClient) GetServiceProperties(ctx context.Context, resourceGroupName string, accountName string, options *QueueServicesClientGetServicePropertiesOptions) (QueueServicesClientGetServicePropertiesResponse, error) {
 	req, err := client.getServicePropertiesCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -117,11 +118,12 @@ func (client *QueueServicesClient) getServicePropertiesHandleResponse(resp *http
 
 // List - List all queue services for the storage account
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - QueueServicesClientListOptions contains the optional parameters for the QueueServicesClient.List method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - QueueServicesClientListOptions contains the optional parameters for the QueueServicesClient.List method.
 func (client *QueueServicesClient) List(ctx context.Context, resourceGroupName string, accountName string, options *QueueServicesClientListOptions) (QueueServicesClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -175,14 +177,15 @@ func (client *QueueServicesClient) listHandleResponse(resp *http.Response) (Queu
 // SetServiceProperties - Sets the properties of a storage account’s Queue service, including properties for Storage Analytics
 // and CORS (Cross-Origin Resource Sharing) rules.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// parameters - The properties of a storage account’s Queue service, only properties for Storage Analytics and CORS (Cross-Origin
-// Resource Sharing) rules can be specified.
-// options - QueueServicesClientSetServicePropertiesOptions contains the optional parameters for the QueueServicesClient.SetServiceProperties
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - parameters - The properties of a storage account’s Queue service, only properties for Storage Analytics and CORS (Cross-Origin
+//     Resource Sharing) rules can be specified.
+//   - options - QueueServicesClientSetServicePropertiesOptions contains the optional parameters for the QueueServicesClient.SetServiceProperties
+//     method.
 func (client *QueueServicesClient) SetServiceProperties(ctx context.Context, resourceGroupName string, accountName string, parameters QueueServiceProperties, options *QueueServicesClientSetServicePropertiesOptions) (QueueServicesClientSetServicePropertiesResponse, error) {
 	req, err := client.setServicePropertiesCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
 	if err != nil {
