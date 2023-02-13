@@ -32,9 +32,9 @@ type SoftwareInventoriesClient struct {
 }
 
 // NewSoftwareInventoriesClient creates a new instance of SoftwareInventoriesClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSoftwareInventoriesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SoftwareInventoriesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewSoftwareInventoriesClient(subscriptionID string, credential azcore.Token
 
 // Get - Gets a single software data of the virtual machine.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-05-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// resourceNamespace - The namespace of the resource.
-// resourceType - The type of the resource.
-// resourceName - Name of the resource.
-// softwareName - Name of the installed software.
-// options - SoftwareInventoriesClientGetOptions contains the optional parameters for the SoftwareInventoriesClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceNamespace - The namespace of the resource.
+//   - resourceType - The type of the resource.
+//   - resourceName - Name of the resource.
+//   - softwareName - Name of the installed software.
+//   - options - SoftwareInventoriesClientGetOptions contains the optional parameters for the SoftwareInventoriesClient.Get method.
 func (client *SoftwareInventoriesClient) Get(ctx context.Context, resourceGroupName string, resourceNamespace string, resourceType string, resourceName string, softwareName string, options *SoftwareInventoriesClientGetOptions) (SoftwareInventoriesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceNamespace, resourceType, resourceName, softwareName, options)
 	if err != nil {
@@ -127,13 +128,14 @@ func (client *SoftwareInventoriesClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListByExtendedResourcePager - Gets the software inventory of the virtual machine.
+//
 // Generated from API version 2021-05-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// resourceNamespace - The namespace of the resource.
-// resourceType - The type of the resource.
-// resourceName - Name of the resource.
-// options - SoftwareInventoriesClientListByExtendedResourceOptions contains the optional parameters for the SoftwareInventoriesClient.ListByExtendedResource
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - resourceNamespace - The namespace of the resource.
+//   - resourceType - The type of the resource.
+//   - resourceName - Name of the resource.
+//   - options - SoftwareInventoriesClientListByExtendedResourceOptions contains the optional parameters for the SoftwareInventoriesClient.NewListByExtendedResourcePager
+//     method.
 func (client *SoftwareInventoriesClient) NewListByExtendedResourcePager(resourceGroupName string, resourceNamespace string, resourceType string, resourceName string, options *SoftwareInventoriesClientListByExtendedResourceOptions) *runtime.Pager[SoftwareInventoriesClientListByExtendedResourceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SoftwareInventoriesClientListByExtendedResourceResponse]{
 		More: func(page SoftwareInventoriesClientListByExtendedResourceResponse) bool {
@@ -206,9 +208,10 @@ func (client *SoftwareInventoriesClient) listByExtendedResourceHandleResponse(re
 }
 
 // NewListBySubscriptionPager - Gets the software inventory of all virtual machines in the subscriptions.
+//
 // Generated from API version 2021-05-01-preview
-// options - SoftwareInventoriesClientListBySubscriptionOptions contains the optional parameters for the SoftwareInventoriesClient.ListBySubscription
-// method.
+//   - options - SoftwareInventoriesClientListBySubscriptionOptions contains the optional parameters for the SoftwareInventoriesClient.NewListBySubscriptionPager
+//     method.
 func (client *SoftwareInventoriesClient) NewListBySubscriptionPager(options *SoftwareInventoriesClientListBySubscriptionOptions) *runtime.Pager[SoftwareInventoriesClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SoftwareInventoriesClientListBySubscriptionResponse]{
 		More: func(page SoftwareInventoriesClientListBySubscriptionResponse) bool {

@@ -31,8 +31,8 @@ type ComplianceResultsClient struct {
 }
 
 // NewComplianceResultsClient creates a new instance of ComplianceResultsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewComplianceResultsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*ComplianceResultsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -54,10 +54,11 @@ func NewComplianceResultsClient(credential azcore.TokenCredential, options *arm.
 
 // Get - Security Compliance Result
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01
-// resourceID - The identifier of the resource.
-// complianceResultName - name of the desired assessment compliance result
-// options - ComplianceResultsClientGetOptions contains the optional parameters for the ComplianceResultsClient.Get method.
+//   - resourceID - The identifier of the resource.
+//   - complianceResultName - name of the desired assessment compliance result
+//   - options - ComplianceResultsClientGetOptions contains the optional parameters for the ComplianceResultsClient.Get method.
 func (client *ComplianceResultsClient) Get(ctx context.Context, resourceID string, complianceResultName string, options *ComplianceResultsClientGetOptions) (ComplianceResultsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceID, complianceResultName, options)
 	if err != nil {
@@ -102,10 +103,12 @@ func (client *ComplianceResultsClient) getHandleResponse(resp *http.Response) (C
 }
 
 // NewListPager - Security compliance results in the subscription
+//
 // Generated from API version 2017-08-01
-// scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
-// (/providers/Microsoft.Management/managementGroups/mgName).
-// options - ComplianceResultsClientListOptions contains the optional parameters for the ComplianceResultsClient.List method.
+//   - scope - Scope of the query, can be subscription (/subscriptions/0b06d9ea-afe6-4779-bd59-30e5c2d9d13f) or management group
+//     (/providers/Microsoft.Management/managementGroups/mgName).
+//   - options - ComplianceResultsClientListOptions contains the optional parameters for the ComplianceResultsClient.NewListPager
+//     method.
 func (client *ComplianceResultsClient) NewListPager(scope string, options *ComplianceResultsClientListOptions) *runtime.Pager[ComplianceResultsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ComplianceResultsClientListResponse]{
 		More: func(page ComplianceResultsClientListResponse) bool {

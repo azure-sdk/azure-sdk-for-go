@@ -32,9 +32,9 @@ type LocationsClient struct {
 }
 
 // NewLocationsClient creates a new instance of LocationsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewLocationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LocationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,9 +57,10 @@ func NewLocationsClient(subscriptionID string, credential azcore.TokenCredential
 
 // Get - Details of a specific location
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2015-06-01-preview
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - LocationsClientGetOptions contains the optional parameters for the LocationsClient.Get method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - LocationsClientGetOptions contains the optional parameters for the LocationsClient.Get method.
 func (client *LocationsClient) Get(ctx context.Context, ascLocation string, options *LocationsClientGetOptions) (LocationsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, ascLocation, options)
 	if err != nil {
@@ -109,8 +110,9 @@ func (client *LocationsClient) getHandleResponse(resp *http.Response) (Locations
 // NewListPager - The location of the responsible ASC of the specific subscription (home region). For each subscription there
 // is only one responsible location. The location in the response should be used to read or
 // write other resources in ASC according to their ID.
+//
 // Generated from API version 2015-06-01-preview
-// options - LocationsClientListOptions contains the optional parameters for the LocationsClient.List method.
+//   - options - LocationsClientListOptions contains the optional parameters for the LocationsClient.NewListPager method.
 func (client *LocationsClient) NewListPager(options *LocationsClientListOptions) *runtime.Pager[LocationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LocationsClientListResponse]{
 		More: func(page LocationsClientListResponse) bool {

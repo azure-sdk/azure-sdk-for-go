@@ -32,9 +32,9 @@ type JitNetworkAccessPoliciesClient struct {
 }
 
 // NewJitNetworkAccessPoliciesClient creates a new instance of JitNetworkAccessPoliciesClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewJitNetworkAccessPoliciesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*JitNetworkAccessPoliciesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewJitNetworkAccessPoliciesClient(subscriptionID string, credential azcore.
 
 // CreateOrUpdate - Create a policy for protecting resources using Just-in-Time access control
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
-// options - JitNetworkAccessPoliciesClientCreateOrUpdateOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
+//   - options - JitNetworkAccessPoliciesClientCreateOrUpdateOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.CreateOrUpdate
+//     method.
 func (client *JitNetworkAccessPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, ascLocation string, jitNetworkAccessPolicyName string, body JitNetworkAccessPolicy, options *JitNetworkAccessPoliciesClientCreateOrUpdateOptions) (JitNetworkAccessPoliciesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, ascLocation, jitNetworkAccessPolicyName, body, options)
 	if err != nil {
@@ -119,12 +120,13 @@ func (client *JitNetworkAccessPoliciesClient) createOrUpdateHandleResponse(resp 
 
 // Delete - Delete a Just-in-Time access control policy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
-// options - JitNetworkAccessPoliciesClientDeleteOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
+//   - options - JitNetworkAccessPoliciesClientDeleteOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.Delete
+//     method.
 func (client *JitNetworkAccessPoliciesClient) Delete(ctx context.Context, resourceGroupName string, ascLocation string, jitNetworkAccessPolicyName string, options *JitNetworkAccessPoliciesClientDeleteOptions) (JitNetworkAccessPoliciesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, ascLocation, jitNetworkAccessPolicyName, options)
 	if err != nil {
@@ -172,12 +174,13 @@ func (client *JitNetworkAccessPoliciesClient) deleteCreateRequest(ctx context.Co
 
 // Get - Policies for protecting resources using Just-in-Time access control for the subscription, location
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
-// options - JitNetworkAccessPoliciesClientGetOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
+//   - options - JitNetworkAccessPoliciesClientGetOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.Get
+//     method.
 func (client *JitNetworkAccessPoliciesClient) Get(ctx context.Context, resourceGroupName string, ascLocation string, jitNetworkAccessPolicyName string, options *JitNetworkAccessPoliciesClientGetOptions) (JitNetworkAccessPoliciesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, ascLocation, jitNetworkAccessPolicyName, options)
 	if err != nil {
@@ -234,12 +237,13 @@ func (client *JitNetworkAccessPoliciesClient) getHandleResponse(resp *http.Respo
 
 // Initiate - Initiate a JIT access from a specific Just-in-Time policy configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
-// options - JitNetworkAccessPoliciesClientInitiateOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.Initiate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - jitNetworkAccessPolicyName - Name of a Just-in-Time access configuration policy.
+//   - options - JitNetworkAccessPoliciesClientInitiateOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.Initiate
+//     method.
 func (client *JitNetworkAccessPoliciesClient) Initiate(ctx context.Context, resourceGroupName string, ascLocation string, jitNetworkAccessPolicyName string, body JitNetworkAccessPolicyInitiateRequest, options *JitNetworkAccessPoliciesClientInitiateOptions) (JitNetworkAccessPoliciesClientInitiateResponse, error) {
 	req, err := client.initiateCreateRequest(ctx, resourceGroupName, ascLocation, jitNetworkAccessPolicyName, body, options)
 	if err != nil {
@@ -296,9 +300,10 @@ func (client *JitNetworkAccessPoliciesClient) initiateHandleResponse(resp *http.
 }
 
 // NewListPager - Policies for protecting resources using Just-in-Time access control.
+//
 // Generated from API version 2020-01-01
-// options - JitNetworkAccessPoliciesClientListOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.List
-// method.
+//   - options - JitNetworkAccessPoliciesClientListOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListPager
+//     method.
 func (client *JitNetworkAccessPoliciesClient) NewListPager(options *JitNetworkAccessPoliciesClientListOptions) *runtime.Pager[JitNetworkAccessPoliciesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[JitNetworkAccessPoliciesClientListResponse]{
 		More: func(page JitNetworkAccessPoliciesClientListResponse) bool {
@@ -355,10 +360,11 @@ func (client *JitNetworkAccessPoliciesClient) listHandleResponse(resp *http.Resp
 }
 
 // NewListByRegionPager - Policies for protecting resources using Just-in-Time access control for the subscription, location
+//
 // Generated from API version 2020-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - JitNetworkAccessPoliciesClientListByRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.ListByRegion
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - JitNetworkAccessPoliciesClientListByRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByRegionPager
+//     method.
 func (client *JitNetworkAccessPoliciesClient) NewListByRegionPager(ascLocation string, options *JitNetworkAccessPoliciesClientListByRegionOptions) *runtime.Pager[JitNetworkAccessPoliciesClientListByRegionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[JitNetworkAccessPoliciesClientListByRegionResponse]{
 		More: func(page JitNetworkAccessPoliciesClientListByRegionResponse) bool {
@@ -420,10 +426,11 @@ func (client *JitNetworkAccessPoliciesClient) listByRegionHandleResponse(resp *h
 
 // NewListByResourceGroupPager - Policies for protecting resources using Just-in-Time access control for the subscription,
 // location
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - JitNetworkAccessPoliciesClientListByResourceGroupOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - JitNetworkAccessPoliciesClientListByResourceGroupOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByResourceGroupPager
+//     method.
 func (client *JitNetworkAccessPoliciesClient) NewListByResourceGroupPager(resourceGroupName string, options *JitNetworkAccessPoliciesClientListByResourceGroupOptions) *runtime.Pager[JitNetworkAccessPoliciesClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[JitNetworkAccessPoliciesClientListByResourceGroupResponse]{
 		More: func(page JitNetworkAccessPoliciesClientListByResourceGroupResponse) bool {
@@ -485,11 +492,12 @@ func (client *JitNetworkAccessPoliciesClient) listByResourceGroupHandleResponse(
 
 // NewListByResourceGroupAndRegionPager - Policies for protecting resources using Just-in-Time access control for the subscription,
 // location
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - JitNetworkAccessPoliciesClientListByResourceGroupAndRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.ListByResourceGroupAndRegion
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - JitNetworkAccessPoliciesClientListByResourceGroupAndRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByResourceGroupAndRegionPager
+//     method.
 func (client *JitNetworkAccessPoliciesClient) NewListByResourceGroupAndRegionPager(resourceGroupName string, ascLocation string, options *JitNetworkAccessPoliciesClientListByResourceGroupAndRegionOptions) *runtime.Pager[JitNetworkAccessPoliciesClientListByResourceGroupAndRegionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[JitNetworkAccessPoliciesClientListByResourceGroupAndRegionResponse]{
 		More: func(page JitNetworkAccessPoliciesClientListByResourceGroupAndRegionResponse) bool {
