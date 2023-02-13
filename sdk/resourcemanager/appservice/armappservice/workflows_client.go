@@ -32,9 +32,9 @@ type WorkflowsClient struct {
 }
 
 // NewWorkflowsClient creates a new instance of WorkflowsClient with the specified values.
-// subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewWorkflowsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*WorkflowsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewWorkflowsClient(subscriptionID string, credential azcore.TokenCredential
 
 // RegenerateAccessKey - Regenerates the callback URL access key for request triggers.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Site name.
-// workflowName - The workflow name.
-// keyType - The access key type.
-// options - WorkflowsClientRegenerateAccessKeyOptions contains the optional parameters for the WorkflowsClient.RegenerateAccessKey
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Site name.
+//   - workflowName - The workflow name.
+//   - keyType - The access key type.
+//   - options - WorkflowsClientRegenerateAccessKeyOptions contains the optional parameters for the WorkflowsClient.RegenerateAccessKey
+//     method.
 func (client *WorkflowsClient) RegenerateAccessKey(ctx context.Context, resourceGroupName string, name string, workflowName string, keyType RegenerateActionParameter, options *WorkflowsClientRegenerateAccessKeyOptions) (WorkflowsClientRegenerateAccessKeyResponse, error) {
 	req, err := client.regenerateAccessKeyCreateRequest(ctx, resourceGroupName, name, workflowName, keyType, options)
 	if err != nil {
@@ -111,12 +112,13 @@ func (client *WorkflowsClient) regenerateAccessKeyCreateRequest(ctx context.Cont
 
 // Validate - Validates the workflow definition.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Site name.
-// workflowName - The workflow name.
-// validate - The workflow.
-// options - WorkflowsClientValidateOptions contains the optional parameters for the WorkflowsClient.Validate method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Site name.
+//   - workflowName - The workflow name.
+//   - validate - The workflow.
+//   - options - WorkflowsClientValidateOptions contains the optional parameters for the WorkflowsClient.Validate method.
 func (client *WorkflowsClient) Validate(ctx context.Context, resourceGroupName string, name string, workflowName string, validate Workflow, options *WorkflowsClientValidateOptions) (WorkflowsClientValidateResponse, error) {
 	req, err := client.validateCreateRequest(ctx, resourceGroupName, name, workflowName, validate, options)
 	if err != nil {
