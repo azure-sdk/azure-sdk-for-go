@@ -40,9 +40,9 @@ type AllTrafficFiltersClient struct {
 }
 
 // NewAllTrafficFiltersClient creates a new instance of AllTrafficFiltersClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAllTrafficFiltersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AllTrafficFiltersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,10 +65,11 @@ func NewAllTrafficFiltersClient(subscriptionID string, credential azcore.TokenCr
 
 // List - Get the list of all traffic filters for the account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - AllTrafficFiltersClientListOptions contains the optional parameters for the AllTrafficFiltersClient.List method.
+//
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - AllTrafficFiltersClientListOptions contains the optional parameters for the AllTrafficFiltersClient.List method.
 func (client *AllTrafficFiltersClient) List(ctx context.Context, resourceGroupName string, monitorName string, options *AllTrafficFiltersClientListOptions) (AllTrafficFiltersClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *AllTrafficFiltersClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
