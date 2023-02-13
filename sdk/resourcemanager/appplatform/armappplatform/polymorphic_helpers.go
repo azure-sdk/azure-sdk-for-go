@@ -11,33 +11,11 @@ package armappplatform
 
 import "encoding/json"
 
-func unmarshalAcceleratorAuthSettingClassification(rawMsg json.RawMessage) (AcceleratorAuthSettingClassification, error) {
-	if rawMsg == nil {
-		return nil, nil
-	}
-	var m map[string]interface{}
-	if err := json.Unmarshal(rawMsg, &m); err != nil {
-		return nil, err
-	}
-	var b AcceleratorAuthSettingClassification
-	switch m["authType"] {
-	case "BasicAuth":
-		b = &AcceleratorBasicAuthSetting{}
-	case "Public":
-		b = &AcceleratorPublicSetting{}
-	case "SSH":
-		b = &AcceleratorSSHSetting{}
-	default:
-		b = &AcceleratorAuthSetting{}
-	}
-	return b, json.Unmarshal(rawMsg, b)
-}
-
 func unmarshalCertificatePropertiesClassification(rawMsg json.RawMessage) (CertificatePropertiesClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
@@ -57,7 +35,7 @@ func unmarshalCustomPersistentDiskPropertiesClassification(rawMsg json.RawMessag
 	if rawMsg == nil {
 		return nil, nil
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
@@ -75,7 +53,7 @@ func unmarshalProbeActionClassification(rawMsg json.RawMessage) (ProbeActionClas
 	if rawMsg == nil {
 		return nil, nil
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
@@ -97,7 +75,7 @@ func unmarshalStoragePropertiesClassification(rawMsg json.RawMessage) (StoragePr
 	if rawMsg == nil {
 		return nil, nil
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
@@ -115,7 +93,7 @@ func unmarshalUserSourceInfoClassification(rawMsg json.RawMessage) (UserSourceIn
 	if rawMsg == nil {
 		return nil, nil
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(rawMsg, &m); err != nil {
 		return nil, err
 	}
