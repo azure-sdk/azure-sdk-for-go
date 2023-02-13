@@ -32,9 +32,9 @@ type BlobInventoryPoliciesClient struct {
 }
 
 // NewBlobInventoryPoliciesClient creates a new instance of BlobInventoryPoliciesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBlobInventoryPoliciesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BlobInventoryPoliciesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,14 +57,15 @@ func NewBlobInventoryPoliciesClient(subscriptionID string, credential azcore.Tok
 
 // CreateOrUpdate - Sets the blob inventory policy to the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
-// properties - The blob inventory policy set to a storage account.
-// options - BlobInventoryPoliciesClientCreateOrUpdateOptions contains the optional parameters for the BlobInventoryPoliciesClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
+//   - properties - The blob inventory policy set to a storage account.
+//   - options - BlobInventoryPoliciesClientCreateOrUpdateOptions contains the optional parameters for the BlobInventoryPoliciesClient.CreateOrUpdate
+//     method.
 func (client *BlobInventoryPoliciesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, accountName string, blobInventoryPolicyName BlobInventoryPolicyName, properties BlobInventoryPolicy, options *BlobInventoryPoliciesClientCreateOrUpdateOptions) (BlobInventoryPoliciesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, accountName, blobInventoryPolicyName, properties, options)
 	if err != nil {
@@ -121,13 +122,14 @@ func (client *BlobInventoryPoliciesClient) createOrUpdateHandleResponse(resp *ht
 
 // Delete - Deletes the blob inventory policy associated with the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
-// options - BlobInventoryPoliciesClientDeleteOptions contains the optional parameters for the BlobInventoryPoliciesClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
+//   - options - BlobInventoryPoliciesClientDeleteOptions contains the optional parameters for the BlobInventoryPoliciesClient.Delete
+//     method.
 func (client *BlobInventoryPoliciesClient) Delete(ctx context.Context, resourceGroupName string, accountName string, blobInventoryPolicyName BlobInventoryPolicyName, options *BlobInventoryPoliciesClientDeleteOptions) (BlobInventoryPoliciesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, blobInventoryPolicyName, options)
 	if err != nil {
@@ -175,13 +177,14 @@ func (client *BlobInventoryPoliciesClient) deleteCreateRequest(ctx context.Conte
 
 // Get - Gets the blob inventory policy associated with the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
-// options - BlobInventoryPoliciesClientGetOptions contains the optional parameters for the BlobInventoryPoliciesClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - blobInventoryPolicyName - The name of the storage account blob inventory policy. It should always be 'default'
+//   - options - BlobInventoryPoliciesClientGetOptions contains the optional parameters for the BlobInventoryPoliciesClient.Get
+//     method.
 func (client *BlobInventoryPoliciesClient) Get(ctx context.Context, resourceGroupName string, accountName string, blobInventoryPolicyName BlobInventoryPolicyName, options *BlobInventoryPoliciesClientGetOptions) (BlobInventoryPoliciesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, blobInventoryPolicyName, options)
 	if err != nil {
@@ -237,12 +240,13 @@ func (client *BlobInventoryPoliciesClient) getHandleResponse(resp *http.Response
 }
 
 // NewListPager - Gets the blob inventory policy associated with the specified storage account.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - BlobInventoryPoliciesClientListOptions contains the optional parameters for the BlobInventoryPoliciesClient.List
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - BlobInventoryPoliciesClientListOptions contains the optional parameters for the BlobInventoryPoliciesClient.NewListPager
+//     method.
 func (client *BlobInventoryPoliciesClient) NewListPager(resourceGroupName string, accountName string, options *BlobInventoryPoliciesClientListOptions) *runtime.Pager[BlobInventoryPoliciesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BlobInventoryPoliciesClientListResponse]{
 		More: func(page BlobInventoryPoliciesClientListResponse) bool {

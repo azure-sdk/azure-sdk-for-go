@@ -32,9 +32,9 @@ type FileSharesClient struct {
 }
 
 // NewFileSharesClient creates a new instance of FileSharesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewFileSharesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FileSharesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,15 +59,16 @@ func NewFileSharesClient(subscriptionID string, credential azcore.TokenCredentia
 // and properties for that share. It does not include a list of the files contained by
 // the share.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
-// characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
-// character must be immediately preceded and followed by a letter or number.
-// fileShare - Properties of the file share to create.
-// options - FileSharesClientCreateOptions contains the optional parameters for the FileSharesClient.Create method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
+//     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
+//     character must be immediately preceded and followed by a letter or number.
+//   - fileShare - Properties of the file share to create.
+//   - options - FileSharesClientCreateOptions contains the optional parameters for the FileSharesClient.Create method.
 func (client *FileSharesClient) Create(ctx context.Context, resourceGroupName string, accountName string, shareName string, fileShare FileShare, options *FileSharesClientCreateOptions) (FileSharesClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, shareName, fileShare, options)
 	if err != nil {
@@ -127,14 +128,15 @@ func (client *FileSharesClient) createHandleResponse(resp *http.Response) (FileS
 
 // Delete - Deletes specified share under its account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
-// characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
-// character must be immediately preceded and followed by a letter or number.
-// options - FileSharesClientDeleteOptions contains the optional parameters for the FileSharesClient.Delete method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
+//     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
+//     character must be immediately preceded and followed by a letter or number.
+//   - options - FileSharesClientDeleteOptions contains the optional parameters for the FileSharesClient.Delete method.
 func (client *FileSharesClient) Delete(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientDeleteOptions) (FileSharesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, shareName, options)
 	if err != nil {
@@ -188,14 +190,15 @@ func (client *FileSharesClient) deleteCreateRequest(ctx context.Context, resourc
 
 // Get - Gets properties of a specified share.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
-// characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
-// character must be immediately preceded and followed by a letter or number.
-// options - FileSharesClientGetOptions contains the optional parameters for the FileSharesClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
+//     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
+//     character must be immediately preceded and followed by a letter or number.
+//   - options - FileSharesClientGetOptions contains the optional parameters for the FileSharesClient.Get method.
 func (client *FileSharesClient) Get(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientGetOptions) (FileSharesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, shareName, options)
 	if err != nil {
@@ -259,14 +262,15 @@ func (client *FileSharesClient) getHandleResponse(resp *http.Response) (FileShar
 // Lease - The Lease Share operation establishes and manages a lock on a share for delete operations. The lock duration can
 // be 15 to 60 seconds, or can be infinite.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
-// characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
-// character must be immediately preceded and followed by a letter or number.
-// options - FileSharesClientLeaseOptions contains the optional parameters for the FileSharesClient.Lease method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
+//     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
+//     character must be immediately preceded and followed by a letter or number.
+//   - options - FileSharesClientLeaseOptions contains the optional parameters for the FileSharesClient.Lease method.
 func (client *FileSharesClient) Lease(ctx context.Context, resourceGroupName string, accountName string, shareName string, options *FileSharesClientLeaseOptions) (FileSharesClientLeaseResponse, error) {
 	req, err := client.leaseCreateRequest(ctx, resourceGroupName, accountName, shareName, options)
 	if err != nil {
@@ -331,11 +335,12 @@ func (client *FileSharesClient) leaseHandleResponse(resp *http.Response) (FileSh
 }
 
 // NewListPager - Lists all shares.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - FileSharesClientListOptions contains the optional parameters for the FileSharesClient.List method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - FileSharesClientListOptions contains the optional parameters for the FileSharesClient.NewListPager method.
 func (client *FileSharesClient) NewListPager(resourceGroupName string, accountName string, options *FileSharesClientListOptions) *runtime.Pager[FileSharesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[FileSharesClientListResponse]{
 		More: func(page FileSharesClientListResponse) bool {
@@ -410,14 +415,15 @@ func (client *FileSharesClient) listHandleResponse(resp *http.Response) (FileSha
 
 // Restore - Restore a file share within a valid retention days if share soft delete is enabled
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
-// characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
-// character must be immediately preceded and followed by a letter or number.
-// options - FileSharesClientRestoreOptions contains the optional parameters for the FileSharesClient.Restore method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
+//     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
+//     character must be immediately preceded and followed by a letter or number.
+//   - options - FileSharesClientRestoreOptions contains the optional parameters for the FileSharesClient.Restore method.
 func (client *FileSharesClient) Restore(ctx context.Context, resourceGroupName string, accountName string, shareName string, deletedShare DeletedShare, options *FileSharesClientRestoreOptions) (FileSharesClientRestoreResponse, error) {
 	req, err := client.restoreCreateRequest(ctx, resourceGroupName, accountName, shareName, deletedShare, options)
 	if err != nil {
@@ -466,15 +472,16 @@ func (client *FileSharesClient) restoreCreateRequest(ctx context.Context, resour
 // Update - Updates share properties as specified in request body. Properties not mentioned in the request will not be changed.
 // Update fails if the specified share does not already exist.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
-// characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
-// character must be immediately preceded and followed by a letter or number.
-// fileShare - Properties to update for the file share.
-// options - FileSharesClientUpdateOptions contains the optional parameters for the FileSharesClient.Update method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - shareName - The name of the file share within the specified storage account. File share names must be between 3 and 63
+//     characters in length and use numbers, lower-case letters and dash (-) only. Every dash (-)
+//     character must be immediately preceded and followed by a letter or number.
+//   - fileShare - Properties to update for the file share.
+//   - options - FileSharesClientUpdateOptions contains the optional parameters for the FileSharesClient.Update method.
 func (client *FileSharesClient) Update(ctx context.Context, resourceGroupName string, accountName string, shareName string, fileShare FileShare, options *FileSharesClientUpdateOptions) (FileSharesClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, shareName, fileShare, options)
 	if err != nil {
