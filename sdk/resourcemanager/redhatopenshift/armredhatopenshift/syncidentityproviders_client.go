@@ -32,9 +32,9 @@ type SyncIdentityProvidersClient struct {
 }
 
 // NewSyncIdentityProvidersClient creates a new instance of SyncIdentityProvidersClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSyncIdentityProvidersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SyncIdentityProvidersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewSyncIdentityProvidersClient(subscriptionID string, credential azcore.Tok
 
 // CreateOrUpdate - The operation returns properties of a SyncIdentityProvider.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the SyncIdentityProvider resource.
-// parameters - The SyncIdentityProvider resource.
-// options - SyncIdentityProvidersClientCreateOrUpdateOptions contains the optional parameters for the SyncIdentityProvidersClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the SyncIdentityProvider resource.
+//   - parameters - The SyncIdentityProvider resource.
+//   - options - SyncIdentityProvidersClientCreateOrUpdateOptions contains the optional parameters for the SyncIdentityProvidersClient.CreateOrUpdate
+//     method.
 func (client *SyncIdentityProvidersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters SyncIdentityProvider, options *SyncIdentityProvidersClientCreateOrUpdateOptions) (SyncIdentityProvidersClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
 	if err != nil {
@@ -120,12 +121,13 @@ func (client *SyncIdentityProvidersClient) createOrUpdateHandleResponse(resp *ht
 
 // Delete - The operation returns nothing.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the SyncIdentityProvider resource.
-// options - SyncIdentityProvidersClientDeleteOptions contains the optional parameters for the SyncIdentityProvidersClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the SyncIdentityProvider resource.
+//   - options - SyncIdentityProvidersClientDeleteOptions contains the optional parameters for the SyncIdentityProvidersClient.Delete
+//     method.
 func (client *SyncIdentityProvidersClient) Delete(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, options *SyncIdentityProvidersClientDeleteOptions) (SyncIdentityProvidersClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, options)
 	if err != nil {
@@ -173,12 +175,13 @@ func (client *SyncIdentityProvidersClient) deleteCreateRequest(ctx context.Conte
 
 // Get - The operation returns properties of a SyncIdentityProvider.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the SyncIdentityProvider resource.
-// options - SyncIdentityProvidersClientGetOptions contains the optional parameters for the SyncIdentityProvidersClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the SyncIdentityProvider resource.
+//   - options - SyncIdentityProvidersClientGetOptions contains the optional parameters for the SyncIdentityProvidersClient.Get
+//     method.
 func (client *SyncIdentityProvidersClient) Get(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, options *SyncIdentityProvidersClientGetOptions) (SyncIdentityProvidersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, options)
 	if err != nil {
@@ -234,11 +237,12 @@ func (client *SyncIdentityProvidersClient) getHandleResponse(resp *http.Response
 }
 
 // NewListPager - The operation returns properties of each SyncIdentityProvider.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// options - SyncIdentityProvidersClientListOptions contains the optional parameters for the SyncIdentityProvidersClient.List
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - options - SyncIdentityProvidersClientListOptions contains the optional parameters for the SyncIdentityProvidersClient.NewListPager
+//     method.
 func (client *SyncIdentityProvidersClient) NewListPager(resourceGroupName string, resourceName string, options *SyncIdentityProvidersClientListOptions) *runtime.Pager[SyncIdentityProvidersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SyncIdentityProvidersClientListResponse]{
 		More: func(page SyncIdentityProvidersClientListResponse) bool {
@@ -304,13 +308,14 @@ func (client *SyncIdentityProvidersClient) listHandleResponse(resp *http.Respons
 
 // Update - The operation returns properties of a SyncIdentityProvider.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the SyncIdentityProvider resource.
-// parameters - The SyncIdentityProvider resource.
-// options - SyncIdentityProvidersClientUpdateOptions contains the optional parameters for the SyncIdentityProvidersClient.Update
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the SyncIdentityProvider resource.
+//   - parameters - The SyncIdentityProvider resource.
+//   - options - SyncIdentityProvidersClientUpdateOptions contains the optional parameters for the SyncIdentityProvidersClient.Update
+//     method.
 func (client *SyncIdentityProvidersClient) Update(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters SyncIdentityProviderUpdate, options *SyncIdentityProvidersClientUpdateOptions) (SyncIdentityProvidersClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
 	if err != nil {
