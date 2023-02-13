@@ -33,9 +33,9 @@ type StaticSitesClient struct {
 }
 
 // NewStaticSitesClient creates a new instance of StaticSitesClient with the specified values.
-// subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewStaticSitesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*StaticSitesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewStaticSitesClient(subscriptionID string, credential azcore.TokenCredenti
 
 // BeginApproveOrRejectPrivateEndpointConnection - Description for Approves or rejects a private endpoint connection
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// privateEndpointConnectionName - Name of the private endpoint connection.
-// privateEndpointWrapper - Request body.
-// options - StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions contains the optional parameters for the
-// StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - privateEndpointConnectionName - Name of the private endpoint connection.
+//   - privateEndpointWrapper - Request body.
+//   - options - StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions contains the optional parameters for the
+//     StaticSitesClient.BeginApproveOrRejectPrivateEndpointConnection method.
 func (client *StaticSitesClient) BeginApproveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*runtime.Poller[StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.approveOrRejectPrivateEndpointConnection(ctx, resourceGroupName, name, privateEndpointConnectionName, privateEndpointWrapper, options)
@@ -79,6 +80,7 @@ func (client *StaticSitesClient) BeginApproveOrRejectPrivateEndpointConnection(c
 
 // ApproveOrRejectPrivateEndpointConnection - Description for Approves or rejects a private endpoint connection
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) approveOrRejectPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, privateEndpointWrapper PrivateLinkConnectionApprovalRequestResource, options *StaticSitesClientBeginApproveOrRejectPrivateEndpointConnectionOptions) (*http.Response, error) {
 	req, err := client.approveOrRejectPrivateEndpointConnectionCreateRequest(ctx, resourceGroupName, name, privateEndpointConnectionName, privateEndpointWrapper, options)
@@ -128,12 +130,13 @@ func (client *StaticSitesClient) approveOrRejectPrivateEndpointConnectionCreateR
 // BeginCreateOrUpdateStaticSite - Description for Creates a new static site in an existing resource group, or updates an
 // existing static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site to create or update.
-// staticSiteEnvelope - A JSON representation of the staticsite properties. See example.
-// options - StaticSitesClientBeginCreateOrUpdateStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginCreateOrUpdateStaticSite
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site to create or update.
+//   - staticSiteEnvelope - A JSON representation of the staticsite properties. See example.
+//   - options - StaticSitesClientBeginCreateOrUpdateStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginCreateOrUpdateStaticSite
+//     method.
 func (client *StaticSitesClient) BeginCreateOrUpdateStaticSite(ctx context.Context, resourceGroupName string, name string, staticSiteEnvelope StaticSiteARMResource, options *StaticSitesClientBeginCreateOrUpdateStaticSiteOptions) (*runtime.Poller[StaticSitesClientCreateOrUpdateStaticSiteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdateStaticSite(ctx, resourceGroupName, name, staticSiteEnvelope, options)
@@ -149,6 +152,7 @@ func (client *StaticSitesClient) BeginCreateOrUpdateStaticSite(ctx context.Conte
 // CreateOrUpdateStaticSite - Description for Creates a new static site in an existing resource group, or updates an existing
 // static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) createOrUpdateStaticSite(ctx context.Context, resourceGroupName string, name string, staticSiteEnvelope StaticSiteARMResource, options *StaticSitesClientBeginCreateOrUpdateStaticSiteOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateStaticSiteCreateRequest(ctx, resourceGroupName, name, staticSiteEnvelope, options)
@@ -193,12 +197,13 @@ func (client *StaticSitesClient) createOrUpdateStaticSiteCreateRequest(ctx conte
 
 // CreateOrUpdateStaticSiteAppSettings - Description for Creates or updates the app settings of a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// appSettings - The dictionary containing the static site app settings to update.
-// options - StaticSitesClientCreateOrUpdateStaticSiteAppSettingsOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateStaticSiteAppSettings
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - appSettings - The dictionary containing the static site app settings to update.
+//   - options - StaticSitesClientCreateOrUpdateStaticSiteAppSettingsOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateStaticSiteAppSettings
+//     method.
 func (client *StaticSitesClient) CreateOrUpdateStaticSiteAppSettings(ctx context.Context, resourceGroupName string, name string, appSettings StringDictionary, options *StaticSitesClientCreateOrUpdateStaticSiteAppSettingsOptions) (StaticSitesClientCreateOrUpdateStaticSiteAppSettingsResponse, error) {
 	req, err := client.createOrUpdateStaticSiteAppSettingsCreateRequest(ctx, resourceGroupName, name, appSettings, options)
 	if err != nil {
@@ -251,13 +256,14 @@ func (client *StaticSitesClient) createOrUpdateStaticSiteAppSettingsHandleRespon
 
 // CreateOrUpdateStaticSiteBuildAppSettings - Description for Creates or updates the app settings of a static site build.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// appSettings - The dictionary containing the static site app settings to update.
-// options - StaticSitesClientCreateOrUpdateStaticSiteBuildAppSettingsOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateStaticSiteBuildAppSettings
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - appSettings - The dictionary containing the static site app settings to update.
+//   - options - StaticSitesClientCreateOrUpdateStaticSiteBuildAppSettingsOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateStaticSiteBuildAppSettings
+//     method.
 func (client *StaticSitesClient) CreateOrUpdateStaticSiteBuildAppSettings(ctx context.Context, resourceGroupName string, name string, environmentName string, appSettings StringDictionary, options *StaticSitesClientCreateOrUpdateStaticSiteBuildAppSettingsOptions) (StaticSitesClientCreateOrUpdateStaticSiteBuildAppSettingsResponse, error) {
 	req, err := client.createOrUpdateStaticSiteBuildAppSettingsCreateRequest(ctx, resourceGroupName, name, environmentName, appSettings, options)
 	if err != nil {
@@ -315,13 +321,14 @@ func (client *StaticSitesClient) createOrUpdateStaticSiteBuildAppSettingsHandleR
 // CreateOrUpdateStaticSiteBuildFunctionAppSettings - Description for Creates or updates the function app settings of a static
 // site build.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// appSettings - The dictionary containing the static site function app settings to update.
-// options - StaticSitesClientCreateOrUpdateStaticSiteBuildFunctionAppSettingsOptions contains the optional parameters for
-// the StaticSitesClient.CreateOrUpdateStaticSiteBuildFunctionAppSettings method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - appSettings - The dictionary containing the static site function app settings to update.
+//   - options - StaticSitesClientCreateOrUpdateStaticSiteBuildFunctionAppSettingsOptions contains the optional parameters for
+//     the StaticSitesClient.CreateOrUpdateStaticSiteBuildFunctionAppSettings method.
 func (client *StaticSitesClient) CreateOrUpdateStaticSiteBuildFunctionAppSettings(ctx context.Context, resourceGroupName string, name string, environmentName string, appSettings StringDictionary, options *StaticSitesClientCreateOrUpdateStaticSiteBuildFunctionAppSettingsOptions) (StaticSitesClientCreateOrUpdateStaticSiteBuildFunctionAppSettingsResponse, error) {
 	req, err := client.createOrUpdateStaticSiteBuildFunctionAppSettingsCreateRequest(ctx, resourceGroupName, name, environmentName, appSettings, options)
 	if err != nil {
@@ -379,14 +386,15 @@ func (client *StaticSitesClient) createOrUpdateStaticSiteBuildFunctionAppSetting
 // BeginCreateOrUpdateStaticSiteCustomDomain - Description for Creates a new static site custom domain in an existing resource
 // group and static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// domainName - The custom domain to create.
-// staticSiteCustomDomainRequestPropertiesEnvelope - A JSON representation of the static site custom domain request properties.
-// See example.
-// options - StaticSitesClientBeginCreateOrUpdateStaticSiteCustomDomainOptions contains the optional parameters for the StaticSitesClient.BeginCreateOrUpdateStaticSiteCustomDomain
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - domainName - The custom domain to create.
+//   - staticSiteCustomDomainRequestPropertiesEnvelope - A JSON representation of the static site custom domain request properties.
+//     See example.
+//   - options - StaticSitesClientBeginCreateOrUpdateStaticSiteCustomDomainOptions contains the optional parameters for the StaticSitesClient.BeginCreateOrUpdateStaticSiteCustomDomain
+//     method.
 func (client *StaticSitesClient) BeginCreateOrUpdateStaticSiteCustomDomain(ctx context.Context, resourceGroupName string, name string, domainName string, staticSiteCustomDomainRequestPropertiesEnvelope StaticSiteCustomDomainRequestPropertiesARMResource, options *StaticSitesClientBeginCreateOrUpdateStaticSiteCustomDomainOptions) (*runtime.Poller[StaticSitesClientCreateOrUpdateStaticSiteCustomDomainResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdateStaticSiteCustomDomain(ctx, resourceGroupName, name, domainName, staticSiteCustomDomainRequestPropertiesEnvelope, options)
@@ -402,6 +410,7 @@ func (client *StaticSitesClient) BeginCreateOrUpdateStaticSiteCustomDomain(ctx c
 // CreateOrUpdateStaticSiteCustomDomain - Description for Creates a new static site custom domain in an existing resource
 // group and static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) createOrUpdateStaticSiteCustomDomain(ctx context.Context, resourceGroupName string, name string, domainName string, staticSiteCustomDomainRequestPropertiesEnvelope StaticSiteCustomDomainRequestPropertiesARMResource, options *StaticSitesClientBeginCreateOrUpdateStaticSiteCustomDomainOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateStaticSiteCustomDomainCreateRequest(ctx, resourceGroupName, name, domainName, staticSiteCustomDomainRequestPropertiesEnvelope, options)
@@ -451,12 +460,13 @@ func (client *StaticSitesClient) createOrUpdateStaticSiteCustomDomainCreateReque
 // CreateOrUpdateStaticSiteFunctionAppSettings - Description for Creates or updates the function app settings of a static
 // site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// appSettings - The dictionary containing the static site function app settings to update.
-// options - StaticSitesClientCreateOrUpdateStaticSiteFunctionAppSettingsOptions contains the optional parameters for the
-// StaticSitesClient.CreateOrUpdateStaticSiteFunctionAppSettings method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - appSettings - The dictionary containing the static site function app settings to update.
+//   - options - StaticSitesClientCreateOrUpdateStaticSiteFunctionAppSettingsOptions contains the optional parameters for the
+//     StaticSitesClient.CreateOrUpdateStaticSiteFunctionAppSettings method.
 func (client *StaticSitesClient) CreateOrUpdateStaticSiteFunctionAppSettings(ctx context.Context, resourceGroupName string, name string, appSettings StringDictionary, options *StaticSitesClientCreateOrUpdateStaticSiteFunctionAppSettingsOptions) (StaticSitesClientCreateOrUpdateStaticSiteFunctionAppSettingsResponse, error) {
 	req, err := client.createOrUpdateStaticSiteFunctionAppSettingsCreateRequest(ctx, resourceGroupName, name, appSettings, options)
 	if err != nil {
@@ -509,11 +519,12 @@ func (client *StaticSitesClient) createOrUpdateStaticSiteFunctionAppSettingsHand
 
 // CreateUserRolesInvitationLink - Description for Creates an invitation link for a user with the role
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientCreateUserRolesInvitationLinkOptions contains the optional parameters for the StaticSitesClient.CreateUserRolesInvitationLink
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientCreateUserRolesInvitationLinkOptions contains the optional parameters for the StaticSitesClient.CreateUserRolesInvitationLink
+//     method.
 func (client *StaticSitesClient) CreateUserRolesInvitationLink(ctx context.Context, resourceGroupName string, name string, staticSiteUserRolesInvitationEnvelope StaticSiteUserInvitationRequestResource, options *StaticSitesClientCreateUserRolesInvitationLinkOptions) (StaticSitesClientCreateUserRolesInvitationLinkResponse, error) {
 	req, err := client.createUserRolesInvitationLinkCreateRequest(ctx, resourceGroupName, name, staticSiteUserRolesInvitationEnvelope, options)
 	if err != nil {
@@ -566,12 +577,13 @@ func (client *StaticSitesClient) createUserRolesInvitationLinkHandleResponse(res
 
 // BeginCreateZipDeploymentForStaticSite - Description for Deploys zipped content to a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// staticSiteZipDeploymentEnvelope - A JSON representation of the StaticSiteZipDeployment properties. See example.
-// options - StaticSitesClientBeginCreateZipDeploymentForStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginCreateZipDeploymentForStaticSite
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - staticSiteZipDeploymentEnvelope - A JSON representation of the StaticSiteZipDeployment properties. See example.
+//   - options - StaticSitesClientBeginCreateZipDeploymentForStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginCreateZipDeploymentForStaticSite
+//     method.
 func (client *StaticSitesClient) BeginCreateZipDeploymentForStaticSite(ctx context.Context, resourceGroupName string, name string, staticSiteZipDeploymentEnvelope StaticSiteZipDeploymentARMResource, options *StaticSitesClientBeginCreateZipDeploymentForStaticSiteOptions) (*runtime.Poller[StaticSitesClientCreateZipDeploymentForStaticSiteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createZipDeploymentForStaticSite(ctx, resourceGroupName, name, staticSiteZipDeploymentEnvelope, options)
@@ -586,6 +598,7 @@ func (client *StaticSitesClient) BeginCreateZipDeploymentForStaticSite(ctx conte
 
 // CreateZipDeploymentForStaticSite - Description for Deploys zipped content to a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) createZipDeploymentForStaticSite(ctx context.Context, resourceGroupName string, name string, staticSiteZipDeploymentEnvelope StaticSiteZipDeploymentARMResource, options *StaticSitesClientBeginCreateZipDeploymentForStaticSiteOptions) (*http.Response, error) {
 	req, err := client.createZipDeploymentForStaticSiteCreateRequest(ctx, resourceGroupName, name, staticSiteZipDeploymentEnvelope, options)
@@ -631,13 +644,14 @@ func (client *StaticSitesClient) createZipDeploymentForStaticSiteCreateRequest(c
 // BeginCreateZipDeploymentForStaticSiteBuild - Description for Deploys zipped content to a specific environment of a static
 // site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - Name of the environment.
-// staticSiteZipDeploymentEnvelope - A JSON representation of the StaticSiteZipDeployment properties. See example.
-// options - StaticSitesClientBeginCreateZipDeploymentForStaticSiteBuildOptions contains the optional parameters for the StaticSitesClient.BeginCreateZipDeploymentForStaticSiteBuild
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - Name of the environment.
+//   - staticSiteZipDeploymentEnvelope - A JSON representation of the StaticSiteZipDeployment properties. See example.
+//   - options - StaticSitesClientBeginCreateZipDeploymentForStaticSiteBuildOptions contains the optional parameters for the StaticSitesClient.BeginCreateZipDeploymentForStaticSiteBuild
+//     method.
 func (client *StaticSitesClient) BeginCreateZipDeploymentForStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, staticSiteZipDeploymentEnvelope StaticSiteZipDeploymentARMResource, options *StaticSitesClientBeginCreateZipDeploymentForStaticSiteBuildOptions) (*runtime.Poller[StaticSitesClientCreateZipDeploymentForStaticSiteBuildResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createZipDeploymentForStaticSiteBuild(ctx, resourceGroupName, name, environmentName, staticSiteZipDeploymentEnvelope, options)
@@ -652,6 +666,7 @@ func (client *StaticSitesClient) BeginCreateZipDeploymentForStaticSiteBuild(ctx 
 
 // CreateZipDeploymentForStaticSiteBuild - Description for Deploys zipped content to a specific environment of a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) createZipDeploymentForStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, staticSiteZipDeploymentEnvelope StaticSiteZipDeploymentARMResource, options *StaticSitesClientBeginCreateZipDeploymentForStaticSiteBuildOptions) (*http.Response, error) {
 	req, err := client.createZipDeploymentForStaticSiteBuildCreateRequest(ctx, resourceGroupName, name, environmentName, staticSiteZipDeploymentEnvelope, options)
@@ -700,12 +715,13 @@ func (client *StaticSitesClient) createZipDeploymentForStaticSiteBuildCreateRequ
 
 // BeginDeletePrivateEndpointConnection - Description for Deletes a private endpoint connection
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// privateEndpointConnectionName - Name of the private endpoint connection.
-// options - StaticSitesClientBeginDeletePrivateEndpointConnectionOptions contains the optional parameters for the StaticSitesClient.BeginDeletePrivateEndpointConnection
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - privateEndpointConnectionName - Name of the private endpoint connection.
+//   - options - StaticSitesClientBeginDeletePrivateEndpointConnectionOptions contains the optional parameters for the StaticSitesClient.BeginDeletePrivateEndpointConnection
+//     method.
 func (client *StaticSitesClient) BeginDeletePrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, options *StaticSitesClientBeginDeletePrivateEndpointConnectionOptions) (*runtime.Poller[StaticSitesClientDeletePrivateEndpointConnectionResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deletePrivateEndpointConnection(ctx, resourceGroupName, name, privateEndpointConnectionName, options)
@@ -720,6 +736,7 @@ func (client *StaticSitesClient) BeginDeletePrivateEndpointConnection(ctx contex
 
 // DeletePrivateEndpointConnection - Description for Deletes a private endpoint connection
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) deletePrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, options *StaticSitesClientBeginDeletePrivateEndpointConnectionOptions) (*http.Response, error) {
 	req, err := client.deletePrivateEndpointConnectionCreateRequest(ctx, resourceGroupName, name, privateEndpointConnectionName, options)
@@ -768,11 +785,12 @@ func (client *StaticSitesClient) deletePrivateEndpointConnectionCreateRequest(ct
 
 // BeginDeleteStaticSite - Description for Deletes a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site to delete.
-// options - StaticSitesClientBeginDeleteStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginDeleteStaticSite
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site to delete.
+//   - options - StaticSitesClientBeginDeleteStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginDeleteStaticSite
+//     method.
 func (client *StaticSitesClient) BeginDeleteStaticSite(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientBeginDeleteStaticSiteOptions) (*runtime.Poller[StaticSitesClientDeleteStaticSiteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteStaticSite(ctx, resourceGroupName, name, options)
@@ -787,6 +805,7 @@ func (client *StaticSitesClient) BeginDeleteStaticSite(ctx context.Context, reso
 
 // DeleteStaticSite - Description for Deletes a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) deleteStaticSite(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientBeginDeleteStaticSiteOptions) (*http.Response, error) {
 	req, err := client.deleteStaticSiteCreateRequest(ctx, resourceGroupName, name, options)
@@ -831,12 +850,13 @@ func (client *StaticSitesClient) deleteStaticSiteCreateRequest(ctx context.Conte
 
 // BeginDeleteStaticSiteBuild - Description for Deletes a static site build.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// options - StaticSitesClientBeginDeleteStaticSiteBuildOptions contains the optional parameters for the StaticSitesClient.BeginDeleteStaticSiteBuild
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - options - StaticSitesClientBeginDeleteStaticSiteBuildOptions contains the optional parameters for the StaticSitesClient.BeginDeleteStaticSiteBuild
+//     method.
 func (client *StaticSitesClient) BeginDeleteStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, options *StaticSitesClientBeginDeleteStaticSiteBuildOptions) (*runtime.Poller[StaticSitesClientDeleteStaticSiteBuildResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteStaticSiteBuild(ctx, resourceGroupName, name, environmentName, options)
@@ -851,6 +871,7 @@ func (client *StaticSitesClient) BeginDeleteStaticSiteBuild(ctx context.Context,
 
 // DeleteStaticSiteBuild - Description for Deletes a static site build.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) deleteStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, options *StaticSitesClientBeginDeleteStaticSiteBuildOptions) (*http.Response, error) {
 	req, err := client.deleteStaticSiteBuildCreateRequest(ctx, resourceGroupName, name, environmentName, options)
@@ -899,12 +920,13 @@ func (client *StaticSitesClient) deleteStaticSiteBuildCreateRequest(ctx context.
 
 // BeginDeleteStaticSiteCustomDomain - Description for Deletes a custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// domainName - The custom domain to delete.
-// options - StaticSitesClientBeginDeleteStaticSiteCustomDomainOptions contains the optional parameters for the StaticSitesClient.BeginDeleteStaticSiteCustomDomain
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - domainName - The custom domain to delete.
+//   - options - StaticSitesClientBeginDeleteStaticSiteCustomDomainOptions contains the optional parameters for the StaticSitesClient.BeginDeleteStaticSiteCustomDomain
+//     method.
 func (client *StaticSitesClient) BeginDeleteStaticSiteCustomDomain(ctx context.Context, resourceGroupName string, name string, domainName string, options *StaticSitesClientBeginDeleteStaticSiteCustomDomainOptions) (*runtime.Poller[StaticSitesClientDeleteStaticSiteCustomDomainResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteStaticSiteCustomDomain(ctx, resourceGroupName, name, domainName, options)
@@ -919,6 +941,7 @@ func (client *StaticSitesClient) BeginDeleteStaticSiteCustomDomain(ctx context.C
 
 // DeleteStaticSiteCustomDomain - Description for Deletes a custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) deleteStaticSiteCustomDomain(ctx context.Context, resourceGroupName string, name string, domainName string, options *StaticSitesClientBeginDeleteStaticSiteCustomDomainOptions) (*http.Response, error) {
 	req, err := client.deleteStaticSiteCustomDomainCreateRequest(ctx, resourceGroupName, name, domainName, options)
@@ -967,13 +990,14 @@ func (client *StaticSitesClient) deleteStaticSiteCustomDomainCreateRequest(ctx c
 
 // DeleteStaticSiteUser - Description for Deletes the user entry from the static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the staticsite.
-// authprovider - The auth provider for this user.
-// userid - The user id of the user.
-// options - StaticSitesClientDeleteStaticSiteUserOptions contains the optional parameters for the StaticSitesClient.DeleteStaticSiteUser
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the staticsite.
+//   - authprovider - The auth provider for this user.
+//   - userid - The user id of the user.
+//   - options - StaticSitesClientDeleteStaticSiteUserOptions contains the optional parameters for the StaticSitesClient.DeleteStaticSiteUser
+//     method.
 func (client *StaticSitesClient) DeleteStaticSiteUser(ctx context.Context, resourceGroupName string, name string, authprovider string, userid string, options *StaticSitesClientDeleteStaticSiteUserOptions) (StaticSitesClientDeleteStaticSiteUserResponse, error) {
 	req, err := client.deleteStaticSiteUserCreateRequest(ctx, resourceGroupName, name, authprovider, userid, options)
 	if err != nil {
@@ -1025,11 +1049,12 @@ func (client *StaticSitesClient) deleteStaticSiteUserCreateRequest(ctx context.C
 
 // BeginDetachStaticSite - Description for Detaches a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site to detach.
-// options - StaticSitesClientBeginDetachStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginDetachStaticSite
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site to detach.
+//   - options - StaticSitesClientBeginDetachStaticSiteOptions contains the optional parameters for the StaticSitesClient.BeginDetachStaticSite
+//     method.
 func (client *StaticSitesClient) BeginDetachStaticSite(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientBeginDetachStaticSiteOptions) (*runtime.Poller[StaticSitesClientDetachStaticSiteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.detachStaticSite(ctx, resourceGroupName, name, options)
@@ -1044,6 +1069,7 @@ func (client *StaticSitesClient) BeginDetachStaticSite(ctx context.Context, reso
 
 // DetachStaticSite - Description for Detaches a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) detachStaticSite(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientBeginDetachStaticSiteOptions) (*http.Response, error) {
 	req, err := client.detachStaticSiteCreateRequest(ctx, resourceGroupName, name, options)
@@ -1088,12 +1114,13 @@ func (client *StaticSitesClient) detachStaticSiteCreateRequest(ctx context.Conte
 
 // DetachUserProvidedFunctionAppFromStaticSite - Description for Detach the user provided function app from the static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// functionAppName - Name of the function app registered with the static site.
-// options - StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteOptions contains the optional parameters for the
-// StaticSitesClient.DetachUserProvidedFunctionAppFromStaticSite method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - functionAppName - Name of the function app registered with the static site.
+//   - options - StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteOptions contains the optional parameters for the
+//     StaticSitesClient.DetachUserProvidedFunctionAppFromStaticSite method.
 func (client *StaticSitesClient) DetachUserProvidedFunctionAppFromStaticSite(ctx context.Context, resourceGroupName string, name string, functionAppName string, options *StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteOptions) (StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteResponse, error) {
 	req, err := client.detachUserProvidedFunctionAppFromStaticSiteCreateRequest(ctx, resourceGroupName, name, functionAppName, options)
 	if err != nil {
@@ -1142,13 +1169,14 @@ func (client *StaticSitesClient) detachUserProvidedFunctionAppFromStaticSiteCrea
 // DetachUserProvidedFunctionAppFromStaticSiteBuild - Description for Detach the user provided function app from the static
 // site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// functionAppName - Name of the function app registered with the static site build.
-// options - StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteBuildOptions contains the optional parameters for
-// the StaticSitesClient.DetachUserProvidedFunctionAppFromStaticSiteBuild method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - functionAppName - Name of the function app registered with the static site build.
+//   - options - StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteBuildOptions contains the optional parameters for
+//     the StaticSitesClient.DetachUserProvidedFunctionAppFromStaticSiteBuild method.
 func (client *StaticSitesClient) DetachUserProvidedFunctionAppFromStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, functionAppName string, options *StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteBuildOptions) (StaticSitesClientDetachUserProvidedFunctionAppFromStaticSiteBuildResponse, error) {
 	req, err := client.detachUserProvidedFunctionAppFromStaticSiteBuildCreateRequest(ctx, resourceGroupName, name, environmentName, functionAppName, options)
 	if err != nil {
@@ -1200,12 +1228,13 @@ func (client *StaticSitesClient) detachUserProvidedFunctionAppFromStaticSiteBuil
 
 // GetLinkedBackend - Returns the details of a linked backend linked to a static site by name
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// linkedBackendName - Name of the linked backend that should be retrieved
-// options - StaticSitesClientGetLinkedBackendOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackend
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - linkedBackendName - Name of the linked backend that should be retrieved
+//   - options - StaticSitesClientGetLinkedBackendOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackend
+//     method.
 func (client *StaticSitesClient) GetLinkedBackend(ctx context.Context, resourceGroupName string, name string, linkedBackendName string, options *StaticSitesClientGetLinkedBackendOptions) (StaticSitesClientGetLinkedBackendResponse, error) {
 	req, err := client.getLinkedBackendCreateRequest(ctx, resourceGroupName, name, linkedBackendName, options)
 	if err != nil {
@@ -1262,13 +1291,14 @@ func (client *StaticSitesClient) getLinkedBackendHandleResponse(resp *http.Respo
 
 // GetLinkedBackendForBuild - Returns the details of a linked backend linked to a static site build by name
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// environmentName - The stage site identifier
-// linkedBackendName - Name of the linked backend that should be retrieved
-// options - StaticSitesClientGetLinkedBackendForBuildOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackendForBuild
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - environmentName - The stage site identifier
+//   - linkedBackendName - Name of the linked backend that should be retrieved
+//   - options - StaticSitesClientGetLinkedBackendForBuildOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackendForBuild
+//     method.
 func (client *StaticSitesClient) GetLinkedBackendForBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, linkedBackendName string, options *StaticSitesClientGetLinkedBackendForBuildOptions) (StaticSitesClientGetLinkedBackendForBuildResponse, error) {
 	req, err := client.getLinkedBackendForBuildCreateRequest(ctx, resourceGroupName, name, environmentName, linkedBackendName, options)
 	if err != nil {
@@ -1328,12 +1358,12 @@ func (client *StaticSitesClient) getLinkedBackendForBuildHandleResponse(resp *ht
 }
 
 // NewGetLinkedBackendsPager - Returns details of all backends linked to a static site
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// options - StaticSitesClientGetLinkedBackendsOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackends
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - options - StaticSitesClientGetLinkedBackendsOptions contains the optional parameters for the StaticSitesClient.NewGetLinkedBackendsPager
+//     method.
 func (client *StaticSitesClient) NewGetLinkedBackendsPager(resourceGroupName string, name string, options *StaticSitesClientGetLinkedBackendsOptions) *runtime.Pager[StaticSitesClientGetLinkedBackendsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientGetLinkedBackendsResponse]{
 		More: func(page StaticSitesClientGetLinkedBackendsResponse) bool {
@@ -1398,13 +1428,13 @@ func (client *StaticSitesClient) getLinkedBackendsHandleResponse(resp *http.Resp
 }
 
 // NewGetLinkedBackendsForBuildPager - Returns details of all backends linked to a static site build
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// environmentName - The stage site identifier
-// options - StaticSitesClientGetLinkedBackendsForBuildOptions contains the optional parameters for the StaticSitesClient.GetLinkedBackendsForBuild
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - environmentName - The stage site identifier
+//   - options - StaticSitesClientGetLinkedBackendsForBuildOptions contains the optional parameters for the StaticSitesClient.NewGetLinkedBackendsForBuildPager
+//     method.
 func (client *StaticSitesClient) NewGetLinkedBackendsForBuildPager(resourceGroupName string, name string, environmentName string, options *StaticSitesClientGetLinkedBackendsForBuildOptions) *runtime.Pager[StaticSitesClientGetLinkedBackendsForBuildResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientGetLinkedBackendsForBuildResponse]{
 		More: func(page StaticSitesClientGetLinkedBackendsForBuildResponse) bool {
@@ -1474,12 +1504,13 @@ func (client *StaticSitesClient) getLinkedBackendsForBuildHandleResponse(resp *h
 
 // GetPrivateEndpointConnection - Description for Gets a private endpoint connection
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// privateEndpointConnectionName - Name of the private endpoint connection.
-// options - StaticSitesClientGetPrivateEndpointConnectionOptions contains the optional parameters for the StaticSitesClient.GetPrivateEndpointConnection
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - privateEndpointConnectionName - Name of the private endpoint connection.
+//   - options - StaticSitesClientGetPrivateEndpointConnectionOptions contains the optional parameters for the StaticSitesClient.GetPrivateEndpointConnection
+//     method.
 func (client *StaticSitesClient) GetPrivateEndpointConnection(ctx context.Context, resourceGroupName string, name string, privateEndpointConnectionName string, options *StaticSitesClientGetPrivateEndpointConnectionOptions) (StaticSitesClientGetPrivateEndpointConnectionResponse, error) {
 	req, err := client.getPrivateEndpointConnectionCreateRequest(ctx, resourceGroupName, name, privateEndpointConnectionName, options)
 	if err != nil {
@@ -1536,12 +1567,12 @@ func (client *StaticSitesClient) getPrivateEndpointConnectionHandleResponse(resp
 
 // NewGetPrivateEndpointConnectionListPager - Description for Gets the list of private endpoint connections associated with
 // a static site
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientGetPrivateEndpointConnectionListOptions contains the optional parameters for the StaticSitesClient.GetPrivateEndpointConnectionList
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientGetPrivateEndpointConnectionListOptions contains the optional parameters for the StaticSitesClient.NewGetPrivateEndpointConnectionListPager
+//     method.
 func (client *StaticSitesClient) NewGetPrivateEndpointConnectionListPager(resourceGroupName string, name string, options *StaticSitesClientGetPrivateEndpointConnectionListOptions) *runtime.Pager[StaticSitesClientGetPrivateEndpointConnectionListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientGetPrivateEndpointConnectionListResponse]{
 		More: func(page StaticSitesClientGetPrivateEndpointConnectionListResponse) bool {
@@ -1607,11 +1638,12 @@ func (client *StaticSitesClient) getPrivateEndpointConnectionListHandleResponse(
 
 // GetPrivateLinkResources - Description for Gets the private link resources
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the site.
-// options - StaticSitesClientGetPrivateLinkResourcesOptions contains the optional parameters for the StaticSitesClient.GetPrivateLinkResources
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the site.
+//   - options - StaticSitesClientGetPrivateLinkResourcesOptions contains the optional parameters for the StaticSitesClient.GetPrivateLinkResources
+//     method.
 func (client *StaticSitesClient) GetPrivateLinkResources(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientGetPrivateLinkResourcesOptions) (StaticSitesClientGetPrivateLinkResourcesResponse, error) {
 	req, err := client.getPrivateLinkResourcesCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -1664,11 +1696,12 @@ func (client *StaticSitesClient) getPrivateLinkResourcesHandleResponse(resp *htt
 
 // GetStaticSite - Description for Gets the details of a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientGetStaticSiteOptions contains the optional parameters for the StaticSitesClient.GetStaticSite
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientGetStaticSiteOptions contains the optional parameters for the StaticSitesClient.GetStaticSite
+//     method.
 func (client *StaticSitesClient) GetStaticSite(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientGetStaticSiteOptions) (StaticSitesClientGetStaticSiteResponse, error) {
 	req, err := client.getStaticSiteCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -1721,12 +1754,13 @@ func (client *StaticSitesClient) getStaticSiteHandleResponse(resp *http.Response
 
 // GetStaticSiteBuild - Description for Gets the details of a static site build.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// options - StaticSitesClientGetStaticSiteBuildOptions contains the optional parameters for the StaticSitesClient.GetStaticSiteBuild
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - options - StaticSitesClientGetStaticSiteBuildOptions contains the optional parameters for the StaticSitesClient.GetStaticSiteBuild
+//     method.
 func (client *StaticSitesClient) GetStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, options *StaticSitesClientGetStaticSiteBuildOptions) (StaticSitesClientGetStaticSiteBuildResponse, error) {
 	req, err := client.getStaticSiteBuildCreateRequest(ctx, resourceGroupName, name, environmentName, options)
 	if err != nil {
@@ -1782,12 +1816,12 @@ func (client *StaticSitesClient) getStaticSiteBuildHandleResponse(resp *http.Res
 }
 
 // NewGetStaticSiteBuildsPager - Description for Gets all static site builds for a particular static site.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientGetStaticSiteBuildsOptions contains the optional parameters for the StaticSitesClient.GetStaticSiteBuilds
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientGetStaticSiteBuildsOptions contains the optional parameters for the StaticSitesClient.NewGetStaticSiteBuildsPager
+//     method.
 func (client *StaticSitesClient) NewGetStaticSiteBuildsPager(resourceGroupName string, name string, options *StaticSitesClientGetStaticSiteBuildsOptions) *runtime.Pager[StaticSitesClientGetStaticSiteBuildsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientGetStaticSiteBuildsResponse]{
 		More: func(page StaticSitesClientGetStaticSiteBuildsResponse) bool {
@@ -1853,12 +1887,13 @@ func (client *StaticSitesClient) getStaticSiteBuildsHandleResponse(resp *http.Re
 
 // GetStaticSiteCustomDomain - Description for Gets an existing custom domain for a particular static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site resource to search in.
-// domainName - The custom domain name.
-// options - StaticSitesClientGetStaticSiteCustomDomainOptions contains the optional parameters for the StaticSitesClient.GetStaticSiteCustomDomain
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site resource to search in.
+//   - domainName - The custom domain name.
+//   - options - StaticSitesClientGetStaticSiteCustomDomainOptions contains the optional parameters for the StaticSitesClient.GetStaticSiteCustomDomain
+//     method.
 func (client *StaticSitesClient) GetStaticSiteCustomDomain(ctx context.Context, resourceGroupName string, name string, domainName string, options *StaticSitesClientGetStaticSiteCustomDomainOptions) (StaticSitesClientGetStaticSiteCustomDomainResponse, error) {
 	req, err := client.getStaticSiteCustomDomainCreateRequest(ctx, resourceGroupName, name, domainName, options)
 	if err != nil {
@@ -1914,11 +1949,11 @@ func (client *StaticSitesClient) getStaticSiteCustomDomainHandleResponse(resp *h
 }
 
 // NewGetStaticSitesByResourceGroupPager - Description for Gets all static sites in the specified resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// options - StaticSitesClientGetStaticSitesByResourceGroupOptions contains the optional parameters for the StaticSitesClient.GetStaticSitesByResourceGroup
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - options - StaticSitesClientGetStaticSitesByResourceGroupOptions contains the optional parameters for the StaticSitesClient.NewGetStaticSitesByResourceGroupPager
+//     method.
 func (client *StaticSitesClient) NewGetStaticSitesByResourceGroupPager(resourceGroupName string, options *StaticSitesClientGetStaticSitesByResourceGroupOptions) *runtime.Pager[StaticSitesClientGetStaticSitesByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientGetStaticSitesByResourceGroupResponse]{
 		More: func(page StaticSitesClientGetStaticSitesByResourceGroupResponse) bool {
@@ -1981,12 +2016,13 @@ func (client *StaticSitesClient) getStaticSitesByResourceGroupHandleResponse(res
 // GetUserProvidedFunctionAppForStaticSite - Description for Gets the details of the user provided function app registered
 // with a static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// functionAppName - Name of the function app registered with the static site.
-// options - StaticSitesClientGetUserProvidedFunctionAppForStaticSiteOptions contains the optional parameters for the StaticSitesClient.GetUserProvidedFunctionAppForStaticSite
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - functionAppName - Name of the function app registered with the static site.
+//   - options - StaticSitesClientGetUserProvidedFunctionAppForStaticSiteOptions contains the optional parameters for the StaticSitesClient.GetUserProvidedFunctionAppForStaticSite
+//     method.
 func (client *StaticSitesClient) GetUserProvidedFunctionAppForStaticSite(ctx context.Context, resourceGroupName string, name string, functionAppName string, options *StaticSitesClientGetUserProvidedFunctionAppForStaticSiteOptions) (StaticSitesClientGetUserProvidedFunctionAppForStaticSiteResponse, error) {
 	req, err := client.getUserProvidedFunctionAppForStaticSiteCreateRequest(ctx, resourceGroupName, name, functionAppName, options)
 	if err != nil {
@@ -2044,13 +2080,14 @@ func (client *StaticSitesClient) getUserProvidedFunctionAppForStaticSiteHandleRe
 // GetUserProvidedFunctionAppForStaticSiteBuild - Description for Gets the details of the user provided function app registered
 // with a static site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// functionAppName - Name of the function app registered with the static site build.
-// options - StaticSitesClientGetUserProvidedFunctionAppForStaticSiteBuildOptions contains the optional parameters for the
-// StaticSitesClient.GetUserProvidedFunctionAppForStaticSiteBuild method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - functionAppName - Name of the function app registered with the static site build.
+//   - options - StaticSitesClientGetUserProvidedFunctionAppForStaticSiteBuildOptions contains the optional parameters for the
+//     StaticSitesClient.GetUserProvidedFunctionAppForStaticSiteBuild method.
 func (client *StaticSitesClient) GetUserProvidedFunctionAppForStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, functionAppName string, options *StaticSitesClientGetUserProvidedFunctionAppForStaticSiteBuildOptions) (StaticSitesClientGetUserProvidedFunctionAppForStaticSiteBuildResponse, error) {
 	req, err := client.getUserProvidedFunctionAppForStaticSiteBuildCreateRequest(ctx, resourceGroupName, name, environmentName, functionAppName, options)
 	if err != nil {
@@ -2111,12 +2148,12 @@ func (client *StaticSitesClient) getUserProvidedFunctionAppForStaticSiteBuildHan
 
 // NewGetUserProvidedFunctionAppsForStaticSitePager - Description for Gets the details of the user provided function apps
 // registered with a static site
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteOptions contains the optional parameters for the StaticSitesClient.GetUserProvidedFunctionAppsForStaticSite
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteOptions contains the optional parameters for the StaticSitesClient.NewGetUserProvidedFunctionAppsForStaticSitePager
+//     method.
 func (client *StaticSitesClient) NewGetUserProvidedFunctionAppsForStaticSitePager(resourceGroupName string, name string, options *StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteOptions) *runtime.Pager[StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteResponse]{
 		More: func(page StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteResponse) bool {
@@ -2182,13 +2219,13 @@ func (client *StaticSitesClient) getUserProvidedFunctionAppsForStaticSiteHandleR
 
 // NewGetUserProvidedFunctionAppsForStaticSiteBuildPager - Description for Gets the details of the user provided function
 // apps registered with a static site build
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// options - StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteBuildOptions contains the optional parameters for the
-// StaticSitesClient.GetUserProvidedFunctionAppsForStaticSiteBuild method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - options - StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteBuildOptions contains the optional parameters for the
+//     StaticSitesClient.NewGetUserProvidedFunctionAppsForStaticSiteBuildPager method.
 func (client *StaticSitesClient) NewGetUserProvidedFunctionAppsForStaticSiteBuildPager(resourceGroupName string, name string, environmentName string, options *StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteBuildOptions) *runtime.Pager[StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteBuildResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteBuildResponse]{
 		More: func(page StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteBuildResponse) bool {
@@ -2258,13 +2295,14 @@ func (client *StaticSitesClient) getUserProvidedFunctionAppsForStaticSiteBuildHa
 
 // BeginLinkBackend - Link backend to a static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// linkedBackendName - Name of the backend to link to the static site
-// staticSiteLinkedBackendEnvelope - A JSON representation of the linked backend request properties
-// options - StaticSitesClientBeginLinkBackendOptions contains the optional parameters for the StaticSitesClient.BeginLinkBackend
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - linkedBackendName - Name of the backend to link to the static site
+//   - staticSiteLinkedBackendEnvelope - A JSON representation of the linked backend request properties
+//   - options - StaticSitesClientBeginLinkBackendOptions contains the optional parameters for the StaticSitesClient.BeginLinkBackend
+//     method.
 func (client *StaticSitesClient) BeginLinkBackend(ctx context.Context, resourceGroupName string, name string, linkedBackendName string, staticSiteLinkedBackendEnvelope StaticSiteLinkedBackendARMResource, options *StaticSitesClientBeginLinkBackendOptions) (*runtime.Poller[StaticSitesClientLinkBackendResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.linkBackend(ctx, resourceGroupName, name, linkedBackendName, staticSiteLinkedBackendEnvelope, options)
@@ -2279,6 +2317,7 @@ func (client *StaticSitesClient) BeginLinkBackend(ctx context.Context, resourceG
 
 // LinkBackend - Link backend to a static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) linkBackend(ctx context.Context, resourceGroupName string, name string, linkedBackendName string, staticSiteLinkedBackendEnvelope StaticSiteLinkedBackendARMResource, options *StaticSitesClientBeginLinkBackendOptions) (*http.Response, error) {
 	req, err := client.linkBackendCreateRequest(ctx, resourceGroupName, name, linkedBackendName, staticSiteLinkedBackendEnvelope, options)
@@ -2327,14 +2366,15 @@ func (client *StaticSitesClient) linkBackendCreateRequest(ctx context.Context, r
 
 // BeginLinkBackendToBuild - Link backend to a static site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// environmentName - The stage site identifier
-// linkedBackendName - Name of the backend to link to the static site
-// staticSiteLinkedBackendEnvelope - A JSON representation of the linked backend request properties
-// options - StaticSitesClientBeginLinkBackendToBuildOptions contains the optional parameters for the StaticSitesClient.BeginLinkBackendToBuild
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - environmentName - The stage site identifier
+//   - linkedBackendName - Name of the backend to link to the static site
+//   - staticSiteLinkedBackendEnvelope - A JSON representation of the linked backend request properties
+//   - options - StaticSitesClientBeginLinkBackendToBuildOptions contains the optional parameters for the StaticSitesClient.BeginLinkBackendToBuild
+//     method.
 func (client *StaticSitesClient) BeginLinkBackendToBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, linkedBackendName string, staticSiteLinkedBackendEnvelope StaticSiteLinkedBackendARMResource, options *StaticSitesClientBeginLinkBackendToBuildOptions) (*runtime.Poller[StaticSitesClientLinkBackendToBuildResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.linkBackendToBuild(ctx, resourceGroupName, name, environmentName, linkedBackendName, staticSiteLinkedBackendEnvelope, options)
@@ -2349,6 +2389,7 @@ func (client *StaticSitesClient) BeginLinkBackendToBuild(ctx context.Context, re
 
 // LinkBackendToBuild - Link backend to a static site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) linkBackendToBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, linkedBackendName string, staticSiteLinkedBackendEnvelope StaticSiteLinkedBackendARMResource, options *StaticSitesClientBeginLinkBackendToBuildOptions) (*http.Response, error) {
 	req, err := client.linkBackendToBuildCreateRequest(ctx, resourceGroupName, name, environmentName, linkedBackendName, staticSiteLinkedBackendEnvelope, options)
@@ -2400,9 +2441,9 @@ func (client *StaticSitesClient) linkBackendToBuildCreateRequest(ctx context.Con
 }
 
 // NewListPager - Description for Get all Static Sites for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - StaticSitesClientListOptions contains the optional parameters for the StaticSitesClient.List method.
+//   - options - StaticSitesClientListOptions contains the optional parameters for the StaticSitesClient.NewListPager method.
 func (client *StaticSitesClient) NewListPager(options *StaticSitesClientListOptions) *runtime.Pager[StaticSitesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientListResponse]{
 		More: func(page StaticSitesClientListResponse) bool {
@@ -2460,11 +2501,12 @@ func (client *StaticSitesClient) listHandleResponse(resp *http.Response) (Static
 
 // ListStaticSiteAppSettings - Description for Gets the application settings of a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientListStaticSiteAppSettingsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteAppSettings
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientListStaticSiteAppSettingsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteAppSettings
+//     method.
 func (client *StaticSitesClient) ListStaticSiteAppSettings(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientListStaticSiteAppSettingsOptions) (StaticSitesClientListStaticSiteAppSettingsResponse, error) {
 	req, err := client.listStaticSiteAppSettingsCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -2517,12 +2559,13 @@ func (client *StaticSitesClient) listStaticSiteAppSettingsHandleResponse(resp *h
 
 // ListStaticSiteBuildAppSettings - Description for Gets the application settings of a static site build.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// options - StaticSitesClientListStaticSiteBuildAppSettingsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteBuildAppSettings
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - options - StaticSitesClientListStaticSiteBuildAppSettingsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteBuildAppSettings
+//     method.
 func (client *StaticSitesClient) ListStaticSiteBuildAppSettings(ctx context.Context, resourceGroupName string, name string, environmentName string, options *StaticSitesClientListStaticSiteBuildAppSettingsOptions) (StaticSitesClientListStaticSiteBuildAppSettingsResponse, error) {
 	req, err := client.listStaticSiteBuildAppSettingsCreateRequest(ctx, resourceGroupName, name, environmentName, options)
 	if err != nil {
@@ -2579,12 +2622,13 @@ func (client *StaticSitesClient) listStaticSiteBuildAppSettingsHandleResponse(re
 
 // ListStaticSiteBuildFunctionAppSettings - Description for Gets the application settings of a static site build.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// options - StaticSitesClientListStaticSiteBuildFunctionAppSettingsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteBuildFunctionAppSettings
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - options - StaticSitesClientListStaticSiteBuildFunctionAppSettingsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteBuildFunctionAppSettings
+//     method.
 func (client *StaticSitesClient) ListStaticSiteBuildFunctionAppSettings(ctx context.Context, resourceGroupName string, name string, environmentName string, options *StaticSitesClientListStaticSiteBuildFunctionAppSettingsOptions) (StaticSitesClientListStaticSiteBuildFunctionAppSettingsResponse, error) {
 	req, err := client.listStaticSiteBuildFunctionAppSettingsCreateRequest(ctx, resourceGroupName, name, environmentName, options)
 	if err != nil {
@@ -2640,13 +2684,13 @@ func (client *StaticSitesClient) listStaticSiteBuildFunctionAppSettingsHandleRes
 }
 
 // NewListStaticSiteBuildFunctionsPager - Description for Gets the functions of a particular static site build.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// options - StaticSitesClientListStaticSiteBuildFunctionsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteBuildFunctions
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - options - StaticSitesClientListStaticSiteBuildFunctionsOptions contains the optional parameters for the StaticSitesClient.NewListStaticSiteBuildFunctionsPager
+//     method.
 func (client *StaticSitesClient) NewListStaticSiteBuildFunctionsPager(resourceGroupName string, name string, environmentName string, options *StaticSitesClientListStaticSiteBuildFunctionsOptions) *runtime.Pager[StaticSitesClientListStaticSiteBuildFunctionsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientListStaticSiteBuildFunctionsResponse]{
 		More: func(page StaticSitesClientListStaticSiteBuildFunctionsResponse) bool {
@@ -2716,11 +2760,12 @@ func (client *StaticSitesClient) listStaticSiteBuildFunctionsHandleResponse(resp
 
 // ListStaticSiteConfiguredRoles - Description for Lists the roles configured for the static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientListStaticSiteConfiguredRolesOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteConfiguredRoles
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientListStaticSiteConfiguredRolesOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteConfiguredRoles
+//     method.
 func (client *StaticSitesClient) ListStaticSiteConfiguredRoles(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientListStaticSiteConfiguredRolesOptions) (StaticSitesClientListStaticSiteConfiguredRolesResponse, error) {
 	req, err := client.listStaticSiteConfiguredRolesCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -2772,12 +2817,12 @@ func (client *StaticSitesClient) listStaticSiteConfiguredRolesHandleResponse(res
 }
 
 // NewListStaticSiteCustomDomainsPager - Description for Gets all static site custom domains for a particular static site.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site resource to search in.
-// options - StaticSitesClientListStaticSiteCustomDomainsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteCustomDomains
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site resource to search in.
+//   - options - StaticSitesClientListStaticSiteCustomDomainsOptions contains the optional parameters for the StaticSitesClient.NewListStaticSiteCustomDomainsPager
+//     method.
 func (client *StaticSitesClient) NewListStaticSiteCustomDomainsPager(resourceGroupName string, name string, options *StaticSitesClientListStaticSiteCustomDomainsOptions) *runtime.Pager[StaticSitesClientListStaticSiteCustomDomainsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientListStaticSiteCustomDomainsResponse]{
 		More: func(page StaticSitesClientListStaticSiteCustomDomainsResponse) bool {
@@ -2843,11 +2888,12 @@ func (client *StaticSitesClient) listStaticSiteCustomDomainsHandleResponse(resp 
 
 // ListStaticSiteFunctionAppSettings - Description for Gets the application settings of a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientListStaticSiteFunctionAppSettingsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteFunctionAppSettings
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientListStaticSiteFunctionAppSettingsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteFunctionAppSettings
+//     method.
 func (client *StaticSitesClient) ListStaticSiteFunctionAppSettings(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientListStaticSiteFunctionAppSettingsOptions) (StaticSitesClientListStaticSiteFunctionAppSettingsResponse, error) {
 	req, err := client.listStaticSiteFunctionAppSettingsCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -2899,12 +2945,12 @@ func (client *StaticSitesClient) listStaticSiteFunctionAppSettingsHandleResponse
 }
 
 // NewListStaticSiteFunctionsPager - Description for Gets the functions of a static site.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientListStaticSiteFunctionsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteFunctions
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientListStaticSiteFunctionsOptions contains the optional parameters for the StaticSitesClient.NewListStaticSiteFunctionsPager
+//     method.
 func (client *StaticSitesClient) NewListStaticSiteFunctionsPager(resourceGroupName string, name string, options *StaticSitesClientListStaticSiteFunctionsOptions) *runtime.Pager[StaticSitesClientListStaticSiteFunctionsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientListStaticSiteFunctionsResponse]{
 		More: func(page StaticSitesClientListStaticSiteFunctionsResponse) bool {
@@ -2970,11 +3016,12 @@ func (client *StaticSitesClient) listStaticSiteFunctionsHandleResponse(resp *htt
 
 // ListStaticSiteSecrets - Description for Lists the secrets for an existing static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientListStaticSiteSecretsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteSecrets
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientListStaticSiteSecretsOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteSecrets
+//     method.
 func (client *StaticSitesClient) ListStaticSiteSecrets(ctx context.Context, resourceGroupName string, name string, options *StaticSitesClientListStaticSiteSecretsOptions) (StaticSitesClientListStaticSiteSecretsResponse, error) {
 	req, err := client.listStaticSiteSecretsCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -3026,13 +3073,13 @@ func (client *StaticSitesClient) listStaticSiteSecretsHandleResponse(resp *http.
 }
 
 // NewListStaticSiteUsersPager - Description for Gets the list of users of a static site.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// authprovider - The auth provider for the users.
-// options - StaticSitesClientListStaticSiteUsersOptions contains the optional parameters for the StaticSitesClient.ListStaticSiteUsers
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - authprovider - The auth provider for the users.
+//   - options - StaticSitesClientListStaticSiteUsersOptions contains the optional parameters for the StaticSitesClient.NewListStaticSiteUsersPager
+//     method.
 func (client *StaticSitesClient) NewListStaticSiteUsersPager(resourceGroupName string, name string, authprovider string, options *StaticSitesClientListStaticSiteUsersOptions) *runtime.Pager[StaticSitesClientListStaticSiteUsersResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StaticSitesClientListStaticSiteUsersResponse]{
 		More: func(page StaticSitesClientListStaticSiteUsersResponse) bool {
@@ -3102,11 +3149,12 @@ func (client *StaticSitesClient) listStaticSiteUsersHandleResponse(resp *http.Re
 
 // PreviewWorkflow - Description for Generates a preview workflow file for the static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// location - Location where you plan to create the static site.
-// staticSitesWorkflowPreviewRequest - A JSON representation of the StaticSitesWorkflowPreviewRequest properties. See example.
-// options - StaticSitesClientPreviewWorkflowOptions contains the optional parameters for the StaticSitesClient.PreviewWorkflow
-// method.
+//   - location - Location where you plan to create the static site.
+//   - staticSitesWorkflowPreviewRequest - A JSON representation of the StaticSitesWorkflowPreviewRequest properties. See example.
+//   - options - StaticSitesClientPreviewWorkflowOptions contains the optional parameters for the StaticSitesClient.PreviewWorkflow
+//     method.
 func (client *StaticSitesClient) PreviewWorkflow(ctx context.Context, location string, staticSitesWorkflowPreviewRequest StaticSitesWorkflowPreviewRequest, options *StaticSitesClientPreviewWorkflowOptions) (StaticSitesClientPreviewWorkflowResponse, error) {
 	req, err := client.previewWorkflowCreateRequest(ctx, location, staticSitesWorkflowPreviewRequest, options)
 	if err != nil {
@@ -3156,13 +3204,14 @@ func (client *StaticSitesClient) previewWorkflowHandleResponse(resp *http.Respon
 // BeginRegisterUserProvidedFunctionAppWithStaticSite - Description for Register a user provided function app with a static
 // site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// functionAppName - Name of the function app to register with the static site.
-// staticSiteUserProvidedFunctionEnvelope - A JSON representation of the user provided function app properties. See example.
-// options - StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteOptions contains the optional parameters for
-// the StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSite method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - functionAppName - Name of the function app to register with the static site.
+//   - staticSiteUserProvidedFunctionEnvelope - A JSON representation of the user provided function app properties. See example.
+//   - options - StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteOptions contains the optional parameters for
+//     the StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSite method.
 func (client *StaticSitesClient) BeginRegisterUserProvidedFunctionAppWithStaticSite(ctx context.Context, resourceGroupName string, name string, functionAppName string, staticSiteUserProvidedFunctionEnvelope StaticSiteUserProvidedFunctionAppARMResource, options *StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteOptions) (*runtime.Poller[StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.registerUserProvidedFunctionAppWithStaticSite(ctx, resourceGroupName, name, functionAppName, staticSiteUserProvidedFunctionEnvelope, options)
@@ -3177,6 +3226,7 @@ func (client *StaticSitesClient) BeginRegisterUserProvidedFunctionAppWithStaticS
 
 // RegisterUserProvidedFunctionAppWithStaticSite - Description for Register a user provided function app with a static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) registerUserProvidedFunctionAppWithStaticSite(ctx context.Context, resourceGroupName string, name string, functionAppName string, staticSiteUserProvidedFunctionEnvelope StaticSiteUserProvidedFunctionAppARMResource, options *StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteOptions) (*http.Response, error) {
 	req, err := client.registerUserProvidedFunctionAppWithStaticSiteCreateRequest(ctx, resourceGroupName, name, functionAppName, staticSiteUserProvidedFunctionEnvelope, options)
@@ -3229,14 +3279,15 @@ func (client *StaticSitesClient) registerUserProvidedFunctionAppWithStaticSiteCr
 // BeginRegisterUserProvidedFunctionAppWithStaticSiteBuild - Description for Register a user provided function app with a
 // static site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// environmentName - The stage site identifier.
-// functionAppName - Name of the function app to register with the static site build.
-// staticSiteUserProvidedFunctionEnvelope - A JSON representation of the user provided function app properties. See example.
-// options - StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteBuildOptions contains the optional parameters
-// for the StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSiteBuild method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - environmentName - The stage site identifier.
+//   - functionAppName - Name of the function app to register with the static site build.
+//   - staticSiteUserProvidedFunctionEnvelope - A JSON representation of the user provided function app properties. See example.
+//   - options - StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteBuildOptions contains the optional parameters
+//     for the StaticSitesClient.BeginRegisterUserProvidedFunctionAppWithStaticSiteBuild method.
 func (client *StaticSitesClient) BeginRegisterUserProvidedFunctionAppWithStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, functionAppName string, staticSiteUserProvidedFunctionEnvelope StaticSiteUserProvidedFunctionAppARMResource, options *StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteBuildOptions) (*runtime.Poller[StaticSitesClientRegisterUserProvidedFunctionAppWithStaticSiteBuildResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.registerUserProvidedFunctionAppWithStaticSiteBuild(ctx, resourceGroupName, name, environmentName, functionAppName, staticSiteUserProvidedFunctionEnvelope, options)
@@ -3252,6 +3303,7 @@ func (client *StaticSitesClient) BeginRegisterUserProvidedFunctionAppWithStaticS
 // RegisterUserProvidedFunctionAppWithStaticSiteBuild - Description for Register a user provided function app with a static
 // site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) registerUserProvidedFunctionAppWithStaticSiteBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, functionAppName string, staticSiteUserProvidedFunctionEnvelope StaticSiteUserProvidedFunctionAppARMResource, options *StaticSitesClientBeginRegisterUserProvidedFunctionAppWithStaticSiteBuildOptions) (*http.Response, error) {
 	req, err := client.registerUserProvidedFunctionAppWithStaticSiteBuildCreateRequest(ctx, resourceGroupName, name, environmentName, functionAppName, staticSiteUserProvidedFunctionEnvelope, options)
@@ -3307,11 +3359,12 @@ func (client *StaticSitesClient) registerUserProvidedFunctionAppWithStaticSiteBu
 
 // ResetStaticSiteAPIKey - Description for Resets the api key for an existing static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// options - StaticSitesClientResetStaticSiteAPIKeyOptions contains the optional parameters for the StaticSitesClient.ResetStaticSiteAPIKey
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - options - StaticSitesClientResetStaticSiteAPIKeyOptions contains the optional parameters for the StaticSitesClient.ResetStaticSiteAPIKey
+//     method.
 func (client *StaticSitesClient) ResetStaticSiteAPIKey(ctx context.Context, resourceGroupName string, name string, resetPropertiesEnvelope StaticSiteResetPropertiesARMResource, options *StaticSitesClientResetStaticSiteAPIKeyOptions) (StaticSitesClientResetStaticSiteAPIKeyResponse, error) {
 	req, err := client.resetStaticSiteAPIKeyCreateRequest(ctx, resourceGroupName, name, resetPropertiesEnvelope, options)
 	if err != nil {
@@ -3355,12 +3408,13 @@ func (client *StaticSitesClient) resetStaticSiteAPIKeyCreateRequest(ctx context.
 
 // UnlinkBackend - Unlink a backend from a static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// linkedBackendName - Name of the backend linked to the static site
-// options - StaticSitesClientUnlinkBackendOptions contains the optional parameters for the StaticSitesClient.UnlinkBackend
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - linkedBackendName - Name of the backend linked to the static site
+//   - options - StaticSitesClientUnlinkBackendOptions contains the optional parameters for the StaticSitesClient.UnlinkBackend
+//     method.
 func (client *StaticSitesClient) UnlinkBackend(ctx context.Context, resourceGroupName string, name string, linkedBackendName string, options *StaticSitesClientUnlinkBackendOptions) (StaticSitesClientUnlinkBackendResponse, error) {
 	req, err := client.unlinkBackendCreateRequest(ctx, resourceGroupName, name, linkedBackendName, options)
 	if err != nil {
@@ -3411,13 +3465,14 @@ func (client *StaticSitesClient) unlinkBackendCreateRequest(ctx context.Context,
 
 // UnlinkBackendFromBuild - Unlink a backend from a static site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// environmentName - The stage site identifier
-// linkedBackendName - Name of the backend linked to the static site
-// options - StaticSitesClientUnlinkBackendFromBuildOptions contains the optional parameters for the StaticSitesClient.UnlinkBackendFromBuild
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - environmentName - The stage site identifier
+//   - linkedBackendName - Name of the backend linked to the static site
+//   - options - StaticSitesClientUnlinkBackendFromBuildOptions contains the optional parameters for the StaticSitesClient.UnlinkBackendFromBuild
+//     method.
 func (client *StaticSitesClient) UnlinkBackendFromBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, linkedBackendName string, options *StaticSitesClientUnlinkBackendFromBuildOptions) (StaticSitesClientUnlinkBackendFromBuildResponse, error) {
 	req, err := client.unlinkBackendFromBuildCreateRequest(ctx, resourceGroupName, name, environmentName, linkedBackendName, options)
 	if err != nil {
@@ -3473,12 +3528,13 @@ func (client *StaticSitesClient) unlinkBackendFromBuildCreateRequest(ctx context
 // UpdateStaticSite - Description for Creates a new static site in an existing resource group, or updates an existing static
 // site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site to create or update.
-// staticSiteEnvelope - A JSON representation of the staticsite properties. See example.
-// options - StaticSitesClientUpdateStaticSiteOptions contains the optional parameters for the StaticSitesClient.UpdateStaticSite
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site to create or update.
+//   - staticSiteEnvelope - A JSON representation of the staticsite properties. See example.
+//   - options - StaticSitesClientUpdateStaticSiteOptions contains the optional parameters for the StaticSitesClient.UpdateStaticSite
+//     method.
 func (client *StaticSitesClient) UpdateStaticSite(ctx context.Context, resourceGroupName string, name string, staticSiteEnvelope StaticSitePatchResource, options *StaticSitesClientUpdateStaticSiteOptions) (StaticSitesClientUpdateStaticSiteResponse, error) {
 	req, err := client.updateStaticSiteCreateRequest(ctx, resourceGroupName, name, staticSiteEnvelope, options)
 	if err != nil {
@@ -3531,14 +3587,15 @@ func (client *StaticSitesClient) updateStaticSiteHandleResponse(resp *http.Respo
 
 // UpdateStaticSiteUser - Description for Updates a user entry with the listed roles
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// authprovider - The auth provider for this user.
-// userid - The user id of the user.
-// staticSiteUserEnvelope - A JSON representation of the StaticSiteUser properties. See example.
-// options - StaticSitesClientUpdateStaticSiteUserOptions contains the optional parameters for the StaticSitesClient.UpdateStaticSiteUser
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - authprovider - The auth provider for this user.
+//   - userid - The user id of the user.
+//   - staticSiteUserEnvelope - A JSON representation of the StaticSiteUser properties. See example.
+//   - options - StaticSitesClientUpdateStaticSiteUserOptions contains the optional parameters for the StaticSitesClient.UpdateStaticSiteUser
+//     method.
 func (client *StaticSitesClient) UpdateStaticSiteUser(ctx context.Context, resourceGroupName string, name string, authprovider string, userid string, staticSiteUserEnvelope StaticSiteUserARMResource, options *StaticSitesClientUpdateStaticSiteUserOptions) (StaticSitesClientUpdateStaticSiteUserResponse, error) {
 	req, err := client.updateStaticSiteUserCreateRequest(ctx, resourceGroupName, name, authprovider, userid, staticSiteUserEnvelope, options)
 	if err != nil {
@@ -3599,13 +3656,14 @@ func (client *StaticSitesClient) updateStaticSiteUserHandleResponse(resp *http.R
 
 // BeginValidateBackend - Validates that a backend can be linked to a static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// linkedBackendName - Name of the linked backend that should be retrieved
-// staticSiteLinkedBackendEnvelope - A JSON representation of the linked backend request properties
-// options - StaticSitesClientBeginValidateBackendOptions contains the optional parameters for the StaticSitesClient.BeginValidateBackend
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - linkedBackendName - Name of the linked backend that should be retrieved
+//   - staticSiteLinkedBackendEnvelope - A JSON representation of the linked backend request properties
+//   - options - StaticSitesClientBeginValidateBackendOptions contains the optional parameters for the StaticSitesClient.BeginValidateBackend
+//     method.
 func (client *StaticSitesClient) BeginValidateBackend(ctx context.Context, resourceGroupName string, name string, linkedBackendName string, staticSiteLinkedBackendEnvelope StaticSiteLinkedBackendARMResource, options *StaticSitesClientBeginValidateBackendOptions) (*runtime.Poller[StaticSitesClientValidateBackendResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.validateBackend(ctx, resourceGroupName, name, linkedBackendName, staticSiteLinkedBackendEnvelope, options)
@@ -3620,6 +3678,7 @@ func (client *StaticSitesClient) BeginValidateBackend(ctx context.Context, resou
 
 // ValidateBackend - Validates that a backend can be linked to a static site
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) validateBackend(ctx context.Context, resourceGroupName string, name string, linkedBackendName string, staticSiteLinkedBackendEnvelope StaticSiteLinkedBackendARMResource, options *StaticSitesClientBeginValidateBackendOptions) (*http.Response, error) {
 	req, err := client.validateBackendCreateRequest(ctx, resourceGroupName, name, linkedBackendName, staticSiteLinkedBackendEnvelope, options)
@@ -3668,14 +3727,15 @@ func (client *StaticSitesClient) validateBackendCreateRequest(ctx context.Contex
 
 // BeginValidateBackendForBuild - Validates that a backend can be linked to a static site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site
-// environmentName - The stage site identifier
-// linkedBackendName - Name of the linked backend that should be retrieved
-// staticSiteLinkedBackendEnvelope - A JSON representation of the linked backend request properties
-// options - StaticSitesClientBeginValidateBackendForBuildOptions contains the optional parameters for the StaticSitesClient.BeginValidateBackendForBuild
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site
+//   - environmentName - The stage site identifier
+//   - linkedBackendName - Name of the linked backend that should be retrieved
+//   - staticSiteLinkedBackendEnvelope - A JSON representation of the linked backend request properties
+//   - options - StaticSitesClientBeginValidateBackendForBuildOptions contains the optional parameters for the StaticSitesClient.BeginValidateBackendForBuild
+//     method.
 func (client *StaticSitesClient) BeginValidateBackendForBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, linkedBackendName string, staticSiteLinkedBackendEnvelope StaticSiteLinkedBackendARMResource, options *StaticSitesClientBeginValidateBackendForBuildOptions) (*runtime.Poller[StaticSitesClientValidateBackendForBuildResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.validateBackendForBuild(ctx, resourceGroupName, name, environmentName, linkedBackendName, staticSiteLinkedBackendEnvelope, options)
@@ -3690,6 +3750,7 @@ func (client *StaticSitesClient) BeginValidateBackendForBuild(ctx context.Contex
 
 // ValidateBackendForBuild - Validates that a backend can be linked to a static site build
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) validateBackendForBuild(ctx context.Context, resourceGroupName string, name string, environmentName string, linkedBackendName string, staticSiteLinkedBackendEnvelope StaticSiteLinkedBackendARMResource, options *StaticSitesClientBeginValidateBackendForBuildOptions) (*http.Response, error) {
 	req, err := client.validateBackendForBuildCreateRequest(ctx, resourceGroupName, name, environmentName, linkedBackendName, staticSiteLinkedBackendEnvelope, options)
@@ -3743,14 +3804,15 @@ func (client *StaticSitesClient) validateBackendForBuildCreateRequest(ctx contex
 // BeginValidateCustomDomainCanBeAddedToStaticSite - Description for Validates a particular custom domain can be added to
 // a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the static site.
-// domainName - The custom domain to validate.
-// staticSiteCustomDomainRequestPropertiesEnvelope - A JSON representation of the static site custom domain request properties.
-// See example.
-// options - StaticSitesClientBeginValidateCustomDomainCanBeAddedToStaticSiteOptions contains the optional parameters for
-// the StaticSitesClient.BeginValidateCustomDomainCanBeAddedToStaticSite method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the static site.
+//   - domainName - The custom domain to validate.
+//   - staticSiteCustomDomainRequestPropertiesEnvelope - A JSON representation of the static site custom domain request properties.
+//     See example.
+//   - options - StaticSitesClientBeginValidateCustomDomainCanBeAddedToStaticSiteOptions contains the optional parameters for
+//     the StaticSitesClient.BeginValidateCustomDomainCanBeAddedToStaticSite method.
 func (client *StaticSitesClient) BeginValidateCustomDomainCanBeAddedToStaticSite(ctx context.Context, resourceGroupName string, name string, domainName string, staticSiteCustomDomainRequestPropertiesEnvelope StaticSiteCustomDomainRequestPropertiesARMResource, options *StaticSitesClientBeginValidateCustomDomainCanBeAddedToStaticSiteOptions) (*runtime.Poller[StaticSitesClientValidateCustomDomainCanBeAddedToStaticSiteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.validateCustomDomainCanBeAddedToStaticSite(ctx, resourceGroupName, name, domainName, staticSiteCustomDomainRequestPropertiesEnvelope, options)
@@ -3766,6 +3828,7 @@ func (client *StaticSitesClient) BeginValidateCustomDomainCanBeAddedToStaticSite
 // ValidateCustomDomainCanBeAddedToStaticSite - Description for Validates a particular custom domain can be added to a static
 // site.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *StaticSitesClient) validateCustomDomainCanBeAddedToStaticSite(ctx context.Context, resourceGroupName string, name string, domainName string, staticSiteCustomDomainRequestPropertiesEnvelope StaticSiteCustomDomainRequestPropertiesARMResource, options *StaticSitesClientBeginValidateCustomDomainCanBeAddedToStaticSiteOptions) (*http.Response, error) {
 	req, err := client.validateCustomDomainCanBeAddedToStaticSiteCreateRequest(ctx, resourceGroupName, name, domainName, staticSiteCustomDomainRequestPropertiesEnvelope, options)
