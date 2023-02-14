@@ -64,7 +64,8 @@ type APIPortalCustomDomainsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// APIPortalCustomDomainsClientListOptions contains the optional parameters for the APIPortalCustomDomainsClient.List method.
+// APIPortalCustomDomainsClientListOptions contains the optional parameters for the APIPortalCustomDomainsClient.NewListPager
+// method.
 type APIPortalCustomDomainsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -165,7 +166,7 @@ type APIPortalsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// APIPortalsClientListOptions contains the optional parameters for the APIPortalsClient.List method.
+// APIPortalsClientListOptions contains the optional parameters for the APIPortalsClient.NewListPager method.
 type APIPortalsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -173,98 +174,6 @@ type APIPortalsClientListOptions struct {
 // APIPortalsClientValidateDomainOptions contains the optional parameters for the APIPortalsClient.ValidateDomain method.
 type APIPortalsClientValidateDomainOptions struct {
 	// placeholder for future optional parameters
-}
-
-// AcceleratorAuthSettingClassification provides polymorphic access to related types.
-// Call the interface's GetAcceleratorAuthSetting() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *AcceleratorAuthSetting, *AcceleratorBasicAuthSetting, *AcceleratorPublicSetting, *AcceleratorSSHSetting
-type AcceleratorAuthSettingClassification interface {
-	// GetAcceleratorAuthSetting returns the AcceleratorAuthSetting content of the underlying type.
-	GetAcceleratorAuthSetting() *AcceleratorAuthSetting
-}
-
-// AcceleratorAuthSetting - Auth setting payload.
-type AcceleratorAuthSetting struct {
-	// REQUIRED; The type of the auth setting.
-	AuthType *string `json:"authType,omitempty"`
-}
-
-// GetAcceleratorAuthSetting implements the AcceleratorAuthSettingClassification interface for type AcceleratorAuthSetting.
-func (a *AcceleratorAuthSetting) GetAcceleratorAuthSetting() *AcceleratorAuthSetting { return a }
-
-// AcceleratorBasicAuthSetting - Auth setting for basic auth.
-type AcceleratorBasicAuthSetting struct {
-	// REQUIRED; The type of the auth setting.
-	AuthType *string `json:"authType,omitempty"`
-
-	// REQUIRED; Username of git repository basic auth.
-	Username *string `json:"username,omitempty"`
-
-	// Password of git repository basic auth.
-	Password *string `json:"password,omitempty"`
-}
-
-// GetAcceleratorAuthSetting implements the AcceleratorAuthSettingClassification interface for type AcceleratorBasicAuthSetting.
-func (a *AcceleratorBasicAuthSetting) GetAcceleratorAuthSetting() *AcceleratorAuthSetting {
-	return &AcceleratorAuthSetting{
-		AuthType: a.AuthType,
-	}
-}
-
-type AcceleratorGitRepository struct {
-	// REQUIRED; Properties of the auth setting payload.
-	AuthSetting AcceleratorAuthSettingClassification `json:"authSetting,omitempty"`
-
-	// REQUIRED; Git repository URL for the accelerator.
-	URL *string `json:"url,omitempty"`
-
-	// Git repository branch to be used.
-	Branch *string `json:"branch,omitempty"`
-
-	// Git repository commit to be used.
-	Commit *string `json:"commit,omitempty"`
-
-	// Git repository tag to be used.
-	GitTag *string `json:"gitTag,omitempty"`
-
-	// Interval for checking for updates to Git or image repository.
-	IntervalInSeconds *int32 `json:"intervalInSeconds,omitempty"`
-}
-
-// AcceleratorPublicSetting - Auth setting for public url.
-type AcceleratorPublicSetting struct {
-	// REQUIRED; The type of the auth setting.
-	AuthType *string `json:"authType,omitempty"`
-}
-
-// GetAcceleratorAuthSetting implements the AcceleratorAuthSettingClassification interface for type AcceleratorPublicSetting.
-func (a *AcceleratorPublicSetting) GetAcceleratorAuthSetting() *AcceleratorAuthSetting {
-	return &AcceleratorAuthSetting{
-		AuthType: a.AuthType,
-	}
-}
-
-// AcceleratorSSHSetting - Auth setting for SSH auth.
-type AcceleratorSSHSetting struct {
-	// REQUIRED; The type of the auth setting.
-	AuthType *string `json:"authType,omitempty"`
-
-	// Public SSH Key of git repository.
-	HostKey *string `json:"hostKey,omitempty"`
-
-	// SSH Key algorithm of git repository.
-	HostKeyAlgorithm *string `json:"hostKeyAlgorithm,omitempty"`
-
-	// Private SSH Key algorithm of git repository.
-	PrivateKey *string `json:"privateKey,omitempty"`
-}
-
-// GetAcceleratorAuthSetting implements the AcceleratorAuthSettingClassification interface for type AcceleratorSSHSetting.
-func (a *AcceleratorSSHSetting) GetAcceleratorAuthSetting() *AcceleratorAuthSetting {
-	return &AcceleratorAuthSetting{
-		AuthType: a.AuthType,
-	}
 }
 
 // ActiveDeploymentCollection - Object that includes an array of Deployment resource name and set them as active.
@@ -309,7 +218,7 @@ type AppResourceCollection struct {
 // AppResourceProperties - App resource properties payload
 type AppResourceProperties struct {
 	// Collection of addons
-	AddonConfigs map[string]map[string]interface{} `json:"addonConfigs,omitempty"`
+	AddonConfigs map[string]map[string]any `json:"addonConfigs,omitempty"`
 
 	// List of custom persistent disks
 	CustomPersistentDisks []*CustomPersistentDiskResource `json:"customPersistentDisks,omitempty"`
@@ -357,198 +266,10 @@ type AppVNetAddons struct {
 	PublicEndpointURL *string `json:"publicEndpointUrl,omitempty" azure:"ro"`
 }
 
-type ApplicationAcceleratorComponent struct {
-	ResourceRequests *ApplicationAcceleratorResourceRequests `json:"resourceRequests,omitempty"`
-
-	// READ-ONLY
-	Instances []*ApplicationAcceleratorInstance `json:"instances,omitempty" azure:"ro"`
-
-	// READ-ONLY
-	Name *string `json:"name,omitempty" azure:"ro"`
-}
-
-type ApplicationAcceleratorInstance struct {
-	// READ-ONLY; Name of the Application Accelerator instance.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Status of the Application Accelerator instance. It can be Pending, Running, Succeeded, Failed, Unknown.
-	Status *string `json:"status,omitempty" azure:"ro"`
-}
-
-// ApplicationAcceleratorProperties - Application accelerator properties payload
-type ApplicationAcceleratorProperties struct {
-	// READ-ONLY; Collection of components belong to application accelerator.
-	Components []*ApplicationAcceleratorComponent `json:"components,omitempty" azure:"ro"`
-
-	// READ-ONLY; State of the application accelerator.
-	ProvisioningState *ApplicationAcceleratorProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// ApplicationAcceleratorResource - Application accelerator resource
-type ApplicationAcceleratorResource struct {
-	// Application accelerator properties payload
-	Properties *ApplicationAcceleratorProperties `json:"properties,omitempty"`
-
-	// Sku of the application accelerator resource
-	SKU *SKU `json:"sku,omitempty"`
-
-	// READ-ONLY; Fully qualified resource Id for the resource.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ApplicationAcceleratorResourceCollection - Object that includes an array of application accelerator resources and a possible
-// link for next set
-type ApplicationAcceleratorResourceCollection struct {
-	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// Collection of application accelerator resources
-	Value []*ApplicationAcceleratorResource `json:"value,omitempty"`
-}
-
-type ApplicationAcceleratorResourceRequests struct {
-	// READ-ONLY; Cpu allocated to each application accelerator component. 1 core can be represented by 1 or 1000m
-	CPU *string `json:"cpu,omitempty" azure:"ro"`
-
-	// READ-ONLY; Instance count of the application accelerator component.
-	InstanceCount *int32 `json:"instanceCount,omitempty" azure:"ro"`
-
-	// READ-ONLY; Memory allocated to each application accelerator component. 1 GB can be represented by 1Gi or 1024Mi.
-	Memory *string `json:"memory,omitempty" azure:"ro"`
-}
-
-// ApplicationAcceleratorsClientBeginCreateOrUpdateOptions contains the optional parameters for the ApplicationAcceleratorsClient.BeginCreateOrUpdate
-// method.
-type ApplicationAcceleratorsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ApplicationAcceleratorsClientBeginDeleteOptions contains the optional parameters for the ApplicationAcceleratorsClient.BeginDelete
-// method.
-type ApplicationAcceleratorsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ApplicationAcceleratorsClientGetOptions contains the optional parameters for the ApplicationAcceleratorsClient.Get method.
-type ApplicationAcceleratorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ApplicationAcceleratorsClientListOptions contains the optional parameters for the ApplicationAcceleratorsClient.List method.
-type ApplicationAcceleratorsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ApplicationInsightsAgentVersions - Application Insights agent versions properties payload
 type ApplicationInsightsAgentVersions struct {
 	// READ-ONLY; Indicates the version of application insight java agent
 	Java *string `json:"java,omitempty" azure:"ro"`
-}
-
-// ApplicationLiveViewComponent - Application Live View properties payload
-type ApplicationLiveViewComponent struct {
-	// READ-ONLY; Collection of instances belong to Application Live View.
-	Instances []*ApplicationLiveViewInstance `json:"instances,omitempty" azure:"ro"`
-
-	// READ-ONLY; Name of the component.
-	Name interface{} `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The requested resource quantity for required CPU and Memory.
-	ResourceRequests *ApplicationLiveViewResourceRequests `json:"resourceRequests,omitempty" azure:"ro"`
-}
-
-// ApplicationLiveViewInstance - Collection of instances belong to the Application Live View
-type ApplicationLiveViewInstance struct {
-	// READ-ONLY; Name of the Application Live View instance.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Status of the Application Live View instance. It can be Pending, Running, Succeeded, Failed, Unknown.
-	Status *string `json:"status,omitempty" azure:"ro"`
-}
-
-// ApplicationLiveViewProperties - Application Live View properties payload
-type ApplicationLiveViewProperties struct {
-	// READ-ONLY; Component details of Application Live View
-	Components []*ApplicationLiveViewComponent `json:"components,omitempty" azure:"ro"`
-
-	// READ-ONLY; State of the Application Live View.
-	ProvisioningState *ApplicationLiveViewProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// ApplicationLiveViewResource - Application Live View resource
-type ApplicationLiveViewResource struct {
-	// Application Live View properties payload
-	Properties *ApplicationLiveViewProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource Id for the resource.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ApplicationLiveViewResourceCollection - Object that includes an array of Application Live View resources and a possible
-// link for next set
-type ApplicationLiveViewResourceCollection struct {
-	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// Collection of Application Live View resources
-	Value []*ApplicationLiveViewResource `json:"value,omitempty"`
-}
-
-// ApplicationLiveViewResourceRequests - The resource quantity for required CPU and Memory of Application Live View component
-type ApplicationLiveViewResourceRequests struct {
-	// READ-ONLY; Cpu quantity allocated to each Application Live View component instance. 1 core can be represented by 1 or 1000m.
-	CPU *string `json:"cpu,omitempty" azure:"ro"`
-
-	// READ-ONLY; Desired instance count of Application Live View component instance.
-	InstanceCount *int32 `json:"instanceCount,omitempty" azure:"ro"`
-
-	// READ-ONLY; Memory quantity allocated to each Application Live View component instance. 1 GB can be represented by 1Gi or
-	// 1024Mi.
-	Memory *string `json:"memory,omitempty" azure:"ro"`
-}
-
-// ApplicationLiveViewsClientBeginCreateOrUpdateOptions contains the optional parameters for the ApplicationLiveViewsClient.BeginCreateOrUpdate
-// method.
-type ApplicationLiveViewsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ApplicationLiveViewsClientBeginDeleteOptions contains the optional parameters for the ApplicationLiveViewsClient.BeginDelete
-// method.
-type ApplicationLiveViewsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ApplicationLiveViewsClientGetOptions contains the optional parameters for the ApplicationLiveViewsClient.Get method.
-type ApplicationLiveViewsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ApplicationLiveViewsClientListOptions contains the optional parameters for the ApplicationLiveViewsClient.List method.
-type ApplicationLiveViewsClientListOptions struct {
-	// placeholder for future optional parameters
 }
 
 // AppsClientBeginCreateOrUpdateOptions contains the optional parameters for the AppsClient.BeginCreateOrUpdate method.
@@ -587,7 +308,7 @@ type AppsClientGetResourceUploadURLOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AppsClientListOptions contains the optional parameters for the AppsClient.List method.
+// AppsClientListOptions contains the optional parameters for the AppsClient.NewListPager method.
 type AppsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -669,7 +390,7 @@ type BindingResourceCollection struct {
 // BindingResourceProperties - Binding resource properties payload
 type BindingResourceProperties struct {
 	// Binding parameters of the Binding resource
-	BindingParameters map[string]interface{} `json:"bindingParameters,omitempty"`
+	BindingParameters map[string]any `json:"bindingParameters,omitempty"`
 
 	// The key of the bound resource
 	Key *string `json:"key,omitempty"`
@@ -716,7 +437,7 @@ type BindingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BindingsClientListOptions contains the optional parameters for the BindingsClient.List method.
+// BindingsClientListOptions contains the optional parameters for the BindingsClient.NewListPager method.
 type BindingsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -821,9 +542,6 @@ type BuildResultProperties struct {
 	// The build pod name which can be used to get the build log streaming.
 	BuildPodName *string `json:"buildPodName,omitempty"`
 
-	// Error when build is failed.
-	Error *Error `json:"error,omitempty"`
-
 	// The name of this build result
 	Name *string `json:"name,omitempty"`
 
@@ -884,7 +602,8 @@ type BuildServiceAgentPoolClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceAgentPoolClientListOptions contains the optional parameters for the BuildServiceAgentPoolClient.List method.
+// BuildServiceAgentPoolClientListOptions contains the optional parameters for the BuildServiceAgentPoolClient.NewListPager
+// method.
 type BuildServiceAgentPoolClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -963,7 +682,7 @@ type BuildServiceBuilderClientListDeploymentsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceBuilderClientListOptions contains the optional parameters for the BuildServiceBuilderClient.List method.
+// BuildServiceBuilderClientListOptions contains the optional parameters for the BuildServiceBuilderClient.NewListPager method.
 type BuildServiceBuilderClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1013,19 +732,19 @@ type BuildServiceClientGetSupportedStackOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceClientListBuildResultsOptions contains the optional parameters for the BuildServiceClient.ListBuildResults
+// BuildServiceClientListBuildResultsOptions contains the optional parameters for the BuildServiceClient.NewListBuildResultsPager
 // method.
 type BuildServiceClientListBuildResultsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceClientListBuildServicesOptions contains the optional parameters for the BuildServiceClient.ListBuildServices
+// BuildServiceClientListBuildServicesOptions contains the optional parameters for the BuildServiceClient.NewListBuildServicesPager
 // method.
 type BuildServiceClientListBuildServicesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceClientListBuildsOptions contains the optional parameters for the BuildServiceClient.ListBuilds method.
+// BuildServiceClientListBuildsOptions contains the optional parameters for the BuildServiceClient.NewListBuildsPager method.
 type BuildServiceClientListBuildsOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1074,14 +793,8 @@ type BuildServicePropertiesResourceRequests struct {
 
 // BuildStageProperties - The build stage (init-container and container) resources in build pod.
 type BuildStageProperties struct {
-	// READ-ONLY; The exit code of this build init container.
-	ExitCode *string `json:"exitCode,omitempty" azure:"ro"`
-
 	// READ-ONLY; The name of this build stage resource.
 	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The reason of this build init container.
-	Reason *string `json:"reason,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of this build stage resource.
 	Status *KPackBuildStageProvisioningState `json:"status,omitempty" azure:"ro"`
@@ -1144,7 +857,7 @@ type BuildpackBindingClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildpackBindingClientListOptions contains the optional parameters for the BuildpackBindingClient.List method.
+// BuildpackBindingClientListOptions contains the optional parameters for the BuildpackBindingClient.NewListPager method.
 type BuildpackBindingClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1300,16 +1013,13 @@ type CertificatesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CertificatesClientListOptions contains the optional parameters for the CertificatesClient.List method.
+// CertificatesClientListOptions contains the optional parameters for the CertificatesClient.NewListPager method.
 type CertificatesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
 // ClusterResourceProperties - Service properties payload
 type ClusterResourceProperties struct {
-	// Purchasing 3rd party product of the Service resource.
-	MarketplaceResource *MarketplaceResource `json:"marketplaceResource,omitempty"`
-
 	// Network profile of the Service
 	NetworkProfile *NetworkProfile `json:"networkProfile,omitempty"`
 
@@ -1600,7 +1310,8 @@ type ConfigurationServicesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConfigurationServicesClientListOptions contains the optional parameters for the ConfigurationServicesClient.List method.
+// ConfigurationServicesClientListOptions contains the optional parameters for the ConfigurationServicesClient.NewListPager
+// method.
 type ConfigurationServicesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1781,7 +1492,7 @@ type CustomDomainsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomDomainsClientListOptions contains the optional parameters for the CustomDomainsClient.List method.
+// CustomDomainsClientListOptions contains the optional parameters for the CustomDomainsClient.NewListPager method.
 type CustomDomainsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1822,84 +1533,6 @@ type CustomPersistentDiskResource struct {
 
 	// Properties of the custom persistent disk resource payload.
 	CustomPersistentDiskProperties CustomPersistentDiskPropertiesClassification `json:"customPersistentDiskProperties,omitempty"`
-}
-
-// CustomizedAcceleratorProperties - Customized accelerator properties payload
-type CustomizedAcceleratorProperties struct {
-	// REQUIRED
-	GitRepository   *AcceleratorGitRepository `json:"gitRepository,omitempty"`
-	AcceleratorTags []*string                 `json:"acceleratorTags,omitempty"`
-	Description     *string                   `json:"description,omitempty"`
-	DisplayName     *string                   `json:"displayName,omitempty"`
-	IconURL         *string                   `json:"iconUrl,omitempty"`
-
-	// READ-ONLY; State of the customized accelerator.
-	ProvisioningState *CustomizedAcceleratorProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// CustomizedAcceleratorResource - Customized accelerator resource
-type CustomizedAcceleratorResource struct {
-	// Customized accelerator properties payload
-	Properties *CustomizedAcceleratorProperties `json:"properties,omitempty"`
-
-	// Sku of the customized accelerator resource
-	SKU *SKU `json:"sku,omitempty"`
-
-	// READ-ONLY; Fully qualified resource Id for the resource.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-type CustomizedAcceleratorResourceCollection struct {
-	NextLink *string                          `json:"nextLink,omitempty"`
-	Value    []*CustomizedAcceleratorResource `json:"value,omitempty"`
-}
-
-// CustomizedAcceleratorValidateResult - Validation result for customized accelerator properties
-type CustomizedAcceleratorValidateResult struct {
-	// The detail validation results
-	ErrorMessage *string `json:"errorMessage,omitempty"`
-
-	// State of the customized accelerator validation result
-	State *CustomizedAcceleratorValidateResultState `json:"state,omitempty"`
-}
-
-// CustomizedAcceleratorsClientBeginCreateOrUpdateOptions contains the optional parameters for the CustomizedAcceleratorsClient.BeginCreateOrUpdate
-// method.
-type CustomizedAcceleratorsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// CustomizedAcceleratorsClientBeginDeleteOptions contains the optional parameters for the CustomizedAcceleratorsClient.BeginDelete
-// method.
-type CustomizedAcceleratorsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// CustomizedAcceleratorsClientGetOptions contains the optional parameters for the CustomizedAcceleratorsClient.Get method.
-type CustomizedAcceleratorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// CustomizedAcceleratorsClientListOptions contains the optional parameters for the CustomizedAcceleratorsClient.List method.
-type CustomizedAcceleratorsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// CustomizedAcceleratorsClientValidateOptions contains the optional parameters for the CustomizedAcceleratorsClient.Validate
-// method.
-type CustomizedAcceleratorsClientValidateOptions struct {
-	// placeholder for future optional parameters
 }
 
 // DeploymentInstance - Deployment instance payload
@@ -1983,7 +1616,7 @@ type DeploymentResourceProperties struct {
 // DeploymentSettings - Deployment settings payload
 type DeploymentSettings struct {
 	// Collection of addons
-	AddonConfigs map[string]map[string]interface{} `json:"addonConfigs,omitempty"`
+	AddonConfigs map[string]map[string]any `json:"addonConfigs,omitempty"`
 
 	// Container liveness and readiness probe settings
 	ContainerProbeSettings *ContainerProbeSettings `json:"containerProbeSettings,omitempty"`
@@ -2110,145 +1743,17 @@ type DeploymentsClientGetRemoteDebuggingConfigOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DeploymentsClientListForClusterOptions contains the optional parameters for the DeploymentsClient.ListForCluster method.
+// DeploymentsClientListForClusterOptions contains the optional parameters for the DeploymentsClient.NewListForClusterPager
+// method.
 type DeploymentsClientListForClusterOptions struct {
 	// Version of the deployments to be listed
 	Version []string
 }
 
-// DeploymentsClientListOptions contains the optional parameters for the DeploymentsClient.List method.
+// DeploymentsClientListOptions contains the optional parameters for the DeploymentsClient.NewListPager method.
 type DeploymentsClientListOptions struct {
 	// Version of the deployments to be listed
 	Version []string
-}
-
-// DevToolPortalFeatureDetail - Detail settings for Dev Tool Portal feature
-type DevToolPortalFeatureDetail struct {
-	// State of the plugin
-	State *DevToolPortalFeatureState `json:"state,omitempty"`
-
-	// READ-ONLY; Route path to visit the plugin
-	Route *string `json:"route,omitempty" azure:"ro"`
-}
-
-// DevToolPortalFeatureSettings - Settings for Dev Tool Portal
-type DevToolPortalFeatureSettings struct {
-	// Detail of Accelerator plugin
-	ApplicationAccelerator *DevToolPortalFeatureDetail `json:"applicationAccelerator,omitempty"`
-
-	// Detail of App Live View plugin
-	ApplicationLiveView *DevToolPortalFeatureDetail `json:"applicationLiveView,omitempty"`
-}
-
-// DevToolPortalInstance - Collection of instances belong to the Dev Tool Portal.
-type DevToolPortalInstance struct {
-	// READ-ONLY; Name of the Dev Tool Portal instance.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Status of the Dev Tool Portal instance. It can be Pending, Running, Succeeded, Failed, Unknown.
-	Status *string `json:"status,omitempty" azure:"ro"`
-}
-
-// DevToolPortalProperties - Dev Tool Portal properties payload
-type DevToolPortalProperties struct {
-	// Settings for Dev Tool Portal
-	Features *DevToolPortalFeatureSettings `json:"features,omitempty"`
-
-	// Indicates whether the resource exposes public endpoint
-	Public *bool `json:"public,omitempty"`
-
-	// Single sign-on related configuration
-	SsoProperties *DevToolPortalSsoProperties `json:"ssoProperties,omitempty"`
-
-	// READ-ONLY; Collection of instances belong to Dev Tool Portal.
-	Instances []*DevToolPortalInstance `json:"instances,omitempty" azure:"ro"`
-
-	// READ-ONLY; State of the Dev Tool Portal.
-	ProvisioningState *DevToolPortalProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-
-	// READ-ONLY; The requested resource quantity for required CPU and Memory.
-	ResourceRequests *DevToolPortalResourceRequests `json:"resourceRequests,omitempty" azure:"ro"`
-
-	// READ-ONLY; URL of the resource, exposed when 'public' is true.
-	URL *string `json:"url,omitempty" azure:"ro"`
-}
-
-// DevToolPortalResource - Dev Tool Portal resource
-type DevToolPortalResource struct {
-	// Dev Tool Portal properties payload
-	Properties *DevToolPortalProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource Id for the resource.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// DevToolPortalResourceCollection - Object that includes an array of Dev Tool Portal resources and a possible link for next
-// set
-type DevToolPortalResourceCollection struct {
-	// URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// Collection of Dev Tool Portal resources
-	Value []*DevToolPortalResource `json:"value,omitempty"`
-}
-
-// DevToolPortalResourceRequests - The resource quantity for required CPU and Memory of Dev Tool Portal
-type DevToolPortalResourceRequests struct {
-	// READ-ONLY; Cpu quantity allocated to each Dev Tool Portal instance. 1 core can be represented by 1 or 1000m
-	CPU *string `json:"cpu,omitempty" azure:"ro"`
-
-	// READ-ONLY; Desired instance count of Dev Tool Portal.
-	InstanceCount *int32 `json:"instanceCount,omitempty" azure:"ro"`
-
-	// READ-ONLY; Memory quantity allocated to each Dev Tool Portal instance. 1 GB can be represented by 1Gi or 1024Mi.
-	Memory *string `json:"memory,omitempty" azure:"ro"`
-}
-
-// DevToolPortalSsoProperties - Single sign-on related configuration
-type DevToolPortalSsoProperties struct {
-	// The public identifier for the application
-	ClientID *string `json:"clientId,omitempty"`
-
-	// The secret known only to the application and the authorization server
-	ClientSecret *string `json:"clientSecret,omitempty"`
-
-	// The URI of a JSON file with generic OIDC provider configuration.
-	MetadataURL *string `json:"metadataUrl,omitempty"`
-
-	// It defines the specific actions applications can be allowed to do on a user's behalf
-	Scopes []*string `json:"scopes,omitempty"`
-}
-
-// DevToolPortalsClientBeginCreateOrUpdateOptions contains the optional parameters for the DevToolPortalsClient.BeginCreateOrUpdate
-// method.
-type DevToolPortalsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DevToolPortalsClientBeginDeleteOptions contains the optional parameters for the DevToolPortalsClient.BeginDelete method.
-type DevToolPortalsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// DevToolPortalsClientGetOptions contains the optional parameters for the DevToolPortalsClient.Get method.
-type DevToolPortalsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// DevToolPortalsClientListOptions contains the optional parameters for the DevToolPortalsClient.List method.
-type DevToolPortalsClientListOptions struct {
-	// placeholder for future optional parameters
 }
 
 // DiagnosticParameters - Diagnostic parameters of diagnostic operations
@@ -2417,7 +1922,8 @@ type GatewayCustomDomainsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GatewayCustomDomainsClientListOptions contains the optional parameters for the GatewayCustomDomainsClient.List method.
+// GatewayCustomDomainsClientListOptions contains the optional parameters for the GatewayCustomDomainsClient.NewListPager
+// method.
 type GatewayCustomDomainsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2457,14 +1963,8 @@ type GatewayProperties struct {
 	// API metadata property for Spring Cloud Gateway
 	APIMetadataProperties *GatewayAPIMetadataProperties `json:"apiMetadataProperties,omitempty"`
 
-	// Collection of APM type used in Spring Cloud Gateway
-	ApmTypes []*ApmType `json:"apmTypes,omitempty"`
-
 	// Cross-Origin Resource Sharing property
 	CorsProperties *GatewayCorsProperties `json:"corsProperties,omitempty"`
-
-	// Environment variables of Spring Cloud Gateway
-	EnvironmentVariables *GatewayPropertiesEnvironmentVariables `json:"environmentVariables,omitempty"`
 
 	// Indicate if only https is allowed.
 	HTTPSOnly *bool `json:"httpsOnly,omitempty"`
@@ -2489,15 +1989,6 @@ type GatewayProperties struct {
 
 	// READ-ONLY; URL of the Spring Cloud Gateway, exposed when 'public' is true.
 	URL *string `json:"url,omitempty" azure:"ro"`
-}
-
-// GatewayPropertiesEnvironmentVariables - Environment variables of Spring Cloud Gateway
-type GatewayPropertiesEnvironmentVariables struct {
-	// Non-sensitive properties
-	Properties map[string]*string `json:"properties,omitempty"`
-
-	// Sensitive properties
-	Secrets map[string]*string `json:"secrets,omitempty"`
 }
 
 // GatewayResource - Spring Cloud Gateway resource
@@ -2550,25 +2041,14 @@ type GatewayRouteConfigProperties struct {
 	// The resource Id of the Azure Spring Apps app, required unless route defines uri.
 	AppResourceID *string `json:"appResourceId,omitempty"`
 
-	// To modify the request before sending it to the target endpoint, or the received response in app level.
-	Filters []*string `json:"filters,omitempty"`
-
 	// OpenAPI properties of Spring Cloud Gateway route config.
 	OpenAPI *GatewayRouteConfigOpenAPIProperties `json:"openApi,omitempty"`
-
-	// A number of conditions to evaluate a route for each request in app level. Each predicate may be evaluated against request
-	// headers and parameter values. All of the predicates associated with a route
-	// must evaluate to true for the route to be matched to the request.
-	Predicates []*string `json:"predicates,omitempty"`
 
 	// Protocol of routed Azure Spring Apps applications.
 	Protocol *GatewayRouteConfigProtocol `json:"protocol,omitempty"`
 
 	// Array of API routes, each route contains properties such as title, uri, ssoEnabled, predicates, filters.
 	Routes []*GatewayAPIRoute `json:"routes,omitempty"`
-
-	// Enable Single Sign-On in app level.
-	SsoEnabled *bool `json:"ssoEnabled,omitempty"`
 
 	// READ-ONLY; State of the Spring Cloud Gateway route config.
 	ProvisioningState *GatewayProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -2621,7 +2101,7 @@ type GatewayRouteConfigsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GatewayRouteConfigsClientListOptions contains the optional parameters for the GatewayRouteConfigsClient.List method.
+// GatewayRouteConfigsClientListOptions contains the optional parameters for the GatewayRouteConfigsClient.NewListPager method.
 type GatewayRouteConfigsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2643,12 +2123,7 @@ type GatewaysClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GatewaysClientListEnvSecretsOptions contains the optional parameters for the GatewaysClient.ListEnvSecrets method.
-type GatewaysClientListEnvSecretsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GatewaysClientListOptions contains the optional parameters for the GatewaysClient.List method.
+// GatewaysClientListOptions contains the optional parameters for the GatewaysClient.NewListPager method.
 type GatewaysClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2890,18 +2365,6 @@ type ManagedIdentityProperties struct {
 
 	// Properties of user-assigned managed identities
 	UserAssignedIdentities map[string]*UserAssignedManagedIdentity `json:"userAssignedIdentities,omitempty"`
-}
-
-// MarketplaceResource - Purchasing 3rd Party product for one Azure Spring Apps instance
-type MarketplaceResource struct {
-	// The plan id of the 3rd Party Artifact that is being procured.
-	Plan *string `json:"plan,omitempty"`
-
-	// The 3rd Party artifact that is being procured.
-	Product *string `json:"product,omitempty"`
-
-	// The publisher id of the 3rd Party Artifact that is being bought.
-	Publisher *string `json:"publisher,omitempty"`
 }
 
 // MetricDimension - Specifications of the Dimension of metrics
@@ -3146,7 +2609,7 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification `json:"serviceSpecification,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3161,77 +2624,6 @@ type PersistentDisk struct {
 
 	// READ-ONLY; Size of the used persistent disk in GB
 	UsedInGB *int32 `json:"usedInGB,omitempty" azure:"ro"`
-}
-
-// PredefinedAcceleratorProperties - Predefined accelerator properties payload
-type PredefinedAcceleratorProperties struct {
-	// State of the predefined accelerator.
-	State *PredefinedAcceleratorState `json:"state,omitempty"`
-
-	// READ-ONLY
-	AcceleratorTags []*string `json:"acceleratorTags,omitempty" azure:"ro"`
-
-	// READ-ONLY
-	Description *string `json:"description,omitempty" azure:"ro"`
-
-	// READ-ONLY
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
-
-	// READ-ONLY
-	IconURL *string `json:"iconUrl,omitempty" azure:"ro"`
-
-	// READ-ONLY; Provisioning state of the predefined accelerator.
-	ProvisioningState *PredefinedAcceleratorProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// PredefinedAcceleratorResource - Predefined accelerator resource
-type PredefinedAcceleratorResource struct {
-	// Predefined accelerator properties payload
-	Properties *PredefinedAcceleratorProperties `json:"properties,omitempty"`
-
-	// Sku of the predefined accelerator resource
-	SKU *SKU `json:"sku,omitempty"`
-
-	// READ-ONLY; Fully qualified resource Id for the resource.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-type PredefinedAcceleratorResourceCollection struct {
-	NextLink *string                          `json:"nextLink,omitempty"`
-	Value    []*PredefinedAcceleratorResource `json:"value,omitempty"`
-}
-
-// PredefinedAcceleratorsClientBeginDisableOptions contains the optional parameters for the PredefinedAcceleratorsClient.BeginDisable
-// method.
-type PredefinedAcceleratorsClientBeginDisableOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// PredefinedAcceleratorsClientBeginEnableOptions contains the optional parameters for the PredefinedAcceleratorsClient.BeginEnable
-// method.
-type PredefinedAcceleratorsClientBeginEnableOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// PredefinedAcceleratorsClientGetOptions contains the optional parameters for the PredefinedAcceleratorsClient.Get method.
-type PredefinedAcceleratorsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// PredefinedAcceleratorsClientListOptions contains the optional parameters for the PredefinedAcceleratorsClient.List method.
-type PredefinedAcceleratorsClientListOptions struct {
-	// placeholder for future optional parameters
 }
 
 // Probe describes a health check to be performed against an App Instance to determine whether it is alive or ready to receive
@@ -3488,7 +2880,7 @@ type SKUCapacity struct {
 	ScaleType *SKUScaleType `json:"scaleType,omitempty"`
 }
 
-// SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
 type SKUsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3512,7 +2904,7 @@ type ServiceRegistriesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServiceRegistriesClientListOptions contains the optional parameters for the ServiceRegistriesClient.List method.
+// ServiceRegistriesClientListOptions contains the optional parameters for the ServiceRegistriesClient.NewListPager method.
 type ServiceRegistriesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3680,12 +3072,13 @@ type ServicesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.ListBySubscription method.
+// ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.NewListBySubscriptionPager
+// method.
 type ServicesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServicesClientListOptions contains the optional parameters for the ServicesClient.List method.
+// ServicesClientListOptions contains the optional parameters for the ServicesClient.NewListPager method.
 type ServicesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3841,7 +3234,7 @@ type StoragesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// StoragesClientListOptions contains the optional parameters for the StoragesClient.List method.
+// StoragesClientListOptions contains the optional parameters for the StoragesClient.NewListPager method.
 type StoragesClientListOptions struct {
 	// placeholder for future optional parameters
 }
