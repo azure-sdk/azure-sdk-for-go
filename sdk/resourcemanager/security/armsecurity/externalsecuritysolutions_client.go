@@ -32,9 +32,9 @@ type ExternalSecuritySolutionsClient struct {
 }
 
 // NewExternalSecuritySolutionsClient creates a new instance of ExternalSecuritySolutionsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewExternalSecuritySolutionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ExternalSecuritySolutionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewExternalSecuritySolutionsClient(subscriptionID string, credential azcore
 
 // Get - Gets a specific external Security Solution.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// externalSecuritySolutionsName - Name of an external security solution.
-// options - ExternalSecuritySolutionsClientGetOptions contains the optional parameters for the ExternalSecuritySolutionsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - externalSecuritySolutionsName - Name of an external security solution.
+//   - options - ExternalSecuritySolutionsClientGetOptions contains the optional parameters for the ExternalSecuritySolutionsClient.Get
+//     method.
 func (client *ExternalSecuritySolutionsClient) Get(ctx context.Context, resourceGroupName string, ascLocation string, externalSecuritySolutionsName string, options *ExternalSecuritySolutionsClientGetOptions) (ExternalSecuritySolutionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, ascLocation, externalSecuritySolutionsName, options)
 	if err != nil {
@@ -118,9 +119,10 @@ func (client *ExternalSecuritySolutionsClient) getHandleResponse(resp *http.Resp
 }
 
 // NewListPager - Gets a list of external security solutions for the subscription.
+//
 // Generated from API version 2020-01-01
-// options - ExternalSecuritySolutionsClientListOptions contains the optional parameters for the ExternalSecuritySolutionsClient.List
-// method.
+//   - options - ExternalSecuritySolutionsClientListOptions contains the optional parameters for the ExternalSecuritySolutionsClient.NewListPager
+//     method.
 func (client *ExternalSecuritySolutionsClient) NewListPager(options *ExternalSecuritySolutionsClientListOptions) *runtime.Pager[ExternalSecuritySolutionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ExternalSecuritySolutionsClientListResponse]{
 		More: func(page ExternalSecuritySolutionsClientListResponse) bool {
@@ -177,10 +179,11 @@ func (client *ExternalSecuritySolutionsClient) listHandleResponse(resp *http.Res
 }
 
 // NewListByHomeRegionPager - Gets a list of external Security Solutions for the subscription and location.
+//
 // Generated from API version 2020-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - ExternalSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the ExternalSecuritySolutionsClient.ListByHomeRegion
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - ExternalSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the ExternalSecuritySolutionsClient.NewListByHomeRegionPager
+//     method.
 func (client *ExternalSecuritySolutionsClient) NewListByHomeRegionPager(ascLocation string, options *ExternalSecuritySolutionsClientListByHomeRegionOptions) *runtime.Pager[ExternalSecuritySolutionsClientListByHomeRegionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ExternalSecuritySolutionsClientListByHomeRegionResponse]{
 		More: func(page ExternalSecuritySolutionsClientListByHomeRegionResponse) bool {

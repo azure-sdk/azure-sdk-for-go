@@ -32,9 +32,9 @@ type ConnectorApplicationClient struct {
 }
 
 // NewConnectorApplicationClient creates a new instance of ConnectorApplicationClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectorApplicationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectorApplicationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewConnectorApplicationClient(subscriptionID string, credential azcore.Toke
 
 // CreateOrUpdate - Creates or update a security Application on the given security connector.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// applicationID - The security Application key - unique key for the standard application
-// application - Application over a subscription scope
-// options - ConnectorApplicationClientCreateOrUpdateOptions contains the optional parameters for the ConnectorApplicationClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - applicationID - The security Application key - unique key for the standard application
+//   - application - Application over a subscription scope
+//   - options - ConnectorApplicationClientCreateOrUpdateOptions contains the optional parameters for the ConnectorApplicationClient.CreateOrUpdate
+//     method.
 func (client *ConnectorApplicationClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, securityConnectorName string, applicationID string, application Application, options *ConnectorApplicationClientCreateOrUpdateOptions) (ConnectorApplicationClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, securityConnectorName, applicationID, application, options)
 	if err != nil {
@@ -120,12 +121,13 @@ func (client *ConnectorApplicationClient) createOrUpdateHandleResponse(resp *htt
 
 // Delete - Delete an Application over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// applicationID - The security Application key - unique key for the standard application
-// options - ConnectorApplicationClientDeleteOptions contains the optional parameters for the ConnectorApplicationClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - applicationID - The security Application key - unique key for the standard application
+//   - options - ConnectorApplicationClientDeleteOptions contains the optional parameters for the ConnectorApplicationClient.Delete
+//     method.
 func (client *ConnectorApplicationClient) Delete(ctx context.Context, resourceGroupName string, securityConnectorName string, applicationID string, options *ConnectorApplicationClientDeleteOptions) (ConnectorApplicationClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, securityConnectorName, applicationID, options)
 	if err != nil {
@@ -172,12 +174,13 @@ func (client *ConnectorApplicationClient) deleteCreateRequest(ctx context.Contex
 
 // Get - Get a specific application for the requested scope by applicationId
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// applicationID - The security Application key - unique key for the standard application
-// options - ConnectorApplicationClientGetOptions contains the optional parameters for the ConnectorApplicationClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - applicationID - The security Application key - unique key for the standard application
+//   - options - ConnectorApplicationClientGetOptions contains the optional parameters for the ConnectorApplicationClient.Get
+//     method.
 func (client *ConnectorApplicationClient) Get(ctx context.Context, resourceGroupName string, securityConnectorName string, applicationID string, options *ConnectorApplicationClientGetOptions) (ConnectorApplicationClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, securityConnectorName, applicationID, options)
 	if err != nil {
