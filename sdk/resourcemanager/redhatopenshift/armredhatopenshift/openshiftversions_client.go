@@ -32,9 +32,9 @@ type OpenShiftVersionsClient struct {
 }
 
 // NewOpenShiftVersionsClient creates a new instance of OpenShiftVersionsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewOpenShiftVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OpenShiftVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,9 +56,11 @@ func NewOpenShiftVersionsClient(subscriptionID string, credential azcore.TokenCr
 }
 
 // NewListPager - The operation returns the installable OpenShift versions as strings.
+//
 // Generated from API version 2022-09-04
-// location - The name of Azure region.
-// options - OpenShiftVersionsClientListOptions contains the optional parameters for the OpenShiftVersionsClient.List method.
+//   - location - The name of Azure region.
+//   - options - OpenShiftVersionsClientListOptions contains the optional parameters for the OpenShiftVersionsClient.NewListPager
+//     method.
 func (client *OpenShiftVersionsClient) NewListPager(location string, options *OpenShiftVersionsClientListOptions) *runtime.Pager[OpenShiftVersionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[OpenShiftVersionsClientListResponse]{
 		More: func(page OpenShiftVersionsClientListResponse) bool {
