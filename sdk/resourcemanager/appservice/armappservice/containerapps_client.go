@@ -32,9 +32,9 @@ type ContainerAppsClient struct {
 }
 
 // NewContainerAppsClient creates a new instance of ContainerAppsClient with the specified values.
-// subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewContainerAppsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContainerAppsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewContainerAppsClient(subscriptionID string, credential azcore.TokenCreden
 
 // BeginCreateOrUpdate - Description for Create or update a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the Container App.
-// options - ContainerAppsClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerAppsClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the Container App.
+//   - options - ContainerAppsClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerAppsClient.BeginCreateOrUpdate
+//     method.
 func (client *ContainerAppsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, name string, containerAppEnvelope ContainerApp, options *ContainerAppsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ContainerAppsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, name, containerAppEnvelope, options)
@@ -76,6 +77,7 @@ func (client *ContainerAppsClient) BeginCreateOrUpdate(ctx context.Context, reso
 
 // CreateOrUpdate - Description for Create or update a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *ContainerAppsClient) createOrUpdate(ctx context.Context, resourceGroupName string, name string, containerAppEnvelope ContainerApp, options *ContainerAppsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, name, containerAppEnvelope, options)
@@ -120,11 +122,12 @@ func (client *ContainerAppsClient) createOrUpdateCreateRequest(ctx context.Conte
 
 // BeginDelete - Description for Delete a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the Container App.
-// options - ContainerAppsClientBeginDeleteOptions contains the optional parameters for the ContainerAppsClient.BeginDelete
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the Container App.
+//   - options - ContainerAppsClientBeginDeleteOptions contains the optional parameters for the ContainerAppsClient.BeginDelete
+//     method.
 func (client *ContainerAppsClient) BeginDelete(ctx context.Context, resourceGroupName string, name string, options *ContainerAppsClientBeginDeleteOptions) (*runtime.Poller[ContainerAppsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, name, options)
@@ -139,6 +142,7 @@ func (client *ContainerAppsClient) BeginDelete(ctx context.Context, resourceGrou
 
 // Delete - Description for Delete a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *ContainerAppsClient) deleteOperation(ctx context.Context, resourceGroupName string, name string, options *ContainerAppsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, name, options)
@@ -183,10 +187,11 @@ func (client *ContainerAppsClient) deleteCreateRequest(ctx context.Context, reso
 
 // Get - Get the properties of a Container App.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the Container App.
-// options - ContainerAppsClientGetOptions contains the optional parameters for the ContainerAppsClient.Get method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the Container App.
+//   - options - ContainerAppsClientGetOptions contains the optional parameters for the ContainerAppsClient.Get method.
 func (client *ContainerAppsClient) Get(ctx context.Context, resourceGroupName string, name string, options *ContainerAppsClientGetOptions) (ContainerAppsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -238,11 +243,11 @@ func (client *ContainerAppsClient) getHandleResponse(resp *http.Response) (Conta
 }
 
 // NewListByResourceGroupPager - Get the Container Apps in a given resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// options - ContainerAppsClientListByResourceGroupOptions contains the optional parameters for the ContainerAppsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - options - ContainerAppsClientListByResourceGroupOptions contains the optional parameters for the ContainerAppsClient.NewListByResourceGroupPager
+//     method.
 func (client *ContainerAppsClient) NewListByResourceGroupPager(resourceGroupName string, options *ContainerAppsClientListByResourceGroupOptions) *runtime.Pager[ContainerAppsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ContainerAppsClientListByResourceGroupResponse]{
 		More: func(page ContainerAppsClientListByResourceGroupResponse) bool {
@@ -303,10 +308,10 @@ func (client *ContainerAppsClient) listByResourceGroupHandleResponse(resp *http.
 }
 
 // NewListBySubscriptionPager - Get the Container Apps in a given subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - ContainerAppsClientListBySubscriptionOptions contains the optional parameters for the ContainerAppsClient.ListBySubscription
-// method.
+//   - options - ContainerAppsClientListBySubscriptionOptions contains the optional parameters for the ContainerAppsClient.NewListBySubscriptionPager
+//     method.
 func (client *ContainerAppsClient) NewListBySubscriptionPager(options *ContainerAppsClientListBySubscriptionOptions) *runtime.Pager[ContainerAppsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ContainerAppsClientListBySubscriptionResponse]{
 		More: func(page ContainerAppsClientListBySubscriptionResponse) bool {
@@ -364,10 +369,11 @@ func (client *ContainerAppsClient) listBySubscriptionHandleResponse(resp *http.R
 
 // ListSecrets - List secrets for a container app
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// name - Name of the Container App.
-// options - ContainerAppsClientListSecretsOptions contains the optional parameters for the ContainerAppsClient.ListSecrets
-// method.
+//   - name - Name of the Container App.
+//   - options - ContainerAppsClientListSecretsOptions contains the optional parameters for the ContainerAppsClient.ListSecrets
+//     method.
 func (client *ContainerAppsClient) ListSecrets(ctx context.Context, name string, options *ContainerAppsClientListSecretsOptions) (ContainerAppsClientListSecretsResponse, error) {
 	req, err := client.listSecretsCreateRequest(ctx, name, options)
 	if err != nil {
