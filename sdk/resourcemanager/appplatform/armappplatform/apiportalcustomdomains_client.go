@@ -32,10 +32,10 @@ type APIPortalCustomDomainsClient struct {
 }
 
 // NewAPIPortalCustomDomainsClient creates a new instance of APIPortalCustomDomainsClient with the specified values.
-// subscriptionID - Gets subscription ID which uniquely identify the Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription ID which uniquely identify the Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAPIPortalCustomDomainsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APIPortalCustomDomainsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,15 +58,16 @@ func NewAPIPortalCustomDomainsClient(subscriptionID string, credential azcore.To
 
 // BeginCreateOrUpdate - Create or update the API portal custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serviceName - The name of the Service resource.
-// apiPortalName - The name of API portal.
-// domainName - The name of the API portal custom domain.
-// apiPortalCustomDomainResource - The API portal custom domain for the create or update operation
-// options - APIPortalCustomDomainsClientBeginCreateOrUpdateOptions contains the optional parameters for the APIPortalCustomDomainsClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2023-01-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - apiPortalName - The name of API portal.
+//   - domainName - The name of the API portal custom domain.
+//   - apiPortalCustomDomainResource - The API portal custom domain for the create or update operation
+//   - options - APIPortalCustomDomainsClientBeginCreateOrUpdateOptions contains the optional parameters for the APIPortalCustomDomainsClient.BeginCreateOrUpdate
+//     method.
 func (client *APIPortalCustomDomainsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, domainName string, apiPortalCustomDomainResource APIPortalCustomDomainResource, options *APIPortalCustomDomainsClientBeginCreateOrUpdateOptions) (*runtime.Poller[APIPortalCustomDomainsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, serviceName, apiPortalName, domainName, apiPortalCustomDomainResource, options)
@@ -81,7 +82,8 @@ func (client *APIPortalCustomDomainsClient) BeginCreateOrUpdate(ctx context.Cont
 
 // CreateOrUpdate - Create or update the API portal custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+//
+// Generated from API version 2023-01-01-preview
 func (client *APIPortalCustomDomainsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, domainName string, apiPortalCustomDomainResource APIPortalCustomDomainResource, options *APIPortalCustomDomainsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, apiPortalName, domainName, apiPortalCustomDomainResource, options)
 	if err != nil {
@@ -125,7 +127,7 @@ func (client *APIPortalCustomDomainsClient) createOrUpdateCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, apiPortalCustomDomainResource)
@@ -133,14 +135,15 @@ func (client *APIPortalCustomDomainsClient) createOrUpdateCreateRequest(ctx cont
 
 // BeginDelete - Delete the API portal custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serviceName - The name of the Service resource.
-// apiPortalName - The name of API portal.
-// domainName - The name of the API portal custom domain.
-// options - APIPortalCustomDomainsClientBeginDeleteOptions contains the optional parameters for the APIPortalCustomDomainsClient.BeginDelete
-// method.
+//
+// Generated from API version 2023-01-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - apiPortalName - The name of API portal.
+//   - domainName - The name of the API portal custom domain.
+//   - options - APIPortalCustomDomainsClientBeginDeleteOptions contains the optional parameters for the APIPortalCustomDomainsClient.BeginDelete
+//     method.
 func (client *APIPortalCustomDomainsClient) BeginDelete(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, domainName string, options *APIPortalCustomDomainsClientBeginDeleteOptions) (*runtime.Poller[APIPortalCustomDomainsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, serviceName, apiPortalName, domainName, options)
@@ -155,7 +158,8 @@ func (client *APIPortalCustomDomainsClient) BeginDelete(ctx context.Context, res
 
 // Delete - Delete the API portal custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+//
+// Generated from API version 2023-01-01-preview
 func (client *APIPortalCustomDomainsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, domainName string, options *APIPortalCustomDomainsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, apiPortalName, domainName, options)
 	if err != nil {
@@ -199,7 +203,7 @@ func (client *APIPortalCustomDomainsClient) deleteCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -207,14 +211,15 @@ func (client *APIPortalCustomDomainsClient) deleteCreateRequest(ctx context.Cont
 
 // Get - Get the API portal custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serviceName - The name of the Service resource.
-// apiPortalName - The name of API portal.
-// domainName - The name of the API portal custom domain.
-// options - APIPortalCustomDomainsClientGetOptions contains the optional parameters for the APIPortalCustomDomainsClient.Get
-// method.
+//
+// Generated from API version 2023-01-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - apiPortalName - The name of API portal.
+//   - domainName - The name of the API portal custom domain.
+//   - options - APIPortalCustomDomainsClientGetOptions contains the optional parameters for the APIPortalCustomDomainsClient.Get
+//     method.
 func (client *APIPortalCustomDomainsClient) Get(ctx context.Context, resourceGroupName string, serviceName string, apiPortalName string, domainName string, options *APIPortalCustomDomainsClientGetOptions) (APIPortalCustomDomainsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, apiPortalName, domainName, options)
 	if err != nil {
@@ -258,7 +263,7 @@ func (client *APIPortalCustomDomainsClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -274,13 +279,14 @@ func (client *APIPortalCustomDomainsClient) getHandleResponse(resp *http.Respons
 }
 
 // NewListPager - Handle requests to list all API portal custom domains.
-// Generated from API version 2022-11-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serviceName - The name of the Service resource.
-// apiPortalName - The name of API portal.
-// options - APIPortalCustomDomainsClientListOptions contains the optional parameters for the APIPortalCustomDomainsClient.List
-// method.
+//
+// Generated from API version 2023-01-01-preview
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - apiPortalName - The name of API portal.
+//   - options - APIPortalCustomDomainsClientListOptions contains the optional parameters for the APIPortalCustomDomainsClient.NewListPager
+//     method.
 func (client *APIPortalCustomDomainsClient) NewListPager(resourceGroupName string, serviceName string, apiPortalName string, options *APIPortalCustomDomainsClientListOptions) *runtime.Pager[APIPortalCustomDomainsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[APIPortalCustomDomainsClientListResponse]{
 		More: func(page APIPortalCustomDomainsClientListResponse) bool {
@@ -333,7 +339,7 @@ func (client *APIPortalCustomDomainsClient) listCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

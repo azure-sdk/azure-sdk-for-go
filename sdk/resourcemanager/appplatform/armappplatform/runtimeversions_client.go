@@ -28,8 +28,8 @@ type RuntimeVersionsClient struct {
 }
 
 // NewRuntimeVersionsClient creates a new instance of RuntimeVersionsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewRuntimeVersionsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*RuntimeVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -51,9 +51,10 @@ func NewRuntimeVersionsClient(credential azcore.TokenCredential, options *arm.Cl
 
 // ListRuntimeVersions - Lists all of the available runtime versions supported by Microsoft.AppPlatform provider.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
-// options - RuntimeVersionsClientListRuntimeVersionsOptions contains the optional parameters for the RuntimeVersionsClient.ListRuntimeVersions
-// method.
+//
+// Generated from API version 2023-01-01-preview
+//   - options - RuntimeVersionsClientListRuntimeVersionsOptions contains the optional parameters for the RuntimeVersionsClient.ListRuntimeVersions
+//     method.
 func (client *RuntimeVersionsClient) ListRuntimeVersions(ctx context.Context, options *RuntimeVersionsClientListRuntimeVersionsOptions) (RuntimeVersionsClientListRuntimeVersionsResponse, error) {
 	req, err := client.listRuntimeVersionsCreateRequest(ctx, options)
 	if err != nil {
@@ -77,7 +78,7 @@ func (client *RuntimeVersionsClient) listRuntimeVersionsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2023-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
