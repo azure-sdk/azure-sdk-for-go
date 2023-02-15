@@ -11,7 +11,7 @@ package armdataprotection
 
 const (
 	moduleName    = "armdataprotection"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 type AbsoluteMarker string
@@ -67,6 +67,24 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// CrossSubscriptionRestoreState - CrossSubscriptionRestore state
+type CrossSubscriptionRestoreState string
+
+const (
+	CrossSubscriptionRestoreStateDisabled            CrossSubscriptionRestoreState = "Disabled"
+	CrossSubscriptionRestoreStateEnabled             CrossSubscriptionRestoreState = "Enabled"
+	CrossSubscriptionRestoreStatePermanentlyDisabled CrossSubscriptionRestoreState = "PermanentlyDisabled"
+)
+
+// PossibleCrossSubscriptionRestoreStateValues returns the possible values for the CrossSubscriptionRestoreState const type.
+func PossibleCrossSubscriptionRestoreStateValues() []CrossSubscriptionRestoreState {
+	return []CrossSubscriptionRestoreState{
+		CrossSubscriptionRestoreStateDisabled,
+		CrossSubscriptionRestoreStateEnabled,
+		CrossSubscriptionRestoreStatePermanentlyDisabled,
 	}
 }
 
@@ -149,6 +167,29 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 	}
 }
 
+// EncryptionState - Encryption state of the Backup Vault.
+type EncryptionState string
+
+const (
+	// EncryptionStateDisabled - CMK encryption is disabled on the Backup Vault. User can not set this state once Encryption State
+	// is 'Enabled'.
+	EncryptionStateDisabled EncryptionState = "Disabled"
+	// EncryptionStateEnabled - CMK encryption is enabled on the Backup Vault
+	EncryptionStateEnabled EncryptionState = "Enabled"
+	// EncryptionStateInconsistent - CMK encryption is in inconsistent state on the Backup Vault. This state indicates that user
+	// needs to retry the encryption settings operation immediately to correct the state.
+	EncryptionStateInconsistent EncryptionState = "Inconsistent"
+)
+
+// PossibleEncryptionStateValues returns the possible values for the EncryptionState const type.
+func PossibleEncryptionStateValues() []EncryptionState {
+	return []EncryptionState{
+		EncryptionStateDisabled,
+		EncryptionStateEnabled,
+		EncryptionStateInconsistent,
+	}
+}
+
 // ExistingResourcePolicy - Gets or sets the Conflict Policy property. This property sets policy during conflict of resources
 // during restore.
 type ExistingResourcePolicy string
@@ -206,6 +247,23 @@ func PossibleFeatureTypeValues() []FeatureType {
 	}
 }
 
+// IdentityType - The identity type. 'SystemAssigned' and 'UserAssigned' are mutually exclusive. 'SystemAssigned' will use
+// implicitly created managed identity.
+type IdentityType string
+
+const (
+	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
+	IdentityTypeUserAssigned   IdentityType = "UserAssigned"
+)
+
+// PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
+func PossibleIdentityTypeValues() []IdentityType {
+	return []IdentityType{
+		IdentityTypeSystemAssigned,
+		IdentityTypeUserAssigned,
+	}
+}
+
 // ImmutabilityState - Immutability state
 type ImmutabilityState string
 
@@ -221,6 +279,22 @@ func PossibleImmutabilityStateValues() []ImmutabilityState {
 		ImmutabilityStateDisabled,
 		ImmutabilityStateLocked,
 		ImmutabilityStateUnlocked,
+	}
+}
+
+// InfrastructureEncryptionState - Enabling/Disabling the Double Encryption state
+type InfrastructureEncryptionState string
+
+const (
+	InfrastructureEncryptionStateDisabled InfrastructureEncryptionState = "Disabled"
+	InfrastructureEncryptionStateEnabled  InfrastructureEncryptionState = "Enabled"
+)
+
+// PossibleInfrastructureEncryptionStateValues returns the possible values for the InfrastructureEncryptionState const type.
+func PossibleInfrastructureEncryptionStateValues() []InfrastructureEncryptionState {
+	return []InfrastructureEncryptionState{
+		InfrastructureEncryptionStateDisabled,
+		InfrastructureEncryptionStateEnabled,
 	}
 }
 
@@ -259,8 +333,8 @@ func PossibleMonthValues() []Month {
 	}
 }
 
-// PersistentVolumeRestoreMode - Gets or sets the PV Restore Mode property. This property sets whether volumes needs to be
-// restored.
+// PersistentVolumeRestoreMode - Gets or sets the PV (Persistent Volume) Restore Mode property. This property sets whether
+// volumes needs to be restored.
 type PersistentVolumeRestoreMode string
 
 const (
@@ -348,28 +422,6 @@ func PossibleRehydrationStatusValues() []RehydrationStatus {
 		RehydrationStatusDELETED,
 		RehydrationStatusDELETEINPROGRESS,
 		RehydrationStatusFAILED,
-	}
-}
-
-// ResourceGuardProvisioningState - Provisioning state of the BackupVault resource
-type ResourceGuardProvisioningState string
-
-const (
-	ResourceGuardProvisioningStateFailed       ResourceGuardProvisioningState = "Failed"
-	ResourceGuardProvisioningStateProvisioning ResourceGuardProvisioningState = "Provisioning"
-	ResourceGuardProvisioningStateSucceeded    ResourceGuardProvisioningState = "Succeeded"
-	ResourceGuardProvisioningStateUnknown      ResourceGuardProvisioningState = "Unknown"
-	ResourceGuardProvisioningStateUpdating     ResourceGuardProvisioningState = "Updating"
-)
-
-// PossibleResourceGuardProvisioningStateValues returns the possible values for the ResourceGuardProvisioningState const type.
-func PossibleResourceGuardProvisioningStateValues() []ResourceGuardProvisioningState {
-	return []ResourceGuardProvisioningState{
-		ResourceGuardProvisioningStateFailed,
-		ResourceGuardProvisioningStateProvisioning,
-		ResourceGuardProvisioningStateSucceeded,
-		ResourceGuardProvisioningStateUnknown,
-		ResourceGuardProvisioningStateUpdating,
 	}
 }
 
@@ -482,15 +534,17 @@ func PossibleSoftDeleteStateValues() []SoftDeleteState {
 type SourceDataStoreType string
 
 const (
-	SourceDataStoreTypeArchiveStore  SourceDataStoreType = "ArchiveStore"
-	SourceDataStoreTypeSnapshotStore SourceDataStoreType = "SnapshotStore"
-	SourceDataStoreTypeVaultStore    SourceDataStoreType = "VaultStore"
+	SourceDataStoreTypeArchiveStore     SourceDataStoreType = "ArchiveStore"
+	SourceDataStoreTypeOperationalStore SourceDataStoreType = "OperationalStore"
+	SourceDataStoreTypeSnapshotStore    SourceDataStoreType = "SnapshotStore"
+	SourceDataStoreTypeVaultStore       SourceDataStoreType = "VaultStore"
 )
 
 // PossibleSourceDataStoreTypeValues returns the possible values for the SourceDataStoreType const type.
 func PossibleSourceDataStoreTypeValues() []SourceDataStoreType {
 	return []SourceDataStoreType{
 		SourceDataStoreTypeArchiveStore,
+		SourceDataStoreTypeOperationalStore,
 		SourceDataStoreTypeSnapshotStore,
 		SourceDataStoreTypeVaultStore,
 	}
@@ -524,16 +578,16 @@ func PossibleStatusValues() []Status {
 type StorageSettingStoreTypes string
 
 const (
-	StorageSettingStoreTypesArchiveStore  StorageSettingStoreTypes = "ArchiveStore"
-	StorageSettingStoreTypesSnapshotStore StorageSettingStoreTypes = "SnapshotStore"
-	StorageSettingStoreTypesVaultStore    StorageSettingStoreTypes = "VaultStore"
+	StorageSettingStoreTypesArchiveStore     StorageSettingStoreTypes = "ArchiveStore"
+	StorageSettingStoreTypesOperationalStore StorageSettingStoreTypes = "OperationalStore"
+	StorageSettingStoreTypesVaultStore       StorageSettingStoreTypes = "VaultStore"
 )
 
 // PossibleStorageSettingStoreTypesValues returns the possible values for the StorageSettingStoreTypes const type.
 func PossibleStorageSettingStoreTypesValues() []StorageSettingStoreTypes {
 	return []StorageSettingStoreTypes{
 		StorageSettingStoreTypesArchiveStore,
-		StorageSettingStoreTypesSnapshotStore,
+		StorageSettingStoreTypesOperationalStore,
 		StorageSettingStoreTypesVaultStore,
 	}
 }

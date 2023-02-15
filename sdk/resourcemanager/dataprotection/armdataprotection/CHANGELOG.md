@@ -1,5 +1,53 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-02-15)
+### Breaking Changes
+
+- Function `*ResourceGuardsClient.Patch` parameter(s) have been changed from `(context.Context, string, string, PatchResourceRequestInput, *ResourceGuardsClientPatchOptions)` to `(context.Context, string, string, PatchResourceGuardInput, *ResourceGuardsClientPatchOptions)`
+- Type of `ResourceGuard.ProvisioningState` has been changed from `*ResourceGuardProvisioningState` to `*ProvisioningState`
+- Const `StorageSettingStoreTypesSnapshotStore` from type alias `StorageSettingStoreTypes` has been removed
+- Type alias `ResourceGuardProvisioningState` has been removed
+- Function `NewBackupInstancesExtensionRoutingClient` has been removed
+- Function `*BackupInstancesExtensionRoutingClient.NewListPager` has been removed
+- Function `NewDppResourceGuardProxyClient` has been removed
+- Function `*DppResourceGuardProxyClient.Delete` has been removed
+- Function `*DppResourceGuardProxyClient.Get` has been removed
+- Function `*DppResourceGuardProxyClient.NewListPager` has been removed
+- Function `*DppResourceGuardProxyClient.Put` has been removed
+- Function `*DppResourceGuardProxyClient.UnlockDelete` has been removed
+- Operation `*BackupVaultsClient.Delete` has been changed to LRO, use `*BackupVaultsClient.BeginDelete` instead.
+- Struct `BackupInstancesExtensionRoutingClient` has been removed
+- Struct `DppResourceGuardProxyClient` has been removed
+- Struct `ResourceGuardOperationDetail` has been removed
+- Struct `ResourceGuardProxyBase` has been removed
+- Struct `ResourceGuardProxyBaseResource` has been removed
+- Struct `ResourceGuardProxyBaseResourceList` has been removed
+- Struct `UnlockDeleteRequest` has been removed
+- Struct `UnlockDeleteResponse` has been removed
+- Field `Identity` of struct `ResourceGuardResource` has been removed
+
+### Features Added
+
+- New value `SourceDataStoreTypeOperationalStore` added to type alias `SourceDataStoreType`
+- New value `StorageSettingStoreTypesOperationalStore` added to type alias `StorageSettingStoreTypes`
+- New type alias `CrossSubscriptionRestoreState` with values `CrossSubscriptionRestoreStateDisabled`, `CrossSubscriptionRestoreStateEnabled`, `CrossSubscriptionRestoreStatePermanentlyDisabled`
+- New type alias `EncryptionState` with values `EncryptionStateDisabled`, `EncryptionStateEnabled`, `EncryptionStateInconsistent`
+- New type alias `IdentityType` with values `IdentityTypeSystemAssigned`, `IdentityTypeUserAssigned`
+- New type alias `InfrastructureEncryptionState` with values `InfrastructureEncryptionStateDisabled`, `InfrastructureEncryptionStateEnabled`
+- New struct `CmkKekIdentity`
+- New struct `CmkKeyVaultProperties`
+- New struct `CrossSubscriptionRestoreSettings`
+- New struct `DppBaseTrackedResource`
+- New struct `EncryptionSettings`
+- New struct `FeatureSettings`
+- New struct `PatchResourceGuardInput`
+- New field `ExpiryTime` in struct `AzureBackupDiscreteRecoveryPoint`
+- New field `FeatureSettings` in struct `BackupVault`
+- New field `FeatureSettings` in struct `PatchBackupVaultInput`
+- New field `EncryptionSettings` in struct `SecuritySettings`
+- New field `TargetResourceArmID` in struct `TargetDetails`
+
+
 ## 2.0.0-beta.1 (2023-01-13)
 ### Breaking Changes
 
