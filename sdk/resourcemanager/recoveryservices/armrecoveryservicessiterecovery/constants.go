@@ -11,7 +11,7 @@ package armrecoveryservicessiterecovery
 
 const (
 	moduleName    = "armrecoveryservicessiterecovery"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.2.0"
 )
 
 // A2ARecoveryAvailabilityType - The recovery availability type of the virtual machine.
@@ -854,6 +854,24 @@ func PossibleSQLServerLicenseTypeValues() []SQLServerLicenseType {
 		SQLServerLicenseTypeNoLicenseType,
 		SQLServerLicenseTypeNotSpecified,
 		SQLServerLicenseTypePAYG,
+	}
+}
+
+// SecurityType - The target VM security type.
+type SecurityType string
+
+const (
+	SecurityTypeConfidentialVM SecurityType = "ConfidentialVM"
+	SecurityTypeNone           SecurityType = "None"
+	SecurityTypeTrustedLaunch  SecurityType = "TrustedLaunch"
+)
+
+// PossibleSecurityTypeValues returns the possible values for the SecurityType const type.
+func PossibleSecurityTypeValues() []SecurityType {
+	return []SecurityType{
+		SecurityTypeConfidentialVM,
+		SecurityTypeNone,
+		SecurityTypeTrustedLaunch,
 	}
 }
 
