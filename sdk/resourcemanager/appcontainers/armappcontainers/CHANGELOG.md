@@ -1,5 +1,130 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-02-15)
+### Breaking Changes
+
+- Type of `CustomDomainConfiguration.CertificatePassword` has been changed from `[]byte` to `*string`
+- Type of `DaprSecretsCollection.Value` has been changed from `[]*Secret` to `[]*DaprSecret`
+- Type alias `ManagedEnvironmentOutBoundType` has been removed
+- Type alias `SKUName` has been removed
+- Struct `EnvironmentSKUProperties` has been removed
+- Struct `ManagedEnvironmentOutboundSettings` has been removed
+- Field `SKU` of struct `ManagedEnvironment` has been removed
+- Field `OutboundSettings` of struct `VnetConfiguration` has been removed
+- Field `RuntimeSubnetID` of struct `VnetConfiguration` has been removed
+
+### Features Added
+
+- New type alias `Affinity` with values `AffinityNone`, `AffinitySticky`
+- New type alias `IngressClientCertificateMode` with values `IngressClientCertificateModeAccept`, `IngressClientCertificateModeIgnore`, `IngressClientCertificateModeRequire`
+- New type alias `JobProvisioningState` with values `JobProvisioningStateCanceled`, `JobProvisioningStateDeleting`, `JobProvisioningStateFailed`, `JobProvisioningStateInProgress`, `JobProvisioningStateSucceeded`
+- New type alias `ManagedCertificateDomainControlValidation` with values `ManagedCertificateDomainControlValidationCNAME`, `ManagedCertificateDomainControlValidationHTTP`, `ManagedCertificateDomainControlValidationTXT`
+- New type alias `TriggerType` with values `TriggerTypeEvent`, `TriggerTypeManual`, `TriggerTypeScheduled`
+- New function `NewConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClient, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyCircuitBreakerPolicy, *ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClientCreateOrUpdateOptions) (ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClient.Delete(context.Context, string, string, string, *ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClientDeleteOptions) (ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClientDeleteResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClient.Get(context.Context, string, string, string, *ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClientGetOptions) (ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClientGetResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClient.NewListPager(string, string, *ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClientListOptions) *runtime.Pager[ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClientListResponse]`
+- New function `NewConnectedEnvironmentsDaprResiliencyRetryPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedEnvironmentsDaprResiliencyRetryPoliciesClient, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyRetryPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyRetryPolicy, *ConnectedEnvironmentsDaprResiliencyRetryPoliciesClientCreateOrUpdateOptions) (ConnectedEnvironmentsDaprResiliencyRetryPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyRetryPoliciesClient.Delete(context.Context, string, string, string, *ConnectedEnvironmentsDaprResiliencyRetryPoliciesClientDeleteOptions) (ConnectedEnvironmentsDaprResiliencyRetryPoliciesClientDeleteResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyRetryPoliciesClient.Get(context.Context, string, string, string, *ConnectedEnvironmentsDaprResiliencyRetryPoliciesClientGetOptions) (ConnectedEnvironmentsDaprResiliencyRetryPoliciesClientGetResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyRetryPoliciesClient.NewListPager(string, string, *ConnectedEnvironmentsDaprResiliencyRetryPoliciesClientListOptions) *runtime.Pager[ConnectedEnvironmentsDaprResiliencyRetryPoliciesClientListResponse]`
+- New function `NewConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClient, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyTimeoutPolicy, *ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClientCreateOrUpdateOptions) (ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClient.Delete(context.Context, string, string, string, *ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClientDeleteOptions) (ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClientDeleteResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClient.Get(context.Context, string, string, string, *ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClientGetOptions) (ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClientGetResponse, error)`
+- New function `*ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClient.NewListPager(string, string, *ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClientListOptions) *runtime.Pager[ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClientListResponse]`
+- New function `NewDaprResiliencyCircuitBreakerPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DaprResiliencyCircuitBreakerPoliciesClient, error)`
+- New function `*DaprResiliencyCircuitBreakerPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyCircuitBreakerPolicy, *DaprResiliencyCircuitBreakerPoliciesClientCreateOrUpdateOptions) (DaprResiliencyCircuitBreakerPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*DaprResiliencyCircuitBreakerPoliciesClient.Delete(context.Context, string, string, string, *DaprResiliencyCircuitBreakerPoliciesClientDeleteOptions) (DaprResiliencyCircuitBreakerPoliciesClientDeleteResponse, error)`
+- New function `*DaprResiliencyCircuitBreakerPoliciesClient.Get(context.Context, string, string, string, *DaprResiliencyCircuitBreakerPoliciesClientGetOptions) (DaprResiliencyCircuitBreakerPoliciesClientGetResponse, error)`
+- New function `*DaprResiliencyCircuitBreakerPoliciesClient.NewListPager(string, string, *DaprResiliencyCircuitBreakerPoliciesClientListOptions) *runtime.Pager[DaprResiliencyCircuitBreakerPoliciesClientListResponse]`
+- New function `NewDaprResiliencyRetryPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DaprResiliencyRetryPoliciesClient, error)`
+- New function `*DaprResiliencyRetryPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyRetryPolicy, *DaprResiliencyRetryPoliciesClientCreateOrUpdateOptions) (DaprResiliencyRetryPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*DaprResiliencyRetryPoliciesClient.Delete(context.Context, string, string, string, *DaprResiliencyRetryPoliciesClientDeleteOptions) (DaprResiliencyRetryPoliciesClientDeleteResponse, error)`
+- New function `*DaprResiliencyRetryPoliciesClient.Get(context.Context, string, string, string, *DaprResiliencyRetryPoliciesClientGetOptions) (DaprResiliencyRetryPoliciesClientGetResponse, error)`
+- New function `*DaprResiliencyRetryPoliciesClient.NewListPager(string, string, *DaprResiliencyRetryPoliciesClientListOptions) *runtime.Pager[DaprResiliencyRetryPoliciesClientListResponse]`
+- New function `NewDaprResiliencyTimeoutPoliciesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DaprResiliencyTimeoutPoliciesClient, error)`
+- New function `*DaprResiliencyTimeoutPoliciesClient.CreateOrUpdate(context.Context, string, string, string, DaprResiliencyTimeoutPolicy, *DaprResiliencyTimeoutPoliciesClientCreateOrUpdateOptions) (DaprResiliencyTimeoutPoliciesClientCreateOrUpdateResponse, error)`
+- New function `*DaprResiliencyTimeoutPoliciesClient.Delete(context.Context, string, string, string, *DaprResiliencyTimeoutPoliciesClientDeleteOptions) (DaprResiliencyTimeoutPoliciesClientDeleteResponse, error)`
+- New function `*DaprResiliencyTimeoutPoliciesClient.Get(context.Context, string, string, string, *DaprResiliencyTimeoutPoliciesClientGetOptions) (DaprResiliencyTimeoutPoliciesClientGetResponse, error)`
+- New function `*DaprResiliencyTimeoutPoliciesClient.NewListPager(string, string, *DaprResiliencyTimeoutPoliciesClientListOptions) *runtime.Pager[DaprResiliencyTimeoutPoliciesClientListResponse]`
+- New function `NewJobClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobClient, error)`
+- New function `*JobClient.BeginCreateOrUpdate(context.Context, string, string, Job, *JobClientBeginCreateOrUpdateOptions) (*runtime.Poller[JobClientCreateOrUpdateResponse], error)`
+- New function `*JobClient.BeginDelete(context.Context, string, string, *JobClientBeginDeleteOptions) (*runtime.Poller[JobClientDeleteResponse], error)`
+- New function `*JobClient.Get(context.Context, string, string, *JobClientGetOptions) (JobClientGetResponse, error)`
+- New function `*JobClient.BeginRun(context.Context, string, string, *JobClientBeginRunOptions) (*runtime.Poller[JobClientRunResponse], error)`
+- New function `*JobClient.BeginTerminate(context.Context, string, string, *JobClientBeginTerminateOptions) (*runtime.Poller[JobClientTerminateResponse], error)`
+- New function `*JobClient.BeginUpdate(context.Context, string, string, JobPatchProperties, *JobClientBeginUpdateOptions) (*runtime.Poller[JobClientUpdateResponse], error)`
+- New function `NewJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobsClient, error)`
+- New function `*JobsClient.NewListByResourceGroupPager(string, *JobsClientListByResourceGroupOptions) *runtime.Pager[JobsClientListByResourceGroupResponse]`
+- New function `*JobsClient.NewListBySubscriptionPager(*JobsClientListBySubscriptionOptions) *runtime.Pager[JobsClientListBySubscriptionResponse]`
+- New function `*JobsClient.ListSecrets(context.Context, string, string, *JobsClientListSecretsOptions) (JobsClientListSecretsResponse, error)`
+- New function `NewManagedCertificatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedCertificatesClient, error)`
+- New function `*ManagedCertificatesClient.BeginCreateOrUpdate(context.Context, string, string, string, *ManagedCertificatesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedCertificatesClientCreateOrUpdateResponse], error)`
+- New function `*ManagedCertificatesClient.Delete(context.Context, string, string, string, *ManagedCertificatesClientDeleteOptions) (ManagedCertificatesClientDeleteResponse, error)`
+- New function `*ManagedCertificatesClient.Get(context.Context, string, string, string, *ManagedCertificatesClientGetOptions) (ManagedCertificatesClientGetResponse, error)`
+- New function `*ManagedCertificatesClient.NewListPager(string, string, *ManagedCertificatesClientListOptions) *runtime.Pager[ManagedCertificatesClientListResponse]`
+- New function `*ManagedCertificatesClient.Update(context.Context, string, string, string, ManagedCertificatePatch, *ManagedCertificatesClientUpdateOptions) (ManagedCertificatesClientUpdateResponse, error)`
+- New struct `ConnectedEnvironmentsDaprResiliencyCircuitBreakerPoliciesClient`
+- New struct `ConnectedEnvironmentsDaprResiliencyRetryPoliciesClient`
+- New struct `ConnectedEnvironmentsDaprResiliencyTimeoutPoliciesClient`
+- New struct `CorsPolicy`
+- New struct `DaprActorResiliencyTarget`
+- New struct `DaprAppResiliencyTarget`
+- New struct `DaprComponentResiliencyTarget`
+- New struct `DaprComponentResiliencyTargetInbound`
+- New struct `DaprComponentResiliencyTargetOutbound`
+- New struct `DaprConfiguration`
+- New struct `DaprResiliencyCircuitBreakerPoliciesClient`
+- New struct `DaprResiliencyCircuitBreakerPoliciesCollection`
+- New struct `DaprResiliencyCircuitBreakerPolicy`
+- New struct `DaprResiliencyCircuitBreakerPolicyProperties`
+- New struct `DaprResiliencyDefaults`
+- New struct `DaprResiliencyRetryPoliciesClient`
+- New struct `DaprResiliencyRetryPoliciesCollection`
+- New struct `DaprResiliencyRetryPolicy`
+- New struct `DaprResiliencyRetryPolicyProperties`
+- New struct `DaprResiliencyTargets`
+- New struct `DaprResiliencyTimeoutPoliciesClient`
+- New struct `DaprResiliencyTimeoutPoliciesCollection`
+- New struct `DaprResiliencyTimeoutPolicy`
+- New struct `DaprResiliencyTimeoutPolicyProperties`
+- New struct `IngressStickySessions`
+- New struct `Job`
+- New struct `JobClient`
+- New struct `JobConfiguration`
+- New struct `JobConfigurationManualTriggerConfig`
+- New struct `JobConfigurationScheduleTriggerConfig`
+- New struct `JobPatchProperties`
+- New struct `JobPatchPropertiesProperties`
+- New struct `JobProperties`
+- New struct `JobSecretsCollection`
+- New struct `JobTemplate`
+- New struct `JobsClient`
+- New struct `JobsCollection`
+- New struct `KedaConfiguration`
+- New struct `ManagedCertificate`
+- New struct `ManagedCertificateCollection`
+- New struct `ManagedCertificatePatch`
+- New struct `ManagedCertificateProperties`
+- New struct `ManagedCertificatesClient`
+- New field `DaprResiliencyDefaults` in struct `ConnectedEnvironmentProperties`
+- New field `ManagedBy` in struct `ContainerApp`
+- New field `LatestReadyRevisionName` in struct `ContainerAppProperties`
+- New anonymous field `ContainerApp` in struct `ContainerAppsClientUpdateResponse`
+- New field `ResiliencyTargets` in struct `Dapr`
+- New field `ClientCertificateMode` in struct `Ingress`
+- New field `CorsPolicy` in struct `Ingress`
+- New field `StickySessions` in struct `Ingress`
+- New field `Kind` in struct `ManagedEnvironment`
+- New field `DaprConfiguration` in struct `ManagedEnvironmentProperties`
+- New field `DaprResiliencyDefaults` in struct `ManagedEnvironmentProperties`
+- New field `KedaConfiguration` in struct `ManagedEnvironmentProperties`
+- New anonymous field `ManagedEnvironment` in struct `ManagedEnvironmentsClientUpdateResponse`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
