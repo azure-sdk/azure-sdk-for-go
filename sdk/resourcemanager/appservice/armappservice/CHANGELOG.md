@@ -1,5 +1,39 @@
 # Release History
 
+## 2.1.0 (2023-02-15)
+### Features Added
+
+- New type alias `DefaultAction` with values `DefaultActionAllow`, `DefaultActionDeny`
+- New type alias `WorkflowHealthState` with values `WorkflowHealthStateHealthy`, `WorkflowHealthStateNotSpecified`, `WorkflowHealthStateUnhealthy`, `WorkflowHealthStateUnknown`
+- New function `*StaticSitesClient.CreateFreeTrialStaticWebApp(context.Context, string, FreeTrialStaticWebAppsProxyEntity, *StaticSitesClientCreateFreeTrialStaticWebAppOptions) (StaticSitesClientCreateFreeTrialStaticWebAppResponse, error)`
+- New function `*StaticSitesClient.DeleteFreeTrialStaticWebApp(context.Context, string, *StaticSitesClientDeleteFreeTrialStaticWebAppOptions) (StaticSitesClientDeleteFreeTrialStaticWebAppResponse, error)`
+- New function `*StaticSitesClient.GetFreeTrialStaticWebApp(context.Context, string, *StaticSitesClientGetFreeTrialStaticWebAppOptions) (StaticSitesClientGetFreeTrialStaticWebAppResponse, error)`
+- New function `*StaticSitesClient.ListFreeTrialStaticWebApps(context.Context, *StaticSitesClientListFreeTrialStaticWebAppsOptions) (StaticSitesClientListFreeTrialStaticWebAppsResponse, error)`
+- New function `*StaticSitesClient.UpgradeFreeTrialStaticWebApp(context.Context, string, FreeTrialStaticWebAppsProxyEntity, *StaticSitesClientUpgradeFreeTrialStaticWebAppOptions) (StaticSitesClientUpgradeFreeTrialStaticWebAppResponse, error)`
+- New function `*WebAppsClient.DeployWorkflowArtifacts(context.Context, string, string, *WebAppsClientDeployWorkflowArtifactsOptions) (WebAppsClientDeployWorkflowArtifactsResponse, error)`
+- New function `*WebAppsClient.DeployWorkflowArtifactsSlot(context.Context, string, string, string, *WebAppsClientDeployWorkflowArtifactsSlotOptions) (WebAppsClientDeployWorkflowArtifactsSlotResponse, error)`
+- New function `*WebAppsClient.GetInstanceWorkflowSlot(context.Context, string, string, string, string, *WebAppsClientGetInstanceWorkflowSlotOptions) (WebAppsClientGetInstanceWorkflowSlotResponse, error)`
+- New function `*WebAppsClient.GetWorkflow(context.Context, string, string, string, *WebAppsClientGetWorkflowOptions) (WebAppsClientGetWorkflowResponse, error)`
+- New function `*WebAppsClient.ListInstanceWorkflowsConfigurationConnectionsSlot(context.Context, string, string, string, string, *WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotOptions) (WebAppsClientListInstanceWorkflowsConfigurationConnectionsSlotResponse, error)`
+- New function `*WebAppsClient.NewListInstanceWorkflowsSlotPager(string, string, string, *WebAppsClientListInstanceWorkflowsSlotOptions) *runtime.Pager[WebAppsClientListInstanceWorkflowsSlotResponse]`
+- New function `*WebAppsClient.ListWorkflowsConfiguration(context.Context, string, string, string, *WebAppsClientListWorkflowsConfigurationOptions) (WebAppsClientListWorkflowsConfigurationResponse, error)`
+- New function `*WebAppsClient.NewListWorkflowsPager(string, string, *WebAppsClientListWorkflowsOptions) *runtime.Pager[WebAppsClientListWorkflowsResponse]`
+- New struct `FreeTrialStaticWebAppsProxyEntity`
+- New struct `FreeTrialStaticWebAppsProxyEntityCollection`
+- New struct `FreeTrialStaticWebAppsProxyEntityProperties`
+- New struct `FreeTrialStaticWebAppsUser`
+- New struct `WorkflowArtifacts`
+- New struct `WorkflowEnvelope`
+- New struct `WorkflowEnvelopeCollection`
+- New struct `WorkflowEnvelopeProperties`
+- New struct `WorkflowHealth`
+- New field `IPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+- New field `Metadata` in struct `SiteConfig`
+- New field `ScmIPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+- New field `ManagedEnvironmentID` in struct `SiteProperties`
+- New field `TargetResourceGroupResourceID` in struct `StaticSite`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 
