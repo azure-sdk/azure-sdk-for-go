@@ -34,11 +34,11 @@ type ReplicationJobsClient struct {
 }
 
 // NewReplicationJobsClient creates a new instance of ReplicationJobsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationJobsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationJobsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,10 +63,11 @@ func NewReplicationJobsClient(resourceName string, resourceGroupName string, sub
 
 // BeginCancel - The operation to cancel an Azure Site Recovery job.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// jobName - Job identifier.
-// options - ReplicationJobsClientBeginCancelOptions contains the optional parameters for the ReplicationJobsClient.BeginCancel
-// method.
+//
+// Generated from API version 2023-01-01
+//   - jobName - Job identifier.
+//   - options - ReplicationJobsClientBeginCancelOptions contains the optional parameters for the ReplicationJobsClient.BeginCancel
+//     method.
 func (client *ReplicationJobsClient) BeginCancel(ctx context.Context, jobName string, options *ReplicationJobsClientBeginCancelOptions) (*runtime.Poller[ReplicationJobsClientCancelResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.cancel(ctx, jobName, options)
@@ -81,7 +82,8 @@ func (client *ReplicationJobsClient) BeginCancel(ctx context.Context, jobName st
 
 // Cancel - The operation to cancel an Azure Site Recovery job.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-01-01
 func (client *ReplicationJobsClient) cancel(ctx context.Context, jobName string, options *ReplicationJobsClientBeginCancelOptions) (*http.Response, error) {
 	req, err := client.cancelCreateRequest(ctx, jobName, options)
 	if err != nil {
@@ -121,7 +123,7 @@ func (client *ReplicationJobsClient) cancelCreateRequest(ctx context.Context, jo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -129,10 +131,11 @@ func (client *ReplicationJobsClient) cancelCreateRequest(ctx context.Context, jo
 
 // BeginExport - The operation to export the details of the Azure Site Recovery jobs of the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// jobQueryParameter - job query filter.
-// options - ReplicationJobsClientBeginExportOptions contains the optional parameters for the ReplicationJobsClient.BeginExport
-// method.
+//
+// Generated from API version 2023-01-01
+//   - jobQueryParameter - job query filter.
+//   - options - ReplicationJobsClientBeginExportOptions contains the optional parameters for the ReplicationJobsClient.BeginExport
+//     method.
 func (client *ReplicationJobsClient) BeginExport(ctx context.Context, jobQueryParameter JobQueryParameter, options *ReplicationJobsClientBeginExportOptions) (*runtime.Poller[ReplicationJobsClientExportResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.export(ctx, jobQueryParameter, options)
@@ -147,7 +150,8 @@ func (client *ReplicationJobsClient) BeginExport(ctx context.Context, jobQueryPa
 
 // Export - The operation to export the details of the Azure Site Recovery jobs of the vault.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-01-01
 func (client *ReplicationJobsClient) export(ctx context.Context, jobQueryParameter JobQueryParameter, options *ReplicationJobsClientBeginExportOptions) (*http.Response, error) {
 	req, err := client.exportCreateRequest(ctx, jobQueryParameter, options)
 	if err != nil {
@@ -183,7 +187,7 @@ func (client *ReplicationJobsClient) exportCreateRequest(ctx context.Context, jo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, jobQueryParameter)
@@ -191,9 +195,10 @@ func (client *ReplicationJobsClient) exportCreateRequest(ctx context.Context, jo
 
 // Get - Get the details of an Azure Site Recovery job.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// jobName - Job identifier.
-// options - ReplicationJobsClientGetOptions contains the optional parameters for the ReplicationJobsClient.Get method.
+//
+// Generated from API version 2023-01-01
+//   - jobName - Job identifier.
+//   - options - ReplicationJobsClientGetOptions contains the optional parameters for the ReplicationJobsClient.Get method.
 func (client *ReplicationJobsClient) Get(ctx context.Context, jobName string, options *ReplicationJobsClientGetOptions) (ReplicationJobsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, jobName, options)
 	if err != nil {
@@ -233,7 +238,7 @@ func (client *ReplicationJobsClient) getCreateRequest(ctx context.Context, jobNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,8 +254,10 @@ func (client *ReplicationJobsClient) getHandleResponse(resp *http.Response) (Rep
 }
 
 // NewListPager - Gets the list of Azure Site Recovery Jobs for the vault.
-// Generated from API version 2022-10-01
-// options - ReplicationJobsClientListOptions contains the optional parameters for the ReplicationJobsClient.List method.
+//
+// Generated from API version 2023-01-01
+//   - options - ReplicationJobsClientListOptions contains the optional parameters for the ReplicationJobsClient.NewListPager
+//     method.
 func (client *ReplicationJobsClient) NewListPager(options *ReplicationJobsClientListOptions) *runtime.Pager[ReplicationJobsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationJobsClientListResponse]{
 		More: func(page ReplicationJobsClientListResponse) bool {
@@ -299,7 +306,7 @@ func (client *ReplicationJobsClient) listCreateRequest(ctx context.Context, opti
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
@@ -319,10 +326,11 @@ func (client *ReplicationJobsClient) listHandleResponse(resp *http.Response) (Re
 
 // BeginRestart - The operation to restart an Azure Site Recovery job.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// jobName - Job identifier.
-// options - ReplicationJobsClientBeginRestartOptions contains the optional parameters for the ReplicationJobsClient.BeginRestart
-// method.
+//
+// Generated from API version 2023-01-01
+//   - jobName - Job identifier.
+//   - options - ReplicationJobsClientBeginRestartOptions contains the optional parameters for the ReplicationJobsClient.BeginRestart
+//     method.
 func (client *ReplicationJobsClient) BeginRestart(ctx context.Context, jobName string, options *ReplicationJobsClientBeginRestartOptions) (*runtime.Poller[ReplicationJobsClientRestartResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.restart(ctx, jobName, options)
@@ -337,7 +345,8 @@ func (client *ReplicationJobsClient) BeginRestart(ctx context.Context, jobName s
 
 // Restart - The operation to restart an Azure Site Recovery job.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-01-01
 func (client *ReplicationJobsClient) restart(ctx context.Context, jobName string, options *ReplicationJobsClientBeginRestartOptions) (*http.Response, error) {
 	req, err := client.restartCreateRequest(ctx, jobName, options)
 	if err != nil {
@@ -377,7 +386,7 @@ func (client *ReplicationJobsClient) restartCreateRequest(ctx context.Context, j
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -385,11 +394,12 @@ func (client *ReplicationJobsClient) restartCreateRequest(ctx context.Context, j
 
 // BeginResume - The operation to resume an Azure Site Recovery job.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// jobName - Job identifier.
-// resumeJobParams - Resume rob comments.
-// options - ReplicationJobsClientBeginResumeOptions contains the optional parameters for the ReplicationJobsClient.BeginResume
-// method.
+//
+// Generated from API version 2023-01-01
+//   - jobName - Job identifier.
+//   - resumeJobParams - Resume rob comments.
+//   - options - ReplicationJobsClientBeginResumeOptions contains the optional parameters for the ReplicationJobsClient.BeginResume
+//     method.
 func (client *ReplicationJobsClient) BeginResume(ctx context.Context, jobName string, resumeJobParams ResumeJobParams, options *ReplicationJobsClientBeginResumeOptions) (*runtime.Poller[ReplicationJobsClientResumeResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.resume(ctx, jobName, resumeJobParams, options)
@@ -404,7 +414,8 @@ func (client *ReplicationJobsClient) BeginResume(ctx context.Context, jobName st
 
 // Resume - The operation to resume an Azure Site Recovery job.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-01-01
 func (client *ReplicationJobsClient) resume(ctx context.Context, jobName string, resumeJobParams ResumeJobParams, options *ReplicationJobsClientBeginResumeOptions) (*http.Response, error) {
 	req, err := client.resumeCreateRequest(ctx, jobName, resumeJobParams, options)
 	if err != nil {
@@ -444,7 +455,7 @@ func (client *ReplicationJobsClient) resumeCreateRequest(ctx context.Context, jo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, resumeJobParams)

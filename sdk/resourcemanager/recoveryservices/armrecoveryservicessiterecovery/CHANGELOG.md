@@ -1,5 +1,21 @@
 # Release History
 
+## 1.2.0 (2023-02-15)
+### Features Added
+
+- New type alias `SecurityType` with values `SecurityTypeConfidentialVM`, `SecurityTypeNone`, `SecurityTypeTrustedLaunch`
+- New struct `VMwareCbtSecurityProfileProperties`
+- New field `ConfidentialVMKeyVaultID` in struct `VMwareCbtEnableMigrationInput`
+- New field `TargetVMSecurityProfile` in struct `VMwareCbtEnableMigrationInput`
+- New field `OSUpgradeVersion` in struct `VMwareCbtMigrateInput`
+- New field `ConfidentialVMKeyVaultID` in struct `VMwareCbtMigrationDetails`
+- New field `OSName` in struct `VMwareCbtMigrationDetails`
+- New field `SupportedOSVersions` in struct `VMwareCbtMigrationDetails`
+- New field `TargetVMSecurityProfile` in struct `VMwareCbtMigrationDetails`
+- New field `ExcludedSKUs` in struct `VMwareCbtProtectionContainerMappingDetails`
+- New field `OSUpgradeVersion` in struct `VMwareCbtTestMigrateInput`
+
+
 ## 1.1.0 (2022-12-23)
 ### Features Added
 

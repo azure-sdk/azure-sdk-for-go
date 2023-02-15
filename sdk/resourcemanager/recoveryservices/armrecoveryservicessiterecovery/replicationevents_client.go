@@ -34,11 +34,11 @@ type ReplicationEventsClient struct {
 }
 
 // NewReplicationEventsClient creates a new instance of ReplicationEventsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationEventsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationEventsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,9 +63,10 @@ func NewReplicationEventsClient(resourceName string, resourceGroupName string, s
 
 // Get - The operation to get the details of an Azure Site recovery event.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// eventName - The name of the Azure Site Recovery event.
-// options - ReplicationEventsClientGetOptions contains the optional parameters for the ReplicationEventsClient.Get method.
+//
+// Generated from API version 2023-01-01
+//   - eventName - The name of the Azure Site Recovery event.
+//   - options - ReplicationEventsClientGetOptions contains the optional parameters for the ReplicationEventsClient.Get method.
 func (client *ReplicationEventsClient) Get(ctx context.Context, eventName string, options *ReplicationEventsClientGetOptions) (ReplicationEventsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, eventName, options)
 	if err != nil {
@@ -105,7 +106,7 @@ func (client *ReplicationEventsClient) getCreateRequest(ctx context.Context, eve
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,8 +122,10 @@ func (client *ReplicationEventsClient) getHandleResponse(resp *http.Response) (R
 }
 
 // NewListPager - Gets the list of Azure Site Recovery events for the vault.
-// Generated from API version 2022-10-01
-// options - ReplicationEventsClientListOptions contains the optional parameters for the ReplicationEventsClient.List method.
+//
+// Generated from API version 2023-01-01
+//   - options - ReplicationEventsClientListOptions contains the optional parameters for the ReplicationEventsClient.NewListPager
+//     method.
 func (client *ReplicationEventsClient) NewListPager(options *ReplicationEventsClientListOptions) *runtime.Pager[ReplicationEventsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationEventsClientListResponse]{
 		More: func(page ReplicationEventsClientListResponse) bool {
@@ -171,7 +174,7 @@ func (client *ReplicationEventsClient) listCreateRequest(ctx context.Context, op
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
