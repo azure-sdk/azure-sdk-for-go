@@ -32,9 +32,9 @@ type ConfigurationProfilesVersionsClient struct {
 }
 
 // NewConfigurationProfilesVersionsClient creates a new instance of ConfigurationProfilesVersionsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConfigurationProfilesVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConfigurationProfilesVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewConfigurationProfilesVersionsClient(subscriptionID string, credential az
 
 // CreateOrUpdate - Creates a configuration profile version
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// configurationProfileName - Name of the configuration profile.
-// versionName - The configuration profile version name.
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// parameters - Parameters supplied to create or update configuration profile.
-// options - ConfigurationProfilesVersionsClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.CreateOrUpdate
-// method.
+//   - configurationProfileName - Name of the configuration profile.
+//   - versionName - The configuration profile version name.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parameters - Parameters supplied to create or update configuration profile.
+//   - options - ConfigurationProfilesVersionsClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.CreateOrUpdate
+//     method.
 func (client *ConfigurationProfilesVersionsClient) CreateOrUpdate(ctx context.Context, configurationProfileName string, versionName string, resourceGroupName string, parameters ConfigurationProfile, options *ConfigurationProfilesVersionsClientCreateOrUpdateOptions) (ConfigurationProfilesVersionsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, configurationProfileName, versionName, resourceGroupName, parameters, options)
 	if err != nil {
@@ -120,12 +121,13 @@ func (client *ConfigurationProfilesVersionsClient) createOrUpdateHandleResponse(
 
 // Delete - Delete a configuration profile version
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// configurationProfileName - Name of the configuration profile
-// versionName - The configuration profile version name.
-// options - ConfigurationProfilesVersionsClientDeleteOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - configurationProfileName - Name of the configuration profile
+//   - versionName - The configuration profile version name.
+//   - options - ConfigurationProfilesVersionsClientDeleteOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.Delete
+//     method.
 func (client *ConfigurationProfilesVersionsClient) Delete(ctx context.Context, resourceGroupName string, configurationProfileName string, versionName string, options *ConfigurationProfilesVersionsClientDeleteOptions) (ConfigurationProfilesVersionsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, configurationProfileName, versionName, options)
 	if err != nil {
@@ -173,12 +175,13 @@ func (client *ConfigurationProfilesVersionsClient) deleteCreateRequest(ctx conte
 
 // Get - Get information about a configuration profile version
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// configurationProfileName - The configuration profile name.
-// versionName - The configuration profile version name.
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - ConfigurationProfilesVersionsClientGetOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.Get
-// method.
+//   - configurationProfileName - The configuration profile name.
+//   - versionName - The configuration profile version name.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - ConfigurationProfilesVersionsClientGetOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.Get
+//     method.
 func (client *ConfigurationProfilesVersionsClient) Get(ctx context.Context, configurationProfileName string, versionName string, resourceGroupName string, options *ConfigurationProfilesVersionsClientGetOptions) (ConfigurationProfilesVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, configurationProfileName, versionName, resourceGroupName, options)
 	if err != nil {
@@ -234,12 +237,12 @@ func (client *ConfigurationProfilesVersionsClient) getHandleResponse(resp *http.
 }
 
 // NewListChildResourcesPager - Retrieve a list of configuration profile version for a configuration profile
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// configurationProfileName - Name of the configuration profile.
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - ConfigurationProfilesVersionsClientListChildResourcesOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.ListChildResources
-// method.
+//   - configurationProfileName - Name of the configuration profile.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - ConfigurationProfilesVersionsClientListChildResourcesOptions contains the optional parameters for the ConfigurationProfilesVersionsClient.NewListChildResourcesPager
+//     method.
 func (client *ConfigurationProfilesVersionsClient) NewListChildResourcesPager(configurationProfileName string, resourceGroupName string, options *ConfigurationProfilesVersionsClientListChildResourcesOptions) *runtime.Pager[ConfigurationProfilesVersionsClientListChildResourcesResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationProfilesVersionsClientListChildResourcesResponse]{
 		More: func(page ConfigurationProfilesVersionsClientListChildResourcesResponse) bool {

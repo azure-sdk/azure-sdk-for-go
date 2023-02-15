@@ -32,9 +32,9 @@ type ConfigurationProfileAssignmentsClient struct {
 }
 
 // NewConfigurationProfileAssignmentsClient creates a new instance of ConfigurationProfileAssignmentsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConfigurationProfileAssignmentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConfigurationProfileAssignmentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewConfigurationProfileAssignmentsClient(subscriptionID string, credential 
 
 // CreateOrUpdate - Creates an association between a VM and Automanage configuration profile
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// configurationProfileAssignmentName - Name of the configuration profile assignment. Only default is supported.
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// vmName - The name of the virtual machine.
-// parameters - Parameters supplied to the create or update configuration profile assignment.
-// options - ConfigurationProfileAssignmentsClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.CreateOrUpdate
-// method.
+//   - configurationProfileAssignmentName - Name of the configuration profile assignment. Only default is supported.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - vmName - The name of the virtual machine.
+//   - parameters - Parameters supplied to the create or update configuration profile assignment.
+//   - options - ConfigurationProfileAssignmentsClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.CreateOrUpdate
+//     method.
 func (client *ConfigurationProfileAssignmentsClient) CreateOrUpdate(ctx context.Context, configurationProfileAssignmentName string, resourceGroupName string, vmName string, parameters ConfigurationProfileAssignment, options *ConfigurationProfileAssignmentsClientCreateOrUpdateOptions) (ConfigurationProfileAssignmentsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, configurationProfileAssignmentName, resourceGroupName, vmName, parameters, options)
 	if err != nil {
@@ -120,12 +121,13 @@ func (client *ConfigurationProfileAssignmentsClient) createOrUpdateHandleRespons
 
 // Delete - Delete a configuration profile assignment
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// configurationProfileAssignmentName - Name of the configuration profile assignment
-// vmName - The name of the virtual machine.
-// options - ConfigurationProfileAssignmentsClientDeleteOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - configurationProfileAssignmentName - Name of the configuration profile assignment
+//   - vmName - The name of the virtual machine.
+//   - options - ConfigurationProfileAssignmentsClientDeleteOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.Delete
+//     method.
 func (client *ConfigurationProfileAssignmentsClient) Delete(ctx context.Context, resourceGroupName string, configurationProfileAssignmentName string, vmName string, options *ConfigurationProfileAssignmentsClientDeleteOptions) (ConfigurationProfileAssignmentsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, configurationProfileAssignmentName, vmName, options)
 	if err != nil {
@@ -173,12 +175,13 @@ func (client *ConfigurationProfileAssignmentsClient) deleteCreateRequest(ctx con
 
 // Get - Get information about a configuration profile assignment
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// configurationProfileAssignmentName - The configuration profile assignment name.
-// vmName - The name of the virtual machine.
-// options - ConfigurationProfileAssignmentsClientGetOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - configurationProfileAssignmentName - The configuration profile assignment name.
+//   - vmName - The name of the virtual machine.
+//   - options - ConfigurationProfileAssignmentsClientGetOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.Get
+//     method.
 func (client *ConfigurationProfileAssignmentsClient) Get(ctx context.Context, resourceGroupName string, configurationProfileAssignmentName string, vmName string, options *ConfigurationProfileAssignmentsClientGetOptions) (ConfigurationProfileAssignmentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, configurationProfileAssignmentName, vmName, options)
 	if err != nil {
@@ -234,11 +237,11 @@ func (client *ConfigurationProfileAssignmentsClient) getHandleResponse(resp *htt
 }
 
 // NewListPager - Get list of configuration profile assignments
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - ConfigurationProfileAssignmentsClientListOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.List
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - ConfigurationProfileAssignmentsClientListOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.NewListPager
+//     method.
 func (client *ConfigurationProfileAssignmentsClient) NewListPager(resourceGroupName string, options *ConfigurationProfileAssignmentsClientListOptions) *runtime.Pager[ConfigurationProfileAssignmentsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationProfileAssignmentsClientListResponse]{
 		More: func(page ConfigurationProfileAssignmentsClientListResponse) bool {
@@ -293,12 +296,12 @@ func (client *ConfigurationProfileAssignmentsClient) listHandleResponse(resp *ht
 }
 
 // NewListByClusterNamePager - Get list of configuration profile assignments
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - The name of the Arc machine.
-// options - ConfigurationProfileAssignmentsClientListByClusterNameOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.ListByClusterName
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the Arc machine.
+//   - options - ConfigurationProfileAssignmentsClientListByClusterNameOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.NewListByClusterNamePager
+//     method.
 func (client *ConfigurationProfileAssignmentsClient) NewListByClusterNamePager(resourceGroupName string, clusterName string, options *ConfigurationProfileAssignmentsClientListByClusterNameOptions) *runtime.Pager[ConfigurationProfileAssignmentsClientListByClusterNameResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationProfileAssignmentsClientListByClusterNameResponse]{
 		More: func(page ConfigurationProfileAssignmentsClientListByClusterNameResponse) bool {
@@ -357,12 +360,12 @@ func (client *ConfigurationProfileAssignmentsClient) listByClusterNameHandleResp
 }
 
 // NewListByMachineNamePager - Get list of configuration profile assignments
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// machineName - The name of the Arc machine.
-// options - ConfigurationProfileAssignmentsClientListByMachineNameOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.ListByMachineName
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - machineName - The name of the Arc machine.
+//   - options - ConfigurationProfileAssignmentsClientListByMachineNameOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.NewListByMachineNamePager
+//     method.
 func (client *ConfigurationProfileAssignmentsClient) NewListByMachineNamePager(resourceGroupName string, machineName string, options *ConfigurationProfileAssignmentsClientListByMachineNameOptions) *runtime.Pager[ConfigurationProfileAssignmentsClientListByMachineNameResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationProfileAssignmentsClientListByMachineNameResponse]{
 		More: func(page ConfigurationProfileAssignmentsClientListByMachineNameResponse) bool {
@@ -421,10 +424,10 @@ func (client *ConfigurationProfileAssignmentsClient) listByMachineNameHandleResp
 }
 
 // NewListBySubscriptionPager - Get list of configuration profile assignments under a given subscription
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// options - ConfigurationProfileAssignmentsClientListBySubscriptionOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.ListBySubscription
-// method.
+//   - options - ConfigurationProfileAssignmentsClientListBySubscriptionOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.NewListBySubscriptionPager
+//     method.
 func (client *ConfigurationProfileAssignmentsClient) NewListBySubscriptionPager(options *ConfigurationProfileAssignmentsClientListBySubscriptionOptions) *runtime.Pager[ConfigurationProfileAssignmentsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationProfileAssignmentsClientListBySubscriptionResponse]{
 		More: func(page ConfigurationProfileAssignmentsClientListBySubscriptionResponse) bool {
@@ -475,12 +478,12 @@ func (client *ConfigurationProfileAssignmentsClient) listBySubscriptionHandleRes
 }
 
 // NewListByVirtualMachinesPager - Get list of configuration profile assignments
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// vmName - The name of the virtual machine.
-// options - ConfigurationProfileAssignmentsClientListByVirtualMachinesOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.ListByVirtualMachines
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - vmName - The name of the virtual machine.
+//   - options - ConfigurationProfileAssignmentsClientListByVirtualMachinesOptions contains the optional parameters for the ConfigurationProfileAssignmentsClient.NewListByVirtualMachinesPager
+//     method.
 func (client *ConfigurationProfileAssignmentsClient) NewListByVirtualMachinesPager(resourceGroupName string, vmName string, options *ConfigurationProfileAssignmentsClientListByVirtualMachinesOptions) *runtime.Pager[ConfigurationProfileAssignmentsClientListByVirtualMachinesResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationProfileAssignmentsClientListByVirtualMachinesResponse]{
 		More: func(page ConfigurationProfileAssignmentsClientListByVirtualMachinesResponse) bool {

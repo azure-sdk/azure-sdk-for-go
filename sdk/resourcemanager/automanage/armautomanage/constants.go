@@ -11,7 +11,7 @@ package armautomanage
 
 const (
 	moduleName    = "armautomanage"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -25,6 +25,22 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AssignmentMode - The mode in which to apply the assigned configuration profile.
+type AssignmentMode string
+
+const (
+	AssignmentModeAuditOnly AssignmentMode = "AuditOnly"
+	AssignmentModeRemediate AssignmentMode = "Remediate"
+)
+
+// PossibleAssignmentModeValues returns the possible values for the AssignmentMode const type.
+func PossibleAssignmentModeValues() []AssignmentMode {
+	return []AssignmentMode{
+		AssignmentModeAuditOnly,
+		AssignmentModeRemediate,
 	}
 }
 

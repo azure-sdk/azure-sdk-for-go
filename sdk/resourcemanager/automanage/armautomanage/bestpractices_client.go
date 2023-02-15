@@ -31,8 +31,8 @@ type BestPracticesClient struct {
 }
 
 // NewBestPracticesClient creates a new instance of BestPracticesClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBestPracticesClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*BestPracticesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -54,9 +54,10 @@ func NewBestPracticesClient(credential azcore.TokenCredential, options *arm.Clie
 
 // Get - Get information about a Automanage best practice
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// bestPracticeName - The Automanage best practice name.
-// options - BestPracticesClientGetOptions contains the optional parameters for the BestPracticesClient.Get method.
+//   - bestPracticeName - The Automanage best practice name.
+//   - options - BestPracticesClientGetOptions contains the optional parameters for the BestPracticesClient.Get method.
 func (client *BestPracticesClient) Get(ctx context.Context, bestPracticeName string, options *BestPracticesClientGetOptions) (BestPracticesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, bestPracticeName, options)
 	if err != nil {
@@ -100,10 +101,10 @@ func (client *BestPracticesClient) getHandleResponse(resp *http.Response) (BestP
 }
 
 // NewListByTenantPager - Retrieve a list of Automanage best practices
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// options - BestPracticesClientListByTenantOptions contains the optional parameters for the BestPracticesClient.ListByTenant
-// method.
+//   - options - BestPracticesClientListByTenantOptions contains the optional parameters for the BestPracticesClient.NewListByTenantPager
+//     method.
 func (client *BestPracticesClient) NewListByTenantPager(options *BestPracticesClientListByTenantOptions) *runtime.Pager[BestPracticesClientListByTenantResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BestPracticesClientListByTenantResponse]{
 		More: func(page BestPracticesClientListByTenantResponse) bool {

@@ -32,9 +32,9 @@ type ReportsClient struct {
 }
 
 // NewReportsClient creates a new instance of ReportsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReportsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReportsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewReportsClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // Get - Get information about a report associated with a configuration profile assignment run
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// configurationProfileAssignmentName - The configuration profile assignment name.
-// reportName - The report name.
-// vmName - The name of the virtual machine.
-// options - ReportsClientGetOptions contains the optional parameters for the ReportsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - configurationProfileAssignmentName - The configuration profile assignment name.
+//   - reportName - The report name.
+//   - vmName - The name of the virtual machine.
+//   - options - ReportsClientGetOptions contains the optional parameters for the ReportsClient.Get method.
 func (client *ReportsClient) Get(ctx context.Context, resourceGroupName string, configurationProfileAssignmentName string, reportName string, vmName string, options *ReportsClientGetOptions) (ReportsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, configurationProfileAssignmentName, reportName, vmName, options)
 	if err != nil {
@@ -122,13 +123,13 @@ func (client *ReportsClient) getHandleResponse(resp *http.Response) (ReportsClie
 }
 
 // NewListByConfigurationProfileAssignmentsPager - Retrieve a list of reports within a given configuration profile assignment
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// configurationProfileAssignmentName - The configuration profile assignment name.
-// vmName - The name of the virtual machine.
-// options - ReportsClientListByConfigurationProfileAssignmentsOptions contains the optional parameters for the ReportsClient.ListByConfigurationProfileAssignments
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - configurationProfileAssignmentName - The configuration profile assignment name.
+//   - vmName - The name of the virtual machine.
+//   - options - ReportsClientListByConfigurationProfileAssignmentsOptions contains the optional parameters for the ReportsClient.NewListByConfigurationProfileAssignmentsPager
+//     method.
 func (client *ReportsClient) NewListByConfigurationProfileAssignmentsPager(resourceGroupName string, configurationProfileAssignmentName string, vmName string, options *ReportsClientListByConfigurationProfileAssignmentsOptions) *runtime.Pager[ReportsClientListByConfigurationProfileAssignmentsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReportsClientListByConfigurationProfileAssignmentsResponse]{
 		More: func(page ReportsClientListByConfigurationProfileAssignmentsResponse) bool {

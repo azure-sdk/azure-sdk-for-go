@@ -31,8 +31,8 @@ type BestPracticesVersionsClient struct {
 }
 
 // NewBestPracticesVersionsClient creates a new instance of BestPracticesVersionsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBestPracticesVersionsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*BestPracticesVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -54,11 +54,12 @@ func NewBestPracticesVersionsClient(credential azcore.TokenCredential, options *
 
 // Get - Get information about a Automanage best practice version
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// bestPracticeName - The Automanage best practice name.
-// versionName - The Automanage best practice version name.
-// options - BestPracticesVersionsClientGetOptions contains the optional parameters for the BestPracticesVersionsClient.Get
-// method.
+//   - bestPracticeName - The Automanage best practice name.
+//   - versionName - The Automanage best practice version name.
+//   - options - BestPracticesVersionsClientGetOptions contains the optional parameters for the BestPracticesVersionsClient.Get
+//     method.
 func (client *BestPracticesVersionsClient) Get(ctx context.Context, bestPracticeName string, versionName string, options *BestPracticesVersionsClientGetOptions) (BestPracticesVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, bestPracticeName, versionName, options)
 	if err != nil {
@@ -106,11 +107,11 @@ func (client *BestPracticesVersionsClient) getHandleResponse(resp *http.Response
 }
 
 // NewListByTenantPager - Retrieve a list of Automanage best practices versions
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// bestPracticeName - The Automanage best practice name.
-// options - BestPracticesVersionsClientListByTenantOptions contains the optional parameters for the BestPracticesVersionsClient.ListByTenant
-// method.
+//   - bestPracticeName - The Automanage best practice name.
+//   - options - BestPracticesVersionsClientListByTenantOptions contains the optional parameters for the BestPracticesVersionsClient.NewListByTenantPager
+//     method.
 func (client *BestPracticesVersionsClient) NewListByTenantPager(bestPracticeName string, options *BestPracticesVersionsClientListByTenantOptions) *runtime.Pager[BestPracticesVersionsClientListByTenantResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BestPracticesVersionsClientListByTenantResponse]{
 		More: func(page BestPracticesVersionsClientListByTenantResponse) bool {

@@ -32,9 +32,9 @@ type ConfigurationProfileHCIAssignmentsClient struct {
 }
 
 // NewConfigurationProfileHCIAssignmentsClient creates a new instance of ConfigurationProfileHCIAssignmentsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConfigurationProfileHCIAssignmentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConfigurationProfileHCIAssignmentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewConfigurationProfileHCIAssignmentsClient(subscriptionID string, credenti
 
 // CreateOrUpdate - Creates an association between a AzureStackHCI cluster and Automanage configuration profile
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - The name of the Arc machine.
-// configurationProfileAssignmentName - Name of the configuration profile assignment. Only default is supported.
-// parameters - Parameters supplied to the create or update configuration profile assignment.
-// options - ConfigurationProfileHCIAssignmentsClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfileHCIAssignmentsClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the Arc machine.
+//   - configurationProfileAssignmentName - Name of the configuration profile assignment. Only default is supported.
+//   - parameters - Parameters supplied to the create or update configuration profile assignment.
+//   - options - ConfigurationProfileHCIAssignmentsClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfileHCIAssignmentsClient.CreateOrUpdate
+//     method.
 func (client *ConfigurationProfileHCIAssignmentsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, configurationProfileAssignmentName string, parameters ConfigurationProfileAssignment, options *ConfigurationProfileHCIAssignmentsClientCreateOrUpdateOptions) (ConfigurationProfileHCIAssignmentsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, clusterName, configurationProfileAssignmentName, parameters, options)
 	if err != nil {
@@ -120,12 +121,13 @@ func (client *ConfigurationProfileHCIAssignmentsClient) createOrUpdateHandleResp
 
 // Delete - Delete a configuration profile assignment
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - The name of the Arc machine.
-// configurationProfileAssignmentName - Name of the configuration profile assignment
-// options - ConfigurationProfileHCIAssignmentsClientDeleteOptions contains the optional parameters for the ConfigurationProfileHCIAssignmentsClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the Arc machine.
+//   - configurationProfileAssignmentName - Name of the configuration profile assignment
+//   - options - ConfigurationProfileHCIAssignmentsClientDeleteOptions contains the optional parameters for the ConfigurationProfileHCIAssignmentsClient.Delete
+//     method.
 func (client *ConfigurationProfileHCIAssignmentsClient) Delete(ctx context.Context, resourceGroupName string, clusterName string, configurationProfileAssignmentName string, options *ConfigurationProfileHCIAssignmentsClientDeleteOptions) (ConfigurationProfileHCIAssignmentsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, configurationProfileAssignmentName, options)
 	if err != nil {
@@ -173,12 +175,13 @@ func (client *ConfigurationProfileHCIAssignmentsClient) deleteCreateRequest(ctx 
 
 // Get - Get information about a configuration profile assignment
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - The name of the Arc machine.
-// configurationProfileAssignmentName - The configuration profile assignment name.
-// options - ConfigurationProfileHCIAssignmentsClientGetOptions contains the optional parameters for the ConfigurationProfileHCIAssignmentsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the Arc machine.
+//   - configurationProfileAssignmentName - The configuration profile assignment name.
+//   - options - ConfigurationProfileHCIAssignmentsClientGetOptions contains the optional parameters for the ConfigurationProfileHCIAssignmentsClient.Get
+//     method.
 func (client *ConfigurationProfileHCIAssignmentsClient) Get(ctx context.Context, resourceGroupName string, clusterName string, configurationProfileAssignmentName string, options *ConfigurationProfileHCIAssignmentsClientGetOptions) (ConfigurationProfileHCIAssignmentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, configurationProfileAssignmentName, options)
 	if err != nil {

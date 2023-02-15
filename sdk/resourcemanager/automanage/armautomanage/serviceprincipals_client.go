@@ -32,9 +32,9 @@ type ServicePrincipalsClient struct {
 }
 
 // NewServicePrincipalsClient creates a new instance of ServicePrincipalsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewServicePrincipalsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServicePrincipalsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,8 +57,9 @@ func NewServicePrincipalsClient(subscriptionID string, credential azcore.TokenCr
 
 // Get - Get the Automanage AAD first party Application Service Principal details for the subscription id.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// options - ServicePrincipalsClientGetOptions contains the optional parameters for the ServicePrincipalsClient.Get method.
+//   - options - ServicePrincipalsClientGetOptions contains the optional parameters for the ServicePrincipalsClient.Get method.
 func (client *ServicePrincipalsClient) Get(ctx context.Context, options *ServicePrincipalsClientGetOptions) (ServicePrincipalsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, options)
 	if err != nil {
@@ -103,10 +104,10 @@ func (client *ServicePrincipalsClient) getHandleResponse(resp *http.Response) (S
 
 // NewListBySubscriptionPager - Get the Automanage AAD first party Application Service Principal details for the subscription
 // id.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// options - ServicePrincipalsClientListBySubscriptionOptions contains the optional parameters for the ServicePrincipalsClient.ListBySubscription
-// method.
+//   - options - ServicePrincipalsClientListBySubscriptionOptions contains the optional parameters for the ServicePrincipalsClient.NewListBySubscriptionPager
+//     method.
 func (client *ServicePrincipalsClient) NewListBySubscriptionPager(options *ServicePrincipalsClientListBySubscriptionOptions) *runtime.Pager[ServicePrincipalsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ServicePrincipalsClientListBySubscriptionResponse]{
 		More: func(page ServicePrincipalsClientListBySubscriptionResponse) bool {

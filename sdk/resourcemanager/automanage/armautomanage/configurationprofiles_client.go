@@ -32,9 +32,9 @@ type ConfigurationProfilesClient struct {
 }
 
 // NewConfigurationProfilesClient creates a new instance of ConfigurationProfilesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConfigurationProfilesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConfigurationProfilesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewConfigurationProfilesClient(subscriptionID string, credential azcore.Tok
 
 // CreateOrUpdate - Creates a configuration profile
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// configurationProfileName - Name of the configuration profile.
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// parameters - Parameters supplied to create or update configuration profile.
-// options - ConfigurationProfilesClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfilesClient.CreateOrUpdate
-// method.
+//   - configurationProfileName - Name of the configuration profile.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parameters - Parameters supplied to create or update configuration profile.
+//   - options - ConfigurationProfilesClientCreateOrUpdateOptions contains the optional parameters for the ConfigurationProfilesClient.CreateOrUpdate
+//     method.
 func (client *ConfigurationProfilesClient) CreateOrUpdate(ctx context.Context, configurationProfileName string, resourceGroupName string, parameters ConfigurationProfile, options *ConfigurationProfilesClientCreateOrUpdateOptions) (ConfigurationProfilesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, configurationProfileName, resourceGroupName, parameters, options)
 	if err != nil {
@@ -115,11 +116,12 @@ func (client *ConfigurationProfilesClient) createOrUpdateHandleResponse(resp *ht
 
 // Delete - Delete a configuration profile
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// configurationProfileName - Name of the configuration profile
-// options - ConfigurationProfilesClientDeleteOptions contains the optional parameters for the ConfigurationProfilesClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - configurationProfileName - Name of the configuration profile
+//   - options - ConfigurationProfilesClientDeleteOptions contains the optional parameters for the ConfigurationProfilesClient.Delete
+//     method.
 func (client *ConfigurationProfilesClient) Delete(ctx context.Context, resourceGroupName string, configurationProfileName string, options *ConfigurationProfilesClientDeleteOptions) (ConfigurationProfilesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, configurationProfileName, options)
 	if err != nil {
@@ -163,11 +165,12 @@ func (client *ConfigurationProfilesClient) deleteCreateRequest(ctx context.Conte
 
 // Get - Get information about a configuration profile
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// configurationProfileName - The configuration profile name.
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - ConfigurationProfilesClientGetOptions contains the optional parameters for the ConfigurationProfilesClient.Get
-// method.
+//   - configurationProfileName - The configuration profile name.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - ConfigurationProfilesClientGetOptions contains the optional parameters for the ConfigurationProfilesClient.Get
+//     method.
 func (client *ConfigurationProfilesClient) Get(ctx context.Context, configurationProfileName string, resourceGroupName string, options *ConfigurationProfilesClientGetOptions) (ConfigurationProfilesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, configurationProfileName, resourceGroupName, options)
 	if err != nil {
@@ -219,11 +222,11 @@ func (client *ConfigurationProfilesClient) getHandleResponse(resp *http.Response
 }
 
 // NewListByResourceGroupPager - Retrieve a list of configuration profile within a given resource group
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - ConfigurationProfilesClientListByResourceGroupOptions contains the optional parameters for the ConfigurationProfilesClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - ConfigurationProfilesClientListByResourceGroupOptions contains the optional parameters for the ConfigurationProfilesClient.NewListByResourceGroupPager
+//     method.
 func (client *ConfigurationProfilesClient) NewListByResourceGroupPager(resourceGroupName string, options *ConfigurationProfilesClientListByResourceGroupOptions) *runtime.Pager[ConfigurationProfilesClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationProfilesClientListByResourceGroupResponse]{
 		More: func(page ConfigurationProfilesClientListByResourceGroupResponse) bool {
@@ -278,10 +281,10 @@ func (client *ConfigurationProfilesClient) listByResourceGroupHandleResponse(res
 }
 
 // NewListBySubscriptionPager - Retrieve a list of configuration profile within a subscription
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// options - ConfigurationProfilesClientListBySubscriptionOptions contains the optional parameters for the ConfigurationProfilesClient.ListBySubscription
-// method.
+//   - options - ConfigurationProfilesClientListBySubscriptionOptions contains the optional parameters for the ConfigurationProfilesClient.NewListBySubscriptionPager
+//     method.
 func (client *ConfigurationProfilesClient) NewListBySubscriptionPager(options *ConfigurationProfilesClientListBySubscriptionOptions) *runtime.Pager[ConfigurationProfilesClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationProfilesClientListBySubscriptionResponse]{
 		More: func(page ConfigurationProfilesClientListBySubscriptionResponse) bool {
@@ -333,12 +336,13 @@ func (client *ConfigurationProfilesClient) listBySubscriptionHandleResponse(resp
 
 // Update - Updates a configuration profile
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// configurationProfileName - Name of the configuration profile.
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// parameters - Parameters supplied to update configuration profile.
-// options - ConfigurationProfilesClientUpdateOptions contains the optional parameters for the ConfigurationProfilesClient.Update
-// method.
+//   - configurationProfileName - Name of the configuration profile.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parameters - Parameters supplied to update configuration profile.
+//   - options - ConfigurationProfilesClientUpdateOptions contains the optional parameters for the ConfigurationProfilesClient.Update
+//     method.
 func (client *ConfigurationProfilesClient) Update(ctx context.Context, configurationProfileName string, resourceGroupName string, parameters ConfigurationProfileUpdate, options *ConfigurationProfilesClientUpdateOptions) (ConfigurationProfilesClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, configurationProfileName, resourceGroupName, parameters, options)
 	if err != nil {

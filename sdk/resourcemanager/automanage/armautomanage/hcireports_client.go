@@ -32,9 +32,9 @@ type HCIReportsClient struct {
 }
 
 // NewHCIReportsClient creates a new instance of HCIReportsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewHCIReportsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*HCIReportsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewHCIReportsClient(subscriptionID string, credential azcore.TokenCredentia
 
 // Get - Get information about a report associated with a configuration profile assignment run
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - The name of the Arc machine.
-// configurationProfileAssignmentName - The configuration profile assignment name.
-// reportName - The report name.
-// options - HCIReportsClientGetOptions contains the optional parameters for the HCIReportsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the Arc machine.
+//   - configurationProfileAssignmentName - The configuration profile assignment name.
+//   - reportName - The report name.
+//   - options - HCIReportsClientGetOptions contains the optional parameters for the HCIReportsClient.Get method.
 func (client *HCIReportsClient) Get(ctx context.Context, resourceGroupName string, clusterName string, configurationProfileAssignmentName string, reportName string, options *HCIReportsClientGetOptions) (HCIReportsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, configurationProfileAssignmentName, reportName, options)
 	if err != nil {
@@ -122,13 +123,13 @@ func (client *HCIReportsClient) getHandleResponse(resp *http.Response) (HCIRepor
 }
 
 // NewListByConfigurationProfileAssignmentsPager - Retrieve a list of reports within a given configuration profile assignment
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - The name of the Arc machine.
-// configurationProfileAssignmentName - The configuration profile assignment name.
-// options - HCIReportsClientListByConfigurationProfileAssignmentsOptions contains the optional parameters for the HCIReportsClient.ListByConfigurationProfileAssignments
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the Arc machine.
+//   - configurationProfileAssignmentName - The configuration profile assignment name.
+//   - options - HCIReportsClientListByConfigurationProfileAssignmentsOptions contains the optional parameters for the HCIReportsClient.NewListByConfigurationProfileAssignmentsPager
+//     method.
 func (client *HCIReportsClient) NewListByConfigurationProfileAssignmentsPager(resourceGroupName string, clusterName string, configurationProfileAssignmentName string, options *HCIReportsClientListByConfigurationProfileAssignmentsOptions) *runtime.Pager[HCIReportsClientListByConfigurationProfileAssignmentsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[HCIReportsClientListByConfigurationProfileAssignmentsResponse]{
 		More: func(page HCIReportsClientListByConfigurationProfileAssignmentsResponse) bool {

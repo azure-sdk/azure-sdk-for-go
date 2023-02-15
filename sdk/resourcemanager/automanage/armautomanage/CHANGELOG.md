@@ -1,5 +1,12 @@
 # Release History
 
+## 1.1.0 (2023-02-15)
+### Features Added
+
+- New type alias `AssignmentMode` with values `AssignmentModeAuditOnly`, `AssignmentModeRemediate`
+- New field `Mode` in struct `ConfigurationProfileAssignmentProperties`
+
+
 ## 1.0.0 (2022-08-01)
 ### Breaking Changes
 
