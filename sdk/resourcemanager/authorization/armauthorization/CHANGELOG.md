@@ -1,5 +1,428 @@
 # Release History
 
+## 3.0.0-beta.1 (2023-02-16)
+### Breaking Changes
+
+- Type alias `ApprovalMode` has been removed
+- Type alias `AssignmentType` has been removed
+- Type alias `EnablementRules` has been removed
+- Type alias `MemberType` has been removed
+- Type alias `NotificationDeliveryMechanism` has been removed
+- Type alias `NotificationLevel` has been removed
+- Type alias `PrincipalType` has been removed
+- Type alias `RecipientType` has been removed
+- Type alias `RequestType` has been removed
+- Type alias `RoleManagementPolicyRuleType` has been removed
+- Type alias `Status` has been removed
+- Type alias `Type` has been removed
+- Type alias `UserType` has been removed
+- Function `NewClassicAdministratorsClient` has been removed
+- Function `*ClassicAdministratorsClient.NewListPager` has been removed
+- Function `NewDenyAssignmentsClient` has been removed
+- Function `*DenyAssignmentsClient.Get` has been removed
+- Function `*DenyAssignmentsClient.GetByID` has been removed
+- Function `*DenyAssignmentsClient.NewListForResourceGroupPager` has been removed
+- Function `*DenyAssignmentsClient.NewListForResourcePager` has been removed
+- Function `*DenyAssignmentsClient.NewListForScopePager` has been removed
+- Function `*DenyAssignmentsClient.NewListPager` has been removed
+- Function `NewEligibleChildResourcesClient` has been removed
+- Function `*EligibleChildResourcesClient.NewGetPager` has been removed
+- Function `NewGlobalAdministratorClient` has been removed
+- Function `*GlobalAdministratorClient.ElevateAccess` has been removed
+- Function `NewPermissionsClient` has been removed
+- Function `*PermissionsClient.NewListForResourceGroupPager` has been removed
+- Function `*PermissionsClient.NewListForResourcePager` has been removed
+- Function `NewProviderOperationsMetadataClient` has been removed
+- Function `*ProviderOperationsMetadataClient.Get` has been removed
+- Function `*ProviderOperationsMetadataClient.NewListPager` has been removed
+- Function `NewRoleAssignmentScheduleInstancesClient` has been removed
+- Function `*RoleAssignmentScheduleInstancesClient.Get` has been removed
+- Function `*RoleAssignmentScheduleInstancesClient.NewListForScopePager` has been removed
+- Function `NewRoleAssignmentScheduleRequestsClient` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.Cancel` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.Create` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.Get` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.NewListForScopePager` has been removed
+- Function `*RoleAssignmentScheduleRequestsClient.Validate` has been removed
+- Function `NewRoleAssignmentSchedulesClient` has been removed
+- Function `*RoleAssignmentSchedulesClient.Get` has been removed
+- Function `*RoleAssignmentSchedulesClient.NewListForScopePager` has been removed
+- Function `NewRoleAssignmentsClient` has been removed
+- Function `*RoleAssignmentsClient.Create` has been removed
+- Function `*RoleAssignmentsClient.CreateByID` has been removed
+- Function `*RoleAssignmentsClient.Delete` has been removed
+- Function `*RoleAssignmentsClient.DeleteByID` has been removed
+- Function `*RoleAssignmentsClient.Get` has been removed
+- Function `*RoleAssignmentsClient.GetByID` has been removed
+- Function `*RoleAssignmentsClient.NewListForResourceGroupPager` has been removed
+- Function `*RoleAssignmentsClient.NewListForResourcePager` has been removed
+- Function `*RoleAssignmentsClient.NewListForScopePager` has been removed
+- Function `*RoleAssignmentsClient.NewListForSubscriptionPager` has been removed
+- Function `NewRoleDefinitionsClient` has been removed
+- Function `*RoleDefinitionsClient.CreateOrUpdate` has been removed
+- Function `*RoleDefinitionsClient.Delete` has been removed
+- Function `*RoleDefinitionsClient.Get` has been removed
+- Function `*RoleDefinitionsClient.GetByID` has been removed
+- Function `*RoleDefinitionsClient.NewListPager` has been removed
+- Function `NewRoleEligibilityScheduleInstancesClient` has been removed
+- Function `*RoleEligibilityScheduleInstancesClient.Get` has been removed
+- Function `*RoleEligibilityScheduleInstancesClient.NewListForScopePager` has been removed
+- Function `NewRoleEligibilityScheduleRequestsClient` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.Cancel` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.Create` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.Get` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.NewListForScopePager` has been removed
+- Function `*RoleEligibilityScheduleRequestsClient.Validate` has been removed
+- Function `NewRoleEligibilitySchedulesClient` has been removed
+- Function `*RoleEligibilitySchedulesClient.Get` has been removed
+- Function `*RoleEligibilitySchedulesClient.NewListForScopePager` has been removed
+- Function `NewRoleManagementPoliciesClient` has been removed
+- Function `*RoleManagementPoliciesClient.Delete` has been removed
+- Function `*RoleManagementPoliciesClient.Get` has been removed
+- Function `*RoleManagementPoliciesClient.NewListForScopePager` has been removed
+- Function `*RoleManagementPoliciesClient.Update` has been removed
+- Function `*RoleManagementPolicyApprovalRule.GetRoleManagementPolicyRule` has been removed
+- Function `NewRoleManagementPolicyAssignmentsClient` has been removed
+- Function `*RoleManagementPolicyAssignmentsClient.Create` has been removed
+- Function `*RoleManagementPolicyAssignmentsClient.Delete` has been removed
+- Function `*RoleManagementPolicyAssignmentsClient.Get` has been removed
+- Function `*RoleManagementPolicyAssignmentsClient.NewListForScopePager` has been removed
+- Function `*RoleManagementPolicyAuthenticationContextRule.GetRoleManagementPolicyRule` has been removed
+- Function `*RoleManagementPolicyEnablementRule.GetRoleManagementPolicyRule` has been removed
+- Function `*RoleManagementPolicyExpirationRule.GetRoleManagementPolicyRule` has been removed
+- Function `*RoleManagementPolicyNotificationRule.GetRoleManagementPolicyRule` has been removed
+- Function `*RoleManagementPolicyRule.GetRoleManagementPolicyRule` has been removed
+- Struct `ApprovalSettings` has been removed
+- Struct `ApprovalStage` has been removed
+- Struct `ClassicAdministrator` has been removed
+- Struct `ClassicAdministratorListResult` has been removed
+- Struct `ClassicAdministratorProperties` has been removed
+- Struct `ClassicAdministratorsClient` has been removed
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+- Struct `DenyAssignment` has been removed
+- Struct `DenyAssignmentFilter` has been removed
+- Struct `DenyAssignmentListResult` has been removed
+- Struct `DenyAssignmentPermission` has been removed
+- Struct `DenyAssignmentProperties` has been removed
+- Struct `DenyAssignmentsClient` has been removed
+- Struct `EligibleChildResource` has been removed
+- Struct `EligibleChildResourcesClient` has been removed
+- Struct `EligibleChildResourcesListResult` has been removed
+- Struct `ErrorAdditionalInfo` has been removed
+- Struct `ErrorDetail` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `ExpandedProperties` has been removed
+- Struct `ExpandedPropertiesPrincipal` has been removed
+- Struct `ExpandedPropertiesRoleDefinition` has been removed
+- Struct `ExpandedPropertiesScope` has been removed
+- Struct `GlobalAdministratorClient` has been removed
+- Struct `Permission` has been removed
+- Struct `PermissionGetResult` has been removed
+- Struct `PermissionsClient` has been removed
+- Struct `PolicyAssignmentProperties` has been removed
+- Struct `PolicyAssignmentPropertiesPolicy` has been removed
+- Struct `PolicyAssignmentPropertiesRoleDefinition` has been removed
+- Struct `PolicyAssignmentPropertiesScope` has been removed
+- Struct `PolicyProperties` has been removed
+- Struct `PolicyPropertiesScope` has been removed
+- Struct `Principal` has been removed
+- Struct `ProviderOperation` has been removed
+- Struct `ProviderOperationsMetadata` has been removed
+- Struct `ProviderOperationsMetadataClient` has been removed
+- Struct `ProviderOperationsMetadataListResult` has been removed
+- Struct `ResourceType` has been removed
+- Struct `RoleAssignment` has been removed
+- Struct `RoleAssignmentCreateParameters` has been removed
+- Struct `RoleAssignmentFilter` has been removed
+- Struct `RoleAssignmentListResult` has been removed
+- Struct `RoleAssignmentProperties` has been removed
+- Struct `RoleAssignmentSchedule` has been removed
+- Struct `RoleAssignmentScheduleFilter` has been removed
+- Struct `RoleAssignmentScheduleInstance` has been removed
+- Struct `RoleAssignmentScheduleInstanceFilter` has been removed
+- Struct `RoleAssignmentScheduleInstanceListResult` has been removed
+- Struct `RoleAssignmentScheduleInstanceProperties` has been removed
+- Struct `RoleAssignmentScheduleInstancesClient` has been removed
+- Struct `RoleAssignmentScheduleListResult` has been removed
+- Struct `RoleAssignmentScheduleProperties` has been removed
+- Struct `RoleAssignmentScheduleRequest` has been removed
+- Struct `RoleAssignmentScheduleRequestFilter` has been removed
+- Struct `RoleAssignmentScheduleRequestListResult` has been removed
+- Struct `RoleAssignmentScheduleRequestProperties` has been removed
+- Struct `RoleAssignmentScheduleRequestPropertiesScheduleInfo` has been removed
+- Struct `RoleAssignmentScheduleRequestPropertiesScheduleInfoExpiration` has been removed
+- Struct `RoleAssignmentScheduleRequestPropertiesTicketInfo` has been removed
+- Struct `RoleAssignmentScheduleRequestsClient` has been removed
+- Struct `RoleAssignmentSchedulesClient` has been removed
+- Struct `RoleAssignmentsClient` has been removed
+- Struct `RoleDefinition` has been removed
+- Struct `RoleDefinitionFilter` has been removed
+- Struct `RoleDefinitionListResult` has been removed
+- Struct `RoleDefinitionProperties` has been removed
+- Struct `RoleDefinitionsClient` has been removed
+- Struct `RoleEligibilitySchedule` has been removed
+- Struct `RoleEligibilityScheduleFilter` has been removed
+- Struct `RoleEligibilityScheduleInstance` has been removed
+- Struct `RoleEligibilityScheduleInstanceFilter` has been removed
+- Struct `RoleEligibilityScheduleInstanceListResult` has been removed
+- Struct `RoleEligibilityScheduleInstanceProperties` has been removed
+- Struct `RoleEligibilityScheduleInstancesClient` has been removed
+- Struct `RoleEligibilityScheduleListResult` has been removed
+- Struct `RoleEligibilityScheduleProperties` has been removed
+- Struct `RoleEligibilityScheduleRequest` has been removed
+- Struct `RoleEligibilityScheduleRequestFilter` has been removed
+- Struct `RoleEligibilityScheduleRequestListResult` has been removed
+- Struct `RoleEligibilityScheduleRequestProperties` has been removed
+- Struct `RoleEligibilityScheduleRequestPropertiesScheduleInfo` has been removed
+- Struct `RoleEligibilityScheduleRequestPropertiesScheduleInfoExpiration` has been removed
+- Struct `RoleEligibilityScheduleRequestPropertiesTicketInfo` has been removed
+- Struct `RoleEligibilityScheduleRequestsClient` has been removed
+- Struct `RoleEligibilitySchedulesClient` has been removed
+- Struct `RoleManagementPoliciesClient` has been removed
+- Struct `RoleManagementPolicy` has been removed
+- Struct `RoleManagementPolicyApprovalRule` has been removed
+- Struct `RoleManagementPolicyAssignment` has been removed
+- Struct `RoleManagementPolicyAssignmentListResult` has been removed
+- Struct `RoleManagementPolicyAssignmentProperties` has been removed
+- Struct `RoleManagementPolicyAssignmentsClient` has been removed
+- Struct `RoleManagementPolicyAuthenticationContextRule` has been removed
+- Struct `RoleManagementPolicyEnablementRule` has been removed
+- Struct `RoleManagementPolicyExpirationRule` has been removed
+- Struct `RoleManagementPolicyListResult` has been removed
+- Struct `RoleManagementPolicyNotificationRule` has been removed
+- Struct `RoleManagementPolicyProperties` has been removed
+- Struct `RoleManagementPolicyRuleTarget` has been removed
+- Struct `UserSet` has been removed
+- Struct `ValidationResponse` has been removed
+- Struct `ValidationResponseErrorInfo` has been removed
+
+### Features Added
+
+- New type alias `AccessRecommendationType` with values `AccessRecommendationTypeApprove`, `AccessRecommendationTypeDeny`, `AccessRecommendationTypeNoInfoAvailable`
+- New type alias `AccessReviewActorIdentityType` with values `AccessReviewActorIdentityTypeServicePrincipal`, `AccessReviewActorIdentityTypeUser`
+- New type alias `AccessReviewApplyResult` with values `AccessReviewApplyResultAppliedSuccessfully`, `AccessReviewApplyResultAppliedSuccessfullyButObjectNotFound`, `AccessReviewApplyResultAppliedWithUnknownFailure`, `AccessReviewApplyResultApplyNotSupported`, `AccessReviewApplyResultApplying`, `AccessReviewApplyResultNew`
+- New type alias `AccessReviewDecisionInsightType` with values `AccessReviewDecisionInsightTypeUserSignInInsight`
+- New type alias `AccessReviewDecisionPrincipalResourceMembershipType` with values `AccessReviewDecisionPrincipalResourceMembershipTypeDirect`, `AccessReviewDecisionPrincipalResourceMembershipTypeIndirect`
+- New type alias `AccessReviewHistoryDefinitionStatus` with values `AccessReviewHistoryDefinitionStatusDone`, `AccessReviewHistoryDefinitionStatusError`, `AccessReviewHistoryDefinitionStatusInProgress`, `AccessReviewHistoryDefinitionStatusRequested`
+- New type alias `AccessReviewInstanceReviewersType` with values `AccessReviewInstanceReviewersTypeAssigned`, `AccessReviewInstanceReviewersTypeManagers`, `AccessReviewInstanceReviewersTypeSelf`
+- New type alias `AccessReviewInstanceStatus` with values `AccessReviewInstanceStatusApplied`, `AccessReviewInstanceStatusApplying`, `AccessReviewInstanceStatusAutoReviewed`, `AccessReviewInstanceStatusAutoReviewing`, `AccessReviewInstanceStatusCompleted`, `AccessReviewInstanceStatusCompleting`, `AccessReviewInstanceStatusInProgress`, `AccessReviewInstanceStatusInitializing`, `AccessReviewInstanceStatusNotStarted`, `AccessReviewInstanceStatusScheduled`, `AccessReviewInstanceStatusStarting`
+- New type alias `AccessReviewRecurrencePatternType` with values `AccessReviewRecurrencePatternTypeAbsoluteMonthly`, `AccessReviewRecurrencePatternTypeWeekly`
+- New type alias `AccessReviewRecurrenceRangeType` with values `AccessReviewRecurrenceRangeTypeEndDate`, `AccessReviewRecurrenceRangeTypeNoEnd`, `AccessReviewRecurrenceRangeTypeNumbered`
+- New type alias `AccessReviewResult` with values `AccessReviewResultApprove`, `AccessReviewResultDeny`, `AccessReviewResultDontKnow`, `AccessReviewResultNotNotified`, `AccessReviewResultNotReviewed`
+- New type alias `AccessReviewReviewerType` with values `AccessReviewReviewerTypeServicePrincipal`, `AccessReviewReviewerTypeUser`
+- New type alias `AccessReviewScheduleDefinitionReviewersType` with values `AccessReviewScheduleDefinitionReviewersTypeAssigned`, `AccessReviewScheduleDefinitionReviewersTypeManagers`, `AccessReviewScheduleDefinitionReviewersTypeSelf`
+- New type alias `AccessReviewScheduleDefinitionStatus` with values `AccessReviewScheduleDefinitionStatusApplied`, `AccessReviewScheduleDefinitionStatusApplying`, `AccessReviewScheduleDefinitionStatusAutoReviewed`, `AccessReviewScheduleDefinitionStatusAutoReviewing`, `AccessReviewScheduleDefinitionStatusCompleted`, `AccessReviewScheduleDefinitionStatusCompleting`, `AccessReviewScheduleDefinitionStatusInProgress`, `AccessReviewScheduleDefinitionStatusInitializing`, `AccessReviewScheduleDefinitionStatusNotStarted`, `AccessReviewScheduleDefinitionStatusScheduled`, `AccessReviewScheduleDefinitionStatusStarting`
+- New type alias `AccessReviewScopeAssignmentState` with values `AccessReviewScopeAssignmentStateActive`, `AccessReviewScopeAssignmentStateEligible`
+- New type alias `AccessReviewScopePrincipalType` with values `AccessReviewScopePrincipalTypeGuestUser`, `AccessReviewScopePrincipalTypeRedeemedGuestUser`, `AccessReviewScopePrincipalTypeServicePrincipal`, `AccessReviewScopePrincipalTypeUser`, `AccessReviewScopePrincipalTypeUserGroup`
+- New type alias `DecisionResourceType` with values `DecisionResourceTypeAzureRole`
+- New type alias `DecisionTargetType` with values `DecisionTargetTypeServicePrincipal`, `DecisionTargetTypeUser`
+- New type alias `DefaultDecisionType` with values `DefaultDecisionTypeApprove`, `DefaultDecisionTypeDeny`, `DefaultDecisionTypeRecommendation`
+- New type alias `RecordAllDecisionsResult` with values `RecordAllDecisionsResultApprove`, `RecordAllDecisionsResultDeny`
+- New type alias `SeverityLevel` with values `SeverityLevelHigh`, `SeverityLevelLow`, `SeverityLevelMedium`
+- New function `*AccessReviewDecisionIdentity.GetAccessReviewDecisionIdentity() *AccessReviewDecisionIdentity`
+- New function `*AccessReviewDecisionInsightProperties.GetAccessReviewDecisionInsightProperties() *AccessReviewDecisionInsightProperties`
+- New function `*AccessReviewDecisionServicePrincipalIdentity.GetAccessReviewDecisionIdentity() *AccessReviewDecisionIdentity`
+- New function `*AccessReviewDecisionUserIdentity.GetAccessReviewDecisionIdentity() *AccessReviewDecisionIdentity`
+- New function `*AccessReviewDecisionUserSignInInsightProperties.GetAccessReviewDecisionInsightProperties() *AccessReviewDecisionInsightProperties`
+- New function `NewAccessReviewDefaultSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewDefaultSettingsClient, error)`
+- New function `*AccessReviewDefaultSettingsClient.Get(context.Context, *AccessReviewDefaultSettingsClientGetOptions) (AccessReviewDefaultSettingsClientGetResponse, error)`
+- New function `*AccessReviewDefaultSettingsClient.Put(context.Context, AccessReviewScheduleSettings, *AccessReviewDefaultSettingsClientPutOptions) (AccessReviewDefaultSettingsClientPutResponse, error)`
+- New function `NewAccessReviewHistoryDefinitionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewHistoryDefinitionClient, error)`
+- New function `*AccessReviewHistoryDefinitionClient.Create(context.Context, string, AccessReviewHistoryDefinitionProperties, *AccessReviewHistoryDefinitionClientCreateOptions) (AccessReviewHistoryDefinitionClientCreateResponse, error)`
+- New function `*AccessReviewHistoryDefinitionClient.DeleteByID(context.Context, string, *AccessReviewHistoryDefinitionClientDeleteByIDOptions) (AccessReviewHistoryDefinitionClientDeleteByIDResponse, error)`
+- New function `NewAccessReviewHistoryDefinitionInstanceClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewHistoryDefinitionInstanceClient, error)`
+- New function `*AccessReviewHistoryDefinitionInstanceClient.GenerateDownloadURI(context.Context, string, string, *AccessReviewHistoryDefinitionInstanceClientGenerateDownloadURIOptions) (AccessReviewHistoryDefinitionInstanceClientGenerateDownloadURIResponse, error)`
+- New function `NewAccessReviewHistoryDefinitionInstancesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewHistoryDefinitionInstancesClient, error)`
+- New function `*AccessReviewHistoryDefinitionInstancesClient.NewListPager(string, *AccessReviewHistoryDefinitionInstancesClientListOptions) *runtime.Pager[AccessReviewHistoryDefinitionInstancesClientListResponse]`
+- New function `NewAccessReviewHistoryDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewHistoryDefinitionsClient, error)`
+- New function `*AccessReviewHistoryDefinitionsClient.GetByID(context.Context, string, *AccessReviewHistoryDefinitionsClientGetByIDOptions) (AccessReviewHistoryDefinitionsClientGetByIDResponse, error)`
+- New function `*AccessReviewHistoryDefinitionsClient.NewListPager(*AccessReviewHistoryDefinitionsClientListOptions) *runtime.Pager[AccessReviewHistoryDefinitionsClientListResponse]`
+- New function `NewAccessReviewInstanceClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewInstanceClient, error)`
+- New function `*AccessReviewInstanceClient.AcceptRecommendations(context.Context, string, string, *AccessReviewInstanceClientAcceptRecommendationsOptions) (AccessReviewInstanceClientAcceptRecommendationsResponse, error)`
+- New function `*AccessReviewInstanceClient.ApplyDecisions(context.Context, string, string, *AccessReviewInstanceClientApplyDecisionsOptions) (AccessReviewInstanceClientApplyDecisionsResponse, error)`
+- New function `*AccessReviewInstanceClient.ResetDecisions(context.Context, string, string, *AccessReviewInstanceClientResetDecisionsOptions) (AccessReviewInstanceClientResetDecisionsResponse, error)`
+- New function `*AccessReviewInstanceClient.SendReminders(context.Context, string, string, *AccessReviewInstanceClientSendRemindersOptions) (AccessReviewInstanceClientSendRemindersResponse, error)`
+- New function `*AccessReviewInstanceClient.Stop(context.Context, string, string, *AccessReviewInstanceClientStopOptions) (AccessReviewInstanceClientStopResponse, error)`
+- New function `NewAccessReviewInstanceContactedReviewersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewInstanceContactedReviewersClient, error)`
+- New function `*AccessReviewInstanceContactedReviewersClient.NewListPager(string, string, *AccessReviewInstanceContactedReviewersClientListOptions) *runtime.Pager[AccessReviewInstanceContactedReviewersClientListResponse]`
+- New function `NewAccessReviewInstanceDecisionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewInstanceDecisionsClient, error)`
+- New function `*AccessReviewInstanceDecisionsClient.NewListPager(string, string, *AccessReviewInstanceDecisionsClientListOptions) *runtime.Pager[AccessReviewInstanceDecisionsClientListResponse]`
+- New function `NewAccessReviewInstanceMyDecisionsClient(azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewInstanceMyDecisionsClient, error)`
+- New function `*AccessReviewInstanceMyDecisionsClient.GetByID(context.Context, string, string, string, *AccessReviewInstanceMyDecisionsClientGetByIDOptions) (AccessReviewInstanceMyDecisionsClientGetByIDResponse, error)`
+- New function `*AccessReviewInstanceMyDecisionsClient.NewListPager(string, string, *AccessReviewInstanceMyDecisionsClientListOptions) *runtime.Pager[AccessReviewInstanceMyDecisionsClientListResponse]`
+- New function `*AccessReviewInstanceMyDecisionsClient.Patch(context.Context, string, string, string, AccessReviewDecisionProperties, *AccessReviewInstanceMyDecisionsClientPatchOptions) (AccessReviewInstanceMyDecisionsClientPatchResponse, error)`
+- New function `NewAccessReviewInstancesAssignedForMyApprovalClient(azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewInstancesAssignedForMyApprovalClient, error)`
+- New function `*AccessReviewInstancesAssignedForMyApprovalClient.GetByID(context.Context, string, string, *AccessReviewInstancesAssignedForMyApprovalClientGetByIDOptions) (AccessReviewInstancesAssignedForMyApprovalClientGetByIDResponse, error)`
+- New function `*AccessReviewInstancesAssignedForMyApprovalClient.NewListPager(string, *AccessReviewInstancesAssignedForMyApprovalClientListOptions) *runtime.Pager[AccessReviewInstancesAssignedForMyApprovalClientListResponse]`
+- New function `NewAccessReviewInstancesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewInstancesClient, error)`
+- New function `*AccessReviewInstancesClient.Create(context.Context, string, string, AccessReviewInstanceProperties, *AccessReviewInstancesClientCreateOptions) (AccessReviewInstancesClientCreateResponse, error)`
+- New function `*AccessReviewInstancesClient.GetByID(context.Context, string, string, *AccessReviewInstancesClientGetByIDOptions) (AccessReviewInstancesClientGetByIDResponse, error)`
+- New function `*AccessReviewInstancesClient.NewListPager(string, *AccessReviewInstancesClientListOptions) *runtime.Pager[AccessReviewInstancesClientListResponse]`
+- New function `NewAccessReviewScheduleDefinitionsAssignedForMyApprovalClient(azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewScheduleDefinitionsAssignedForMyApprovalClient, error)`
+- New function `*AccessReviewScheduleDefinitionsAssignedForMyApprovalClient.NewListPager(*AccessReviewScheduleDefinitionsAssignedForMyApprovalClientListOptions) *runtime.Pager[AccessReviewScheduleDefinitionsAssignedForMyApprovalClientListResponse]`
+- New function `NewAccessReviewScheduleDefinitionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AccessReviewScheduleDefinitionsClient, error)`
+- New function `*AccessReviewScheduleDefinitionsClient.CreateOrUpdateByID(context.Context, string, AccessReviewScheduleDefinitionProperties, *AccessReviewScheduleDefinitionsClientCreateOrUpdateByIDOptions) (AccessReviewScheduleDefinitionsClientCreateOrUpdateByIDResponse, error)`
+- New function `*AccessReviewScheduleDefinitionsClient.DeleteByID(context.Context, string, *AccessReviewScheduleDefinitionsClientDeleteByIDOptions) (AccessReviewScheduleDefinitionsClientDeleteByIDResponse, error)`
+- New function `*AccessReviewScheduleDefinitionsClient.GetByID(context.Context, string, *AccessReviewScheduleDefinitionsClientGetByIDOptions) (AccessReviewScheduleDefinitionsClientGetByIDResponse, error)`
+- New function `*AccessReviewScheduleDefinitionsClient.NewListPager(*AccessReviewScheduleDefinitionsClientListOptions) *runtime.Pager[AccessReviewScheduleDefinitionsClientListResponse]`
+- New function `*AccessReviewScheduleDefinitionsClient.Stop(context.Context, string, *AccessReviewScheduleDefinitionsClientStopOptions) (AccessReviewScheduleDefinitionsClientStopResponse, error)`
+- New function `*AlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `NewAlertConfigurationsClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertConfigurationsClient, error)`
+- New function `*AlertConfigurationsClient.Get(context.Context, string, string, *AlertConfigurationsClientGetOptions) (AlertConfigurationsClientGetResponse, error)`
+- New function `*AlertConfigurationsClient.NewListForScopePager(string, *AlertConfigurationsClientListForScopeOptions) *runtime.Pager[AlertConfigurationsClientListForScopeResponse]`
+- New function `*AlertConfigurationsClient.Update(context.Context, string, string, AlertConfiguration, *AlertConfigurationsClientUpdateOptions) (AlertConfigurationsClientUpdateResponse, error)`
+- New function `NewAlertDefinitionsClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertDefinitionsClient, error)`
+- New function `*AlertDefinitionsClient.Get(context.Context, string, string, *AlertDefinitionsClientGetOptions) (AlertDefinitionsClientGetResponse, error)`
+- New function `*AlertDefinitionsClient.NewListForScopePager(string, *AlertDefinitionsClientListForScopeOptions) *runtime.Pager[AlertDefinitionsClientListForScopeResponse]`
+- New function `*AlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `NewAlertIncidentsClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertIncidentsClient, error)`
+- New function `*AlertIncidentsClient.Get(context.Context, string, string, string, *AlertIncidentsClientGetOptions) (AlertIncidentsClientGetResponse, error)`
+- New function `*AlertIncidentsClient.NewListForScopePager(string, string, *AlertIncidentsClientListForScopeOptions) *runtime.Pager[AlertIncidentsClientListForScopeResponse]`
+- New function `*AlertIncidentsClient.Remediate(context.Context, string, string, string, *AlertIncidentsClientRemediateOptions) (AlertIncidentsClientRemediateResponse, error)`
+- New function `NewAlertOperationClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertOperationClient, error)`
+- New function `*AlertOperationClient.Get(context.Context, string, string, *AlertOperationClientGetOptions) (AlertOperationClientGetResponse, error)`
+- New function `NewAlertsClient(azcore.TokenCredential, *arm.ClientOptions) (*AlertsClient, error)`
+- New function `*AlertsClient.Get(context.Context, string, string, *AlertsClientGetOptions) (AlertsClientGetResponse, error)`
+- New function `*AlertsClient.NewListForScopePager(string, *AlertsClientListForScopeOptions) *runtime.Pager[AlertsClientListForScopeResponse]`
+- New function `*AlertsClient.BeginRefresh(context.Context, string, string, *AlertsClientBeginRefreshOptions) (*runtime.Poller[AlertsClientRefreshResponse], error)`
+- New function `*AlertsClient.BeginRefreshAll(context.Context, string, *AlertsClientBeginRefreshAllOptions) (*runtime.Poller[AlertsClientRefreshAllResponse], error)`
+- New function `*AlertsClient.Update(context.Context, string, string, Alert, *AlertsClientUpdateOptions) (AlertsClientUpdateResponse, error)`
+- New function `*AzureRolesAssignedOutsidePimAlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `*AzureRolesAssignedOutsidePimAlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `*DuplicateRoleCreatedAlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `*DuplicateRoleCreatedAlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `NewOperationsClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsClient, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New function `NewScopeAccessReviewDefaultSettingsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewDefaultSettingsClient, error)`
+- New function `*ScopeAccessReviewDefaultSettingsClient.Get(context.Context, string, *ScopeAccessReviewDefaultSettingsClientGetOptions) (ScopeAccessReviewDefaultSettingsClientGetResponse, error)`
+- New function `*ScopeAccessReviewDefaultSettingsClient.Put(context.Context, string, AccessReviewScheduleSettings, *ScopeAccessReviewDefaultSettingsClientPutOptions) (ScopeAccessReviewDefaultSettingsClientPutResponse, error)`
+- New function `NewScopeAccessReviewHistoryDefinitionClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewHistoryDefinitionClient, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionClient.Create(context.Context, string, string, AccessReviewHistoryDefinitionProperties, *ScopeAccessReviewHistoryDefinitionClientCreateOptions) (ScopeAccessReviewHistoryDefinitionClientCreateResponse, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionClient.DeleteByID(context.Context, string, string, *ScopeAccessReviewHistoryDefinitionClientDeleteByIDOptions) (ScopeAccessReviewHistoryDefinitionClientDeleteByIDResponse, error)`
+- New function `NewScopeAccessReviewHistoryDefinitionInstanceClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewHistoryDefinitionInstanceClient, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionInstanceClient.GenerateDownloadURI(context.Context, string, string, string, *ScopeAccessReviewHistoryDefinitionInstanceClientGenerateDownloadURIOptions) (ScopeAccessReviewHistoryDefinitionInstanceClientGenerateDownloadURIResponse, error)`
+- New function `NewScopeAccessReviewHistoryDefinitionInstancesClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewHistoryDefinitionInstancesClient, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionInstancesClient.NewListPager(string, string, *ScopeAccessReviewHistoryDefinitionInstancesClientListOptions) *runtime.Pager[ScopeAccessReviewHistoryDefinitionInstancesClientListResponse]`
+- New function `NewScopeAccessReviewHistoryDefinitionsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewHistoryDefinitionsClient, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionsClient.GetByID(context.Context, string, string, *ScopeAccessReviewHistoryDefinitionsClientGetByIDOptions) (ScopeAccessReviewHistoryDefinitionsClientGetByIDResponse, error)`
+- New function `*ScopeAccessReviewHistoryDefinitionsClient.NewListPager(string, *ScopeAccessReviewHistoryDefinitionsClientListOptions) *runtime.Pager[ScopeAccessReviewHistoryDefinitionsClientListResponse]`
+- New function `NewScopeAccessReviewInstanceClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewInstanceClient, error)`
+- New function `*ScopeAccessReviewInstanceClient.ApplyDecisions(context.Context, string, string, string, *ScopeAccessReviewInstanceClientApplyDecisionsOptions) (ScopeAccessReviewInstanceClientApplyDecisionsResponse, error)`
+- New function `*ScopeAccessReviewInstanceClient.RecordAllDecisions(context.Context, string, string, string, RecordAllDecisionsProperties, *ScopeAccessReviewInstanceClientRecordAllDecisionsOptions) (ScopeAccessReviewInstanceClientRecordAllDecisionsResponse, error)`
+- New function `*ScopeAccessReviewInstanceClient.ResetDecisions(context.Context, string, string, string, *ScopeAccessReviewInstanceClientResetDecisionsOptions) (ScopeAccessReviewInstanceClientResetDecisionsResponse, error)`
+- New function `*ScopeAccessReviewInstanceClient.SendReminders(context.Context, string, string, string, *ScopeAccessReviewInstanceClientSendRemindersOptions) (ScopeAccessReviewInstanceClientSendRemindersResponse, error)`
+- New function `*ScopeAccessReviewInstanceClient.Stop(context.Context, string, string, string, *ScopeAccessReviewInstanceClientStopOptions) (ScopeAccessReviewInstanceClientStopResponse, error)`
+- New function `NewScopeAccessReviewInstanceContactedReviewersClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewInstanceContactedReviewersClient, error)`
+- New function `*ScopeAccessReviewInstanceContactedReviewersClient.NewListPager(string, string, string, *ScopeAccessReviewInstanceContactedReviewersClientListOptions) *runtime.Pager[ScopeAccessReviewInstanceContactedReviewersClientListResponse]`
+- New function `NewScopeAccessReviewInstanceDecisionsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewInstanceDecisionsClient, error)`
+- New function `*ScopeAccessReviewInstanceDecisionsClient.NewListPager(string, string, string, *ScopeAccessReviewInstanceDecisionsClientListOptions) *runtime.Pager[ScopeAccessReviewInstanceDecisionsClientListResponse]`
+- New function `NewScopeAccessReviewInstancesClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewInstancesClient, error)`
+- New function `*ScopeAccessReviewInstancesClient.Create(context.Context, string, string, string, AccessReviewInstanceProperties, *ScopeAccessReviewInstancesClientCreateOptions) (ScopeAccessReviewInstancesClientCreateResponse, error)`
+- New function `*ScopeAccessReviewInstancesClient.GetByID(context.Context, string, string, string, *ScopeAccessReviewInstancesClientGetByIDOptions) (ScopeAccessReviewInstancesClientGetByIDResponse, error)`
+- New function `*ScopeAccessReviewInstancesClient.NewListPager(string, string, *ScopeAccessReviewInstancesClientListOptions) *runtime.Pager[ScopeAccessReviewInstancesClientListResponse]`
+- New function `NewScopeAccessReviewScheduleDefinitionsClient(azcore.TokenCredential, *arm.ClientOptions) (*ScopeAccessReviewScheduleDefinitionsClient, error)`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.CreateOrUpdateByID(context.Context, string, string, AccessReviewScheduleDefinitionProperties, *ScopeAccessReviewScheduleDefinitionsClientCreateOrUpdateByIDOptions) (ScopeAccessReviewScheduleDefinitionsClientCreateOrUpdateByIDResponse, error)`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.DeleteByID(context.Context, string, string, *ScopeAccessReviewScheduleDefinitionsClientDeleteByIDOptions) (ScopeAccessReviewScheduleDefinitionsClientDeleteByIDResponse, error)`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.GetByID(context.Context, string, string, *ScopeAccessReviewScheduleDefinitionsClientGetByIDOptions) (ScopeAccessReviewScheduleDefinitionsClientGetByIDResponse, error)`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.NewListPager(string, *ScopeAccessReviewScheduleDefinitionsClientListOptions) *runtime.Pager[ScopeAccessReviewScheduleDefinitionsClientListResponse]`
+- New function `*ScopeAccessReviewScheduleDefinitionsClient.Stop(context.Context, string, string, *ScopeAccessReviewScheduleDefinitionsClientStopOptions) (ScopeAccessReviewScheduleDefinitionsClientStopResponse, error)`
+- New function `NewTenantLevelAccessReviewInstanceContactedReviewersClient(azcore.TokenCredential, *arm.ClientOptions) (*TenantLevelAccessReviewInstanceContactedReviewersClient, error)`
+- New function `*TenantLevelAccessReviewInstanceContactedReviewersClient.NewListPager(string, string, *TenantLevelAccessReviewInstanceContactedReviewersClientListOptions) *runtime.Pager[TenantLevelAccessReviewInstanceContactedReviewersClientListResponse]`
+- New function `*TooManyOwnersAssignedToResourceAlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `*TooManyOwnersAssignedToResourceAlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New function `*TooManyPermanentOwnersAssignedToResourceAlertConfigurationProperties.GetAlertConfigurationProperties() *AlertConfigurationProperties`
+- New function `*TooManyPermanentOwnersAssignedToResourceAlertIncidentProperties.GetAlertIncidentProperties() *AlertIncidentProperties`
+- New struct `AccessReviewActorIdentity`
+- New struct `AccessReviewContactedReviewer`
+- New struct `AccessReviewContactedReviewerListResult`
+- New struct `AccessReviewContactedReviewerProperties`
+- New struct `AccessReviewDecision`
+- New struct `AccessReviewDecisionInsight`
+- New struct `AccessReviewDecisionListResult`
+- New struct `AccessReviewDecisionPrincipalResourceMembership`
+- New struct `AccessReviewDecisionProperties`
+- New struct `AccessReviewDecisionResource`
+- New struct `AccessReviewDecisionServicePrincipalIdentity`
+- New struct `AccessReviewDecisionUserIdentity`
+- New struct `AccessReviewDecisionUserSignInInsightProperties`
+- New struct `AccessReviewDefaultSettings`
+- New struct `AccessReviewDefaultSettingsClient`
+- New struct `AccessReviewHistoryDefinition`
+- New struct `AccessReviewHistoryDefinitionClient`
+- New struct `AccessReviewHistoryDefinitionInstanceClient`
+- New struct `AccessReviewHistoryDefinitionInstanceListResult`
+- New struct `AccessReviewHistoryDefinitionInstancesClient`
+- New struct `AccessReviewHistoryDefinitionListResult`
+- New struct `AccessReviewHistoryDefinitionProperties`
+- New struct `AccessReviewHistoryDefinitionsClient`
+- New struct `AccessReviewHistoryInstance`
+- New struct `AccessReviewHistoryInstanceProperties`
+- New struct `AccessReviewHistoryScheduleSettings`
+- New struct `AccessReviewInstance`
+- New struct `AccessReviewInstanceClient`
+- New struct `AccessReviewInstanceContactedReviewersClient`
+- New struct `AccessReviewInstanceDecisionsClient`
+- New struct `AccessReviewInstanceListResult`
+- New struct `AccessReviewInstanceMyDecisionsClient`
+- New struct `AccessReviewInstanceProperties`
+- New struct `AccessReviewInstancesAssignedForMyApprovalClient`
+- New struct `AccessReviewInstancesClient`
+- New struct `AccessReviewRecurrencePattern`
+- New struct `AccessReviewRecurrenceRange`
+- New struct `AccessReviewRecurrenceSettings`
+- New struct `AccessReviewReviewer`
+- New struct `AccessReviewScheduleDefinition`
+- New struct `AccessReviewScheduleDefinitionListResult`
+- New struct `AccessReviewScheduleDefinitionProperties`
+- New struct `AccessReviewScheduleDefinitionsAssignedForMyApprovalClient`
+- New struct `AccessReviewScheduleDefinitionsClient`
+- New struct `AccessReviewScheduleSettings`
+- New struct `AccessReviewScope`
+- New struct `Alert`
+- New struct `AlertConfiguration`
+- New struct `AlertConfigurationListResult`
+- New struct `AlertConfigurationsClient`
+- New struct `AlertDefinition`
+- New struct `AlertDefinitionListResult`
+- New struct `AlertDefinitionProperties`
+- New struct `AlertDefinitionsClient`
+- New struct `AlertIncident`
+- New struct `AlertIncidentListResult`
+- New struct `AlertIncidentsClient`
+- New struct `AlertListResult`
+- New struct `AlertOperationClient`
+- New struct `AlertOperationResult`
+- New struct `AlertProperties`
+- New struct `AlertsClient`
+- New struct `AzureRolesAssignedOutsidePimAlertConfigurationProperties`
+- New struct `AzureRolesAssignedOutsidePimAlertIncidentProperties`
+- New struct `DuplicateRoleCreatedAlertConfigurationProperties`
+- New struct `DuplicateRoleCreatedAlertIncidentProperties`
+- New struct `ErrorDefinition`
+- New struct `ErrorDefinitionProperties`
+- New struct `Operation`
+- New struct `OperationDisplay`
+- New struct `OperationListResult`
+- New struct `OperationsClient`
+- New struct `RecordAllDecisionsProperties`
+- New struct `ScopeAccessReviewDefaultSettingsClient`
+- New struct `ScopeAccessReviewHistoryDefinitionClient`
+- New struct `ScopeAccessReviewHistoryDefinitionInstanceClient`
+- New struct `ScopeAccessReviewHistoryDefinitionInstancesClient`
+- New struct `ScopeAccessReviewHistoryDefinitionsClient`
+- New struct `ScopeAccessReviewInstanceClient`
+- New struct `ScopeAccessReviewInstanceContactedReviewersClient`
+- New struct `ScopeAccessReviewInstanceDecisionsClient`
+- New struct `ScopeAccessReviewInstancesClient`
+- New struct `ScopeAccessReviewScheduleDefinitionsClient`
+- New struct `TenantLevelAccessReviewInstanceContactedReviewersClient`
+- New struct `TooManyOwnersAssignedToResourceAlertConfigurationProperties`
+- New struct `TooManyOwnersAssignedToResourceAlertIncidentProperties`
+- New struct `TooManyPermanentOwnersAssignedToResourceAlertConfigurationProperties`
+- New struct `TooManyPermanentOwnersAssignedToResourceAlertIncidentProperties`
+
+
 ## 2.0.0 (2022-09-26)
 ### Breaking Changes
 
