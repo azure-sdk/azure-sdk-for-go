@@ -11,7 +11,7 @@ package armservicenetworking
 
 const (
 	moduleName    = "armservicenetworking"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v1.0.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -48,18 +48,18 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-type FrontendIPAddressVersion string
+type FrontendIPVersion string
 
 const (
-	FrontendIPAddressVersionIPv4 FrontendIPAddressVersion = "IPv4"
-	FrontendIPAddressVersionIPv6 FrontendIPAddressVersion = "IPv6"
+	FrontendIPVersionIPv4 FrontendIPVersion = "IPv4"
+	FrontendIPVersionIPv6 FrontendIPVersion = "IPv6"
 )
 
-// PossibleFrontendIPAddressVersionValues returns the possible values for the FrontendIPAddressVersion const type.
-func PossibleFrontendIPAddressVersionValues() []FrontendIPAddressVersion {
-	return []FrontendIPAddressVersion{
-		FrontendIPAddressVersionIPv4,
-		FrontendIPAddressVersionIPv6,
+// PossibleFrontendIPVersionValues returns the possible values for the FrontendIPVersion const type.
+func PossibleFrontendIPVersionValues() []FrontendIPVersion {
+	return []FrontendIPVersion{
+		FrontendIPVersionIPv4,
+		FrontendIPVersionIPv6,
 	}
 }
 

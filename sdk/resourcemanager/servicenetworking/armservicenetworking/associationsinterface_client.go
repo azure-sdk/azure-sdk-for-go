@@ -32,9 +32,9 @@ type AssociationsInterfaceClient struct {
 }
 
 // NewAssociationsInterfaceClient creates a new instance of AssociationsInterfaceClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAssociationsInterfaceClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AssociationsInterfaceClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewAssociationsInterfaceClient(subscriptionID string, credential azcore.Tok
 
 // BeginCreateOrUpdate - Create a Traffic Controller Association
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// associationName - Name of Association
-// resource - Resource create parameters.
-// options - AssociationsInterfaceClientBeginCreateOrUpdateOptions contains the optional parameters for the AssociationsInterfaceClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - associationName - Name of Association
+//   - resource - Resource create parameters.
+//   - options - AssociationsInterfaceClientBeginCreateOrUpdateOptions contains the optional parameters for the AssociationsInterfaceClient.BeginCreateOrUpdate
+//     method.
 func (client *AssociationsInterfaceClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, trafficControllerName string, associationName string, resource Association, options *AssociationsInterfaceClientBeginCreateOrUpdateOptions) (*runtime.Poller[AssociationsInterfaceClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, trafficControllerName, associationName, resource, options)
@@ -80,7 +81,8 @@ func (client *AssociationsInterfaceClient) BeginCreateOrUpdate(ctx context.Conte
 
 // CreateOrUpdate - Create a Traffic Controller Association
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01-preview
+//
+// Generated from API version 2023-03-01
 func (client *AssociationsInterfaceClient) createOrUpdate(ctx context.Context, resourceGroupName string, trafficControllerName string, associationName string, resource Association, options *AssociationsInterfaceClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, trafficControllerName, associationName, resource, options)
 	if err != nil {
@@ -120,7 +122,7 @@ func (client *AssociationsInterfaceClient) createOrUpdateCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, resource)
@@ -128,12 +130,13 @@ func (client *AssociationsInterfaceClient) createOrUpdateCreateRequest(ctx conte
 
 // BeginDelete - Delete a Traffic Controller Association
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// associationName - Name of Association
-// options - AssociationsInterfaceClientBeginDeleteOptions contains the optional parameters for the AssociationsInterfaceClient.BeginDelete
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - associationName - Name of Association
+//   - options - AssociationsInterfaceClientBeginDeleteOptions contains the optional parameters for the AssociationsInterfaceClient.BeginDelete
+//     method.
 func (client *AssociationsInterfaceClient) BeginDelete(ctx context.Context, resourceGroupName string, trafficControllerName string, associationName string, options *AssociationsInterfaceClientBeginDeleteOptions) (*runtime.Poller[AssociationsInterfaceClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, trafficControllerName, associationName, options)
@@ -150,7 +153,8 @@ func (client *AssociationsInterfaceClient) BeginDelete(ctx context.Context, reso
 
 // Delete - Delete a Traffic Controller Association
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01-preview
+//
+// Generated from API version 2023-03-01
 func (client *AssociationsInterfaceClient) deleteOperation(ctx context.Context, resourceGroupName string, trafficControllerName string, associationName string, options *AssociationsInterfaceClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, trafficControllerName, associationName, options)
 	if err != nil {
@@ -190,7 +194,7 @@ func (client *AssociationsInterfaceClient) deleteCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -198,12 +202,13 @@ func (client *AssociationsInterfaceClient) deleteCreateRequest(ctx context.Conte
 
 // Get - Get a Traffic Controller Association
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// associationName - Name of Association
-// options - AssociationsInterfaceClientGetOptions contains the optional parameters for the AssociationsInterfaceClient.Get
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - associationName - Name of Association
+//   - options - AssociationsInterfaceClientGetOptions contains the optional parameters for the AssociationsInterfaceClient.Get
+//     method.
 func (client *AssociationsInterfaceClient) Get(ctx context.Context, resourceGroupName string, trafficControllerName string, associationName string, options *AssociationsInterfaceClientGetOptions) (AssociationsInterfaceClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, trafficControllerName, associationName, options)
 	if err != nil {
@@ -243,7 +248,7 @@ func (client *AssociationsInterfaceClient) getCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -259,11 +264,12 @@ func (client *AssociationsInterfaceClient) getHandleResponse(resp *http.Response
 }
 
 // NewListByTrafficControllerPager - List Association resources by TrafficController
-// Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// options - AssociationsInterfaceClientListByTrafficControllerOptions contains the optional parameters for the AssociationsInterfaceClient.ListByTrafficController
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - options - AssociationsInterfaceClientListByTrafficControllerOptions contains the optional parameters for the AssociationsInterfaceClient.NewListByTrafficControllerPager
+//     method.
 func (client *AssociationsInterfaceClient) NewListByTrafficControllerPager(resourceGroupName string, trafficControllerName string, options *AssociationsInterfaceClientListByTrafficControllerOptions) *runtime.Pager[AssociationsInterfaceClientListByTrafficControllerResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AssociationsInterfaceClientListByTrafficControllerResponse]{
 		More: func(page AssociationsInterfaceClientListByTrafficControllerResponse) bool {
@@ -312,7 +318,7 @@ func (client *AssociationsInterfaceClient) listByTrafficControllerCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -329,13 +335,14 @@ func (client *AssociationsInterfaceClient) listByTrafficControllerHandleResponse
 
 // Update - Update a Traffic Controller Association
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// trafficControllerName - traffic controller name for path
-// associationName - Name of Association
-// properties - The resource properties to be updated.
-// options - AssociationsInterfaceClientUpdateOptions contains the optional parameters for the AssociationsInterfaceClient.Update
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - trafficControllerName - traffic controller name for path
+//   - associationName - Name of Association
+//   - properties - The resource properties to be updated.
+//   - options - AssociationsInterfaceClientUpdateOptions contains the optional parameters for the AssociationsInterfaceClient.Update
+//     method.
 func (client *AssociationsInterfaceClient) Update(ctx context.Context, resourceGroupName string, trafficControllerName string, associationName string, properties AssociationUpdate, options *AssociationsInterfaceClientUpdateOptions) (AssociationsInterfaceClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, trafficControllerName, associationName, properties, options)
 	if err != nil {
@@ -375,7 +382,7 @@ func (client *AssociationsInterfaceClient) updateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01-preview")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, properties)
