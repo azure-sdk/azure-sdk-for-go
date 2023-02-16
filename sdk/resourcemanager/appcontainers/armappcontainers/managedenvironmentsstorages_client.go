@@ -32,9 +32,9 @@ type ManagedEnvironmentsStoragesClient struct {
 }
 
 // NewManagedEnvironmentsStoragesClient creates a new instance of ManagedEnvironmentsStoragesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewManagedEnvironmentsStoragesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedEnvironmentsStoragesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewManagedEnvironmentsStoragesClient(subscriptionID string, credential azco
 
 // CreateOrUpdate - Create or update storage for a managedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// environmentName - Name of the Environment.
-// storageName - Name of the storage.
-// storageEnvelope - Configuration details of storage.
-// options - ManagedEnvironmentsStoragesClientCreateOrUpdateOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - environmentName - Name of the Environment.
+//   - storageName - Name of the storage.
+//   - storageEnvelope - Configuration details of storage.
+//   - options - ManagedEnvironmentsStoragesClientCreateOrUpdateOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.CreateOrUpdate
+//     method.
 func (client *ManagedEnvironmentsStoragesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, environmentName string, storageName string, storageEnvelope ManagedEnvironmentStorage, options *ManagedEnvironmentsStoragesClientCreateOrUpdateOptions) (ManagedEnvironmentsStoragesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, environmentName, storageName, storageEnvelope, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *ManagedEnvironmentsStoragesClient) createOrUpdateCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, storageEnvelope)
@@ -120,12 +121,13 @@ func (client *ManagedEnvironmentsStoragesClient) createOrUpdateHandleResponse(re
 
 // Delete - Delete storage for a managedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// environmentName - Name of the Environment.
-// storageName - Name of the storage.
-// options - ManagedEnvironmentsStoragesClientDeleteOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.Delete
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - environmentName - Name of the Environment.
+//   - storageName - Name of the storage.
+//   - options - ManagedEnvironmentsStoragesClientDeleteOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.Delete
+//     method.
 func (client *ManagedEnvironmentsStoragesClient) Delete(ctx context.Context, resourceGroupName string, environmentName string, storageName string, options *ManagedEnvironmentsStoragesClientDeleteOptions) (ManagedEnvironmentsStoragesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, environmentName, storageName, options)
 	if err != nil {
@@ -165,7 +167,7 @@ func (client *ManagedEnvironmentsStoragesClient) deleteCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,12 +175,13 @@ func (client *ManagedEnvironmentsStoragesClient) deleteCreateRequest(ctx context
 
 // Get - Get storage for a managedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// environmentName - Name of the Environment.
-// storageName - Name of the storage.
-// options - ManagedEnvironmentsStoragesClientGetOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.Get
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - environmentName - Name of the Environment.
+//   - storageName - Name of the storage.
+//   - options - ManagedEnvironmentsStoragesClientGetOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.Get
+//     method.
 func (client *ManagedEnvironmentsStoragesClient) Get(ctx context.Context, resourceGroupName string, environmentName string, storageName string, options *ManagedEnvironmentsStoragesClientGetOptions) (ManagedEnvironmentsStoragesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, environmentName, storageName, options)
 	if err != nil {
@@ -218,7 +221,7 @@ func (client *ManagedEnvironmentsStoragesClient) getCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -235,11 +238,12 @@ func (client *ManagedEnvironmentsStoragesClient) getHandleResponse(resp *http.Re
 
 // List - Get all storages for a managedEnvironment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// environmentName - Name of the Environment.
-// options - ManagedEnvironmentsStoragesClientListOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.List
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - environmentName - Name of the Environment.
+//   - options - ManagedEnvironmentsStoragesClientListOptions contains the optional parameters for the ManagedEnvironmentsStoragesClient.List
+//     method.
 func (client *ManagedEnvironmentsStoragesClient) List(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsStoragesClientListOptions) (ManagedEnvironmentsStoragesClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, resourceGroupName, environmentName, options)
 	if err != nil {
@@ -275,7 +279,7 @@ func (client *ManagedEnvironmentsStoragesClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
