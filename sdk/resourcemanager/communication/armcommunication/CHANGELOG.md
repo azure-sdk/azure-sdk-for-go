@@ -1,5 +1,30 @@
 # Release History
 
+## 2.0.0-beta.3 (2023-02-16)
+### Breaking Changes
+
+- Field `ValidSenderUsernames` of struct `DomainProperties` has been removed
+- Field `ValidSenderUsernames` of struct `UpdateDomainProperties` has been removed
+
+### Features Added
+
+- New function `*DomainsClient.AddSuppressedEmailAddresses(context.Context, string, string, string, SuppressionListAddRequest, *DomainsClientAddSuppressedEmailAddressesOptions) (DomainsClientAddSuppressedEmailAddressesResponse, error)`
+- New function `*DomainsClient.AddValidSenderUsernames(context.Context, string, string, string, ValidSenderUsernameCollection, *DomainsClientAddValidSenderUsernamesOptions) (DomainsClientAddValidSenderUsernamesResponse, error)`
+- New function `*DomainsClient.NewListSuppressedEmailAddressesPager(string, string, string, *DomainsClientListSuppressedEmailAddressesOptions) *runtime.Pager[DomainsClientListSuppressedEmailAddressesResponse]`
+- New function `*DomainsClient.ListValidSenderUsernames(context.Context, string, string, string, *DomainsClientListValidSenderUsernamesOptions) (DomainsClientListValidSenderUsernamesResponse, error)`
+- New function `*DomainsClient.RemoveSuppressedEmailAddresses(context.Context, string, string, string, SuppressionListRemoveRequest, *DomainsClientRemoveSuppressedEmailAddressesOptions) (DomainsClientRemoveSuppressedEmailAddressesResponse, error)`
+- New function `*DomainsClient.RemoveValidSenderUsernames(context.Context, string, string, string, RemoveValidSenderUsernameParameters, *DomainsClientRemoveValidSenderUsernamesOptions) (DomainsClientRemoveValidSenderUsernamesResponse, error)`
+- New struct `RemoveValidSenderUsernameParameters`
+- New struct `SuppressionListAddRequest`
+- New struct `SuppressionListAddressInfo`
+- New struct `SuppressionListRecordDto`
+- New struct `SuppressionListRemoveRequest`
+- New struct `SuppressionListRequest`
+- New struct `SuppressionListResponse`
+- New struct `ValidSenderUsername`
+- New struct `ValidSenderUsernameCollection`
+
+
 ## 2.0.0-beta.2 (2022-08-14)
 ### Other Changes
 - Replace API version `2021-10-01-preview` with `2022-07-01-preview`

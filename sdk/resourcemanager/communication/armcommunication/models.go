@@ -56,9 +56,6 @@ type DomainProperties struct {
 	// Describes whether user engagement tracking is enabled or disabled.
 	UserEngagementTracking *UserEngagementTracking `json:"userEngagementTracking,omitempty"`
 
-	// Collection of valid sender usernames. This is a key-value pair where key=username and value=display name.
-	ValidSenderUsernames map[string]*string `json:"validSenderUsernames,omitempty"`
-
 	// READ-ONLY; The location where the Domains resource data is stored at rest.
 	DataLocation *string `json:"dataLocation,omitempty" azure:"ro"`
 
@@ -147,6 +144,18 @@ type DomainResourceList struct {
 	Value []*DomainResource `json:"value,omitempty"`
 }
 
+// DomainsClientAddSuppressedEmailAddressesOptions contains the optional parameters for the DomainsClient.AddSuppressedEmailAddresses
+// method.
+type DomainsClientAddSuppressedEmailAddressesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DomainsClientAddValidSenderUsernamesOptions contains the optional parameters for the DomainsClient.AddValidSenderUsernames
+// method.
+type DomainsClientAddValidSenderUsernamesOptions struct {
+	// placeholder for future optional parameters
+}
+
 // DomainsClientBeginCancelVerificationOptions contains the optional parameters for the DomainsClient.BeginCancelVerification
 // method.
 type DomainsClientBeginCancelVerificationOptions struct {
@@ -184,9 +193,42 @@ type DomainsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DomainsClientListByEmailServiceResourceOptions contains the optional parameters for the DomainsClient.ListByEmailServiceResource
+// DomainsClientListByEmailServiceResourceOptions contains the optional parameters for the DomainsClient.NewListByEmailServiceResourcePager
 // method.
 type DomainsClientListByEmailServiceResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DomainsClientListSuppressedEmailAddressesOptions contains the optional parameters for the DomainsClient.NewListSuppressedEmailAddressesPager
+// method.
+type DomainsClientListSuppressedEmailAddressesOptions struct {
+	// Optional parameter to fetch suppression list associated with a valid sender user name. When this parameter is not present,
+	// by default the domain level suppression list will be returned.
+	Parameters *SuppressionListRequest
+	// SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element,
+	// the value of the nextLink element will include a skipToken parameter that
+	// specifies a starting point for subsequent calls.
+	SkipToken *string
+	// The maximum number of records to include in a single response. This value is honored if the specified value is smaller
+	// than server's default page size.
+	Top *int32
+}
+
+// DomainsClientListValidSenderUsernamesOptions contains the optional parameters for the DomainsClient.ListValidSenderUsernames
+// method.
+type DomainsClientListValidSenderUsernamesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DomainsClientRemoveSuppressedEmailAddressesOptions contains the optional parameters for the DomainsClient.RemoveSuppressedEmailAddresses
+// method.
+type DomainsClientRemoveSuppressedEmailAddressesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DomainsClientRemoveValidSenderUsernamesOptions contains the optional parameters for the DomainsClient.RemoveValidSenderUsernames
+// method.
+type DomainsClientRemoveValidSenderUsernamesOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -262,13 +304,13 @@ type EmailServicesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// EmailServicesClientListByResourceGroupOptions contains the optional parameters for the EmailServicesClient.ListByResourceGroup
+// EmailServicesClientListByResourceGroupOptions contains the optional parameters for the EmailServicesClient.NewListByResourceGroupPager
 // method.
 type EmailServicesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// EmailServicesClientListBySubscriptionOptions contains the optional parameters for the EmailServicesClient.ListBySubscription
+// EmailServicesClientListBySubscriptionOptions contains the optional parameters for the EmailServicesClient.NewListBySubscriptionPager
 // method.
 type EmailServicesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -283,7 +325,7 @@ type EmailServicesClientListVerifiedExchangeOnlineDomainsOptions struct {
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -387,7 +429,7 @@ type OperationListResult struct {
 	Value []*Operation `json:"value,omitempty" azure:"ro"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -396,6 +438,12 @@ type OperationsClientListOptions struct {
 type RegenerateKeyParameters struct {
 	// The keyType to regenerate. Must be either 'primary' or 'secondary'(case-insensitive).
 	KeyType *KeyType `json:"keyType,omitempty"`
+}
+
+// RemoveValidSenderUsernameParameters - Input parameters for remove valid sender user name
+type RemoveValidSenderUsernameParameters struct {
+	// REQUIRED; List of valid sender user names.
+	ValidSenderUsernameList []*string `json:"validSenderUsernameList,omitempty"`
 }
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
@@ -541,12 +589,14 @@ type ServicesClientLinkNotificationHubOptions struct {
 	LinkNotificationHubParameters *LinkNotificationHubParameters
 }
 
-// ServicesClientListByResourceGroupOptions contains the optional parameters for the ServicesClient.ListByResourceGroup method.
+// ServicesClientListByResourceGroupOptions contains the optional parameters for the ServicesClient.NewListByResourceGroupPager
+// method.
 type ServicesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.ListBySubscription method.
+// ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.NewListBySubscriptionPager
+// method.
 type ServicesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
@@ -554,6 +604,78 @@ type ServicesClientListBySubscriptionOptions struct {
 // ServicesClientListKeysOptions contains the optional parameters for the ServicesClient.ListKeys method.
 type ServicesClientListKeysOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SuppressionListAddRequest - Object that describes what address will be added to the suppression list.
+type SuppressionListAddRequest struct {
+	// REQUIRED; List of objects for each address to add to the suppression list
+	AddressInfoList []*SuppressionListAddressInfo `json:"addressInfoList,omitempty"`
+
+	// Optional parameter to operate on suppression list associated with a valid sender user name. When this parameter is not
+	// present, by default the domain level suppression list will be operated on.
+	ValidSenderUsername *string `json:"validSenderUsername,omitempty"`
+}
+
+// SuppressionListAddressInfo - Object that describes new email recipient being added to a suppression list.
+type SuppressionListAddressInfo struct {
+	// REQUIRED; Email address of the recipient.
+	Email *string `json:"email,omitempty"`
+
+	// The first name of the email recipient.
+	FirstName *string `json:"firstName,omitempty"`
+
+	// The last name of the email recipient.
+	LastName *string `json:"lastName,omitempty"`
+
+	// An optional property to provide contextual notes or a description for an address.
+	Notes *string `json:"notes,omitempty"`
+}
+
+// SuppressionListRecordDto - A object that represents a SuppressionList record.
+type SuppressionListRecordDto struct {
+	// REQUIRED; Email address of the recipient.
+	Email *string `json:"email,omitempty"`
+
+	// The first name of the email recipient.
+	FirstName *string `json:"firstName,omitempty"`
+
+	// The last name of the email recipient.
+	LastName *string `json:"lastName,omitempty"`
+
+	// An optional property to provide contextual notes or a description for an address.
+	Notes *string `json:"notes,omitempty"`
+
+	// READ-ONLY; The date the address was last updated in a suppression list.
+	LastUpdated *string `json:"lastUpdated,omitempty" azure:"ro"`
+
+	// READ-ONLY; The list id which this address is unsubscribed from (maps to the mail from field in the portal).
+	ListID *string `json:"listId,omitempty" azure:"ro"`
+}
+
+// SuppressionListRemoveRequest - Object that describes what address will be removed from the suppression list.
+type SuppressionListRemoveRequest struct {
+	// REQUIRED; List of email addresses to remove.
+	Addresses []*string `json:"addresses,omitempty"`
+
+	// Optional parameter to operate on suppression list associated with a valid sender user name. When this parameter is not
+	// present, by default the domain level suppression list will be operated on.
+	ValidSenderUsername *string `json:"validSenderUsername,omitempty"`
+}
+
+// SuppressionListRequest - Object that describes the request parameter to list suppressed emails.
+type SuppressionListRequest struct {
+	// REQUIRED; Optional parameter to operate on suppression list associated with a valid sender user name. When this parameter
+	// is not present, by default the domain level suppression list will be operated on.
+	ValidSenderUsername *string `json:"validSenderUsername,omitempty"`
+}
+
+// SuppressionListResponse - Object that includes an array of suppressed email addresses and a possible link for next set.
+type SuppressionListResponse struct {
+	// The URL the client should use to fetch the next page (per server side paging).
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// List of suppressed email addresses.
+	Value []*SuppressionListRecordDto `json:"value,omitempty"`
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -609,9 +731,6 @@ type TrackedResource struct {
 type UpdateDomainProperties struct {
 	// Describes whether user engagement tracking is enabled or disabled.
 	UserEngagementTracking *UserEngagementTracking `json:"userEngagementTracking,omitempty"`
-
-	// Collection of valid sender usernames. This is a key-value pair where key=username and value=display name.
-	ValidSenderUsernames map[string]*string `json:"validSenderUsernames,omitempty"`
 }
 
 // UpdateDomainRequestParameters - A class that describes the PATCH request parameters of a Domains resource.
@@ -621,6 +740,21 @@ type UpdateDomainRequestParameters struct {
 
 	// Tags of the service which is a list of key value pairs that describe the resource.
 	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// ValidSenderUsername - Input parameters for add valid sender user name
+type ValidSenderUsername struct {
+	// REQUIRED; The friendly display name of the sender.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// REQUIRED; Name of sender.
+	Name *string `json:"name,omitempty"`
+}
+
+// ValidSenderUsernameCollection - List of valid sender user names
+type ValidSenderUsernameCollection struct {
+	// REQUIRED; List of valid sender user names.
+	Value []*ValidSenderUsername `json:"value,omitempty"`
 }
 
 // VerificationParameter - Input parameter for verification APIs

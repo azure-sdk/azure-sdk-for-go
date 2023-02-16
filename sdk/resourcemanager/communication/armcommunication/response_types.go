@@ -9,17 +9,27 @@
 
 package armcommunication
 
-// DomainsClientCancelVerificationResponse contains the response from method DomainsClient.CancelVerification.
+// DomainsClientAddSuppressedEmailAddressesResponse contains the response from method DomainsClient.AddSuppressedEmailAddresses.
+type DomainsClientAddSuppressedEmailAddressesResponse struct {
+	// placeholder for future response values
+}
+
+// DomainsClientAddValidSenderUsernamesResponse contains the response from method DomainsClient.AddValidSenderUsernames.
+type DomainsClientAddValidSenderUsernamesResponse struct {
+	// placeholder for future response values
+}
+
+// DomainsClientCancelVerificationResponse contains the response from method DomainsClient.BeginCancelVerification.
 type DomainsClientCancelVerificationResponse struct {
 	// placeholder for future response values
 }
 
-// DomainsClientCreateOrUpdateResponse contains the response from method DomainsClient.CreateOrUpdate.
+// DomainsClientCreateOrUpdateResponse contains the response from method DomainsClient.BeginCreateOrUpdate.
 type DomainsClientCreateOrUpdateResponse struct {
 	DomainResource
 }
 
-// DomainsClientDeleteResponse contains the response from method DomainsClient.Delete.
+// DomainsClientDeleteResponse contains the response from method DomainsClient.BeginDelete.
 type DomainsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -29,27 +39,47 @@ type DomainsClientGetResponse struct {
 	DomainResource
 }
 
-// DomainsClientInitiateVerificationResponse contains the response from method DomainsClient.InitiateVerification.
+// DomainsClientInitiateVerificationResponse contains the response from method DomainsClient.BeginInitiateVerification.
 type DomainsClientInitiateVerificationResponse struct {
 	// placeholder for future response values
 }
 
-// DomainsClientListByEmailServiceResourceResponse contains the response from method DomainsClient.ListByEmailServiceResource.
+// DomainsClientListByEmailServiceResourceResponse contains the response from method DomainsClient.NewListByEmailServiceResourcePager.
 type DomainsClientListByEmailServiceResourceResponse struct {
 	DomainResourceList
 }
 
-// DomainsClientUpdateResponse contains the response from method DomainsClient.Update.
+// DomainsClientListSuppressedEmailAddressesResponse contains the response from method DomainsClient.NewListSuppressedEmailAddressesPager.
+type DomainsClientListSuppressedEmailAddressesResponse struct {
+	SuppressionListResponse
+}
+
+// DomainsClientListValidSenderUsernamesResponse contains the response from method DomainsClient.ListValidSenderUsernames.
+type DomainsClientListValidSenderUsernamesResponse struct {
+	ValidSenderUsernameCollection
+}
+
+// DomainsClientRemoveSuppressedEmailAddressesResponse contains the response from method DomainsClient.RemoveSuppressedEmailAddresses.
+type DomainsClientRemoveSuppressedEmailAddressesResponse struct {
+	// placeholder for future response values
+}
+
+// DomainsClientRemoveValidSenderUsernamesResponse contains the response from method DomainsClient.RemoveValidSenderUsernames.
+type DomainsClientRemoveValidSenderUsernamesResponse struct {
+	// placeholder for future response values
+}
+
+// DomainsClientUpdateResponse contains the response from method DomainsClient.BeginUpdate.
 type DomainsClientUpdateResponse struct {
 	DomainResource
 }
 
-// EmailServicesClientCreateOrUpdateResponse contains the response from method EmailServicesClient.CreateOrUpdate.
+// EmailServicesClientCreateOrUpdateResponse contains the response from method EmailServicesClient.BeginCreateOrUpdate.
 type EmailServicesClientCreateOrUpdateResponse struct {
 	EmailServiceResource
 }
 
-// EmailServicesClientDeleteResponse contains the response from method EmailServicesClient.Delete.
+// EmailServicesClientDeleteResponse contains the response from method EmailServicesClient.BeginDelete.
 type EmailServicesClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -59,12 +89,12 @@ type EmailServicesClientGetResponse struct {
 	EmailServiceResource
 }
 
-// EmailServicesClientListByResourceGroupResponse contains the response from method EmailServicesClient.ListByResourceGroup.
+// EmailServicesClientListByResourceGroupResponse contains the response from method EmailServicesClient.NewListByResourceGroupPager.
 type EmailServicesClientListByResourceGroupResponse struct {
 	EmailServiceResourceList
 }
 
-// EmailServicesClientListBySubscriptionResponse contains the response from method EmailServicesClient.ListBySubscription.
+// EmailServicesClientListBySubscriptionResponse contains the response from method EmailServicesClient.NewListBySubscriptionPager.
 type EmailServicesClientListBySubscriptionResponse struct {
 	EmailServiceResourceList
 }
@@ -75,12 +105,12 @@ type EmailServicesClientListVerifiedExchangeOnlineDomainsResponse struct {
 	StringArray []*string
 }
 
-// EmailServicesClientUpdateResponse contains the response from method EmailServicesClient.Update.
+// EmailServicesClientUpdateResponse contains the response from method EmailServicesClient.BeginUpdate.
 type EmailServicesClientUpdateResponse struct {
 	EmailServiceResource
 }
 
-// OperationsClientListResponse contains the response from method OperationsClient.List.
+// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationListResult
 }
@@ -90,12 +120,12 @@ type ServicesClientCheckNameAvailabilityResponse struct {
 	CheckNameAvailabilityResponse
 }
 
-// ServicesClientCreateOrUpdateResponse contains the response from method ServicesClient.CreateOrUpdate.
+// ServicesClientCreateOrUpdateResponse contains the response from method ServicesClient.BeginCreateOrUpdate.
 type ServicesClientCreateOrUpdateResponse struct {
 	ServiceResource
 }
 
-// ServicesClientDeleteResponse contains the response from method ServicesClient.Delete.
+// ServicesClientDeleteResponse contains the response from method ServicesClient.BeginDelete.
 type ServicesClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -110,12 +140,12 @@ type ServicesClientLinkNotificationHubResponse struct {
 	LinkedNotificationHub
 }
 
-// ServicesClientListByResourceGroupResponse contains the response from method ServicesClient.ListByResourceGroup.
+// ServicesClientListByResourceGroupResponse contains the response from method ServicesClient.NewListByResourceGroupPager.
 type ServicesClientListByResourceGroupResponse struct {
 	ServiceResourceList
 }
 
-// ServicesClientListBySubscriptionResponse contains the response from method ServicesClient.ListBySubscription.
+// ServicesClientListBySubscriptionResponse contains the response from method ServicesClient.NewListBySubscriptionPager.
 type ServicesClientListBySubscriptionResponse struct {
 	ServiceResourceList
 }
@@ -125,12 +155,12 @@ type ServicesClientListKeysResponse struct {
 	ServiceKeys
 }
 
-// ServicesClientRegenerateKeyResponse contains the response from method ServicesClient.RegenerateKey.
+// ServicesClientRegenerateKeyResponse contains the response from method ServicesClient.BeginRegenerateKey.
 type ServicesClientRegenerateKeyResponse struct {
 	ServiceKeys
 }
 
-// ServicesClientUpdateResponse contains the response from method ServicesClient.Update.
+// ServicesClientUpdateResponse contains the response from method ServicesClient.BeginUpdate.
 type ServicesClientUpdateResponse struct {
 	ServiceResource
 }
