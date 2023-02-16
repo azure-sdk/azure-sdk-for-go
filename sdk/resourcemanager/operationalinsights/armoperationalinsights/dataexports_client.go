@@ -32,9 +32,9 @@ type DataExportsClient struct {
 }
 
 // NewDataExportsClient creates a new instance of DataExportsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDataExportsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DataExportsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewDataExportsClient(subscriptionID string, credential azcore.TokenCredenti
 
 // CreateOrUpdate - Create or update a data export.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// dataExportName - The data export rule name.
-// parameters - The parameters required to create or update a data export.
-// options - DataExportsClientCreateOrUpdateOptions contains the optional parameters for the DataExportsClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - dataExportName - The data export rule name.
+//   - parameters - The parameters required to create or update a data export.
+//   - options - DataExportsClientCreateOrUpdateOptions contains the optional parameters for the DataExportsClient.CreateOrUpdate
+//     method.
 func (client *DataExportsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, dataExportName string, parameters DataExport, options *DataExportsClientCreateOrUpdateOptions) (DataExportsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, dataExportName, parameters, options)
 	if err != nil {
@@ -120,11 +121,12 @@ func (client *DataExportsClient) createOrUpdateHandleResponse(resp *http.Respons
 
 // Delete - Deletes the specified data export in a given workspace..
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// dataExportName - The data export rule name.
-// options - DataExportsClientDeleteOptions contains the optional parameters for the DataExportsClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - dataExportName - The data export rule name.
+//   - options - DataExportsClientDeleteOptions contains the optional parameters for the DataExportsClient.Delete method.
 func (client *DataExportsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, dataExportName string, options *DataExportsClientDeleteOptions) (DataExportsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, dataExportName, options)
 	if err != nil {
@@ -172,11 +174,12 @@ func (client *DataExportsClient) deleteCreateRequest(ctx context.Context, resour
 
 // Get - Gets a data export instance.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// dataExportName - The data export rule name.
-// options - DataExportsClientGetOptions contains the optional parameters for the DataExportsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - dataExportName - The data export rule name.
+//   - options - DataExportsClientGetOptions contains the optional parameters for the DataExportsClient.Get method.
 func (client *DataExportsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, dataExportName string, options *DataExportsClientGetOptions) (DataExportsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, dataExportName, options)
 	if err != nil {
@@ -232,12 +235,12 @@ func (client *DataExportsClient) getHandleResponse(resp *http.Response) (DataExp
 }
 
 // NewListByWorkspacePager - Lists the data export instances within a workspace.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// options - DataExportsClientListByWorkspaceOptions contains the optional parameters for the DataExportsClient.ListByWorkspace
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - DataExportsClientListByWorkspaceOptions contains the optional parameters for the DataExportsClient.NewListByWorkspacePager
+//     method.
 func (client *DataExportsClient) NewListByWorkspacePager(resourceGroupName string, workspaceName string, options *DataExportsClientListByWorkspaceOptions) *runtime.Pager[DataExportsClientListByWorkspaceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DataExportsClientListByWorkspaceResponse]{
 		More: func(page DataExportsClientListByWorkspaceResponse) bool {

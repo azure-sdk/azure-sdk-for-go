@@ -223,12 +223,13 @@ type ClustersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.ListByResourceGroup method.
+// ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.NewListByResourceGroupPager
+// method.
 type ClustersClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClustersClientListOptions contains the optional parameters for the ClustersClient.List method.
+// ClustersClientListOptions contains the optional parameters for the ClustersClient.NewListPager method.
 type ClustersClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -323,7 +324,8 @@ type DataExportsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataExportsClientListByWorkspaceOptions contains the optional parameters for the DataExportsClient.ListByWorkspace method.
+// DataExportsClientListByWorkspaceOptions contains the optional parameters for the DataExportsClient.NewListByWorkspacePager
+// method.
 type DataExportsClientListByWorkspaceOptions struct {
 	// placeholder for future optional parameters
 }
@@ -334,7 +336,7 @@ type DataSource struct {
 	Kind *DataSourceKind `json:"kind,omitempty"`
 
 	// REQUIRED; The data source properties in raw json format, each kind of data source have it's own schema.
-	Properties interface{} `json:"properties,omitempty"`
+	Properties any `json:"properties,omitempty"`
 
 	// The ETag of the data source.
 	Etag *string `json:"etag,omitempty"`
@@ -382,19 +384,20 @@ type DataSourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataSourcesClientListByWorkspaceOptions contains the optional parameters for the DataSourcesClient.ListByWorkspace method.
+// DataSourcesClientListByWorkspaceOptions contains the optional parameters for the DataSourcesClient.NewListByWorkspacePager
+// method.
 type DataSourcesClientListByWorkspaceOptions struct {
 	// Starting point of the collection of data source instances.
 	Skiptoken *string
 }
 
-// DeletedWorkspacesClientListByResourceGroupOptions contains the optional parameters for the DeletedWorkspacesClient.ListByResourceGroup
+// DeletedWorkspacesClientListByResourceGroupOptions contains the optional parameters for the DeletedWorkspacesClient.NewListByResourceGroupPager
 // method.
 type DeletedWorkspacesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DeletedWorkspacesClientListOptions contains the optional parameters for the DeletedWorkspacesClient.List method.
+// DeletedWorkspacesClientListOptions contains the optional parameters for the DeletedWorkspacesClient.NewListPager method.
 type DeletedWorkspacesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -420,7 +423,7 @@ type DestinationMetaData struct {
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -571,7 +574,7 @@ type LinkedServicesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LinkedServicesClientListByWorkspaceOptions contains the optional parameters for the LinkedServicesClient.ListByWorkspace
+// LinkedServicesClientListByWorkspaceOptions contains the optional parameters for the LinkedServicesClient.NewListByWorkspacePager
 // method.
 type LinkedServicesClientListByWorkspaceOptions struct {
 	// placeholder for future optional parameters
@@ -593,7 +596,7 @@ type LinkedStorageAccountsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LinkedStorageAccountsClientListByWorkspaceOptions contains the optional parameters for the LinkedStorageAccountsClient.ListByWorkspace
+// LinkedStorageAccountsClientListByWorkspaceOptions contains the optional parameters for the LinkedStorageAccountsClient.NewListByWorkspacePager
 // method.
 type LinkedStorageAccountsClientListByWorkspaceOptions struct {
 	// placeholder for future optional parameters
@@ -717,7 +720,7 @@ type LogAnalyticsQueryPackQueryProperties struct {
 	Description *string `json:"description,omitempty"`
 
 	// Additional properties that can be set for the query.
-	Properties interface{} `json:"properties,omitempty"`
+	Properties any `json:"properties,omitempty"`
 
 	// The related metadata items for the function.
 	Related *LogAnalyticsQueryPackQueryPropertiesRelated `json:"related,omitempty"`
@@ -804,7 +807,7 @@ type ManagementGroupProperties struct {
 	Version *string `json:"version,omitempty"`
 }
 
-// ManagementGroupsClientListOptions contains the optional parameters for the ManagementGroupsClient.List method.
+// ManagementGroupsClientListOptions contains the optional parameters for the ManagementGroupsClient.NewListPager method.
 type ManagementGroupsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -877,7 +880,7 @@ type OperationStatusesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -914,7 +917,7 @@ type QueriesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// QueriesClientListOptions contains the optional parameters for the QueriesClient.List method.
+// QueriesClientListOptions contains the optional parameters for the QueriesClient.NewListPager method.
 type QueriesClientListOptions struct {
 	// Flag indicating whether or not to return the body of each applicable query. If false, only return the query information.
 	IncludeBody *bool
@@ -929,7 +932,7 @@ type QueriesClientPutOptions struct {
 	// placeholder for future optional parameters
 }
 
-// QueriesClientSearchOptions contains the optional parameters for the QueriesClient.Search method.
+// QueriesClientSearchOptions contains the optional parameters for the QueriesClient.NewSearchPager method.
 type QueriesClientSearchOptions struct {
 	// Flag indicating whether or not to return the body of each applicable query. If false, only return the query information.
 	IncludeBody *bool
@@ -949,6 +952,12 @@ type QueryPacksClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// QueryPacksClientCreateOrUpdateWithoutNameOptions contains the optional parameters for the QueryPacksClient.CreateOrUpdateWithoutName
+// method.
+type QueryPacksClientCreateOrUpdateWithoutNameOptions struct {
+	// placeholder for future optional parameters
+}
+
 // QueryPacksClientDeleteOptions contains the optional parameters for the QueryPacksClient.Delete method.
 type QueryPacksClientDeleteOptions struct {
 	// placeholder for future optional parameters
@@ -959,13 +968,13 @@ type QueryPacksClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// QueryPacksClientListByResourceGroupOptions contains the optional parameters for the QueryPacksClient.ListByResourceGroup
+// QueryPacksClientListByResourceGroupOptions contains the optional parameters for the QueryPacksClient.NewListByResourceGroupPager
 // method.
 type QueryPacksClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// QueryPacksClientListOptions contains the optional parameters for the QueryPacksClient.List method.
+// QueryPacksClientListOptions contains the optional parameters for the QueryPacksClient.NewListPager method.
 type QueryPacksClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1015,6 +1024,9 @@ type RestoredLogs struct {
 
 	// The timestamp to start the restore from (UTC).
 	StartRestoreTime *time.Time `json:"startRestoreTime,omitempty"`
+
+	// READ-ONLY; Search results table async operation id.
+	AzureAsyncOperationID *string `json:"azureAsyncOperationId,omitempty" azure:"ro"`
 }
 
 // ResultStatistics - Search job execution statistics.
@@ -1024,6 +1036,9 @@ type ResultStatistics struct {
 
 	// READ-ONLY; Search job completion percentage.
 	Progress *float32 `json:"progress,omitempty" azure:"ro"`
+
+	// READ-ONLY; Search job: Amount of scanned data.
+	ScannedGb *float32 `json:"scannedGb,omitempty" azure:"ro"`
 }
 
 // SavedSearch - Value object for saved search results.
@@ -1116,12 +1131,6 @@ type Schema struct {
 
 	// READ-ONLY; Table labels.
 	Labels []*string `json:"labels,omitempty" azure:"ro"`
-
-	// READ-ONLY; Parameters of the restore operation that initiated this table.
-	RestoredLogs *RestoredLogs `json:"restoredLogs,omitempty" azure:"ro"`
-
-	// READ-ONLY; Parameters of the search job that initiated this table.
-	SearchResults *SearchResults `json:"searchResults,omitempty" azure:"ro"`
 
 	// READ-ONLY; List of solutions the table is affiliated with
 	Solutions []*string `json:"solutions,omitempty" azure:"ro"`
@@ -1234,6 +1243,9 @@ type SearchResults struct {
 	// The timestamp to start the search from (UTC)
 	StartSearchTime *time.Time `json:"startSearchTime,omitempty"`
 
+	// READ-ONLY; Search results table async operation id.
+	AzureAsyncOperationID *string `json:"azureAsyncOperationId,omitempty" azure:"ro"`
+
 	// READ-ONLY; The table used in the search job.
 	SourceTable *string `json:"sourceTable,omitempty" azure:"ro"`
 }
@@ -1336,7 +1348,7 @@ type StorageInsightConfigsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// StorageInsightConfigsClientListByWorkspaceOptions contains the optional parameters for the StorageInsightConfigsClient.ListByWorkspace
+// StorageInsightConfigsClientListByWorkspaceOptions contains the optional parameters for the StorageInsightConfigsClient.NewListByWorkspacePager
 // method.
 type StorageInsightConfigsClientListByWorkspaceOptions struct {
 	// placeholder for future optional parameters
@@ -1443,9 +1455,6 @@ type TableProperties struct {
 	// Parameters of the restore operation that initiated this table.
 	RestoredLogs *RestoredLogs `json:"restoredLogs,omitempty"`
 
-	// Search job execution statistics.
-	ResultStatistics *ResultStatistics `json:"resultStatistics,omitempty"`
-
 	// The table retention in days, between 4 and 730. Setting this property to -1 will default to the workspace retention.
 	RetentionInDays *int32 `json:"retentionInDays,omitempty"`
 
@@ -1467,6 +1476,15 @@ type TableProperties struct {
 	// READ-ONLY; Table's current provisioning state. If set to 'updating', indicates a resource lock due to ongoing operation,
 	// forbidding any update to the table until the ongoing operation is concluded.
 	ProvisioningState *ProvisioningStateEnum `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; Search job execution statistics.
+	ResultStatistics *ResultStatistics `json:"resultStatistics,omitempty" azure:"ro"`
+
+	// READ-ONLY; True - Value originates from workspace retention in days, False - Customer specific.
+	RetentionInDaysAsDefault *bool `json:"retentionInDaysAsDefault,omitempty" azure:"ro"`
+
+	// READ-ONLY; True - Value originates from retention in days, False - Customer specific.
+	TotalRetentionInDaysAsDefault *bool `json:"totalRetentionInDaysAsDefault,omitempty" azure:"ro"`
 }
 
 // TablesClientBeginCreateOrUpdateOptions contains the optional parameters for the TablesClient.BeginCreateOrUpdate method.
@@ -1487,12 +1505,17 @@ type TablesClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
+// TablesClientCancelSearchOptions contains the optional parameters for the TablesClient.CancelSearch method.
+type TablesClientCancelSearchOptions struct {
+	// placeholder for future optional parameters
+}
+
 // TablesClientGetOptions contains the optional parameters for the TablesClient.Get method.
 type TablesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TablesClientListByWorkspaceOptions contains the optional parameters for the TablesClient.ListByWorkspace method.
+// TablesClientListByWorkspaceOptions contains the optional parameters for the TablesClient.NewListByWorkspacePager method.
 type TablesClientListByWorkspaceOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1563,7 +1586,7 @@ type UsageMetric struct {
 	Unit *string `json:"unit,omitempty"`
 }
 
-// UsagesClientListOptions contains the optional parameters for the UsagesClient.List method.
+// UsagesClientListOptions contains the optional parameters for the UsagesClient.NewListPager method.
 type UsagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1582,8 +1605,11 @@ type Workspace struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string `json:"location,omitempty"`
 
-	// The ETag of the workspace.
-	ETag *string `json:"eTag,omitempty"`
+	// The etag of the workspace.
+	Etag *string `json:"etag,omitempty"`
+
+	// The identity of the resource.
+	Identity *Identity `json:"identity,omitempty"`
 
 	// Workspace properties.
 	Properties *WorkspaceProperties `json:"properties,omitempty"`
@@ -1619,7 +1645,7 @@ type WorkspaceCapping struct {
 // WorkspaceFeatures - Workspace features.
 type WorkspaceFeatures struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// Dedicated LA cluster resourceId that is linked to the workspaces.
 	ClusterResourceID *string `json:"clusterResourceId,omitempty"`
@@ -1657,6 +1683,9 @@ type WorkspaceListUsagesResult struct {
 
 // WorkspacePatch - The top level Workspace resource container.
 type WorkspacePatch struct {
+	// The identity of the resource.
+	Identity *Identity `json:"identity,omitempty"`
+
 	// Workspace properties.
 	Properties *WorkspaceProperties `json:"properties,omitempty"`
 
@@ -1742,7 +1771,7 @@ type WorkspacePurgeBodyFilters struct {
 
 	// the value for the operator to function over. This can be a number (e.g., > 100), a string (timestamp >= '2017-09-01') or
 	// array of values.
-	Value interface{} `json:"value,omitempty"`
+	Value any `json:"value,omitempty"`
 }
 
 // WorkspacePurgeClientGetPurgeStatusOptions contains the optional parameters for the WorkspacePurgeClient.GetPurgeStatus
@@ -1800,13 +1829,13 @@ type WorkspacesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WorkspacesClientListByResourceGroupOptions contains the optional parameters for the WorkspacesClient.ListByResourceGroup
+// WorkspacesClientListByResourceGroupOptions contains the optional parameters for the WorkspacesClient.NewListByResourceGroupPager
 // method.
 type WorkspacesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WorkspacesClientListOptions contains the optional parameters for the WorkspacesClient.List method.
+// WorkspacesClientListOptions contains the optional parameters for the WorkspacesClient.NewListPager method.
 type WorkspacesClientListOptions struct {
 	// placeholder for future optional parameters
 }
