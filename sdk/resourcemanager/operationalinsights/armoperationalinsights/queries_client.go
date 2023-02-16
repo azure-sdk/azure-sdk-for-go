@@ -33,9 +33,9 @@ type QueriesClient struct {
 }
 
 // NewQueriesClient creates a new instance of QueriesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewQueriesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*QueriesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,11 +58,12 @@ func NewQueriesClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // Delete - Deletes a specific Query defined within an Log Analytics QueryPack.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-09-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// queryPackName - The name of the Log Analytics QueryPack resource.
-// id - The id of a specific query defined in the Log Analytics QueryPack
-// options - QueriesClientDeleteOptions contains the optional parameters for the QueriesClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - queryPackName - The name of the Log Analytics QueryPack resource.
+//   - id - The id of a specific query defined in the Log Analytics QueryPack
+//   - options - QueriesClientDeleteOptions contains the optional parameters for the QueriesClient.Delete method.
 func (client *QueriesClient) Delete(ctx context.Context, resourceGroupName string, queryPackName string, id string, options *QueriesClientDeleteOptions) (QueriesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, queryPackName, id, options)
 	if err != nil {
@@ -110,11 +111,12 @@ func (client *QueriesClient) deleteCreateRequest(ctx context.Context, resourceGr
 
 // Get - Gets a specific Log Analytics Query defined within a Log Analytics QueryPack.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-09-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// queryPackName - The name of the Log Analytics QueryPack resource.
-// id - The id of a specific query defined in the Log Analytics QueryPack
-// options - QueriesClientGetOptions contains the optional parameters for the QueriesClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - queryPackName - The name of the Log Analytics QueryPack resource.
+//   - id - The id of a specific query defined in the Log Analytics QueryPack
+//   - options - QueriesClientGetOptions contains the optional parameters for the QueriesClient.Get method.
 func (client *QueriesClient) Get(ctx context.Context, resourceGroupName string, queryPackName string, id string, options *QueriesClientGetOptions) (QueriesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, queryPackName, id, options)
 	if err != nil {
@@ -170,11 +172,11 @@ func (client *QueriesClient) getHandleResponse(resp *http.Response) (QueriesClie
 }
 
 // NewListPager - Gets a list of Queries defined within a Log Analytics QueryPack.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-09-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// queryPackName - The name of the Log Analytics QueryPack resource.
-// options - QueriesClientListOptions contains the optional parameters for the QueriesClient.List method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - queryPackName - The name of the Log Analytics QueryPack resource.
+//   - options - QueriesClientListOptions contains the optional parameters for the QueriesClient.NewListPager method.
 func (client *QueriesClient) NewListPager(resourceGroupName string, queryPackName string, options *QueriesClientListOptions) *runtime.Pager[QueriesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[QueriesClientListResponse]{
 		More: func(page QueriesClientListResponse) bool {
@@ -249,12 +251,13 @@ func (client *QueriesClient) listHandleResponse(resp *http.Response) (QueriesCli
 
 // Put - Adds or Updates a specific Query within a Log Analytics QueryPack.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-09-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// queryPackName - The name of the Log Analytics QueryPack resource.
-// id - The id of a specific query defined in the Log Analytics QueryPack
-// queryPayload - Properties that need to be specified to create a new query and add it to a Log Analytics QueryPack.
-// options - QueriesClientPutOptions contains the optional parameters for the QueriesClient.Put method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - queryPackName - The name of the Log Analytics QueryPack resource.
+//   - id - The id of a specific query defined in the Log Analytics QueryPack
+//   - queryPayload - Properties that need to be specified to create a new query and add it to a Log Analytics QueryPack.
+//   - options - QueriesClientPutOptions contains the optional parameters for the QueriesClient.Put method.
 func (client *QueriesClient) Put(ctx context.Context, resourceGroupName string, queryPackName string, id string, queryPayload LogAnalyticsQueryPackQuery, options *QueriesClientPutOptions) (QueriesClientPutResponse, error) {
 	req, err := client.putCreateRequest(ctx, resourceGroupName, queryPackName, id, queryPayload, options)
 	if err != nil {
@@ -310,12 +313,12 @@ func (client *QueriesClient) putHandleResponse(resp *http.Response) (QueriesClie
 }
 
 // NewSearchPager - Search a list of Queries defined within a Log Analytics QueryPack according to given search properties.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-09-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// queryPackName - The name of the Log Analytics QueryPack resource.
-// querySearchProperties - Properties by which to search queries in the given Log Analytics QueryPack.
-// options - QueriesClientSearchOptions contains the optional parameters for the QueriesClient.Search method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - queryPackName - The name of the Log Analytics QueryPack resource.
+//   - querySearchProperties - Properties by which to search queries in the given Log Analytics QueryPack.
+//   - options - QueriesClientSearchOptions contains the optional parameters for the QueriesClient.NewSearchPager method.
 func (client *QueriesClient) NewSearchPager(resourceGroupName string, queryPackName string, querySearchProperties LogAnalyticsQueryPackQuerySearchProperties, options *QueriesClientSearchOptions) *runtime.Pager[QueriesClientSearchResponse] {
 	return runtime.NewPager(runtime.PagingHandler[QueriesClientSearchResponse]{
 		More: func(page QueriesClientSearchResponse) bool {
@@ -390,12 +393,13 @@ func (client *QueriesClient) searchHandleResponse(resp *http.Response) (QueriesC
 
 // Update - Adds or Updates a specific Query within a Log Analytics QueryPack.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-09-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// queryPackName - The name of the Log Analytics QueryPack resource.
-// id - The id of a specific query defined in the Log Analytics QueryPack
-// queryPayload - Properties that need to be specified to create a new query and add it to a Log Analytics QueryPack.
-// options - QueriesClientUpdateOptions contains the optional parameters for the QueriesClient.Update method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - queryPackName - The name of the Log Analytics QueryPack resource.
+//   - id - The id of a specific query defined in the Log Analytics QueryPack
+//   - queryPayload - Properties that need to be specified to create a new query and add it to a Log Analytics QueryPack.
+//   - options - QueriesClientUpdateOptions contains the optional parameters for the QueriesClient.Update method.
 func (client *QueriesClient) Update(ctx context.Context, resourceGroupName string, queryPackName string, id string, queryPayload LogAnalyticsQueryPackQuery, options *QueriesClientUpdateOptions) (QueriesClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, queryPackName, id, queryPayload, options)
 	if err != nil {

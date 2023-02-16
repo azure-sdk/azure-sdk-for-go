@@ -32,9 +32,9 @@ type WorkspacePurgeClient struct {
 }
 
 // NewWorkspacePurgeClient creates a new instance of WorkspacePurgeClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewWorkspacePurgeClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*WorkspacePurgeClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewWorkspacePurgeClient(subscriptionID string, credential azcore.TokenCrede
 
 // GetPurgeStatus - Gets status of an ongoing purge operation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// purgeID - In a purge status request, this is the Id of the operation the status of which is returned.
-// options - WorkspacePurgeClientGetPurgeStatusOptions contains the optional parameters for the WorkspacePurgeClient.GetPurgeStatus
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - purgeID - In a purge status request, this is the Id of the operation the status of which is returned.
+//   - options - WorkspacePurgeClientGetPurgeStatusOptions contains the optional parameters for the WorkspacePurgeClient.GetPurgeStatus
+//     method.
 func (client *WorkspacePurgeClient) GetPurgeStatus(ctx context.Context, resourceGroupName string, workspaceName string, purgeID string, options *WorkspacePurgeClientGetPurgeStatusOptions) (WorkspacePurgeClientGetPurgeStatusResponse, error) {
 	req, err := client.getPurgeStatusCreateRequest(ctx, resourceGroupName, workspaceName, purgeID, options)
 	if err != nil {
@@ -121,13 +122,17 @@ func (client *WorkspacePurgeClient) getPurgeStatusHandleResponse(resp *http.Resp
 // In order to manage system resources, purge requests are throttled at 50 requests per hour. You should batch the execution
 // of purge requests by sending a single command whose predicate includes all
 // user identities that require purging. Use the in operator to specify multiple identities. You should run the query prior
-// to using for a purge request to verify that the results are expected.
+// to using for a purge request to verify that the results are expected. Log
+// Analytics only supports purge operations required for compliance with GDPR. The Log Analytics product team reserves the
+// right to reject requests for purge operations that are not for the purpose of
+// GDPR compliance. In the event of a dispute, please create a support ticket
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// body - Describes the body of a request to purge data in a single table of an Log Analytics Workspace
-// options - WorkspacePurgeClientPurgeOptions contains the optional parameters for the WorkspacePurgeClient.Purge method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - body - Describes the body of a request to purge data in a single table of an Log Analytics Workspace
+//   - options - WorkspacePurgeClientPurgeOptions contains the optional parameters for the WorkspacePurgeClient.Purge method.
 func (client *WorkspacePurgeClient) Purge(ctx context.Context, resourceGroupName string, workspaceName string, body WorkspacePurgeBody, options *WorkspacePurgeClientPurgeOptions) (WorkspacePurgeClientPurgeResponse, error) {
 	req, err := client.purgeCreateRequest(ctx, resourceGroupName, workspaceName, body, options)
 	if err != nil {

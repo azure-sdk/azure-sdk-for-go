@@ -32,9 +32,9 @@ type SharedKeysClient struct {
 }
 
 // NewSharedKeysClient creates a new instance of SharedKeysClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSharedKeysClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SharedKeysClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewSharedKeysClient(subscriptionID string, credential azcore.TokenCredentia
 
 // GetSharedKeys - Gets the shared keys for a workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// options - SharedKeysClientGetSharedKeysOptions contains the optional parameters for the SharedKeysClient.GetSharedKeys
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - SharedKeysClientGetSharedKeysOptions contains the optional parameters for the SharedKeysClient.GetSharedKeys
+//     method.
 func (client *SharedKeysClient) GetSharedKeys(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientGetSharedKeysOptions) (SharedKeysClientGetSharedKeysResponse, error) {
 	req, err := client.getSharedKeysCreateRequest(ctx, resourceGroupName, workspaceName, options)
 	if err != nil {
@@ -115,10 +116,11 @@ func (client *SharedKeysClient) getSharedKeysHandleResponse(resp *http.Response)
 // Regenerate - Regenerates the shared keys for a Log Analytics Workspace. These keys are used to connect Microsoft Operational
 // Insights agents to the workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// options - SharedKeysClientRegenerateOptions contains the optional parameters for the SharedKeysClient.Regenerate method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - SharedKeysClientRegenerateOptions contains the optional parameters for the SharedKeysClient.Regenerate method.
 func (client *SharedKeysClient) Regenerate(ctx context.Context, resourceGroupName string, workspaceName string, options *SharedKeysClientRegenerateOptions) (SharedKeysClientRegenerateResponse, error) {
 	req, err := client.regenerateCreateRequest(ctx, resourceGroupName, workspaceName, options)
 	if err != nil {

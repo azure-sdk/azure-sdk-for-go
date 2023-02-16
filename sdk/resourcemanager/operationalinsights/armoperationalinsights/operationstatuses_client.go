@@ -32,9 +32,9 @@ type OperationStatusesClient struct {
 }
 
 // NewOperationStatusesClient creates a new instance of OperationStatusesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewOperationStatusesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OperationStatusesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewOperationStatusesClient(subscriptionID string, credential azcore.TokenCr
 
 // Get - Get the status of a long running azure asynchronous operation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// location - The region name of operation.
-// asyncOperationID - The operation Id.
-// options - OperationStatusesClientGetOptions contains the optional parameters for the OperationStatusesClient.Get method.
+//   - location - The region name of operation.
+//   - asyncOperationID - The operation Id.
+//   - options - OperationStatusesClientGetOptions contains the optional parameters for the OperationStatusesClient.Get method.
 func (client *OperationStatusesClient) Get(ctx context.Context, location string, asyncOperationID string, options *OperationStatusesClientGetOptions) (OperationStatusesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, location, asyncOperationID, options)
 	if err != nil {
