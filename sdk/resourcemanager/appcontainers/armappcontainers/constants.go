@@ -11,7 +11,7 @@ package armappcontainers
 
 const (
 	moduleName    = "armappcontainers"
-	moduleVersion = "v2.0.0-beta.1"
+	moduleVersion = "v2.0.0-beta.2"
 )
 
 // AccessMode - Access mode for storage
@@ -64,6 +64,22 @@ func PossibleActiveRevisionsModeValues() []ActiveRevisionsMode {
 	}
 }
 
+// Affinity - Sticky Session Affinity
+type Affinity string
+
+const (
+	AffinityNone   Affinity = "none"
+	AffinitySticky Affinity = "sticky"
+)
+
+// PossibleAffinityValues returns the possible values for the Affinity const type.
+func PossibleAffinityValues() []Affinity {
+	return []Affinity{
+		AffinityNone,
+		AffinitySticky,
+	}
+}
+
 // AppProtocol - Tells Dapr which protocol your application is using. Valid options are http and grpc. Default is http
 type AppProtocol string
 
@@ -109,24 +125,6 @@ func PossibleBindingTypeValues() []BindingType {
 	return []BindingType{
 		BindingTypeDisabled,
 		BindingTypeSniEnabled,
-	}
-}
-
-// Category - Used to map workload profile types to billing meter.
-type Category string
-
-const (
-	CategoryPremiumSKUComputeOptimized Category = "PremiumSkuComputeOptimized"
-	CategoryPremiumSKUGeneralPurpose   Category = "PremiumSkuGeneralPurpose"
-	CategoryPremiumSKUMemoryOptimized  Category = "PremiumSkuMemoryOptimized"
-)
-
-// PossibleCategoryValues returns the possible values for the Category const type.
-func PossibleCategoryValues() []Category {
-	return []Category{
-		CategoryPremiumSKUComputeOptimized,
-		CategoryPremiumSKUGeneralPurpose,
-		CategoryPremiumSKUMemoryOptimized,
 	}
 }
 
@@ -336,6 +334,26 @@ func PossibleForwardProxyConventionValues() []ForwardProxyConvention {
 	}
 }
 
+// IngressClientCertificateMode - Client certificate mode for mTLS authentication. Ignore indicates server drops client certificate
+// on forwarding. Accept indicates server forwards client certificate but does not require a client
+// certificate. Require indicates server requires a client certificate.
+type IngressClientCertificateMode string
+
+const (
+	IngressClientCertificateModeAccept  IngressClientCertificateMode = "accept"
+	IngressClientCertificateModeIgnore  IngressClientCertificateMode = "ignore"
+	IngressClientCertificateModeRequire IngressClientCertificateMode = "require"
+)
+
+// PossibleIngressClientCertificateModeValues returns the possible values for the IngressClientCertificateMode const type.
+func PossibleIngressClientCertificateModeValues() []IngressClientCertificateMode {
+	return []IngressClientCertificateMode{
+		IngressClientCertificateModeAccept,
+		IngressClientCertificateModeIgnore,
+		IngressClientCertificateModeRequire,
+	}
+}
+
 // IngressTransportMethod - Ingress transport protocol
 type IngressTransportMethod string
 
@@ -353,6 +371,28 @@ func PossibleIngressTransportMethodValues() []IngressTransportMethod {
 		IngressTransportMethodHTTP,
 		IngressTransportMethodHTTP2,
 		IngressTransportMethodTCP,
+	}
+}
+
+// JobProvisioningState - Provisioning state of the Container Apps Job.
+type JobProvisioningState string
+
+const (
+	JobProvisioningStateCanceled   JobProvisioningState = "Canceled"
+	JobProvisioningStateDeleting   JobProvisioningState = "Deleting"
+	JobProvisioningStateFailed     JobProvisioningState = "Failed"
+	JobProvisioningStateInProgress JobProvisioningState = "InProgress"
+	JobProvisioningStateSucceeded  JobProvisioningState = "Succeeded"
+)
+
+// PossibleJobProvisioningStateValues returns the possible values for the JobProvisioningState const type.
+func PossibleJobProvisioningStateValues() []JobProvisioningState {
+	return []JobProvisioningState{
+		JobProvisioningStateCanceled,
+		JobProvisioningStateDeleting,
+		JobProvisioningStateFailed,
+		JobProvisioningStateInProgress,
+		JobProvisioningStateSucceeded,
 	}
 }
 
@@ -376,19 +416,21 @@ func PossibleLogLevelValues() []LogLevel {
 	}
 }
 
-// ManagedEnvironmentOutBoundType - Outbound type for the cluster
-type ManagedEnvironmentOutBoundType string
+// ManagedCertificateDomainControlValidation - Selected type of domain control validation for managed certificates.
+type ManagedCertificateDomainControlValidation string
 
 const (
-	ManagedEnvironmentOutBoundTypeLoadBalancer       ManagedEnvironmentOutBoundType = "LoadBalancer"
-	ManagedEnvironmentOutBoundTypeUserDefinedRouting ManagedEnvironmentOutBoundType = "UserDefinedRouting"
+	ManagedCertificateDomainControlValidationCNAME ManagedCertificateDomainControlValidation = "CNAME"
+	ManagedCertificateDomainControlValidationHTTP  ManagedCertificateDomainControlValidation = "HTTP"
+	ManagedCertificateDomainControlValidationTXT   ManagedCertificateDomainControlValidation = "TXT"
 )
 
-// PossibleManagedEnvironmentOutBoundTypeValues returns the possible values for the ManagedEnvironmentOutBoundType const type.
-func PossibleManagedEnvironmentOutBoundTypeValues() []ManagedEnvironmentOutBoundType {
-	return []ManagedEnvironmentOutBoundType{
-		ManagedEnvironmentOutBoundTypeLoadBalancer,
-		ManagedEnvironmentOutBoundTypeUserDefinedRouting,
+// PossibleManagedCertificateDomainControlValidationValues returns the possible values for the ManagedCertificateDomainControlValidation const type.
+func PossibleManagedCertificateDomainControlValidationValues() []ManagedCertificateDomainControlValidation {
+	return []ManagedCertificateDomainControlValidation{
+		ManagedCertificateDomainControlValidationCNAME,
+		ManagedCertificateDomainControlValidationHTTP,
+		ManagedCertificateDomainControlValidationTXT,
 	}
 }
 
@@ -452,24 +494,6 @@ func PossibleRevisionProvisioningStateValues() []RevisionProvisioningState {
 	}
 }
 
-// SKUName - Name of the Sku.
-type SKUName string
-
-const (
-	// SKUNameConsumption - Consumption SKU of Managed Environment.
-	SKUNameConsumption SKUName = "Consumption"
-	// SKUNamePremium - Premium SKU of Managed Environment.
-	SKUNamePremium SKUName = "Premium"
-)
-
-// PossibleSKUNameValues returns the possible values for the SKUName const type.
-func PossibleSKUNameValues() []SKUName {
-	return []SKUName{
-		SKUNameConsumption,
-		SKUNamePremium,
-	}
-}
-
 // Scheme - Scheme to use for connecting to the host. Defaults to HTTP.
 type Scheme string
 
@@ -519,6 +543,24 @@ func PossibleStorageTypeValues() []StorageType {
 	return []StorageType{
 		StorageTypeAzureFile,
 		StorageTypeEmptyDir,
+	}
+}
+
+// TriggerType - Trigger type of the job
+type TriggerType string
+
+const (
+	TriggerTypeEvent     TriggerType = "Event"
+	TriggerTypeManual    TriggerType = "Manual"
+	TriggerTypeScheduled TriggerType = "Scheduled"
+)
+
+// PossibleTriggerTypeValues returns the possible values for the TriggerType const type.
+func PossibleTriggerTypeValues() []TriggerType {
+	return []TriggerType{
+		TriggerTypeEvent,
+		TriggerTypeManual,
+		TriggerTypeScheduled,
 	}
 }
 
