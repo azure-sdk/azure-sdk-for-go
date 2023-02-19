@@ -1,5 +1,18 @@
 # Release History
 
+## 1.1.0-beta.2 (2023-02-19)
+### Breaking Changes
+
+- Field `Location` of struct `NetworkSecurityPerimeterConfiguration` has been removed
+- Field `Tags` of struct `NetworkSecurityPerimeterConfiguration` has been removed
+
+### Features Added
+
+- New type alias `CleanupPolicyRetentionDescription` with values `CleanupPolicyRetentionDescriptionCompaction`, `CleanupPolicyRetentionDescriptionDelete`
+- New struct `RetentionDescription`
+- New field `RetentionDescription` in struct `Properties`
+
+
 ## 1.1.0-beta.1 (2022-05-19)
 ### Features Added
 
