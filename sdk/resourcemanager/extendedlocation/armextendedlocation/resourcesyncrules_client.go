@@ -32,9 +32,9 @@ type ResourceSyncRulesClient struct {
 }
 
 // NewResourceSyncRulesClient creates a new instance of ResourceSyncRulesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewResourceSyncRulesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ResourceSyncRulesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewResourceSyncRulesClient(subscriptionID string, credential azcore.TokenCr
 // BeginCreateOrUpdate - Creates or updates a Resource Sync Rule in the parent Custom Location, Subscription Id and Resource
 // Group
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-31-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - Custom Locations name.
-// childResourceName - Resource Sync Rule name.
-// parameters - Parameters supplied to create or update a Resource Sync Rule.
-// options - ResourceSyncRulesClientBeginCreateOrUpdateOptions contains the optional parameters for the ResourceSyncRulesClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - Custom Locations name.
+//   - childResourceName - Resource Sync Rule name.
+//   - parameters - Parameters supplied to create or update a Resource Sync Rule.
+//   - options - ResourceSyncRulesClientBeginCreateOrUpdateOptions contains the optional parameters for the ResourceSyncRulesClient.BeginCreateOrUpdate
+//     method.
 func (client *ResourceSyncRulesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters ResourceSyncRule, options *ResourceSyncRulesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ResourceSyncRulesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
@@ -81,6 +82,7 @@ func (client *ResourceSyncRulesClient) BeginCreateOrUpdate(ctx context.Context, 
 
 // CreateOrUpdate - Creates or updates a Resource Sync Rule in the parent Custom Location, Subscription Id and Resource Group
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-31-preview
 func (client *ResourceSyncRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters ResourceSyncRule, options *ResourceSyncRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
@@ -130,12 +132,13 @@ func (client *ResourceSyncRulesClient) createOrUpdateCreateRequest(ctx context.C
 // Delete - Deletes the Resource Sync Rule with the specified Resource Sync Rule Name, Custom Location Resource Name, Resource
 // Group, and Subscription Id.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-31-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - Custom Locations name.
-// childResourceName - Resource Sync Rule name.
-// options - ResourceSyncRulesClientDeleteOptions contains the optional parameters for the ResourceSyncRulesClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - Custom Locations name.
+//   - childResourceName - Resource Sync Rule name.
+//   - options - ResourceSyncRulesClientDeleteOptions contains the optional parameters for the ResourceSyncRulesClient.Delete
+//     method.
 func (client *ResourceSyncRulesClient) Delete(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, options *ResourceSyncRulesClientDeleteOptions) (ResourceSyncRulesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, options)
 	if err != nil {
@@ -184,11 +187,12 @@ func (client *ResourceSyncRulesClient) deleteCreateRequest(ctx context.Context, 
 // Get - Gets the details of the resourceSyncRule with a specified resource group, subscription id Custom Location resource
 // name and Resource Sync Rule name.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-31-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - Custom Locations name.
-// childResourceName - Resource Sync Rule name.
-// options - ResourceSyncRulesClientGetOptions contains the optional parameters for the ResourceSyncRulesClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - Custom Locations name.
+//   - childResourceName - Resource Sync Rule name.
+//   - options - ResourceSyncRulesClientGetOptions contains the optional parameters for the ResourceSyncRulesClient.Get method.
 func (client *ResourceSyncRulesClient) Get(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, options *ResourceSyncRulesClientGetOptions) (ResourceSyncRulesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, options)
 	if err != nil {
@@ -245,12 +249,12 @@ func (client *ResourceSyncRulesClient) getHandleResponse(resp *http.Response) (R
 
 // NewListByCustomLocationIDPager - Gets a list of Resource Sync Rules in the specified subscription. The operation returns
 // properties of each Resource Sync Rule
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-31-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - Custom Locations name.
-// options - ResourceSyncRulesClientListByCustomLocationIDOptions contains the optional parameters for the ResourceSyncRulesClient.ListByCustomLocationID
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - Custom Locations name.
+//   - options - ResourceSyncRulesClientListByCustomLocationIDOptions contains the optional parameters for the ResourceSyncRulesClient.NewListByCustomLocationIDPager
+//     method.
 func (client *ResourceSyncRulesClient) NewListByCustomLocationIDPager(resourceGroupName string, resourceName string, options *ResourceSyncRulesClientListByCustomLocationIDOptions) *runtime.Pager[ResourceSyncRulesClientListByCustomLocationIDResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ResourceSyncRulesClientListByCustomLocationIDResponse]{
 		More: func(page ResourceSyncRulesClientListByCustomLocationIDResponse) bool {
@@ -317,13 +321,14 @@ func (client *ResourceSyncRulesClient) listByCustomLocationIDHandleResponse(resp
 // BeginUpdate - Updates a Resource Sync Rule with the specified Resource Sync Rule name in the specified Resource Group,
 // Subscription and Custom Location name.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-31-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - Custom Locations name.
-// childResourceName - Resource Sync Rule name.
-// parameters - The updatable fields of an existing Resource Sync Rule.
-// options - ResourceSyncRulesClientBeginUpdateOptions contains the optional parameters for the ResourceSyncRulesClient.BeginUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - Custom Locations name.
+//   - childResourceName - Resource Sync Rule name.
+//   - parameters - The updatable fields of an existing Resource Sync Rule.
+//   - options - ResourceSyncRulesClientBeginUpdateOptions contains the optional parameters for the ResourceSyncRulesClient.BeginUpdate
+//     method.
 func (client *ResourceSyncRulesClient) BeginUpdate(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters PatchableResourceSyncRule, options *ResourceSyncRulesClientBeginUpdateOptions) (*runtime.Poller[ResourceSyncRulesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
@@ -341,6 +346,7 @@ func (client *ResourceSyncRulesClient) BeginUpdate(ctx context.Context, resource
 // Update - Updates a Resource Sync Rule with the specified Resource Sync Rule name in the specified Resource Group, Subscription
 // and Custom Location name.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-31-preview
 func (client *ResourceSyncRulesClient) update(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters PatchableResourceSyncRule, options *ResourceSyncRulesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
