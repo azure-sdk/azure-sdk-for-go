@@ -1,5 +1,31 @@
 # Release History
 
+## 1.1.0-beta.3 (2023-02-19)
+### Breaking Changes
+
+- Type of `BindingResourceProperties.BindingParameters` has been changed from `map[string]interface{}` to `map[string]*string`
+
+### Features Added
+
+- New function `*BuildpackBindingClient.NewListForClusterPager(string, string, *BuildpackBindingClientListForClusterOptions) *runtime.Pager[BuildpackBindingClientListForClusterResponse]`
+- New function `*GatewaysClient.BeginUpdateCapacity(context.Context, string, string, string, SKUObject, *GatewaysClientBeginUpdateCapacityOptions) (*runtime.Poller[GatewaysClientUpdateCapacityResponse], error)`
+- New struct `CustomScaleRule`
+- New struct `HTTPScaleRule`
+- New struct `QueueScaleRule`
+- New struct `SKUObject`
+- New struct `Scale`
+- New struct `ScaleRule`
+- New struct `ScaleRuleAuth`
+- New struct `Secret`
+- New struct `TCPScaleRule`
+- New field `Secrets` in struct `AppResourceProperties`
+- New field `EnableSubPath` in struct `AzureFileVolume`
+- New field `InfraResourceGroup` in struct `ClusterResourceProperties`
+- New field `ManagedEnvironmentID` in struct `ClusterResourceProperties`
+- New field `EnableSubPath` in struct `CustomPersistentDiskProperties`
+- New field `Scale` in struct `DeploymentSettings`
+
+
 ## 1.1.0-beta.2 (2022-11-09)
 ### Features Added
 
