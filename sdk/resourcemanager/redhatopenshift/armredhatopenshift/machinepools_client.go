@@ -32,9 +32,9 @@ type MachinePoolsClient struct {
 }
 
 // NewMachinePoolsClient creates a new instance of MachinePoolsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewMachinePoolsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MachinePoolsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewMachinePoolsClient(subscriptionID string, credential azcore.TokenCredent
 
 // CreateOrUpdate - The operation returns properties of a MachinePool.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the MachinePool resource.
-// parameters - The MachinePool resource.
-// options - MachinePoolsClientCreateOrUpdateOptions contains the optional parameters for the MachinePoolsClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the MachinePool resource.
+//   - parameters - The MachinePool resource.
+//   - options - MachinePoolsClientCreateOrUpdateOptions contains the optional parameters for the MachinePoolsClient.CreateOrUpdate
+//     method.
 func (client *MachinePoolsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters MachinePool, options *MachinePoolsClientCreateOrUpdateOptions) (MachinePoolsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
 	if err != nil {
@@ -120,11 +121,12 @@ func (client *MachinePoolsClient) createOrUpdateHandleResponse(resp *http.Respon
 
 // Delete - The operation returns nothing.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the MachinePool resource.
-// options - MachinePoolsClientDeleteOptions contains the optional parameters for the MachinePoolsClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the MachinePool resource.
+//   - options - MachinePoolsClientDeleteOptions contains the optional parameters for the MachinePoolsClient.Delete method.
 func (client *MachinePoolsClient) Delete(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, options *MachinePoolsClientDeleteOptions) (MachinePoolsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, options)
 	if err != nil {
@@ -172,11 +174,12 @@ func (client *MachinePoolsClient) deleteCreateRequest(ctx context.Context, resou
 
 // Get - The operation returns properties of a MachinePool.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the MachinePool resource.
-// options - MachinePoolsClientGetOptions contains the optional parameters for the MachinePoolsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the MachinePool resource.
+//   - options - MachinePoolsClientGetOptions contains the optional parameters for the MachinePoolsClient.Get method.
 func (client *MachinePoolsClient) Get(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, options *MachinePoolsClientGetOptions) (MachinePoolsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, options)
 	if err != nil {
@@ -232,10 +235,11 @@ func (client *MachinePoolsClient) getHandleResponse(resp *http.Response) (Machin
 }
 
 // NewListPager - The operation returns properties of each MachinePool.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// options - MachinePoolsClientListOptions contains the optional parameters for the MachinePoolsClient.List method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - options - MachinePoolsClientListOptions contains the optional parameters for the MachinePoolsClient.NewListPager method.
 func (client *MachinePoolsClient) NewListPager(resourceGroupName string, resourceName string, options *MachinePoolsClientListOptions) *runtime.Pager[MachinePoolsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[MachinePoolsClientListResponse]{
 		More: func(page MachinePoolsClientListResponse) bool {
@@ -301,12 +305,13 @@ func (client *MachinePoolsClient) listHandleResponse(resp *http.Response) (Machi
 
 // Update - The operation returns properties of a MachinePool.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the MachinePool resource.
-// parameters - The MachinePool resource.
-// options - MachinePoolsClientUpdateOptions contains the optional parameters for the MachinePoolsClient.Update method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the MachinePool resource.
+//   - parameters - The MachinePool resource.
+//   - options - MachinePoolsClientUpdateOptions contains the optional parameters for the MachinePoolsClient.Update method.
 func (client *MachinePoolsClient) Update(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters MachinePoolUpdate, options *MachinePoolsClientUpdateOptions) (MachinePoolsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
 	if err != nil {

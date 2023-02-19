@@ -32,9 +32,9 @@ type SyncSetsClient struct {
 }
 
 // NewSyncSetsClient creates a new instance of SyncSetsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSyncSetsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SyncSetsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewSyncSetsClient(subscriptionID string, credential azcore.TokenCredential,
 
 // CreateOrUpdate - The operation returns properties of a SyncSet.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the SyncSet resource.
-// parameters - The SyncSet resource.
-// options - SyncSetsClientCreateOrUpdateOptions contains the optional parameters for the SyncSetsClient.CreateOrUpdate method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the SyncSet resource.
+//   - parameters - The SyncSet resource.
+//   - options - SyncSetsClientCreateOrUpdateOptions contains the optional parameters for the SyncSetsClient.CreateOrUpdate method.
 func (client *SyncSetsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters SyncSet, options *SyncSetsClientCreateOrUpdateOptions) (SyncSetsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
 	if err != nil {
@@ -119,11 +120,12 @@ func (client *SyncSetsClient) createOrUpdateHandleResponse(resp *http.Response) 
 
 // Delete - The operation returns nothing.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the SyncSet resource.
-// options - SyncSetsClientDeleteOptions contains the optional parameters for the SyncSetsClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the SyncSet resource.
+//   - options - SyncSetsClientDeleteOptions contains the optional parameters for the SyncSetsClient.Delete method.
 func (client *SyncSetsClient) Delete(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, options *SyncSetsClientDeleteOptions) (SyncSetsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, options)
 	if err != nil {
@@ -171,11 +173,12 @@ func (client *SyncSetsClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - The operation returns properties of a SyncSet.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the SyncSet resource.
-// options - SyncSetsClientGetOptions contains the optional parameters for the SyncSetsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the SyncSet resource.
+//   - options - SyncSetsClientGetOptions contains the optional parameters for the SyncSetsClient.Get method.
 func (client *SyncSetsClient) Get(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, options *SyncSetsClientGetOptions) (SyncSetsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, options)
 	if err != nil {
@@ -231,10 +234,11 @@ func (client *SyncSetsClient) getHandleResponse(resp *http.Response) (SyncSetsCl
 }
 
 // NewListPager - The operation returns properties of each SyncSet.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// options - SyncSetsClientListOptions contains the optional parameters for the SyncSetsClient.List method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - options - SyncSetsClientListOptions contains the optional parameters for the SyncSetsClient.NewListPager method.
 func (client *SyncSetsClient) NewListPager(resourceGroupName string, resourceName string, options *SyncSetsClientListOptions) *runtime.Pager[SyncSetsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SyncSetsClientListResponse]{
 		More: func(page SyncSetsClientListResponse) bool {
@@ -300,12 +304,13 @@ func (client *SyncSetsClient) listHandleResponse(resp *http.Response) (SyncSetsC
 
 // Update - The operation returns properties of a SyncSet.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// childResourceName - The name of the SyncSet resource.
-// parameters - The SyncSet resource.
-// options - SyncSetsClientUpdateOptions contains the optional parameters for the SyncSetsClient.Update method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - childResourceName - The name of the SyncSet resource.
+//   - parameters - The SyncSet resource.
+//   - options - SyncSetsClientUpdateOptions contains the optional parameters for the SyncSetsClient.Update method.
 func (client *SyncSetsClient) Update(ctx context.Context, resourceGroupName string, resourceName string, childResourceName string, parameters SyncSetUpdate, options *SyncSetsClientUpdateOptions) (SyncSetsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, resourceName, childResourceName, parameters, options)
 	if err != nil {

@@ -32,9 +32,9 @@ type OpenShiftClustersClient struct {
 }
 
 // NewOpenShiftClustersClient creates a new instance of OpenShiftClustersClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewOpenShiftClustersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OpenShiftClustersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewOpenShiftClustersClient(subscriptionID string, credential azcore.TokenCr
 
 // BeginCreateOrUpdate - The operation returns properties of a OpenShift cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// parameters - The OpenShift cluster resource.
-// options - OpenShiftClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the OpenShiftClustersClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - parameters - The OpenShift cluster resource.
+//   - options - OpenShiftClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the OpenShiftClustersClient.BeginCreateOrUpdate
+//     method.
 func (client *OpenShiftClustersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, parameters OpenShiftCluster, options *OpenShiftClustersClientBeginCreateOrUpdateOptions) (*runtime.Poller[OpenShiftClustersClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, resourceName, parameters, options)
@@ -77,6 +78,7 @@ func (client *OpenShiftClustersClient) BeginCreateOrUpdate(ctx context.Context, 
 
 // CreateOrUpdate - The operation returns properties of a OpenShift cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
 func (client *OpenShiftClustersClient) createOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, parameters OpenShiftCluster, options *OpenShiftClustersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, resourceName, parameters, options)
@@ -121,11 +123,12 @@ func (client *OpenShiftClustersClient) createOrUpdateCreateRequest(ctx context.C
 
 // BeginDelete - The operation returns nothing.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// options - OpenShiftClustersClientBeginDeleteOptions contains the optional parameters for the OpenShiftClustersClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - options - OpenShiftClustersClientBeginDeleteOptions contains the optional parameters for the OpenShiftClustersClient.BeginDelete
+//     method.
 func (client *OpenShiftClustersClient) BeginDelete(ctx context.Context, resourceGroupName string, resourceName string, options *OpenShiftClustersClientBeginDeleteOptions) (*runtime.Poller[OpenShiftClustersClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, resourceName, options)
@@ -140,6 +143,7 @@ func (client *OpenShiftClustersClient) BeginDelete(ctx context.Context, resource
 
 // Delete - The operation returns nothing.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
 func (client *OpenShiftClustersClient) deleteOperation(ctx context.Context, resourceGroupName string, resourceName string, options *OpenShiftClustersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, options)
@@ -184,10 +188,11 @@ func (client *OpenShiftClustersClient) deleteCreateRequest(ctx context.Context, 
 
 // Get - The operation returns properties of a OpenShift cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// options - OpenShiftClustersClientGetOptions contains the optional parameters for the OpenShiftClustersClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - options - OpenShiftClustersClientGetOptions contains the optional parameters for the OpenShiftClustersClient.Get method.
 func (client *OpenShiftClustersClient) Get(ctx context.Context, resourceGroupName string, resourceName string, options *OpenShiftClustersClientGetOptions) (OpenShiftClustersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
@@ -239,8 +244,10 @@ func (client *OpenShiftClustersClient) getHandleResponse(resp *http.Response) (O
 }
 
 // NewListPager - The operation returns properties of each OpenShift cluster.
+//
 // Generated from API version 2022-09-04
-// options - OpenShiftClustersClientListOptions contains the optional parameters for the OpenShiftClustersClient.List method.
+//   - options - OpenShiftClustersClientListOptions contains the optional parameters for the OpenShiftClustersClient.NewListPager
+//     method.
 func (client *OpenShiftClustersClient) NewListPager(options *OpenShiftClustersClientListOptions) *runtime.Pager[OpenShiftClustersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[OpenShiftClustersClientListResponse]{
 		More: func(page OpenShiftClustersClientListResponse) bool {
@@ -298,11 +305,12 @@ func (client *OpenShiftClustersClient) listHandleResponse(resp *http.Response) (
 
 // ListAdminCredentials - The operation returns the admin kubeconfig.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// options - OpenShiftClustersClientListAdminCredentialsOptions contains the optional parameters for the OpenShiftClustersClient.ListAdminCredentials
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - options - OpenShiftClustersClientListAdminCredentialsOptions contains the optional parameters for the OpenShiftClustersClient.ListAdminCredentials
+//     method.
 func (client *OpenShiftClustersClient) ListAdminCredentials(ctx context.Context, resourceGroupName string, resourceName string, options *OpenShiftClustersClientListAdminCredentialsOptions) (OpenShiftClustersClientListAdminCredentialsResponse, error) {
 	req, err := client.listAdminCredentialsCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
@@ -354,10 +362,11 @@ func (client *OpenShiftClustersClient) listAdminCredentialsHandleResponse(resp *
 }
 
 // NewListByResourceGroupPager - The operation returns properties of each OpenShift cluster.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - OpenShiftClustersClientListByResourceGroupOptions contains the optional parameters for the OpenShiftClustersClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - OpenShiftClustersClientListByResourceGroupOptions contains the optional parameters for the OpenShiftClustersClient.NewListByResourceGroupPager
+//     method.
 func (client *OpenShiftClustersClient) NewListByResourceGroupPager(resourceGroupName string, options *OpenShiftClustersClientListByResourceGroupOptions) *runtime.Pager[OpenShiftClustersClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[OpenShiftClustersClientListByResourceGroupResponse]{
 		More: func(page OpenShiftClustersClientListByResourceGroupResponse) bool {
@@ -419,11 +428,12 @@ func (client *OpenShiftClustersClient) listByResourceGroupHandleResponse(resp *h
 
 // ListCredentials - The operation returns the credentials.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// options - OpenShiftClustersClientListCredentialsOptions contains the optional parameters for the OpenShiftClustersClient.ListCredentials
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - options - OpenShiftClustersClientListCredentialsOptions contains the optional parameters for the OpenShiftClustersClient.ListCredentials
+//     method.
 func (client *OpenShiftClustersClient) ListCredentials(ctx context.Context, resourceGroupName string, resourceName string, options *OpenShiftClustersClientListCredentialsOptions) (OpenShiftClustersClientListCredentialsResponse, error) {
 	req, err := client.listCredentialsCreateRequest(ctx, resourceGroupName, resourceName, options)
 	if err != nil {
@@ -476,12 +486,13 @@ func (client *OpenShiftClustersClient) listCredentialsHandleResponse(resp *http.
 
 // BeginUpdate - The operation returns properties of a OpenShift cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// resourceName - The name of the OpenShift cluster resource.
-// parameters - The OpenShift cluster resource.
-// options - OpenShiftClustersClientBeginUpdateOptions contains the optional parameters for the OpenShiftClustersClient.BeginUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the OpenShift cluster resource.
+//   - parameters - The OpenShift cluster resource.
+//   - options - OpenShiftClustersClientBeginUpdateOptions contains the optional parameters for the OpenShiftClustersClient.BeginUpdate
+//     method.
 func (client *OpenShiftClustersClient) BeginUpdate(ctx context.Context, resourceGroupName string, resourceName string, parameters OpenShiftClusterUpdate, options *OpenShiftClustersClientBeginUpdateOptions) (*runtime.Poller[OpenShiftClustersClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, resourceName, parameters, options)
@@ -496,6 +507,7 @@ func (client *OpenShiftClustersClient) BeginUpdate(ctx context.Context, resource
 
 // Update - The operation returns properties of a OpenShift cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-04
 func (client *OpenShiftClustersClient) update(ctx context.Context, resourceGroupName string, resourceName string, parameters OpenShiftClusterUpdate, options *OpenShiftClustersClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, resourceName, parameters, options)
