@@ -33,9 +33,9 @@ type EnvironmentVersionsClient struct {
 }
 
 // NewEnvironmentVersionsClient creates a new instance of EnvironmentVersionsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewEnvironmentVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EnvironmentVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,14 +58,15 @@ func NewEnvironmentVersionsClient(subscriptionID string, credential azcore.Token
 
 // CreateOrUpdate - Creates or updates an EnvironmentVersion.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Name of EnvironmentVersion. This is case-sensitive.
-// version - Version of EnvironmentVersion.
-// body - Definition of EnvironmentVersion.
-// options - EnvironmentVersionsClientCreateOrUpdateOptions contains the optional parameters for the EnvironmentVersionsClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-12-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Name of EnvironmentVersion. This is case-sensitive.
+//   - version - Version of EnvironmentVersion.
+//   - body - Definition of EnvironmentVersion.
+//   - options - EnvironmentVersionsClientCreateOrUpdateOptions contains the optional parameters for the EnvironmentVersionsClient.CreateOrUpdate
+//     method.
 func (client *EnvironmentVersionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body EnvironmentVersion, options *EnvironmentVersionsClientCreateOrUpdateOptions) (EnvironmentVersionsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
 	if err != nil {
@@ -109,7 +110,7 @@ func (client *EnvironmentVersionsClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -126,13 +127,14 @@ func (client *EnvironmentVersionsClient) createOrUpdateHandleResponse(resp *http
 
 // Delete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// version - Version identifier. This is case-sensitive.
-// options - EnvironmentVersionsClientDeleteOptions contains the optional parameters for the EnvironmentVersionsClient.Delete
-// method.
+//
+// Generated from API version 2022-12-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - options - EnvironmentVersionsClientDeleteOptions contains the optional parameters for the EnvironmentVersionsClient.Delete
+//     method.
 func (client *EnvironmentVersionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *EnvironmentVersionsClientDeleteOptions) (EnvironmentVersionsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
@@ -176,7 +178,7 @@ func (client *EnvironmentVersionsClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -184,12 +186,13 @@ func (client *EnvironmentVersionsClient) deleteCreateRequest(ctx context.Context
 
 // Get - Get version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// version - Version identifier. This is case-sensitive.
-// options - EnvironmentVersionsClientGetOptions contains the optional parameters for the EnvironmentVersionsClient.Get method.
+//
+// Generated from API version 2022-12-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - options - EnvironmentVersionsClientGetOptions contains the optional parameters for the EnvironmentVersionsClient.Get method.
 func (client *EnvironmentVersionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *EnvironmentVersionsClientGetOptions) (EnvironmentVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
@@ -233,7 +236,7 @@ func (client *EnvironmentVersionsClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,12 +252,13 @@ func (client *EnvironmentVersionsClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListPager - List versions.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// options - EnvironmentVersionsClientListOptions contains the optional parameters for the EnvironmentVersionsClient.List
-// method.
+//
+// Generated from API version 2022-12-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - options - EnvironmentVersionsClientListOptions contains the optional parameters for the EnvironmentVersionsClient.NewListPager
+//     method.
 func (client *EnvironmentVersionsClient) NewListPager(resourceGroupName string, workspaceName string, name string, options *EnvironmentVersionsClientListOptions) *runtime.Pager[EnvironmentVersionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[EnvironmentVersionsClientListResponse]{
 		More: func(page EnvironmentVersionsClientListResponse) bool {
@@ -307,7 +311,7 @@ func (client *EnvironmentVersionsClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2022-12-01-preview")
 	if options != nil && options.OrderBy != nil {
 		reqQP.Set("$orderBy", *options.OrderBy)
 	}
