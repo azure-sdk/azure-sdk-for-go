@@ -118,6 +118,9 @@ type DeploymentInfoClientListOptions struct {
 
 // DeploymentInfoResponse - The properties of deployment in Elastic cloud corresponding to the Elastic monitor resource.
 type DeploymentInfoResponse struct {
+	// READ-ONLY; Deployment URL of the elasticsearch in Elastic cloud deployment.
+	DeploymentURL *string `json:"deploymentUrl,omitempty" azure:"ro"`
+
 	// READ-ONLY; Disk capacity of the elasticsearch in Elastic cloud deployment.
 	DiskCapacity *string `json:"diskCapacity,omitempty" azure:"ro"`
 
@@ -330,7 +333,7 @@ type MonitoredResourceListResponse struct {
 	Value []*MonitoredResource `json:"value,omitempty"`
 }
 
-// MonitoredResourcesClientListOptions contains the optional parameters for the MonitoredResourcesClient.List method.
+// MonitoredResourcesClientListOptions contains the optional parameters for the MonitoredResourcesClient.NewListPager method.
 type MonitoredResourcesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -390,12 +393,13 @@ type MonitorsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MonitorsClientListByResourceGroupOptions contains the optional parameters for the MonitorsClient.ListByResourceGroup method.
+// MonitorsClientListByResourceGroupOptions contains the optional parameters for the MonitorsClient.NewListByResourceGroupPager
+// method.
 type MonitorsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MonitorsClientListOptions contains the optional parameters for the MonitorsClient.List method.
+// MonitorsClientListOptions contains the optional parameters for the MonitorsClient.NewListPager method.
 type MonitorsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -445,7 +449,7 @@ type OperationResult struct {
 	Origin *string `json:"origin,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -503,7 +507,7 @@ type TagRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TagRulesClientListOptions contains the optional parameters for the TagRulesClient.List method.
+// TagRulesClientListOptions contains the optional parameters for the TagRulesClient.NewListPager method.
 type TagRulesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -609,7 +613,7 @@ type VMCollectionUpdate struct {
 	VMResourceID *string `json:"vmResourceId,omitempty"`
 }
 
-// VMHostClientListOptions contains the optional parameters for the VMHostClient.List method.
+// VMHostClientListOptions contains the optional parameters for the VMHostClient.NewListPager method.
 type VMHostClientListOptions struct {
 	// placeholder for future optional parameters
 }

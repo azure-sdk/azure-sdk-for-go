@@ -40,9 +40,9 @@ type AssociateTrafficFilterClient struct {
 }
 
 // NewAssociateTrafficFilterClient creates a new instance of AssociateTrafficFilterClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAssociateTrafficFilterClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AssociateTrafficFilterClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,18 +65,21 @@ func NewAssociateTrafficFilterClient(subscriptionID string, credential azcore.To
 
 // BeginAssociate - Associate traffic filter for the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - AssociateTrafficFilterClientBeginAssociateOptions contains the optional parameters for the AssociateTrafficFilterClient.BeginAssociate
-// method.
+//
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - AssociateTrafficFilterClientBeginAssociateOptions contains the optional parameters for the AssociateTrafficFilterClient.BeginAssociate
+//     method.
 func (client *AssociateTrafficFilterClient) BeginAssociate(ctx context.Context, resourceGroupName string, monitorName string, options *AssociateTrafficFilterClientBeginAssociateOptions) (*runtime.Poller[AssociateTrafficFilterClientAssociateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.associate(ctx, resourceGroupName, monitorName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[AssociateTrafficFilterClientAssociateResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[AssociateTrafficFilterClientAssociateResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[AssociateTrafficFilterClientAssociateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -84,7 +87,8 @@ func (client *AssociateTrafficFilterClient) BeginAssociate(ctx context.Context, 
 
 // Associate - Associate traffic filter for the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
+//
+// Generated from API version 2022-09-01-preview
 func (client *AssociateTrafficFilterClient) associate(ctx context.Context, resourceGroupName string, monitorName string, options *AssociateTrafficFilterClientBeginAssociateOptions) (*http.Response, error) {
 	req, err := client.associateCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -120,7 +124,7 @@ func (client *AssociateTrafficFilterClient) associateCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	if options != nil && options.RulesetID != nil {
 		reqQP.Set("rulesetId", *options.RulesetID)
 	}

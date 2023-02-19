@@ -40,9 +40,9 @@ type DetachAndDeleteTrafficFilterClient struct {
 }
 
 // NewDetachAndDeleteTrafficFilterClient creates a new instance of DetachAndDeleteTrafficFilterClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDetachAndDeleteTrafficFilterClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DetachAndDeleteTrafficFilterClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,11 +65,12 @@ func NewDetachAndDeleteTrafficFilterClient(subscriptionID string, credential azc
 
 // Delete - Detach and Delete traffic filter from the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - DetachAndDeleteTrafficFilterClientDeleteOptions contains the optional parameters for the DetachAndDeleteTrafficFilterClient.Delete
-// method.
+//
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - DetachAndDeleteTrafficFilterClientDeleteOptions contains the optional parameters for the DetachAndDeleteTrafficFilterClient.Delete
+//     method.
 func (client *DetachAndDeleteTrafficFilterClient) Delete(ctx context.Context, resourceGroupName string, monitorName string, options *DetachAndDeleteTrafficFilterClientDeleteOptions) (DetachAndDeleteTrafficFilterClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -105,7 +106,7 @@ func (client *DetachAndDeleteTrafficFilterClient) deleteCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	if options != nil && options.RulesetID != nil {
 		reqQP.Set("rulesetId", *options.RulesetID)
 	}

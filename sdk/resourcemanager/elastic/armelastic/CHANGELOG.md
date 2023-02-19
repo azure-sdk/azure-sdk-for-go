@@ -1,5 +1,11 @@
 # Release History
 
+## 0.7.0 (2023-02-19)
+### Features Added
+
+- New field `DeploymentURL` in struct `DeploymentInfoResponse`
+
+
 ## 0.6.0 (2022-11-10)
 ### Features Added
 
