@@ -168,20 +168,6 @@ type ActionGroupsClientBeginCreateNotificationsAtActionGroupResourceLevelOptions
 	ResumeToken string
 }
 
-// ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions contains the optional parameters for the ActionGroupsClient.BeginCreateNotificationsAtResourceGroupLevel
-// method.
-type ActionGroupsClientBeginCreateNotificationsAtResourceGroupLevelOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ActionGroupsClientBeginPostTestNotificationsOptions contains the optional parameters for the ActionGroupsClient.BeginPostTestNotifications
-// method.
-type ActionGroupsClientBeginPostTestNotificationsOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // ActionGroupsClientCreateOrUpdateOptions contains the optional parameters for the ActionGroupsClient.CreateOrUpdate method.
 type ActionGroupsClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
@@ -208,25 +194,13 @@ type ActionGroupsClientGetTestNotificationsAtActionGroupResourceLevelOptions str
 	// placeholder for future optional parameters
 }
 
-// ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions contains the optional parameters for the ActionGroupsClient.GetTestNotificationsAtResourceGroupLevel
-// method.
-type ActionGroupsClientGetTestNotificationsAtResourceGroupLevelOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ActionGroupsClientGetTestNotificationsOptions contains the optional parameters for the ActionGroupsClient.GetTestNotifications
-// method.
-type ActionGroupsClientGetTestNotificationsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ActionGroupsClientListByResourceGroupOptions contains the optional parameters for the ActionGroupsClient.ListByResourceGroup
+// ActionGroupsClientListByResourceGroupOptions contains the optional parameters for the ActionGroupsClient.NewListByResourceGroupPager
 // method.
 type ActionGroupsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ActionGroupsClientListBySubscriptionIDOptions contains the optional parameters for the ActionGroupsClient.ListBySubscriptionID
+// ActionGroupsClientListBySubscriptionIDOptions contains the optional parameters for the ActionGroupsClient.NewListBySubscriptionIDPager
 // method.
 type ActionGroupsClientListBySubscriptionIDOptions struct {
 	// placeholder for future optional parameters
@@ -290,13 +264,13 @@ type ActivityLogAlertsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ActivityLogAlertsClientListByResourceGroupOptions contains the optional parameters for the ActivityLogAlertsClient.ListByResourceGroup
+// ActivityLogAlertsClientListByResourceGroupOptions contains the optional parameters for the ActivityLogAlertsClient.NewListByResourceGroupPager
 // method.
 type ActivityLogAlertsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ActivityLogAlertsClientListBySubscriptionIDOptions contains the optional parameters for the ActivityLogAlertsClient.ListBySubscriptionID
+// ActivityLogAlertsClientListBySubscriptionIDOptions contains the optional parameters for the ActivityLogAlertsClient.NewListBySubscriptionIDPager
 // method.
 type ActivityLogAlertsClientListBySubscriptionIDOptions struct {
 	// placeholder for future optional parameters
@@ -307,7 +281,7 @@ type ActivityLogAlertsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ActivityLogsClientListOptions contains the optional parameters for the ActivityLogsClient.List method.
+// ActivityLogsClientListOptions contains the optional parameters for the ActivityLogsClient.NewListPager method.
 type ActivityLogsClientListOptions struct {
 	// Used to fetch events with only the given properties.
 	// The $select argument is a comma separated list of property names to be returned. Possible values are: authorization, claims,
@@ -379,7 +353,7 @@ type AlertRuleIncidentsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertRuleIncidentsClientListByAlertRuleOptions contains the optional parameters for the AlertRuleIncidentsClient.ListByAlertRule
+// AlertRuleIncidentsClientListByAlertRuleOptions contains the optional parameters for the AlertRuleIncidentsClient.NewListByAlertRulePager
 // method.
 type AlertRuleIncidentsClientListByAlertRuleOptions struct {
 	// placeholder for future optional parameters
@@ -498,13 +472,13 @@ type AlertRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertRulesClientListByResourceGroupOptions contains the optional parameters for the AlertRulesClient.ListByResourceGroup
+// AlertRulesClientListByResourceGroupOptions contains the optional parameters for the AlertRulesClient.NewListByResourceGroupPager
 // method.
 type AlertRulesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertRulesClientListBySubscriptionOptions contains the optional parameters for the AlertRulesClient.ListBySubscription
+// AlertRulesClientListBySubscriptionOptions contains the optional parameters for the AlertRulesClient.NewListBySubscriptionPager
 // method.
 type AlertRulesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -692,13 +666,13 @@ type AutoscaleSettingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AutoscaleSettingsClientListByResourceGroupOptions contains the optional parameters for the AutoscaleSettingsClient.ListByResourceGroup
+// AutoscaleSettingsClientListByResourceGroupOptions contains the optional parameters for the AutoscaleSettingsClient.NewListByResourceGroupPager
 // method.
 type AutoscaleSettingsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AutoscaleSettingsClientListBySubscriptionOptions contains the optional parameters for the AutoscaleSettingsClient.ListBySubscription
+// AutoscaleSettingsClientListBySubscriptionOptions contains the optional parameters for the AutoscaleSettingsClient.NewListBySubscriptionPager
 // method.
 type AutoscaleSettingsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -791,6 +765,132 @@ type AzureMonitorPrivateLinkScopeProperties struct {
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 }
 
+// AzureMonitorWorkspace - Properties of an Azure Monitor workspace
+type AzureMonitorWorkspace struct {
+	// READ-ONLY; The immutable ID of the Azure Monitor workspace. This property is read-only.
+	AccountID *string `json:"accountId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Data Collection Rule and Endpoint used for ingestion by default.
+	DefaultIngestionSettings *AzureMonitorWorkspaceDefaultIngestionSettings `json:"defaultIngestionSettings,omitempty" azure:"ro"`
+
+	// READ-ONLY; Information about metrics for the Azure Monitor workspace
+	Metrics *AzureMonitorWorkspaceMetrics `json:"metrics,omitempty" azure:"ro"`
+
+	// READ-ONLY; The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// AzureMonitorWorkspaceDefaultIngestionSettings - The Data Collection Rule and Endpoint used for ingestion by default.
+type AzureMonitorWorkspaceDefaultIngestionSettings struct {
+	// READ-ONLY; The Azure resource Id of the default data collection endpoint for this workspace.
+	DataCollectionEndpointResourceID *string `json:"dataCollectionEndpointResourceId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Azure resource Id of the default data collection rule for this workspace.
+	DataCollectionRuleResourceID *string `json:"dataCollectionRuleResourceId,omitempty" azure:"ro"`
+}
+
+// AzureMonitorWorkspaceMetrics - Information about metrics for the Azure Monitor workspace
+type AzureMonitorWorkspaceMetrics struct {
+	// READ-ONLY; An internal identifier for the metrics container. Only to be used by the system
+	InternalID *string `json:"internalId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Prometheus query endpoint for the workspace
+	PrometheusQueryEndpoint *string `json:"prometheusQueryEndpoint,omitempty" azure:"ro"`
+}
+
+// AzureMonitorWorkspaceResource - An Azure Monitor Workspace definition
+type AzureMonitorWorkspaceResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Resource properties
+	Properties *AzureMonitorWorkspaceResourceProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Resource entity tag (ETag)
+	Etag *string `json:"etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// AzureMonitorWorkspaceResourceForUpdate - Definition of ARM tracked top level resource properties for update operation
+type AzureMonitorWorkspaceResourceForUpdate struct {
+	// Resource tags
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// AzureMonitorWorkspaceResourceListResult - A pageable list of resources
+type AzureMonitorWorkspaceResourceListResult struct {
+	// REQUIRED; A list of resources
+	Value []*AzureMonitorWorkspaceResource `json:"value,omitempty"`
+
+	// The URL to use for getting the next set of results
+	NextLink *string `json:"nextLink,omitempty"`
+}
+
+// AzureMonitorWorkspaceResourceProperties - Resource properties
+type AzureMonitorWorkspaceResourceProperties struct {
+	// READ-ONLY; The immutable ID of the Azure Monitor workspace. This property is read-only.
+	AccountID *string `json:"accountId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Data Collection Rule and Endpoint used for ingestion by default.
+	DefaultIngestionSettings *AzureMonitorWorkspaceDefaultIngestionSettings `json:"defaultIngestionSettings,omitempty" azure:"ro"`
+
+	// READ-ONLY; Information about metrics for the Azure Monitor workspace
+	Metrics *AzureMonitorWorkspaceMetrics `json:"metrics,omitempty" azure:"ro"`
+
+	// READ-ONLY; The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// AzureMonitorWorkspacesClientCreateOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Create
+// method.
+type AzureMonitorWorkspacesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AzureMonitorWorkspacesClientDeleteOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Delete
+// method.
+type AzureMonitorWorkspacesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AzureMonitorWorkspacesClientGetOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Get method.
+type AzureMonitorWorkspacesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AzureMonitorWorkspacesClientListByResourceGroupOptions contains the optional parameters for the AzureMonitorWorkspacesClient.NewListByResourceGroupPager
+// method.
+type AzureMonitorWorkspacesClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AzureMonitorWorkspacesClientListBySubscriptionOptions contains the optional parameters for the AzureMonitorWorkspacesClient.NewListBySubscriptionPager
+// method.
+type AzureMonitorWorkspacesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AzureMonitorWorkspacesClientUpdateOptions contains the optional parameters for the AzureMonitorWorkspacesClient.Update
+// method.
+type AzureMonitorWorkspacesClientUpdateOptions struct {
+	// The payload
+	AzureMonitorWorkspaceProperties *AzureMonitorWorkspaceResourceForUpdate
+}
+
 // AzureResource - An azure resource object
 type AzureResource struct {
 	// REQUIRED; Resource location
@@ -837,7 +937,7 @@ type BaselineMetadata struct {
 	Value *string `json:"value,omitempty"`
 }
 
-// BaselinesClientListOptions contains the optional parameters for the BaselinesClient.List method.
+// BaselinesClientListOptions contains the optional parameters for the BaselinesClient.NewListPager method.
 type BaselinesClientListOptions struct {
 	// The list of aggregation types (comma separated) to retrieve.
 	Aggregation *string
@@ -1073,13 +1173,13 @@ type DataCollectionEndpointsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataCollectionEndpointsClientListByResourceGroupOptions contains the optional parameters for the DataCollectionEndpointsClient.ListByResourceGroup
+// DataCollectionEndpointsClientListByResourceGroupOptions contains the optional parameters for the DataCollectionEndpointsClient.NewListByResourceGroupPager
 // method.
 type DataCollectionEndpointsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataCollectionEndpointsClientListBySubscriptionOptions contains the optional parameters for the DataCollectionEndpointsClient.ListBySubscription
+// DataCollectionEndpointsClientListBySubscriptionOptions contains the optional parameters for the DataCollectionEndpointsClient.NewListBySubscriptionPager
 // method.
 type DataCollectionEndpointsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -1236,19 +1336,19 @@ type DataCollectionRuleAssociationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataCollectionRuleAssociationsClientListByDataCollectionEndpointOptions contains the optional parameters for the DataCollectionRuleAssociationsClient.ListByDataCollectionEndpoint
+// DataCollectionRuleAssociationsClientListByDataCollectionEndpointOptions contains the optional parameters for the DataCollectionRuleAssociationsClient.NewListByDataCollectionEndpointPager
 // method.
 type DataCollectionRuleAssociationsClientListByDataCollectionEndpointOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataCollectionRuleAssociationsClientListByResourceOptions contains the optional parameters for the DataCollectionRuleAssociationsClient.ListByResource
+// DataCollectionRuleAssociationsClientListByResourceOptions contains the optional parameters for the DataCollectionRuleAssociationsClient.NewListByResourcePager
 // method.
 type DataCollectionRuleAssociationsClientListByResourceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataCollectionRuleAssociationsClientListByRuleOptions contains the optional parameters for the DataCollectionRuleAssociationsClient.ListByRule
+// DataCollectionRuleAssociationsClientListByRuleOptions contains the optional parameters for the DataCollectionRuleAssociationsClient.NewListByRulePager
 // method.
 type DataCollectionRuleAssociationsClientListByRuleOptions struct {
 	// placeholder for future optional parameters
@@ -1398,13 +1498,13 @@ type DataCollectionRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataCollectionRulesClientListByResourceGroupOptions contains the optional parameters for the DataCollectionRulesClient.ListByResourceGroup
+// DataCollectionRulesClientListByResourceGroupOptions contains the optional parameters for the DataCollectionRulesClient.NewListByResourceGroupPager
 // method.
 type DataCollectionRulesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataCollectionRulesClientListBySubscriptionOptions contains the optional parameters for the DataCollectionRulesClient.ListBySubscription
+// DataCollectionRulesClientListBySubscriptionOptions contains the optional parameters for the DataCollectionRulesClient.NewListBySubscriptionPager
 // method.
 type DataCollectionRulesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -1529,7 +1629,7 @@ type DiagnosticSettingsCategoryClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiagnosticSettingsCategoryClientListOptions contains the optional parameters for the DiagnosticSettingsCategoryClient.List
+// DiagnosticSettingsCategoryClientListOptions contains the optional parameters for the DiagnosticSettingsCategoryClient.NewListPager
 // method.
 type DiagnosticSettingsCategoryClientListOptions struct {
 	// placeholder for future optional parameters
@@ -1575,7 +1675,7 @@ type DiagnosticSettingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiagnosticSettingsClientListOptions contains the optional parameters for the DiagnosticSettingsClient.List method.
+// DiagnosticSettingsClientListOptions contains the optional parameters for the DiagnosticSettingsClient.NewListPager method.
 type DiagnosticSettingsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1641,7 +1741,7 @@ type DynamicMetricCriteria struct {
 	TimeAggregation *AggregationTypeEnum `json:"timeAggregation,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// List of dimension conditions.
 	Dimensions []*MetricDimension `json:"dimensions,omitempty"`
@@ -1727,7 +1827,7 @@ type Error struct {
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -1757,6 +1857,24 @@ type ErrorDetail struct {
 	Target *string `json:"target,omitempty" azure:"ro"`
 }
 
+// ErrorDetailAutoGenerated - The error detail.
+type ErrorDetailAutoGenerated struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetailAutoGenerated `json:"details,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error message.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error target.
+	Target *string `json:"target,omitempty" azure:"ro"`
+}
+
 // ErrorResponse - Describes the format of Error response.
 type ErrorResponse struct {
 	// Error code
@@ -1769,7 +1887,7 @@ type ErrorResponse struct {
 // ErrorResponseAdditionalInfo - The resource management error additional info.
 type ErrorResponseAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -1782,6 +1900,13 @@ type ErrorResponseAutoGenerated struct {
 
 	// READ-ONLY; The error message indicating why the operation failed.
 	Message *string `json:"message,omitempty" azure:"ro"`
+}
+
+// ErrorResponseAutoGenerated2 - Common error response for all Azure Resource Manager APIs to return error details for failed
+// operations. (This also follows the OData error response format.).
+type ErrorResponseAutoGenerated2 struct {
+	// The error object.
+	Error *ErrorDetailAutoGenerated `json:"error,omitempty"`
 }
 
 // ErrorResponseCommonV2 - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
@@ -1810,7 +1935,7 @@ type ErrorResponseDetails struct {
 	Target *string `json:"target,omitempty" azure:"ro"`
 }
 
-// EventCategoriesClientListOptions contains the optional parameters for the EventCategoriesClient.List method.
+// EventCategoriesClientListOptions contains the optional parameters for the EventCategoriesClient.NewListPager method.
 type EventCategoriesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1947,7 +2072,7 @@ type ExtensionDataSource struct {
 	ExtensionName *string `json:"extensionName,omitempty"`
 
 	// The extension settings. The format is specific for particular extension.
-	ExtensionSettings interface{} `json:"extensionSettings,omitempty"`
+	ExtensionSettings any `json:"extensionSettings,omitempty"`
 
 	// The list of data sources this extension needs data from.
 	InputDataSources []*string `json:"inputDataSources,omitempty"`
@@ -1974,6 +2099,23 @@ type HTTPRequestInfo struct {
 
 	// the Uri.
 	URI *string `json:"uri,omitempty"`
+}
+
+// Identity for the resource.
+type Identity struct {
+	// REQUIRED; Type of managed service identity.
+	Type *IdentityType `json:"type,omitempty"`
+
+	// The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource
+	// ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*UserIdentityProperties `json:"userAssignedIdentities,omitempty"`
+
+	// READ-ONLY; The principal ID of resource identity.
+	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The tenant ID of resource.
+	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
 }
 
 // IisLogsDataSource - Enables IIS logs to be collected by this data collection rule.
@@ -2011,6 +2153,15 @@ type Incident struct {
 type IncidentListResult struct {
 	// the incident collection.
 	Value []*Incident `json:"value,omitempty"`
+}
+
+// IngestionSettings - Settings for data ingestion
+type IngestionSettings struct {
+	// READ-ONLY; The Azure resource Id of the default data collection endpoint for this workspace.
+	DataCollectionEndpointResourceID *string `json:"dataCollectionEndpointResourceId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Azure resource Id of the default data collection rule for this workspace.
+	DataCollectionRuleResourceID *string `json:"dataCollectionRuleResourceId,omitempty" azure:"ro"`
 }
 
 // ItsmReceiver - An Itsm receiver.
@@ -2197,7 +2348,7 @@ type LogProfilesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LogProfilesClientListOptions contains the optional parameters for the LogProfilesClient.List method.
+// LogProfilesClientListOptions contains the optional parameters for the LogProfilesClient.NewListPager method.
 type LogProfilesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2350,7 +2501,7 @@ type MetricAlertCriteria struct {
 	ODataType *Odatatype `json:"odata.type,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 }
 
 // GetMetricAlertCriteria implements the MetricAlertCriteriaClassification interface for type MetricAlertCriteria.
@@ -2363,7 +2514,7 @@ type MetricAlertMultipleResourceMultipleMetricCriteria struct {
 	ODataType *Odatatype `json:"odata.type,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// the list of multiple metric criteria for this 'all of' operation.
 	AllOf []MultiMetricCriteriaClassification `json:"allOf,omitempty"`
@@ -2506,7 +2657,7 @@ type MetricAlertSingleResourceMultipleMetricCriteria struct {
 	ODataType *Odatatype `json:"odata.type,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// The list of metric criteria for this 'all of' operation.
 	AllOf []*MetricCriteria `json:"allOf,omitempty"`
@@ -2568,13 +2719,13 @@ type MetricAlertsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MetricAlertsClientListByResourceGroupOptions contains the optional parameters for the MetricAlertsClient.ListByResourceGroup
+// MetricAlertsClientListByResourceGroupOptions contains the optional parameters for the MetricAlertsClient.NewListByResourceGroupPager
 // method.
 type MetricAlertsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MetricAlertsClientListBySubscriptionOptions contains the optional parameters for the MetricAlertsClient.ListBySubscription
+// MetricAlertsClientListBySubscriptionOptions contains the optional parameters for the MetricAlertsClient.NewListBySubscriptionPager
 // method.
 type MetricAlertsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -2652,7 +2803,7 @@ type MetricCriteria struct {
 	TimeAggregation *AggregationTypeEnum `json:"timeAggregation,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// List of dimension conditions.
 	Dimensions []*MetricDimension `json:"dimensions,omitempty"`
@@ -2726,7 +2877,7 @@ type MetricDefinitionCollection struct {
 	Value []*MetricDefinition `json:"value,omitempty"`
 }
 
-// MetricDefinitionsClientListOptions contains the optional parameters for the MetricDefinitionsClient.List method.
+// MetricDefinitionsClientListOptions contains the optional parameters for the MetricDefinitionsClient.NewListPager method.
 type MetricDefinitionsClientListOptions struct {
 	// Metric namespace to query metric definitions for.
 	Metricnamespace *string
@@ -2774,7 +2925,7 @@ type MetricNamespaceName struct {
 	MetricNamespaceName *string `json:"metricNamespaceName,omitempty"`
 }
 
-// MetricNamespacesClientListOptions contains the optional parameters for the MetricNamespacesClient.List method.
+// MetricNamespacesClientListOptions contains the optional parameters for the MetricNamespacesClient.NewListPager method.
 type MetricNamespacesClientListOptions struct {
 	// The ISO 8601 conform Date start time from which to query for metric namespaces.
 	StartTime *string
@@ -2869,6 +3020,15 @@ type MetricValue struct {
 	Total *float64 `json:"total,omitempty"`
 }
 
+// Metrics - Information about metrics for the workspace
+type Metrics struct {
+	// READ-ONLY; An internal identifier for the metrics container. Only to be used by the system
+	InternalID *string `json:"internalId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Prometheus query endpoint for the workspace
+	PrometheusQueryEndpoint *string `json:"prometheusQueryEndpoint,omitempty" azure:"ro"`
+}
+
 // MetricsClientListOptions contains the optional parameters for the MetricsClient.List method.
 type MetricsClientListOptions struct {
 	// The list of aggregation types (comma separated) to retrieve.
@@ -2926,7 +3086,7 @@ type MultiMetricCriteria struct {
 	TimeAggregation *AggregationTypeEnum `json:"timeAggregation,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// List of dimension conditions.
 	Dimensions []*MetricDimension `json:"dimensions,omitempty"`
@@ -2951,7 +3111,7 @@ type NetworkRuleSet struct {
 type NotificationRequestBody struct {
 	// REQUIRED; The value of the supported alert type. Supported alert type values are: servicehealth, metricstaticthreshold,
 	// metricsdynamicthreshold, logalertv2, smartalert, webtestalert, logalertv1numresult,
-	// logalertv1metricmeasurement, resourcehealth, activitylog, budget
+	// logalertv1metricmeasurement, resourcehealth, activitylog, actualcostbudget, forecastedbudget
 	AlertType *string `json:"alertType,omitempty"`
 
 	// The list of ARM role receivers that are part of this action group. Roles are Azure RBAC roles and only built-in roles are
@@ -2998,6 +3158,27 @@ type Operation struct {
 	Name *string `json:"name,omitempty"`
 }
 
+// OperationAutoGenerated - Details of a REST API operation, returned from the Resource Provider Operations API
+type OperationAutoGenerated struct {
+	// Localized display information for this particular operation.
+	Display *OperationDisplayAutoGenerated `json:"display,omitempty"`
+
+	// READ-ONLY; Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType `json:"actionType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for ARM/control-plane
+	// operations.
+	IsDataAction *bool `json:"isDataAction,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the operation, as per Resource-Based Access Control (RBAC). Examples: "Microsoft.Compute/virtualMachines/write",
+	// "Microsoft.Compute/virtualMachines/capture/action"
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+	// value is "user,system"
+	Origin *Origin `json:"origin,omitempty" azure:"ro"`
+}
+
 // OperationDisplay - Display metadata associated with the operation.
 type OperationDisplay struct {
 	// Operation type: Read, write, delete, etc.
@@ -3010,6 +3191,24 @@ type OperationDisplay struct {
 	Resource *string `json:"resource,omitempty"`
 }
 
+// OperationDisplayAutoGenerated - Localized display information for this particular operation.
+type OperationDisplayAutoGenerated struct {
+	// READ-ONLY; The short, localized friendly description of the operation; suitable for tool tips and detailed views.
+	Description *string `json:"description,omitempty" azure:"ro"`
+
+	// READ-ONLY; The concise, localized friendly name for the operation; suitable for dropdowns. E.g. "Create or Update Virtual
+	// Machine", "Restart Virtual Machine".
+	Operation *string `json:"operation,omitempty" azure:"ro"`
+
+	// READ-ONLY; The localized friendly form of the resource provider name, e.g. "Microsoft Monitoring Insights" or "Microsoft
+	// Compute".
+	Provider *string `json:"provider,omitempty" azure:"ro"`
+
+	// READ-ONLY; The localized friendly name of the resource type related to this operation. E.g. "Virtual Machines" or "Job
+	// Schedule Collections".
+	Resource *string `json:"resource,omitempty" azure:"ro"`
+}
+
 // OperationListResult - Result of the request to list Microsoft.Insights operations. It contains a list of operations and
 // a URL link to get the next set of results.
 type OperationListResult struct {
@@ -3018,6 +3217,16 @@ type OperationListResult struct {
 
 	// List of operations supported by the Microsoft.Insights provider.
 	Value []*Operation `json:"value,omitempty"`
+}
+
+// OperationListResultAutoGenerated - A list of REST API operations supported by an Azure Resource Provider. It contains an
+// URL link to get the next set of results.
+type OperationListResultAutoGenerated struct {
+	// READ-ONLY; URL to get the next set of operation list results (if there are any).
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of operations supported by the resource provider
+	Value []*OperationAutoGenerated `json:"value,omitempty" azure:"ro"`
 }
 
 // OperationStatus - The status of operation.
@@ -3043,6 +3252,12 @@ type OperationStatus struct {
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 type OperationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OperationsForMonitorClientListOptions contains the optional parameters for the OperationsForMonitorClient.NewListPager
+// method.
+type OperationsForMonitorClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -3247,7 +3462,7 @@ type PrivateLinkScopedResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkScopedResourcesClientListByPrivateLinkScopeOptions contains the optional parameters for the PrivateLinkScopedResourcesClient.ListByPrivateLinkScope
+// PrivateLinkScopedResourcesClientListByPrivateLinkScopeOptions contains the optional parameters for the PrivateLinkScopedResourcesClient.NewListByPrivateLinkScopePager
 // method.
 type PrivateLinkScopedResourcesClientListByPrivateLinkScopeOptions struct {
 	// placeholder for future optional parameters
@@ -3271,13 +3486,13 @@ type PrivateLinkScopesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkScopesClientListByResourceGroupOptions contains the optional parameters for the PrivateLinkScopesClient.ListByResourceGroup
+// PrivateLinkScopesClientListByResourceGroupOptions contains the optional parameters for the PrivateLinkScopesClient.NewListByResourceGroupPager
 // method.
 type PrivateLinkScopesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkScopesClientListOptions contains the optional parameters for the PrivateLinkScopesClient.List method.
+// PrivateLinkScopesClientListOptions contains the optional parameters for the PrivateLinkScopesClient.NewListPager method.
 type PrivateLinkScopesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3464,6 +3679,21 @@ type ResourceAutoGenerated4 struct {
 	Name *string `json:"name,omitempty" azure:"ro"`
 
 	// READ-ONLY; Azure resource type
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ResourceAutoGenerated5 - Common fields that are returned in the response for all Azure Resource Manager resources
+type ResourceAutoGenerated5 struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -3702,6 +3932,16 @@ func (r *RuleMetricDataSource) GetRuleDataSource() *RuleDataSource {
 	}
 }
 
+// RuleResolveConfiguration - TBD. Relevant only for rules of the kind LogAlert.
+type RuleResolveConfiguration struct {
+	// The flag that indicates whether or not to auto resolve a fired alert.
+	AutoResolved *bool `json:"autoResolved,omitempty"`
+
+	// The duration a rule must evaluate as healthy before the fired alert is automatically resolved represented in ISO 8601 duration
+	// format.
+	TimeToResolve *string `json:"timeToResolve,omitempty"`
+}
+
 // RuleWebhookAction - Specifies the action to post to service when the rule condition is evaluated. The discriminator is
 // always RuleWebhookAction in this case.
 type RuleWebhookAction struct {
@@ -3818,6 +4058,12 @@ type ScheduledQueryRuleProperties struct {
 	// of the kind LogAlert.
 	OverrideQueryTimeRange *string `json:"overrideQueryTimeRange,omitempty"`
 
+	// This determines if traffic is allowed over public network. By default it is enabled.
+	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
+
+	// Defines the configuration for resolving fired alerts. Relevant only for rules of the kind LogAlert.
+	RuleResolveConfiguration *RuleResolveConfiguration `json:"ruleResolveConfiguration,omitempty"`
+
 	// The list of resource id's that this scheduled query rule is scoped to.
 	Scopes []*string `json:"scopes,omitempty"`
 
@@ -3858,6 +4104,9 @@ type ScheduledQueryRuleResource struct {
 	// REQUIRED; The rule properties of the resource.
 	Properties *ScheduledQueryRuleProperties `json:"properties,omitempty"`
 
+	// The identity of the resource.
+	Identity *Identity `json:"identity,omitempty"`
+
 	// Indicates the type of scheduled query rule. The default is LogAlert.
 	Kind *Kind `json:"kind,omitempty"`
 
@@ -3894,6 +4143,9 @@ type ScheduledQueryRuleResourceCollection struct {
 
 // ScheduledQueryRuleResourcePatch - The scheduled query rule resource for patch operations.
 type ScheduledQueryRuleResourcePatch struct {
+	// The identity of the resource.
+	Identity *Identity `json:"identity,omitempty"`
+
 	// The scheduled query rule properties of the resource.
 	Properties *ScheduledQueryRuleProperties `json:"properties,omitempty"`
 
@@ -3917,13 +4169,13 @@ type ScheduledQueryRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ScheduledQueryRulesClientListByResourceGroupOptions contains the optional parameters for the ScheduledQueryRulesClient.ListByResourceGroup
+// ScheduledQueryRulesClientListByResourceGroupOptions contains the optional parameters for the ScheduledQueryRulesClient.NewListByResourceGroupPager
 // method.
 type ScheduledQueryRulesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ScheduledQueryRulesClientListBySubscriptionOptions contains the optional parameters for the ScheduledQueryRulesClient.ListBySubscription
+// ScheduledQueryRulesClientListBySubscriptionOptions contains the optional parameters for the ScheduledQueryRulesClient.NewListBySubscriptionPager
 // method.
 type ScheduledQueryRulesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -4077,7 +4329,7 @@ type TagsResource struct {
 	Tags map[string]*string `json:"tags,omitempty"`
 }
 
-// TenantActivityLogsClientListOptions contains the optional parameters for the TenantActivityLogsClient.List method.
+// TenantActivityLogsClientListOptions contains the optional parameters for the TenantActivityLogsClient.NewListPager method.
 type TenantActivityLogsClientListOptions struct {
 	// Reduces the set of data collected.
 	// The $filter is very restricted and allows only the following patterns.
@@ -4237,6 +4489,37 @@ type TrackedResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// TrackedResourceAutoGenerated - The resource model definition for an Azure Resource Manager tracked top level resource which
+// has 'tags' and a 'location'
+type TrackedResourceAutoGenerated struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// UserIdentityProperties - User assigned identity properties.
+type UserIdentityProperties struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string `json:"clientId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
+}
+
 // VMInsightsClientGetOnboardingStatusOptions contains the optional parameters for the VMInsightsClient.GetOnboardingStatus
 // method.
 type VMInsightsClientGetOnboardingStatusOptions struct {
@@ -4335,7 +4618,7 @@ type WebtestLocationAvailabilityCriteria struct {
 	WebTestID *string `json:"webTestId,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 }
 
 // GetMetricAlertCriteria implements the MetricAlertCriteriaClassification interface for type WebtestLocationAvailabilityCriteria.
