@@ -11,10 +11,28 @@ package armagrifood
 
 import "time"
 
+// APIProperties - Api properties.
+type APIProperties struct {
+	// Interval in minutes for which the weather data for the api needs to be refreshed.
+	APIFreshnessTimeInMinutes *int32 `json:"apiFreshnessTimeInMinutes,omitempty"`
+}
+
 // ArmAsyncOperation - Arm async operation class. Ref: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/async-operations.
 type ArmAsyncOperation struct {
+	// Arm async operation error class. Ref: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/async-api-reference.md#azure-asyncoperation-resource-format.
+	Error *ArmAsyncOperationError `json:"error,omitempty"`
+
 	// Status of the async operation.
 	Status *string `json:"status,omitempty"`
+}
+
+// ArmAsyncOperationError - Arm async operation error class. Ref: https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/async-api-reference.md#azure-asyncoperation-resource-format.
+type ArmAsyncOperationError struct {
+	// Status of the async operation.
+	Code *string `json:"code,omitempty"`
+
+	// Status of the async operation.
+	Message *string `json:"message,omitempty"`
 }
 
 // CheckNameAvailabilityRequest - The check availability request body.
@@ -59,7 +77,7 @@ type DetailedInformation struct {
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -98,7 +116,7 @@ type Extension struct {
 	// READ-ONLY; The ETag value to implement optimistic concurrency.
 	ETag *string `json:"eTag,omitempty" azure:"ro"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -109,6 +127,15 @@ type Extension struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ExtensionInstallationRequest - Extension Installation Request Body.
+type ExtensionInstallationRequest struct {
+	// Additional Api Properties.
+	AdditionalAPIProperties map[string]*APIProperties `json:"additionalApiProperties,omitempty"`
+
+	// Extension Version.
+	ExtensionVersion *string `json:"extensionVersion,omitempty"`
 }
 
 // ExtensionListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
@@ -122,6 +149,9 @@ type ExtensionListResponse struct {
 
 // ExtensionProperties - Extension resource properties.
 type ExtensionProperties struct {
+	// READ-ONLY; Additional api properties.
+	AdditionalAPIProperties map[string]*APIProperties `json:"additionalApiProperties,omitempty" azure:"ro"`
+
 	// READ-ONLY; Extension api docs link.
 	ExtensionAPIDocsLink *string `json:"extensionApiDocsLink,omitempty" azure:"ro"`
 
@@ -138,9 +168,10 @@ type ExtensionProperties struct {
 	InstalledExtensionVersion *string `json:"installedExtensionVersion,omitempty" azure:"ro"`
 }
 
-// ExtensionsClientCreateOptions contains the optional parameters for the ExtensionsClient.Create method.
-type ExtensionsClientCreateOptions struct {
-	// placeholder for future optional parameters
+// ExtensionsClientCreateOrUpdateOptions contains the optional parameters for the ExtensionsClient.CreateOrUpdate method.
+type ExtensionsClientCreateOrUpdateOptions struct {
+	// Extension resource request body.
+	RequestBody *ExtensionInstallationRequest
 }
 
 // ExtensionsClientDeleteOptions contains the optional parameters for the ExtensionsClient.Delete method.
@@ -153,7 +184,8 @@ type ExtensionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ExtensionsClientListByFarmBeatsOptions contains the optional parameters for the ExtensionsClient.ListByFarmBeats method.
+// ExtensionsClientListByFarmBeatsOptions contains the optional parameters for the ExtensionsClient.NewListByFarmBeatsPager
+// method.
 type ExtensionsClientListByFarmBeatsOptions struct {
 	// Installed extension categories.
 	ExtensionCategories []string
@@ -163,11 +195,6 @@ type ExtensionsClientListByFarmBeatsOptions struct {
 	MaxPageSize *int32
 	// Skip token for getting next set of results.
 	SkipToken *string
-}
-
-// ExtensionsClientUpdateOptions contains the optional parameters for the ExtensionsClient.Update method.
-type ExtensionsClientUpdateOptions struct {
-	// placeholder for future optional parameters
 }
 
 // FarmBeats ARM Resource.
@@ -184,7 +211,7 @@ type FarmBeats struct {
 	// Resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -202,7 +229,7 @@ type FarmBeatsExtension struct {
 	// FarmBeatsExtension properties.
 	Properties *FarmBeatsExtensionProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -265,7 +292,7 @@ type FarmBeatsExtensionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FarmBeatsExtensionsClientListOptions contains the optional parameters for the FarmBeatsExtensionsClient.List method.
+// FarmBeatsExtensionsClientListOptions contains the optional parameters for the FarmBeatsExtensionsClient.NewListPager method.
 type FarmBeatsExtensionsClientListOptions struct {
 	// Extension categories.
 	ExtensionCategories []string
@@ -305,18 +332,12 @@ type FarmBeatsModelsClientDeleteOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FarmBeatsModelsClientGetOperationResultOptions contains the optional parameters for the FarmBeatsModelsClient.GetOperationResult
-// method.
-type FarmBeatsModelsClientGetOperationResultOptions struct {
-	// placeholder for future optional parameters
-}
-
 // FarmBeatsModelsClientGetOptions contains the optional parameters for the FarmBeatsModelsClient.Get method.
 type FarmBeatsModelsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FarmBeatsModelsClientListByResourceGroupOptions contains the optional parameters for the FarmBeatsModelsClient.ListByResourceGroup
+// FarmBeatsModelsClientListByResourceGroupOptions contains the optional parameters for the FarmBeatsModelsClient.NewListByResourceGroupPager
 // method.
 type FarmBeatsModelsClientListByResourceGroupOptions struct {
 	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
@@ -325,7 +346,7 @@ type FarmBeatsModelsClientListByResourceGroupOptions struct {
 	SkipToken *string
 }
 
-// FarmBeatsModelsClientListBySubscriptionOptions contains the optional parameters for the FarmBeatsModelsClient.ListBySubscription
+// FarmBeatsModelsClientListBySubscriptionOptions contains the optional parameters for the FarmBeatsModelsClient.NewListBySubscriptionPager
 // method.
 type FarmBeatsModelsClientListBySubscriptionOptions struct {
 	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
@@ -345,11 +366,87 @@ type FarmBeatsProperties struct {
 	// READ-ONLY; Uri of the FarmBeats instance.
 	InstanceURI *string `json:"instanceUri,omitempty" azure:"ro"`
 
-	// READ-ONLY; The Private Endpoint Connection resource.
+	// READ-ONLY; The private endpoint connection resource.
 	PrivateEndpointConnections *PrivateEndpointConnection `json:"privateEndpointConnections,omitempty" azure:"ro"`
 
 	// READ-ONLY; FarmBeats instance provisioning state.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// FarmBeatsSolution - FarmBeats solution resource.
+type FarmBeatsSolution struct {
+	// FarmBeatsSolution properties.
+	Properties *FarmBeatsSolutionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// FarmBeatsSolutionListResponse - Paged response contains list of requested objects and a URL link to get the next set of
+// results.
+type FarmBeatsSolutionListResponse struct {
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string `json:"$skipToken,omitempty"`
+
+	// List of requested objects.
+	Value []*FarmBeatsSolution `json:"value,omitempty"`
+}
+
+// FarmBeatsSolutionProperties - FarmBeatsSolution properties.
+type FarmBeatsSolutionProperties struct {
+	MarketplaceOfferDetails *MarketplaceOfferDetails `json:"marketplaceOfferDetails,omitempty"`
+
+	// READ-ONLY; Application id of the multi tenant application to be used by partner to access FarmBeats data.
+	AccessFBApplicationID *string `json:"accessFBApplicationId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Application name of the multi tenant application to be used by partner to access FarmBeatsData.
+	AccessFBApplicationName *string `json:"accessFBApplicationName,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of ActionIds needed to make the SaaS multi tenant application access relevant fb data.
+	ActionIDs []*string `json:"actionIds,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets scope of the FarmBeats data access that's required for processing solution request to partner. Example:
+	// For gdd they might need weatherScope and satelliteScope.
+	DataAccessScopes []*string `json:"dataAccessScopes,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets example name: insight sample response Dictionary to capture all variations of computed results ingested
+	// by partner.
+	EvaluatedOutputsDictionary map[string]*SolutionEvaluatedOutput `json:"evaluatedOutputsDictionary,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets scope of the FarmBeats related parameters that need to be validated in apiInputParameters. Example: For
+	// if 'FarmHierarchy' is the input scope for 'WeatherScope' data access For working with
+	// WeatherScope we need FarmHierarchy info implies 'farmerId', 'resourceId', 'resourceType' in request body.
+	InputParametersValidationScopes []*ResourceParameter `json:"inputParametersValidationScopes,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets apiVersion: Swagger Document Dictionary to capture all api versions of swagger exposed by partner to farmbeats.
+	OpenAPISpecsDictionary map[string]any `json:"openApiSpecsDictionary,omitempty" azure:"ro"`
+
+	// READ-ONLY; Solution Partner Id.
+	PartnerID *string `json:"partnerId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Solution Partner Tenant Id.
+	PartnerTenantID *string `json:"partnerTenantId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Role Id of the SaaS multi tenant application to access relevant fb data.
+	RoleID *string `json:"roleId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Role Name of the SaaS multi tenant application to access relevant fb data.
+	RoleName *string `json:"roleName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Application id of the SaaS multi tenant application.
+	SaaSApplicationID *string `json:"saaSApplicationId,omitempty" azure:"ro"`
 }
 
 // FarmBeatsUpdateProperties - FarmBeats ARM Resource properties.
@@ -381,17 +478,67 @@ type Identity struct {
 	// The identity type.
 	Type *string `json:"type,omitempty"`
 
-	// READ-ONLY; The principal ID of resource identity.
+	// READ-ONLY; The principal ID of resource identity. The value must be an UUID.
 	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
 
-	// READ-ONLY; The tenant ID of resource.
+	// READ-ONLY; The tenant ID of resource. The value must be an UUID.
 	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+}
+
+type Insight struct {
+	CreatedDateTime      *time.Time `json:"createdDateTime,omitempty"`
+	Description          *string    `json:"description,omitempty"`
+	ETag                 *string    `json:"eTag,omitempty"`
+	FarmerID             *string    `json:"farmerId,omitempty"`
+	ID                   *string    `json:"id,omitempty"`
+	InsightEndDateTime   *time.Time `json:"insightEndDateTime,omitempty"`
+	InsightStartDateTime *time.Time `json:"insightStartDateTime,omitempty"`
+
+	// Dictionary of
+	Measures         map[string]*Measure `json:"measures,omitempty"`
+	ModelID          *string             `json:"modelId,omitempty"`
+	ModelVersion     *string             `json:"modelVersion,omitempty"`
+	ModifiedDateTime *time.Time          `json:"modifiedDateTime,omitempty"`
+	Name             *string             `json:"name,omitempty"`
+
+	// Dictionary of
+	Properties   map[string]any `json:"properties,omitempty"`
+	ResourceID   *string        `json:"resourceId,omitempty"`
+	ResourceType *string        `json:"resourceType,omitempty"`
+	Status       *string        `json:"status,omitempty"`
+}
+
+type InsightAttachment struct {
+	CreatedDateTime  *time.Time `json:"createdDateTime,omitempty"`
+	Description      *string    `json:"description,omitempty"`
+	ETag             *string    `json:"eTag,omitempty"`
+	FarmerID         *string    `json:"farmerId,omitempty"`
+	FileLink         *string    `json:"fileLink,omitempty"`
+	ID               *string    `json:"id,omitempty"`
+	InsightID        *string    `json:"insightId,omitempty"`
+	ModelID          *string    `json:"modelId,omitempty"`
+	ModifiedDateTime *time.Time `json:"modifiedDateTime,omitempty"`
+	Name             *string    `json:"name,omitempty"`
+	OriginalFileName *string    `json:"originalFileName,omitempty"`
+	ResourceID       *string    `json:"resourceId,omitempty"`
+	ResourceType     *string    `json:"resourceType,omitempty"`
+	Status           *string    `json:"status,omitempty"`
 }
 
 // LocationsClientCheckNameAvailabilityOptions contains the optional parameters for the LocationsClient.CheckNameAvailability
 // method.
 type LocationsClientCheckNameAvailabilityOptions struct {
 	// placeholder for future optional parameters
+}
+
+type MarketplaceOfferDetails struct {
+	PublisherID *string `json:"publisherId,omitempty"`
+	SaasOfferID *string `json:"saasOfferId,omitempty"`
+}
+
+type Measure struct {
+	Unit  *string  `json:"unit,omitempty"`
+	Value *float64 `json:"value,omitempty"`
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -443,23 +590,28 @@ type OperationListResult struct {
 	Value []*Operation `json:"value,omitempty" azure:"ro"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationResultsClientGetOptions contains the optional parameters for the OperationResultsClient.Get method.
+type OperationResultsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpoint - The Private Endpoint resource.
+// PrivateEndpoint - The private endpoint resource.
 type PrivateEndpoint struct {
-	// READ-ONLY; The ARM identifier for Private Endpoint
+	// READ-ONLY; The ARM identifier for private endpoint.
 	ID *string `json:"id,omitempty" azure:"ro"`
 }
 
-// PrivateEndpointConnection - The Private Endpoint Connection resource.
+// PrivateEndpointConnection - The private endpoint connection resource.
 type PrivateEndpointConnection struct {
 	// Resource properties.
 	Properties *PrivateEndpointConnectionProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -472,19 +624,22 @@ type PrivateEndpointConnection struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// PrivateEndpointConnectionListResult - List of private endpoint connection associated with the specified storage account
+// PrivateEndpointConnectionListResult - List of private endpoint connections associated with the specified resource.
 type PrivateEndpointConnectionListResult struct {
-	// Array of private endpoint connections
+	// Array of private endpoint connections.
 	Value []*PrivateEndpointConnection `json:"value,omitempty"`
 }
 
-// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+// PrivateEndpointConnectionProperties - Properties of the private endpoint connection.
 type PrivateEndpointConnectionProperties struct {
 	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
 	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
 
-	// The resource of private end point.
+	// The private endpoint resource.
 	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
+
+	// READ-ONLY; The group ids for the private endpoint resource.
+	GroupIDs []*string `json:"groupIds,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of the private endpoint connection resource.
 	ProvisioningState *PrivateEndpointConnectionProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -509,18 +664,18 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListByResourceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.ListByResource
+// PrivateEndpointConnectionsClientListByResourceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByResourcePager
 // method.
 type PrivateEndpointConnectionsClientListByResourceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResource - A private link resource
+// PrivateLinkResource - A private link resource.
 type PrivateLinkResource struct {
 	// Resource properties.
 	Properties *PrivateLinkResourceProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -533,7 +688,7 @@ type PrivateLinkResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// PrivateLinkResourceListResult - A list of private link resources
+// PrivateLinkResourceListResult - A list of private link resources.
 type PrivateLinkResourceListResult struct {
 	// Array of private link resources
 	Value []*PrivateLinkResource `json:"value,omitempty"`
@@ -541,7 +696,7 @@ type PrivateLinkResourceListResult struct {
 
 // PrivateLinkResourceProperties - Properties of a private link resource.
 type PrivateLinkResourceProperties struct {
-	// The private link resource Private link DNS zone name.
+	// The private link resource private link DNS zone name.
 	RequiredZoneNames []*string `json:"requiredZoneNames,omitempty"`
 
 	// READ-ONLY; The private link resource group id.
@@ -556,7 +711,7 @@ type PrivateLinkResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateLinkResourcesClientListByResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.ListByResource
+// PrivateLinkResourcesClientListByResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByResourcePager
 // method.
 type PrivateLinkResourcesClientListByResourceOptions struct {
 	// placeholder for future optional parameters
@@ -578,7 +733,7 @@ type PrivateLinkServiceConnectionState struct {
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -593,7 +748,7 @@ type ProxyResource struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
@@ -604,6 +759,11 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+type ResourceParameter struct {
+	ResourceIDName *string `json:"resourceIdName,omitempty"`
+	ResourceType   *string `json:"resourceType,omitempty"`
 }
 
 // SensorIntegration - Sensor integration request model.
@@ -617,6 +777,138 @@ type SensorIntegration struct {
 
 	// READ-ONLY; Sensor integration instance provisioning state.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// Solution resource.
+type Solution struct {
+	// Solution resource properties.
+	Properties *SolutionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; The ETag value to implement optimistic concurrency.
+	ETag *string `json:"eTag,omitempty" azure:"ro"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+type SolutionEvaluatedOutput struct {
+	InsightAttachmentResponse *InsightAttachment `json:"insightAttachmentResponse,omitempty"`
+	InsightResponse           *Insight           `json:"insightResponse,omitempty"`
+}
+
+// SolutionInstallationRequest - Solution Installation Request Body.
+type SolutionInstallationRequest struct {
+	// Solution resource properties.
+	Properties *SolutionProperties `json:"properties,omitempty"`
+}
+
+// SolutionListResponse - Paged response contains list of requested objects and a URL link to get the next set of results.
+type SolutionListResponse struct {
+	// Continuation link (absolute URI) to the next page of results in the list.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Token used in retrieving the next page. If null, there are no additional pages.
+	SkipToken *string `json:"$skipToken,omitempty"`
+
+	// List of requested objects.
+	Value []*Solution `json:"value,omitempty"`
+}
+
+// SolutionProperties - Solution resource properties.
+type SolutionProperties struct {
+	// REQUIRED; SaaS application Publisher Id.
+	MarketplacePublisherID *string `json:"marketplacePublisherId,omitempty"`
+
+	// REQUIRED; SaaS application Offer Id.
+	OfferID *string `json:"offerId,omitempty"`
+
+	// REQUIRED; SaaS application Plan Id.
+	PlanID *string `json:"planId,omitempty"`
+
+	// REQUIRED; SaaS subscriptionId of the installed SaaS application.
+	SaasSubscriptionID *string `json:"saasSubscriptionId,omitempty"`
+
+	// REQUIRED; SaaS subscription name of the installed SaaS application.
+	SaasSubscriptionName *string `json:"saasSubscriptionName,omitempty"`
+
+	// REQUIRED; SaaS application Term Id.
+	TermID *string `json:"termId,omitempty"`
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// READ-ONLY; Partner Id of the Solution.
+	PartnerID *string `json:"partnerId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Solution Id.
+	SolutionID *string `json:"solutionId,omitempty" azure:"ro"`
+}
+
+// SolutionsClientCreateOrUpdateOptions contains the optional parameters for the SolutionsClient.CreateOrUpdate method.
+type SolutionsClientCreateOrUpdateOptions struct {
+	// Solution resource request body.
+	Body *SolutionInstallationRequest
+}
+
+// SolutionsClientDeleteOptions contains the optional parameters for the SolutionsClient.Delete method.
+type SolutionsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsClientGetOptions contains the optional parameters for the SolutionsClient.Get method.
+type SolutionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsClientListOptions contains the optional parameters for the SolutionsClient.NewListPager method.
+type SolutionsClientListOptions struct {
+	// Ids of the resource.
+	IDs []string
+	// Maximum creation date of resource (inclusive).
+	MaxCreatedDateTime *time.Time
+	// Maximum last modified date of resource (inclusive).
+	MaxLastModifiedDateTime *time.Time
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
+	// Minimum creation date of resource (inclusive).
+	MinCreatedDateTime *time.Time
+	// Minimum last modified date of resource (inclusive).
+	MinLastModifiedDateTime *time.Time
+	// Names of the resource.
+	Names []string
+	// Filters on key-value pairs within the Properties object. eg. "{testKey} eq {testValue}".
+	PropertyFilters []string
+	// Skip token for getting next set of results.
+	SkipToken *string
+	// Installed Solution ids.
+	SolutionIDs []string
+	// Statuses of the resource.
+	Statuses []string
+}
+
+// SolutionsDiscoverabilityClientGetOptions contains the optional parameters for the SolutionsDiscoverabilityClient.Get method.
+type SolutionsDiscoverabilityClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SolutionsDiscoverabilityClientListOptions contains the optional parameters for the SolutionsDiscoverabilityClient.NewListPager
+// method.
+type SolutionsDiscoverabilityClientListOptions struct {
+	// Ids of FarmBeats Solutions which the customer requests to fetch.
+	FarmBeatsSolutionIDs []string
+	// Names of FarmBeats Solutions which the customer requests to fetch.
+	FarmBeatsSolutionNames []string
+	// Maximum number of items needed (inclusive). Minimum = 10, Maximum = 1000, Default value = 50.
+	MaxPageSize *int32
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -649,7 +941,7 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
