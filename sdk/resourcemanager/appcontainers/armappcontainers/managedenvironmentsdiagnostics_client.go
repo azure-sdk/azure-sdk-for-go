@@ -32,9 +32,9 @@ type ManagedEnvironmentsDiagnosticsClient struct {
 }
 
 // NewManagedEnvironmentsDiagnosticsClient creates a new instance of ManagedEnvironmentsDiagnosticsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewManagedEnvironmentsDiagnosticsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagedEnvironmentsDiagnosticsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewManagedEnvironmentsDiagnosticsClient(subscriptionID string, credential a
 
 // GetRoot - Get the properties of a Managed Environment used to host container apps.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// environmentName - Name of the Environment.
-// options - ManagedEnvironmentsDiagnosticsClientGetRootOptions contains the optional parameters for the ManagedEnvironmentsDiagnosticsClient.GetRoot
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - environmentName - Name of the Environment.
+//   - options - ManagedEnvironmentsDiagnosticsClientGetRootOptions contains the optional parameters for the ManagedEnvironmentsDiagnosticsClient.GetRoot
+//     method.
 func (client *ManagedEnvironmentsDiagnosticsClient) GetRoot(ctx context.Context, resourceGroupName string, environmentName string, options *ManagedEnvironmentsDiagnosticsClientGetRootOptions) (ManagedEnvironmentsDiagnosticsClientGetRootResponse, error) {
 	req, err := client.getRootCreateRequest(ctx, resourceGroupName, environmentName, options)
 	if err != nil {
@@ -97,7 +98,7 @@ func (client *ManagedEnvironmentsDiagnosticsClient) getRootCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -1,5 +1,89 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-02-20)
+### Breaking Changes
+
+- Type of `CustomDomainConfiguration.CertificatePassword` has been changed from `[]byte` to `*string`
+- Type of `DaprSecretsCollection.Value` has been changed from `[]*Secret` to `[]*DaprSecret`
+- Type alias `ManagedEnvironmentOutBoundType` has been removed
+- Type alias `SKUName` has been removed
+- Struct `EnvironmentSKUProperties` has been removed
+- Struct `ManagedEnvironmentOutboundSettings` has been removed
+- Field `SKU` of struct `ManagedEnvironment` has been removed
+- Field `OutboundSettings` of struct `VnetConfiguration` has been removed
+- Field `RuntimeSubnetID` of struct `VnetConfiguration` has been removed
+
+### Features Added
+
+- New type alias `Affinity` with values `AffinityNone`, `AffinitySticky`
+- New type alias `IngressClientCertificateMode` with values `IngressClientCertificateModeAccept`, `IngressClientCertificateModeIgnore`, `IngressClientCertificateModeRequire`
+- New type alias `JobExecutionRunningState` with values `JobExecutionRunningStateDegraded`, `JobExecutionRunningStateFailed`, `JobExecutionRunningStateProcessing`, `JobExecutionRunningStateRunning`, `JobExecutionRunningStateStopped`, `JobExecutionRunningStateUnknown`
+- New type alias `JobProvisioningState` with values `JobProvisioningStateCanceled`, `JobProvisioningStateDeleting`, `JobProvisioningStateFailed`, `JobProvisioningStateInProgress`, `JobProvisioningStateSucceeded`
+- New type alias `ManagedCertificateDomainControlValidation` with values `ManagedCertificateDomainControlValidationCNAME`, `ManagedCertificateDomainControlValidationHTTP`, `ManagedCertificateDomainControlValidationTXT`
+- New type alias `TriggerType` with values `TriggerTypeEvent`, `TriggerTypeManual`, `TriggerTypeScheduled`
+- New function `NewJobClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobClient, error)`
+- New function `*JobClient.BeginCreateOrUpdate(context.Context, string, string, Job, *JobClientBeginCreateOrUpdateOptions) (*runtime.Poller[JobClientCreateOrUpdateResponse], error)`
+- New function `*JobClient.BeginDelete(context.Context, string, string, *JobClientBeginDeleteOptions) (*runtime.Poller[JobClientDeleteResponse], error)`
+- New function `*JobClient.BeginExecutions(context.Context, string, string, *JobClientBeginExecutionsOptions) (*runtime.Poller[*runtime.Pager[JobClientExecutionsResponse]], error)`
+- New function `*JobClient.Get(context.Context, string, string, *JobClientGetOptions) (JobClientGetResponse, error)`
+- New function `*JobClient.BeginRun(context.Context, string, string, JobExecutionTemplate, *JobClientBeginRunOptions) (*runtime.Poller[JobClientRunResponse], error)`
+- New function `*JobClient.BeginUpdate(context.Context, string, string, JobPatchProperties, *JobClientBeginUpdateOptions) (*runtime.Poller[JobClientUpdateResponse], error)`
+- New function `NewJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*JobsClient, error)`
+- New function `*JobsClient.NewListByResourceGroupPager(string, *JobsClientListByResourceGroupOptions) *runtime.Pager[JobsClientListByResourceGroupResponse]`
+- New function `*JobsClient.NewListBySubscriptionPager(*JobsClientListBySubscriptionOptions) *runtime.Pager[JobsClientListBySubscriptionResponse]`
+- New function `*JobsClient.ListSecrets(context.Context, string, string, *JobsClientListSecretsOptions) (JobsClientListSecretsResponse, error)`
+- New function `*JobsClient.BeginStopExecution(context.Context, string, string, string, *JobsClientBeginStopExecutionOptions) (*runtime.Poller[JobsClientStopExecutionResponse], error)`
+- New function `*JobsClient.BeginStopMultipleExecutions(context.Context, string, string, JobExecutionNamesCollection, *JobsClientBeginStopMultipleExecutionsOptions) (*runtime.Poller[JobsClientStopMultipleExecutionsResponse], error)`
+- New function `NewManagedCertificatesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ManagedCertificatesClient, error)`
+- New function `*ManagedCertificatesClient.BeginCreateOrUpdate(context.Context, string, string, string, *ManagedCertificatesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ManagedCertificatesClientCreateOrUpdateResponse], error)`
+- New function `*ManagedCertificatesClient.Delete(context.Context, string, string, string, *ManagedCertificatesClientDeleteOptions) (ManagedCertificatesClientDeleteResponse, error)`
+- New function `*ManagedCertificatesClient.Get(context.Context, string, string, string, *ManagedCertificatesClientGetOptions) (ManagedCertificatesClientGetResponse, error)`
+- New function `*ManagedCertificatesClient.NewListPager(string, string, *ManagedCertificatesClientListOptions) *runtime.Pager[ManagedCertificatesClientListResponse]`
+- New function `*ManagedCertificatesClient.Update(context.Context, string, string, string, ManagedCertificatePatch, *ManagedCertificatesClientUpdateOptions) (ManagedCertificatesClientUpdateResponse, error)`
+- New struct `ContainerAppJobExecutions`
+- New struct `CorsPolicy`
+- New struct `DaprConfiguration`
+- New struct `IngressStickySessions`
+- New struct `Job`
+- New struct `JobClient`
+- New struct `JobClientExecutionsResponse`
+- New struct `JobConfiguration`
+- New struct `JobConfigurationManualTriggerConfig`
+- New struct `JobConfigurationScheduleTriggerConfig`
+- New struct `JobExecution`
+- New struct `JobExecutionBase`
+- New struct `JobExecutionContainer`
+- New struct `JobExecutionNamesCollection`
+- New struct `JobExecutionTemplate`
+- New struct `JobPatchProperties`
+- New struct `JobPatchPropertiesProperties`
+- New struct `JobProperties`
+- New struct `JobSecretsCollection`
+- New struct `JobTemplate`
+- New struct `JobsClient`
+- New struct `JobsCollection`
+- New struct `KedaConfiguration`
+- New struct `ManagedCertificate`
+- New struct `ManagedCertificateCollection`
+- New struct `ManagedCertificatePatch`
+- New struct `ManagedCertificateProperties`
+- New struct `ManagedCertificatesClient`
+- New field `ManagedBy` in struct `ContainerApp`
+- New field `LatestReadyRevisionName` in struct `ContainerAppProperties`
+- New field `Identity` in struct `ContainerAppSecret`
+- New field `KeyVaultURL` in struct `ContainerAppSecret`
+- New anonymous field `ContainerApp` in struct `ContainerAppsClientUpdateResponse`
+- New field `ClientCertificateMode` in struct `Ingress`
+- New field `CorsPolicy` in struct `Ingress`
+- New field `StickySessions` in struct `Ingress`
+- New field `Kind` in struct `ManagedEnvironment`
+- New field `DaprConfiguration` in struct `ManagedEnvironmentProperties`
+- New field `KedaConfiguration` in struct `ManagedEnvironmentProperties`
+- New anonymous field `ManagedEnvironment` in struct `ManagedEnvironmentsClientUpdateResponse`
+- New field `Identity` in struct `Secret`
+- New field `KeyVaultURL` in struct `Secret`
+
+
 ## 2.0.0-beta.1 (2022-10-06)
 ### Breaking Changes
 
