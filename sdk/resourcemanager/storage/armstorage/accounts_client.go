@@ -32,9 +32,9 @@ type AccountsClient struct {
 }
 
 // NewAccountsClient creates a new instance of AccountsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAccountsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AccountsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewAccountsClient(subscriptionID string, credential azcore.TokenCredential,
 
 // BeginAbortHierarchicalNamespaceMigration - Abort live Migration of storage account to enable Hns
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - AccountsClientBeginAbortHierarchicalNamespaceMigrationOptions contains the optional parameters for the AccountsClient.BeginAbortHierarchicalNamespaceMigration
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - AccountsClientBeginAbortHierarchicalNamespaceMigrationOptions contains the optional parameters for the AccountsClient.BeginAbortHierarchicalNamespaceMigration
+//     method.
 func (client *AccountsClient) BeginAbortHierarchicalNamespaceMigration(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginAbortHierarchicalNamespaceMigrationOptions) (*runtime.Poller[AccountsClientAbortHierarchicalNamespaceMigrationResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.abortHierarchicalNamespaceMigration(ctx, resourceGroupName, accountName, options)
@@ -79,6 +80,7 @@ func (client *AccountsClient) BeginAbortHierarchicalNamespaceMigration(ctx conte
 
 // AbortHierarchicalNamespaceMigration - Abort live Migration of storage account to enable Hns
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
 func (client *AccountsClient) abortHierarchicalNamespaceMigration(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginAbortHierarchicalNamespaceMigrationOptions) (*http.Response, error) {
 	req, err := client.abortHierarchicalNamespaceMigrationCreateRequest(ctx, resourceGroupName, accountName, options)
@@ -123,11 +125,12 @@ func (client *AccountsClient) abortHierarchicalNamespaceMigrationCreateRequest(c
 
 // CheckNameAvailability - Checks that the storage account name is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - AccountsClientCheckNameAvailabilityOptions contains the optional parameters for the AccountsClient.CheckNameAvailability
-// method.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - AccountsClientCheckNameAvailabilityOptions contains the optional parameters for the AccountsClient.CheckNameAvailability
+//     method.
 func (client *AccountsClient) CheckNameAvailability(ctx context.Context, accountName AccountCheckNameAvailabilityParameters, options *AccountsClientCheckNameAvailabilityOptions) (AccountsClientCheckNameAvailabilityResponse, error) {
 	req, err := client.checkNameAvailabilityCreateRequest(ctx, accountName, options)
 	if err != nil {
@@ -175,12 +178,13 @@ func (client *AccountsClient) checkNameAvailabilityHandleResponse(resp *http.Res
 // will be updated. If an account is already created and a subsequent create or update request is issued with the exact same
 // set of properties, the request will succeed.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// parameters - The parameters to provide for the created account.
-// options - AccountsClientBeginCreateOptions contains the optional parameters for the AccountsClient.BeginCreate method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - parameters - The parameters to provide for the created account.
+//   - options - AccountsClientBeginCreateOptions contains the optional parameters for the AccountsClient.BeginCreate method.
 func (client *AccountsClient) BeginCreate(ctx context.Context, resourceGroupName string, accountName string, parameters AccountCreateParameters, options *AccountsClientBeginCreateOptions) (*runtime.Poller[AccountsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, accountName, parameters, options)
@@ -198,6 +202,7 @@ func (client *AccountsClient) BeginCreate(ctx context.Context, resourceGroupName
 // will be updated. If an account is already created and a subsequent create or update request is issued with the exact same
 // set of properties, the request will succeed.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
 func (client *AccountsClient) create(ctx context.Context, resourceGroupName string, accountName string, parameters AccountCreateParameters, options *AccountsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
@@ -242,11 +247,12 @@ func (client *AccountsClient) createCreateRequest(ctx context.Context, resourceG
 
 // Delete - Deletes a storage account in Microsoft Azure.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - AccountsClientDeleteOptions contains the optional parameters for the AccountsClient.Delete method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - AccountsClientDeleteOptions contains the optional parameters for the AccountsClient.Delete method.
 func (client *AccountsClient) Delete(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientDeleteOptions) (AccountsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -297,11 +303,12 @@ func (client *AccountsClient) deleteCreateRequest(ctx context.Context, resourceG
 // drills. This type of failover is invoked by setting FailoverType parameter to
 // 'Planned'. Learn more about the failover options here- https://learn.microsoft.com/en-us/azure/storage/common/storage-disaster-recovery-guidance
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - AccountsClientBeginFailoverOptions contains the optional parameters for the AccountsClient.BeginFailover method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - AccountsClientBeginFailoverOptions contains the optional parameters for the AccountsClient.BeginFailover method.
 func (client *AccountsClient) BeginFailover(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginFailoverOptions) (*runtime.Poller[AccountsClientFailoverResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.failover(ctx, resourceGroupName, accountName, options)
@@ -326,6 +333,7 @@ func (client *AccountsClient) BeginFailover(ctx context.Context, resourceGroupNa
 // drills. This type of failover is invoked by setting FailoverType parameter to
 // 'Planned'. Learn more about the failover options here- https://learn.microsoft.com/en-us/azure/storage/common/storage-disaster-recovery-guidance
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
 func (client *AccountsClient) failover(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientBeginFailoverOptions) (*http.Response, error) {
 	req, err := client.failoverCreateRequest(ctx, resourceGroupName, accountName, options)
@@ -373,11 +381,12 @@ func (client *AccountsClient) failoverCreateRequest(ctx context.Context, resourc
 // GetProperties - Returns the properties for the specified storage account including but not limited to name, SKU name, location,
 // and account status. The ListKeys operation should be used to retrieve storage keys.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - AccountsClientGetPropertiesOptions contains the optional parameters for the AccountsClient.GetProperties method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - AccountsClientGetPropertiesOptions contains the optional parameters for the AccountsClient.GetProperties method.
 func (client *AccountsClient) GetProperties(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientGetPropertiesOptions) (AccountsClientGetPropertiesResponse, error) {
 	req, err := client.getPropertiesCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -433,15 +442,16 @@ func (client *AccountsClient) getPropertiesHandleResponse(resp *http.Response) (
 
 // BeginHierarchicalNamespaceMigration - Live Migration of storage account to enable Hns
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// requestType - Required. Hierarchical namespace migration type can either be a hierarchical namespace validation request
-// 'HnsOnValidationRequest' or a hydration request 'HnsOnHydrationRequest'. The validation
-// request will validate the migration whereas the hydration request will migrate the account.
-// options - AccountsClientBeginHierarchicalNamespaceMigrationOptions contains the optional parameters for the AccountsClient.BeginHierarchicalNamespaceMigration
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - requestType - Required. Hierarchical namespace migration type can either be a hierarchical namespace validation request
+//     'HnsOnValidationRequest' or a hydration request 'HnsOnHydrationRequest'. The validation
+//     request will validate the migration whereas the hydration request will migrate the account.
+//   - options - AccountsClientBeginHierarchicalNamespaceMigrationOptions contains the optional parameters for the AccountsClient.BeginHierarchicalNamespaceMigration
+//     method.
 func (client *AccountsClient) BeginHierarchicalNamespaceMigration(ctx context.Context, resourceGroupName string, accountName string, requestType string, options *AccountsClientBeginHierarchicalNamespaceMigrationOptions) (*runtime.Poller[AccountsClientHierarchicalNamespaceMigrationResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.hierarchicalNamespaceMigration(ctx, resourceGroupName, accountName, requestType, options)
@@ -458,6 +468,7 @@ func (client *AccountsClient) BeginHierarchicalNamespaceMigration(ctx context.Co
 
 // HierarchicalNamespaceMigration - Live Migration of storage account to enable Hns
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
 func (client *AccountsClient) hierarchicalNamespaceMigration(ctx context.Context, resourceGroupName string, accountName string, requestType string, options *AccountsClientBeginHierarchicalNamespaceMigrationOptions) (*http.Response, error) {
 	req, err := client.hierarchicalNamespaceMigrationCreateRequest(ctx, resourceGroupName, accountName, requestType, options)
@@ -503,8 +514,9 @@ func (client *AccountsClient) hierarchicalNamespaceMigrationCreateRequest(ctx co
 
 // NewListPager - Lists all the storage accounts available under the subscription. Note that storage keys are not returned;
 // use the ListKeys operation for this.
+//
 // Generated from API version 2022-09-01
-// options - AccountsClientListOptions contains the optional parameters for the AccountsClient.List method.
+//   - options - AccountsClientListOptions contains the optional parameters for the AccountsClient.NewListPager method.
 func (client *AccountsClient) NewListPager(options *AccountsClientListOptions) *runtime.Pager[AccountsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AccountsClientListResponse]{
 		More: func(page AccountsClientListResponse) bool {
@@ -562,12 +574,13 @@ func (client *AccountsClient) listHandleResponse(resp *http.Response) (AccountsC
 
 // ListAccountSAS - List SAS credentials of a storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// parameters - The parameters to provide to list SAS credentials for the storage account.
-// options - AccountsClientListAccountSASOptions contains the optional parameters for the AccountsClient.ListAccountSAS method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - parameters - The parameters to provide to list SAS credentials for the storage account.
+//   - options - AccountsClientListAccountSASOptions contains the optional parameters for the AccountsClient.ListAccountSAS method.
 func (client *AccountsClient) ListAccountSAS(ctx context.Context, resourceGroupName string, accountName string, parameters AccountSasParameters, options *AccountsClientListAccountSASOptions) (AccountsClientListAccountSASResponse, error) {
 	req, err := client.listAccountSASCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
 	if err != nil {
@@ -620,10 +633,11 @@ func (client *AccountsClient) listAccountSASHandleResponse(resp *http.Response) 
 
 // NewListByResourceGroupPager - Lists all the storage accounts available under the given resource group. Note that storage
 // keys are not returned; use the ListKeys operation for this.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - AccountsClientListByResourceGroupOptions contains the optional parameters for the AccountsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - AccountsClientListByResourceGroupOptions contains the optional parameters for the AccountsClient.NewListByResourceGroupPager
+//     method.
 func (client *AccountsClient) NewListByResourceGroupPager(resourceGroupName string, options *AccountsClientListByResourceGroupOptions) *runtime.Pager[AccountsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AccountsClientListByResourceGroupResponse]{
 		More: func(page AccountsClientListByResourceGroupResponse) bool {
@@ -685,11 +699,12 @@ func (client *AccountsClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // ListKeys - Lists the access keys or Kerberos keys (if active directory enabled) for the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - AccountsClientListKeysOptions contains the optional parameters for the AccountsClient.ListKeys method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - AccountsClientListKeysOptions contains the optional parameters for the AccountsClient.ListKeys method.
 func (client *AccountsClient) ListKeys(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientListKeysOptions) (AccountsClientListKeysResponse, error) {
 	req, err := client.listKeysCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -745,12 +760,13 @@ func (client *AccountsClient) listKeysHandleResponse(resp *http.Response) (Accou
 
 // ListServiceSAS - List service SAS credentials of a specific resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// parameters - The parameters to provide to list service SAS credentials.
-// options - AccountsClientListServiceSASOptions contains the optional parameters for the AccountsClient.ListServiceSAS method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - parameters - The parameters to provide to list service SAS credentials.
+//   - options - AccountsClientListServiceSASOptions contains the optional parameters for the AccountsClient.ListServiceSAS method.
 func (client *AccountsClient) ListServiceSAS(ctx context.Context, resourceGroupName string, accountName string, parameters ServiceSasParameters, options *AccountsClientListServiceSASOptions) (AccountsClientListServiceSASResponse, error) {
 	req, err := client.listServiceSASCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
 	if err != nil {
@@ -803,12 +819,13 @@ func (client *AccountsClient) listServiceSASHandleResponse(resp *http.Response) 
 
 // RegenerateKey - Regenerates one of the access keys or Kerberos keys for the specified storage account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// regenerateKey - Specifies name of the key which should be regenerated -- key1, key2, kerb1, kerb2.
-// options - AccountsClientRegenerateKeyOptions contains the optional parameters for the AccountsClient.RegenerateKey method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - regenerateKey - Specifies name of the key which should be regenerated -- key1, key2, kerb1, kerb2.
+//   - options - AccountsClientRegenerateKeyOptions contains the optional parameters for the AccountsClient.RegenerateKey method.
 func (client *AccountsClient) RegenerateKey(ctx context.Context, resourceGroupName string, accountName string, regenerateKey AccountRegenerateKeyParameters, options *AccountsClientRegenerateKeyOptions) (AccountsClientRegenerateKeyResponse, error) {
 	req, err := client.regenerateKeyCreateRequest(ctx, resourceGroupName, accountName, regenerateKey, options)
 	if err != nil {
@@ -861,13 +878,14 @@ func (client *AccountsClient) regenerateKeyHandleResponse(resp *http.Response) (
 
 // BeginRestoreBlobRanges - Restore blobs in the specified blob ranges
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// parameters - The parameters to provide for restore blob ranges.
-// options - AccountsClientBeginRestoreBlobRangesOptions contains the optional parameters for the AccountsClient.BeginRestoreBlobRanges
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - parameters - The parameters to provide for restore blob ranges.
+//   - options - AccountsClientBeginRestoreBlobRangesOptions contains the optional parameters for the AccountsClient.BeginRestoreBlobRanges
+//     method.
 func (client *AccountsClient) BeginRestoreBlobRanges(ctx context.Context, resourceGroupName string, accountName string, parameters BlobRestoreParameters, options *AccountsClientBeginRestoreBlobRangesOptions) (*runtime.Poller[AccountsClientRestoreBlobRangesResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.restoreBlobRanges(ctx, resourceGroupName, accountName, parameters, options)
@@ -884,6 +902,7 @@ func (client *AccountsClient) BeginRestoreBlobRanges(ctx context.Context, resour
 
 // RestoreBlobRanges - Restore blobs in the specified blob ranges
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
 func (client *AccountsClient) restoreBlobRanges(ctx context.Context, resourceGroupName string, accountName string, parameters BlobRestoreParameters, options *AccountsClientBeginRestoreBlobRangesOptions) (*http.Response, error) {
 	req, err := client.restoreBlobRangesCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
@@ -928,12 +947,13 @@ func (client *AccountsClient) restoreBlobRangesCreateRequest(ctx context.Context
 
 // RevokeUserDelegationKeys - Revoke user delegation keys.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - AccountsClientRevokeUserDelegationKeysOptions contains the optional parameters for the AccountsClient.RevokeUserDelegationKeys
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - AccountsClientRevokeUserDelegationKeysOptions contains the optional parameters for the AccountsClient.RevokeUserDelegationKeys
+//     method.
 func (client *AccountsClient) RevokeUserDelegationKeys(ctx context.Context, resourceGroupName string, accountName string, options *AccountsClientRevokeUserDelegationKeysOptions) (AccountsClientRevokeUserDelegationKeysResponse, error) {
 	req, err := client.revokeUserDelegationKeysCreateRequest(ctx, resourceGroupName, accountName, options)
 	if err != nil {
@@ -982,12 +1002,13 @@ func (client *AccountsClient) revokeUserDelegationKeysCreateRequest(ctx context.
 // want to change the storage account keys, use the regenerate keys operation. The
 // location and name of the storage account cannot be changed after creation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// parameters - The parameters to provide for the updated account.
-// options - AccountsClientUpdateOptions contains the optional parameters for the AccountsClient.Update method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - parameters - The parameters to provide for the updated account.
+//   - options - AccountsClientUpdateOptions contains the optional parameters for the AccountsClient.Update method.
 func (client *AccountsClient) Update(ctx context.Context, resourceGroupName string, accountName string, parameters AccountUpdateParameters, options *AccountsClientUpdateOptions) (AccountsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, parameters, options)
 	if err != nil {

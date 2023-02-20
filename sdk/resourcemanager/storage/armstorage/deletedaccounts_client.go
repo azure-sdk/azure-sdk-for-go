@@ -32,9 +32,9 @@ type DeletedAccountsClient struct {
 }
 
 // NewDeletedAccountsClient creates a new instance of DeletedAccountsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDeletedAccountsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DeletedAccountsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewDeletedAccountsClient(subscriptionID string, credential azcore.TokenCred
 
 // Get - Get properties of specified deleted account resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// deletedAccountName - Name of the deleted storage account.
-// location - The location of the deleted storage account.
-// options - DeletedAccountsClientGetOptions contains the optional parameters for the DeletedAccountsClient.Get method.
+//   - deletedAccountName - Name of the deleted storage account.
+//   - location - The location of the deleted storage account.
+//   - options - DeletedAccountsClientGetOptions contains the optional parameters for the DeletedAccountsClient.Get method.
 func (client *DeletedAccountsClient) Get(ctx context.Context, deletedAccountName string, location string, options *DeletedAccountsClientGetOptions) (DeletedAccountsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, deletedAccountName, location, options)
 	if err != nil {
@@ -112,8 +113,10 @@ func (client *DeletedAccountsClient) getHandleResponse(resp *http.Response) (Del
 }
 
 // NewListPager - Lists deleted accounts under the subscription.
+//
 // Generated from API version 2022-09-01
-// options - DeletedAccountsClientListOptions contains the optional parameters for the DeletedAccountsClient.List method.
+//   - options - DeletedAccountsClientListOptions contains the optional parameters for the DeletedAccountsClient.NewListPager
+//     method.
 func (client *DeletedAccountsClient) NewListPager(options *DeletedAccountsClientListOptions) *runtime.Pager[DeletedAccountsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DeletedAccountsClientListResponse]{
 		More: func(page DeletedAccountsClientListResponse) bool {
