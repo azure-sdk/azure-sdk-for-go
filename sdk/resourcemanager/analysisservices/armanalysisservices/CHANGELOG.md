@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (2023-02-21)
+### Breaking Changes
+
+- Function `*ServersClient.GetDetails` has been removed
+
+### Features Added
+
+- New function `*ServersClient.GetDetais(context.Context, string, string, *ServersClientGetDetaisOptions) (ServersClientGetDetaisResponse, error)`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/analysisservices/armanalysisservices` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
