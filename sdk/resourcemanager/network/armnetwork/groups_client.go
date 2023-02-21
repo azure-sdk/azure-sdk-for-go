@@ -33,10 +33,10 @@ type GroupsClient struct {
 }
 
 // NewGroupsClient creates a new instance of GroupsClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGroupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GroupsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,12 +59,13 @@ func NewGroupsClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // CreateOrUpdate - Creates or updates a network group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// networkManagerName - The name of the network manager.
-// networkGroupName - The name of the network group.
-// parameters - Parameters supplied to the specify which network group need to create
-// options - GroupsClientCreateOrUpdateOptions contains the optional parameters for the GroupsClient.CreateOrUpdate method.
+//   - resourceGroupName - The name of the resource group.
+//   - networkManagerName - The name of the network manager.
+//   - networkGroupName - The name of the network group.
+//   - parameters - Parameters supplied to the specify which network group need to create
+//   - options - GroupsClientCreateOrUpdateOptions contains the optional parameters for the GroupsClient.CreateOrUpdate method.
 func (client *GroupsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, networkManagerName string, networkGroupName string, parameters Group, options *GroupsClientCreateOrUpdateOptions) (GroupsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, networkManagerName, networkGroupName, parameters, options)
 	if err != nil {
@@ -127,11 +128,12 @@ func (client *GroupsClient) createOrUpdateHandleResponse(resp *http.Response) (G
 
 // BeginDelete - Deletes a network group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// networkManagerName - The name of the network manager.
-// networkGroupName - The name of the network group.
-// options - GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group.
+//   - networkManagerName - The name of the network manager.
+//   - networkGroupName - The name of the network group.
+//   - options - GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
 func (client *GroupsClient) BeginDelete(ctx context.Context, resourceGroupName string, networkManagerName string, networkGroupName string, options *GroupsClientBeginDeleteOptions) (*runtime.Poller[GroupsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, networkManagerName, networkGroupName, options)
@@ -148,6 +150,7 @@ func (client *GroupsClient) BeginDelete(ctx context.Context, resourceGroupName s
 
 // Delete - Deletes a network group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *GroupsClient) deleteOperation(ctx context.Context, resourceGroupName string, networkManagerName string, networkGroupName string, options *GroupsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, networkManagerName, networkGroupName, options)
@@ -199,11 +202,12 @@ func (client *GroupsClient) deleteCreateRequest(ctx context.Context, resourceGro
 
 // Get - Gets the specified network group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// networkManagerName - The name of the network manager.
-// networkGroupName - The name of the network group.
-// options - GroupsClientGetOptions contains the optional parameters for the GroupsClient.Get method.
+//   - resourceGroupName - The name of the resource group.
+//   - networkManagerName - The name of the network manager.
+//   - networkGroupName - The name of the network group.
+//   - options - GroupsClientGetOptions contains the optional parameters for the GroupsClient.Get method.
 func (client *GroupsClient) Get(ctx context.Context, resourceGroupName string, networkManagerName string, networkGroupName string, options *GroupsClientGetOptions) (GroupsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, networkManagerName, networkGroupName, options)
 	if err != nil {
@@ -259,10 +263,11 @@ func (client *GroupsClient) getHandleResponse(resp *http.Response) (GroupsClient
 }
 
 // NewListPager - Lists the specified network group.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// networkManagerName - The name of the network manager.
-// options - GroupsClientListOptions contains the optional parameters for the GroupsClient.List method.
+//   - resourceGroupName - The name of the resource group.
+//   - networkManagerName - The name of the network manager.
+//   - options - GroupsClientListOptions contains the optional parameters for the GroupsClient.NewListPager method.
 func (client *GroupsClient) NewListPager(resourceGroupName string, networkManagerName string, options *GroupsClientListOptions) *runtime.Pager[GroupsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GroupsClientListResponse]{
 		More: func(page GroupsClientListResponse) bool {

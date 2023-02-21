@@ -32,10 +32,10 @@ type VirtualHubsClient struct {
 }
 
 // NewVirtualHubsClient creates a new instance of VirtualHubsClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewVirtualHubsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VirtualHubsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewVirtualHubsClient(subscriptionID string, credential azcore.TokenCredenti
 
 // BeginCreateOrUpdate - Creates a VirtualHub resource if it doesn't exist else updates the existing VirtualHub.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// virtualHubParameters - Parameters supplied to create or update VirtualHub.
-// options - VirtualHubsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualHubsClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - virtualHubParameters - Parameters supplied to create or update VirtualHub.
+//   - options - VirtualHubsClientBeginCreateOrUpdateOptions contains the optional parameters for the VirtualHubsClient.BeginCreateOrUpdate
+//     method.
 func (client *VirtualHubsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, virtualHubName string, virtualHubParameters VirtualHub, options *VirtualHubsClientBeginCreateOrUpdateOptions) (*runtime.Poller[VirtualHubsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, virtualHubName, virtualHubParameters, options)
@@ -80,6 +81,7 @@ func (client *VirtualHubsClient) BeginCreateOrUpdate(ctx context.Context, resour
 
 // CreateOrUpdate - Creates a VirtualHub resource if it doesn't exist else updates the existing VirtualHub.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *VirtualHubsClient) createOrUpdate(ctx context.Context, resourceGroupName string, virtualHubName string, virtualHubParameters VirtualHub, options *VirtualHubsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, virtualHubName, virtualHubParameters, options)
@@ -124,10 +126,11 @@ func (client *VirtualHubsClient) createOrUpdateCreateRequest(ctx context.Context
 
 // BeginDelete - Deletes a VirtualHub.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// options - VirtualHubsClientBeginDeleteOptions contains the optional parameters for the VirtualHubsClient.BeginDelete method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - options - VirtualHubsClientBeginDeleteOptions contains the optional parameters for the VirtualHubsClient.BeginDelete method.
 func (client *VirtualHubsClient) BeginDelete(ctx context.Context, resourceGroupName string, virtualHubName string, options *VirtualHubsClientBeginDeleteOptions) (*runtime.Poller[VirtualHubsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, virtualHubName, options)
@@ -144,6 +147,7 @@ func (client *VirtualHubsClient) BeginDelete(ctx context.Context, resourceGroupN
 
 // Delete - Deletes a VirtualHub.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *VirtualHubsClient) deleteOperation(ctx context.Context, resourceGroupName string, virtualHubName string, options *VirtualHubsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, virtualHubName, options)
@@ -188,10 +192,11 @@ func (client *VirtualHubsClient) deleteCreateRequest(ctx context.Context, resour
 
 // Get - Retrieves the details of a VirtualHub.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// options - VirtualHubsClientGetOptions contains the optional parameters for the VirtualHubsClient.Get method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - options - VirtualHubsClientGetOptions contains the optional parameters for the VirtualHubsClient.Get method.
 func (client *VirtualHubsClient) Get(ctx context.Context, resourceGroupName string, virtualHubName string, options *VirtualHubsClientGetOptions) (VirtualHubsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, virtualHubName, options)
 	if err != nil {
@@ -245,11 +250,12 @@ func (client *VirtualHubsClient) getHandleResponse(resp *http.Response) (Virtual
 // BeginGetEffectiveVirtualHubRoutes - Gets the effective routes configured for the Virtual Hub resource or the specified
 // resource .
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// options - VirtualHubsClientBeginGetEffectiveVirtualHubRoutesOptions contains the optional parameters for the VirtualHubsClient.BeginGetEffectiveVirtualHubRoutes
-// method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - options - VirtualHubsClientBeginGetEffectiveVirtualHubRoutesOptions contains the optional parameters for the VirtualHubsClient.BeginGetEffectiveVirtualHubRoutes
+//     method.
 func (client *VirtualHubsClient) BeginGetEffectiveVirtualHubRoutes(ctx context.Context, resourceGroupName string, virtualHubName string, options *VirtualHubsClientBeginGetEffectiveVirtualHubRoutesOptions) (*runtime.Poller[VirtualHubsClientGetEffectiveVirtualHubRoutesResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.getEffectiveVirtualHubRoutes(ctx, resourceGroupName, virtualHubName, options)
@@ -267,6 +273,7 @@ func (client *VirtualHubsClient) BeginGetEffectiveVirtualHubRoutes(ctx context.C
 // GetEffectiveVirtualHubRoutes - Gets the effective routes configured for the Virtual Hub resource or the specified resource
 // .
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *VirtualHubsClient) getEffectiveVirtualHubRoutes(ctx context.Context, resourceGroupName string, virtualHubName string, options *VirtualHubsClientBeginGetEffectiveVirtualHubRoutesOptions) (*http.Response, error) {
 	req, err := client.getEffectiveVirtualHubRoutesCreateRequest(ctx, resourceGroupName, virtualHubName, options)
@@ -314,12 +321,13 @@ func (client *VirtualHubsClient) getEffectiveVirtualHubRoutesCreateRequest(ctx c
 
 // BeginGetInboundRoutes - Gets the inbound routes configured for the Virtual Hub on a particular connection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// getInboundRoutesParameters - Parameters supplied to get the inbound routes for a connection resource.
-// options - VirtualHubsClientBeginGetInboundRoutesOptions contains the optional parameters for the VirtualHubsClient.BeginGetInboundRoutes
-// method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - getInboundRoutesParameters - Parameters supplied to get the inbound routes for a connection resource.
+//   - options - VirtualHubsClientBeginGetInboundRoutesOptions contains the optional parameters for the VirtualHubsClient.BeginGetInboundRoutes
+//     method.
 func (client *VirtualHubsClient) BeginGetInboundRoutes(ctx context.Context, resourceGroupName string, virtualHubName string, getInboundRoutesParameters GetInboundRoutesParameters, options *VirtualHubsClientBeginGetInboundRoutesOptions) (*runtime.Poller[VirtualHubsClientGetInboundRoutesResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.getInboundRoutes(ctx, resourceGroupName, virtualHubName, getInboundRoutesParameters, options)
@@ -336,6 +344,7 @@ func (client *VirtualHubsClient) BeginGetInboundRoutes(ctx context.Context, reso
 
 // GetInboundRoutes - Gets the inbound routes configured for the Virtual Hub on a particular connection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *VirtualHubsClient) getInboundRoutes(ctx context.Context, resourceGroupName string, virtualHubName string, getInboundRoutesParameters GetInboundRoutesParameters, options *VirtualHubsClientBeginGetInboundRoutesOptions) (*http.Response, error) {
 	req, err := client.getInboundRoutesCreateRequest(ctx, resourceGroupName, virtualHubName, getInboundRoutesParameters, options)
@@ -380,12 +389,13 @@ func (client *VirtualHubsClient) getInboundRoutesCreateRequest(ctx context.Conte
 
 // BeginGetOutboundRoutes - Gets the outbound routes configured for the Virtual Hub on a particular connection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// getOutboundRoutesParameters - Parameters supplied to get the outbound routes for a connection resource.
-// options - VirtualHubsClientBeginGetOutboundRoutesOptions contains the optional parameters for the VirtualHubsClient.BeginGetOutboundRoutes
-// method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - getOutboundRoutesParameters - Parameters supplied to get the outbound routes for a connection resource.
+//   - options - VirtualHubsClientBeginGetOutboundRoutesOptions contains the optional parameters for the VirtualHubsClient.BeginGetOutboundRoutes
+//     method.
 func (client *VirtualHubsClient) BeginGetOutboundRoutes(ctx context.Context, resourceGroupName string, virtualHubName string, getOutboundRoutesParameters GetOutboundRoutesParameters, options *VirtualHubsClientBeginGetOutboundRoutesOptions) (*runtime.Poller[VirtualHubsClientGetOutboundRoutesResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.getOutboundRoutes(ctx, resourceGroupName, virtualHubName, getOutboundRoutesParameters, options)
@@ -402,6 +412,7 @@ func (client *VirtualHubsClient) BeginGetOutboundRoutes(ctx context.Context, res
 
 // GetOutboundRoutes - Gets the outbound routes configured for the Virtual Hub on a particular connection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *VirtualHubsClient) getOutboundRoutes(ctx context.Context, resourceGroupName string, virtualHubName string, getOutboundRoutesParameters GetOutboundRoutesParameters, options *VirtualHubsClientBeginGetOutboundRoutesOptions) (*http.Response, error) {
 	req, err := client.getOutboundRoutesCreateRequest(ctx, resourceGroupName, virtualHubName, getOutboundRoutesParameters, options)
@@ -445,8 +456,9 @@ func (client *VirtualHubsClient) getOutboundRoutesCreateRequest(ctx context.Cont
 }
 
 // NewListPager - Lists all the VirtualHubs in a subscription.
+//
 // Generated from API version 2022-07-01
-// options - VirtualHubsClientListOptions contains the optional parameters for the VirtualHubsClient.List method.
+//   - options - VirtualHubsClientListOptions contains the optional parameters for the VirtualHubsClient.NewListPager method.
 func (client *VirtualHubsClient) NewListPager(options *VirtualHubsClientListOptions) *runtime.Pager[VirtualHubsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VirtualHubsClientListResponse]{
 		More: func(page VirtualHubsClientListResponse) bool {
@@ -503,10 +515,11 @@ func (client *VirtualHubsClient) listHandleResponse(resp *http.Response) (Virtua
 }
 
 // NewListByResourceGroupPager - Lists all the VirtualHubs in a resource group.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// options - VirtualHubsClientListByResourceGroupOptions contains the optional parameters for the VirtualHubsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - options - VirtualHubsClientListByResourceGroupOptions contains the optional parameters for the VirtualHubsClient.NewListByResourceGroupPager
+//     method.
 func (client *VirtualHubsClient) NewListByResourceGroupPager(resourceGroupName string, options *VirtualHubsClientListByResourceGroupOptions) *runtime.Pager[VirtualHubsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VirtualHubsClientListByResourceGroupResponse]{
 		More: func(page VirtualHubsClientListByResourceGroupResponse) bool {
@@ -568,11 +581,12 @@ func (client *VirtualHubsClient) listByResourceGroupHandleResponse(resp *http.Re
 
 // UpdateTags - Updates VirtualHub tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// virtualHubParameters - Parameters supplied to update VirtualHub tags.
-// options - VirtualHubsClientUpdateTagsOptions contains the optional parameters for the VirtualHubsClient.UpdateTags method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - virtualHubParameters - Parameters supplied to update VirtualHub tags.
+//   - options - VirtualHubsClientUpdateTagsOptions contains the optional parameters for the VirtualHubsClient.UpdateTags method.
 func (client *VirtualHubsClient) UpdateTags(ctx context.Context, resourceGroupName string, virtualHubName string, virtualHubParameters TagsObject, options *VirtualHubsClientUpdateTagsOptions) (VirtualHubsClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, virtualHubName, virtualHubParameters, options)
 	if err != nil {

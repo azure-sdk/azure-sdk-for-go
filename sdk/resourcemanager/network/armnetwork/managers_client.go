@@ -33,10 +33,10 @@ type ManagersClient struct {
 }
 
 // NewManagersClient creates a new instance of ManagersClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewManagersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,11 +59,12 @@ func NewManagersClient(subscriptionID string, credential azcore.TokenCredential,
 
 // CreateOrUpdate - Creates or updates a Network Manager.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// networkManagerName - The name of the network manager.
-// parameters - Parameters supplied to specify which network manager is.
-// options - ManagersClientCreateOrUpdateOptions contains the optional parameters for the ManagersClient.CreateOrUpdate method.
+//   - resourceGroupName - The name of the resource group.
+//   - networkManagerName - The name of the network manager.
+//   - parameters - Parameters supplied to specify which network manager is.
+//   - options - ManagersClientCreateOrUpdateOptions contains the optional parameters for the ManagersClient.CreateOrUpdate method.
 func (client *ManagersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, networkManagerName string, parameters Manager, options *ManagersClientCreateOrUpdateOptions) (ManagersClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, networkManagerName, parameters, options)
 	if err != nil {
@@ -116,10 +117,11 @@ func (client *ManagersClient) createOrUpdateHandleResponse(resp *http.Response) 
 
 // BeginDelete - Deletes a network manager.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// networkManagerName - The name of the network manager.
-// options - ManagersClientBeginDeleteOptions contains the optional parameters for the ManagersClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group.
+//   - networkManagerName - The name of the network manager.
+//   - options - ManagersClientBeginDeleteOptions contains the optional parameters for the ManagersClient.BeginDelete method.
 func (client *ManagersClient) BeginDelete(ctx context.Context, resourceGroupName string, networkManagerName string, options *ManagersClientBeginDeleteOptions) (*runtime.Poller[ManagersClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, networkManagerName, options)
@@ -136,6 +138,7 @@ func (client *ManagersClient) BeginDelete(ctx context.Context, resourceGroupName
 
 // Delete - Deletes a network manager.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *ManagersClient) deleteOperation(ctx context.Context, resourceGroupName string, networkManagerName string, options *ManagersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, networkManagerName, options)
@@ -183,10 +186,11 @@ func (client *ManagersClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Gets the specified Network Manager.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// networkManagerName - The name of the network manager.
-// options - ManagersClientGetOptions contains the optional parameters for the ManagersClient.Get method.
+//   - resourceGroupName - The name of the resource group.
+//   - networkManagerName - The name of the network manager.
+//   - options - ManagersClientGetOptions contains the optional parameters for the ManagersClient.Get method.
 func (client *ManagersClient) Get(ctx context.Context, resourceGroupName string, networkManagerName string, options *ManagersClientGetOptions) (ManagersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, networkManagerName, options)
 	if err != nil {
@@ -238,9 +242,10 @@ func (client *ManagersClient) getHandleResponse(resp *http.Response) (ManagersCl
 }
 
 // NewListPager - List network managers in a resource group.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// options - ManagersClientListOptions contains the optional parameters for the ManagersClient.List method.
+//   - resourceGroupName - The name of the resource group.
+//   - options - ManagersClientListOptions contains the optional parameters for the ManagersClient.NewListPager method.
 func (client *ManagersClient) NewListPager(resourceGroupName string, options *ManagersClientListOptions) *runtime.Pager[ManagersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ManagersClientListResponse]{
 		More: func(page ManagersClientListResponse) bool {
@@ -307,9 +312,10 @@ func (client *ManagersClient) listHandleResponse(resp *http.Response) (ManagersC
 }
 
 // NewListBySubscriptionPager - List all network managers in a subscription.
+//
 // Generated from API version 2022-07-01
-// options - ManagersClientListBySubscriptionOptions contains the optional parameters for the ManagersClient.ListBySubscription
-// method.
+//   - options - ManagersClientListBySubscriptionOptions contains the optional parameters for the ManagersClient.NewListBySubscriptionPager
+//     method.
 func (client *ManagersClient) NewListBySubscriptionPager(options *ManagersClientListBySubscriptionOptions) *runtime.Pager[ManagersClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ManagersClientListBySubscriptionResponse]{
 		More: func(page ManagersClientListBySubscriptionResponse) bool {
@@ -373,11 +379,12 @@ func (client *ManagersClient) listBySubscriptionHandleResponse(resp *http.Respon
 
 // Patch - Patch NetworkManager.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// networkManagerName - The name of the network manager.
-// parameters - Parameters supplied to specify which network manager is.
-// options - ManagersClientPatchOptions contains the optional parameters for the ManagersClient.Patch method.
+//   - resourceGroupName - The name of the resource group.
+//   - networkManagerName - The name of the network manager.
+//   - parameters - Parameters supplied to specify which network manager is.
+//   - options - ManagersClientPatchOptions contains the optional parameters for the ManagersClient.Patch method.
 func (client *ManagersClient) Patch(ctx context.Context, resourceGroupName string, networkManagerName string, parameters PatchObject, options *ManagersClientPatchOptions) (ManagersClientPatchResponse, error) {
 	req, err := client.patchCreateRequest(ctx, resourceGroupName, networkManagerName, parameters, options)
 	if err != nil {

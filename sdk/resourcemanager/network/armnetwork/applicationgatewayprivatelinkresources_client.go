@@ -32,10 +32,10 @@ type ApplicationGatewayPrivateLinkResourcesClient struct {
 }
 
 // NewApplicationGatewayPrivateLinkResourcesClient creates a new instance of ApplicationGatewayPrivateLinkResourcesClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewApplicationGatewayPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationGatewayPrivateLinkResourcesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewApplicationGatewayPrivateLinkResourcesClient(subscriptionID string, cred
 }
 
 // NewListPager - Lists all private link resources on an application gateway.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// applicationGatewayName - The name of the application gateway.
-// options - ApplicationGatewayPrivateLinkResourcesClientListOptions contains the optional parameters for the ApplicationGatewayPrivateLinkResourcesClient.List
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - applicationGatewayName - The name of the application gateway.
+//   - options - ApplicationGatewayPrivateLinkResourcesClientListOptions contains the optional parameters for the ApplicationGatewayPrivateLinkResourcesClient.NewListPager
+//     method.
 func (client *ApplicationGatewayPrivateLinkResourcesClient) NewListPager(resourceGroupName string, applicationGatewayName string, options *ApplicationGatewayPrivateLinkResourcesClientListOptions) *runtime.Pager[ApplicationGatewayPrivateLinkResourcesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ApplicationGatewayPrivateLinkResourcesClientListResponse]{
 		More: func(page ApplicationGatewayPrivateLinkResourcesClientListResponse) bool {

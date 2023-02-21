@@ -33,10 +33,10 @@ type SubscriptionNetworkManagerConnectionsClient struct {
 }
 
 // NewSubscriptionNetworkManagerConnectionsClient creates a new instance of SubscriptionNetworkManagerConnectionsClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSubscriptionNetworkManagerConnectionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubscriptionNetworkManagerConnectionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,11 +59,12 @@ func NewSubscriptionNetworkManagerConnectionsClient(subscriptionID string, crede
 
 // CreateOrUpdate - Create a network manager connection on this subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// networkManagerConnectionName - Name for the network manager connection.
-// parameters - Network manager connection to be created/updated.
-// options - SubscriptionNetworkManagerConnectionsClientCreateOrUpdateOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.CreateOrUpdate
-// method.
+//   - networkManagerConnectionName - Name for the network manager connection.
+//   - parameters - Network manager connection to be created/updated.
+//   - options - SubscriptionNetworkManagerConnectionsClientCreateOrUpdateOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.CreateOrUpdate
+//     method.
 func (client *SubscriptionNetworkManagerConnectionsClient) CreateOrUpdate(ctx context.Context, networkManagerConnectionName string, parameters ManagerConnection, options *SubscriptionNetworkManagerConnectionsClientCreateOrUpdateOptions) (SubscriptionNetworkManagerConnectionsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, networkManagerConnectionName, parameters, options)
 	if err != nil {
@@ -112,10 +113,11 @@ func (client *SubscriptionNetworkManagerConnectionsClient) createOrUpdateHandleR
 
 // Delete - Delete specified connection created by this subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// networkManagerConnectionName - Name for the network manager connection.
-// options - SubscriptionNetworkManagerConnectionsClientDeleteOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.Delete
-// method.
+//   - networkManagerConnectionName - Name for the network manager connection.
+//   - options - SubscriptionNetworkManagerConnectionsClientDeleteOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.Delete
+//     method.
 func (client *SubscriptionNetworkManagerConnectionsClient) Delete(ctx context.Context, networkManagerConnectionName string, options *SubscriptionNetworkManagerConnectionsClientDeleteOptions) (SubscriptionNetworkManagerConnectionsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, networkManagerConnectionName, options)
 	if err != nil {
@@ -155,10 +157,11 @@ func (client *SubscriptionNetworkManagerConnectionsClient) deleteCreateRequest(c
 
 // Get - Get a specified connection created by this subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// networkManagerConnectionName - Name for the network manager connection.
-// options - SubscriptionNetworkManagerConnectionsClientGetOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.Get
-// method.
+//   - networkManagerConnectionName - Name for the network manager connection.
+//   - options - SubscriptionNetworkManagerConnectionsClientGetOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.Get
+//     method.
 func (client *SubscriptionNetworkManagerConnectionsClient) Get(ctx context.Context, networkManagerConnectionName string, options *SubscriptionNetworkManagerConnectionsClientGetOptions) (SubscriptionNetworkManagerConnectionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, networkManagerConnectionName, options)
 	if err != nil {
@@ -206,9 +209,10 @@ func (client *SubscriptionNetworkManagerConnectionsClient) getHandleResponse(res
 }
 
 // NewListPager - List all network manager connections created by this subscription.
+//
 // Generated from API version 2022-07-01
-// options - SubscriptionNetworkManagerConnectionsClientListOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.List
-// method.
+//   - options - SubscriptionNetworkManagerConnectionsClientListOptions contains the optional parameters for the SubscriptionNetworkManagerConnectionsClient.NewListPager
+//     method.
 func (client *SubscriptionNetworkManagerConnectionsClient) NewListPager(options *SubscriptionNetworkManagerConnectionsClientListOptions) *runtime.Pager[SubscriptionNetworkManagerConnectionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SubscriptionNetworkManagerConnectionsClientListResponse]{
 		More: func(page SubscriptionNetworkManagerConnectionsClientListResponse) bool {

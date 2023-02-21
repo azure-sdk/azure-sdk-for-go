@@ -32,8 +32,8 @@ type ManagementGroupNetworkManagerConnectionsClient struct {
 }
 
 // NewManagementGroupNetworkManagerConnectionsClient creates a new instance of ManagementGroupNetworkManagerConnectionsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewManagementGroupNetworkManagerConnectionsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagementGroupNetworkManagerConnectionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -55,12 +55,13 @@ func NewManagementGroupNetworkManagerConnectionsClient(credential azcore.TokenCr
 
 // CreateOrUpdate - Create a network manager connection on this management group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
-// networkManagerConnectionName - Name for the network manager connection.
-// parameters - Network manager connection to be created/updated.
-// options - ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateOptions contains the optional parameters for the
-// ManagementGroupNetworkManagerConnectionsClient.CreateOrUpdate method.
+//   - managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
+//   - networkManagerConnectionName - Name for the network manager connection.
+//   - parameters - Network manager connection to be created/updated.
+//   - options - ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateOptions contains the optional parameters for the
+//     ManagementGroupNetworkManagerConnectionsClient.CreateOrUpdate method.
 func (client *ManagementGroupNetworkManagerConnectionsClient) CreateOrUpdate(ctx context.Context, managementGroupID string, networkManagerConnectionName string, parameters ManagerConnection, options *ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateOptions) (ManagementGroupNetworkManagerConnectionsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, managementGroupID, networkManagerConnectionName, parameters, options)
 	if err != nil {
@@ -109,11 +110,12 @@ func (client *ManagementGroupNetworkManagerConnectionsClient) createOrUpdateHand
 
 // Delete - Delete specified pending connection created by this management group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
-// networkManagerConnectionName - Name for the network manager connection.
-// options - ManagementGroupNetworkManagerConnectionsClientDeleteOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.Delete
-// method.
+//   - managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
+//   - networkManagerConnectionName - Name for the network manager connection.
+//   - options - ManagementGroupNetworkManagerConnectionsClientDeleteOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.Delete
+//     method.
 func (client *ManagementGroupNetworkManagerConnectionsClient) Delete(ctx context.Context, managementGroupID string, networkManagerConnectionName string, options *ManagementGroupNetworkManagerConnectionsClientDeleteOptions) (ManagementGroupNetworkManagerConnectionsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, managementGroupID, networkManagerConnectionName, options)
 	if err != nil {
@@ -153,11 +155,12 @@ func (client *ManagementGroupNetworkManagerConnectionsClient) deleteCreateReques
 
 // Get - Get a specified connection created by this management group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
-// networkManagerConnectionName - Name for the network manager connection.
-// options - ManagementGroupNetworkManagerConnectionsClientGetOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.Get
-// method.
+//   - managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
+//   - networkManagerConnectionName - Name for the network manager connection.
+//   - options - ManagementGroupNetworkManagerConnectionsClientGetOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.Get
+//     method.
 func (client *ManagementGroupNetworkManagerConnectionsClient) Get(ctx context.Context, managementGroupID string, networkManagerConnectionName string, options *ManagementGroupNetworkManagerConnectionsClientGetOptions) (ManagementGroupNetworkManagerConnectionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, managementGroupID, networkManagerConnectionName, options)
 	if err != nil {
@@ -205,10 +208,11 @@ func (client *ManagementGroupNetworkManagerConnectionsClient) getHandleResponse(
 }
 
 // NewListPager - List all network manager connections created by this management group.
+//
 // Generated from API version 2022-07-01
-// managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
-// options - ManagementGroupNetworkManagerConnectionsClientListOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.List
-// method.
+//   - managementGroupID - The management group Id which uniquely identify the Microsoft Azure management group.
+//   - options - ManagementGroupNetworkManagerConnectionsClientListOptions contains the optional parameters for the ManagementGroupNetworkManagerConnectionsClient.NewListPager
+//     method.
 func (client *ManagementGroupNetworkManagerConnectionsClient) NewListPager(managementGroupID string, options *ManagementGroupNetworkManagerConnectionsClientListOptions) *runtime.Pager[ManagementGroupNetworkManagerConnectionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ManagementGroupNetworkManagerConnectionsClientListResponse]{
 		More: func(page ManagementGroupNetworkManagerConnectionsClientListResponse) bool {
