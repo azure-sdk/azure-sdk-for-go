@@ -11,7 +11,7 @@ package armmonitor
 
 const (
 	moduleName    = "armmonitor"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.9.0"
 )
 
 // AccessMode - Access mode types.
@@ -27,6 +27,20 @@ func PossibleAccessModeValues() []AccessMode {
 	return []AccessMode{
 		AccessModeOpen,
 		AccessModePrivateOnly,
+	}
+}
+
+// ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+type ActionType string
+
+const (
+	ActionTypeInternal ActionType = "Internal"
+)
+
+// PossibleActionTypeValues returns the possible values for the ActionType const type.
+func PossibleActionTypeValues() []ActionType {
+	return []ActionType{
+		ActionTypeInternal,
 	}
 }
 
@@ -307,6 +321,24 @@ func PossibleEventLevelValues() []EventLevel {
 	}
 }
 
+// IdentityType - Type of managed service identity.
+type IdentityType string
+
+const (
+	IdentityTypeSystemAssigned IdentityType = "SystemAssigned"
+	IdentityTypeUserAssigned   IdentityType = "UserAssigned"
+	IdentityTypeNone           IdentityType = "None"
+)
+
+// PossibleIdentityTypeValues returns the possible values for the IdentityType const type.
+func PossibleIdentityTypeValues() []IdentityType {
+	return []IdentityType{
+		IdentityTypeSystemAssigned,
+		IdentityTypeUserAssigned,
+		IdentityTypeNone,
+	}
+}
+
 // Kind - Indicates the type of scheduled query rule. The default is LogAlert.
 type Kind string
 
@@ -353,6 +385,7 @@ func PossibleKnownColumnDefinitionTypeValues() []KnownColumnDefinitionType {
 type KnownDataCollectionEndpointProvisioningState string
 
 const (
+	KnownDataCollectionEndpointProvisioningStateCanceled  KnownDataCollectionEndpointProvisioningState = "Canceled"
 	KnownDataCollectionEndpointProvisioningStateCreating  KnownDataCollectionEndpointProvisioningState = "Creating"
 	KnownDataCollectionEndpointProvisioningStateDeleting  KnownDataCollectionEndpointProvisioningState = "Deleting"
 	KnownDataCollectionEndpointProvisioningStateFailed    KnownDataCollectionEndpointProvisioningState = "Failed"
@@ -363,6 +396,7 @@ const (
 // PossibleKnownDataCollectionEndpointProvisioningStateValues returns the possible values for the KnownDataCollectionEndpointProvisioningState const type.
 func PossibleKnownDataCollectionEndpointProvisioningStateValues() []KnownDataCollectionEndpointProvisioningState {
 	return []KnownDataCollectionEndpointProvisioningState{
+		KnownDataCollectionEndpointProvisioningStateCanceled,
 		KnownDataCollectionEndpointProvisioningStateCreating,
 		KnownDataCollectionEndpointProvisioningStateDeleting,
 		KnownDataCollectionEndpointProvisioningStateFailed,
@@ -391,6 +425,7 @@ func PossibleKnownDataCollectionEndpointResourceKindValues() []KnownDataCollecti
 type KnownDataCollectionRuleAssociationProvisioningState string
 
 const (
+	KnownDataCollectionRuleAssociationProvisioningStateCanceled  KnownDataCollectionRuleAssociationProvisioningState = "Canceled"
 	KnownDataCollectionRuleAssociationProvisioningStateCreating  KnownDataCollectionRuleAssociationProvisioningState = "Creating"
 	KnownDataCollectionRuleAssociationProvisioningStateDeleting  KnownDataCollectionRuleAssociationProvisioningState = "Deleting"
 	KnownDataCollectionRuleAssociationProvisioningStateFailed    KnownDataCollectionRuleAssociationProvisioningState = "Failed"
@@ -401,6 +436,7 @@ const (
 // PossibleKnownDataCollectionRuleAssociationProvisioningStateValues returns the possible values for the KnownDataCollectionRuleAssociationProvisioningState const type.
 func PossibleKnownDataCollectionRuleAssociationProvisioningStateValues() []KnownDataCollectionRuleAssociationProvisioningState {
 	return []KnownDataCollectionRuleAssociationProvisioningState{
+		KnownDataCollectionRuleAssociationProvisioningStateCanceled,
 		KnownDataCollectionRuleAssociationProvisioningStateCreating,
 		KnownDataCollectionRuleAssociationProvisioningStateDeleting,
 		KnownDataCollectionRuleAssociationProvisioningStateFailed,
@@ -413,6 +449,7 @@ func PossibleKnownDataCollectionRuleAssociationProvisioningStateValues() []Known
 type KnownDataCollectionRuleProvisioningState string
 
 const (
+	KnownDataCollectionRuleProvisioningStateCanceled  KnownDataCollectionRuleProvisioningState = "Canceled"
 	KnownDataCollectionRuleProvisioningStateCreating  KnownDataCollectionRuleProvisioningState = "Creating"
 	KnownDataCollectionRuleProvisioningStateDeleting  KnownDataCollectionRuleProvisioningState = "Deleting"
 	KnownDataCollectionRuleProvisioningStateFailed    KnownDataCollectionRuleProvisioningState = "Failed"
@@ -423,6 +460,7 @@ const (
 // PossibleKnownDataCollectionRuleProvisioningStateValues returns the possible values for the KnownDataCollectionRuleProvisioningState const type.
 func PossibleKnownDataCollectionRuleProvisioningStateValues() []KnownDataCollectionRuleProvisioningState {
 	return []KnownDataCollectionRuleProvisioningState{
+		KnownDataCollectionRuleProvisioningStateCanceled,
 		KnownDataCollectionRuleProvisioningStateCreating,
 		KnownDataCollectionRuleProvisioningStateDeleting,
 		KnownDataCollectionRuleProvisioningStateFailed,
@@ -489,6 +527,30 @@ func PossibleKnownExtensionDataSourceStreamsValues() []KnownExtensionDataSourceS
 	}
 }
 
+// KnownLocationSpecProvisioningStatus - The resource provisioning state in this location.
+type KnownLocationSpecProvisioningStatus string
+
+const (
+	KnownLocationSpecProvisioningStatusCanceled  KnownLocationSpecProvisioningStatus = "Canceled"
+	KnownLocationSpecProvisioningStatusCreating  KnownLocationSpecProvisioningStatus = "Creating"
+	KnownLocationSpecProvisioningStatusDeleting  KnownLocationSpecProvisioningStatus = "Deleting"
+	KnownLocationSpecProvisioningStatusFailed    KnownLocationSpecProvisioningStatus = "Failed"
+	KnownLocationSpecProvisioningStatusSucceeded KnownLocationSpecProvisioningStatus = "Succeeded"
+	KnownLocationSpecProvisioningStatusUpdating  KnownLocationSpecProvisioningStatus = "Updating"
+)
+
+// PossibleKnownLocationSpecProvisioningStatusValues returns the possible values for the KnownLocationSpecProvisioningStatus const type.
+func PossibleKnownLocationSpecProvisioningStatusValues() []KnownLocationSpecProvisioningStatus {
+	return []KnownLocationSpecProvisioningStatus{
+		KnownLocationSpecProvisioningStatusCanceled,
+		KnownLocationSpecProvisioningStatusCreating,
+		KnownLocationSpecProvisioningStatusDeleting,
+		KnownLocationSpecProvisioningStatusFailed,
+		KnownLocationSpecProvisioningStatusSucceeded,
+		KnownLocationSpecProvisioningStatusUpdating,
+	}
+}
+
 // KnownLogFileTextSettingsRecordStartTimestampFormat - One of the supported timestamp formats
 type KnownLogFileTextSettingsRecordStartTimestampFormat string
 
@@ -548,13 +610,27 @@ func PossibleKnownPerfCounterDataSourceStreamsValues() []KnownPerfCounterDataSou
 	}
 }
 
+type KnownPrometheusForwarderDataSourceStreams string
+
+const (
+	KnownPrometheusForwarderDataSourceStreamsMicrosoftPrometheusMetrics KnownPrometheusForwarderDataSourceStreams = "Microsoft-PrometheusMetrics"
+)
+
+// PossibleKnownPrometheusForwarderDataSourceStreamsValues returns the possible values for the KnownPrometheusForwarderDataSourceStreams const type.
+func PossibleKnownPrometheusForwarderDataSourceStreamsValues() []KnownPrometheusForwarderDataSourceStreams {
+	return []KnownPrometheusForwarderDataSourceStreams{
+		KnownPrometheusForwarderDataSourceStreamsMicrosoftPrometheusMetrics,
+	}
+}
+
 // KnownPublicNetworkAccessOptions - The configuration to set whether network access from public internet to the endpoints
 // are allowed.
 type KnownPublicNetworkAccessOptions string
 
 const (
-	KnownPublicNetworkAccessOptionsDisabled KnownPublicNetworkAccessOptions = "Disabled"
-	KnownPublicNetworkAccessOptionsEnabled  KnownPublicNetworkAccessOptions = "Enabled"
+	KnownPublicNetworkAccessOptionsDisabled           KnownPublicNetworkAccessOptions = "Disabled"
+	KnownPublicNetworkAccessOptionsEnabled            KnownPublicNetworkAccessOptions = "Enabled"
+	KnownPublicNetworkAccessOptionsSecuredByPerimeter KnownPublicNetworkAccessOptions = "SecuredByPerimeter"
 )
 
 // PossibleKnownPublicNetworkAccessOptionsValues returns the possible values for the KnownPublicNetworkAccessOptions const type.
@@ -562,6 +638,7 @@ func PossibleKnownPublicNetworkAccessOptionsValues() []KnownPublicNetworkAccessO
 	return []KnownPublicNetworkAccessOptions{
 		KnownPublicNetworkAccessOptionsDisabled,
 		KnownPublicNetworkAccessOptionsEnabled,
+		KnownPublicNetworkAccessOptionsSecuredByPerimeter,
 	}
 }
 
@@ -672,6 +749,26 @@ func PossibleKnownWindowsEventLogDataSourceStreamsValues() []KnownWindowsEventLo
 	return []KnownWindowsEventLogDataSourceStreams{
 		KnownWindowsEventLogDataSourceStreamsMicrosoftEvent,
 		KnownWindowsEventLogDataSourceStreamsMicrosoftWindowsEvent,
+	}
+}
+
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned,UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
 	}
 }
 
@@ -834,6 +931,25 @@ func PossibleOperatorValues() []Operator {
 	}
 }
 
+// Origin - The intended executor of the operation; as in Resource Based Access Control (RBAC) and audit logs UX. Default
+// value is "user,system"
+type Origin string
+
+const (
+	OriginSystem     Origin = "system"
+	OriginUser       Origin = "user"
+	OriginUserSystem Origin = "user,system"
+)
+
+// PossibleOriginValues returns the possible values for the Origin const type.
+func PossibleOriginValues() []Origin {
+	return []Origin{
+		OriginSystem,
+		OriginUser,
+		OriginUserSystem,
+	}
+}
+
 // PredictiveAutoscalePolicyScaleMode - the predictive autoscale mode
 type PredictiveAutoscalePolicyScaleMode string
 
@@ -887,6 +1003,46 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 		PrivateEndpointServiceConnectionStatusApproved,
 		PrivateEndpointServiceConnectionStatusPending,
 		PrivateEndpointServiceConnectionStatusRejected,
+	}
+}
+
+// ProvisioningState - The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy.
+type ProvisioningState string
+
+const (
+	ProvisioningStateCanceled  ProvisioningState = "Canceled"
+	ProvisioningStateCreating  ProvisioningState = "Creating"
+	ProvisioningStateDeleting  ProvisioningState = "Deleting"
+	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
+)
+
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateCreating,
+		ProvisioningStateDeleting,
+		ProvisioningStateFailed,
+		ProvisioningStateSucceeded,
+	}
+}
+
+// PublicNetworkAccess - This determines if traffic is allowed over public network. By default it is enabled.
+type PublicNetworkAccess string
+
+const (
+	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
+	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
+)
+
+// PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
+func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
+	return []PublicNetworkAccess{
+		PublicNetworkAccessDisabled,
+		PublicNetworkAccessEnabled,
+		PublicNetworkAccessSecuredByPerimeter,
 	}
 }
 
