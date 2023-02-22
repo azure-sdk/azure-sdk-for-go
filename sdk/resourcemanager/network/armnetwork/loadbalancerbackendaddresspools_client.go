@@ -32,10 +32,10 @@ type LoadBalancerBackendAddressPoolsClient struct {
 }
 
 // NewLoadBalancerBackendAddressPoolsClient creates a new instance of LoadBalancerBackendAddressPoolsClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewLoadBalancerBackendAddressPoolsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LoadBalancerBackendAddressPoolsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewLoadBalancerBackendAddressPoolsClient(subscriptionID string, credential 
 
 // BeginCreateOrUpdate - Creates or updates a load balancer backend address pool.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// backendAddressPoolName - The name of the backend address pool.
-// parameters - Parameters supplied to the create or update load balancer backend address pool operation.
-// options - LoadBalancerBackendAddressPoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - backendAddressPoolName - The name of the backend address pool.
+//   - parameters - Parameters supplied to the create or update load balancer backend address pool operation.
+//   - options - LoadBalancerBackendAddressPoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.BeginCreateOrUpdate
+//     method.
 func (client *LoadBalancerBackendAddressPoolsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, loadBalancerName string, backendAddressPoolName string, parameters BackendAddressPool, options *LoadBalancerBackendAddressPoolsClientBeginCreateOrUpdateOptions) (*runtime.Poller[LoadBalancerBackendAddressPoolsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, loadBalancerName, backendAddressPoolName, parameters, options)
@@ -81,6 +82,7 @@ func (client *LoadBalancerBackendAddressPoolsClient) BeginCreateOrUpdate(ctx con
 
 // CreateOrUpdate - Creates or updates a load balancer backend address pool.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *LoadBalancerBackendAddressPoolsClient) createOrUpdate(ctx context.Context, resourceGroupName string, loadBalancerName string, backendAddressPoolName string, parameters BackendAddressPool, options *LoadBalancerBackendAddressPoolsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, loadBalancerName, backendAddressPoolName, parameters, options)
@@ -129,12 +131,13 @@ func (client *LoadBalancerBackendAddressPoolsClient) createOrUpdateCreateRequest
 
 // BeginDelete - Deletes the specified load balancer backend address pool.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// backendAddressPoolName - The name of the backend address pool.
-// options - LoadBalancerBackendAddressPoolsClientBeginDeleteOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - backendAddressPoolName - The name of the backend address pool.
+//   - options - LoadBalancerBackendAddressPoolsClientBeginDeleteOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.BeginDelete
+//     method.
 func (client *LoadBalancerBackendAddressPoolsClient) BeginDelete(ctx context.Context, resourceGroupName string, loadBalancerName string, backendAddressPoolName string, options *LoadBalancerBackendAddressPoolsClientBeginDeleteOptions) (*runtime.Poller[LoadBalancerBackendAddressPoolsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, loadBalancerName, backendAddressPoolName, options)
@@ -151,6 +154,7 @@ func (client *LoadBalancerBackendAddressPoolsClient) BeginDelete(ctx context.Con
 
 // Delete - Deletes the specified load balancer backend address pool.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *LoadBalancerBackendAddressPoolsClient) deleteOperation(ctx context.Context, resourceGroupName string, loadBalancerName string, backendAddressPoolName string, options *LoadBalancerBackendAddressPoolsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, loadBalancerName, backendAddressPoolName, options)
@@ -199,12 +203,13 @@ func (client *LoadBalancerBackendAddressPoolsClient) deleteCreateRequest(ctx con
 
 // Get - Gets load balancer backend address pool.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// backendAddressPoolName - The name of the backend address pool.
-// options - LoadBalancerBackendAddressPoolsClientGetOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - backendAddressPoolName - The name of the backend address pool.
+//   - options - LoadBalancerBackendAddressPoolsClientGetOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.Get
+//     method.
 func (client *LoadBalancerBackendAddressPoolsClient) Get(ctx context.Context, resourceGroupName string, loadBalancerName string, backendAddressPoolName string, options *LoadBalancerBackendAddressPoolsClientGetOptions) (LoadBalancerBackendAddressPoolsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, loadBalancerName, backendAddressPoolName, options)
 	if err != nil {
@@ -260,11 +265,12 @@ func (client *LoadBalancerBackendAddressPoolsClient) getHandleResponse(resp *htt
 }
 
 // NewListPager - Gets all the load balancer backed address pools.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// loadBalancerName - The name of the load balancer.
-// options - LoadBalancerBackendAddressPoolsClientListOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.List
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - loadBalancerName - The name of the load balancer.
+//   - options - LoadBalancerBackendAddressPoolsClientListOptions contains the optional parameters for the LoadBalancerBackendAddressPoolsClient.NewListPager
+//     method.
 func (client *LoadBalancerBackendAddressPoolsClient) NewListPager(resourceGroupName string, loadBalancerName string, options *LoadBalancerBackendAddressPoolsClientListOptions) *runtime.Pager[LoadBalancerBackendAddressPoolsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LoadBalancerBackendAddressPoolsClientListResponse]{
 		More: func(page LoadBalancerBackendAddressPoolsClientListResponse) bool {

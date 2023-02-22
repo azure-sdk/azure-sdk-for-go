@@ -32,10 +32,10 @@ type HubRouteTablesClient struct {
 }
 
 // NewHubRouteTablesClient creates a new instance of HubRouteTablesClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewHubRouteTablesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*HubRouteTablesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewHubRouteTablesClient(subscriptionID string, credential azcore.TokenCrede
 
 // BeginCreateOrUpdate - Creates a RouteTable resource if it doesn't exist else updates the existing RouteTable.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// routeTableName - The name of the RouteTable.
-// routeTableParameters - Parameters supplied to create or update RouteTable.
-// options - HubRouteTablesClientBeginCreateOrUpdateOptions contains the optional parameters for the HubRouteTablesClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - routeTableName - The name of the RouteTable.
+//   - routeTableParameters - Parameters supplied to create or update RouteTable.
+//   - options - HubRouteTablesClientBeginCreateOrUpdateOptions contains the optional parameters for the HubRouteTablesClient.BeginCreateOrUpdate
+//     method.
 func (client *HubRouteTablesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, virtualHubName string, routeTableName string, routeTableParameters HubRouteTable, options *HubRouteTablesClientBeginCreateOrUpdateOptions) (*runtime.Poller[HubRouteTablesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, virtualHubName, routeTableName, routeTableParameters, options)
@@ -81,6 +82,7 @@ func (client *HubRouteTablesClient) BeginCreateOrUpdate(ctx context.Context, res
 
 // CreateOrUpdate - Creates a RouteTable resource if it doesn't exist else updates the existing RouteTable.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *HubRouteTablesClient) createOrUpdate(ctx context.Context, resourceGroupName string, virtualHubName string, routeTableName string, routeTableParameters HubRouteTable, options *HubRouteTablesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, virtualHubName, routeTableName, routeTableParameters, options)
@@ -129,12 +131,13 @@ func (client *HubRouteTablesClient) createOrUpdateCreateRequest(ctx context.Cont
 
 // BeginDelete - Deletes a RouteTable.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the RouteTable.
-// virtualHubName - The name of the VirtualHub.
-// routeTableName - The name of the RouteTable.
-// options - HubRouteTablesClientBeginDeleteOptions contains the optional parameters for the HubRouteTablesClient.BeginDelete
-// method.
+//   - resourceGroupName - The resource group name of the RouteTable.
+//   - virtualHubName - The name of the VirtualHub.
+//   - routeTableName - The name of the RouteTable.
+//   - options - HubRouteTablesClientBeginDeleteOptions contains the optional parameters for the HubRouteTablesClient.BeginDelete
+//     method.
 func (client *HubRouteTablesClient) BeginDelete(ctx context.Context, resourceGroupName string, virtualHubName string, routeTableName string, options *HubRouteTablesClientBeginDeleteOptions) (*runtime.Poller[HubRouteTablesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, virtualHubName, routeTableName, options)
@@ -151,6 +154,7 @@ func (client *HubRouteTablesClient) BeginDelete(ctx context.Context, resourceGro
 
 // Delete - Deletes a RouteTable.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
 func (client *HubRouteTablesClient) deleteOperation(ctx context.Context, resourceGroupName string, virtualHubName string, routeTableName string, options *HubRouteTablesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, virtualHubName, routeTableName, options)
@@ -199,11 +203,12 @@ func (client *HubRouteTablesClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Retrieves the details of a RouteTable.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// routeTableName - The name of the RouteTable.
-// options - HubRouteTablesClientGetOptions contains the optional parameters for the HubRouteTablesClient.Get method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - routeTableName - The name of the RouteTable.
+//   - options - HubRouteTablesClientGetOptions contains the optional parameters for the HubRouteTablesClient.Get method.
 func (client *HubRouteTablesClient) Get(ctx context.Context, resourceGroupName string, virtualHubName string, routeTableName string, options *HubRouteTablesClientGetOptions) (HubRouteTablesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, virtualHubName, routeTableName, options)
 	if err != nil {
@@ -259,10 +264,11 @@ func (client *HubRouteTablesClient) getHandleResponse(resp *http.Response) (HubR
 }
 
 // NewListPager - Retrieves the details of all RouteTables.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The resource group name of the VirtualHub.
-// virtualHubName - The name of the VirtualHub.
-// options - HubRouteTablesClientListOptions contains the optional parameters for the HubRouteTablesClient.List method.
+//   - resourceGroupName - The resource group name of the VirtualHub.
+//   - virtualHubName - The name of the VirtualHub.
+//   - options - HubRouteTablesClientListOptions contains the optional parameters for the HubRouteTablesClient.NewListPager method.
 func (client *HubRouteTablesClient) NewListPager(resourceGroupName string, virtualHubName string, options *HubRouteTablesClientListOptions) *runtime.Pager[HubRouteTablesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[HubRouteTablesClientListResponse]{
 		More: func(page HubRouteTablesClientListResponse) bool {

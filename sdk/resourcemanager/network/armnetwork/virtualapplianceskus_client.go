@@ -32,10 +32,10 @@ type VirtualApplianceSKUsClient struct {
 }
 
 // NewVirtualApplianceSKUsClient creates a new instance of VirtualApplianceSKUsClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewVirtualApplianceSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VirtualApplianceSKUsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,10 +58,11 @@ func NewVirtualApplianceSKUsClient(subscriptionID string, credential azcore.Toke
 
 // Get - Retrieves a single available sku for network virtual appliance.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// skuName - Name of the Sku.
-// options - VirtualApplianceSKUsClientGetOptions contains the optional parameters for the VirtualApplianceSKUsClient.Get
-// method.
+//   - skuName - Name of the Sku.
+//   - options - VirtualApplianceSKUsClientGetOptions contains the optional parameters for the VirtualApplianceSKUsClient.Get
+//     method.
 func (client *VirtualApplianceSKUsClient) Get(ctx context.Context, skuName string, options *VirtualApplianceSKUsClientGetOptions) (VirtualApplianceSKUsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, skuName, options)
 	if err != nil {
@@ -109,9 +110,10 @@ func (client *VirtualApplianceSKUsClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListPager - List all SKUs available for a virtual appliance.
+//
 // Generated from API version 2022-07-01
-// options - VirtualApplianceSKUsClientListOptions contains the optional parameters for the VirtualApplianceSKUsClient.List
-// method.
+//   - options - VirtualApplianceSKUsClientListOptions contains the optional parameters for the VirtualApplianceSKUsClient.NewListPager
+//     method.
 func (client *VirtualApplianceSKUsClient) NewListPager(options *VirtualApplianceSKUsClientListOptions) *runtime.Pager[VirtualApplianceSKUsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VirtualApplianceSKUsClientListResponse]{
 		More: func(page VirtualApplianceSKUsClientListResponse) bool {

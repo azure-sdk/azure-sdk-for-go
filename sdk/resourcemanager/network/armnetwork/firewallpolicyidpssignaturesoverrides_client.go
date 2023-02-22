@@ -32,10 +32,10 @@ type FirewallPolicyIdpsSignaturesOverridesClient struct {
 }
 
 // NewFirewallPolicyIdpsSignaturesOverridesClient creates a new instance of FirewallPolicyIdpsSignaturesOverridesClient with the specified values.
-// subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-// ID forms part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
+//     ID forms part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewFirewallPolicyIdpsSignaturesOverridesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FirewallPolicyIdpsSignaturesOverridesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,11 +58,12 @@ func NewFirewallPolicyIdpsSignaturesOverridesClient(subscriptionID string, crede
 
 // Get - Returns all signatures overrides for a specific policy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// firewallPolicyName - The name of the Firewall Policy.
-// options - FirewallPolicyIdpsSignaturesOverridesClientGetOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - firewallPolicyName - The name of the Firewall Policy.
+//   - options - FirewallPolicyIdpsSignaturesOverridesClientGetOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.Get
+//     method.
 func (client *FirewallPolicyIdpsSignaturesOverridesClient) Get(ctx context.Context, resourceGroupName string, firewallPolicyName string, options *FirewallPolicyIdpsSignaturesOverridesClientGetOptions) (FirewallPolicyIdpsSignaturesOverridesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, firewallPolicyName, options)
 	if err != nil {
@@ -115,11 +116,12 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) getHandleResponse(res
 
 // List - Returns all signatures overrides objects for a specific policy as a list containing a single value.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// firewallPolicyName - The name of the Firewall Policy.
-// options - FirewallPolicyIdpsSignaturesOverridesClientListOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.List
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - firewallPolicyName - The name of the Firewall Policy.
+//   - options - FirewallPolicyIdpsSignaturesOverridesClientListOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.List
+//     method.
 func (client *FirewallPolicyIdpsSignaturesOverridesClient) List(ctx context.Context, resourceGroupName string, firewallPolicyName string, options *FirewallPolicyIdpsSignaturesOverridesClientListOptions) (FirewallPolicyIdpsSignaturesOverridesClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, resourceGroupName, firewallPolicyName, options)
 	if err != nil {
@@ -172,12 +174,13 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) listHandleResponse(re
 
 // Patch - Will update the status of policy's signature overrides for IDPS
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// firewallPolicyName - The name of the Firewall Policy.
-// parameters - Will contain all properties of the object to put
-// options - FirewallPolicyIdpsSignaturesOverridesClientPatchOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.Patch
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - firewallPolicyName - The name of the Firewall Policy.
+//   - parameters - Will contain all properties of the object to put
+//   - options - FirewallPolicyIdpsSignaturesOverridesClientPatchOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.Patch
+//     method.
 func (client *FirewallPolicyIdpsSignaturesOverridesClient) Patch(ctx context.Context, resourceGroupName string, firewallPolicyName string, parameters SignaturesOverrides, options *FirewallPolicyIdpsSignaturesOverridesClientPatchOptions) (FirewallPolicyIdpsSignaturesOverridesClientPatchResponse, error) {
 	req, err := client.patchCreateRequest(ctx, resourceGroupName, firewallPolicyName, parameters, options)
 	if err != nil {
@@ -230,12 +233,13 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) patchHandleResponse(r
 
 // Put - Will override/create a new signature overrides for the policy's IDPS
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01
-// resourceGroupName - The name of the resource group.
-// firewallPolicyName - The name of the Firewall Policy.
-// parameters - Will contain all properties of the object to put
-// options - FirewallPolicyIdpsSignaturesOverridesClientPutOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.Put
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - firewallPolicyName - The name of the Firewall Policy.
+//   - parameters - Will contain all properties of the object to put
+//   - options - FirewallPolicyIdpsSignaturesOverridesClientPutOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.Put
+//     method.
 func (client *FirewallPolicyIdpsSignaturesOverridesClient) Put(ctx context.Context, resourceGroupName string, firewallPolicyName string, parameters SignaturesOverrides, options *FirewallPolicyIdpsSignaturesOverridesClientPutOptions) (FirewallPolicyIdpsSignaturesOverridesClientPutResponse, error) {
 	req, err := client.putCreateRequest(ctx, resourceGroupName, firewallPolicyName, parameters, options)
 	if err != nil {
