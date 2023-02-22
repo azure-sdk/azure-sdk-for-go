@@ -1,12 +1,22 @@
 # Release History
 
-## 1.1.0-beta.1 (2022-05-19)
+## 1.1.0 (2023-02-22)
 ### Features Added
 
+- New struct `CorsConfiguration`
 - New struct `FhirServiceImportConfiguration`
+- New struct `ImplementationGuidesConfiguration`
 - New struct `ServiceImportConfigurationInfo`
-- New field `ImportConfiguration` in struct `ServicesProperties`
+- New field `CorsConfiguration` in struct `DicomServiceProperties`
+- New field `EventState` in struct `DicomServiceProperties`
+- New field `ImplementationGuidesConfiguration` in struct `FhirServiceProperties`
 - New field `ImportConfiguration` in struct `FhirServiceProperties`
+- New field `EnableRegionalMdmAccount` in struct `MetricSpecification`
+- New field `IsInternal` in struct `MetricSpecification`
+- New field `MetricFilterPattern` in struct `MetricSpecification`
+- New field `ResourceIDDimensionNameOverride` in struct `MetricSpecification`
+- New field `SourceMdmAccount` in struct `MetricSpecification`
+- New field `ImportConfiguration` in struct `ServicesProperties`
 
 
 ## 1.0.0 (2022-05-18)
