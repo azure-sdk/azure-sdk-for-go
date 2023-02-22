@@ -34,11 +34,11 @@ type ReplicationProtectionContainersClient struct {
 }
 
 // NewReplicationProtectionContainersClient creates a new instance of ReplicationProtectionContainersClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationProtectionContainersClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationProtectionContainersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,12 +63,13 @@ func NewReplicationProtectionContainersClient(resourceName string, resourceGroup
 
 // BeginCreate - Operation to create a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// fabricName - Unique fabric ARM name.
-// protectionContainerName - Unique protection container ARM name.
-// creationInput - Creation input.
-// options - ReplicationProtectionContainersClientBeginCreateOptions contains the optional parameters for the ReplicationProtectionContainersClient.BeginCreate
-// method.
+//
+// Generated from API version 2023-01-01
+//   - fabricName - Unique fabric ARM name.
+//   - protectionContainerName - Unique protection container ARM name.
+//   - creationInput - Creation input.
+//   - options - ReplicationProtectionContainersClientBeginCreateOptions contains the optional parameters for the ReplicationProtectionContainersClient.BeginCreate
+//     method.
 func (client *ReplicationProtectionContainersClient) BeginCreate(ctx context.Context, fabricName string, protectionContainerName string, creationInput CreateProtectionContainerInput, options *ReplicationProtectionContainersClientBeginCreateOptions) (*runtime.Poller[ReplicationProtectionContainersClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, fabricName, protectionContainerName, creationInput, options)
@@ -83,7 +84,8 @@ func (client *ReplicationProtectionContainersClient) BeginCreate(ctx context.Con
 
 // Create - Operation to create a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-01-01
 func (client *ReplicationProtectionContainersClient) create(ctx context.Context, fabricName string, protectionContainerName string, creationInput CreateProtectionContainerInput, options *ReplicationProtectionContainersClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, fabricName, protectionContainerName, creationInput, options)
 	if err != nil {
@@ -127,7 +129,7 @@ func (client *ReplicationProtectionContainersClient) createCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, creationInput)
@@ -135,11 +137,12 @@ func (client *ReplicationProtectionContainersClient) createCreateRequest(ctx con
 
 // BeginDelete - Operation to remove a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// fabricName - Unique fabric ARM name.
-// protectionContainerName - Unique protection container ARM name.
-// options - ReplicationProtectionContainersClientBeginDeleteOptions contains the optional parameters for the ReplicationProtectionContainersClient.BeginDelete
-// method.
+//
+// Generated from API version 2023-01-01
+//   - fabricName - Unique fabric ARM name.
+//   - protectionContainerName - Unique protection container ARM name.
+//   - options - ReplicationProtectionContainersClientBeginDeleteOptions contains the optional parameters for the ReplicationProtectionContainersClient.BeginDelete
+//     method.
 func (client *ReplicationProtectionContainersClient) BeginDelete(ctx context.Context, fabricName string, protectionContainerName string, options *ReplicationProtectionContainersClientBeginDeleteOptions) (*runtime.Poller[ReplicationProtectionContainersClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, fabricName, protectionContainerName, options)
@@ -154,7 +157,8 @@ func (client *ReplicationProtectionContainersClient) BeginDelete(ctx context.Con
 
 // Delete - Operation to remove a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-01-01
 func (client *ReplicationProtectionContainersClient) deleteOperation(ctx context.Context, fabricName string, protectionContainerName string, options *ReplicationProtectionContainersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, fabricName, protectionContainerName, options)
 	if err != nil {
@@ -198,19 +202,20 @@ func (client *ReplicationProtectionContainersClient) deleteCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
 // BeginDiscoverProtectableItem - The operation to a add a protectable item to a protection container(Add physical server).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// fabricName - The name of the fabric.
-// protectionContainerName - The name of the protection container.
-// discoverProtectableItemRequest - The request object to add a protectable item.
-// options - ReplicationProtectionContainersClientBeginDiscoverProtectableItemOptions contains the optional parameters for
-// the ReplicationProtectionContainersClient.BeginDiscoverProtectableItem method.
+//
+// Generated from API version 2023-01-01
+//   - fabricName - The name of the fabric.
+//   - protectionContainerName - The name of the protection container.
+//   - discoverProtectableItemRequest - The request object to add a protectable item.
+//   - options - ReplicationProtectionContainersClientBeginDiscoverProtectableItemOptions contains the optional parameters for
+//     the ReplicationProtectionContainersClient.BeginDiscoverProtectableItem method.
 func (client *ReplicationProtectionContainersClient) BeginDiscoverProtectableItem(ctx context.Context, fabricName string, protectionContainerName string, discoverProtectableItemRequest DiscoverProtectableItemRequest, options *ReplicationProtectionContainersClientBeginDiscoverProtectableItemOptions) (*runtime.Poller[ReplicationProtectionContainersClientDiscoverProtectableItemResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.discoverProtectableItem(ctx, fabricName, protectionContainerName, discoverProtectableItemRequest, options)
@@ -225,7 +230,8 @@ func (client *ReplicationProtectionContainersClient) BeginDiscoverProtectableIte
 
 // DiscoverProtectableItem - The operation to a add a protectable item to a protection container(Add physical server).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-01-01
 func (client *ReplicationProtectionContainersClient) discoverProtectableItem(ctx context.Context, fabricName string, protectionContainerName string, discoverProtectableItemRequest DiscoverProtectableItemRequest, options *ReplicationProtectionContainersClientBeginDiscoverProtectableItemOptions) (*http.Response, error) {
 	req, err := client.discoverProtectableItemCreateRequest(ctx, fabricName, protectionContainerName, discoverProtectableItemRequest, options)
 	if err != nil {
@@ -269,7 +275,7 @@ func (client *ReplicationProtectionContainersClient) discoverProtectableItemCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, discoverProtectableItemRequest)
@@ -277,11 +283,12 @@ func (client *ReplicationProtectionContainersClient) discoverProtectableItemCrea
 
 // Get - Gets the details of a protection container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// options - ReplicationProtectionContainersClientGetOptions contains the optional parameters for the ReplicationProtectionContainersClient.Get
-// method.
+//
+// Generated from API version 2023-01-01
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - options - ReplicationProtectionContainersClientGetOptions contains the optional parameters for the ReplicationProtectionContainersClient.Get
+//     method.
 func (client *ReplicationProtectionContainersClient) Get(ctx context.Context, fabricName string, protectionContainerName string, options *ReplicationProtectionContainersClientGetOptions) (ReplicationProtectionContainersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, protectionContainerName, options)
 	if err != nil {
@@ -325,7 +332,7 @@ func (client *ReplicationProtectionContainersClient) getCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -341,9 +348,10 @@ func (client *ReplicationProtectionContainersClient) getHandleResponse(resp *htt
 }
 
 // NewListPager - Lists the protection containers in a vault.
-// Generated from API version 2022-10-01
-// options - ReplicationProtectionContainersClientListOptions contains the optional parameters for the ReplicationProtectionContainersClient.List
-// method.
+//
+// Generated from API version 2023-01-01
+//   - options - ReplicationProtectionContainersClientListOptions contains the optional parameters for the ReplicationProtectionContainersClient.NewListPager
+//     method.
 func (client *ReplicationProtectionContainersClient) NewListPager(options *ReplicationProtectionContainersClientListOptions) *runtime.Pager[ReplicationProtectionContainersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationProtectionContainersClientListResponse]{
 		More: func(page ReplicationProtectionContainersClientListResponse) bool {
@@ -392,7 +400,7 @@ func (client *ReplicationProtectionContainersClient) listCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -408,10 +416,11 @@ func (client *ReplicationProtectionContainersClient) listHandleResponse(resp *ht
 }
 
 // NewListByReplicationFabricsPager - Lists the protection containers in the specified fabric.
-// Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// options - ReplicationProtectionContainersClientListByReplicationFabricsOptions contains the optional parameters for the
-// ReplicationProtectionContainersClient.ListByReplicationFabrics method.
+//
+// Generated from API version 2023-01-01
+//   - fabricName - Fabric name.
+//   - options - ReplicationProtectionContainersClientListByReplicationFabricsOptions contains the optional parameters for the
+//     ReplicationProtectionContainersClient.NewListByReplicationFabricsPager method.
 func (client *ReplicationProtectionContainersClient) NewListByReplicationFabricsPager(fabricName string, options *ReplicationProtectionContainersClientListByReplicationFabricsOptions) *runtime.Pager[ReplicationProtectionContainersClientListByReplicationFabricsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationProtectionContainersClientListByReplicationFabricsResponse]{
 		More: func(page ReplicationProtectionContainersClientListByReplicationFabricsResponse) bool {
@@ -464,7 +473,7 @@ func (client *ReplicationProtectionContainersClient) listByReplicationFabricsCre
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -481,12 +490,13 @@ func (client *ReplicationProtectionContainersClient) listByReplicationFabricsHan
 
 // BeginSwitchProtection - Operation to switch protection from one container to another or one replication provider to another.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// fabricName - Unique fabric name.
-// protectionContainerName - Protection container name.
-// switchInput - Switch protection input.
-// options - ReplicationProtectionContainersClientBeginSwitchProtectionOptions contains the optional parameters for the ReplicationProtectionContainersClient.BeginSwitchProtection
-// method.
+//
+// Generated from API version 2023-01-01
+//   - fabricName - Unique fabric name.
+//   - protectionContainerName - Protection container name.
+//   - switchInput - Switch protection input.
+//   - options - ReplicationProtectionContainersClientBeginSwitchProtectionOptions contains the optional parameters for the ReplicationProtectionContainersClient.BeginSwitchProtection
+//     method.
 func (client *ReplicationProtectionContainersClient) BeginSwitchProtection(ctx context.Context, fabricName string, protectionContainerName string, switchInput SwitchProtectionInput, options *ReplicationProtectionContainersClientBeginSwitchProtectionOptions) (*runtime.Poller[ReplicationProtectionContainersClientSwitchProtectionResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.switchProtection(ctx, fabricName, protectionContainerName, switchInput, options)
@@ -501,7 +511,8 @@ func (client *ReplicationProtectionContainersClient) BeginSwitchProtection(ctx c
 
 // SwitchProtection - Operation to switch protection from one container to another or one replication provider to another.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-01-01
 func (client *ReplicationProtectionContainersClient) switchProtection(ctx context.Context, fabricName string, protectionContainerName string, switchInput SwitchProtectionInput, options *ReplicationProtectionContainersClientBeginSwitchProtectionOptions) (*http.Response, error) {
 	req, err := client.switchProtectionCreateRequest(ctx, fabricName, protectionContainerName, switchInput, options)
 	if err != nil {
@@ -545,7 +556,7 @@ func (client *ReplicationProtectionContainersClient) switchProtectionCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, switchInput)
