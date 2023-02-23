@@ -1,5 +1,210 @@
 # Release History
 
+## 2.0.0 (2023-02-23)
+### Breaking Changes
+
+- Type alias `BillingFrequency` has been removed
+- Type alias `BudgetOperatorType` has been removed
+- Type alias `CategoryType` has been removed
+- Type alias `ChargeSummaryKind` has been removed
+- Type alias `CultureCode` has been removed
+- Type alias `Datagrain` has been removed
+- Type alias `EventType` has been removed
+- Type alias `LookBackPeriod` has been removed
+- Type alias `LotSource` has been removed
+- Type alias `Metrictype` has been removed
+- Type alias `OperatorType` has been removed
+- Type alias `PricingModelType` has been removed
+- Type alias `ReservationRecommendationKind` has been removed
+- Type alias `Scope` has been removed
+- Type alias `Status` has been removed
+- Type alias `Term` has been removed
+- Type alias `ThresholdType` has been removed
+- Type alias `TimeGrainType` has been removed
+- Type alias `UsageDetailsKind` has been removed
+- Function `NewAggregatedCostClient` has been removed
+- Function `*AggregatedCostClient.GetByManagementGroup` has been removed
+- Function `*AggregatedCostClient.GetForBillingPeriodByManagementGroup` has been removed
+- Function `NewBalancesClient` has been removed
+- Function `*BalancesClient.GetByBillingAccount` has been removed
+- Function `*BalancesClient.GetForBillingPeriodByBillingAccount` has been removed
+- Function `NewBudgetsClient` has been removed
+- Function `*BudgetsClient.CreateOrUpdate` has been removed
+- Function `*BudgetsClient.Delete` has been removed
+- Function `*BudgetsClient.Get` has been removed
+- Function `*BudgetsClient.NewListPager` has been removed
+- Function `*ChargeSummary.GetChargeSummary` has been removed
+- Function `NewChargesClient` has been removed
+- Function `*ChargesClient.List` has been removed
+- Function `NewCreditsClient` has been removed
+- Function `*CreditsClient.Get` has been removed
+- Function `NewEventsClient` has been removed
+- Function `*EventsClient.NewListByBillingAccountPager` has been removed
+- Function `*EventsClient.NewListByBillingProfilePager` has been removed
+- Function `*LegacyChargeSummary.GetChargeSummary` has been removed
+- Function `*LegacyReservationRecommendation.GetReservationRecommendation` has been removed
+- Function `*LegacyReservationRecommendationProperties.GetLegacyReservationRecommendationProperties` has been removed
+- Function `*LegacySharedScopeReservationRecommendationProperties.GetLegacyReservationRecommendationProperties` has been removed
+- Function `*LegacySingleScopeReservationRecommendationProperties.GetLegacyReservationRecommendationProperties` has been removed
+- Function `*LegacyUsageDetail.GetUsageDetail` has been removed
+- Function `NewLotsClient` has been removed
+- Function `*LotsClient.NewListByBillingAccountPager` has been removed
+- Function `*LotsClient.NewListByBillingProfilePager` has been removed
+- Function `*LotsClient.NewListByCustomerPager` has been removed
+- Function `NewMarketplacesClient` has been removed
+- Function `*MarketplacesClient.NewListPager` has been removed
+- Function `*ModernChargeSummary.GetChargeSummary` has been removed
+- Function `*ModernReservationRecommendation.GetReservationRecommendation` has been removed
+- Function `*ModernUsageDetail.GetUsageDetail` has been removed
+- Function `NewOperationsClient` has been removed
+- Function `*OperationsClient.NewListPager` has been removed
+- Function `NewPriceSheetClient` has been removed
+- Function `*PriceSheetClient.Get` has been removed
+- Function `*PriceSheetClient.GetByBillingPeriod` has been removed
+- Function `*ReservationRecommendation.GetReservationRecommendation` has been removed
+- Function `NewReservationRecommendationDetailsClient` has been removed
+- Function `*ReservationRecommendationDetailsClient.Get` has been removed
+- Function `NewReservationRecommendationsClient` has been removed
+- Function `*ReservationRecommendationsClient.NewListPager` has been removed
+- Function `NewReservationTransactionsClient` has been removed
+- Function `*ReservationTransactionsClient.NewListByBillingProfilePager` has been removed
+- Function `*ReservationTransactionsClient.NewListPager` has been removed
+- Function `NewReservationsDetailsClient` has been removed
+- Function `*ReservationsDetailsClient.NewListByReservationOrderAndReservationPager` has been removed
+- Function `*ReservationsDetailsClient.NewListByReservationOrderPager` has been removed
+- Function `*ReservationsDetailsClient.NewListPager` has been removed
+- Function `NewReservationsSummariesClient` has been removed
+- Function `*ReservationsSummariesClient.NewListByReservationOrderAndReservationPager` has been removed
+- Function `*ReservationsSummariesClient.NewListByReservationOrderPager` has been removed
+- Function `*ReservationsSummariesClient.NewListPager` has been removed
+- Function `NewTagsClient` has been removed
+- Function `*TagsClient.Get` has been removed
+- Function `*UsageDetail.GetUsageDetail` has been removed
+- Function `NewUsageDetailsClient` has been removed
+- Function `*UsageDetailsClient.NewListPager` has been removed
+- Function `timeRFC3339.MarshalText` has been removed
+- Function `*timeRFC3339.Parse` has been removed
+- Function `*timeRFC3339.UnmarshalText` has been removed
+- Struct `AggregatedCostClient` has been removed
+- Struct `Amount` has been removed
+- Struct `AmountWithExchangeRate` has been removed
+- Struct `Balance` has been removed
+- Struct `BalanceProperties` has been removed
+- Struct `BalancePropertiesAdjustmentDetailsItem` has been removed
+- Struct `BalancePropertiesNewPurchasesDetailsItem` has been removed
+- Struct `BalancesClient` has been removed
+- Struct `Budget` has been removed
+- Struct `BudgetComparisonExpression` has been removed
+- Struct `BudgetFilter` has been removed
+- Struct `BudgetFilterProperties` has been removed
+- Struct `BudgetProperties` has been removed
+- Struct `BudgetTimePeriod` has been removed
+- Struct `BudgetsClient` has been removed
+- Struct `BudgetsListResult` has been removed
+- Struct `ChargesClient` has been removed
+- Struct `ChargesListResult` has been removed
+- Struct `CreditBalanceSummary` has been removed
+- Struct `CreditSummary` has been removed
+- Struct `CreditSummaryProperties` has been removed
+- Struct `CreditsClient` has been removed
+- Struct `CurrentSpend` has been removed
+- Struct `DownloadProperties` has been removed
+- Struct `EventProperties` has been removed
+- Struct `EventSummary` has been removed
+- Struct `Events` has been removed
+- Struct `EventsClient` has been removed
+- Struct `ForecastSpend` has been removed
+- Struct `HighCasedErrorDetails` has been removed
+- Struct `HighCasedErrorResponse` has been removed
+- Struct `LegacyChargeSummary` has been removed
+- Struct `LegacyChargeSummaryProperties` has been removed
+- Struct `LegacyReservationRecommendation` has been removed
+- Struct `LegacyReservationTransaction` has been removed
+- Struct `LegacyReservationTransactionProperties` has been removed
+- Struct `LegacySharedScopeReservationRecommendationProperties` has been removed
+- Struct `LegacySingleScopeReservationRecommendationProperties` has been removed
+- Struct `LegacyUsageDetail` has been removed
+- Struct `LegacyUsageDetailProperties` has been removed
+- Struct `LotProperties` has been removed
+- Struct `LotSummary` has been removed
+- Struct `Lots` has been removed
+- Struct `LotsClient` has been removed
+- Struct `ManagementGroupAggregatedCostProperties` has been removed
+- Struct `ManagementGroupAggregatedCostResult` has been removed
+- Struct `Marketplace` has been removed
+- Struct `MarketplaceProperties` has been removed
+- Struct `MarketplacesClient` has been removed
+- Struct `MarketplacesListResult` has been removed
+- Struct `MeterDetails` has been removed
+- Struct `MeterDetailsResponse` has been removed
+- Struct `ModernChargeSummary` has been removed
+- Struct `ModernChargeSummaryProperties` has been removed
+- Struct `ModernReservationRecommendation` has been removed
+- Struct `ModernReservationRecommendationProperties` has been removed
+- Struct `ModernReservationTransaction` has been removed
+- Struct `ModernReservationTransactionProperties` has been removed
+- Struct `ModernReservationTransactionsListResult` has been removed
+- Struct `ModernUsageDetail` has been removed
+- Struct `ModernUsageDetailProperties` has been removed
+- Struct `Notification` has been removed
+- Struct `Operation` has been removed
+- Struct `OperationDisplay` has been removed
+- Struct `OperationListResult` has been removed
+- Struct `OperationsClient` has been removed
+- Struct `PriceSheetClient` has been removed
+- Struct `PriceSheetModel` has been removed
+- Struct `PriceSheetProperties` has been removed
+- Struct `PriceSheetResult` has been removed
+- Struct `ProxyResource` has been removed
+- Struct `Reseller` has been removed
+- Struct `ReservationDetail` has been removed
+- Struct `ReservationDetailProperties` has been removed
+- Struct `ReservationDetailsListResult` has been removed
+- Struct `ReservationRecommendationDetailsCalculatedSavingsProperties` has been removed
+- Struct `ReservationRecommendationDetailsClient` has been removed
+- Struct `ReservationRecommendationDetailsModel` has been removed
+- Struct `ReservationRecommendationDetailsProperties` has been removed
+- Struct `ReservationRecommendationDetailsResourceProperties` has been removed
+- Struct `ReservationRecommendationDetailsSavingsProperties` has been removed
+- Struct `ReservationRecommendationDetailsUsageProperties` has been removed
+- Struct `ReservationRecommendationsClient` has been removed
+- Struct `ReservationRecommendationsListResult` has been removed
+- Struct `ReservationSummariesListResult` has been removed
+- Struct `ReservationSummary` has been removed
+- Struct `ReservationSummaryProperties` has been removed
+- Struct `ReservationTransaction` has been removed
+- Struct `ReservationTransactionResource` has been removed
+- Struct `ReservationTransactionsClient` has been removed
+- Struct `ReservationTransactionsListResult` has been removed
+- Struct `ReservationsDetailsClient` has been removed
+- Struct `ReservationsSummariesClient` has been removed
+- Struct `ResourceAttributes` has been removed
+- Struct `SKUProperty` has been removed
+- Struct `Tag` has been removed
+- Struct `TagProperties` has been removed
+- Struct `TagsClient` has been removed
+- Struct `TagsResult` has been removed
+- Struct `UsageDetailsClient` has been removed
+- Struct `UsageDetailsListResult` has been removed
+
+### Features Added
+
+- New function `NewOperationsResultClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsResultClient, error)`
+- New function `*OperationsResultClient.NewListPager(*OperationsResultClientListOptions) *runtime.Pager[OperationsResultClientListResponse]`
+- New function `NewPriceSheetsClient(azcore.TokenCredential, *arm.ClientOptions) (*PriceSheetsClient, error)`
+- New function `*PriceSheetsClient.Get(context.Context, string, *PriceSheetsClientGetOptions) (PriceSheetsClientGetResponse, error)`
+- New function `*PriceSheetsClient.GetByBillingPeriod(context.Context, string, string, *PriceSheetsClientGetByBillingPeriodOptions) (PriceSheetsClientGetByBillingPeriodResponse, error)`
+- New struct `MeterDetailsV2`
+- New struct `OperationListResultV2`
+- New struct `OperationV2`
+- New struct `OperationV2Display`
+- New struct `OperationsResultClient`
+- New struct `PriceSheetModelV2`
+- New struct `PriceSheetPropertiesV2`
+- New struct `PriceSheetResultV2`
+- New struct `PriceSheetsClient`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
