@@ -32,9 +32,9 @@ type TableClient struct {
 }
 
 // NewTableClient creates a new instance of TableClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTableClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TableClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewTableClient(subscriptionID string, credential azcore.TokenCredential, op
 
 // Create - Creates a new table with the specified table name, under the specified account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// tableName - A table name must be unique within a storage account and must be between 3 and 63 characters.The name must
-// comprise of only alphanumeric characters and it cannot begin with a numeric character.
-// options - TableClientCreateOptions contains the optional parameters for the TableClient.Create method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - tableName - A table name must be unique within a storage account and must be between 3 and 63 characters.The name must
+//     comprise of only alphanumeric characters and it cannot begin with a numeric character.
+//   - options - TableClientCreateOptions contains the optional parameters for the TableClient.Create method.
 func (client *TableClient) Create(ctx context.Context, resourceGroupName string, accountName string, tableName string, options *TableClientCreateOptions) (TableClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, tableName, options)
 	if err != nil {
@@ -123,13 +124,14 @@ func (client *TableClient) createHandleResponse(resp *http.Response) (TableClien
 
 // Delete - Deletes the table with the specified table name, under the specified account if it exists.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// tableName - A table name must be unique within a storage account and must be between 3 and 63 characters.The name must
-// comprise of only alphanumeric characters and it cannot begin with a numeric character.
-// options - TableClientDeleteOptions contains the optional parameters for the TableClient.Delete method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - tableName - A table name must be unique within a storage account and must be between 3 and 63 characters.The name must
+//     comprise of only alphanumeric characters and it cannot begin with a numeric character.
+//   - options - TableClientDeleteOptions contains the optional parameters for the TableClient.Delete method.
 func (client *TableClient) Delete(ctx context.Context, resourceGroupName string, accountName string, tableName string, options *TableClientDeleteOptions) (TableClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, tableName, options)
 	if err != nil {
@@ -177,13 +179,14 @@ func (client *TableClient) deleteCreateRequest(ctx context.Context, resourceGrou
 
 // Get - Gets the table with the specified table name, under the specified account if it exists.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// tableName - A table name must be unique within a storage account and must be between 3 and 63 characters.The name must
-// comprise of only alphanumeric characters and it cannot begin with a numeric character.
-// options - TableClientGetOptions contains the optional parameters for the TableClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - tableName - A table name must be unique within a storage account and must be between 3 and 63 characters.The name must
+//     comprise of only alphanumeric characters and it cannot begin with a numeric character.
+//   - options - TableClientGetOptions contains the optional parameters for the TableClient.Get method.
 func (client *TableClient) Get(ctx context.Context, resourceGroupName string, accountName string, tableName string, options *TableClientGetOptions) (TableClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, tableName, options)
 	if err != nil {
@@ -239,11 +242,12 @@ func (client *TableClient) getHandleResponse(resp *http.Response) (TableClientGe
 }
 
 // NewListPager - Gets a list of all the tables under the specified storage account
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// options - TableClientListOptions contains the optional parameters for the TableClient.List method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - options - TableClientListOptions contains the optional parameters for the TableClient.NewListPager method.
 func (client *TableClient) NewListPager(resourceGroupName string, accountName string, options *TableClientListOptions) *runtime.Pager[TableClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TableClientListResponse]{
 		More: func(page TableClientListResponse) bool {
@@ -309,13 +313,14 @@ func (client *TableClient) listHandleResponse(resp *http.Response) (TableClientL
 
 // Update - Creates a new table with the specified table name, under the specified account.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// accountName - The name of the storage account within the specified resource group. Storage account names must be between
-// 3 and 24 characters in length and use numbers and lower-case letters only.
-// tableName - A table name must be unique within a storage account and must be between 3 and 63 characters.The name must
-// comprise of only alphanumeric characters and it cannot begin with a numeric character.
-// options - TableClientUpdateOptions contains the optional parameters for the TableClient.Update method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - accountName - The name of the storage account within the specified resource group. Storage account names must be between
+//     3 and 24 characters in length and use numbers and lower-case letters only.
+//   - tableName - A table name must be unique within a storage account and must be between 3 and 63 characters.The name must
+//     comprise of only alphanumeric characters and it cannot begin with a numeric character.
+//   - options - TableClientUpdateOptions contains the optional parameters for the TableClient.Update method.
 func (client *TableClient) Update(ctx context.Context, resourceGroupName string, accountName string, tableName string, options *TableClientUpdateOptions) (TableClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, accountName, tableName, options)
 	if err != nil {
