@@ -1,5 +1,49 @@
 # Release History
 
+## 0.8.0 (2023-02-24)
+### Breaking Changes
+
+- Function `*ExtensionsClient.Create` has been removed
+- Function `*ExtensionsClient.Update` has been removed
+- Function `*FarmBeatsModelsClient.GetOperationResult` has been removed
+
+### Features Added
+
+- New function `*ExtensionsClient.CreateOrUpdate(context.Context, string, string, string, *ExtensionsClientCreateOrUpdateOptions) (ExtensionsClientCreateOrUpdateResponse, error)`
+- New function `NewOperationResultsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OperationResultsClient, error)`
+- New function `*OperationResultsClient.Get(context.Context, string, string, *OperationResultsClientGetOptions) (OperationResultsClientGetResponse, error)`
+- New function `NewSolutionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SolutionsClient, error)`
+- New function `*SolutionsClient.CreateOrUpdate(context.Context, string, string, string, *SolutionsClientCreateOrUpdateOptions) (SolutionsClientCreateOrUpdateResponse, error)`
+- New function `*SolutionsClient.Delete(context.Context, string, string, string, *SolutionsClientDeleteOptions) (SolutionsClientDeleteResponse, error)`
+- New function `*SolutionsClient.Get(context.Context, string, string, string, *SolutionsClientGetOptions) (SolutionsClientGetResponse, error)`
+- New function `*SolutionsClient.NewListPager(string, string, *SolutionsClientListOptions) *runtime.Pager[SolutionsClientListResponse]`
+- New function `NewSolutionsDiscoverabilityClient(azcore.TokenCredential, *arm.ClientOptions) (*SolutionsDiscoverabilityClient, error)`
+- New function `*SolutionsDiscoverabilityClient.Get(context.Context, string, *SolutionsDiscoverabilityClientGetOptions) (SolutionsDiscoverabilityClientGetResponse, error)`
+- New function `*SolutionsDiscoverabilityClient.NewListPager(*SolutionsDiscoverabilityClientListOptions) *runtime.Pager[SolutionsDiscoverabilityClientListResponse]`
+- New struct `APIProperties`
+- New struct `ArmAsyncOperationError`
+- New struct `ExtensionInstallationRequest`
+- New struct `FarmBeatsSolution`
+- New struct `FarmBeatsSolutionListResponse`
+- New struct `FarmBeatsSolutionProperties`
+- New struct `Insight`
+- New struct `InsightAttachment`
+- New struct `MarketplaceOfferDetails`
+- New struct `Measure`
+- New struct `OperationResultsClient`
+- New struct `ResourceParameter`
+- New struct `Solution`
+- New struct `SolutionEvaluatedOutput`
+- New struct `SolutionInstallationRequest`
+- New struct `SolutionListResponse`
+- New struct `SolutionProperties`
+- New struct `SolutionsClient`
+- New struct `SolutionsDiscoverabilityClient`
+- New field `Error` in struct `ArmAsyncOperation`
+- New field `AdditionalAPIProperties` in struct `ExtensionProperties`
+- New field `GroupIDs` in struct `PrivateEndpointConnectionProperties`
+
+
 ## 0.7.0 (2022-08-23)
 ### Breaking Changes
 
