@@ -118,9 +118,6 @@ type GitHubWorkflowProfile struct {
 	// The Azure Kubernetes Cluster Resource the application will be deployed to.
 	AksResourceID *string `json:"aksResourceId,omitempty"`
 
-	// Determines the type of manifests within the repository.
-	AuthStatus *ManifestType `json:"authStatus,omitempty"`
-
 	// Repository Branch Name
 	BranchName           *string               `json:"branchName,omitempty"`
 	DeploymentProperties *DeploymentProperties `json:"deploymentProperties,omitempty"`
@@ -143,6 +140,9 @@ type GitHubWorkflowProfile struct {
 
 	// Repository Owner
 	RepositoryOwner *string `json:"repositoryOwner,omitempty"`
+
+	// READ-ONLY; Determines the authorization status of requests.
+	AuthStatus *AuthorizationStatus `json:"authStatus,omitempty" azure:"ro"`
 
 	// READ-ONLY; The status of the Pull Request submitted against the users repository.
 	PrStatus *PullRequestStatus `json:"prStatus,omitempty" azure:"ro"`
@@ -283,13 +283,14 @@ type WorkflowClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WorkflowClientListByResourceGroupOptions contains the optional parameters for the WorkflowClient.ListByResourceGroup method.
+// WorkflowClientListByResourceGroupOptions contains the optional parameters for the WorkflowClient.NewListByResourceGroupPager
+// method.
 type WorkflowClientListByResourceGroupOptions struct {
 	// The ManagedCluster resource associated with the workflows.
 	ManagedClusterResource *string
 }
 
-// WorkflowClientListOptions contains the optional parameters for the WorkflowClient.List method.
+// WorkflowClientListOptions contains the optional parameters for the WorkflowClient.NewListPager method.
 type WorkflowClientListOptions struct {
 	// placeholder for future optional parameters
 }
