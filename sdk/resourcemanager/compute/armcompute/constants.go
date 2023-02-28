@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v4.1.0"
+	moduleVersion = "v5.0.0"
 )
 
 type AccessLevel string
@@ -640,6 +640,26 @@ func PossibleDiskStorageAccountTypesValues() []DiskStorageAccountTypes {
 		DiskStorageAccountTypesStandardSSDLRS,
 		DiskStorageAccountTypesStandardSSDZRS,
 		DiskStorageAccountTypesUltraSSDLRS,
+	}
+}
+
+// EdgeZoneStorageAccountType - Specifies the storage account type to be used to store the image. This property is not updatable.
+type EdgeZoneStorageAccountType string
+
+const (
+	EdgeZoneStorageAccountTypePremiumLRS     EdgeZoneStorageAccountType = "Premium_LRS"
+	EdgeZoneStorageAccountTypeStandardLRS    EdgeZoneStorageAccountType = "Standard_LRS"
+	EdgeZoneStorageAccountTypeStandardSSDLRS EdgeZoneStorageAccountType = "StandardSSD_LRS"
+	EdgeZoneStorageAccountTypeStandardZRS    EdgeZoneStorageAccountType = "Standard_ZRS"
+)
+
+// PossibleEdgeZoneStorageAccountTypeValues returns the possible values for the EdgeZoneStorageAccountType const type.
+func PossibleEdgeZoneStorageAccountTypeValues() []EdgeZoneStorageAccountType {
+	return []EdgeZoneStorageAccountType{
+		EdgeZoneStorageAccountTypePremiumLRS,
+		EdgeZoneStorageAccountTypeStandardLRS,
+		EdgeZoneStorageAccountTypeStandardSSDLRS,
+		EdgeZoneStorageAccountTypeStandardZRS,
 	}
 }
 

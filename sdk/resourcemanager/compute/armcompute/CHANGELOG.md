@@ -1,5 +1,19 @@
 # Release History
 
+## 5.0.0 (2023-02-28)
+### Breaking Changes
+
+- Type of `GalleryTargetExtendedLocation.StorageAccountType` has been changed from `*StorageAccountType` to `*EdgeZoneStorageAccountType`
+
+### Features Added
+
+- New type alias `EdgeZoneStorageAccountType` with values `EdgeZoneStorageAccountTypePremiumLRS`, `EdgeZoneStorageAccountTypeStandardLRS`, `EdgeZoneStorageAccountTypeStandardSSDLRS`, `EdgeZoneStorageAccountTypeStandardZRS`
+- New field `ComputerName` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `HyperVGeneration` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `OSName` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `OSVersion` in struct `VirtualMachineScaleSetVMInstanceView`
+
+
 ## 4.1.0 (2023-01-27)
 ### Features Added
 
