@@ -9,6 +9,11 @@
 
 package armdevhub
 
+// DeveloperHubServiceClientGeneratePreviewArtifactsResponse contains the response from method DeveloperHubServiceClient.GeneratePreviewArtifacts.
+type DeveloperHubServiceClientGeneratePreviewArtifactsResponse struct {
+	GeneratePreviewArtifactsResponse
+}
+
 // DeveloperHubServiceClientGitHubOAuthCallbackResponse contains the response from method DeveloperHubServiceClient.GitHubOAuthCallback.
 type DeveloperHubServiceClientGitHubOAuthCallbackResponse struct {
 	GitHubOAuthResponse
@@ -44,12 +49,12 @@ type WorkflowClientGetResponse struct {
 	Workflow
 }
 
-// WorkflowClientListByResourceGroupResponse contains the response from method WorkflowClient.ListByResourceGroup.
+// WorkflowClientListByResourceGroupResponse contains the response from method WorkflowClient.NewListByResourceGroupPager.
 type WorkflowClientListByResourceGroupResponse struct {
 	WorkflowListResult
 }
 
-// WorkflowClientListResponse contains the response from method WorkflowClient.List.
+// WorkflowClientListResponse contains the response from method WorkflowClient.NewListPager.
 type WorkflowClientListResponse struct {
 	WorkflowListResult
 }
