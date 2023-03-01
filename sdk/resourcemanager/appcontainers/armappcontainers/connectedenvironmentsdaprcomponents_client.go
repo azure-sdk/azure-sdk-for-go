@@ -32,9 +32,9 @@ type ConnectedEnvironmentsDaprComponentsClient struct {
 }
 
 // NewConnectedEnvironmentsDaprComponentsClient creates a new instance of ConnectedEnvironmentsDaprComponentsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectedEnvironmentsDaprComponentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectedEnvironmentsDaprComponentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewConnectedEnvironmentsDaprComponentsClient(subscriptionID string, credent
 
 // CreateOrUpdate - Creates or updates a Dapr Component in a connected environment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connected environment.
-// componentName - Name of the Dapr Component.
-// daprComponentEnvelope - Configuration details of the Dapr Component.
-// options - ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connected environment.
+//   - componentName - Name of the Dapr Component.
+//   - daprComponentEnvelope - Configuration details of the Dapr Component.
+//   - options - ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.CreateOrUpdate
+//     method.
 func (client *ConnectedEnvironmentsDaprComponentsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, componentName string, daprComponentEnvelope DaprComponent, options *ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateOptions) (ConnectedEnvironmentsDaprComponentsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, componentName, daprComponentEnvelope, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) createOrUpdateCreateReq
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, daprComponentEnvelope)
@@ -120,12 +121,13 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) createOrUpdateHandleRes
 
 // Delete - Delete a Dapr Component from a connected environment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connected environment.
-// componentName - Name of the Dapr Component.
-// options - ConnectedEnvironmentsDaprComponentsClientDeleteOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.Delete
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connected environment.
+//   - componentName - Name of the Dapr Component.
+//   - options - ConnectedEnvironmentsDaprComponentsClientDeleteOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.Delete
+//     method.
 func (client *ConnectedEnvironmentsDaprComponentsClient) Delete(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, componentName string, options *ConnectedEnvironmentsDaprComponentsClientDeleteOptions) (ConnectedEnvironmentsDaprComponentsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, componentName, options)
 	if err != nil {
@@ -165,7 +167,7 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) deleteCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,12 +175,13 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) deleteCreateRequest(ctx
 
 // Get - Get a dapr component.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connected environment.
-// componentName - Name of the Dapr Component.
-// options - ConnectedEnvironmentsDaprComponentsClientGetOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.Get
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connected environment.
+//   - componentName - Name of the Dapr Component.
+//   - options - ConnectedEnvironmentsDaprComponentsClientGetOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.Get
+//     method.
 func (client *ConnectedEnvironmentsDaprComponentsClient) Get(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, componentName string, options *ConnectedEnvironmentsDaprComponentsClientGetOptions) (ConnectedEnvironmentsDaprComponentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, componentName, options)
 	if err != nil {
@@ -218,7 +221,7 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) getCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,11 +237,12 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) getHandleResponse(resp 
 }
 
 // NewListPager - Get the Dapr Components for a connected environment.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connected environment.
-// options - ConnectedEnvironmentsDaprComponentsClientListOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.List
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connected environment.
+//   - options - ConnectedEnvironmentsDaprComponentsClientListOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.NewListPager
+//     method.
 func (client *ConnectedEnvironmentsDaprComponentsClient) NewListPager(resourceGroupName string, connectedEnvironmentName string, options *ConnectedEnvironmentsDaprComponentsClientListOptions) *runtime.Pager[ConnectedEnvironmentsDaprComponentsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectedEnvironmentsDaprComponentsClientListResponse]{
 		More: func(page ConnectedEnvironmentsDaprComponentsClientListResponse) bool {
@@ -287,7 +291,7 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) listCreateRequest(ctx c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -304,12 +308,13 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) listHandleResponse(resp
 
 // ListSecrets - List secrets for a dapr component
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-06-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// connectedEnvironmentName - Name of the connected environment.
-// componentName - Name of the Dapr Component.
-// options - ConnectedEnvironmentsDaprComponentsClientListSecretsOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.ListSecrets
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - connectedEnvironmentName - Name of the connected environment.
+//   - componentName - Name of the Dapr Component.
+//   - options - ConnectedEnvironmentsDaprComponentsClientListSecretsOptions contains the optional parameters for the ConnectedEnvironmentsDaprComponentsClient.ListSecrets
+//     method.
 func (client *ConnectedEnvironmentsDaprComponentsClient) ListSecrets(ctx context.Context, resourceGroupName string, connectedEnvironmentName string, componentName string, options *ConnectedEnvironmentsDaprComponentsClientListSecretsOptions) (ConnectedEnvironmentsDaprComponentsClientListSecretsResponse, error) {
 	req, err := client.listSecretsCreateRequest(ctx, resourceGroupName, connectedEnvironmentName, componentName, options)
 	if err != nil {
@@ -349,7 +354,7 @@ func (client *ConnectedEnvironmentsDaprComponentsClient) listSecretsCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
