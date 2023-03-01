@@ -32,9 +32,9 @@ type LocationBasedCapabilitiesClient struct {
 }
 
 // NewLocationBasedCapabilitiesClient creates a new instance of LocationBasedCapabilitiesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewLocationBasedCapabilitiesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LocationBasedCapabilitiesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,10 +56,11 @@ func NewLocationBasedCapabilitiesClient(subscriptionID string, credential azcore
 }
 
 // NewExecutePager - Get capabilities at specified location in a given subscription.
+//
 // Generated from API version 2022-12-01
-// locationName - The name of the location.
-// options - LocationBasedCapabilitiesClientExecuteOptions contains the optional parameters for the LocationBasedCapabilitiesClient.Execute
-// method.
+//   - locationName - The name of the location.
+//   - options - LocationBasedCapabilitiesClientExecuteOptions contains the optional parameters for the LocationBasedCapabilitiesClient.NewExecutePager
+//     method.
 func (client *LocationBasedCapabilitiesClient) NewExecutePager(locationName string, options *LocationBasedCapabilitiesClientExecuteOptions) *runtime.Pager[LocationBasedCapabilitiesClientExecuteResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LocationBasedCapabilitiesClientExecuteResponse]{
 		More: func(page LocationBasedCapabilitiesClientExecuteResponse) bool {
