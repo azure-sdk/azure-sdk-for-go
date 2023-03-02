@@ -1,5 +1,23 @@
 # Release History
 
+## 5.0.0 (2023-03-02)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to type alias `StorageAccountType`
+- New field `HyperVGeneration` in struct `RestorePointSourceMetadata`
+- New field `WriteAcceleratorEnabled` in struct `RestorePointSourceVMDataDisk`
+- New field `WriteAcceleratorEnabled` in struct `RestorePointSourceVMOSDisk`
+- New field `ComputerName` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `HyperVGeneration` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `OSName` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `OSVersion` in struct `VirtualMachineScaleSetVMInstanceView`
+
+
 ## 4.1.0 (2023-01-27)
 ### Features Added
 
