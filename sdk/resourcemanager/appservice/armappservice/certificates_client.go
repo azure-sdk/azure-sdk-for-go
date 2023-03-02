@@ -32,9 +32,9 @@ type CertificatesClient struct {
 }
 
 // NewCertificatesClient creates a new instance of CertificatesClient with the specified values.
-// subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCertificatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CertificatesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewCertificatesClient(subscriptionID string, credential azcore.TokenCredent
 
 // CreateOrUpdate - Description for Create or update a certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the certificate.
-// certificateEnvelope - Details of certificate, if it exists already.
-// options - CertificatesClientCreateOrUpdateOptions contains the optional parameters for the CertificatesClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the certificate.
+//   - certificateEnvelope - Details of certificate, if it exists already.
+//   - options - CertificatesClientCreateOrUpdateOptions contains the optional parameters for the CertificatesClient.CreateOrUpdate
+//     method.
 func (client *CertificatesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, name string, certificateEnvelope AppCertificate, options *CertificatesClientCreateOrUpdateOptions) (CertificatesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, name, certificateEnvelope, options)
 	if err != nil {
@@ -115,10 +116,11 @@ func (client *CertificatesClient) createOrUpdateHandleResponse(resp *http.Respon
 
 // Delete - Description for Delete a certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the certificate.
-// options - CertificatesClientDeleteOptions contains the optional parameters for the CertificatesClient.Delete method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the certificate.
+//   - options - CertificatesClientDeleteOptions contains the optional parameters for the CertificatesClient.Delete method.
 func (client *CertificatesClient) Delete(ctx context.Context, resourceGroupName string, name string, options *CertificatesClientDeleteOptions) (CertificatesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -162,10 +164,11 @@ func (client *CertificatesClient) deleteCreateRequest(ctx context.Context, resou
 
 // Get - Description for Get a certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the certificate.
-// options - CertificatesClientGetOptions contains the optional parameters for the CertificatesClient.Get method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the certificate.
+//   - options - CertificatesClientGetOptions contains the optional parameters for the CertificatesClient.Get method.
 func (client *CertificatesClient) Get(ctx context.Context, resourceGroupName string, name string, options *CertificatesClientGetOptions) (CertificatesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, name, options)
 	if err != nil {
@@ -217,9 +220,9 @@ func (client *CertificatesClient) getHandleResponse(resp *http.Response) (Certif
 }
 
 // NewListPager - Description for Get all certificates for a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - CertificatesClientListOptions contains the optional parameters for the CertificatesClient.List method.
+//   - options - CertificatesClientListOptions contains the optional parameters for the CertificatesClient.NewListPager method.
 func (client *CertificatesClient) NewListPager(options *CertificatesClientListOptions) *runtime.Pager[CertificatesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CertificatesClientListResponse]{
 		More: func(page CertificatesClientListResponse) bool {
@@ -281,11 +284,11 @@ func (client *CertificatesClient) listHandleResponse(resp *http.Response) (Certi
 }
 
 // NewListByResourceGroupPager - Description for Get all certificates in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// options - CertificatesClientListByResourceGroupOptions contains the optional parameters for the CertificatesClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - options - CertificatesClientListByResourceGroupOptions contains the optional parameters for the CertificatesClient.NewListByResourceGroupPager
+//     method.
 func (client *CertificatesClient) NewListByResourceGroupPager(resourceGroupName string, options *CertificatesClientListByResourceGroupOptions) *runtime.Pager[CertificatesClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CertificatesClientListByResourceGroupResponse]{
 		More: func(page CertificatesClientListByResourceGroupResponse) bool {
@@ -347,11 +350,12 @@ func (client *CertificatesClient) listByResourceGroupHandleResponse(resp *http.R
 
 // Update - Description for Create or update a certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Name of the certificate.
-// certificateEnvelope - Details of certificate, if it exists already.
-// options - CertificatesClientUpdateOptions contains the optional parameters for the CertificatesClient.Update method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Name of the certificate.
+//   - certificateEnvelope - Details of certificate, if it exists already.
+//   - options - CertificatesClientUpdateOptions contains the optional parameters for the CertificatesClient.Update method.
 func (client *CertificatesClient) Update(ctx context.Context, resourceGroupName string, name string, certificateEnvelope AppCertificatePatchResource, options *CertificatesClientUpdateOptions) (CertificatesClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, name, certificateEnvelope, options)
 	if err != nil {

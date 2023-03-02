@@ -33,9 +33,9 @@ type WebSiteManagementClient struct {
 }
 
 // NewWebSiteManagementClient creates a new instance of WebSiteManagementClient with the specified values.
-// subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewWebSiteManagementClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*WebSiteManagementClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,10 +58,11 @@ func NewWebSiteManagementClient(subscriptionID string, credential azcore.TokenCr
 
 // CheckNameAvailability - Description for Check if a resource name is available.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// request - Name availability request.
-// options - WebSiteManagementClientCheckNameAvailabilityOptions contains the optional parameters for the WebSiteManagementClient.CheckNameAvailability
-// method.
+//   - request - Name availability request.
+//   - options - WebSiteManagementClientCheckNameAvailabilityOptions contains the optional parameters for the WebSiteManagementClient.CheckNameAvailability
+//     method.
 func (client *WebSiteManagementClient) CheckNameAvailability(ctx context.Context, request ResourceNameAvailabilityRequest, options *WebSiteManagementClientCheckNameAvailabilityOptions) (WebSiteManagementClientCheckNameAvailabilityResponse, error) {
 	req, err := client.checkNameAvailabilityCreateRequest(ctx, request, options)
 	if err != nil {
@@ -106,9 +107,10 @@ func (client *WebSiteManagementClient) checkNameAvailabilityHandleResponse(resp 
 
 // GetPublishingUser - Description for Gets publishing user
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - WebSiteManagementClientGetPublishingUserOptions contains the optional parameters for the WebSiteManagementClient.GetPublishingUser
-// method.
+//   - options - WebSiteManagementClientGetPublishingUserOptions contains the optional parameters for the WebSiteManagementClient.GetPublishingUser
+//     method.
 func (client *WebSiteManagementClient) GetPublishingUser(ctx context.Context, options *WebSiteManagementClientGetPublishingUserOptions) (WebSiteManagementClientGetPublishingUserResponse, error) {
 	req, err := client.getPublishingUserCreateRequest(ctx, options)
 	if err != nil {
@@ -149,10 +151,11 @@ func (client *WebSiteManagementClient) getPublishingUserHandleResponse(resp *htt
 
 // GetSourceControl - Description for Gets source control token
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// sourceControlType - Type of source control
-// options - WebSiteManagementClientGetSourceControlOptions contains the optional parameters for the WebSiteManagementClient.GetSourceControl
-// method.
+//   - sourceControlType - Type of source control
+//   - options - WebSiteManagementClientGetSourceControlOptions contains the optional parameters for the WebSiteManagementClient.GetSourceControl
+//     method.
 func (client *WebSiteManagementClient) GetSourceControl(ctx context.Context, sourceControlType string, options *WebSiteManagementClientGetSourceControlOptions) (WebSiteManagementClientGetSourceControlResponse, error) {
 	req, err := client.getSourceControlCreateRequest(ctx, sourceControlType, options)
 	if err != nil {
@@ -197,9 +200,10 @@ func (client *WebSiteManagementClient) getSourceControlHandleResponse(resp *http
 
 // GetSubscriptionDeploymentLocations - Description for Gets list of available geo regions plus ministamps
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - WebSiteManagementClientGetSubscriptionDeploymentLocationsOptions contains the optional parameters for the WebSiteManagementClient.GetSubscriptionDeploymentLocations
-// method.
+//   - options - WebSiteManagementClientGetSubscriptionDeploymentLocationsOptions contains the optional parameters for the WebSiteManagementClient.GetSubscriptionDeploymentLocations
+//     method.
 func (client *WebSiteManagementClient) GetSubscriptionDeploymentLocations(ctx context.Context, options *WebSiteManagementClientGetSubscriptionDeploymentLocationsOptions) (WebSiteManagementClientGetSubscriptionDeploymentLocationsResponse, error) {
 	req, err := client.getSubscriptionDeploymentLocationsCreateRequest(ctx, options)
 	if err != nil {
@@ -243,10 +247,10 @@ func (client *WebSiteManagementClient) getSubscriptionDeploymentLocationsHandleR
 }
 
 // NewListBillingMetersPager - Description for Gets a list of meters for a given location.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - WebSiteManagementClientListBillingMetersOptions contains the optional parameters for the WebSiteManagementClient.ListBillingMeters
-// method.
+//   - options - WebSiteManagementClientListBillingMetersOptions contains the optional parameters for the WebSiteManagementClient.NewListBillingMetersPager
+//     method.
 func (client *WebSiteManagementClient) NewListBillingMetersPager(options *WebSiteManagementClientListBillingMetersOptions) *runtime.Pager[WebSiteManagementClientListBillingMetersResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WebSiteManagementClientListBillingMetersResponse]{
 		More: func(page WebSiteManagementClientListBillingMetersResponse) bool {
@@ -309,10 +313,10 @@ func (client *WebSiteManagementClient) listBillingMetersHandleResponse(resp *htt
 }
 
 // NewListCustomHostNameSitesPager - Get custom hostnames under this subscription
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - WebSiteManagementClientListCustomHostNameSitesOptions contains the optional parameters for the WebSiteManagementClient.ListCustomHostNameSites
-// method.
+//   - options - WebSiteManagementClientListCustomHostNameSitesOptions contains the optional parameters for the WebSiteManagementClient.NewListCustomHostNameSitesPager
+//     method.
 func (client *WebSiteManagementClient) NewListCustomHostNameSitesPager(options *WebSiteManagementClientListCustomHostNameSitesOptions) *runtime.Pager[WebSiteManagementClientListCustomHostNameSitesResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WebSiteManagementClientListCustomHostNameSitesResponse]{
 		More: func(page WebSiteManagementClientListCustomHostNameSitesResponse) bool {
@@ -372,10 +376,10 @@ func (client *WebSiteManagementClient) listCustomHostNameSitesHandleResponse(res
 }
 
 // NewListGeoRegionsPager - Description for Get a list of available geographical regions.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - WebSiteManagementClientListGeoRegionsOptions contains the optional parameters for the WebSiteManagementClient.ListGeoRegions
-// method.
+//   - options - WebSiteManagementClientListGeoRegionsOptions contains the optional parameters for the WebSiteManagementClient.NewListGeoRegionsPager
+//     method.
 func (client *WebSiteManagementClient) NewListGeoRegionsPager(options *WebSiteManagementClientListGeoRegionsOptions) *runtime.Pager[WebSiteManagementClientListGeoRegionsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WebSiteManagementClientListGeoRegionsResponse]{
 		More: func(page WebSiteManagementClientListGeoRegionsResponse) bool {
@@ -444,10 +448,10 @@ func (client *WebSiteManagementClient) listGeoRegionsHandleResponse(resp *http.R
 }
 
 // NewListPremierAddOnOffersPager - Description for List all premier add-on offers.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - WebSiteManagementClientListPremierAddOnOffersOptions contains the optional parameters for the WebSiteManagementClient.ListPremierAddOnOffers
-// method.
+//   - options - WebSiteManagementClientListPremierAddOnOffersOptions contains the optional parameters for the WebSiteManagementClient.NewListPremierAddOnOffersPager
+//     method.
 func (client *WebSiteManagementClient) NewListPremierAddOnOffersPager(options *WebSiteManagementClientListPremierAddOnOffersOptions) *runtime.Pager[WebSiteManagementClientListPremierAddOnOffersResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WebSiteManagementClientListPremierAddOnOffersResponse]{
 		More: func(page WebSiteManagementClientListPremierAddOnOffersResponse) bool {
@@ -505,9 +509,10 @@ func (client *WebSiteManagementClient) listPremierAddOnOffersHandleResponse(resp
 
 // ListSKUs - Description for List all SKUs.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - WebSiteManagementClientListSKUsOptions contains the optional parameters for the WebSiteManagementClient.ListSKUs
-// method.
+//   - options - WebSiteManagementClientListSKUsOptions contains the optional parameters for the WebSiteManagementClient.ListSKUs
+//     method.
 func (client *WebSiteManagementClient) ListSKUs(ctx context.Context, options *WebSiteManagementClientListSKUsOptions) (WebSiteManagementClientListSKUsResponse, error) {
 	req, err := client.listSKUsCreateRequest(ctx, options)
 	if err != nil {
@@ -551,11 +556,11 @@ func (client *WebSiteManagementClient) listSKUsHandleResponse(resp *http.Respons
 }
 
 // NewListSiteIdentifiersAssignedToHostNamePager - Description for List all apps that are assigned to a hostname.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// nameIdentifier - Hostname information.
-// options - WebSiteManagementClientListSiteIdentifiersAssignedToHostNameOptions contains the optional parameters for the
-// WebSiteManagementClient.ListSiteIdentifiersAssignedToHostName method.
+//   - nameIdentifier - Hostname information.
+//   - options - WebSiteManagementClientListSiteIdentifiersAssignedToHostNameOptions contains the optional parameters for the
+//     WebSiteManagementClient.NewListSiteIdentifiersAssignedToHostNamePager method.
 func (client *WebSiteManagementClient) NewListSiteIdentifiersAssignedToHostNamePager(nameIdentifier NameIdentifier, options *WebSiteManagementClientListSiteIdentifiersAssignedToHostNameOptions) *runtime.Pager[WebSiteManagementClientListSiteIdentifiersAssignedToHostNameResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WebSiteManagementClientListSiteIdentifiersAssignedToHostNameResponse]{
 		More: func(page WebSiteManagementClientListSiteIdentifiersAssignedToHostNameResponse) bool {
@@ -612,10 +617,10 @@ func (client *WebSiteManagementClient) listSiteIdentifiersAssignedToHostNameHand
 }
 
 // NewListSourceControlsPager - Description for Gets the source controls available for Azure websites.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// options - WebSiteManagementClientListSourceControlsOptions contains the optional parameters for the WebSiteManagementClient.ListSourceControls
-// method.
+//   - options - WebSiteManagementClientListSourceControlsOptions contains the optional parameters for the WebSiteManagementClient.NewListSourceControlsPager
+//     method.
 func (client *WebSiteManagementClient) NewListSourceControlsPager(options *WebSiteManagementClientListSourceControlsOptions) *runtime.Pager[WebSiteManagementClientListSourceControlsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WebSiteManagementClientListSourceControlsResponse]{
 		More: func(page WebSiteManagementClientListSourceControlsResponse) bool {
@@ -669,10 +674,11 @@ func (client *WebSiteManagementClient) listSourceControlsHandleResponse(resp *ht
 
 // Move - Description for Move resources between resource groups.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// moveResourceEnvelope - Object that represents the resource to move.
-// options - WebSiteManagementClientMoveOptions contains the optional parameters for the WebSiteManagementClient.Move method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - moveResourceEnvelope - Object that represents the resource to move.
+//   - options - WebSiteManagementClientMoveOptions contains the optional parameters for the WebSiteManagementClient.Move method.
 func (client *WebSiteManagementClient) Move(ctx context.Context, resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope, options *WebSiteManagementClientMoveOptions) (WebSiteManagementClientMoveResponse, error) {
 	req, err := client.moveCreateRequest(ctx, resourceGroupName, moveResourceEnvelope, options)
 	if err != nil {
@@ -712,10 +718,11 @@ func (client *WebSiteManagementClient) moveCreateRequest(ctx context.Context, re
 
 // UpdatePublishingUser - Description for Updates publishing user
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// userDetails - Details of publishing user
-// options - WebSiteManagementClientUpdatePublishingUserOptions contains the optional parameters for the WebSiteManagementClient.UpdatePublishingUser
-// method.
+//   - userDetails - Details of publishing user
+//   - options - WebSiteManagementClientUpdatePublishingUserOptions contains the optional parameters for the WebSiteManagementClient.UpdatePublishingUser
+//     method.
 func (client *WebSiteManagementClient) UpdatePublishingUser(ctx context.Context, userDetails User, options *WebSiteManagementClientUpdatePublishingUserOptions) (WebSiteManagementClientUpdatePublishingUserResponse, error) {
 	req, err := client.updatePublishingUserCreateRequest(ctx, userDetails, options)
 	if err != nil {
@@ -756,11 +763,12 @@ func (client *WebSiteManagementClient) updatePublishingUserHandleResponse(resp *
 
 // UpdateSourceControl - Description for Updates source control token
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// sourceControlType - Type of source control
-// requestMessage - Source control token information
-// options - WebSiteManagementClientUpdateSourceControlOptions contains the optional parameters for the WebSiteManagementClient.UpdateSourceControl
-// method.
+//   - sourceControlType - Type of source control
+//   - requestMessage - Source control token information
+//   - options - WebSiteManagementClientUpdateSourceControlOptions contains the optional parameters for the WebSiteManagementClient.UpdateSourceControl
+//     method.
 func (client *WebSiteManagementClient) UpdateSourceControl(ctx context.Context, sourceControlType string, requestMessage SourceControl, options *WebSiteManagementClientUpdateSourceControlOptions) (WebSiteManagementClientUpdateSourceControlResponse, error) {
 	req, err := client.updateSourceControlCreateRequest(ctx, sourceControlType, requestMessage, options)
 	if err != nil {
@@ -805,11 +813,12 @@ func (client *WebSiteManagementClient) updateSourceControlHandleResponse(resp *h
 
 // Validate - Description for Validate if a resource can be created.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// validateRequest - Request with the resources to validate.
-// options - WebSiteManagementClientValidateOptions contains the optional parameters for the WebSiteManagementClient.Validate
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - validateRequest - Request with the resources to validate.
+//   - options - WebSiteManagementClientValidateOptions contains the optional parameters for the WebSiteManagementClient.Validate
+//     method.
 func (client *WebSiteManagementClient) Validate(ctx context.Context, resourceGroupName string, validateRequest ValidateRequest, options *WebSiteManagementClientValidateOptions) (WebSiteManagementClientValidateResponse, error) {
 	req, err := client.validateCreateRequest(ctx, resourceGroupName, validateRequest, options)
 	if err != nil {
@@ -858,11 +867,12 @@ func (client *WebSiteManagementClient) validateHandleResponse(resp *http.Respons
 
 // ValidateMove - Description for Validate whether a resource can be moved.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// moveResourceEnvelope - Object that represents the resource to move.
-// options - WebSiteManagementClientValidateMoveOptions contains the optional parameters for the WebSiteManagementClient.ValidateMove
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - moveResourceEnvelope - Object that represents the resource to move.
+//   - options - WebSiteManagementClientValidateMoveOptions contains the optional parameters for the WebSiteManagementClient.ValidateMove
+//     method.
 func (client *WebSiteManagementClient) ValidateMove(ctx context.Context, resourceGroupName string, moveResourceEnvelope CsmMoveResourceEnvelope, options *WebSiteManagementClientValidateMoveOptions) (WebSiteManagementClientValidateMoveResponse, error) {
 	req, err := client.validateMoveCreateRequest(ctx, resourceGroupName, moveResourceEnvelope, options)
 	if err != nil {
@@ -903,10 +913,11 @@ func (client *WebSiteManagementClient) validateMoveCreateRequest(ctx context.Con
 // VerifyHostingEnvironmentVnet - Description for Verifies if this VNET is compatible with an App Service Environment by analyzing
 // the Network Security Group rules.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// parameters - VNET information
-// options - WebSiteManagementClientVerifyHostingEnvironmentVnetOptions contains the optional parameters for the WebSiteManagementClient.VerifyHostingEnvironmentVnet
-// method.
+//   - parameters - VNET information
+//   - options - WebSiteManagementClientVerifyHostingEnvironmentVnetOptions contains the optional parameters for the WebSiteManagementClient.VerifyHostingEnvironmentVnet
+//     method.
 func (client *WebSiteManagementClient) VerifyHostingEnvironmentVnet(ctx context.Context, parameters VnetParameters, options *WebSiteManagementClientVerifyHostingEnvironmentVnetOptions) (WebSiteManagementClientVerifyHostingEnvironmentVnetResponse, error) {
 	req, err := client.verifyHostingEnvironmentVnetCreateRequest(ctx, parameters, options)
 	if err != nil {

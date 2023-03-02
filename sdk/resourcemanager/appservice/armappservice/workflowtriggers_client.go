@@ -33,9 +33,9 @@ type WorkflowTriggersClient struct {
 }
 
 // NewWorkflowTriggersClient creates a new instance of WorkflowTriggersClient with the specified values.
-// subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000).
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewWorkflowTriggersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*WorkflowTriggersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewWorkflowTriggersClient(subscriptionID string, credential azcore.TokenCre
 
 // Get - Gets a workflow trigger.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Site name.
-// workflowName - The workflow name.
-// triggerName - The workflow trigger name.
-// options - WorkflowTriggersClientGetOptions contains the optional parameters for the WorkflowTriggersClient.Get method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Site name.
+//   - workflowName - The workflow name.
+//   - triggerName - The workflow trigger name.
+//   - options - WorkflowTriggersClientGetOptions contains the optional parameters for the WorkflowTriggersClient.Get method.
 func (client *WorkflowTriggersClient) Get(ctx context.Context, resourceGroupName string, name string, workflowName string, triggerName string, options *WorkflowTriggersClientGetOptions) (WorkflowTriggersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, name, workflowName, triggerName, options)
 	if err != nil {
@@ -124,13 +125,14 @@ func (client *WorkflowTriggersClient) getHandleResponse(resp *http.Response) (Wo
 
 // GetSchemaJSON - Get the trigger schema as JSON.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Site name.
-// workflowName - The workflow name.
-// triggerName - The workflow trigger name.
-// options - WorkflowTriggersClientGetSchemaJSONOptions contains the optional parameters for the WorkflowTriggersClient.GetSchemaJSON
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Site name.
+//   - workflowName - The workflow name.
+//   - triggerName - The workflow trigger name.
+//   - options - WorkflowTriggersClientGetSchemaJSONOptions contains the optional parameters for the WorkflowTriggersClient.GetSchemaJSON
+//     method.
 func (client *WorkflowTriggersClient) GetSchemaJSON(ctx context.Context, resourceGroupName string, name string, workflowName string, triggerName string, options *WorkflowTriggersClientGetSchemaJSONOptions) (WorkflowTriggersClientGetSchemaJSONResponse, error) {
 	req, err := client.getSchemaJSONCreateRequest(ctx, resourceGroupName, name, workflowName, triggerName, options)
 	if err != nil {
@@ -190,12 +192,13 @@ func (client *WorkflowTriggersClient) getSchemaJSONHandleResponse(resp *http.Res
 }
 
 // NewListPager - Gets a list of workflow triggers.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Site name.
-// workflowName - The workflow name.
-// options - WorkflowTriggersClientListOptions contains the optional parameters for the WorkflowTriggersClient.List method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Site name.
+//   - workflowName - The workflow name.
+//   - options - WorkflowTriggersClientListOptions contains the optional parameters for the WorkflowTriggersClient.NewListPager
+//     method.
 func (client *WorkflowTriggersClient) NewListPager(resourceGroupName string, name string, workflowName string, options *WorkflowTriggersClientListOptions) *runtime.Pager[WorkflowTriggersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WorkflowTriggersClientListResponse]{
 		More: func(page WorkflowTriggersClientListResponse) bool {
@@ -271,13 +274,14 @@ func (client *WorkflowTriggersClient) listHandleResponse(resp *http.Response) (W
 
 // ListCallbackURL - Get the callback URL for a workflow trigger.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Site name.
-// workflowName - The workflow name.
-// triggerName - The workflow trigger name.
-// options - WorkflowTriggersClientListCallbackURLOptions contains the optional parameters for the WorkflowTriggersClient.ListCallbackURL
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Site name.
+//   - workflowName - The workflow name.
+//   - triggerName - The workflow trigger name.
+//   - options - WorkflowTriggersClientListCallbackURLOptions contains the optional parameters for the WorkflowTriggersClient.ListCallbackURL
+//     method.
 func (client *WorkflowTriggersClient) ListCallbackURL(ctx context.Context, resourceGroupName string, name string, workflowName string, triggerName string, options *WorkflowTriggersClientListCallbackURLOptions) (WorkflowTriggersClientListCallbackURLResponse, error) {
 	req, err := client.listCallbackURLCreateRequest(ctx, resourceGroupName, name, workflowName, triggerName, options)
 	if err != nil {
@@ -338,13 +342,14 @@ func (client *WorkflowTriggersClient) listCallbackURLHandleResponse(resp *http.R
 
 // BeginRun - Runs a workflow trigger.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
-// resourceGroupName - Name of the resource group to which the resource belongs.
-// name - Site name.
-// workflowName - The workflow name.
-// triggerName - The workflow trigger name.
-// options - WorkflowTriggersClientBeginRunOptions contains the optional parameters for the WorkflowTriggersClient.BeginRun
-// method.
+//   - resourceGroupName - Name of the resource group to which the resource belongs.
+//   - name - Site name.
+//   - workflowName - The workflow name.
+//   - triggerName - The workflow trigger name.
+//   - options - WorkflowTriggersClientBeginRunOptions contains the optional parameters for the WorkflowTriggersClient.BeginRun
+//     method.
 func (client *WorkflowTriggersClient) BeginRun(ctx context.Context, resourceGroupName string, name string, workflowName string, triggerName string, options *WorkflowTriggersClientBeginRunOptions) (*runtime.Poller[WorkflowTriggersClientRunResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.run(ctx, resourceGroupName, name, workflowName, triggerName, options)
@@ -359,6 +364,7 @@ func (client *WorkflowTriggersClient) BeginRun(ctx context.Context, resourceGrou
 
 // Run - Runs a workflow trigger.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-01
 func (client *WorkflowTriggersClient) run(ctx context.Context, resourceGroupName string, name string, workflowName string, triggerName string, options *WorkflowTriggersClientBeginRunOptions) (*http.Response, error) {
 	req, err := client.runCreateRequest(ctx, resourceGroupName, name, workflowName, triggerName, options)
