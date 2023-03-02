@@ -11,7 +11,7 @@ package armagrifood
 
 const (
 	moduleName    = "armagrifood"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.8.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -121,13 +121,14 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// ProvisioningState - Sensor integration instance provisioning state.
+// ProvisioningState - Data Manager For Agriculture instance provisioning state.
 type ProvisioningState string
 
 const (
 	ProvisioningStateCreating  ProvisioningState = "Creating"
 	ProvisioningStateDeleting  ProvisioningState = "Deleting"
 	ProvisioningStateFailed    ProvisioningState = "Failed"
+	ProvisioningStateRunning   ProvisioningState = "Running"
 	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
 	ProvisioningStateUpdating  ProvisioningState = "Updating"
 )
@@ -138,23 +139,24 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateCreating,
 		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
+		ProvisioningStateRunning,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
 	}
 }
 
-// PublicNetworkAccess - Property to allow or block public traffic for an Azure FarmBeats resource.
+// PublicNetworkAccess - Property to allow or block public traffic for an Azure Data Manager For Agriculture resource.
 type PublicNetworkAccess string
 
 const (
-	PublicNetworkAccessEnabled PublicNetworkAccess = "Enabled"
-	PublicNetworkAccessHybrid  PublicNetworkAccess = "Hybrid"
+	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
 func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
 	return []PublicNetworkAccess{
+		PublicNetworkAccessDisabled,
 		PublicNetworkAccessEnabled,
-		PublicNetworkAccessHybrid,
 	}
 }
