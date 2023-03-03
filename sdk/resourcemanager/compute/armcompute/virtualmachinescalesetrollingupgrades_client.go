@@ -32,10 +32,10 @@ type VirtualMachineScaleSetRollingUpgradesClient struct {
 }
 
 // NewVirtualMachineScaleSetRollingUpgradesClient creates a new instance of VirtualMachineScaleSetRollingUpgradesClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewVirtualMachineScaleSetRollingUpgradesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VirtualMachineScaleSetRollingUpgradesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,11 +58,12 @@ func NewVirtualMachineScaleSetRollingUpgradesClient(subscriptionID string, crede
 
 // BeginCancel - Cancels the current virtual machine scale set rolling upgrade.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// vmScaleSetName - The name of the VM scale set.
-// options - VirtualMachineScaleSetRollingUpgradesClientBeginCancelOptions contains the optional parameters for the VirtualMachineScaleSetRollingUpgradesClient.BeginCancel
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - vmScaleSetName - The name of the VM scale set.
+//   - options - VirtualMachineScaleSetRollingUpgradesClientBeginCancelOptions contains the optional parameters for the VirtualMachineScaleSetRollingUpgradesClient.BeginCancel
+//     method.
 func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginCancel(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginCancelOptions) (*runtime.Poller[VirtualMachineScaleSetRollingUpgradesClientCancelResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.cancel(ctx, resourceGroupName, vmScaleSetName, options)
@@ -77,7 +78,8 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginCancel(ctx conte
 
 // Cancel - Cancels the current virtual machine scale set rolling upgrade.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
+//
+// Generated from API version 2023-03-01
 func (client *VirtualMachineScaleSetRollingUpgradesClient) cancel(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginCancelOptions) (*http.Response, error) {
 	req, err := client.cancelCreateRequest(ctx, resourceGroupName, vmScaleSetName, options)
 	if err != nil {
@@ -113,7 +115,7 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) cancelCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,11 +123,12 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) cancelCreateRequest(c
 
 // GetLatest - Gets the status of the latest virtual machine scale set rolling upgrade.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// vmScaleSetName - The name of the VM scale set.
-// options - VirtualMachineScaleSetRollingUpgradesClientGetLatestOptions contains the optional parameters for the VirtualMachineScaleSetRollingUpgradesClient.GetLatest
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - vmScaleSetName - The name of the VM scale set.
+//   - options - VirtualMachineScaleSetRollingUpgradesClientGetLatestOptions contains the optional parameters for the VirtualMachineScaleSetRollingUpgradesClient.GetLatest
+//     method.
 func (client *VirtualMachineScaleSetRollingUpgradesClient) GetLatest(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientGetLatestOptions) (VirtualMachineScaleSetRollingUpgradesClientGetLatestResponse, error) {
 	req, err := client.getLatestCreateRequest(ctx, resourceGroupName, vmScaleSetName, options)
 	if err != nil {
@@ -161,7 +164,7 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) getLatestCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -180,11 +183,12 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) getLatestHandleRespon
 // to the latest available extension version. Instances which are already running the latest extension versions
 // are not affected.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// vmScaleSetName - The name of the VM scale set.
-// options - VirtualMachineScaleSetRollingUpgradesClientBeginStartExtensionUpgradeOptions contains the optional parameters
-// for the VirtualMachineScaleSetRollingUpgradesClient.BeginStartExtensionUpgrade method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - vmScaleSetName - The name of the VM scale set.
+//   - options - VirtualMachineScaleSetRollingUpgradesClientBeginStartExtensionUpgradeOptions contains the optional parameters
+//     for the VirtualMachineScaleSetRollingUpgradesClient.BeginStartExtensionUpgrade method.
 func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginStartExtensionUpgrade(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginStartExtensionUpgradeOptions) (*runtime.Poller[VirtualMachineScaleSetRollingUpgradesClientStartExtensionUpgradeResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.startExtensionUpgrade(ctx, resourceGroupName, vmScaleSetName, options)
@@ -201,7 +205,8 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginStartExtensionUp
 // the latest available extension version. Instances which are already running the latest extension versions
 // are not affected.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
+//
+// Generated from API version 2023-03-01
 func (client *VirtualMachineScaleSetRollingUpgradesClient) startExtensionUpgrade(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginStartExtensionUpgradeOptions) (*http.Response, error) {
 	req, err := client.startExtensionUpgradeCreateRequest(ctx, resourceGroupName, vmScaleSetName, options)
 	if err != nil {
@@ -237,7 +242,7 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) startExtensionUpgrade
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -247,11 +252,12 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) startExtensionUpgrade
 // Platform Image OS version. Instances which are already running the latest available OS version are not
 // affected.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// vmScaleSetName - The name of the VM scale set.
-// options - VirtualMachineScaleSetRollingUpgradesClientBeginStartOSUpgradeOptions contains the optional parameters for the
-// VirtualMachineScaleSetRollingUpgradesClient.BeginStartOSUpgrade method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - vmScaleSetName - The name of the VM scale set.
+//   - options - VirtualMachineScaleSetRollingUpgradesClientBeginStartOSUpgradeOptions contains the optional parameters for the
+//     VirtualMachineScaleSetRollingUpgradesClient.BeginStartOSUpgrade method.
 func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginStartOSUpgrade(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginStartOSUpgradeOptions) (*runtime.Poller[VirtualMachineScaleSetRollingUpgradesClientStartOSUpgradeResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.startOSUpgrade(ctx, resourceGroupName, vmScaleSetName, options)
@@ -268,7 +274,8 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) BeginStartOSUpgrade(c
 // Image OS version. Instances which are already running the latest available OS version are not
 // affected.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
+//
+// Generated from API version 2023-03-01
 func (client *VirtualMachineScaleSetRollingUpgradesClient) startOSUpgrade(ctx context.Context, resourceGroupName string, vmScaleSetName string, options *VirtualMachineScaleSetRollingUpgradesClientBeginStartOSUpgradeOptions) (*http.Response, error) {
 	req, err := client.startOSUpgradeCreateRequest(ctx, resourceGroupName, vmScaleSetName, options)
 	if err != nil {
@@ -304,7 +311,7 @@ func (client *VirtualMachineScaleSetRollingUpgradesClient) startOSUpgradeCreateR
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
