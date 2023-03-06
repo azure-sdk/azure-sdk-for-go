@@ -32,9 +32,9 @@ type AdministratorsClient struct {
 }
 
 // NewAdministratorsClient creates a new instance of AdministratorsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAdministratorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AdministratorsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewAdministratorsClient(subscriptionID string, credential azcore.TokenCrede
 
 // BeginCreate - Creates a new server.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// objectID - Guid of the objectId for the administrator.
-// parameters - The required parameters for adding an active directory administrator for a server.
-// options - AdministratorsClientBeginCreateOptions contains the optional parameters for the AdministratorsClient.BeginCreate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - objectID - Guid of the objectId for the administrator.
+//   - parameters - The required parameters for adding an active directory administrator for a server.
+//   - options - AdministratorsClientBeginCreateOptions contains the optional parameters for the AdministratorsClient.BeginCreate
+//     method.
 func (client *AdministratorsClient) BeginCreate(ctx context.Context, resourceGroupName string, serverName string, objectID string, parameters ActiveDirectoryAdministratorAdd, options *AdministratorsClientBeginCreateOptions) (*runtime.Poller[AdministratorsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, serverName, objectID, parameters, options)
@@ -80,6 +81,7 @@ func (client *AdministratorsClient) BeginCreate(ctx context.Context, resourceGro
 
 // Create - Creates a new server.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
 func (client *AdministratorsClient) create(ctx context.Context, resourceGroupName string, serverName string, objectID string, parameters ActiveDirectoryAdministratorAdd, options *AdministratorsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, serverName, objectID, parameters, options)
@@ -128,12 +130,13 @@ func (client *AdministratorsClient) createCreateRequest(ctx context.Context, res
 
 // BeginDelete - Deletes an Active Directory Administrator associated with the server.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// objectID - Guid of the objectId for the administrator.
-// options - AdministratorsClientBeginDeleteOptions contains the optional parameters for the AdministratorsClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - objectID - Guid of the objectId for the administrator.
+//   - options - AdministratorsClientBeginDeleteOptions contains the optional parameters for the AdministratorsClient.BeginDelete
+//     method.
 func (client *AdministratorsClient) BeginDelete(ctx context.Context, resourceGroupName string, serverName string, objectID string, options *AdministratorsClientBeginDeleteOptions) (*runtime.Poller[AdministratorsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, serverName, objectID, options)
@@ -150,6 +153,7 @@ func (client *AdministratorsClient) BeginDelete(ctx context.Context, resourceGro
 
 // Delete - Deletes an Active Directory Administrator associated with the server.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
 func (client *AdministratorsClient) deleteOperation(ctx context.Context, resourceGroupName string, serverName string, objectID string, options *AdministratorsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverName, objectID, options)
@@ -198,11 +202,12 @@ func (client *AdministratorsClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Gets information about a server.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// objectID - Guid of the objectId for the administrator.
-// options - AdministratorsClientGetOptions contains the optional parameters for the AdministratorsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - objectID - Guid of the objectId for the administrator.
+//   - options - AdministratorsClientGetOptions contains the optional parameters for the AdministratorsClient.Get method.
 func (client *AdministratorsClient) Get(ctx context.Context, resourceGroupName string, serverName string, objectID string, options *AdministratorsClientGetOptions) (AdministratorsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serverName, objectID, options)
 	if err != nil {
@@ -258,11 +263,12 @@ func (client *AdministratorsClient) getHandleResponse(resp *http.Response) (Admi
 }
 
 // NewListByServerPager - List all the AAD administrators for a given server.
+//
 // Generated from API version 2022-12-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// serverName - The name of the server.
-// options - AdministratorsClientListByServerOptions contains the optional parameters for the AdministratorsClient.ListByServer
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - serverName - The name of the server.
+//   - options - AdministratorsClientListByServerOptions contains the optional parameters for the AdministratorsClient.NewListByServerPager
+//     method.
 func (client *AdministratorsClient) NewListByServerPager(resourceGroupName string, serverName string, options *AdministratorsClientListByServerOptions) *runtime.Pager[AdministratorsClientListByServerResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AdministratorsClientListByServerResponse]{
 		More: func(page AdministratorsClientListByServerResponse) bool {
