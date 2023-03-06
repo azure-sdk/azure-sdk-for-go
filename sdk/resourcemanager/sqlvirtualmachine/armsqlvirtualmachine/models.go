@@ -11,6 +11,13 @@ package armsqlvirtualmachine
 
 import "time"
 
+// AADAuthenticationSettings - Enable AAD authentication for SQL VM.
+type AADAuthenticationSettings struct {
+	// The client Id of the Managed Identity to query Microsoft Graph API. An empty string must be used for the system assigned
+	// Managed Identity
+	ClientID *string `json:"clientId,omitempty"`
+}
+
 // AdditionalFeaturesServerConfigurations - Additional SQL Server feature settings.
 type AdditionalFeaturesServerConfigurations struct {
 	// Enable or disable R services (SQL 2016 onwards).
@@ -41,15 +48,15 @@ type AgReplica struct {
 	SQLVirtualMachineInstanceID *string `json:"sqlVirtualMachineInstanceId,omitempty"`
 }
 
-// AssessmentSettings - Configure assessment for databases in your SQL virtual machine.
+// AssessmentSettings - Configure SQL best practices Assessment for databases in your SQL virtual machine.
 type AssessmentSettings struct {
-	// Enable or disable assessment feature on SQL virtual machine.
+	// Enable or disable SQL best practices Assessment feature on SQL virtual machine.
 	Enable *bool `json:"enable,omitempty"`
 
-	// Run assessment immediately on SQL virtual machine.
+	// Run SQL best practices Assessment immediately on SQL virtual machine.
 	RunImmediately *bool `json:"runImmediately,omitempty"`
 
-	// Schedule for Assessment.
+	// Schedule for SQL best practices Assessment.
 	Schedule *Schedule `json:"schedule,omitempty"`
 }
 
@@ -185,7 +192,7 @@ type AvailabilityGroupListenersClientGetOptions struct {
 	Expand *string
 }
 
-// AvailabilityGroupListenersClientListByGroupOptions contains the optional parameters for the AvailabilityGroupListenersClient.ListByGroup
+// AvailabilityGroupListenersClientListByGroupOptions contains the optional parameters for the AvailabilityGroupListenersClient.NewListByGroupPager
 // method.
 type AvailabilityGroupListenersClientListByGroupOptions struct {
 	// placeholder for future optional parameters
@@ -278,12 +285,13 @@ type GroupsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GroupsClientListByResourceGroupOptions contains the optional parameters for the GroupsClient.ListByResourceGroup method.
+// GroupsClientListByResourceGroupOptions contains the optional parameters for the GroupsClient.NewListByResourceGroupPager
+// method.
 type GroupsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GroupsClientListOptions contains the optional parameters for the GroupsClient.List method.
+// GroupsClientListOptions contains the optional parameters for the GroupsClient.NewListPager method.
 type GroupsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -354,7 +362,7 @@ type Operation struct {
 	Origin *OperationOrigin `json:"origin,omitempty" azure:"ro"`
 
 	// READ-ONLY; Additional descriptions for the operation.
-	Properties map[string]interface{} `json:"properties,omitempty" azure:"ro"`
+	Properties map[string]any `json:"properties,omitempty" azure:"ro"`
 }
 
 // OperationDisplay - Display metadata associated with the operation.
@@ -381,7 +389,7 @@ type OperationListResult struct {
 	Value []*Operation `json:"value,omitempty" azure:"ro"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -397,7 +405,7 @@ type PrivateIPAddress struct {
 
 // Properties - The SQL virtual machine properties.
 type Properties struct {
-	// Assessment Settings.
+	// SQL best practices Assessment Settings.
 	AssessmentSettings *AssessmentSettings `json:"assessmentSettings,omitempty"`
 
 	// Auto backup settings for SQL Server.
@@ -447,6 +455,9 @@ type Properties struct {
 
 	// READ-ONLY; Provisioning state to track the async operation status.
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; Troubleshooting status
+	TroubleshootingStatus *TroubleshootingStatus `json:"troubleshootingStatus,omitempty" azure:"ro"`
 }
 
 // ResourceIdentity - Azure Active Directory identity configuration for a resource.
@@ -552,6 +563,24 @@ type SQLTempDbSettings struct {
 	PersistFolderPath *string `json:"persistFolderPath,omitempty"`
 }
 
+// SQLVMTroubleshooting - Details required for SQL VM troubleshooting
+type SQLVMTroubleshooting struct {
+	// End time in UTC timezone.
+	EndTimeUTC *time.Time `json:"endTimeUtc,omitempty"`
+
+	// Troubleshooting properties
+	Properties *TroubleshootingAdditionalProperties `json:"properties,omitempty"`
+
+	// Start time in UTC timezone.
+	StartTimeUTC *time.Time `json:"startTimeUtc,omitempty"`
+
+	// SQL VM troubleshooting scenario.
+	TroubleshootingScenario *TroubleshootingScenario `json:"troubleshootingScenario,omitempty"`
+
+	// READ-ONLY; Virtual machine resource id for response.
+	VirtualMachineResourceID *string `json:"virtualMachineResourceId,omitempty" azure:"ro"`
+}
+
 // SQLVirtualMachine - A SQL virtual machine.
 type SQLVirtualMachine struct {
 	// REQUIRED; Resource location.
@@ -620,19 +649,19 @@ type SQLVirtualMachinesClientGetOptions struct {
 	Expand *string
 }
 
-// SQLVirtualMachinesClientListByResourceGroupOptions contains the optional parameters for the SQLVirtualMachinesClient.ListByResourceGroup
+// SQLVirtualMachinesClientListByResourceGroupOptions contains the optional parameters for the SQLVirtualMachinesClient.NewListByResourceGroupPager
 // method.
 type SQLVirtualMachinesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLVirtualMachinesClientListBySQLVMGroupOptions contains the optional parameters for the SQLVirtualMachinesClient.ListBySQLVMGroup
+// SQLVirtualMachinesClientListBySQLVMGroupOptions contains the optional parameters for the SQLVirtualMachinesClient.NewListBySQLVMGroupPager
 // method.
 type SQLVirtualMachinesClientListBySQLVMGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SQLVirtualMachinesClientListOptions contains the optional parameters for the SQLVirtualMachinesClient.List method.
+// SQLVirtualMachinesClientListOptions contains the optional parameters for the SQLVirtualMachinesClient.NewListPager method.
 type SQLVirtualMachinesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -666,6 +695,9 @@ type Schedule struct {
 type ServerConfigurationsManagementSettings struct {
 	// Additional SQL feature settings.
 	AdditionalFeaturesServerConfigurations *AdditionalFeaturesServerConfigurations `json:"additionalFeaturesServerConfigurations,omitempty"`
+
+	// Azure AD authentication Settings.
+	AzureAdAuthenticationSettings *AADAuthenticationSettings `json:"azureAdAuthenticationSettings,omitempty"`
 
 	// SQL connectivity type settings.
 	SQLConnectivityUpdateSettings *SQLConnectivityUpdateSettings `json:"sqlConnectivityUpdateSettings,omitempty"`
@@ -720,6 +752,46 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
+}
+
+// TroubleshootClientBeginTroubleshootOptions contains the optional parameters for the TroubleshootClient.BeginTroubleshoot
+// method.
+type TroubleshootClientBeginTroubleshootOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// TroubleshootingAdditionalProperties - SQL VM Troubleshooting additional properties.
+type TroubleshootingAdditionalProperties struct {
+	// The unhealthy replica information
+	UnhealthyReplicaInfo *UnhealthyReplicaInfo `json:"unhealthyReplicaInfo,omitempty"`
+}
+
+// TroubleshootingStatus - Status of last troubleshooting operation on this SQL VM
+type TroubleshootingStatus struct {
+	// READ-ONLY; End time in UTC timezone.
+	EndTimeUTC *time.Time `json:"endTimeUtc,omitempty" azure:"ro"`
+
+	// READ-ONLY; Last troubleshooting trigger time in UTC timezone
+	LastTriggerTimeUTC *time.Time `json:"lastTriggerTimeUtc,omitempty" azure:"ro"`
+
+	// READ-ONLY; Troubleshooting properties
+	Properties *TroubleshootingAdditionalProperties `json:"properties,omitempty" azure:"ro"`
+
+	// READ-ONLY; Root cause of the issue
+	RootCause *string `json:"rootCause,omitempty" azure:"ro"`
+
+	// READ-ONLY; Start time in UTC timezone.
+	StartTimeUTC *time.Time `json:"startTimeUtc,omitempty" azure:"ro"`
+
+	// READ-ONLY; SQL VM troubleshooting scenario.
+	TroubleshootingScenario *TroubleshootingScenario `json:"troubleshootingScenario,omitempty" azure:"ro"`
+}
+
+// UnhealthyReplicaInfo - SQL VM Troubleshoot UnhealthyReplica scenario information.
+type UnhealthyReplicaInfo struct {
+	// The name of the availability group
+	AvailabilityGroupName *string `json:"availabilityGroupName,omitempty"`
 }
 
 // Update - An update to a SQL virtual machine.
