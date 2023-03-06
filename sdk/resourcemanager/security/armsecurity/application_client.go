@@ -32,9 +32,9 @@ type ApplicationClient struct {
 }
 
 // NewApplicationClient creates a new instance of ApplicationClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewApplicationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplicationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewApplicationClient(subscriptionID string, credential azcore.TokenCredenti
 
 // CreateOrUpdate - Creates or update a security application on the given subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// applicationID - The security Application key - unique key for the standard application
-// application - Application over a subscription scope
-// options - ApplicationClientCreateOrUpdateOptions contains the optional parameters for the ApplicationClient.CreateOrUpdate
-// method.
+//   - applicationID - The security Application key - unique key for the standard application
+//   - application - Application over a subscription scope
+//   - options - ApplicationClientCreateOrUpdateOptions contains the optional parameters for the ApplicationClient.CreateOrUpdate
+//     method.
 func (client *ApplicationClient) CreateOrUpdate(ctx context.Context, applicationID string, application Application, options *ApplicationClientCreateOrUpdateOptions) (ApplicationClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, applicationID, application, options)
 	if err != nil {
@@ -110,9 +111,10 @@ func (client *ApplicationClient) createOrUpdateHandleResponse(resp *http.Respons
 
 // Delete - Delete an Application over a given scope
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// applicationID - The security Application key - unique key for the standard application
-// options - ApplicationClientDeleteOptions contains the optional parameters for the ApplicationClient.Delete method.
+//   - applicationID - The security Application key - unique key for the standard application
+//   - options - ApplicationClientDeleteOptions contains the optional parameters for the ApplicationClient.Delete method.
 func (client *ApplicationClient) Delete(ctx context.Context, applicationID string, options *ApplicationClientDeleteOptions) (ApplicationClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, applicationID, options)
 	if err != nil {
@@ -151,9 +153,10 @@ func (client *ApplicationClient) deleteCreateRequest(ctx context.Context, applic
 
 // Get - Get a specific application for the requested scope by applicationId
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// applicationID - The security Application key - unique key for the standard application
-// options - ApplicationClientGetOptions contains the optional parameters for the ApplicationClient.Get method.
+//   - applicationID - The security Application key - unique key for the standard application
+//   - options - ApplicationClientGetOptions contains the optional parameters for the ApplicationClient.Get method.
 func (client *ApplicationClient) Get(ctx context.Context, applicationID string, options *ApplicationClientGetOptions) (ApplicationClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, applicationID, options)
 	if err != nil {
