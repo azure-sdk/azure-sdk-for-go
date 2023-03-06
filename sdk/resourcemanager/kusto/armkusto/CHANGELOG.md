@@ -1,5 +1,11 @@
 # Release History
 
+## 2.0.0 (2023-03-06)
+### Breaking Changes
+
+- Const `LanguageExtensionImageNamePython3912`, `LanguageExtensionImageNamePython3912IncludeDeepLearning` from type alias `LanguageExtensionImageName` has been removed
+
+
 ## 1.2.0 (2023-02-24)
 ### Features Added
 

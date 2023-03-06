@@ -196,7 +196,7 @@ func (client *ScriptsClient) createOrUpdateCreateRequest(ctx context.Context, re
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
-// BeginDelete - Deletes a Kusto principalAssignment.
+// BeginDelete - Deletes a Kusto database script.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-12-29
@@ -217,7 +217,7 @@ func (client *ScriptsClient) BeginDelete(ctx context.Context, resourceGroupName 
 	}
 }
 
-// Delete - Deletes a Kusto principalAssignment.
+// Delete - Deletes a Kusto database script.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-12-29
