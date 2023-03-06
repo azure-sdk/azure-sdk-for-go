@@ -11,7 +11,7 @@ package armsecurity
 
 const (
 	moduleName    = "armsecurity"
-	moduleVersion = "v0.9.0"
+	moduleVersion = "v0.10.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -976,6 +976,27 @@ func PossibleOfferingTypeValues() []OfferingType {
 		OfferingTypeDefenderForServersAws,
 		OfferingTypeDefenderForServersGcp,
 		OfferingTypeInformationProtectionAws,
+	}
+}
+
+// OperationResult - The status of the long run operation result of governance rule
+type OperationResult string
+
+const (
+	// OperationResultCanceled - The operation canceled
+	OperationResultCanceled OperationResult = "Canceled"
+	// OperationResultFailed - The operation failed
+	OperationResultFailed OperationResult = "Failed"
+	// OperationResultSucceeded - The operation succeeded
+	OperationResultSucceeded OperationResult = "Succeeded"
+)
+
+// PossibleOperationResultValues returns the possible values for the OperationResult const type.
+func PossibleOperationResultValues() []OperationResult {
+	return []OperationResult{
+		OperationResultCanceled,
+		OperationResultFailed,
+		OperationResultSucceeded,
 	}
 }
 
