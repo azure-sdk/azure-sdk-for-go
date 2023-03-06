@@ -1200,6 +1200,12 @@ type DatabaseAccountConnectionString struct {
 
 	// READ-ONLY; Description of the connection string
 	Description *string `json:"description,omitempty" azure:"ro"`
+
+	// READ-ONLY; Kind of the connection string
+	KeyKind *KeyKind `json:"keyKind,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of the connection string
+	Type *KeyKind `json:"type,omitempty" azure:"ro"`
 }
 
 // DatabaseAccountCreateUpdateParameters - Parameters to create and update Cosmos DB database accounts.

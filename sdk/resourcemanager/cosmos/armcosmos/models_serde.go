@@ -2439,6 +2439,8 @@ func (d DatabaseAccountConnectionString) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "connectionString", d.ConnectionString)
 	populate(objectMap, "description", d.Description)
+	populate(objectMap, "keyKind", d.KeyKind)
+	populate(objectMap, "type", d.Type)
 	return json.Marshal(objectMap)
 }
 
@@ -2456,6 +2458,12 @@ func (d *DatabaseAccountConnectionString) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "description":
 			err = unpopulate(val, "Description", &d.Description)
+			delete(rawMsg, key)
+		case "keyKind":
+			err = unpopulate(val, "KeyKind", &d.KeyKind)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &d.Type)
 			delete(rawMsg, key)
 		}
 		if err != nil {

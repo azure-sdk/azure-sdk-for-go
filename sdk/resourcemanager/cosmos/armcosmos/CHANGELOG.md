@@ -1,5 +1,13 @@
 # Release History
 
+## 2.3.0 (2023-03-06)
+### Features Added
+
+- New value `KeyKindCassandra`, `KeyKindCassandraConnectorMetadata`, `KeyKindGremlin`, `KeyKindGremlinV2`, `KeyKindMongoDB`, `KeyKindSQL`, `KeyKindSQLDedicatedGateway`, `KeyKindTable`, `KeyKindUndefined` added to type alias `KeyKind`
+- New field `KeyKind` in struct `DatabaseAccountConnectionString`
+- New field `Type` in struct `DatabaseAccountConnectionString`
+
+
 ## 2.2.0 (2023-02-24)
 ### Features Added
 

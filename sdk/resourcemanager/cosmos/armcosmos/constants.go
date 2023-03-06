@@ -11,7 +11,7 @@ package armcosmos
 
 const (
 	moduleName    = "armcosmos"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -332,23 +332,49 @@ func PossibleIndexingModeValues() []IndexingMode {
 	}
 }
 
-// KeyKind - The access key to regenerate.
+// KeyKind - Kind of the connection string
 type KeyKind string
 
 const (
-	KeyKindPrimary           KeyKind = "primary"
-	KeyKindPrimaryReadonly   KeyKind = "primaryReadonly"
-	KeyKindSecondary         KeyKind = "secondary"
-	KeyKindSecondaryReadonly KeyKind = "secondaryReadonly"
+	KeyKindCassandra                  KeyKind = "Cassandra"
+	KeyKindCassandraConnectorMetadata KeyKind = "CassandraConnectorMetadata"
+	KeyKindGremlin                    KeyKind = "Gremlin"
+	KeyKindGremlinV2                  KeyKind = "GremlinV2"
+	KeyKindMongoDB                    KeyKind = "MongoDB"
+	KeyKindPrimary                    KeyKind = "Primary"
+	KeyKindPrimary                    KeyKind = "primary"
+	KeyKindPrimaryReadonly            KeyKind = "PrimaryReadonly"
+	KeyKindPrimaryReadonly            KeyKind = "primaryReadonly"
+	KeyKindSQL                        KeyKind = "Sql"
+	KeyKindSQLDedicatedGateway        KeyKind = "SqlDedicatedGateway"
+	KeyKindSecondary                  KeyKind = "Secondary"
+	KeyKindSecondary                  KeyKind = "secondary"
+	KeyKindSecondaryReadonly          KeyKind = "SecondaryReadonly"
+	KeyKindSecondaryReadonly          KeyKind = "secondaryReadonly"
+	KeyKindTable                      KeyKind = "Table"
+	KeyKindUndefined                  KeyKind = "Undefined"
 )
 
 // PossibleKeyKindValues returns the possible values for the KeyKind const type.
 func PossibleKeyKindValues() []KeyKind {
 	return []KeyKind{
+		KeyKindCassandra,
+		KeyKindCassandraConnectorMetadata,
+		KeyKindGremlin,
+		KeyKindGremlinV2,
+		KeyKindMongoDB,
+		KeyKindPrimary,
 		KeyKindPrimary,
 		KeyKindPrimaryReadonly,
+		KeyKindPrimaryReadonly,
+		KeyKindSQL,
+		KeyKindSQLDedicatedGateway,
+		KeyKindSecondary,
 		KeyKindSecondary,
 		KeyKindSecondaryReadonly,
+		KeyKindSecondaryReadonly,
+		KeyKindTable,
+		KeyKindUndefined,
 	}
 }
 
