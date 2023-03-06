@@ -9,8 +9,8 @@
 
 package armagrifood
 
-// ExtensionsClientCreateResponse contains the response from method ExtensionsClient.Create.
-type ExtensionsClientCreateResponse struct {
+// ExtensionsClientCreateOrUpdateResponse contains the response from method ExtensionsClient.CreateOrUpdate.
+type ExtensionsClientCreateOrUpdateResponse struct {
 	Extension
 }
 
@@ -24,14 +24,9 @@ type ExtensionsClientGetResponse struct {
 	Extension
 }
 
-// ExtensionsClientListByFarmBeatsResponse contains the response from method ExtensionsClient.ListByFarmBeats.
+// ExtensionsClientListByFarmBeatsResponse contains the response from method ExtensionsClient.NewListByFarmBeatsPager.
 type ExtensionsClientListByFarmBeatsResponse struct {
 	ExtensionListResponse
-}
-
-// ExtensionsClientUpdateResponse contains the response from method ExtensionsClient.Update.
-type ExtensionsClientUpdateResponse struct {
-	Extension
 }
 
 // FarmBeatsExtensionsClientGetResponse contains the response from method FarmBeatsExtensionsClient.Get.
@@ -39,7 +34,7 @@ type FarmBeatsExtensionsClientGetResponse struct {
 	FarmBeatsExtension
 }
 
-// FarmBeatsExtensionsClientListResponse contains the response from method FarmBeatsExtensionsClient.List.
+// FarmBeatsExtensionsClientListResponse contains the response from method FarmBeatsExtensionsClient.NewListPager.
 type FarmBeatsExtensionsClientListResponse struct {
 	FarmBeatsExtensionListResponse
 }
@@ -54,27 +49,22 @@ type FarmBeatsModelsClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// FarmBeatsModelsClientGetOperationResultResponse contains the response from method FarmBeatsModelsClient.GetOperationResult.
-type FarmBeatsModelsClientGetOperationResultResponse struct {
-	ArmAsyncOperation
-}
-
 // FarmBeatsModelsClientGetResponse contains the response from method FarmBeatsModelsClient.Get.
 type FarmBeatsModelsClientGetResponse struct {
 	FarmBeats
 }
 
-// FarmBeatsModelsClientListByResourceGroupResponse contains the response from method FarmBeatsModelsClient.ListByResourceGroup.
+// FarmBeatsModelsClientListByResourceGroupResponse contains the response from method FarmBeatsModelsClient.NewListByResourceGroupPager.
 type FarmBeatsModelsClientListByResourceGroupResponse struct {
 	FarmBeatsListResponse
 }
 
-// FarmBeatsModelsClientListBySubscriptionResponse contains the response from method FarmBeatsModelsClient.ListBySubscription.
+// FarmBeatsModelsClientListBySubscriptionResponse contains the response from method FarmBeatsModelsClient.NewListBySubscriptionPager.
 type FarmBeatsModelsClientListBySubscriptionResponse struct {
 	FarmBeatsListResponse
 }
 
-// FarmBeatsModelsClientUpdateResponse contains the response from method FarmBeatsModelsClient.Update.
+// FarmBeatsModelsClientUpdateResponse contains the response from method FarmBeatsModelsClient.BeginUpdate.
 type FarmBeatsModelsClientUpdateResponse struct {
 	FarmBeats
 }
@@ -84,7 +74,12 @@ type LocationsClientCheckNameAvailabilityResponse struct {
 	CheckNameAvailabilityResponse
 }
 
-// OperationsClientListResponse contains the response from method OperationsClient.List.
+// OperationResultsClientGetResponse contains the response from method OperationResultsClient.Get.
+type OperationResultsClientGetResponse struct {
+	ArmAsyncOperation
+}
+
+// OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationListResult
 }
@@ -94,7 +89,7 @@ type PrivateEndpointConnectionsClientCreateOrUpdateResponse struct {
 	PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.Delete.
+// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.BeginDelete.
 type PrivateEndpointConnectionsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -104,7 +99,7 @@ type PrivateEndpointConnectionsClientGetResponse struct {
 	PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionsClientListByResourceResponse contains the response from method PrivateEndpointConnectionsClient.ListByResource.
+// PrivateEndpointConnectionsClientListByResourceResponse contains the response from method PrivateEndpointConnectionsClient.NewListByResourcePager.
 type PrivateEndpointConnectionsClientListByResourceResponse struct {
 	PrivateEndpointConnectionListResult
 }
@@ -114,7 +109,37 @@ type PrivateLinkResourcesClientGetResponse struct {
 	PrivateLinkResource
 }
 
-// PrivateLinkResourcesClientListByResourceResponse contains the response from method PrivateLinkResourcesClient.ListByResource.
+// PrivateLinkResourcesClientListByResourceResponse contains the response from method PrivateLinkResourcesClient.NewListByResourcePager.
 type PrivateLinkResourcesClientListByResourceResponse struct {
 	PrivateLinkResourceListResult
+}
+
+// SolutionsClientCreateOrUpdateResponse contains the response from method SolutionsClient.CreateOrUpdate.
+type SolutionsClientCreateOrUpdateResponse struct {
+	Solution
+}
+
+// SolutionsClientDeleteResponse contains the response from method SolutionsClient.Delete.
+type SolutionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SolutionsClientGetResponse contains the response from method SolutionsClient.Get.
+type SolutionsClientGetResponse struct {
+	Solution
+}
+
+// SolutionsClientListResponse contains the response from method SolutionsClient.NewListPager.
+type SolutionsClientListResponse struct {
+	SolutionListResponse
+}
+
+// SolutionsDiscoverabilityClientGetResponse contains the response from method SolutionsDiscoverabilityClient.Get.
+type SolutionsDiscoverabilityClientGetResponse struct {
+	FarmBeatsSolution
+}
+
+// SolutionsDiscoverabilityClientListResponse contains the response from method SolutionsDiscoverabilityClient.NewListPager.
+type SolutionsDiscoverabilityClientListResponse struct {
+	FarmBeatsSolutionListResponse
 }
