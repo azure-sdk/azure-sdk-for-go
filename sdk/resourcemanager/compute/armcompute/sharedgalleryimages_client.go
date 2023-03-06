@@ -32,10 +32,10 @@ type SharedGalleryImagesClient struct {
 }
 
 // NewSharedGalleryImagesClient creates a new instance of SharedGalleryImagesClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSharedGalleryImagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SharedGalleryImagesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,11 +58,12 @@ func NewSharedGalleryImagesClient(subscriptionID string, credential azcore.Token
 
 // Get - Get a shared gallery image by subscription id or tenant id.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-03-03
-// location - Resource location.
-// galleryUniqueName - The unique name of the Shared Gallery.
-// galleryImageName - The name of the Shared Gallery Image Definition from which the Image Versions are to be listed.
-// options - SharedGalleryImagesClientGetOptions contains the optional parameters for the SharedGalleryImagesClient.Get method.
+//   - location - Resource location.
+//   - galleryUniqueName - The unique name of the Shared Gallery.
+//   - galleryImageName - The name of the Shared Gallery Image Definition from which the Image Versions are to be listed.
+//   - options - SharedGalleryImagesClientGetOptions contains the optional parameters for the SharedGalleryImagesClient.Get method.
 func (client *SharedGalleryImagesClient) Get(ctx context.Context, location string, galleryUniqueName string, galleryImageName string, options *SharedGalleryImagesClientGetOptions) (SharedGalleryImagesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, location, galleryUniqueName, galleryImageName, options)
 	if err != nil {
@@ -118,11 +119,12 @@ func (client *SharedGalleryImagesClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListPager - List shared gallery images by subscription id or tenant id.
+//
 // Generated from API version 2022-03-03
-// location - Resource location.
-// galleryUniqueName - The unique name of the Shared Gallery.
-// options - SharedGalleryImagesClientListOptions contains the optional parameters for the SharedGalleryImagesClient.List
-// method.
+//   - location - Resource location.
+//   - galleryUniqueName - The unique name of the Shared Gallery.
+//   - options - SharedGalleryImagesClientListOptions contains the optional parameters for the SharedGalleryImagesClient.NewListPager
+//     method.
 func (client *SharedGalleryImagesClient) NewListPager(location string, galleryUniqueName string, options *SharedGalleryImagesClientListOptions) *runtime.Pager[SharedGalleryImagesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SharedGalleryImagesClientListResponse]{
 		More: func(page SharedGalleryImagesClientListResponse) bool {
