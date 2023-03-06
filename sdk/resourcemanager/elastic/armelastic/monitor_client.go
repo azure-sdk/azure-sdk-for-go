@@ -40,9 +40,9 @@ type MonitorClient struct {
 }
 
 // NewMonitorClient creates a new instance of MonitorClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewMonitorClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MonitorClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,10 +65,11 @@ func NewMonitorClient(subscriptionID string, credential azcore.TokenCredential, 
 
 // BeginUpgrade - Upgradable version for a monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - MonitorClientBeginUpgradeOptions contains the optional parameters for the MonitorClient.BeginUpgrade method.
+//
+// Generated from API version 2023-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - MonitorClientBeginUpgradeOptions contains the optional parameters for the MonitorClient.BeginUpgrade method.
 func (client *MonitorClient) BeginUpgrade(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorClientBeginUpgradeOptions) (*runtime.Poller[MonitorClientUpgradeResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.upgrade(ctx, resourceGroupName, monitorName, options)
@@ -83,7 +84,8 @@ func (client *MonitorClient) BeginUpgrade(ctx context.Context, resourceGroupName
 
 // Upgrade - Upgradable version for a monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
+//
+// Generated from API version 2023-02-01-preview
 func (client *MonitorClient) upgrade(ctx context.Context, resourceGroupName string, monitorName string, options *MonitorClientBeginUpgradeOptions) (*http.Response, error) {
 	req, err := client.upgradeCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -119,7 +121,7 @@ func (client *MonitorClient) upgradeCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {

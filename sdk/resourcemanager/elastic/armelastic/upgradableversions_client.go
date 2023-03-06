@@ -40,9 +40,9 @@ type UpgradableVersionsClient struct {
 }
 
 // NewUpgradableVersionsClient creates a new instance of UpgradableVersionsClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewUpgradableVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UpgradableVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,11 +65,12 @@ func NewUpgradableVersionsClient(subscriptionID string, credential azcore.TokenC
 
 // Details - List of upgradable versions for a given monitor resource.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - UpgradableVersionsClientDetailsOptions contains the optional parameters for the UpgradableVersionsClient.Details
-// method.
+//
+// Generated from API version 2023-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - UpgradableVersionsClientDetailsOptions contains the optional parameters for the UpgradableVersionsClient.Details
+//     method.
 func (client *UpgradableVersionsClient) Details(ctx context.Context, resourceGroupName string, monitorName string, options *UpgradableVersionsClientDetailsOptions) (UpgradableVersionsClientDetailsResponse, error) {
 	req, err := client.detailsCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -105,7 +106,7 @@ func (client *UpgradableVersionsClient) detailsCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

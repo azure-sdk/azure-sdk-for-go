@@ -40,9 +40,9 @@ type TrafficFiltersClient struct {
 }
 
 // NewTrafficFiltersClient creates a new instance of TrafficFiltersClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTrafficFiltersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TrafficFiltersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,10 +65,11 @@ func NewTrafficFiltersClient(subscriptionID string, credential azcore.TokenCrede
 
 // Delete - Delete traffic filter from the account.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - TrafficFiltersClientDeleteOptions contains the optional parameters for the TrafficFiltersClient.Delete method.
+//
+// Generated from API version 2023-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - TrafficFiltersClientDeleteOptions contains the optional parameters for the TrafficFiltersClient.Delete method.
 func (client *TrafficFiltersClient) Delete(ctx context.Context, resourceGroupName string, monitorName string, options *TrafficFiltersClientDeleteOptions) (TrafficFiltersClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *TrafficFiltersClient) deleteCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	if options != nil && options.RulesetID != nil {
 		reqQP.Set("rulesetId", *options.RulesetID)
 	}

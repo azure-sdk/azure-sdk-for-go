@@ -40,9 +40,9 @@ type CreateAndAssociateIPFilterClient struct {
 }
 
 // NewCreateAndAssociateIPFilterClient creates a new instance of CreateAndAssociateIPFilterClient with the specified values.
-// subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCreateAndAssociateIPFilterClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CreateAndAssociateIPFilterClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -65,18 +65,21 @@ func NewCreateAndAssociateIPFilterClient(subscriptionID string, credential azcor
 
 // BeginCreate - Create and Associate IP traffic filter for the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-// monitorName - Monitor resource name
-// options - CreateAndAssociateIPFilterClientBeginCreateOptions contains the optional parameters for the CreateAndAssociateIPFilterClient.BeginCreate
-// method.
+//
+// Generated from API version 2023-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
+//   - monitorName - Monitor resource name
+//   - options - CreateAndAssociateIPFilterClientBeginCreateOptions contains the optional parameters for the CreateAndAssociateIPFilterClient.BeginCreate
+//     method.
 func (client *CreateAndAssociateIPFilterClient) BeginCreate(ctx context.Context, resourceGroupName string, monitorName string, options *CreateAndAssociateIPFilterClientBeginCreateOptions) (*runtime.Poller[CreateAndAssociateIPFilterClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, monitorName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[CreateAndAssociateIPFilterClientCreateResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[CreateAndAssociateIPFilterClientCreateResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[CreateAndAssociateIPFilterClientCreateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -84,7 +87,8 @@ func (client *CreateAndAssociateIPFilterClient) BeginCreate(ctx context.Context,
 
 // Create - Create and Associate IP traffic filter for the given deployment.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-07-01-preview
+//
+// Generated from API version 2023-02-01-preview
 func (client *CreateAndAssociateIPFilterClient) create(ctx context.Context, resourceGroupName string, monitorName string, options *CreateAndAssociateIPFilterClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, monitorName, options)
 	if err != nil {
@@ -94,7 +98,7 @@ func (client *CreateAndAssociateIPFilterClient) create(ctx context.Context, reso
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusCreated) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
@@ -120,7 +124,7 @@ func (client *CreateAndAssociateIPFilterClient) createCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	if options != nil && options.IPs != nil {
 		reqQP.Set("ips", *options.IPs)
 	}
