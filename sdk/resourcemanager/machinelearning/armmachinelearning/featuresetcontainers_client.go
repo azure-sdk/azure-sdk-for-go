@@ -20,23 +20,22 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 )
 
-// EnvironmentVersionsClient contains the methods for the EnvironmentVersions group.
-// Don't use this type directly, use NewEnvironmentVersionsClient() instead.
-type EnvironmentVersionsClient struct {
+// FeaturesetContainersClient contains the methods for the FeaturesetContainers group.
+// Don't use this type directly, use NewFeaturesetContainersClient() instead.
+type FeaturesetContainersClient struct {
 	host           string
 	subscriptionID string
 	pl             runtime.Pipeline
 }
 
-// NewEnvironmentVersionsClient creates a new instance of EnvironmentVersionsClient with the specified values.
+// NewFeaturesetContainersClient creates a new instance of FeaturesetContainersClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewEnvironmentVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EnvironmentVersionsClient, error) {
+func NewFeaturesetContainersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FeaturesetContainersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -48,7 +47,7 @@ func NewEnvironmentVersionsClient(subscriptionID string, credential azcore.Token
 	if err != nil {
 		return nil, err
 	}
-	client := &EnvironmentVersionsClient{
+	client := &FeaturesetContainersClient{
 		subscriptionID: subscriptionID,
 		host:           ep,
 		pl:             pl,
@@ -56,35 +55,52 @@ func NewEnvironmentVersionsClient(subscriptionID string, credential azcore.Token
 	return client, nil
 }
 
-// CreateOrUpdate - Creates or updates an EnvironmentVersion.
+// BeginCreateOrUpdate - Create or update container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
-//   - name - Name of EnvironmentVersion. This is case-sensitive.
-//   - version - Version of EnvironmentVersion.
-//   - body - Definition of EnvironmentVersion.
-//   - options - EnvironmentVersionsClientCreateOrUpdateOptions contains the optional parameters for the EnvironmentVersionsClient.CreateOrUpdate
+//   - name - Container name. This is case-sensitive.
+//   - body - Container entity to create or update.
+//   - options - FeaturesetContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the FeaturesetContainersClient.BeginCreateOrUpdate
 //     method.
-func (client *EnvironmentVersionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body EnvironmentVersion, options *EnvironmentVersionsClientCreateOrUpdateOptions) (EnvironmentVersionsClientCreateOrUpdateResponse, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
+func (client *FeaturesetContainersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, body FeaturesetContainer, options *FeaturesetContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturesetContainersClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, workspaceName, name, body, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[FeaturesetContainersClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[FeaturesetContainersClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// CreateOrUpdate - Create or update container.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-02-01-preview
+func (client *FeaturesetContainersClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, body FeaturesetContainer, options *FeaturesetContainersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, body, options)
 	if err != nil {
-		return EnvironmentVersionsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return EnvironmentVersionsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
-		return EnvironmentVersionsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.createOrUpdateHandleResponse(resp)
+	return resp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *EnvironmentVersionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body EnvironmentVersion, options *EnvironmentVersionsClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/environments/{name}/versions/{version}"
+func (client *FeaturesetContainersClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, body FeaturesetContainer, options *FeaturesetContainersClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -101,10 +117,6 @@ func (client *EnvironmentVersionsClient) createOrUpdateCreateRequest(ctx context
 		return nil, errors.New("parameter name cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
-	if version == "" {
-		return nil, errors.New("parameter version cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{version}", url.PathEscape(version))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
@@ -116,43 +128,51 @@ func (client *EnvironmentVersionsClient) createOrUpdateCreateRequest(ctx context
 	return req, runtime.MarshalAsJSON(req, body)
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *EnvironmentVersionsClient) createOrUpdateHandleResponse(resp *http.Response) (EnvironmentVersionsClientCreateOrUpdateResponse, error) {
-	result := EnvironmentVersionsClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EnvironmentVersion); err != nil {
-		return EnvironmentVersionsClientCreateOrUpdateResponse{}, err
-	}
-	return result, nil
-}
-
-// Delete - Delete version.
+// BeginDelete - Delete container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
-//   - version - Version identifier. This is case-sensitive.
-//   - options - EnvironmentVersionsClientDeleteOptions contains the optional parameters for the EnvironmentVersionsClient.Delete
+//   - options - FeaturesetContainersClientBeginDeleteOptions contains the optional parameters for the FeaturesetContainersClient.BeginDelete
 //     method.
-func (client *EnvironmentVersionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *EnvironmentVersionsClientDeleteOptions) (EnvironmentVersionsClientDeleteResponse, error) {
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
+func (client *FeaturesetContainersClient) BeginDelete(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *FeaturesetContainersClientBeginDeleteOptions) (*runtime.Poller[FeaturesetContainersClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, workspaceName, name, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[FeaturesetContainersClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[FeaturesetContainersClientDeleteResponse](options.ResumeToken, client.pl, nil)
+	}
+}
+
+// Delete - Delete container.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-02-01-preview
+func (client *FeaturesetContainersClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *FeaturesetContainersClientBeginDeleteOptions) (*http.Response, error) {
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {
-		return EnvironmentVersionsClientDeleteResponse{}, err
+		return nil, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return EnvironmentVersionsClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
-		return EnvironmentVersionsClientDeleteResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return EnvironmentVersionsClientDeleteResponse{}, nil
+	return resp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *EnvironmentVersionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *EnvironmentVersionsClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/environments/{name}/versions/{version}"
+func (client *FeaturesetContainersClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *FeaturesetContainersClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -169,10 +189,6 @@ func (client *EnvironmentVersionsClient) deleteCreateRequest(ctx context.Context
 		return nil, errors.New("parameter name cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
-	if version == "" {
-		return nil, errors.New("parameter version cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{version}", url.PathEscape(version))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
@@ -184,33 +200,33 @@ func (client *EnvironmentVersionsClient) deleteCreateRequest(ctx context.Context
 	return req, nil
 }
 
-// Get - Get version.
+// GetEntity - Get container.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - name - Container name. This is case-sensitive.
-//   - version - Version identifier. This is case-sensitive.
-//   - options - EnvironmentVersionsClientGetOptions contains the optional parameters for the EnvironmentVersionsClient.Get method.
-func (client *EnvironmentVersionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *EnvironmentVersionsClientGetOptions) (EnvironmentVersionsClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
+//   - options - FeaturesetContainersClientGetEntityOptions contains the optional parameters for the FeaturesetContainersClient.GetEntity
+//     method.
+func (client *FeaturesetContainersClient) GetEntity(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *FeaturesetContainersClientGetEntityOptions) (FeaturesetContainersClientGetEntityResponse, error) {
+	req, err := client.getEntityCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {
-		return EnvironmentVersionsClientGetResponse{}, err
+		return FeaturesetContainersClientGetEntityResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return EnvironmentVersionsClientGetResponse{}, err
+		return FeaturesetContainersClientGetEntityResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return EnvironmentVersionsClientGetResponse{}, runtime.NewResponseError(resp)
+		return FeaturesetContainersClientGetEntityResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.getHandleResponse(resp)
+	return client.getEntityHandleResponse(resp)
 }
 
-// getCreateRequest creates the Get request.
-func (client *EnvironmentVersionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *EnvironmentVersionsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/environments/{name}/versions/{version}"
+// getEntityCreateRequest creates the GetEntity request.
+func (client *FeaturesetContainersClient) getEntityCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *FeaturesetContainersClientGetEntityOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets/{name}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -227,10 +243,6 @@ func (client *EnvironmentVersionsClient) getCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter name cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
-	if version == "" {
-		return nil, errors.New("parameter version cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{version}", url.PathEscape(version))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
@@ -242,45 +254,44 @@ func (client *EnvironmentVersionsClient) getCreateRequest(ctx context.Context, r
 	return req, nil
 }
 
-// getHandleResponse handles the Get response.
-func (client *EnvironmentVersionsClient) getHandleResponse(resp *http.Response) (EnvironmentVersionsClientGetResponse, error) {
-	result := EnvironmentVersionsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EnvironmentVersion); err != nil {
-		return EnvironmentVersionsClientGetResponse{}, err
+// getEntityHandleResponse handles the GetEntity response.
+func (client *FeaturesetContainersClient) getEntityHandleResponse(resp *http.Response) (FeaturesetContainersClientGetEntityResponse, error) {
+	result := FeaturesetContainersClientGetEntityResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FeaturesetContainer); err != nil {
+		return FeaturesetContainersClientGetEntityResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - List versions.
+// NewListPager - List featurestore entity containers.
 //
 // Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
-//   - name - Container name. This is case-sensitive.
-//   - options - EnvironmentVersionsClientListOptions contains the optional parameters for the EnvironmentVersionsClient.NewListPager
+//   - options - FeaturesetContainersClientListOptions contains the optional parameters for the FeaturesetContainersClient.NewListPager
 //     method.
-func (client *EnvironmentVersionsClient) NewListPager(resourceGroupName string, workspaceName string, name string, options *EnvironmentVersionsClientListOptions) *runtime.Pager[EnvironmentVersionsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[EnvironmentVersionsClientListResponse]{
-		More: func(page EnvironmentVersionsClientListResponse) bool {
+func (client *FeaturesetContainersClient) NewListPager(resourceGroupName string, workspaceName string, options *FeaturesetContainersClientListOptions) *runtime.Pager[FeaturesetContainersClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FeaturesetContainersClientListResponse]{
+		More: func(page FeaturesetContainersClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *EnvironmentVersionsClientListResponse) (EnvironmentVersionsClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *FeaturesetContainersClientListResponse) (FeaturesetContainersClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
+				req, err = client.listCreateRequest(ctx, resourceGroupName, workspaceName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return EnvironmentVersionsClientListResponse{}, err
+				return FeaturesetContainersClientListResponse{}, err
 			}
 			resp, err := client.pl.Do(req)
 			if err != nil {
-				return EnvironmentVersionsClientListResponse{}, err
+				return FeaturesetContainersClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return EnvironmentVersionsClientListResponse{}, runtime.NewResponseError(resp)
+				return FeaturesetContainersClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -288,8 +299,8 @@ func (client *EnvironmentVersionsClient) NewListPager(resourceGroupName string, 
 }
 
 // listCreateRequest creates the List request.
-func (client *EnvironmentVersionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *EnvironmentVersionsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/environments/{name}/versions"
+func (client *FeaturesetContainersClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *FeaturesetContainersClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featuresets"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -302,24 +313,17 @@ func (client *EnvironmentVersionsClient) listCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	if name == "" {
-		return nil, errors.New("parameter name cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-02-01-preview")
-	if options != nil && options.OrderBy != nil {
-		reqQP.Set("$orderBy", *options.OrderBy)
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
+	}
+	if options != nil && options.Tags != nil {
+		reqQP.Set("tags", *options.Tags)
 	}
 	if options != nil && options.ListViewType != nil {
 		reqQP.Set("listViewType", string(*options.ListViewType))
@@ -330,10 +334,10 @@ func (client *EnvironmentVersionsClient) listCreateRequest(ctx context.Context, 
 }
 
 // listHandleResponse handles the List response.
-func (client *EnvironmentVersionsClient) listHandleResponse(resp *http.Response) (EnvironmentVersionsClientListResponse, error) {
-	result := EnvironmentVersionsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.EnvironmentVersionResourceArmPaginatedResult); err != nil {
-		return EnvironmentVersionsClientListResponse{}, err
+func (client *FeaturesetContainersClient) listHandleResponse(resp *http.Response) (FeaturesetContainersClientListResponse, error) {
+	result := FeaturesetContainersClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FeaturesetContainerResourceArmPaginatedResult); err != nil {
+		return FeaturesetContainersClientListResponse{}, err
 	}
 	return result, nil
 }
