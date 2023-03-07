@@ -1,5 +1,15 @@
 # Release History
 
+## 3.0.0 (2023-03-07)
+### Breaking Changes
+
+- Const `ArmServerKeyTypeSystemAssigned` from type alias `ArmServerKeyType` has been removed
+
+### Features Added
+
+- New value `ArmServerKeyTypeSystemManaged` added to type alias `ArmServerKeyType`
+
+
 ## 2.0.0 (2023-01-27)
 ### Breaking Changes
 
