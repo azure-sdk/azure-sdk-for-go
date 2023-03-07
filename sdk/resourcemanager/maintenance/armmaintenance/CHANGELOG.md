@@ -1,5 +1,18 @@
 # Release History
 
+## 1.1.0-beta.3 (2023-03-07)
+### Breaking Changes
+
+- Const `RebootOptionsAlways`, `RebootOptionsIfRequired`, `RebootOptionsNever` from type alias `RebootOptions` has been removed
+
+### Features Added
+
+- New value `RebootOptionsAlwaysReboot`, `RebootOptionsNeverReboot`, `RebootOptionsRebootIfRequired` added to type alias `RebootOptions`
+- New struct `ConfigurationOverrides`
+- New struct `OverrideProperties`
+- New field `Overrides` in struct `ConfigurationProperties`
+
+
 ## 1.1.0-beta.2 (2023-01-27)
 ### Features Added
 

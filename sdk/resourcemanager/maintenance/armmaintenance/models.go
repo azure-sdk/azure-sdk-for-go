@@ -29,7 +29,7 @@ type ApplyUpdate struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// ApplyUpdateForResourceGroupClientListOptions contains the optional parameters for the ApplyUpdateForResourceGroupClient.List
+// ApplyUpdateForResourceGroupClientListOptions contains the optional parameters for the ApplyUpdateForResourceGroupClient.NewListPager
 // method.
 type ApplyUpdateForResourceGroupClientListOptions struct {
 	// placeholder for future optional parameters
@@ -68,7 +68,7 @@ type ApplyUpdatesClientGetParentOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ApplyUpdatesClientListOptions contains the optional parameters for the ApplyUpdatesClient.List method.
+// ApplyUpdatesClientListOptions contains the optional parameters for the ApplyUpdatesClient.NewListPager method.
 type ApplyUpdatesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -162,22 +162,28 @@ type ConfigurationAssignmentsClientGetParentOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConfigurationAssignmentsClientListOptions contains the optional parameters for the ConfigurationAssignmentsClient.List
+// ConfigurationAssignmentsClientListOptions contains the optional parameters for the ConfigurationAssignmentsClient.NewListPager
 // method.
 type ConfigurationAssignmentsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConfigurationAssignmentsClientListParentOptions contains the optional parameters for the ConfigurationAssignmentsClient.ListParent
+// ConfigurationAssignmentsClientListParentOptions contains the optional parameters for the ConfigurationAssignmentsClient.NewListParentPager
 // method.
 type ConfigurationAssignmentsClientListParentOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConfigurationAssignmentsWithinSubscriptionClientListOptions contains the optional parameters for the ConfigurationAssignmentsWithinSubscriptionClient.List
+// ConfigurationAssignmentsWithinSubscriptionClientListOptions contains the optional parameters for the ConfigurationAssignmentsWithinSubscriptionClient.NewListPager
 // method.
 type ConfigurationAssignmentsWithinSubscriptionClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ConfigurationOverrides - List of Override Properties for the maintenance Configuration.
+type ConfigurationOverrides struct {
+	// Override Properties for the maintenance Configuration.
+	Overrides []*OverrideProperties `json:"overrides,omitempty"`
 }
 
 // ConfigurationProperties - Properties for maintenance configuration
@@ -185,7 +191,7 @@ type ConfigurationProperties struct {
 	// Gets or sets extensionProperties of the maintenanceConfiguration
 	ExtensionProperties map[string]*string `json:"extensionProperties,omitempty"`
 
-	// The input parameters to be passed to the patch run operation. This property only applies to Guest (InGuestPatch) scope.
+	// The input parameters to be passed to the patch run operation.
 	InstallPatches *InputPatchConfiguration `json:"installPatches,omitempty"`
 
 	// Gets or sets maintenanceScope of the configuration
@@ -196,6 +202,9 @@ type ConfigurationProperties struct {
 
 	// Gets or sets namespace of the resource
 	Namespace *string `json:"namespace,omitempty"`
+
+	// Override the Maintenance Window for a specific period
+	Overrides *ConfigurationOverrides `json:"overrides,omitempty"`
 
 	// Gets or sets the visibility of the configuration. The default value is 'Custom'
 	Visibility *Visibility `json:"visibility,omitempty"`
@@ -217,7 +226,7 @@ type ConfigurationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConfigurationsClientListOptions contains the optional parameters for the ConfigurationsClient.List method.
+// ConfigurationsClientListOptions contains the optional parameters for the ConfigurationsClient.NewListPager method.
 type ConfigurationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -227,7 +236,7 @@ type ConfigurationsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConfigurationsForResourceGroupClientListOptions contains the optional parameters for the ConfigurationsForResourceGroupClient.List
+// ConfigurationsForResourceGroupClientListOptions contains the optional parameters for the ConfigurationsForResourceGroupClient.NewListPager
 // method.
 type ConfigurationsForResourceGroupClientListOptions struct {
 	// placeholder for future optional parameters
@@ -248,8 +257,7 @@ type ErrorDetails struct {
 	Message *string `json:"message,omitempty"`
 }
 
-// InputLinuxParameters - Input properties for patching a Linux machine. This property only applies to Guest (InGuestPatch)
-// scope.
+// InputLinuxParameters - Input properties for patching a Linux machine.
 type InputLinuxParameters struct {
 	// Classification category of patches to be patched
 	ClassificationsToInclude []*string `json:"classificationsToInclude,omitempty"`
@@ -263,25 +271,21 @@ type InputLinuxParameters struct {
 
 // InputPatchConfiguration - Input configuration for a patch run
 type InputPatchConfiguration struct {
-	// Input parameters specific to patching Linux machine. For Windows machines, do not pass this property. This property only
-	// applies to Guest (InGuestPatch) scope.
+	// Input parameters specific to patching Linux machine. For Windows machines, do not pass this property.
 	LinuxParameters *InputLinuxParameters `json:"linuxParameters,omitempty"`
 
 	// Possible reboot preference as defined by the user based on which it would be decided to reboot the machine or not after
-	// the patch operation is completed. This property only applies to Guest
-	// (InGuestPatch) scope.
+	// the patch operation is completed.
 	RebootSetting *RebootOptions `json:"rebootSetting,omitempty"`
 
-	// [Not supported] Tasks information for the Software update configuration.
+	// Tasks information for the Software update configuration.
 	Tasks *SoftwareUpdateConfigurationTasks `json:"tasks,omitempty"`
 
-	// Input parameters specific to patching a Windows machine. For Linux machines, do not pass this property. This property only
-	// applies to Guest (InGuestPatch) scope.
+	// Input parameters specific to patching a Windows machine. For Linux machines, do not pass this property.
 	WindowsParameters *InputWindowsParameters `json:"windowsParameters,omitempty"`
 }
 
-// InputWindowsParameters - Input properties for patching a Windows machine. This property only applies to Guest (InGuestPatch)
-// scope.
+// InputWindowsParameters - Input properties for patching a Windows machine.
 type InputWindowsParameters struct {
 	// Classification category of patches to be patched
 	ClassificationsToInclude []*string `json:"classificationsToInclude,omitempty"`
@@ -335,7 +339,7 @@ type Operation struct {
 	Origin *string `json:"origin,omitempty"`
 
 	// Properties of the operation
-	Properties interface{} `json:"properties,omitempty"`
+	Properties any `json:"properties,omitempty"`
 }
 
 // OperationInfo - Information about an operation
@@ -353,7 +357,7 @@ type OperationInfo struct {
 	Resource *string `json:"resource,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -364,13 +368,34 @@ type OperationsListResult struct {
 	Value []*Operation `json:"value,omitempty"`
 }
 
+// OverrideProperties - Definition of a MaintenanceOverrideProperties
+type OverrideProperties struct {
+	// Effective end date of the maintenance override window in YYYY-MM-DD hh:mm format. The window will be created in the time
+	// zone provided and adjusted to daylight savings according to that time zone.
+	// Expiration date must be set to a future date. If not provided, it will be set to the maximum datetime 9999-12-31 23:59:59.
+	EndDateTime *time.Time `json:"endDateTime,omitempty"`
+
+	// Gets or sets overrideProperties of the maintenanceConfiguration
+	OverrideProperties map[string]*string `json:"overrideProperties,omitempty"`
+
+	// Effective start date of the maintenance override window in YYYY-MM-DD hh:mm format. The start date can be set to either
+	// the current date or future date. The window will be created in the time zone
+	// provided and adjusted to daylight savings according to that time zone.
+	StartDateTime *time.Time `json:"startDateTime,omitempty"`
+
+	// Name of the timezone. List of timezones can be obtained by executing [System.TimeZoneInfo]::GetSystemTimeZones() in PowerShell.
+	// Example: Pacific Standard Time, UTC, W. Europe Standard Time, Korea
+	// Standard Time, Cen. Australia Standard Time.
+	TimeZone *string `json:"timeZone,omitempty"`
+}
+
 // PublicMaintenanceConfigurationsClientGetOptions contains the optional parameters for the PublicMaintenanceConfigurationsClient.Get
 // method.
 type PublicMaintenanceConfigurationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PublicMaintenanceConfigurationsClientListOptions contains the optional parameters for the PublicMaintenanceConfigurationsClient.List
+// PublicMaintenanceConfigurationsClientListOptions contains the optional parameters for the PublicMaintenanceConfigurationsClient.NewListPager
 // method.
 type PublicMaintenanceConfigurationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -391,12 +416,12 @@ type Resource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// SoftwareUpdateConfigurationTasks - [Not supported] Task properties of the software update configuration.
+// SoftwareUpdateConfigurationTasks - Task properties of the software update configuration.
 type SoftwareUpdateConfigurationTasks struct {
-	// [Not supported] List of post tasks. e.g. [{'source' :'runbook', 'taskScope': 'Resource', 'parameters': { 'arg1': 'value1'}}]
+	// List of post tasks. e.g. [{'source' :'runbook', 'taskScope': 'Resource', 'parameters': { 'arg1': 'value1'}}]
 	PostTasks []*TaskProperties `json:"postTasks,omitempty"`
 
-	// [Not supported] List of pre tasks. e.g. [{'source' :'runbook', 'taskScope': 'Global', 'parameters': { 'arg1': 'value1'}}]
+	// List of pre tasks. e.g. [{'source' :'runbook', 'taskScope': 'Global', 'parameters': { 'arg1': 'value1'}}]
 	PreTasks []*TaskProperties `json:"preTasks,omitempty"`
 }
 
@@ -421,15 +446,15 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
 }
 
-// TaskProperties - [Not supported] Task properties of the software update configuration.
+// TaskProperties - Task properties of the software update configuration.
 type TaskProperties struct {
-	// [Not supported] Gets or sets the parameters of the task.
+	// Gets or sets the parameters of the task.
 	Parameters map[string]*string `json:"parameters,omitempty"`
 
-	// [Not supported] Gets or sets the name of the runbook.
+	// Gets or sets the name of the runbook.
 	Source *string `json:"source,omitempty"`
 
-	// [Not supported] Global Task execute once when schedule trigger. Resource task execute for each VM.
+	// Global Task execute once when schedule trigger. Resource task execute for each VM.
 	TaskScope *TaskScope `json:"taskScope,omitempty"`
 }
 
@@ -460,12 +485,12 @@ type UpdateProperties struct {
 	ResourceID *string `json:"resourceId,omitempty"`
 }
 
-// UpdatesClientListOptions contains the optional parameters for the UpdatesClient.List method.
+// UpdatesClientListOptions contains the optional parameters for the UpdatesClient.NewListPager method.
 type UpdatesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// UpdatesClientListParentOptions contains the optional parameters for the UpdatesClient.ListParent method.
+// UpdatesClientListParentOptions contains the optional parameters for the UpdatesClient.NewListParentPager method.
 type UpdatesClientListParentOptions struct {
 	// placeholder for future optional parameters
 }

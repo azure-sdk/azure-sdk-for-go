@@ -32,10 +32,10 @@ type ApplyUpdateForResourceGroupClient struct {
 }
 
 // NewApplyUpdateForResourceGroupClient creates a new instance of ApplyUpdateForResourceGroupClient with the specified values.
-// subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewApplyUpdateForResourceGroupClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ApplyUpdateForResourceGroupClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewApplyUpdateForResourceGroupClient(subscriptionID string, credential azco
 }
 
 // NewListPager - Get Configuration records within a subscription and resource group
-// Generated from API version 2022-07-01-preview
-// resourceGroupName - Resource Group Name
-// options - ApplyUpdateForResourceGroupClientListOptions contains the optional parameters for the ApplyUpdateForResourceGroupClient.List
-// method.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - Resource Group Name
+//   - options - ApplyUpdateForResourceGroupClientListOptions contains the optional parameters for the ApplyUpdateForResourceGroupClient.NewListPager
+//     method.
 func (client *ApplyUpdateForResourceGroupClient) NewListPager(resourceGroupName string, options *ApplyUpdateForResourceGroupClientListOptions) *runtime.Pager[ApplyUpdateForResourceGroupClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ApplyUpdateForResourceGroupClientListResponse]{
 		More: func(page ApplyUpdateForResourceGroupClientListResponse) bool {
@@ -99,7 +100,7 @@ func (client *ApplyUpdateForResourceGroupClient) listCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-07-01-preview")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
