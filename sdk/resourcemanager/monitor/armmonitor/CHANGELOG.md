@@ -1,5 +1,91 @@
 # Release History
 
+## 0.9.0 (2023-03-07)
+### Breaking Changes
+
+- Function `NewMetricDefinitionsClient` parameter(s) have been changed from `(azcore.TokenCredential, *arm.ClientOptions)` to `(string, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `NewMetricsClient` parameter(s) have been changed from `(azcore.TokenCredential, *arm.ClientOptions)` to `(string, azcore.TokenCredential, *arm.ClientOptions)`
+- Type of `ErrorContract.Error` has been changed from `*ErrorResponseDetails` to `*ErrorResponse`
+- Type of `Metric.Unit` has been changed from `*MetricUnit` to `*Unit`
+- Function `*ActionGroupsClient.BeginCreateNotificationsAtResourceGroupLevel` has been removed
+- Function `*ActionGroupsClient.GetTestNotifications` has been removed
+- Function `*ActionGroupsClient.GetTestNotificationsAtResourceGroupLevel` has been removed
+- Function `*ActionGroupsClient.BeginPostTestNotifications` has been removed
+
+### Features Added
+
+- New type alias `ActionType` with values `ActionTypeInternal`
+- New type alias `IdentityType` with values `IdentityTypeNone`, `IdentityTypeSystemAssigned`, `IdentityTypeUserAssigned`
+- New type alias `MetricAggregationType` with values `MetricAggregationTypeAverage`, `MetricAggregationTypeCount`, `MetricAggregationTypeMaximum`, `MetricAggregationTypeMinimum`, `MetricAggregationTypeNone`, `MetricAggregationTypeTotal`
+- New type alias `MetricResultType` with values `MetricResultTypeData`, `MetricResultTypeMetadata`
+- New type alias `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New type alias `ProvisioningState` with values `ProvisioningStateCanceled`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`
+- New type alias `PublicNetworkAccess` with values `PublicNetworkAccessDisabled`, `PublicNetworkAccessEnabled`, `PublicNetworkAccessSecuredByPerimeter`
+- New type alias `Unit` with values `UnitBitsPerSecond`, `UnitByteSeconds`, `UnitBytes`, `UnitBytesPerSecond`, `UnitCores`, `UnitCount`, `UnitCountPerSecond`, `UnitMilliCores`, `UnitMilliSeconds`, `UnitNanoCores`, `UnitPercent`, `UnitSeconds`, `UnitUnspecified`
+- New function `NewAzureMonitorWorkspacesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AzureMonitorWorkspacesClient, error)`
+- New function `*AzureMonitorWorkspacesClient.Create(context.Context, string, string, AzureMonitorWorkspaceResource, *AzureMonitorWorkspacesClientCreateOptions) (AzureMonitorWorkspacesClientCreateResponse, error)`
+- New function `*AzureMonitorWorkspacesClient.Delete(context.Context, string, string, *AzureMonitorWorkspacesClientDeleteOptions) (AzureMonitorWorkspacesClientDeleteResponse, error)`
+- New function `*AzureMonitorWorkspacesClient.Get(context.Context, string, string, *AzureMonitorWorkspacesClientGetOptions) (AzureMonitorWorkspacesClientGetResponse, error)`
+- New function `*AzureMonitorWorkspacesClient.NewListByResourceGroupPager(string, *AzureMonitorWorkspacesClientListByResourceGroupOptions) *runtime.Pager[AzureMonitorWorkspacesClientListByResourceGroupResponse]`
+- New function `*AzureMonitorWorkspacesClient.NewListBySubscriptionPager(*AzureMonitorWorkspacesClientListBySubscriptionOptions) *runtime.Pager[AzureMonitorWorkspacesClientListBySubscriptionResponse]`
+- New function `*AzureMonitorWorkspacesClient.Update(context.Context, string, string, *AzureMonitorWorkspacesClientUpdateOptions) (AzureMonitorWorkspacesClientUpdateResponse, error)`
+- New function `*MetricDefinitionsClient.NewListAtSubscriptionScopePager(string, *MetricDefinitionsClientListAtSubscriptionScopeOptions) *runtime.Pager[MetricDefinitionsClientListAtSubscriptionScopeResponse]`
+- New function `*MetricsClient.ListAtSubscriptionScope(context.Context, string, *MetricsClientListAtSubscriptionScopeOptions) (MetricsClientListAtSubscriptionScopeResponse, error)`
+- New function `*MetricsClient.ListAtSubscriptionScopePost(context.Context, string, *MetricsClientListAtSubscriptionScopePostOptions) (MetricsClientListAtSubscriptionScopePostResponse, error)`
+- New function `NewOperationsForMonitorClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsForMonitorClient, error)`
+- New function `*OperationsForMonitorClient.NewListPager(*OperationsForMonitorClientListOptions) *runtime.Pager[OperationsForMonitorClientListResponse]`
+- New function `NewTenantActionGroupsClient(azcore.TokenCredential, *arm.ClientOptions) (*TenantActionGroupsClient, error)`
+- New function `*TenantActionGroupsClient.CreateOrUpdate(context.Context, string, string, string, TenantActionGroupResource, *TenantActionGroupsClientCreateOrUpdateOptions) (TenantActionGroupsClientCreateOrUpdateResponse, error)`
+- New function `*TenantActionGroupsClient.Delete(context.Context, string, string, string, *TenantActionGroupsClientDeleteOptions) (TenantActionGroupsClientDeleteResponse, error)`
+- New function `*TenantActionGroupsClient.Get(context.Context, string, string, string, *TenantActionGroupsClientGetOptions) (TenantActionGroupsClientGetResponse, error)`
+- New function `*TenantActionGroupsClient.NewListByManagementGroupIDPager(string, string, *TenantActionGroupsClientListByManagementGroupIDOptions) *runtime.Pager[TenantActionGroupsClientListByManagementGroupIDResponse]`
+- New function `*TenantActionGroupsClient.Update(context.Context, string, string, string, ActionGroupPatchBodyAutoGenerated, *TenantActionGroupsClientUpdateOptions) (TenantActionGroupsClientUpdateResponse, error)`
+- New struct `ActionGroupPatchAutoGenerated`
+- New struct `ActionGroupPatchBodyAutoGenerated`
+- New struct `AzureAppPushReceiverAutoGenerated`
+- New struct `AzureMonitorWorkspace`
+- New struct `AzureMonitorWorkspaceDefaultIngestionSettings`
+- New struct `AzureMonitorWorkspaceMetrics`
+- New struct `AzureMonitorWorkspaceResource`
+- New struct `AzureMonitorWorkspaceResourceForUpdate`
+- New struct `AzureMonitorWorkspaceResourceListResult`
+- New struct `AzureMonitorWorkspaceResourceProperties`
+- New struct `AzureMonitorWorkspacesClient`
+- New struct `EmailReceiverAutoGenerated`
+- New struct `ErrorContractAutoGenerated`
+- New struct `ErrorDetailAutoGenerated`
+- New struct `ErrorResponseAutoGenerated2`
+- New struct `Identity`
+- New struct `IngestionSettings`
+- New struct `Metrics`
+- New struct `OperationAutoGenerated`
+- New struct `OperationDisplayAutoGenerated`
+- New struct `OperationListResultAutoGenerated`
+- New struct `OperationsForMonitorClient`
+- New struct `ResourceAutoGenerated5`
+- New struct `RuleResolveConfiguration`
+- New struct `SmsReceiverAutoGenerated`
+- New struct `SubscriptionScopeMetric`
+- New struct `SubscriptionScopeMetricDefinition`
+- New struct `SubscriptionScopeMetricDefinitionCollection`
+- New struct `SubscriptionScopeMetricResponse`
+- New struct `SubscriptionScopeMetricsRequestBodyParameters`
+- New struct `TenantActionGroup`
+- New struct `TenantActionGroupList`
+- New struct `TenantActionGroupResource`
+- New struct `TenantActionGroupsClient`
+- New struct `TrackedResourceAutoGenerated`
+- New struct `UserIdentityProperties`
+- New struct `VoiceReceiverAutoGenerated`
+- New struct `WebhookReceiverAutoGenerated`
+- New field `AutoAdjustTimegrain` in struct `MetricsClientListOptions`
+- New field `ValidateDimensions` in struct `MetricsClientListOptions`
+- New field `PublicNetworkAccess` in struct `ScheduledQueryRuleProperties`
+- New field `RuleResolveConfiguration` in struct `ScheduledQueryRuleProperties`
+- New field `Identity` in struct `ScheduledQueryRuleResource`
+- New field `Identity` in struct `ScheduledQueryRuleResourcePatch`
+
+
 ## 0.8.0 (2022-10-18)
 ### Breaking Changes
 
