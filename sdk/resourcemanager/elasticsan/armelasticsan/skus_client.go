@@ -32,9 +32,9 @@ type SKUsClient struct {
 }
 
 // NewSKUsClient creates a new instance of SKUsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SKUsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,8 +56,9 @@ func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, opt
 }
 
 // NewListPager - List all the available Skus in the region and information related to them
-// Generated from API version 2021-11-20-preview
-// options - SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
+//
+// Generated from API version 2023-01-01
+//   - options - SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
 func (client *SKUsClient) NewListPager(options *SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SKUsClientListResponse]{
 		More: func(page SKUsClientListResponse) bool {
@@ -92,7 +93,7 @@ func (client *SKUsClient) listCreateRequest(ctx context.Context, options *SKUsCl
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-11-20-preview")
+	reqQP.Set("api-version", "2023-01-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

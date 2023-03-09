@@ -11,7 +11,7 @@ package armelasticsan
 
 const (
 	moduleName    = "armelasticsan"
-	moduleVersion = "v0.1.0"
+	moduleVersion = "v1.0.0"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -174,5 +174,29 @@ func PossibleStorageTargetTypeValues() []StorageTargetType {
 	return []StorageTargetType{
 		StorageTargetTypeIscsi,
 		StorageTargetTypeNone,
+	}
+}
+
+// VolumeCreateOption - This enumerates the possible sources of a volume creation.
+type VolumeCreateOption string
+
+const (
+	VolumeCreateOptionNone             VolumeCreateOption = "None"
+	VolumeCreateOptionVolumeSnapshot   VolumeCreateOption = "VolumeSnapshot"
+	VolumeCreateOptionDiskSnapshot     VolumeCreateOption = "DiskSnapshot"
+	VolumeCreateOptionDisk             VolumeCreateOption = "Disk"
+	VolumeCreateOptionDiskRestorePoint VolumeCreateOption = "DiskRestorePoint"
+	VolumeCreateOptionExport           VolumeCreateOption = "Export"
+)
+
+// PossibleVolumeCreateOptionValues returns the possible values for the VolumeCreateOption const type.
+func PossibleVolumeCreateOptionValues() []VolumeCreateOption {
+	return []VolumeCreateOption{
+		VolumeCreateOptionNone,
+		VolumeCreateOptionVolumeSnapshot,
+		VolumeCreateOptionDiskSnapshot,
+		VolumeCreateOptionDisk,
+		VolumeCreateOptionDiskRestorePoint,
+		VolumeCreateOptionExport,
 	}
 }
