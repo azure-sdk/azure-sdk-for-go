@@ -11,7 +11,7 @@ package armdatafactory
 
 const (
 	moduleName    = "armdatafactory"
-	moduleVersion = "v3.1.0"
+	moduleVersion = "v4.0.0"
 )
 
 // AzureFunctionActivityMethod - The list of HTTP methods supported by a AzureFunctionActivity.
@@ -53,6 +53,28 @@ func PossibleAzureSearchIndexWriteBehaviorTypeValues() []AzureSearchIndexWriteBe
 	return []AzureSearchIndexWriteBehaviorType{
 		AzureSearchIndexWriteBehaviorTypeMerge,
 		AzureSearchIndexWriteBehaviorTypeUpload,
+	}
+}
+
+// AzureStorageAuthenticationType - The type used for authentication. Type: string.
+type AzureStorageAuthenticationType string
+
+const (
+	AzureStorageAuthenticationTypeAccountKey       AzureStorageAuthenticationType = "AccountKey"
+	AzureStorageAuthenticationTypeAnonymous        AzureStorageAuthenticationType = "Anonymous"
+	AzureStorageAuthenticationTypeMsi              AzureStorageAuthenticationType = "Msi"
+	AzureStorageAuthenticationTypeSasURI           AzureStorageAuthenticationType = "SasUri"
+	AzureStorageAuthenticationTypeServicePrincipal AzureStorageAuthenticationType = "ServicePrincipal"
+)
+
+// PossibleAzureStorageAuthenticationTypeValues returns the possible values for the AzureStorageAuthenticationType const type.
+func PossibleAzureStorageAuthenticationTypeValues() []AzureStorageAuthenticationType {
+	return []AzureStorageAuthenticationType{
+		AzureStorageAuthenticationTypeAccountKey,
+		AzureStorageAuthenticationTypeAnonymous,
+		AzureStorageAuthenticationTypeMsi,
+		AzureStorageAuthenticationTypeSasURI,
+		AzureStorageAuthenticationTypeServicePrincipal,
 	}
 }
 
@@ -706,20 +728,6 @@ func PossibleIntegrationRuntimeLicenseTypeValues() []IntegrationRuntimeLicenseTy
 	}
 }
 
-// IntegrationRuntimeReferenceType - Type of integration runtime.
-type IntegrationRuntimeReferenceType string
-
-const (
-	IntegrationRuntimeReferenceTypeIntegrationRuntimeReference IntegrationRuntimeReferenceType = "IntegrationRuntimeReference"
-)
-
-// PossibleIntegrationRuntimeReferenceTypeValues returns the possible values for the IntegrationRuntimeReferenceType const type.
-func PossibleIntegrationRuntimeReferenceTypeValues() []IntegrationRuntimeReferenceType {
-	return []IntegrationRuntimeReferenceType{
-		IntegrationRuntimeReferenceTypeIntegrationRuntimeReference,
-	}
-}
-
 // IntegrationRuntimeSsisCatalogPricingTier - The pricing tier for the catalog database. The valid values could be found in
 // https://azure.microsoft.com/en-us/pricing/details/sql-database/
 type IntegrationRuntimeSsisCatalogPricingTier string
@@ -804,20 +812,6 @@ func PossibleIntegrationRuntimeUpdateResultValues() []IntegrationRuntimeUpdateRe
 		IntegrationRuntimeUpdateResultFail,
 		IntegrationRuntimeUpdateResultNone,
 		IntegrationRuntimeUpdateResultSucceed,
-	}
-}
-
-// LinkedServiceReferenceType - Linked service reference type.
-type LinkedServiceReferenceType string
-
-const (
-	LinkedServiceReferenceTypeLinkedServiceReference LinkedServiceReferenceType = "LinkedServiceReference"
-)
-
-// PossibleLinkedServiceReferenceTypeValues returns the possible values for the LinkedServiceReferenceType const type.
-func PossibleLinkedServiceReferenceTypeValues() []LinkedServiceReferenceType {
-	return []LinkedServiceReferenceType{
-		LinkedServiceReferenceTypeLinkedServiceReference,
 	}
 }
 

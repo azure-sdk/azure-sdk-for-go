@@ -1877,9 +1877,6 @@ func (a *AzureBlobFSLinkedService) GetLinkedService() *LinkedService {
 
 // AzureBlobFSLinkedServiceTypeProperties - Azure Data Lake Storage Gen2 linked service properties.
 type AzureBlobFSLinkedServiceTypeProperties struct {
-	// REQUIRED; Endpoint for the Azure Data Lake Storage Gen2 service. Type: string (or Expression with resultType string).
-	URL any `json:"url,omitempty"`
-
 	// Account key for the Azure Data Lake Storage Gen2 service. Type: string (or Expression with resultType string).
 	AccountKey any `json:"accountKey,omitempty"`
 
@@ -1894,6 +1891,12 @@ type AzureBlobFSLinkedServiceTypeProperties struct {
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Type: string (or Expression with resultType string).
 	EncryptedCredential any `json:"encryptedCredential,omitempty"`
+
+	// The Azure key vault secret reference of sasToken in sas uri.
+	SasToken SecretBaseClassification `json:"sasToken,omitempty"`
+
+	// SAS URI of the Azure Data Lake Storage Gen2 service. Type: string, SecureString or AzureKeyVaultSecretReference.
+	SasURI any `json:"sasUri,omitempty"`
 
 	// The credential of the service principal object in Azure Active Directory. If servicePrincipalCredentialType is 'ServicePrincipalKey',
 	// servicePrincipalCredential can be SecureString or
@@ -1915,6 +1918,9 @@ type AzureBlobFSLinkedServiceTypeProperties struct {
 
 	// The name or ID of the tenant to which the service principal belongs. Type: string (or Expression with resultType string).
 	Tenant any `json:"tenant,omitempty"`
+
+	// Endpoint for the Azure Data Lake Storage Gen2 service. Type: string (or Expression with resultType string).
+	URL any `json:"url,omitempty"`
 }
 
 // AzureBlobFSLocation - The location of azure blobFS dataset.
@@ -2168,6 +2174,9 @@ type AzureBlobStorageLinkedServiceTypeProperties struct {
 	// resultType string).
 	AccountKind *string `json:"accountKind,omitempty"`
 
+	// The type used for authentication. Type: string.
+	AuthenticationType *AzureStorageAuthenticationType `json:"authenticationType,omitempty"`
+
 	// Indicates the azure cloud type of the service principle auth. Allowed values are AzurePublic, AzureChina, AzureUsGovernment,
 	// AzureGermany. Default value is the data factory regions’ cloud type. Type:
 	// string (or Expression with resultType string).
@@ -2175,6 +2184,10 @@ type AzureBlobStorageLinkedServiceTypeProperties struct {
 
 	// The connection string. It is mutually exclusive with sasUri, serviceEndpoint property. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any `json:"connectionString,omitempty"`
+
+	// Container uri of the Azure Blob Storage resource only support for anonymous access. Type: string (or Expression with resultType
+	// string).
+	ContainerURI any `json:"containerUri,omitempty"`
 
 	// The credential reference containing authentication information.
 	Credential *CredentialReference `json:"credential,omitempty"`
@@ -7041,6 +7054,18 @@ type CopyActivityTypeProperties struct {
 
 	// Whether to enable Data Consistency validation. Type: boolean (or Expression with resultType boolean).
 	ValidateDataConsistency any `json:"validateDataConsistency,omitempty"`
+}
+
+// CopyComputeScaleProperties - CopyComputeScale properties for managed integration runtime.
+type CopyComputeScaleProperties struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// DIU number setting reserved for copy activity execution. Supported values are multiples of 4 in range 4-256.
+	DataIntegrationUnit *int32 `json:"dataIntegrationUnit,omitempty"`
+
+	// Time to live (in minutes) setting of integration runtime which will execute copy activity.
+	TimeToLive *int32 `json:"timeToLive,omitempty"`
 }
 
 // CopySinkClassification provides polymorphic access to related types.
@@ -15428,6 +15453,9 @@ type IntegrationRuntimeComputeProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
 
+	// CopyComputeScale properties for managed integration runtime.
+	CopyComputeScaleProperties *CopyComputeScaleProperties `json:"copyComputeScaleProperties,omitempty"`
+
 	// Data flow properties for managed integration runtime.
 	DataFlowProperties *IntegrationRuntimeDataFlowProperties `json:"dataFlowProperties,omitempty"`
 
@@ -15442,6 +15470,9 @@ type IntegrationRuntimeComputeProperties struct {
 
 	// The required number of nodes for managed integration runtime.
 	NumberOfNodes *int32 `json:"numberOfNodes,omitempty"`
+
+	// PipelineExternalComputeScale properties for managed integration runtime.
+	PipelineExternalComputeScaleProperties *PipelineExternalComputeScaleProperties `json:"pipelineExternalComputeScaleProperties,omitempty"`
 
 	// VNet properties for managed integration runtime.
 	VNetProperties *IntegrationRuntimeVNetProperties `json:"vNetProperties,omitempty"`
@@ -15657,11 +15688,18 @@ type IntegrationRuntimeReference struct {
 	// REQUIRED; Reference integration runtime name.
 	ReferenceName *string `json:"referenceName,omitempty"`
 
-	// REQUIRED; Type of integration runtime.
-	Type *IntegrationRuntimeReferenceType `json:"type,omitempty"`
+	// REQUIRED; Type of reference.
+	Type *string `json:"type,omitempty"`
 
 	// Arguments for integration runtime.
 	Parameters map[string]any `json:"parameters,omitempty"`
+}
+
+// GetReference implements the ReferenceClassification interface for type IntegrationRuntimeReference.
+func (i *IntegrationRuntimeReference) GetReference() *Reference {
+	return &Reference{
+		Type: i.Type,
+	}
 }
 
 // IntegrationRuntimeRegenerateKeyParameters - Parameters to regenerate the authentication key.
@@ -16481,11 +16519,18 @@ type LinkedServiceReference struct {
 	// REQUIRED; Reference LinkedService name.
 	ReferenceName *string `json:"referenceName,omitempty"`
 
-	// REQUIRED; Linked service reference type.
-	Type *LinkedServiceReferenceType `json:"type,omitempty"`
+	// REQUIRED; Type of reference.
+	Type *string `json:"type,omitempty"`
 
 	// Arguments for LinkedService.
 	Parameters map[string]any `json:"parameters,omitempty"`
+}
+
+// GetReference implements the ReferenceClassification interface for type LinkedServiceReference.
+func (l *LinkedServiceReference) GetReference() *Reference {
+	return &Reference{
+		Type: l.Type,
+	}
 }
 
 // LinkedServiceResource - Linked service resource type.
@@ -20760,6 +20805,15 @@ type PipelineElapsedTimeMetricPolicy struct {
 	Duration any `json:"duration,omitempty"`
 }
 
+// PipelineExternalComputeScaleProperties - PipelineExternalComputeScale properties for managed integration runtime.
+type PipelineExternalComputeScaleProperties struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Time to live (in minutes) setting of integration runtime which will execute pipeline and external activity.
+	TimeToLive *int32 `json:"timeToLive,omitempty"`
+}
+
 // PipelineFolder - The folder that this Pipeline is in. If not specified, Pipeline will appear at the root level.
 type PipelineFolder struct {
 	// The name of the folder that this Pipeline is in.
@@ -21846,6 +21900,24 @@ type RedshiftUnloadSettings struct {
 	// Redshift source.
 	S3LinkedServiceName *LinkedServiceReference `json:"s3LinkedServiceName,omitempty"`
 }
+
+// ReferenceClassification provides polymorphic access to related types.
+// Call the interface's GetReference() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *IntegrationRuntimeReference, *LinkedServiceReference, *Reference
+type ReferenceClassification interface {
+	// GetReference returns the Reference content of the underlying type.
+	GetReference() *Reference
+}
+
+// Reference - Base reference type.
+type Reference struct {
+	// REQUIRED; Type of reference.
+	Type *string `json:"type,omitempty"`
+}
+
+// GetReference implements the ReferenceClassification interface for type Reference.
+func (r *Reference) GetReference() *Reference { return r }
 
 // RelationalSource - A copy activity source for various relational databases.
 type RelationalSource struct {

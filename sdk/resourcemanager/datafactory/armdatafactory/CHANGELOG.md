@@ -1,5 +1,29 @@
 # Release History
 
+## 4.0.0 (2023-03-10)
+### Breaking Changes
+
+- Type of `IntegrationRuntimeReference.Type` has been changed from `*IntegrationRuntimeReferenceType` to `*string`
+- Type of `LinkedServiceReference.Type` has been changed from `*LinkedServiceReferenceType` to `*string`
+- Type alias `IntegrationRuntimeReferenceType` has been removed
+- Type alias `LinkedServiceReferenceType` has been removed
+
+### Features Added
+
+- New type alias `AzureStorageAuthenticationType` with values `AzureStorageAuthenticationTypeAccountKey`, `AzureStorageAuthenticationTypeAnonymous`, `AzureStorageAuthenticationTypeMsi`, `AzureStorageAuthenticationTypeSasURI`, `AzureStorageAuthenticationTypeServicePrincipal`
+- New function `*IntegrationRuntimeReference.GetReference() *Reference`
+- New function `*LinkedServiceReference.GetReference() *Reference`
+- New function `*Reference.GetReference() *Reference`
+- New struct `CopyComputeScaleProperties`
+- New struct `PipelineExternalComputeScaleProperties`
+- New field `SasToken` in struct `AzureBlobFSLinkedServiceTypeProperties`
+- New field `SasURI` in struct `AzureBlobFSLinkedServiceTypeProperties`
+- New field `AuthenticationType` in struct `AzureBlobStorageLinkedServiceTypeProperties`
+- New field `ContainerURI` in struct `AzureBlobStorageLinkedServiceTypeProperties`
+- New field `CopyComputeScaleProperties` in struct `IntegrationRuntimeComputeProperties`
+- New field `PipelineExternalComputeScaleProperties` in struct `IntegrationRuntimeComputeProperties`
+
+
 ## 3.1.0 (2023-02-24)
 ### Features Added
 
