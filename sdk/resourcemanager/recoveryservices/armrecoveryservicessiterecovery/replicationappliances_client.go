@@ -34,11 +34,11 @@ type ReplicationAppliancesClient struct {
 }
 
 // NewReplicationAppliancesClient creates a new instance of ReplicationAppliancesClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationAppliancesClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationAppliancesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -62,9 +62,10 @@ func NewReplicationAppliancesClient(resourceName string, resourceGroupName strin
 }
 
 // NewListPager - Gets the list of Azure Site Recovery appliances for the vault.
-// Generated from API version 2022-10-01
-// options - ReplicationAppliancesClientListOptions contains the optional parameters for the ReplicationAppliancesClient.List
-// method.
+//
+// Generated from API version 2023-02-01
+//   - options - ReplicationAppliancesClientListOptions contains the optional parameters for the ReplicationAppliancesClient.NewListPager
+//     method.
 func (client *ReplicationAppliancesClient) NewListPager(options *ReplicationAppliancesClientListOptions) *runtime.Pager[ReplicationAppliancesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationAppliancesClientListResponse]{
 		More: func(page ReplicationAppliancesClientListResponse) bool {
@@ -113,7 +114,7 @@ func (client *ReplicationAppliancesClient) listCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

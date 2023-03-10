@@ -1,5 +1,25 @@
 # Release History
 
+## 1.2.0 (2023-03-10)
+### Features Added
+
+- New type alias `SecurityType` with values `SecurityTypeConfidentialVM`, `SecurityTypeNone`, `SecurityTypeTrustedLaunch`
+- New struct `A2AFabricSpecificLocationDetails`
+- New struct `VMwareCbtSecurityProfileProperties`
+- New field `LocationDetails` in struct `AzureFabricSpecificDetails`
+- New field `ExtendedLocationMappings` in struct `FabricQueryParameter`
+- New field `LocationDetails` in struct `FabricQueryParameter`
+- New field `ConfidentialVMKeyVaultID` in struct `VMwareCbtEnableMigrationInput`
+- New field `TargetVMSecurityProfile` in struct `VMwareCbtEnableMigrationInput`
+- New field `OSUpgradeVersion` in struct `VMwareCbtMigrateInput`
+- New field `ConfidentialVMKeyVaultID` in struct `VMwareCbtMigrationDetails`
+- New field `OSName` in struct `VMwareCbtMigrationDetails`
+- New field `SupportedOSVersions` in struct `VMwareCbtMigrationDetails`
+- New field `TargetVMSecurityProfile` in struct `VMwareCbtMigrationDetails`
+- New field `ExcludedSKUs` in struct `VMwareCbtProtectionContainerMappingDetails`
+- New field `OSUpgradeVersion` in struct `VMwareCbtTestMigrateInput`
+
+
 ## 1.1.0 (2022-12-23)
 ### Features Added
 
