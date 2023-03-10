@@ -32,9 +32,9 @@ type DiscoveredSecuritySolutionsClient struct {
 }
 
 // NewDiscoveredSecuritySolutionsClient creates a new instance of DiscoveredSecuritySolutionsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDiscoveredSecuritySolutionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DiscoveredSecuritySolutionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewDiscoveredSecuritySolutionsClient(subscriptionID string, credential azco
 
 // Get - Gets a specific discovered Security Solution.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// discoveredSecuritySolutionName - Name of a discovered security solution.
-// options - DiscoveredSecuritySolutionsClientGetOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - discoveredSecuritySolutionName - Name of a discovered security solution.
+//   - options - DiscoveredSecuritySolutionsClientGetOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.Get
+//     method.
 func (client *DiscoveredSecuritySolutionsClient) Get(ctx context.Context, resourceGroupName string, ascLocation string, discoveredSecuritySolutionName string, options *DiscoveredSecuritySolutionsClientGetOptions) (DiscoveredSecuritySolutionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, ascLocation, discoveredSecuritySolutionName, options)
 	if err != nil {
@@ -118,9 +119,10 @@ func (client *DiscoveredSecuritySolutionsClient) getHandleResponse(resp *http.Re
 }
 
 // NewListPager - Gets a list of discovered Security Solutions for the subscription.
+//
 // Generated from API version 2020-01-01
-// options - DiscoveredSecuritySolutionsClientListOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.List
-// method.
+//   - options - DiscoveredSecuritySolutionsClientListOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.NewListPager
+//     method.
 func (client *DiscoveredSecuritySolutionsClient) NewListPager(options *DiscoveredSecuritySolutionsClientListOptions) *runtime.Pager[DiscoveredSecuritySolutionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DiscoveredSecuritySolutionsClientListResponse]{
 		More: func(page DiscoveredSecuritySolutionsClientListResponse) bool {
@@ -177,10 +179,11 @@ func (client *DiscoveredSecuritySolutionsClient) listHandleResponse(resp *http.R
 }
 
 // NewListByHomeRegionPager - Gets a list of discovered Security Solutions for the subscription and location.
+//
 // Generated from API version 2020-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - DiscoveredSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.ListByHomeRegion
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - DiscoveredSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.NewListByHomeRegionPager
+//     method.
 func (client *DiscoveredSecuritySolutionsClient) NewListByHomeRegionPager(ascLocation string, options *DiscoveredSecuritySolutionsClientListByHomeRegionOptions) *runtime.Pager[DiscoveredSecuritySolutionsClientListByHomeRegionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DiscoveredSecuritySolutionsClientListByHomeRegionResponse]{
 		More: func(page DiscoveredSecuritySolutionsClientListByHomeRegionResponse) bool {

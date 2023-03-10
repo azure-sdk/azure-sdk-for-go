@@ -31,8 +31,8 @@ type DeviceSecurityGroupsClient struct {
 }
 
 // NewDeviceSecurityGroupsClient creates a new instance of DeviceSecurityGroupsClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDeviceSecurityGroupsClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*DeviceSecurityGroupsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -54,13 +54,14 @@ func NewDeviceSecurityGroupsClient(credential azcore.TokenCredential, options *a
 
 // CreateOrUpdate - Use this method to creates or updates the device security group on a specified IoT Hub resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceID - The identifier of the resource.
-// deviceSecurityGroupName - The name of the device security group. Note that the name of the device security group is case
-// insensitive.
-// deviceSecurityGroup - Security group object.
-// options - DeviceSecurityGroupsClientCreateOrUpdateOptions contains the optional parameters for the DeviceSecurityGroupsClient.CreateOrUpdate
-// method.
+//   - resourceID - The identifier of the resource.
+//   - deviceSecurityGroupName - The name of the device security group. Note that the name of the device security group is case
+//     insensitive.
+//   - deviceSecurityGroup - Security group object.
+//   - options - DeviceSecurityGroupsClientCreateOrUpdateOptions contains the optional parameters for the DeviceSecurityGroupsClient.CreateOrUpdate
+//     method.
 func (client *DeviceSecurityGroupsClient) CreateOrUpdate(ctx context.Context, resourceID string, deviceSecurityGroupName string, deviceSecurityGroup DeviceSecurityGroup, options *DeviceSecurityGroupsClientCreateOrUpdateOptions) (DeviceSecurityGroupsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceID, deviceSecurityGroupName, deviceSecurityGroup, options)
 	if err != nil {
@@ -106,12 +107,13 @@ func (client *DeviceSecurityGroupsClient) createOrUpdateHandleResponse(resp *htt
 
 // Delete - User this method to deletes the device security group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceID - The identifier of the resource.
-// deviceSecurityGroupName - The name of the device security group. Note that the name of the device security group is case
-// insensitive.
-// options - DeviceSecurityGroupsClientDeleteOptions contains the optional parameters for the DeviceSecurityGroupsClient.Delete
-// method.
+//   - resourceID - The identifier of the resource.
+//   - deviceSecurityGroupName - The name of the device security group. Note that the name of the device security group is case
+//     insensitive.
+//   - options - DeviceSecurityGroupsClientDeleteOptions contains the optional parameters for the DeviceSecurityGroupsClient.Delete
+//     method.
 func (client *DeviceSecurityGroupsClient) Delete(ctx context.Context, resourceID string, deviceSecurityGroupName string, options *DeviceSecurityGroupsClientDeleteOptions) (DeviceSecurityGroupsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceID, deviceSecurityGroupName, options)
 	if err != nil {
@@ -148,12 +150,13 @@ func (client *DeviceSecurityGroupsClient) deleteCreateRequest(ctx context.Contex
 
 // Get - Use this method to get the device security group for the specified IoT Hub resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-08-01
-// resourceID - The identifier of the resource.
-// deviceSecurityGroupName - The name of the device security group. Note that the name of the device security group is case
-// insensitive.
-// options - DeviceSecurityGroupsClientGetOptions contains the optional parameters for the DeviceSecurityGroupsClient.Get
-// method.
+//   - resourceID - The identifier of the resource.
+//   - deviceSecurityGroupName - The name of the device security group. Note that the name of the device security group is case
+//     insensitive.
+//   - options - DeviceSecurityGroupsClientGetOptions contains the optional parameters for the DeviceSecurityGroupsClient.Get
+//     method.
 func (client *DeviceSecurityGroupsClient) Get(ctx context.Context, resourceID string, deviceSecurityGroupName string, options *DeviceSecurityGroupsClientGetOptions) (DeviceSecurityGroupsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceID, deviceSecurityGroupName, options)
 	if err != nil {
@@ -198,10 +201,11 @@ func (client *DeviceSecurityGroupsClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListPager - Use this method get the list of device security groups for the specified IoT Hub resource.
+//
 // Generated from API version 2019-08-01
-// resourceID - The identifier of the resource.
-// options - DeviceSecurityGroupsClientListOptions contains the optional parameters for the DeviceSecurityGroupsClient.List
-// method.
+//   - resourceID - The identifier of the resource.
+//   - options - DeviceSecurityGroupsClientListOptions contains the optional parameters for the DeviceSecurityGroupsClient.NewListPager
+//     method.
 func (client *DeviceSecurityGroupsClient) NewListPager(resourceID string, options *DeviceSecurityGroupsClientListOptions) *runtime.Pager[DeviceSecurityGroupsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DeviceSecurityGroupsClientListResponse]{
 		More: func(page DeviceSecurityGroupsClientListResponse) bool {
