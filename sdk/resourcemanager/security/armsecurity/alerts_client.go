@@ -32,9 +32,9 @@ type AlertsClient struct {
 }
 
 // NewAlertsClient creates a new instance of AlertsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAlertsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AlertsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewAlertsClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // GetResourceGroupLevel - Get an alert that is associated a resource group or a resource in a resource group
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientGetResourceGroupLevelOptions contains the optional parameters for the AlertsClient.GetResourceGroupLevel
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientGetResourceGroupLevelOptions contains the optional parameters for the AlertsClient.GetResourceGroupLevel
+//     method.
 func (client *AlertsClient) GetResourceGroupLevel(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientGetResourceGroupLevelOptions) (AlertsClientGetResourceGroupLevelResponse, error) {
 	req, err := client.getResourceGroupLevelCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
 	if err != nil {
@@ -119,11 +120,12 @@ func (client *AlertsClient) getResourceGroupLevelHandleResponse(resp *http.Respo
 
 // GetSubscriptionLevel - Get an alert that is associated with a subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientGetSubscriptionLevelOptions contains the optional parameters for the AlertsClient.GetSubscriptionLevel
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientGetSubscriptionLevelOptions contains the optional parameters for the AlertsClient.GetSubscriptionLevel
+//     method.
 func (client *AlertsClient) GetSubscriptionLevel(ctx context.Context, ascLocation string, alertName string, options *AlertsClientGetSubscriptionLevelOptions) (AlertsClientGetSubscriptionLevelResponse, error) {
 	req, err := client.getSubscriptionLevelCreateRequest(ctx, ascLocation, alertName, options)
 	if err != nil {
@@ -175,8 +177,9 @@ func (client *AlertsClient) getSubscriptionLevelHandleResponse(resp *http.Respon
 }
 
 // NewListPager - List all the alerts that are associated with the subscription
+//
 // Generated from API version 2022-01-01
-// options - AlertsClientListOptions contains the optional parameters for the AlertsClient.List method.
+//   - options - AlertsClientListOptions contains the optional parameters for the AlertsClient.NewListPager method.
 func (client *AlertsClient) NewListPager(options *AlertsClientListOptions) *runtime.Pager[AlertsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AlertsClientListResponse]{
 		More: func(page AlertsClientListResponse) bool {
@@ -233,10 +236,11 @@ func (client *AlertsClient) listHandleResponse(resp *http.Response) (AlertsClien
 }
 
 // NewListByResourceGroupPager - List all the alerts that are associated with the resource group
+//
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - AlertsClientListByResourceGroupOptions contains the optional parameters for the AlertsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - AlertsClientListByResourceGroupOptions contains the optional parameters for the AlertsClient.NewListByResourceGroupPager
+//     method.
 func (client *AlertsClient) NewListByResourceGroupPager(resourceGroupName string, options *AlertsClientListByResourceGroupOptions) *runtime.Pager[AlertsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AlertsClientListByResourceGroupResponse]{
 		More: func(page AlertsClientListByResourceGroupResponse) bool {
@@ -298,11 +302,12 @@ func (client *AlertsClient) listByResourceGroupHandleResponse(resp *http.Respons
 
 // NewListResourceGroupLevelByRegionPager - List all the alerts that are associated with the resource group that are stored
 // in a specific location
+//
 // Generated from API version 2022-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - AlertsClientListResourceGroupLevelByRegionOptions contains the optional parameters for the AlertsClient.ListResourceGroupLevelByRegion
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - AlertsClientListResourceGroupLevelByRegionOptions contains the optional parameters for the AlertsClient.NewListResourceGroupLevelByRegionPager
+//     method.
 func (client *AlertsClient) NewListResourceGroupLevelByRegionPager(ascLocation string, resourceGroupName string, options *AlertsClientListResourceGroupLevelByRegionOptions) *runtime.Pager[AlertsClientListResourceGroupLevelByRegionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AlertsClientListResourceGroupLevelByRegionResponse]{
 		More: func(page AlertsClientListResourceGroupLevelByRegionResponse) bool {
@@ -368,10 +373,11 @@ func (client *AlertsClient) listResourceGroupLevelByRegionHandleResponse(resp *h
 
 // NewListSubscriptionLevelByRegionPager - List all the alerts that are associated with the subscription that are stored in
 // a specific location
+//
 // Generated from API version 2022-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - AlertsClientListSubscriptionLevelByRegionOptions contains the optional parameters for the AlertsClient.ListSubscriptionLevelByRegion
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - AlertsClientListSubscriptionLevelByRegionOptions contains the optional parameters for the AlertsClient.NewListSubscriptionLevelByRegionPager
+//     method.
 func (client *AlertsClient) NewListSubscriptionLevelByRegionPager(ascLocation string, options *AlertsClientListSubscriptionLevelByRegionOptions) *runtime.Pager[AlertsClientListSubscriptionLevelByRegionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AlertsClientListSubscriptionLevelByRegionResponse]{
 		More: func(page AlertsClientListSubscriptionLevelByRegionResponse) bool {
@@ -433,10 +439,11 @@ func (client *AlertsClient) listSubscriptionLevelByRegionHandleResponse(resp *ht
 
 // BeginSimulate - Simulate security alerts
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertSimulatorRequestBody - Alert Simulator Request Properties
-// options - AlertsClientBeginSimulateOptions contains the optional parameters for the AlertsClient.BeginSimulate method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertSimulatorRequestBody - Alert Simulator Request Properties
+//   - options - AlertsClientBeginSimulateOptions contains the optional parameters for the AlertsClient.BeginSimulate method.
 func (client *AlertsClient) BeginSimulate(ctx context.Context, ascLocation string, alertSimulatorRequestBody AlertSimulatorRequestBody, options *AlertsClientBeginSimulateOptions) (*runtime.Poller[AlertsClientSimulateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.simulate(ctx, ascLocation, alertSimulatorRequestBody, options)
@@ -453,6 +460,7 @@ func (client *AlertsClient) BeginSimulate(ctx context.Context, ascLocation strin
 
 // Simulate - Simulate security alerts
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
 func (client *AlertsClient) simulate(ctx context.Context, ascLocation string, alertSimulatorRequestBody AlertSimulatorRequestBody, options *AlertsClientBeginSimulateOptions) (*http.Response, error) {
 	req, err := client.simulateCreateRequest(ctx, ascLocation, alertSimulatorRequestBody, options)
@@ -493,12 +501,13 @@ func (client *AlertsClient) simulateCreateRequest(ctx context.Context, ascLocati
 
 // UpdateResourceGroupLevelStateToActivate - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientUpdateResourceGroupLevelStateToActivateOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToActivate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientUpdateResourceGroupLevelStateToActivateOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToActivate
+//     method.
 func (client *AlertsClient) UpdateResourceGroupLevelStateToActivate(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToActivateOptions) (AlertsClientUpdateResourceGroupLevelStateToActivateResponse, error) {
 	req, err := client.updateResourceGroupLevelStateToActivateCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
 	if err != nil {
@@ -546,12 +555,13 @@ func (client *AlertsClient) updateResourceGroupLevelStateToActivateCreateRequest
 
 // UpdateResourceGroupLevelStateToDismiss - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientUpdateResourceGroupLevelStateToDismissOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToDismiss
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientUpdateResourceGroupLevelStateToDismissOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToDismiss
+//     method.
 func (client *AlertsClient) UpdateResourceGroupLevelStateToDismiss(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToDismissOptions) (AlertsClientUpdateResourceGroupLevelStateToDismissResponse, error) {
 	req, err := client.updateResourceGroupLevelStateToDismissCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
 	if err != nil {
@@ -599,12 +609,13 @@ func (client *AlertsClient) updateResourceGroupLevelStateToDismissCreateRequest(
 
 // UpdateResourceGroupLevelStateToInProgress - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientUpdateResourceGroupLevelStateToInProgressOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToInProgress
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientUpdateResourceGroupLevelStateToInProgressOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToInProgress
+//     method.
 func (client *AlertsClient) UpdateResourceGroupLevelStateToInProgress(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToInProgressOptions) (AlertsClientUpdateResourceGroupLevelStateToInProgressResponse, error) {
 	req, err := client.updateResourceGroupLevelStateToInProgressCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
 	if err != nil {
@@ -652,12 +663,13 @@ func (client *AlertsClient) updateResourceGroupLevelStateToInProgressCreateReque
 
 // UpdateResourceGroupLevelStateToResolve - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientUpdateResourceGroupLevelStateToResolveOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToResolve
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientUpdateResourceGroupLevelStateToResolveOptions contains the optional parameters for the AlertsClient.UpdateResourceGroupLevelStateToResolve
+//     method.
 func (client *AlertsClient) UpdateResourceGroupLevelStateToResolve(ctx context.Context, resourceGroupName string, ascLocation string, alertName string, options *AlertsClientUpdateResourceGroupLevelStateToResolveOptions) (AlertsClientUpdateResourceGroupLevelStateToResolveResponse, error) {
 	req, err := client.updateResourceGroupLevelStateToResolveCreateRequest(ctx, resourceGroupName, ascLocation, alertName, options)
 	if err != nil {
@@ -705,11 +717,12 @@ func (client *AlertsClient) updateResourceGroupLevelStateToResolveCreateRequest(
 
 // UpdateSubscriptionLevelStateToActivate - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientUpdateSubscriptionLevelStateToActivateOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToActivate
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientUpdateSubscriptionLevelStateToActivateOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToActivate
+//     method.
 func (client *AlertsClient) UpdateSubscriptionLevelStateToActivate(ctx context.Context, ascLocation string, alertName string, options *AlertsClientUpdateSubscriptionLevelStateToActivateOptions) (AlertsClientUpdateSubscriptionLevelStateToActivateResponse, error) {
 	req, err := client.updateSubscriptionLevelStateToActivateCreateRequest(ctx, ascLocation, alertName, options)
 	if err != nil {
@@ -753,11 +766,12 @@ func (client *AlertsClient) updateSubscriptionLevelStateToActivateCreateRequest(
 
 // UpdateSubscriptionLevelStateToDismiss - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientUpdateSubscriptionLevelStateToDismissOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToDismiss
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientUpdateSubscriptionLevelStateToDismissOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToDismiss
+//     method.
 func (client *AlertsClient) UpdateSubscriptionLevelStateToDismiss(ctx context.Context, ascLocation string, alertName string, options *AlertsClientUpdateSubscriptionLevelStateToDismissOptions) (AlertsClientUpdateSubscriptionLevelStateToDismissResponse, error) {
 	req, err := client.updateSubscriptionLevelStateToDismissCreateRequest(ctx, ascLocation, alertName, options)
 	if err != nil {
@@ -801,11 +815,12 @@ func (client *AlertsClient) updateSubscriptionLevelStateToDismissCreateRequest(c
 
 // UpdateSubscriptionLevelStateToInProgress - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientUpdateSubscriptionLevelStateToInProgressOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToInProgress
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientUpdateSubscriptionLevelStateToInProgressOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToInProgress
+//     method.
 func (client *AlertsClient) UpdateSubscriptionLevelStateToInProgress(ctx context.Context, ascLocation string, alertName string, options *AlertsClientUpdateSubscriptionLevelStateToInProgressOptions) (AlertsClientUpdateSubscriptionLevelStateToInProgressResponse, error) {
 	req, err := client.updateSubscriptionLevelStateToInProgressCreateRequest(ctx, ascLocation, alertName, options)
 	if err != nil {
@@ -849,11 +864,12 @@ func (client *AlertsClient) updateSubscriptionLevelStateToInProgressCreateReques
 
 // UpdateSubscriptionLevelStateToResolve - Update the alert's state
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// alertName - Name of the alert object
-// options - AlertsClientUpdateSubscriptionLevelStateToResolveOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToResolve
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - alertName - Name of the alert object
+//   - options - AlertsClientUpdateSubscriptionLevelStateToResolveOptions contains the optional parameters for the AlertsClient.UpdateSubscriptionLevelStateToResolve
+//     method.
 func (client *AlertsClient) UpdateSubscriptionLevelStateToResolve(ctx context.Context, ascLocation string, alertName string, options *AlertsClientUpdateSubscriptionLevelStateToResolveOptions) (AlertsClientUpdateSubscriptionLevelStateToResolveResponse, error) {
 	req, err := client.updateSubscriptionLevelStateToResolveCreateRequest(ctx, ascLocation, alertName, options)
 	if err != nil {
