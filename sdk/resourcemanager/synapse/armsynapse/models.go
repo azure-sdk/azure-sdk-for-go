@@ -1525,22 +1525,6 @@ type GeoBackupPolicyProperties struct {
 	StorageType *string `json:"storageType,omitempty" azure:"ro"`
 }
 
-// GetClientIntegrationRuntimeEnableInteractivequeryOptions contains the optional parameters for the GetClient.IntegrationRuntimeEnableInteractivequery
-// method.
-type GetClientIntegrationRuntimeEnableInteractivequeryOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GetClientIntegrationRuntimeStartOptions contains the optional parameters for the GetClient.IntegrationRuntimeStart method.
-type GetClientIntegrationRuntimeStartOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GetClientIntegrationRuntimeStopOptions contains the optional parameters for the GetClient.IntegrationRuntimeStop method.
-type GetClientIntegrationRuntimeStopOptions struct {
-	// placeholder for future optional parameters
-}
-
 // GetSsisObjectMetadataRequest - The request payload of get SSIS object metadata.
 type GetSsisObjectMetadataRequest struct {
 	// Metadata path.
@@ -1759,21 +1743,6 @@ type IntegrationRuntimeDataProxyProperties struct {
 	StagingLinkedService *EntityReference `json:"stagingLinkedService,omitempty"`
 }
 
-// IntegrationRuntimeEnableinteractivequery - Integration Runtime Operation Status Properties
-type IntegrationRuntimeEnableinteractivequery struct {
-	// The operation error message.
-	Error *string `json:"error,omitempty"`
-
-	// The operation name.
-	Name *string `json:"name,omitempty"`
-
-	// The operation properties.
-	Properties any `json:"properties,omitempty"`
-
-	// EnableInteractivequery status of Integrationruntimes.
-	Status *WorkspaceStatus `json:"status,omitempty"`
-}
-
 // IntegrationRuntimeListResponse - A list of integration runtime resources.
 type IntegrationRuntimeListResponse struct {
 	// REQUIRED; List of integration runtimes.
@@ -1869,21 +1838,6 @@ type IntegrationRuntimeObjectMetadataClientBeginRefreshOptions struct {
 type IntegrationRuntimeObjectMetadataClientListOptions struct {
 	// The parameters for getting a SSIS object metadata.
 	GetMetadataRequest *GetSsisObjectMetadataRequest
-}
-
-// IntegrationRuntimeOperationStatus - Integration Runtime Operation Status Properties
-type IntegrationRuntimeOperationStatus struct {
-	// The operation error message.
-	Error *string `json:"error,omitempty"`
-
-	// The operation name.
-	Name *string `json:"name,omitempty"`
-
-	// The operation properties.
-	Properties any `json:"properties,omitempty"`
-
-	// status of Start Integrationruntimes.
-	Status *WorkspaceStatus `json:"status,omitempty"`
 }
 
 // IntegrationRuntimeOutboundNetworkDependenciesCategoryEndpoint - Azure-SSIS integration runtime outbound network dependency
@@ -2025,21 +1979,6 @@ type IntegrationRuntimeStatusResponse struct {
 
 	// READ-ONLY; The integration runtime name.
 	Name *string `json:"name,omitempty" azure:"ro"`
-}
-
-// IntegrationRuntimeStopOperationStatus - Integration Runtime Operation Status Properties
-type IntegrationRuntimeStopOperationStatus struct {
-	// The operation error message.
-	Error *string `json:"error,omitempty"`
-
-	// The operation name.
-	Name *string `json:"name,omitempty"`
-
-	// The operation properties.
-	Properties any `json:"properties,omitempty"`
-
-	// status of Start Integrationruntimes.
-	Status *WorkspaceStatus `json:"status,omitempty"`
 }
 
 // IntegrationRuntimeVNetProperties - VNet properties for managed integration runtime.

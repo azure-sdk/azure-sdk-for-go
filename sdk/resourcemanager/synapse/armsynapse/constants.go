@@ -11,7 +11,7 @@ package armsynapse
 
 const (
 	moduleName    = "armsynapse"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
 
 // ActualState - Actual state
@@ -1662,23 +1662,5 @@ func PossibleWorkspacePublicNetworkAccessValues() []WorkspacePublicNetworkAccess
 	return []WorkspacePublicNetworkAccess{
 		WorkspacePublicNetworkAccessDisabled,
 		WorkspacePublicNetworkAccessEnabled,
-	}
-}
-
-// WorkspaceStatus - status of Start Integrationruntimes.
-type WorkspaceStatus string
-
-const (
-	WorkspaceStatusFailed     WorkspaceStatus = "Failed"
-	WorkspaceStatusInProgress WorkspaceStatus = "InProgress"
-	WorkspaceStatusSucceeded  WorkspaceStatus = "Succeeded"
-)
-
-// PossibleWorkspaceStatusValues returns the possible values for the WorkspaceStatus const type.
-func PossibleWorkspaceStatusValues() []WorkspaceStatus {
-	return []WorkspaceStatus{
-		WorkspaceStatusFailed,
-		WorkspaceStatusInProgress,
-		WorkspaceStatusSucceeded,
 	}
 }

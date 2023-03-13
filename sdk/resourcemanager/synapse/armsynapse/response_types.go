@@ -89,21 +89,6 @@ type ExtendedSQLPoolBlobAuditingPoliciesClientListBySQLPoolResponse struct {
 	ExtendedSQLPoolBlobAuditingPolicyListResult
 }
 
-// GetClientIntegrationRuntimeEnableInteractivequeryResponse contains the response from method GetClient.IntegrationRuntimeEnableInteractivequery.
-type GetClientIntegrationRuntimeEnableInteractivequeryResponse struct {
-	IntegrationRuntimeEnableinteractivequery
-}
-
-// GetClientIntegrationRuntimeStartResponse contains the response from method GetClient.IntegrationRuntimeStart.
-type GetClientIntegrationRuntimeStartResponse struct {
-	IntegrationRuntimeOperationStatus
-}
-
-// GetClientIntegrationRuntimeStopResponse contains the response from method GetClient.IntegrationRuntimeStop.
-type GetClientIntegrationRuntimeStopResponse struct {
-	IntegrationRuntimeStopOperationStatus
-}
-
 // IPFirewallRulesClientCreateOrUpdateResponse contains the response from method IPFirewallRulesClient.BeginCreateOrUpdate.
 type IPFirewallRulesClientCreateOrUpdateResponse struct {
 	IPFirewallRuleInfo

@@ -1,5 +1,19 @@
 # Release History
 
+## 0.7.0 (2023-03-13)
+### Breaking Changes
+
+- Type alias `WorkspaceStatus` has been removed
+- Function `NewGetClient` has been removed
+- Function `*GetClient.IntegrationRuntimeEnableInteractivequery` has been removed
+- Function `*GetClient.IntegrationRuntimeStart` has been removed
+- Function `*GetClient.IntegrationRuntimeStop` has been removed
+- Struct `GetClient` has been removed
+- Struct `IntegrationRuntimeEnableinteractivequery` has been removed
+- Struct `IntegrationRuntimeOperationStatus` has been removed
+- Struct `IntegrationRuntimeStopOperationStatus` has been removed
+
+
 ## 0.6.0 (2023-02-24)
 ### Breaking Changes
 

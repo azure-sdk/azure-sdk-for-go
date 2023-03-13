@@ -3739,45 +3739,6 @@ func (i *IntegrationRuntimeDataProxyProperties) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type IntegrationRuntimeEnableinteractivequery.
-func (i IntegrationRuntimeEnableinteractivequery) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "error", i.Error)
-	populate(objectMap, "name", i.Name)
-	populate(objectMap, "properties", &i.Properties)
-	populate(objectMap, "status", i.Status)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type IntegrationRuntimeEnableinteractivequery.
-func (i *IntegrationRuntimeEnableinteractivequery) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", i, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "error":
-			err = unpopulate(val, "Error", &i.Error)
-			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &i.Name)
-			delete(rawMsg, key)
-		case "properties":
-			err = unpopulate(val, "Properties", &i.Properties)
-			delete(rawMsg, key)
-		case "status":
-			err = unpopulate(val, "Status", &i.Status)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", i, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type IntegrationRuntimeListResponse.
 func (i IntegrationRuntimeListResponse) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -3928,45 +3889,6 @@ func (i *IntegrationRuntimeNodeMonitoringData) UnmarshalJSON(data []byte) error 
 				err = json.Unmarshal(val, &aux)
 				i.AdditionalProperties[key] = aux
 			}
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", i, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type IntegrationRuntimeOperationStatus.
-func (i IntegrationRuntimeOperationStatus) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "error", i.Error)
-	populate(objectMap, "name", i.Name)
-	populate(objectMap, "properties", &i.Properties)
-	populate(objectMap, "status", i.Status)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type IntegrationRuntimeOperationStatus.
-func (i *IntegrationRuntimeOperationStatus) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", i, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "error":
-			err = unpopulate(val, "Error", &i.Error)
-			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &i.Name)
-			delete(rawMsg, key)
-		case "properties":
-			err = unpopulate(val, "Properties", &i.Properties)
-			delete(rawMsg, key)
-		case "status":
-			err = unpopulate(val, "Status", &i.Status)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -4350,45 +4272,6 @@ func (i *IntegrationRuntimeStatusResponse) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "properties":
 			i.Properties, err = unmarshalIntegrationRuntimeStatusClassification(val)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", i, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type IntegrationRuntimeStopOperationStatus.
-func (i IntegrationRuntimeStopOperationStatus) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "error", i.Error)
-	populate(objectMap, "name", i.Name)
-	populate(objectMap, "properties", &i.Properties)
-	populate(objectMap, "status", i.Status)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type IntegrationRuntimeStopOperationStatus.
-func (i *IntegrationRuntimeStopOperationStatus) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", i, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "error":
-			err = unpopulate(val, "Error", &i.Error)
-			delete(rawMsg, key)
-		case "name":
-			err = unpopulate(val, "Name", &i.Name)
-			delete(rawMsg, key)
-		case "properties":
-			err = unpopulate(val, "Properties", &i.Properties)
-			delete(rawMsg, key)
-		case "status":
-			err = unpopulate(val, "Status", &i.Status)
 			delete(rawMsg, key)
 		}
 		if err != nil {
