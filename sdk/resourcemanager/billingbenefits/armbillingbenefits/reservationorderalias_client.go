@@ -31,8 +31,8 @@ type ReservationOrderAliasClient struct {
 }
 
 // NewReservationOrderAliasClient creates a new instance of ReservationOrderAliasClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReservationOrderAliasClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*ReservationOrderAliasClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -54,11 +54,12 @@ func NewReservationOrderAliasClient(credential azcore.TokenCredential, options *
 
 // BeginCreate - Create a reservation order alias.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// reservationOrderAliasName - Name of the reservation order alias
-// body - Request body for creating a reservation order alias
-// options - ReservationOrderAliasClientBeginCreateOptions contains the optional parameters for the ReservationOrderAliasClient.BeginCreate
-// method.
+//   - reservationOrderAliasName - Name of the reservation order alias
+//   - body - Request body for creating a reservation order alias
+//   - options - ReservationOrderAliasClientBeginCreateOptions contains the optional parameters for the ReservationOrderAliasClient.BeginCreate
+//     method.
 func (client *ReservationOrderAliasClient) BeginCreate(ctx context.Context, reservationOrderAliasName string, body ReservationOrderAliasRequest, options *ReservationOrderAliasClientBeginCreateOptions) (*runtime.Poller[ReservationOrderAliasClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, reservationOrderAliasName, body, options)
@@ -75,6 +76,7 @@ func (client *ReservationOrderAliasClient) BeginCreate(ctx context.Context, rese
 
 // Create - Create a reservation order alias.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *ReservationOrderAliasClient) create(ctx context.Context, reservationOrderAliasName string, body ReservationOrderAliasRequest, options *ReservationOrderAliasClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, reservationOrderAliasName, body, options)
@@ -111,10 +113,11 @@ func (client *ReservationOrderAliasClient) createCreateRequest(ctx context.Conte
 
 // Get - Get a reservation order alias.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// reservationOrderAliasName - Name of the reservation order alias
-// options - ReservationOrderAliasClientGetOptions contains the optional parameters for the ReservationOrderAliasClient.Get
-// method.
+//   - reservationOrderAliasName - Name of the reservation order alias
+//   - options - ReservationOrderAliasClientGetOptions contains the optional parameters for the ReservationOrderAliasClient.Get
+//     method.
 func (client *ReservationOrderAliasClient) Get(ctx context.Context, reservationOrderAliasName string, options *ReservationOrderAliasClientGetOptions) (ReservationOrderAliasClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, reservationOrderAliasName, options)
 	if err != nil {

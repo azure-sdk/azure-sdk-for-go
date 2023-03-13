@@ -110,7 +110,7 @@ type OperationListResult struct {
 	Value []*Operation `json:"value,omitempty" azure:"ro"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -377,7 +377,7 @@ type SKU struct {
 type SavingsPlanClientGetOptions struct {
 }
 
-// SavingsPlanClientListAllOptions contains the optional parameters for the SavingsPlanClient.ListAll method.
+// SavingsPlanClientListAllOptions contains the optional parameters for the SavingsPlanClient.NewListAllPager method.
 type SavingsPlanClientListAllOptions struct {
 	// May be used to filter by reservation properties. The filter supports 'eq', 'or', and 'and'. It does not currently support
 	// 'ne', 'gt', 'le', 'ge', or 'not'. Reservation properties include sku/name,
@@ -397,7 +397,7 @@ type SavingsPlanClientListAllOptions struct {
 	Take *float32
 }
 
-// SavingsPlanClientListOptions contains the optional parameters for the SavingsPlanClient.List method.
+// SavingsPlanClientListOptions contains the optional parameters for the SavingsPlanClient.NewListPager method.
 type SavingsPlanClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -474,14 +474,8 @@ type SavingsPlanModelProperties struct {
 	DisplayName *string `json:"displayName,omitempty"`
 
 	// Setting this to true will automatically purchase a new benefit on the expiration date time.
-	Renew *bool `json:"renew,omitempty"`
-
-	// SavingsPlan Id of the SavingsPlan which is purchased because of renew.
-	RenewDestination *string          `json:"renewDestination,omitempty"`
-	RenewProperties  *RenewProperties `json:"renewProperties,omitempty"`
-
-	// SavingsPlan Id of the SavingsPlan from which this SavingsPlan is renewed.
-	RenewSource *string `json:"renewSource,omitempty"`
+	Renew           *bool                                      `json:"renew,omitempty"`
+	RenewProperties *SavingsPlanModelPropertiesRenewProperties `json:"renewProperties,omitempty"`
 
 	// Represent benefit term in ISO 8601 format.
 	Term *Term `json:"term,omitempty"`
@@ -520,6 +514,10 @@ type SavingsPlanModelProperties struct {
 
 	// READ-ONLY; Savings plan utilization
 	Utilization *Utilization `json:"utilization,omitempty" azure:"ro"`
+}
+
+type SavingsPlanModelPropertiesRenewProperties struct {
+	PurchaseProperties *PurchaseRequest `json:"purchaseProperties,omitempty"`
 }
 
 // SavingsPlanOrderAliasClientBeginCreateOptions contains the optional parameters for the SavingsPlanOrderAliasClient.BeginCreate
@@ -597,7 +595,7 @@ type SavingsPlanOrderClientElevateOptions struct {
 type SavingsPlanOrderClientGetOptions struct {
 }
 
-// SavingsPlanOrderClientListOptions contains the optional parameters for the SavingsPlanOrderClient.List method.
+// SavingsPlanOrderClientListOptions contains the optional parameters for the SavingsPlanOrderClient.NewListPager method.
 type SavingsPlanOrderClientListOptions struct {
 	// placeholder for future optional parameters
 }

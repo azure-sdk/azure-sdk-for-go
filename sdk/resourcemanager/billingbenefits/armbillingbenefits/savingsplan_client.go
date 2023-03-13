@@ -33,9 +33,9 @@ type SavingsPlanClient struct {
 }
 
 // NewSavingsPlanClient creates a new instance of SavingsPlanClient with the specified values.
-// expand - May be used to expand the detail information of some properties.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - expand - May be used to expand the detail information of some properties.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSavingsPlanClient(expand *string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SavingsPlanClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,10 +58,11 @@ func NewSavingsPlanClient(expand *string, credential azcore.TokenCredential, opt
 
 // Get - Get savings plan.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// savingsPlanOrderID - Order ID of the savings plan
-// savingsPlanID - ID of the savings plan
-// options - SavingsPlanClientGetOptions contains the optional parameters for the SavingsPlanClient.Get method.
+//   - savingsPlanOrderID - Order ID of the savings plan
+//   - savingsPlanID - ID of the savings plan
+//   - options - SavingsPlanClientGetOptions contains the optional parameters for the SavingsPlanClient.Get method.
 func (client *SavingsPlanClient) Get(ctx context.Context, savingsPlanOrderID string, savingsPlanID string, options *SavingsPlanClientGetOptions) (SavingsPlanClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, savingsPlanOrderID, savingsPlanID, options)
 	if err != nil {
@@ -112,9 +113,10 @@ func (client *SavingsPlanClient) getHandleResponse(resp *http.Response) (Savings
 }
 
 // NewListPager - List savings plans in an order.
+//
 // Generated from API version 2022-11-01
-// savingsPlanOrderID - Order ID of the savings plan
-// options - SavingsPlanClientListOptions contains the optional parameters for the SavingsPlanClient.List method.
+//   - savingsPlanOrderID - Order ID of the savings plan
+//   - options - SavingsPlanClientListOptions contains the optional parameters for the SavingsPlanClient.NewListPager method.
 func (client *SavingsPlanClient) NewListPager(savingsPlanOrderID string, options *SavingsPlanClientListOptions) *runtime.Pager[SavingsPlanClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SavingsPlanClientListResponse]{
 		More: func(page SavingsPlanClientListResponse) bool {
@@ -171,8 +173,9 @@ func (client *SavingsPlanClient) listHandleResponse(resp *http.Response) (Saving
 }
 
 // NewListAllPager - List savings plans.
+//
 // Generated from API version 2022-11-01
-// options - SavingsPlanClientListAllOptions contains the optional parameters for the SavingsPlanClient.ListAll method.
+//   - options - SavingsPlanClientListAllOptions contains the optional parameters for the SavingsPlanClient.NewListAllPager method.
 func (client *SavingsPlanClient) NewListAllPager(options *SavingsPlanClientListAllOptions) *runtime.Pager[SavingsPlanClientListAllResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SavingsPlanClientListAllResponse]{
 		More: func(page SavingsPlanClientListAllResponse) bool {
@@ -244,11 +247,12 @@ func (client *SavingsPlanClient) listAllHandleResponse(resp *http.Response) (Sav
 
 // Update - Update savings plan.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// savingsPlanOrderID - Order ID of the savings plan
-// savingsPlanID - ID of the savings plan
-// body - Request body for patching a savings plan order alias
-// options - SavingsPlanClientUpdateOptions contains the optional parameters for the SavingsPlanClient.Update method.
+//   - savingsPlanOrderID - Order ID of the savings plan
+//   - savingsPlanID - ID of the savings plan
+//   - body - Request body for patching a savings plan order alias
+//   - options - SavingsPlanClientUpdateOptions contains the optional parameters for the SavingsPlanClient.Update method.
 func (client *SavingsPlanClient) Update(ctx context.Context, savingsPlanOrderID string, savingsPlanID string, body SavingsPlanUpdateRequest, options *SavingsPlanClientUpdateOptions) (SavingsPlanClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, savingsPlanOrderID, savingsPlanID, body, options)
 	if err != nil {
@@ -300,12 +304,13 @@ func (client *SavingsPlanClient) updateHandleResponse(resp *http.Response) (Savi
 
 // ValidateUpdate - Validate savings plan patch.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// savingsPlanOrderID - Order ID of the savings plan
-// savingsPlanID - ID of the savings plan
-// body - Request body for validating a savings plan patch request
-// options - SavingsPlanClientValidateUpdateOptions contains the optional parameters for the SavingsPlanClient.ValidateUpdate
-// method.
+//   - savingsPlanOrderID - Order ID of the savings plan
+//   - savingsPlanID - ID of the savings plan
+//   - body - Request body for validating a savings plan patch request
+//   - options - SavingsPlanClientValidateUpdateOptions contains the optional parameters for the SavingsPlanClient.ValidateUpdate
+//     method.
 func (client *SavingsPlanClient) ValidateUpdate(ctx context.Context, savingsPlanOrderID string, savingsPlanID string, body SavingsPlanUpdateValidateRequest, options *SavingsPlanClientValidateUpdateOptions) (SavingsPlanClientValidateUpdateResponse, error) {
 	req, err := client.validateUpdateCreateRequest(ctx, savingsPlanOrderID, savingsPlanID, body, options)
 	if err != nil {

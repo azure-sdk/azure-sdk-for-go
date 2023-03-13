@@ -28,8 +28,8 @@ type RPClient struct {
 }
 
 // NewRPClient creates a new instance of RPClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewRPClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*RPClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -51,9 +51,10 @@ func NewRPClient(credential azcore.TokenCredential, options *arm.ClientOptions) 
 
 // ValidatePurchase - Validate savings plan purchase.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// body - Request body for validating the purchase of a savings plan
-// options - RPClientValidatePurchaseOptions contains the optional parameters for the RPClient.ValidatePurchase method.
+//   - body - Request body for validating the purchase of a savings plan
+//   - options - RPClientValidatePurchaseOptions contains the optional parameters for the RPClient.ValidatePurchase method.
 func (client *RPClient) ValidatePurchase(ctx context.Context, body SavingsPlanPurchaseValidateRequest, options *RPClientValidatePurchaseOptions) (RPClientValidatePurchaseResponse, error) {
 	req, err := client.validatePurchaseCreateRequest(ctx, body, options)
 	if err != nil {

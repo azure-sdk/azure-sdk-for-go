@@ -32,9 +32,9 @@ type SavingsPlanOrderClient struct {
 }
 
 // NewSavingsPlanOrderClient creates a new instance of SavingsPlanOrderClient with the specified values.
-// expand - May be used to expand the detail information of some properties.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - expand - May be used to expand the detail information of some properties.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSavingsPlanOrderClient(expand *string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SavingsPlanOrderClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewSavingsPlanOrderClient(expand *string, credential azcore.TokenCredential
 
 // Elevate - Elevate as owner on savings plan order based on billing permissions.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// savingsPlanOrderID - Order ID of the savings plan
-// options - SavingsPlanOrderClientElevateOptions contains the optional parameters for the SavingsPlanOrderClient.Elevate
-// method.
+//   - savingsPlanOrderID - Order ID of the savings plan
+//   - options - SavingsPlanOrderClientElevateOptions contains the optional parameters for the SavingsPlanOrderClient.Elevate
+//     method.
 func (client *SavingsPlanOrderClient) Elevate(ctx context.Context, savingsPlanOrderID string, options *SavingsPlanOrderClientElevateOptions) (SavingsPlanOrderClientElevateResponse, error) {
 	req, err := client.elevateCreateRequest(ctx, savingsPlanOrderID, options)
 	if err != nil {
@@ -105,9 +106,10 @@ func (client *SavingsPlanOrderClient) elevateHandleResponse(resp *http.Response)
 
 // Get - Get a savings plan order.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// savingsPlanOrderID - Order ID of the savings plan
-// options - SavingsPlanOrderClientGetOptions contains the optional parameters for the SavingsPlanOrderClient.Get method.
+//   - savingsPlanOrderID - Order ID of the savings plan
+//   - options - SavingsPlanOrderClientGetOptions contains the optional parameters for the SavingsPlanOrderClient.Get method.
 func (client *SavingsPlanOrderClient) Get(ctx context.Context, savingsPlanOrderID string, options *SavingsPlanOrderClientGetOptions) (SavingsPlanOrderClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, savingsPlanOrderID, options)
 	if err != nil {
@@ -154,8 +156,10 @@ func (client *SavingsPlanOrderClient) getHandleResponse(resp *http.Response) (Sa
 }
 
 // NewListPager - List all Savings plan orders.
+//
 // Generated from API version 2022-11-01
-// options - SavingsPlanOrderClientListOptions contains the optional parameters for the SavingsPlanOrderClient.List method.
+//   - options - SavingsPlanOrderClientListOptions contains the optional parameters for the SavingsPlanOrderClient.NewListPager
+//     method.
 func (client *SavingsPlanOrderClient) NewListPager(options *SavingsPlanOrderClientListOptions) *runtime.Pager[SavingsPlanOrderClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SavingsPlanOrderClientListResponse]{
 		More: func(page SavingsPlanOrderClientListResponse) bool {
