@@ -1,5 +1,17 @@
 # Release History
 
+## 4.0.0 (2023-03-13)
+### Breaking Changes
+
+- Type of `ComputeStartStopSchedule.Cron` has been changed from `*CronTrigger` to `*Cron`
+- Type of `ComputeStartStopSchedule.Recurrence` has been changed from `*RecurrenceTrigger` to `*Recurrence`
+
+### Features Added
+
+- New struct `Cron`
+- New struct `Recurrence`
+
+
 ## 3.0.0 (2022-11-01)
 ### Breaking Changes
 
