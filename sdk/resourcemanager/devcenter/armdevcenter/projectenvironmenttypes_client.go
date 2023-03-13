@@ -33,9 +33,9 @@ type ProjectEnvironmentTypesClient struct {
 }
 
 // NewProjectEnvironmentTypesClient creates a new instance of ProjectEnvironmentTypesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewProjectEnvironmentTypesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProjectEnvironmentTypesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewProjectEnvironmentTypesClient(subscriptionID string, credential azcore.T
 
 // CreateOrUpdate - Creates or updates a project environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// environmentTypeName - The name of the environment type.
-// body - Represents a Project Environment Type.
-// options - ProjectEnvironmentTypesClientCreateOrUpdateOptions contains the optional parameters for the ProjectEnvironmentTypesClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - environmentTypeName - The name of the environment type.
+//   - body - Represents a Project Environment Type.
+//   - options - ProjectEnvironmentTypesClientCreateOrUpdateOptions contains the optional parameters for the ProjectEnvironmentTypesClient.CreateOrUpdate
+//     method.
 func (client *ProjectEnvironmentTypesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, projectName string, environmentTypeName string, body ProjectEnvironmentType, options *ProjectEnvironmentTypesClientCreateOrUpdateOptions) (ProjectEnvironmentTypesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, projectName, environmentTypeName, body, options)
 	if err != nil {
@@ -121,12 +122,13 @@ func (client *ProjectEnvironmentTypesClient) createOrUpdateHandleResponse(resp *
 
 // Delete - Deletes a project environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// environmentTypeName - The name of the environment type.
-// options - ProjectEnvironmentTypesClientDeleteOptions contains the optional parameters for the ProjectEnvironmentTypesClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - environmentTypeName - The name of the environment type.
+//   - options - ProjectEnvironmentTypesClientDeleteOptions contains the optional parameters for the ProjectEnvironmentTypesClient.Delete
+//     method.
 func (client *ProjectEnvironmentTypesClient) Delete(ctx context.Context, resourceGroupName string, projectName string, environmentTypeName string, options *ProjectEnvironmentTypesClientDeleteOptions) (ProjectEnvironmentTypesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, projectName, environmentTypeName, options)
 	if err != nil {
@@ -174,12 +176,13 @@ func (client *ProjectEnvironmentTypesClient) deleteCreateRequest(ctx context.Con
 
 // Get - Gets a project environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// environmentTypeName - The name of the environment type.
-// options - ProjectEnvironmentTypesClientGetOptions contains the optional parameters for the ProjectEnvironmentTypesClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - environmentTypeName - The name of the environment type.
+//   - options - ProjectEnvironmentTypesClientGetOptions contains the optional parameters for the ProjectEnvironmentTypesClient.Get
+//     method.
 func (client *ProjectEnvironmentTypesClient) Get(ctx context.Context, resourceGroupName string, projectName string, environmentTypeName string, options *ProjectEnvironmentTypesClientGetOptions) (ProjectEnvironmentTypesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, projectName, environmentTypeName, options)
 	if err != nil {
@@ -235,11 +238,12 @@ func (client *ProjectEnvironmentTypesClient) getHandleResponse(resp *http.Respon
 }
 
 // NewListPager - Lists environment types for a project.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// options - ProjectEnvironmentTypesClientListOptions contains the optional parameters for the ProjectEnvironmentTypesClient.List
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - options - ProjectEnvironmentTypesClientListOptions contains the optional parameters for the ProjectEnvironmentTypesClient.NewListPager
+//     method.
 func (client *ProjectEnvironmentTypesClient) NewListPager(resourceGroupName string, projectName string, options *ProjectEnvironmentTypesClientListOptions) *runtime.Pager[ProjectEnvironmentTypesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ProjectEnvironmentTypesClientListResponse]{
 		More: func(page ProjectEnvironmentTypesClientListResponse) bool {
@@ -308,13 +312,14 @@ func (client *ProjectEnvironmentTypesClient) listHandleResponse(resp *http.Respo
 
 // Update - Partially updates a project environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// environmentTypeName - The name of the environment type.
-// body - Updatable project environment type properties.
-// options - ProjectEnvironmentTypesClientUpdateOptions contains the optional parameters for the ProjectEnvironmentTypesClient.Update
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - environmentTypeName - The name of the environment type.
+//   - body - Updatable project environment type properties.
+//   - options - ProjectEnvironmentTypesClientUpdateOptions contains the optional parameters for the ProjectEnvironmentTypesClient.Update
+//     method.
 func (client *ProjectEnvironmentTypesClient) Update(ctx context.Context, resourceGroupName string, projectName string, environmentTypeName string, body ProjectEnvironmentTypeUpdate, options *ProjectEnvironmentTypesClientUpdateOptions) (ProjectEnvironmentTypesClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, projectName, environmentTypeName, body, options)
 	if err != nil {

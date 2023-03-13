@@ -32,9 +32,9 @@ type CheckNameAvailabilityClient struct {
 }
 
 // NewCheckNameAvailabilityClient creates a new instance of CheckNameAvailabilityClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCheckNameAvailabilityClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CheckNameAvailabilityClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewCheckNameAvailabilityClient(subscriptionID string, credential azcore.Tok
 
 // Execute - Check the availability of name for resource
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// nameAvailabilityRequest - The required parameters for checking if resource name is available.
-// options - CheckNameAvailabilityClientExecuteOptions contains the optional parameters for the CheckNameAvailabilityClient.Execute
-// method.
+//   - nameAvailabilityRequest - The required parameters for checking if resource name is available.
+//   - options - CheckNameAvailabilityClientExecuteOptions contains the optional parameters for the CheckNameAvailabilityClient.Execute
+//     method.
 func (client *CheckNameAvailabilityClient) Execute(ctx context.Context, nameAvailabilityRequest CheckNameAvailabilityRequest, options *CheckNameAvailabilityClientExecuteOptions) (CheckNameAvailabilityClientExecuteResponse, error) {
 	req, err := client.executeCreateRequest(ctx, nameAvailabilityRequest, options)
 	if err != nil {

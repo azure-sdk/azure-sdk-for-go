@@ -33,9 +33,9 @@ type EnvironmentTypesClient struct {
 }
 
 // NewEnvironmentTypesClient creates a new instance of EnvironmentTypesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewEnvironmentTypesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*EnvironmentTypesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewEnvironmentTypesClient(subscriptionID string, credential azcore.TokenCre
 
 // CreateOrUpdate - Creates or updates an environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// environmentTypeName - The name of the environment type.
-// body - Represents an Environment Type.
-// options - EnvironmentTypesClientCreateOrUpdateOptions contains the optional parameters for the EnvironmentTypesClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - environmentTypeName - The name of the environment type.
+//   - body - Represents an Environment Type.
+//   - options - EnvironmentTypesClientCreateOrUpdateOptions contains the optional parameters for the EnvironmentTypesClient.CreateOrUpdate
+//     method.
 func (client *EnvironmentTypesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, devCenterName string, environmentTypeName string, body EnvironmentType, options *EnvironmentTypesClientCreateOrUpdateOptions) (EnvironmentTypesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, devCenterName, environmentTypeName, body, options)
 	if err != nil {
@@ -121,11 +122,12 @@ func (client *EnvironmentTypesClient) createOrUpdateHandleResponse(resp *http.Re
 
 // Delete - Deletes an environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// environmentTypeName - The name of the environment type.
-// options - EnvironmentTypesClientDeleteOptions contains the optional parameters for the EnvironmentTypesClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - environmentTypeName - The name of the environment type.
+//   - options - EnvironmentTypesClientDeleteOptions contains the optional parameters for the EnvironmentTypesClient.Delete method.
 func (client *EnvironmentTypesClient) Delete(ctx context.Context, resourceGroupName string, devCenterName string, environmentTypeName string, options *EnvironmentTypesClientDeleteOptions) (EnvironmentTypesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, devCenterName, environmentTypeName, options)
 	if err != nil {
@@ -173,11 +175,12 @@ func (client *EnvironmentTypesClient) deleteCreateRequest(ctx context.Context, r
 
 // Get - Gets an environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// environmentTypeName - The name of the environment type.
-// options - EnvironmentTypesClientGetOptions contains the optional parameters for the EnvironmentTypesClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - environmentTypeName - The name of the environment type.
+//   - options - EnvironmentTypesClientGetOptions contains the optional parameters for the EnvironmentTypesClient.Get method.
 func (client *EnvironmentTypesClient) Get(ctx context.Context, resourceGroupName string, devCenterName string, environmentTypeName string, options *EnvironmentTypesClientGetOptions) (EnvironmentTypesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, devCenterName, environmentTypeName, options)
 	if err != nil {
@@ -233,11 +236,12 @@ func (client *EnvironmentTypesClient) getHandleResponse(resp *http.Response) (En
 }
 
 // NewListByDevCenterPager - Lists environment types for the devcenter.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// options - EnvironmentTypesClientListByDevCenterOptions contains the optional parameters for the EnvironmentTypesClient.ListByDevCenter
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - options - EnvironmentTypesClientListByDevCenterOptions contains the optional parameters for the EnvironmentTypesClient.NewListByDevCenterPager
+//     method.
 func (client *EnvironmentTypesClient) NewListByDevCenterPager(resourceGroupName string, devCenterName string, options *EnvironmentTypesClientListByDevCenterOptions) *runtime.Pager[EnvironmentTypesClientListByDevCenterResponse] {
 	return runtime.NewPager(runtime.PagingHandler[EnvironmentTypesClientListByDevCenterResponse]{
 		More: func(page EnvironmentTypesClientListByDevCenterResponse) bool {
@@ -306,12 +310,13 @@ func (client *EnvironmentTypesClient) listByDevCenterHandleResponse(resp *http.R
 
 // Update - Partially updates an environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// environmentTypeName - The name of the environment type.
-// body - Updatable environment type properties.
-// options - EnvironmentTypesClientUpdateOptions contains the optional parameters for the EnvironmentTypesClient.Update method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - environmentTypeName - The name of the environment type.
+//   - body - Updatable environment type properties.
+//   - options - EnvironmentTypesClientUpdateOptions contains the optional parameters for the EnvironmentTypesClient.Update method.
 func (client *EnvironmentTypesClient) Update(ctx context.Context, resourceGroupName string, devCenterName string, environmentTypeName string, body EnvironmentTypeUpdate, options *EnvironmentTypesClientUpdateOptions) (EnvironmentTypesClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, devCenterName, environmentTypeName, body, options)
 	if err != nil {

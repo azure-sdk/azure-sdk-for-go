@@ -33,9 +33,9 @@ type AttachedNetworksClient struct {
 }
 
 // NewAttachedNetworksClient creates a new instance of AttachedNetworksClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAttachedNetworksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AttachedNetworksClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewAttachedNetworksClient(subscriptionID string, credential azcore.TokenCre
 
 // BeginCreateOrUpdate - Creates or updates an attached NetworkConnection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// attachedNetworkConnectionName - The name of the attached NetworkConnection.
-// body - Represents an attached NetworkConnection.
-// options - AttachedNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the AttachedNetworksClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - attachedNetworkConnectionName - The name of the attached NetworkConnection.
+//   - body - Represents an attached NetworkConnection.
+//   - options - AttachedNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the AttachedNetworksClient.BeginCreateOrUpdate
+//     method.
 func (client *AttachedNetworksClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, devCenterName string, attachedNetworkConnectionName string, body AttachedNetworkConnection, options *AttachedNetworksClientBeginCreateOrUpdateOptions) (*runtime.Poller[AttachedNetworksClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, devCenterName, attachedNetworkConnectionName, body, options)
@@ -81,6 +82,7 @@ func (client *AttachedNetworksClient) BeginCreateOrUpdate(ctx context.Context, r
 
 // CreateOrUpdate - Creates or updates an attached NetworkConnection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
 func (client *AttachedNetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, devCenterName string, attachedNetworkConnectionName string, body AttachedNetworkConnection, options *AttachedNetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, devCenterName, attachedNetworkConnectionName, body, options)
@@ -129,12 +131,13 @@ func (client *AttachedNetworksClient) createOrUpdateCreateRequest(ctx context.Co
 
 // BeginDelete - Un-attach a NetworkConnection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// attachedNetworkConnectionName - The name of the attached NetworkConnection.
-// options - AttachedNetworksClientBeginDeleteOptions contains the optional parameters for the AttachedNetworksClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - attachedNetworkConnectionName - The name of the attached NetworkConnection.
+//   - options - AttachedNetworksClientBeginDeleteOptions contains the optional parameters for the AttachedNetworksClient.BeginDelete
+//     method.
 func (client *AttachedNetworksClient) BeginDelete(ctx context.Context, resourceGroupName string, devCenterName string, attachedNetworkConnectionName string, options *AttachedNetworksClientBeginDeleteOptions) (*runtime.Poller[AttachedNetworksClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, devCenterName, attachedNetworkConnectionName, options)
@@ -151,6 +154,7 @@ func (client *AttachedNetworksClient) BeginDelete(ctx context.Context, resourceG
 
 // Delete - Un-attach a NetworkConnection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
 func (client *AttachedNetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, devCenterName string, attachedNetworkConnectionName string, options *AttachedNetworksClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, devCenterName, attachedNetworkConnectionName, options)
@@ -199,12 +203,13 @@ func (client *AttachedNetworksClient) deleteCreateRequest(ctx context.Context, r
 
 // GetByDevCenter - Gets an attached NetworkConnection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// attachedNetworkConnectionName - The name of the attached NetworkConnection.
-// options - AttachedNetworksClientGetByDevCenterOptions contains the optional parameters for the AttachedNetworksClient.GetByDevCenter
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - attachedNetworkConnectionName - The name of the attached NetworkConnection.
+//   - options - AttachedNetworksClientGetByDevCenterOptions contains the optional parameters for the AttachedNetworksClient.GetByDevCenter
+//     method.
 func (client *AttachedNetworksClient) GetByDevCenter(ctx context.Context, resourceGroupName string, devCenterName string, attachedNetworkConnectionName string, options *AttachedNetworksClientGetByDevCenterOptions) (AttachedNetworksClientGetByDevCenterResponse, error) {
 	req, err := client.getByDevCenterCreateRequest(ctx, resourceGroupName, devCenterName, attachedNetworkConnectionName, options)
 	if err != nil {
@@ -261,12 +266,13 @@ func (client *AttachedNetworksClient) getByDevCenterHandleResponse(resp *http.Re
 
 // GetByProject - Gets an attached NetworkConnection.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// attachedNetworkConnectionName - The name of the attached NetworkConnection.
-// options - AttachedNetworksClientGetByProjectOptions contains the optional parameters for the AttachedNetworksClient.GetByProject
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - attachedNetworkConnectionName - The name of the attached NetworkConnection.
+//   - options - AttachedNetworksClientGetByProjectOptions contains the optional parameters for the AttachedNetworksClient.GetByProject
+//     method.
 func (client *AttachedNetworksClient) GetByProject(ctx context.Context, resourceGroupName string, projectName string, attachedNetworkConnectionName string, options *AttachedNetworksClientGetByProjectOptions) (AttachedNetworksClientGetByProjectResponse, error) {
 	req, err := client.getByProjectCreateRequest(ctx, resourceGroupName, projectName, attachedNetworkConnectionName, options)
 	if err != nil {
@@ -322,11 +328,12 @@ func (client *AttachedNetworksClient) getByProjectHandleResponse(resp *http.Resp
 }
 
 // NewListByDevCenterPager - Lists the attached NetworkConnections for a DevCenter.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// options - AttachedNetworksClientListByDevCenterOptions contains the optional parameters for the AttachedNetworksClient.ListByDevCenter
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - options - AttachedNetworksClientListByDevCenterOptions contains the optional parameters for the AttachedNetworksClient.NewListByDevCenterPager
+//     method.
 func (client *AttachedNetworksClient) NewListByDevCenterPager(resourceGroupName string, devCenterName string, options *AttachedNetworksClientListByDevCenterOptions) *runtime.Pager[AttachedNetworksClientListByDevCenterResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AttachedNetworksClientListByDevCenterResponse]{
 		More: func(page AttachedNetworksClientListByDevCenterResponse) bool {
@@ -394,11 +401,12 @@ func (client *AttachedNetworksClient) listByDevCenterHandleResponse(resp *http.R
 }
 
 // NewListByProjectPager - Lists the attached NetworkConnections for a Project.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// options - AttachedNetworksClientListByProjectOptions contains the optional parameters for the AttachedNetworksClient.ListByProject
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - options - AttachedNetworksClientListByProjectOptions contains the optional parameters for the AttachedNetworksClient.NewListByProjectPager
+//     method.
 func (client *AttachedNetworksClient) NewListByProjectPager(resourceGroupName string, projectName string, options *AttachedNetworksClientListByProjectOptions) *runtime.Pager[AttachedNetworksClientListByProjectResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AttachedNetworksClientListByProjectResponse]{
 		More: func(page AttachedNetworksClientListByProjectResponse) bool {

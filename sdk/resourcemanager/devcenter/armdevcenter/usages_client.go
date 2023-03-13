@@ -32,9 +32,9 @@ type UsagesClient struct {
 }
 
 // NewUsagesClient creates a new instance of UsagesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsagesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,9 +56,11 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListByLocationPager - Lists the current usages and limits in this location for the provided subscription.
+//
 // Generated from API version 2022-11-11-preview
-// location - The Azure region
-// options - UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.ListByLocation method.
+//   - location - The Azure region
+//   - options - UsagesClientListByLocationOptions contains the optional parameters for the UsagesClient.NewListByLocationPager
+//     method.
 func (client *UsagesClient) NewListByLocationPager(location string, options *UsagesClientListByLocationOptions) *runtime.Pager[UsagesClientListByLocationResponse] {
 	return runtime.NewPager(runtime.PagingHandler[UsagesClientListByLocationResponse]{
 		More: func(page UsagesClientListByLocationResponse) bool {

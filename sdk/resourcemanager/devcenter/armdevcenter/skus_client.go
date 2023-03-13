@@ -33,9 +33,9 @@ type SKUsClient struct {
 }
 
 // NewSKUsClient creates a new instance of SKUsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SKUsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,8 +57,10 @@ func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, opt
 }
 
 // NewListBySubscriptionPager - Lists the Microsoft.DevCenter SKUs available in a subscription
+//
 // Generated from API version 2022-11-11-preview
-// options - SKUsClientListBySubscriptionOptions contains the optional parameters for the SKUsClient.ListBySubscription method.
+//   - options - SKUsClientListBySubscriptionOptions contains the optional parameters for the SKUsClient.NewListBySubscriptionPager
+//     method.
 func (client *SKUsClient) NewListBySubscriptionPager(options *SKUsClientListBySubscriptionOptions) *runtime.Pager[SKUsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SKUsClientListBySubscriptionResponse]{
 		More: func(page SKUsClientListBySubscriptionResponse) bool {

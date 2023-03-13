@@ -33,9 +33,9 @@ type DevBoxDefinitionsClient struct {
 }
 
 // NewDevBoxDefinitionsClient creates a new instance of DevBoxDefinitionsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewDevBoxDefinitionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*DevBoxDefinitionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewDevBoxDefinitionsClient(subscriptionID string, credential azcore.TokenCr
 
 // BeginCreateOrUpdate - Creates or updates a Dev Box definition.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// devBoxDefinitionName - The name of the Dev Box definition.
-// body - Represents a Dev Box definition.
-// options - DevBoxDefinitionsClientBeginCreateOrUpdateOptions contains the optional parameters for the DevBoxDefinitionsClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - devBoxDefinitionName - The name of the Dev Box definition.
+//   - body - Represents a Dev Box definition.
+//   - options - DevBoxDefinitionsClientBeginCreateOrUpdateOptions contains the optional parameters for the DevBoxDefinitionsClient.BeginCreateOrUpdate
+//     method.
 func (client *DevBoxDefinitionsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, devCenterName string, devBoxDefinitionName string, body DevBoxDefinition, options *DevBoxDefinitionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DevBoxDefinitionsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, devCenterName, devBoxDefinitionName, body, options)
@@ -81,6 +82,7 @@ func (client *DevBoxDefinitionsClient) BeginCreateOrUpdate(ctx context.Context, 
 
 // CreateOrUpdate - Creates or updates a Dev Box definition.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
 func (client *DevBoxDefinitionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, devCenterName string, devBoxDefinitionName string, body DevBoxDefinition, options *DevBoxDefinitionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, devCenterName, devBoxDefinitionName, body, options)
@@ -129,12 +131,13 @@ func (client *DevBoxDefinitionsClient) createOrUpdateCreateRequest(ctx context.C
 
 // BeginDelete - Deletes a Dev Box definition
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// devBoxDefinitionName - The name of the Dev Box definition.
-// options - DevBoxDefinitionsClientBeginDeleteOptions contains the optional parameters for the DevBoxDefinitionsClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - devBoxDefinitionName - The name of the Dev Box definition.
+//   - options - DevBoxDefinitionsClientBeginDeleteOptions contains the optional parameters for the DevBoxDefinitionsClient.BeginDelete
+//     method.
 func (client *DevBoxDefinitionsClient) BeginDelete(ctx context.Context, resourceGroupName string, devCenterName string, devBoxDefinitionName string, options *DevBoxDefinitionsClientBeginDeleteOptions) (*runtime.Poller[DevBoxDefinitionsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, devCenterName, devBoxDefinitionName, options)
@@ -151,6 +154,7 @@ func (client *DevBoxDefinitionsClient) BeginDelete(ctx context.Context, resource
 
 // Delete - Deletes a Dev Box definition
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
 func (client *DevBoxDefinitionsClient) deleteOperation(ctx context.Context, resourceGroupName string, devCenterName string, devBoxDefinitionName string, options *DevBoxDefinitionsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, devCenterName, devBoxDefinitionName, options)
@@ -199,11 +203,12 @@ func (client *DevBoxDefinitionsClient) deleteCreateRequest(ctx context.Context, 
 
 // Get - Gets a Dev Box definition
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// devBoxDefinitionName - The name of the Dev Box definition.
-// options - DevBoxDefinitionsClientGetOptions contains the optional parameters for the DevBoxDefinitionsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - devBoxDefinitionName - The name of the Dev Box definition.
+//   - options - DevBoxDefinitionsClientGetOptions contains the optional parameters for the DevBoxDefinitionsClient.Get method.
 func (client *DevBoxDefinitionsClient) Get(ctx context.Context, resourceGroupName string, devCenterName string, devBoxDefinitionName string, options *DevBoxDefinitionsClientGetOptions) (DevBoxDefinitionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, devCenterName, devBoxDefinitionName, options)
 	if err != nil {
@@ -260,12 +265,13 @@ func (client *DevBoxDefinitionsClient) getHandleResponse(resp *http.Response) (D
 
 // GetByProject - Gets a Dev Box definition configured for a project
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// devBoxDefinitionName - The name of the Dev Box definition.
-// options - DevBoxDefinitionsClientGetByProjectOptions contains the optional parameters for the DevBoxDefinitionsClient.GetByProject
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - devBoxDefinitionName - The name of the Dev Box definition.
+//   - options - DevBoxDefinitionsClientGetByProjectOptions contains the optional parameters for the DevBoxDefinitionsClient.GetByProject
+//     method.
 func (client *DevBoxDefinitionsClient) GetByProject(ctx context.Context, resourceGroupName string, projectName string, devBoxDefinitionName string, options *DevBoxDefinitionsClientGetByProjectOptions) (DevBoxDefinitionsClientGetByProjectResponse, error) {
 	req, err := client.getByProjectCreateRequest(ctx, resourceGroupName, projectName, devBoxDefinitionName, options)
 	if err != nil {
@@ -321,11 +327,12 @@ func (client *DevBoxDefinitionsClient) getByProjectHandleResponse(resp *http.Res
 }
 
 // NewListByDevCenterPager - List Dev Box definitions for a devcenter.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// options - DevBoxDefinitionsClientListByDevCenterOptions contains the optional parameters for the DevBoxDefinitionsClient.ListByDevCenter
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - options - DevBoxDefinitionsClientListByDevCenterOptions contains the optional parameters for the DevBoxDefinitionsClient.NewListByDevCenterPager
+//     method.
 func (client *DevBoxDefinitionsClient) NewListByDevCenterPager(resourceGroupName string, devCenterName string, options *DevBoxDefinitionsClientListByDevCenterOptions) *runtime.Pager[DevBoxDefinitionsClientListByDevCenterResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DevBoxDefinitionsClientListByDevCenterResponse]{
 		More: func(page DevBoxDefinitionsClientListByDevCenterResponse) bool {
@@ -393,11 +400,12 @@ func (client *DevBoxDefinitionsClient) listByDevCenterHandleResponse(resp *http.
 }
 
 // NewListByProjectPager - List Dev Box definitions configured for a project.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// options - DevBoxDefinitionsClientListByProjectOptions contains the optional parameters for the DevBoxDefinitionsClient.ListByProject
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - options - DevBoxDefinitionsClientListByProjectOptions contains the optional parameters for the DevBoxDefinitionsClient.NewListByProjectPager
+//     method.
 func (client *DevBoxDefinitionsClient) NewListByProjectPager(resourceGroupName string, projectName string, options *DevBoxDefinitionsClientListByProjectOptions) *runtime.Pager[DevBoxDefinitionsClientListByProjectResponse] {
 	return runtime.NewPager(runtime.PagingHandler[DevBoxDefinitionsClientListByProjectResponse]{
 		More: func(page DevBoxDefinitionsClientListByProjectResponse) bool {
@@ -466,13 +474,14 @@ func (client *DevBoxDefinitionsClient) listByProjectHandleResponse(resp *http.Re
 
 // BeginUpdate - Partially updates a Dev Box definition.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// devBoxDefinitionName - The name of the Dev Box definition.
-// body - Represents a Dev Box definition.
-// options - DevBoxDefinitionsClientBeginUpdateOptions contains the optional parameters for the DevBoxDefinitionsClient.BeginUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - devBoxDefinitionName - The name of the Dev Box definition.
+//   - body - Represents a Dev Box definition.
+//   - options - DevBoxDefinitionsClientBeginUpdateOptions contains the optional parameters for the DevBoxDefinitionsClient.BeginUpdate
+//     method.
 func (client *DevBoxDefinitionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, devCenterName string, devBoxDefinitionName string, body DevBoxDefinitionUpdate, options *DevBoxDefinitionsClientBeginUpdateOptions) (*runtime.Poller[DevBoxDefinitionsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, devCenterName, devBoxDefinitionName, body, options)
@@ -489,6 +498,7 @@ func (client *DevBoxDefinitionsClient) BeginUpdate(ctx context.Context, resource
 
 // Update - Partially updates a Dev Box definition.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
 func (client *DevBoxDefinitionsClient) update(ctx context.Context, resourceGroupName string, devCenterName string, devBoxDefinitionName string, body DevBoxDefinitionUpdate, options *DevBoxDefinitionsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, devCenterName, devBoxDefinitionName, body, options)

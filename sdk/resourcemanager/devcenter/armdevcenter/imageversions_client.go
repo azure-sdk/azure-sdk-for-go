@@ -32,9 +32,9 @@ type ImageVersionsClient struct {
 }
 
 // NewImageVersionsClient creates a new instance of ImageVersionsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewImageVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ImageVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewImageVersionsClient(subscriptionID string, credential azcore.TokenCreden
 
 // Get - Gets an image version.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// galleryName - The name of the gallery.
-// imageName - The name of the image.
-// versionName - The version of the image.
-// options - ImageVersionsClientGetOptions contains the optional parameters for the ImageVersionsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - galleryName - The name of the gallery.
+//   - imageName - The name of the image.
+//   - versionName - The version of the image.
+//   - options - ImageVersionsClientGetOptions contains the optional parameters for the ImageVersionsClient.Get method.
 func (client *ImageVersionsClient) Get(ctx context.Context, resourceGroupName string, devCenterName string, galleryName string, imageName string, versionName string, options *ImageVersionsClientGetOptions) (ImageVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, devCenterName, galleryName, imageName, versionName, options)
 	if err != nil {
@@ -127,13 +128,14 @@ func (client *ImageVersionsClient) getHandleResponse(resp *http.Response) (Image
 }
 
 // NewListByImagePager - Lists versions for an image.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// devCenterName - The name of the devcenter.
-// galleryName - The name of the gallery.
-// imageName - The name of the image.
-// options - ImageVersionsClientListByImageOptions contains the optional parameters for the ImageVersionsClient.ListByImage
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - devCenterName - The name of the devcenter.
+//   - galleryName - The name of the gallery.
+//   - imageName - The name of the image.
+//   - options - ImageVersionsClientListByImageOptions contains the optional parameters for the ImageVersionsClient.NewListByImagePager
+//     method.
 func (client *ImageVersionsClient) NewListByImagePager(resourceGroupName string, devCenterName string, galleryName string, imageName string, options *ImageVersionsClientListByImageOptions) *runtime.Pager[ImageVersionsClientListByImageResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ImageVersionsClientListByImageResponse]{
 		More: func(page ImageVersionsClientListByImageResponse) bool {

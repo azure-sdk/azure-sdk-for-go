@@ -33,9 +33,9 @@ type PoolsClient struct {
 }
 
 // NewPoolsClient creates a new instance of PoolsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPoolsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PoolsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewPoolsClient(subscriptionID string, credential azcore.TokenCredential, op
 
 // BeginCreateOrUpdate - Creates or updates a machine pool
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// poolName - Name of the pool.
-// body - Represents a machine pool
-// options - PoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the PoolsClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - poolName - Name of the pool.
+//   - body - Represents a machine pool
+//   - options - PoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the PoolsClient.BeginCreateOrUpdate
+//     method.
 func (client *PoolsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, projectName string, poolName string, body Pool, options *PoolsClientBeginCreateOrUpdateOptions) (*runtime.Poller[PoolsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, projectName, poolName, body, options)
@@ -81,6 +82,7 @@ func (client *PoolsClient) BeginCreateOrUpdate(ctx context.Context, resourceGrou
 
 // CreateOrUpdate - Creates or updates a machine pool
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
 func (client *PoolsClient) createOrUpdate(ctx context.Context, resourceGroupName string, projectName string, poolName string, body Pool, options *PoolsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, projectName, poolName, body, options)
@@ -129,11 +131,12 @@ func (client *PoolsClient) createOrUpdateCreateRequest(ctx context.Context, reso
 
 // BeginDelete - Deletes a machine pool
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// poolName - Name of the pool.
-// options - PoolsClientBeginDeleteOptions contains the optional parameters for the PoolsClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - poolName - Name of the pool.
+//   - options - PoolsClientBeginDeleteOptions contains the optional parameters for the PoolsClient.BeginDelete method.
 func (client *PoolsClient) BeginDelete(ctx context.Context, resourceGroupName string, projectName string, poolName string, options *PoolsClientBeginDeleteOptions) (*runtime.Poller[PoolsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, projectName, poolName, options)
@@ -150,6 +153,7 @@ func (client *PoolsClient) BeginDelete(ctx context.Context, resourceGroupName st
 
 // Delete - Deletes a machine pool
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
 func (client *PoolsClient) deleteOperation(ctx context.Context, resourceGroupName string, projectName string, poolName string, options *PoolsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, projectName, poolName, options)
@@ -198,11 +202,12 @@ func (client *PoolsClient) deleteCreateRequest(ctx context.Context, resourceGrou
 
 // Get - Gets a machine pool
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// poolName - Name of the pool.
-// options - PoolsClientGetOptions contains the optional parameters for the PoolsClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - poolName - Name of the pool.
+//   - options - PoolsClientGetOptions contains the optional parameters for the PoolsClient.Get method.
 func (client *PoolsClient) Get(ctx context.Context, resourceGroupName string, projectName string, poolName string, options *PoolsClientGetOptions) (PoolsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, projectName, poolName, options)
 	if err != nil {
@@ -258,10 +263,11 @@ func (client *PoolsClient) getHandleResponse(resp *http.Response) (PoolsClientGe
 }
 
 // NewListByProjectPager - Lists pools for a project
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// options - PoolsClientListByProjectOptions contains the optional parameters for the PoolsClient.ListByProject method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - options - PoolsClientListByProjectOptions contains the optional parameters for the PoolsClient.NewListByProjectPager method.
 func (client *PoolsClient) NewListByProjectPager(resourceGroupName string, projectName string, options *PoolsClientListByProjectOptions) *runtime.Pager[PoolsClientListByProjectResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PoolsClientListByProjectResponse]{
 		More: func(page PoolsClientListByProjectResponse) bool {
@@ -330,12 +336,13 @@ func (client *PoolsClient) listByProjectHandleResponse(resp *http.Response) (Poo
 
 // BeginUpdate - Partially updates a machine pool
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// poolName - Name of the pool.
-// body - Represents a machine pool
-// options - PoolsClientBeginUpdateOptions contains the optional parameters for the PoolsClient.BeginUpdate method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - poolName - Name of the pool.
+//   - body - Represents a machine pool
+//   - options - PoolsClientBeginUpdateOptions contains the optional parameters for the PoolsClient.BeginUpdate method.
 func (client *PoolsClient) BeginUpdate(ctx context.Context, resourceGroupName string, projectName string, poolName string, body PoolUpdate, options *PoolsClientBeginUpdateOptions) (*runtime.Poller[PoolsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, projectName, poolName, body, options)
@@ -352,6 +359,7 @@ func (client *PoolsClient) BeginUpdate(ctx context.Context, resourceGroupName st
 
 // Update - Partially updates a machine pool
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
 func (client *PoolsClient) update(ctx context.Context, resourceGroupName string, projectName string, poolName string, body PoolUpdate, options *PoolsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, projectName, poolName, body, options)

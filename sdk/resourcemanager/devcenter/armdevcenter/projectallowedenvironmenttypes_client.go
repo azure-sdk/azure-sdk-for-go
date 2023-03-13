@@ -33,9 +33,9 @@ type ProjectAllowedEnvironmentTypesClient struct {
 }
 
 // NewProjectAllowedEnvironmentTypesClient creates a new instance of ProjectAllowedEnvironmentTypesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewProjectAllowedEnvironmentTypesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProjectAllowedEnvironmentTypesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewProjectAllowedEnvironmentTypesClient(subscriptionID string, credential a
 
 // Get - Gets an allowed environment type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// environmentTypeName - The name of the environment type.
-// options - ProjectAllowedEnvironmentTypesClientGetOptions contains the optional parameters for the ProjectAllowedEnvironmentTypesClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - environmentTypeName - The name of the environment type.
+//   - options - ProjectAllowedEnvironmentTypesClientGetOptions contains the optional parameters for the ProjectAllowedEnvironmentTypesClient.Get
+//     method.
 func (client *ProjectAllowedEnvironmentTypesClient) Get(ctx context.Context, resourceGroupName string, projectName string, environmentTypeName string, options *ProjectAllowedEnvironmentTypesClientGetOptions) (ProjectAllowedEnvironmentTypesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, projectName, environmentTypeName, options)
 	if err != nil {
@@ -119,11 +120,12 @@ func (client *ProjectAllowedEnvironmentTypesClient) getHandleResponse(resp *http
 }
 
 // NewListPager - Lists allowed environment types for a project.
+//
 // Generated from API version 2022-11-11-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// projectName - The name of the project.
-// options - ProjectAllowedEnvironmentTypesClientListOptions contains the optional parameters for the ProjectAllowedEnvironmentTypesClient.List
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - projectName - The name of the project.
+//   - options - ProjectAllowedEnvironmentTypesClientListOptions contains the optional parameters for the ProjectAllowedEnvironmentTypesClient.NewListPager
+//     method.
 func (client *ProjectAllowedEnvironmentTypesClient) NewListPager(resourceGroupName string, projectName string, options *ProjectAllowedEnvironmentTypesClientListOptions) *runtime.Pager[ProjectAllowedEnvironmentTypesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ProjectAllowedEnvironmentTypesClientListResponse]{
 		More: func(page ProjectAllowedEnvironmentTypesClientListResponse) bool {
