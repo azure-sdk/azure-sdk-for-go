@@ -32,9 +32,9 @@ type TrustedAccessRolesClient struct {
 }
 
 // NewTrustedAccessRolesClient creates a new instance of TrustedAccessRolesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTrustedAccessRolesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TrustedAccessRolesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,9 +56,11 @@ func NewTrustedAccessRolesClient(subscriptionID string, credential azcore.TokenC
 }
 
 // NewListPager - List supported trusted access roles.
-// Generated from API version 2022-11-02-preview
-// location - The name of Azure region.
-// options - TrustedAccessRolesClientListOptions contains the optional parameters for the TrustedAccessRolesClient.List method.
+//
+// Generated from API version 2022-10-02-preview
+//   - location - The name of Azure region.
+//   - options - TrustedAccessRolesClientListOptions contains the optional parameters for the TrustedAccessRolesClient.NewListPager
+//     method.
 func (client *TrustedAccessRolesClient) NewListPager(location string, options *TrustedAccessRolesClientListOptions) *runtime.Pager[TrustedAccessRolesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TrustedAccessRolesClientListResponse]{
 		More: func(page TrustedAccessRolesClientListResponse) bool {
@@ -103,7 +105,7 @@ func (client *TrustedAccessRolesClient) listCreateRequest(ctx context.Context, l
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-02-preview")
+	reqQP.Set("api-version", "2022-10-02-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

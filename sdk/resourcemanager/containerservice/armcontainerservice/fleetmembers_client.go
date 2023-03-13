@@ -32,9 +32,9 @@ type FleetMembersClient struct {
 }
 
 // NewFleetMembersClient creates a new instance of FleetMembersClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewFleetMembersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FleetMembersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewFleetMembersClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateOrUpdate - A member contains a reference to an existing Kubernetes cluster. Creating a member makes the referenced
 // cluster join the Fleet.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-02-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// fleetName - The name of the Fleet resource.
-// fleetMemberName - The name of the Fleet member resource.
-// parameters - The Fleet member to create or update.
-// options - FleetMembersClientBeginCreateOrUpdateOptions contains the optional parameters for the FleetMembersClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - fleetName - The name of the Fleet resource.
+//   - fleetMemberName - The name of the Fleet member resource.
+//   - parameters - The Fleet member to create or update.
+//   - options - FleetMembersClientBeginCreateOrUpdateOptions contains the optional parameters for the FleetMembersClient.BeginCreateOrUpdate
+//     method.
 func (client *FleetMembersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, fleetName string, fleetMemberName string, parameters FleetMember, options *FleetMembersClientBeginCreateOrUpdateOptions) (*runtime.Poller[FleetMembersClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, fleetName, fleetMemberName, parameters, options)
@@ -82,6 +83,7 @@ func (client *FleetMembersClient) BeginCreateOrUpdate(ctx context.Context, resou
 // CreateOrUpdate - A member contains a reference to an existing Kubernetes cluster. Creating a member makes the referenced
 // cluster join the Fleet.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-02-preview
 func (client *FleetMembersClient) createOrUpdate(ctx context.Context, resourceGroupName string, fleetName string, fleetMemberName string, parameters FleetMember, options *FleetMembersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, fleetName, fleetMemberName, parameters, options)
@@ -137,12 +139,13 @@ func (client *FleetMembersClient) createOrUpdateCreateRequest(ctx context.Contex
 // BeginDelete - Deleting a Fleet member results in the member cluster leaving fleet. The Member azure resource is deleted
 // upon success. The underlying cluster is not deleted.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-02-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// fleetName - The name of the Fleet resource.
-// fleetMemberName - The name of the Fleet member resource.
-// options - FleetMembersClientBeginDeleteOptions contains the optional parameters for the FleetMembersClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - fleetName - The name of the Fleet resource.
+//   - fleetMemberName - The name of the Fleet member resource.
+//   - options - FleetMembersClientBeginDeleteOptions contains the optional parameters for the FleetMembersClient.BeginDelete
+//     method.
 func (client *FleetMembersClient) BeginDelete(ctx context.Context, resourceGroupName string, fleetName string, fleetMemberName string, options *FleetMembersClientBeginDeleteOptions) (*runtime.Poller[FleetMembersClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, fleetName, fleetMemberName, options)
@@ -160,6 +163,7 @@ func (client *FleetMembersClient) BeginDelete(ctx context.Context, resourceGroup
 // Delete - Deleting a Fleet member results in the member cluster leaving fleet. The Member azure resource is deleted upon
 // success. The underlying cluster is not deleted.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-02-preview
 func (client *FleetMembersClient) deleteOperation(ctx context.Context, resourceGroupName string, fleetName string, fleetMemberName string, options *FleetMembersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, fleetName, fleetMemberName, options)
@@ -211,11 +215,12 @@ func (client *FleetMembersClient) deleteCreateRequest(ctx context.Context, resou
 
 // Get - Gets a Fleet member.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-09-02-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// fleetName - The name of the Fleet resource.
-// fleetMemberName - The name of the Fleet member resource.
-// options - FleetMembersClientGetOptions contains the optional parameters for the FleetMembersClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - fleetName - The name of the Fleet resource.
+//   - fleetMemberName - The name of the Fleet member resource.
+//   - options - FleetMembersClientGetOptions contains the optional parameters for the FleetMembersClient.Get method.
 func (client *FleetMembersClient) Get(ctx context.Context, resourceGroupName string, fleetName string, fleetMemberName string, options *FleetMembersClientGetOptions) (FleetMembersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, fleetName, fleetMemberName, options)
 	if err != nil {
@@ -271,11 +276,12 @@ func (client *FleetMembersClient) getHandleResponse(resp *http.Response) (FleetM
 }
 
 // NewListByFleetPager - Lists the members of a fleet.
+//
 // Generated from API version 2022-09-02-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// fleetName - The name of the Fleet resource.
-// options - FleetMembersClientListByFleetOptions contains the optional parameters for the FleetMembersClient.ListByFleet
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - fleetName - The name of the Fleet resource.
+//   - options - FleetMembersClientListByFleetOptions contains the optional parameters for the FleetMembersClient.NewListByFleetPager
+//     method.
 func (client *FleetMembersClient) NewListByFleetPager(resourceGroupName string, fleetName string, options *FleetMembersClientListByFleetOptions) *runtime.Pager[FleetMembersClientListByFleetResponse] {
 	return runtime.NewPager(runtime.PagingHandler[FleetMembersClientListByFleetResponse]{
 		More: func(page FleetMembersClientListByFleetResponse) bool {

@@ -1,5 +1,14 @@
 # Release History
 
+## 2.4.0-beta.2 (2023-03-13)
+### Breaking Changes
+
+- Const `WorkloadRuntimeKataMshvVMIsolation` from type alias `WorkloadRuntime` has been removed
+- Type alias `RestrictionLevel` has been removed
+- Struct `ManagedClusterNodeResourceGroupProfile` has been removed
+- Field `NodeResourceGroupProfile` of struct `ManagedClusterProperties` has been removed
+
+
 ## 2.4.0-beta.1 (2023-01-27)
 ### Features Added
 
