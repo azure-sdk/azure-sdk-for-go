@@ -157,21 +157,6 @@ type Argument struct {
 	IsSecret *bool `json:"isSecret,omitempty"`
 }
 
-// AuthCredential - Authentication credential stored for an upstream.
-type AuthCredential struct {
-	// The name of the credential.
-	Name *CredentialName `json:"name,omitempty"`
-
-	// KeyVault Secret URI for accessing the password.
-	PasswordSecretIdentifier *string `json:"passwordSecretIdentifier,omitempty"`
-
-	// KeyVault Secret URI for accessing the username.
-	UsernameSecretIdentifier *string `json:"usernameSecretIdentifier,omitempty"`
-
-	// READ-ONLY; This provides data pertaining to the health of the auth credential.
-	CredentialHealth *CredentialHealth `json:"credentialHealth,omitempty" azure:"ro"`
-}
-
 // AuthInfo - The authorization properties for accessing the source code repository.
 type AuthInfo struct {
 	// REQUIRED; The access token used to access the source control provider.
@@ -266,91 +251,6 @@ type BaseImageTriggerUpdateParameters struct {
 
 	// Type of Payload body for Base image update triggers.
 	UpdateTriggerPayloadType *UpdateTriggerPayloadType `json:"updateTriggerPayloadType,omitempty"`
-}
-
-// CacheRule - An object that represents a cache rule for a container registry.
-type CacheRule struct {
-	// The properties of the cache rule.
-	Properties *CacheRuleProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; The resource ID.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// CacheRuleProperties - The properties of a cache rule.
-type CacheRuleProperties struct {
-	// The ARM resource ID of the credential store which is associated with the cache rule.
-	CredentialSetResourceID *string `json:"credentialSetResourceId,omitempty"`
-
-	// Source repository pulled from upstream.
-	SourceRepository *string `json:"sourceRepository,omitempty"`
-
-	// Target repository specified in docker pull command. Eg: docker pull myregistry.azurecr.io/{targetRepository}:{tag}
-	TargetRepository *string `json:"targetRepository,omitempty"`
-
-	// READ-ONLY; The creation date of the cache rule.
-	CreationDate *time.Time `json:"creationDate,omitempty" azure:"ro"`
-
-	// READ-ONLY; Provisioning state of the resource.
-	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// CacheRuleUpdateParameters - The parameters for updating a cache rule.
-type CacheRuleUpdateParameters struct {
-	// The properties of the cache rule update parameters.
-	Properties *CacheRuleUpdateProperties `json:"properties,omitempty"`
-}
-
-// CacheRuleUpdateProperties - The parameters for updating cache rule properties.
-type CacheRuleUpdateProperties struct {
-	// The ARM resource ID of the credential store which is associated with the Cache rule.
-	CredentialSetResourceID *string `json:"credentialSetResourceId,omitempty"`
-}
-
-// CacheRulesClientBeginCreateOptions contains the optional parameters for the CacheRulesClient.BeginCreate method.
-type CacheRulesClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// CacheRulesClientBeginDeleteOptions contains the optional parameters for the CacheRulesClient.BeginDelete method.
-type CacheRulesClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// CacheRulesClientBeginUpdateOptions contains the optional parameters for the CacheRulesClient.BeginUpdate method.
-type CacheRulesClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// CacheRulesClientGetOptions contains the optional parameters for the CacheRulesClient.Get method.
-type CacheRulesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// CacheRulesClientListOptions contains the optional parameters for the CacheRulesClient.NewListPager method.
-type CacheRulesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// CacheRulesListResult - The result of a request to list cache rules for a container registry.
-type CacheRulesListResult struct {
-	// If provided, client must use NextLink URI to request next list of cache rules.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// The list of cache rules.
-	Value []*CacheRule `json:"value,omitempty"`
 }
 
 // CallbackConfig - The configuration of service URI and custom headers for the webhook.
@@ -489,107 +389,6 @@ type ConnectedRegistryUpdateProperties struct {
 
 	// The sync properties of the connected registry with its parent.
 	SyncProperties *SyncUpdateProperties `json:"syncProperties,omitempty"`
-}
-
-// CredentialHealth - The health of the auth credential.
-type CredentialHealth struct {
-	// Error code representing the health check error.
-	ErrorCode *string `json:"errorCode,omitempty"`
-
-	// Descriptive message representing the health check error.
-	ErrorMessage *string `json:"errorMessage,omitempty"`
-
-	// The health status of credential.
-	Status *CredentialHealthStatus `json:"status,omitempty"`
-}
-
-// CredentialSet - An object that represents a credential set resource for a container registry.
-type CredentialSet struct {
-	// Identities associated with the resource. This is used to access the KeyVault secrets.
-	Identity *IdentityProperties `json:"identity,omitempty"`
-
-	// The properties of the credential set.
-	Properties *CredentialSetProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; The resource ID.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource.
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource.
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// CredentialSetListResult - The result of a request to list credential sets for a container registry.
-type CredentialSetListResult struct {
-	// The URI that can be used to request the next list of credential sets.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// The list of credential sets. Since this list may be incomplete, the nextLink field should be used to request the next list
-	// of credential sets.
-	Value []*CredentialSet `json:"value,omitempty"`
-}
-
-// CredentialSetProperties - The properties of a credential set resource.
-type CredentialSetProperties struct {
-	// List of authentication credentials stored for an upstream. Usually consists of a primary and an optional secondary credential.
-	AuthCredentials []*AuthCredential `json:"authCredentials,omitempty"`
-
-	// The credentials are stored for this upstream or login server.
-	LoginServer *string `json:"loginServer,omitempty"`
-
-	// READ-ONLY; The creation date of credential store resource.
-	CreationDate *time.Time `json:"creationDate,omitempty" azure:"ro"`
-
-	// READ-ONLY; Provisioning state of the resource.
-	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// CredentialSetUpdateParameters - The parameters for updating a credential set
-type CredentialSetUpdateParameters struct {
-	// Identities associated with the resource. This is used to access the KeyVault secrets.
-	Identity *IdentityProperties `json:"identity,omitempty"`
-
-	// The properties of the credential set update parameters
-	Properties *CredentialSetUpdateProperties `json:"properties,omitempty"`
-}
-
-// CredentialSetUpdateProperties - The parameters for updating credential set properties.
-type CredentialSetUpdateProperties struct {
-	// List of authentication credentials stored for an upstream. Usually consists of a primary and an optional secondary credential.
-	AuthCredentials []*AuthCredential `json:"authCredentials,omitempty"`
-}
-
-// CredentialSetsClientBeginCreateOptions contains the optional parameters for the CredentialSetsClient.BeginCreate method.
-type CredentialSetsClientBeginCreateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// CredentialSetsClientBeginDeleteOptions contains the optional parameters for the CredentialSetsClient.BeginDelete method.
-type CredentialSetsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// CredentialSetsClientBeginUpdateOptions contains the optional parameters for the CredentialSetsClient.BeginUpdate method.
-type CredentialSetsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// CredentialSetsClientGetOptions contains the optional parameters for the CredentialSetsClient.Get method.
-type CredentialSetsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// CredentialSetsClientListOptions contains the optional parameters for the CredentialSetsClient.NewListPager method.
-type CredentialSetsClientListOptions struct {
-	// placeholder for future optional parameters
 }
 
 // Credentials - The parameters that describes a set of credentials that will be used when a run is invoked.
@@ -2115,7 +1914,8 @@ type RegistryProperties struct {
 	// The value that indicates whether the admin user is enabled.
 	AdminUserEnabled *bool `json:"adminUserEnabled,omitempty"`
 
-	// Enables registry-wide pull from unauthenticated clients.
+	// Enables registry-wide pull from unauthenticated clients. It's in preview and available in the Standard and Premium service
+	// tiers.
 	AnonymousPullEnabled *bool `json:"anonymousPullEnabled,omitempty"`
 
 	// Enable a single data endpoint per region for serving data.
@@ -2163,7 +1963,8 @@ type RegistryPropertiesUpdateParameters struct {
 	// The value that indicates whether the admin user is enabled.
 	AdminUserEnabled *bool `json:"adminUserEnabled,omitempty"`
 
-	// Enables registry-wide pull from unauthenticated clients.
+	// Enables registry-wide pull from unauthenticated clients. It's in preview and available in the Standard and Premium service
+	// tiers.
 	AnonymousPullEnabled *bool `json:"anonymousPullEnabled,omitempty"`
 
 	// Enable a single data endpoint per region for serving data.

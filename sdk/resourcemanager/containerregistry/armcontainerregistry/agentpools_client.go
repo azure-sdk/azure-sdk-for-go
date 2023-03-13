@@ -32,7 +32,7 @@ type AgentPoolsClient struct {
 }
 
 // NewAgentPoolsClient creates a new instance of AgentPoolsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The Microsoft Azure subscription ID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAgentPoolsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AgentPoolsClient, error) {
@@ -98,6 +98,9 @@ func (client *AgentPoolsClient) create(ctx context.Context, resourceGroupName st
 // createCreateRequest creates the Create request.
 func (client *AgentPoolsClient) createCreateRequest(ctx context.Context, resourceGroupName string, registryName string, agentPoolName string, agentPool AgentPool, options *AgentPoolsClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/agentPools/{agentPoolName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -164,6 +167,9 @@ func (client *AgentPoolsClient) deleteOperation(ctx context.Context, resourceGro
 // deleteCreateRequest creates the Delete request.
 func (client *AgentPoolsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, registryName string, agentPoolName string, options *AgentPoolsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/agentPools/{agentPoolName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -214,6 +220,9 @@ func (client *AgentPoolsClient) Get(ctx context.Context, resourceGroupName strin
 // getCreateRequest creates the Get request.
 func (client *AgentPoolsClient) getCreateRequest(ctx context.Context, resourceGroupName string, registryName string, agentPoolName string, options *AgentPoolsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/agentPools/{agentPoolName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -274,6 +283,9 @@ func (client *AgentPoolsClient) GetQueueStatus(ctx context.Context, resourceGrou
 // getQueueStatusCreateRequest creates the GetQueueStatus request.
 func (client *AgentPoolsClient) getQueueStatusCreateRequest(ctx context.Context, resourceGroupName string, registryName string, agentPoolName string, options *AgentPoolsClientGetQueueStatusOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/agentPools/{agentPoolName}/listQueueStatus"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -344,6 +356,9 @@ func (client *AgentPoolsClient) NewListPager(resourceGroupName string, registryN
 // listCreateRequest creates the List request.
 func (client *AgentPoolsClient) listCreateRequest(ctx context.Context, resourceGroupName string, registryName string, options *AgentPoolsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/agentPools"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -416,6 +431,9 @@ func (client *AgentPoolsClient) update(ctx context.Context, resourceGroupName st
 // updateCreateRequest creates the Update request.
 func (client *AgentPoolsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, registryName string, agentPoolName string, updateParameters AgentPoolUpdateParameters, options *AgentPoolsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/agentPools/{agentPoolName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")

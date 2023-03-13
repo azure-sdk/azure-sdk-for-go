@@ -32,7 +32,7 @@ type TokensClient struct {
 }
 
 // NewTokensClient creates a new instance of TokensClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The Microsoft Azure subscription ID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTokensClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TokensClient, error) {
@@ -58,8 +58,8 @@ func NewTokensClient(subscriptionID string, credential azcore.TokenCredential, o
 // BeginCreate - Creates a token for a container registry with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - tokenName - The name of the token.
 //   - tokenCreateParameters - The parameters for creating a token.
@@ -70,9 +70,7 @@ func (client *TokensClient) BeginCreate(ctx context.Context, resourceGroupName s
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[TokensClientCreateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[TokensClientCreateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[TokensClientCreateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -81,7 +79,7 @@ func (client *TokensClient) BeginCreate(ctx context.Context, resourceGroupName s
 // Create - Creates a token for a container registry with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2022-02-01-preview
 func (client *TokensClient) create(ctx context.Context, resourceGroupName string, registryName string, tokenName string, tokenCreateParameters Token, options *TokensClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, registryName, tokenName, tokenCreateParameters, options)
 	if err != nil {
@@ -100,6 +98,9 @@ func (client *TokensClient) create(ctx context.Context, resourceGroupName string
 // createCreateRequest creates the Create request.
 func (client *TokensClient) createCreateRequest(ctx context.Context, resourceGroupName string, registryName string, tokenName string, tokenCreateParameters Token, options *TokensClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/tokens/{tokenName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -118,7 +119,7 @@ func (client *TokensClient) createCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, tokenCreateParameters)
@@ -127,8 +128,8 @@ func (client *TokensClient) createCreateRequest(ctx context.Context, resourceGro
 // BeginDelete - Deletes a token from a container registry.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - tokenName - The name of the token.
 //   - options - TokensClientBeginDeleteOptions contains the optional parameters for the TokensClient.BeginDelete method.
@@ -138,9 +139,7 @@ func (client *TokensClient) BeginDelete(ctx context.Context, resourceGroupName s
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[TokensClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaLocation,
-		})
+		return runtime.NewPoller[TokensClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[TokensClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -149,7 +148,7 @@ func (client *TokensClient) BeginDelete(ctx context.Context, resourceGroupName s
 // Delete - Deletes a token from a container registry.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2022-02-01-preview
 func (client *TokensClient) deleteOperation(ctx context.Context, resourceGroupName string, registryName string, tokenName string, options *TokensClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, registryName, tokenName, options)
 	if err != nil {
@@ -168,6 +167,9 @@ func (client *TokensClient) deleteOperation(ctx context.Context, resourceGroupNa
 // deleteCreateRequest creates the Delete request.
 func (client *TokensClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, registryName string, tokenName string, options *TokensClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/tokens/{tokenName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -186,7 +188,7 @@ func (client *TokensClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -195,8 +197,8 @@ func (client *TokensClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Gets the properties of the specified token.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - tokenName - The name of the token.
 //   - options - TokensClientGetOptions contains the optional parameters for the TokensClient.Get method.
@@ -218,6 +220,9 @@ func (client *TokensClient) Get(ctx context.Context, resourceGroupName string, r
 // getCreateRequest creates the Get request.
 func (client *TokensClient) getCreateRequest(ctx context.Context, resourceGroupName string, registryName string, tokenName string, options *TokensClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/tokens/{tokenName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -236,7 +241,7 @@ func (client *TokensClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,8 +258,8 @@ func (client *TokensClient) getHandleResponse(resp *http.Response) (TokensClient
 
 // NewListPager - Lists all the tokens for the specified container registry.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - options - TokensClientListOptions contains the optional parameters for the TokensClient.NewListPager method.
 func (client *TokensClient) NewListPager(resourceGroupName string, registryName string, options *TokensClientListOptions) *runtime.Pager[TokensClientListResponse] {
@@ -288,6 +293,9 @@ func (client *TokensClient) NewListPager(resourceGroupName string, registryName 
 // listCreateRequest creates the List request.
 func (client *TokensClient) listCreateRequest(ctx context.Context, resourceGroupName string, registryName string, options *TokensClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/tokens"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -302,7 +310,7 @@ func (client *TokensClient) listCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -320,8 +328,8 @@ func (client *TokensClient) listHandleResponse(resp *http.Response) (TokensClien
 // BeginUpdate - Updates a token with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - tokenName - The name of the token.
 //   - tokenUpdateParameters - The parameters for updating a token.
@@ -332,9 +340,7 @@ func (client *TokensClient) BeginUpdate(ctx context.Context, resourceGroupName s
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[TokensClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[TokensClientUpdateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[TokensClientUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -343,7 +349,7 @@ func (client *TokensClient) BeginUpdate(ctx context.Context, resourceGroupName s
 // Update - Updates a token with the specified parameters.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2022-02-01-preview
 func (client *TokensClient) update(ctx context.Context, resourceGroupName string, registryName string, tokenName string, tokenUpdateParameters TokenUpdateParameters, options *TokensClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, registryName, tokenName, tokenUpdateParameters, options)
 	if err != nil {
@@ -362,6 +368,9 @@ func (client *TokensClient) update(ctx context.Context, resourceGroupName string
 // updateCreateRequest creates the Update request.
 func (client *TokensClient) updateCreateRequest(ctx context.Context, resourceGroupName string, registryName string, tokenName string, tokenUpdateParameters TokenUpdateParameters, options *TokensClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/tokens/{tokenName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -380,7 +389,7 @@ func (client *TokensClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, tokenUpdateParameters)

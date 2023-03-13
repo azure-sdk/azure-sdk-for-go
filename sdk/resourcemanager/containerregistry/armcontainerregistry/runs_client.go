@@ -33,7 +33,7 @@ type RunsClient struct {
 }
 
 // NewRunsClient creates a new instance of RunsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The Microsoft Azure subscription ID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewRunsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RunsClient, error) {
@@ -98,6 +98,9 @@ func (client *RunsClient) cancel(ctx context.Context, resourceGroupName string, 
 // cancelCreateRequest creates the Cancel request.
 func (client *RunsClient) cancelCreateRequest(ctx context.Context, resourceGroupName string, registryName string, runID string, options *RunsClientBeginCancelOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/runs/{runId}/cancel"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -148,6 +151,9 @@ func (client *RunsClient) Get(ctx context.Context, resourceGroupName string, reg
 // getCreateRequest creates the Get request.
 func (client *RunsClient) getCreateRequest(ctx context.Context, resourceGroupName string, registryName string, runID string, options *RunsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/runs/{runId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -207,6 +213,9 @@ func (client *RunsClient) GetLogSasURL(ctx context.Context, resourceGroupName st
 // getLogSasURLCreateRequest creates the GetLogSasURL request.
 func (client *RunsClient) getLogSasURLCreateRequest(ctx context.Context, resourceGroupName string, registryName string, runID string, options *RunsClientGetLogSasURLOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/runs/{runId}/listLogSasUrl"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -277,6 +286,9 @@ func (client *RunsClient) NewListPager(resourceGroupName string, registryName st
 // listCreateRequest creates the List request.
 func (client *RunsClient) listCreateRequest(ctx context.Context, resourceGroupName string, registryName string, options *RunsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/runs"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -355,6 +367,9 @@ func (client *RunsClient) update(ctx context.Context, resourceGroupName string, 
 // updateCreateRequest creates the Update request.
 func (client *RunsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, registryName string, runID string, runUpdateParameters RunUpdateParameters, options *RunsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/runs/{runId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")

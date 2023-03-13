@@ -32,7 +32,7 @@ type PipelineRunsClient struct {
 }
 
 // NewPipelineRunsClient creates a new instance of PipelineRunsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The Microsoft Azure subscription ID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPipelineRunsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PipelineRunsClient, error) {
@@ -58,8 +58,8 @@ func NewPipelineRunsClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreate - Creates a pipeline run for a container registry with the specified parameters
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - pipelineRunName - The name of the pipeline run.
 //   - pipelineRunCreateParameters - The parameters for creating a pipeline run.
@@ -71,9 +71,7 @@ func (client *PipelineRunsClient) BeginCreate(ctx context.Context, resourceGroup
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[PipelineRunsClientCreateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[PipelineRunsClientCreateResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[PipelineRunsClientCreateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -82,7 +80,7 @@ func (client *PipelineRunsClient) BeginCreate(ctx context.Context, resourceGroup
 // Create - Creates a pipeline run for a container registry with the specified parameters
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2022-02-01-preview
 func (client *PipelineRunsClient) create(ctx context.Context, resourceGroupName string, registryName string, pipelineRunName string, pipelineRunCreateParameters PipelineRun, options *PipelineRunsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, registryName, pipelineRunName, pipelineRunCreateParameters, options)
 	if err != nil {
@@ -101,6 +99,9 @@ func (client *PipelineRunsClient) create(ctx context.Context, resourceGroupName 
 // createCreateRequest creates the Create request.
 func (client *PipelineRunsClient) createCreateRequest(ctx context.Context, resourceGroupName string, registryName string, pipelineRunName string, pipelineRunCreateParameters PipelineRun, options *PipelineRunsClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/pipelineRuns/{pipelineRunName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -119,7 +120,7 @@ func (client *PipelineRunsClient) createCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, pipelineRunCreateParameters)
@@ -128,8 +129,8 @@ func (client *PipelineRunsClient) createCreateRequest(ctx context.Context, resou
 // BeginDelete - Deletes a pipeline run from a container registry.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - pipelineRunName - The name of the pipeline run.
 //   - options - PipelineRunsClientBeginDeleteOptions contains the optional parameters for the PipelineRunsClient.BeginDelete
@@ -140,9 +141,7 @@ func (client *PipelineRunsClient) BeginDelete(ctx context.Context, resourceGroup
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[PipelineRunsClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaLocation,
-		})
+		return runtime.NewPoller[PipelineRunsClientDeleteResponse](resp, client.pl, nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[PipelineRunsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -151,7 +150,7 @@ func (client *PipelineRunsClient) BeginDelete(ctx context.Context, resourceGroup
 // Delete - Deletes a pipeline run from a container registry.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
+// Generated from API version 2022-02-01-preview
 func (client *PipelineRunsClient) deleteOperation(ctx context.Context, resourceGroupName string, registryName string, pipelineRunName string, options *PipelineRunsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, registryName, pipelineRunName, options)
 	if err != nil {
@@ -170,6 +169,9 @@ func (client *PipelineRunsClient) deleteOperation(ctx context.Context, resourceG
 // deleteCreateRequest creates the Delete request.
 func (client *PipelineRunsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, registryName string, pipelineRunName string, options *PipelineRunsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/pipelineRuns/{pipelineRunName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -188,7 +190,7 @@ func (client *PipelineRunsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -197,8 +199,8 @@ func (client *PipelineRunsClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Gets the detailed information for a given pipeline run.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - pipelineRunName - The name of the pipeline run.
 //   - options - PipelineRunsClientGetOptions contains the optional parameters for the PipelineRunsClient.Get method.
@@ -220,6 +222,9 @@ func (client *PipelineRunsClient) Get(ctx context.Context, resourceGroupName str
 // getCreateRequest creates the Get request.
 func (client *PipelineRunsClient) getCreateRequest(ctx context.Context, resourceGroupName string, registryName string, pipelineRunName string, options *PipelineRunsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/pipelineRuns/{pipelineRunName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -238,7 +243,7 @@ func (client *PipelineRunsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -255,8 +260,8 @@ func (client *PipelineRunsClient) getHandleResponse(resp *http.Response) (Pipeli
 
 // NewListPager - Lists all the pipeline runs for the specified container registry.
 //
-// Generated from API version 2023-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-02-01-preview
+//   - resourceGroupName - The name of the resource group to which the container registry belongs.
 //   - registryName - The name of the container registry.
 //   - options - PipelineRunsClientListOptions contains the optional parameters for the PipelineRunsClient.NewListPager method.
 func (client *PipelineRunsClient) NewListPager(resourceGroupName string, registryName string, options *PipelineRunsClientListOptions) *runtime.Pager[PipelineRunsClientListResponse] {
@@ -290,6 +295,9 @@ func (client *PipelineRunsClient) NewListPager(resourceGroupName string, registr
 // listCreateRequest creates the List request.
 func (client *PipelineRunsClient) listCreateRequest(ctx context.Context, resourceGroupName string, registryName string, options *PipelineRunsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{registryName}/pipelineRuns"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -304,7 +312,7 @@ func (client *PipelineRunsClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01-preview")
+	reqQP.Set("api-version", "2022-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

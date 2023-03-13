@@ -11,7 +11,7 @@ package armcontainerregistry
 
 const (
 	moduleName    = "armcontainerregistry"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v0.8.0"
 )
 
 // Action - The action of IP ACL rule.
@@ -237,36 +237,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
-	}
-}
-
-// CredentialHealthStatus - The health status of credential.
-type CredentialHealthStatus string
-
-const (
-	CredentialHealthStatusHealthy   CredentialHealthStatus = "Healthy"
-	CredentialHealthStatusUnhealthy CredentialHealthStatus = "Unhealthy"
-)
-
-// PossibleCredentialHealthStatusValues returns the possible values for the CredentialHealthStatus const type.
-func PossibleCredentialHealthStatusValues() []CredentialHealthStatus {
-	return []CredentialHealthStatus{
-		CredentialHealthStatusHealthy,
-		CredentialHealthStatusUnhealthy,
-	}
-}
-
-// CredentialName - The name of the credential.
-type CredentialName string
-
-const (
-	CredentialNameCredential1 CredentialName = "Credential1"
-)
-
-// PossibleCredentialNameValues returns the possible values for the CredentialName const type.
-func PossibleCredentialNameValues() []CredentialName {
-	return []CredentialName{
-		CredentialNameCredential1,
 	}
 }
 

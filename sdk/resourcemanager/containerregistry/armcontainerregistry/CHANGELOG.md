@@ -1,5 +1,38 @@
 # Release History
 
+## 0.8.0 (2023-03-13)
+### Breaking Changes
+
+- Type alias `CredentialHealthStatus` has been removed
+- Type alias `CredentialName` has been removed
+- Function `NewCacheRulesClient` has been removed
+- Function `*CacheRulesClient.BeginCreate` has been removed
+- Function `*CacheRulesClient.BeginDelete` has been removed
+- Function `*CacheRulesClient.Get` has been removed
+- Function `*CacheRulesClient.NewListPager` has been removed
+- Function `*CacheRulesClient.BeginUpdate` has been removed
+- Function `NewCredentialSetsClient` has been removed
+- Function `*CredentialSetsClient.BeginCreate` has been removed
+- Function `*CredentialSetsClient.BeginDelete` has been removed
+- Function `*CredentialSetsClient.Get` has been removed
+- Function `*CredentialSetsClient.NewListPager` has been removed
+- Function `*CredentialSetsClient.BeginUpdate` has been removed
+- Struct `AuthCredential` has been removed
+- Struct `CacheRule` has been removed
+- Struct `CacheRuleProperties` has been removed
+- Struct `CacheRuleUpdateParameters` has been removed
+- Struct `CacheRuleUpdateProperties` has been removed
+- Struct `CacheRulesClient` has been removed
+- Struct `CacheRulesListResult` has been removed
+- Struct `CredentialHealth` has been removed
+- Struct `CredentialSet` has been removed
+- Struct `CredentialSetListResult` has been removed
+- Struct `CredentialSetProperties` has been removed
+- Struct `CredentialSetUpdateParameters` has been removed
+- Struct `CredentialSetUpdateProperties` has been removed
+- Struct `CredentialSetsClient` has been removed
+
+
 ## 0.7.0 (2023-02-24)
 ### Features Added
 

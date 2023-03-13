@@ -39,31 +39,6 @@ type AgentPoolsClientUpdateResponse struct {
 	AgentPool
 }
 
-// CacheRulesClientCreateResponse contains the response from method CacheRulesClient.BeginCreate.
-type CacheRulesClientCreateResponse struct {
-	CacheRule
-}
-
-// CacheRulesClientDeleteResponse contains the response from method CacheRulesClient.BeginDelete.
-type CacheRulesClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// CacheRulesClientGetResponse contains the response from method CacheRulesClient.Get.
-type CacheRulesClientGetResponse struct {
-	CacheRule
-}
-
-// CacheRulesClientListResponse contains the response from method CacheRulesClient.NewListPager.
-type CacheRulesClientListResponse struct {
-	CacheRulesListResult
-}
-
-// CacheRulesClientUpdateResponse contains the response from method CacheRulesClient.BeginUpdate.
-type CacheRulesClientUpdateResponse struct {
-	CacheRule
-}
-
 // ConnectedRegistriesClientCreateResponse contains the response from method ConnectedRegistriesClient.BeginCreate.
 type ConnectedRegistriesClientCreateResponse struct {
 	ConnectedRegistry
@@ -92,31 +67,6 @@ type ConnectedRegistriesClientListResponse struct {
 // ConnectedRegistriesClientUpdateResponse contains the response from method ConnectedRegistriesClient.BeginUpdate.
 type ConnectedRegistriesClientUpdateResponse struct {
 	ConnectedRegistry
-}
-
-// CredentialSetsClientCreateResponse contains the response from method CredentialSetsClient.BeginCreate.
-type CredentialSetsClientCreateResponse struct {
-	CredentialSet
-}
-
-// CredentialSetsClientDeleteResponse contains the response from method CredentialSetsClient.BeginDelete.
-type CredentialSetsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// CredentialSetsClientGetResponse contains the response from method CredentialSetsClient.Get.
-type CredentialSetsClientGetResponse struct {
-	CredentialSet
-}
-
-// CredentialSetsClientListResponse contains the response from method CredentialSetsClient.NewListPager.
-type CredentialSetsClientListResponse struct {
-	CredentialSetListResult
-}
-
-// CredentialSetsClientUpdateResponse contains the response from method CredentialSetsClient.BeginUpdate.
-type CredentialSetsClientUpdateResponse struct {
-	CredentialSet
 }
 
 // ExportPipelinesClientCreateResponse contains the response from method ExportPipelinesClient.BeginCreate.
