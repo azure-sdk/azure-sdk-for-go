@@ -11,7 +11,7 @@ package armrecoveryservicesbackup
 
 const (
 	moduleName    = "armrecoveryservicesbackup"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v3.0.0"
 )
 
 // AcquireStorageAccountLock - Whether storage account lock is to be acquired for this container or not.
@@ -1010,7 +1010,6 @@ func PossibleProtectedItemHealthStatusValues() []ProtectedItemHealthStatus {
 type ProtectedItemState string
 
 const (
-	ProtectedItemStateBackupsSuspended  ProtectedItemState = "BackupsSuspended"
 	ProtectedItemStateIRPending         ProtectedItemState = "IRPending"
 	ProtectedItemStateInvalid           ProtectedItemState = "Invalid"
 	ProtectedItemStateProtected         ProtectedItemState = "Protected"
@@ -1022,7 +1021,6 @@ const (
 // PossibleProtectedItemStateValues returns the possible values for the ProtectedItemState const type.
 func PossibleProtectedItemStateValues() []ProtectedItemState {
 	return []ProtectedItemState{
-		ProtectedItemStateBackupsSuspended,
 		ProtectedItemStateIRPending,
 		ProtectedItemStateInvalid,
 		ProtectedItemStateProtected,
@@ -1060,7 +1058,6 @@ func PossibleProtectionIntentItemTypeValues() []ProtectionIntentItemType {
 type ProtectionState string
 
 const (
-	ProtectionStateBackupsSuspended  ProtectionState = "BackupsSuspended"
 	ProtectionStateIRPending         ProtectionState = "IRPending"
 	ProtectionStateInvalid           ProtectionState = "Invalid"
 	ProtectionStateProtected         ProtectionState = "Protected"
@@ -1072,7 +1069,6 @@ const (
 // PossibleProtectionStateValues returns the possible values for the ProtectionState const type.
 func PossibleProtectionStateValues() []ProtectionState {
 	return []ProtectionState{
-		ProtectionStateBackupsSuspended,
 		ProtectionStateIRPending,
 		ProtectionStateInvalid,
 		ProtectionStateProtected,

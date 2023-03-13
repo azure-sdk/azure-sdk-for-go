@@ -375,7 +375,6 @@ func (a AzureFileShareRecoveryPoint) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "fileShareSnapshotUri", a.FileShareSnapshotURI)
 	objectMap["objectType"] = "AzureFileShareRecoveryPoint"
-	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointSizeInGB", a.RecoveryPointSizeInGB)
 	populateTimeRFC3339(objectMap, "recoveryPointTime", a.RecoveryPointTime)
 	populate(objectMap, "recoveryPointType", a.RecoveryPointType)
@@ -396,9 +395,6 @@ func (a *AzureFileShareRecoveryPoint) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "objectType":
 			err = unpopulate(val, "ObjectType", &a.ObjectType)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointSizeInGB":
 			err = unpopulate(val, "RecoveryPointSizeInGB", &a.RecoveryPointSizeInGB)
@@ -4983,7 +4979,6 @@ func (a AzureWorkloadPointInTimeRecoveryPoint) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	objectMap["objectType"] = "AzureWorkloadPointInTimeRecoveryPoint"
 	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
-	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
 	populateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
 	populate(objectMap, "timeRanges", a.TimeRanges)
@@ -5005,9 +5000,6 @@ func (a *AzureWorkloadPointInTimeRecoveryPoint) UnmarshalJSON(data []byte) error
 			delete(rawMsg, key)
 		case "recoveryPointMoveReadinessInfo":
 			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointTierDetails":
 			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
@@ -5089,7 +5081,6 @@ func (a AzureWorkloadRecoveryPoint) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	objectMap["objectType"] = "AzureWorkloadRecoveryPoint"
 	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
-	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
 	populateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
 	populate(objectMap, "type", a.Type)
@@ -5110,9 +5101,6 @@ func (a *AzureWorkloadRecoveryPoint) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "recoveryPointMoveReadinessInfo":
 			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointTierDetails":
 			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
@@ -5187,7 +5175,6 @@ func (a AzureWorkloadSAPHanaPointInTimeRecoveryPoint) MarshalJSON() ([]byte, err
 	objectMap := make(map[string]any)
 	objectMap["objectType"] = "AzureWorkloadSAPHanaPointInTimeRecoveryPoint"
 	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
-	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
 	populateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
 	populate(objectMap, "timeRanges", a.TimeRanges)
@@ -5209,9 +5196,6 @@ func (a *AzureWorkloadSAPHanaPointInTimeRecoveryPoint) UnmarshalJSON(data []byte
 			delete(rawMsg, key)
 		case "recoveryPointMoveReadinessInfo":
 			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointTierDetails":
 			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
@@ -5352,7 +5336,6 @@ func (a AzureWorkloadSAPHanaRecoveryPoint) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	objectMap["objectType"] = "AzureWorkloadSAPHanaRecoveryPoint"
 	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
-	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
 	populateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
 	populate(objectMap, "type", a.Type)
@@ -5373,9 +5356,6 @@ func (a *AzureWorkloadSAPHanaRecoveryPoint) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "recoveryPointMoveReadinessInfo":
 			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointTierDetails":
 			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
@@ -5557,7 +5537,6 @@ func (a AzureWorkloadSQLPointInTimeRecoveryPoint) MarshalJSON() ([]byte, error) 
 	populate(objectMap, "extendedInfo", a.ExtendedInfo)
 	objectMap["objectType"] = "AzureWorkloadSQLPointInTimeRecoveryPoint"
 	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
-	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
 	populateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
 	populate(objectMap, "timeRanges", a.TimeRanges)
@@ -5582,9 +5561,6 @@ func (a *AzureWorkloadSQLPointInTimeRecoveryPoint) UnmarshalJSON(data []byte) er
 			delete(rawMsg, key)
 		case "recoveryPointMoveReadinessInfo":
 			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointTierDetails":
 			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
@@ -5750,7 +5726,6 @@ func (a AzureWorkloadSQLRecoveryPoint) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "extendedInfo", a.ExtendedInfo)
 	objectMap["objectType"] = "AzureWorkloadSQLRecoveryPoint"
 	populate(objectMap, "recoveryPointMoveReadinessInfo", a.RecoveryPointMoveReadinessInfo)
-	populate(objectMap, "recoveryPointProperties", a.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointTierDetails", a.RecoveryPointTierDetails)
 	populateTimeRFC3339(objectMap, "recoveryPointTimeInUTC", a.RecoveryPointTimeInUTC)
 	populate(objectMap, "type", a.Type)
@@ -5774,9 +5749,6 @@ func (a *AzureWorkloadSQLRecoveryPoint) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "recoveryPointMoveReadinessInfo":
 			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &a.RecoveryPointMoveReadinessInfo)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &a.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointTierDetails":
 			err = unpopulate(val, "RecoveryPointTierDetails", &a.RecoveryPointTierDetails)
@@ -8712,7 +8684,6 @@ func (g GenericRecoveryPoint) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "friendlyName", g.FriendlyName)
 	objectMap["objectType"] = "GenericRecoveryPoint"
 	populate(objectMap, "recoveryPointAdditionalInfo", g.RecoveryPointAdditionalInfo)
-	populate(objectMap, "recoveryPointProperties", g.RecoveryPointProperties)
 	populateTimeRFC3339(objectMap, "recoveryPointTime", g.RecoveryPointTime)
 	populate(objectMap, "recoveryPointType", g.RecoveryPointType)
 	return json.Marshal(objectMap)
@@ -8735,9 +8706,6 @@ func (g *GenericRecoveryPoint) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "recoveryPointAdditionalInfo":
 			err = unpopulate(val, "RecoveryPointAdditionalInfo", &g.RecoveryPointAdditionalInfo)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &g.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointTime":
 			err = unpopulateTimeRFC3339(val, "RecoveryPointTime", &g.RecoveryPointTime)
@@ -9094,7 +9062,6 @@ func (i IaasVMRecoveryPoint) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "recoveryPointAdditionalInfo", i.RecoveryPointAdditionalInfo)
 	populate(objectMap, "recoveryPointDiskConfiguration", i.RecoveryPointDiskConfiguration)
 	populate(objectMap, "recoveryPointMoveReadinessInfo", i.RecoveryPointMoveReadinessInfo)
-	populate(objectMap, "recoveryPointProperties", i.RecoveryPointProperties)
 	populate(objectMap, "recoveryPointTierDetails", i.RecoveryPointTierDetails)
 	populateTimeRFC3339(objectMap, "recoveryPointTime", i.RecoveryPointTime)
 	populate(objectMap, "recoveryPointType", i.RecoveryPointType)
@@ -9142,9 +9109,6 @@ func (i *IaasVMRecoveryPoint) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "recoveryPointMoveReadinessInfo":
 			err = unpopulate(val, "RecoveryPointMoveReadinessInfo", &i.RecoveryPointMoveReadinessInfo)
-			delete(rawMsg, key)
-		case "recoveryPointProperties":
-			err = unpopulate(val, "RecoveryPointProperties", &i.RecoveryPointProperties)
 			delete(rawMsg, key)
 		case "recoveryPointTierDetails":
 			err = unpopulate(val, "RecoveryPointTierDetails", &i.RecoveryPointTierDetails)
@@ -12371,37 +12335,6 @@ func (r *RecoveryPointMoveReadinessInfo) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "isReadyForMove":
 			err = unpopulate(val, "IsReadyForMove", &r.IsReadyForMove)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", r, err)
-		}
-	}
-	return nil
-}
-
-// MarshalJSON implements the json.Marshaller interface for type RecoveryPointProperties.
-func (r RecoveryPointProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "expiryTime", r.ExpiryTime)
-	populate(objectMap, "ruleName", r.RuleName)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type RecoveryPointProperties.
-func (r *RecoveryPointProperties) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", r, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "expiryTime":
-			err = unpopulate(val, "ExpiryTime", &r.ExpiryTime)
-			delete(rawMsg, key)
-		case "ruleName":
-			err = unpopulate(val, "RuleName", &r.RuleName)
 			delete(rawMsg, key)
 		}
 		if err != nil {

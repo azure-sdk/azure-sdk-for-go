@@ -279,9 +279,6 @@ type AzureFileShareRecoveryPoint struct {
 	// Contains Url to the snapshot of fileshare, if applicable
 	FileShareSnapshotURI *string `json:"fileShareSnapshotUri,omitempty"`
 
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
-
 	// Contains recovery point size
 	RecoveryPointSizeInGB *int32 `json:"recoveryPointSizeInGB,omitempty"`
 
@@ -4190,9 +4187,6 @@ type AzureWorkloadPointInTimeRecoveryPoint struct {
 	// Eligibility of RP to be moved to another tier
 	RecoveryPointMoveReadinessInfo map[string]*RecoveryPointMoveReadinessInfo `json:"recoveryPointMoveReadinessInfo,omitempty"`
 
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
-
 	// Recovery point tier information.
 	RecoveryPointTierDetails []*RecoveryPointTierInformationV2 `json:"recoveryPointTierDetails,omitempty"`
 
@@ -4219,7 +4213,6 @@ func (a *AzureWorkloadPointInTimeRecoveryPoint) GetAzureWorkloadRecoveryPoint() 
 		Type:                           a.Type,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointMoveReadinessInfo: a.RecoveryPointMoveReadinessInfo,
-		RecoveryPointProperties:        a.RecoveryPointProperties,
 		ObjectType:                     a.ObjectType,
 	}
 }
@@ -4296,9 +4289,6 @@ type AzureWorkloadRecoveryPoint struct {
 
 	// Eligibility of RP to be moved to another tier
 	RecoveryPointMoveReadinessInfo map[string]*RecoveryPointMoveReadinessInfo `json:"recoveryPointMoveReadinessInfo,omitempty"`
-
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
 
 	// Recovery point tier information.
 	RecoveryPointTierDetails []*RecoveryPointTierInformationV2 `json:"recoveryPointTierDetails,omitempty"`
@@ -4379,9 +4369,6 @@ type AzureWorkloadSAPHanaPointInTimeRecoveryPoint struct {
 	// Eligibility of RP to be moved to another tier
 	RecoveryPointMoveReadinessInfo map[string]*RecoveryPointMoveReadinessInfo `json:"recoveryPointMoveReadinessInfo,omitempty"`
 
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
-
 	// Recovery point tier information.
 	RecoveryPointTierDetails []*RecoveryPointTierInformationV2 `json:"recoveryPointTierDetails,omitempty"`
 
@@ -4404,7 +4391,6 @@ func (a *AzureWorkloadSAPHanaPointInTimeRecoveryPoint) GetAzureWorkloadPointInTi
 		Type:                           a.Type,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointMoveReadinessInfo: a.RecoveryPointMoveReadinessInfo,
-		RecoveryPointProperties:        a.RecoveryPointProperties,
 		ObjectType:                     a.ObjectType,
 	}
 }
@@ -4416,7 +4402,6 @@ func (a *AzureWorkloadSAPHanaPointInTimeRecoveryPoint) GetAzureWorkloadRecoveryP
 		Type:                           a.Type,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointMoveReadinessInfo: a.RecoveryPointMoveReadinessInfo,
-		RecoveryPointProperties:        a.RecoveryPointProperties,
 		ObjectType:                     a.ObjectType,
 	}
 }
@@ -4594,9 +4579,6 @@ type AzureWorkloadSAPHanaRecoveryPoint struct {
 	// Eligibility of RP to be moved to another tier
 	RecoveryPointMoveReadinessInfo map[string]*RecoveryPointMoveReadinessInfo `json:"recoveryPointMoveReadinessInfo,omitempty"`
 
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
-
 	// Recovery point tier information.
 	RecoveryPointTierDetails []*RecoveryPointTierInformationV2 `json:"recoveryPointTierDetails,omitempty"`
 
@@ -4614,7 +4596,6 @@ func (a *AzureWorkloadSAPHanaRecoveryPoint) GetAzureWorkloadRecoveryPoint() *Azu
 		Type:                           a.Type,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointMoveReadinessInfo: a.RecoveryPointMoveReadinessInfo,
-		RecoveryPointProperties:        a.RecoveryPointProperties,
 		ObjectType:                     a.ObjectType,
 	}
 }
@@ -4824,9 +4805,6 @@ type AzureWorkloadSQLPointInTimeRecoveryPoint struct {
 	// Eligibility of RP to be moved to another tier
 	RecoveryPointMoveReadinessInfo map[string]*RecoveryPointMoveReadinessInfo `json:"recoveryPointMoveReadinessInfo,omitempty"`
 
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
-
 	// Recovery point tier information.
 	RecoveryPointTierDetails []*RecoveryPointTierInformationV2 `json:"recoveryPointTierDetails,omitempty"`
 
@@ -4847,7 +4825,6 @@ func (a *AzureWorkloadSQLPointInTimeRecoveryPoint) GetAzureWorkloadRecoveryPoint
 		Type:                           a.Type,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointMoveReadinessInfo: a.RecoveryPointMoveReadinessInfo,
-		RecoveryPointProperties:        a.RecoveryPointProperties,
 		ObjectType:                     a.ObjectType,
 	}
 }
@@ -4860,7 +4837,6 @@ func (a *AzureWorkloadSQLPointInTimeRecoveryPoint) GetAzureWorkloadSQLRecoveryPo
 		Type:                           a.Type,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointMoveReadinessInfo: a.RecoveryPointMoveReadinessInfo,
-		RecoveryPointProperties:        a.RecoveryPointProperties,
 		ObjectType:                     a.ObjectType,
 	}
 }
@@ -5078,9 +5054,6 @@ type AzureWorkloadSQLRecoveryPoint struct {
 	// Eligibility of RP to be moved to another tier
 	RecoveryPointMoveReadinessInfo map[string]*RecoveryPointMoveReadinessInfo `json:"recoveryPointMoveReadinessInfo,omitempty"`
 
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
-
 	// Recovery point tier information.
 	RecoveryPointTierDetails []*RecoveryPointTierInformationV2 `json:"recoveryPointTierDetails,omitempty"`
 
@@ -5098,7 +5071,6 @@ func (a *AzureWorkloadSQLRecoveryPoint) GetAzureWorkloadRecoveryPoint() *AzureWo
 		Type:                           a.Type,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointMoveReadinessInfo: a.RecoveryPointMoveReadinessInfo,
-		RecoveryPointProperties:        a.RecoveryPointProperties,
 		ObjectType:                     a.ObjectType,
 	}
 }
@@ -6800,9 +6772,6 @@ type GenericRecoveryPoint struct {
 	// Additional information associated with this backup copy.
 	RecoveryPointAdditionalInfo *string `json:"recoveryPointAdditionalInfo,omitempty"`
 
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
-
 	// Time at which this backup copy was created.
 	RecoveryPointTime *time.Time `json:"recoveryPointTime,omitempty"`
 
@@ -7057,9 +7026,6 @@ type IaasVMRecoveryPoint struct {
 
 	// Eligibility of RP to be moved to another tier
 	RecoveryPointMoveReadinessInfo map[string]*RecoveryPointMoveReadinessInfo `json:"recoveryPointMoveReadinessInfo,omitempty"`
-
-	// Properties of Recovery Point
-	RecoveryPointProperties *RecoveryPointProperties `json:"recoveryPointProperties,omitempty"`
 
 	// Recovery point tier information.
 	RecoveryPointTierDetails []*RecoveryPointTierInformationV2 `json:"recoveryPointTierDetails,omitempty"`
@@ -8918,15 +8884,6 @@ type RecoveryPointDiskConfiguration struct {
 type RecoveryPointMoveReadinessInfo struct {
 	AdditionalInfo *string `json:"additionalInfo,omitempty"`
 	IsReadyForMove *bool   `json:"isReadyForMove,omitempty"`
-}
-
-// RecoveryPointProperties - Properties of Recovery Point
-type RecoveryPointProperties struct {
-	// Expiry time of Recovery Point in UTC.
-	ExpiryTime *string `json:"expiryTime,omitempty"`
-
-	// Rule name tagged on Recovery Point that governs life cycle
-	RuleName *string `json:"ruleName,omitempty"`
 }
 
 // RecoveryPointRehydrationInfo - RP Rehydration Info

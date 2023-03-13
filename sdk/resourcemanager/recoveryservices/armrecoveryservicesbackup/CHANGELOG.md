@@ -1,5 +1,22 @@
 # Release History
 
+## 3.0.0 (2023-03-13)
+### Breaking Changes
+
+- Const `ProtectedItemStateBackupsSuspended` from type alias `ProtectedItemState` has been removed
+- Const `ProtectionStateBackupsSuspended` from type alias `ProtectionState` has been removed
+- Struct `RecoveryPointProperties` has been removed
+- Field `RecoveryPointProperties` of struct `AzureFileShareRecoveryPoint` has been removed
+- Field `RecoveryPointProperties` of struct `AzureWorkloadPointInTimeRecoveryPoint` has been removed
+- Field `RecoveryPointProperties` of struct `AzureWorkloadRecoveryPoint` has been removed
+- Field `RecoveryPointProperties` of struct `AzureWorkloadSAPHanaPointInTimeRecoveryPoint` has been removed
+- Field `RecoveryPointProperties` of struct `AzureWorkloadSAPHanaRecoveryPoint` has been removed
+- Field `RecoveryPointProperties` of struct `AzureWorkloadSQLPointInTimeRecoveryPoint` has been removed
+- Field `RecoveryPointProperties` of struct `AzureWorkloadSQLRecoveryPoint` has been removed
+- Field `RecoveryPointProperties` of struct `GenericRecoveryPoint` has been removed
+- Field `RecoveryPointProperties` of struct `IaasVMRecoveryPoint` has been removed
+
+
 ## 2.0.0 (2023-01-19)
 ### Breaking Changes
 
