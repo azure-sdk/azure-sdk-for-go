@@ -32,9 +32,9 @@ type AzureTrafficCollectorsBySubscriptionClient struct {
 }
 
 // NewAzureTrafficCollectorsBySubscriptionClient creates a new instance of AzureTrafficCollectorsBySubscriptionClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAzureTrafficCollectorsBySubscriptionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AzureTrafficCollectorsBySubscriptionClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,9 +56,10 @@ func NewAzureTrafficCollectorsBySubscriptionClient(subscriptionID string, creden
 }
 
 // NewListPager - Return list of Azure Traffic Collectors in a subscription
+//
 // Generated from API version 2022-11-01
-// options - AzureTrafficCollectorsBySubscriptionClientListOptions contains the optional parameters for the AzureTrafficCollectorsBySubscriptionClient.List
-// method.
+//   - options - AzureTrafficCollectorsBySubscriptionClientListOptions contains the optional parameters for the AzureTrafficCollectorsBySubscriptionClient.NewListPager
+//     method.
 func (client *AzureTrafficCollectorsBySubscriptionClient) NewListPager(options *AzureTrafficCollectorsBySubscriptionClientListOptions) *runtime.Pager[AzureTrafficCollectorsBySubscriptionClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AzureTrafficCollectorsBySubscriptionClientListResponse]{
 		More: func(page AzureTrafficCollectorsBySubscriptionClientListResponse) bool {

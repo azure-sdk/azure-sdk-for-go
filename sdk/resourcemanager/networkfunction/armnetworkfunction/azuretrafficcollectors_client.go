@@ -32,9 +32,9 @@ type AzureTrafficCollectorsClient struct {
 }
 
 // NewAzureTrafficCollectorsClient creates a new instance of AzureTrafficCollectorsClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAzureTrafficCollectorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AzureTrafficCollectorsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewAzureTrafficCollectorsClient(subscriptionID string, credential azcore.To
 
 // BeginCreateOrUpdate - Creates or updates a Azure Traffic Collector resource
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// azureTrafficCollectorName - Azure Traffic Collector name
-// parameters - The parameters to provide for the created Azure Traffic Collector.
-// options - AzureTrafficCollectorsClientBeginCreateOrUpdateOptions contains the optional parameters for the AzureTrafficCollectorsClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - azureTrafficCollectorName - Azure Traffic Collector name
+//   - parameters - The parameters to provide for the created Azure Traffic Collector.
+//   - options - AzureTrafficCollectorsClientBeginCreateOrUpdateOptions contains the optional parameters for the AzureTrafficCollectorsClient.BeginCreateOrUpdate
+//     method.
 func (client *AzureTrafficCollectorsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, azureTrafficCollectorName string, parameters AzureTrafficCollector, options *AzureTrafficCollectorsClientBeginCreateOrUpdateOptions) (*runtime.Poller[AzureTrafficCollectorsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, azureTrafficCollectorName, parameters, options)
@@ -79,6 +80,7 @@ func (client *AzureTrafficCollectorsClient) BeginCreateOrUpdate(ctx context.Cont
 
 // CreateOrUpdate - Creates or updates a Azure Traffic Collector resource
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *AzureTrafficCollectorsClient) createOrUpdate(ctx context.Context, resourceGroupName string, azureTrafficCollectorName string, parameters AzureTrafficCollector, options *AzureTrafficCollectorsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, azureTrafficCollectorName, parameters, options)
@@ -123,11 +125,12 @@ func (client *AzureTrafficCollectorsClient) createOrUpdateCreateRequest(ctx cont
 
 // BeginDelete - Deletes a specified Azure Traffic Collector resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// azureTrafficCollectorName - Azure Traffic Collector name
-// options - AzureTrafficCollectorsClientBeginDeleteOptions contains the optional parameters for the AzureTrafficCollectorsClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - azureTrafficCollectorName - Azure Traffic Collector name
+//   - options - AzureTrafficCollectorsClientBeginDeleteOptions contains the optional parameters for the AzureTrafficCollectorsClient.BeginDelete
+//     method.
 func (client *AzureTrafficCollectorsClient) BeginDelete(ctx context.Context, resourceGroupName string, azureTrafficCollectorName string, options *AzureTrafficCollectorsClientBeginDeleteOptions) (*runtime.Poller[AzureTrafficCollectorsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, azureTrafficCollectorName, options)
@@ -144,6 +147,7 @@ func (client *AzureTrafficCollectorsClient) BeginDelete(ctx context.Context, res
 
 // Delete - Deletes a specified Azure Traffic Collector resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *AzureTrafficCollectorsClient) deleteOperation(ctx context.Context, resourceGroupName string, azureTrafficCollectorName string, options *AzureTrafficCollectorsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, azureTrafficCollectorName, options)
@@ -188,11 +192,12 @@ func (client *AzureTrafficCollectorsClient) deleteCreateRequest(ctx context.Cont
 
 // Get - Gets the specified Azure Traffic Collector in a specified resource group
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// azureTrafficCollectorName - Azure Traffic Collector name
-// options - AzureTrafficCollectorsClientGetOptions contains the optional parameters for the AzureTrafficCollectorsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - azureTrafficCollectorName - Azure Traffic Collector name
+//   - options - AzureTrafficCollectorsClientGetOptions contains the optional parameters for the AzureTrafficCollectorsClient.Get
+//     method.
 func (client *AzureTrafficCollectorsClient) Get(ctx context.Context, resourceGroupName string, azureTrafficCollectorName string, options *AzureTrafficCollectorsClientGetOptions) (AzureTrafficCollectorsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, azureTrafficCollectorName, options)
 	if err != nil {
@@ -245,12 +250,13 @@ func (client *AzureTrafficCollectorsClient) getHandleResponse(resp *http.Respons
 
 // UpdateTags - Updates the specified Azure Traffic Collector tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// azureTrafficCollectorName - Azure Traffic Collector name
-// parameters - Parameters supplied to update Azure Traffic Collector tags.
-// options - AzureTrafficCollectorsClientUpdateTagsOptions contains the optional parameters for the AzureTrafficCollectorsClient.UpdateTags
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - azureTrafficCollectorName - Azure Traffic Collector name
+//   - parameters - Parameters supplied to update Azure Traffic Collector tags.
+//   - options - AzureTrafficCollectorsClientUpdateTagsOptions contains the optional parameters for the AzureTrafficCollectorsClient.UpdateTags
+//     method.
 func (client *AzureTrafficCollectorsClient) UpdateTags(ctx context.Context, resourceGroupName string, azureTrafficCollectorName string, parameters TagsObject, options *AzureTrafficCollectorsClientUpdateTagsOptions) (AzureTrafficCollectorsClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, azureTrafficCollectorName, parameters, options)
 	if err != nil {

@@ -28,8 +28,8 @@ type Client struct {
 }
 
 // NewClient creates a new instance of Client with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*Client, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -50,8 +50,9 @@ func NewClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*
 }
 
 // NewListOperationsPager - Lists all of the available NetworkFunction Rest API operations.
+//
 // Generated from API version 2022-11-01
-// options - ClientListOperationsOptions contains the optional parameters for the Client.ListOperations method.
+//   - options - ClientListOperationsOptions contains the optional parameters for the Client.NewListOperationsPager method.
 func (client *Client) NewListOperationsPager(options *ClientListOperationsOptions) *runtime.Pager[ClientListOperationsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClientListOperationsResponse]{
 		More: func(page ClientListOperationsResponse) bool {

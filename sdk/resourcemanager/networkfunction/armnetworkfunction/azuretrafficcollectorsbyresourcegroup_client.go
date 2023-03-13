@@ -32,9 +32,9 @@ type AzureTrafficCollectorsByResourceGroupClient struct {
 }
 
 // NewAzureTrafficCollectorsByResourceGroupClient creates a new instance of AzureTrafficCollectorsByResourceGroupClient with the specified values.
-// subscriptionID - Azure Subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure Subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAzureTrafficCollectorsByResourceGroupClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AzureTrafficCollectorsByResourceGroupClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,10 +56,11 @@ func NewAzureTrafficCollectorsByResourceGroupClient(subscriptionID string, crede
 }
 
 // NewListPager - Return list of Azure Traffic Collectors in a Resource Group
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// options - AzureTrafficCollectorsByResourceGroupClientListOptions contains the optional parameters for the AzureTrafficCollectorsByResourceGroupClient.List
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - options - AzureTrafficCollectorsByResourceGroupClientListOptions contains the optional parameters for the AzureTrafficCollectorsByResourceGroupClient.NewListPager
+//     method.
 func (client *AzureTrafficCollectorsByResourceGroupClient) NewListPager(resourceGroupName string, options *AzureTrafficCollectorsByResourceGroupClientListOptions) *runtime.Pager[AzureTrafficCollectorsByResourceGroupClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AzureTrafficCollectorsByResourceGroupClientListResponse]{
 		More: func(page AzureTrafficCollectorsByResourceGroupClientListResponse) bool {

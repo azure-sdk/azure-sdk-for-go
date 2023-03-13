@@ -11,7 +11,7 @@ package armnetworkfunction
 
 const (
 	moduleName    = "armnetworkfunction"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.0.1"
 )
 
 type APIVersionParameter string
