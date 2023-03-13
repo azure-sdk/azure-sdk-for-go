@@ -32,9 +32,9 @@ type CustomAssessmentAutomationsClient struct {
 }
 
 // NewCustomAssessmentAutomationsClient creates a new instance of CustomAssessmentAutomationsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCustomAssessmentAutomationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CustomAssessmentAutomationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewCustomAssessmentAutomationsClient(subscriptionID string, credential azco
 // Create - Creates or updates a custom assessment automation for the provided subscription. Please note that providing an
 // existing custom assessment automation will replace the existing record.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// customAssessmentAutomationName - Name of the Custom Assessment Automation.
-// customAssessmentAutomationBody - Custom Assessment Automation body
-// options - CustomAssessmentAutomationsClientCreateOptions contains the optional parameters for the CustomAssessmentAutomationsClient.Create
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - customAssessmentAutomationName - Name of the Custom Assessment Automation.
+//   - customAssessmentAutomationBody - Custom Assessment Automation body
+//   - options - CustomAssessmentAutomationsClientCreateOptions contains the optional parameters for the CustomAssessmentAutomationsClient.Create
+//     method.
 func (client *CustomAssessmentAutomationsClient) Create(ctx context.Context, resourceGroupName string, customAssessmentAutomationName string, customAssessmentAutomationBody CustomAssessmentAutomationRequest, options *CustomAssessmentAutomationsClientCreateOptions) (CustomAssessmentAutomationsClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, customAssessmentAutomationName, customAssessmentAutomationBody, options)
 	if err != nil {
@@ -116,11 +117,12 @@ func (client *CustomAssessmentAutomationsClient) createHandleResponse(resp *http
 
 // Delete - Deletes a custom assessment automation by name for a provided subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// customAssessmentAutomationName - Name of the Custom Assessment Automation.
-// options - CustomAssessmentAutomationsClientDeleteOptions contains the optional parameters for the CustomAssessmentAutomationsClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - customAssessmentAutomationName - Name of the Custom Assessment Automation.
+//   - options - CustomAssessmentAutomationsClientDeleteOptions contains the optional parameters for the CustomAssessmentAutomationsClient.Delete
+//     method.
 func (client *CustomAssessmentAutomationsClient) Delete(ctx context.Context, resourceGroupName string, customAssessmentAutomationName string, options *CustomAssessmentAutomationsClientDeleteOptions) (CustomAssessmentAutomationsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, customAssessmentAutomationName, options)
 	if err != nil {
@@ -164,11 +166,12 @@ func (client *CustomAssessmentAutomationsClient) deleteCreateRequest(ctx context
 
 // Get - Gets a single custom assessment automation by name for the provided subscription and resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// customAssessmentAutomationName - Name of the Custom Assessment Automation.
-// options - CustomAssessmentAutomationsClientGetOptions contains the optional parameters for the CustomAssessmentAutomationsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - customAssessmentAutomationName - Name of the Custom Assessment Automation.
+//   - options - CustomAssessmentAutomationsClientGetOptions contains the optional parameters for the CustomAssessmentAutomationsClient.Get
+//     method.
 func (client *CustomAssessmentAutomationsClient) Get(ctx context.Context, resourceGroupName string, customAssessmentAutomationName string, options *CustomAssessmentAutomationsClientGetOptions) (CustomAssessmentAutomationsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, customAssessmentAutomationName, options)
 	if err != nil {
@@ -220,10 +223,11 @@ func (client *CustomAssessmentAutomationsClient) getHandleResponse(resp *http.Re
 }
 
 // NewListByResourceGroupPager - List custom assessment automations by provided subscription and resource group
+//
 // Generated from API version 2021-07-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - CustomAssessmentAutomationsClientListByResourceGroupOptions contains the optional parameters for the CustomAssessmentAutomationsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - CustomAssessmentAutomationsClientListByResourceGroupOptions contains the optional parameters for the CustomAssessmentAutomationsClient.NewListByResourceGroupPager
+//     method.
 func (client *CustomAssessmentAutomationsClient) NewListByResourceGroupPager(resourceGroupName string, options *CustomAssessmentAutomationsClientListByResourceGroupOptions) *runtime.Pager[CustomAssessmentAutomationsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CustomAssessmentAutomationsClientListByResourceGroupResponse]{
 		More: func(page CustomAssessmentAutomationsClientListByResourceGroupResponse) bool {
@@ -284,9 +288,10 @@ func (client *CustomAssessmentAutomationsClient) listByResourceGroupHandleRespon
 }
 
 // NewListBySubscriptionPager - List custom assessment automations by provided subscription
+//
 // Generated from API version 2021-07-01-preview
-// options - CustomAssessmentAutomationsClientListBySubscriptionOptions contains the optional parameters for the CustomAssessmentAutomationsClient.ListBySubscription
-// method.
+//   - options - CustomAssessmentAutomationsClientListBySubscriptionOptions contains the optional parameters for the CustomAssessmentAutomationsClient.NewListBySubscriptionPager
+//     method.
 func (client *CustomAssessmentAutomationsClient) NewListBySubscriptionPager(options *CustomAssessmentAutomationsClientListBySubscriptionOptions) *runtime.Pager[CustomAssessmentAutomationsClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CustomAssessmentAutomationsClientListBySubscriptionResponse]{
 		More: func(page CustomAssessmentAutomationsClientListBySubscriptionResponse) bool {

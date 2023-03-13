@@ -23,19 +23,19 @@ import (
 	"strings"
 )
 
-// SubscriptionGovernanceRulesExecuteStatusClient contains the methods for the SubscriptionGovernanceRulesExecuteStatus group.
-// Don't use this type directly, use NewSubscriptionGovernanceRulesExecuteStatusClient() instead.
-type SubscriptionGovernanceRulesExecuteStatusClient struct {
-	host           string
-	subscriptionID string
-	pl             runtime.Pipeline
+// ManagementGroupGovernanceRulesExecuteStatusClient contains the methods for the ManagementGroupGovernanceRulesExecuteStatus group.
+// Don't use this type directly, use NewManagementGroupGovernanceRulesExecuteStatusClient() instead.
+type ManagementGroupGovernanceRulesExecuteStatusClient struct {
+	host              string
+	managementGroupID string
+	pl                runtime.Pipeline
 }
 
-// NewSubscriptionGovernanceRulesExecuteStatusClient creates a new instance of SubscriptionGovernanceRulesExecuteStatusClient with the specified values.
-//   - subscriptionID - Azure subscription ID
+// NewManagementGroupGovernanceRulesExecuteStatusClient creates a new instance of ManagementGroupGovernanceRulesExecuteStatusClient with the specified values.
+//   - managementGroupID - Azure Management Group ID
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubscriptionGovernanceRulesExecuteStatusClient, error) {
+func NewManagementGroupGovernanceRulesExecuteStatusClient(managementGroupID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ManagementGroupGovernanceRulesExecuteStatusClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
 	}
@@ -47,10 +47,10 @@ func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, cr
 	if err != nil {
 		return nil, err
 	}
-	client := &SubscriptionGovernanceRulesExecuteStatusClient{
-		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+	client := &ManagementGroupGovernanceRulesExecuteStatusClient{
+		managementGroupID: managementGroupID,
+		host:              ep,
+		pl:                pl,
 	}
 	return client, nil
 }
@@ -61,30 +61,30 @@ func NewSubscriptionGovernanceRulesExecuteStatusClient(subscriptionID string, cr
 // Generated from API version 2022-01-01-preview
 //   - ruleID - The governance rule key - unique key for the standard governance rule (GUID)
 //   - operationID - The governance rule execution key - unique key for the execution of governance rule
-//   - options - SubscriptionGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the SubscriptionGovernanceRulesExecuteStatusClient.Get
+//   - options - ManagementGroupGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the ManagementGroupGovernanceRulesExecuteStatusClient.Get
 //     method.
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) Get(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesExecuteStatusClientGetOptions) (SubscriptionGovernanceRulesExecuteStatusClientGetResponse, error) {
+func (client *ManagementGroupGovernanceRulesExecuteStatusClient) Get(ctx context.Context, ruleID string, operationID string, options *ManagementGroupGovernanceRulesExecuteStatusClientGetOptions) (ManagementGroupGovernanceRulesExecuteStatusClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, ruleID, operationID, options)
 	if err != nil {
-		return SubscriptionGovernanceRulesExecuteStatusClientGetResponse{}, err
+		return ManagementGroupGovernanceRulesExecuteStatusClientGetResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return SubscriptionGovernanceRulesExecuteStatusClientGetResponse{}, err
+		return ManagementGroupGovernanceRulesExecuteStatusClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
-		return SubscriptionGovernanceRulesExecuteStatusClientGetResponse{}, runtime.NewResponseError(resp)
+		return ManagementGroupGovernanceRulesExecuteStatusClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) getCreateRequest(ctx context.Context, ruleID string, operationID string, options *SubscriptionGovernanceRulesExecuteStatusClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Security/governanceRules/{ruleId}/operationResults/{operationId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+func (client *ManagementGroupGovernanceRulesExecuteStatusClient) getCreateRequest(ctx context.Context, ruleID string, operationID string, options *ManagementGroupGovernanceRulesExecuteStatusClientGetOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Management/managementGroups/{managementGroupId}/providers/Microsoft.Security/governanceRules/{ruleId}/execute/operationResults/{operationId}"
+	if client.managementGroupID == "" {
+		return nil, errors.New("parameter client.managementGroupID cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	urlPath = strings.ReplaceAll(urlPath, "{managementGroupId}", url.PathEscape(client.managementGroupID))
 	if ruleID == "" {
 		return nil, errors.New("parameter ruleID cannot be empty")
 	}
@@ -105,13 +105,13 @@ func (client *SubscriptionGovernanceRulesExecuteStatusClient) getCreateRequest(c
 }
 
 // getHandleResponse handles the Get response.
-func (client *SubscriptionGovernanceRulesExecuteStatusClient) getHandleResponse(resp *http.Response) (SubscriptionGovernanceRulesExecuteStatusClientGetResponse, error) {
-	result := SubscriptionGovernanceRulesExecuteStatusClientGetResponse{}
+func (client *ManagementGroupGovernanceRulesExecuteStatusClient) getHandleResponse(resp *http.Response) (ManagementGroupGovernanceRulesExecuteStatusClientGetResponse, error) {
+	result := ManagementGroupGovernanceRulesExecuteStatusClientGetResponse{}
 	if val := resp.Header.Get("location"); val != "" {
 		result.Location = &val
 	}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ExecuteRuleStatus); err != nil {
-		return SubscriptionGovernanceRulesExecuteStatusClientGetResponse{}, err
+		return ManagementGroupGovernanceRulesExecuteStatusClientGetResponse{}, err
 	}
 	return result, nil
 }

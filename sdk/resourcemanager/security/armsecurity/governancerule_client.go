@@ -32,9 +32,9 @@ type GovernanceRuleClient struct {
 }
 
 // NewGovernanceRuleClient creates a new instance of GovernanceRuleClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGovernanceRuleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GovernanceRuleClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -55,9 +55,10 @@ func NewGovernanceRuleClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// NewListPager - Get a list of all relevant governanceRules over a subscription level scope
+// NewListPager - Get a list of the governance rules on the subscription level scope
+//
 // Generated from API version 2022-01-01-preview
-// options - GovernanceRuleClientListOptions contains the optional parameters for the GovernanceRuleClient.List method.
+//   - options - GovernanceRuleClientListOptions contains the optional parameters for the GovernanceRuleClient.NewListPager method.
 func (client *GovernanceRuleClient) NewListPager(options *GovernanceRuleClientListOptions) *runtime.Pager[GovernanceRuleClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GovernanceRuleClientListResponse]{
 		More: func(page GovernanceRuleClientListResponse) bool {

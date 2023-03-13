@@ -32,9 +32,9 @@ type ConnectorGovernanceRulesExecuteStatusClient struct {
 }
 
 // NewConnectorGovernanceRulesExecuteStatusClient creates a new instance of ConnectorGovernanceRulesExecuteStatusClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectorGovernanceRulesExecuteStatusClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectorGovernanceRulesExecuteStatusClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -55,47 +55,33 @@ func NewConnectorGovernanceRulesExecuteStatusClient(subscriptionID string, crede
 	return client, nil
 }
 
-// BeginGet - Get a specific governanceRule execution status for the requested scope by ruleId and operationId
+// Get - Get a specific governance rule execution status for the requested scope by ruleId and operationId
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-01-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// ruleID - The security GovernanceRule key - unique key for the standard GovernanceRule
-// operationID - The security GovernanceRule execution key - unique key for the execution of GovernanceRule
-// options - ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the ConnectorGovernanceRulesExecuteStatusClient.BeginGet
-// method.
-func (client *ConnectorGovernanceRulesExecuteStatusClient) BeginGet(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, operationID string, options *ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions) (*runtime.Poller[ConnectorGovernanceRulesExecuteStatusClientGetResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.get(ctx, resourceGroupName, securityConnectorName, ruleID, operationID, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller[ConnectorGovernanceRulesExecuteStatusClientGetResponse](resp, client.pl, nil)
-	} else {
-		return runtime.NewPollerFromResumeToken[ConnectorGovernanceRulesExecuteStatusClientGetResponse](options.ResumeToken, client.pl, nil)
-	}
-}
-
-// Get - Get a specific governanceRule execution status for the requested scope by ruleId and operationId
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-01-01-preview
-func (client *ConnectorGovernanceRulesExecuteStatusClient) get(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, operationID string, options *ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions) (*http.Response, error) {
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - ruleID - The governance rule key - unique key for the standard governance rule (GUID)
+//   - operationID - The governance rule execution key - unique key for the execution of governance rule
+//   - options - ConnectorGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the ConnectorGovernanceRulesExecuteStatusClient.Get
+//     method.
+func (client *ConnectorGovernanceRulesExecuteStatusClient) Get(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, operationID string, options *ConnectorGovernanceRulesExecuteStatusClientGetOptions) (ConnectorGovernanceRulesExecuteStatusClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, securityConnectorName, ruleID, operationID, options)
 	if err != nil {
-		return nil, err
+		return ConnectorGovernanceRulesExecuteStatusClientGetResponse{}, err
 	}
 	resp, err := client.pl.Do(req)
 	if err != nil {
-		return nil, err
+		return ConnectorGovernanceRulesExecuteStatusClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
-		return nil, runtime.NewResponseError(resp)
+		return ConnectorGovernanceRulesExecuteStatusClientGetResponse{}, runtime.NewResponseError(resp)
 	}
-	return resp, nil
+	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *ConnectorGovernanceRulesExecuteStatusClient) getCreateRequest(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, operationID string, options *ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions) (*policy.Request, error) {
+func (client *ConnectorGovernanceRulesExecuteStatusClient) getCreateRequest(ctx context.Context, resourceGroupName string, securityConnectorName string, ruleID string, operationID string, options *ConnectorGovernanceRulesExecuteStatusClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/securityConnectors/{securityConnectorName}/providers/Microsoft.Security/governanceRules/{ruleId}/operationResults/{operationId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -126,4 +112,16 @@ func (client *ConnectorGovernanceRulesExecuteStatusClient) getCreateRequest(ctx 
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
+}
+
+// getHandleResponse handles the Get response.
+func (client *ConnectorGovernanceRulesExecuteStatusClient) getHandleResponse(resp *http.Response) (ConnectorGovernanceRulesExecuteStatusClientGetResponse, error) {
+	result := ConnectorGovernanceRulesExecuteStatusClientGetResponse{}
+	if val := resp.Header.Get("location"); val != "" {
+		result.Location = &val
+	}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ExecuteRuleStatus); err != nil {
+		return ConnectorGovernanceRulesExecuteStatusClientGetResponse{}, err
+	}
+	return result, nil
 }

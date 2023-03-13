@@ -32,9 +32,9 @@ type ConnectorGovernanceRuleClient struct {
 }
 
 // NewConnectorGovernanceRuleClient creates a new instance of ConnectorGovernanceRuleClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConnectorGovernanceRuleClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConnectorGovernanceRuleClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -55,12 +55,13 @@ func NewConnectorGovernanceRuleClient(subscriptionID string, credential azcore.T
 	return client, nil
 }
 
-// NewListPager - Get a list of all relevant governanceRules over a security connector level scope
+// NewListPager - Get a list of all relevant governance rules over a security connector level scope
+//
 // Generated from API version 2022-01-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// securityConnectorName - The security connector name.
-// options - ConnectorGovernanceRuleClientListOptions contains the optional parameters for the ConnectorGovernanceRuleClient.List
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - securityConnectorName - The security connector name.
+//   - options - ConnectorGovernanceRuleClientListOptions contains the optional parameters for the ConnectorGovernanceRuleClient.NewListPager
+//     method.
 func (client *ConnectorGovernanceRuleClient) NewListPager(resourceGroupName string, securityConnectorName string, options *ConnectorGovernanceRuleClientListOptions) *runtime.Pager[ConnectorGovernanceRuleClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConnectorGovernanceRuleClientListResponse]{
 		More: func(page ConnectorGovernanceRuleClientListResponse) bool {

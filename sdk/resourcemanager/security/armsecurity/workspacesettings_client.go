@@ -32,9 +32,9 @@ type WorkspaceSettingsClient struct {
 }
 
 // NewWorkspaceSettingsClient creates a new instance of WorkspaceSettingsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewWorkspaceSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*WorkspaceSettingsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewWorkspaceSettingsClient(subscriptionID string, credential azcore.TokenCr
 
 // Create - creating settings about where we should store your security data and logs
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01-preview
-// workspaceSettingName - Name of the security setting
-// workspaceSetting - Security data setting object
-// options - WorkspaceSettingsClientCreateOptions contains the optional parameters for the WorkspaceSettingsClient.Create
-// method.
+//   - workspaceSettingName - Name of the security setting
+//   - workspaceSetting - Security data setting object
+//   - options - WorkspaceSettingsClientCreateOptions contains the optional parameters for the WorkspaceSettingsClient.Create
+//     method.
 func (client *WorkspaceSettingsClient) Create(ctx context.Context, workspaceSettingName string, workspaceSetting WorkspaceSetting, options *WorkspaceSettingsClientCreateOptions) (WorkspaceSettingsClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, workspaceSettingName, workspaceSetting, options)
 	if err != nil {
@@ -110,10 +111,11 @@ func (client *WorkspaceSettingsClient) createHandleResponse(resp *http.Response)
 
 // Delete - Deletes the custom workspace settings for this subscription. new VMs will report to the default workspace
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01-preview
-// workspaceSettingName - Name of the security setting
-// options - WorkspaceSettingsClientDeleteOptions contains the optional parameters for the WorkspaceSettingsClient.Delete
-// method.
+//   - workspaceSettingName - Name of the security setting
+//   - options - WorkspaceSettingsClientDeleteOptions contains the optional parameters for the WorkspaceSettingsClient.Delete
+//     method.
 func (client *WorkspaceSettingsClient) Delete(ctx context.Context, workspaceSettingName string, options *WorkspaceSettingsClientDeleteOptions) (WorkspaceSettingsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, workspaceSettingName, options)
 	if err != nil {
@@ -154,9 +156,10 @@ func (client *WorkspaceSettingsClient) deleteCreateRequest(ctx context.Context, 
 // Get - Settings about where we should store your security data and logs. If the result is empty, it means that no custom-workspace
 // configuration was set
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01-preview
-// workspaceSettingName - Name of the security setting
-// options - WorkspaceSettingsClientGetOptions contains the optional parameters for the WorkspaceSettingsClient.Get method.
+//   - workspaceSettingName - Name of the security setting
+//   - options - WorkspaceSettingsClientGetOptions contains the optional parameters for the WorkspaceSettingsClient.Get method.
 func (client *WorkspaceSettingsClient) Get(ctx context.Context, workspaceSettingName string, options *WorkspaceSettingsClientGetOptions) (WorkspaceSettingsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, workspaceSettingName, options)
 	if err != nil {
@@ -205,8 +208,10 @@ func (client *WorkspaceSettingsClient) getHandleResponse(resp *http.Response) (W
 
 // NewListPager - Settings about where we should store your security data and logs. If the result is empty, it means that
 // no custom-workspace configuration was set
+//
 // Generated from API version 2017-08-01-preview
-// options - WorkspaceSettingsClientListOptions contains the optional parameters for the WorkspaceSettingsClient.List method.
+//   - options - WorkspaceSettingsClientListOptions contains the optional parameters for the WorkspaceSettingsClient.NewListPager
+//     method.
 func (client *WorkspaceSettingsClient) NewListPager(options *WorkspaceSettingsClientListOptions) *runtime.Pager[WorkspaceSettingsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WorkspaceSettingsClientListResponse]{
 		More: func(page WorkspaceSettingsClientListResponse) bool {
@@ -264,11 +269,12 @@ func (client *WorkspaceSettingsClient) listHandleResponse(resp *http.Response) (
 
 // Update - Settings about where we should store your security data and logs
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2017-08-01-preview
-// workspaceSettingName - Name of the security setting
-// workspaceSetting - Security data setting object
-// options - WorkspaceSettingsClientUpdateOptions contains the optional parameters for the WorkspaceSettingsClient.Update
-// method.
+//   - workspaceSettingName - Name of the security setting
+//   - workspaceSetting - Security data setting object
+//   - options - WorkspaceSettingsClientUpdateOptions contains the optional parameters for the WorkspaceSettingsClient.Update
+//     method.
 func (client *WorkspaceSettingsClient) Update(ctx context.Context, workspaceSettingName string, workspaceSetting WorkspaceSetting, options *WorkspaceSettingsClientUpdateOptions) (WorkspaceSettingsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, workspaceSettingName, workspaceSetting, options)
 	if err != nil {

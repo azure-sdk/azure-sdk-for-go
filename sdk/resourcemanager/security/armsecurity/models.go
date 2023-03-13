@@ -41,7 +41,7 @@ type AADExternalSecuritySolution struct {
 // AADSolutionProperties - The external security solution properties for AAD solutions
 type AADSolutionProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// The connectivity state of the external AAD solution
 	ConnectivityState *AADConnectivityState `json:"connectivityState,omitempty"`
@@ -50,6 +50,61 @@ type AADSolutionProperties struct {
 
 	// Represents an OMS workspace to which the solution is connected
 	Workspace *ConnectedWorkspace `json:"workspace,omitempty"`
+}
+
+// APICollectionClientGetOptions contains the optional parameters for the APICollectionClient.Get method.
+type APICollectionClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionClientListOptions contains the optional parameters for the APICollectionClient.NewListPager method.
+type APICollectionClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionOffboardingClientDeleteOptions contains the optional parameters for the APICollectionOffboardingClient.Delete
+// method.
+type APICollectionOffboardingClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionOnboardingClientCreateOptions contains the optional parameters for the APICollectionOnboardingClient.Create
+// method.
+type APICollectionOnboardingClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APICollectionProperties - Describes the properties of an API collection.
+type APICollectionProperties struct {
+	// Additional data regarding the API collection.
+	AdditionalData map[string]*string `json:"additionalData,omitempty"`
+
+	// The display name of the Azure API Management API.
+	DisplayName *string `json:"displayName,omitempty"`
+}
+
+// APICollectionResponse - An API collection as represented by Defender for APIs.
+type APICollectionResponse struct {
+	// Describes the properties of an API collection.
+	Properties *APICollectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// APICollectionResponseList - Page of a list of API collections as represented by Defender for APIs.
+type APICollectionResponseList struct {
+	// READ-ONLY; The URI to fetch the next page.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; API collections in this page.
+	Value []*APICollectionResponse `json:"value,omitempty" azure:"ro"`
 }
 
 // AccountConnectorsClientCreateOrUpdateOptions contains the optional parameters for the AccountConnectorsClient.CreateOrUpdate
@@ -68,7 +123,7 @@ type AccountConnectorsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AccountConnectorsClientListOptions contains the optional parameters for the AccountConnectorsClient.List method.
+// AccountConnectorsClientListOptions contains the optional parameters for the AccountConnectorsClient.NewListPager method.
 type AccountConnectorsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -264,7 +319,7 @@ type AdaptiveNetworkHardeningsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AdaptiveNetworkHardeningsClientListByExtendedResourceOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.ListByExtendedResource
+// AdaptiveNetworkHardeningsClientListByExtendedResourceOptions contains the optional parameters for the AdaptiveNetworkHardeningsClient.NewListByExtendedResourcePager
 // method.
 type AdaptiveNetworkHardeningsClientListByExtendedResourceOptions struct {
 	// placeholder for future optional parameters
@@ -359,7 +414,7 @@ type Alert struct {
 // AlertEntity - Changing set of properties depending on the entity type.
 type AlertEntity struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// READ-ONLY; Type of entity
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -465,7 +520,7 @@ type AlertProperties struct {
 // AlertPropertiesSupportingEvidence - Changing set of properties depending on the supportingEvidence type.
 type AlertPropertiesSupportingEvidence struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// READ-ONLY; Type of the supportingEvidence
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -477,7 +532,7 @@ type AlertSimulatorBundlesRequestProperties struct {
 	Kind *Kind `json:"kind,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// Bundles list.
 	Bundles []*BundleType `json:"bundles,omitempty"`
@@ -512,7 +567,7 @@ type AlertSimulatorRequestProperties struct {
 	Kind *Kind `json:"kind,omitempty"`
 
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 }
 
 // GetAlertSimulatorRequestProperties implements the AlertSimulatorRequestPropertiesClassification interface for type AlertSimulatorRequestProperties.
@@ -570,23 +625,24 @@ type AlertsClientGetSubscriptionLevelOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertsClientListByResourceGroupOptions contains the optional parameters for the AlertsClient.ListByResourceGroup method.
+// AlertsClientListByResourceGroupOptions contains the optional parameters for the AlertsClient.NewListByResourceGroupPager
+// method.
 type AlertsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertsClientListOptions contains the optional parameters for the AlertsClient.List method.
+// AlertsClientListOptions contains the optional parameters for the AlertsClient.NewListPager method.
 type AlertsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertsClientListResourceGroupLevelByRegionOptions contains the optional parameters for the AlertsClient.ListResourceGroupLevelByRegion
+// AlertsClientListResourceGroupLevelByRegionOptions contains the optional parameters for the AlertsClient.NewListResourceGroupLevelByRegionPager
 // method.
 type AlertsClientListResourceGroupLevelByRegionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertsClientListSubscriptionLevelByRegionOptions contains the optional parameters for the AlertsClient.ListSubscriptionLevelByRegion
+// AlertsClientListSubscriptionLevelByRegionOptions contains the optional parameters for the AlertsClient.NewListSubscriptionLevelByRegionPager
 // method.
 type AlertsClientListSubscriptionLevelByRegionOptions struct {
 	// placeholder for future optional parameters
@@ -691,7 +747,8 @@ type AlertsSuppressionRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertsSuppressionRulesClientListOptions contains the optional parameters for the AlertsSuppressionRulesClient.List method.
+// AlertsSuppressionRulesClientListOptions contains the optional parameters for the AlertsSuppressionRulesClient.NewListPager
+// method.
 type AlertsSuppressionRulesClientListOptions struct {
 	// Type of the alert to get rules for
 	AlertType *string
@@ -717,13 +774,13 @@ type AllowedConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AllowedConnectionsClientListByHomeRegionOptions contains the optional parameters for the AllowedConnectionsClient.ListByHomeRegion
+// AllowedConnectionsClientListByHomeRegionOptions contains the optional parameters for the AllowedConnectionsClient.NewListByHomeRegionPager
 // method.
 type AllowedConnectionsClientListByHomeRegionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AllowedConnectionsClientListOptions contains the optional parameters for the AllowedConnectionsClient.List method.
+// AllowedConnectionsClientListOptions contains the optional parameters for the AllowedConnectionsClient.NewListPager method.
 type AllowedConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1042,7 +1099,7 @@ type ApplicationCondition struct {
 // ApplicationProperties - Describes properties of an application
 type ApplicationProperties struct {
 	// REQUIRED; The application conditionSets - see examples
-	ConditionSets []interface{} `json:"conditionSets,omitempty"`
+	ConditionSets []any `json:"conditionSets,omitempty"`
 
 	// REQUIRED; The application source, what it affects, e.g. Assessments
 	SourceResourceType *ApplicationSourceResourceType `json:"sourceResourceType,omitempty"`
@@ -1054,7 +1111,7 @@ type ApplicationProperties struct {
 	DisplayName *string `json:"displayName,omitempty"`
 }
 
-// ApplicationsClientListOptions contains the optional parameters for the ApplicationsClient.List method.
+// ApplicationsClientListOptions contains the optional parameters for the ApplicationsClient.NewListPager method.
 type ApplicationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1071,7 +1128,7 @@ type ApplicationsList struct {
 // AscLocation - The ASC location of the subscription is in the "name" field
 type AscLocation struct {
 	// An empty set of properties
-	Properties interface{} `json:"properties,omitempty"`
+	Properties any `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource Id
 	ID *string `json:"id,omitempty" azure:"ro"`
@@ -1394,7 +1451,7 @@ type AssessmentsClientGetOptions struct {
 	Expand *ExpandEnum
 }
 
-// AssessmentsClientListOptions contains the optional parameters for the AssessmentsClient.List method.
+// AssessmentsClientListOptions contains the optional parameters for the AssessmentsClient.NewListPager method.
 type AssessmentsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1422,13 +1479,13 @@ type AssessmentsMetadataClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AssessmentsMetadataClientListBySubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.ListBySubscription
+// AssessmentsMetadataClientListBySubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.NewListBySubscriptionPager
 // method.
 type AssessmentsMetadataClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AssessmentsMetadataClientListOptions contains the optional parameters for the AssessmentsMetadataClient.List method.
+// AssessmentsMetadataClientListOptions contains the optional parameters for the AssessmentsMetadataClient.NewListPager method.
 type AssessmentsMetadataClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1457,7 +1514,7 @@ type AtaExternalSecuritySolution struct {
 // AtaSolutionProperties - The external security solution properties for ATA solutions
 type AtaSolutionProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 	DeviceType           *string `json:"deviceType,omitempty"`
 	DeviceVendor         *string `json:"deviceVendor,omitempty"`
 	LastEventReceived    *string `json:"lastEventReceived,omitempty"`
@@ -1535,7 +1592,7 @@ type AutoProvisioningSettingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AutoProvisioningSettingsClientListOptions contains the optional parameters for the AutoProvisioningSettingsClient.List
+// AutoProvisioningSettingsClientListOptions contains the optional parameters for the AutoProvisioningSettingsClient.NewListPager
 // method.
 type AutoProvisioningSettingsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -1750,13 +1807,13 @@ type AutomationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AutomationsClientListByResourceGroupOptions contains the optional parameters for the AutomationsClient.ListByResourceGroup
+// AutomationsClientListByResourceGroupOptions contains the optional parameters for the AutomationsClient.NewListByResourceGroupPager
 // method.
 type AutomationsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AutomationsClientListOptions contains the optional parameters for the AutomationsClient.List method.
+// AutomationsClientListOptions contains the optional parameters for the AutomationsClient.NewListPager method.
 type AutomationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2030,7 +2087,7 @@ type CefExternalSecuritySolution struct {
 // CefSolutionProperties - The external security solution properties for CEF solutions
 type CefSolutionProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 	Agent                *string `json:"agent,omitempty"`
 	DeviceType           *string `json:"deviceType,omitempty"`
 	DeviceVendor         *string `json:"deviceVendor,omitempty"`
@@ -2139,7 +2196,7 @@ type ComplianceResultsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ComplianceResultsClientListOptions contains the optional parameters for the ComplianceResultsClient.List method.
+// ComplianceResultsClientListOptions contains the optional parameters for the ComplianceResultsClient.NewListPager method.
 type ComplianceResultsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2158,7 +2215,7 @@ type CompliancesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CompliancesClientListOptions contains the optional parameters for the CompliancesClient.List method.
+// CompliancesClientListOptions contains the optional parameters for the CompliancesClient.NewListPager method.
 type CompliancesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2367,14 +2424,23 @@ type ConnectorApplicationClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectorApplicationsClientListOptions contains the optional parameters for the ConnectorApplicationsClient.List method.
+// ConnectorApplicationsClientListOptions contains the optional parameters for the ConnectorApplicationsClient.NewListPager
+// method.
 type ConnectorApplicationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectorGovernanceRuleClientListOptions contains the optional parameters for the ConnectorGovernanceRuleClient.List method.
+// ConnectorGovernanceRuleClientListOptions contains the optional parameters for the ConnectorGovernanceRuleClient.NewListPager
+// method.
 type ConnectorGovernanceRuleClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ConnectorGovernanceRulesClientBeginDeleteOptions contains the optional parameters for the ConnectorGovernanceRulesClient.BeginDelete
+// method.
+type ConnectorGovernanceRulesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // ConnectorGovernanceRulesClientCreateOrUpdateOptions contains the optional parameters for the ConnectorGovernanceRulesClient.CreateOrUpdate
@@ -2383,22 +2449,15 @@ type ConnectorGovernanceRulesClientCreateOrUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectorGovernanceRulesClientDeleteOptions contains the optional parameters for the ConnectorGovernanceRulesClient.Delete
-// method.
-type ConnectorGovernanceRulesClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
 // ConnectorGovernanceRulesClientGetOptions contains the optional parameters for the ConnectorGovernanceRulesClient.Get method.
 type ConnectorGovernanceRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the ConnectorGovernanceRulesExecuteStatusClient.BeginGet
+// ConnectorGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the ConnectorGovernanceRulesExecuteStatusClient.Get
 // method.
-type ConnectorGovernanceRulesExecuteStatusClientBeginGetOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+type ConnectorGovernanceRulesExecuteStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ConnectorProperties - A set of properties that defines the security connector configuration.
@@ -2468,13 +2527,13 @@ type ConnectorsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectorsClientListByResourceGroupOptions contains the optional parameters for the ConnectorsClient.ListByResourceGroup
+// ConnectorsClientListByResourceGroupOptions contains the optional parameters for the ConnectorsClient.NewListByResourceGroupPager
 // method.
 type ConnectorsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConnectorsClientListOptions contains the optional parameters for the ConnectorsClient.List method.
+// ConnectorsClientListOptions contains the optional parameters for the ConnectorsClient.NewListPager method.
 type ConnectorsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2569,7 +2628,7 @@ type ContactsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ContactsClientListOptions contains the optional parameters for the ContactsClient.List method.
+// ContactsClientListOptions contains the optional parameters for the ContactsClient.NewListPager method.
 type ContactsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2829,13 +2888,13 @@ type CustomAssessmentAutomationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomAssessmentAutomationsClientListByResourceGroupOptions contains the optional parameters for the CustomAssessmentAutomationsClient.ListByResourceGroup
+// CustomAssessmentAutomationsClientListByResourceGroupOptions contains the optional parameters for the CustomAssessmentAutomationsClient.NewListByResourceGroupPager
 // method.
 type CustomAssessmentAutomationsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomAssessmentAutomationsClientListBySubscriptionOptions contains the optional parameters for the CustomAssessmentAutomationsClient.ListBySubscription
+// CustomAssessmentAutomationsClientListBySubscriptionOptions contains the optional parameters for the CustomAssessmentAutomationsClient.NewListBySubscriptionPager
 // method.
 type CustomAssessmentAutomationsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -2907,13 +2966,13 @@ type CustomEntityStoreAssignmentsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomEntityStoreAssignmentsClientListByResourceGroupOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.ListByResourceGroup
+// CustomEntityStoreAssignmentsClientListByResourceGroupOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.NewListByResourceGroupPager
 // method.
 type CustomEntityStoreAssignmentsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomEntityStoreAssignmentsClientListBySubscriptionOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.ListBySubscription
+// CustomEntityStoreAssignmentsClientListBySubscriptionOptions contains the optional parameters for the CustomEntityStoreAssignmentsClient.NewListBySubscriptionPager
 // method.
 type CustomEntityStoreAssignmentsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -3319,7 +3378,7 @@ type DefenderForServersAwsOfferingDefenderForServers struct {
 // DefenderForServersAwsOfferingMdeAutoProvisioning - The Microsoft Defender for Endpoint autoprovisioning configuration
 type DefenderForServersAwsOfferingMdeAutoProvisioning struct {
 	// configuration for Microsoft Defender for Endpoint autoprovisioning
-	Configuration interface{} `json:"configuration,omitempty"`
+	Configuration any `json:"configuration,omitempty"`
 
 	// Is Microsoft Defender for Endpoint auto provisioning enabled
 	Enabled *bool `json:"enabled,omitempty"`
@@ -3417,7 +3476,7 @@ type DefenderForServersGcpOfferingDefenderForServers struct {
 // DefenderForServersGcpOfferingMdeAutoProvisioning - The Microsoft Defender for Endpoint autoprovisioning configuration
 type DefenderForServersGcpOfferingMdeAutoProvisioning struct {
 	// configuration for Microsoft Defender for Endpoint autoprovisioning
-	Configuration interface{} `json:"configuration,omitempty"`
+	Configuration any `json:"configuration,omitempty"`
 
 	// Is Microsoft Defender for Endpoint auto provisioning enabled
 	Enabled *bool `json:"enabled,omitempty"`
@@ -3541,7 +3600,8 @@ type DeviceSecurityGroupsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DeviceSecurityGroupsClientListOptions contains the optional parameters for the DeviceSecurityGroupsClient.List method.
+// DeviceSecurityGroupsClientListOptions contains the optional parameters for the DeviceSecurityGroupsClient.NewListPager
+// method.
 type DeviceSecurityGroupsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3649,13 +3709,13 @@ type DiscoveredSecuritySolutionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiscoveredSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.ListByHomeRegion
+// DiscoveredSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.NewListByHomeRegionPager
 // method.
 type DiscoveredSecuritySolutionsClientListByHomeRegionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiscoveredSecuritySolutionsClientListOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.List
+// DiscoveredSecuritySolutionsClientListOptions contains the optional parameters for the DiscoveredSecuritySolutionsClient.NewListPager
 // method.
 type DiscoveredSecuritySolutionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -3697,10 +3757,35 @@ func (e *EnvironmentData) GetEnvironmentData() *EnvironmentData { return e }
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail `json:"details,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error message.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error target.
+	Target *string `json:"target,omitempty" azure:"ro"`
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail `json:"error,omitempty"`
 }
 
 // ExecuteGovernanceRuleParams - Governance rule execution parameters
@@ -3709,9 +3794,9 @@ type ExecuteGovernanceRuleParams struct {
 	Override *bool `json:"override,omitempty"`
 }
 
-// ExecuteRuleStatus - Execute status of Security GovernanceRule over a given scope
+// ExecuteRuleStatus - Execute status of governance rule over a given scope
 type ExecuteRuleStatus struct {
-	// READ-ONLY; Unique key for the execution of GovernanceRule
+	// READ-ONLY; Unique key for the execution of governance rule
 	OperationID *string `json:"operationId,omitempty" azure:"ro"`
 }
 
@@ -3750,7 +3835,7 @@ type ExternalSecuritySolutionList struct {
 // ExternalSecuritySolutionProperties - The solution properties (correspond to the solution kind)
 type ExternalSecuritySolutionProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 	DeviceType           *string `json:"deviceType,omitempty"`
 	DeviceVendor         *string `json:"deviceVendor,omitempty"`
 
@@ -3764,13 +3849,13 @@ type ExternalSecuritySolutionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ExternalSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the ExternalSecuritySolutionsClient.ListByHomeRegion
+// ExternalSecuritySolutionsClientListByHomeRegionOptions contains the optional parameters for the ExternalSecuritySolutionsClient.NewListByHomeRegionPager
 // method.
 type ExternalSecuritySolutionsClientListByHomeRegionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ExternalSecuritySolutionsClientListOptions contains the optional parameters for the ExternalSecuritySolutionsClient.List
+// ExternalSecuritySolutionsClientListOptions contains the optional parameters for the ExternalSecuritySolutionsClient.NewListPager
 // method.
 type ExternalSecuritySolutionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -4053,9 +4138,9 @@ func (g *GithubScopeEnvironmentData) GetEnvironmentData() *EnvironmentData {
 	}
 }
 
-// GovernanceAssignment - Security GovernanceAssignment over a given scope
+// GovernanceAssignment - Governance assignment over a given scope
 type GovernanceAssignment struct {
-	// Properties of a security governanceAssignment
+	// The properties of a governance assignment
 	Properties *GovernanceAssignmentProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource Id
@@ -4068,15 +4153,15 @@ type GovernanceAssignment struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// GovernanceAssignmentAdditionalData - Describe the additional data of GovernanceAssignment - optional
+// GovernanceAssignmentAdditionalData - Describe the additional data of governance assignment - optional
 type GovernanceAssignmentAdditionalData struct {
-	// Ticket link associated with this GovernanceAssignment - for example: https://snow.com
+	// Ticket link associated with this governance assignment - for example: https://snow.com
 	TicketLink *string `json:"ticketLink,omitempty"`
 
-	// Ticket number associated with this GovernanceAssignment
+	// Ticket number associated with this governance assignment
 	TicketNumber *int32 `json:"ticketNumber,omitempty"`
 
-	// The ticket status associated with this GovernanceAssignment - for example: Active
+	// The ticket status associated with this governance assignment - for example: Active
 	TicketStatus *string `json:"ticketStatus,omitempty"`
 }
 
@@ -4117,12 +4202,13 @@ type GovernanceAssignmentsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GovernanceAssignmentsClientListOptions contains the optional parameters for the GovernanceAssignmentsClient.List method.
+// GovernanceAssignmentsClientListOptions contains the optional parameters for the GovernanceAssignmentsClient.NewListPager
+// method.
 type GovernanceAssignmentsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GovernanceAssignmentsList - Page of a security governance assignments list
+// GovernanceAssignmentsList - Page of a governance assignments list
 type GovernanceAssignmentsList struct {
 	// READ-ONLY; The URI to fetch the next page
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
@@ -4140,9 +4226,9 @@ type GovernanceEmailNotification struct {
 	DisableOwnerEmailNotification *bool `json:"disableOwnerEmailNotification,omitempty"`
 }
 
-// GovernanceRule - Security GovernanceRule over a given scope
+// GovernanceRule - Governance rule over a given scope
 type GovernanceRule struct {
-	// Properties of a security governanceRule
+	// Properties of a governance rule
 	Properties *GovernanceRuleProperties `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource Id
@@ -4155,27 +4241,42 @@ type GovernanceRule struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// GovernanceRuleClientListOptions contains the optional parameters for the GovernanceRuleClient.List method.
+// GovernanceRuleClientListOptions contains the optional parameters for the GovernanceRuleClient.NewListPager method.
 type GovernanceRuleClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GovernanceRuleEmailNotification - The governance email weekly notification configuration.
+// GovernanceRuleEmailNotification - The governance email weekly notification configuration
 type GovernanceRuleEmailNotification struct {
-	// Defines whether manager email notifications are disabled.
+	// Defines whether manager email notifications are disabled
 	DisableManagerEmailNotification *bool `json:"disableManagerEmailNotification,omitempty"`
 
-	// Defines whether owner email notifications are disabled.
+	// Defines whether owner email notifications are disabled
 	DisableOwnerEmailNotification *bool `json:"disableOwnerEmailNotification,omitempty"`
 }
 
-// GovernanceRuleList - Page of a security governanceRules list
+// GovernanceRuleList - Page of a governance rules list
 type GovernanceRuleList struct {
 	// READ-ONLY; The URI to fetch the next page
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 
-	// READ-ONLY; Collection of governanceRules in this page
+	// READ-ONLY; Collection of governance rules in this page
 	Value []*GovernanceRule `json:"value,omitempty" azure:"ro"`
+}
+
+// GovernanceRuleMetadata - The governance rule metadata
+type GovernanceRuleMetadata struct {
+	// READ-ONLY; Governance rule Created by object id (GUID)
+	CreatedBy *string `json:"createdBy,omitempty" azure:"ro"`
+
+	// READ-ONLY; Governance rule creation date
+	CreatedOn *time.Time `json:"createdOn,omitempty" azure:"ro"`
+
+	// READ-ONLY; Governance rule last updated by object id (GUID)
+	UpdatedBy *string `json:"updatedBy,omitempty" azure:"ro"`
+
+	// READ-ONLY; Governance rule last update date
+	UpdatedOn *time.Time `json:"updatedOn,omitempty" azure:"ro"`
 }
 
 // GovernanceRuleOwnerSource - Describe the owner source of governance rule
@@ -4187,15 +4288,15 @@ type GovernanceRuleOwnerSource struct {
 	Value *string `json:"value,omitempty"`
 }
 
-// GovernanceRuleProperties - Describes properties of an governanceRule
+// GovernanceRuleProperties - Describes properties of an governance rule
 type GovernanceRuleProperties struct {
 	// REQUIRED; The governance rule conditionSets - see examples
-	ConditionSets []interface{} `json:"conditionSets,omitempty"`
+	ConditionSets []any `json:"conditionSets,omitempty"`
 
-	// REQUIRED; display name of the governanceRule
+	// REQUIRED; Display name of the governance rule
 	DisplayName *string `json:"displayName,omitempty"`
 
-	// REQUIRED; The Owner source for the governance rule - e.g. Manually by user@contoso.com - see example
+	// REQUIRED; The owner source for the governance rule - e.g. Manually by user@contoso.com - see example
 	OwnerSource *GovernanceRuleOwnerSource `json:"ownerSource,omitempty"`
 
 	// REQUIRED; The governance rule priority, priority to the lower number. Rules with the same priority on the same subscription
@@ -4208,11 +4309,17 @@ type GovernanceRuleProperties struct {
 	// REQUIRED; The governance rule source, what the rule affects, e.g. Assessments
 	SourceResourceType *GovernanceRuleSourceResourceType `json:"sourceResourceType,omitempty"`
 
-	// description of the governanceRule
+	// Description of the governance rule
 	Description *string `json:"description,omitempty"`
+
+	// Excluded scopes, filter out the descendants of the scope (on management scopes)
+	ExcludedScopes []*string `json:"excludedScopes,omitempty"`
 
 	// The email notifications settings for the governance rule, states whether to disable notifications for mangers and owners
 	GovernanceEmailNotification *GovernanceRuleEmailNotification `json:"governanceEmailNotification,omitempty"`
+
+	// Defines whether the rule is management scope rule (master connector as a single scope or management scope)
+	IncludeMemberScopes *bool `json:"includeMemberScopes,omitempty"`
 
 	// Defines whether the rule is active/inactive
 	IsDisabled *bool `json:"isDisabled,omitempty"`
@@ -4220,15 +4327,30 @@ type GovernanceRuleProperties struct {
 	// Defines whether there is a grace period on the governance rule
 	IsGracePeriod *bool `json:"isGracePeriod,omitempty"`
 
+	// The governance rule metadata
+	Metadata *GovernanceRuleMetadata `json:"metadata,omitempty"`
+
 	// Governance rule remediation timeframe - this is the time that will affect on the grace-period duration e.g. 7.00:00:00
 	// - means 7 days
 	RemediationTimeframe *string `json:"remediationTimeframe,omitempty"`
+
+	// READ-ONLY; The tenantId (GUID)
+	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+}
+
+// GovernanceRulesClientBeginRuleIDExecuteSingleManagementGroupOptions contains the optional parameters for the GovernanceRulesClient.BeginRuleIDExecuteSingleManagementGroup
+// method.
+type GovernanceRulesClientBeginRuleIDExecuteSingleManagementGroupOptions struct {
+	// Execute governance rule over a given scope
+	ExecuteGovernanceRuleParams *ExecuteGovernanceRuleParams
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // GovernanceRulesClientBeginRuleIDExecuteSingleSecurityConnectorOptions contains the optional parameters for the GovernanceRulesClient.BeginRuleIDExecuteSingleSecurityConnector
 // method.
 type GovernanceRulesClientBeginRuleIDExecuteSingleSecurityConnectorOptions struct {
-	// GovernanceRule over a subscription scope
+	// Execute governance rule over a given scope
 	ExecuteGovernanceRuleParams *ExecuteGovernanceRuleParams
 	// Resumes the LRO from the provided token.
 	ResumeToken string
@@ -4237,7 +4359,7 @@ type GovernanceRulesClientBeginRuleIDExecuteSingleSecurityConnectorOptions struc
 // GovernanceRulesClientBeginRuleIDExecuteSingleSubscriptionOptions contains the optional parameters for the GovernanceRulesClient.BeginRuleIDExecuteSingleSubscription
 // method.
 type GovernanceRulesClientBeginRuleIDExecuteSingleSubscriptionOptions struct {
-	// GovernanceRule over a subscription scope
+	// Execute governance rule over a given scope
 	ExecuteGovernanceRuleParams *ExecuteGovernanceRuleParams
 	// Resumes the LRO from the provided token.
 	ResumeToken string
@@ -4512,7 +4634,7 @@ type InformationProtectionPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// InformationProtectionPoliciesClientListOptions contains the optional parameters for the InformationProtectionPoliciesClient.List
+// InformationProtectionPoliciesClientListOptions contains the optional parameters for the InformationProtectionPoliciesClient.NewListPager
 // method.
 type InformationProtectionPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
@@ -4593,7 +4715,7 @@ type IngestionConnectionString struct {
 // IngestionSetting - Configures how to correlate scan data and logs with resources associated with the subscription.
 type IngestionSetting struct {
 	// Ingestion setting data
-	Properties interface{} `json:"properties,omitempty"`
+	Properties any `json:"properties,omitempty"`
 
 	// READ-ONLY; Resource Id
 	ID *string `json:"id,omitempty" azure:"ro"`
@@ -4641,7 +4763,7 @@ type IngestionSettingsClientListConnectionStringsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// IngestionSettingsClientListOptions contains the optional parameters for the IngestionSettingsClient.List method.
+// IngestionSettingsClientListOptions contains the optional parameters for the IngestionSettingsClient.NewListPager method.
 type IngestionSettingsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -4987,14 +5109,14 @@ type IotSecuritySolutionClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// IotSecuritySolutionClientListByResourceGroupOptions contains the optional parameters for the IotSecuritySolutionClient.ListByResourceGroup
+// IotSecuritySolutionClientListByResourceGroupOptions contains the optional parameters for the IotSecuritySolutionClient.NewListByResourceGroupPager
 // method.
 type IotSecuritySolutionClientListByResourceGroupOptions struct {
 	// Filter the IoT Security solution with OData syntax. Supports filtering by iotHubs.
 	Filter *string
 }
 
-// IotSecuritySolutionClientListBySubscriptionOptions contains the optional parameters for the IotSecuritySolutionClient.ListBySubscription
+// IotSecuritySolutionClientListBySubscriptionOptions contains the optional parameters for the IotSecuritySolutionClient.NewListBySubscriptionPager
 // method.
 type IotSecuritySolutionClientListBySubscriptionOptions struct {
 	// Filter the IoT Security solution with OData syntax. Supports filtering by iotHubs.
@@ -5018,7 +5140,7 @@ type IotSecuritySolutionsAnalyticsAggregatedAlertClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// IotSecuritySolutionsAnalyticsAggregatedAlertClientListOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsAggregatedAlertClient.List
+// IotSecuritySolutionsAnalyticsAggregatedAlertClientListOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsAggregatedAlertClient.NewListPager
 // method.
 type IotSecuritySolutionsAnalyticsAggregatedAlertClientListOptions struct {
 	// Number of results to retrieve.
@@ -5031,7 +5153,7 @@ type IotSecuritySolutionsAnalyticsRecommendationClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// IotSecuritySolutionsAnalyticsRecommendationClientListOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsRecommendationClient.List
+// IotSecuritySolutionsAnalyticsRecommendationClientListOptions contains the optional parameters for the IotSecuritySolutionsAnalyticsRecommendationClient.NewListPager
 // method.
 type IotSecuritySolutionsAnalyticsRecommendationClientListOptions struct {
 	// Number of results to retrieve.
@@ -5061,25 +5183,25 @@ type JitNetworkAccessPoliciesClientInitiateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// JitNetworkAccessPoliciesClientListByRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.ListByRegion
+// JitNetworkAccessPoliciesClientListByRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByRegionPager
 // method.
 type JitNetworkAccessPoliciesClientListByRegionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// JitNetworkAccessPoliciesClientListByResourceGroupAndRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.ListByResourceGroupAndRegion
+// JitNetworkAccessPoliciesClientListByResourceGroupAndRegionOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByResourceGroupAndRegionPager
 // method.
 type JitNetworkAccessPoliciesClientListByResourceGroupAndRegionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// JitNetworkAccessPoliciesClientListByResourceGroupOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.ListByResourceGroup
+// JitNetworkAccessPoliciesClientListByResourceGroupOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListByResourceGroupPager
 // method.
 type JitNetworkAccessPoliciesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// JitNetworkAccessPoliciesClientListOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.List
+// JitNetworkAccessPoliciesClientListOptions contains the optional parameters for the JitNetworkAccessPoliciesClient.NewListPager
 // method.
 type JitNetworkAccessPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
@@ -5336,7 +5458,7 @@ type LocationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LocationsClientListOptions contains the optional parameters for the LocationsClient.List method.
+// LocationsClientListOptions contains the optional parameters for the LocationsClient.NewListPager method.
 type LocationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -5364,6 +5486,43 @@ func (l *LogAnalyticsIdentifier) GetResourceIdentifier() *ResourceIdentifier {
 	return &ResourceIdentifier{
 		Type: l.Type,
 	}
+}
+
+// ManagementGroupGovernanceRuleClientListOptions contains the optional parameters for the ManagementGroupGovernanceRuleClient.NewListPager
+// method.
+type ManagementGroupGovernanceRuleClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupGovernanceRulesClientBeginDeleteOptions contains the optional parameters for the ManagementGroupGovernanceRulesClient.BeginDelete
+// method.
+type ManagementGroupGovernanceRulesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ManagementGroupGovernanceRulesClientCreateOrUpdateOptions contains the optional parameters for the ManagementGroupGovernanceRulesClient.CreateOrUpdate
+// method.
+type ManagementGroupGovernanceRulesClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupGovernanceRulesClientGetOptions contains the optional parameters for the ManagementGroupGovernanceRulesClient.Get
+// method.
+type ManagementGroupGovernanceRulesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupGovernanceRulesDeleteStatusClientGetOptions contains the optional parameters for the ManagementGroupGovernanceRulesDeleteStatusClient.Get
+// method.
+type ManagementGroupGovernanceRulesDeleteStatusClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagementGroupGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the ManagementGroupGovernanceRulesExecuteStatusClient.Get
+// method.
+type ManagementGroupGovernanceRulesExecuteStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 // MdeOnboardingData - The resource of the configuration or data needed to onboard the machine to MDE
@@ -5702,7 +5861,7 @@ type OperationList struct {
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -6028,7 +6187,7 @@ type RegulatoryComplianceAssessmentsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RegulatoryComplianceAssessmentsClientListOptions contains the optional parameters for the RegulatoryComplianceAssessmentsClient.List
+// RegulatoryComplianceAssessmentsClientListOptions contains the optional parameters for the RegulatoryComplianceAssessmentsClient.NewListPager
 // method.
 type RegulatoryComplianceAssessmentsClientListOptions struct {
 	// OData filter. Optional.
@@ -6083,7 +6242,7 @@ type RegulatoryComplianceControlsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RegulatoryComplianceControlsClientListOptions contains the optional parameters for the RegulatoryComplianceControlsClient.List
+// RegulatoryComplianceControlsClientListOptions contains the optional parameters for the RegulatoryComplianceControlsClient.NewListPager
 // method.
 type RegulatoryComplianceControlsClientListOptions struct {
 	// OData filter. Optional.
@@ -6138,7 +6297,7 @@ type RegulatoryComplianceStandardsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RegulatoryComplianceStandardsClientListOptions contains the optional parameters for the RegulatoryComplianceStandardsClient.List
+// RegulatoryComplianceStandardsClientListOptions contains the optional parameters for the RegulatoryComplianceStandardsClient.NewListPager
 // method.
 type RegulatoryComplianceStandardsClientListOptions struct {
 	// OData filter. Optional.
@@ -6471,7 +6630,7 @@ type Scans struct {
 // ScopeElement - A more specific scope used to identify the alerts to suppress.
 type ScopeElement struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// The alert entity type to suppress by.
 	Field *string `json:"field,omitempty"`
@@ -6537,13 +6696,13 @@ type SecureScoreControlDefinitionSource struct {
 	SourceType *ControlType `json:"sourceType,omitempty"`
 }
 
-// SecureScoreControlDefinitionsClientListBySubscriptionOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.ListBySubscription
+// SecureScoreControlDefinitionsClientListBySubscriptionOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.NewListBySubscriptionPager
 // method.
 type SecureScoreControlDefinitionsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SecureScoreControlDefinitionsClientListOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.List
+// SecureScoreControlDefinitionsClientListOptions contains the optional parameters for the SecureScoreControlDefinitionsClient.NewListPager
 // method.
 type SecureScoreControlDefinitionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -6611,14 +6770,14 @@ type SecureScoreControlScoreDetails struct {
 	Weight *int64 `json:"weight,omitempty" azure:"ro"`
 }
 
-// SecureScoreControlsClientListBySecureScoreOptions contains the optional parameters for the SecureScoreControlsClient.ListBySecureScore
+// SecureScoreControlsClientListBySecureScoreOptions contains the optional parameters for the SecureScoreControlsClient.NewListBySecureScorePager
 // method.
 type SecureScoreControlsClientListBySecureScoreOptions struct {
 	// OData expand. Optional.
 	Expand *ExpandControlsEnum
 }
 
-// SecureScoreControlsClientListOptions contains the optional parameters for the SecureScoreControlsClient.List method.
+// SecureScoreControlsClientListOptions contains the optional parameters for the SecureScoreControlsClient.NewListPager method.
 type SecureScoreControlsClientListOptions struct {
 	// OData expand. Optional.
 	Expand *ExpandControlsEnum
@@ -6656,7 +6815,7 @@ type SecureScoresClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SecureScoresClientListOptions contains the optional parameters for the SecureScoresClient.List method.
+// SecureScoresClientListOptions contains the optional parameters for the SecureScoresClient.NewListPager method.
 type SecureScoresClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -6815,7 +6974,7 @@ type SettingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SettingsClientListOptions contains the optional parameters for the SettingsClient.List method.
+// SettingsClientListOptions contains the optional parameters for the SettingsClient.NewListPager method.
 type SettingsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -6854,13 +7013,13 @@ type SoftwareInventoriesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SoftwareInventoriesClientListByExtendedResourceOptions contains the optional parameters for the SoftwareInventoriesClient.ListByExtendedResource
+// SoftwareInventoriesClientListByExtendedResourceOptions contains the optional parameters for the SoftwareInventoriesClient.NewListByExtendedResourcePager
 // method.
 type SoftwareInventoriesClientListByExtendedResourceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SoftwareInventoriesClientListBySubscriptionOptions contains the optional parameters for the SoftwareInventoriesClient.ListBySubscription
+// SoftwareInventoriesClientListBySubscriptionOptions contains the optional parameters for the SoftwareInventoriesClient.NewListBySubscriptionPager
 // method.
 type SoftwareInventoriesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -6946,7 +7105,7 @@ type SolutionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SolutionsClientListOptions contains the optional parameters for the SolutionsClient.List method.
+// SolutionsClientListOptions contains the optional parameters for the SolutionsClient.NewListPager method.
 type SolutionsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -7083,21 +7242,20 @@ type SubAssessmentsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SubAssessmentsClientListAllOptions contains the optional parameters for the SubAssessmentsClient.ListAll method.
+// SubAssessmentsClientListAllOptions contains the optional parameters for the SubAssessmentsClient.NewListAllPager method.
 type SubAssessmentsClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SubAssessmentsClientListOptions contains the optional parameters for the SubAssessmentsClient.List method.
+// SubAssessmentsClientListOptions contains the optional parameters for the SubAssessmentsClient.NewListPager method.
 type SubAssessmentsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions contains the optional parameters for the SubscriptionGovernanceRulesExecuteStatusClient.BeginGet
+// SubscriptionGovernanceRulesExecuteStatusClientGetOptions contains the optional parameters for the SubscriptionGovernanceRulesExecuteStatusClient.Get
 // method.
-type SubscriptionGovernanceRulesExecuteStatusClientBeginGetOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+type SubscriptionGovernanceRulesExecuteStatusClientGetOptions struct {
+	// placeholder for future optional parameters
 }
 
 type SuppressionAlertsScope struct {
@@ -7165,7 +7323,7 @@ type TaskList struct {
 // TaskParameters - Changing set of properties, depending on the task type that is derived from the name field
 type TaskParameters struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties map[string]any
 
 	// READ-ONLY; Name of the task type
 	Name *string `json:"name,omitempty" azure:"ro"`
@@ -7201,19 +7359,20 @@ type TasksClientGetSubscriptionLevelTaskOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TasksClientListByHomeRegionOptions contains the optional parameters for the TasksClient.ListByHomeRegion method.
+// TasksClientListByHomeRegionOptions contains the optional parameters for the TasksClient.NewListByHomeRegionPager method.
 type TasksClientListByHomeRegionOptions struct {
 	// OData filter. Optional.
 	Filter *string
 }
 
-// TasksClientListByResourceGroupOptions contains the optional parameters for the TasksClient.ListByResourceGroup method.
+// TasksClientListByResourceGroupOptions contains the optional parameters for the TasksClient.NewListByResourceGroupPager
+// method.
 type TasksClientListByResourceGroupOptions struct {
 	// OData filter. Optional.
 	Filter *string
 }
 
-// TasksClientListOptions contains the optional parameters for the TasksClient.List method.
+// TasksClientListOptions contains the optional parameters for the TasksClient.NewListPager method.
 type TasksClientListOptions struct {
 	// OData filter. Optional.
 	Filter *string
@@ -7351,12 +7510,13 @@ type TopologyClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TopologyClientListByHomeRegionOptions contains the optional parameters for the TopologyClient.ListByHomeRegion method.
+// TopologyClientListByHomeRegionOptions contains the optional parameters for the TopologyClient.NewListByHomeRegionPager
+// method.
 type TopologyClientListByHomeRegionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// TopologyClientListOptions contains the optional parameters for the TopologyClient.List method.
+// TopologyClientListOptions contains the optional parameters for the TopologyClient.NewListPager method.
 type TopologyClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -7711,7 +7871,7 @@ type WorkspaceSettingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WorkspaceSettingsClientListOptions contains the optional parameters for the WorkspaceSettingsClient.List method.
+// WorkspaceSettingsClientListOptions contains the optional parameters for the WorkspaceSettingsClient.NewListPager method.
 type WorkspaceSettingsClientListOptions struct {
 	// placeholder for future optional parameters
 }
