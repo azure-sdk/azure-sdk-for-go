@@ -1,5 +1,50 @@
 # Release History
 
+## 3.0.0-beta.1 (2023-03-13)
+### Breaking Changes
+
+- Function `*ResourceGuardsClient.Patch` parameter(s) have been changed from `(context.Context, string, string, PatchResourceGuardInput, *ResourceGuardsClientPatchOptions)` to `(context.Context, string, string, PatchResourceRequestInput, *ResourceGuardsClientPatchOptions)`
+- Type of `ResourceGuard.ProvisioningState` has been changed from `*ProvisioningState` to `*ResourceGuardProvisioningState`
+- Const `SourceDataStoreTypeOperationalStore` from type alias `SourceDataStoreType` has been removed
+- Const `StorageSettingStoreTypesOperationalStore` from type alias `StorageSettingStoreTypes` has been removed
+- Type alias `CrossSubscriptionRestoreState` has been removed
+- Function `*BlobBackupDatasourceParameters.GetBackupDatasourceParameters` has been removed
+- Function `*ItemPathBasedRestoreCriteria.GetItemLevelRestoreCriteria` has been removed
+- Operation `*BackupVaultsClient.BeginDelete` has been changed to non-LRO, use `*BackupVaultsClient.Delete` instead.
+- Struct `BlobBackupDatasourceParameters` has been removed
+- Struct `CrossSubscriptionRestoreSettings` has been removed
+- Struct `DppBaseTrackedResource` has been removed
+- Struct `FeatureSettings` has been removed
+- Struct `ItemPathBasedRestoreCriteria` has been removed
+- Struct `PatchResourceGuardInput` has been removed
+- Field `ExpiryTime` of struct `AzureBackupDiscreteRecoveryPoint` has been removed
+- Field `FeatureSettings` of struct `BackupVault` has been removed
+- Field `FeatureSettings` of struct `PatchBackupVaultInput` has been removed
+- Field `TargetResourceArmID` of struct `TargetDetails` has been removed
+
+### Features Added
+
+- New value `StorageSettingStoreTypesSnapshotStore` added to type alias `StorageSettingStoreTypes`
+- New type alias `ResourceGuardProvisioningState` with values `ResourceGuardProvisioningStateFailed`, `ResourceGuardProvisioningStateProvisioning`, `ResourceGuardProvisioningStateSucceeded`, `ResourceGuardProvisioningStateUnknown`, `ResourceGuardProvisioningStateUpdating`
+- New function `NewBackupInstancesExtensionRoutingClient(azcore.TokenCredential, *arm.ClientOptions) (*BackupInstancesExtensionRoutingClient, error)`
+- New function `*BackupInstancesExtensionRoutingClient.NewListPager(string, *BackupInstancesExtensionRoutingClientListOptions) *runtime.Pager[BackupInstancesExtensionRoutingClientListResponse]`
+- New function `NewDppResourceGuardProxyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DppResourceGuardProxyClient, error)`
+- New function `*DppResourceGuardProxyClient.Delete(context.Context, string, string, string, *DppResourceGuardProxyClientDeleteOptions) (DppResourceGuardProxyClientDeleteResponse, error)`
+- New function `*DppResourceGuardProxyClient.Get(context.Context, string, string, string, *DppResourceGuardProxyClientGetOptions) (DppResourceGuardProxyClientGetResponse, error)`
+- New function `*DppResourceGuardProxyClient.NewListPager(string, string, *DppResourceGuardProxyClientListOptions) *runtime.Pager[DppResourceGuardProxyClientListResponse]`
+- New function `*DppResourceGuardProxyClient.Put(context.Context, string, string, string, ResourceGuardProxyBaseResource, *DppResourceGuardProxyClientPutOptions) (DppResourceGuardProxyClientPutResponse, error)`
+- New function `*DppResourceGuardProxyClient.UnlockDelete(context.Context, string, string, string, UnlockDeleteRequest, *DppResourceGuardProxyClientUnlockDeleteOptions) (DppResourceGuardProxyClientUnlockDeleteResponse, error)`
+- New struct `BackupInstancesExtensionRoutingClient`
+- New struct `DppResourceGuardProxyClient`
+- New struct `ResourceGuardOperationDetail`
+- New struct `ResourceGuardProxyBase`
+- New struct `ResourceGuardProxyBaseResource`
+- New struct `ResourceGuardProxyBaseResourceList`
+- New struct `UnlockDeleteRequest`
+- New struct `UnlockDeleteResponse`
+- New field `Identity` in struct `ResourceGuardResource`
+
+
 ## 2.0.0 (2023-02-24)
 ### Breaking Changes
 

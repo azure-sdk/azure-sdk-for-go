@@ -32,7 +32,7 @@ type RecoveryPointsClient struct {
 }
 
 // NewRecoveryPointsClient creates a new instance of RecoveryPointsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - subscriptionID - The subscription Id.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewRecoveryPointsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RecoveryPointsClient, error) {
@@ -58,10 +58,10 @@ func NewRecoveryPointsClient(subscriptionID string, credential azcore.TokenCrede
 // Get - Gets a Recovery Point using recoveryPointId for a Datasource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2023-01-01
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group where the backup vault is present.
 //   - vaultName - The name of the backup vault.
-//   - backupInstanceName - The name of the backup instance.
+//   - backupInstanceName - The name of the backup instance
 //   - options - RecoveryPointsClientGetOptions contains the optional parameters for the RecoveryPointsClient.Get method.
 func (client *RecoveryPointsClient) Get(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, recoveryPointID string, options *RecoveryPointsClientGetOptions) (RecoveryPointsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, vaultName, backupInstanceName, recoveryPointID, options)
@@ -81,6 +81,9 @@ func (client *RecoveryPointsClient) Get(ctx context.Context, resourceGroupName s
 // getCreateRequest creates the Get request.
 func (client *RecoveryPointsClient) getCreateRequest(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, recoveryPointID string, options *RecoveryPointsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataProtection/backupVaults/{vaultName}/backupInstances/{backupInstanceName}/recoveryPoints/{recoveryPointId}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -103,7 +106,7 @@ func (client *RecoveryPointsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -120,10 +123,10 @@ func (client *RecoveryPointsClient) getHandleResponse(resp *http.Response) (Reco
 
 // NewListPager - Returns a list of Recovery Points for a DataSource in a vault.
 //
-// Generated from API version 2023-01-01
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+// Generated from API version 2022-10-01-preview
+//   - resourceGroupName - The name of the resource group where the backup vault is present.
 //   - vaultName - The name of the backup vault.
-//   - backupInstanceName - The name of the backup instance.
+//   - backupInstanceName - The name of the backup instance
 //   - options - RecoveryPointsClientListOptions contains the optional parameters for the RecoveryPointsClient.NewListPager method.
 func (client *RecoveryPointsClient) NewListPager(resourceGroupName string, vaultName string, backupInstanceName string, options *RecoveryPointsClientListOptions) *runtime.Pager[RecoveryPointsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[RecoveryPointsClientListResponse]{
@@ -156,6 +159,9 @@ func (client *RecoveryPointsClient) NewListPager(resourceGroupName string, vault
 // listCreateRequest creates the List request.
 func (client *RecoveryPointsClient) listCreateRequest(ctx context.Context, resourceGroupName string, vaultName string, backupInstanceName string, options *RecoveryPointsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataProtection/backupVaults/{vaultName}/backupInstances/{backupInstanceName}/recoveryPoints"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -174,7 +180,7 @@ func (client *RecoveryPointsClient) listCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2022-10-01-preview")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}

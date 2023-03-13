@@ -84,6 +84,11 @@ type BackupInstancesClientValidateForRestoreResponse struct {
 	OperationJobExtendedInfo
 }
 
+// BackupInstancesExtensionRoutingClientListResponse contains the response from method BackupInstancesExtensionRoutingClient.NewListPager.
+type BackupInstancesExtensionRoutingClientListResponse struct {
+	BackupInstanceResourceList
+}
+
 // BackupPoliciesClientCreateOrUpdateResponse contains the response from method BackupPoliciesClient.CreateOrUpdate.
 type BackupPoliciesClientCreateOrUpdateResponse struct {
 	BaseBackupPolicyResource
@@ -127,7 +132,7 @@ type BackupVaultsClientCreateOrUpdateResponse struct {
 	BackupVaultResource
 }
 
-// BackupVaultsClientDeleteResponse contains the response from method BackupVaultsClient.BeginDelete.
+// BackupVaultsClientDeleteResponse contains the response from method BackupVaultsClient.Delete.
 type BackupVaultsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -180,6 +185,31 @@ type DeletedBackupInstancesClientListResponse struct {
 // DeletedBackupInstancesClientUndeleteResponse contains the response from method DeletedBackupInstancesClient.BeginUndelete.
 type DeletedBackupInstancesClientUndeleteResponse struct {
 	// placeholder for future response values
+}
+
+// DppResourceGuardProxyClientDeleteResponse contains the response from method DppResourceGuardProxyClient.Delete.
+type DppResourceGuardProxyClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DppResourceGuardProxyClientGetResponse contains the response from method DppResourceGuardProxyClient.Get.
+type DppResourceGuardProxyClientGetResponse struct {
+	ResourceGuardProxyBaseResource
+}
+
+// DppResourceGuardProxyClientListResponse contains the response from method DppResourceGuardProxyClient.NewListPager.
+type DppResourceGuardProxyClientListResponse struct {
+	ResourceGuardProxyBaseResourceList
+}
+
+// DppResourceGuardProxyClientPutResponse contains the response from method DppResourceGuardProxyClient.Put.
+type DppResourceGuardProxyClientPutResponse struct {
+	ResourceGuardProxyBaseResource
+}
+
+// DppResourceGuardProxyClientUnlockDeleteResponse contains the response from method DppResourceGuardProxyClient.UnlockDelete.
+type DppResourceGuardProxyClientUnlockDeleteResponse struct {
+	UnlockDeleteResponse
 }
 
 // ExportJobsClientTriggerResponse contains the response from method ExportJobsClient.BeginTrigger.

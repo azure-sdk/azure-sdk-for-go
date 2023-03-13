@@ -116,8 +116,6 @@ func unmarshalBackupDatasourceParametersClassification(rawMsg json.RawMessage) (
 	}
 	var b BackupDatasourceParametersClassification
 	switch m["objectType"] {
-	case "BlobBackupDatasourceParameters":
-		b = &BlobBackupDatasourceParameters{}
 	case "KubernetesClusterBackupDatasourceParameters":
 		b = &KubernetesClusterBackupDatasourceParameters{}
 	default:
@@ -325,8 +323,6 @@ func unmarshalItemLevelRestoreCriteriaClassification(rawMsg json.RawMessage) (It
 	}
 	var b ItemLevelRestoreCriteriaClassification
 	switch m["objectType"] {
-	case "ItemPathBasedRestoreCriteria":
-		b = &ItemPathBasedRestoreCriteria{}
 	case "KubernetesClusterRestoreCriteria":
 		b = &KubernetesClusterRestoreCriteria{}
 	case "KubernetesPVRestoreCriteria":
