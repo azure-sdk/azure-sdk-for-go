@@ -32,9 +32,9 @@ type SolutionsClient struct {
 }
 
 // NewSolutionsClient creates a new instance of SolutionsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSolutionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SolutionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewSolutionsClient(subscriptionID string, credential azcore.TokenCredential
 
 // Get - Gets a specific Security Solution.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// securitySolutionName - Name of security solution.
-// options - SolutionsClientGetOptions contains the optional parameters for the SolutionsClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - securitySolutionName - Name of security solution.
+//   - options - SolutionsClientGetOptions contains the optional parameters for the SolutionsClient.Get method.
 func (client *SolutionsClient) Get(ctx context.Context, resourceGroupName string, ascLocation string, securitySolutionName string, options *SolutionsClientGetOptions) (SolutionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, ascLocation, securitySolutionName, options)
 	if err != nil {
@@ -117,8 +118,9 @@ func (client *SolutionsClient) getHandleResponse(resp *http.Response) (Solutions
 }
 
 // NewListPager - Gets a list of Security Solutions for the subscription.
+//
 // Generated from API version 2020-01-01
-// options - SolutionsClientListOptions contains the optional parameters for the SolutionsClient.List method.
+//   - options - SolutionsClientListOptions contains the optional parameters for the SolutionsClient.NewListPager method.
 func (client *SolutionsClient) NewListPager(options *SolutionsClientListOptions) *runtime.Pager[SolutionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SolutionsClientListResponse]{
 		More: func(page SolutionsClientListResponse) bool {

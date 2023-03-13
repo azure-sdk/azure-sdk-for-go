@@ -32,9 +32,9 @@ type AutomationsClient struct {
 }
 
 // NewAutomationsClient creates a new instance of AutomationsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAutomationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AutomationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewAutomationsClient(subscriptionID string, credential azcore.TokenCredenti
 // CreateOrUpdate - Creates or updates a security automation. If a security automation is already created and a subsequent
 // request is issued for the same automation id, then it will be updated.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// automationName - The security automation name.
-// automation - The security automation resource
-// options - AutomationsClientCreateOrUpdateOptions contains the optional parameters for the AutomationsClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - automationName - The security automation name.
+//   - automation - The security automation resource
+//   - options - AutomationsClientCreateOrUpdateOptions contains the optional parameters for the AutomationsClient.CreateOrUpdate
+//     method.
 func (client *AutomationsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, automationName string, automation Automation, options *AutomationsClientCreateOrUpdateOptions) (AutomationsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, automationName, automation, options)
 	if err != nil {
@@ -116,10 +117,11 @@ func (client *AutomationsClient) createOrUpdateHandleResponse(resp *http.Respons
 
 // Delete - Deletes a security automation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// automationName - The security automation name.
-// options - AutomationsClientDeleteOptions contains the optional parameters for the AutomationsClient.Delete method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - automationName - The security automation name.
+//   - options - AutomationsClientDeleteOptions contains the optional parameters for the AutomationsClient.Delete method.
 func (client *AutomationsClient) Delete(ctx context.Context, resourceGroupName string, automationName string, options *AutomationsClientDeleteOptions) (AutomationsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, automationName, options)
 	if err != nil {
@@ -163,10 +165,11 @@ func (client *AutomationsClient) deleteCreateRequest(ctx context.Context, resour
 
 // Get - Retrieves information about the model of a security automation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// automationName - The security automation name.
-// options - AutomationsClientGetOptions contains the optional parameters for the AutomationsClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - automationName - The security automation name.
+//   - options - AutomationsClientGetOptions contains the optional parameters for the AutomationsClient.Get method.
 func (client *AutomationsClient) Get(ctx context.Context, resourceGroupName string, automationName string, options *AutomationsClientGetOptions) (AutomationsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, automationName, options)
 	if err != nil {
@@ -219,8 +222,9 @@ func (client *AutomationsClient) getHandleResponse(resp *http.Response) (Automat
 
 // NewListPager - Lists all the security automations in the specified subscription. Use the 'nextLink' property in the response
 // to get the next page of security automations for the specified subscription.
+//
 // Generated from API version 2019-01-01-preview
-// options - AutomationsClientListOptions contains the optional parameters for the AutomationsClient.List method.
+//   - options - AutomationsClientListOptions contains the optional parameters for the AutomationsClient.NewListPager method.
 func (client *AutomationsClient) NewListPager(options *AutomationsClientListOptions) *runtime.Pager[AutomationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AutomationsClientListResponse]{
 		More: func(page AutomationsClientListResponse) bool {
@@ -278,10 +282,11 @@ func (client *AutomationsClient) listHandleResponse(resp *http.Response) (Automa
 
 // NewListByResourceGroupPager - Lists all the security automations in the specified resource group. Use the 'nextLink' property
 // in the response to get the next page of security automations for the specified resource group.
+//
 // Generated from API version 2019-01-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// options - AutomationsClientListByResourceGroupOptions contains the optional parameters for the AutomationsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - options - AutomationsClientListByResourceGroupOptions contains the optional parameters for the AutomationsClient.NewListByResourceGroupPager
+//     method.
 func (client *AutomationsClient) NewListByResourceGroupPager(resourceGroupName string, options *AutomationsClientListByResourceGroupOptions) *runtime.Pager[AutomationsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AutomationsClientListByResourceGroupResponse]{
 		More: func(page AutomationsClientListByResourceGroupResponse) bool {
@@ -343,11 +348,12 @@ func (client *AutomationsClient) listByResourceGroupHandleResponse(resp *http.Re
 
 // Validate - Validates the security automation model before create or update. Any validation errors are returned to the client.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// automationName - The security automation name.
-// automation - The security automation resource
-// options - AutomationsClientValidateOptions contains the optional parameters for the AutomationsClient.Validate method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - automationName - The security automation name.
+//   - automation - The security automation resource
+//   - options - AutomationsClientValidateOptions contains the optional parameters for the AutomationsClient.Validate method.
 func (client *AutomationsClient) Validate(ctx context.Context, resourceGroupName string, automationName string, automation Automation, options *AutomationsClientValidateOptions) (AutomationsClientValidateResponse, error) {
 	req, err := client.validateCreateRequest(ctx, resourceGroupName, automationName, automation, options)
 	if err != nil {
