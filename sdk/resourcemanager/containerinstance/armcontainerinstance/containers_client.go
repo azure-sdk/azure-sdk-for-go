@@ -33,10 +33,10 @@ type ContainersClient struct {
 }
 
 // NewContainersClient creates a new instance of ContainersClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewContainersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContainersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,11 +59,12 @@ func NewContainersClient(subscriptionID string, credential azcore.TokenCredentia
 
 // Attach - Attach to the output stream of a specific container instance in a specified resource group and container group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group.
-// containerGroupName - The name of the container group.
-// containerName - The name of the container instance.
-// options - ContainersClientAttachOptions contains the optional parameters for the ContainersClient.Attach method.
+//   - resourceGroupName - The name of the resource group.
+//   - containerGroupName - The name of the container group.
+//   - containerName - The name of the container instance.
+//   - options - ContainersClientAttachOptions contains the optional parameters for the ContainersClient.Attach method.
 func (client *ContainersClient) Attach(ctx context.Context, resourceGroupName string, containerGroupName string, containerName string, options *ContainersClientAttachOptions) (ContainersClientAttachResponse, error) {
 	req, err := client.attachCreateRequest(ctx, resourceGroupName, containerGroupName, containerName, options)
 	if err != nil {
@@ -120,13 +121,14 @@ func (client *ContainersClient) attachHandleResponse(resp *http.Response) (Conta
 
 // ExecuteCommand - Executes a command for a specific container instance in a specified resource group and container group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group.
-// containerGroupName - The name of the container group.
-// containerName - The name of the container instance.
-// containerExecRequest - The request for the exec command.
-// options - ContainersClientExecuteCommandOptions contains the optional parameters for the ContainersClient.ExecuteCommand
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - containerGroupName - The name of the container group.
+//   - containerName - The name of the container instance.
+//   - containerExecRequest - The request for the exec command.
+//   - options - ContainersClientExecuteCommandOptions contains the optional parameters for the ContainersClient.ExecuteCommand
+//     method.
 func (client *ContainersClient) ExecuteCommand(ctx context.Context, resourceGroupName string, containerGroupName string, containerName string, containerExecRequest ContainerExecRequest, options *ContainersClientExecuteCommandOptions) (ContainersClientExecuteCommandResponse, error) {
 	req, err := client.executeCommandCreateRequest(ctx, resourceGroupName, containerGroupName, containerName, containerExecRequest, options)
 	if err != nil {
@@ -183,11 +185,12 @@ func (client *ContainersClient) executeCommandHandleResponse(resp *http.Response
 
 // ListLogs - Get the logs for a specified container instance in a specified resource group and container group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group.
-// containerGroupName - The name of the container group.
-// containerName - The name of the container instance.
-// options - ContainersClientListLogsOptions contains the optional parameters for the ContainersClient.ListLogs method.
+//   - resourceGroupName - The name of the resource group.
+//   - containerGroupName - The name of the container group.
+//   - containerName - The name of the container instance.
+//   - options - ContainersClientListLogsOptions contains the optional parameters for the ContainersClient.ListLogs method.
 func (client *ContainersClient) ListLogs(ctx context.Context, resourceGroupName string, containerGroupName string, containerName string, options *ContainersClientListLogsOptions) (ContainersClientListLogsResponse, error) {
 	req, err := client.listLogsCreateRequest(ctx, resourceGroupName, containerGroupName, containerName, options)
 	if err != nil {

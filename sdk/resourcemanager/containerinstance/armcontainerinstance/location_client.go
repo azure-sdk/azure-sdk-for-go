@@ -32,10 +32,10 @@ type LocationClient struct {
 }
 
 // NewLocationClient creates a new instance of LocationClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewLocationClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LocationClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewLocationClient(subscriptionID string, credential azcore.TokenCredential,
 }
 
 // NewListCachedImagesPager - Get the list of cached images on specific OS type for a subscription in a region.
+//
 // Generated from API version 2022-10-01-preview
-// location - The identifier for the physical azure location.
-// options - LocationClientListCachedImagesOptions contains the optional parameters for the LocationClient.ListCachedImages
-// method.
+//   - location - The identifier for the physical azure location.
+//   - options - LocationClientListCachedImagesOptions contains the optional parameters for the LocationClient.NewListCachedImagesPager
+//     method.
 func (client *LocationClient) NewListCachedImagesPager(location string, options *LocationClientListCachedImagesOptions) *runtime.Pager[LocationClientListCachedImagesResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LocationClientListCachedImagesResponse]{
 		More: func(page LocationClientListCachedImagesResponse) bool {
@@ -121,10 +122,11 @@ func (client *LocationClient) listCachedImagesHandleResponse(resp *http.Response
 }
 
 // NewListCapabilitiesPager - Get the list of CPU/memory/GPU capabilities of a region.
+//
 // Generated from API version 2022-10-01-preview
-// location - The identifier for the physical azure location.
-// options - LocationClientListCapabilitiesOptions contains the optional parameters for the LocationClient.ListCapabilities
-// method.
+//   - location - The identifier for the physical azure location.
+//   - options - LocationClientListCapabilitiesOptions contains the optional parameters for the LocationClient.NewListCapabilitiesPager
+//     method.
 func (client *LocationClient) NewListCapabilitiesPager(location string, options *LocationClientListCapabilitiesOptions) *runtime.Pager[LocationClientListCapabilitiesResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LocationClientListCapabilitiesResponse]{
 		More: func(page LocationClientListCapabilitiesResponse) bool {
@@ -185,9 +187,10 @@ func (client *LocationClient) listCapabilitiesHandleResponse(resp *http.Response
 }
 
 // NewListUsagePager - Get the usage for a subscription
+//
 // Generated from API version 2022-10-01-preview
-// location - The identifier for the physical azure location.
-// options - LocationClientListUsageOptions contains the optional parameters for the LocationClient.ListUsage method.
+//   - location - The identifier for the physical azure location.
+//   - options - LocationClientListUsageOptions contains the optional parameters for the LocationClient.NewListUsagePager method.
 func (client *LocationClient) NewListUsagePager(location string, options *LocationClientListUsageOptions) *runtime.Pager[LocationClientListUsageResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LocationClientListUsageResponse]{
 		More: func(page LocationClientListUsageResponse) bool {

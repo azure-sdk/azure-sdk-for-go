@@ -32,10 +32,10 @@ type SubnetServiceAssociationLinkClient struct {
 }
 
 // NewSubnetServiceAssociationLinkClient creates a new instance of SubnetServiceAssociationLinkClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSubnetServiceAssociationLinkClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SubnetServiceAssociationLinkClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,12 +59,13 @@ func NewSubnetServiceAssociationLinkClient(subscriptionID string, credential azc
 // BeginDelete - Delete container group virtual network association links. The operation does not delete other resources provided
 // by the user.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
-// resourceGroupName - The name of the resource group.
-// virtualNetworkName - The name of the virtual network.
-// subnetName - The name of the subnet.
-// options - SubnetServiceAssociationLinkClientBeginDeleteOptions contains the optional parameters for the SubnetServiceAssociationLinkClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group.
+//   - virtualNetworkName - The name of the virtual network.
+//   - subnetName - The name of the subnet.
+//   - options - SubnetServiceAssociationLinkClientBeginDeleteOptions contains the optional parameters for the SubnetServiceAssociationLinkClient.BeginDelete
+//     method.
 func (client *SubnetServiceAssociationLinkClient) BeginDelete(ctx context.Context, resourceGroupName string, virtualNetworkName string, subnetName string, options *SubnetServiceAssociationLinkClientBeginDeleteOptions) (*runtime.Poller[SubnetServiceAssociationLinkClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, virtualNetworkName, subnetName, options)
@@ -80,6 +81,7 @@ func (client *SubnetServiceAssociationLinkClient) BeginDelete(ctx context.Contex
 // Delete - Delete container group virtual network association links. The operation does not delete other resources provided
 // by the user.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01-preview
 func (client *SubnetServiceAssociationLinkClient) deleteOperation(ctx context.Context, resourceGroupName string, virtualNetworkName string, subnetName string, options *SubnetServiceAssociationLinkClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, virtualNetworkName, subnetName, options)
