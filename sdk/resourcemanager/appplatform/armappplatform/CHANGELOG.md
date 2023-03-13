@@ -1,333 +1,90 @@
 # Release History
 
-## 1.1.0-beta.2 (2022-11-09)
+## 2.0.0 (2023-03-13)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+
 ### Features Added
 
-- New const `ApplicationLiveViewProvisioningStateSucceeded`
-- New const `CustomizedAcceleratorProvisioningStateFailed`
-- New const `CustomizedAcceleratorProvisioningStateDeleting`
-- New const `BindingTypeCACertificates`
-- New const `CustomizedAcceleratorProvisioningStateCreating`
-- New const `PredefinedAcceleratorProvisioningStateSucceeded`
-- New const `DevToolPortalFeatureStateEnabled`
-- New const `CustomizedAcceleratorValidateResultStateInvalid`
-- New const `ApmTypeNewRelic`
-- New const `ApplicationAcceleratorProvisioningStateSucceeded`
-- New const `GatewayRouteConfigProtocolHTTPS`
-- New const `ApmTypeApplicationInsights`
-- New const `ApmTypeElasticAPM`
-- New const `DevToolPortalFeatureStateDisabled`
-- New const `ApplicationLiveViewProvisioningStateCreating`
-- New const `BackendProtocolGRPC`
-- New const `PredefinedAcceleratorProvisioningStateFailed`
-- New const `SessionAffinityCookie`
-- New const `DevToolPortalProvisioningStateCanceled`
-- New const `DevToolPortalProvisioningStateDeleting`
-- New const `ApplicationLiveViewProvisioningStateFailed`
-- New const `ApplicationAcceleratorProvisioningStateFailed`
-- New const `ApplicationLiveViewProvisioningStateCanceled`
-- New const `ApplicationLiveViewProvisioningStateUpdating`
-- New const `ApmTypeDynatrace`
-- New const `PredefinedAcceleratorStateDisabled`
-- New const `ApplicationLiveViewProvisioningStateDeleting`
-- New const `DevToolPortalProvisioningStateUpdating`
-- New const `GatewayRouteConfigProtocolHTTP`
-- New const `PredefinedAcceleratorProvisioningStateCreating`
-- New const `ApplicationAcceleratorProvisioningStateCreating`
-- New const `ApplicationAcceleratorProvisioningStateUpdating`
-- New const `SessionAffinityNone`
-- New const `BackendProtocolDefault`
-- New const `PredefinedAcceleratorStateEnabled`
-- New const `DevToolPortalProvisioningStateCreating`
-- New const `PredefinedAcceleratorProvisioningStateUpdating`
-- New const `DevToolPortalProvisioningStateFailed`
-- New const `CustomizedAcceleratorProvisioningStateSucceeded`
-- New const `ApplicationAcceleratorProvisioningStateDeleting`
-- New const `CustomizedAcceleratorValidateResultStateValid`
-- New const `DevToolPortalProvisioningStateSucceeded`
-- New const `ApmTypeAppDynamics`
-- New const `CustomizedAcceleratorProvisioningStateUpdating`
-- New type alias `ApplicationAcceleratorProvisioningState`
-- New type alias `BackendProtocol`
-- New type alias `PredefinedAcceleratorState`
-- New type alias `CustomizedAcceleratorValidateResultState`
-- New type alias `GatewayRouteConfigProtocol`
-- New type alias `ApplicationLiveViewProvisioningState`
-- New type alias `DevToolPortalFeatureState`
-- New type alias `CustomizedAcceleratorProvisioningState`
-- New type alias `SessionAffinity`
-- New type alias `ApmType`
-- New type alias `PredefinedAcceleratorProvisioningState`
-- New type alias `DevToolPortalProvisioningState`
-- New function `*BuildServiceBuilderClient.ListDeployments(context.Context, string, string, string, string, *BuildServiceBuilderClientListDeploymentsOptions) (BuildServiceBuilderClientListDeploymentsResponse, error)`
-- New function `*ApplicationLiveViewsClient.BeginDelete(context.Context, string, string, string, *ApplicationLiveViewsClientBeginDeleteOptions) (*runtime.Poller[ApplicationLiveViewsClientDeleteResponse], error)`
-- New function `NewCustomizedAcceleratorsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CustomizedAcceleratorsClient, error)`
-- New function `*PredefinedAcceleratorsClient.BeginEnable(context.Context, string, string, string, string, *PredefinedAcceleratorsClientBeginEnableOptions) (*runtime.Poller[PredefinedAcceleratorsClientEnableResponse], error)`
-- New function `*CustomizedAcceleratorsClient.Validate(context.Context, string, string, string, string, CustomizedAcceleratorProperties, *CustomizedAcceleratorsClientValidateOptions) (CustomizedAcceleratorsClientValidateResponse, error)`
-- New function `PossibleDevToolPortalFeatureStateValues() []DevToolPortalFeatureState`
-- New function `*CustomizedAcceleratorsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, CustomizedAcceleratorResource, *CustomizedAcceleratorsClientBeginCreateOrUpdateOptions) (*runtime.Poller[CustomizedAcceleratorsClientCreateOrUpdateResponse], error)`
-- New function `*AcceleratorSSHSetting.GetAcceleratorAuthSetting() *AcceleratorAuthSetting`
-- New function `PossibleCustomizedAcceleratorValidateResultStateValues() []CustomizedAcceleratorValidateResultState`
-- New function `*DevToolPortalsClient.BeginCreateOrUpdate(context.Context, string, string, string, DevToolPortalResource, *DevToolPortalsClientBeginCreateOrUpdateOptions) (*runtime.Poller[DevToolPortalsClientCreateOrUpdateResponse], error)`
-- New function `*DeploymentsClient.BeginDisableRemoteDebugging(context.Context, string, string, string, string, *DeploymentsClientBeginDisableRemoteDebuggingOptions) (*runtime.Poller[DeploymentsClientDisableRemoteDebuggingResponse], error)`
-- New function `*DevToolPortalsClient.NewListPager(string, string, *DevToolPortalsClientListOptions) *runtime.Pager[DevToolPortalsClientListResponse]`
-- New function `*CustomizedAcceleratorsClient.BeginDelete(context.Context, string, string, string, string, *CustomizedAcceleratorsClientBeginDeleteOptions) (*runtime.Poller[CustomizedAcceleratorsClientDeleteResponse], error)`
-- New function `PossibleDevToolPortalProvisioningStateValues() []DevToolPortalProvisioningState`
-- New function `*DevToolPortalsClient.BeginDelete(context.Context, string, string, string, *DevToolPortalsClientBeginDeleteOptions) (*runtime.Poller[DevToolPortalsClientDeleteResponse], error)`
-- New function `*PredefinedAcceleratorsClient.Get(context.Context, string, string, string, string, *PredefinedAcceleratorsClientGetOptions) (PredefinedAcceleratorsClientGetResponse, error)`
-- New function `PossibleApmTypeValues() []ApmType`
-- New function `*ApplicationLiveViewsClient.BeginCreateOrUpdate(context.Context, string, string, string, ApplicationLiveViewResource, *ApplicationLiveViewsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ApplicationLiveViewsClientCreateOrUpdateResponse], error)`
-- New function `*DevToolPortalsClient.Get(context.Context, string, string, string, *DevToolPortalsClientGetOptions) (DevToolPortalsClientGetResponse, error)`
-- New function `*AcceleratorBasicAuthSetting.GetAcceleratorAuthSetting() *AcceleratorAuthSetting`
-- New function `*ApplicationLiveViewsClient.NewListPager(string, string, *ApplicationLiveViewsClientListOptions) *runtime.Pager[ApplicationLiveViewsClientListResponse]`
-- New function `*ApplicationLiveViewsClient.Get(context.Context, string, string, string, *ApplicationLiveViewsClientGetOptions) (ApplicationLiveViewsClientGetResponse, error)`
-- New function `*PredefinedAcceleratorsClient.BeginDisable(context.Context, string, string, string, string, *PredefinedAcceleratorsClientBeginDisableOptions) (*runtime.Poller[PredefinedAcceleratorsClientDisableResponse], error)`
-- New function `*DeploymentsClient.GetRemoteDebuggingConfig(context.Context, string, string, string, string, *DeploymentsClientGetRemoteDebuggingConfigOptions) (DeploymentsClientGetRemoteDebuggingConfigResponse, error)`
-- New function `PossibleCustomizedAcceleratorProvisioningStateValues() []CustomizedAcceleratorProvisioningState`
-- New function `*ApplicationAcceleratorsClient.BeginDelete(context.Context, string, string, string, *ApplicationAcceleratorsClientBeginDeleteOptions) (*runtime.Poller[ApplicationAcceleratorsClientDeleteResponse], error)`
-- New function `NewApplicationAcceleratorsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ApplicationAcceleratorsClient, error)`
-- New function `PossibleApplicationLiveViewProvisioningStateValues() []ApplicationLiveViewProvisioningState`
-- New function `*ApplicationAcceleratorsClient.BeginCreateOrUpdate(context.Context, string, string, string, ApplicationAcceleratorResource, *ApplicationAcceleratorsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ApplicationAcceleratorsClientCreateOrUpdateResponse], error)`
-- New function `*CustomizedAcceleratorsClient.Get(context.Context, string, string, string, string, *CustomizedAcceleratorsClientGetOptions) (CustomizedAcceleratorsClientGetResponse, error)`
-- New function `PossibleBackendProtocolValues() []BackendProtocol`
-- New function `*DeploymentsClient.BeginEnableRemoteDebugging(context.Context, string, string, string, string, *DeploymentsClientBeginEnableRemoteDebuggingOptions) (*runtime.Poller[DeploymentsClientEnableRemoteDebuggingResponse], error)`
-- New function `PossibleSessionAffinityValues() []SessionAffinity`
-- New function `*ApplicationAcceleratorsClient.Get(context.Context, string, string, string, *ApplicationAcceleratorsClientGetOptions) (ApplicationAcceleratorsClientGetResponse, error)`
-- New function `*GatewaysClient.ListEnvSecrets(context.Context, string, string, string, *GatewaysClientListEnvSecretsOptions) (GatewaysClientListEnvSecretsResponse, error)`
-- New function `*AcceleratorPublicSetting.GetAcceleratorAuthSetting() *AcceleratorAuthSetting`
-- New function `*PredefinedAcceleratorsClient.NewListPager(string, string, string, *PredefinedAcceleratorsClientListOptions) *runtime.Pager[PredefinedAcceleratorsClientListResponse]`
-- New function `PossiblePredefinedAcceleratorProvisioningStateValues() []PredefinedAcceleratorProvisioningState`
-- New function `*CustomizedAcceleratorsClient.NewListPager(string, string, string, *CustomizedAcceleratorsClientListOptions) *runtime.Pager[CustomizedAcceleratorsClientListResponse]`
-- New function `NewPredefinedAcceleratorsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PredefinedAcceleratorsClient, error)`
-- New function `PossibleApplicationAcceleratorProvisioningStateValues() []ApplicationAcceleratorProvisioningState`
-- New function `PossibleGatewayRouteConfigProtocolValues() []GatewayRouteConfigProtocol`
-- New function `NewApplicationLiveViewsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ApplicationLiveViewsClient, error)`
-- New function `NewDevToolPortalsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DevToolPortalsClient, error)`
-- New function `PossiblePredefinedAcceleratorStateValues() []PredefinedAcceleratorState`
-- New function `*AcceleratorAuthSetting.GetAcceleratorAuthSetting() *AcceleratorAuthSetting`
-- New function `*ApplicationAcceleratorsClient.NewListPager(string, string, *ApplicationAcceleratorsClientListOptions) *runtime.Pager[ApplicationAcceleratorsClientListResponse]`
-- New struct `AcceleratorAuthSetting`
-- New struct `AcceleratorBasicAuthSetting`
-- New struct `AcceleratorGitRepository`
-- New struct `AcceleratorPublicSetting`
-- New struct `AcceleratorSSHSetting`
-- New struct `ApplicationAcceleratorComponent`
-- New struct `ApplicationAcceleratorInstance`
-- New struct `ApplicationAcceleratorProperties`
-- New struct `ApplicationAcceleratorResource`
-- New struct `ApplicationAcceleratorResourceCollection`
-- New struct `ApplicationAcceleratorResourceRequests`
-- New struct `ApplicationAcceleratorsClient`
-- New struct `ApplicationAcceleratorsClientBeginCreateOrUpdateOptions`
-- New struct `ApplicationAcceleratorsClientBeginDeleteOptions`
-- New struct `ApplicationAcceleratorsClientCreateOrUpdateResponse`
-- New struct `ApplicationAcceleratorsClientDeleteResponse`
-- New struct `ApplicationAcceleratorsClientGetOptions`
-- New struct `ApplicationAcceleratorsClientGetResponse`
-- New struct `ApplicationAcceleratorsClientListOptions`
-- New struct `ApplicationAcceleratorsClientListResponse`
-- New struct `ApplicationLiveViewComponent`
-- New struct `ApplicationLiveViewInstance`
-- New struct `ApplicationLiveViewProperties`
-- New struct `ApplicationLiveViewResource`
-- New struct `ApplicationLiveViewResourceCollection`
-- New struct `ApplicationLiveViewResourceRequests`
-- New struct `ApplicationLiveViewsClient`
-- New struct `ApplicationLiveViewsClientBeginCreateOrUpdateOptions`
-- New struct `ApplicationLiveViewsClientBeginDeleteOptions`
-- New struct `ApplicationLiveViewsClientCreateOrUpdateResponse`
-- New struct `ApplicationLiveViewsClientDeleteResponse`
-- New struct `ApplicationLiveViewsClientGetOptions`
-- New struct `ApplicationLiveViewsClientGetResponse`
-- New struct `ApplicationLiveViewsClientListOptions`
-- New struct `ApplicationLiveViewsClientListResponse`
-- New struct `BuildServiceBuilderClientListDeploymentsOptions`
-- New struct `BuildServiceBuilderClientListDeploymentsResponse`
-- New struct `CustomizedAcceleratorProperties`
-- New struct `CustomizedAcceleratorResource`
-- New struct `CustomizedAcceleratorResourceCollection`
-- New struct `CustomizedAcceleratorValidateResult`
-- New struct `CustomizedAcceleratorsClient`
-- New struct `CustomizedAcceleratorsClientBeginCreateOrUpdateOptions`
-- New struct `CustomizedAcceleratorsClientBeginDeleteOptions`
-- New struct `CustomizedAcceleratorsClientCreateOrUpdateResponse`
-- New struct `CustomizedAcceleratorsClientDeleteResponse`
-- New struct `CustomizedAcceleratorsClientGetOptions`
-- New struct `CustomizedAcceleratorsClientGetResponse`
-- New struct `CustomizedAcceleratorsClientListOptions`
-- New struct `CustomizedAcceleratorsClientListResponse`
-- New struct `CustomizedAcceleratorsClientValidateOptions`
-- New struct `CustomizedAcceleratorsClientValidateResponse`
-- New struct `DeploymentList`
-- New struct `DeploymentsClientBeginDisableRemoteDebuggingOptions`
-- New struct `DeploymentsClientBeginEnableRemoteDebuggingOptions`
-- New struct `DeploymentsClientDisableRemoteDebuggingResponse`
-- New struct `DeploymentsClientEnableRemoteDebuggingResponse`
-- New struct `DeploymentsClientGetRemoteDebuggingConfigOptions`
-- New struct `DeploymentsClientGetRemoteDebuggingConfigResponse`
-- New struct `DevToolPortalFeatureDetail`
-- New struct `DevToolPortalFeatureSettings`
-- New struct `DevToolPortalInstance`
-- New struct `DevToolPortalProperties`
-- New struct `DevToolPortalResource`
-- New struct `DevToolPortalResourceCollection`
-- New struct `DevToolPortalResourceRequests`
-- New struct `DevToolPortalSsoProperties`
-- New struct `DevToolPortalsClient`
-- New struct `DevToolPortalsClientBeginCreateOrUpdateOptions`
-- New struct `DevToolPortalsClientBeginDeleteOptions`
-- New struct `DevToolPortalsClientCreateOrUpdateResponse`
-- New struct `DevToolPortalsClientDeleteResponse`
-- New struct `DevToolPortalsClientGetOptions`
-- New struct `DevToolPortalsClientGetResponse`
-- New struct `DevToolPortalsClientListOptions`
-- New struct `DevToolPortalsClientListResponse`
-- New struct `GatewayPropertiesEnvironmentVariables`
-- New struct `GatewaysClientListEnvSecretsOptions`
-- New struct `GatewaysClientListEnvSecretsResponse`
-- New struct `IngressSettings`
-- New struct `IngressSettingsClientAuth`
-- New struct `PredefinedAcceleratorProperties`
-- New struct `PredefinedAcceleratorResource`
-- New struct `PredefinedAcceleratorResourceCollection`
-- New struct `PredefinedAcceleratorsClient`
-- New struct `PredefinedAcceleratorsClientBeginDisableOptions`
-- New struct `PredefinedAcceleratorsClientBeginEnableOptions`
-- New struct `PredefinedAcceleratorsClientDisableResponse`
-- New struct `PredefinedAcceleratorsClientEnableResponse`
-- New struct `PredefinedAcceleratorsClientGetOptions`
-- New struct `PredefinedAcceleratorsClientGetResponse`
-- New struct `PredefinedAcceleratorsClientListOptions`
-- New struct `PredefinedAcceleratorsClientListResponse`
-- New struct `RemoteDebugging`
-- New struct `RemoteDebuggingPayload`
-- New field `IngressSettings` in struct `AppResourceProperties`
-- New field `Filters` in struct `GatewayRouteConfigProperties`
-- New field `Predicates` in struct `GatewayRouteConfigProperties`
-- New field `Protocol` in struct `GatewayRouteConfigProperties`
-- New field `SsoEnabled` in struct `GatewayRouteConfigProperties`
-- New field `Reason` in struct `BuildStageProperties`
-- New field `ExitCode` in struct `BuildStageProperties`
-- New field `ApmTypes` in struct `GatewayProperties`
-- New field `EnvironmentVariables` in struct `GatewayProperties`
-- New field `Error` in struct `BuildResultProperties`
-- New field `OutboundType` in struct `NetworkProfile`
-
-
-## 1.1.0-beta.1 (2022-05-19)
-### Features Added
-
-- New const `ProbeActionTypeTCPSocketAction`
-- New const `APIPortalProvisioningStateSucceeded`
-- New const `CertificateResourceProvisioningStateFailed`
-- New const `CertificateResourceProvisioningStateDeleting`
-- New const `StorageTypeStorageAccount`
-- New const `APIPortalProvisioningStateCreating`
-- New const `GatewayProvisioningStateSucceeded`
-- New const `CustomDomainResourceProvisioningStateFailed`
-- New const `CustomDomainResourceProvisioningStateSucceeded`
-- New const `APIPortalProvisioningStateUpdating`
-- New const `CustomDomainResourceProvisioningStateCreating`
-- New const `PowerStateStopped`
-- New const `PowerStateRunning`
-- New const `CertificateResourceProvisioningStateCreating`
-- New const `GatewayProvisioningStateFailed`
-- New const `TypeAzureFileVolume`
-- New const `ProbeActionTypeHTTPGetAction`
-- New const `CertificateResourceProvisioningStateSucceeded`
-- New const `GatewayProvisioningStateUpdating`
-- New const `CertificateResourceProvisioningStateUpdating`
-- New const `GatewayProvisioningStateDeleting`
-- New const `GatewayProvisioningStateCreating`
-- New const `HTTPSchemeTypeHTTPS`
-- New const `HTTPSchemeTypeHTTP`
-- New const `ProbeActionTypeExecAction`
-- New const `APIPortalProvisioningStateDeleting`
-- New const `APIPortalProvisioningStateFailed`
-- New const `CustomDomainResourceProvisioningStateDeleting`
-- New const `CustomDomainResourceProvisioningStateUpdating`
-- New function `*StorageAccount.GetStorageProperties() *StorageProperties`
-- New function `PossiblePowerStateValues() []PowerState`
-- New function `*TCPSocketAction.GetProbeAction() *ProbeAction`
-- New function `StorageAccount.MarshalJSON() ([]byte, error)`
-- New function `AzureFileVolume.MarshalJSON() ([]byte, error)`
-- New function `*StorageProperties.GetStorageProperties() *StorageProperties`
-- New function `GatewayAPIRoute.MarshalJSON() ([]byte, error)`
-- New function `ExecAction.MarshalJSON() ([]byte, error)`
-- New function `StorageResource.MarshalJSON() ([]byte, error)`
+- New type alias `APIPortalProvisioningState` with values `APIPortalProvisioningStateCreating`, `APIPortalProvisioningStateDeleting`, `APIPortalProvisioningStateFailed`, `APIPortalProvisioningStateSucceeded`, `APIPortalProvisioningStateUpdating`
+- New type alias `BackendProtocol` with values `BackendProtocolDefault`, `BackendProtocolGRPC`
+- New type alias `CertificateResourceProvisioningState` with values `CertificateResourceProvisioningStateCreating`, `CertificateResourceProvisioningStateDeleting`, `CertificateResourceProvisioningStateFailed`, `CertificateResourceProvisioningStateSucceeded`, `CertificateResourceProvisioningStateUpdating`
+- New type alias `CustomDomainResourceProvisioningState` with values `CustomDomainResourceProvisioningStateCreating`, `CustomDomainResourceProvisioningStateDeleting`, `CustomDomainResourceProvisioningStateFailed`, `CustomDomainResourceProvisioningStateSucceeded`, `CustomDomainResourceProvisioningStateUpdating`
+- New type alias `GatewayProvisioningState` with values `GatewayProvisioningStateCreating`, `GatewayProvisioningStateDeleting`, `GatewayProvisioningStateFailed`, `GatewayProvisioningStateSucceeded`, `GatewayProvisioningStateUpdating`
+- New type alias `GatewayRouteConfigProtocol` with values `GatewayRouteConfigProtocolHTTP`, `GatewayRouteConfigProtocolHTTPS`
+- New type alias `HTTPSchemeType` with values `HTTPSchemeTypeHTTP`, `HTTPSchemeTypeHTTPS`
+- New type alias `PowerState` with values `PowerStateRunning`, `PowerStateStopped`
+- New type alias `ProbeActionType` with values `ProbeActionTypeExecAction`, `ProbeActionTypeHTTPGetAction`, `ProbeActionTypeTCPSocketAction`
+- New type alias `SessionAffinity` with values `SessionAffinityCookie`, `SessionAffinityNone`
+- New type alias `StorageType` with values `StorageTypeStorageAccount`
+- New type alias `Type` with values `TypeAzureFileVolume`
+- New function `NewAPIPortalCustomDomainsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APIPortalCustomDomainsClient, error)`
+- New function `*APIPortalCustomDomainsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, APIPortalCustomDomainResource, *APIPortalCustomDomainsClientBeginCreateOrUpdateOptions) (*runtime.Poller[APIPortalCustomDomainsClientCreateOrUpdateResponse], error)`
+- New function `*APIPortalCustomDomainsClient.BeginDelete(context.Context, string, string, string, string, *APIPortalCustomDomainsClientBeginDeleteOptions) (*runtime.Poller[APIPortalCustomDomainsClientDeleteResponse], error)`
+- New function `*APIPortalCustomDomainsClient.Get(context.Context, string, string, string, string, *APIPortalCustomDomainsClientGetOptions) (APIPortalCustomDomainsClientGetResponse, error)`
+- New function `*APIPortalCustomDomainsClient.NewListPager(string, string, string, *APIPortalCustomDomainsClientListOptions) *runtime.Pager[APIPortalCustomDomainsClientListResponse]`
+- New function `NewAPIPortalsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APIPortalsClient, error)`
+- New function `*APIPortalsClient.BeginCreateOrUpdate(context.Context, string, string, string, APIPortalResource, *APIPortalsClientBeginCreateOrUpdateOptions) (*runtime.Poller[APIPortalsClientCreateOrUpdateResponse], error)`
+- New function `*APIPortalsClient.BeginDelete(context.Context, string, string, string, *APIPortalsClientBeginDeleteOptions) (*runtime.Poller[APIPortalsClientDeleteResponse], error)`
+- New function `*APIPortalsClient.Get(context.Context, string, string, string, *APIPortalsClientGetOptions) (APIPortalsClientGetResponse, error)`
+- New function `*APIPortalsClient.NewListPager(string, string, *APIPortalsClientListOptions) *runtime.Pager[APIPortalsClientListResponse]`
+- New function `*APIPortalsClient.ValidateDomain(context.Context, string, string, string, CustomDomainValidatePayload, *APIPortalsClientValidateDomainOptions) (APIPortalsClientValidateDomainResponse, error)`
 - New function `*AzureFileVolume.GetCustomPersistentDiskProperties() *CustomPersistentDiskProperties`
-- New function `*ProbeAction.GetProbeAction() *ProbeAction`
-- New function `PossibleStorageTypeValues() []StorageType`
-- New function `PossibleCertificateResourceProvisioningStateValues() []CertificateResourceProvisioningState`
-- New function `PossibleGatewayProvisioningStateValues() []GatewayProvisioningState`
-- New function `Probe.MarshalJSON() ([]byte, error)`
-- New function `*ExecAction.UnmarshalJSON([]byte) error`
-- New function `TCPSocketAction.MarshalJSON() ([]byte, error)`
-- New function `*StorageAccount.UnmarshalJSON([]byte) error`
-- New function `GatewayCorsProperties.MarshalJSON() ([]byte, error)`
-- New function `PossibleTypeValues() []Type`
-- New function `ManagedIdentityProperties.MarshalJSON() ([]byte, error)`
-- New function `PossibleAPIPortalProvisioningStateValues() []APIPortalProvisioningState`
-- New function `*TCPSocketAction.UnmarshalJSON([]byte) error`
-- New function `PossibleProbeActionTypeValues() []ProbeActionType`
+- New function `*BuildServiceBuilderClient.ListDeployments(context.Context, string, string, string, string, *BuildServiceBuilderClientListDeploymentsOptions) (BuildServiceBuilderClientListDeploymentsResponse, error)`
 - New function `*CustomContainerUserSourceInfo.GetUserSourceInfo() *UserSourceInfo`
-- New function `*ServicesClient.BeginStart(context.Context, string, string, *ServicesClientBeginStartOptions) (*runtime.Poller[ServicesClientStartResponse], error)`
-- New function `SsoProperties.MarshalJSON() ([]byte, error)`
-- New function `*CustomContainerUserSourceInfo.UnmarshalJSON([]byte) error`
-- New function `CustomContainer.MarshalJSON() ([]byte, error)`
 - New function `*CustomPersistentDiskProperties.GetCustomPersistentDiskProperties() *CustomPersistentDiskProperties`
-- New function `GatewayRouteConfigProperties.MarshalJSON() ([]byte, error)`
-- New function `CustomPersistentDiskResource.MarshalJSON() ([]byte, error)`
-- New function `*StorageResource.UnmarshalJSON([]byte) error`
-- New function `CustomPersistentDiskProperties.MarshalJSON() ([]byte, error)`
-- New function `PossibleCustomDomainResourceProvisioningStateValues() []CustomDomainResourceProvisioningState`
-- New function `CustomContainerUserSourceInfo.MarshalJSON() ([]byte, error)`
-- New function `*HTTPGetAction.GetProbeAction() *ProbeAction`
-- New function `*Probe.UnmarshalJSON([]byte) error`
-- New function `*CustomPersistentDiskResource.UnmarshalJSON([]byte) error`
+- New function `*DeploymentsClient.BeginDisableRemoteDebugging(context.Context, string, string, string, string, *DeploymentsClientBeginDisableRemoteDebuggingOptions) (*runtime.Poller[DeploymentsClientDisableRemoteDebuggingResponse], error)`
+- New function `*DeploymentsClient.BeginEnableRemoteDebugging(context.Context, string, string, string, string, *DeploymentsClientBeginEnableRemoteDebuggingOptions) (*runtime.Poller[DeploymentsClientEnableRemoteDebuggingResponse], error)`
+- New function `*DeploymentsClient.GetRemoteDebuggingConfig(context.Context, string, string, string, string, *DeploymentsClientGetRemoteDebuggingConfigOptions) (DeploymentsClientGetRemoteDebuggingConfigResponse, error)`
 - New function `*ExecAction.GetProbeAction() *ProbeAction`
-- New function `GatewayProperties.MarshalJSON() ([]byte, error)`
-- New function `*AzureFileVolume.UnmarshalJSON([]byte) error`
+- New function `NewGatewayCustomDomainsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GatewayCustomDomainsClient, error)`
+- New function `*GatewayCustomDomainsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, GatewayCustomDomainResource, *GatewayCustomDomainsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GatewayCustomDomainsClientCreateOrUpdateResponse], error)`
+- New function `*GatewayCustomDomainsClient.BeginDelete(context.Context, string, string, string, string, *GatewayCustomDomainsClientBeginDeleteOptions) (*runtime.Poller[GatewayCustomDomainsClientDeleteResponse], error)`
+- New function `*GatewayCustomDomainsClient.Get(context.Context, string, string, string, string, *GatewayCustomDomainsClientGetOptions) (GatewayCustomDomainsClientGetResponse, error)`
+- New function `*GatewayCustomDomainsClient.NewListPager(string, string, string, *GatewayCustomDomainsClientListOptions) *runtime.Pager[GatewayCustomDomainsClientListResponse]`
+- New function `NewGatewayRouteConfigsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GatewayRouteConfigsClient, error)`
+- New function `*GatewayRouteConfigsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, GatewayRouteConfigResource, *GatewayRouteConfigsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GatewayRouteConfigsClientCreateOrUpdateResponse], error)`
+- New function `*GatewayRouteConfigsClient.BeginDelete(context.Context, string, string, string, string, *GatewayRouteConfigsClientBeginDeleteOptions) (*runtime.Poller[GatewayRouteConfigsClientDeleteResponse], error)`
+- New function `*GatewayRouteConfigsClient.Get(context.Context, string, string, string, string, *GatewayRouteConfigsClientGetOptions) (GatewayRouteConfigsClientGetResponse, error)`
+- New function `*GatewayRouteConfigsClient.NewListPager(string, string, string, *GatewayRouteConfigsClientListOptions) *runtime.Pager[GatewayRouteConfigsClientListResponse]`
+- New function `NewGatewaysClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GatewaysClient, error)`
+- New function `*GatewaysClient.BeginCreateOrUpdate(context.Context, string, string, string, GatewayResource, *GatewaysClientBeginCreateOrUpdateOptions) (*runtime.Poller[GatewaysClientCreateOrUpdateResponse], error)`
+- New function `*GatewaysClient.BeginDelete(context.Context, string, string, string, *GatewaysClientBeginDeleteOptions) (*runtime.Poller[GatewaysClientDeleteResponse], error)`
+- New function `*GatewaysClient.Get(context.Context, string, string, string, *GatewaysClientGetOptions) (GatewaysClientGetResponse, error)`
+- New function `*GatewaysClient.NewListPager(string, string, *GatewaysClientListOptions) *runtime.Pager[GatewaysClientListResponse]`
+- New function `*GatewaysClient.ValidateDomain(context.Context, string, string, string, CustomDomainValidatePayload, *GatewaysClientValidateDomainOptions) (GatewaysClientValidateDomainResponse, error)`
+- New function `*HTTPGetAction.GetProbeAction() *ProbeAction`
+- New function `*ProbeAction.GetProbeAction() *ProbeAction`
+- New function `*ServicesClient.BeginStart(context.Context, string, string, *ServicesClientBeginStartOptions) (*runtime.Poller[ServicesClientStartResponse], error)`
 - New function `*ServicesClient.BeginStop(context.Context, string, string, *ServicesClientBeginStopOptions) (*runtime.Poller[ServicesClientStopResponse], error)`
-- New function `GatewayOperatorProperties.MarshalJSON() ([]byte, error)`
-- New function `*HTTPGetAction.UnmarshalJSON([]byte) error`
-- New function `HTTPGetAction.MarshalJSON() ([]byte, error)`
-- New function `PossibleHTTPSchemeTypeValues() []HTTPSchemeType`
-- New function `APIPortalProperties.MarshalJSON() ([]byte, error)`
+- New function `*StorageAccount.GetStorageProperties() *StorageProperties`
+- New function `*StorageProperties.GetStorageProperties() *StorageProperties`
+- New function `NewStoragesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*StoragesClient, error)`
+- New function `*StoragesClient.BeginCreateOrUpdate(context.Context, string, string, string, StorageResource, *StoragesClientBeginCreateOrUpdateOptions) (*runtime.Poller[StoragesClientCreateOrUpdateResponse], error)`
+- New function `*StoragesClient.BeginDelete(context.Context, string, string, string, *StoragesClientBeginDeleteOptions) (*runtime.Poller[StoragesClientDeleteResponse], error)`
+- New function `*StoragesClient.Get(context.Context, string, string, string, *StoragesClientGetOptions) (StoragesClientGetResponse, error)`
+- New function `*StoragesClient.NewListPager(string, string, *StoragesClientListOptions) *runtime.Pager[StoragesClientListResponse]`
+- New function `*TCPSocketAction.GetProbeAction() *ProbeAction`
 - New struct `APIPortalCustomDomainProperties`
 - New struct `APIPortalCustomDomainResource`
 - New struct `APIPortalCustomDomainResourceCollection`
-- New struct `APIPortalCustomDomainsClientBeginCreateOrUpdateOptions`
-- New struct `APIPortalCustomDomainsClientBeginDeleteOptions`
-- New struct `APIPortalCustomDomainsClientCreateOrUpdateResponse`
-- New struct `APIPortalCustomDomainsClientDeleteResponse`
-- New struct `APIPortalCustomDomainsClientGetOptions`
-- New struct `APIPortalCustomDomainsClientGetResponse`
-- New struct `APIPortalCustomDomainsClientListOptions`
-- New struct `APIPortalCustomDomainsClientListResponse`
+- New struct `APIPortalCustomDomainsClient`
 - New struct `APIPortalInstance`
 - New struct `APIPortalProperties`
 - New struct `APIPortalResource`
 - New struct `APIPortalResourceCollection`
 - New struct `APIPortalResourceRequests`
-- New struct `APIPortalsClientBeginCreateOrUpdateOptions`
-- New struct `APIPortalsClientBeginDeleteOptions`
-- New struct `APIPortalsClientCreateOrUpdateResponse`
-- New struct `APIPortalsClientDeleteResponse`
-- New struct `APIPortalsClientGetOptions`
-- New struct `APIPortalsClientGetResponse`
-- New struct `APIPortalsClientListOptions`
-- New struct `APIPortalsClientListResponse`
-- New struct `APIPortalsClientValidateDomainOptions`
-- New struct `APIPortalsClientValidateDomainResponse`
+- New struct `APIPortalsClient`
 - New struct `AppVNetAddons`
 - New struct `AzureFileVolume`
 - New struct `BuildResourceRequests`
 - New struct `ContainerProbeSettings`
 - New struct `CustomContainer`
 - New struct `CustomContainerUserSourceInfo`
-- New struct `CustomPersistentDiskProperties`
 - New struct `CustomPersistentDiskResource`
+- New struct `DeploymentList`
 - New struct `ExecAction`
 - New struct `GatewayAPIMetadataProperties`
 - New struct `GatewayAPIRoute`
@@ -335,14 +92,7 @@
 - New struct `GatewayCustomDomainProperties`
 - New struct `GatewayCustomDomainResource`
 - New struct `GatewayCustomDomainResourceCollection`
-- New struct `GatewayCustomDomainsClientBeginCreateOrUpdateOptions`
-- New struct `GatewayCustomDomainsClientBeginDeleteOptions`
-- New struct `GatewayCustomDomainsClientCreateOrUpdateResponse`
-- New struct `GatewayCustomDomainsClientDeleteResponse`
-- New struct `GatewayCustomDomainsClientGetOptions`
-- New struct `GatewayCustomDomainsClientGetResponse`
-- New struct `GatewayCustomDomainsClientListOptions`
-- New struct `GatewayCustomDomainsClientListResponse`
+- New struct `GatewayCustomDomainsClient`
 - New struct `GatewayInstance`
 - New struct `GatewayOperatorProperties`
 - New struct `GatewayOperatorResourceRequests`
@@ -354,67 +104,42 @@
 - New struct `GatewayRouteConfigProperties`
 - New struct `GatewayRouteConfigResource`
 - New struct `GatewayRouteConfigResourceCollection`
-- New struct `GatewayRouteConfigsClientBeginCreateOrUpdateOptions`
-- New struct `GatewayRouteConfigsClientBeginDeleteOptions`
-- New struct `GatewayRouteConfigsClientCreateOrUpdateResponse`
-- New struct `GatewayRouteConfigsClientDeleteResponse`
-- New struct `GatewayRouteConfigsClientGetOptions`
-- New struct `GatewayRouteConfigsClientGetResponse`
-- New struct `GatewayRouteConfigsClientListOptions`
-- New struct `GatewayRouteConfigsClientListResponse`
-- New struct `GatewaysClientBeginCreateOrUpdateOptions`
-- New struct `GatewaysClientBeginDeleteOptions`
-- New struct `GatewaysClientCreateOrUpdateResponse`
-- New struct `GatewaysClientDeleteResponse`
-- New struct `GatewaysClientGetOptions`
-- New struct `GatewaysClientGetResponse`
-- New struct `GatewaysClientListOptions`
-- New struct `GatewaysClientListResponse`
-- New struct `GatewaysClientValidateDomainOptions`
-- New struct `GatewaysClientValidateDomainResponse`
+- New struct `GatewayRouteConfigsClient`
+- New struct `GatewaysClient`
 - New struct `HTTPGetAction`
 - New struct `ImageRegistryCredential`
 - New struct `IngressConfig`
-- New struct `MarketplaceResource`
+- New struct `IngressSettings`
+- New struct `IngressSettingsClientAuth`
 - New struct `Probe`
-- New struct `ProbeAction`
+- New struct `RemoteDebugging`
+- New struct `RemoteDebuggingPayload`
 - New struct `ServiceVNetAddons`
-- New struct `ServicesClientBeginStartOptions`
-- New struct `ServicesClientBeginStopOptions`
-- New struct `ServicesClientStartResponse`
-- New struct `ServicesClientStopResponse`
 - New struct `SsoProperties`
 - New struct `StorageAccount`
-- New struct `StorageProperties`
 - New struct `StorageResource`
 - New struct `StorageResourceCollection`
-- New struct `StoragesClientBeginCreateOrUpdateOptions`
-- New struct `StoragesClientBeginDeleteOptions`
-- New struct `StoragesClientCreateOrUpdateResponse`
-- New struct `StoragesClientDeleteResponse`
-- New struct `StoragesClientGetOptions`
-- New struct `StoragesClientGetResponse`
-- New struct `StoragesClientListOptions`
-- New struct `StoragesClientListResponse`
+- New struct `StoragesClient`
 - New struct `TCPSocketAction`
 - New struct `UserAssignedManagedIdentity`
-- New field `ProvisioningState` in struct `KeyVaultCertificateProperties`
+- New field `CustomPersistentDisks` in struct `AppResourceProperties`
+- New field `IngressSettings` in struct `AppResourceProperties`
+- New field `VnetAddons` in struct `AppResourceProperties`
+- New field `ResourceRequests` in struct `BuildProperties`
 - New field `ProvisioningState` in struct `CertificateProperties`
-- New field `IngressConfig` in struct `NetworkProfile`
+- New field `PowerState` in struct `ClusterResourceProperties`
+- New field `VnetAddons` in struct `ClusterResourceProperties`
+- New field `ProvisioningState` in struct `ContentCertificateProperties`
+- New field `ProvisioningState` in struct `CustomDomainProperties`
+- New field `ContainerProbeSettings` in struct `DeploymentSettings`
 - New field `LivenessProbe` in struct `DeploymentSettings`
 - New field `ReadinessProbe` in struct `DeploymentSettings`
 - New field `StartupProbe` in struct `DeploymentSettings`
 - New field `TerminationGracePeriodSeconds` in struct `DeploymentSettings`
-- New field `ContainerProbeSettings` in struct `DeploymentSettings`
-- New field `ResourceRequests` in struct `BuildProperties`
-- New field `ProvisioningState` in struct `CustomDomainProperties`
-- New field `MarketplaceResource` in struct `ClusterResourceProperties`
-- New field `VnetAddons` in struct `ClusterResourceProperties`
-- New field `PowerState` in struct `ClusterResourceProperties`
+- New field `ProvisioningState` in struct `KeyVaultCertificateProperties`
 - New field `UserAssignedIdentities` in struct `ManagedIdentityProperties`
-- New field `ProvisioningState` in struct `ContentCertificateProperties`
-- New field `CustomPersistentDisks` in struct `AppResourceProperties`
-- New field `VnetAddons` in struct `AppResourceProperties`
+- New field `IngressConfig` in struct `NetworkProfile`
+- New field `OutboundType` in struct `NetworkProfile`
 
 
 ## 1.0.0 (2022-05-17)

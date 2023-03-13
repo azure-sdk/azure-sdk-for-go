@@ -32,10 +32,10 @@ type GatewayCustomDomainsClient struct {
 }
 
 // NewGatewayCustomDomainsClient creates a new instance of GatewayCustomDomainsClient with the specified values.
-// subscriptionID - Gets subscription ID which uniquely identify the Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Gets subscription ID which uniquely identify the Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGatewayCustomDomainsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GatewayCustomDomainsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,15 +58,16 @@ func NewGatewayCustomDomainsClient(subscriptionID string, credential azcore.Toke
 
 // BeginCreateOrUpdate - Create or update the Spring Cloud Gateway custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serviceName - The name of the Service resource.
-// gatewayName - The name of Spring Cloud Gateway.
-// domainName - The name of the Spring Cloud Gateway custom domain.
-// gatewayCustomDomainResource - The gateway custom domain resource for the create or update operation
-// options - GatewayCustomDomainsClientBeginCreateOrUpdateOptions contains the optional parameters for the GatewayCustomDomainsClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2022-12-01
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - gatewayName - The name of Spring Cloud Gateway.
+//   - domainName - The name of the Spring Cloud Gateway custom domain.
+//   - gatewayCustomDomainResource - The gateway custom domain resource for the create or update operation
+//   - options - GatewayCustomDomainsClientBeginCreateOrUpdateOptions contains the optional parameters for the GatewayCustomDomainsClient.BeginCreateOrUpdate
+//     method.
 func (client *GatewayCustomDomainsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, domainName string, gatewayCustomDomainResource GatewayCustomDomainResource, options *GatewayCustomDomainsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GatewayCustomDomainsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, serviceName, gatewayName, domainName, gatewayCustomDomainResource, options)
@@ -81,7 +82,8 @@ func (client *GatewayCustomDomainsClient) BeginCreateOrUpdate(ctx context.Contex
 
 // CreateOrUpdate - Create or update the Spring Cloud Gateway custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+//
+// Generated from API version 2022-12-01
 func (client *GatewayCustomDomainsClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, domainName string, gatewayCustomDomainResource GatewayCustomDomainResource, options *GatewayCustomDomainsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, gatewayName, domainName, gatewayCustomDomainResource, options)
 	if err != nil {
@@ -125,7 +127,7 @@ func (client *GatewayCustomDomainsClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, gatewayCustomDomainResource)
@@ -133,14 +135,15 @@ func (client *GatewayCustomDomainsClient) createOrUpdateCreateRequest(ctx contex
 
 // BeginDelete - Delete the Spring Cloud Gateway custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serviceName - The name of the Service resource.
-// gatewayName - The name of Spring Cloud Gateway.
-// domainName - The name of the Spring Cloud Gateway custom domain.
-// options - GatewayCustomDomainsClientBeginDeleteOptions contains the optional parameters for the GatewayCustomDomainsClient.BeginDelete
-// method.
+//
+// Generated from API version 2022-12-01
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - gatewayName - The name of Spring Cloud Gateway.
+//   - domainName - The name of the Spring Cloud Gateway custom domain.
+//   - options - GatewayCustomDomainsClientBeginDeleteOptions contains the optional parameters for the GatewayCustomDomainsClient.BeginDelete
+//     method.
 func (client *GatewayCustomDomainsClient) BeginDelete(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, domainName string, options *GatewayCustomDomainsClientBeginDeleteOptions) (*runtime.Poller[GatewayCustomDomainsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, serviceName, gatewayName, domainName, options)
@@ -155,7 +158,8 @@ func (client *GatewayCustomDomainsClient) BeginDelete(ctx context.Context, resou
 
 // Delete - Delete the Spring Cloud Gateway custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
+//
+// Generated from API version 2022-12-01
 func (client *GatewayCustomDomainsClient) deleteOperation(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, domainName string, options *GatewayCustomDomainsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serviceName, gatewayName, domainName, options)
 	if err != nil {
@@ -199,7 +203,7 @@ func (client *GatewayCustomDomainsClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -207,14 +211,15 @@ func (client *GatewayCustomDomainsClient) deleteCreateRequest(ctx context.Contex
 
 // Get - Get the Spring Cloud Gateway custom domain.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serviceName - The name of the Service resource.
-// gatewayName - The name of Spring Cloud Gateway.
-// domainName - The name of the Spring Cloud Gateway custom domain.
-// options - GatewayCustomDomainsClientGetOptions contains the optional parameters for the GatewayCustomDomainsClient.Get
-// method.
+//
+// Generated from API version 2022-12-01
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - gatewayName - The name of Spring Cloud Gateway.
+//   - domainName - The name of the Spring Cloud Gateway custom domain.
+//   - options - GatewayCustomDomainsClientGetOptions contains the optional parameters for the GatewayCustomDomainsClient.Get
+//     method.
 func (client *GatewayCustomDomainsClient) Get(ctx context.Context, resourceGroupName string, serviceName string, gatewayName string, domainName string, options *GatewayCustomDomainsClientGetOptions) (GatewayCustomDomainsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, serviceName, gatewayName, domainName, options)
 	if err != nil {
@@ -258,7 +263,7 @@ func (client *GatewayCustomDomainsClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -274,13 +279,14 @@ func (client *GatewayCustomDomainsClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListPager - Handle requests to list all Spring Cloud Gateway custom domains.
-// Generated from API version 2022-11-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// serviceName - The name of the Service resource.
-// gatewayName - The name of Spring Cloud Gateway.
-// options - GatewayCustomDomainsClientListOptions contains the optional parameters for the GatewayCustomDomainsClient.List
-// method.
+//
+// Generated from API version 2022-12-01
+//   - resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
+//     Resource Manager API or the portal.
+//   - serviceName - The name of the Service resource.
+//   - gatewayName - The name of Spring Cloud Gateway.
+//   - options - GatewayCustomDomainsClientListOptions contains the optional parameters for the GatewayCustomDomainsClient.NewListPager
+//     method.
 func (client *GatewayCustomDomainsClient) NewListPager(resourceGroupName string, serviceName string, gatewayName string, options *GatewayCustomDomainsClientListOptions) *runtime.Pager[GatewayCustomDomainsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GatewayCustomDomainsClientListResponse]{
 		More: func(page GatewayCustomDomainsClientListResponse) bool {
@@ -333,7 +339,7 @@ func (client *GatewayCustomDomainsClient) listCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01-preview")
+	reqQP.Set("api-version", "2022-12-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
