@@ -1,5 +1,150 @@
 # Release History
 
+## 0.4.0 (2023-03-13)
+### Breaking Changes
+
+- Const `SAPVirtualInstanceStatusSoftShutdown` from type alias `SAPVirtualInstanceStatus` has been removed
+- Type alias `ApplicationServerVirtualMachineType` has been removed
+- Type alias `NamingPatternType` has been removed
+- Type alias `SapLandscapeMonitorProvisioningState` has been removed
+- Function `*SAPApplicationServerInstancesClient.BeginStartInstance` has been removed
+- Function `*SAPApplicationServerInstancesClient.BeginStopInstance` has been removed
+- Function `*SAPCentralInstancesClient.BeginStartInstance` has been removed
+- Function `*SAPCentralInstancesClient.BeginStopInstance` has been removed
+- Function `*SAPDatabaseInstancesClient.BeginStartInstance` has been removed
+- Function `*SAPDatabaseInstancesClient.BeginStopInstance` has been removed
+- Function `NewSapLandscapeMonitorClient` has been removed
+- Function `*SapLandscapeMonitorClient.Create` has been removed
+- Function `*SapLandscapeMonitorClient.Delete` has been removed
+- Function `*SapLandscapeMonitorClient.Get` has been removed
+- Function `*SapLandscapeMonitorClient.List` has been removed
+- Function `*SapLandscapeMonitorClient.Update` has been removed
+- Function `*SingleServerCustomResourceNames.GetSingleServerCustomResourceNames` has been removed
+- Function `*SingleServerFullResourceNames.GetSingleServerCustomResourceNames` has been removed
+- Function `*ThreeTierCustomResourceNames.GetThreeTierCustomResourceNames` has been removed
+- Function `*ThreeTierFullResourceNames.GetThreeTierCustomResourceNames` has been removed
+- Struct `ApplicationServerFullResourceNames` has been removed
+- Struct `ApplicationServerVMDetails` has been removed
+- Struct `CentralServerFullResourceNames` has been removed
+- Struct `DatabaseServerFullResourceNames` has been removed
+- Struct `DiskDetails` has been removed
+- Struct `LoadBalancerResourceNames` has been removed
+- Struct `NetworkInterfaceResourceNames` has been removed
+- Struct `SapLandscapeMonitor` has been removed
+- Struct `SapLandscapeMonitorClient` has been removed
+- Struct `SapLandscapeMonitorListResult` has been removed
+- Struct `SapLandscapeMonitorMetricThresholds` has been removed
+- Struct `SapLandscapeMonitorProperties` has been removed
+- Struct `SapLandscapeMonitorPropertiesGrouping` has been removed
+- Struct `SapLandscapeMonitorSidMapping` has been removed
+- Struct `SharedStorageResourceNames` has been removed
+- Struct `SingleServerFullResourceNames` has been removed
+- Struct `ThreeTierFullResourceNames` has been removed
+- Struct `VirtualMachineResourceNames` has been removed
+- Field `ManagedRgStorageAccountName` of struct `DiscoveryConfiguration` has been removed
+- Field `SapSid` of struct `HanaDbProviderInstanceProperties` has been removed
+- Field `SapSid` of struct `PrometheusOSProviderInstanceProperties` has been removed
+- Field `LoadBalancerDetails` of struct `SAPApplicationServerProperties` has been removed
+- Field `VMDetails` of struct `SAPApplicationServerProperties` has been removed
+- Field `RecommendedConfiguration` of struct `SAPDiskConfiguration` has been removed
+- Field `SupportedConfigurations` of struct `SAPDiskConfiguration` has been removed
+- Field `VolumeConfigurations` of struct `SAPDiskConfigurationsResult` has been removed
+- Field `CustomResourceNames` of struct `SingleServerConfiguration` has been removed
+- Field `SoftStopTimeoutSeconds` of struct `StopRequest` has been removed
+- Field `CustomResourceNames` of struct `ThreeTierConfiguration` has been removed
+
+### Features Added
+
+- New type alias `ApplicationProvisioningState` with values `ApplicationProvisioningStateAccepted`, `ApplicationProvisioningStateCanceled`, `ApplicationProvisioningStateCreated`, `ApplicationProvisioningStateFailed`, `ApplicationProvisioningStateInstalling`, `ApplicationProvisioningStateNotSpecified`, `ApplicationProvisioningStateSucceeded`
+- New type alias `AzureFrontDoorEnabled` with values `AzureFrontDoorEnabledDisabled`, `AzureFrontDoorEnabledEnabled`
+- New type alias `DatabaseTier` with values `DatabaseTierBurstable`, `DatabaseTierGeneralPurpose`, `DatabaseTierMemoryOptimized`
+- New type alias `DatabaseType` with values `DatabaseTypeMySQL`
+- New type alias `DiskStorageType` with values `DiskStorageTypePremiumLRS`, `DiskStorageTypeStandardLRS`, `DiskStorageTypeStandardSSDLRS`
+- New type alias `EnableBackup` with values `EnableBackupDisabled`, `EnableBackupEnabled`
+- New type alias `EnableSSLEnforcement` with values `EnableSSLEnforcementDisabled`, `EnableSSLEnforcementEnabled`
+- New type alias `FileShareStorageType` with values `FileShareStorageTypePremiumLRS`, `FileShareStorageTypeStandardGRS`, `FileShareStorageTypeStandardLRS`, `FileShareStorageTypeStandardZRS`
+- New type alias `FileShareType` with values `FileShareTypeAzureFiles`, `FileShareTypeNfsOnController`
+- New type alias `HAEnabled` with values `HAEnabledDisabled`, `HAEnabledEnabled`
+- New type alias `LoadBalancerType` with values `LoadBalancerTypeApplicationGateway`, `LoadBalancerTypeLoadBalancer`
+- New type alias `LocationType` with values `LocationTypeEdgeZone`, `LocationTypeRegion`
+- New type alias `OSImageOffer` with values `OSImageOfferUbuntuServer`
+- New type alias `OSImagePublisher` with values `OSImagePublisherCanonical`
+- New type alias `OSImageSKU` with values `OSImageSKUEighteen04LTS`, `OSImageSKUSixteen04LTS`
+- New type alias `OSImageVersion` with values `OSImageVersionLatest`
+- New type alias `PHPVersion` with values `PHPVersionSeven2`, `PHPVersionSeven3`, `PHPVersionSeven4`
+- New type alias `PhpWorkloadProvisioningState` with values `PhpWorkloadProvisioningStateAccepted`, `PhpWorkloadProvisioningStateCanceled`, `PhpWorkloadProvisioningStateCreated`, `PhpWorkloadProvisioningStateDeleting`, `PhpWorkloadProvisioningStateFailed`, `PhpWorkloadProvisioningStateNotSpecified`, `PhpWorkloadProvisioningStateProvisioning`, `PhpWorkloadProvisioningStateSucceeded`
+- New type alias `RedisCacheFamily` with values `RedisCacheFamilyC`, `RedisCacheFamilyP`
+- New type alias `SKURestrictionReasonCode` with values `SKURestrictionReasonCodeNotAvailableForSubscription`, `SKURestrictionReasonCodeNotSpecified`, `SKURestrictionReasonCodeQuotaID`
+- New type alias `SKURestrictionType` with values `SKURestrictionTypeLocation`, `SKURestrictionTypeNotSpecified`, `SKURestrictionTypeZone`
+- New type alias `SKUScaleType` with values `SKUScaleTypeAutomatic`, `SKUScaleTypeManual`, `SKUScaleTypeNone`
+- New type alias `SKUTier` with values `SKUTierBasic`, `SKUTierFree`, `SKUTierPremium`, `SKUTierStandard`
+- New type alias `SearchType` with values `SearchTypeElastic`
+- New type alias `WordpressVersions` with values `WordpressVersionsFive4`, `WordpressVersionsFive41`, `WordpressVersionsFive42`, `WordpressVersionsFive43`
+- New type alias `WorkloadKind` with values `WorkloadKindWordPress`
+- New function `NewPhpWorkloadsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PhpWorkloadsClient, error)`
+- New function `*PhpWorkloadsClient.BeginCreateOrUpdate(context.Context, string, string, PhpWorkloadResource, *PhpWorkloadsClientBeginCreateOrUpdateOptions) (*runtime.Poller[PhpWorkloadsClientCreateOrUpdateResponse], error)`
+- New function `*PhpWorkloadsClient.BeginDelete(context.Context, string, string, *PhpWorkloadsClientBeginDeleteOptions) (*runtime.Poller[PhpWorkloadsClientDeleteResponse], error)`
+- New function `*PhpWorkloadsClient.Get(context.Context, string, string, *PhpWorkloadsClientGetOptions) (PhpWorkloadsClientGetResponse, error)`
+- New function `*PhpWorkloadsClient.NewListByResourceGroupPager(string, *PhpWorkloadsClientListByResourceGroupOptions) *runtime.Pager[PhpWorkloadsClientListByResourceGroupResponse]`
+- New function `*PhpWorkloadsClient.NewListBySubscriptionPager(*PhpWorkloadsClientListBySubscriptionOptions) *runtime.Pager[PhpWorkloadsClientListBySubscriptionResponse]`
+- New function `*PhpWorkloadsClient.Update(context.Context, string, string, PatchResourceRequestBody, *PhpWorkloadsClientUpdateOptions) (PhpWorkloadsClientUpdateResponse, error)`
+- New function `NewSKUsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SKUsClient, error)`
+- New function `*SKUsClient.NewListPager(*SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse]`
+- New function `NewWordpressInstancesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*WordpressInstancesClient, error)`
+- New function `*WordpressInstancesClient.BeginCreateOrUpdate(context.Context, string, string, WordpressInstanceResource, *WordpressInstancesClientBeginCreateOrUpdateOptions) (*runtime.Poller[WordpressInstancesClientCreateOrUpdateResponse], error)`
+- New function `*WordpressInstancesClient.Delete(context.Context, string, string, *WordpressInstancesClientDeleteOptions) (WordpressInstancesClientDeleteResponse, error)`
+- New function `*WordpressInstancesClient.Get(context.Context, string, string, *WordpressInstancesClientGetOptions) (WordpressInstancesClientGetResponse, error)`
+- New function `*WordpressInstancesClient.NewListPager(string, string, *WordpressInstancesClientListOptions) *runtime.Pager[WordpressInstancesClientListResponse]`
+- New struct `BackupProfile`
+- New struct `CacheProfile`
+- New struct `DatabaseProfile`
+- New struct `DiskInfo`
+- New struct `FileshareProfile`
+- New struct `NetworkProfile`
+- New struct `NodeProfile`
+- New struct `OsImageProfile`
+- New struct `PatchResourceRequestBody`
+- New struct `PatchResourceRequestBodyIdentity`
+- New struct `PhpProfile`
+- New struct `PhpWorkloadResource`
+- New struct `PhpWorkloadResourceIdentity`
+- New struct `PhpWorkloadResourceList`
+- New struct `PhpWorkloadResourceProperties`
+- New struct `PhpWorkloadsClient`
+- New struct `RestrictionInfo`
+- New struct `SKU`
+- New struct `SKUCapability`
+- New struct `SKUCapacity`
+- New struct `SKUCost`
+- New struct `SKUDefinition`
+- New struct `SKULocationAndZones`
+- New struct `SKURestriction`
+- New struct `SKUZoneDetail`
+- New struct `SKUsClient`
+- New struct `SKUsListResult`
+- New struct `SearchProfile`
+- New struct `SiteProfile`
+- New struct `UserProfile`
+- New struct `VmssNodesProfile`
+- New struct `WordpressInstanceResource`
+- New struct `WordpressInstanceResourceList`
+- New struct `WordpressInstanceResourceProperties`
+- New struct `WordpressInstancesClient`
+- New field `DbSSLCertificateURI` in struct `HanaDbProviderInstanceProperties`
+- New field `StorageDetails` in struct `SAPApplicationServerProperties`
+- New field `VirtualMachineID` in struct `SAPApplicationServerProperties`
+- New field `DiskCount` in struct `SAPDiskConfiguration`
+- New field `DiskIopsReadWrite` in struct `SAPDiskConfiguration`
+- New field `DiskMBpsReadWrite` in struct `SAPDiskConfiguration`
+- New field `DiskSizeGB` in struct `SAPDiskConfiguration`
+- New field `DiskStorageType` in struct `SAPDiskConfiguration`
+- New field `DiskType` in struct `SAPDiskConfiguration`
+- New field `Volume` in struct `SAPDiskConfiguration`
+- New field `DiskConfigurations` in struct `SAPDiskConfigurationsResult`
+- New field `SapSSLCertificateURI` in struct `SapNetWeaverProviderInstanceProperties`
+- New field `HardStop` in struct `StopRequest`
+
+
 ## 0.3.0 (2023-02-24)
 ### Breaking Changes
 

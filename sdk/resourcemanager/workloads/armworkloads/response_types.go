@@ -74,6 +74,36 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// PhpWorkloadsClientCreateOrUpdateResponse contains the response from method PhpWorkloadsClient.BeginCreateOrUpdate.
+type PhpWorkloadsClientCreateOrUpdateResponse struct {
+	PhpWorkloadResource
+}
+
+// PhpWorkloadsClientDeleteResponse contains the response from method PhpWorkloadsClient.BeginDelete.
+type PhpWorkloadsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PhpWorkloadsClientGetResponse contains the response from method PhpWorkloadsClient.Get.
+type PhpWorkloadsClientGetResponse struct {
+	PhpWorkloadResource
+}
+
+// PhpWorkloadsClientListByResourceGroupResponse contains the response from method PhpWorkloadsClient.NewListByResourceGroupPager.
+type PhpWorkloadsClientListByResourceGroupResponse struct {
+	PhpWorkloadResourceList
+}
+
+// PhpWorkloadsClientListBySubscriptionResponse contains the response from method PhpWorkloadsClient.NewListBySubscriptionPager.
+type PhpWorkloadsClientListBySubscriptionResponse struct {
+	PhpWorkloadResourceList
+}
+
+// PhpWorkloadsClientUpdateResponse contains the response from method PhpWorkloadsClient.Update.
+type PhpWorkloadsClientUpdateResponse struct {
+	PhpWorkloadResource
+}
+
 // ProviderInstancesClientCreateResponse contains the response from method ProviderInstancesClient.BeginCreate.
 type ProviderInstancesClientCreateResponse struct {
 	ProviderInstance
@@ -114,16 +144,6 @@ type SAPApplicationServerInstancesClientListResponse struct {
 	SAPApplicationServerInstanceList
 }
 
-// SAPApplicationServerInstancesClientStartInstanceResponse contains the response from method SAPApplicationServerInstancesClient.BeginStartInstance.
-type SAPApplicationServerInstancesClientStartInstanceResponse struct {
-	OperationStatusResult
-}
-
-// SAPApplicationServerInstancesClientStopInstanceResponse contains the response from method SAPApplicationServerInstancesClient.BeginStopInstance.
-type SAPApplicationServerInstancesClientStopInstanceResponse struct {
-	OperationStatusResult
-}
-
 // SAPApplicationServerInstancesClientUpdateResponse contains the response from method SAPApplicationServerInstancesClient.BeginUpdate.
 type SAPApplicationServerInstancesClientUpdateResponse struct {
 	SAPApplicationServerInstance
@@ -149,16 +169,6 @@ type SAPCentralInstancesClientListResponse struct {
 	SAPCentralInstanceList
 }
 
-// SAPCentralInstancesClientStartInstanceResponse contains the response from method SAPCentralInstancesClient.BeginStartInstance.
-type SAPCentralInstancesClientStartInstanceResponse struct {
-	OperationStatusResult
-}
-
-// SAPCentralInstancesClientStopInstanceResponse contains the response from method SAPCentralInstancesClient.BeginStopInstance.
-type SAPCentralInstancesClientStopInstanceResponse struct {
-	OperationStatusResult
-}
-
 // SAPCentralInstancesClientUpdateResponse contains the response from method SAPCentralInstancesClient.BeginUpdate.
 type SAPCentralInstancesClientUpdateResponse struct {
 	SAPCentralServerInstance
@@ -182,16 +192,6 @@ type SAPDatabaseInstancesClientGetResponse struct {
 // SAPDatabaseInstancesClientListResponse contains the response from method SAPDatabaseInstancesClient.NewListPager.
 type SAPDatabaseInstancesClientListResponse struct {
 	SAPDatabaseInstanceList
-}
-
-// SAPDatabaseInstancesClientStartInstanceResponse contains the response from method SAPDatabaseInstancesClient.BeginStartInstance.
-type SAPDatabaseInstancesClientStartInstanceResponse struct {
-	OperationStatusResult
-}
-
-// SAPDatabaseInstancesClientStopInstanceResponse contains the response from method SAPDatabaseInstancesClient.BeginStopInstance.
-type SAPDatabaseInstancesClientStopInstanceResponse struct {
-	OperationStatusResult
 }
 
 // SAPDatabaseInstancesClientUpdateResponse contains the response from method SAPDatabaseInstancesClient.BeginUpdate.
@@ -239,27 +239,27 @@ type SAPVirtualInstancesClientUpdateResponse struct {
 	SAPVirtualInstance
 }
 
-// SapLandscapeMonitorClientCreateResponse contains the response from method SapLandscapeMonitorClient.Create.
-type SapLandscapeMonitorClientCreateResponse struct {
-	SapLandscapeMonitor
+// SKUsClientListResponse contains the response from method SKUsClient.NewListPager.
+type SKUsClientListResponse struct {
+	SKUsListResult
 }
 
-// SapLandscapeMonitorClientDeleteResponse contains the response from method SapLandscapeMonitorClient.Delete.
-type SapLandscapeMonitorClientDeleteResponse struct {
+// WordpressInstancesClientCreateOrUpdateResponse contains the response from method WordpressInstancesClient.BeginCreateOrUpdate.
+type WordpressInstancesClientCreateOrUpdateResponse struct {
+	WordpressInstanceResource
+}
+
+// WordpressInstancesClientDeleteResponse contains the response from method WordpressInstancesClient.Delete.
+type WordpressInstancesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// SapLandscapeMonitorClientGetResponse contains the response from method SapLandscapeMonitorClient.Get.
-type SapLandscapeMonitorClientGetResponse struct {
-	SapLandscapeMonitor
+// WordpressInstancesClientGetResponse contains the response from method WordpressInstancesClient.Get.
+type WordpressInstancesClientGetResponse struct {
+	WordpressInstanceResource
 }
 
-// SapLandscapeMonitorClientListResponse contains the response from method SapLandscapeMonitorClient.List.
-type SapLandscapeMonitorClientListResponse struct {
-	SapLandscapeMonitorListResult
-}
-
-// SapLandscapeMonitorClientUpdateResponse contains the response from method SapLandscapeMonitorClient.Update.
-type SapLandscapeMonitorClientUpdateResponse struct {
-	SapLandscapeMonitor
+// WordpressInstancesClientListResponse contains the response from method WordpressInstancesClient.NewListPager.
+type WordpressInstancesClientListResponse struct {
+	WordpressInstanceResourceList
 }

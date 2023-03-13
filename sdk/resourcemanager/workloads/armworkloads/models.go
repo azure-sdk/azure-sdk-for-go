@@ -23,27 +23,31 @@ type ApplicationServerConfiguration struct {
 	VirtualMachineConfiguration *VirtualMachineConfiguration `json:"virtualMachineConfiguration,omitempty"`
 }
 
-// ApplicationServerFullResourceNames - The full resource names object for application layer resources. The number of entries
-// in this list should be equal to the number VMs to be created for application layer.
-type ApplicationServerFullResourceNames struct {
-	// The full name for availability set. In case name is not provided, it will be defaulted to {SID}-App-AvSet.
-	AvailabilitySetName *string `json:"availabilitySetName,omitempty"`
+// BackupProfile - Backup profile
+type BackupProfile struct {
+	// REQUIRED; Whether to enable Azure backup for the workload
+	BackupEnabled *EnableBackup `json:"backupEnabled,omitempty"`
 
-	// The list of virtual machine naming details.
-	VirtualMachines []*VirtualMachineResourceNames `json:"virtualMachines,omitempty"`
+	// READ-ONLY; Backup vault resource Id
+	VaultResourceID *string `json:"vaultResourceId,omitempty" azure:"ro"`
 }
 
-// ApplicationServerVMDetails - The Application Server VM Details.
-type ApplicationServerVMDetails struct {
-	// READ-ONLY; Storage details of all the Storage Accounts attached to the App Virtual Machine. For e.g. NFS on AFS Shared
-	// Storage.
-	StorageDetails []*StorageInformation `json:"storageDetails,omitempty" azure:"ro"`
+// CacheProfile - Cache profile
+type CacheProfile struct {
+	// REQUIRED; Cache capacity
+	Capacity *int64 `json:"capacity,omitempty"`
 
-	// READ-ONLY; Defines the type of application server VM.
-	Type *ApplicationServerVirtualMachineType `json:"type,omitempty" azure:"ro"`
+	// REQUIRED; Cache family
+	Family *RedisCacheFamily `json:"family,omitempty"`
 
-	// READ-ONLY
-	VirtualMachineID *string `json:"virtualMachineId,omitempty" azure:"ro"`
+	// REQUIRED; Cache SKU name
+	SKUName *string `json:"skuName,omitempty"`
+
+	// Cache name
+	Name *string `json:"name,omitempty"`
+
+	// READ-ONLY; Cache resource Id
+	CacheResourceID *string `json:"cacheResourceId,omitempty" azure:"ro"`
 }
 
 // CentralServerConfiguration - Gets or sets the central server configuration.
@@ -56,20 +60,6 @@ type CentralServerConfiguration struct {
 
 	// REQUIRED; Gets or sets the virtual machine configuration.
 	VirtualMachineConfiguration *VirtualMachineConfiguration `json:"virtualMachineConfiguration,omitempty"`
-}
-
-// CentralServerFullResourceNames - The full resource names object for central server layer resources.
-type CentralServerFullResourceNames struct {
-	// The full name for availability set. In case name is not provided, it will be defaulted to {SID}-ASCS-AvSet.
-	AvailabilitySetName *string `json:"availabilitySetName,omitempty"`
-
-	// The resource names object for load balancer and related resources.
-	LoadBalancer *LoadBalancerResourceNames `json:"loadBalancer,omitempty"`
-
-	// The list of names for all ASCS virtual machines to be deployed. The number of entries in this list should be equal to the
-	// number VMs to be created for ASCS layer. At maximum, there can be two virtual
-	// machines at this layer: ASCS and ERS.
-	VirtualMachines []*VirtualMachineResourceNames `json:"virtualMachines,omitempty"`
 }
 
 // CentralServerVMDetails - The SAP Central Services Instance VM details.
@@ -186,17 +176,43 @@ type DatabaseConfiguration struct {
 	DiskConfiguration *DiskConfiguration `json:"diskConfiguration,omitempty"`
 }
 
-// DatabaseServerFullResourceNames - The full resource names object for database layer resources. The number of entries in
-// this list should be equal to the number VMs to be created for database layer.
-type DatabaseServerFullResourceNames struct {
-	// The full name for availability set. In case name is not provided, it will be defaulted to {SID}-DB-AvSet.
-	AvailabilitySetName *string `json:"availabilitySetName,omitempty"`
+// DatabaseProfile - Workload database profile
+type DatabaseProfile struct {
+	// REQUIRED; The name of the server SKU, e.g. StandardD32sv4
+	SKU *string `json:"sku,omitempty"`
 
-	// The resource names object for load balancer and related resources.
-	LoadBalancer *LoadBalancerResourceNames `json:"loadBalancer,omitempty"`
+	// REQUIRED; Tier of the server SKU
+	Tier *DatabaseTier `json:"tier,omitempty"`
 
-	// The list of virtual machine naming details.
-	VirtualMachines []*VirtualMachineResourceNames `json:"virtualMachines,omitempty"`
+	// REQUIRED; Database type
+	Type *DatabaseType `json:"type,omitempty"`
+
+	// Backup retention days for the server
+	BackupRetentionDays *int32 `json:"backupRetentionDays,omitempty"`
+
+	// Whether to enable HA for the server
+	HaEnabled *HAEnabled `json:"haEnabled,omitempty"`
+
+	// Whether to enable SSL enforcement on the database
+	SSLEnforcementEnabled *EnableSSLEnforcement `json:"sslEnforcementEnabled,omitempty"`
+
+	// Database server name
+	ServerName *string `json:"serverName,omitempty"`
+
+	// Database storage size in GB
+	StorageInGB *int64 `json:"storageInGB,omitempty"`
+
+	// Storage IOPS for the server
+	StorageIops *int64 `json:"storageIops,omitempty"`
+
+	// SKU name for database storage
+	StorageSKU *string `json:"storageSku,omitempty"`
+
+	// Database version
+	Version *string `json:"version,omitempty"`
+
+	// READ-ONLY; Azure Database Server resource Id
+	ServerResourceID *string `json:"serverResourceId,omitempty" azure:"ro"`
 }
 
 // DatabaseVMDetails - Database VM details.
@@ -276,12 +292,6 @@ type DiscoveryConfiguration struct {
 	// The virtual machine ID of the Central Server.
 	CentralServerVMID *string `json:"centralServerVmId,omitempty"`
 
-	// The custom storage account name for the storage account created by the service in the managed resource group created as
-	// part of VIS deployment.
-	// Refer to the storage account naming rules here [https://learn.microsoft.com/azure/azure-resource-manager/management/resource-name-rules#microsoftstorage].
-	// If not provided, the service will create the storage account with a random name.
-	ManagedRgStorageAccountName *string `json:"managedRgStorageAccountName,omitempty"`
-
 	// READ-ONLY; The geo-location where the SAP system exists.
 	AppLocation *string `json:"appLocation,omitempty" azure:"ro"`
 }
@@ -300,28 +310,13 @@ type DiskConfiguration struct {
 	DiskVolumeConfigurations map[string]*DiskVolumeConfiguration `json:"diskVolumeConfigurations,omitempty"`
 }
 
-// DiskDetails - The supported disk size details for a disk type.
-type DiskDetails struct {
-	// The disk tier, e.g. P10, E10.
-	DiskTier *string `json:"diskTier,omitempty"`
+// DiskInfo - Disk resource creation details
+type DiskInfo struct {
+	// REQUIRED; Storage type
+	StorageType *DiskStorageType `json:"storageType,omitempty"`
 
-	// The disk Iops.
-	IopsReadWrite *int64 `json:"iopsReadWrite,omitempty"`
-
-	// The maximum supported disk count.
-	MaximumSupportedDiskCount *int64 `json:"maximumSupportedDiskCount,omitempty"`
-
-	// The disk provisioned throughput in MBps.
-	MbpsReadWrite *int64 `json:"mbpsReadWrite,omitempty"`
-
-	// The minimum supported disk count.
-	MinimumSupportedDiskCount *int64 `json:"minimumSupportedDiskCount,omitempty"`
-
-	// The disk sku.
-	SKU *DiskSKU `json:"sku,omitempty"`
-
-	// The disk size in GB.
-	SizeGB *int64 `json:"sizeGB,omitempty"`
+	// Disk size in GB
+	SizeInGB *int64 `json:"sizeInGB,omitempty"`
 }
 
 // DiskSKU - The disk sku.
@@ -487,6 +482,24 @@ type FileShareConfiguration struct {
 // GetFileShareConfiguration implements the FileShareConfigurationClassification interface for type FileShareConfiguration.
 func (f *FileShareConfiguration) GetFileShareConfiguration() *FileShareConfiguration { return f }
 
+// FileshareProfile - File share profile
+type FileshareProfile struct {
+	// REQUIRED; Share type
+	ShareType *FileShareType `json:"shareType,omitempty"`
+
+	// REQUIRED; File share backing storage type
+	StorageType *FileShareStorageType `json:"storageType,omitempty"`
+
+	// File share size in GB
+	ShareSizeInGB *int64 `json:"shareSizeInGB,omitempty"`
+
+	// READ-ONLY; File share name
+	ShareName *string `json:"shareName,omitempty" azure:"ro"`
+
+	// READ-ONLY; File share storage resource id
+	StorageResourceID *string `json:"storageResourceId,omitempty" azure:"ro"`
+}
+
 // GatewayServerProperties - Defines the SAP Gateway Server properties.
 type GatewayServerProperties struct {
 	// READ-ONLY; Defines the health of SAP Instances.
@@ -510,6 +523,9 @@ type HanaDbProviderInstanceProperties struct {
 	// Gets or sets the key vault URI to secret with the database password.
 	DbPasswordURI *string `json:"dbPasswordUri,omitempty"`
 
+	// Gets or sets the blob URI to SSL certificate for the DB.
+	DbSSLCertificateURI *string `json:"dbSslCertificateUri,omitempty"`
+
 	// Gets or sets the database user name.
 	DbUsername *string `json:"dbUsername,omitempty"`
 
@@ -530,9 +546,6 @@ type HanaDbProviderInstanceProperties struct {
 
 	// Gets or sets certificate preference if secure communication is enabled.
 	SSLPreference *SSLPreference `json:"sslPreference,omitempty"`
-
-	// Gets or sets the SAP System Identifier.
-	SapSid *string `json:"sapSid,omitempty"`
 }
 
 // GetProviderSpecificProperties implements the ProviderSpecificPropertiesClassification interface for type HanaDbProviderInstanceProperties.
@@ -638,23 +651,6 @@ func (l *LinuxConfiguration) GetOSConfiguration() *OSConfiguration {
 type LoadBalancerDetails struct {
 	// READ-ONLY
 	ID *string `json:"id,omitempty" azure:"ro"`
-}
-
-// LoadBalancerResourceNames - The resource names object for load balancer and related resources.
-type LoadBalancerResourceNames struct {
-	// The list of backend pool names. Currently, ACSS deploys only one backend pool and hence, size of this list should be 1
-	BackendPoolNames []*string `json:"backendPoolNames,omitempty"`
-
-	// The list of frontend IP configuration names. If provided as input, size of this list should be 2 for cs layer and should
-	// be 1 for database layer.
-	FrontendIPConfigurationNames []*string `json:"frontendIpConfigurationNames,omitempty"`
-
-	// The list of health probe names. If provided as input, size of this list should be 2 for cs layer and should be 1 for database
-	// layer.
-	HealthProbeNames []*string `json:"healthProbeNames,omitempty"`
-
-	// The full resource name for load balancer. If this value is not provided, load balancer will be name as {ASCS/DB}-loadBalancer.
-	LoadBalancerName *string `json:"loadBalancerName,omitempty"`
 }
 
 // ManagedRGConfiguration - Managed resource group configuration
@@ -871,14 +867,58 @@ type NetworkConfiguration struct {
 	IsSecondaryIPEnabled *bool `json:"isSecondaryIpEnabled,omitempty"`
 }
 
-// NetworkInterfaceResourceNames - The resource names object for network interface and related resources.
-type NetworkInterfaceResourceNames struct {
-	// The full name for network interface. If name is not provided, service uses a default name based on the deployment type.
-	// For SingleServer, default name is {SID}-Nic. In case of HA-AvZone systems,
-	// default name will be {SID}-{App/ASCS/DB}-Zone{A/B}-Nic with an incrementor at the end in case of more than 1 instance per
-	// layer. For distributed and HA-AvSet systems, default name will be
-	// {SID}-{App/ASCS/DB}-Nic with an incrementor at the end in case of more than 1 instance per layer.
-	NetworkInterfaceName *string `json:"networkInterfaceName,omitempty"`
+// NetworkProfile - Network profile
+type NetworkProfile struct {
+	// REQUIRED; Load balancer type
+	LoadBalancerType *LoadBalancerType `json:"loadBalancerType,omitempty"`
+
+	// Whether to enable Azure front door
+	AzureFrontDoorEnabled *AzureFrontDoorEnabled `json:"azureFrontDoorEnabled,omitempty"`
+
+	// Capacity, applicable only for Application Gateway
+	Capacity *int32 `json:"capacity,omitempty"`
+
+	// Load balancer SKU
+	LoadBalancerSKU *string `json:"loadBalancerSku,omitempty"`
+
+	// Load balancer tier
+	LoadBalancerTier *string `json:"loadBalancerTier,omitempty"`
+
+	// READ-ONLY; Azure front door resource id
+	AzureFrontDoorResourceID *string `json:"azureFrontDoorResourceId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Loadbalancer front-end IP address resource Id
+	FrontEndPublicIPResourceID *string `json:"frontEndPublicIpResourceId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Loadbalancer or ApplicationGateway resource Id
+	LoadBalancerResourceID *string `json:"loadBalancerResourceId,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of outbound public IP resource IDs
+	OutboundPublicIPResourceIDs []*string `json:"outboundPublicIpResourceIds,omitempty" azure:"ro"`
+
+	// READ-ONLY; Virtual network resource Id
+	VNetResourceID *string `json:"vNetResourceId,omitempty" azure:"ro"`
+}
+
+// NodeProfile - VM or VMSS node profile
+type NodeProfile struct {
+	// REQUIRED; VM SKU for node(s)
+	NodeSKU *string `json:"nodeSku,omitempty"`
+
+	// REQUIRED; OS disk details
+	OSDisk *DiskInfo `json:"osDisk,omitempty"`
+
+	// REQUIRED; OS image used for creating the nodes
+	OSImage *OsImageProfile `json:"osImage,omitempty"`
+
+	// Data disks details. This property is not in use right now
+	DataDisks []*DiskInfo `json:"dataDisks,omitempty"`
+
+	// VM or VMSS name
+	Name *string `json:"name,omitempty"`
+
+	// READ-ONLY; VM/VMSS resource ARM Ids
+	NodeResourceIDs []*string `json:"nodeResourceIds,omitempty" azure:"ro"`
 }
 
 // OSConfigurationClassification provides polymorphic access to related types.
@@ -1093,6 +1133,21 @@ type OperationsDisplayDefinition struct {
 	Resource *string `json:"resource,omitempty"`
 }
 
+// OsImageProfile - OS image profile
+type OsImageProfile struct {
+	// OS image offer
+	Offer *OSImageOffer `json:"offer,omitempty"`
+
+	// OS image publisher
+	Publisher *OSImagePublisher `json:"publisher,omitempty"`
+
+	// OS image sku
+	SKU *OSImageSKU `json:"sku,omitempty"`
+
+	// OS image version
+	Version *OSImageVersion `json:"version,omitempty"`
+}
+
 // OsSapConfiguration - Defines the OS and SAP Configurations for Deployment
 type OsSapConfiguration struct {
 	// The url and storage account ID where deployer VM packages are uploaded
@@ -1100,6 +1155,161 @@ type OsSapConfiguration struct {
 
 	// The FQDN to set for the SAP system
 	SapFqdn *string `json:"sapFqdn,omitempty"`
+}
+
+// PatchResourceRequestBody - Resource patch request body
+type PatchResourceRequestBody struct {
+	Identity *PatchResourceRequestBodyIdentity `json:"identity,omitempty"`
+
+	// Resource tags
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+type PatchResourceRequestBodyIdentity struct {
+	// REQUIRED; Type of manage identity
+	Type *ManagedServiceIdentityType `json:"type,omitempty"`
+
+	// User assigned identities dictionary
+	UserAssignedIdentities map[string]*UserAssignedIdentity `json:"userAssignedIdentities,omitempty"`
+}
+
+// PhpProfile - PHP profile
+type PhpProfile struct {
+	// REQUIRED; PHP version
+	Version *PHPVersion `json:"version,omitempty"`
+}
+
+// PhpWorkloadResource - Php workload resource
+type PhpWorkloadResource struct {
+	// REQUIRED; Indicates which kind of php workload this resource represent e.g WordPress
+	Kind *WorkloadKind `json:"kind,omitempty"`
+
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Identity for the resource. Currently not supported
+	Identity *PhpWorkloadResourceIdentity `json:"identity,omitempty"`
+
+	// Resource properties
+	Properties *PhpWorkloadResourceProperties `json:"properties,omitempty"`
+
+	// Php workloads SKU
+	SKU *SKU `json:"sku,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PhpWorkloadResourceIdentity - Identity for the resource. Currently not supported
+type PhpWorkloadResourceIdentity struct {
+	// REQUIRED; Type of manage identity
+	Type *ManagedServiceIdentityType `json:"type,omitempty"`
+
+	// User assigned identities dictionary
+	UserAssignedIdentities map[string]*UserAssignedIdentity `json:"userAssignedIdentities,omitempty"`
+}
+
+// PhpWorkloadResourceList - Php workload resource list
+type PhpWorkloadResourceList struct {
+	// Link to next page of resources
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// List of resources in current page
+	Value []*PhpWorkloadResource `json:"value,omitempty"`
+}
+
+// PhpWorkloadResourceProperties - PHP workload resource properties
+type PhpWorkloadResourceProperties struct {
+	// REQUIRED; Admin user profile used for VM and VMSS
+	AdminUserProfile *UserProfile `json:"adminUserProfile,omitempty"`
+
+	// REQUIRED; The infra resources for PHP workload will be created in this location
+	AppLocation *string `json:"appLocation,omitempty"`
+
+	// REQUIRED; Controller VM profile
+	ControllerProfile *NodeProfile `json:"controllerProfile,omitempty"`
+
+	// REQUIRED; Database profile
+	DatabaseProfile *DatabaseProfile `json:"databaseProfile,omitempty"`
+
+	// REQUIRED; VMSS web nodes profile
+	WebNodesProfile *VmssNodesProfile `json:"webNodesProfile,omitempty"`
+
+	// Backup profile
+	BackupProfile *BackupProfile `json:"backupProfile,omitempty"`
+
+	// Cache profile
+	CacheProfile *CacheProfile `json:"cacheProfile,omitempty"`
+
+	// File share profile
+	FileshareProfile *FileshareProfile `json:"fileshareProfile,omitempty"`
+
+	// Managed resource group configuration of the workload
+	ManagedResourceGroupConfiguration *ManagedRGConfiguration `json:"managedResourceGroupConfiguration,omitempty"`
+
+	// Network profile
+	NetworkProfile *NetworkProfile `json:"networkProfile,omitempty"`
+
+	// PHP profile
+	PhpProfile *PhpProfile `json:"phpProfile,omitempty"`
+
+	// Search profile
+	SearchProfile *SearchProfile `json:"searchProfile,omitempty"`
+
+	// Site profile
+	SiteProfile *SiteProfile `json:"siteProfile,omitempty"`
+
+	// READ-ONLY; Php workload resource provisioning state
+	ProvisioningState *PhpWorkloadProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// PhpWorkloadsClientBeginCreateOrUpdateOptions contains the optional parameters for the PhpWorkloadsClient.BeginCreateOrUpdate
+// method.
+type PhpWorkloadsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PhpWorkloadsClientBeginDeleteOptions contains the optional parameters for the PhpWorkloadsClient.BeginDelete method.
+type PhpWorkloadsClientBeginDeleteOptions struct {
+	// Whether to delete infra along with workload resource.
+	DeleteInfra *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PhpWorkloadsClientGetOptions contains the optional parameters for the PhpWorkloadsClient.Get method.
+type PhpWorkloadsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PhpWorkloadsClientListByResourceGroupOptions contains the optional parameters for the PhpWorkloadsClient.NewListByResourceGroupPager
+// method.
+type PhpWorkloadsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PhpWorkloadsClientListBySubscriptionOptions contains the optional parameters for the PhpWorkloadsClient.NewListBySubscriptionPager
+// method.
+type PhpWorkloadsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PhpWorkloadsClientUpdateOptions contains the optional parameters for the PhpWorkloadsClient.Update method.
+type PhpWorkloadsClientUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // PrometheusHaClusterProviderInstanceProperties - Gets or sets the PrometheusHaCluster provider properties.
@@ -1146,9 +1356,6 @@ type PrometheusOSProviderInstanceProperties struct {
 
 	// Gets or sets certificate preference if secure communication is enabled.
 	SSLPreference *SSLPreference `json:"sslPreference,omitempty"`
-
-	// Gets or sets the SAP System Identifier
-	SapSid *string `json:"sapSid,omitempty"`
 }
 
 // GetProviderSpecificProperties implements the ProviderSpecificPropertiesClassification interface for type PrometheusOSProviderInstanceProperties.
@@ -1294,6 +1501,15 @@ type Resource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// RestrictionInfo - The SKU restriction information.
+type RestrictionInfo struct {
+	// The restriction locations.
+	Locations []*string `json:"locations,omitempty"`
+
+	// The restriction zones.
+	Zones []*string `json:"zones,omitempty"`
+}
+
 // SAPApplicationServerInstance - Define the SAP Application Server Instance resource.
 type SAPApplicationServerInstance struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -1337,22 +1553,6 @@ type SAPApplicationServerInstancesClientBeginCreateOptions struct {
 // SAPApplicationServerInstancesClientBeginDeleteOptions contains the optional parameters for the SAPApplicationServerInstancesClient.BeginDelete
 // method.
 type SAPApplicationServerInstancesClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// SAPApplicationServerInstancesClientBeginStartInstanceOptions contains the optional parameters for the SAPApplicationServerInstancesClient.BeginStartInstance
-// method.
-type SAPApplicationServerInstancesClientBeginStartInstanceOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// SAPApplicationServerInstancesClientBeginStopInstanceOptions contains the optional parameters for the SAPApplicationServerInstancesClient.BeginStopInstance
-// method.
-type SAPApplicationServerInstancesClientBeginStopInstanceOptions struct {
-	// SAP Application server instance stop request body.
-	Body *StopRequest
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1408,20 +1608,21 @@ type SAPApplicationServerProperties struct {
 	// READ-ONLY; Application server instance SAP Kernel Version.
 	KernelVersion *string `json:"kernelVersion,omitempty" azure:"ro"`
 
-	// READ-ONLY; The Load Balancer details such as LoadBalancer ID attached to Application Server Virtual Machines
-	LoadBalancerDetails *LoadBalancerDetails `json:"loadBalancerDetails,omitempty" azure:"ro"`
-
 	// READ-ONLY; Defines the provisioning states.
 	ProvisioningState *SapVirtualInstanceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 
 	// READ-ONLY; Defines the SAP Instance status.
 	Status *SAPVirtualInstanceStatus `json:"status,omitempty" azure:"ro"`
 
+	// READ-ONLY; Storage details of all the Storage Accounts attached to the App Virtual Machine. For e.g. NFS on AFS Shared
+	// Storage.
+	StorageDetails []*StorageInformation `json:"storageDetails,omitempty" azure:"ro"`
+
 	// READ-ONLY; Application server Subnet.
 	Subnet *string `json:"subnet,omitempty" azure:"ro"`
 
-	// READ-ONLY; The list of virtual machines.
-	VMDetails []*ApplicationServerVMDetails `json:"vmDetails,omitempty" azure:"ro"`
+	// READ-ONLY; The virtual machine.
+	VirtualMachineID *string `json:"virtualMachineId,omitempty" azure:"ro"`
 }
 
 // SAPAvailabilityZoneDetailsRequest - The SAP request to get list of availability zones.
@@ -1470,22 +1671,6 @@ type SAPCentralInstancesClientBeginCreateOptions struct {
 // SAPCentralInstancesClientBeginDeleteOptions contains the optional parameters for the SAPCentralInstancesClient.BeginDelete
 // method.
 type SAPCentralInstancesClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// SAPCentralInstancesClientBeginStartInstanceOptions contains the optional parameters for the SAPCentralInstancesClient.BeginStartInstance
-// method.
-type SAPCentralInstancesClientBeginStartInstanceOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// SAPCentralInstancesClientBeginStopInstanceOptions contains the optional parameters for the SAPCentralInstancesClient.BeginStopInstance
-// method.
-type SAPCentralInstancesClientBeginStopInstanceOptions struct {
-	// SAP Central Services instance stop request body.
-	Body *StopRequest
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1641,22 +1826,6 @@ type SAPDatabaseInstancesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// SAPDatabaseInstancesClientBeginStartInstanceOptions contains the optional parameters for the SAPDatabaseInstancesClient.BeginStartInstance
-// method.
-type SAPDatabaseInstancesClientBeginStartInstanceOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// SAPDatabaseInstancesClientBeginStopInstanceOptions contains the optional parameters for the SAPDatabaseInstancesClient.BeginStopInstance
-// method.
-type SAPDatabaseInstancesClientBeginStopInstanceOptions struct {
-	// Stop request for the database instance of the SAP system.
-	Body *StopRequest
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
 // SAPDatabaseInstancesClientBeginUpdateOptions contains the optional parameters for the SAPDatabaseInstancesClient.BeginUpdate
 // method.
 type SAPDatabaseInstancesClientBeginUpdateOptions struct {
@@ -1705,14 +1874,28 @@ type SAPDatabaseProperties struct {
 	VMDetails []*DatabaseVMDetails `json:"vmDetails,omitempty" azure:"ro"`
 }
 
-// SAPDiskConfiguration - The SAP Disk Configuration contains 'recommended disk' details and list of supported disks detail
-// for a volume type.
+// SAPDiskConfiguration - The SAP Disk Configuration.
 type SAPDiskConfiguration struct {
-	// The recommended disk details for a given VM Sku.
-	RecommendedConfiguration *DiskVolumeConfiguration `json:"recommendedConfiguration,omitempty"`
+	// The disk count.
+	DiskCount *int64 `json:"diskCount,omitempty"`
 
-	// The list of supported disks for a given VM Sku.
-	SupportedConfigurations []*DiskDetails `json:"supportedConfigurations,omitempty"`
+	// The disk Iops.
+	DiskIopsReadWrite *int64 `json:"diskIopsReadWrite,omitempty"`
+
+	// The disk provisioned throughput in MBps.
+	DiskMBpsReadWrite *int64 `json:"diskMBpsReadWrite,omitempty"`
+
+	// The disk size in GB.
+	DiskSizeGB *int64 `json:"diskSizeGB,omitempty"`
+
+	// The disk storage type
+	DiskStorageType *string `json:"diskStorageType,omitempty"`
+
+	// The disk type.
+	DiskType *string `json:"diskType,omitempty"`
+
+	// The volume name.
+	Volume *string `json:"volume,omitempty"`
 }
 
 // SAPDiskConfigurationsRequest - The SAP request to get list of disk configurations.
@@ -1738,9 +1921,8 @@ type SAPDiskConfigurationsRequest struct {
 
 // SAPDiskConfigurationsResult - The list of disk configuration for vmSku which are part of SAP deployment.
 type SAPDiskConfigurationsResult struct {
-	// The disk configuration for the db volume. For HANA, Required volumes are: ['hana/data', 'hana/log', hana/shared', 'usr/sap',
-	// 'os'], Optional volume : ['backup'].
-	VolumeConfigurations map[string]*SAPDiskConfiguration `json:"volumeConfigurations,omitempty"`
+	// Gets the list of Disk Configurations.
+	DiskConfigurations []*SAPDiskConfiguration `json:"diskConfigurations,omitempty"`
 }
 
 // SAPInstallWithoutOSConfigSoftwareConfiguration - The SAP Software configuration Input when the software is to be installed
@@ -1983,6 +2165,159 @@ type SAPVirtualInstancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SKU - The resource model definition representing SKU
+type SKU struct {
+	// REQUIRED; The name of the SKU. Ex - P3. It is typically a letter+number code
+	Name *string `json:"name,omitempty"`
+
+	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
+	// resource this may be omitted.
+	Capacity *int32 `json:"capacity,omitempty"`
+
+	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
+	Family *string `json:"family,omitempty"`
+
+	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
+	Size *string `json:"size,omitempty"`
+
+	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
+	// on a PUT.
+	Tier *SKUTier `json:"tier,omitempty"`
+}
+
+// SKUCapability - The SKU capability definition.
+type SKUCapability struct {
+	// The capability name.
+	Name *string `json:"name,omitempty"`
+
+	// The capability value.
+	Value *string `json:"value,omitempty"`
+}
+
+// SKUCapacity - The SKU capacity.
+type SKUCapacity struct {
+	// Default capacity value.
+	Default *int32 `json:"default,omitempty"`
+
+	// Maximum capacity value.
+	Maximum *int32 `json:"maximum,omitempty"`
+
+	// Minimum capacity value.
+	Minimum *int32 `json:"minimum,omitempty"`
+
+	// Scale type of the SKU capacity.
+	ScaleType *SKUScaleType `json:"scaleType,omitempty"`
+}
+
+// SKUCost - The SKU cost definition.
+type SKUCost struct {
+	// The extended unit.
+	ExtendedUnit *string `json:"extendedUnit,omitempty"`
+
+	// Billing meter id.
+	MeterID *string `json:"meterId,omitempty"`
+
+	// The quantity.
+	Quantity *int32 `json:"quantity,omitempty"`
+}
+
+// SKUDefinition - The SKU definition.
+type SKUDefinition struct {
+	// REQUIRED; The name of the SKU.
+	Name *string `json:"name,omitempty"`
+
+	// The SKU capabilities.
+	Capabilities []*SKUCapability `json:"capabilities,omitempty"`
+
+	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
+	// resource this may be omitted.
+	Capacity any `json:"capacity,omitempty"`
+
+	// The SKU costs.
+	Costs []*SKUCost `json:"costs,omitempty"`
+
+	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
+	Family *string `json:"family,omitempty"`
+
+	// If the service has different kinds of hardware, for the same SKU, then that can be captured here.
+	Kind *string `json:"kind,omitempty"`
+
+	// List of locations where this SKU is available.
+	LocationInfo []*SKULocationAndZones `json:"locationInfo,omitempty"`
+
+	// List of locations where this SKU is available.
+	Locations []*string `json:"locations,omitempty"`
+
+	// Resource type the SKU applicable for.
+	ResourceType *string `json:"resourceType,omitempty"`
+
+	// The SKU restrictions.
+	Restrictions []*SKURestriction `json:"restrictions,omitempty"`
+
+	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
+	Size *string `json:"size,omitempty"`
+
+	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
+	// on a PUT.
+	Tier *string `json:"tier,omitempty"`
+}
+
+// SKULocationAndZones - The SKU location and zone.
+type SKULocationAndZones struct {
+	// The extended locations of SKU.
+	ExtendedLocations []*string `json:"extendedLocations,omitempty"`
+
+	// The location of the SKU.
+	Location *string `json:"location,omitempty"`
+
+	// Type of the extended location.
+	Type *LocationType `json:"type,omitempty"`
+
+	// The availability zone details of the SKU location.
+	ZoneDetails []*SKUZoneDetail `json:"zoneDetails,omitempty"`
+
+	// The availability zones of SKU location.
+	Zones []*string `json:"zones,omitempty"`
+}
+
+// SKURestriction - The SKU restriction definition.
+type SKURestriction struct {
+	// The SKU restriction reason code.
+	ReasonCode *SKURestrictionReasonCode `json:"reasonCode,omitempty"`
+
+	// The restriction information.
+	RestrictionInfo any `json:"restrictionInfo,omitempty"`
+
+	// The SKU restriction type.
+	Type *SKURestrictionType `json:"type,omitempty"`
+
+	// Restriction values.
+	Values []*string `json:"values,omitempty"`
+}
+
+// SKUZoneDetail - The SKU zone details.
+type SKUZoneDetail struct {
+	// The capabilities.
+	Capabilities []*SKUCapability `json:"capabilities,omitempty"`
+
+	// The physical zones.
+	Zones []*string `json:"zones,omitempty"`
+}
+
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
+type SKUsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SKUsListResult - A list of SKUs supported by an Azure Resource Provider.
+type SKUsListResult struct {
+	// READ-ONLY; URL to get the next set of SKU list results (if there are any).
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of SKUs supported by the resource provider
+	Value []*SKUDefinition `json:"value,omitempty" azure:"ro"`
+}
+
 // SSHConfiguration - SSH configuration for Linux based VMs running on Azure
 type SSHConfiguration struct {
 	// The list of SSH public keys used to authenticate with linux based VMs.
@@ -2006,103 +2341,6 @@ type SSHPublicKey struct {
 	// format.
 	// For creating ssh keys, see Create SSH keys on Linux and Mac for Linux VMs in Azure [https://docs.microsoft.com/azure/virtual-machines/linux/create-ssh-keys-detailed].
 	KeyData *string `json:"keyData,omitempty"`
-}
-
-// SapLandscapeMonitor - configuration associated with SAP Landscape Monitor Dashboard.
-type SapLandscapeMonitor struct {
-	// Sap Landscape Monitor properties
-	Properties *SapLandscapeMonitorProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// SapLandscapeMonitorClientCreateOptions contains the optional parameters for the SapLandscapeMonitorClient.Create method.
-type SapLandscapeMonitorClientCreateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SapLandscapeMonitorClientDeleteOptions contains the optional parameters for the SapLandscapeMonitorClient.Delete method.
-type SapLandscapeMonitorClientDeleteOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SapLandscapeMonitorClientGetOptions contains the optional parameters for the SapLandscapeMonitorClient.Get method.
-type SapLandscapeMonitorClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SapLandscapeMonitorClientListOptions contains the optional parameters for the SapLandscapeMonitorClient.List method.
-type SapLandscapeMonitorClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SapLandscapeMonitorClientUpdateOptions contains the optional parameters for the SapLandscapeMonitorClient.Update method.
-type SapLandscapeMonitorClientUpdateOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SapLandscapeMonitorListResult - The response from the List SAP Landscape Monitor Dashboard operation.
-type SapLandscapeMonitorListResult struct {
-	// The URL to get the next set of SAP Landscape Monitor Dashboard.
-	NextLink *string `json:"nextLink,omitempty"`
-
-	// The list of Sap Landscape Monitor configuration.
-	Value []*SapLandscapeMonitor `json:"value,omitempty"`
-}
-
-// SapLandscapeMonitorMetricThresholds - Gets or sets the Threshold Values for Top Metrics Health.
-type SapLandscapeMonitorMetricThresholds struct {
-	// Gets or sets the threshold value for Green.
-	Green *float32 `json:"green,omitempty"`
-
-	// Gets or sets the name of the threshold.
-	Name *string `json:"name,omitempty"`
-
-	// Gets or sets the threshold value for Red.
-	Red *float32 `json:"red,omitempty"`
-
-	// Gets or sets the threshold value for Yellow.
-	Yellow *float32 `json:"yellow,omitempty"`
-}
-
-// SapLandscapeMonitorProperties - Gets or sets the properties for Sap Landscape Monitor Dashboard.
-type SapLandscapeMonitorProperties struct {
-	// Gets or sets the SID groupings by landscape and Environment.
-	Grouping *SapLandscapeMonitorPropertiesGrouping `json:"grouping,omitempty"`
-
-	// Gets or sets the list Top Metric Thresholds for SAP Landscape Monitor Dashboard
-	TopMetricsThresholds []*SapLandscapeMonitorMetricThresholds `json:"topMetricsThresholds,omitempty"`
-
-	// READ-ONLY; State of provisioning of the SAP monitor.
-	ProvisioningState *SapLandscapeMonitorProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// SapLandscapeMonitorPropertiesGrouping - Gets or sets the SID groupings by landscape and Environment.
-type SapLandscapeMonitorPropertiesGrouping struct {
-	// Gets or sets the list of landscape to SID mappings.
-	Landscape []*SapLandscapeMonitorSidMapping `json:"landscape,omitempty"`
-
-	// Gets or sets the list of Sap Applications to SID mappings.
-	SapApplication []*SapLandscapeMonitorSidMapping `json:"sapApplication,omitempty"`
-}
-
-// SapLandscapeMonitorSidMapping - Gets or sets the mapping for SID to Environment/Applications.
-type SapLandscapeMonitorSidMapping struct {
-	// Gets or sets the name of the grouping.
-	Name *string `json:"name,omitempty"`
-
-	// Gets or sets the list of SID's.
-	TopSid []*string `json:"topSid,omitempty"`
 }
 
 // SapNetWeaverProviderInstanceProperties - Gets or sets the provider properties.
@@ -2137,6 +2375,9 @@ type SapNetWeaverProviderInstanceProperties struct {
 	// Gets or sets the SAP HTTP port number.
 	SapPortNumber *string `json:"sapPortNumber,omitempty"`
 
+	// Gets or sets the blob URI to SSL certificate for the SAP system.
+	SapSSLCertificateURI *string `json:"sapSslCertificateUri,omitempty"`
+
 	// Gets or sets the SAP System Identifier
 	SapSid *string `json:"sapSid,omitempty"`
 
@@ -2149,6 +2390,30 @@ func (s *SapNetWeaverProviderInstanceProperties) GetProviderSpecificProperties()
 	return &ProviderSpecificProperties{
 		ProviderType: s.ProviderType,
 	}
+}
+
+// SearchProfile - Search profile
+type SearchProfile struct {
+	// REQUIRED; VM SKU for node(s)
+	NodeSKU *string `json:"nodeSku,omitempty"`
+
+	// REQUIRED; OS disk details
+	OSDisk *DiskInfo `json:"osDisk,omitempty"`
+
+	// REQUIRED; OS image used for creating the nodes
+	OSImage *OsImageProfile `json:"osImage,omitempty"`
+
+	// REQUIRED; Search type
+	SearchType *SearchType `json:"searchType,omitempty"`
+
+	// Data disks details. This property is not in use right now
+	DataDisks []*DiskInfo `json:"dataDisks,omitempty"`
+
+	// VM or VMSS name
+	Name *string `json:"name,omitempty"`
+
+	// READ-ONLY; VM/VMSS resource ARM Ids
+	NodeResourceIDs []*string `json:"nodeResourceIds,omitempty" azure:"ro"`
 }
 
 // ServiceInitiatedSoftwareConfiguration - The SAP Software configuration Input when the software is to be installed by service.
@@ -2182,15 +2447,6 @@ func (s *ServiceInitiatedSoftwareConfiguration) GetSoftwareConfiguration() *Soft
 	}
 }
 
-// SharedStorageResourceNames - The resource names object for shared storage.
-type SharedStorageResourceNames struct {
-	// The full name of the shared storage account. If it is not provided, it will be defaulted to {SID}nfs{guid of 15 chars}.
-	SharedStorageAccountName *string `json:"sharedStorageAccountName,omitempty"`
-
-	// The full name of private end point for the shared storage account. If it is not provided, it will be defaulted to {storageAccountName}_pe
-	SharedStorageAccountPrivateEndPointName *string `json:"sharedStorageAccountPrivateEndPointName,omitempty"`
-}
-
 // SingleServerConfiguration - Gets or sets the single server configuration.
 type SingleServerConfiguration struct {
 	// REQUIRED; The application resource group where SAP system resources will be deployed.
@@ -2204,9 +2460,6 @@ type SingleServerConfiguration struct {
 
 	// REQUIRED; Gets or sets the virtual machine configuration.
 	VirtualMachineConfiguration *VirtualMachineConfiguration `json:"virtualMachineConfiguration,omitempty"`
-
-	// The set of custom names to be used for underlying azure resources that are part of the SAP system.
-	CustomResourceNames SingleServerCustomResourceNamesClassification `json:"customResourceNames,omitempty"`
 
 	// The database type.
 	DatabaseType *SAPDatabaseType `json:"databaseType,omitempty"`
@@ -2226,44 +2479,6 @@ func (s *SingleServerConfiguration) GetInfrastructureConfiguration() *Infrastruc
 	}
 }
 
-// SingleServerCustomResourceNamesClassification provides polymorphic access to related types.
-// Call the interface's GetSingleServerCustomResourceNames() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *SingleServerCustomResourceNames, *SingleServerFullResourceNames
-type SingleServerCustomResourceNamesClassification interface {
-	// GetSingleServerCustomResourceNames returns the SingleServerCustomResourceNames content of the underlying type.
-	GetSingleServerCustomResourceNames() *SingleServerCustomResourceNames
-}
-
-// SingleServerCustomResourceNames - The resource-names input to specify custom names for underlying azure resources that
-// are part of a single server SAP system.
-type SingleServerCustomResourceNames struct {
-	// REQUIRED; The pattern type to be used for resource naming.
-	NamingPatternType *NamingPatternType `json:"namingPatternType,omitempty"`
-}
-
-// GetSingleServerCustomResourceNames implements the SingleServerCustomResourceNamesClassification interface for type SingleServerCustomResourceNames.
-func (s *SingleServerCustomResourceNames) GetSingleServerCustomResourceNames() *SingleServerCustomResourceNames {
-	return s
-}
-
-// SingleServerFullResourceNames - The resource name object where the specified values will be full resource names of the
-// corresponding resources in a single server SAP system.
-type SingleServerFullResourceNames struct {
-	// REQUIRED; The pattern type to be used for resource naming.
-	NamingPatternType *NamingPatternType `json:"namingPatternType,omitempty"`
-
-	// The resource names object for virtual machine and related resources.
-	VirtualMachine *VirtualMachineResourceNames `json:"virtualMachine,omitempty"`
-}
-
-// GetSingleServerCustomResourceNames implements the SingleServerCustomResourceNamesClassification interface for type SingleServerFullResourceNames.
-func (s *SingleServerFullResourceNames) GetSingleServerCustomResourceNames() *SingleServerCustomResourceNames {
-	return &SingleServerCustomResourceNames{
-		NamingPatternType: s.NamingPatternType,
-	}
-}
-
 // SingleServerRecommendationResult - The recommended configuration for a single server SAP system.
 type SingleServerRecommendationResult struct {
 	// REQUIRED; The type of SAP deployment, single server or Three tier.
@@ -2278,6 +2493,12 @@ func (s *SingleServerRecommendationResult) GetSAPSizingRecommendationResult() *S
 	return &SAPSizingRecommendationResult{
 		DeploymentType: s.DeploymentType,
 	}
+}
+
+// SiteProfile - Workload website profile
+type SiteProfile struct {
+	// Domain name for the application site URL
+	DomainName *string `json:"domainName,omitempty"`
 }
 
 // SkipFileShareConfiguration - Gets or sets the skip file share configuration
@@ -2312,12 +2533,10 @@ type SoftwareConfiguration struct {
 // GetSoftwareConfiguration implements the SoftwareConfigurationClassification interface for type SoftwareConfiguration.
 func (s *SoftwareConfiguration) GetSoftwareConfiguration() *SoftwareConfiguration { return s }
 
-// StopRequest - Stop SAP instance(s) request body.
+// StopRequest - Stop SAP Request.
 type StopRequest struct {
-	// This parameter defines how long (in seconds) the soft shutdown waits until the RFC/HTTP clients no longer consider the
-	// server for calls with load balancing. Value 0 means that the kernel does not
-	// wait, but goes directly into the next shutdown state, i.e. hard stop.
-	SoftStopTimeoutSeconds *int64 `json:"softStopTimeoutSeconds,omitempty"`
+	// A boolean to specify if the SAP system should be hard-stopped.
+	HardStop *bool `json:"hardStop,omitempty"`
 }
 
 // StorageConfiguration - Gets or sets the storage configuration.
@@ -2377,9 +2596,6 @@ type ThreeTierConfiguration struct {
 	// REQUIRED; The type of SAP deployment, single server or Three tier.
 	DeploymentType *SAPDeploymentType `json:"deploymentType,omitempty"`
 
-	// The set of custom names to be used for underlying azure resources that are part of the SAP system.
-	CustomResourceNames ThreeTierCustomResourceNamesClassification `json:"customResourceNames,omitempty"`
-
 	// The high availability configuration.
 	HighAvailabilityConfig *HighAvailabilityConfiguration `json:"highAvailabilityConfig,omitempty"`
 
@@ -2395,55 +2611,6 @@ func (t *ThreeTierConfiguration) GetInfrastructureConfiguration() *Infrastructur
 	return &InfrastructureConfiguration{
 		DeploymentType:   t.DeploymentType,
 		AppResourceGroup: t.AppResourceGroup,
-	}
-}
-
-// ThreeTierCustomResourceNamesClassification provides polymorphic access to related types.
-// Call the interface's GetThreeTierCustomResourceNames() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *ThreeTierCustomResourceNames, *ThreeTierFullResourceNames
-type ThreeTierCustomResourceNamesClassification interface {
-	// GetThreeTierCustomResourceNames returns the ThreeTierCustomResourceNames content of the underlying type.
-	GetThreeTierCustomResourceNames() *ThreeTierCustomResourceNames
-}
-
-// ThreeTierCustomResourceNames - The resource-names input to specify custom names for underlying azure resources that are
-// part of a three tier SAP system.
-type ThreeTierCustomResourceNames struct {
-	// REQUIRED; The pattern type to be used for resource naming.
-	NamingPatternType *NamingPatternType `json:"namingPatternType,omitempty"`
-}
-
-// GetThreeTierCustomResourceNames implements the ThreeTierCustomResourceNamesClassification interface for type ThreeTierCustomResourceNames.
-func (t *ThreeTierCustomResourceNames) GetThreeTierCustomResourceNames() *ThreeTierCustomResourceNames {
-	return t
-}
-
-// ThreeTierFullResourceNames - The resource name object where the specified values will be full resource names of the corresponding
-// resources in a three tier SAP system.
-type ThreeTierFullResourceNames struct {
-	// REQUIRED; The pattern type to be used for resource naming.
-	NamingPatternType *NamingPatternType `json:"namingPatternType,omitempty"`
-
-	// The full resource names object for application layer resources. The number of entries in this list should be equal to the
-	// number VMs to be created for application layer.
-	ApplicationServer *ApplicationServerFullResourceNames `json:"applicationServer,omitempty"`
-
-	// The full resource names object for central server layer resources.
-	CentralServer *CentralServerFullResourceNames `json:"centralServer,omitempty"`
-
-	// The full resource names object for database layer resources. The number of entries in this list should be equal to the
-	// number VMs to be created for database layer.
-	DatabaseServer *DatabaseServerFullResourceNames `json:"databaseServer,omitempty"`
-
-	// The resource names object for shared storage.
-	SharedStorage *SharedStorageResourceNames `json:"sharedStorage,omitempty"`
-}
-
-// GetThreeTierCustomResourceNames implements the ThreeTierCustomResourceNamesClassification interface for type ThreeTierFullResourceNames.
-func (t *ThreeTierFullResourceNames) GetThreeTierCustomResourceNames() *ThreeTierCustomResourceNames {
-	return &ThreeTierCustomResourceNames{
-		NamingPatternType: t.NamingPatternType,
 	}
 }
 
@@ -2554,6 +2721,15 @@ type UserAssignedServiceIdentity struct {
 	UserAssignedIdentities map[string]*UserAssignedIdentity `json:"userAssignedIdentities,omitempty"`
 }
 
+// UserProfile - User profile to configure on a compute resources such as VM, VMSS
+type UserProfile struct {
+	// REQUIRED; SSH public key data
+	SSHPublicKey *string `json:"sshPublicKey,omitempty"`
+
+	// REQUIRED; User name
+	UserName *string `json:"userName,omitempty"`
+}
+
 // VirtualMachineConfiguration - Defines the virtual machine configuration.
 type VirtualMachineConfiguration struct {
 	// REQUIRED; The image reference.
@@ -2566,33 +2742,31 @@ type VirtualMachineConfiguration struct {
 	VMSize *string `json:"vmSize,omitempty"`
 }
 
-// VirtualMachineResourceNames - The resource names object for virtual machine and related resources.
-type VirtualMachineResourceNames struct {
-	// The full resource names for virtual machine data disks. This is a dictionary containing list of names of data disks per
-	// volume. Currently supported volumes for database layer are ['hana/data',
-	// 'hana/log', hana/shared', 'usr/sap', 'os', 'backup']. For application and cs layers, only 'default' volume is supported
-	DataDiskNames map[string][]*string `json:"dataDiskNames,omitempty"`
+// VmssNodesProfile - VMSS profile
+type VmssNodesProfile struct {
+	// REQUIRED; VM SKU for node(s)
+	NodeSKU *string `json:"nodeSku,omitempty"`
 
-	// The full name for virtual-machine's host (computer name). Currently, ACSS only supports host names which are less than
-	// or equal to 13 characters long. If this value is not provided, vmName will be
-	// used as host name.
-	HostName *string `json:"hostName,omitempty"`
+	// REQUIRED; OS disk details
+	OSDisk *DiskInfo `json:"osDisk,omitempty"`
 
-	// The list of network interface name objects for the selected virtual machine. Currently, only one network interface is supported
-	// per virtual machine.
-	NetworkInterfaces []*NetworkInterfaceResourceNames `json:"networkInterfaces,omitempty"`
+	// REQUIRED; OS image used for creating the nodes
+	OSImage *OsImageProfile `json:"osImage,omitempty"`
 
-	// The full name for OS disk attached to the VM. If this value is not provided, it will be named by ARM as per its default
-	// naming standards (prefixed with vm name). There is only one OS disk attached per
-	// Virtual Machine.
-	OSDiskName *string `json:"osDiskName,omitempty"`
+	// Maximum number of nodes for autoscale
+	AutoScaleMaxCount *int32 `json:"autoScaleMaxCount,omitempty"`
 
-	// The full name for virtual machine. The length of this field can be upto 64 characters. If name is not provided, service
-	// uses a default name based on the deployment type. For SingleServer, default name
-	// is {SID}vm. In case of HA-AvZone systems, default name will be {SID}{app/ascs/db}z{a/b}vm with an incrementor at the end
-	// in case of more than 1 vm per layer. For distributed and HA-AvSet systems,
-	// default name will be {SID}{app/ascs/db}vm with an incrementor at the end in case of more than 1 vm per layer.
-	VMName *string `json:"vmName,omitempty"`
+	// Minimum number of nodes for autoscale
+	AutoScaleMinCount *int32 `json:"autoScaleMinCount,omitempty"`
+
+	// Data disks details. This property is not in use right now
+	DataDisks []*DiskInfo `json:"dataDisks,omitempty"`
+
+	// VM or VMSS name
+	Name *string `json:"name,omitempty"`
+
+	// READ-ONLY; VM/VMSS resource ARM Ids
+	NodeResourceIDs []*string `json:"nodeResourceIds,omitempty" azure:"ro"`
 }
 
 // WindowsConfiguration - Specifies Windows operating system settings on the virtual machine.
@@ -2606,4 +2780,71 @@ func (w *WindowsConfiguration) GetOSConfiguration() *OSConfiguration {
 	return &OSConfiguration{
 		OSType: w.OSType,
 	}
+}
+
+// WordpressInstanceResource - WordPress instance resource
+type WordpressInstanceResource struct {
+	// Resource properties
+	Properties *WordpressInstanceResourceProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// WordpressInstanceResourceList - WordPress instance resource list
+type WordpressInstanceResourceList struct {
+	// Link to next page of resources
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// List of resources in current page
+	Value []*WordpressInstanceResource `json:"value,omitempty"`
+}
+
+// WordpressInstanceResourceProperties - WordPress instance properties
+type WordpressInstanceResourceProperties struct {
+	// REQUIRED; Application version
+	Version *WordpressVersions `json:"version,omitempty"`
+
+	// Database name used by the application
+	DatabaseName *string `json:"databaseName,omitempty"`
+
+	// User name used by the application to connect to database
+	DatabaseUser *string `json:"databaseUser,omitempty"`
+
+	// READ-ONLY; WordPress instance provisioning state
+	ProvisioningState *ApplicationProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; Site Url to access the WordPress application
+	SiteURL *string `json:"siteUrl,omitempty" azure:"ro"`
+}
+
+// WordpressInstancesClientBeginCreateOrUpdateOptions contains the optional parameters for the WordpressInstancesClient.BeginCreateOrUpdate
+// method.
+type WordpressInstancesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// WordpressInstancesClientDeleteOptions contains the optional parameters for the WordpressInstancesClient.Delete method.
+type WordpressInstancesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WordpressInstancesClientGetOptions contains the optional parameters for the WordpressInstancesClient.Get method.
+type WordpressInstancesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// WordpressInstancesClientListOptions contains the optional parameters for the WordpressInstancesClient.NewListPager method.
+type WordpressInstancesClientListOptions struct {
+	// placeholder for future optional parameters
 }
