@@ -32,9 +32,9 @@ type GroupsClient struct {
 }
 
 // NewGroupsClient creates a new instance of GroupsClient with the specified values.
-// subscriptionID - Subscription ID that identifies an Azure subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription ID that identifies an Azure subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGroupsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GroupsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,20 +57,23 @@ func NewGroupsClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // BeginCreateOrUpdate - Creates or updates a SQL virtual machine group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
-// Manager API or the portal.
-// sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
-// parameters - The SQL virtual machine group.
-// options - GroupsClientBeginCreateOrUpdateOptions contains the optional parameters for the GroupsClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
+//     Manager API or the portal.
+//   - sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
+//   - parameters - The SQL virtual machine group.
+//   - options - GroupsClientBeginCreateOrUpdateOptions contains the optional parameters for the GroupsClient.BeginCreateOrUpdate
+//     method.
 func (client *GroupsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, parameters Group, options *GroupsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GroupsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, sqlVirtualMachineGroupName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[GroupsClientCreateOrUpdateResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[GroupsClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[GroupsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -78,6 +81,7 @@ func (client *GroupsClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 
 // CreateOrUpdate - Creates or updates a SQL virtual machine group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
 func (client *GroupsClient) createOrUpdate(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, parameters Group, options *GroupsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, sqlVirtualMachineGroupName, parameters, options)
@@ -122,18 +126,21 @@ func (client *GroupsClient) createOrUpdateCreateRequest(ctx context.Context, res
 
 // BeginDelete - Deletes a SQL virtual machine group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
-// Manager API or the portal.
-// sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
-// options - GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
+//   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
+//     Manager API or the portal.
+//   - sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
+//   - options - GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
 func (client *GroupsClient) BeginDelete(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, options *GroupsClientBeginDeleteOptions) (*runtime.Poller[GroupsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, sqlVirtualMachineGroupName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[GroupsClientDeleteResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[GroupsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[GroupsClientDeleteResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -141,6 +148,7 @@ func (client *GroupsClient) BeginDelete(ctx context.Context, resourceGroupName s
 
 // Delete - Deletes a SQL virtual machine group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
 func (client *GroupsClient) deleteOperation(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, options *GroupsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, sqlVirtualMachineGroupName, options)
@@ -184,11 +192,12 @@ func (client *GroupsClient) deleteCreateRequest(ctx context.Context, resourceGro
 
 // Get - Gets a SQL virtual machine group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
-// Manager API or the portal.
-// sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
-// options - GroupsClientGetOptions contains the optional parameters for the GroupsClient.Get method.
+//   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
+//     Manager API or the portal.
+//   - sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
+//   - options - GroupsClientGetOptions contains the optional parameters for the GroupsClient.Get method.
 func (client *GroupsClient) Get(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, options *GroupsClientGetOptions) (GroupsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, sqlVirtualMachineGroupName, options)
 	if err != nil {
@@ -240,8 +249,9 @@ func (client *GroupsClient) getHandleResponse(resp *http.Response) (GroupsClient
 }
 
 // NewListPager - Gets all SQL virtual machine groups in a subscription.
+//
 // Generated from API version 2022-07-01-preview
-// options - GroupsClientListOptions contains the optional parameters for the GroupsClient.List method.
+//   - options - GroupsClientListOptions contains the optional parameters for the GroupsClient.NewListPager method.
 func (client *GroupsClient) NewListPager(options *GroupsClientListOptions) *runtime.Pager[GroupsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GroupsClientListResponse]{
 		More: func(page GroupsClientListResponse) bool {
@@ -298,11 +308,12 @@ func (client *GroupsClient) listHandleResponse(resp *http.Response) (GroupsClien
 }
 
 // NewListByResourceGroupPager - Gets all SQL virtual machine groups in a resource group.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
-// Manager API or the portal.
-// options - GroupsClientListByResourceGroupOptions contains the optional parameters for the GroupsClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
+//     Manager API or the portal.
+//   - options - GroupsClientListByResourceGroupOptions contains the optional parameters for the GroupsClient.NewListByResourceGroupPager
+//     method.
 func (client *GroupsClient) NewListByResourceGroupPager(resourceGroupName string, options *GroupsClientListByResourceGroupOptions) *runtime.Pager[GroupsClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GroupsClientListByResourceGroupResponse]{
 		More: func(page GroupsClientListByResourceGroupResponse) bool {
@@ -364,19 +375,22 @@ func (client *GroupsClient) listByResourceGroupHandleResponse(resp *http.Respons
 
 // BeginUpdate - Updates SQL virtual machine group tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
-// Manager API or the portal.
-// sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
-// parameters - The SQL virtual machine group.
-// options - GroupsClientBeginUpdateOptions contains the optional parameters for the GroupsClient.BeginUpdate method.
+//   - resourceGroupName - Name of the resource group that contains the resource. You can obtain this value from the Azure Resource
+//     Manager API or the portal.
+//   - sqlVirtualMachineGroupName - Name of the SQL virtual machine group.
+//   - parameters - The SQL virtual machine group.
+//   - options - GroupsClientBeginUpdateOptions contains the optional parameters for the GroupsClient.BeginUpdate method.
 func (client *GroupsClient) BeginUpdate(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, parameters GroupUpdate, options *GroupsClientBeginUpdateOptions) (*runtime.Poller[GroupsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, sqlVirtualMachineGroupName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[GroupsClientUpdateResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[GroupsClientUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[GroupsClientUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -384,6 +398,7 @@ func (client *GroupsClient) BeginUpdate(ctx context.Context, resourceGroupName s
 
 // Update - Updates SQL virtual machine group tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-07-01-preview
 func (client *GroupsClient) update(ctx context.Context, resourceGroupName string, sqlVirtualMachineGroupName string, parameters GroupUpdate, options *GroupsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, sqlVirtualMachineGroupName, parameters, options)

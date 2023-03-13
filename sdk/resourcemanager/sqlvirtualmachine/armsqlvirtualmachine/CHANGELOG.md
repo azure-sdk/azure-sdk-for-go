@@ -1,5 +1,11 @@
 # Release History
 
+## 0.8.0 (2023-03-13)
+### Features Added
+
+- New value `LeastPrivilegeModeNotSet` added to type alias `LeastPrivilegeMode`
+
+
 ## 0.7.0 (2022-09-17)
 ### Features Added
 
