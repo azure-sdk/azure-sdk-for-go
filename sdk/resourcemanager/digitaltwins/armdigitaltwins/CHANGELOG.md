@@ -1,5 +1,21 @@
 # Release History
 
+## 1.1.0 (2023-03-13)
+### Features Added
+
+- New value `DigitalTwinsIdentityTypeSystemAssignedUserAssigned`, `DigitalTwinsIdentityTypeUserAssigned` added to type alias `DigitalTwinsIdentityType`
+- New type alias `IdentityType` with values `IdentityTypeSystemAssigned`, `IdentityTypeUserAssigned`
+- New struct `ManagedIdentityReference`
+- New struct `UserAssignedIdentity`
+- New field `Identity` in struct `AzureDataExplorerConnectionProperties`
+- New field `Identity` in struct `EndpointResourceProperties`
+- New field `Identity` in struct `EventGrid`
+- New field `Identity` in struct `EventHub`
+- New field `UserAssignedIdentities` in struct `Identity`
+- New field `Identity` in struct `ServiceBus`
+- New field `Identity` in struct `TimeSeriesDatabaseConnectionProperties`
+
+
 ## 1.0.0 (2022-06-14)
 ### Features Added
 
