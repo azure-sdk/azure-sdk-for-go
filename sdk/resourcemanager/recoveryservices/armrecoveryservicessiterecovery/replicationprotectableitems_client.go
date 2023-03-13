@@ -34,11 +34,11 @@ type ReplicationProtectableItemsClient struct {
 }
 
 // NewReplicationProtectableItemsClient creates a new instance of ReplicationProtectableItemsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationProtectableItemsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationProtectableItemsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,12 +63,13 @@ func NewReplicationProtectableItemsClient(resourceName string, resourceGroupName
 
 // Get - The operation to get the details of a protectable item.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// protectableItemName - Protectable item name.
-// options - ReplicationProtectableItemsClientGetOptions contains the optional parameters for the ReplicationProtectableItemsClient.Get
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - protectableItemName - Protectable item name.
+//   - options - ReplicationProtectableItemsClientGetOptions contains the optional parameters for the ReplicationProtectableItemsClient.Get
+//     method.
 func (client *ReplicationProtectableItemsClient) Get(ctx context.Context, fabricName string, protectionContainerName string, protectableItemName string, options *ReplicationProtectableItemsClientGetOptions) (ReplicationProtectableItemsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, protectionContainerName, protectableItemName, options)
 	if err != nil {
@@ -132,11 +133,12 @@ func (client *ReplicationProtectableItemsClient) getHandleResponse(resp *http.Re
 }
 
 // NewListByReplicationProtectionContainersPager - Lists the protectable items in a protection container.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// options - ReplicationProtectableItemsClientListByReplicationProtectionContainersOptions contains the optional parameters
-// for the ReplicationProtectableItemsClient.ListByReplicationProtectionContainers method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - options - ReplicationProtectableItemsClientListByReplicationProtectionContainersOptions contains the optional parameters
+//     for the ReplicationProtectableItemsClient.NewListByReplicationProtectionContainersPager method.
 func (client *ReplicationProtectableItemsClient) NewListByReplicationProtectionContainersPager(fabricName string, protectionContainerName string, options *ReplicationProtectableItemsClientListByReplicationProtectionContainersOptions) *runtime.Pager[ReplicationProtectableItemsClientListByReplicationProtectionContainersResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationProtectableItemsClientListByReplicationProtectionContainersResponse]{
 		More: func(page ReplicationProtectableItemsClientListByReplicationProtectionContainersResponse) bool {

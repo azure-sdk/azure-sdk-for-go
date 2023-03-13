@@ -34,11 +34,11 @@ type ReplicationStorageClassificationsClient struct {
 }
 
 // NewReplicationStorageClassificationsClient creates a new instance of ReplicationStorageClassificationsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationStorageClassificationsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationStorageClassificationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,11 +63,12 @@ func NewReplicationStorageClassificationsClient(resourceName string, resourceGro
 
 // Get - Gets the details of the specified storage classification.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// storageClassificationName - Storage classification name.
-// options - ReplicationStorageClassificationsClientGetOptions contains the optional parameters for the ReplicationStorageClassificationsClient.Get
-// method.
+//   - fabricName - Fabric name.
+//   - storageClassificationName - Storage classification name.
+//   - options - ReplicationStorageClassificationsClientGetOptions contains the optional parameters for the ReplicationStorageClassificationsClient.Get
+//     method.
 func (client *ReplicationStorageClassificationsClient) Get(ctx context.Context, fabricName string, storageClassificationName string, options *ReplicationStorageClassificationsClientGetOptions) (ReplicationStorageClassificationsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, storageClassificationName, options)
 	if err != nil {
@@ -127,9 +128,10 @@ func (client *ReplicationStorageClassificationsClient) getHandleResponse(resp *h
 }
 
 // NewListPager - Lists the storage classifications in the vault.
+//
 // Generated from API version 2022-10-01
-// options - ReplicationStorageClassificationsClientListOptions contains the optional parameters for the ReplicationStorageClassificationsClient.List
-// method.
+//   - options - ReplicationStorageClassificationsClientListOptions contains the optional parameters for the ReplicationStorageClassificationsClient.NewListPager
+//     method.
 func (client *ReplicationStorageClassificationsClient) NewListPager(options *ReplicationStorageClassificationsClientListOptions) *runtime.Pager[ReplicationStorageClassificationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationStorageClassificationsClientListResponse]{
 		More: func(page ReplicationStorageClassificationsClientListResponse) bool {
@@ -194,10 +196,11 @@ func (client *ReplicationStorageClassificationsClient) listHandleResponse(resp *
 }
 
 // NewListByReplicationFabricsPager - Lists the storage classifications available in the specified fabric.
+//
 // Generated from API version 2022-10-01
-// fabricName - Site name of interest.
-// options - ReplicationStorageClassificationsClientListByReplicationFabricsOptions contains the optional parameters for the
-// ReplicationStorageClassificationsClient.ListByReplicationFabrics method.
+//   - fabricName - Site name of interest.
+//   - options - ReplicationStorageClassificationsClientListByReplicationFabricsOptions contains the optional parameters for the
+//     ReplicationStorageClassificationsClient.NewListByReplicationFabricsPager method.
 func (client *ReplicationStorageClassificationsClient) NewListByReplicationFabricsPager(fabricName string, options *ReplicationStorageClassificationsClientListByReplicationFabricsOptions) *runtime.Pager[ReplicationStorageClassificationsClientListByReplicationFabricsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationStorageClassificationsClientListByReplicationFabricsResponse]{
 		More: func(page ReplicationStorageClassificationsClientListByReplicationFabricsResponse) bool {

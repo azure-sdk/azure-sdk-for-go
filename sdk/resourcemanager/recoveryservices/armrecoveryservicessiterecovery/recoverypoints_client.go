@@ -34,11 +34,11 @@ type RecoveryPointsClient struct {
 }
 
 // NewRecoveryPointsClient creates a new instance of RecoveryPointsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewRecoveryPointsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RecoveryPointsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,12 +63,13 @@ func NewRecoveryPointsClient(resourceName string, resourceGroupName string, subs
 
 // Get - Get the details of specified recovery point.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - The fabric name.
-// protectionContainerName - The protection container name.
-// replicatedProtectedItemName - The replication protected item name.
-// recoveryPointName - The recovery point name.
-// options - RecoveryPointsClientGetOptions contains the optional parameters for the RecoveryPointsClient.Get method.
+//   - fabricName - The fabric name.
+//   - protectionContainerName - The protection container name.
+//   - replicatedProtectedItemName - The replication protected item name.
+//   - recoveryPointName - The recovery point name.
+//   - options - RecoveryPointsClientGetOptions contains the optional parameters for the RecoveryPointsClient.Get method.
 func (client *RecoveryPointsClient) Get(ctx context.Context, fabricName string, protectionContainerName string, replicatedProtectedItemName string, recoveryPointName string, options *RecoveryPointsClientGetOptions) (RecoveryPointsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, protectionContainerName, replicatedProtectedItemName, recoveryPointName, options)
 	if err != nil {
@@ -136,12 +137,13 @@ func (client *RecoveryPointsClient) getHandleResponse(resp *http.Response) (Reco
 }
 
 // NewListByReplicationProtectedItemsPager - Lists the available recovery points for a replication protected item.
+//
 // Generated from API version 2022-10-01
-// fabricName - The fabric name.
-// protectionContainerName - The protection container name.
-// replicatedProtectedItemName - The replication protected item name.
-// options - RecoveryPointsClientListByReplicationProtectedItemsOptions contains the optional parameters for the RecoveryPointsClient.ListByReplicationProtectedItems
-// method.
+//   - fabricName - The fabric name.
+//   - protectionContainerName - The protection container name.
+//   - replicatedProtectedItemName - The replication protected item name.
+//   - options - RecoveryPointsClientListByReplicationProtectedItemsOptions contains the optional parameters for the RecoveryPointsClient.NewListByReplicationProtectedItemsPager
+//     method.
 func (client *RecoveryPointsClient) NewListByReplicationProtectedItemsPager(fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *RecoveryPointsClientListByReplicationProtectedItemsOptions) *runtime.Pager[RecoveryPointsClientListByReplicationProtectedItemsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[RecoveryPointsClientListByReplicationProtectedItemsResponse]{
 		More: func(page RecoveryPointsClientListByReplicationProtectedItemsResponse) bool {

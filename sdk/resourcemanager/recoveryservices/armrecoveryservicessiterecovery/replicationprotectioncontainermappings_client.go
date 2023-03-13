@@ -34,11 +34,11 @@ type ReplicationProtectionContainerMappingsClient struct {
 }
 
 // NewReplicationProtectionContainerMappingsClient creates a new instance of ReplicationProtectionContainerMappingsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationProtectionContainerMappingsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationProtectionContainerMappingsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,13 +63,14 @@ func NewReplicationProtectionContainerMappingsClient(resourceName string, resour
 
 // BeginCreate - The operation to create a protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// mappingName - Protection container mapping name.
-// creationInput - Mapping creation input.
-// options - ReplicationProtectionContainerMappingsClientBeginCreateOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginCreate
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - mappingName - Protection container mapping name.
+//   - creationInput - Mapping creation input.
+//   - options - ReplicationProtectionContainerMappingsClientBeginCreateOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginCreate
+//     method.
 func (client *ReplicationProtectionContainerMappingsClient) BeginCreate(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, creationInput CreateProtectionContainerMappingInput, options *ReplicationProtectionContainerMappingsClientBeginCreateOptions) (*runtime.Poller[ReplicationProtectionContainerMappingsClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, fabricName, protectionContainerName, mappingName, creationInput, options)
@@ -84,6 +85,7 @@ func (client *ReplicationProtectionContainerMappingsClient) BeginCreate(ctx cont
 
 // Create - The operation to create a protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationProtectionContainerMappingsClient) create(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, creationInput CreateProtectionContainerMappingInput, options *ReplicationProtectionContainerMappingsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, fabricName, protectionContainerName, mappingName, creationInput, options)
@@ -140,13 +142,14 @@ func (client *ReplicationProtectionContainerMappingsClient) createCreateRequest(
 
 // BeginDelete - The operation to delete or remove a protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// mappingName - Protection container mapping name.
-// removalInput - Removal input.
-// options - ReplicationProtectionContainerMappingsClientBeginDeleteOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginDelete
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - mappingName - Protection container mapping name.
+//   - removalInput - Removal input.
+//   - options - ReplicationProtectionContainerMappingsClientBeginDeleteOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginDelete
+//     method.
 func (client *ReplicationProtectionContainerMappingsClient) BeginDelete(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, removalInput RemoveProtectionContainerMappingInput, options *ReplicationProtectionContainerMappingsClientBeginDeleteOptions) (*runtime.Poller[ReplicationProtectionContainerMappingsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, fabricName, protectionContainerName, mappingName, removalInput, options)
@@ -161,6 +164,7 @@ func (client *ReplicationProtectionContainerMappingsClient) BeginDelete(ctx cont
 
 // Delete - The operation to delete or remove a protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationProtectionContainerMappingsClient) deleteOperation(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, removalInput RemoveProtectionContainerMappingInput, options *ReplicationProtectionContainerMappingsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, fabricName, protectionContainerName, mappingName, removalInput, options)
@@ -216,12 +220,13 @@ func (client *ReplicationProtectionContainerMappingsClient) deleteCreateRequest(
 
 // Get - Gets the details of a protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// mappingName - Protection Container mapping name.
-// options - ReplicationProtectionContainerMappingsClientGetOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.Get
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - mappingName - Protection Container mapping name.
+//   - options - ReplicationProtectionContainerMappingsClientGetOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.Get
+//     method.
 func (client *ReplicationProtectionContainerMappingsClient) Get(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, options *ReplicationProtectionContainerMappingsClientGetOptions) (ReplicationProtectionContainerMappingsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, protectionContainerName, mappingName, options)
 	if err != nil {
@@ -285,9 +290,10 @@ func (client *ReplicationProtectionContainerMappingsClient) getHandleResponse(re
 }
 
 // NewListPager - Lists the protection container mappings in the vault.
+//
 // Generated from API version 2022-10-01
-// options - ReplicationProtectionContainerMappingsClientListOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.List
-// method.
+//   - options - ReplicationProtectionContainerMappingsClientListOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.NewListPager
+//     method.
 func (client *ReplicationProtectionContainerMappingsClient) NewListPager(options *ReplicationProtectionContainerMappingsClientListOptions) *runtime.Pager[ReplicationProtectionContainerMappingsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationProtectionContainerMappingsClientListResponse]{
 		More: func(page ReplicationProtectionContainerMappingsClientListResponse) bool {
@@ -352,11 +358,12 @@ func (client *ReplicationProtectionContainerMappingsClient) listHandleResponse(r
 }
 
 // NewListByReplicationProtectionContainersPager - Lists the protection container mappings for a protection container.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// options - ReplicationProtectionContainerMappingsClientListByReplicationProtectionContainersOptions contains the optional
-// parameters for the ReplicationProtectionContainerMappingsClient.ListByReplicationProtectionContainers method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - options - ReplicationProtectionContainerMappingsClientListByReplicationProtectionContainersOptions contains the optional
+//     parameters for the ReplicationProtectionContainerMappingsClient.NewListByReplicationProtectionContainersPager method.
 func (client *ReplicationProtectionContainerMappingsClient) NewListByReplicationProtectionContainersPager(fabricName string, protectionContainerName string, options *ReplicationProtectionContainerMappingsClientListByReplicationProtectionContainersOptions) *runtime.Pager[ReplicationProtectionContainerMappingsClientListByReplicationProtectionContainersResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationProtectionContainerMappingsClientListByReplicationProtectionContainersResponse]{
 		More: func(page ReplicationProtectionContainerMappingsClientListByReplicationProtectionContainersResponse) bool {
@@ -430,12 +437,13 @@ func (client *ReplicationProtectionContainerMappingsClient) listByReplicationPro
 
 // BeginPurge - The operation to purge(force delete) a protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// mappingName - Protection container mapping name.
-// options - ReplicationProtectionContainerMappingsClientBeginPurgeOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginPurge
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - mappingName - Protection container mapping name.
+//   - options - ReplicationProtectionContainerMappingsClientBeginPurgeOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginPurge
+//     method.
 func (client *ReplicationProtectionContainerMappingsClient) BeginPurge(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, options *ReplicationProtectionContainerMappingsClientBeginPurgeOptions) (*runtime.Poller[ReplicationProtectionContainerMappingsClientPurgeResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.purge(ctx, fabricName, protectionContainerName, mappingName, options)
@@ -450,6 +458,7 @@ func (client *ReplicationProtectionContainerMappingsClient) BeginPurge(ctx conte
 
 // Purge - The operation to purge(force delete) a protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationProtectionContainerMappingsClient) purge(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, options *ReplicationProtectionContainerMappingsClientBeginPurgeOptions) (*http.Response, error) {
 	req, err := client.purgeCreateRequest(ctx, fabricName, protectionContainerName, mappingName, options)
@@ -505,13 +514,14 @@ func (client *ReplicationProtectionContainerMappingsClient) purgeCreateRequest(c
 
 // BeginUpdate - The operation to update protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - Protection container name.
-// mappingName - Protection container mapping name.
-// updateInput - Mapping update input.
-// options - ReplicationProtectionContainerMappingsClientBeginUpdateOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginUpdate
-// method.
+//   - fabricName - Fabric name.
+//   - protectionContainerName - Protection container name.
+//   - mappingName - Protection container mapping name.
+//   - updateInput - Mapping update input.
+//   - options - ReplicationProtectionContainerMappingsClientBeginUpdateOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.BeginUpdate
+//     method.
 func (client *ReplicationProtectionContainerMappingsClient) BeginUpdate(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, updateInput UpdateProtectionContainerMappingInput, options *ReplicationProtectionContainerMappingsClientBeginUpdateOptions) (*runtime.Poller[ReplicationProtectionContainerMappingsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, fabricName, protectionContainerName, mappingName, updateInput, options)
@@ -526,6 +536,7 @@ func (client *ReplicationProtectionContainerMappingsClient) BeginUpdate(ctx cont
 
 // Update - The operation to update protection container mapping.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-10-01
 func (client *ReplicationProtectionContainerMappingsClient) update(ctx context.Context, fabricName string, protectionContainerName string, mappingName string, updateInput UpdateProtectionContainerMappingInput, options *ReplicationProtectionContainerMappingsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, fabricName, protectionContainerName, mappingName, updateInput, options)
