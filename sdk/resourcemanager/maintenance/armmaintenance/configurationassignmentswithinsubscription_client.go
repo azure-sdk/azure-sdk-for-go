@@ -32,10 +32,10 @@ type ConfigurationAssignmentsWithinSubscriptionClient struct {
 }
 
 // NewConfigurationAssignmentsWithinSubscriptionClient creates a new instance of ConfigurationAssignmentsWithinSubscriptionClient with the specified values.
-// subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewConfigurationAssignmentsWithinSubscriptionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConfigurationAssignmentsWithinSubscriptionClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,9 +57,10 @@ func NewConfigurationAssignmentsWithinSubscriptionClient(subscriptionID string, 
 }
 
 // NewListPager - Get configuration assignment within a subscription
+//
 // Generated from API version 2022-07-01-preview
-// options - ConfigurationAssignmentsWithinSubscriptionClientListOptions contains the optional parameters for the ConfigurationAssignmentsWithinSubscriptionClient.List
-// method.
+//   - options - ConfigurationAssignmentsWithinSubscriptionClientListOptions contains the optional parameters for the ConfigurationAssignmentsWithinSubscriptionClient.NewListPager
+//     method.
 func (client *ConfigurationAssignmentsWithinSubscriptionClient) NewListPager(options *ConfigurationAssignmentsWithinSubscriptionClientListOptions) *runtime.Pager[ConfigurationAssignmentsWithinSubscriptionClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationAssignmentsWithinSubscriptionClientListResponse]{
 		More: func(page ConfigurationAssignmentsWithinSubscriptionClientListResponse) bool {

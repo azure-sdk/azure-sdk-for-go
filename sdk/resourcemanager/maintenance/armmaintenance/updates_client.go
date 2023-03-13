@@ -32,10 +32,10 @@ type UpdatesClient struct {
 }
 
 // NewUpdatesClient creates a new instance of UpdatesClient with the specified values.
-// subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewUpdatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UpdatesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewUpdatesClient(subscriptionID string, credential azcore.TokenCredential, 
 }
 
 // NewListPager - Get updates to resources.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - Resource group name
-// providerName - Resource provider name
-// resourceType - Resource type
-// resourceName - Resource identifier
-// options - UpdatesClientListOptions contains the optional parameters for the UpdatesClient.List method.
+//   - resourceGroupName - Resource group name
+//   - providerName - Resource provider name
+//   - resourceType - Resource type
+//   - resourceName - Resource identifier
+//   - options - UpdatesClientListOptions contains the optional parameters for the UpdatesClient.NewListPager method.
 func (client *UpdatesClient) NewListPager(resourceGroupName string, providerName string, resourceType string, resourceName string, options *UpdatesClientListOptions) *runtime.Pager[UpdatesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[UpdatesClientListResponse]{
 		More: func(page UpdatesClientListResponse) bool {
@@ -129,14 +130,15 @@ func (client *UpdatesClient) listHandleResponse(resp *http.Response) (UpdatesCli
 }
 
 // NewListParentPager - Get updates to resources.
+//
 // Generated from API version 2022-07-01-preview
-// resourceGroupName - Resource group name
-// providerName - Resource provider name
-// resourceParentType - Resource parent type
-// resourceParentName - Resource parent identifier
-// resourceType - Resource type
-// resourceName - Resource identifier
-// options - UpdatesClientListParentOptions contains the optional parameters for the UpdatesClient.ListParent method.
+//   - resourceGroupName - Resource group name
+//   - providerName - Resource provider name
+//   - resourceParentType - Resource parent type
+//   - resourceParentName - Resource parent identifier
+//   - resourceType - Resource type
+//   - resourceName - Resource identifier
+//   - options - UpdatesClientListParentOptions contains the optional parameters for the UpdatesClient.NewListParentPager method.
 func (client *UpdatesClient) NewListParentPager(resourceGroupName string, providerName string, resourceParentType string, resourceParentName string, resourceType string, resourceName string, options *UpdatesClientListParentOptions) *runtime.Pager[UpdatesClientListParentResponse] {
 	return runtime.NewPager(runtime.PagingHandler[UpdatesClientListParentResponse]{
 		More: func(page UpdatesClientListParentResponse) bool {
