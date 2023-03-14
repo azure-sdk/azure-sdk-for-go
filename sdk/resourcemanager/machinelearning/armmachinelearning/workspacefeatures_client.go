@@ -32,9 +32,9 @@ type WorkspaceFeaturesClient struct {
 }
 
 // NewWorkspaceFeaturesClient creates a new instance of WorkspaceFeaturesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewWorkspaceFeaturesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*WorkspaceFeaturesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,10 +56,12 @@ func NewWorkspaceFeaturesClient(subscriptionID string, credential azcore.TokenCr
 }
 
 // NewListPager - Lists all enabled features for a workspace
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// options - WorkspaceFeaturesClientListOptions contains the optional parameters for the WorkspaceFeaturesClient.List method.
+//
+// Generated from API version 2023-04-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - options - WorkspaceFeaturesClientListOptions contains the optional parameters for the WorkspaceFeaturesClient.NewListPager
+//     method.
 func (client *WorkspaceFeaturesClient) NewListPager(resourceGroupName string, workspaceName string, options *WorkspaceFeaturesClientListOptions) *runtime.Pager[WorkspaceFeaturesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[WorkspaceFeaturesClientListResponse]{
 		More: func(page WorkspaceFeaturesClientListResponse) bool {
@@ -108,7 +110,7 @@ func (client *WorkspaceFeaturesClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
