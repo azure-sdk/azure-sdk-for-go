@@ -1,5 +1,17 @@
 # Release History
 
+## 0.6.0 (2023-03-14)
+### Features Added
+
+- New struct `AvailableOperationDescriptionProperties`
+- New struct `Dimension`
+- New struct `LogSpecification`
+- New struct `MetricAvailability`
+- New struct `MetricSpecification`
+- New struct `ServiceSpecification`
+- New field `Properties` in struct `OperationResult`
+
+
 ## 0.5.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/servicefabricmesh/armservicefabricmesh` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 0.5.0, which contains breaking changes.
