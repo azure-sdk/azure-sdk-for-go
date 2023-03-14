@@ -11,7 +11,7 @@ package armappservice
 
 const (
 	moduleName    = "armappservice"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0"
 )
 
 // ActiveRevisionsMode - ActiveRevisionsMode controls how active revisions are handled for the Container app:Multiple: multiple
@@ -177,6 +177,19 @@ func PossibleBackupRestoreOperationTypeValues() []BackupRestoreOperationType {
 		BackupRestoreOperationTypeRelocation,
 		BackupRestoreOperationTypeSnapshot,
 		BackupRestoreOperationTypeCloudFS,
+	}
+}
+
+type BasicAuthName string
+
+const (
+	BasicAuthNameDefault BasicAuthName = "default"
+)
+
+// PossibleBasicAuthNameValues returns the possible values for the BasicAuthName const type.
+func PossibleBasicAuthNameValues() []BasicAuthName {
+	return []BasicAuthName{
+		BasicAuthNameDefault,
 	}
 }
 
@@ -682,6 +695,22 @@ func PossibleDaysOfWeekValues() []DaysOfWeek {
 		DaysOfWeekThursday,
 		DaysOfWeekFriday,
 		DaysOfWeekSaturday,
+	}
+}
+
+// DefaultAction - Default action for main access restriction if no rules are matched.
+type DefaultAction string
+
+const (
+	DefaultActionAllow DefaultAction = "Allow"
+	DefaultActionDeny  DefaultAction = "Deny"
+)
+
+// PossibleDefaultActionValues returns the possible values for the DefaultAction const type.
+func PossibleDefaultActionValues() []DefaultAction {
+	return []DefaultAction{
+		DefaultActionAllow,
+		DefaultActionDeny,
 	}
 }
 
@@ -2181,6 +2210,26 @@ func PossibleWorkerSizeOptionsValues() []WorkerSizeOptions {
 		WorkerSizeOptionsNestedSmall,
 		WorkerSizeOptionsNestedSmallLinux,
 		WorkerSizeOptionsDefault,
+	}
+}
+
+// WorkflowHealthState - Gets or sets the workflow health state.
+type WorkflowHealthState string
+
+const (
+	WorkflowHealthStateNotSpecified WorkflowHealthState = "NotSpecified"
+	WorkflowHealthStateHealthy      WorkflowHealthState = "Healthy"
+	WorkflowHealthStateUnhealthy    WorkflowHealthState = "Unhealthy"
+	WorkflowHealthStateUnknown      WorkflowHealthState = "Unknown"
+)
+
+// PossibleWorkflowHealthStateValues returns the possible values for the WorkflowHealthState const type.
+func PossibleWorkflowHealthStateValues() []WorkflowHealthState {
+	return []WorkflowHealthState{
+		WorkflowHealthStateNotSpecified,
+		WorkflowHealthStateHealthy,
+		WorkflowHealthStateUnhealthy,
+		WorkflowHealthStateUnknown,
 	}
 }
 
