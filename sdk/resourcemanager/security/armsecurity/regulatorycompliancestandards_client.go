@@ -32,9 +32,9 @@ type RegulatoryComplianceStandardsClient struct {
 }
 
 // NewRegulatoryComplianceStandardsClient creates a new instance of RegulatoryComplianceStandardsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewRegulatoryComplianceStandardsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RegulatoryComplianceStandardsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewRegulatoryComplianceStandardsClient(subscriptionID string, credential az
 
 // Get - Supported regulatory compliance details state for selected standard
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01-preview
-// regulatoryComplianceStandardName - Name of the regulatory compliance standard object
-// options - RegulatoryComplianceStandardsClientGetOptions contains the optional parameters for the RegulatoryComplianceStandardsClient.Get
-// method.
+//   - regulatoryComplianceStandardName - Name of the regulatory compliance standard object
+//   - options - RegulatoryComplianceStandardsClientGetOptions contains the optional parameters for the RegulatoryComplianceStandardsClient.Get
+//     method.
 func (client *RegulatoryComplianceStandardsClient) Get(ctx context.Context, regulatoryComplianceStandardName string, options *RegulatoryComplianceStandardsClientGetOptions) (RegulatoryComplianceStandardsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, regulatoryComplianceStandardName, options)
 	if err != nil {
@@ -108,9 +109,10 @@ func (client *RegulatoryComplianceStandardsClient) getHandleResponse(resp *http.
 }
 
 // NewListPager - Supported regulatory compliance standards details and state
+//
 // Generated from API version 2019-01-01-preview
-// options - RegulatoryComplianceStandardsClientListOptions contains the optional parameters for the RegulatoryComplianceStandardsClient.List
-// method.
+//   - options - RegulatoryComplianceStandardsClientListOptions contains the optional parameters for the RegulatoryComplianceStandardsClient.NewListPager
+//     method.
 func (client *RegulatoryComplianceStandardsClient) NewListPager(options *RegulatoryComplianceStandardsClientListOptions) *runtime.Pager[RegulatoryComplianceStandardsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[RegulatoryComplianceStandardsClientListResponse]{
 		More: func(page RegulatoryComplianceStandardsClientListResponse) bool {
