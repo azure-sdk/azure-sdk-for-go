@@ -1,5 +1,400 @@
 # Release History
 
+## 3.1.0-beta.1 (2023-03-14)
+### Features Added
+
+- New value `ConnectionAuthTypeAccessKey`, `ConnectionAuthTypeServicePrincipal` added to type alias `ConnectionAuthType`
+- New value `ConnectionCategoryAzureDataLakeGen2`, `ConnectionCategoryAzureMySQLDb`, `ConnectionCategoryAzurePostgresDb`, `ConnectionCategoryAzureSQLDb`, `ConnectionCategoryAzureSynapseAnalytics`, `ConnectionCategoryFeatureStore`, `ConnectionCategoryRedis`, `ConnectionCategoryS3`, `ConnectionCategorySnowflake` added to type alias `ConnectionCategory`
+- New value `ContainerTypeModelDataCollector` added to type alias `ContainerType`
+- New value `CredentialsTypeKerberosKeytab`, `CredentialsTypeKerberosPassword` added to type alias `CredentialsType`
+- New value `DatastoreTypeHdfs` added to type alias `DatastoreType`
+- New value `JobStatusScheduled` added to type alias `JobStatus`
+- New value `JobTypeLabeling`, `JobTypeSpark` added to type alias `JobType`
+- New value `OutputDeliveryModeDirect` added to type alias `OutputDeliveryMode`
+- New value `ProvisioningStateSoftDeleted` added to type alias `ProvisioningState`
+- New value `SecretsTypeKerberosKeytab`, `SecretsTypeKerberosPassword` added to type alias `SecretsType`
+- New type alias `AssetProvisioningState` with values `AssetProvisioningStateCanceled`, `AssetProvisioningStateCreating`, `AssetProvisioningStateDeleting`, `AssetProvisioningStateFailed`, `AssetProvisioningStateSucceeded`, `AssetProvisioningStateUpdating`
+- New type alias `BaseEnvironmentSourceType` with values `BaseEnvironmentSourceTypeEnvironmentAsset`
+- New type alias `BatchDeploymentConfigurationType` with values `BatchDeploymentConfigurationTypeModel`, `BatchDeploymentConfigurationTypePipelineComponent`
+- New type alias `EmailNotificationEnableType` with values `EmailNotificationEnableTypeJobCancelled`, `EmailNotificationEnableTypeJobCompleted`, `EmailNotificationEnableTypeJobFailed`
+- New type alias `EnvironmentVariableType` with values `EnvironmentVariableTypeLocal`
+- New type alias `ExportFormatType` with values `ExportFormatTypeCSV`, `ExportFormatTypeCoco`, `ExportFormatTypeDataset`
+- New type alias `FeatureDataType` with values `FeatureDataTypeBinary`, `FeatureDataTypeBoolean`, `FeatureDataTypeDatetime`, `FeatureDataTypeDouble`, `FeatureDataTypeFloat`, `FeatureDataTypeInteger`, `FeatureDataTypeLong`, `FeatureDataTypeString`
+- New type alias `FeaturestoreJobType` with values `FeaturestoreJobTypeBackfillMaterialization`, `FeaturestoreJobTypeRecurrentMaterialization`
+- New type alias `ImageAnnotationType` with values `ImageAnnotationTypeBoundingBox`, `ImageAnnotationTypeClassification`, `ImageAnnotationTypeInstanceSegmentation`
+- New type alias `ImageType` with values `ImageTypeAzureml`, `ImageTypeDocker`
+- New type alias `IncrementalDataRefresh` with values `IncrementalDataRefreshDisabled`, `IncrementalDataRefreshEnabled`
+- New type alias `InferencingServerType` with values `InferencingServerTypeAzureMLBatch`, `InferencingServerTypeAzureMLOnline`, `InferencingServerTypeCustom`, `InferencingServerTypeTriton`
+- New type alias `InputPathType` with values `InputPathTypePathID`, `InputPathTypePathVersion`, `InputPathTypeURL`
+- New type alias `JobProvisioningState` with values `JobProvisioningStateCanceled`, `JobProvisioningStateFailed`, `JobProvisioningStateInProgress`, `JobProvisioningStateSucceeded`
+- New type alias `JobTier` with values `JobTierBasic`, `JobTierPremium`, `JobTierSpot`, `JobTierStandard`
+- New type alias `MLAssistConfigurationType` with values `MLAssistConfigurationTypeDisabled`, `MLAssistConfigurationTypeEnabled`
+- New type alias `MLFlowAutologgerState` with values `MLFlowAutologgerStateDisabled`, `MLFlowAutologgerStateEnabled`
+- New type alias `MaterializationStoreType` with values `MaterializationStoreTypeNone`, `MaterializationStoreTypeOffline`, `MaterializationStoreTypeOnline`, `MaterializationStoreTypeOnlineAndOffline`
+- New type alias `MediaType` with values `MediaTypeImage`, `MediaTypeText`
+- New type alias `MlflowAutologger` with values `MlflowAutologgerDisabled`, `MlflowAutologgerEnabled`
+- New type alias `MultiSelect` with values `MultiSelectDisabled`, `MultiSelectEnabled`
+- New type alias `NlpLearningRateScheduler` with values `NlpLearningRateSchedulerConstant`, `NlpLearningRateSchedulerConstantWithWarmup`, `NlpLearningRateSchedulerCosine`, `NlpLearningRateSchedulerCosineWithRestarts`, `NlpLearningRateSchedulerLinear`, `NlpLearningRateSchedulerNone`, `NlpLearningRateSchedulerPolynomial`
+- New type alias `NodesValueType` with values `NodesValueTypeAll`, `NodesValueTypeCustom`
+- New type alias `PackageBuildState` with values `PackageBuildStateFailed`, `PackageBuildStateNotStarted`, `PackageBuildStateRunning`, `PackageBuildStateSucceeded`
+- New type alias `PackageInputDeliveryMode` with values `PackageInputDeliveryModeDownload`, `PackageInputDeliveryModeReadOnlyMount`
+- New type alias `PackageInputType` with values `PackageInputTypeURIFile`, `PackageInputTypeURIFolder`
+- New type alias `Protocol` with values `ProtocolHTTP`, `ProtocolTCP`, `ProtocolUDP`
+- New type alias `SparkJobEntryType` with values `SparkJobEntryTypeSparkJobPythonEntry`, `SparkJobEntryTypeSparkJobScalaEntry`
+- New type alias `StatusMessageLevel` with values `StatusMessageLevelError`, `StatusMessageLevelInformation`, `StatusMessageLevelWarning`
+- New type alias `TextAnnotationType` with values `TextAnnotationTypeClassification`, `TextAnnotationTypeNamedEntityRecognition`
+- New type alias `TrainingMode` with values `TrainingModeAuto`, `TrainingModeDistributed`, `TrainingModeNonDistributed`
+- New type alias `VolumeDefinitionType` with values `VolumeDefinitionTypeBind`, `VolumeDefinitionTypeNpipe`, `VolumeDefinitionTypeTmpfs`, `VolumeDefinitionTypeVolume`
+- New function `*AccessKeyAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*AllNodes.GetNodes() *Nodes`
+- New function `*AzureMLBatchInferencingServer.GetInferencingServer() *InferencingServer`
+- New function `*AzureMLOnlineInferencingServer.GetInferencingServer() *InferencingServer`
+- New function `*BaseEnvironmentID.GetBaseEnvironmentSource() *BaseEnvironmentSource`
+- New function `*BaseEnvironmentSource.GetBaseEnvironmentSource() *BaseEnvironmentSource`
+- New function `*BatchDeploymentConfiguration.GetBatchDeploymentConfiguration() *BatchDeploymentConfiguration`
+- New function `*BatchPipelineComponentDeploymentConfiguration.GetBatchDeploymentConfiguration() *BatchDeploymentConfiguration`
+- New function `*CSVExportSummary.GetExportSummary() *ExportSummary`
+- New function `*CocoExportSummary.GetExportSummary() *ExportSummary`
+- New function `*ComputeClient.UpdateCustomServices(context.Context, string, string, string, []*CustomService, *ComputeClientUpdateCustomServicesOptions) (ComputeClientUpdateCustomServicesResponse, error)`
+- New function `*ComputeClient.UpdateIdleShutdownSetting(context.Context, string, string, string, IdleShutdownSetting, *ComputeClientUpdateIdleShutdownSettingOptions) (ComputeClientUpdateIdleShutdownSettingResponse, error)`
+- New function `*CustomInferencingServer.GetInferencingServer() *InferencingServer`
+- New function `*DatasetExportSummary.GetExportSummary() *ExportSummary`
+- New function `*ExportSummary.GetExportSummary() *ExportSummary`
+- New function `NewFeaturesetContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturesetContainersClient, error)`
+- New function `*FeaturesetContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, FeaturesetContainer, *FeaturesetContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturesetContainersClientCreateOrUpdateResponse], error)`
+- New function `*FeaturesetContainersClient.BeginDelete(context.Context, string, string, string, *FeaturesetContainersClientBeginDeleteOptions) (*runtime.Poller[FeaturesetContainersClientDeleteResponse], error)`
+- New function `*FeaturesetContainersClient.GetEntity(context.Context, string, string, string, *FeaturesetContainersClientGetEntityOptions) (FeaturesetContainersClientGetEntityResponse, error)`
+- New function `*FeaturesetContainersClient.NewListPager(string, string, *FeaturesetContainersClientListOptions) *runtime.Pager[FeaturesetContainersClientListResponse]`
+- New function `NewFeaturesetVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturesetVersionsClient, error)`
+- New function `*FeaturesetVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, FeaturesetVersion, *FeaturesetVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturesetVersionsClientCreateOrUpdateResponse], error)`
+- New function `*FeaturesetVersionsClient.BeginDelete(context.Context, string, string, string, string, *FeaturesetVersionsClientBeginDeleteOptions) (*runtime.Poller[FeaturesetVersionsClientDeleteResponse], error)`
+- New function `*FeaturesetVersionsClient.Get(context.Context, string, string, string, string, *FeaturesetVersionsClientGetOptions) (FeaturesetVersionsClientGetResponse, error)`
+- New function `*FeaturesetVersionsClient.GetFeature(context.Context, string, string, string, string, GetFeatureRequest, *FeaturesetVersionsClientGetFeatureOptions) (FeaturesetVersionsClientGetFeatureResponse, error)`
+- New function `*FeaturesetVersionsClient.NewListFeaturesPager(string, string, string, string, *FeaturesetVersionsClientListFeaturesOptions) *runtime.Pager[FeaturesetVersionsClientListFeaturesResponse]`
+- New function `*FeaturesetVersionsClient.NewListMaterializationJobsPager(string, string, string, string, *FeaturesetVersionsClientListMaterializationJobsOptions) *runtime.Pager[FeaturesetVersionsClientListMaterializationJobsResponse]`
+- New function `*FeaturesetVersionsClient.NewListPager(string, string, string, *FeaturesetVersionsClientListOptions) *runtime.Pager[FeaturesetVersionsClientListResponse]`
+- New function `*FeaturesetVersionsClient.BeginBackfill(context.Context, string, string, string, string, FeaturesetVersionBackfillRequest, *FeaturesetVersionsClientBeginBackfillOptions) (*runtime.Poller[FeaturesetVersionsClientBackfillResponse], error)`
+- New function `NewFeaturestoreEntityContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturestoreEntityContainersClient, error)`
+- New function `*FeaturestoreEntityContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, FeaturestoreEntityContainer, *FeaturestoreEntityContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturestoreEntityContainersClientCreateOrUpdateResponse], error)`
+- New function `*FeaturestoreEntityContainersClient.BeginDelete(context.Context, string, string, string, *FeaturestoreEntityContainersClientBeginDeleteOptions) (*runtime.Poller[FeaturestoreEntityContainersClientDeleteResponse], error)`
+- New function `*FeaturestoreEntityContainersClient.GetEntity(context.Context, string, string, string, *FeaturestoreEntityContainersClientGetEntityOptions) (FeaturestoreEntityContainersClientGetEntityResponse, error)`
+- New function `*FeaturestoreEntityContainersClient.NewListPager(string, string, *FeaturestoreEntityContainersClientListOptions) *runtime.Pager[FeaturestoreEntityContainersClientListResponse]`
+- New function `NewFeaturestoreEntityVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*FeaturestoreEntityVersionsClient, error)`
+- New function `*FeaturestoreEntityVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, FeaturestoreEntityVersion, *FeaturestoreEntityVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturestoreEntityVersionsClientCreateOrUpdateResponse], error)`
+- New function `*FeaturestoreEntityVersionsClient.BeginDelete(context.Context, string, string, string, string, *FeaturestoreEntityVersionsClientBeginDeleteOptions) (*runtime.Poller[FeaturestoreEntityVersionsClientDeleteResponse], error)`
+- New function `*FeaturestoreEntityVersionsClient.Get(context.Context, string, string, string, string, *FeaturestoreEntityVersionsClientGetOptions) (FeaturestoreEntityVersionsClientGetResponse, error)`
+- New function `*FeaturestoreEntityVersionsClient.NewListPager(string, string, string, *FeaturestoreEntityVersionsClientListOptions) *runtime.Pager[FeaturestoreEntityVersionsClientListResponse]`
+- New function `*HdfsDatastore.GetDatastoreProperties() *DatastoreProperties`
+- New function `*InferencingServer.GetInferencingServer() *InferencingServer`
+- New function `*KerberosKeytabCredentials.GetDatastoreCredentials() *DatastoreCredentials`
+- New function `*KerberosKeytabSecrets.GetDatastoreSecrets() *DatastoreSecrets`
+- New function `*KerberosPasswordCredentials.GetDatastoreCredentials() *DatastoreCredentials`
+- New function `*KerberosPasswordSecrets.GetDatastoreSecrets() *DatastoreSecrets`
+- New function `*LabelingJobImageProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `*LabelingJobMediaProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `*LabelingJobProperties.GetJobBaseProperties() *JobBaseProperties`
+- New function `*LabelingJobTextProperties.GetLabelingJobMediaProperties() *LabelingJobMediaProperties`
+- New function `NewLabelingJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LabelingJobsClient, error)`
+- New function `*LabelingJobsClient.BeginCreateOrUpdate(context.Context, string, string, string, LabelingJob, *LabelingJobsClientBeginCreateOrUpdateOptions) (*runtime.Poller[LabelingJobsClientCreateOrUpdateResponse], error)`
+- New function `*LabelingJobsClient.Delete(context.Context, string, string, string, *LabelingJobsClientDeleteOptions) (LabelingJobsClientDeleteResponse, error)`
+- New function `*LabelingJobsClient.BeginExportLabels(context.Context, string, string, string, ExportSummaryClassification, *LabelingJobsClientBeginExportLabelsOptions) (*runtime.Poller[LabelingJobsClientExportLabelsResponse], error)`
+- New function `*LabelingJobsClient.Get(context.Context, string, string, string, *LabelingJobsClientGetOptions) (LabelingJobsClientGetResponse, error)`
+- New function `*LabelingJobsClient.NewListPager(string, string, *LabelingJobsClientListOptions) *runtime.Pager[LabelingJobsClientListResponse]`
+- New function `*LabelingJobsClient.Pause(context.Context, string, string, string, *LabelingJobsClientPauseOptions) (LabelingJobsClientPauseResponse, error)`
+- New function `*LabelingJobsClient.BeginResume(context.Context, string, string, string, *LabelingJobsClientBeginResumeOptions) (*runtime.Poller[LabelingJobsClientResumeResponse], error)`
+- New function `*MLAssistConfiguration.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `*MLAssistConfigurationDisabled.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `*MLAssistConfigurationEnabled.GetMLAssistConfiguration() *MLAssistConfiguration`
+- New function `*ModelVersionsClient.BeginPackage(context.Context, string, string, string, string, PackageRequest, *ModelVersionsClientBeginPackageOptions) (*runtime.Poller[ModelVersionsClientPackageResponse], error)`
+- New function `*PackageInputPathBase.GetPackageInputPathBase() *PackageInputPathBase`
+- New function `*PackageInputPathID.GetPackageInputPathBase() *PackageInputPathBase`
+- New function `*PackageInputPathURL.GetPackageInputPathBase() *PackageInputPathBase`
+- New function `*PackageInputPathVersion.GetPackageInputPathBase() *PackageInputPathBase`
+- New function `NewRegistriesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistriesClient, error)`
+- New function `*RegistriesClient.BeginCreateOrUpdate(context.Context, string, string, Registry, *RegistriesClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistriesClientCreateOrUpdateResponse], error)`
+- New function `*RegistriesClient.BeginDelete(context.Context, string, string, *RegistriesClientBeginDeleteOptions) (*runtime.Poller[RegistriesClientDeleteResponse], error)`
+- New function `*RegistriesClient.Get(context.Context, string, string, *RegistriesClientGetOptions) (RegistriesClientGetResponse, error)`
+- New function `*RegistriesClient.NewListBySubscriptionPager(*RegistriesClientListBySubscriptionOptions) *runtime.Pager[RegistriesClientListBySubscriptionResponse]`
+- New function `*RegistriesClient.NewListPager(string, *RegistriesClientListOptions) *runtime.Pager[RegistriesClientListResponse]`
+- New function `*RegistriesClient.BeginUpdate(context.Context, string, string, PartialRegistryPartialTrackedResource, *RegistriesClientBeginUpdateOptions) (*runtime.Poller[RegistriesClientUpdateResponse], error)`
+- New function `NewRegistryCodeContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryCodeContainersClient, error)`
+- New function `*RegistryCodeContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, CodeContainer, *RegistryCodeContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryCodeContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryCodeContainersClient.BeginDelete(context.Context, string, string, string, *RegistryCodeContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryCodeContainersClientDeleteResponse], error)`
+- New function `*RegistryCodeContainersClient.Get(context.Context, string, string, string, *RegistryCodeContainersClientGetOptions) (RegistryCodeContainersClientGetResponse, error)`
+- New function `*RegistryCodeContainersClient.NewListPager(string, string, *RegistryCodeContainersClientListOptions) *runtime.Pager[RegistryCodeContainersClientListResponse]`
+- New function `NewRegistryCodeVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryCodeVersionsClient, error)`
+- New function `*RegistryCodeVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, CodeVersion, *RegistryCodeVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryCodeVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryCodeVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryCodeVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryCodeVersionsClientDeleteResponse], error)`
+- New function `*RegistryCodeVersionsClient.Get(context.Context, string, string, string, string, *RegistryCodeVersionsClientGetOptions) (RegistryCodeVersionsClientGetResponse, error)`
+- New function `*RegistryCodeVersionsClient.NewListPager(string, string, string, *RegistryCodeVersionsClientListOptions) *runtime.Pager[RegistryCodeVersionsClientListResponse]`
+- New function `NewRegistryComponentContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryComponentContainersClient, error)`
+- New function `*RegistryComponentContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, ComponentContainer, *RegistryComponentContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryComponentContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryComponentContainersClient.BeginDelete(context.Context, string, string, string, *RegistryComponentContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryComponentContainersClientDeleteResponse], error)`
+- New function `*RegistryComponentContainersClient.Get(context.Context, string, string, string, *RegistryComponentContainersClientGetOptions) (RegistryComponentContainersClientGetResponse, error)`
+- New function `*RegistryComponentContainersClient.NewListPager(string, string, *RegistryComponentContainersClientListOptions) *runtime.Pager[RegistryComponentContainersClientListResponse]`
+- New function `NewRegistryComponentVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryComponentVersionsClient, error)`
+- New function `*RegistryComponentVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, ComponentVersion, *RegistryComponentVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryComponentVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryComponentVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryComponentVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryComponentVersionsClientDeleteResponse], error)`
+- New function `*RegistryComponentVersionsClient.Get(context.Context, string, string, string, string, *RegistryComponentVersionsClientGetOptions) (RegistryComponentVersionsClientGetResponse, error)`
+- New function `*RegistryComponentVersionsClient.NewListPager(string, string, string, *RegistryComponentVersionsClientListOptions) *runtime.Pager[RegistryComponentVersionsClientListResponse]`
+- New function `NewRegistryDataContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryDataContainersClient, error)`
+- New function `*RegistryDataContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, DataContainer, *RegistryDataContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryDataContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryDataContainersClient.BeginDelete(context.Context, string, string, string, *RegistryDataContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryDataContainersClientDeleteResponse], error)`
+- New function `*RegistryDataContainersClient.Get(context.Context, string, string, string, *RegistryDataContainersClientGetOptions) (RegistryDataContainersClientGetResponse, error)`
+- New function `*RegistryDataContainersClient.NewListPager(string, string, *RegistryDataContainersClientListOptions) *runtime.Pager[RegistryDataContainersClientListResponse]`
+- New function `NewRegistryDataVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryDataVersionsClient, error)`
+- New function `*RegistryDataVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, DataVersionBase, *RegistryDataVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryDataVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryDataVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryDataVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryDataVersionsClientDeleteResponse], error)`
+- New function `*RegistryDataVersionsClient.Get(context.Context, string, string, string, string, *RegistryDataVersionsClientGetOptions) (RegistryDataVersionsClientGetResponse, error)`
+- New function `*RegistryDataVersionsClient.NewListPager(string, string, string, *RegistryDataVersionsClientListOptions) *runtime.Pager[RegistryDataVersionsClientListResponse]`
+- New function `NewRegistryEnvironmentContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEnvironmentContainersClient, error)`
+- New function `*RegistryEnvironmentContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, EnvironmentContainer, *RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEnvironmentContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryEnvironmentContainersClient.BeginDelete(context.Context, string, string, string, *RegistryEnvironmentContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryEnvironmentContainersClientDeleteResponse], error)`
+- New function `*RegistryEnvironmentContainersClient.Get(context.Context, string, string, string, *RegistryEnvironmentContainersClientGetOptions) (RegistryEnvironmentContainersClientGetResponse, error)`
+- New function `*RegistryEnvironmentContainersClient.NewListPager(string, string, *RegistryEnvironmentContainersClientListOptions) *runtime.Pager[RegistryEnvironmentContainersClientListResponse]`
+- New function `NewRegistryEnvironmentVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEnvironmentVersionsClient, error)`
+- New function `*RegistryEnvironmentVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, EnvironmentVersion, *RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEnvironmentVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryEnvironmentVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryEnvironmentVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryEnvironmentVersionsClientDeleteResponse], error)`
+- New function `*RegistryEnvironmentVersionsClient.Get(context.Context, string, string, string, string, *RegistryEnvironmentVersionsClientGetOptions) (RegistryEnvironmentVersionsClientGetResponse, error)`
+- New function `*RegistryEnvironmentVersionsClient.NewListPager(string, string, string, *RegistryEnvironmentVersionsClientListOptions) *runtime.Pager[RegistryEnvironmentVersionsClientListResponse]`
+- New function `NewRegistryModelContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryModelContainersClient, error)`
+- New function `*RegistryModelContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, ModelContainer, *RegistryModelContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryModelContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryModelContainersClient.BeginDelete(context.Context, string, string, string, *RegistryModelContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryModelContainersClientDeleteResponse], error)`
+- New function `*RegistryModelContainersClient.Get(context.Context, string, string, string, *RegistryModelContainersClientGetOptions) (RegistryModelContainersClientGetResponse, error)`
+- New function `*RegistryModelContainersClient.NewListPager(string, string, *RegistryModelContainersClientListOptions) *runtime.Pager[RegistryModelContainersClientListResponse]`
+- New function `NewRegistryModelVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryModelVersionsClient, error)`
+- New function `*RegistryModelVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, ModelVersion, *RegistryModelVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryModelVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryModelVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryModelVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryModelVersionsClientDeleteResponse], error)`
+- New function `*RegistryModelVersionsClient.Get(context.Context, string, string, string, string, *RegistryModelVersionsClientGetOptions) (RegistryModelVersionsClientGetResponse, error)`
+- New function `*RegistryModelVersionsClient.NewListPager(string, string, string, *RegistryModelVersionsClientListOptions) *runtime.Pager[RegistryModelVersionsClientListResponse]`
+- New function `*ServicePrincipalAuthTypeWorkspaceConnectionProperties.GetWorkspaceConnectionPropertiesV2() *WorkspaceConnectionPropertiesV2`
+- New function `*SparkJob.GetJobBaseProperties() *JobBaseProperties`
+- New function `*SparkJobEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*SparkJobPythonEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*SparkJobScalaEntry.GetSparkJobEntry() *SparkJobEntry`
+- New function `*TritonInferencingServer.GetInferencingServer() *InferencingServer`
+- New function `*Nodes.GetNodes() *Nodes`
+- New struct `AccessKeyAuthTypeWorkspaceConnectionProperties`
+- New struct `AcrDetails`
+- New struct `AllNodes`
+- New struct `ArmResourceID`
+- New struct `AutologgerSettings`
+- New struct `AzureDatastore`
+- New struct `AzureMLBatchInferencingServer`
+- New struct `AzureMLOnlineInferencingServer`
+- New struct `BaseEnvironmentID`
+- New struct `BatchPipelineComponentDeploymentConfiguration`
+- New struct `BindOptions`
+- New struct `CSVExportSummary`
+- New struct `CocoExportSummary`
+- New struct `ComputeInstanceAutologgerSettings`
+- New struct `ComputeRuntimeDto`
+- New struct `CustomInferencingServer`
+- New struct `CustomService`
+- New struct `DatasetExportSummary`
+- New struct `Docker`
+- New struct `EncryptionKeyVaultUpdateProperties`
+- New struct `EncryptionUpdateProperties`
+- New struct `Endpoint`
+- New struct `EnvironmentVariable`
+- New struct `Feature`
+- New struct `FeatureArmPaginatedResult`
+- New struct `FeatureStoreSettings`
+- New struct `FeatureWindow`
+- New struct `FeaturesetContainer`
+- New struct `FeaturesetContainerProperties`
+- New struct `FeaturesetContainerResourceArmPaginatedResult`
+- New struct `FeaturesetContainersClient`
+- New struct `FeaturesetJob`
+- New struct `FeaturesetJobArmPaginatedResult`
+- New struct `FeaturesetSpecification`
+- New struct `FeaturesetVersion`
+- New struct `FeaturesetVersionBackfillRequest`
+- New struct `FeaturesetVersionBackfillResponse`
+- New struct `FeaturesetVersionProperties`
+- New struct `FeaturesetVersionResourceArmPaginatedResult`
+- New struct `FeaturesetVersionsClient`
+- New struct `FeaturestoreEntityContainer`
+- New struct `FeaturestoreEntityContainerProperties`
+- New struct `FeaturestoreEntityContainerResourceArmPaginatedResult`
+- New struct `FeaturestoreEntityContainersClient`
+- New struct `FeaturestoreEntityVersion`
+- New struct `FeaturestoreEntityVersionProperties`
+- New struct `FeaturestoreEntityVersionResourceArmPaginatedResult`
+- New struct `FeaturestoreEntityVersionsClient`
+- New struct `GetFeatureRequest`
+- New struct `HdfsDatastore`
+- New struct `IdleShutdownSetting`
+- New struct `Image`
+- New struct `ImageMetadata`
+- New struct `IndexColumn`
+- New struct `KerberosCredentials`
+- New struct `KerberosKeytabCredentials`
+- New struct `KerberosKeytabSecrets`
+- New struct `KerberosPasswordCredentials`
+- New struct `KerberosPasswordSecrets`
+- New struct `LabelCategory`
+- New struct `LabelClass`
+- New struct `LabelingDataConfiguration`
+- New struct `LabelingJob`
+- New struct `LabelingJobImageProperties`
+- New struct `LabelingJobInstructions`
+- New struct `LabelingJobProperties`
+- New struct `LabelingJobResourceArmPaginatedResult`
+- New struct `LabelingJobTextProperties`
+- New struct `LabelingJobsClient`
+- New struct `MLAssistConfigurationDisabled`
+- New struct `MLAssistConfigurationEnabled`
+- New struct `MaterializationComputeResource`
+- New struct `MaterializationSettings`
+- New struct `ModelConfiguration`
+- New struct `ModelPackageInput`
+- New struct `NlpFixedParameters`
+- New struct `NlpParameterSubspace`
+- New struct `NlpSweepSettings`
+- New struct `NotificationSetting`
+- New struct `OnlineInferenceConfiguration`
+- New struct `PackageInputPathID`
+- New struct `PackageInputPathURL`
+- New struct `PackageInputPathVersion`
+- New struct `PackageRequest`
+- New struct `PackageResponse`
+- New struct `PartialRegistryPartialTrackedResource`
+- New struct `ProgressMetrics`
+- New struct `QueueSettings`
+- New struct `RegistriesClient`
+- New struct `Registry`
+- New struct `RegistryCodeContainersClient`
+- New struct `RegistryCodeVersionsClient`
+- New struct `RegistryComponentContainersClient`
+- New struct `RegistryComponentVersionsClient`
+- New struct `RegistryDataContainersClient`
+- New struct `RegistryDataVersionsClient`
+- New struct `RegistryEnvironmentContainersClient`
+- New struct `RegistryEnvironmentVersionsClient`
+- New struct `RegistryModelContainersClient`
+- New struct `RegistryModelVersionsClient`
+- New struct `RegistryProperties`
+- New struct `RegistryRegionArmDetails`
+- New struct `RegistryTrackedResourceArmPaginatedResult`
+- New struct `ServicePrincipalAuthTypeWorkspaceConnectionProperties`
+- New struct `SparkJob`
+- New struct `SparkJobPythonEntry`
+- New struct `SparkJobScalaEntry`
+- New struct `SparkResourceConfiguration`
+- New struct `StatusMessage`
+- New struct `StorageAccountDetails`
+- New struct `SystemCreatedAcrAccount`
+- New struct `SystemCreatedStorageAccount`
+- New struct `TableFixedParameters`
+- New struct `TableParameterSubspace`
+- New struct `TableSweepSettings`
+- New struct `TmpfsOptions`
+- New struct `TritonInferencingServer`
+- New struct `UserCreatedAcrAccount`
+- New struct `UserCreatedStorageAccount`
+- New struct `VolumeDefinition`
+- New struct `VolumeOptions`
+- New struct `WorkspaceConnectionAccessKey`
+- New struct `WorkspaceConnectionServicePrincipal`
+- New field `AssetName` in struct `AssetJobOutput`
+- New field `AssetVersion` in struct `AssetJobOutput`
+- New field `NotificationSetting` in struct `AutoMLJob`
+- New field `QueueSettings` in struct `AutoMLJob`
+- New field `ResourceGroup` in struct `AzureBlobDatastore`
+- New field `SubscriptionID` in struct `AzureBlobDatastore`
+- New field `ResourceGroup` in struct `AzureDataLakeGen1Datastore`
+- New field `SubscriptionID` in struct `AzureDataLakeGen1Datastore`
+- New field `ResourceGroup` in struct `AzureDataLakeGen2Datastore`
+- New field `SubscriptionID` in struct `AzureDataLakeGen2Datastore`
+- New field `ResourceGroup` in struct `AzureFileDatastore`
+- New field `SubscriptionID` in struct `AzureFileDatastore`
+- New field `DeploymentConfiguration` in struct `BatchDeploymentProperties`
+- New field `FixedParameters` in struct `Classification`
+- New field `SearchSpace` in struct `Classification`
+- New field `SweepSettings` in struct `Classification`
+- New field `TrainingMode` in struct `ClassificationTrainingSettings`
+- New field `ProvisioningState` in struct `CodeContainerProperties`
+- New field `ProvisioningState` in struct `CodeVersionProperties`
+- New field `AutologgerSettings` in struct `CommandJob`
+- New field `NotificationSetting` in struct `CommandJob`
+- New field `QueueSettings` in struct `CommandJob`
+- New field `ProvisioningState` in struct `ComponentContainerProperties`
+- New field `ProvisioningState` in struct `ComponentVersionProperties`
+- New field `AutologgerSettings` in struct `ComputeInstanceProperties`
+- New field `CustomServices` in struct `ComputeInstanceProperties`
+- New field `IdleTimeBeforeShutdown` in struct `ComputeInstanceProperties`
+- New field `OSImageMetadata` in struct `ComputeInstanceProperties`
+- New field `AssetName` in struct `CustomModelJobOutput`
+- New field `AssetVersion` in struct `CustomModelJobOutput`
+- New field `Locations` in struct `DeploymentResourceConfiguration`
+- New field `ProvisioningState` in struct `EnvironmentContainerProperties`
+- New field `ProvisioningState` in struct `EnvironmentVersionProperties`
+- New field `FixedParameters` in struct `Forecasting`
+- New field `SearchSpace` in struct `Forecasting`
+- New field `SweepSettings` in struct `Forecasting`
+- New field `TrainingMode` in struct `ForecastingTrainingSettings`
+- New field `Locations` in struct `JobResourceConfiguration`
+- New field `Nodes` in struct `JobService`
+- New field `AssetName` in struct `JobsClientListOptions`
+- New field `ScheduleID` in struct `JobsClientListOptions`
+- New field `Scheduled` in struct `JobsClientListOptions`
+- New field `AssetName` in struct `MLFlowModelJobOutput`
+- New field `AssetVersion` in struct `MLFlowModelJobOutput`
+- New field `AssetName` in struct `MLTableJobOutput`
+- New field `AssetVersion` in struct `MLTableJobOutput`
+- New field `ProvisioningState` in struct `ModelContainerProperties`
+- New field `ProvisioningState` in struct `ModelVersionProperties`
+- New field `FixedParameters` in struct `NlpVertical`
+- New field `SearchSpace` in struct `NlpVertical`
+- New field `SweepSettings` in struct `NlpVertical`
+- New field `MaxNodes` in struct `NlpVerticalLimitSettings`
+- New field `TrialTimeout` in struct `NlpVerticalLimitSettings`
+- New field `MirrorTraffic` in struct `OnlineEndpointProperties`
+- New field `NotificationSetting` in struct `PipelineJob`
+- New field `Logbase` in struct `RandomSamplingAlgorithm`
+- New field `FixedParameters` in struct `Regression`
+- New field `SearchSpace` in struct `Regression`
+- New field `SweepSettings` in struct `Regression`
+- New field `TrainingMode` in struct `RegressionTrainingSettings`
+- New field `Locations` in struct `ResourceConfiguration`
+- New field `NotificationSetting` in struct `SweepJob`
+- New field `QueueSettings` in struct `SweepJob`
+- New field `FixedParameters` in struct `TableVertical`
+- New field `SearchSpace` in struct `TableVertical`
+- New field `SweepSettings` in struct `TableVertical`
+- New field `MaxNodes` in struct `TableVerticalLimitSettings`
+- New field `SweepConcurrentTrials` in struct `TableVerticalLimitSettings`
+- New field `SweepTrials` in struct `TableVerticalLimitSettings`
+- New field `FixedParameters` in struct `TextClassification`
+- New field `SearchSpace` in struct `TextClassification`
+- New field `SweepSettings` in struct `TextClassification`
+- New field `FixedParameters` in struct `TextClassificationMultilabel`
+- New field `SearchSpace` in struct `TextClassificationMultilabel`
+- New field `SweepSettings` in struct `TextClassificationMultilabel`
+- New field `FixedParameters` in struct `TextNer`
+- New field `SearchSpace` in struct `TextNer`
+- New field `SweepSettings` in struct `TextNer`
+- New field `TrainingMode` in struct `TrainingSettings`
+- New field `AssetName` in struct `TritonModelJobOutput`
+- New field `AssetVersion` in struct `TritonModelJobOutput`
+- New field `AssetName` in struct `URIFileJobOutput`
+- New field `AssetVersion` in struct `URIFileJobOutput`
+- New field `AssetName` in struct `URIFolderJobOutput`
+- New field `AssetVersion` in struct `URIFolderJobOutput`
+- New field `Kind` in struct `Workspace`
+- New field `FeatureStoreSettings` in struct `WorkspaceProperties`
+- New field `ScheduledPurgeDate` in struct `WorkspaceProperties`
+- New field `SoftDeleteRetentionInDays` in struct `WorkspaceProperties`
+- New field `SoftDeletedAt` in struct `WorkspaceProperties`
+- New field `SystemDatastoresAuthMode` in struct `WorkspaceProperties`
+- New field `Encryption` in struct `WorkspacePropertiesUpdateParameters`
+- New field `FeatureStoreSettings` in struct `WorkspacePropertiesUpdateParameters`
+- New field `ForceToPurge` in struct `WorkspacesClientBeginDeleteOptions`
+- New field `Kind` in struct `WorkspacesClientListByResourceGroupOptions`
+- New field `Kind` in struct `WorkspacesClientListBySubscriptionOptions`
+
+
 ## 3.0.0 (2022-11-01)
 ### Breaking Changes
 
