@@ -32,9 +32,9 @@ type ComponentContainersClient struct {
 }
 
 // NewComponentContainersClient creates a new instance of ComponentContainersClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewComponentContainersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ComponentContainersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewComponentContainersClient(subscriptionID string, credential azcore.Token
 
 // CreateOrUpdate - Create or update container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name.
-// body - Container entity to create or update.
-// options - ComponentContainersClientCreateOrUpdateOptions contains the optional parameters for the ComponentContainersClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name.
+//   - body - Container entity to create or update.
+//   - options - ComponentContainersClientCreateOrUpdateOptions contains the optional parameters for the ComponentContainersClient.CreateOrUpdate
+//     method.
 func (client *ComponentContainersClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, body ComponentContainer, options *ComponentContainersClientCreateOrUpdateOptions) (ComponentContainersClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, body, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *ComponentContainersClient) createOrUpdateCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -120,12 +121,13 @@ func (client *ComponentContainersClient) createOrUpdateHandleResponse(resp *http
 
 // Delete - Delete container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name.
-// options - ComponentContainersClientDeleteOptions contains the optional parameters for the ComponentContainersClient.Delete
-// method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name.
+//   - options - ComponentContainersClientDeleteOptions contains the optional parameters for the ComponentContainersClient.Delete
+//     method.
 func (client *ComponentContainersClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *ComponentContainersClientDeleteOptions) (ComponentContainersClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {
@@ -165,7 +167,7 @@ func (client *ComponentContainersClient) deleteCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -173,11 +175,12 @@ func (client *ComponentContainersClient) deleteCreateRequest(ctx context.Context
 
 // Get - Get container.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name.
-// options - ComponentContainersClientGetOptions contains the optional parameters for the ComponentContainersClient.Get method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name.
+//   - options - ComponentContainersClientGetOptions contains the optional parameters for the ComponentContainersClient.Get method.
 func (client *ComponentContainersClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *ComponentContainersClientGetOptions) (ComponentContainersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, options)
 	if err != nil {
@@ -217,7 +220,7 @@ func (client *ComponentContainersClient) getCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -233,11 +236,12 @@ func (client *ComponentContainersClient) getHandleResponse(resp *http.Response) 
 }
 
 // NewListPager - List component containers.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// options - ComponentContainersClientListOptions contains the optional parameters for the ComponentContainersClient.List
-// method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - options - ComponentContainersClientListOptions contains the optional parameters for the ComponentContainersClient.NewListPager
+//     method.
 func (client *ComponentContainersClient) NewListPager(resourceGroupName string, workspaceName string, options *ComponentContainersClientListOptions) *runtime.Pager[ComponentContainersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ComponentContainersClientListResponse]{
 		More: func(page ComponentContainersClientListResponse) bool {
@@ -286,7 +290,7 @@ func (client *ComponentContainersClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
 	}

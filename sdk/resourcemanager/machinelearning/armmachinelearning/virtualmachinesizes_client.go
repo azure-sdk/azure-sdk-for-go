@@ -32,9 +32,9 @@ type VirtualMachineSizesClient struct {
 }
 
 // NewVirtualMachineSizesClient creates a new instance of VirtualMachineSizesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewVirtualMachineSizesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VirtualMachineSizesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewVirtualMachineSizesClient(subscriptionID string, credential azcore.Token
 
 // List - Returns supported VM Sizes in a location
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// location - The location upon which virtual-machine-sizes is queried.
-// options - VirtualMachineSizesClientListOptions contains the optional parameters for the VirtualMachineSizesClient.List
-// method.
+//
+// Generated from API version 2023-04-01
+//   - location - The location upon which virtual-machine-sizes is queried.
+//   - options - VirtualMachineSizesClientListOptions contains the optional parameters for the VirtualMachineSizesClient.List
+//     method.
 func (client *VirtualMachineSizesClient) List(ctx context.Context, location string, options *VirtualMachineSizesClientListOptions) (VirtualMachineSizesClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, location, options)
 	if err != nil {
@@ -92,7 +93,7 @@ func (client *VirtualMachineSizesClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
