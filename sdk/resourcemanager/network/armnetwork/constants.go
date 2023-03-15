@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -136,19 +136,35 @@ func PossibleApplicationGatewayCookieBasedAffinityValues() []ApplicationGatewayC
 	}
 }
 
-// ApplicationGatewayCustomErrorStatusCode - Status code of the application gateway customer error.
+// ApplicationGatewayCustomErrorStatusCode - Status code of the application gateway custom error.
 type ApplicationGatewayCustomErrorStatusCode string
 
 const (
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus400 ApplicationGatewayCustomErrorStatusCode = "HttpStatus400"
 	ApplicationGatewayCustomErrorStatusCodeHTTPStatus403 ApplicationGatewayCustomErrorStatusCode = "HttpStatus403"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus404 ApplicationGatewayCustomErrorStatusCode = "HttpStatus404"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus405 ApplicationGatewayCustomErrorStatusCode = "HttpStatus405"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus408 ApplicationGatewayCustomErrorStatusCode = "HttpStatus408"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus499 ApplicationGatewayCustomErrorStatusCode = "HttpStatus499"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus500 ApplicationGatewayCustomErrorStatusCode = "HttpStatus500"
 	ApplicationGatewayCustomErrorStatusCodeHTTPStatus502 ApplicationGatewayCustomErrorStatusCode = "HttpStatus502"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus503 ApplicationGatewayCustomErrorStatusCode = "HttpStatus503"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus504 ApplicationGatewayCustomErrorStatusCode = "HttpStatus504"
 )
 
 // PossibleApplicationGatewayCustomErrorStatusCodeValues returns the possible values for the ApplicationGatewayCustomErrorStatusCode const type.
 func PossibleApplicationGatewayCustomErrorStatusCodeValues() []ApplicationGatewayCustomErrorStatusCode {
 	return []ApplicationGatewayCustomErrorStatusCode{
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus400,
 		ApplicationGatewayCustomErrorStatusCodeHTTPStatus403,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus404,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus405,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus408,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus499,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus500,
 		ApplicationGatewayCustomErrorStatusCodeHTTPStatus502,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus503,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus504,
 	}
 }
 
@@ -165,6 +181,41 @@ func PossibleApplicationGatewayFirewallModeValues() []ApplicationGatewayFirewall
 	return []ApplicationGatewayFirewallMode{
 		ApplicationGatewayFirewallModeDetection,
 		ApplicationGatewayFirewallModePrevention,
+	}
+}
+
+// ApplicationGatewayFirewallRateLimitDuration - Duration over which Rate Limit policy will be applied. Applies only when
+// ruleType is RateLimitRule.
+type ApplicationGatewayFirewallRateLimitDuration string
+
+const (
+	ApplicationGatewayFirewallRateLimitDurationFiveMins ApplicationGatewayFirewallRateLimitDuration = "FiveMins"
+	ApplicationGatewayFirewallRateLimitDurationOneMin   ApplicationGatewayFirewallRateLimitDuration = "OneMin"
+)
+
+// PossibleApplicationGatewayFirewallRateLimitDurationValues returns the possible values for the ApplicationGatewayFirewallRateLimitDuration const type.
+func PossibleApplicationGatewayFirewallRateLimitDurationValues() []ApplicationGatewayFirewallRateLimitDuration {
+	return []ApplicationGatewayFirewallRateLimitDuration{
+		ApplicationGatewayFirewallRateLimitDurationFiveMins,
+		ApplicationGatewayFirewallRateLimitDurationOneMin,
+	}
+}
+
+// ApplicationGatewayFirewallUserSessionVariable - User Session clause variable.
+type ApplicationGatewayFirewallUserSessionVariable string
+
+const (
+	ApplicationGatewayFirewallUserSessionVariableClientAddr  ApplicationGatewayFirewallUserSessionVariable = "ClientAddr"
+	ApplicationGatewayFirewallUserSessionVariableGeoLocation ApplicationGatewayFirewallUserSessionVariable = "GeoLocation"
+	ApplicationGatewayFirewallUserSessionVariableNone        ApplicationGatewayFirewallUserSessionVariable = "None"
+)
+
+// PossibleApplicationGatewayFirewallUserSessionVariableValues returns the possible values for the ApplicationGatewayFirewallUserSessionVariable const type.
+func PossibleApplicationGatewayFirewallUserSessionVariableValues() []ApplicationGatewayFirewallUserSessionVariable {
+	return []ApplicationGatewayFirewallUserSessionVariable{
+		ApplicationGatewayFirewallUserSessionVariableClientAddr,
+		ApplicationGatewayFirewallUserSessionVariableGeoLocation,
+		ApplicationGatewayFirewallUserSessionVariableNone,
 	}
 }
 
@@ -3913,8 +3964,9 @@ func PossibleWebApplicationFirewallPolicyResourceStateValues() []WebApplicationF
 type WebApplicationFirewallRuleType string
 
 const (
-	WebApplicationFirewallRuleTypeInvalid   WebApplicationFirewallRuleType = "Invalid"
-	WebApplicationFirewallRuleTypeMatchRule WebApplicationFirewallRuleType = "MatchRule"
+	WebApplicationFirewallRuleTypeInvalid       WebApplicationFirewallRuleType = "Invalid"
+	WebApplicationFirewallRuleTypeMatchRule     WebApplicationFirewallRuleType = "MatchRule"
+	WebApplicationFirewallRuleTypeRateLimitRule WebApplicationFirewallRuleType = "RateLimitRule"
 )
 
 // PossibleWebApplicationFirewallRuleTypeValues returns the possible values for the WebApplicationFirewallRuleType const type.
@@ -3922,6 +3974,24 @@ func PossibleWebApplicationFirewallRuleTypeValues() []WebApplicationFirewallRule
 	return []WebApplicationFirewallRuleType{
 		WebApplicationFirewallRuleTypeInvalid,
 		WebApplicationFirewallRuleTypeMatchRule,
+		WebApplicationFirewallRuleTypeRateLimitRule,
+	}
+}
+
+// WebApplicationFirewallState - Describes if the custom rule is in enabled or disabled state. Defaults to Enabled if not
+// specified.
+type WebApplicationFirewallState string
+
+const (
+	WebApplicationFirewallStateDisabled WebApplicationFirewallState = "Disabled"
+	WebApplicationFirewallStateEnabled  WebApplicationFirewallState = "Enabled"
+)
+
+// PossibleWebApplicationFirewallStateValues returns the possible values for the WebApplicationFirewallState const type.
+func PossibleWebApplicationFirewallStateValues() []WebApplicationFirewallState {
+	return []WebApplicationFirewallState{
+		WebApplicationFirewallStateDisabled,
+		WebApplicationFirewallStateEnabled,
 	}
 }
 
