@@ -32,9 +32,9 @@ type AccountConnectorsClient struct {
 }
 
 // NewAccountConnectorsClient creates a new instance of AccountConnectorsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAccountConnectorsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AccountConnectorsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -59,11 +59,12 @@ func NewAccountConnectorsClient(subscriptionID string, credential azcore.TokenCr
 // either account credentials or role-based authentication. For GCP, use account organization
 // credentials.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01-preview
-// connectorName - Name of the cloud account connector
-// connectorSetting - Settings for the cloud account connector
-// options - AccountConnectorsClientCreateOrUpdateOptions contains the optional parameters for the AccountConnectorsClient.CreateOrUpdate
-// method.
+//   - connectorName - Name of the cloud account connector
+//   - connectorSetting - Settings for the cloud account connector
+//   - options - AccountConnectorsClientCreateOrUpdateOptions contains the optional parameters for the AccountConnectorsClient.CreateOrUpdate
+//     method.
 func (client *AccountConnectorsClient) CreateOrUpdate(ctx context.Context, connectorName string, connectorSetting ConnectorSetting, options *AccountConnectorsClientCreateOrUpdateOptions) (AccountConnectorsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, connectorName, connectorSetting, options)
 	if err != nil {
@@ -112,10 +113,11 @@ func (client *AccountConnectorsClient) createOrUpdateHandleResponse(resp *http.R
 
 // Delete - Delete a cloud account connector from a subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01-preview
-// connectorName - Name of the cloud account connector
-// options - AccountConnectorsClientDeleteOptions contains the optional parameters for the AccountConnectorsClient.Delete
-// method.
+//   - connectorName - Name of the cloud account connector
+//   - options - AccountConnectorsClientDeleteOptions contains the optional parameters for the AccountConnectorsClient.Delete
+//     method.
 func (client *AccountConnectorsClient) Delete(ctx context.Context, connectorName string, options *AccountConnectorsClientDeleteOptions) (AccountConnectorsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, connectorName, options)
 	if err != nil {
@@ -155,9 +157,10 @@ func (client *AccountConnectorsClient) deleteCreateRequest(ctx context.Context, 
 
 // Get - Details of a specific cloud account connector
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01-preview
-// connectorName - Name of the cloud account connector
-// options - AccountConnectorsClientGetOptions contains the optional parameters for the AccountConnectorsClient.Get method.
+//   - connectorName - Name of the cloud account connector
+//   - options - AccountConnectorsClientGetOptions contains the optional parameters for the AccountConnectorsClient.Get method.
 func (client *AccountConnectorsClient) Get(ctx context.Context, connectorName string, options *AccountConnectorsClientGetOptions) (AccountConnectorsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, connectorName, options)
 	if err != nil {
@@ -205,8 +208,10 @@ func (client *AccountConnectorsClient) getHandleResponse(resp *http.Response) (A
 }
 
 // NewListPager - Cloud accounts connectors of a subscription
+//
 // Generated from API version 2020-01-01-preview
-// options - AccountConnectorsClientListOptions contains the optional parameters for the AccountConnectorsClient.List method.
+//   - options - AccountConnectorsClientListOptions contains the optional parameters for the AccountConnectorsClient.NewListPager
+//     method.
 func (client *AccountConnectorsClient) NewListPager(options *AccountConnectorsClientListOptions) *runtime.Pager[AccountConnectorsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AccountConnectorsClientListResponse]{
 		More: func(page AccountConnectorsClientListResponse) bool {

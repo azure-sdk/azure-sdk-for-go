@@ -1,5 +1,81 @@
 # Release History
 
+## 0.10.0 (2023-03-15)
+### Breaking Changes
+
+- Function `NewGovernanceRulesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GovernanceRulesClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, GovernanceRule, *GovernanceRulesClientCreateOrUpdateOptions)` to `(context.Context, string, string, GovernanceRule, *GovernanceRulesClientCreateOrUpdateOptions)`
+- Function `*GovernanceRulesClient.Get` parameter(s) have been changed from `(context.Context, string, *GovernanceRulesClientGetOptions)` to `(context.Context, string, string, *GovernanceRulesClientGetOptions)`
+- Function `NewConnectorGovernanceRuleClient` has been removed
+- Function `*ConnectorGovernanceRuleClient.NewListPager` has been removed
+- Function `NewConnectorGovernanceRulesClient` has been removed
+- Function `*ConnectorGovernanceRulesClient.CreateOrUpdate` has been removed
+- Function `*ConnectorGovernanceRulesClient.Delete` has been removed
+- Function `*ConnectorGovernanceRulesClient.Get` has been removed
+- Function `NewConnectorGovernanceRulesExecuteStatusClient` has been removed
+- Function `*ConnectorGovernanceRulesExecuteStatusClient.BeginGet` has been removed
+- Function `NewGovernanceRuleClient` has been removed
+- Function `*GovernanceRuleClient.NewListPager` has been removed
+- Function `*GovernanceRulesClient.BeginRuleIDExecuteSingleSecurityConnector` has been removed
+- Function `*GovernanceRulesClient.BeginRuleIDExecuteSingleSubscription` has been removed
+- Function `NewSubscriptionGovernanceRulesExecuteStatusClient` has been removed
+- Function `*SubscriptionGovernanceRulesExecuteStatusClient.BeginGet` has been removed
+- Operation `*GovernanceRulesClient.Delete` has been changed to LRO, use `*GovernanceRulesClient.BeginDelete` instead.
+- Struct `ConnectorGovernanceRuleClient` has been removed
+- Struct `ConnectorGovernanceRulesClient` has been removed
+- Struct `ConnectorGovernanceRulesExecuteStatusClient` has been removed
+- Struct `ExecuteRuleStatus` has been removed
+- Struct `GovernanceRuleClient` has been removed
+- Struct `SubscriptionGovernanceRulesExecuteStatusClient` has been removed
+
+### Features Added
+
+- New type alias `OperationResult` with values `OperationResultCanceled`, `OperationResultFailed`, `OperationResultSucceeded`
+- New type alias `ScopeName` with values `ScopeNameClusters`, `ScopeNameConnectors`, `ScopeNameUnknown`, `ScopeNameVirtualMachines`
+- New type alias `StatusName` with values `StatusNameHealthy`, `StatusNameNotApplicable`, `StatusNameNotHealthy`
+- New function `NewAPICollectionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionClient, error)`
+- New function `*APICollectionClient.Get(context.Context, string, string, string, *APICollectionClientGetOptions) (APICollectionClientGetResponse, error)`
+- New function `*APICollectionClient.NewListPager(string, string, *APICollectionClientListOptions) *runtime.Pager[APICollectionClientListResponse]`
+- New function `NewAPICollectionOffboardingClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionOffboardingClient, error)`
+- New function `*APICollectionOffboardingClient.Delete(context.Context, string, string, string, *APICollectionOffboardingClientDeleteOptions) (APICollectionOffboardingClientDeleteResponse, error)`
+- New function `NewAPICollectionOnboardingClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionOnboardingClient, error)`
+- New function `*APICollectionOnboardingClient.Create(context.Context, string, string, string, *APICollectionOnboardingClientCreateOptions) (APICollectionOnboardingClientCreateResponse, error)`
+- New function `*GovernanceRulesClient.BeginExecute(context.Context, string, string, *GovernanceRulesClientBeginExecuteOptions) (*runtime.Poller[GovernanceRulesClientExecuteResponse], error)`
+- New function `*GovernanceRulesClient.NewListPager(string, *GovernanceRulesClientListOptions) *runtime.Pager[GovernanceRulesClientListResponse]`
+- New function `*GovernanceRulesClient.OperationResults(context.Context, string, string, string, *GovernanceRulesClientOperationResultsOptions) (GovernanceRulesClientOperationResultsResponse, error)`
+- New function `NewHealthReportClient(azcore.TokenCredential, *arm.ClientOptions) (*HealthReportClient, error)`
+- New function `*HealthReportClient.Get(context.Context, string, string, *HealthReportClientGetOptions) (HealthReportClientGetResponse, error)`
+- New function `NewHealthReportsClient(azcore.TokenCredential, *arm.ClientOptions) (*HealthReportsClient, error)`
+- New function `*HealthReportsClient.NewListPager(string, *HealthReportsClientListOptions) *runtime.Pager[HealthReportsClientListResponse]`
+- New struct `APICollectionClient`
+- New struct `APICollectionOffboardingClient`
+- New struct `APICollectionOnboardingClient`
+- New struct `APICollectionProperties`
+- New struct `APICollectionResponse`
+- New struct `APICollectionResponseList`
+- New struct `EnvironmentDetails`
+- New struct `ErrorDetail`
+- New struct `ErrorDetailAutoGenerated`
+- New struct `ErrorResponse`
+- New struct `ErrorResponseAutoGenerated`
+- New struct `GovernanceRuleMetadata`
+- New struct `HealthDataClassification`
+- New struct `HealthReport`
+- New struct `HealthReportClient`
+- New struct `HealthReportProperties`
+- New struct `HealthReportsClient`
+- New struct `HealthReportsList`
+- New struct `Issue`
+- New struct `OperationResultAutoGenerated`
+- New struct `ResourceDetailsAutoGenerated`
+- New struct `StatusAutoGenerated`
+- New field `ExcludedScopes` in struct `GovernanceRuleProperties`
+- New field `IncludeMemberScopes` in struct `GovernanceRuleProperties`
+- New field `Metadata` in struct `GovernanceRuleProperties`
+- New field `TenantID` in struct `GovernanceRuleProperties`
+- New field `LastScanTime` in struct `ScanProperties`
+
+
 ## 0.9.0 (2022-11-15)
 ### Breaking Changes
 

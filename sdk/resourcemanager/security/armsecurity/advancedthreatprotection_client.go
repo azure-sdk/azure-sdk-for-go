@@ -30,8 +30,8 @@ type AdvancedThreatProtectionClient struct {
 }
 
 // NewAdvancedThreatProtectionClient creates a new instance of AdvancedThreatProtectionClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAdvancedThreatProtectionClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*AdvancedThreatProtectionClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -53,11 +53,12 @@ func NewAdvancedThreatProtectionClient(credential azcore.TokenCredential, option
 
 // Create - Creates or updates the Advanced Threat Protection settings on a specified resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01
-// resourceID - The identifier of the resource.
-// advancedThreatProtectionSetting - Advanced Threat Protection Settings
-// options - AdvancedThreatProtectionClientCreateOptions contains the optional parameters for the AdvancedThreatProtectionClient.Create
-// method.
+//   - resourceID - The identifier of the resource.
+//   - advancedThreatProtectionSetting - Advanced Threat Protection Settings
+//   - options - AdvancedThreatProtectionClientCreateOptions contains the optional parameters for the AdvancedThreatProtectionClient.Create
+//     method.
 func (client *AdvancedThreatProtectionClient) Create(ctx context.Context, resourceID string, advancedThreatProtectionSetting AdvancedThreatProtectionSetting, options *AdvancedThreatProtectionClientCreateOptions) (AdvancedThreatProtectionClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceID, advancedThreatProtectionSetting, options)
 	if err != nil {
@@ -100,10 +101,11 @@ func (client *AdvancedThreatProtectionClient) createHandleResponse(resp *http.Re
 
 // Get - Gets the Advanced Threat Protection settings for the specified resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01
-// resourceID - The identifier of the resource.
-// options - AdvancedThreatProtectionClientGetOptions contains the optional parameters for the AdvancedThreatProtectionClient.Get
-// method.
+//   - resourceID - The identifier of the resource.
+//   - options - AdvancedThreatProtectionClientGetOptions contains the optional parameters for the AdvancedThreatProtectionClient.Get
+//     method.
 func (client *AdvancedThreatProtectionClient) Get(ctx context.Context, resourceID string, options *AdvancedThreatProtectionClientGetOptions) (AdvancedThreatProtectionClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceID, options)
 	if err != nil {

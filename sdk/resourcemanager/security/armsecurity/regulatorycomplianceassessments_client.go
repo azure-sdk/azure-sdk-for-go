@@ -32,9 +32,9 @@ type RegulatoryComplianceAssessmentsClient struct {
 }
 
 // NewRegulatoryComplianceAssessmentsClient creates a new instance of RegulatoryComplianceAssessmentsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewRegulatoryComplianceAssessmentsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RegulatoryComplianceAssessmentsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewRegulatoryComplianceAssessmentsClient(subscriptionID string, credential 
 
 // Get - Supported regulatory compliance details and state for selected assessment
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-01-01-preview
-// regulatoryComplianceStandardName - Name of the regulatory compliance standard object
-// regulatoryComplianceControlName - Name of the regulatory compliance control object
-// regulatoryComplianceAssessmentName - Name of the regulatory compliance assessment object
-// options - RegulatoryComplianceAssessmentsClientGetOptions contains the optional parameters for the RegulatoryComplianceAssessmentsClient.Get
-// method.
+//   - regulatoryComplianceStandardName - Name of the regulatory compliance standard object
+//   - regulatoryComplianceControlName - Name of the regulatory compliance control object
+//   - regulatoryComplianceAssessmentName - Name of the regulatory compliance assessment object
+//   - options - RegulatoryComplianceAssessmentsClientGetOptions contains the optional parameters for the RegulatoryComplianceAssessmentsClient.Get
+//     method.
 func (client *RegulatoryComplianceAssessmentsClient) Get(ctx context.Context, regulatoryComplianceStandardName string, regulatoryComplianceControlName string, regulatoryComplianceAssessmentName string, options *RegulatoryComplianceAssessmentsClientGetOptions) (RegulatoryComplianceAssessmentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, regulatoryComplianceStandardName, regulatoryComplianceControlName, regulatoryComplianceAssessmentName, options)
 	if err != nil {
@@ -118,11 +119,12 @@ func (client *RegulatoryComplianceAssessmentsClient) getHandleResponse(resp *htt
 }
 
 // NewListPager - Details and state of assessments mapped to selected regulatory compliance control
+//
 // Generated from API version 2019-01-01-preview
-// regulatoryComplianceStandardName - Name of the regulatory compliance standard object
-// regulatoryComplianceControlName - Name of the regulatory compliance control object
-// options - RegulatoryComplianceAssessmentsClientListOptions contains the optional parameters for the RegulatoryComplianceAssessmentsClient.List
-// method.
+//   - regulatoryComplianceStandardName - Name of the regulatory compliance standard object
+//   - regulatoryComplianceControlName - Name of the regulatory compliance control object
+//   - options - RegulatoryComplianceAssessmentsClientListOptions contains the optional parameters for the RegulatoryComplianceAssessmentsClient.NewListPager
+//     method.
 func (client *RegulatoryComplianceAssessmentsClient) NewListPager(regulatoryComplianceStandardName string, regulatoryComplianceControlName string, options *RegulatoryComplianceAssessmentsClientListOptions) *runtime.Pager[RegulatoryComplianceAssessmentsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[RegulatoryComplianceAssessmentsClientListResponse]{
 		More: func(page RegulatoryComplianceAssessmentsClientListResponse) bool {
