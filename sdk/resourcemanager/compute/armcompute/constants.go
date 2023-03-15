@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v4.1.0"
+	moduleVersion = "v5.0.0"
 )
 
 type AccessLevel string
@@ -821,11 +821,8 @@ func PossibleGalleryProvisioningStateValues() []GalleryProvisioningState {
 	}
 }
 
-// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery.
-// Possible values are:
-// Private
-// Groups
-// Community
+// GallerySharingPermissionTypes - This property allows you to specify the permission of sharing gallery. Possible values
+// are: Private, Groups, Community
 type GallerySharingPermissionTypes string
 
 const (
@@ -1147,9 +1144,7 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 }
 
 // OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are:
-// Windows
-// Linux
+// Possible values are: Windows, Linux
 type OperatingSystemTypes string
 
 const (
@@ -1758,9 +1753,7 @@ func PossibleSharedToValuesValues() []SharedToValues {
 	}
 }
 
-// SharingProfileGroupTypes - This property allows you to specify the type of sharing group.
-// Possible values are:
-// Subscriptions
+// SharingProfileGroupTypes - This property allows you to specify the type of sharing group. Possible values are: Subscriptions,
 // AADTenants
 type SharingProfileGroupTypes string
 
@@ -1797,11 +1790,8 @@ func PossibleSharingStateValues() []SharingState {
 	}
 }
 
-// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update.
-// Possible values are:
-// Add
-// Remove
-// Reset
+// SharingUpdateOperationTypes - This property allows you to specify the operation type of gallery sharing update. Possible
+// values are: Add, Remove, Reset
 type SharingUpdateOperationTypes string
 
 const (
@@ -1864,9 +1854,10 @@ func PossibleStatusLevelTypesValues() []StatusLevelTypes {
 type StorageAccountType string
 
 const (
-	StorageAccountTypePremiumLRS  StorageAccountType = "Premium_LRS"
-	StorageAccountTypeStandardLRS StorageAccountType = "Standard_LRS"
-	StorageAccountTypeStandardZRS StorageAccountType = "Standard_ZRS"
+	StorageAccountTypePremiumLRS     StorageAccountType = "Premium_LRS"
+	StorageAccountTypeStandardLRS    StorageAccountType = "Standard_LRS"
+	StorageAccountTypeStandardSSDLRS StorageAccountType = "StandardSSD_LRS"
+	StorageAccountTypeStandardZRS    StorageAccountType = "Standard_ZRS"
 )
 
 // PossibleStorageAccountTypeValues returns the possible values for the StorageAccountType const type.
@@ -1874,6 +1865,7 @@ func PossibleStorageAccountTypeValues() []StorageAccountType {
 	return []StorageAccountType{
 		StorageAccountTypePremiumLRS,
 		StorageAccountTypeStandardLRS,
+		StorageAccountTypeStandardSSDLRS,
 		StorageAccountTypeStandardZRS,
 	}
 }

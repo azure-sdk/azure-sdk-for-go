@@ -230,20 +230,20 @@ type AvailabilitySetsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AvailabilitySetsClientListAvailableSizesOptions contains the optional parameters for the AvailabilitySetsClient.ListAvailableSizes
+// AvailabilitySetsClientListAvailableSizesOptions contains the optional parameters for the AvailabilitySetsClient.NewListAvailableSizesPager
 // method.
 type AvailabilitySetsClientListAvailableSizesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AvailabilitySetsClientListBySubscriptionOptions contains the optional parameters for the AvailabilitySetsClient.ListBySubscription
+// AvailabilitySetsClientListBySubscriptionOptions contains the optional parameters for the AvailabilitySetsClient.NewListBySubscriptionPager
 // method.
 type AvailabilitySetsClientListBySubscriptionOptions struct {
 	// The expand expression to apply to the operation. Allowed values are 'instanceView'.
 	Expand *string
 }
 
-// AvailabilitySetsClientListOptions contains the optional parameters for the AvailabilitySetsClient.List method.
+// AvailabilitySetsClientListOptions contains the optional parameters for the AvailabilitySetsClient.NewListPager method.
 type AvailabilitySetsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -450,7 +450,7 @@ type CapacityReservationGroupsClientGetOptions struct {
 	Expand *CapacityReservationGroupInstanceViewTypes
 }
 
-// CapacityReservationGroupsClientListByResourceGroupOptions contains the optional parameters for the CapacityReservationGroupsClient.ListByResourceGroup
+// CapacityReservationGroupsClientListByResourceGroupOptions contains the optional parameters for the CapacityReservationGroupsClient.NewListByResourceGroupPager
 // method.
 type CapacityReservationGroupsClientListByResourceGroupOptions struct {
 	// The expand expression to apply on the operation. Based on the expand param(s) specified we return Virtual Machine or ScaleSet
@@ -459,7 +459,7 @@ type CapacityReservationGroupsClientListByResourceGroupOptions struct {
 	Expand *ExpandTypesForGetCapacityReservationGroups
 }
 
-// CapacityReservationGroupsClientListBySubscriptionOptions contains the optional parameters for the CapacityReservationGroupsClient.ListBySubscription
+// CapacityReservationGroupsClientListBySubscriptionOptions contains the optional parameters for the CapacityReservationGroupsClient.NewListBySubscriptionPager
 // method.
 type CapacityReservationGroupsClientListBySubscriptionOptions struct {
 	// The expand expression to apply on the operation. Based on the expand param(s) specified we return Virtual Machine or ScaleSet
@@ -600,7 +600,7 @@ type CapacityReservationsClientGetOptions struct {
 	Expand *CapacityReservationInstanceViewTypes
 }
 
-// CapacityReservationsClientListByCapacityReservationGroupOptions contains the optional parameters for the CapacityReservationsClient.ListByCapacityReservationGroup
+// CapacityReservationsClientListByCapacityReservationGroupOptions contains the optional parameters for the CapacityReservationsClient.NewListByCapacityReservationGroupPager
 // method.
 type CapacityReservationsClientListByCapacityReservationGroupOptions struct {
 	// placeholder for future optional parameters
@@ -654,7 +654,7 @@ type CloudServiceExtensionProperties struct {
 	ForceUpdateTag *string `json:"forceUpdateTag,omitempty"`
 
 	// Protected settings for the extension which are encrypted before sent to the role instance.
-	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
+	ProtectedSettings any `json:"protectedSettings,omitempty"`
 
 	// Protected settings for the extension, referenced using KeyVault which are encrypted before sent to the role instance.
 	ProtectedSettingsFromKeyVault *CloudServiceVaultAndSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
@@ -668,7 +668,7 @@ type CloudServiceExtensionProperties struct {
 
 	// Public settings for the extension. For JSON extensions, this is the JSON settings for the extension. For XML Extension
 	// (like RDP), this is the XML setting for the extension.
-	Settings interface{} `json:"settings,omitempty"`
+	Settings any `json:"settings,omitempty"`
 
 	// Specifies the type of the extension.
 	Type *string `json:"type,omitempty"`
@@ -741,13 +741,13 @@ type CloudServiceOperatingSystemsClientGetOSVersionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudServiceOperatingSystemsClientListOSFamiliesOptions contains the optional parameters for the CloudServiceOperatingSystemsClient.ListOSFamilies
+// CloudServiceOperatingSystemsClientListOSFamiliesOptions contains the optional parameters for the CloudServiceOperatingSystemsClient.NewListOSFamiliesPager
 // method.
 type CloudServiceOperatingSystemsClientListOSFamiliesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudServiceOperatingSystemsClientListOSVersionsOptions contains the optional parameters for the CloudServiceOperatingSystemsClient.ListOSVersions
+// CloudServiceOperatingSystemsClientListOSVersionsOptions contains the optional parameters for the CloudServiceOperatingSystemsClient.NewListOSVersionsPager
 // method.
 type CloudServiceOperatingSystemsClientListOSVersionsOptions struct {
 	// placeholder for future optional parameters
@@ -883,7 +883,7 @@ type CloudServiceRoleInstancesClientGetRemoteDesktopFileOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudServiceRoleInstancesClientListOptions contains the optional parameters for the CloudServiceRoleInstancesClient.List
+// CloudServiceRoleInstancesClientListOptions contains the optional parameters for the CloudServiceRoleInstancesClient.NewListPager
 // method.
 type CloudServiceRoleInstancesClientListOptions struct {
 	// The expand expression to apply to the operation. 'UserData' is not supported for cloud services.
@@ -941,7 +941,7 @@ type CloudServiceRolesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudServiceRolesClientListOptions contains the optional parameters for the CloudServiceRolesClient.List method.
+// CloudServiceRolesClientListOptions contains the optional parameters for the CloudServiceRolesClient.NewListPager method.
 type CloudServiceRolesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1052,12 +1052,12 @@ type CloudServicesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudServicesClientListAllOptions contains the optional parameters for the CloudServicesClient.ListAll method.
+// CloudServicesClientListAllOptions contains the optional parameters for the CloudServicesClient.NewListAllPager method.
 type CloudServicesClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudServicesClientListOptions contains the optional parameters for the CloudServicesClient.List method.
+// CloudServicesClientListOptions contains the optional parameters for the CloudServicesClient.NewListPager method.
 type CloudServicesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1075,7 +1075,7 @@ type CloudServicesUpdateDomainClientGetUpdateDomainOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CloudServicesUpdateDomainClientListUpdateDomainsOptions contains the optional parameters for the CloudServicesUpdateDomainClient.ListUpdateDomains
+// CloudServicesUpdateDomainClientListUpdateDomainsOptions contains the optional parameters for the CloudServicesUpdateDomainClient.NewListUpdateDomainsPager
 // method.
 type CloudServicesUpdateDomainClientListUpdateDomainsOptions struct {
 	// placeholder for future optional parameters
@@ -1145,10 +1145,7 @@ type CommunityGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes `json:"osState,omitempty"`
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. The possible values are: Windows, Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -1231,7 +1228,7 @@ type CommunityGalleryImageVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CommunityGalleryImageVersionsClientListOptions contains the optional parameters for the CommunityGalleryImageVersionsClient.List
+// CommunityGalleryImageVersionsClientListOptions contains the optional parameters for the CommunityGalleryImageVersionsClient.NewListPager
 // method.
 type CommunityGalleryImageVersionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -1242,7 +1239,8 @@ type CommunityGalleryImagesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CommunityGalleryImagesClientListOptions contains the optional parameters for the CommunityGalleryImagesClient.List method.
+// CommunityGalleryImagesClientListOptions contains the optional parameters for the CommunityGalleryImagesClient.NewListPager
+// method.
 type CommunityGalleryImagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1568,13 +1566,13 @@ type DedicatedHostGroupsClientGetOptions struct {
 	Expand *InstanceViewTypes
 }
 
-// DedicatedHostGroupsClientListByResourceGroupOptions contains the optional parameters for the DedicatedHostGroupsClient.ListByResourceGroup
+// DedicatedHostGroupsClientListByResourceGroupOptions contains the optional parameters for the DedicatedHostGroupsClient.NewListByResourceGroupPager
 // method.
 type DedicatedHostGroupsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DedicatedHostGroupsClientListBySubscriptionOptions contains the optional parameters for the DedicatedHostGroupsClient.ListBySubscription
+// DedicatedHostGroupsClientListBySubscriptionOptions contains the optional parameters for the DedicatedHostGroupsClient.NewListBySubscriptionPager
 // method.
 type DedicatedHostGroupsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -1702,7 +1700,7 @@ type DedicatedHostsClientGetOptions struct {
 	Expand *InstanceViewTypes
 }
 
-// DedicatedHostsClientListByHostGroupOptions contains the optional parameters for the DedicatedHostsClient.ListByHostGroup
+// DedicatedHostsClientListByHostGroupOptions contains the optional parameters for the DedicatedHostsClient.NewListByHostGroupPager
 // method.
 type DedicatedHostsClientListByHostGroupOptions struct {
 	// placeholder for future optional parameters
@@ -1885,18 +1883,18 @@ type DiskAccessesClientGetPrivateLinkResourcesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiskAccessesClientListByResourceGroupOptions contains the optional parameters for the DiskAccessesClient.ListByResourceGroup
+// DiskAccessesClientListByResourceGroupOptions contains the optional parameters for the DiskAccessesClient.NewListByResourceGroupPager
 // method.
 type DiskAccessesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiskAccessesClientListOptions contains the optional parameters for the DiskAccessesClient.List method.
+// DiskAccessesClientListOptions contains the optional parameters for the DiskAccessesClient.NewListPager method.
 type DiskAccessesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiskAccessesClientListPrivateEndpointConnectionsOptions contains the optional parameters for the DiskAccessesClient.ListPrivateEndpointConnections
+// DiskAccessesClientListPrivateEndpointConnectionsOptions contains the optional parameters for the DiskAccessesClient.NewListPrivateEndpointConnectionsPager
 // method.
 type DiskAccessesClientListPrivateEndpointConnectionsOptions struct {
 	// placeholder for future optional parameters
@@ -1999,19 +1997,19 @@ type DiskEncryptionSetsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiskEncryptionSetsClientListAssociatedResourcesOptions contains the optional parameters for the DiskEncryptionSetsClient.ListAssociatedResources
+// DiskEncryptionSetsClientListAssociatedResourcesOptions contains the optional parameters for the DiskEncryptionSetsClient.NewListAssociatedResourcesPager
 // method.
 type DiskEncryptionSetsClientListAssociatedResourcesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiskEncryptionSetsClientListByResourceGroupOptions contains the optional parameters for the DiskEncryptionSetsClient.ListByResourceGroup
+// DiskEncryptionSetsClientListByResourceGroupOptions contains the optional parameters for the DiskEncryptionSetsClient.NewListByResourceGroupPager
 // method.
 type DiskEncryptionSetsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiskEncryptionSetsClientListOptions contains the optional parameters for the DiskEncryptionSetsClient.List method.
+// DiskEncryptionSetsClientListOptions contains the optional parameters for the DiskEncryptionSetsClient.NewListPager method.
 type DiskEncryptionSetsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2216,7 +2214,7 @@ type DiskRestorePointClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DiskRestorePointClientListByRestorePointOptions contains the optional parameters for the DiskRestorePointClient.ListByRestorePoint
+// DiskRestorePointClientListByRestorePointOptions contains the optional parameters for the DiskRestorePointClient.NewListByRestorePointPager
 // method.
 type DiskRestorePointClientListByRestorePointOptions struct {
 	// placeholder for future optional parameters
@@ -2445,12 +2443,13 @@ type DisksClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DisksClientListByResourceGroupOptions contains the optional parameters for the DisksClient.ListByResourceGroup method.
+// DisksClientListByResourceGroupOptions contains the optional parameters for the DisksClient.NewListByResourceGroupPager
+// method.
 type DisksClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DisksClientListOptions contains the optional parameters for the DisksClient.List method.
+// DisksClientListOptions contains the optional parameters for the DisksClient.NewListPager method.
 type DisksClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2597,13 +2596,13 @@ type GalleriesClientGetOptions struct {
 	Select *SelectPermissions
 }
 
-// GalleriesClientListByResourceGroupOptions contains the optional parameters for the GalleriesClient.ListByResourceGroup
+// GalleriesClientListByResourceGroupOptions contains the optional parameters for the GalleriesClient.NewListByResourceGroupPager
 // method.
 type GalleriesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GalleriesClientListOptions contains the optional parameters for the GalleriesClient.List method.
+// GalleriesClientListOptions contains the optional parameters for the GalleriesClient.NewListPager method.
 type GalleriesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2696,10 +2695,8 @@ type GalleryApplicationList struct {
 
 // GalleryApplicationProperties - Describes the properties of a gallery Application Definition.
 type GalleryApplicationProperties struct {
-	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for.
-	// Possible values are:
-	// Windows
-	// Linux
+	// REQUIRED; This property allows you to specify the supported type of the OS that application is built for. Possible values
+	// are: Windows, Linux
 	SupportedOSType *OperatingSystemTypes `json:"supportedOSType,omitempty"`
 
 	// A list of custom actions that can be performed with all of the Gallery Application Versions within this Gallery Application.
@@ -2884,7 +2881,7 @@ type GalleryApplicationVersionsClientGetOptions struct {
 	Expand *ReplicationStatusTypes
 }
 
-// GalleryApplicationVersionsClientListByGalleryApplicationOptions contains the optional parameters for the GalleryApplicationVersionsClient.ListByGalleryApplication
+// GalleryApplicationVersionsClientListByGalleryApplicationOptions contains the optional parameters for the GalleryApplicationVersionsClient.NewListByGalleryApplicationPager
 // method.
 type GalleryApplicationVersionsClientListByGalleryApplicationOptions struct {
 	// placeholder for future optional parameters
@@ -2916,7 +2913,7 @@ type GalleryApplicationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GalleryApplicationsClientListByGalleryOptions contains the optional parameters for the GalleryApplicationsClient.ListByGallery
+// GalleryApplicationsClientListByGalleryOptions contains the optional parameters for the GalleryApplicationsClient.NewListByGalleryPager
 // method.
 type GalleryApplicationsClientListByGalleryOptions struct {
 	// placeholder for future optional parameters
@@ -3095,10 +3092,7 @@ type GalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes `json:"osState,omitempty"`
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -3304,7 +3298,7 @@ type GalleryImageVersionsClientGetOptions struct {
 	Expand *ReplicationStatusTypes
 }
 
-// GalleryImageVersionsClientListByGalleryImageOptions contains the optional parameters for the GalleryImageVersionsClient.ListByGalleryImage
+// GalleryImageVersionsClientListByGalleryImageOptions contains the optional parameters for the GalleryImageVersionsClient.NewListByGalleryImagePager
 // method.
 type GalleryImageVersionsClientListByGalleryImageOptions struct {
 	// placeholder for future optional parameters
@@ -3334,7 +3328,8 @@ type GalleryImagesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GalleryImagesClientListByGalleryOptions contains the optional parameters for the GalleryImagesClient.ListByGallery method.
+// GalleryImagesClientListByGalleryOptions contains the optional parameters for the GalleryImagesClient.NewListByGalleryPager
+// method.
 type GalleryImagesClientListByGalleryOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3745,12 +3740,13 @@ type ImagesClientGetOptions struct {
 	Expand *string
 }
 
-// ImagesClientListByResourceGroupOptions contains the optional parameters for the ImagesClient.ListByResourceGroup method.
+// ImagesClientListByResourceGroupOptions contains the optional parameters for the ImagesClient.NewListByResourceGroupPager
+// method.
 type ImagesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ImagesClientListOptions contains the optional parameters for the ImagesClient.List method.
+// ImagesClientListOptions contains the optional parameters for the ImagesClient.NewListPager method.
 type ImagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -4272,7 +4268,7 @@ type OSImageNotificationProfile struct {
 
 	// Length of time a Virtual Machine being reimaged or having its OS upgraded will have to potentially approve the OS Image
 	// Scheduled Event before the event is auto approved (timed out). The configuration
-	// is specified in ISO 8601 format, with the value set to 15 minutes (PT15M)
+	// is specified in ISO 8601 format, and the value must be 15 minutes (PT15M)
 	NotBeforeTimeout *string `json:"notBeforeTimeout,omitempty"`
 }
 
@@ -4471,7 +4467,7 @@ type OperationValueDisplay struct {
 	Resource *string `json:"resource,omitempty" azure:"ro"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -4803,13 +4799,13 @@ type ProximityPlacementGroupsClientGetOptions struct {
 	IncludeColocationStatus *string
 }
 
-// ProximityPlacementGroupsClientListByResourceGroupOptions contains the optional parameters for the ProximityPlacementGroupsClient.ListByResourceGroup
+// ProximityPlacementGroupsClientListByResourceGroupOptions contains the optional parameters for the ProximityPlacementGroupsClient.NewListByResourceGroupPager
 // method.
 type ProximityPlacementGroupsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProximityPlacementGroupsClientListBySubscriptionOptions contains the optional parameters for the ProximityPlacementGroupsClient.ListBySubscription
+// ProximityPlacementGroupsClientListBySubscriptionOptions contains the optional parameters for the ProximityPlacementGroupsClient.NewListBySubscriptionPager
 // method.
 type ProximityPlacementGroupsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -5131,7 +5127,7 @@ type ResourceSKUZoneDetails struct {
 	Name []*string `json:"name,omitempty" azure:"ro"`
 }
 
-// ResourceSKUsClientListOptions contains the optional parameters for the ResourceSKUsClient.List method.
+// ResourceSKUsClientListOptions contains the optional parameters for the ResourceSKUsClient.NewListPager method.
 type ResourceSKUsClientListOptions struct {
 	// The filter to apply on the operation. Only location filter is supported currently.
 	Filter *string
@@ -5274,13 +5270,14 @@ type RestorePointCollectionsClientGetOptions struct {
 	Expand *RestorePointCollectionExpandOptions
 }
 
-// RestorePointCollectionsClientListAllOptions contains the optional parameters for the RestorePointCollectionsClient.ListAll
+// RestorePointCollectionsClientListAllOptions contains the optional parameters for the RestorePointCollectionsClient.NewListAllPager
 // method.
 type RestorePointCollectionsClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RestorePointCollectionsClientListOptions contains the optional parameters for the RestorePointCollectionsClient.List method.
+// RestorePointCollectionsClientListOptions contains the optional parameters for the RestorePointCollectionsClient.NewListPager
+// method.
 type RestorePointCollectionsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -5833,13 +5830,13 @@ type SSHPublicKeysClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SSHPublicKeysClientListByResourceGroupOptions contains the optional parameters for the SSHPublicKeysClient.ListByResourceGroup
+// SSHPublicKeysClientListByResourceGroupOptions contains the optional parameters for the SSHPublicKeysClient.NewListByResourceGroupPager
 // method.
 type SSHPublicKeysClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SSHPublicKeysClientListBySubscriptionOptions contains the optional parameters for the SSHPublicKeysClient.ListBySubscription
+// SSHPublicKeysClientListBySubscriptionOptions contains the optional parameters for the SSHPublicKeysClient.NewListBySubscriptionPager
 // method.
 type SSHPublicKeysClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -5924,7 +5921,7 @@ type SharedGalleriesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SharedGalleriesClientListOptions contains the optional parameters for the SharedGalleriesClient.List method.
+// SharedGalleriesClientListOptions contains the optional parameters for the SharedGalleriesClient.NewListPager method.
 type SharedGalleriesClientListOptions struct {
 	// The query parameter to decide what shared galleries to fetch when doing listing operations.
 	SharedTo *SharedToValues
@@ -6006,10 +6003,7 @@ type SharedGalleryImageProperties struct {
 	OSState *OperatingSystemStateTypes `json:"osState,omitempty"`
 
 	// REQUIRED; This property allows you to specify the type of the OS that is included in the disk when creating a VM from a
-	// managed image.
-	// Possible values are:
-	// Windows
-	// Linux
+	// managed image. Possible values are: Windows, Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
 	// The architecture of the image. Applicable to OS disks only.
@@ -6098,7 +6092,7 @@ type SharedGalleryImageVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SharedGalleryImageVersionsClientListOptions contains the optional parameters for the SharedGalleryImageVersionsClient.List
+// SharedGalleryImageVersionsClientListOptions contains the optional parameters for the SharedGalleryImageVersionsClient.NewListPager
 // method.
 type SharedGalleryImageVersionsClientListOptions struct {
 	// The query parameter to decide what shared galleries to fetch when doing listing operations.
@@ -6110,7 +6104,7 @@ type SharedGalleryImagesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SharedGalleryImagesClientListOptions contains the optional parameters for the SharedGalleryImagesClient.List method.
+// SharedGalleryImagesClientListOptions contains the optional parameters for the SharedGalleryImagesClient.NewListPager method.
 type SharedGalleryImagesClientListOptions struct {
 	// The query parameter to decide what shared galleries to fetch when doing listing operations.
 	SharedTo *SharedToValues
@@ -6139,11 +6133,7 @@ type SharingProfile struct {
 	// Information of community gallery if current gallery is shared to community.
 	CommunityGalleryInfo *CommunityGalleryInfo `json:"communityGalleryInfo,omitempty"`
 
-	// This property allows you to specify the permission of sharing gallery.
-	// Possible values are:
-	// Private
-	// Groups
-	// Community
+	// This property allows you to specify the permission of sharing gallery. Possible values are: Private, Groups, Community
 	Permissions *GallerySharingPermissionTypes `json:"permissions,omitempty"`
 
 	// READ-ONLY; A list of sharing profile groups.
@@ -6155,10 +6145,7 @@ type SharingProfileGroup struct {
 	// A list of subscription/tenant ids the gallery is aimed to be shared to.
 	IDs []*string `json:"ids,omitempty"`
 
-	// This property allows you to specify the type of sharing group.
-	// Possible values are:
-	// Subscriptions
-	// AADTenants
+	// This property allows you to specify the type of sharing group. Possible values are: Subscriptions, AADTenants
 	Type *SharingProfileGroupTypes `json:"type,omitempty"`
 }
 
@@ -6173,10 +6160,7 @@ type SharingStatus struct {
 
 // SharingUpdate - Specifies information about the gallery sharing profile update.
 type SharingUpdate struct {
-	// REQUIRED; This property allows you to specify the operation type of gallery sharing update.
-	// Possible values are:
-	// Add
-	// Remove
+	// REQUIRED; This property allows you to specify the operation type of gallery sharing update. Possible values are: Add, Remove,
 	// Reset
 	OperationType *SharingUpdateOperationTypes `json:"operationType,omitempty"`
 
@@ -6397,13 +6381,13 @@ type SnapshotsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SnapshotsClientListByResourceGroupOptions contains the optional parameters for the SnapshotsClient.ListByResourceGroup
+// SnapshotsClientListByResourceGroupOptions contains the optional parameters for the SnapshotsClient.NewListByResourceGroupPager
 // method.
 type SnapshotsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SnapshotsClientListOptions contains the optional parameters for the SnapshotsClient.List method.
+// SnapshotsClientListOptions contains the optional parameters for the SnapshotsClient.NewListPager method.
 type SnapshotsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -6690,7 +6674,7 @@ type Usage struct {
 	Unit *string `json:"unit,omitempty"`
 }
 
-// UsageClientListOptions contains the optional parameters for the UsageClient.List method.
+// UsageClientListOptions contains the optional parameters for the UsageClient.NewListPager method.
 type UsageClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -6962,10 +6946,10 @@ type VirtualMachineCaptureResult struct {
 	ContentVersion *string `json:"contentVersion,omitempty" azure:"ro"`
 
 	// READ-ONLY; parameters of the captured virtual machine
-	Parameters interface{} `json:"parameters,omitempty" azure:"ro"`
+	Parameters any `json:"parameters,omitempty" azure:"ro"`
 
 	// READ-ONLY; a list of resource items of the captured virtual machine
-	Resources []interface{} `json:"resources,omitempty" azure:"ro"`
+	Resources []any `json:"resources,omitempty" azure:"ro"`
 
 	// READ-ONLY; the schema of the captured virtual machine
 	Schema *string `json:"$schema,omitempty" azure:"ro"`
@@ -7102,7 +7086,7 @@ type VirtualMachineExtensionProperties struct {
 	InstanceView *VirtualMachineExtensionInstanceView `json:"instanceView,omitempty"`
 
 	// The extension can contain either protectedSettings or protectedSettingsFromKeyVault or no protected settings at all.
-	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
+	ProtectedSettings any `json:"protectedSettings,omitempty"`
 
 	// The extensions protected settings that are passed by reference, and consumed from key vault
 	ProtectedSettingsFromKeyVault *KeyVaultSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
@@ -7111,7 +7095,7 @@ type VirtualMachineExtensionProperties struct {
 	Publisher *string `json:"publisher,omitempty"`
 
 	// Json formatted public settings for the extension.
-	Settings interface{} `json:"settings,omitempty"`
+	Settings any `json:"settings,omitempty"`
 
 	// Indicates whether failures stemming from the extension will be suppressed (Operational failures such as not connecting
 	// to the VM will not be suppressed regardless of this value). The default is false.
@@ -7151,7 +7135,7 @@ type VirtualMachineExtensionUpdateProperties struct {
 	ForceUpdateTag *string `json:"forceUpdateTag,omitempty"`
 
 	// The extension can contain either protectedSettings or protectedSettingsFromKeyVault or no protected settings at all.
-	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
+	ProtectedSettings any `json:"protectedSettings,omitempty"`
 
 	// The extensions protected settings that are passed by reference, and consumed from key vault
 	ProtectedSettingsFromKeyVault *KeyVaultSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
@@ -7160,7 +7144,7 @@ type VirtualMachineExtensionUpdateProperties struct {
 	Publisher *string `json:"publisher,omitempty"`
 
 	// Json formatted public settings for the extension.
-	Settings interface{} `json:"settings,omitempty"`
+	Settings any `json:"settings,omitempty"`
 
 	// Indicates whether failures stemming from the extension will be suppressed (Operational failures such as not connecting
 	// to the VM will not be suppressed regardless of this value). The default is false.
@@ -7943,14 +7927,14 @@ type VirtualMachineRunCommandsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineRunCommandsClientListByVirtualMachineOptions contains the optional parameters for the VirtualMachineRunCommandsClient.ListByVirtualMachine
+// VirtualMachineRunCommandsClientListByVirtualMachineOptions contains the optional parameters for the VirtualMachineRunCommandsClient.NewListByVirtualMachinePager
 // method.
 type VirtualMachineRunCommandsClientListByVirtualMachineOptions struct {
 	// The expand expression to apply on the operation.
 	Expand *string
 }
 
-// VirtualMachineRunCommandsClientListOptions contains the optional parameters for the VirtualMachineRunCommandsClient.List
+// VirtualMachineRunCommandsClientListOptions contains the optional parameters for the VirtualMachineRunCommandsClient.NewListPager
 // method.
 type VirtualMachineRunCommandsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -8106,7 +8090,7 @@ type VirtualMachineScaleSetExtensionProperties struct {
 	ForceUpdateTag *string `json:"forceUpdateTag,omitempty"`
 
 	// The extension can contain either protectedSettings or protectedSettingsFromKeyVault or no protected settings at all.
-	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
+	ProtectedSettings any `json:"protectedSettings,omitempty"`
 
 	// The extensions protected settings that are passed by reference, and consumed from key vault
 	ProtectedSettingsFromKeyVault *KeyVaultSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
@@ -8118,7 +8102,7 @@ type VirtualMachineScaleSetExtensionProperties struct {
 	Publisher *string `json:"publisher,omitempty"`
 
 	// Json formatted public settings for the extension.
-	Settings interface{} `json:"settings,omitempty"`
+	Settings any `json:"settings,omitempty"`
 
 	// Indicates whether failures stemming from the extension will be suppressed (Operational failures such as not connecting
 	// to the VM will not be suppressed regardless of this value). The default is false.
@@ -8177,7 +8161,7 @@ type VirtualMachineScaleSetExtensionsClientGetOptions struct {
 	Expand *string
 }
 
-// VirtualMachineScaleSetExtensionsClientListOptions contains the optional parameters for the VirtualMachineScaleSetExtensionsClient.List
+// VirtualMachineScaleSetExtensionsClientListOptions contains the optional parameters for the VirtualMachineScaleSetExtensionsClient.NewListPager
 // method.
 type VirtualMachineScaleSetExtensionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -8194,9 +8178,6 @@ type VirtualMachineScaleSetHardwareProfile struct {
 type VirtualMachineScaleSetIPConfiguration struct {
 	// REQUIRED; The IP configuration name.
 	Name *string `json:"name,omitempty"`
-
-	// Resource Id
-	ID *string `json:"id,omitempty"`
 
 	// Describes a virtual machine scale set network profile's IP configuration properties.
 	Properties *VirtualMachineScaleSetIPConfigurationProperties `json:"properties,omitempty"`
@@ -8344,9 +8325,6 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 type VirtualMachineScaleSetNetworkConfiguration struct {
 	// REQUIRED; The network configuration name.
 	Name *string `json:"name,omitempty"`
-
-	// Resource Id
-	ID *string `json:"id,omitempty"`
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties `json:"properties,omitempty"`
@@ -9153,14 +9131,31 @@ type VirtualMachineScaleSetVMInstanceView struct {
 	// Azure also enables you to see a screenshot of the VM from the hypervisor.
 	BootDiagnostics *BootDiagnosticsInstanceView `json:"bootDiagnostics,omitempty"`
 
+	// Specifies the host OS name of the virtual machine.
+	// This name cannot be updated after the VM is created.
+	// Max-length (Windows): 15 characters
+	// Max-length (Linux): 64 characters.
+	// For naming conventions and restrictions see Azure infrastructure services implementation guidelines
+	// [https://docs.microsoft.com/azure/virtual-machines/virtual-machines-linux-infrastructure-subscription-accounts-guidelines?toc=%2fazure%2fvirtual-machines%2flinux%2ftoc.json#1-naming-conventions].
+	ComputerName *string `json:"computerName,omitempty"`
+
 	// The disks information.
 	Disks []*DiskInstanceView `json:"disks,omitempty"`
 
 	// The extensions information.
 	Extensions []*VirtualMachineExtensionInstanceView `json:"extensions,omitempty"`
 
+	// The hypervisor generation of the Virtual Machine [V1, V2]
+	HyperVGeneration *HyperVGeneration `json:"hyperVGeneration,omitempty"`
+
 	// The Maintenance Operation status on the virtual machine.
 	MaintenanceRedeployStatus *MaintenanceRedeployStatus `json:"maintenanceRedeployStatus,omitempty"`
+
+	// The Operating System running on the hybrid machine.
+	OSName *string `json:"osName,omitempty"`
+
+	// The version of Operating System running on the hybrid machine.
+	OSVersion *string `json:"osVersion,omitempty"`
 
 	// The placement group in which the VM is running. If the VM is deallocated it will not have a placementGroupId.
 	PlacementGroupID *string `json:"placementGroupId,omitempty"`
@@ -9401,7 +9396,7 @@ type VirtualMachineScaleSetVMRunCommandsClientGetOptions struct {
 	Expand *string
 }
 
-// VirtualMachineScaleSetVMRunCommandsClientListOptions contains the optional parameters for the VirtualMachineScaleSetVMRunCommandsClient.List
+// VirtualMachineScaleSetVMRunCommandsClientListOptions contains the optional parameters for the VirtualMachineScaleSetVMRunCommandsClient.NewListPager
 // method.
 type VirtualMachineScaleSetVMRunCommandsClientListOptions struct {
 	// The expand expression to apply on the operation.
@@ -9506,7 +9501,7 @@ type VirtualMachineScaleSetVMsClientGetOptions struct {
 	Expand *InstanceViewTypes
 }
 
-// VirtualMachineScaleSetVMsClientListOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.List
+// VirtualMachineScaleSetVMsClientListOptions contains the optional parameters for the VirtualMachineScaleSetVMsClient.NewListPager
 // method.
 type VirtualMachineScaleSetVMsClientListOptions struct {
 	// The expand expression to apply to the operation. Allowed values are 'instanceView'.
@@ -9675,7 +9670,7 @@ type VirtualMachineScaleSetsClientGetInstanceViewOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineScaleSetsClientGetOSUpgradeHistoryOptions contains the optional parameters for the VirtualMachineScaleSetsClient.GetOSUpgradeHistory
+// VirtualMachineScaleSetsClientGetOSUpgradeHistoryOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewGetOSUpgradeHistoryPager
 // method.
 type VirtualMachineScaleSetsClientGetOSUpgradeHistoryOptions struct {
 	// placeholder for future optional parameters
@@ -9688,24 +9683,25 @@ type VirtualMachineScaleSetsClientGetOptions struct {
 	Expand *ExpandTypesForGetVMScaleSets
 }
 
-// VirtualMachineScaleSetsClientListAllOptions contains the optional parameters for the VirtualMachineScaleSetsClient.ListAll
+// VirtualMachineScaleSetsClientListAllOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListAllPager
 // method.
 type VirtualMachineScaleSetsClientListAllOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineScaleSetsClientListByLocationOptions contains the optional parameters for the VirtualMachineScaleSetsClient.ListByLocation
+// VirtualMachineScaleSetsClientListByLocationOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListByLocationPager
 // method.
 type VirtualMachineScaleSetsClientListByLocationOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineScaleSetsClientListOptions contains the optional parameters for the VirtualMachineScaleSetsClient.List method.
+// VirtualMachineScaleSetsClientListOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListPager
+// method.
 type VirtualMachineScaleSetsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachineScaleSetsClientListSKUsOptions contains the optional parameters for the VirtualMachineScaleSetsClient.ListSKUs
+// VirtualMachineScaleSetsClientListSKUsOptions contains the optional parameters for the VirtualMachineScaleSetsClient.NewListSKUsPager
 // method.
 type VirtualMachineScaleSetsClientListSKUsOptions struct {
 	// placeholder for future optional parameters
@@ -9740,7 +9736,7 @@ type VirtualMachineSizeListResult struct {
 	Value []*VirtualMachineSize `json:"value,omitempty"`
 }
 
-// VirtualMachineSizesClientListOptions contains the optional parameters for the VirtualMachineSizesClient.List method.
+// VirtualMachineSizesClientListOptions contains the optional parameters for the VirtualMachineSizesClient.NewListPager method.
 type VirtualMachineSizesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -9943,7 +9939,7 @@ type VirtualMachinesClientInstanceViewOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachinesClientListAllOptions contains the optional parameters for the VirtualMachinesClient.ListAll method.
+// VirtualMachinesClientListAllOptions contains the optional parameters for the VirtualMachinesClient.NewListAllPager method.
 type VirtualMachinesClientListAllOptions struct {
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
@@ -9952,19 +9948,19 @@ type VirtualMachinesClientListAllOptions struct {
 	StatusOnly *string
 }
 
-// VirtualMachinesClientListAvailableSizesOptions contains the optional parameters for the VirtualMachinesClient.ListAvailableSizes
+// VirtualMachinesClientListAvailableSizesOptions contains the optional parameters for the VirtualMachinesClient.NewListAvailableSizesPager
 // method.
 type VirtualMachinesClientListAvailableSizesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachinesClientListByLocationOptions contains the optional parameters for the VirtualMachinesClient.ListByLocation
+// VirtualMachinesClientListByLocationOptions contains the optional parameters for the VirtualMachinesClient.NewListByLocationPager
 // method.
 type VirtualMachinesClientListByLocationOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VirtualMachinesClientListOptions contains the optional parameters for the VirtualMachinesClient.List method.
+// VirtualMachinesClientListOptions contains the optional parameters for the VirtualMachinesClient.NewListPager method.
 type VirtualMachinesClientListOptions struct {
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
