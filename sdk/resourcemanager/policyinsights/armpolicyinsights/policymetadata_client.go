@@ -30,8 +30,8 @@ type PolicyMetadataClient struct {
 }
 
 // NewPolicyMetadataClient creates a new instance of PolicyMetadataClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPolicyMetadataClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*PolicyMetadataClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -53,10 +53,11 @@ func NewPolicyMetadataClient(credential azcore.TokenCredential, options *arm.Cli
 
 // GetResource - Get policy metadata resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// resourceName - The name of the policy metadata resource.
-// options - PolicyMetadataClientGetResourceOptions contains the optional parameters for the PolicyMetadataClient.GetResource
-// method.
+//   - resourceName - The name of the policy metadata resource.
+//   - options - PolicyMetadataClientGetResourceOptions contains the optional parameters for the PolicyMetadataClient.GetResource
+//     method.
 func (client *PolicyMetadataClient) GetResource(ctx context.Context, resourceName string, options *PolicyMetadataClientGetResourceOptions) (PolicyMetadataClientGetResourceResponse, error) {
 	req, err := client.getResourceCreateRequest(ctx, resourceName, options)
 	if err != nil {
@@ -97,10 +98,11 @@ func (client *PolicyMetadataClient) getResourceHandleResponse(resp *http.Respons
 }
 
 // NewListPager - Get a list of the policy metadata resources.
+//
 // Generated from API version 2019-10-01
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyMetadataClientListOptions contains the optional parameters for the PolicyMetadataClient.List method.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyMetadataClientListOptions contains the optional parameters for the PolicyMetadataClient.NewListPager method.
 func (client *PolicyMetadataClient) NewListPager(queryOptions *QueryOptions, options *PolicyMetadataClientListOptions) *runtime.Pager[PolicyMetadataClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyMetadataClientListResponse]{
 		More: func(page PolicyMetadataClientListResponse) bool {

@@ -11,7 +11,7 @@ package armpolicyinsights
 
 const (
 	moduleName    = "armpolicyinsights"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v0.7.0"
 )
 
 // ComplianceState - The compliance state that should be set on the resource.
@@ -32,6 +32,19 @@ func PossibleComplianceStateValues() []ComplianceState {
 		ComplianceStateCompliant,
 		ComplianceStateNonCompliant,
 		ComplianceStateUnknown,
+	}
+}
+
+type ComponentPolicyStatesResource string
+
+const (
+	ComponentPolicyStatesResourceLatest ComponentPolicyStatesResource = "latest"
+)
+
+// PossibleComponentPolicyStatesResourceValues returns the possible values for the ComponentPolicyStatesResource const type.
+func PossibleComponentPolicyStatesResourceValues() []ComponentPolicyStatesResource {
+	return []ComponentPolicyStatesResource{
+		ComponentPolicyStatesResourceLatest,
 	}
 }
 

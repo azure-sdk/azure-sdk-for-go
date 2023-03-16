@@ -33,9 +33,9 @@ type PolicyTrackedResourcesClient struct {
 }
 
 // NewPolicyTrackedResourcesClient creates a new instance of PolicyTrackedResourcesClient with the specified values.
-// subscriptionID - Microsoft Azure subscription ID.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPolicyTrackedResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PolicyTrackedResourcesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,14 +57,15 @@ func NewPolicyTrackedResourcesClient(subscriptionID string, credential azcore.To
 }
 
 // NewListQueryResultsForManagementGroupPager - Queries policy tracked resources under the management group.
+//
 // Generated from API version 2018-07-01-preview
-// managementGroupName - Management group name.
-// policyTrackedResourcesResource - The name of the virtual resource under PolicyTrackedResources resource type; only "default"
-// is allowed.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyTrackedResourcesClientListQueryResultsForManagementGroupOptions contains the optional parameters for the
-// PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup method.
+//   - managementGroupName - Management group name.
+//   - policyTrackedResourcesResource - The name of the virtual resource under PolicyTrackedResources resource type; only "default"
+//     is allowed.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyTrackedResourcesClientListQueryResultsForManagementGroupOptions contains the optional parameters for the
+//     PolicyTrackedResourcesClient.NewListQueryResultsForManagementGroupPager method.
 func (client *PolicyTrackedResourcesClient) NewListQueryResultsForManagementGroupPager(managementGroupName string, policyTrackedResourcesResource PolicyTrackedResourcesResourceType, queryOptions *QueryOptions, options *PolicyTrackedResourcesClientListQueryResultsForManagementGroupOptions) *runtime.Pager[PolicyTrackedResourcesClientListQueryResultsForManagementGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyTrackedResourcesClientListQueryResultsForManagementGroupResponse]{
 		More: func(page PolicyTrackedResourcesClientListQueryResultsForManagementGroupResponse) bool {
@@ -132,14 +133,15 @@ func (client *PolicyTrackedResourcesClient) listQueryResultsForManagementGroupHa
 }
 
 // NewListQueryResultsForResourcePager - Queries policy tracked resources under the resource.
+//
 // Generated from API version 2018-07-01-preview
-// resourceID - Resource ID.
-// policyTrackedResourcesResource - The name of the virtual resource under PolicyTrackedResources resource type; only "default"
-// is allowed.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyTrackedResourcesClientListQueryResultsForResourceOptions contains the optional parameters for the PolicyTrackedResourcesClient.ListQueryResultsForResource
-// method.
+//   - resourceID - Resource ID.
+//   - policyTrackedResourcesResource - The name of the virtual resource under PolicyTrackedResources resource type; only "default"
+//     is allowed.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyTrackedResourcesClientListQueryResultsForResourceOptions contains the optional parameters for the PolicyTrackedResourcesClient.NewListQueryResultsForResourcePager
+//     method.
 func (client *PolicyTrackedResourcesClient) NewListQueryResultsForResourcePager(resourceID string, policyTrackedResourcesResource PolicyTrackedResourcesResourceType, queryOptions *QueryOptions, options *PolicyTrackedResourcesClientListQueryResultsForResourceOptions) *runtime.Pager[PolicyTrackedResourcesClientListQueryResultsForResourceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyTrackedResourcesClientListQueryResultsForResourceResponse]{
 		More: func(page PolicyTrackedResourcesClientListQueryResultsForResourceResponse) bool {
@@ -203,14 +205,15 @@ func (client *PolicyTrackedResourcesClient) listQueryResultsForResourceHandleRes
 }
 
 // NewListQueryResultsForResourceGroupPager - Queries policy tracked resources under the resource group.
+//
 // Generated from API version 2018-07-01-preview
-// resourceGroupName - Resource group name.
-// policyTrackedResourcesResource - The name of the virtual resource under PolicyTrackedResources resource type; only "default"
-// is allowed.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyTrackedResourcesClientListQueryResultsForResourceGroupOptions contains the optional parameters for the
-// PolicyTrackedResourcesClient.ListQueryResultsForResourceGroup method.
+//   - resourceGroupName - Resource group name.
+//   - policyTrackedResourcesResource - The name of the virtual resource under PolicyTrackedResources resource type; only "default"
+//     is allowed.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyTrackedResourcesClientListQueryResultsForResourceGroupOptions contains the optional parameters for the
+//     PolicyTrackedResourcesClient.NewListQueryResultsForResourceGroupPager method.
 func (client *PolicyTrackedResourcesClient) NewListQueryResultsForResourceGroupPager(resourceGroupName string, policyTrackedResourcesResource PolicyTrackedResourcesResourceType, queryOptions *QueryOptions, options *PolicyTrackedResourcesClientListQueryResultsForResourceGroupOptions) *runtime.Pager[PolicyTrackedResourcesClientListQueryResultsForResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyTrackedResourcesClientListQueryResultsForResourceGroupResponse]{
 		More: func(page PolicyTrackedResourcesClientListQueryResultsForResourceGroupResponse) bool {
@@ -281,13 +284,14 @@ func (client *PolicyTrackedResourcesClient) listQueryResultsForResourceGroupHand
 }
 
 // NewListQueryResultsForSubscriptionPager - Queries policy tracked resources under the subscription.
+//
 // Generated from API version 2018-07-01-preview
-// policyTrackedResourcesResource - The name of the virtual resource under PolicyTrackedResources resource type; only "default"
-// is allowed.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyTrackedResourcesClientListQueryResultsForSubscriptionOptions contains the optional parameters for the PolicyTrackedResourcesClient.ListQueryResultsForSubscription
-// method.
+//   - policyTrackedResourcesResource - The name of the virtual resource under PolicyTrackedResources resource type; only "default"
+//     is allowed.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyTrackedResourcesClientListQueryResultsForSubscriptionOptions contains the optional parameters for the PolicyTrackedResourcesClient.NewListQueryResultsForSubscriptionPager
+//     method.
 func (client *PolicyTrackedResourcesClient) NewListQueryResultsForSubscriptionPager(policyTrackedResourcesResource PolicyTrackedResourcesResourceType, queryOptions *QueryOptions, options *PolicyTrackedResourcesClientListQueryResultsForSubscriptionOptions) *runtime.Pager[PolicyTrackedResourcesClientListQueryResultsForSubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyTrackedResourcesClientListQueryResultsForSubscriptionResponse]{
 		More: func(page PolicyTrackedResourcesClientListQueryResultsForSubscriptionResponse) bool {

@@ -18,7 +18,7 @@ import (
 
 // MarshalJSON implements the json.Marshaller interface for type Attestation.
 func (a Attestation) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "id", a.ID)
 	populate(objectMap, "name", a.Name)
 	populate(objectMap, "properties", a.Properties)
@@ -61,7 +61,7 @@ func (a *Attestation) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type AttestationEvidence.
 func (a AttestationEvidence) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "description", a.Description)
 	populate(objectMap, "sourceUri", a.SourceURI)
 	return json.Marshal(objectMap)
@@ -92,7 +92,7 @@ func (a *AttestationEvidence) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type AttestationListResult.
 func (a AttestationListResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "nextLink", a.NextLink)
 	populate(objectMap, "value", a.Value)
 	return json.Marshal(objectMap)
@@ -123,7 +123,7 @@ func (a *AttestationListResult) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type AttestationProperties.
 func (a AttestationProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populateTimeRFC3339(objectMap, "assessmentDate", a.AssessmentDate)
 	populate(objectMap, "comments", a.Comments)
 	populate(objectMap, "complianceState", a.ComplianceState)
@@ -190,7 +190,7 @@ func (a *AttestationProperties) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type CheckManagementGroupRestrictionsRequest.
 func (c CheckManagementGroupRestrictionsRequest) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "pendingFields", c.PendingFields)
 	populate(objectMap, "resourceDetails", c.ResourceDetails)
 	return json.Marshal(objectMap)
@@ -221,7 +221,7 @@ func (c *CheckManagementGroupRestrictionsRequest) UnmarshalJSON(data []byte) err
 
 // MarshalJSON implements the json.Marshaller interface for type CheckRestrictionsRequest.
 func (c CheckRestrictionsRequest) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "pendingFields", c.PendingFields)
 	populate(objectMap, "resourceDetails", c.ResourceDetails)
 	return json.Marshal(objectMap)
@@ -252,7 +252,7 @@ func (c *CheckRestrictionsRequest) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type CheckRestrictionsResourceDetails.
 func (c CheckRestrictionsResourceDetails) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "apiVersion", c.APIVersion)
 	populate(objectMap, "resourceContent", &c.ResourceContent)
 	populate(objectMap, "scope", c.Scope)
@@ -287,7 +287,7 @@ func (c *CheckRestrictionsResourceDetails) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type CheckRestrictionsResult.
 func (c CheckRestrictionsResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "contentEvaluationResult", c.ContentEvaluationResult)
 	populate(objectMap, "fieldRestrictions", c.FieldRestrictions)
 	return json.Marshal(objectMap)
@@ -318,7 +318,7 @@ func (c *CheckRestrictionsResult) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type CheckRestrictionsResultContentEvaluationResult.
 func (c CheckRestrictionsResultContentEvaluationResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "policyEvaluations", c.PolicyEvaluations)
 	return json.Marshal(objectMap)
 }
@@ -345,7 +345,7 @@ func (c *CheckRestrictionsResultContentEvaluationResult) UnmarshalJSON(data []by
 
 // MarshalJSON implements the json.Marshaller interface for type ComplianceDetail.
 func (c ComplianceDetail) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "complianceState", c.ComplianceState)
 	populate(objectMap, "count", c.Count)
 	return json.Marshal(objectMap)
@@ -376,7 +376,7 @@ func (c *ComplianceDetail) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type ComponentEventDetails.
 func (c ComponentEventDetails) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "id", c.ID)
 	populate(objectMap, "name", c.Name)
 	populate(objectMap, "policyDefinitionAction", c.PolicyDefinitionAction)
@@ -424,10 +424,10 @@ func (c *ComponentEventDetails) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		default:
 			if c.AdditionalProperties == nil {
-				c.AdditionalProperties = map[string]interface{}{}
+				c.AdditionalProperties = map[string]any{}
 			}
 			if val != nil {
-				var aux interface{}
+				var aux any
 				err = json.Unmarshal(val, &aux)
 				c.AdditionalProperties[key] = aux
 			}
@@ -440,9 +440,292 @@ func (c *ComponentEventDetails) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ComponentExpressionEvaluationDetails.
+func (c ComponentExpressionEvaluationDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "expression", c.Expression)
+	populate(objectMap, "expressionKind", c.ExpressionKind)
+	populate(objectMap, "expressionValue", &c.ExpressionValue)
+	populate(objectMap, "operator", c.Operator)
+	populate(objectMap, "path", c.Path)
+	populate(objectMap, "result", c.Result)
+	populate(objectMap, "targetValue", &c.TargetValue)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ComponentExpressionEvaluationDetails.
+func (c *ComponentExpressionEvaluationDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "expression":
+			err = unpopulate(val, "Expression", &c.Expression)
+			delete(rawMsg, key)
+		case "expressionKind":
+			err = unpopulate(val, "ExpressionKind", &c.ExpressionKind)
+			delete(rawMsg, key)
+		case "expressionValue":
+			err = unpopulate(val, "ExpressionValue", &c.ExpressionValue)
+			delete(rawMsg, key)
+		case "operator":
+			err = unpopulate(val, "Operator", &c.Operator)
+			delete(rawMsg, key)
+		case "path":
+			err = unpopulate(val, "Path", &c.Path)
+			delete(rawMsg, key)
+		case "result":
+			err = unpopulate(val, "Result", &c.Result)
+			delete(rawMsg, key)
+		case "targetValue":
+			err = unpopulate(val, "TargetValue", &c.TargetValue)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ComponentPolicyEvaluationDetails.
+func (c ComponentPolicyEvaluationDetails) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "evaluatedExpressions", c.EvaluatedExpressions)
+	populate(objectMap, "reason", c.Reason)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ComponentPolicyEvaluationDetails.
+func (c *ComponentPolicyEvaluationDetails) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "evaluatedExpressions":
+			err = unpopulate(val, "EvaluatedExpressions", &c.EvaluatedExpressions)
+			delete(rawMsg, key)
+		case "reason":
+			err = unpopulate(val, "Reason", &c.Reason)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ComponentPolicyState.
+func (c ComponentPolicyState) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "complianceState", c.ComplianceState)
+	populate(objectMap, "componentId", c.ComponentID)
+	populate(objectMap, "componentName", c.ComponentName)
+	populate(objectMap, "componentType", c.ComponentType)
+	populate(objectMap, "@odata.context", c.ODataContext)
+	populate(objectMap, "@odata.id", c.ODataID)
+	populate(objectMap, "policyAssignmentId", c.PolicyAssignmentID)
+	populate(objectMap, "policyAssignmentName", c.PolicyAssignmentName)
+	populate(objectMap, "policyAssignmentOwner", c.PolicyAssignmentOwner)
+	populate(objectMap, "policyAssignmentParameters", c.PolicyAssignmentParameters)
+	populate(objectMap, "policyAssignmentScope", c.PolicyAssignmentScope)
+	populate(objectMap, "policyAssignmentVersion", c.PolicyAssignmentVersion)
+	populate(objectMap, "policyDefinitionAction", c.PolicyDefinitionAction)
+	populate(objectMap, "policyDefinitionCategory", c.PolicyDefinitionCategory)
+	populate(objectMap, "policyDefinitionGroupNames", c.PolicyDefinitionGroupNames)
+	populate(objectMap, "policyDefinitionId", c.PolicyDefinitionID)
+	populate(objectMap, "policyDefinitionName", c.PolicyDefinitionName)
+	populate(objectMap, "policyDefinitionReferenceId", c.PolicyDefinitionReferenceID)
+	populate(objectMap, "policyDefinitionVersion", c.PolicyDefinitionVersion)
+	populate(objectMap, "policyEvaluationDetails", c.PolicyEvaluationDetails)
+	populate(objectMap, "policySetDefinitionCategory", c.PolicySetDefinitionCategory)
+	populate(objectMap, "policySetDefinitionId", c.PolicySetDefinitionID)
+	populate(objectMap, "policySetDefinitionName", c.PolicySetDefinitionName)
+	populate(objectMap, "policySetDefinitionOwner", c.PolicySetDefinitionOwner)
+	populate(objectMap, "policySetDefinitionParameters", c.PolicySetDefinitionParameters)
+	populate(objectMap, "policySetDefinitionVersion", c.PolicySetDefinitionVersion)
+	populate(objectMap, "resourceGroup", c.ResourceGroup)
+	populate(objectMap, "resourceId", c.ResourceID)
+	populate(objectMap, "resourceLocation", c.ResourceLocation)
+	populate(objectMap, "resourceType", c.ResourceType)
+	populate(objectMap, "subscriptionId", c.SubscriptionID)
+	populateTimeRFC3339(objectMap, "timestamp", c.Timestamp)
+	if c.AdditionalProperties != nil {
+		for key, val := range c.AdditionalProperties {
+			objectMap[key] = val
+		}
+	}
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ComponentPolicyState.
+func (c *ComponentPolicyState) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "complianceState":
+			err = unpopulate(val, "ComplianceState", &c.ComplianceState)
+			delete(rawMsg, key)
+		case "componentId":
+			err = unpopulate(val, "ComponentID", &c.ComponentID)
+			delete(rawMsg, key)
+		case "componentName":
+			err = unpopulate(val, "ComponentName", &c.ComponentName)
+			delete(rawMsg, key)
+		case "componentType":
+			err = unpopulate(val, "ComponentType", &c.ComponentType)
+			delete(rawMsg, key)
+		case "@odata.context":
+			err = unpopulate(val, "ODataContext", &c.ODataContext)
+			delete(rawMsg, key)
+		case "@odata.id":
+			err = unpopulate(val, "ODataID", &c.ODataID)
+			delete(rawMsg, key)
+		case "policyAssignmentId":
+			err = unpopulate(val, "PolicyAssignmentID", &c.PolicyAssignmentID)
+			delete(rawMsg, key)
+		case "policyAssignmentName":
+			err = unpopulate(val, "PolicyAssignmentName", &c.PolicyAssignmentName)
+			delete(rawMsg, key)
+		case "policyAssignmentOwner":
+			err = unpopulate(val, "PolicyAssignmentOwner", &c.PolicyAssignmentOwner)
+			delete(rawMsg, key)
+		case "policyAssignmentParameters":
+			err = unpopulate(val, "PolicyAssignmentParameters", &c.PolicyAssignmentParameters)
+			delete(rawMsg, key)
+		case "policyAssignmentScope":
+			err = unpopulate(val, "PolicyAssignmentScope", &c.PolicyAssignmentScope)
+			delete(rawMsg, key)
+		case "policyAssignmentVersion":
+			err = unpopulate(val, "PolicyAssignmentVersion", &c.PolicyAssignmentVersion)
+			delete(rawMsg, key)
+		case "policyDefinitionAction":
+			err = unpopulate(val, "PolicyDefinitionAction", &c.PolicyDefinitionAction)
+			delete(rawMsg, key)
+		case "policyDefinitionCategory":
+			err = unpopulate(val, "PolicyDefinitionCategory", &c.PolicyDefinitionCategory)
+			delete(rawMsg, key)
+		case "policyDefinitionGroupNames":
+			err = unpopulate(val, "PolicyDefinitionGroupNames", &c.PolicyDefinitionGroupNames)
+			delete(rawMsg, key)
+		case "policyDefinitionId":
+			err = unpopulate(val, "PolicyDefinitionID", &c.PolicyDefinitionID)
+			delete(rawMsg, key)
+		case "policyDefinitionName":
+			err = unpopulate(val, "PolicyDefinitionName", &c.PolicyDefinitionName)
+			delete(rawMsg, key)
+		case "policyDefinitionReferenceId":
+			err = unpopulate(val, "PolicyDefinitionReferenceID", &c.PolicyDefinitionReferenceID)
+			delete(rawMsg, key)
+		case "policyDefinitionVersion":
+			err = unpopulate(val, "PolicyDefinitionVersion", &c.PolicyDefinitionVersion)
+			delete(rawMsg, key)
+		case "policyEvaluationDetails":
+			err = unpopulate(val, "PolicyEvaluationDetails", &c.PolicyEvaluationDetails)
+			delete(rawMsg, key)
+		case "policySetDefinitionCategory":
+			err = unpopulate(val, "PolicySetDefinitionCategory", &c.PolicySetDefinitionCategory)
+			delete(rawMsg, key)
+		case "policySetDefinitionId":
+			err = unpopulate(val, "PolicySetDefinitionID", &c.PolicySetDefinitionID)
+			delete(rawMsg, key)
+		case "policySetDefinitionName":
+			err = unpopulate(val, "PolicySetDefinitionName", &c.PolicySetDefinitionName)
+			delete(rawMsg, key)
+		case "policySetDefinitionOwner":
+			err = unpopulate(val, "PolicySetDefinitionOwner", &c.PolicySetDefinitionOwner)
+			delete(rawMsg, key)
+		case "policySetDefinitionParameters":
+			err = unpopulate(val, "PolicySetDefinitionParameters", &c.PolicySetDefinitionParameters)
+			delete(rawMsg, key)
+		case "policySetDefinitionVersion":
+			err = unpopulate(val, "PolicySetDefinitionVersion", &c.PolicySetDefinitionVersion)
+			delete(rawMsg, key)
+		case "resourceGroup":
+			err = unpopulate(val, "ResourceGroup", &c.ResourceGroup)
+			delete(rawMsg, key)
+		case "resourceId":
+			err = unpopulate(val, "ResourceID", &c.ResourceID)
+			delete(rawMsg, key)
+		case "resourceLocation":
+			err = unpopulate(val, "ResourceLocation", &c.ResourceLocation)
+			delete(rawMsg, key)
+		case "resourceType":
+			err = unpopulate(val, "ResourceType", &c.ResourceType)
+			delete(rawMsg, key)
+		case "subscriptionId":
+			err = unpopulate(val, "SubscriptionID", &c.SubscriptionID)
+			delete(rawMsg, key)
+		case "timestamp":
+			err = unpopulateTimeRFC3339(val, "Timestamp", &c.Timestamp)
+			delete(rawMsg, key)
+		default:
+			if c.AdditionalProperties == nil {
+				c.AdditionalProperties = map[string]any{}
+			}
+			if val != nil {
+				var aux any
+				err = json.Unmarshal(val, &aux)
+				c.AdditionalProperties[key] = aux
+			}
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ComponentPolicyStatesQueryResults.
+func (c ComponentPolicyStatesQueryResults) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "@odata.context", c.ODataContext)
+	populate(objectMap, "@odata.count", c.ODataCount)
+	populate(objectMap, "value", c.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ComponentPolicyStatesQueryResults.
+func (c *ComponentPolicyStatesQueryResults) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "@odata.context":
+			err = unpopulate(val, "ODataContext", &c.ODataContext)
+			delete(rawMsg, key)
+		case "@odata.count":
+			err = unpopulate(val, "ODataCount", &c.ODataCount)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &c.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type ComponentStateDetails.
 func (c ComponentStateDetails) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "complianceState", c.ComplianceState)
 	populate(objectMap, "id", c.ID)
 	populate(objectMap, "name", c.Name)
@@ -482,10 +765,10 @@ func (c *ComponentStateDetails) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		default:
 			if c.AdditionalProperties == nil {
-				c.AdditionalProperties = map[string]interface{}{}
+				c.AdditionalProperties = map[string]any{}
 			}
 			if val != nil {
-				var aux interface{}
+				var aux any
 				err = json.Unmarshal(val, &aux)
 				c.AdditionalProperties[key] = aux
 			}
@@ -500,7 +783,7 @@ func (c *ComponentStateDetails) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type ErrorDefinition.
 func (e ErrorDefinition) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "additionalInfo", e.AdditionalInfo)
 	populate(objectMap, "code", e.Code)
 	populate(objectMap, "details", e.Details)
@@ -543,7 +826,7 @@ func (e *ErrorDefinition) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type ErrorDefinitionAutoGenerated.
 func (e ErrorDefinitionAutoGenerated) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "additionalInfo", e.AdditionalInfo)
 	populate(objectMap, "code", e.Code)
 	populate(objectMap, "details", e.Details)
@@ -586,7 +869,7 @@ func (e *ErrorDefinitionAutoGenerated) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type ErrorDefinitionAutoGenerated2.
 func (e ErrorDefinitionAutoGenerated2) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "additionalInfo", e.AdditionalInfo)
 	populate(objectMap, "code", e.Code)
 	populate(objectMap, "details", e.Details)
@@ -629,7 +912,7 @@ func (e *ErrorDefinitionAutoGenerated2) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type ErrorResponse.
 func (e ErrorResponse) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "error", e.Error)
 	return json.Marshal(objectMap)
 }
@@ -656,7 +939,7 @@ func (e *ErrorResponse) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type ErrorResponseAutoGenerated.
 func (e ErrorResponseAutoGenerated) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "error", e.Error)
 	return json.Marshal(objectMap)
 }
@@ -683,7 +966,7 @@ func (e *ErrorResponseAutoGenerated) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type ErrorResponseAutoGenerated2.
 func (e ErrorResponseAutoGenerated2) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "error", e.Error)
 	return json.Marshal(objectMap)
 }
@@ -710,7 +993,7 @@ func (e *ErrorResponseAutoGenerated2) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type ExpressionEvaluationDetails.
 func (e ExpressionEvaluationDetails) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "expression", e.Expression)
 	populate(objectMap, "expressionKind", e.ExpressionKind)
 	populate(objectMap, "expressionValue", &e.ExpressionValue)
@@ -761,7 +1044,7 @@ func (e *ExpressionEvaluationDetails) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type FieldRestriction.
 func (f FieldRestriction) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "defaultValue", f.DefaultValue)
 	populate(objectMap, "policy", f.Policy)
 	populate(objectMap, "result", f.Result)
@@ -800,7 +1083,7 @@ func (f *FieldRestriction) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type FieldRestrictions.
 func (f FieldRestrictions) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "field", f.Field)
 	populate(objectMap, "restrictions", f.Restrictions)
 	return json.Marshal(objectMap)
@@ -831,7 +1114,7 @@ func (f *FieldRestrictions) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type IfNotExistsEvaluationDetails.
 func (i IfNotExistsEvaluationDetails) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "resourceId", i.ResourceID)
 	populate(objectMap, "totalResources", i.TotalResources)
 	return json.Marshal(objectMap)
@@ -862,8 +1145,9 @@ func (i *IfNotExistsEvaluationDetails) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type Operation.
 func (o Operation) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "display", o.Display)
+	populate(objectMap, "isDataAction", o.IsDataAction)
 	populate(objectMap, "name", o.Name)
 	return json.Marshal(objectMap)
 }
@@ -880,6 +1164,9 @@ func (o *Operation) UnmarshalJSON(data []byte) error {
 		case "display":
 			err = unpopulate(val, "Display", &o.Display)
 			delete(rawMsg, key)
+		case "isDataAction":
+			err = unpopulate(val, "IsDataAction", &o.IsDataAction)
+			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &o.Name)
 			delete(rawMsg, key)
@@ -893,7 +1180,7 @@ func (o *Operation) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type OperationDisplay.
 func (o OperationDisplay) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "description", o.Description)
 	populate(objectMap, "operation", o.Operation)
 	populate(objectMap, "provider", o.Provider)
@@ -932,7 +1219,7 @@ func (o *OperationDisplay) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type OperationsListResults.
 func (o OperationsListResults) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "@odata.count", o.ODataCount)
 	populate(objectMap, "value", o.Value)
 	return json.Marshal(objectMap)
@@ -963,7 +1250,7 @@ func (o *OperationsListResults) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PendingField.
 func (p PendingField) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "field", p.Field)
 	populate(objectMap, "values", p.Values)
 	return json.Marshal(objectMap)
@@ -994,7 +1281,7 @@ func (p *PendingField) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyAssignmentSummary.
 func (p PolicyAssignmentSummary) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "policyAssignmentId", p.PolicyAssignmentID)
 	populate(objectMap, "policyDefinitions", p.PolicyDefinitions)
 	populate(objectMap, "policyGroups", p.PolicyGroups)
@@ -1037,7 +1324,7 @@ func (p *PolicyAssignmentSummary) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyDefinitionSummary.
 func (p PolicyDefinitionSummary) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "effect", p.Effect)
 	populate(objectMap, "policyDefinitionGroupNames", p.PolicyDefinitionGroupNames)
 	populate(objectMap, "policyDefinitionId", p.PolicyDefinitionID)
@@ -1080,7 +1367,7 @@ func (p *PolicyDefinitionSummary) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyDetails.
 func (p PolicyDetails) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "policyAssignmentDisplayName", p.PolicyAssignmentDisplayName)
 	populate(objectMap, "policyAssignmentId", p.PolicyAssignmentID)
 	populate(objectMap, "policyAssignmentScope", p.PolicyAssignmentScope)
@@ -1127,7 +1414,7 @@ func (p *PolicyDetails) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyEvaluationDetails.
 func (p PolicyEvaluationDetails) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "evaluatedExpressions", p.EvaluatedExpressions)
 	populate(objectMap, "ifNotExistsDetails", p.IfNotExistsDetails)
 	return json.Marshal(objectMap)
@@ -1158,7 +1445,7 @@ func (p *PolicyEvaluationDetails) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyEvaluationResult.
 func (p PolicyEvaluationResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "evaluationDetails", p.EvaluationDetails)
 	populate(objectMap, "evaluationResult", p.EvaluationResult)
 	populate(objectMap, "policyInfo", p.PolicyInfo)
@@ -1193,7 +1480,7 @@ func (p *PolicyEvaluationResult) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyEvent.
 func (p PolicyEvent) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "complianceState", p.ComplianceState)
 	populate(objectMap, "components", p.Components)
 	populate(objectMap, "effectiveParameters", p.EffectiveParameters)
@@ -1337,10 +1624,10 @@ func (p *PolicyEvent) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		default:
 			if p.AdditionalProperties == nil {
-				p.AdditionalProperties = map[string]interface{}{}
+				p.AdditionalProperties = map[string]any{}
 			}
 			if val != nil {
-				var aux interface{}
+				var aux any
 				err = json.Unmarshal(val, &aux)
 				p.AdditionalProperties[key] = aux
 			}
@@ -1355,7 +1642,7 @@ func (p *PolicyEvent) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyEventsQueryResults.
 func (p PolicyEventsQueryResults) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "@odata.context", p.ODataContext)
 	populate(objectMap, "@odata.count", p.ODataCount)
 	populate(objectMap, "@odata.nextLink", p.ODataNextLink)
@@ -1394,7 +1681,7 @@ func (p *PolicyEventsQueryResults) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyGroupSummary.
 func (p PolicyGroupSummary) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "policyGroupName", p.PolicyGroupName)
 	populate(objectMap, "results", p.Results)
 	return json.Marshal(objectMap)
@@ -1425,7 +1712,7 @@ func (p *PolicyGroupSummary) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyMetadata.
 func (p PolicyMetadata) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "id", p.ID)
 	populate(objectMap, "name", p.Name)
 	populate(objectMap, "properties", p.Properties)
@@ -1464,7 +1751,7 @@ func (p *PolicyMetadata) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyMetadataCollection.
 func (p PolicyMetadataCollection) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "nextLink", p.NextLink)
 	populate(objectMap, "value", p.Value)
 	return json.Marshal(objectMap)
@@ -1495,7 +1782,7 @@ func (p *PolicyMetadataCollection) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyMetadataProperties.
 func (p PolicyMetadataProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "additionalContentUrl", p.AdditionalContentURL)
 	populate(objectMap, "category", p.Category)
 	populate(objectMap, "description", p.Description)
@@ -1550,7 +1837,7 @@ func (p *PolicyMetadataProperties) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyMetadataSlimProperties.
 func (p PolicyMetadataSlimProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "additionalContentUrl", p.AdditionalContentURL)
 	populate(objectMap, "category", p.Category)
 	populate(objectMap, "metadata", &p.Metadata)
@@ -1597,7 +1884,7 @@ func (p *PolicyMetadataSlimProperties) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyReference.
 func (p PolicyReference) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "policyAssignmentId", p.PolicyAssignmentID)
 	populate(objectMap, "policyDefinitionId", p.PolicyDefinitionID)
 	populate(objectMap, "policyDefinitionReferenceId", p.PolicyDefinitionReferenceID)
@@ -1636,7 +1923,7 @@ func (p *PolicyReference) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyState.
 func (p PolicyState) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "complianceState", p.ComplianceState)
 	populate(objectMap, "components", p.Components)
 	populate(objectMap, "effectiveParameters", p.EffectiveParameters)
@@ -1792,10 +2079,10 @@ func (p *PolicyState) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		default:
 			if p.AdditionalProperties == nil {
-				p.AdditionalProperties = map[string]interface{}{}
+				p.AdditionalProperties = map[string]any{}
 			}
 			if val != nil {
-				var aux interface{}
+				var aux any
 				err = json.Unmarshal(val, &aux)
 				p.AdditionalProperties[key] = aux
 			}
@@ -1810,7 +2097,7 @@ func (p *PolicyState) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyStatesQueryResults.
 func (p PolicyStatesQueryResults) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "@odata.context", p.ODataContext)
 	populate(objectMap, "@odata.count", p.ODataCount)
 	populate(objectMap, "@odata.nextLink", p.ODataNextLink)
@@ -1849,7 +2136,7 @@ func (p *PolicyStatesQueryResults) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyTrackedResource.
 func (p PolicyTrackedResource) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "createdBy", p.CreatedBy)
 	populate(objectMap, "lastModifiedBy", p.LastModifiedBy)
 	populateTimeRFC3339(objectMap, "lastUpdateUtc", p.LastUpdateUTC)
@@ -1892,7 +2179,7 @@ func (p *PolicyTrackedResource) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type PolicyTrackedResourcesQueryResults.
 func (p PolicyTrackedResourcesQueryResults) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "nextLink", p.NextLink)
 	populate(objectMap, "value", p.Value)
 	return json.Marshal(objectMap)
@@ -1923,7 +2210,7 @@ func (p *PolicyTrackedResourcesQueryResults) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type QueryFailure.
 func (q QueryFailure) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "error", q.Error)
 	return json.Marshal(objectMap)
 }
@@ -1950,7 +2237,7 @@ func (q *QueryFailure) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type QueryFailureError.
 func (q QueryFailureError) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "code", q.Code)
 	populate(objectMap, "message", q.Message)
 	return json.Marshal(objectMap)
@@ -1981,7 +2268,7 @@ func (q *QueryFailureError) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type Remediation.
 func (r Remediation) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "id", r.ID)
 	populate(objectMap, "name", r.Name)
 	populate(objectMap, "properties", r.Properties)
@@ -2024,7 +2311,7 @@ func (r *Remediation) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type RemediationDeployment.
 func (r RemediationDeployment) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
 	populate(objectMap, "deploymentId", r.DeploymentID)
 	populate(objectMap, "error", r.Error)
@@ -2075,7 +2362,7 @@ func (r *RemediationDeployment) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type RemediationDeploymentSummary.
 func (r RemediationDeploymentSummary) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "failedDeployments", r.FailedDeployments)
 	populate(objectMap, "successfulDeployments", r.SuccessfulDeployments)
 	populate(objectMap, "totalDeployments", r.TotalDeployments)
@@ -2110,7 +2397,7 @@ func (r *RemediationDeploymentSummary) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type RemediationDeploymentsListResult.
 func (r RemediationDeploymentsListResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "nextLink", r.NextLink)
 	populate(objectMap, "value", r.Value)
 	return json.Marshal(objectMap)
@@ -2141,7 +2428,7 @@ func (r *RemediationDeploymentsListResult) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type RemediationFilters.
 func (r RemediationFilters) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "locations", r.Locations)
 	return json.Marshal(objectMap)
 }
@@ -2168,7 +2455,7 @@ func (r *RemediationFilters) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type RemediationListResult.
 func (r RemediationListResult) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "nextLink", r.NextLink)
 	populate(objectMap, "value", r.Value)
 	return json.Marshal(objectMap)
@@ -2199,7 +2486,7 @@ func (r *RemediationListResult) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type RemediationProperties.
 func (r RemediationProperties) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "correlationId", r.CorrelationID)
 	populateTimeRFC3339(objectMap, "createdOn", r.CreatedOn)
 	populate(objectMap, "deploymentStatus", r.DeploymentStatus)
@@ -2274,7 +2561,7 @@ func (r *RemediationProperties) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type RemediationPropertiesFailureThreshold.
 func (r RemediationPropertiesFailureThreshold) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "percentage", r.Percentage)
 	return json.Marshal(objectMap)
 }
@@ -2301,7 +2588,7 @@ func (r *RemediationPropertiesFailureThreshold) UnmarshalJSON(data []byte) error
 
 // MarshalJSON implements the json.Marshaller interface for type Resource.
 func (r Resource) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "id", r.ID)
 	populate(objectMap, "name", r.Name)
 	populate(objectMap, "type", r.Type)
@@ -2336,7 +2623,7 @@ func (r *Resource) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type SlimPolicyMetadata.
 func (s SlimPolicyMetadata) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "id", s.ID)
 	populate(objectMap, "name", s.Name)
 	populate(objectMap, "properties", s.Properties)
@@ -2375,7 +2662,7 @@ func (s *SlimPolicyMetadata) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type SummarizeResults.
 func (s SummarizeResults) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "@odata.context", s.ODataContext)
 	populate(objectMap, "@odata.count", s.ODataCount)
 	populate(objectMap, "value", s.Value)
@@ -2410,7 +2697,7 @@ func (s *SummarizeResults) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type Summary.
 func (s Summary) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "@odata.context", s.ODataContext)
 	populate(objectMap, "@odata.id", s.ODataID)
 	populate(objectMap, "policyAssignments", s.PolicyAssignments)
@@ -2449,7 +2736,7 @@ func (s *Summary) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type SummaryResults.
 func (s SummaryResults) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "nonCompliantPolicies", s.NonCompliantPolicies)
 	populate(objectMap, "nonCompliantResources", s.NonCompliantResources)
 	populate(objectMap, "policyDetails", s.PolicyDetails)
@@ -2496,7 +2783,7 @@ func (s *SummaryResults) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type SystemData.
 func (s SystemData) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populateTimeRFC3339(objectMap, "createdAt", s.CreatedAt)
 	populate(objectMap, "createdBy", s.CreatedBy)
 	populate(objectMap, "createdByType", s.CreatedByType)
@@ -2543,7 +2830,7 @@ func (s *SystemData) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type TrackedResourceModificationDetails.
 func (t TrackedResourceModificationDetails) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "deploymentId", t.DeploymentID)
 	populateTimeRFC3339(objectMap, "deploymentTime", t.DeploymentTime)
 	populate(objectMap, "policyDetails", t.PolicyDetails)
@@ -2578,7 +2865,7 @@ func (t *TrackedResourceModificationDetails) UnmarshalJSON(data []byte) error {
 
 // MarshalJSON implements the json.Marshaller interface for type TypedErrorInfo.
 func (t TypedErrorInfo) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]interface{})
+	objectMap := make(map[string]any)
 	populate(objectMap, "info", &t.Info)
 	populate(objectMap, "type", t.Type)
 	return json.Marshal(objectMap)
@@ -2607,7 +2894,7 @@ func (t *TypedErrorInfo) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func populate(m map[string]interface{}, k string, v interface{}) {
+func populate(m map[string]any, k string, v any) {
 	if v == nil {
 		return
 	} else if azcore.IsNullValue(v) {
@@ -2617,7 +2904,7 @@ func populate(m map[string]interface{}, k string, v interface{}) {
 	}
 }
 
-func unpopulate(data json.RawMessage, fn string, v interface{}) error {
+func unpopulate(data json.RawMessage, fn string, v any) error {
 	if data == nil {
 		return nil
 	}

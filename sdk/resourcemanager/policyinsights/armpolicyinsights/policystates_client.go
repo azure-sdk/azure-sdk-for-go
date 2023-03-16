@@ -33,8 +33,8 @@ type PolicyStatesClient struct {
 }
 
 // NewPolicyStatesClient creates a new instance of PolicyStatesClient with the specified values.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPolicyStatesClient(credential azcore.TokenCredential, options *arm.ClientOptions) (*PolicyStatesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -55,14 +55,15 @@ func NewPolicyStatesClient(credential azcore.TokenCredential, options *arm.Clien
 }
 
 // NewListQueryResultsForManagementGroupPager - Queries policy states for the resources under the management group.
+//
 // Generated from API version 2019-10-01
-// policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
-// the latest policy state(s), whereas 'default' represents all policy state(s).
-// managementGroupName - Management group name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientListQueryResultsForManagementGroupOptions contains the optional parameters for the PolicyStatesClient.ListQueryResultsForManagementGroup
-// method.
+//   - policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
+//     the latest policy state(s), whereas 'default' represents all policy state(s).
+//   - managementGroupName - Management group name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientListQueryResultsForManagementGroupOptions contains the optional parameters for the PolicyStatesClient.NewListQueryResultsForManagementGroupPager
+//     method.
 func (client *PolicyStatesClient) NewListQueryResultsForManagementGroupPager(policyStatesResource PolicyStatesResource, managementGroupName string, queryOptions *QueryOptions, options *PolicyStatesClientListQueryResultsForManagementGroupOptions) *runtime.Pager[PolicyStatesClientListQueryResultsForManagementGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyStatesClientListQueryResultsForManagementGroupResponse]{
 		More: func(page PolicyStatesClientListQueryResultsForManagementGroupResponse) bool {
@@ -148,15 +149,16 @@ func (client *PolicyStatesClient) listQueryResultsForManagementGroupHandleRespon
 }
 
 // NewListQueryResultsForPolicyDefinitionPager - Queries policy states for the subscription level policy definition.
+//
 // Generated from API version 2019-10-01
-// policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
-// the latest policy state(s), whereas 'default' represents all policy state(s).
-// subscriptionID - Microsoft Azure subscription ID.
-// policyDefinitionName - Policy definition name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientListQueryResultsForPolicyDefinitionOptions contains the optional parameters for the PolicyStatesClient.ListQueryResultsForPolicyDefinition
-// method.
+//   - policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
+//     the latest policy state(s), whereas 'default' represents all policy state(s).
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - policyDefinitionName - Policy definition name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientListQueryResultsForPolicyDefinitionOptions contains the optional parameters for the PolicyStatesClient.NewListQueryResultsForPolicyDefinitionPager
+//     method.
 func (client *PolicyStatesClient) NewListQueryResultsForPolicyDefinitionPager(policyStatesResource PolicyStatesResource, subscriptionID string, policyDefinitionName string, queryOptions *QueryOptions, options *PolicyStatesClientListQueryResultsForPolicyDefinitionOptions) *runtime.Pager[PolicyStatesClientListQueryResultsForPolicyDefinitionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyStatesClientListQueryResultsForPolicyDefinitionResponse]{
 		More: func(page PolicyStatesClientListQueryResultsForPolicyDefinitionResponse) bool {
@@ -246,15 +248,16 @@ func (client *PolicyStatesClient) listQueryResultsForPolicyDefinitionHandleRespo
 }
 
 // NewListQueryResultsForPolicySetDefinitionPager - Queries policy states for the subscription level policy set definition.
+//
 // Generated from API version 2019-10-01
-// policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
-// the latest policy state(s), whereas 'default' represents all policy state(s).
-// subscriptionID - Microsoft Azure subscription ID.
-// policySetDefinitionName - Policy set definition name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientListQueryResultsForPolicySetDefinitionOptions contains the optional parameters for the PolicyStatesClient.ListQueryResultsForPolicySetDefinition
-// method.
+//   - policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
+//     the latest policy state(s), whereas 'default' represents all policy state(s).
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - policySetDefinitionName - Policy set definition name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientListQueryResultsForPolicySetDefinitionOptions contains the optional parameters for the PolicyStatesClient.NewListQueryResultsForPolicySetDefinitionPager
+//     method.
 func (client *PolicyStatesClient) NewListQueryResultsForPolicySetDefinitionPager(policyStatesResource PolicyStatesResource, subscriptionID string, policySetDefinitionName string, queryOptions *QueryOptions, options *PolicyStatesClientListQueryResultsForPolicySetDefinitionOptions) *runtime.Pager[PolicyStatesClientListQueryResultsForPolicySetDefinitionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyStatesClientListQueryResultsForPolicySetDefinitionResponse]{
 		More: func(page PolicyStatesClientListQueryResultsForPolicySetDefinitionResponse) bool {
@@ -344,14 +347,15 @@ func (client *PolicyStatesClient) listQueryResultsForPolicySetDefinitionHandleRe
 }
 
 // NewListQueryResultsForResourcePager - Queries policy states for the resource.
+//
 // Generated from API version 2019-10-01
-// policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
-// the latest policy state(s), whereas 'default' represents all policy state(s).
-// resourceID - Resource ID.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientListQueryResultsForResourceOptions contains the optional parameters for the PolicyStatesClient.ListQueryResultsForResource
-// method.
+//   - policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
+//     the latest policy state(s), whereas 'default' represents all policy state(s).
+//   - resourceID - Resource ID.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientListQueryResultsForResourceOptions contains the optional parameters for the PolicyStatesClient.NewListQueryResultsForResourcePager
+//     method.
 func (client *PolicyStatesClient) NewListQueryResultsForResourcePager(policyStatesResource PolicyStatesResource, resourceID string, queryOptions *QueryOptions, options *PolicyStatesClientListQueryResultsForResourceOptions) *runtime.Pager[PolicyStatesClientListQueryResultsForResourceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyStatesClientListQueryResultsForResourceResponse]{
 		More: func(page PolicyStatesClientListQueryResultsForResourceResponse) bool {
@@ -436,15 +440,16 @@ func (client *PolicyStatesClient) listQueryResultsForResourceHandleResponse(resp
 }
 
 // NewListQueryResultsForResourceGroupPager - Queries policy states for the resources under the resource group.
+//
 // Generated from API version 2019-10-01
-// policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
-// the latest policy state(s), whereas 'default' represents all policy state(s).
-// subscriptionID - Microsoft Azure subscription ID.
-// resourceGroupName - Resource group name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientListQueryResultsForResourceGroupOptions contains the optional parameters for the PolicyStatesClient.ListQueryResultsForResourceGroup
-// method.
+//   - policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
+//     the latest policy state(s), whereas 'default' represents all policy state(s).
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - resourceGroupName - Resource group name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientListQueryResultsForResourceGroupOptions contains the optional parameters for the PolicyStatesClient.NewListQueryResultsForResourceGroupPager
+//     method.
 func (client *PolicyStatesClient) NewListQueryResultsForResourceGroupPager(policyStatesResource PolicyStatesResource, subscriptionID string, resourceGroupName string, queryOptions *QueryOptions, options *PolicyStatesClientListQueryResultsForResourceGroupOptions) *runtime.Pager[PolicyStatesClientListQueryResultsForResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyStatesClientListQueryResultsForResourceGroupResponse]{
 		More: func(page PolicyStatesClientListQueryResultsForResourceGroupResponse) bool {
@@ -534,16 +539,17 @@ func (client *PolicyStatesClient) listQueryResultsForResourceGroupHandleResponse
 
 // NewListQueryResultsForResourceGroupLevelPolicyAssignmentPager - Queries policy states for the resource group level policy
 // assignment.
+//
 // Generated from API version 2019-10-01
-// policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
-// the latest policy state(s), whereas 'default' represents all policy state(s).
-// subscriptionID - Microsoft Azure subscription ID.
-// resourceGroupName - Resource group name.
-// policyAssignmentName - Policy assignment name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentOptions contains the optional parameters
-// for the PolicyStatesClient.ListQueryResultsForResourceGroupLevelPolicyAssignment method.
+//   - policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
+//     the latest policy state(s), whereas 'default' represents all policy state(s).
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - resourceGroupName - Resource group name.
+//   - policyAssignmentName - Policy assignment name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentOptions contains the optional parameters
+//     for the PolicyStatesClient.NewListQueryResultsForResourceGroupLevelPolicyAssignmentPager method.
 func (client *PolicyStatesClient) NewListQueryResultsForResourceGroupLevelPolicyAssignmentPager(policyStatesResource PolicyStatesResource, subscriptionID string, resourceGroupName string, policyAssignmentName string, queryOptions *QueryOptions, options *PolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentOptions) *runtime.Pager[PolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentResponse]{
 		More: func(page PolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentResponse) bool {
@@ -637,14 +643,15 @@ func (client *PolicyStatesClient) listQueryResultsForResourceGroupLevelPolicyAss
 }
 
 // NewListQueryResultsForSubscriptionPager - Queries policy states for the resources under the subscription.
+//
 // Generated from API version 2019-10-01
-// policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
-// the latest policy state(s), whereas 'default' represents all policy state(s).
-// subscriptionID - Microsoft Azure subscription ID.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientListQueryResultsForSubscriptionOptions contains the optional parameters for the PolicyStatesClient.ListQueryResultsForSubscription
-// method.
+//   - policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
+//     the latest policy state(s), whereas 'default' represents all policy state(s).
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientListQueryResultsForSubscriptionOptions contains the optional parameters for the PolicyStatesClient.NewListQueryResultsForSubscriptionPager
+//     method.
 func (client *PolicyStatesClient) NewListQueryResultsForSubscriptionPager(policyStatesResource PolicyStatesResource, subscriptionID string, queryOptions *QueryOptions, options *PolicyStatesClientListQueryResultsForSubscriptionOptions) *runtime.Pager[PolicyStatesClientListQueryResultsForSubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyStatesClientListQueryResultsForSubscriptionResponse]{
 		More: func(page PolicyStatesClientListQueryResultsForSubscriptionResponse) bool {
@@ -730,15 +737,16 @@ func (client *PolicyStatesClient) listQueryResultsForSubscriptionHandleResponse(
 
 // NewListQueryResultsForSubscriptionLevelPolicyAssignmentPager - Queries policy states for the subscription level policy
 // assignment.
+//
 // Generated from API version 2019-10-01
-// policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
-// the latest policy state(s), whereas 'default' represents all policy state(s).
-// subscriptionID - Microsoft Azure subscription ID.
-// policyAssignmentName - Policy assignment name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentOptions contains the optional parameters
-// for the PolicyStatesClient.ListQueryResultsForSubscriptionLevelPolicyAssignment method.
+//   - policyStatesResource - The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents
+//     the latest policy state(s), whereas 'default' represents all policy state(s).
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - policyAssignmentName - Policy assignment name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentOptions contains the optional parameters
+//     for the PolicyStatesClient.NewListQueryResultsForSubscriptionLevelPolicyAssignmentPager method.
 func (client *PolicyStatesClient) NewListQueryResultsForSubscriptionLevelPolicyAssignmentPager(policyStatesResource PolicyStatesResource, subscriptionID string, policyAssignmentName string, queryOptions *QueryOptions, options *PolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentOptions) *runtime.Pager[PolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentResponse]{
 		More: func(page PolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentResponse) bool {
@@ -829,14 +837,15 @@ func (client *PolicyStatesClient) listQueryResultsForSubscriptionLevelPolicyAssi
 
 // SummarizeForManagementGroup - Summarizes policy states for the resources under the management group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
-// range, 'latest' represents the latest policy state(s) and is the only allowed value.
-// managementGroupName - Management group name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientSummarizeForManagementGroupOptions contains the optional parameters for the PolicyStatesClient.SummarizeForManagementGroup
-// method.
+//   - policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
+//     range, 'latest' represents the latest policy state(s) and is the only allowed value.
+//   - managementGroupName - Management group name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientSummarizeForManagementGroupOptions contains the optional parameters for the PolicyStatesClient.SummarizeForManagementGroup
+//     method.
 func (client *PolicyStatesClient) SummarizeForManagementGroup(ctx context.Context, policyStatesSummaryResource PolicyStatesSummaryResourceType, managementGroupName string, queryOptions *QueryOptions, options *PolicyStatesClientSummarizeForManagementGroupOptions) (PolicyStatesClientSummarizeForManagementGroupResponse, error) {
 	req, err := client.summarizeForManagementGroupCreateRequest(ctx, policyStatesSummaryResource, managementGroupName, queryOptions, options)
 	if err != nil {
@@ -898,15 +907,16 @@ func (client *PolicyStatesClient) summarizeForManagementGroupHandleResponse(resp
 
 // SummarizeForPolicyDefinition - Summarizes policy states for the subscription level policy definition.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
-// range, 'latest' represents the latest policy state(s) and is the only allowed value.
-// subscriptionID - Microsoft Azure subscription ID.
-// policyDefinitionName - Policy definition name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientSummarizeForPolicyDefinitionOptions contains the optional parameters for the PolicyStatesClient.SummarizeForPolicyDefinition
-// method.
+//   - policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
+//     range, 'latest' represents the latest policy state(s) and is the only allowed value.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - policyDefinitionName - Policy definition name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientSummarizeForPolicyDefinitionOptions contains the optional parameters for the PolicyStatesClient.SummarizeForPolicyDefinition
+//     method.
 func (client *PolicyStatesClient) SummarizeForPolicyDefinition(ctx context.Context, policyStatesSummaryResource PolicyStatesSummaryResourceType, subscriptionID string, policyDefinitionName string, queryOptions *QueryOptions, options *PolicyStatesClientSummarizeForPolicyDefinitionOptions) (PolicyStatesClientSummarizeForPolicyDefinitionResponse, error) {
 	req, err := client.summarizeForPolicyDefinitionCreateRequest(ctx, policyStatesSummaryResource, subscriptionID, policyDefinitionName, queryOptions, options)
 	if err != nil {
@@ -972,15 +982,16 @@ func (client *PolicyStatesClient) summarizeForPolicyDefinitionHandleResponse(res
 
 // SummarizeForPolicySetDefinition - Summarizes policy states for the subscription level policy set definition.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
-// range, 'latest' represents the latest policy state(s) and is the only allowed value.
-// subscriptionID - Microsoft Azure subscription ID.
-// policySetDefinitionName - Policy set definition name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientSummarizeForPolicySetDefinitionOptions contains the optional parameters for the PolicyStatesClient.SummarizeForPolicySetDefinition
-// method.
+//   - policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
+//     range, 'latest' represents the latest policy state(s) and is the only allowed value.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - policySetDefinitionName - Policy set definition name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientSummarizeForPolicySetDefinitionOptions contains the optional parameters for the PolicyStatesClient.SummarizeForPolicySetDefinition
+//     method.
 func (client *PolicyStatesClient) SummarizeForPolicySetDefinition(ctx context.Context, policyStatesSummaryResource PolicyStatesSummaryResourceType, subscriptionID string, policySetDefinitionName string, queryOptions *QueryOptions, options *PolicyStatesClientSummarizeForPolicySetDefinitionOptions) (PolicyStatesClientSummarizeForPolicySetDefinitionResponse, error) {
 	req, err := client.summarizeForPolicySetDefinitionCreateRequest(ctx, policyStatesSummaryResource, subscriptionID, policySetDefinitionName, queryOptions, options)
 	if err != nil {
@@ -1046,14 +1057,15 @@ func (client *PolicyStatesClient) summarizeForPolicySetDefinitionHandleResponse(
 
 // SummarizeForResource - Summarizes policy states for the resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
-// range, 'latest' represents the latest policy state(s) and is the only allowed value.
-// resourceID - Resource ID.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientSummarizeForResourceOptions contains the optional parameters for the PolicyStatesClient.SummarizeForResource
-// method.
+//   - policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
+//     range, 'latest' represents the latest policy state(s) and is the only allowed value.
+//   - resourceID - Resource ID.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientSummarizeForResourceOptions contains the optional parameters for the PolicyStatesClient.SummarizeForResource
+//     method.
 func (client *PolicyStatesClient) SummarizeForResource(ctx context.Context, policyStatesSummaryResource PolicyStatesSummaryResourceType, resourceID string, queryOptions *QueryOptions, options *PolicyStatesClientSummarizeForResourceOptions) (PolicyStatesClientSummarizeForResourceResponse, error) {
 	req, err := client.summarizeForResourceCreateRequest(ctx, policyStatesSummaryResource, resourceID, queryOptions, options)
 	if err != nil {
@@ -1111,15 +1123,16 @@ func (client *PolicyStatesClient) summarizeForResourceHandleResponse(resp *http.
 
 // SummarizeForResourceGroup - Summarizes policy states for the resources under the resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
-// range, 'latest' represents the latest policy state(s) and is the only allowed value.
-// subscriptionID - Microsoft Azure subscription ID.
-// resourceGroupName - Resource group name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientSummarizeForResourceGroupOptions contains the optional parameters for the PolicyStatesClient.SummarizeForResourceGroup
-// method.
+//   - policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
+//     range, 'latest' represents the latest policy state(s) and is the only allowed value.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - resourceGroupName - Resource group name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientSummarizeForResourceGroupOptions contains the optional parameters for the PolicyStatesClient.SummarizeForResourceGroup
+//     method.
 func (client *PolicyStatesClient) SummarizeForResourceGroup(ctx context.Context, policyStatesSummaryResource PolicyStatesSummaryResourceType, subscriptionID string, resourceGroupName string, queryOptions *QueryOptions, options *PolicyStatesClientSummarizeForResourceGroupOptions) (PolicyStatesClientSummarizeForResourceGroupResponse, error) {
 	req, err := client.summarizeForResourceGroupCreateRequest(ctx, policyStatesSummaryResource, subscriptionID, resourceGroupName, queryOptions, options)
 	if err != nil {
@@ -1184,16 +1197,17 @@ func (client *PolicyStatesClient) summarizeForResourceGroupHandleResponse(resp *
 
 // SummarizeForResourceGroupLevelPolicyAssignment - Summarizes policy states for the resource group level policy assignment.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
-// range, 'latest' represents the latest policy state(s) and is the only allowed value.
-// subscriptionID - Microsoft Azure subscription ID.
-// resourceGroupName - Resource group name.
-// policyAssignmentName - Policy assignment name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientSummarizeForResourceGroupLevelPolicyAssignmentOptions contains the optional parameters for
-// the PolicyStatesClient.SummarizeForResourceGroupLevelPolicyAssignment method.
+//   - policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
+//     range, 'latest' represents the latest policy state(s) and is the only allowed value.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - resourceGroupName - Resource group name.
+//   - policyAssignmentName - Policy assignment name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientSummarizeForResourceGroupLevelPolicyAssignmentOptions contains the optional parameters for
+//     the PolicyStatesClient.SummarizeForResourceGroupLevelPolicyAssignment method.
 func (client *PolicyStatesClient) SummarizeForResourceGroupLevelPolicyAssignment(ctx context.Context, policyStatesSummaryResource PolicyStatesSummaryResourceType, subscriptionID string, resourceGroupName string, policyAssignmentName string, queryOptions *QueryOptions, options *PolicyStatesClientSummarizeForResourceGroupLevelPolicyAssignmentOptions) (PolicyStatesClientSummarizeForResourceGroupLevelPolicyAssignmentResponse, error) {
 	req, err := client.summarizeForResourceGroupLevelPolicyAssignmentCreateRequest(ctx, policyStatesSummaryResource, subscriptionID, resourceGroupName, policyAssignmentName, queryOptions, options)
 	if err != nil {
@@ -1263,14 +1277,15 @@ func (client *PolicyStatesClient) summarizeForResourceGroupLevelPolicyAssignment
 
 // SummarizeForSubscription - Summarizes policy states for the resources under the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
-// range, 'latest' represents the latest policy state(s) and is the only allowed value.
-// subscriptionID - Microsoft Azure subscription ID.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientSummarizeForSubscriptionOptions contains the optional parameters for the PolicyStatesClient.SummarizeForSubscription
-// method.
+//   - policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
+//     range, 'latest' represents the latest policy state(s) and is the only allowed value.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientSummarizeForSubscriptionOptions contains the optional parameters for the PolicyStatesClient.SummarizeForSubscription
+//     method.
 func (client *PolicyStatesClient) SummarizeForSubscription(ctx context.Context, policyStatesSummaryResource PolicyStatesSummaryResourceType, subscriptionID string, queryOptions *QueryOptions, options *PolicyStatesClientSummarizeForSubscriptionOptions) (PolicyStatesClientSummarizeForSubscriptionResponse, error) {
 	req, err := client.summarizeForSubscriptionCreateRequest(ctx, policyStatesSummaryResource, subscriptionID, queryOptions, options)
 	if err != nil {
@@ -1331,15 +1346,16 @@ func (client *PolicyStatesClient) summarizeForSubscriptionHandleResponse(resp *h
 
 // SummarizeForSubscriptionLevelPolicyAssignment - Summarizes policy states for the subscription level policy assignment.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
-// range, 'latest' represents the latest policy state(s) and is the only allowed value.
-// subscriptionID - Microsoft Azure subscription ID.
-// policyAssignmentName - Policy assignment name.
-// QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
-// method.
-// options - PolicyStatesClientSummarizeForSubscriptionLevelPolicyAssignmentOptions contains the optional parameters for the
-// PolicyStatesClient.SummarizeForSubscriptionLevelPolicyAssignment method.
+//   - policyStatesSummaryResource - The virtual resource under PolicyStates resource type for summarize action. In a given time
+//     range, 'latest' represents the latest policy state(s) and is the only allowed value.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - policyAssignmentName - Policy assignment name.
+//   - QueryOptions - QueryOptions contains a group of parameters for the PolicyTrackedResourcesClient.ListQueryResultsForManagementGroup
+//     method.
+//   - options - PolicyStatesClientSummarizeForSubscriptionLevelPolicyAssignmentOptions contains the optional parameters for the
+//     PolicyStatesClient.SummarizeForSubscriptionLevelPolicyAssignment method.
 func (client *PolicyStatesClient) SummarizeForSubscriptionLevelPolicyAssignment(ctx context.Context, policyStatesSummaryResource PolicyStatesSummaryResourceType, subscriptionID string, policyAssignmentName string, queryOptions *QueryOptions, options *PolicyStatesClientSummarizeForSubscriptionLevelPolicyAssignmentOptions) (PolicyStatesClientSummarizeForSubscriptionLevelPolicyAssignmentResponse, error) {
 	req, err := client.summarizeForSubscriptionLevelPolicyAssignmentCreateRequest(ctx, policyStatesSummaryResource, subscriptionID, policyAssignmentName, queryOptions, options)
 	if err != nil {
@@ -1405,11 +1421,12 @@ func (client *PolicyStatesClient) summarizeForSubscriptionLevelPolicyAssignmentH
 
 // BeginTriggerResourceGroupEvaluation - Triggers a policy evaluation scan for all the resources under the resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// subscriptionID - Microsoft Azure subscription ID.
-// resourceGroupName - Resource group name.
-// options - PolicyStatesClientBeginTriggerResourceGroupEvaluationOptions contains the optional parameters for the PolicyStatesClient.BeginTriggerResourceGroupEvaluation
-// method.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - resourceGroupName - Resource group name.
+//   - options - PolicyStatesClientBeginTriggerResourceGroupEvaluationOptions contains the optional parameters for the PolicyStatesClient.BeginTriggerResourceGroupEvaluation
+//     method.
 func (client *PolicyStatesClient) BeginTriggerResourceGroupEvaluation(ctx context.Context, subscriptionID string, resourceGroupName string, options *PolicyStatesClientBeginTriggerResourceGroupEvaluationOptions) (*runtime.Poller[PolicyStatesClientTriggerResourceGroupEvaluationResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.triggerResourceGroupEvaluation(ctx, subscriptionID, resourceGroupName, options)
@@ -1426,6 +1443,7 @@ func (client *PolicyStatesClient) BeginTriggerResourceGroupEvaluation(ctx contex
 
 // TriggerResourceGroupEvaluation - Triggers a policy evaluation scan for all the resources under the resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
 func (client *PolicyStatesClient) triggerResourceGroupEvaluation(ctx context.Context, subscriptionID string, resourceGroupName string, options *PolicyStatesClientBeginTriggerResourceGroupEvaluationOptions) (*http.Response, error) {
 	req, err := client.triggerResourceGroupEvaluationCreateRequest(ctx, subscriptionID, resourceGroupName, options)
@@ -1466,10 +1484,11 @@ func (client *PolicyStatesClient) triggerResourceGroupEvaluationCreateRequest(ct
 
 // BeginTriggerSubscriptionEvaluation - Triggers a policy evaluation scan for all the resources under the subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
-// subscriptionID - Microsoft Azure subscription ID.
-// options - PolicyStatesClientBeginTriggerSubscriptionEvaluationOptions contains the optional parameters for the PolicyStatesClient.BeginTriggerSubscriptionEvaluation
-// method.
+//   - subscriptionID - Microsoft Azure subscription ID.
+//   - options - PolicyStatesClientBeginTriggerSubscriptionEvaluationOptions contains the optional parameters for the PolicyStatesClient.BeginTriggerSubscriptionEvaluation
+//     method.
 func (client *PolicyStatesClient) BeginTriggerSubscriptionEvaluation(ctx context.Context, subscriptionID string, options *PolicyStatesClientBeginTriggerSubscriptionEvaluationOptions) (*runtime.Poller[PolicyStatesClientTriggerSubscriptionEvaluationResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.triggerSubscriptionEvaluation(ctx, subscriptionID, options)
@@ -1486,6 +1505,7 @@ func (client *PolicyStatesClient) BeginTriggerSubscriptionEvaluation(ctx context
 
 // TriggerSubscriptionEvaluation - Triggers a policy evaluation scan for all the resources under the subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2019-10-01
 func (client *PolicyStatesClient) triggerSubscriptionEvaluation(ctx context.Context, subscriptionID string, options *PolicyStatesClientBeginTriggerSubscriptionEvaluationOptions) (*http.Response, error) {
 	req, err := client.triggerSubscriptionEvaluationCreateRequest(ctx, subscriptionID, options)
