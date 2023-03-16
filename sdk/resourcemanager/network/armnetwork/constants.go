@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -82,6 +82,26 @@ func PossibleAdminRuleKindValues() []AdminRuleKind {
 	}
 }
 
+// AnalysisModes - Analysis Modes.
+type AnalysisModes string
+
+const (
+	AnalysisModesDefault  AnalysisModes = "Default"
+	AnalysisModesNCD      AnalysisModes = "NCD"
+	AnalysisModesNextHop  AnalysisModes = "NextHop"
+	AnalysisModesPortScan AnalysisModes = "PortScan"
+)
+
+// PossibleAnalysisModesValues returns the possible values for the AnalysisModes const type.
+func PossibleAnalysisModesValues() []AnalysisModes {
+	return []AnalysisModes{
+		AnalysisModesDefault,
+		AnalysisModesNCD,
+		AnalysisModesNextHop,
+		AnalysisModesPortScan,
+	}
+}
+
 // ApplicationGatewayBackendHealthServerHealth - Health of backend server.
 type ApplicationGatewayBackendHealthServerHealth string
 
@@ -136,19 +156,35 @@ func PossibleApplicationGatewayCookieBasedAffinityValues() []ApplicationGatewayC
 	}
 }
 
-// ApplicationGatewayCustomErrorStatusCode - Status code of the application gateway customer error.
+// ApplicationGatewayCustomErrorStatusCode - Status code of the application gateway custom error.
 type ApplicationGatewayCustomErrorStatusCode string
 
 const (
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus400 ApplicationGatewayCustomErrorStatusCode = "HttpStatus400"
 	ApplicationGatewayCustomErrorStatusCodeHTTPStatus403 ApplicationGatewayCustomErrorStatusCode = "HttpStatus403"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus404 ApplicationGatewayCustomErrorStatusCode = "HttpStatus404"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus405 ApplicationGatewayCustomErrorStatusCode = "HttpStatus405"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus408 ApplicationGatewayCustomErrorStatusCode = "HttpStatus408"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus499 ApplicationGatewayCustomErrorStatusCode = "HttpStatus499"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus500 ApplicationGatewayCustomErrorStatusCode = "HttpStatus500"
 	ApplicationGatewayCustomErrorStatusCodeHTTPStatus502 ApplicationGatewayCustomErrorStatusCode = "HttpStatus502"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus503 ApplicationGatewayCustomErrorStatusCode = "HttpStatus503"
+	ApplicationGatewayCustomErrorStatusCodeHTTPStatus504 ApplicationGatewayCustomErrorStatusCode = "HttpStatus504"
 )
 
 // PossibleApplicationGatewayCustomErrorStatusCodeValues returns the possible values for the ApplicationGatewayCustomErrorStatusCode const type.
 func PossibleApplicationGatewayCustomErrorStatusCodeValues() []ApplicationGatewayCustomErrorStatusCode {
 	return []ApplicationGatewayCustomErrorStatusCode{
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus400,
 		ApplicationGatewayCustomErrorStatusCodeHTTPStatus403,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus404,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus405,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus408,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus499,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus500,
 		ApplicationGatewayCustomErrorStatusCodeHTTPStatus502,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus503,
+		ApplicationGatewayCustomErrorStatusCodeHTTPStatus504,
 	}
 }
 
@@ -1094,6 +1130,28 @@ func PossibleDestinationPortBehaviorValues() []DestinationPortBehavior {
 	return []DestinationPortBehavior{
 		DestinationPortBehaviorListenIfAvailable,
 		DestinationPortBehaviorNone,
+	}
+}
+
+// DestinationPortStatus - Port Status at the Destination.
+type DestinationPortStatus string
+
+const (
+	DestinationPortStatusNoConnection DestinationPortStatus = "NoConnection"
+	DestinationPortStatusReachable    DestinationPortStatus = "Reachable"
+	DestinationPortStatusTimeout      DestinationPortStatus = "Timeout"
+	DestinationPortStatusUnknown      DestinationPortStatus = "Unknown"
+	DestinationPortStatusUnstable     DestinationPortStatus = "Unstable"
+)
+
+// PossibleDestinationPortStatusValues returns the possible values for the DestinationPortStatus const type.
+func PossibleDestinationPortStatusValues() []DestinationPortStatus {
+	return []DestinationPortStatus{
+		DestinationPortStatusNoConnection,
+		DestinationPortStatusReachable,
+		DestinationPortStatusTimeout,
+		DestinationPortStatusUnknown,
+		DestinationPortStatusUnstable,
 	}
 }
 
@@ -3194,6 +3252,28 @@ func PossibleSlotTypeValues() []SlotType {
 	}
 }
 
+// SourcePortStatus - Port Status at the Source.
+type SourcePortStatus string
+
+const (
+	SourcePortStatusNoConnection SourcePortStatus = "NoConnection"
+	SourcePortStatusReachable    SourcePortStatus = "Reachable"
+	SourcePortStatusTimeout      SourcePortStatus = "Timeout"
+	SourcePortStatusUnknown      SourcePortStatus = "Unknown"
+	SourcePortStatusUnstable     SourcePortStatus = "Unstable"
+)
+
+// PossibleSourcePortStatusValues returns the possible values for the SourcePortStatus const type.
+func PossibleSourcePortStatusValues() []SourcePortStatus {
+	return []SourcePortStatus{
+		SourcePortStatusNoConnection,
+		SourcePortStatusReachable,
+		SourcePortStatusTimeout,
+		SourcePortStatusUnknown,
+		SourcePortStatusUnstable,
+	}
+}
+
 type SyncRemoteAddressSpace string
 
 const (
@@ -3922,6 +4002,23 @@ func PossibleWebApplicationFirewallRuleTypeValues() []WebApplicationFirewallRule
 	return []WebApplicationFirewallRuleType{
 		WebApplicationFirewallRuleTypeInvalid,
 		WebApplicationFirewallRuleTypeMatchRule,
+	}
+}
+
+// WebApplicationFirewallState - Describes if the custom rule is in enabled or disabled state. Defaults to Enabled if not
+// specified.
+type WebApplicationFirewallState string
+
+const (
+	WebApplicationFirewallStateDisabled WebApplicationFirewallState = "Disabled"
+	WebApplicationFirewallStateEnabled  WebApplicationFirewallState = "Enabled"
+)
+
+// PossibleWebApplicationFirewallStateValues returns the possible values for the WebApplicationFirewallState const type.
+func PossibleWebApplicationFirewallStateValues() []WebApplicationFirewallState {
+	return []WebApplicationFirewallState{
+		WebApplicationFirewallStateDisabled,
+		WebApplicationFirewallStateEnabled,
 	}
 }
 
