@@ -32,9 +32,9 @@ type UsagesClient struct {
 }
 
 // NewUsagesClient creates a new instance of UsagesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UsagesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,9 +56,10 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 }
 
 // NewListPager - Gets the current usage information as well as limits for AML resources for given subscription and location.
-// Generated from API version 2022-10-01
-// location - The location for which resource usage is queried.
-// options - UsagesClientListOptions contains the optional parameters for the UsagesClient.List method.
+//
+// Generated from API version 2023-04-01-preview
+//   - location - The location for which resource usage is queried.
+//   - options - UsagesClientListOptions contains the optional parameters for the UsagesClient.NewListPager method.
 func (client *UsagesClient) NewListPager(location string, options *UsagesClientListOptions) *runtime.Pager[UsagesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[UsagesClientListResponse]{
 		More: func(page UsagesClientListResponse) bool {
@@ -103,7 +104,7 @@ func (client *UsagesClient) listCreateRequest(ctx context.Context, location stri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
