@@ -31,6 +31,9 @@ type ARMProxyResource struct {
 
 // ARMResourceProperties - The core properties of ARM resources.
 type ARMResourceProperties struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -64,6 +67,28 @@ type AnalyticalStorageConfiguration struct {
 	SchemaType *AnalyticalStorageSchemaType `json:"schemaType,omitempty"`
 }
 
+// AuthenticationMethodLdapProperties - Ldap authentication method properties. This feature is in preview.
+type AuthenticationMethodLdapProperties struct {
+	// Distinguished name of the object to start the recursive search of users from.
+	SearchBaseDistinguishedName *string `json:"searchBaseDistinguishedName,omitempty"`
+
+	// Template to use for searching. Defaults to (cn=%s) where %s will be replaced by the username used to login.
+	SearchFilterTemplate *string        `json:"searchFilterTemplate,omitempty"`
+	ServerCertificates   []*Certificate `json:"serverCertificates,omitempty"`
+
+	// Hostname of the LDAP server.
+	ServerHostname *string `json:"serverHostname,omitempty"`
+
+	// Port of the LDAP server.
+	ServerPort *int32 `json:"serverPort,omitempty"`
+
+	// Distinguished name of the look up user account, who can look up user details on authentication.
+	ServiceUserDistinguishedName *string `json:"serviceUserDistinguishedName,omitempty"`
+
+	// Password of the look up user.
+	ServiceUserPassword *string `json:"serviceUserPassword,omitempty"`
+}
+
 // AutoUpgradePolicyResource - Cosmos DB resource auto-upgrade policy
 type AutoUpgradePolicyResource struct {
 	// Represents throughput policy which service must adhere to for auto-upgrade
@@ -85,6 +110,23 @@ type AutoscaleSettingsResource struct {
 
 	// READ-ONLY; Represents target maximum throughput container can scale up to once offer is no longer in pending state.
 	TargetMaxThroughput *int32 `json:"targetMaxThroughput,omitempty" azure:"ro"`
+}
+
+// AzureBlobDataTransferDataSourceSink - An Azure Blob Storage data source/sink
+type AzureBlobDataTransferDataSourceSink struct {
+	// REQUIRED
+	Component *DataTransferComponent `json:"component,omitempty"`
+
+	// REQUIRED
+	ContainerName *string `json:"containerName,omitempty"`
+	EndpointURL   *string `json:"endpointUrl,omitempty"`
+}
+
+// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type AzureBlobDataTransferDataSourceSink.
+func (a *AzureBlobDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
+	return &DataTransferDataSourceSink{
+		Component: a.Component,
+	}
 }
 
 // BackupInformation - Backup information of a resource.
@@ -126,6 +168,36 @@ type BackupPolicyMigrationState struct {
 	TargetType *BackupPolicyType `json:"targetType,omitempty"`
 }
 
+// BackupResource - A restorable backup of a Cassandra cluster.
+type BackupResource struct {
+	Properties *BackupResourceProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the database account.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the database account.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+type BackupResourceProperties struct {
+	// The time this backup was taken, formatted like 2021-01-21T17:35:21
+	Timestamp *time.Time `json:"timestamp,omitempty"`
+}
+
+type BackupSchedule struct {
+	// The cron expression that defines when you want to back up your data.
+	CronExpression *string `json:"cronExpression,omitempty"`
+
+	// The retention period (hours) of the backups. If you want to retain data forever, set retention to 0.
+	RetentionInHours *int32 `json:"retentionInHours,omitempty"`
+
+	// The unique identifier of backup schedule.
+	ScheduleName *string `json:"scheduleName,omitempty"`
+}
+
 // Capability - Cosmos DB capability object
 type Capability struct {
 	// Name of the Cosmos DB capability. For example, "name": "EnableCassandra". Current values also include "EnableTable" and
@@ -147,9 +219,12 @@ type CassandraClusterPublicStatus struct {
 	ConnectionErrors []*ConnectionError `json:"connectionErrors,omitempty"`
 
 	// List of the status of each datacenter in this cluster.
-	DataCenters  []*CassandraClusterPublicStatusDataCentersItem `json:"dataCenters,omitempty"`
-	ETag         *string                                        `json:"eTag,omitempty"`
-	ReaperStatus *ManagedCassandraReaperStatus                  `json:"reaperStatus,omitempty"`
+	DataCenters []*CassandraClusterPublicStatusDataCentersItem `json:"dataCenters,omitempty"`
+	ETag        *string                                        `json:"eTag,omitempty"`
+
+	// List relevant information about any errors about cluster, data center and connection error.
+	Errors       []*CassandraError             `json:"Errors,omitempty"`
+	ReaperStatus *ManagedCassandraReaperStatus `json:"reaperStatus,omitempty"`
 }
 
 type CassandraClusterPublicStatusDataCentersItem struct {
@@ -159,6 +234,63 @@ type CassandraClusterPublicStatusDataCentersItem struct {
 
 	// A list of all seed nodes in the cluster, managed and unmanaged.
 	SeedNodes []*string `json:"seedNodes,omitempty"`
+}
+
+// CassandraClusterRepairListFilter - Request object to filter list of repair runs.
+type CassandraClusterRepairListFilter struct {
+	RepairRunStates []*CassandraRepairRunStateEnum `json:"repairRunStates,omitempty"`
+
+	// READ-ONLY; Keyspace name of the repair run.
+	Keyspace *string `json:"keyspace,omitempty" azure:"ro"`
+}
+
+type CassandraClusterRepairPublicProperties struct {
+	// Setting this flag will automatically start the repair run at time of creation.
+	AutoStart *bool `json:"autoStart,omitempty"`
+
+	// The name of the tables that should not be repaired. Cannot be used in conjunction with the tables parameter.
+	BlacklistedTables []*string `json:"blacklistedTables,omitempty"`
+
+	// note on reason for repair run.
+	Cause *string `json:"cause,omitempty"`
+
+	// A float representing the current system-wide CPU utilization as a percentage.
+	DataCenters []*string `json:"dataCenters,omitempty"`
+
+	// Defines if incremental repair should be done. [true/false]. True when this flag is passed. False otherwise.
+	IncrementalRepair *bool `json:"incrementalRepair,omitempty"`
+
+	// Defines the repair intensity for repair run.
+	Intensity *float64 `json:"intensity,omitempty"`
+
+	// keyspace to be repaired.
+	Keyspace *string `json:"keyspace,omitempty"`
+
+	// A specific comma separated list of nodes IP address whose tokens should be repaired.
+	Nodes []*string `json:"nodes,omitempty"`
+
+	// owner of the repair run.
+	Owner *string `json:"owner,omitempty"`
+
+	// Defines the used repair parallelism for repair run. Valid values are SEQUENTIAL, PARALLEL or DATACENTER_AWARE.
+	RepairParallelism *string `json:"repairParallelism,omitempty"`
+
+	// Thread Count to be used for the parallel repair. Since Cassandra 2.2, repairs can be performed with up to 4 threads in
+	// order to parallelize the work on different token ranges.
+	RepairThreadCount *int32 `json:"repairThreadCount,omitempty"`
+
+	// Number of segments in repair run
+	SegmentCount *int32 `json:"segmentCount,omitempty"`
+
+	// list of column famalies to be repaird. if empty whole keyspace will be repaired.
+	Tables []*string `json:"tables,omitempty"`
+}
+
+type CassandraClusterRepairPublicResource struct {
+	ID         *string                                 `json:"id,omitempty"`
+	Name       *string                                 `json:"name,omitempty"`
+	Properties *CassandraClusterRepairPublicProperties `json:"properties,omitempty"`
+	Type       *string                                 `json:"type,omitempty"`
 }
 
 // CassandraClustersClientBeginCreateUpdateOptions contains the optional parameters for the CassandraClustersClient.BeginCreateUpdate
@@ -173,6 +305,9 @@ type CassandraClustersClientBeginCreateUpdateOptions struct {
 type CassandraClustersClientBeginDeallocateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+	// Force to deallocate a cluster of Cluster Type Production. Force to deallocate a cluster of Cluster Type Production might
+	// cause data loss
+	XMSForceDeallocate *bool
 }
 
 // CassandraClustersClientBeginDeleteOptions contains the optional parameters for the CassandraClustersClient.BeginDelete
@@ -256,10 +391,46 @@ type CassandraDataCentersClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// CassandraDataTransferDataSourceSink - A CosmosDB Cassandra API data source/sink
+type CassandraDataTransferDataSourceSink struct {
+	// REQUIRED
+	Component *DataTransferComponent `json:"component,omitempty"`
+
+	// REQUIRED
+	KeyspaceName *string `json:"keyspaceName,omitempty"`
+
+	// REQUIRED
+	TableName *string `json:"tableName,omitempty"`
+}
+
+// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type CassandraDataTransferDataSourceSink.
+func (c *CassandraDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
+	return &DataTransferDataSourceSink{
+		Component: c.Component,
+	}
+}
+
+type CassandraError struct {
+	// Additional information about the error.
+	AdditionalErrorInfo *string `json:"additionalErrorInfo,omitempty"`
+
+	// The code of error that occurred.
+	Code *string `json:"code,omitempty"`
+
+	// The message of the error.
+	Message *string `json:"message,omitempty"`
+
+	// The target resource of the error.
+	Target *string `json:"target,omitempty"`
+}
+
 // CassandraKeyspaceCreateUpdateParameters - Parameters to create and update Cosmos DB Cassandra keyspace.
 type CassandraKeyspaceCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB Cassandra keyspace.
 	Properties *CassandraKeyspaceCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -321,6 +492,9 @@ type CassandraKeyspaceGetPropertiesResource struct {
 
 // CassandraKeyspaceGetResults - An Azure Cosmos DB Cassandra keyspace.
 type CassandraKeyspaceGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -362,6 +536,204 @@ type CassandraPartitionKey struct {
 	Name *string `json:"name,omitempty"`
 }
 
+type CassandraReaperClusterStatus struct {
+	JmxPasswordIsSet *bool                            `json:"jmxPasswordIsSet,omitempty"`
+	JmxUserName      *string                          `json:"jmxUserName,omitempty"`
+	Name             *string                          `json:"name,omitempty"`
+	NodesStatus      *CassandraReaperNodeStatus       `json:"nodesStatus,omitempty"`
+	RepairRuns       []*CassandraReaperRunStatus      `json:"repairRuns,omitempty"`
+	RepairSchedules  []*CassandraReaperScheduleStatus `json:"repairSchedules,omitempty"`
+	SeedHosts        []*string                        `json:"seedHosts,omitempty"`
+}
+
+type CassandraReaperEndpointState struct {
+	DataCenter     *string  `json:"dataCenter,omitempty"`
+	Endpoint       *string  `json:"endpoint,omitempty"`
+	HostID         *string  `json:"hostId,omitempty"`
+	Load           *float64 `json:"load,omitempty"`
+	Rack           *string  `json:"rack,omitempty"`
+	ReleaseVersion *string  `json:"releaseVersion,omitempty"`
+	Severity       *float64 `json:"severity,omitempty"`
+	Status         *string  `json:"status,omitempty"`
+	Tokens         *string  `json:"tokens,omitempty"`
+	Type           *string  `json:"type,omitempty"`
+}
+
+type CassandraReaperGossipInfo struct {
+	EndpointNames []*string `json:"endpointNames,omitempty"`
+
+	// Dictionary of
+	Endpoints  map[string]map[string][]*CassandraReaperEndpointState `json:"endpoints,omitempty"`
+	SourceNode *string                                               `json:"sourceNode,omitempty"`
+	TotalLoad  *float64                                              `json:"totalLoad,omitempty"`
+}
+
+type CassandraReaperNodeStatus struct {
+	EndpointStates []*CassandraReaperGossipInfo `json:"endpointStates,omitempty"`
+}
+
+type CassandraReaperRunStatus struct {
+	AdaptiveSchedule  *string   `json:"adaptive_schedule,omitempty"`
+	BlacklistedTables []*string `json:"blacklisted_tables,omitempty"`
+	Cause             *string   `json:"cause,omitempty"`
+	ClusterName       *string   `json:"cluster_name,omitempty"`
+	ColumnFamilies    []*string `json:"column_families,omitempty"`
+	CreationTime      *string   `json:"creation_time,omitempty"`
+	CurrentTime       *string   `json:"current_time,omitempty"`
+	Datacenters       []*string `json:"datacenters,omitempty"`
+	Duration          *string   `json:"duration,omitempty"`
+	EndTime           *string   `json:"end_time,omitempty"`
+	ID                *string   `json:"id,omitempty"`
+	IncrementalRepair *bool     `json:"incremental_repair,omitempty"`
+	Intensity         *float64  `json:"intensity,omitempty"`
+	KeyspaceName      *string   `json:"keyspace_name,omitempty"`
+	LastEvent         *string   `json:"last_event,omitempty"`
+	Nodes             []*string `json:"nodes,omitempty"`
+	Owner             *string   `json:"owner,omitempty"`
+	PauseTime         *string   `json:"pause_time,omitempty"`
+	RepairParallelism *string   `json:"repair_parallelism,omitempty"`
+	RepairState       *string   `json:"repairState,omitempty"`
+	RepairThreadCount *int32    `json:"repair_thread_count,omitempty"`
+	RepairUnitID      *string   `json:"repair_unit_id,omitempty"`
+	SegmentTimeout    *string   `json:"segment_timeout,omitempty"`
+	SegmentsRepaired  *int32    `json:"segments_repaired,omitempty"`
+	StartTime         *string   `json:"start_time,omitempty"`
+	TotalSegments     *int32    `json:"total_segments,omitempty"`
+}
+
+type CassandraReaperRunStatusFeedResponse struct {
+	Value []*CassandraReaperRunStatus `json:"value,omitempty"`
+}
+
+type CassandraReaperScheduleStatus struct {
+	Adaptive                   *bool     `json:"adaptive,omitempty"`
+	BlacklistedTables          []*string `json:"blacklistedTables,omitempty"`
+	ClusterName                *string   `json:"clusterName,omitempty"`
+	ColumnFamilies             []*string `json:"columnFamilies,omitempty"`
+	CreationTime               *string   `json:"creationTime,omitempty"`
+	Datacenters                []*string `json:"datacenters,omitempty"`
+	ID                         *string   `json:"id,omitempty"`
+	IncrementalRepair          *bool     `json:"incrementalRepair,omitempty"`
+	Intensity                  *float64  `json:"intensity,omitempty"`
+	KeyspaceName               *string   `json:"keyspaceName,omitempty"`
+	NextActivation             *string   `json:"nextActivation,omitempty"`
+	Nodes                      []*string `json:"nodes,omitempty"`
+	Owner                      *string   `json:"owner,omitempty"`
+	PauseTime                  *string   `json:"pauseTime,omitempty"`
+	PercentUnrepairedThreshold *int32    `json:"percentUnrepairedThreshold,omitempty"`
+	RepairParallelism          *string   `json:"repairParallelism,omitempty"`
+	RepairThreadCount          *int32    `json:"repairThreadCount,omitempty"`
+	RepairUnitID               *string   `json:"repairUnitId,omitempty"`
+	ScheduledDaysBetween       *int32    `json:"scheduledDaysBetween,omitempty"`
+	SegmentCountPerNode        *int32    `json:"segmentCountPerNode,omitempty"`
+	SegmentTimeout             *int32    `json:"segmentTimeout,omitempty"`
+	State                      *string   `json:"state,omitempty"`
+}
+
+// CassandraRepairClientBeginAbortSegmentOptions contains the optional parameters for the CassandraRepairClient.BeginAbortSegment
+// method.
+type CassandraRepairClientBeginAbortSegmentOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginCreateOptions contains the optional parameters for the CassandraRepairClient.BeginCreate method.
+type CassandraRepairClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginDeleteOptions contains the optional parameters for the CassandraRepairClient.BeginDelete method.
+type CassandraRepairClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginGetClusterStatusOptions contains the optional parameters for the CassandraRepairClient.BeginGetClusterStatus
+// method.
+type CassandraRepairClientBeginGetClusterStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginGetTableStatusOptions contains the optional parameters for the CassandraRepairClient.BeginGetTableStatus
+// method.
+type CassandraRepairClientBeginGetTableStatusOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginListOptions contains the optional parameters for the CassandraRepairClient.BeginList method.
+type CassandraRepairClientBeginListOptions struct {
+	// Optional filter parameters to list repairs.
+	Body *CassandraClusterRepairListFilter
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginListSegmentsOptions contains the optional parameters for the CassandraRepairClient.BeginListSegments
+// method.
+type CassandraRepairClientBeginListSegmentsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginPauseOptions contains the optional parameters for the CassandraRepairClient.BeginPause method.
+type CassandraRepairClientBeginPauseOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginResumeOptions contains the optional parameters for the CassandraRepairClient.BeginResume method.
+type CassandraRepairClientBeginResumeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginShowOptions contains the optional parameters for the CassandraRepairClient.BeginShow method.
+type CassandraRepairClientBeginShowOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraRepairClientBeginUpdateOptions contains the optional parameters for the CassandraRepairClient.BeginUpdate method.
+type CassandraRepairClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+type CassandraRepairRingRange struct {
+	End   *string `json:"end,omitempty"`
+	Start *string `json:"start,omitempty"`
+}
+
+type CassandraRepairSegment struct {
+	CoordinatorHost *string `json:"coordinatorHost,omitempty"`
+	EndTime         *string `json:"endTime,omitempty"`
+	FailCount       *int32  `json:"failCount,omitempty"`
+	ID              *string `json:"id,omitempty"`
+	RepairUnitID    *string `json:"repairUnitId,omitempty"`
+
+	// Dictionary of
+	Replicas   map[string]*string         `json:"replicas,omitempty"`
+	RunID      *string                    `json:"runId,omitempty"`
+	StartTime  *string                    `json:"startTime,omitempty"`
+	State      *string                    `json:"state,omitempty"`
+	TokenRange *CassandraRepairTokenRange `json:"tokenRange,omitempty"`
+}
+
+type CassandraRepairSegmentResourceFeedResponse struct {
+	Value []*CassandraRepairSegment `json:"value,omitempty"`
+}
+
+type CassandraRepairTokenRange struct {
+	BaseRange *CassandraRepairRingRange `json:"baseRange,omitempty"`
+
+	// Dictionary of
+	Replicas    map[string]*string          `json:"replicas,omitempty"`
+	TokenRanges []*CassandraRepairRingRange `json:"tokenRanges,omitempty"`
+}
+
 // CassandraResourcesClientBeginCreateUpdateCassandraKeyspaceOptions contains the optional parameters for the CassandraResourcesClient.BeginCreateUpdateCassandraKeyspace
 // method.
 type CassandraResourcesClientBeginCreateUpdateCassandraKeyspaceOptions struct {
@@ -376,6 +748,13 @@ type CassandraResourcesClientBeginCreateUpdateCassandraTableOptions struct {
 	ResumeToken string
 }
 
+// CassandraResourcesClientBeginCreateUpdateCassandraViewOptions contains the optional parameters for the CassandraResourcesClient.BeginCreateUpdateCassandraView
+// method.
+type CassandraResourcesClientBeginCreateUpdateCassandraViewOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // CassandraResourcesClientBeginDeleteCassandraKeyspaceOptions contains the optional parameters for the CassandraResourcesClient.BeginDeleteCassandraKeyspace
 // method.
 type CassandraResourcesClientBeginDeleteCassandraKeyspaceOptions struct {
@@ -386,6 +765,13 @@ type CassandraResourcesClientBeginDeleteCassandraKeyspaceOptions struct {
 // CassandraResourcesClientBeginDeleteCassandraTableOptions contains the optional parameters for the CassandraResourcesClient.BeginDeleteCassandraTable
 // method.
 type CassandraResourcesClientBeginDeleteCassandraTableOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraResourcesClientBeginDeleteCassandraViewOptions contains the optional parameters for the CassandraResourcesClient.BeginDeleteCassandraView
+// method.
+type CassandraResourcesClientBeginDeleteCassandraViewOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -418,6 +804,20 @@ type CassandraResourcesClientBeginMigrateCassandraTableToManualThroughputOptions
 	ResumeToken string
 }
 
+// CassandraResourcesClientBeginMigrateCassandraViewToAutoscaleOptions contains the optional parameters for the CassandraResourcesClient.BeginMigrateCassandraViewToAutoscale
+// method.
+type CassandraResourcesClientBeginMigrateCassandraViewToAutoscaleOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraResourcesClientBeginMigrateCassandraViewToManualThroughputOptions contains the optional parameters for the CassandraResourcesClient.BeginMigrateCassandraViewToManualThroughput
+// method.
+type CassandraResourcesClientBeginMigrateCassandraViewToManualThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // CassandraResourcesClientBeginUpdateCassandraKeyspaceThroughputOptions contains the optional parameters for the CassandraResourcesClient.BeginUpdateCassandraKeyspaceThroughput
 // method.
 type CassandraResourcesClientBeginUpdateCassandraKeyspaceThroughputOptions struct {
@@ -428,6 +828,13 @@ type CassandraResourcesClientBeginUpdateCassandraKeyspaceThroughputOptions struc
 // CassandraResourcesClientBeginUpdateCassandraTableThroughputOptions contains the optional parameters for the CassandraResourcesClient.BeginUpdateCassandraTableThroughput
 // method.
 type CassandraResourcesClientBeginUpdateCassandraTableThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// CassandraResourcesClientBeginUpdateCassandraViewThroughputOptions contains the optional parameters for the CassandraResourcesClient.BeginUpdateCassandraViewThroughput
+// method.
+type CassandraResourcesClientBeginUpdateCassandraViewThroughputOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -456,6 +863,18 @@ type CassandraResourcesClientGetCassandraTableThroughputOptions struct {
 	// placeholder for future optional parameters
 }
 
+// CassandraResourcesClientGetCassandraViewOptions contains the optional parameters for the CassandraResourcesClient.GetCassandraView
+// method.
+type CassandraResourcesClientGetCassandraViewOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CassandraResourcesClientGetCassandraViewThroughputOptions contains the optional parameters for the CassandraResourcesClient.GetCassandraViewThroughput
+// method.
+type CassandraResourcesClientGetCassandraViewThroughputOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CassandraResourcesClientListCassandraKeyspacesOptions contains the optional parameters for the CassandraResourcesClient.NewListCassandraKeyspacesPager
 // method.
 type CassandraResourcesClientListCassandraKeyspacesOptions struct {
@@ -465,6 +884,12 @@ type CassandraResourcesClientListCassandraKeyspacesOptions struct {
 // CassandraResourcesClientListCassandraTablesOptions contains the optional parameters for the CassandraResourcesClient.NewListCassandraTablesPager
 // method.
 type CassandraResourcesClientListCassandraTablesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CassandraResourcesClientListCassandraViewsOptions contains the optional parameters for the CassandraResourcesClient.NewListCassandraViewsPager
+// method.
+type CassandraResourcesClientListCassandraViewsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -484,6 +909,9 @@ type CassandraSchema struct {
 type CassandraTableCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB Cassandra table.
 	Properties *CassandraTableCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -554,6 +982,9 @@ type CassandraTableGetPropertiesResource struct {
 
 // CassandraTableGetResults - An Azure Cosmos DB Cassandra table.
 type CassandraTableGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -598,9 +1029,142 @@ type CassandraTableResource struct {
 	Schema *CassandraSchema `json:"schema,omitempty"`
 }
 
+// CassandraViewCreateUpdateParameters - Parameters to create and update Cosmos DB Cassandra view.
+type CassandraViewCreateUpdateParameters struct {
+	// REQUIRED; Properties to create and update Azure Cosmos DB Cassandra view.
+	Properties *CassandraViewCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// CassandraViewCreateUpdateProperties - Properties to create and update Azure Cosmos DB Cassandra view.
+type CassandraViewCreateUpdateProperties struct {
+	// REQUIRED; The standard JSON format of a Cassandra view
+	Resource *CassandraViewResource `json:"resource,omitempty"`
+
+	// A key-value pair of options to be applied for the request. This corresponds to the headers sent with the request.
+	Options *CreateUpdateOptions `json:"options,omitempty"`
+}
+
+// CassandraViewGetProperties - The properties of an Azure Cosmos DB Cassandra view
+type CassandraViewGetProperties struct {
+	Options  *CassandraViewGetPropertiesOptions  `json:"options,omitempty"`
+	Resource *CassandraViewGetPropertiesResource `json:"resource,omitempty"`
+}
+
+type CassandraViewGetPropertiesOptions struct {
+	// Specifies the Autoscale settings.
+	AutoscaleSettings *AutoscaleSettings `json:"autoscaleSettings,omitempty"`
+
+	// Value of the Cosmos DB resource throughput or autoscaleSettings. Use the ThroughputSetting resource when retrieving offer
+	// details.
+	Throughput *int32 `json:"throughput,omitempty"`
+}
+
+type CassandraViewGetPropertiesResource struct {
+	// REQUIRED; Name of the Cosmos DB Cassandra view
+	ID *string `json:"id,omitempty"`
+
+	// REQUIRED; View Definition of the Cosmos DB Cassandra view
+	ViewDefinition *string `json:"viewDefinition,omitempty"`
+
+	// READ-ONLY; A system generated property representing the resource etag required for optimistic concurrency control.
+	Etag *string `json:"_etag,omitempty" azure:"ro"`
+
+	// READ-ONLY; A system generated property. A unique identifier.
+	Rid *string `json:"_rid,omitempty" azure:"ro"`
+
+	// READ-ONLY; A system generated property that denotes the last updated timestamp of the resource.
+	Ts *float32 `json:"_ts,omitempty" azure:"ro"`
+}
+
+// CassandraViewGetResults - An Azure Cosmos DB Cassandra view.
+type CassandraViewGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// The properties of an Azure Cosmos DB Cassandra view
+	Properties *CassandraViewGetProperties `json:"properties,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// CassandraViewListResult - The List operation response, that contains the Cassandra views and their properties.
+type CassandraViewListResult struct {
+	// READ-ONLY; List of Cassandra views and their properties.
+	Value []*CassandraViewGetResults `json:"value,omitempty" azure:"ro"`
+}
+
+// CassandraViewResource - Cosmos DB Cassandra view resource object
+type CassandraViewResource struct {
+	// REQUIRED; Name of the Cosmos DB Cassandra view
+	ID *string `json:"id,omitempty"`
+
+	// REQUIRED; View Definition of the Cosmos DB Cassandra view
+	ViewDefinition *string `json:"viewDefinition,omitempty"`
+}
+
 type Certificate struct {
 	// PEM formatted public key.
 	Pem *string `json:"pem,omitempty"`
+}
+
+// CheckNameAvailabilityRequest - The check availability request body.
+type CheckNameAvailabilityRequest struct {
+	// The name of the resource for which availability needs to be checked.
+	Name *string `json:"name,omitempty"`
+
+	// The resource type.
+	Type *string `json:"type,omitempty"`
+}
+
+// CheckNameAvailabilityResponse - The check availability result.
+type CheckNameAvailabilityResponse struct {
+	// Detailed reason why the given name is available.
+	Message *string `json:"message,omitempty"`
+
+	// Indicates if the resource name is available.
+	NameAvailable *bool `json:"nameAvailable,omitempty"`
+
+	// The reason why the given name is not available.
+	Reason *CheckNameAvailabilityReason `json:"reason,omitempty"`
 }
 
 // ClientEncryptionIncludedPath - .
@@ -748,6 +1312,9 @@ type ClusterResourceProperties struct {
 	// authentication. The default is 'Cassandra'.
 	AuthenticationMethod *AuthenticationMethod `json:"authenticationMethod,omitempty"`
 
+	// List of backup schedules that define when you want to back up your data.
+	BackupSchedules []*BackupSchedule `json:"backupSchedules,omitempty"`
+
 	// Whether Cassandra audit logging is enabled
 	CassandraAuditLoggingEnabled *bool `json:"cassandraAuditLoggingEnabled,omitempty"`
 
@@ -765,6 +1332,9 @@ type ClusterResourceProperties struct {
 	// the value to use on this property.
 	ClusterNameOverride *string `json:"clusterNameOverride,omitempty"`
 
+	// Type of the cluster. If set to Production, some operations might not be permitted on cluster.
+	ClusterType *ClusterType `json:"clusterType,omitempty"`
+
 	// Whether the cluster and associated data centers has been deallocated.
 	Deallocated *bool `json:"deallocated,omitempty"`
 
@@ -772,6 +1342,9 @@ type ClusterResourceProperties struct {
 	// must be routable to all subnets that will be delegated to data centers. The
 	// resource id must be of the form '/subscriptions//resourceGroups//providers/Microsoft.Network/virtualNetworks//subnets/'
 	DelegatedManagementSubnetID *string `json:"delegatedManagementSubnetId,omitempty"`
+
+	// Extensions to be added or updated on cluster.
+	Extensions []*string `json:"extensions,omitempty"`
 
 	// List of TLS certificates used to authorize gossip from unmanaged data centers. The TLS certificates of all nodes in unmanaged
 	// data centers must be verifiable using one of the certificates provided in
@@ -782,7 +1355,7 @@ type ClusterResourceProperties struct {
 	// nodes.
 	ExternalSeedNodes []*SeedNode `json:"externalSeedNodes,omitempty"`
 
-	// Number of hours to wait between taking a backup of the cluster. To disable backups, set this property to 0.
+	// (Deprecated) Number of hours to wait between taking a backup of the cluster.
 	HoursBetweenBackups *int32 `json:"hoursBetweenBackups,omitempty"`
 
 	// Initial password for clients connecting as admin to the cluster. Should be changed after cluster creation. Returns null
@@ -792,6 +1365,9 @@ type ClusterResourceProperties struct {
 
 	// Hostname or IP address where the Prometheus endpoint containing data about the managed Cassandra nodes can be reached.
 	PrometheusEndpoint *SeedNode `json:"prometheusEndpoint,omitempty"`
+
+	// Error related to resource provisioning.
+	ProvisionError *CassandraError `json:"provisionError,omitempty"`
 
 	// The status of the resource at the time the operation was called.
 	ProvisioningState *ManagedCassandraProvisioningState `json:"provisioningState,omitempty"`
@@ -985,6 +1561,15 @@ type ConnectionError struct {
 	Port *int32 `json:"port,omitempty"`
 }
 
+// ConnectionString - Connection string for the mongo cluster
+type ConnectionString struct {
+	// READ-ONLY; Value of the connection string
+	ConnectionString *string `json:"connectionString,omitempty" azure:"ro"`
+
+	// READ-ONLY; Description of the connection string
+	Description *string `json:"description,omitempty" azure:"ro"`
+}
+
 // ConsistencyPolicy - The consistency policy for the Cosmos DB database account.
 type ConsistencyPolicy struct {
 	// REQUIRED; The default consistency level and configuration settings of the Cosmos DB account.
@@ -1034,6 +1619,9 @@ type ContinuousModeBackupPolicy struct {
 	// REQUIRED; Describes the mode of backups.
 	Type *BackupPolicyType `json:"type,omitempty"`
 
+	// Configuration values for continuous mode backup
+	ContinuousModeProperties *ContinuousModeProperties `json:"continuousModeProperties,omitempty"`
+
 	// The object representing the state of the migration between the backup policies.
 	MigrationState *BackupPolicyMigrationState `json:"migrationState,omitempty"`
 }
@@ -1044,6 +1632,12 @@ func (c *ContinuousModeBackupPolicy) GetBackupPolicy() *BackupPolicy {
 		Type:           c.Type,
 		MigrationState: c.MigrationState,
 	}
+}
+
+// ContinuousModeProperties - Configuration values for periodic mode backup
+type ContinuousModeProperties struct {
+	// Enum to indicate type of Continuos backup mode
+	Tier *ContinuousTier `json:"tier,omitempty"`
 }
 
 // CorsPolicy - The CORS policy for the Cosmos DB database account.
@@ -1062,6 +1656,21 @@ type CorsPolicy struct {
 
 	// The maximum amount time that a browser should cache the preflight OPTIONS request.
 	MaxAgeInSeconds *int64 `json:"maxAgeInSeconds,omitempty"`
+}
+
+// CreateJobRequest - Parameters to create Data Transfer Job
+type CreateJobRequest struct {
+	// REQUIRED; Data Transfer Create Job Properties
+	Properties *DataTransferJobProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the database account.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the database account.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // CreateUpdateOptions are a list of key-value pairs that describe the resource. Supported keys are "If-Match", "If-None-Match",
@@ -1091,8 +1700,11 @@ type DataCenterResource struct {
 
 // DataCenterResourceProperties - Properties of a managed Cassandra data center.
 type DataCenterResourceProperties struct {
-	// If the azure data center has Availability Zone support, apply it to the Virtual Machine ScaleSet that host the cassandra
-	// data center virtual machines.
+	// Ldap authentication method properties. This feature is in preview.
+	AuthenticationMethodLdapProperties *AuthenticationMethodLdapProperties `json:"authenticationMethodLdapProperties,omitempty"`
+
+	// If the data center has Availability Zone support, apply it to the Virtual Machine ScaleSet that host the cassandra data
+	// center virtual machines.
 	AvailabilityZone *bool `json:"availabilityZone,omitempty"`
 
 	// Indicates the Key Uri of the customer key to use for encryption of the backup storage account.
@@ -1104,6 +1716,9 @@ type DataCenterResourceProperties struct {
 
 	// The region this data center should be created in.
 	DataCenterLocation *string `json:"dataCenterLocation,omitempty"`
+
+	// Whether the data center has been deallocated.
+	Deallocated *bool `json:"deallocated,omitempty"`
 
 	// Resource id of a subnet the nodes in this data center should have their network interfaces connected to. The subnet must
 	// be in the same region specified in 'dataCenterLocation' and must be able to
@@ -1127,6 +1742,9 @@ type DataCenterResourceProperties struct {
 	// status, use the fetchNodeStatus method on the cluster.
 	NodeCount *int32 `json:"nodeCount,omitempty"`
 
+	// Error related to resource provisioning.
+	ProvisionError *CassandraError `json:"provisionError,omitempty"`
+
 	// The status of the resource at the time the operation was called.
 	ProvisioningState *ManagedCassandraProvisioningState `json:"provisioningState,omitempty"`
 
@@ -1137,6 +1755,111 @@ type DataCenterResourceProperties struct {
 	// property on the cluster, which aggregates the seed nodes from all data centers in
 	// the cluster.
 	SeedNodes []*SeedNode `json:"seedNodes,omitempty" azure:"ro"`
+}
+
+// DataTransferDataSourceSinkClassification provides polymorphic access to related types.
+// Call the interface's GetDataTransferDataSourceSink() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AzureBlobDataTransferDataSourceSink, *CassandraDataTransferDataSourceSink, *DataTransferDataSourceSink, *SQLDataTransferDataSourceSink
+type DataTransferDataSourceSinkClassification interface {
+	// GetDataTransferDataSourceSink returns the DataTransferDataSourceSink content of the underlying type.
+	GetDataTransferDataSourceSink() *DataTransferDataSourceSink
+}
+
+// DataTransferDataSourceSink - Base class for all DataTransfer source/sink
+type DataTransferDataSourceSink struct {
+	// REQUIRED
+	Component *DataTransferComponent `json:"component,omitempty"`
+}
+
+// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type DataTransferDataSourceSink.
+func (d *DataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
+	return d
+}
+
+// DataTransferJobFeedResults - The List operation response, that contains the Data Transfer jobs and their properties.
+type DataTransferJobFeedResults struct {
+	// READ-ONLY; URL to get the next set of Data Transfer job list results if there are any.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of Data Transfer jobs and their properties.
+	Value []*DataTransferJobGetResults `json:"value,omitempty" azure:"ro"`
+}
+
+// DataTransferJobGetResults - A Cosmos DB Data Transfer Job
+type DataTransferJobGetResults struct {
+	// The properties of a DataTransfer Job
+	Properties *DataTransferJobProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the database account.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the database account.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// DataTransferJobProperties - The properties of a DataTransfer Job
+type DataTransferJobProperties struct {
+	// REQUIRED; Destination DataStore details
+	Destination DataTransferDataSourceSinkClassification `json:"destination,omitempty"`
+
+	// REQUIRED; Source DataStore details
+	Source DataTransferDataSourceSinkClassification `json:"source,omitempty"`
+
+	// Worker count
+	WorkerCount *int32 `json:"workerCount,omitempty"`
+
+	// READ-ONLY; Error response for Faulted job
+	Error *ErrorResponse `json:"error,omitempty" azure:"ro"`
+
+	// READ-ONLY; Job Name
+	JobName *string `json:"jobName,omitempty" azure:"ro"`
+
+	// READ-ONLY; Last Updated Time (ISO-8601 format).
+	LastUpdatedUTCTime *time.Time `json:"lastUpdatedUtcTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; Processed Count.
+	ProcessedCount *int64 `json:"processedCount,omitempty" azure:"ro"`
+
+	// READ-ONLY; Job Status
+	Status *string `json:"status,omitempty" azure:"ro"`
+
+	// READ-ONLY; Total Count.
+	TotalCount *int64 `json:"totalCount,omitempty" azure:"ro"`
+}
+
+// DataTransferJobsClientCancelOptions contains the optional parameters for the DataTransferJobsClient.Cancel method.
+type DataTransferJobsClientCancelOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataTransferJobsClientCreateOptions contains the optional parameters for the DataTransferJobsClient.Create method.
+type DataTransferJobsClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataTransferJobsClientGetOptions contains the optional parameters for the DataTransferJobsClient.Get method.
+type DataTransferJobsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataTransferJobsClientListByDatabaseAccountOptions contains the optional parameters for the DataTransferJobsClient.NewListByDatabaseAccountPager
+// method.
+type DataTransferJobsClientListByDatabaseAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataTransferJobsClientPauseOptions contains the optional parameters for the DataTransferJobsClient.Pause method.
+type DataTransferJobsClientPauseOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DataTransferJobsClientResumeOptions contains the optional parameters for the DataTransferJobsClient.Resume method.
+type DataTransferJobsClientResumeOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DataTransferRegionalServiceResource - Resource for a regional service location.
@@ -1274,6 +1997,9 @@ type DatabaseAccountCreateUpdateProperties struct {
 	// "SystemAssignedIdentity" and more.
 	DefaultIdentity *string `json:"defaultIdentity,omitempty"`
 
+	// The Object representing the different Diagnostic log settings for the Cosmos DB Account.
+	DiagnosticLogSettings *DiagnosticLogSettings `json:"diagnosticLogSettings,omitempty"`
+
 	// Disable write operations on metadata resources (databases, containers, throughput) via account keys
 	DisableKeyBasedMetadataWriteAccess *bool `json:"disableKeyBasedMetadataWriteAccess,omitempty"`
 
@@ -1288,11 +2014,17 @@ type DatabaseAccountCreateUpdateProperties struct {
 	// based on the failover priorities configured for the account.
 	EnableAutomaticFailover *bool `json:"enableAutomaticFailover,omitempty"`
 
+	// Flag to indicate enabling/disabling of Burst Capacity Preview feature on the account
+	EnableBurstCapacity *bool `json:"enableBurstCapacity,omitempty"`
+
 	// Enables the cassandra connector on the Cosmos DB C* account
 	EnableCassandraConnector *bool `json:"enableCassandraConnector,omitempty"`
 
 	// Flag to indicate whether Free Tier is enabled.
 	EnableFreeTier *bool `json:"enableFreeTier,omitempty"`
+
+	// Flag to indicate whether to enable MaterializedViews on the Cosmos DB account
+	EnableMaterializedViews *bool `json:"enableMaterializedViews,omitempty"`
 
 	// Enables the account to write in multiple locations
 	EnableMultipleWriteLocations *bool `json:"enableMultipleWriteLocations,omitempty"`
@@ -1367,6 +2099,9 @@ type DatabaseAccountGetProperties struct {
 	// "SystemAssignedIdentity" and more.
 	DefaultIdentity *string `json:"defaultIdentity,omitempty"`
 
+	// The Object representing the different Diagnostic log settings for the Cosmos DB Account.
+	DiagnosticLogSettings *DiagnosticLogSettings `json:"diagnosticLogSettings,omitempty"`
+
 	// Disable write operations on metadata resources (databases, containers, throughput) via account keys
 	DisableKeyBasedMetadataWriteAccess *bool `json:"disableKeyBasedMetadataWriteAccess,omitempty"`
 
@@ -1381,11 +2116,17 @@ type DatabaseAccountGetProperties struct {
 	// based on the failover priorities configured for the account.
 	EnableAutomaticFailover *bool `json:"enableAutomaticFailover,omitempty"`
 
+	// Flag to indicate enabling/disabling of Burst Capacity Preview feature on the account
+	EnableBurstCapacity *bool `json:"enableBurstCapacity,omitempty"`
+
 	// Enables the cassandra connector on the Cosmos DB C* account
 	EnableCassandraConnector *bool `json:"enableCassandraConnector,omitempty"`
 
 	// Flag to indicate whether Free Tier is enabled.
 	EnableFreeTier *bool `json:"enableFreeTier,omitempty"`
+
+	// Flag to indicate whether to enable MaterializedViews on the Cosmos DB account
+	EnableMaterializedViews *bool `json:"enableMaterializedViews,omitempty"`
 
 	// Enables the account to write in multiple locations
 	EnableMultipleWriteLocations *bool `json:"enableMultipleWriteLocations,omitempty"`
@@ -1598,6 +2339,9 @@ type DatabaseAccountUpdateProperties struct {
 	// "SystemAssignedIdentity" and more.
 	DefaultIdentity *string `json:"defaultIdentity,omitempty"`
 
+	// The Object representing the different Diagnostic log settings for the Cosmos DB Account.
+	DiagnosticLogSettings *DiagnosticLogSettings `json:"diagnosticLogSettings,omitempty"`
+
 	// Disable write operations on metadata resources (databases, containers, throughput) via account keys
 	DisableKeyBasedMetadataWriteAccess *bool `json:"disableKeyBasedMetadataWriteAccess,omitempty"`
 
@@ -1612,11 +2356,17 @@ type DatabaseAccountUpdateProperties struct {
 	// based on the failover priorities configured for the account.
 	EnableAutomaticFailover *bool `json:"enableAutomaticFailover,omitempty"`
 
+	// Flag to indicate enabling/disabling of Burst Capacity Preview feature on the account
+	EnableBurstCapacity *bool `json:"enableBurstCapacity,omitempty"`
+
 	// Enables the cassandra connector on the Cosmos DB C* account
 	EnableCassandraConnector *bool `json:"enableCassandraConnector,omitempty"`
 
 	// Flag to indicate whether Free Tier is enabled.
 	EnableFreeTier *bool `json:"enableFreeTier,omitempty"`
+
+	// Flag to indicate whether to enable MaterializedViews on the Cosmos DB account
+	EnableMaterializedViews *bool `json:"enableMaterializedViews,omitempty"`
 
 	// Enables the account to write in multiple locations
 	EnableMultipleWriteLocations *bool `json:"enableMultipleWriteLocations,omitempty"`
@@ -1802,6 +2552,39 @@ type DatabaseRestoreResource struct {
 	DatabaseName *string `json:"databaseName,omitempty"`
 }
 
+// DiagnosticLogSettings - Indicates what diagnostic log settings are to be enabled.
+type DiagnosticLogSettings struct {
+	// Describe the level of detail with which queries are to be logged.
+	EnableFullTextQuery *EnableFullTextQuery `json:"enableFullTextQuery,omitempty"`
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any `json:"info,omitempty" azure:"ro"`
+
+	// READ-ONLY; The additional info type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail `json:"details,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error message.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error target.
+	Target *string `json:"target,omitempty" azure:"ro"`
+}
+
 // ErrorResponse - Error Response.
 type ErrorResponse struct {
 	// Error code.
@@ -1809,6 +2592,13 @@ type ErrorResponse struct {
 
 	// Error message indicating why the operation failed.
 	Message *string `json:"message,omitempty"`
+}
+
+// ErrorResponseAutoGenerated - Common error response for all Azure Resource Manager APIs to return error details for failed
+// operations. (This also follows the OData error response format.).
+type ErrorResponseAutoGenerated struct {
+	// The error object.
+	Error *ErrorDetail `json:"error,omitempty"`
 }
 
 type ExcludedPath struct {
@@ -1847,6 +2637,45 @@ type FailoverPolicy struct {
 
 	// READ-ONLY; The unique identifier of the region in which the database account replicates to. Example: <accountName>-<locationName>.
 	ID *string `json:"id,omitempty" azure:"ro"`
+}
+
+// FirewallRule - Represents a mongo cluster firewall rule.
+type FirewallRule struct {
+	// REQUIRED; The properties of a firewall rule.
+	Properties *FirewallRuleProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// FirewallRuleListResult - A list of firewall rules.
+type FirewallRuleListResult struct {
+	// The list of firewall rules in a mongo cluster.
+	Value []*FirewallRule `json:"value,omitempty"`
+
+	// READ-ONLY; The link used to get the next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// FirewallRuleProperties - The properties of a mongo cluster firewall rule.
+type FirewallRuleProperties struct {
+	// REQUIRED; The end IP address of the mongo cluster firewall rule. Must be IPv4 format.
+	EndIPAddress *string `json:"endIpAddress,omitempty"`
+
+	// REQUIRED; The start IP address of the mongo cluster firewall rule. Must be IPv4 format.
+	StartIPAddress *string `json:"startIpAddress,omitempty"`
+
+	// READ-ONLY; The provisioning state of the firewall rule.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // GraphAPIComputeRegionalServiceResource - Resource for a regional service location.
@@ -1909,10 +2738,135 @@ func (g *GraphAPIComputeServiceResourceProperties) GetServiceResourceProperties(
 	}
 }
 
+// GraphResource - Cosmos DB Graph resource object
+type GraphResource struct {
+	// REQUIRED; Name of the Cosmos DB Graph
+	ID *string `json:"id,omitempty"`
+}
+
+// GraphResourceCreateUpdateParameters - Parameters to create and update Cosmos DB Graph resource.
+type GraphResourceCreateUpdateParameters struct {
+	// REQUIRED; Properties to create and update Azure Cosmos DB Graph resource.
+	Properties *GraphResourceCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GraphResourceCreateUpdateProperties - Properties to create and update Azure Cosmos DB Graph resource.
+type GraphResourceCreateUpdateProperties struct {
+	// REQUIRED; The standard JSON format of a Graph resource
+	Resource *GraphResource `json:"resource,omitempty"`
+
+	// A key-value pair of options to be applied for the request. This corresponds to the headers sent with the request.
+	Options *CreateUpdateOptions `json:"options,omitempty"`
+}
+
+// GraphResourceGetProperties - The properties of an Azure Cosmos DB SQL database
+type GraphResourceGetProperties struct {
+	Options  *GraphResourceGetPropertiesOptions  `json:"options,omitempty"`
+	Resource *GraphResourceGetPropertiesResource `json:"resource,omitempty"`
+}
+
+type GraphResourceGetPropertiesOptions struct {
+	// Specifies the Autoscale settings.
+	AutoscaleSettings *AutoscaleSettings `json:"autoscaleSettings,omitempty"`
+
+	// Value of the Cosmos DB resource throughput or autoscaleSettings. Use the ThroughputSetting resource when retrieving offer
+	// details.
+	Throughput *int32 `json:"throughput,omitempty"`
+}
+
+type GraphResourceGetPropertiesResource struct {
+	// REQUIRED; Name of the Cosmos DB Graph
+	ID *string `json:"id,omitempty"`
+}
+
+// GraphResourceGetResults - An Azure Cosmos DB Graph resource.
+type GraphResourceGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// The properties of an Azure Cosmos DB Graph resource.
+	Properties *GraphResourceGetProperties `json:"properties,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GraphResourcesClientBeginCreateUpdateGraphOptions contains the optional parameters for the GraphResourcesClient.BeginCreateUpdateGraph
+// method.
+type GraphResourcesClientBeginCreateUpdateGraphOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GraphResourcesClientBeginDeleteGraphResourceOptions contains the optional parameters for the GraphResourcesClient.BeginDeleteGraphResource
+// method.
+type GraphResourcesClientBeginDeleteGraphResourceOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GraphResourcesClientGetGraphOptions contains the optional parameters for the GraphResourcesClient.GetGraph method.
+type GraphResourcesClientGetGraphOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GraphResourcesClientListGraphsOptions contains the optional parameters for the GraphResourcesClient.NewListGraphsPager
+// method.
+type GraphResourcesClientListGraphsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GraphResourcesListResult - The List operation response, that contains the Graph resource and their properties.
+type GraphResourcesListResult struct {
+	// READ-ONLY; List of Graph resource and their properties.
+	Value []*GraphResourceGetResults `json:"value,omitempty" azure:"ro"`
+}
+
 // GremlinDatabaseCreateUpdateParameters - Parameters to create and update Cosmos DB Gremlin database.
 type GremlinDatabaseCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB Gremlin database.
 	Properties *GremlinDatabaseCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -1962,6 +2916,12 @@ type GremlinDatabaseGetPropertiesResource struct {
 	// REQUIRED; Name of the Cosmos DB Gremlin database
 	ID *string `json:"id,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
+
 	// READ-ONLY; A system generated property representing the resource etag required for optimistic concurrency control.
 	Etag *string `json:"_etag,omitempty" azure:"ro"`
 
@@ -1974,6 +2934,9 @@ type GremlinDatabaseGetPropertiesResource struct {
 
 // GremlinDatabaseGetResults - An Azure Cosmos DB Gremlin database.
 type GremlinDatabaseGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -2007,6 +2970,12 @@ type GremlinDatabaseListResult struct {
 type GremlinDatabaseResource struct {
 	// REQUIRED; Name of the Cosmos DB Gremlin database
 	ID *string `json:"id,omitempty"`
+
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 }
 
 // GremlinDatabaseRestoreResource - Specific Gremlin Databases to restore.
@@ -2022,6 +2991,9 @@ type GremlinDatabaseRestoreResource struct {
 type GremlinGraphCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB Gremlin graph.
 	Properties *GremlinGraphCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -2077,6 +3049,9 @@ type GremlinGraphGetPropertiesResource struct {
 	// The conflict resolution policy for the graph.
 	ConflictResolutionPolicy *ConflictResolutionPolicy `json:"conflictResolutionPolicy,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
 	// Default time to live
 	DefaultTTL *int32 `json:"defaultTtl,omitempty"`
 
@@ -2085,6 +3060,9 @@ type GremlinGraphGetPropertiesResource struct {
 
 	// The configuration of the partition key to be used for partitioning data into multiple partitions
 	PartitionKey *ContainerPartitionKey `json:"partitionKey,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 
 	// The unique key policy configuration for specifying uniqueness constraints on documents in the collection in the Azure Cosmos
 	// DB service.
@@ -2102,6 +3080,9 @@ type GremlinGraphGetPropertiesResource struct {
 
 // GremlinGraphGetResults - An Azure Cosmos DB Gremlin graph.
 type GremlinGraphGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -2142,6 +3123,9 @@ type GremlinGraphResource struct {
 	// The conflict resolution policy for the graph.
 	ConflictResolutionPolicy *ConflictResolutionPolicy `json:"conflictResolutionPolicy,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
 	// Default time to live
 	DefaultTTL *int32 `json:"defaultTtl,omitempty"`
 
@@ -2150,6 +3134,9 @@ type GremlinGraphResource struct {
 
 	// The configuration of the partition key to be used for partitioning data into multiple partitions
 	PartitionKey *ContainerPartitionKey `json:"partitionKey,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 
 	// The unique key policy configuration for specifying uniqueness constraints on documents in the collection in the Azure Cosmos
 	// DB service.
@@ -2336,10 +3323,22 @@ type KeyWrapMetadata struct {
 	Value *string `json:"value,omitempty"`
 }
 
+// ListBackups - List of restorable backups for a Cassandra cluster.
+type ListBackups struct {
+	// READ-ONLY; Container for array of backups.
+	Value []*BackupResource `json:"value,omitempty" azure:"ro"`
+}
+
 // ListClusters - List of managed Cassandra clusters.
 type ListClusters struct {
 	// Container for the array of clusters.
 	Value []*ClusterResource `json:"value,omitempty"`
+}
+
+// ListConnectionStringsResult - The connection strings for the given mongo cluster.
+type ListConnectionStringsResult struct {
+	// READ-ONLY; An array that contains the connection strings for a mongo cluster.
+	ConnectionStrings []*ConnectionString `json:"connectionStrings,omitempty" azure:"ro"`
 }
 
 // ListDataCenters - List of managed Cassandra data centers and their properties.
@@ -2404,6 +3403,9 @@ type LocationProperties struct {
 
 	// READ-ONLY; Flag indicating whether the location is residency sensitive.
 	IsResidencyRestricted *bool `json:"isResidencyRestricted,omitempty" azure:"ro"`
+
+	// READ-ONLY; The current status of location in Azure.
+	Status *string `json:"status,omitempty" azure:"ro"`
 
 	// READ-ONLY; Flag indicating whether the location supports availability zones or not.
 	SupportsAvailabilityZone *bool `json:"supportsAvailabilityZone,omitempty" azure:"ro"`
@@ -2540,6 +3542,12 @@ func (m *MaterializedViewsBuilderServiceResourceProperties) GetServiceResourcePr
 	}
 }
 
+// MergeParameters - The properties of an Azure Cosmos DB merge operations
+type MergeParameters struct {
+	// Specifies whether the operation is a real merge operation or a simulation.
+	IsDryRun *bool `json:"isDryRun,omitempty"`
+}
+
 // Metric data
 type Metric struct {
 	// READ-ONLY; The end time for the metric (ISO-8601 format).
@@ -2630,10 +3638,170 @@ type MetricValue struct {
 	Total *float64 `json:"total,omitempty" azure:"ro"`
 }
 
+// MongoCluster - Represents a mongo cluster resource.
+type MongoCluster struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Properties of the mongo cluster.
+	Properties *MongoClusterProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// MongoClusterListResult - A list of mongo clusters.
+type MongoClusterListResult struct {
+	// The list of mongo clusters
+	Value []*MongoCluster `json:"value,omitempty"`
+
+	// READ-ONLY; The link used to get the next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// MongoClusterProperties - The properties of a mongo cluster.
+type MongoClusterProperties struct {
+	// The administrator's login for the mongo cluster.
+	AdministratorLogin *string `json:"administratorLogin,omitempty"`
+
+	// The password of the administrator login.
+	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
+
+	// The mode to create a mongo cluster.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// The list of node group specs in the cluster.
+	NodeGroupSpecs []*NodeGroupSpec `json:"nodeGroupSpecs,omitempty"`
+
+	// Parameters used for restore operations
+	RestoreParameters *MongoClusterRestoreParameters `json:"restoreParameters,omitempty"`
+
+	// The Mongo DB server version. Defaults to the latest available version if not specified.
+	ServerVersion *string `json:"serverVersion,omitempty"`
+
+	// READ-ONLY; A status of the mongo cluster.
+	ClusterStatus *MongoClusterStatus `json:"clusterStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; The default mongo connection string for the cluster.
+	ConnectionString *string `json:"connectionString,omitempty" azure:"ro"`
+
+	// READ-ONLY; Earliest restore timestamp in UTC ISO8601 format.
+	EarliestRestoreTime *string `json:"earliestRestoreTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; A provisioning state of the mongo cluster.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// MongoClusterRestoreParameters - Parameters used for restore operations
+type MongoClusterRestoreParameters struct {
+	// UTC point in time to restore a mongo cluster
+	PointInTimeUTC *time.Time `json:"pointInTimeUTC,omitempty"`
+
+	// Resource ID to locate the source cluster to restore
+	SourceResourceID *string `json:"sourceResourceId,omitempty"`
+}
+
+// MongoClusterUpdate - Represents a mongo cluster resource for updates.
+type MongoClusterUpdate struct {
+	// Properties of the mongo cluster.
+	Properties *MongoClusterProperties `json:"properties,omitempty"`
+
+	// Application-specific metadata in the form of key-value pairs.
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// MongoClustersClientBeginCreateOrUpdateFirewallRuleOptions contains the optional parameters for the MongoClustersClient.BeginCreateOrUpdateFirewallRule
+// method.
+type MongoClustersClientBeginCreateOrUpdateFirewallRuleOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the MongoClustersClient.BeginCreateOrUpdate
+// method.
+type MongoClustersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoClustersClientBeginDeleteFirewallRuleOptions contains the optional parameters for the MongoClustersClient.BeginDeleteFirewallRule
+// method.
+type MongoClustersClientBeginDeleteFirewallRuleOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoClustersClientBeginDeleteOptions contains the optional parameters for the MongoClustersClient.BeginDelete method.
+type MongoClustersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoClustersClientBeginUpdateOptions contains the optional parameters for the MongoClustersClient.BeginUpdate method.
+type MongoClustersClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoClustersClientCheckNameAvailabilityOptions contains the optional parameters for the MongoClustersClient.CheckNameAvailability
+// method.
+type MongoClustersClientCheckNameAvailabilityOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MongoClustersClientGetFirewallRuleOptions contains the optional parameters for the MongoClustersClient.GetFirewallRule
+// method.
+type MongoClustersClientGetFirewallRuleOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MongoClustersClientGetOptions contains the optional parameters for the MongoClustersClient.Get method.
+type MongoClustersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MongoClustersClientListByResourceGroupOptions contains the optional parameters for the MongoClustersClient.NewListByResourceGroupPager
+// method.
+type MongoClustersClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MongoClustersClientListConnectionStringsOptions contains the optional parameters for the MongoClustersClient.ListConnectionStrings
+// method.
+type MongoClustersClientListConnectionStringsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MongoClustersClientListFirewallRulesOptions contains the optional parameters for the MongoClustersClient.NewListFirewallRulesPager
+// method.
+type MongoClustersClientListFirewallRulesOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MongoClustersClientListOptions contains the optional parameters for the MongoClustersClient.NewListPager method.
+type MongoClustersClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // MongoDBCollectionCreateUpdateParameters - Parameters to create and update Cosmos DB MongoDB collection.
 type MongoDBCollectionCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB MongoDB collection.
 	Properties *MongoDBCollectionCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -2686,8 +3854,14 @@ type MongoDBCollectionGetPropertiesResource struct {
 	// Analytical TTL.
 	AnalyticalStorageTTL *int32 `json:"analyticalStorageTtl,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
 	// List of index keys
 	Indexes []*MongoIndex `json:"indexes,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 
 	// A key-value pair of shard keys to be applied for the request.
 	ShardKey map[string]*string `json:"shardKey,omitempty"`
@@ -2704,6 +3878,9 @@ type MongoDBCollectionGetPropertiesResource struct {
 
 // MongoDBCollectionGetResults - An Azure Cosmos DB MongoDB collection.
 type MongoDBCollectionGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -2741,8 +3918,14 @@ type MongoDBCollectionResource struct {
 	// Analytical TTL.
 	AnalyticalStorageTTL *int32 `json:"analyticalStorageTtl,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
 	// List of index keys
 	Indexes []*MongoIndex `json:"indexes,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 
 	// A key-value pair of shard keys to be applied for the request.
 	ShardKey map[string]*string `json:"shardKey,omitempty"`
@@ -2752,6 +3935,9 @@ type MongoDBCollectionResource struct {
 type MongoDBDatabaseCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB MongoDB database.
 	Properties *MongoDBDatabaseCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -2801,6 +3987,12 @@ type MongoDBDatabaseGetPropertiesResource struct {
 	// REQUIRED; Name of the Cosmos DB MongoDB database
 	ID *string `json:"id,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
+
 	// READ-ONLY; A system generated property representing the resource etag required for optimistic concurrency control.
 	Etag *string `json:"_etag,omitempty" azure:"ro"`
 
@@ -2813,6 +4005,9 @@ type MongoDBDatabaseGetPropertiesResource struct {
 
 // MongoDBDatabaseGetResults - An Azure Cosmos DB MongoDB database.
 type MongoDBDatabaseGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -2846,6 +4041,12 @@ type MongoDBDatabaseListResult struct {
 type MongoDBDatabaseResource struct {
 	// REQUIRED; Name of the Cosmos DB MongoDB database
 	ID *string `json:"id,omitempty"`
+
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 }
 
 // MongoDBResourcesClientBeginCreateUpdateMongoDBCollectionOptions contains the optional parameters for the MongoDBResourcesClient.BeginCreateUpdateMongoDBCollection
@@ -2904,6 +4105,13 @@ type MongoDBResourcesClientBeginDeleteMongoUserDefinitionOptions struct {
 	ResumeToken string
 }
 
+// MongoDBResourcesClientBeginListMongoDBCollectionPartitionMergeOptions contains the optional parameters for the MongoDBResourcesClient.BeginListMongoDBCollectionPartitionMerge
+// method.
+type MongoDBResourcesClientBeginListMongoDBCollectionPartitionMergeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // MongoDBResourcesClientBeginMigrateMongoDBCollectionToAutoscaleOptions contains the optional parameters for the MongoDBResourcesClient.BeginMigrateMongoDBCollectionToAutoscale
 // method.
 type MongoDBResourcesClientBeginMigrateMongoDBCollectionToAutoscaleOptions struct {
@@ -2928,6 +4136,34 @@ type MongoDBResourcesClientBeginMigrateMongoDBDatabaseToAutoscaleOptions struct 
 // MongoDBResourcesClientBeginMigrateMongoDBDatabaseToManualThroughputOptions contains the optional parameters for the MongoDBResourcesClient.BeginMigrateMongoDBDatabaseToManualThroughput
 // method.
 type MongoDBResourcesClientBeginMigrateMongoDBDatabaseToManualThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions contains the optional parameters for the MongoDBResourcesClient.BeginMongoDBContainerRedistributeThroughput
+// method.
+type MongoDBResourcesClientBeginMongoDBContainerRedistributeThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoDBResourcesClientBeginMongoDBContainerRetrieveThroughputDistributionOptions contains the optional parameters for the
+// MongoDBResourcesClient.BeginMongoDBContainerRetrieveThroughputDistribution method.
+type MongoDBResourcesClientBeginMongoDBContainerRetrieveThroughputDistributionOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoDBResourcesClientBeginMongoDBDatabaseRedistributeThroughputOptions contains the optional parameters for the MongoDBResourcesClient.BeginMongoDBDatabaseRedistributeThroughput
+// method.
+type MongoDBResourcesClientBeginMongoDBDatabaseRedistributeThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// MongoDBResourcesClientBeginMongoDBDatabaseRetrieveThroughputDistributionOptions contains the optional parameters for the
+// MongoDBResourcesClient.BeginMongoDBDatabaseRetrieveThroughputDistribution method.
+type MongoDBResourcesClientBeginMongoDBDatabaseRetrieveThroughputDistributionOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -3130,6 +4366,38 @@ type MongoUserDefinitionResource struct {
 
 	// The user name for User Definition.
 	UserName *string `json:"userName,omitempty"`
+}
+
+// NodeGroupProperties - The properties of the node group on a cluster.
+type NodeGroupProperties struct {
+	// The disk storage size for the node group in GB. Example values: 128, 256, 512, 1024.
+	DiskSizeGB *int64 `json:"diskSizeGB,omitempty"`
+
+	// Whether high availability is enabled on the node group.
+	EnableHa *bool `json:"enableHa,omitempty"`
+
+	// The resource sku for the node group. This defines the size of CPU and memory that is provisioned for each node. Example
+	// values: 'M30', 'M40'.
+	SKU *string `json:"sku,omitempty"`
+}
+
+// NodeGroupSpec - Specification for a node group.
+type NodeGroupSpec struct {
+	// The disk storage size for the node group in GB. Example values: 128, 256, 512, 1024.
+	DiskSizeGB *int64 `json:"diskSizeGB,omitempty"`
+
+	// Whether high availability is enabled on the node group.
+	EnableHa *bool `json:"enableHa,omitempty"`
+
+	// The node type deployed in the node group.
+	Kind *NodeKind `json:"kind,omitempty"`
+
+	// The number of nodes in the node group.
+	NodeCount *int32 `json:"nodeCount,omitempty"`
+
+	// The resource sku for the node group. This defines the size of CPU and memory that is provisioned for each node. Example
+	// values: 'M30', 'M40'.
+	SKU *string `json:"sku,omitempty"`
 }
 
 // NotebookWorkspace - A notebook workspace resource
@@ -3479,6 +4747,84 @@ type Permission struct {
 	NotDataActions []*string `json:"notDataActions,omitempty"`
 }
 
+// PhysicalPartitionID - PhysicalPartitionId object
+type PhysicalPartitionID struct {
+	// REQUIRED; Id of a physical partition
+	ID *string `json:"id,omitempty"`
+}
+
+// PhysicalPartitionStorageInfo - The storage of a physical partition
+type PhysicalPartitionStorageInfo struct {
+	// READ-ONLY; The unique identifier of the partition.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The storage in KB for the physical partition.
+	StorageInKB *float64 `json:"storageInKB,omitempty" azure:"ro"`
+}
+
+// PhysicalPartitionStorageInfoCollection - List of physical partitions and their properties returned by a merge operation.
+type PhysicalPartitionStorageInfoCollection struct {
+	// READ-ONLY; List of physical partitions and their properties.
+	PhysicalPartitionStorageInfoCollection []*PhysicalPartitionStorageInfo `json:"physicalPartitionStorageInfoCollection,omitempty" azure:"ro"`
+}
+
+// PhysicalPartitionThroughputInfoProperties - The properties of an Azure Cosmos DB PhysicalPartitionThroughputInfoProperties
+// object
+type PhysicalPartitionThroughputInfoProperties struct {
+	// Array of physical partition throughput info objects
+	PhysicalPartitionThroughputInfo []*PhysicalPartitionThroughputInfoResource `json:"physicalPartitionThroughputInfo,omitempty"`
+}
+
+// PhysicalPartitionThroughputInfoResource - PhysicalPartitionThroughputInfo object
+type PhysicalPartitionThroughputInfoResource struct {
+	// REQUIRED; Id of a physical partition
+	ID *string `json:"id,omitempty"`
+
+	// Throughput of a physical partition
+	Throughput *float64 `json:"throughput,omitempty"`
+}
+
+// PhysicalPartitionThroughputInfoResult - An Azure Cosmos DB PhysicalPartitionThroughputInfoResult object.
+type PhysicalPartitionThroughputInfoResult struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// The properties of an Azure Cosmos DB PhysicalPartitionThroughputInfoResult object
+	Properties *PhysicalPartitionThroughputInfoResultProperties `json:"properties,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PhysicalPartitionThroughputInfoResultProperties - The properties of an Azure Cosmos DB PhysicalPartitionThroughputInfoResult
+// object
+type PhysicalPartitionThroughputInfoResultProperties struct {
+	// properties of physical partition throughput info
+	Resource *PhysicalPartitionThroughputInfoResultPropertiesResource `json:"resource,omitempty"`
+}
+
+// PhysicalPartitionThroughputInfoResultPropertiesResource - properties of physical partition throughput info
+type PhysicalPartitionThroughputInfoResultPropertiesResource struct {
+	// Array of physical partition throughput info objects
+	PhysicalPartitionThroughputInfo []*PhysicalPartitionThroughputInfoResource `json:"physicalPartitionThroughputInfo,omitempty"`
+}
+
 // PrivateEndpointConnection - A private endpoint connection
 type PrivateEndpointConnection struct {
 	// Resource properties.
@@ -3634,6 +4980,68 @@ type ProxyResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// ProxyResourceAutoGenerated - The resource model definition for a Azure Resource Manager proxy resource. It will not have
+// tags and a location
+type ProxyResourceAutoGenerated struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RedistributeThroughputParameters - Cosmos DB redistribute throughput parameters object
+type RedistributeThroughputParameters struct {
+	// REQUIRED; Properties to redistribute throughput parameters object
+	Properties *RedistributeThroughputProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RedistributeThroughputProperties - Properties to redistribute throughput for Azure Cosmos DB resource.
+type RedistributeThroughputProperties struct {
+	// REQUIRED; The standard JSON format of a resource throughput
+	Resource *RedistributeThroughputPropertiesResource `json:"resource,omitempty"`
+}
+
+// RedistributeThroughputPropertiesResource - Resource to redistribute throughput for Azure Cosmos DB resource
+type RedistributeThroughputPropertiesResource struct {
+	// REQUIRED; Array of PhysicalPartitionThroughputInfoResource objects.
+	SourcePhysicalPartitionThroughputInfo []*PhysicalPartitionThroughputInfoResource `json:"sourcePhysicalPartitionThroughputInfo,omitempty"`
+
+	// REQUIRED; Array of PhysicalPartitionThroughputInfoResource objects.
+	TargetPhysicalPartitionThroughputInfo []*PhysicalPartitionThroughputInfoResource `json:"targetPhysicalPartitionThroughputInfo,omitempty"`
+
+	// REQUIRED; ThroughputPolicy to apply for throughput redistribution
+	ThroughputPolicy *ThroughputPolicyType `json:"throughputPolicy,omitempty"`
+}
+
 // RegionForOnlineOffline - Cosmos DB region to online or offline.
 type RegionForOnlineOffline struct {
 	// REQUIRED; Cosmos DB region, with spaces between words and each word capitalized.
@@ -3664,6 +5072,31 @@ type Resource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// ResourceAutoGenerated - Common fields that are returned in the response for all Azure Resource Manager resources
+type ResourceAutoGenerated struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ResourceRestoreParameters - Parameters to indicate the information about the restore.
+type ResourceRestoreParameters struct {
+	// The id of the restorable database account from which the restore has to be initiated. For example:
+	// /subscriptions/{subscriptionId}/providers/Microsoft.DocumentDB/locations/{location}/restorableDatabaseAccounts/{restorableDatabaseAccountName}
+	RestoreSource *string `json:"restoreSource,omitempty"`
+
+	// Time to which the account has to be restored (ISO-8601 format).
+	RestoreTimestampInUTC *time.Time `json:"restoreTimestampInUtc,omitempty"`
+}
+
 // RestorableDatabaseAccountGetResult - A Azure Cosmos DB restorable database account.
 type RestorableDatabaseAccountGetResult struct {
 	// The location of the resource group to which the resource belongs.
@@ -3692,6 +5125,9 @@ type RestorableDatabaseAccountProperties struct {
 
 	// The time at which the restorable database account has been deleted (ISO-8601 format).
 	DeletionTime *time.Time `json:"deletionTime,omitempty"`
+
+	// The least recent time at which the database account can be restored to (ISO-8601 format).
+	OldestRestorableTime *time.Time `json:"oldestRestorableTime,omitempty"`
 
 	// READ-ONLY; The API type of the restorable database account.
 	APIType *APIType `json:"apiType,omitempty" azure:"ro"`
@@ -4079,6 +5515,9 @@ type RestorableSQLContainerPropertiesResourceContainer struct {
 	// The conflict resolution policy for the container.
 	ConflictResolutionPolicy *ConflictResolutionPolicy `json:"conflictResolutionPolicy,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
 	// Default time to live
 	DefaultTTL *int32 `json:"defaultTtl,omitempty"`
 
@@ -4087,6 +5526,9 @@ type RestorableSQLContainerPropertiesResourceContainer struct {
 
 	// The configuration of the partition key to be used for partitioning data into multiple partitions
 	PartitionKey *ContainerPartitionKey `json:"partitionKey,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 
 	// The unique key policy configuration for specifying uniqueness constraints on documents in the collection in the Azure Cosmos
 	// DB service.
@@ -4168,6 +5610,12 @@ type RestorableSQLDatabasePropertiesResource struct {
 type RestorableSQLDatabasePropertiesResourceDatabase struct {
 	// REQUIRED; Name of the Cosmos DB SQL database
 	ID *string `json:"id,omitempty"`
+
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 
 	// READ-ONLY; A system generated property that specified the addressable path of the collections resource.
 	Colls *string `json:"_colls,omitempty" azure:"ro"`
@@ -4331,8 +5779,61 @@ type RestoreParameters struct {
 	// Time to which the account has to be restored (ISO-8601 format).
 	RestoreTimestampInUTC *time.Time `json:"restoreTimestampInUtc,omitempty"`
 
+	// The source backup location for restore.
+	SourceBackupLocation *string `json:"sourceBackupLocation,omitempty"`
+
 	// List of specific tables available for restore.
 	TablesToRestore []*string `json:"tablesToRestore,omitempty"`
+}
+
+// RestoreParametersBase - Parameters to indicate the information about the restore.
+type RestoreParametersBase struct {
+	// The id of the restorable database account from which the restore has to be initiated. For example:
+	// /subscriptions/{subscriptionId}/providers/Microsoft.DocumentDB/locations/{location}/restorableDatabaseAccounts/{restorableDatabaseAccountName}
+	RestoreSource *string `json:"restoreSource,omitempty"`
+
+	// Time to which the account has to be restored (ISO-8601 format).
+	RestoreTimestampInUTC *time.Time `json:"restoreTimestampInUtc,omitempty"`
+}
+
+// RetrieveThroughputParameters - Cosmos DB retrieve throughput parameters object
+type RetrieveThroughputParameters struct {
+	// REQUIRED; Properties to retrieve throughput parameters object
+	Properties *RetrieveThroughputProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
+	// The location of the resource group to which the resource belongs.
+	Location *string `json:"location,omitempty"`
+
+	// Tags are a list of key-value pairs that describe the resource. These tags can be used in viewing and grouping this resource
+	// (across resource groups). A maximum of 15 tags can be provided for a
+	// resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. For example,
+	// the default experience for a template type is set with "defaultExperience":
+	// "Cassandra". Current "defaultExperience" values also include "Table", "Graph", "DocumentDB", and "MongoDB".
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; The unique resource identifier of the ARM resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the ARM resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of Azure resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RetrieveThroughputProperties - Properties to retrieve throughput for Azure Cosmos DB resource.
+type RetrieveThroughputProperties struct {
+	// REQUIRED; The standard JSON format of a resource throughput
+	Resource *RetrieveThroughputPropertiesResource `json:"resource,omitempty"`
+}
+
+// RetrieveThroughputPropertiesResource - Resource to retrieve throughput information for Cosmos DB resource
+type RetrieveThroughputPropertiesResource struct {
+	// REQUIRED; Array of PhysicalPartitionId objects.
+	PhysicalPartitionIDs []*PhysicalPartitionID `json:"physicalPartitionIds,omitempty"`
 }
 
 // Role - The set of roles permitted through this Role Definition.
@@ -4348,6 +5849,9 @@ type Role struct {
 type SQLContainerCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB container.
 	Properties *SQLContainerCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -4406,6 +5910,9 @@ type SQLContainerGetPropertiesResource struct {
 	// The conflict resolution policy for the container.
 	ConflictResolutionPolicy *ConflictResolutionPolicy `json:"conflictResolutionPolicy,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
 	// Default time to live
 	DefaultTTL *int32 `json:"defaultTtl,omitempty"`
 
@@ -4414,6 +5921,9 @@ type SQLContainerGetPropertiesResource struct {
 
 	// The configuration of the partition key to be used for partitioning data into multiple partitions
 	PartitionKey *ContainerPartitionKey `json:"partitionKey,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 
 	// The unique key policy configuration for specifying uniqueness constraints on documents in the collection in the Azure Cosmos
 	// DB service.
@@ -4431,6 +5941,9 @@ type SQLContainerGetPropertiesResource struct {
 
 // SQLContainerGetResults - An Azure Cosmos DB container.
 type SQLContainerGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -4474,6 +5987,9 @@ type SQLContainerResource struct {
 	// The conflict resolution policy for the container.
 	ConflictResolutionPolicy *ConflictResolutionPolicy `json:"conflictResolutionPolicy,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
 	// Default time to live
 	DefaultTTL *int32 `json:"defaultTtl,omitempty"`
 
@@ -4483,15 +5999,40 @@ type SQLContainerResource struct {
 	// The configuration of the partition key to be used for partitioning data into multiple partitions
 	PartitionKey *ContainerPartitionKey `json:"partitionKey,omitempty"`
 
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
+
 	// The unique key policy configuration for specifying uniqueness constraints on documents in the collection in the Azure Cosmos
 	// DB service.
 	UniqueKeyPolicy *UniqueKeyPolicy `json:"uniqueKeyPolicy,omitempty"`
+}
+
+// SQLDataTransferDataSourceSink - A CosmosDB Cassandra API data source/sink
+type SQLDataTransferDataSourceSink struct {
+	// REQUIRED
+	Component *DataTransferComponent `json:"component,omitempty"`
+
+	// REQUIRED
+	ContainerName *string `json:"containerName,omitempty"`
+
+	// REQUIRED
+	DatabaseName *string `json:"databaseName,omitempty"`
+}
+
+// GetDataTransferDataSourceSink implements the DataTransferDataSourceSinkClassification interface for type SQLDataTransferDataSourceSink.
+func (s *SQLDataTransferDataSourceSink) GetDataTransferDataSourceSink() *DataTransferDataSourceSink {
+	return &DataTransferDataSourceSink{
+		Component: s.Component,
+	}
 }
 
 // SQLDatabaseCreateUpdateParameters - Parameters to create and update Cosmos DB SQL database.
 type SQLDatabaseCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB SQL database.
 	Properties *SQLDatabaseCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -4544,6 +6085,12 @@ type SQLDatabaseGetPropertiesResource struct {
 	// A system generated property that specified the addressable path of the collections resource.
 	Colls *string `json:"_colls,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
+
 	// A system generated property that specifies the addressable path of the users resource.
 	Users *string `json:"_users,omitempty"`
 
@@ -4559,6 +6106,9 @@ type SQLDatabaseGetPropertiesResource struct {
 
 // SQLDatabaseGetResults - An Azure Cosmos DB SQL database.
 type SQLDatabaseGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -4592,6 +6142,12 @@ type SQLDatabaseListResult struct {
 type SQLDatabaseResource struct {
 	// REQUIRED; Name of the Cosmos DB SQL database
 	ID *string `json:"id,omitempty"`
+
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 }
 
 // SQLDedicatedGatewayRegionalServiceResource - Resource for a regional service location.
@@ -4759,6 +6315,13 @@ type SQLResourcesClientBeginDeleteSQLUserDefinedFunctionOptions struct {
 	ResumeToken string
 }
 
+// SQLResourcesClientBeginListSQLContainerPartitionMergeOptions contains the optional parameters for the SQLResourcesClient.BeginListSQLContainerPartitionMerge
+// method.
+type SQLResourcesClientBeginListSQLContainerPartitionMergeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // SQLResourcesClientBeginMigrateSQLContainerToAutoscaleOptions contains the optional parameters for the SQLResourcesClient.BeginMigrateSQLContainerToAutoscale
 // method.
 type SQLResourcesClientBeginMigrateSQLContainerToAutoscaleOptions struct {
@@ -4790,6 +6353,34 @@ type SQLResourcesClientBeginMigrateSQLDatabaseToManualThroughputOptions struct {
 // SQLResourcesClientBeginRetrieveContinuousBackupInformationOptions contains the optional parameters for the SQLResourcesClient.BeginRetrieveContinuousBackupInformation
 // method.
 type SQLResourcesClientBeginRetrieveContinuousBackupInformationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions contains the optional parameters for the SQLResourcesClient.BeginSQLContainerRedistributeThroughput
+// method.
+type SQLResourcesClientBeginSQLContainerRedistributeThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions contains the optional parameters for the SQLResourcesClient.BeginSQLContainerRetrieveThroughputDistribution
+// method.
+type SQLResourcesClientBeginSQLContainerRetrieveThroughputDistributionOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLResourcesClientBeginSQLDatabaseRedistributeThroughputOptions contains the optional parameters for the SQLResourcesClient.BeginSQLDatabaseRedistributeThroughput
+// method.
+type SQLResourcesClientBeginSQLDatabaseRedistributeThroughputOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLResourcesClientBeginSQLDatabaseRetrieveThroughputDistributionOptions contains the optional parameters for the SQLResourcesClient.BeginSQLDatabaseRetrieveThroughputDistribution
+// method.
+type SQLResourcesClientBeginSQLDatabaseRetrieveThroughputDistributionOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -5005,6 +6596,9 @@ type SQLStoredProcedureCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB storedProcedure.
 	Properties *SQLStoredProcedureCreateUpdateProperties `json:"properties,omitempty"`
 
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -5058,6 +6652,9 @@ type SQLStoredProcedureGetPropertiesResource struct {
 
 // SQLStoredProcedureGetResults - An Azure Cosmos DB storedProcedure.
 type SQLStoredProcedureGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -5100,6 +6697,9 @@ type SQLStoredProcedureResource struct {
 type SQLTriggerCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB trigger.
 	Properties *SQLTriggerCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -5160,6 +6760,9 @@ type SQLTriggerGetPropertiesResource struct {
 
 // SQLTriggerGetResults - An Azure Cosmos DB trigger.
 type SQLTriggerGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -5208,6 +6811,9 @@ type SQLTriggerResource struct {
 type SQLUserDefinedFunctionCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB userDefinedFunction.
 	Properties *SQLUserDefinedFunctionCreateUpdateProperties `json:"properties,omitempty"`
+
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
 
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
@@ -5262,6 +6868,9 @@ type SQLUserDefinedFunctionGetPropertiesResource struct {
 
 // SQLUserDefinedFunctionGetResults - An Azure Cosmos DB userDefinedFunction.
 type SQLUserDefinedFunctionGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -5436,6 +7045,9 @@ type TableCreateUpdateParameters struct {
 	// REQUIRED; Properties to create and update Azure Cosmos DB Table.
 	Properties *TableCreateUpdateProperties `json:"properties,omitempty"`
 
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -5484,6 +7096,12 @@ type TableGetPropertiesResource struct {
 	// REQUIRED; Name of the Cosmos DB table
 	ID *string `json:"id,omitempty"`
 
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
+
 	// READ-ONLY; A system generated property representing the resource etag required for optimistic concurrency control.
 	Etag *string `json:"_etag,omitempty" azure:"ro"`
 
@@ -5496,6 +7114,9 @@ type TableGetPropertiesResource struct {
 
 // TableGetResults - An Azure Cosmos DB Table.
 type TableGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -5529,6 +7150,12 @@ type TableListResult struct {
 type TableResource struct {
 	// REQUIRED; Name of the Cosmos DB table
 	ID *string `json:"id,omitempty"`
+
+	// Enum to indicate the mode of resource creation.
+	CreateMode *CreateMode `json:"createMode,omitempty"`
+
+	// Parameters to indicate the information about the restore
+	RestoreParameters *ResourceRestoreParameters `json:"restoreParameters,omitempty"`
 }
 
 // TableResourcesClientBeginCreateUpdateTableOptions contains the optional parameters for the TableResourcesClient.BeginCreateUpdateTable
@@ -5629,6 +7256,9 @@ type ThroughputSettingsGetPropertiesResource struct {
 
 // ThroughputSettingsGetResults - An Azure Cosmos DB resource throughput.
 type ThroughputSettingsGetResults struct {
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -5673,6 +7303,9 @@ type ThroughputSettingsUpdateParameters struct {
 	// REQUIRED; Properties to update Azure Cosmos DB resource throughput.
 	Properties *ThroughputSettingsUpdateProperties `json:"properties,omitempty"`
 
+	// Identity for the resource.
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The location of the resource group to which the resource belongs.
 	Location *string `json:"location,omitempty"`
 
@@ -5697,6 +7330,28 @@ type ThroughputSettingsUpdateParameters struct {
 type ThroughputSettingsUpdateProperties struct {
 	// REQUIRED; The standard JSON format of a resource throughput
 	Resource *ThroughputSettingsResource `json:"resource,omitempty"`
+}
+
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
+type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // UniqueKey - The unique key on that enforces uniqueness constraint on documents in the collection in the Azure Cosmos DB
