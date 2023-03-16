@@ -1,5 +1,27 @@
 # Release History
 
+## 2.2.0 (2023-03-16)
+### Features Added
+
+- New value `ApplicationGatewayCustomErrorStatusCodeHTTPStatus400`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus404`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus405`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus408`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus499`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus500`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus503`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus504` added to type alias `ApplicationGatewayCustomErrorStatusCode`
+- New type alias `AnalysisModes` with values `AnalysisModesDefault`, `AnalysisModesNCD`, `AnalysisModesNextHop`, `AnalysisModesPortScan`
+- New type alias `DestinationPortStatus` with values `DestinationPortStatusNoConnection`, `DestinationPortStatusReachable`, `DestinationPortStatusTimeout`, `DestinationPortStatusUnknown`, `DestinationPortStatusUnstable`
+- New type alias `SourcePortStatus` with values `SourcePortStatusNoConnection`, `SourcePortStatusReachable`, `SourcePortStatusTimeout`, `SourcePortStatusUnknown`, `SourcePortStatusUnstable`
+- New type alias `WebApplicationFirewallState` with values `WebApplicationFirewallStateDisabled`, `WebApplicationFirewallStateEnabled`
+- New field `DestinationPortStatus` in struct `ConnectivityInformation`
+- New field `DestinationSecurityRuleAnalysis` in struct `ConnectivityInformation`
+- New field `NextHopAnalysis` in struct `ConnectivityInformation`
+- New field `SourcePortStatus` in struct `ConnectivityInformation`
+- New field `SourceSecurityRuleAnalysis` in struct `ConnectivityInformation`
+- New field `AnalysisModes` in struct `ConnectivityParameters`
+- New field `Address` in struct `ConnectivitySource`
+- New field `VmssIndex` in struct `ConnectivitySource`
+- New field `AuthorizationStatus` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `IPConfigurationID` in struct `VPNGatewaysClientBeginResetOptions`
+- New field `FlowLogs` in struct `VirtualNetworkPropertiesFormat`
+- New field `State` in struct `WebApplicationFirewallCustomRule`
+
+
 ## 2.1.0 (2022-12-23)
 ### Features Added
 
