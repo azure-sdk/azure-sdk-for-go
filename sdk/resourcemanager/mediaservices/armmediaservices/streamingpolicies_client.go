@@ -33,9 +33,9 @@ type StreamingPoliciesClient struct {
 }
 
 // NewStreamingPoliciesClient creates a new instance of StreamingPoliciesClient with the specified values.
-// subscriptionID - The unique identifier for a Microsoft Azure subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The unique identifier for a Microsoft Azure subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewStreamingPoliciesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*StreamingPoliciesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewStreamingPoliciesClient(subscriptionID string, credential azcore.TokenCr
 
 // Create - Create a Streaming Policy in the Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingPolicyName - The Streaming Policy name.
-// parameters - The request parameters
-// options - StreamingPoliciesClientCreateOptions contains the optional parameters for the StreamingPoliciesClient.Create
-// method.
+//
+// Generated from API version 2023-01-01
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingPolicyName - The Streaming Policy name.
+//   - parameters - The request parameters
+//   - options - StreamingPoliciesClientCreateOptions contains the optional parameters for the StreamingPoliciesClient.Create
+//     method.
 func (client *StreamingPoliciesClient) Create(ctx context.Context, resourceGroupName string, accountName string, streamingPolicyName string, parameters StreamingPolicy, options *StreamingPoliciesClientCreateOptions) (StreamingPoliciesClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, accountName, streamingPolicyName, parameters, options)
 	if err != nil {
@@ -104,7 +105,7 @@ func (client *StreamingPoliciesClient) createCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -121,12 +122,13 @@ func (client *StreamingPoliciesClient) createHandleResponse(resp *http.Response)
 
 // Delete - Deletes a Streaming Policy in the Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingPolicyName - The Streaming Policy name.
-// options - StreamingPoliciesClientDeleteOptions contains the optional parameters for the StreamingPoliciesClient.Delete
-// method.
+//
+// Generated from API version 2023-01-01
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingPolicyName - The Streaming Policy name.
+//   - options - StreamingPoliciesClientDeleteOptions contains the optional parameters for the StreamingPoliciesClient.Delete
+//     method.
 func (client *StreamingPoliciesClient) Delete(ctx context.Context, resourceGroupName string, accountName string, streamingPolicyName string, options *StreamingPoliciesClientDeleteOptions) (StreamingPoliciesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, accountName, streamingPolicyName, options)
 	if err != nil {
@@ -166,7 +168,7 @@ func (client *StreamingPoliciesClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -174,11 +176,12 @@ func (client *StreamingPoliciesClient) deleteCreateRequest(ctx context.Context, 
 
 // Get - Get the details of a Streaming Policy in the Media Services account
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// streamingPolicyName - The Streaming Policy name.
-// options - StreamingPoliciesClientGetOptions contains the optional parameters for the StreamingPoliciesClient.Get method.
+//
+// Generated from API version 2023-01-01
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - streamingPolicyName - The Streaming Policy name.
+//   - options - StreamingPoliciesClientGetOptions contains the optional parameters for the StreamingPoliciesClient.Get method.
 func (client *StreamingPoliciesClient) Get(ctx context.Context, resourceGroupName string, accountName string, streamingPolicyName string, options *StreamingPoliciesClientGetOptions) (StreamingPoliciesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, accountName, streamingPolicyName, options)
 	if err != nil {
@@ -218,7 +221,7 @@ func (client *StreamingPoliciesClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -234,10 +237,12 @@ func (client *StreamingPoliciesClient) getHandleResponse(resp *http.Response) (S
 }
 
 // NewListPager - Lists the Streaming Policies in the account
-// Generated from API version 2022-08-01
-// resourceGroupName - The name of the resource group within the Azure subscription.
-// accountName - The Media Services account name.
-// options - StreamingPoliciesClientListOptions contains the optional parameters for the StreamingPoliciesClient.List method.
+//
+// Generated from API version 2023-01-01
+//   - resourceGroupName - The name of the resource group within the Azure subscription.
+//   - accountName - The Media Services account name.
+//   - options - StreamingPoliciesClientListOptions contains the optional parameters for the StreamingPoliciesClient.NewListPager
+//     method.
 func (client *StreamingPoliciesClient) NewListPager(resourceGroupName string, accountName string, options *StreamingPoliciesClientListOptions) *runtime.Pager[StreamingPoliciesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[StreamingPoliciesClientListResponse]{
 		More: func(page StreamingPoliciesClientListResponse) bool {
@@ -286,7 +291,7 @@ func (client *StreamingPoliciesClient) listCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01")
+	reqQP.Set("api-version", "2023-01-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
