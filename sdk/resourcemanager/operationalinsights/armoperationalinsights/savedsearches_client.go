@@ -32,9 +32,9 @@ type SavedSearchesClient struct {
 }
 
 // NewSavedSearchesClient creates a new instance of SavedSearchesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSavedSearchesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SavedSearchesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewSavedSearchesClient(subscriptionID string, credential azcore.TokenCreden
 
 // CreateOrUpdate - Creates or updates a saved search for a given workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// savedSearchID - The id of the saved search.
-// parameters - The parameters required to save a search.
-// options - SavedSearchesClientCreateOrUpdateOptions contains the optional parameters for the SavedSearchesClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - savedSearchID - The id of the saved search.
+//   - parameters - The parameters required to save a search.
+//   - options - SavedSearchesClientCreateOrUpdateOptions contains the optional parameters for the SavedSearchesClient.CreateOrUpdate
+//     method.
 func (client *SavedSearchesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, savedSearchID string, parameters SavedSearch, options *SavedSearchesClientCreateOrUpdateOptions) (SavedSearchesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, savedSearchID, parameters, options)
 	if err != nil {
@@ -120,11 +121,12 @@ func (client *SavedSearchesClient) createOrUpdateHandleResponse(resp *http.Respo
 
 // Delete - Deletes the specified saved search in a given workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// savedSearchID - The id of the saved search.
-// options - SavedSearchesClientDeleteOptions contains the optional parameters for the SavedSearchesClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - savedSearchID - The id of the saved search.
+//   - options - SavedSearchesClientDeleteOptions contains the optional parameters for the SavedSearchesClient.Delete method.
 func (client *SavedSearchesClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, savedSearchID string, options *SavedSearchesClientDeleteOptions) (SavedSearchesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, savedSearchID, options)
 	if err != nil {
@@ -171,11 +173,12 @@ func (client *SavedSearchesClient) deleteCreateRequest(ctx context.Context, reso
 
 // Get - Gets the specified saved search for a given workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// savedSearchID - The id of the saved search.
-// options - SavedSearchesClientGetOptions contains the optional parameters for the SavedSearchesClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - savedSearchID - The id of the saved search.
+//   - options - SavedSearchesClientGetOptions contains the optional parameters for the SavedSearchesClient.Get method.
 func (client *SavedSearchesClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, savedSearchID string, options *SavedSearchesClientGetOptions) (SavedSearchesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, savedSearchID, options)
 	if err != nil {
@@ -232,11 +235,12 @@ func (client *SavedSearchesClient) getHandleResponse(resp *http.Response) (Saved
 
 // ListByWorkspace - Gets the saved searches for a given Log Analytics Workspace
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// options - SavedSearchesClientListByWorkspaceOptions contains the optional parameters for the SavedSearchesClient.ListByWorkspace
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - SavedSearchesClientListByWorkspaceOptions contains the optional parameters for the SavedSearchesClient.ListByWorkspace
+//     method.
 func (client *SavedSearchesClient) ListByWorkspace(ctx context.Context, resourceGroupName string, workspaceName string, options *SavedSearchesClientListByWorkspaceOptions) (SavedSearchesClientListByWorkspaceResponse, error) {
 	req, err := client.listByWorkspaceCreateRequest(ctx, resourceGroupName, workspaceName, options)
 	if err != nil {

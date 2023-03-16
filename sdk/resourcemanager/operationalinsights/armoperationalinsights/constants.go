@@ -11,7 +11,7 @@ package armoperationalinsights
 
 const (
 	moduleName    = "armoperationalinsights"
-	moduleVersion = "v2.0.0-beta.2"
+	moduleVersion = "v2.0.0"
 )
 
 // BillingType - Configures whether billing will be only on the cluster or each workspace will be billed by its proportional
@@ -373,6 +373,8 @@ func PossibleLinkedServiceEntityStatusValues() []LinkedServiceEntityStatus {
 type ProvisioningStateEnum string
 
 const (
+	// ProvisioningStateEnumDeleting - Table state is deleting.
+	ProvisioningStateEnumDeleting ProvisioningStateEnum = "Deleting"
 	// ProvisioningStateEnumInProgress - Table schema is stable and without changes, table data is being updated.
 	ProvisioningStateEnumInProgress ProvisioningStateEnum = "InProgress"
 	// ProvisioningStateEnumSucceeded - Table state is stable and without changes, table is unlocked and open for new updates.
@@ -385,6 +387,7 @@ const (
 // PossibleProvisioningStateEnumValues returns the possible values for the ProvisioningStateEnum const type.
 func PossibleProvisioningStateEnumValues() []ProvisioningStateEnum {
 	return []ProvisioningStateEnum{
+		ProvisioningStateEnumDeleting,
 		ProvisioningStateEnumInProgress,
 		ProvisioningStateEnumSucceeded,
 		ProvisioningStateEnumUpdating,

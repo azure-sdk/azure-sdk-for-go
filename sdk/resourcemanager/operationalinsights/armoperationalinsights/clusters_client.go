@@ -32,9 +32,9 @@ type ClustersClient struct {
 }
 
 // NewClustersClient creates a new instance of ClustersClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewClustersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClustersClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewClustersClient(subscriptionID string, credential azcore.TokenCredential,
 
 // BeginCreateOrUpdate - Create or update a Log Analytics cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - The name of the Log Analytics cluster.
-// parameters - The parameters required to create or update a Log Analytics cluster.
-// options - ClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the ClustersClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the Log Analytics cluster.
+//   - parameters - The parameters required to create or update a Log Analytics cluster.
+//   - options - ClustersClientBeginCreateOrUpdateOptions contains the optional parameters for the ClustersClient.BeginCreateOrUpdate
+//     method.
 func (client *ClustersClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, parameters Cluster, options *ClustersClientBeginCreateOrUpdateOptions) (*runtime.Poller[ClustersClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, clusterName, parameters, options)
@@ -77,6 +78,7 @@ func (client *ClustersClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 
 // CreateOrUpdate - Create or update a Log Analytics cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
 func (client *ClustersClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, parameters Cluster, options *ClustersClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, clusterName, parameters, options)
@@ -121,10 +123,11 @@ func (client *ClustersClient) createOrUpdateCreateRequest(ctx context.Context, r
 
 // BeginDelete - Deletes a cluster instance.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - Name of the Log Analytics Cluster.
-// options - ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - Name of the Log Analytics Cluster.
+//   - options - ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
 func (client *ClustersClient) BeginDelete(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginDeleteOptions) (*runtime.Poller[ClustersClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, clusterName, options)
@@ -139,6 +142,7 @@ func (client *ClustersClient) BeginDelete(ctx context.Context, resourceGroupName
 
 // Delete - Deletes a cluster instance.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
 func (client *ClustersClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, options)
@@ -183,10 +187,11 @@ func (client *ClustersClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Gets a Log Analytics cluster instance.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - Name of the Log Analytics Cluster.
-// options - ClustersClientGetOptions contains the optional parameters for the ClustersClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - Name of the Log Analytics Cluster.
+//   - options - ClustersClientGetOptions contains the optional parameters for the ClustersClient.Get method.
 func (client *ClustersClient) Get(ctx context.Context, resourceGroupName string, clusterName string, options *ClustersClientGetOptions) (ClustersClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, options)
 	if err != nil {
@@ -238,9 +243,9 @@ func (client *ClustersClient) getHandleResponse(resp *http.Response) (ClustersCl
 }
 
 // NewListPager - Gets the Log Analytics clusters in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// options - ClustersClientListOptions contains the optional parameters for the ClustersClient.List method.
+//   - options - ClustersClientListOptions contains the optional parameters for the ClustersClient.NewListPager method.
 func (client *ClustersClient) NewListPager(options *ClustersClientListOptions) *runtime.Pager[ClustersClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClustersClientListResponse]{
 		More: func(page ClustersClientListResponse) bool {
@@ -297,11 +302,11 @@ func (client *ClustersClient) listHandleResponse(resp *http.Response) (ClustersC
 }
 
 // NewListByResourceGroupPager - Gets Log Analytics clusters in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.NewListByResourceGroupPager
+//     method.
 func (client *ClustersClient) NewListByResourceGroupPager(resourceGroupName string, options *ClustersClientListByResourceGroupOptions) *runtime.Pager[ClustersClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ClustersClientListByResourceGroupResponse]{
 		More: func(page ClustersClientListByResourceGroupResponse) bool {
@@ -363,11 +368,12 @@ func (client *ClustersClient) listByResourceGroupHandleResponse(resp *http.Respo
 
 // BeginUpdate - Updates a Log Analytics cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// clusterName - Name of the Log Analytics Cluster.
-// parameters - The parameters required to patch a Log Analytics cluster.
-// options - ClustersClientBeginUpdateOptions contains the optional parameters for the ClustersClient.BeginUpdate method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - Name of the Log Analytics Cluster.
+//   - parameters - The parameters required to patch a Log Analytics cluster.
+//   - options - ClustersClientBeginUpdateOptions contains the optional parameters for the ClustersClient.BeginUpdate method.
 func (client *ClustersClient) BeginUpdate(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterPatch, options *ClustersClientBeginUpdateOptions) (*runtime.Poller[ClustersClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, clusterName, parameters, options)
@@ -382,6 +388,7 @@ func (client *ClustersClient) BeginUpdate(ctx context.Context, resourceGroupName
 
 // Update - Updates a Log Analytics cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
 func (client *ClustersClient) update(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterPatch, options *ClustersClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, parameters, options)

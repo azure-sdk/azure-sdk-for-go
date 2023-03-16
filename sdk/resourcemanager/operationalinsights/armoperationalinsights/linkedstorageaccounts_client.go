@@ -32,9 +32,9 @@ type LinkedStorageAccountsClient struct {
 }
 
 // NewLinkedStorageAccountsClient creates a new instance of LinkedStorageAccountsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewLinkedStorageAccountsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LinkedStorageAccountsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewLinkedStorageAccountsClient(subscriptionID string, credential azcore.Tok
 // CreateOrUpdate - Create or Update a link relation between current workspace and a group of storage accounts of a specific
 // data source type.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// dataSourceType - Linked storage accounts type.
-// parameters - The parameters required to create or update linked storage accounts.
-// options - LinkedStorageAccountsClientCreateOrUpdateOptions contains the optional parameters for the LinkedStorageAccountsClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - dataSourceType - Linked storage accounts type.
+//   - parameters - The parameters required to create or update linked storage accounts.
+//   - options - LinkedStorageAccountsClientCreateOrUpdateOptions contains the optional parameters for the LinkedStorageAccountsClient.CreateOrUpdate
+//     method.
 func (client *LinkedStorageAccountsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, dataSourceType DataSourceType, parameters LinkedStorageAccountsResource, options *LinkedStorageAccountsClientCreateOrUpdateOptions) (LinkedStorageAccountsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, dataSourceType, parameters, options)
 	if err != nil {
@@ -121,12 +122,13 @@ func (client *LinkedStorageAccountsClient) createOrUpdateHandleResponse(resp *ht
 
 // Delete - Deletes all linked storage accounts of a specific data source type associated with the specified workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// dataSourceType - Linked storage accounts type.
-// options - LinkedStorageAccountsClientDeleteOptions contains the optional parameters for the LinkedStorageAccountsClient.Delete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - dataSourceType - Linked storage accounts type.
+//   - options - LinkedStorageAccountsClientDeleteOptions contains the optional parameters for the LinkedStorageAccountsClient.Delete
+//     method.
 func (client *LinkedStorageAccountsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, dataSourceType DataSourceType, options *LinkedStorageAccountsClientDeleteOptions) (LinkedStorageAccountsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, dataSourceType, options)
 	if err != nil {
@@ -173,12 +175,13 @@ func (client *LinkedStorageAccountsClient) deleteCreateRequest(ctx context.Conte
 
 // Get - Gets all linked storage account of a specific data source type associated with the specified workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// dataSourceType - Linked storage accounts type.
-// options - LinkedStorageAccountsClientGetOptions contains the optional parameters for the LinkedStorageAccountsClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - dataSourceType - Linked storage accounts type.
+//   - options - LinkedStorageAccountsClientGetOptions contains the optional parameters for the LinkedStorageAccountsClient.Get
+//     method.
 func (client *LinkedStorageAccountsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, dataSourceType DataSourceType, options *LinkedStorageAccountsClientGetOptions) (LinkedStorageAccountsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, dataSourceType, options)
 	if err != nil {
@@ -235,12 +238,12 @@ func (client *LinkedStorageAccountsClient) getHandleResponse(resp *http.Response
 
 // NewListByWorkspacePager - Gets all linked storage accounts associated with the specified workspace, storage accounts will
 // be sorted by their data source type.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// options - LinkedStorageAccountsClientListByWorkspaceOptions contains the optional parameters for the LinkedStorageAccountsClient.ListByWorkspace
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - LinkedStorageAccountsClientListByWorkspaceOptions contains the optional parameters for the LinkedStorageAccountsClient.NewListByWorkspacePager
+//     method.
 func (client *LinkedStorageAccountsClient) NewListByWorkspacePager(resourceGroupName string, workspaceName string, options *LinkedStorageAccountsClientListByWorkspaceOptions) *runtime.Pager[LinkedStorageAccountsClientListByWorkspaceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[LinkedStorageAccountsClientListByWorkspaceResponse]{
 		More: func(page LinkedStorageAccountsClientListByWorkspaceResponse) bool {

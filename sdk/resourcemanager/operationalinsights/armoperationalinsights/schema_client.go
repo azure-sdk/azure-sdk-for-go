@@ -32,9 +32,9 @@ type SchemaClient struct {
 }
 
 // NewSchemaClient creates a new instance of SchemaClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSchemaClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SchemaClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,10 +57,11 @@ func NewSchemaClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // Get - Gets the schema for a given workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// options - SchemaClientGetOptions contains the optional parameters for the SchemaClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - SchemaClientGetOptions contains the optional parameters for the SchemaClient.Get method.
 func (client *SchemaClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, options *SchemaClientGetOptions) (SchemaClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, options)
 	if err != nil {

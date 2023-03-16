@@ -32,9 +32,9 @@ type TablesClient struct {
 }
 
 // NewTablesClient creates a new instance of TablesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTablesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TablesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -55,15 +55,69 @@ func NewTablesClient(subscriptionID string, credential azcore.TokenCredential, o
 	return client, nil
 }
 
+// CancelSearch - Cancel a log analytics workspace search results table query run.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - tableName - The name of the table.
+//   - options - TablesClientCancelSearchOptions contains the optional parameters for the TablesClient.CancelSearch method.
+func (client *TablesClient) CancelSearch(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientCancelSearchOptions) (TablesClientCancelSearchResponse, error) {
+	req, err := client.cancelSearchCreateRequest(ctx, resourceGroupName, workspaceName, tableName, options)
+	if err != nil {
+		return TablesClientCancelSearchResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return TablesClientCancelSearchResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return TablesClientCancelSearchResponse{}, runtime.NewResponseError(resp)
+	}
+	return TablesClientCancelSearchResponse{}, nil
+}
+
+// cancelSearchCreateRequest creates the CancelSearch request.
+func (client *TablesClient) cancelSearchCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientCancelSearchOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}/cancelSearch"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if tableName == "" {
+		return nil, errors.New("parameter tableName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{tableName}", url.PathEscape(tableName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-10-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
 // BeginCreateOrUpdate - Update or Create a Log Analytics workspace table.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// tableName - The name of the table.
-// parameters - The parameters required to update table properties.
-// options - TablesClientBeginCreateOrUpdateOptions contains the optional parameters for the TablesClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2022-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - tableName - The name of the table.
+//   - parameters - The parameters required to update table properties.
+//   - options - TablesClientBeginCreateOrUpdateOptions contains the optional parameters for the TablesClient.BeginCreateOrUpdate
+//     method.
 func (client *TablesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, parameters Table, options *TablesClientBeginCreateOrUpdateOptions) (*runtime.Poller[TablesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, workspaceName, tableName, parameters, options)
@@ -80,7 +134,8 @@ func (client *TablesClient) BeginCreateOrUpdate(ctx context.Context, resourceGro
 
 // CreateOrUpdate - Update or Create a Log Analytics workspace table.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
+//
+// Generated from API version 2022-10-01
 func (client *TablesClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, parameters Table, options *TablesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, tableName, parameters, options)
 	if err != nil {
@@ -98,7 +153,7 @@ func (client *TablesClient) createOrUpdate(ctx context.Context, resourceGroupNam
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *TablesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, parameters Table, options *TablesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -120,7 +175,7 @@ func (client *TablesClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-12-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -128,11 +183,12 @@ func (client *TablesClient) createOrUpdateCreateRequest(ctx context.Context, res
 
 // BeginDelete - Delete a Log Analytics workspace table.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// tableName - The name of the table.
-// options - TablesClientBeginDeleteOptions contains the optional parameters for the TablesClient.BeginDelete method.
+//
+// Generated from API version 2022-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - tableName - The name of the table.
+//   - options - TablesClientBeginDeleteOptions contains the optional parameters for the TablesClient.BeginDelete method.
 func (client *TablesClient) BeginDelete(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientBeginDeleteOptions) (*runtime.Poller[TablesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, workspaceName, tableName, options)
@@ -149,7 +205,8 @@ func (client *TablesClient) BeginDelete(ctx context.Context, resourceGroupName s
 
 // Delete - Delete a Log Analytics workspace table.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
+//
+// Generated from API version 2022-10-01
 func (client *TablesClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, tableName, options)
 	if err != nil {
@@ -167,7 +224,7 @@ func (client *TablesClient) deleteOperation(ctx context.Context, resourceGroupNa
 
 // deleteCreateRequest creates the Delete request.
 func (client *TablesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -189,7 +246,7 @@ func (client *TablesClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-12-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -197,11 +254,12 @@ func (client *TablesClient) deleteCreateRequest(ctx context.Context, resourceGro
 
 // Get - Gets a Log Analytics workspace table.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// tableName - The name of the table.
-// options - TablesClientGetOptions contains the optional parameters for the TablesClient.Get method.
+//
+// Generated from API version 2022-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - tableName - The name of the table.
+//   - options - TablesClientGetOptions contains the optional parameters for the TablesClient.Get method.
 func (client *TablesClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientGetOptions) (TablesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, tableName, options)
 	if err != nil {
@@ -219,7 +277,7 @@ func (client *TablesClient) Get(ctx context.Context, resourceGroupName string, w
 
 // getCreateRequest creates the Get request.
 func (client *TablesClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -241,7 +299,7 @@ func (client *TablesClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-12-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -257,11 +315,12 @@ func (client *TablesClient) getHandleResponse(resp *http.Response) (TablesClient
 }
 
 // NewListByWorkspacePager - Gets all the tables for the specified Log Analytics workspace.
-// If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// options - TablesClientListByWorkspaceOptions contains the optional parameters for the TablesClient.ListByWorkspace method.
+//
+// Generated from API version 2022-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - options - TablesClientListByWorkspaceOptions contains the optional parameters for the TablesClient.NewListByWorkspacePager
+//     method.
 func (client *TablesClient) NewListByWorkspacePager(resourceGroupName string, workspaceName string, options *TablesClientListByWorkspaceOptions) *runtime.Pager[TablesClientListByWorkspaceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TablesClientListByWorkspaceResponse]{
 		More: func(page TablesClientListByWorkspaceResponse) bool {
@@ -286,7 +345,7 @@ func (client *TablesClient) NewListByWorkspacePager(resourceGroupName string, wo
 
 // listByWorkspaceCreateRequest creates the ListByWorkspace request.
 func (client *TablesClient) listByWorkspaceCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, options *TablesClientListByWorkspaceOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -304,7 +363,7 @@ func (client *TablesClient) listByWorkspaceCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-12-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -322,11 +381,12 @@ func (client *TablesClient) listByWorkspaceHandleResponse(resp *http.Response) (
 // Migrate - Migrate a Log Analytics table from support of the Data Collector API and Custom Fields features to support of
 // Data Collection Rule-based Custom Logs.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// tableName - The name of the table.
-// options - TablesClientMigrateOptions contains the optional parameters for the TablesClient.Migrate method.
+//
+// Generated from API version 2022-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - tableName - The name of the table.
+//   - options - TablesClientMigrateOptions contains the optional parameters for the TablesClient.Migrate method.
 func (client *TablesClient) Migrate(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientMigrateOptions) (TablesClientMigrateResponse, error) {
 	req, err := client.migrateCreateRequest(ctx, resourceGroupName, workspaceName, tableName, options)
 	if err != nil {
@@ -344,7 +404,7 @@ func (client *TablesClient) Migrate(ctx context.Context, resourceGroupName strin
 
 // migrateCreateRequest creates the Migrate request.
 func (client *TablesClient) migrateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, options *TablesClientMigrateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}/migrate"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}/migrate"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -366,7 +426,7 @@ func (client *TablesClient) migrateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-12-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -374,12 +434,13 @@ func (client *TablesClient) migrateCreateRequest(ctx context.Context, resourceGr
 
 // BeginUpdate - Update a Log Analytics workspace table.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// tableName - The name of the table.
-// parameters - The parameters required to update table properties.
-// options - TablesClientBeginUpdateOptions contains the optional parameters for the TablesClient.BeginUpdate method.
+//
+// Generated from API version 2022-10-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - tableName - The name of the table.
+//   - parameters - The parameters required to update table properties.
+//   - options - TablesClientBeginUpdateOptions contains the optional parameters for the TablesClient.BeginUpdate method.
 func (client *TablesClient) BeginUpdate(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, parameters Table, options *TablesClientBeginUpdateOptions) (*runtime.Poller[TablesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, workspaceName, tableName, parameters, options)
@@ -396,7 +457,8 @@ func (client *TablesClient) BeginUpdate(ctx context.Context, resourceGroupName s
 
 // Update - Update a Log Analytics workspace table.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2021-12-01-preview
+//
+// Generated from API version 2022-10-01
 func (client *TablesClient) update(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, parameters Table, options *TablesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, workspaceName, tableName, parameters, options)
 	if err != nil {
@@ -414,7 +476,7 @@ func (client *TablesClient) update(ctx context.Context, resourceGroupName string
 
 // updateCreateRequest creates the Update request.
 func (client *TablesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, tableName string, parameters Table, options *TablesClientBeginUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}"
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/tables/{tableName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -436,7 +498,7 @@ func (client *TablesClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-12-01-preview")
+	reqQP.Set("api-version", "2022-10-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

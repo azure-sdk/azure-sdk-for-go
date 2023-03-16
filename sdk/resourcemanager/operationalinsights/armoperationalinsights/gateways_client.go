@@ -32,9 +32,9 @@ type GatewaysClient struct {
 }
 
 // NewGatewaysClient creates a new instance of GatewaysClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGatewaysClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GatewaysClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewGatewaysClient(subscriptionID string, credential azcore.TokenCredential,
 
 // Delete - Delete a Log Analytics gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-08-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - The name of the workspace.
-// gatewayID - The Log Analytics gateway Id.
-// options - GatewaysClientDeleteOptions contains the optional parameters for the GatewaysClient.Delete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - The name of the workspace.
+//   - gatewayID - The Log Analytics gateway Id.
+//   - options - GatewaysClientDeleteOptions contains the optional parameters for the GatewaysClient.Delete method.
 func (client *GatewaysClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, gatewayID string, options *GatewaysClientDeleteOptions) (GatewaysClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, gatewayID, options)
 	if err != nil {
