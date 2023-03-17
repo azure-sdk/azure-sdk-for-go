@@ -32,10 +32,10 @@ type CommunityGalleryImagesClient struct {
 }
 
 // NewCommunityGalleryImagesClient creates a new instance of CommunityGalleryImagesClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCommunityGalleryImagesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CommunityGalleryImagesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewCommunityGalleryImagesClient(subscriptionID string, credential azcore.To
 
 // Get - Get a community gallery image.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
-// location - Resource location.
-// publicGalleryName - The public name of the community gallery.
-// galleryImageName - The name of the community gallery image definition.
-// options - CommunityGalleryImagesClientGetOptions contains the optional parameters for the CommunityGalleryImagesClient.Get
-// method.
+//
+// Generated from API version 2022-08-03
+//   - location - Resource location.
+//   - publicGalleryName - The public name of the community gallery.
+//   - galleryImageName - The name of the community gallery image definition.
+//   - options - CommunityGalleryImagesClientGetOptions contains the optional parameters for the CommunityGalleryImagesClient.Get
+//     method.
 func (client *CommunityGalleryImagesClient) Get(ctx context.Context, location string, publicGalleryName string, galleryImageName string, options *CommunityGalleryImagesClientGetOptions) (CommunityGalleryImagesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, location, publicGalleryName, galleryImageName, options)
 	if err != nil {
@@ -103,7 +104,7 @@ func (client *CommunityGalleryImagesClient) getCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-03")
+	reqQP.Set("api-version", "2022-08-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -119,11 +120,12 @@ func (client *CommunityGalleryImagesClient) getHandleResponse(resp *http.Respons
 }
 
 // NewListPager - List community gallery images inside a gallery.
-// Generated from API version 2022-03-03
-// location - Resource location.
-// publicGalleryName - The public name of the community gallery.
-// options - CommunityGalleryImagesClientListOptions contains the optional parameters for the CommunityGalleryImagesClient.List
-// method.
+//
+// Generated from API version 2022-08-03
+//   - location - Resource location.
+//   - publicGalleryName - The public name of the community gallery.
+//   - options - CommunityGalleryImagesClientListOptions contains the optional parameters for the CommunityGalleryImagesClient.NewListPager
+//     method.
 func (client *CommunityGalleryImagesClient) NewListPager(location string, publicGalleryName string, options *CommunityGalleryImagesClientListOptions) *runtime.Pager[CommunityGalleryImagesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CommunityGalleryImagesClientListResponse]{
 		More: func(page CommunityGalleryImagesClientListResponse) bool {
@@ -172,7 +174,7 @@ func (client *CommunityGalleryImagesClient) listCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-03")
+	reqQP.Set("api-version", "2022-08-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
