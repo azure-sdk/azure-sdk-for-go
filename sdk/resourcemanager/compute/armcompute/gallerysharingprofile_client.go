@@ -32,10 +32,10 @@ type GallerySharingProfileClient struct {
 }
 
 // NewGallerySharingProfileClient creates a new instance of GallerySharingProfileClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGallerySharingProfileClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GallerySharingProfileClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,12 +58,13 @@ func NewGallerySharingProfileClient(subscriptionID string, credential azcore.Tok
 
 // BeginUpdate - Update sharing profile of a gallery.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
-// resourceGroupName - The name of the resource group.
-// galleryName - The name of the Shared Image Gallery.
-// sharingUpdate - Parameters supplied to the update gallery sharing profile.
-// options - GallerySharingProfileClientBeginUpdateOptions contains the optional parameters for the GallerySharingProfileClient.BeginUpdate
-// method.
+//
+// Generated from API version 2022-08-03
+//   - resourceGroupName - The name of the resource group.
+//   - galleryName - The name of the Shared Image Gallery.
+//   - sharingUpdate - Parameters supplied to the update gallery sharing profile.
+//   - options - GallerySharingProfileClientBeginUpdateOptions contains the optional parameters for the GallerySharingProfileClient.BeginUpdate
+//     method.
 func (client *GallerySharingProfileClient) BeginUpdate(ctx context.Context, resourceGroupName string, galleryName string, sharingUpdate SharingUpdate, options *GallerySharingProfileClientBeginUpdateOptions) (*runtime.Poller[GallerySharingProfileClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, galleryName, sharingUpdate, options)
@@ -78,7 +79,8 @@ func (client *GallerySharingProfileClient) BeginUpdate(ctx context.Context, reso
 
 // Update - Update sharing profile of a gallery.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
+//
+// Generated from API version 2022-08-03
 func (client *GallerySharingProfileClient) update(ctx context.Context, resourceGroupName string, galleryName string, sharingUpdate SharingUpdate, options *GallerySharingProfileClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, galleryName, sharingUpdate, options)
 	if err != nil {
@@ -114,7 +116,7 @@ func (client *GallerySharingProfileClient) updateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-03")
+	reqQP.Set("api-version", "2022-08-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, sharingUpdate)

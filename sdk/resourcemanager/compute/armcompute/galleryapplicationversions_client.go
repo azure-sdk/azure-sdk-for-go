@@ -32,10 +32,10 @@ type GalleryApplicationVersionsClient struct {
 }
 
 // NewGalleryApplicationVersionsClient creates a new instance of GalleryApplicationVersionsClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewGalleryApplicationVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GalleryApplicationVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,16 +58,17 @@ func NewGalleryApplicationVersionsClient(subscriptionID string, credential azcor
 
 // BeginCreateOrUpdate - Create or update a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
-// resourceGroupName - The name of the resource group.
-// galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
-// galleryApplicationName - The name of the gallery Application Definition in which the Application Version is to be created.
-// galleryApplicationVersionName - The name of the gallery Application Version to be created. Needs to follow semantic version
-// name pattern: The allowed characters are digit and period. Digits must be within the range of a 32-bit
-// integer. Format: ..
-// galleryApplicationVersion - Parameters supplied to the create or update gallery Application Version operation.
-// options - GalleryApplicationVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2022-08-03
+//   - resourceGroupName - The name of the resource group.
+//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
+//   - galleryApplicationName - The name of the gallery Application Definition in which the Application Version is to be created.
+//   - galleryApplicationVersionName - The name of the gallery Application Version to be created. Needs to follow semantic version
+//     name pattern: The allowed characters are digit and period. Digits must be within the range of a 32-bit
+//     integer. Format: ..
+//   - galleryApplicationVersion - Parameters supplied to the create or update gallery Application Version operation.
+//   - options - GalleryApplicationVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginCreateOrUpdate
+//     method.
 func (client *GalleryApplicationVersionsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersion, options *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[GalleryApplicationVersionsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
@@ -82,7 +83,8 @@ func (client *GalleryApplicationVersionsClient) BeginCreateOrUpdate(ctx context.
 
 // CreateOrUpdate - Create or update a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
+//
+// Generated from API version 2022-08-03
 func (client *GalleryApplicationVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersion, options *GalleryApplicationVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
 	if err != nil {
@@ -126,7 +128,7 @@ func (client *GalleryApplicationVersionsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-03")
+	reqQP.Set("api-version", "2022-08-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, galleryApplicationVersion)
@@ -134,13 +136,14 @@ func (client *GalleryApplicationVersionsClient) createOrUpdateCreateRequest(ctx 
 
 // BeginDelete - Delete a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
-// resourceGroupName - The name of the resource group.
-// galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
-// galleryApplicationName - The name of the gallery Application Definition in which the Application Version resides.
-// galleryApplicationVersionName - The name of the gallery Application Version to be deleted.
-// options - GalleryApplicationVersionsClientBeginDeleteOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginDelete
-// method.
+//
+// Generated from API version 2022-08-03
+//   - resourceGroupName - The name of the resource group.
+//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
+//   - galleryApplicationName - The name of the gallery Application Definition in which the Application Version resides.
+//   - galleryApplicationVersionName - The name of the gallery Application Version to be deleted.
+//   - options - GalleryApplicationVersionsClientBeginDeleteOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginDelete
+//     method.
 func (client *GalleryApplicationVersionsClient) BeginDelete(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientBeginDeleteOptions) (*runtime.Poller[GalleryApplicationVersionsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, options)
@@ -155,7 +158,8 @@ func (client *GalleryApplicationVersionsClient) BeginDelete(ctx context.Context,
 
 // Delete - Delete a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
+//
+// Generated from API version 2022-08-03
 func (client *GalleryApplicationVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, options)
 	if err != nil {
@@ -199,7 +203,7 @@ func (client *GalleryApplicationVersionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-03")
+	reqQP.Set("api-version", "2022-08-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -207,13 +211,14 @@ func (client *GalleryApplicationVersionsClient) deleteCreateRequest(ctx context.
 
 // Get - Retrieves information about a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
-// resourceGroupName - The name of the resource group.
-// galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
-// galleryApplicationName - The name of the gallery Application Definition in which the Application Version resides.
-// galleryApplicationVersionName - The name of the gallery Application Version to be retrieved.
-// options - GalleryApplicationVersionsClientGetOptions contains the optional parameters for the GalleryApplicationVersionsClient.Get
-// method.
+//
+// Generated from API version 2022-08-03
+//   - resourceGroupName - The name of the resource group.
+//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
+//   - galleryApplicationName - The name of the gallery Application Definition in which the Application Version resides.
+//   - galleryApplicationVersionName - The name of the gallery Application Version to be retrieved.
+//   - options - GalleryApplicationVersionsClientGetOptions contains the optional parameters for the GalleryApplicationVersionsClient.Get
+//     method.
 func (client *GalleryApplicationVersionsClient) Get(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, options *GalleryApplicationVersionsClientGetOptions) (GalleryApplicationVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, options)
 	if err != nil {
@@ -260,7 +265,7 @@ func (client *GalleryApplicationVersionsClient) getCreateRequest(ctx context.Con
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2022-03-03")
+	reqQP.Set("api-version", "2022-08-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -276,13 +281,14 @@ func (client *GalleryApplicationVersionsClient) getHandleResponse(resp *http.Res
 }
 
 // NewListByGalleryApplicationPager - List gallery Application Versions in a gallery Application Definition.
-// Generated from API version 2022-03-03
-// resourceGroupName - The name of the resource group.
-// galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
-// galleryApplicationName - The name of the Shared Application Gallery Application Definition from which the Application Versions
-// are to be listed.
-// options - GalleryApplicationVersionsClientListByGalleryApplicationOptions contains the optional parameters for the GalleryApplicationVersionsClient.ListByGalleryApplication
-// method.
+//
+// Generated from API version 2022-08-03
+//   - resourceGroupName - The name of the resource group.
+//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
+//   - galleryApplicationName - The name of the Shared Application Gallery Application Definition from which the Application Versions
+//     are to be listed.
+//   - options - GalleryApplicationVersionsClientListByGalleryApplicationOptions contains the optional parameters for the GalleryApplicationVersionsClient.NewListByGalleryApplicationPager
+//     method.
 func (client *GalleryApplicationVersionsClient) NewListByGalleryApplicationPager(resourceGroupName string, galleryName string, galleryApplicationName string, options *GalleryApplicationVersionsClientListByGalleryApplicationOptions) *runtime.Pager[GalleryApplicationVersionsClientListByGalleryApplicationResponse] {
 	return runtime.NewPager(runtime.PagingHandler[GalleryApplicationVersionsClientListByGalleryApplicationResponse]{
 		More: func(page GalleryApplicationVersionsClientListByGalleryApplicationResponse) bool {
@@ -335,7 +341,7 @@ func (client *GalleryApplicationVersionsClient) listByGalleryApplicationCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-03")
+	reqQP.Set("api-version", "2022-08-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -352,16 +358,17 @@ func (client *GalleryApplicationVersionsClient) listByGalleryApplicationHandleRe
 
 // BeginUpdate - Update a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
-// resourceGroupName - The name of the resource group.
-// galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
-// galleryApplicationName - The name of the gallery Application Definition in which the Application Version is to be updated.
-// galleryApplicationVersionName - The name of the gallery Application Version to be updated. Needs to follow semantic version
-// name pattern: The allowed characters are digit and period. Digits must be within the range of a 32-bit
-// integer. Format: ..
-// galleryApplicationVersion - Parameters supplied to the update gallery Application Version operation.
-// options - GalleryApplicationVersionsClientBeginUpdateOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginUpdate
-// method.
+//
+// Generated from API version 2022-08-03
+//   - resourceGroupName - The name of the resource group.
+//   - galleryName - The name of the Shared Application Gallery in which the Application Definition resides.
+//   - galleryApplicationName - The name of the gallery Application Definition in which the Application Version is to be updated.
+//   - galleryApplicationVersionName - The name of the gallery Application Version to be updated. Needs to follow semantic version
+//     name pattern: The allowed characters are digit and period. Digits must be within the range of a 32-bit
+//     integer. Format: ..
+//   - galleryApplicationVersion - Parameters supplied to the update gallery Application Version operation.
+//   - options - GalleryApplicationVersionsClientBeginUpdateOptions contains the optional parameters for the GalleryApplicationVersionsClient.BeginUpdate
+//     method.
 func (client *GalleryApplicationVersionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersionUpdate, options *GalleryApplicationVersionsClientBeginUpdateOptions) (*runtime.Poller[GalleryApplicationVersionsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
@@ -376,7 +383,8 @@ func (client *GalleryApplicationVersionsClient) BeginUpdate(ctx context.Context,
 
 // Update - Update a gallery Application Version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-03-03
+//
+// Generated from API version 2022-08-03
 func (client *GalleryApplicationVersionsClient) update(ctx context.Context, resourceGroupName string, galleryName string, galleryApplicationName string, galleryApplicationVersionName string, galleryApplicationVersion GalleryApplicationVersionUpdate, options *GalleryApplicationVersionsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, galleryName, galleryApplicationName, galleryApplicationVersionName, galleryApplicationVersion, options)
 	if err != nil {
@@ -420,7 +428,7 @@ func (client *GalleryApplicationVersionsClient) updateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-03")
+	reqQP.Set("api-version", "2022-08-03")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, galleryApplicationVersion)
