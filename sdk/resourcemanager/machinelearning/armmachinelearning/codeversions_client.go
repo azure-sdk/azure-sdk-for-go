@@ -33,9 +33,9 @@ type CodeVersionsClient struct {
 }
 
 // NewCodeVersionsClient creates a new instance of CodeVersionsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCodeVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CodeVersionsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -56,16 +56,86 @@ func NewCodeVersionsClient(subscriptionID string, credential azcore.TokenCredent
 	return client, nil
 }
 
+// CreateOrGetPendingUpload - Generate a storage location and credential for the client to upload a code asset to.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - body - Pending upload request object
+//   - options - CodeVersionsClientCreateOrGetPendingUploadOptions contains the optional parameters for the CodeVersionsClient.CreateOrGetPendingUpload
+//     method.
+func (client *CodeVersionsClient) CreateOrGetPendingUpload(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body PendingUploadRequestDto, options *CodeVersionsClientCreateOrGetPendingUploadOptions) (CodeVersionsClientCreateOrGetPendingUploadResponse, error) {
+	req, err := client.createOrGetPendingUploadCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
+	if err != nil {
+		return CodeVersionsClientCreateOrGetPendingUploadResponse{}, err
+	}
+	resp, err := client.pl.Do(req)
+	if err != nil {
+		return CodeVersionsClientCreateOrGetPendingUploadResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return CodeVersionsClientCreateOrGetPendingUploadResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.createOrGetPendingUploadHandleResponse(resp)
+}
+
+// createOrGetPendingUploadCreateRequest creates the CreateOrGetPendingUpload request.
+func (client *CodeVersionsClient) createOrGetPendingUploadCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body PendingUploadRequestDto, options *CodeVersionsClientCreateOrGetPendingUploadOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/codes/{name}/versions/pendingUpload/{version}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if name == "" {
+		return nil, errors.New("parameter name cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{name}", url.PathEscape(name))
+	if version == "" {
+		return nil, errors.New("parameter version cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{version}", url.PathEscape(version))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, body)
+}
+
+// createOrGetPendingUploadHandleResponse handles the CreateOrGetPendingUpload response.
+func (client *CodeVersionsClient) createOrGetPendingUploadHandleResponse(resp *http.Response) (CodeVersionsClientCreateOrGetPendingUploadResponse, error) {
+	result := CodeVersionsClientCreateOrGetPendingUploadResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.PendingUploadResponseDto); err != nil {
+		return CodeVersionsClientCreateOrGetPendingUploadResponse{}, err
+	}
+	return result, nil
+}
+
 // CreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// version - Version identifier. This is case-sensitive.
-// body - Version entity to create or update.
-// options - CodeVersionsClientCreateOrUpdateOptions contains the optional parameters for the CodeVersionsClient.CreateOrUpdate
-// method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - body - Version entity to create or update.
+//   - options - CodeVersionsClientCreateOrUpdateOptions contains the optional parameters for the CodeVersionsClient.CreateOrUpdate
+//     method.
 func (client *CodeVersionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body CodeVersion, options *CodeVersionsClientCreateOrUpdateOptions) (CodeVersionsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
 	if err != nil {
@@ -109,7 +179,7 @@ func (client *CodeVersionsClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -126,12 +196,13 @@ func (client *CodeVersionsClient) createOrUpdateHandleResponse(resp *http.Respon
 
 // Delete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// version - Version identifier. This is case-sensitive.
-// options - CodeVersionsClientDeleteOptions contains the optional parameters for the CodeVersionsClient.Delete method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - options - CodeVersionsClientDeleteOptions contains the optional parameters for the CodeVersionsClient.Delete method.
 func (client *CodeVersionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *CodeVersionsClientDeleteOptions) (CodeVersionsClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
@@ -175,7 +246,7 @@ func (client *CodeVersionsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,12 +254,13 @@ func (client *CodeVersionsClient) deleteCreateRequest(ctx context.Context, resou
 
 // Get - Get version.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// version - Version identifier. This is case-sensitive.
-// options - CodeVersionsClientGetOptions contains the optional parameters for the CodeVersionsClient.Get method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - options - CodeVersionsClientGetOptions contains the optional parameters for the CodeVersionsClient.Get method.
 func (client *CodeVersionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *CodeVersionsClientGetOptions) (CodeVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
@@ -232,7 +304,7 @@ func (client *CodeVersionsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -248,11 +320,12 @@ func (client *CodeVersionsClient) getHandleResponse(resp *http.Response) (CodeVe
 }
 
 // NewListPager - List versions.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// name - Container name. This is case-sensitive.
-// options - CodeVersionsClientListOptions contains the optional parameters for the CodeVersionsClient.List method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - options - CodeVersionsClientListOptions contains the optional parameters for the CodeVersionsClient.NewListPager method.
 func (client *CodeVersionsClient) NewListPager(resourceGroupName string, workspaceName string, name string, options *CodeVersionsClientListOptions) *runtime.Pager[CodeVersionsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CodeVersionsClientListResponse]{
 		More: func(page CodeVersionsClientListResponse) bool {
@@ -305,7 +378,7 @@ func (client *CodeVersionsClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.OrderBy != nil {
 		reqQP.Set("$orderBy", *options.OrderBy)
 	}
@@ -314,6 +387,12 @@ func (client *CodeVersionsClient) listCreateRequest(ctx context.Context, resourc
 	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
+	}
+	if options != nil && options.Hash != nil {
+		reqQP.Set("hash", *options.Hash)
+	}
+	if options != nil && options.HashVersion != nil {
+		reqQP.Set("hashVersion", *options.HashVersion)
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}

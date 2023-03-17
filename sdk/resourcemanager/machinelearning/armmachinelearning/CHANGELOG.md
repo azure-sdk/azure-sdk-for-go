@@ -1,5 +1,108 @@
 # Release History
 
+## 4.0.0 (2023-03-17)
+### Breaking Changes
+
+- Type of `ComputeStartStopSchedule.Cron` has been changed from `*CronTrigger` to `*Cron`
+- Type of `ComputeStartStopSchedule.Recurrence` has been changed from `*RecurrenceTrigger` to `*Recurrence`
+
+### Features Added
+
+- New type alias `AssetProvisioningState` with values `AssetProvisioningStateCanceled`, `AssetProvisioningStateCreating`, `AssetProvisioningStateDeleting`, `AssetProvisioningStateFailed`, `AssetProvisioningStateSucceeded`, `AssetProvisioningStateUpdating`
+- New type alias `NodesValueType` with values `NodesValueTypeAll`
+- New type alias `PendingUploadCredentialType` with values `PendingUploadCredentialTypeSAS`
+- New type alias `PendingUploadType` with values `PendingUploadTypeNone`, `PendingUploadTypeTemporaryBlobReference`
+- New function `*AllNodes.GetNodes() *Nodes`
+- New function `*CodeVersionsClient.CreateOrGetPendingUpload(context.Context, string, string, string, string, PendingUploadRequestDto, *CodeVersionsClientCreateOrGetPendingUploadOptions) (CodeVersionsClientCreateOrGetPendingUploadResponse, error)`
+- New function `*PendingUploadCredentialDto.GetPendingUploadCredentialDto() *PendingUploadCredentialDto`
+- New function `NewRegistryCodeContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryCodeContainersClient, error)`
+- New function `*RegistryCodeContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, CodeContainer, *RegistryCodeContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryCodeContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryCodeContainersClient.BeginDelete(context.Context, string, string, string, *RegistryCodeContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryCodeContainersClientDeleteResponse], error)`
+- New function `*RegistryCodeContainersClient.Get(context.Context, string, string, string, *RegistryCodeContainersClientGetOptions) (RegistryCodeContainersClientGetResponse, error)`
+- New function `*RegistryCodeContainersClient.NewListPager(string, string, *RegistryCodeContainersClientListOptions) *runtime.Pager[RegistryCodeContainersClientListResponse]`
+- New function `NewRegistryCodeVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryCodeVersionsClient, error)`
+- New function `*RegistryCodeVersionsClient.CreateOrGetPendingUpload(context.Context, string, string, string, string, PendingUploadRequestDto, *RegistryCodeVersionsClientCreateOrGetPendingUploadOptions) (RegistryCodeVersionsClientCreateOrGetPendingUploadResponse, error)`
+- New function `*RegistryCodeVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, CodeVersion, *RegistryCodeVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryCodeVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryCodeVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryCodeVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryCodeVersionsClientDeleteResponse], error)`
+- New function `*RegistryCodeVersionsClient.Get(context.Context, string, string, string, string, *RegistryCodeVersionsClientGetOptions) (RegistryCodeVersionsClientGetResponse, error)`
+- New function `*RegistryCodeVersionsClient.NewListPager(string, string, string, *RegistryCodeVersionsClientListOptions) *runtime.Pager[RegistryCodeVersionsClientListResponse]`
+- New function `NewRegistryComponentContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryComponentContainersClient, error)`
+- New function `*RegistryComponentContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, ComponentContainer, *RegistryComponentContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryComponentContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryComponentContainersClient.BeginDelete(context.Context, string, string, string, *RegistryComponentContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryComponentContainersClientDeleteResponse], error)`
+- New function `*RegistryComponentContainersClient.Get(context.Context, string, string, string, *RegistryComponentContainersClientGetOptions) (RegistryComponentContainersClientGetResponse, error)`
+- New function `*RegistryComponentContainersClient.NewListPager(string, string, *RegistryComponentContainersClientListOptions) *runtime.Pager[RegistryComponentContainersClientListResponse]`
+- New function `NewRegistryComponentVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryComponentVersionsClient, error)`
+- New function `*RegistryComponentVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, ComponentVersion, *RegistryComponentVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryComponentVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryComponentVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryComponentVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryComponentVersionsClientDeleteResponse], error)`
+- New function `*RegistryComponentVersionsClient.Get(context.Context, string, string, string, string, *RegistryComponentVersionsClientGetOptions) (RegistryComponentVersionsClientGetResponse, error)`
+- New function `*RegistryComponentVersionsClient.NewListPager(string, string, string, *RegistryComponentVersionsClientListOptions) *runtime.Pager[RegistryComponentVersionsClientListResponse]`
+- New function `NewRegistryDataContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryDataContainersClient, error)`
+- New function `*RegistryDataContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, DataContainer, *RegistryDataContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryDataContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryDataContainersClient.BeginDelete(context.Context, string, string, string, *RegistryDataContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryDataContainersClientDeleteResponse], error)`
+- New function `*RegistryDataContainersClient.Get(context.Context, string, string, string, *RegistryDataContainersClientGetOptions) (RegistryDataContainersClientGetResponse, error)`
+- New function `*RegistryDataContainersClient.NewListPager(string, string, *RegistryDataContainersClientListOptions) *runtime.Pager[RegistryDataContainersClientListResponse]`
+- New function `NewRegistryDataVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryDataVersionsClient, error)`
+- New function `*RegistryDataVersionsClient.CreateOrGetPendingUpload(context.Context, string, string, string, string, PendingUploadRequestDto, *RegistryDataVersionsClientCreateOrGetPendingUploadOptions) (RegistryDataVersionsClientCreateOrGetPendingUploadResponse, error)`
+- New function `*RegistryDataVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, DataVersionBase, *RegistryDataVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryDataVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryDataVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryDataVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryDataVersionsClientDeleteResponse], error)`
+- New function `*RegistryDataVersionsClient.Get(context.Context, string, string, string, string, *RegistryDataVersionsClientGetOptions) (RegistryDataVersionsClientGetResponse, error)`
+- New function `*RegistryDataVersionsClient.NewListPager(string, string, string, *RegistryDataVersionsClientListOptions) *runtime.Pager[RegistryDataVersionsClientListResponse]`
+- New function `NewRegistryEnvironmentContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEnvironmentContainersClient, error)`
+- New function `*RegistryEnvironmentContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, EnvironmentContainer, *RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEnvironmentContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryEnvironmentContainersClient.BeginDelete(context.Context, string, string, string, *RegistryEnvironmentContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryEnvironmentContainersClientDeleteResponse], error)`
+- New function `*RegistryEnvironmentContainersClient.Get(context.Context, string, string, string, *RegistryEnvironmentContainersClientGetOptions) (RegistryEnvironmentContainersClientGetResponse, error)`
+- New function `*RegistryEnvironmentContainersClient.NewListPager(string, string, *RegistryEnvironmentContainersClientListOptions) *runtime.Pager[RegistryEnvironmentContainersClientListResponse]`
+- New function `NewRegistryEnvironmentVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEnvironmentVersionsClient, error)`
+- New function `*RegistryEnvironmentVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, EnvironmentVersion, *RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEnvironmentVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryEnvironmentVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryEnvironmentVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryEnvironmentVersionsClientDeleteResponse], error)`
+- New function `*RegistryEnvironmentVersionsClient.Get(context.Context, string, string, string, string, *RegistryEnvironmentVersionsClientGetOptions) (RegistryEnvironmentVersionsClientGetResponse, error)`
+- New function `*RegistryEnvironmentVersionsClient.NewListPager(string, string, string, *RegistryEnvironmentVersionsClientListOptions) *runtime.Pager[RegistryEnvironmentVersionsClientListResponse]`
+- New function `NewRegistryModelContainersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryModelContainersClient, error)`
+- New function `*RegistryModelContainersClient.BeginCreateOrUpdate(context.Context, string, string, string, ModelContainer, *RegistryModelContainersClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryModelContainersClientCreateOrUpdateResponse], error)`
+- New function `*RegistryModelContainersClient.BeginDelete(context.Context, string, string, string, *RegistryModelContainersClientBeginDeleteOptions) (*runtime.Poller[RegistryModelContainersClientDeleteResponse], error)`
+- New function `*RegistryModelContainersClient.Get(context.Context, string, string, string, *RegistryModelContainersClientGetOptions) (RegistryModelContainersClientGetResponse, error)`
+- New function `*RegistryModelContainersClient.NewListPager(string, string, *RegistryModelContainersClientListOptions) *runtime.Pager[RegistryModelContainersClientListResponse]`
+- New function `NewRegistryModelVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryModelVersionsClient, error)`
+- New function `*RegistryModelVersionsClient.CreateOrGetPendingUpload(context.Context, string, string, string, string, PendingUploadRequestDto, *RegistryModelVersionsClientCreateOrGetPendingUploadOptions) (RegistryModelVersionsClientCreateOrGetPendingUploadResponse, error)`
+- New function `*RegistryModelVersionsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, ModelVersion, *RegistryModelVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryModelVersionsClientCreateOrUpdateResponse], error)`
+- New function `*RegistryModelVersionsClient.BeginDelete(context.Context, string, string, string, string, *RegistryModelVersionsClientBeginDeleteOptions) (*runtime.Poller[RegistryModelVersionsClientDeleteResponse], error)`
+- New function `*RegistryModelVersionsClient.Get(context.Context, string, string, string, string, *RegistryModelVersionsClientGetOptions) (RegistryModelVersionsClientGetResponse, error)`
+- New function `*RegistryModelVersionsClient.NewListPager(string, string, string, *RegistryModelVersionsClientListOptions) *runtime.Pager[RegistryModelVersionsClientListResponse]`
+- New function `*SASCredentialDto.GetPendingUploadCredentialDto() *PendingUploadCredentialDto`
+- New function `*Nodes.GetNodes() *Nodes`
+- New struct `AllNodes`
+- New struct `BlobReferenceForConsumptionDto`
+- New struct `Cron`
+- New struct `PendingUploadRequestDto`
+- New struct `PendingUploadResponseDto`
+- New struct `Recurrence`
+- New struct `RegistryCodeContainersClient`
+- New struct `RegistryCodeVersionsClient`
+- New struct `RegistryComponentContainersClient`
+- New struct `RegistryComponentVersionsClient`
+- New struct `RegistryDataContainersClient`
+- New struct `RegistryDataVersionsClient`
+- New struct `RegistryEnvironmentContainersClient`
+- New struct `RegistryEnvironmentVersionsClient`
+- New struct `RegistryModelContainersClient`
+- New struct `RegistryModelVersionsClient`
+- New struct `SASCredentialDto`
+- New field `ProvisioningState` in struct `CodeContainerProperties`
+- New field `ProvisioningState` in struct `CodeVersionProperties`
+- New field `Hash` in struct `CodeVersionsClientListOptions`
+- New field `HashVersion` in struct `CodeVersionsClientListOptions`
+- New field `ProvisioningState` in struct `ComponentContainerProperties`
+- New field `ProvisioningState` in struct `ComponentVersionProperties`
+- New field `ProvisioningState` in struct `EnvironmentContainerProperties`
+- New field `ProvisioningState` in struct `EnvironmentVersionProperties`
+- New field `Stage` in struct `EnvironmentVersionProperties`
+- New field `Nodes` in struct `JobService`
+- New field `ProvisioningState` in struct `ModelContainerProperties`
+- New field `ProvisioningState` in struct `ModelVersionProperties`
+- New field `Stage` in struct `ModelVersionProperties`
+- New field `MirrorTraffic` in struct `OnlineEndpointProperties`
+
+
 ## 3.0.0 (2022-11-01)
 ### Breaking Changes
 

@@ -182,6 +182,19 @@ type AksNetworkingConfiguration struct {
 	SubnetID *string `json:"subnetId,omitempty"`
 }
 
+// AllNodes - All nodes means the service will be running on all of the nodes of the job
+type AllNodes struct {
+	// REQUIRED; [Required] Type of the Nodes value
+	NodesValueType *NodesValueType `json:"nodesValueType,omitempty"`
+}
+
+// GetNodes implements the NodesClassification interface for type AllNodes.
+func (a *AllNodes) GetNodes() *Nodes {
+	return &Nodes{
+		NodesValueType: a.NodesValueType,
+	}
+}
+
 // AmlCompute - An Azure Machine Learning compute.
 type AmlCompute struct {
 	// REQUIRED; The type of compute
@@ -279,7 +292,7 @@ type AmlComputeProperties struct {
 	OSType *OsType `json:"osType,omitempty"`
 
 	// A property bag containing additional properties.
-	PropertyBag interface{} `json:"propertyBag,omitempty"`
+	PropertyBag any `json:"propertyBag,omitempty"`
 
 	// State of the public SSH port. Possible values are: Disabled - Indicates that the public ssh port is closed on all nodes
 	// of the cluster. Enabled - Indicates that the public ssh port is open on all
@@ -987,7 +1000,7 @@ type BatchDeploymentsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BatchDeploymentsClientListOptions contains the optional parameters for the BatchDeploymentsClient.List method.
+// BatchDeploymentsClientListOptions contains the optional parameters for the BatchDeploymentsClient.NewListPager method.
 type BatchDeploymentsClientListOptions struct {
 	// Ordering of list.
 	OrderBy *string
@@ -1103,7 +1116,7 @@ type BatchEndpointsClientListKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BatchEndpointsClientListOptions contains the optional parameters for the BatchEndpointsClient.List method.
+// BatchEndpointsClientListOptions contains the optional parameters for the BatchEndpointsClient.NewListPager method.
 type BatchEndpointsClientListOptions struct {
 	// Number of endpoints to be retrieved in a page of results.
 	Count *int32
@@ -1131,6 +1144,17 @@ func (b *BayesianSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	return &SamplingAlgorithm{
 		SamplingAlgorithmType: b.SamplingAlgorithmType,
 	}
+}
+
+type BlobReferenceForConsumptionDto struct {
+	// Blob URI path for client to upload data. Example: https://blob.windows.core.net/Container/Path
+	BlobURI *string `json:"blobUri,omitempty"`
+
+	// Credential info to access storage account
+	Credential PendingUploadCredentialDtoClassification `json:"credential,omitempty"`
+
+	// Arm ID of the storage account to use
+	StorageAccountArmID *string `json:"storageAccountArmId,omitempty"`
 }
 
 // BuildContext - Configuration settings for Docker build context
@@ -1344,6 +1368,9 @@ type CodeContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string `json:"nextVersion,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state for the code container.
+	ProvisioningState *AssetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // CodeContainerResourceArmPaginatedResult - A paginated list of CodeContainer entities.
@@ -1371,7 +1398,7 @@ type CodeContainersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CodeContainersClientListOptions contains the optional parameters for the CodeContainersClient.List method.
+// CodeContainersClientListOptions contains the optional parameters for the CodeContainersClient.NewListPager method.
 type CodeContainersClientListOptions struct {
 	// Continuation token for pagination.
 	Skip *string
@@ -1414,6 +1441,9 @@ type CodeVersionProperties struct {
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Provisioning state for the code version.
+	ProvisioningState *AssetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // CodeVersionResourceArmPaginatedResult - A paginated list of CodeVersion entities.
@@ -1423,6 +1453,12 @@ type CodeVersionResourceArmPaginatedResult struct {
 
 	// An array of objects of type CodeVersion.
 	Value []*CodeVersion `json:"value,omitempty"`
+}
+
+// CodeVersionsClientCreateOrGetPendingUploadOptions contains the optional parameters for the CodeVersionsClient.CreateOrGetPendingUpload
+// method.
+type CodeVersionsClientCreateOrGetPendingUploadOptions struct {
+	// placeholder for future optional parameters
 }
 
 // CodeVersionsClientCreateOrUpdateOptions contains the optional parameters for the CodeVersionsClient.CreateOrUpdate method.
@@ -1440,8 +1476,12 @@ type CodeVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CodeVersionsClientListOptions contains the optional parameters for the CodeVersionsClient.List method.
+// CodeVersionsClientListOptions contains the optional parameters for the CodeVersionsClient.NewListPager method.
 type CodeVersionsClientListOptions struct {
+	// If specified, return CodeVersion assets with specified content hash value, regardless of name
+	Hash *string
+	// Hash algorithm version when listing by hash
+	HashVersion *string
 	// Ordering of list.
 	OrderBy *string
 	// Continuation token for pagination.
@@ -1456,7 +1496,7 @@ type ColumnTransformer struct {
 	Fields []*string `json:"fields,omitempty"`
 
 	// Different properties to be passed to transformer. Input expected is dictionary of key,value pairs in JSON format.
-	Parameters interface{} `json:"parameters,omitempty"`
+	Parameters any `json:"parameters,omitempty"`
 }
 
 // CommandJob - Command job definition.
@@ -1523,7 +1563,7 @@ type CommandJob struct {
 	Tags map[string]*string `json:"tags,omitempty"`
 
 	// READ-ONLY; Input parameters.
-	Parameters interface{} `json:"parameters,omitempty" azure:"ro"`
+	Parameters any `json:"parameters,omitempty" azure:"ro"`
 
 	// READ-ONLY; Status of the job.
 	Status *JobStatus `json:"status,omitempty" azure:"ro"`
@@ -1602,6 +1642,9 @@ type ComponentContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string `json:"nextVersion,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state for the component container.
+	ProvisioningState *AssetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // ComponentContainerResourceArmPaginatedResult - A paginated list of ComponentContainer entities.
@@ -1629,7 +1672,7 @@ type ComponentContainersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ComponentContainersClientListOptions contains the optional parameters for the ComponentContainersClient.List method.
+// ComponentContainersClientListOptions contains the optional parameters for the ComponentContainersClient.NewListPager method.
 type ComponentContainersClientListOptions struct {
 	// View type for including/excluding (for example) archived entities.
 	ListViewType *ListViewType
@@ -1658,7 +1701,7 @@ type ComponentVersion struct {
 // ComponentVersionProperties - Definition of a component version: defines resources that span component types.
 type ComponentVersionProperties struct {
 	// Defines Component definition details.
-	ComponentSpec interface{} `json:"componentSpec,omitempty"`
+	ComponentSpec any `json:"componentSpec,omitempty"`
 
 	// The asset description text.
 	Description *string `json:"description,omitempty"`
@@ -1674,6 +1717,9 @@ type ComponentVersionProperties struct {
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Provisioning state for the component version.
+	ProvisioningState *AssetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // ComponentVersionResourceArmPaginatedResult - A paginated list of ComponentVersion entities.
@@ -1701,7 +1747,7 @@ type ComponentVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ComponentVersionsClientListOptions contains the optional parameters for the ComponentVersionsClient.List method.
+// ComponentVersionsClientListOptions contains the optional parameters for the ComponentVersionsClient.NewListPager method.
 type ComponentVersionsClientListOptions struct {
 	// View type for including/excluding (for example) archived entities.
 	ListViewType *ListViewType
@@ -1806,12 +1852,12 @@ type ComputeClientListKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ComputeClientListNodesOptions contains the optional parameters for the ComputeClient.ListNodes method.
+// ComputeClientListNodesOptions contains the optional parameters for the ComputeClient.NewListNodesPager method.
 type ComputeClientListNodesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ComputeClientListOptions contains the optional parameters for the ComputeClient.List method.
+// ComputeClientListOptions contains the optional parameters for the ComputeClient.NewListPager method.
 type ComputeClientListOptions struct {
 	// Continuation token for pagination.
 	Skip *string
@@ -1906,7 +1952,7 @@ type ComputeInstanceContainer struct {
 	Network *Network `json:"network,omitempty"`
 
 	// READ-ONLY; services of this containers.
-	Services []interface{} `json:"services,omitempty" azure:"ro"`
+	Services []any `json:"services,omitempty" azure:"ro"`
 }
 
 // ComputeInstanceCreatedBy - Describes information on user who created this ComputeInstance.
@@ -2011,6 +2057,9 @@ type ComputeInstanceProperties struct {
 	// Specifies policy and settings for SSH access.
 	SSHSettings *ComputeInstanceSSHSettings `json:"sshSettings,omitempty"`
 
+	// The list of schedules to be applied on the computes.
+	Schedules *ComputeSchedules `json:"schedules,omitempty"`
+
 	// Details of customized scripts to execute for setting up the cluster.
 	SetupScripts *SetupScripts `json:"setupScripts,omitempty"`
 
@@ -2043,9 +2092,6 @@ type ComputeInstanceProperties struct {
 
 	// READ-ONLY; The last operation on ComputeInstance.
 	LastOperation *ComputeInstanceLastOperation `json:"lastOperation,omitempty" azure:"ro"`
-
-	// READ-ONLY; The list of schedules to be applied on the computes.
-	Schedules *ComputeSchedules `json:"schedules,omitempty" azure:"ro"`
 
 	// READ-ONLY; The current state of this ComputeInstance.
 	State *ComputeInstanceState `json:"state,omitempty" azure:"ro"`
@@ -2148,10 +2194,10 @@ type ComputeStartStopSchedule struct {
 	Action *ComputePowerAction `json:"action,omitempty"`
 
 	// Required if triggerType is Cron.
-	Cron *CronTrigger `json:"cron,omitempty"`
+	Cron *Cron `json:"cron,omitempty"`
 
 	// Required if triggerType is Recurrence.
-	Recurrence *RecurrenceTrigger `json:"recurrence,omitempty"`
+	Recurrence *Recurrence `json:"recurrence,omitempty"`
 
 	// [Deprecated] Not used any more.
 	Schedule *ScheduleBase `json:"schedule,omitempty"`
@@ -2192,6 +2238,19 @@ type ContainerResourceSettings struct {
 type CosmosDbSettings struct {
 	// The throughput of the collections in cosmosdb database
 	CollectionsThroughput *int32 `json:"collectionsThroughput,omitempty"`
+}
+
+// Cron - The workflow trigger cron for ComputeStartStop schedule type.
+type Cron struct {
+	// [Required] Specifies cron expression of schedule. The expression should follow NCronTab format.
+	Expression *string `json:"expression,omitempty"`
+
+	// The start time in yyyy-MM-ddTHH:mm:ss format.
+	StartTime *string `json:"startTime,omitempty"`
+
+	// Specifies time zone in which the schedule runs. TimeZone should follow Windows time zone format. Refer:
+	// https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11
+	TimeZone *string `json:"timeZone,omitempty"`
 }
 
 type CronTrigger struct {
@@ -2412,7 +2471,7 @@ type DataContainersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataContainersClientListOptions contains the optional parameters for the DataContainersClient.List method.
+// DataContainersClientListOptions contains the optional parameters for the DataContainersClient.NewListPager method.
 type DataContainersClientListOptions struct {
 	// View type for including/excluding (for example) archived entities.
 	ListViewType *ListViewType
@@ -2581,7 +2640,7 @@ type DataVersionBaseProperties struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType `json:"dataType,omitempty"`
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string `json:"dataUri,omitempty"`
 
 	// The asset description text.
@@ -2629,7 +2688,7 @@ type DataVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DataVersionsClientListOptions contains the optional parameters for the DataVersionsClient.List method.
+// DataVersionsClientListOptions contains the optional parameters for the DataVersionsClient.NewListPager method.
 type DataVersionsClientListOptions struct {
 	// [ListViewType.ActiveOnly, ListViewType.ArchivedOnly, ListViewType.All]View type for including/excluding (for example) archived
 	// entities.
@@ -2847,7 +2906,7 @@ type DatastoresClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DatastoresClientListOptions contains the optional parameters for the DatastoresClient.List method.
+// DatastoresClientListOptions contains the optional parameters for the DatastoresClient.NewListPager method.
 type DatastoresClientListOptions struct {
 	// Maximum number of results to return.
 	Count *int32
@@ -2903,36 +2962,36 @@ type DeploymentResourceConfiguration struct {
 	InstanceType *string `json:"instanceType,omitempty"`
 
 	// Additional properties bag.
-	Properties map[string]interface{} `json:"properties,omitempty"`
+	Properties map[string]any `json:"properties,omitempty"`
 }
 
 type DiagnoseRequestProperties struct {
 	// Setting for diagnosing dependent application insights
-	ApplicationInsights map[string]interface{} `json:"applicationInsights,omitempty"`
+	ApplicationInsights map[string]any `json:"applicationInsights,omitempty"`
 
 	// Setting for diagnosing dependent container registry
-	ContainerRegistry map[string]interface{} `json:"containerRegistry,omitempty"`
+	ContainerRegistry map[string]any `json:"containerRegistry,omitempty"`
 
 	// Setting for diagnosing dns resolution
-	DNSResolution map[string]interface{} `json:"dnsResolution,omitempty"`
+	DNSResolution map[string]any `json:"dnsResolution,omitempty"`
 
 	// Setting for diagnosing dependent key vault
-	KeyVault map[string]interface{} `json:"keyVault,omitempty"`
+	KeyVault map[string]any `json:"keyVault,omitempty"`
 
 	// Setting for diagnosing network security group
-	Nsg map[string]interface{} `json:"nsg,omitempty"`
+	Nsg map[string]any `json:"nsg,omitempty"`
 
 	// Setting for diagnosing unclassified category of problems
-	Others map[string]interface{} `json:"others,omitempty"`
+	Others map[string]any `json:"others,omitempty"`
 
 	// Setting for diagnosing resource lock
-	ResourceLock map[string]interface{} `json:"resourceLock,omitempty"`
+	ResourceLock map[string]any `json:"resourceLock,omitempty"`
 
 	// Setting for diagnosing dependent storage account
-	StorageAccount map[string]interface{} `json:"storageAccount,omitempty"`
+	StorageAccount map[string]any `json:"storageAccount,omitempty"`
 
 	// Setting for diagnosing user defined routing
-	Udr map[string]interface{} `json:"udr,omitempty"`
+	Udr map[string]any `json:"udr,omitempty"`
 }
 
 type DiagnoseResponseResult struct {
@@ -3105,7 +3164,7 @@ type EndpointScheduleAction struct {
 	ActionType *ScheduleActionType `json:"actionType,omitempty"`
 
 	// REQUIRED; [Required] Defines Schedule action definition details.
-	EndpointInvocationDefinition interface{} `json:"endpointInvocationDefinition,omitempty"`
+	EndpointInvocationDefinition any `json:"endpointInvocationDefinition,omitempty"`
 }
 
 // GetScheduleActionBase implements the ScheduleActionBaseClassification interface for type EndpointScheduleAction.
@@ -3152,6 +3211,9 @@ type EnvironmentContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string `json:"nextVersion,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state for the environment container.
+	ProvisioningState *AssetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // EnvironmentContainerResourceArmPaginatedResult - A paginated list of EnvironmentContainer entities.
@@ -3179,7 +3241,8 @@ type EnvironmentContainersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// EnvironmentContainersClientListOptions contains the optional parameters for the EnvironmentContainersClient.List method.
+// EnvironmentContainersClientListOptions contains the optional parameters for the EnvironmentContainersClient.NewListPager
+// method.
 type EnvironmentContainersClientListOptions struct {
 	// View type for including/excluding (for example) archived entities.
 	ListViewType *ListViewType
@@ -3237,11 +3300,17 @@ type EnvironmentVersionProperties struct {
 	// The asset property dictionary.
 	Properties map[string]*string `json:"properties,omitempty"`
 
+	// Stage in the environment lifecycle assigned to this environment
+	Stage *string `json:"stage,omitempty"`
+
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string `json:"tags,omitempty"`
 
 	// READ-ONLY; Environment type is either user managed or curated by the Azure ML service
 	EnvironmentType *EnvironmentType `json:"environmentType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state for the environment version.
+	ProvisioningState *AssetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // EnvironmentVersionResourceArmPaginatedResult - A paginated list of EnvironmentVersion entities.
@@ -3269,7 +3338,7 @@ type EnvironmentVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// EnvironmentVersionsClientListOptions contains the optional parameters for the EnvironmentVersionsClient.List method.
+// EnvironmentVersionsClientListOptions contains the optional parameters for the EnvironmentVersionsClient.NewListPager method.
 type EnvironmentVersionsClientListOptions struct {
 	// View type for including/excluding (for example) archived entities.
 	ListViewType *ListViewType
@@ -3284,7 +3353,7 @@ type EnvironmentVersionsClientListOptions struct {
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -3838,13 +3907,15 @@ type ImageLimitSettings struct {
 	Timeout *string `json:"timeout,omitempty"`
 }
 
-// ImageModelDistributionSettings - Distribution expressions to sweep over values of model settings.Some examples are:ModelName
-// = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";All distributions can be specified as distribution_name(min, max) or choice(val1, val2, …, valn) where distribution
-// name can be: uniform, quniform, loguniform, etc For more details on how to
-// compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information on the available settings
-// please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// ImageModelDistributionSettings - Distribution expressions to sweep over values of model settings.Some examples are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// All distributions can be specified as distribution_name(min, max) or choice(val1, val2, …, valn) where distribution name
+// can be: uniform, quniform, loguniform, etc For more details on how to compose
+// distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on the available settings please visit
+// the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettings struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string `json:"amsGradient,omitempty"`
@@ -3939,10 +4010,13 @@ type ImageModelDistributionSettings struct {
 }
 
 // ImageModelDistributionSettingsClassification - Distribution expressions to sweep over values of model settings.Some examples
-// are:ModelName = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information
-// on the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on
+// the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettingsClassification struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string `json:"amsGradient,omitempty"`
@@ -4050,10 +4124,13 @@ type ImageModelDistributionSettingsClassification struct {
 }
 
 // ImageModelDistributionSettingsObjectDetection - Distribution expressions to sweep over values of model settings.Some examples
-// are:ModelName = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information
-// on the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on
+// the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettingsObjectDetection struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string `json:"amsGradient,omitempty"`
@@ -4872,7 +4949,7 @@ type JobResourceConfiguration struct {
 	InstanceType *string `json:"instanceType,omitempty"`
 
 	// Additional properties bag.
-	Properties map[string]interface{} `json:"properties,omitempty"`
+	Properties map[string]any `json:"properties,omitempty"`
 
 	// Size of the docker container's shared memory block. This should be in the format of (number)(unit) where number as to be
 	// greater than 0 and the unit can be one of b(bytes), k(kilobytes), m(megabytes),
@@ -4902,6 +4979,10 @@ type JobService struct {
 
 	// Endpoint type.
 	JobServiceType *string `json:"jobServiceType,omitempty"`
+
+	// Nodes that user would like to start the service on. If Nodes is not set or set to null, the service will only be started
+	// on leader node.
+	Nodes NodesClassification `json:"nodes,omitempty"`
 
 	// Port for endpoint.
 	Port *int32 `json:"port,omitempty"`
@@ -4938,7 +5019,7 @@ type JobsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// JobsClientListOptions contains the optional parameters for the JobsClient.List method.
+// JobsClientListOptions contains the optional parameters for the JobsClient.NewListPager method.
 type JobsClientListOptions struct {
 	// Type of job to be returned.
 	JobType *string
@@ -5243,7 +5324,7 @@ type MLTableData struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType `json:"dataType,omitempty"`
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string `json:"dataUri,omitempty"`
 
 	// The asset description text.
@@ -5523,6 +5604,9 @@ type ModelContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string `json:"nextVersion,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state for the model container.
+	ProvisioningState *AssetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // ModelContainerResourceArmPaginatedResult - A paginated list of ModelContainer entities.
@@ -5550,7 +5634,7 @@ type ModelContainersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ModelContainersClientListOptions contains the optional parameters for the ModelContainersClient.List method.
+// ModelContainersClientListOptions contains the optional parameters for the ModelContainersClient.NewListPager method.
 type ModelContainersClientListOptions struct {
 	// Maximum number of results to return.
 	Count *int32
@@ -5604,8 +5688,14 @@ type ModelVersionProperties struct {
 	// The asset property dictionary.
 	Properties map[string]*string `json:"properties,omitempty"`
 
+	// Stage in the model lifecycle assigned to this model
+	Stage *string `json:"stage,omitempty"`
+
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Provisioning state for the model version.
+	ProvisioningState *AssetProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // ModelVersionResourceArmPaginatedResult - A paginated list of ModelVersion entities.
@@ -5632,7 +5722,7 @@ type ModelVersionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ModelVersionsClientListOptions contains the optional parameters for the ModelVersionsClient.List method.
+// ModelVersionsClientListOptions contains the optional parameters for the ModelVersionsClient.NewListPager method.
 type ModelVersionsClientListOptions struct {
 	// Model description.
 	Description *string
@@ -5739,6 +5829,24 @@ type NodeStateCounts struct {
 	// READ-ONLY; Number of compute nodes which are in unusable state.
 	UnusableNodeCount *int32 `json:"unusableNodeCount,omitempty" azure:"ro"`
 }
+
+// NodesClassification provides polymorphic access to related types.
+// Call the interface's GetNodes() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AllNodes, *Nodes
+type NodesClassification interface {
+	// GetNodes returns the Nodes content of the underlying type.
+	GetNodes() *Nodes
+}
+
+// Nodes - Abstract Nodes definition
+type Nodes struct {
+	// REQUIRED; [Required] Type of the Nodes value
+	NodesValueType *NodesValueType `json:"nodesValueType,omitempty"`
+}
+
+// GetNodes implements the NodesClassification interface for type Nodes.
+func (n *Nodes) GetNodes() *Nodes { return n }
 
 type NoneAuthTypeWorkspaceConnectionProperties struct {
 	// REQUIRED; Authentication type of the connection target
@@ -5967,7 +6075,7 @@ type OnlineDeploymentsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OnlineDeploymentsClientListOptions contains the optional parameters for the OnlineDeploymentsClient.List method.
+// OnlineDeploymentsClientListOptions contains the optional parameters for the OnlineDeploymentsClient.NewListPager method.
 type OnlineDeploymentsClientListOptions struct {
 	// Ordering of list.
 	OrderBy *string
@@ -5977,7 +6085,8 @@ type OnlineDeploymentsClientListOptions struct {
 	Top *int32
 }
 
-// OnlineDeploymentsClientListSKUsOptions contains the optional parameters for the OnlineDeploymentsClient.ListSKUs method.
+// OnlineDeploymentsClientListSKUsOptions contains the optional parameters for the OnlineDeploymentsClient.NewListSKUsPager
+// method.
 type OnlineDeploymentsClientListSKUsOptions struct {
 	// Number of Skus to be retrieved in a page of results.
 	Count *int32
@@ -6032,6 +6141,10 @@ type OnlineEndpointProperties struct {
 	// EndpointAuthKeys to set initially on an Endpoint. This property will always be returned as null. AuthKey values must be
 	// retrieved using the ListKeys API.
 	Keys *EndpointAuthKeys `json:"keys,omitempty"`
+
+	// Percentage of traffic to be mirrored to each deployment without using returned scoring. Traffic values need to sum to utmost
+	// 50.
+	MirrorTraffic map[string]*int32 `json:"mirrorTraffic,omitempty"`
 
 	// Property dictionary. Properties can be added, but not removed or altered.
 	Properties map[string]*string `json:"properties,omitempty"`
@@ -6102,7 +6215,7 @@ type OnlineEndpointsClientListKeysOptions struct {
 	// placeholder for future optional parameters
 }
 
-// OnlineEndpointsClientListOptions contains the optional parameters for the OnlineEndpointsClient.List method.
+// OnlineEndpointsClientListOptions contains the optional parameters for the OnlineEndpointsClient.NewListPager method.
 type OnlineEndpointsClientListOptions struct {
 	// EndpointComputeType to be filtered by.
 	ComputeType *EndpointComputeType
@@ -6152,7 +6265,7 @@ type OnlineScaleSettings struct {
 // GetOnlineScaleSettings implements the OnlineScaleSettingsClassification interface for type OnlineScaleSettings.
 func (o *OnlineScaleSettings) GetOnlineScaleSettings() *OnlineScaleSettings { return o }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -6237,7 +6350,7 @@ type PartialManagedServiceIdentity struct {
 	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
 	// The dictionary values can be empty objects ({}) in
 	// requests.
-	UserAssignedIdentities map[string]interface{} `json:"userAssignedIdentities,omitempty"`
+	UserAssignedIdentities map[string]any `json:"userAssignedIdentities,omitempty"`
 }
 
 // PartialMinimalTrackedResource - Strictly used in update requests.
@@ -6292,6 +6405,44 @@ type Password struct {
 	Value *string `json:"value,omitempty" azure:"ro"`
 }
 
+// PendingUploadCredentialDtoClassification provides polymorphic access to related types.
+// Call the interface's GetPendingUploadCredentialDto() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *PendingUploadCredentialDto, *SASCredentialDto
+type PendingUploadCredentialDtoClassification interface {
+	// GetPendingUploadCredentialDto returns the PendingUploadCredentialDto content of the underlying type.
+	GetPendingUploadCredentialDto() *PendingUploadCredentialDto
+}
+
+type PendingUploadCredentialDto struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *PendingUploadCredentialType `json:"credentialType,omitempty"`
+}
+
+// GetPendingUploadCredentialDto implements the PendingUploadCredentialDtoClassification interface for type PendingUploadCredentialDto.
+func (p *PendingUploadCredentialDto) GetPendingUploadCredentialDto() *PendingUploadCredentialDto {
+	return p
+}
+
+type PendingUploadRequestDto struct {
+	// If PendingUploadId = null then random guid will be used.
+	PendingUploadID *string `json:"pendingUploadId,omitempty"`
+
+	// TemporaryBlobReference is the only supported type
+	PendingUploadType *PendingUploadType `json:"pendingUploadType,omitempty"`
+}
+
+type PendingUploadResponseDto struct {
+	// Container level read, write, list SAS
+	BlobReferenceForConsumption *BlobReferenceForConsumptionDto `json:"blobReferenceForConsumption,omitempty"`
+
+	// ID for this upload request
+	PendingUploadID *string `json:"pendingUploadId,omitempty"`
+
+	// TemporaryBlobReference is the only supported type
+	PendingUploadType *PendingUploadType `json:"pendingUploadType,omitempty"`
+}
+
 // PersonalComputeInstanceSettings - Settings for a personal compute instance.
 type PersonalComputeInstanceSettings struct {
 	// A user explicitly assigned to a personal compute instance.
@@ -6329,7 +6480,7 @@ type PipelineJob struct {
 	IsArchived *bool `json:"isArchived,omitempty"`
 
 	// Jobs construct the Pipeline Job.
-	Jobs map[string]interface{} `json:"jobs,omitempty"`
+	Jobs map[string]any `json:"jobs,omitempty"`
 
 	// Outputs for the pipeline job
 	Outputs map[string]JobOutputClassification `json:"outputs,omitempty"`
@@ -6341,7 +6492,7 @@ type PipelineJob struct {
 	Services map[string]*JobService `json:"services,omitempty"`
 
 	// Pipeline settings, for things like ContinueRunOnStepFailure etc.
-	Settings interface{} `json:"settings,omitempty"`
+	Settings any `json:"settings,omitempty"`
 
 	// ARM resource ID of source job.
 	SourceJobID *string `json:"sourceJobId,omitempty"`
@@ -6446,7 +6597,7 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
+// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
 // method.
 type PrivateEndpointConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -6576,7 +6727,7 @@ type QuotaUpdateParameters struct {
 	Value []*QuotaBaseProperties `json:"value,omitempty"`
 }
 
-// QuotasClientListOptions contains the optional parameters for the QuotasClient.List method.
+// QuotasClientListOptions contains the optional parameters for the QuotasClient.NewListPager method.
 type QuotasClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -6603,6 +6754,25 @@ func (r *RandomSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	return &SamplingAlgorithm{
 		SamplingAlgorithmType: r.SamplingAlgorithmType,
 	}
+}
+
+// Recurrence - The workflow trigger recurrence for ComputeStartStop schedule type.
+type Recurrence struct {
+	// [Required] The frequency to trigger schedule.
+	Frequency *RecurrenceFrequency `json:"frequency,omitempty"`
+
+	// [Required] Specifies schedule interval in conjunction with frequency
+	Interval *int32 `json:"interval,omitempty"`
+
+	// [Required] The recurrence schedule.
+	Schedule *RecurrenceSchedule `json:"schedule,omitempty"`
+
+	// The start time in yyyy-MM-ddTHH:mm:ss format.
+	StartTime *string `json:"startTime,omitempty"`
+
+	// Specifies time zone in which the schedule runs. TimeZone should follow Windows time zone format. Refer:
+	// https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11
+	TimeZone *string `json:"timeZone,omitempty"`
 }
 
 type RecurrenceSchedule struct {
@@ -6663,6 +6833,258 @@ type RegenerateEndpointKeysRequest struct {
 	KeyValue *string `json:"keyValue,omitempty"`
 }
 
+// RegistryCodeContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryCodeContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryCodeContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryCodeContainersClientBeginDeleteOptions contains the optional parameters for the RegistryCodeContainersClient.BeginDelete
+// method.
+type RegistryCodeContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryCodeContainersClientGetOptions contains the optional parameters for the RegistryCodeContainersClient.Get method.
+type RegistryCodeContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryCodeContainersClientListOptions contains the optional parameters for the RegistryCodeContainersClient.NewListPager
+// method.
+type RegistryCodeContainersClientListOptions struct {
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryCodeVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryCodeVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryCodeVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryCodeVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryCodeVersionsClient.BeginDelete
+// method.
+type RegistryCodeVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryCodeVersionsClientCreateOrGetPendingUploadOptions contains the optional parameters for the RegistryCodeVersionsClient.CreateOrGetPendingUpload
+// method.
+type RegistryCodeVersionsClientCreateOrGetPendingUploadOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryCodeVersionsClientGetOptions contains the optional parameters for the RegistryCodeVersionsClient.Get method.
+type RegistryCodeVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryCodeVersionsClientListOptions contains the optional parameters for the RegistryCodeVersionsClient.NewListPager
+// method.
+type RegistryCodeVersionsClientListOptions struct {
+	// Ordering of list.
+	OrderBy *string
+	// Continuation token for pagination.
+	Skip *string
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// RegistryComponentContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryComponentContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryComponentContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryComponentContainersClientBeginDeleteOptions contains the optional parameters for the RegistryComponentContainersClient.BeginDelete
+// method.
+type RegistryComponentContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryComponentContainersClientGetOptions contains the optional parameters for the RegistryComponentContainersClient.Get
+// method.
+type RegistryComponentContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryComponentContainersClientListOptions contains the optional parameters for the RegistryComponentContainersClient.NewListPager
+// method.
+type RegistryComponentContainersClientListOptions struct {
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryComponentVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryComponentVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryComponentVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryComponentVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryComponentVersionsClient.BeginDelete
+// method.
+type RegistryComponentVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryComponentVersionsClientGetOptions contains the optional parameters for the RegistryComponentVersionsClient.Get
+// method.
+type RegistryComponentVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryComponentVersionsClientListOptions contains the optional parameters for the RegistryComponentVersionsClient.NewListPager
+// method.
+type RegistryComponentVersionsClientListOptions struct {
+	// Ordering of list.
+	OrderBy *string
+	// Continuation token for pagination.
+	Skip *string
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// RegistryDataContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryDataContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryDataContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryDataContainersClientBeginDeleteOptions contains the optional parameters for the RegistryDataContainersClient.BeginDelete
+// method.
+type RegistryDataContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryDataContainersClientGetOptions contains the optional parameters for the RegistryDataContainersClient.Get method.
+type RegistryDataContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryDataContainersClientListOptions contains the optional parameters for the RegistryDataContainersClient.NewListPager
+// method.
+type RegistryDataContainersClientListOptions struct {
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryDataVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryDataVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryDataVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryDataVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryDataVersionsClient.BeginDelete
+// method.
+type RegistryDataVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryDataVersionsClientCreateOrGetPendingUploadOptions contains the optional parameters for the RegistryDataVersionsClient.CreateOrGetPendingUpload
+// method.
+type RegistryDataVersionsClientCreateOrGetPendingUploadOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryDataVersionsClientGetOptions contains the optional parameters for the RegistryDataVersionsClient.Get method.
+type RegistryDataVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryDataVersionsClientListOptions contains the optional parameters for the RegistryDataVersionsClient.NewListPager
+// method.
+type RegistryDataVersionsClientListOptions struct {
+	// [ListViewType.ActiveOnly, ListViewType.ArchivedOnly, ListViewType.All]View type for including/excluding (for example) archived
+	// entities.
+	ListViewType *ListViewType
+	// Please choose OrderBy value from ['createdtime', 'modifiedtime']
+	OrderBy *string
+	// Continuation token for pagination.
+	Skip *string
+	// Comma-separated list of tag names (and optionally values). Example: tag1,tag2=value2
+	Tags *string
+	// Top count of results, top count cannot be greater than the page size. If topCount > page size, results with be default
+	// page size count will be returned
+	Top *int32
+}
+
+// RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryEnvironmentContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryEnvironmentContainersClientBeginDeleteOptions contains the optional parameters for the RegistryEnvironmentContainersClient.BeginDelete
+// method.
+type RegistryEnvironmentContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryEnvironmentContainersClientGetOptions contains the optional parameters for the RegistryEnvironmentContainersClient.Get
+// method.
+type RegistryEnvironmentContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryEnvironmentContainersClientListOptions contains the optional parameters for the RegistryEnvironmentContainersClient.NewListPager
+// method.
+type RegistryEnvironmentContainersClientListOptions struct {
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryEnvironmentVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryEnvironmentVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryEnvironmentVersionsClient.BeginDelete
+// method.
+type RegistryEnvironmentVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryEnvironmentVersionsClientGetOptions contains the optional parameters for the RegistryEnvironmentVersionsClient.Get
+// method.
+type RegistryEnvironmentVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryEnvironmentVersionsClientListOptions contains the optional parameters for the RegistryEnvironmentVersionsClient.NewListPager
+// method.
+type RegistryEnvironmentVersionsClientListOptions struct {
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Ordering of list.
+	OrderBy *string
+	// Continuation token for pagination.
+	Skip *string
+	// Maximum number of records to return.
+	Top *int32
+}
+
 type RegistryListCredentialsResult struct {
 	Passwords []*Password `json:"passwords,omitempty"`
 
@@ -6671,6 +7093,80 @@ type RegistryListCredentialsResult struct {
 
 	// READ-ONLY
 	Username *string `json:"username,omitempty" azure:"ro"`
+}
+
+// RegistryModelContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryModelContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryModelContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryModelContainersClientBeginDeleteOptions contains the optional parameters for the RegistryModelContainersClient.BeginDelete
+// method.
+type RegistryModelContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryModelContainersClientGetOptions contains the optional parameters for the RegistryModelContainersClient.Get method.
+type RegistryModelContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryModelContainersClientListOptions contains the optional parameters for the RegistryModelContainersClient.NewListPager
+// method.
+type RegistryModelContainersClientListOptions struct {
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryModelVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryModelVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryModelVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryModelVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryModelVersionsClient.BeginDelete
+// method.
+type RegistryModelVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryModelVersionsClientCreateOrGetPendingUploadOptions contains the optional parameters for the RegistryModelVersionsClient.CreateOrGetPendingUpload
+// method.
+type RegistryModelVersionsClientCreateOrGetPendingUploadOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryModelVersionsClientGetOptions contains the optional parameters for the RegistryModelVersionsClient.Get method.
+type RegistryModelVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryModelVersionsClientListOptions contains the optional parameters for the RegistryModelVersionsClient.NewListPager
+// method.
+type RegistryModelVersionsClientListOptions struct {
+	// Model description.
+	Description *string
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Ordering of list.
+	OrderBy *string
+	// Comma-separated list of property names (and optionally values). Example: prop1,prop2=value2
+	Properties *string
+	// Continuation token for pagination.
+	Skip *string
+	// Comma-separated list of tag names (and optionally values). Example: tag1,tag2=value2
+	Tags *string
+	// Maximum number of records to return.
+	Top *int32
+	// Version identifier.
+	Version *string
 }
 
 // Regression task in AutoML Table vertical.
@@ -6800,7 +7296,7 @@ type ResourceConfiguration struct {
 	InstanceType *string `json:"instanceType,omitempty"`
 
 	// Additional properties bag.
-	Properties map[string]interface{} `json:"properties,omitempty"`
+	Properties map[string]any `json:"properties,omitempty"`
 }
 
 // ResourceID - Represents a resource ID. For example, for a subnet, it is the resource URL for the subnet.
@@ -6871,6 +7367,26 @@ func (s *SASAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropert
 		Target:      s.Target,
 		Value:       s.Value,
 		ValueFormat: s.ValueFormat,
+	}
+}
+
+type SASCredentialDto struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *PendingUploadCredentialType `json:"credentialType,omitempty"`
+
+	// Full SAS Uri, including the storage, container/blob path and SAS token
+	SasURI *string `json:"sasUri,omitempty"`
+
+	// Windows Azure Storage Blob formatted uri for mounting containers at root, a subdirectory, or a specific file example wasbs://[containername]@[accountname].blob.core.windows.net/[path]?sas=[sas]
+	// For
+	// now, the URI will just be the root path ([path] will be empty).
+	WasbsURI *string `json:"wasbsUri,omitempty"`
+}
+
+// GetPendingUploadCredentialDto implements the PendingUploadCredentialDtoClassification interface for type SASCredentialDto.
+func (s *SASCredentialDto) GetPendingUploadCredentialDto() *PendingUploadCredentialDto {
+	return &PendingUploadCredentialDto{
+		CredentialType: s.CredentialType,
 	}
 }
 
@@ -7130,7 +7646,7 @@ type SchedulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SchedulesClientListOptions contains the optional parameters for the SchedulesClient.List method.
+// SchedulesClientListOptions contains the optional parameters for the SchedulesClient.NewListPager method.
 type SchedulesClientListOptions struct {
 	// Status filter for schedule.
 	ListViewType *ScheduleListViewType
@@ -7261,7 +7777,7 @@ type SharedPrivateLinkResourceProperty struct {
 // StackEnsembleSettings - Advances setting to customize StackEnsemble run.
 type StackEnsembleSettings struct {
 	// Optional parameters to pass to the initializer of the meta-learner.
-	StackMetaLearnerKWargs interface{} `json:"stackMetaLearnerKWargs,omitempty"`
+	StackMetaLearnerKWargs any `json:"stackMetaLearnerKWargs,omitempty"`
 
 	// Specifies the proportion of the training set (when choosing train and validation type of training) to be reserved for training
 	// the meta-learner. Default value is 0.2.
@@ -7284,7 +7800,7 @@ type SweepJob struct {
 
 	// REQUIRED; [Required] A dictionary containing each parameter and its distribution. The dictionary key is the name of the
 	// parameter
-	SearchSpace interface{} `json:"searchSpace,omitempty"`
+	SearchSpace any `json:"searchSpace,omitempty"`
 
 	// REQUIRED; [Required] Trial component definition.
 	Trial *TrialComponent `json:"trial,omitempty"`
@@ -7942,7 +8458,7 @@ type URIFileDataVersion struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType `json:"dataType,omitempty"`
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string `json:"dataUri,omitempty"`
 
 	// The asset description text.
@@ -8023,7 +8539,7 @@ type URIFolderDataVersion struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType `json:"dataType,omitempty"`
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string `json:"dataUri,omitempty"`
 
 	// The asset description text.
@@ -8160,7 +8676,7 @@ type UsageName struct {
 	Value *string `json:"value,omitempty" azure:"ro"`
 }
 
-// UsagesClientListOptions contains the optional parameters for the UsagesClient.List method.
+// UsagesClientListOptions contains the optional parameters for the UsagesClient.NewListPager method.
 type UsagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -8507,7 +9023,8 @@ type WorkspaceConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WorkspaceConnectionsClientListOptions contains the optional parameters for the WorkspaceConnectionsClient.List method.
+// WorkspaceConnectionsClientListOptions contains the optional parameters for the WorkspaceConnectionsClient.NewListPager
+// method.
 type WorkspaceConnectionsClientListOptions struct {
 	// Category of the workspace connection.
 	Category *string
@@ -8515,7 +9032,7 @@ type WorkspaceConnectionsClientListOptions struct {
 	Target *string
 }
 
-// WorkspaceFeaturesClientListOptions contains the optional parameters for the WorkspaceFeaturesClient.List method.
+// WorkspaceFeaturesClientListOptions contains the optional parameters for the WorkspaceFeaturesClient.NewListPager method.
 type WorkspaceFeaturesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -8697,14 +9214,14 @@ type WorkspacesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// WorkspacesClientListByResourceGroupOptions contains the optional parameters for the WorkspacesClient.ListByResourceGroup
+// WorkspacesClientListByResourceGroupOptions contains the optional parameters for the WorkspacesClient.NewListByResourceGroupPager
 // method.
 type WorkspacesClientListByResourceGroupOptions struct {
 	// Continuation token for pagination.
 	Skip *string
 }
 
-// WorkspacesClientListBySubscriptionOptions contains the optional parameters for the WorkspacesClient.ListBySubscription
+// WorkspacesClientListBySubscriptionOptions contains the optional parameters for the WorkspacesClient.NewListBySubscriptionPager
 // method.
 type WorkspacesClientListBySubscriptionOptions struct {
 	// Continuation token for pagination.
