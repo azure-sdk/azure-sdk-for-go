@@ -32,9 +32,9 @@ type SettingsClient struct {
 }
 
 // NewSettingsClient creates a new instance of SettingsClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SettingsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,9 +57,10 @@ func NewSettingsClient(subscriptionID string, credential azcore.TokenCredential,
 
 // Get - Settings of different configurations in Microsoft Defender for Cloud
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// settingName - The name of the setting
-// options - SettingsClientGetOptions contains the optional parameters for the SettingsClient.Get method.
+//   - settingName - The name of the setting
+//   - options - SettingsClientGetOptions contains the optional parameters for the SettingsClient.Get method.
 func (client *SettingsClient) Get(ctx context.Context, settingName SettingName, options *SettingsClientGetOptions) (SettingsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, settingName, options)
 	if err != nil {
@@ -107,8 +108,9 @@ func (client *SettingsClient) getHandleResponse(resp *http.Response) (SettingsCl
 }
 
 // NewListPager - Settings about different configurations in Microsoft Defender for Cloud
+//
 // Generated from API version 2022-05-01
-// options - SettingsClientListOptions contains the optional parameters for the SettingsClient.List method.
+//   - options - SettingsClientListOptions contains the optional parameters for the SettingsClient.NewListPager method.
 func (client *SettingsClient) NewListPager(options *SettingsClientListOptions) *runtime.Pager[SettingsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SettingsClientListResponse]{
 		More: func(page SettingsClientListResponse) bool {
@@ -166,10 +168,11 @@ func (client *SettingsClient) listHandleResponse(resp *http.Response) (SettingsC
 
 // Update - updating settings about different configurations in Microsoft Defender for Cloud
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-05-01
-// settingName - The name of the setting
-// setting - Setting object
-// options - SettingsClientUpdateOptions contains the optional parameters for the SettingsClient.Update method.
+//   - settingName - The name of the setting
+//   - setting - Setting object
+//   - options - SettingsClientUpdateOptions contains the optional parameters for the SettingsClient.Update method.
 func (client *SettingsClient) Update(ctx context.Context, settingName SettingName, setting SettingClassification, options *SettingsClientUpdateOptions) (SettingsClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, settingName, setting, options)
 	if err != nil {

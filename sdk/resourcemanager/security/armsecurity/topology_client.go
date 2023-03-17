@@ -32,9 +32,9 @@ type TopologyClient struct {
 }
 
 // NewTopologyClient creates a new instance of TopologyClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTopologyClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TopologyClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewTopologyClient(subscriptionID string, credential azcore.TokenCredential,
 
 // Get - Gets a specific topology component.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// topologyResourceName - Name of a topology resources collection.
-// options - TopologyClientGetOptions contains the optional parameters for the TopologyClient.Get method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - topologyResourceName - Name of a topology resources collection.
+//   - options - TopologyClientGetOptions contains the optional parameters for the TopologyClient.Get method.
 func (client *TopologyClient) Get(ctx context.Context, resourceGroupName string, ascLocation string, topologyResourceName string, options *TopologyClientGetOptions) (TopologyClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, ascLocation, topologyResourceName, options)
 	if err != nil {
@@ -117,8 +118,9 @@ func (client *TopologyClient) getHandleResponse(resp *http.Response) (TopologyCl
 }
 
 // NewListPager - Gets a list that allows to build a topology view of a subscription.
+//
 // Generated from API version 2020-01-01
-// options - TopologyClientListOptions contains the optional parameters for the TopologyClient.List method.
+//   - options - TopologyClientListOptions contains the optional parameters for the TopologyClient.NewListPager method.
 func (client *TopologyClient) NewListPager(options *TopologyClientListOptions) *runtime.Pager[TopologyClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TopologyClientListResponse]{
 		More: func(page TopologyClientListResponse) bool {
@@ -175,10 +177,11 @@ func (client *TopologyClient) listHandleResponse(resp *http.Response) (TopologyC
 }
 
 // NewListByHomeRegionPager - Gets a list that allows to build a topology view of a subscription and location.
+//
 // Generated from API version 2020-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - TopologyClientListByHomeRegionOptions contains the optional parameters for the TopologyClient.ListByHomeRegion
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - TopologyClientListByHomeRegionOptions contains the optional parameters for the TopologyClient.NewListByHomeRegionPager
+//     method.
 func (client *TopologyClient) NewListByHomeRegionPager(ascLocation string, options *TopologyClientListByHomeRegionOptions) *runtime.Pager[TopologyClientListByHomeRegionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TopologyClientListByHomeRegionResponse]{
 		More: func(page TopologyClientListByHomeRegionResponse) bool {

@@ -32,9 +32,9 @@ type TasksClient struct {
 }
 
 // NewTasksClient creates a new instance of TasksClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTasksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TasksClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewTasksClient(subscriptionID string, credential azcore.TokenCredential, op
 
 // GetResourceGroupLevelTask - Recommended tasks that will help improve the security of the subscription proactively
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2015-06-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// taskName - Name of the task object, will be a GUID
-// options - TasksClientGetResourceGroupLevelTaskOptions contains the optional parameters for the TasksClient.GetResourceGroupLevelTask
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - taskName - Name of the task object, will be a GUID
+//   - options - TasksClientGetResourceGroupLevelTaskOptions contains the optional parameters for the TasksClient.GetResourceGroupLevelTask
+//     method.
 func (client *TasksClient) GetResourceGroupLevelTask(ctx context.Context, resourceGroupName string, ascLocation string, taskName string, options *TasksClientGetResourceGroupLevelTaskOptions) (TasksClientGetResourceGroupLevelTaskResponse, error) {
 	req, err := client.getResourceGroupLevelTaskCreateRequest(ctx, resourceGroupName, ascLocation, taskName, options)
 	if err != nil {
@@ -119,11 +120,12 @@ func (client *TasksClient) getResourceGroupLevelTaskHandleResponse(resp *http.Re
 
 // GetSubscriptionLevelTask - Recommended tasks that will help improve the security of the subscription proactively
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2015-06-01-preview
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// taskName - Name of the task object, will be a GUID
-// options - TasksClientGetSubscriptionLevelTaskOptions contains the optional parameters for the TasksClient.GetSubscriptionLevelTask
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - taskName - Name of the task object, will be a GUID
+//   - options - TasksClientGetSubscriptionLevelTaskOptions contains the optional parameters for the TasksClient.GetSubscriptionLevelTask
+//     method.
 func (client *TasksClient) GetSubscriptionLevelTask(ctx context.Context, ascLocation string, taskName string, options *TasksClientGetSubscriptionLevelTaskOptions) (TasksClientGetSubscriptionLevelTaskResponse, error) {
 	req, err := client.getSubscriptionLevelTaskCreateRequest(ctx, ascLocation, taskName, options)
 	if err != nil {
@@ -175,8 +177,9 @@ func (client *TasksClient) getSubscriptionLevelTaskHandleResponse(resp *http.Res
 }
 
 // NewListPager - Recommended tasks that will help improve the security of the subscription proactively
+//
 // Generated from API version 2015-06-01-preview
-// options - TasksClientListOptions contains the optional parameters for the TasksClient.List method.
+//   - options - TasksClientListOptions contains the optional parameters for the TasksClient.NewListPager method.
 func (client *TasksClient) NewListPager(options *TasksClientListOptions) *runtime.Pager[TasksClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TasksClientListResponse]{
 		More: func(page TasksClientListResponse) bool {
@@ -236,9 +239,11 @@ func (client *TasksClient) listHandleResponse(resp *http.Response) (TasksClientL
 }
 
 // NewListByHomeRegionPager - Recommended tasks that will help improve the security of the subscription proactively
+//
 // Generated from API version 2015-06-01-preview
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - TasksClientListByHomeRegionOptions contains the optional parameters for the TasksClient.ListByHomeRegion method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - TasksClientListByHomeRegionOptions contains the optional parameters for the TasksClient.NewListByHomeRegionPager
+//     method.
 func (client *TasksClient) NewListByHomeRegionPager(ascLocation string, options *TasksClientListByHomeRegionOptions) *runtime.Pager[TasksClientListByHomeRegionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TasksClientListByHomeRegionResponse]{
 		More: func(page TasksClientListByHomeRegionResponse) bool {
@@ -302,11 +307,12 @@ func (client *TasksClient) listByHomeRegionHandleResponse(resp *http.Response) (
 }
 
 // NewListByResourceGroupPager - Recommended tasks that will help improve the security of the subscription proactively
+//
 // Generated from API version 2015-06-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - TasksClientListByResourceGroupOptions contains the optional parameters for the TasksClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - TasksClientListByResourceGroupOptions contains the optional parameters for the TasksClient.NewListByResourceGroupPager
+//     method.
 func (client *TasksClient) NewListByResourceGroupPager(resourceGroupName string, ascLocation string, options *TasksClientListByResourceGroupOptions) *runtime.Pager[TasksClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TasksClientListByResourceGroupResponse]{
 		More: func(page TasksClientListByResourceGroupResponse) bool {
@@ -375,13 +381,14 @@ func (client *TasksClient) listByResourceGroupHandleResponse(resp *http.Response
 
 // UpdateResourceGroupLevelTaskState - Recommended tasks that will help improve the security of the subscription proactively
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2015-06-01-preview
-// resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// taskName - Name of the task object, will be a GUID
-// taskUpdateActionType - Type of the action to do on the task
-// options - TasksClientUpdateResourceGroupLevelTaskStateOptions contains the optional parameters for the TasksClient.UpdateResourceGroupLevelTaskState
-// method.
+//   - resourceGroupName - The name of the resource group within the user's subscription. The name is case insensitive.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - taskName - Name of the task object, will be a GUID
+//   - taskUpdateActionType - Type of the action to do on the task
+//   - options - TasksClientUpdateResourceGroupLevelTaskStateOptions contains the optional parameters for the TasksClient.UpdateResourceGroupLevelTaskState
+//     method.
 func (client *TasksClient) UpdateResourceGroupLevelTaskState(ctx context.Context, resourceGroupName string, ascLocation string, taskName string, taskUpdateActionType TaskUpdateActionType, options *TasksClientUpdateResourceGroupLevelTaskStateOptions) (TasksClientUpdateResourceGroupLevelTaskStateResponse, error) {
 	req, err := client.updateResourceGroupLevelTaskStateCreateRequest(ctx, resourceGroupName, ascLocation, taskName, taskUpdateActionType, options)
 	if err != nil {
@@ -433,12 +440,13 @@ func (client *TasksClient) updateResourceGroupLevelTaskStateCreateRequest(ctx co
 
 // UpdateSubscriptionLevelTaskState - Recommended tasks that will help improve the security of the subscription proactively
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2015-06-01-preview
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// taskName - Name of the task object, will be a GUID
-// taskUpdateActionType - Type of the action to do on the task
-// options - TasksClientUpdateSubscriptionLevelTaskStateOptions contains the optional parameters for the TasksClient.UpdateSubscriptionLevelTaskState
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - taskName - Name of the task object, will be a GUID
+//   - taskUpdateActionType - Type of the action to do on the task
+//   - options - TasksClientUpdateSubscriptionLevelTaskStateOptions contains the optional parameters for the TasksClient.UpdateSubscriptionLevelTaskState
+//     method.
 func (client *TasksClient) UpdateSubscriptionLevelTaskState(ctx context.Context, ascLocation string, taskName string, taskUpdateActionType TaskUpdateActionType, options *TasksClientUpdateSubscriptionLevelTaskStateOptions) (TasksClientUpdateSubscriptionLevelTaskStateResponse, error) {
 	req, err := client.updateSubscriptionLevelTaskStateCreateRequest(ctx, ascLocation, taskName, taskUpdateActionType, options)
 	if err != nil {
