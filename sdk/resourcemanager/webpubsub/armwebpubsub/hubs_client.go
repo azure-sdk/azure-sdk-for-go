@@ -32,10 +32,9 @@ type HubsClient struct {
 }
 
 // NewHubsClient creates a new instance of HubsClient with the specified values.
-// subscriptionID - Gets subscription Id which uniquely identify the Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewHubsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*HubsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,21 +57,23 @@ func NewHubsClient(subscriptionID string, credential azcore.TokenCredential, opt
 
 // BeginCreateOrUpdate - Create or update a hub setting.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
-// hubName - The hub name.
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// resourceName - The name of the resource.
-// parameters - The resource of WebPubSubHub and its properties
-// options - HubsClientBeginCreateOrUpdateOptions contains the optional parameters for the HubsClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2023-03-01-preview
+//   - hubName - The hub name.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the resource.
+//   - parameters - The resource of WebPubSubHub and its properties
+//   - options - HubsClientBeginCreateOrUpdateOptions contains the optional parameters for the HubsClient.BeginCreateOrUpdate
+//     method.
 func (client *HubsClient) BeginCreateOrUpdate(ctx context.Context, hubName string, resourceGroupName string, resourceName string, parameters Hub, options *HubsClientBeginCreateOrUpdateOptions) (*runtime.Poller[HubsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, hubName, resourceGroupName, resourceName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[HubsClientCreateOrUpdateResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[HubsClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[HubsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -80,7 +81,8 @@ func (client *HubsClient) BeginCreateOrUpdate(ctx context.Context, hubName strin
 
 // CreateOrUpdate - Create or update a hub setting.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
+//
+// Generated from API version 2023-03-01-preview
 func (client *HubsClient) createOrUpdate(ctx context.Context, hubName string, resourceGroupName string, resourceName string, parameters Hub, options *HubsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, hubName, resourceGroupName, resourceName, parameters, options)
 	if err != nil {
@@ -103,9 +105,6 @@ func (client *HubsClient) createOrUpdateCreateRequest(ctx context.Context, hubNa
 		return nil, errors.New("parameter hubName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{hubName}", url.PathEscape(hubName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -120,7 +119,7 @@ func (client *HubsClient) createOrUpdateCreateRequest(ctx context.Context, hubNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -128,12 +127,12 @@ func (client *HubsClient) createOrUpdateCreateRequest(ctx context.Context, hubNa
 
 // BeginDelete - Delete a hub setting.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
-// hubName - The hub name.
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// resourceName - The name of the resource.
-// options - HubsClientBeginDeleteOptions contains the optional parameters for the HubsClient.BeginDelete method.
+//
+// Generated from API version 2023-03-01-preview
+//   - hubName - The hub name.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the resource.
+//   - options - HubsClientBeginDeleteOptions contains the optional parameters for the HubsClient.BeginDelete method.
 func (client *HubsClient) BeginDelete(ctx context.Context, hubName string, resourceGroupName string, resourceName string, options *HubsClientBeginDeleteOptions) (*runtime.Poller[HubsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, hubName, resourceGroupName, resourceName, options)
@@ -150,7 +149,8 @@ func (client *HubsClient) BeginDelete(ctx context.Context, hubName string, resou
 
 // Delete - Delete a hub setting.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
+//
+// Generated from API version 2023-03-01-preview
 func (client *HubsClient) deleteOperation(ctx context.Context, hubName string, resourceGroupName string, resourceName string, options *HubsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, hubName, resourceGroupName, resourceName, options)
 	if err != nil {
@@ -173,9 +173,6 @@ func (client *HubsClient) deleteCreateRequest(ctx context.Context, hubName strin
 		return nil, errors.New("parameter hubName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{hubName}", url.PathEscape(hubName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -190,7 +187,7 @@ func (client *HubsClient) deleteCreateRequest(ctx context.Context, hubName strin
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -198,12 +195,12 @@ func (client *HubsClient) deleteCreateRequest(ctx context.Context, hubName strin
 
 // Get - Get a hub setting.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
-// hubName - The hub name.
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// resourceName - The name of the resource.
-// options - HubsClientGetOptions contains the optional parameters for the HubsClient.Get method.
+//
+// Generated from API version 2023-03-01-preview
+//   - hubName - The hub name.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the resource.
+//   - options - HubsClientGetOptions contains the optional parameters for the HubsClient.Get method.
 func (client *HubsClient) Get(ctx context.Context, hubName string, resourceGroupName string, resourceName string, options *HubsClientGetOptions) (HubsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, hubName, resourceGroupName, resourceName, options)
 	if err != nil {
@@ -226,9 +223,6 @@ func (client *HubsClient) getCreateRequest(ctx context.Context, hubName string, 
 		return nil, errors.New("parameter hubName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{hubName}", url.PathEscape(hubName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -243,7 +237,7 @@ func (client *HubsClient) getCreateRequest(ctx context.Context, hubName string, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -259,11 +253,11 @@ func (client *HubsClient) getHandleResponse(resp *http.Response) (HubsClientGetR
 }
 
 // NewListPager - List hub settings.
-// Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// resourceName - The name of the resource.
-// options - HubsClientListOptions contains the optional parameters for the HubsClient.List method.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the resource.
+//   - options - HubsClientListOptions contains the optional parameters for the HubsClient.NewListPager method.
 func (client *HubsClient) NewListPager(resourceGroupName string, resourceName string, options *HubsClientListOptions) *runtime.Pager[HubsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[HubsClientListResponse]{
 		More: func(page HubsClientListResponse) bool {
@@ -295,9 +289,6 @@ func (client *HubsClient) NewListPager(resourceGroupName string, resourceName st
 // listCreateRequest creates the List request.
 func (client *HubsClient) listCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *HubsClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/webPubSub/{resourceName}/hubs"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -312,7 +303,7 @@ func (client *HubsClient) listCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

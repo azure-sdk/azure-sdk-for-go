@@ -51,12 +51,12 @@ type ClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClientListByResourceGroupOptions contains the optional parameters for the Client.ListByResourceGroup method.
+// ClientListByResourceGroupOptions contains the optional parameters for the Client.NewListByResourceGroupPager method.
 type ClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ClientListBySubscriptionOptions contains the optional parameters for the Client.ListBySubscription method.
+// ClientListBySubscriptionOptions contains the optional parameters for the Client.NewListBySubscriptionPager method.
 type ClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
@@ -76,16 +76,16 @@ type CustomCertificate struct {
 	// REQUIRED; Custom certificate properties.
 	Properties *CustomCertificateProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -130,7 +130,7 @@ type CustomCertificatesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomCertificatesClientListOptions contains the optional parameters for the CustomCertificatesClient.List method.
+// CustomCertificatesClientListOptions contains the optional parameters for the CustomCertificatesClient.NewListPager method.
 type CustomCertificatesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -140,16 +140,16 @@ type CustomDomain struct {
 	// REQUIRED; Properties of a custom domain.
 	Properties *CustomDomainProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -192,7 +192,7 @@ type CustomDomainsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomDomainsClientListOptions contains the optional parameters for the CustomDomainsClient.List method.
+// CustomDomainsClientListOptions contains the optional parameters for the CustomDomainsClient.NewListPager method.
 type CustomDomainsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -215,7 +215,7 @@ type Dimension struct {
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -357,16 +357,16 @@ type Hub struct {
 	// REQUIRED; Properties of a hub.
 	Properties *HubProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -413,7 +413,7 @@ type HubsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// HubsClientListOptions contains the optional parameters for the HubsClient.List method.
+// HubsClientListOptions contains the optional parameters for the HubsClient.NewListPager method.
 type HubsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -605,7 +605,7 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification `json:"serviceSpecification,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -633,16 +633,16 @@ type PrivateEndpointConnection struct {
 	// Private endpoint connection properties
 	Properties *PrivateEndpointConnectionProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -684,7 +684,7 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.List
+// PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
 // method.
 type PrivateEndpointConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -701,13 +701,16 @@ type PrivateLinkResource struct {
 	// Private link resource properties
 	Properties *PrivateLinkResourceProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -735,7 +738,8 @@ type PrivateLinkResourceProperties struct {
 	ShareablePrivateLinkResourceTypes []*ShareablePrivateLinkResourceType `json:"shareablePrivateLinkResourceTypes,omitempty"`
 }
 
-// PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.List method.
+// PrivateLinkResourcesClientListOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListPager
+// method.
 type PrivateLinkResourcesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -805,16 +809,19 @@ type Properties struct {
 	Version *string `json:"version,omitempty" azure:"ro"`
 }
 
-// ProxyResource - The resource model definition for a ARM proxy resource. It will have everything other than required location
-// and tags
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
 type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -824,25 +831,99 @@ type RegenerateKeyParameters struct {
 	KeyType *KeyType `json:"keyType,omitempty"`
 }
 
-// Resource - The core properties of ARM resources.
-type Resource struct {
-	// READ-ONLY; Fully qualified resource Id for the resource.
+// Replica - A class represent a replica resource.
+type Replica struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location   *string            `json:"location,omitempty"`
+	Properties *ReplicaProperties `json:"properties,omitempty"`
+
+	// The billing information of the resource.
+	SKU *ResourceSKU `json:"sku,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+type ReplicaList struct {
+	// The URL the client should use to fetch the next page (per server side paging). It's null for now, added for future use.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// List of the replica
+	Value []*Replica `json:"value,omitempty"`
+}
+
+type ReplicaProperties struct {
+	// READ-ONLY; Provisioning state of the resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// ReplicasClientBeginCreateOrUpdateOptions contains the optional parameters for the ReplicasClient.BeginCreateOrUpdate method.
+type ReplicasClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicasClientBeginRestartOptions contains the optional parameters for the ReplicasClient.BeginRestart method.
+type ReplicasClientBeginRestartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicasClientBeginUpdateOptions contains the optional parameters for the ReplicasClient.BeginUpdate method.
+type ReplicasClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ReplicasClientDeleteOptions contains the optional parameters for the ReplicasClient.Delete method.
+type ReplicasClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReplicasClientGetOptions contains the optional parameters for the ReplicasClient.Get method.
+type ReplicasClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ReplicasClientListOptions contains the optional parameters for the ReplicasClient.NewListPager method.
+type ReplicasClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
+type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // ResourceInfo - A class represent a resource.
 type ResourceInfo struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
 	// A class represent managed identities used for request and response
 	Identity *ManagedIdentity `json:"identity,omitempty"`
-
-	// The GEO location of the resource. e.g. West US | East US | North Central US | South Central US.
-	Location *string `json:"location,omitempty"`
 
 	// A class that describes the properties of the resource
 	Properties *Properties `json:"properties,omitempty"`
@@ -850,19 +931,19 @@ type ResourceInfo struct {
 	// The billing information of the resource.
 	SKU *ResourceSKU `json:"sku,omitempty"`
 
-	// Tags of the service which is a list of key value pairs that describe the resource.
+	// Resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -994,16 +1075,16 @@ type SharedPrivateLinkResource struct {
 	// Describes the properties of an existing Shared Private Link Resource
 	Properties *SharedPrivateLinkResourceProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -1055,7 +1136,7 @@ type SharedPrivateLinkResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SharedPrivateLinkResourcesClientListOptions contains the optional parameters for the SharedPrivateLinkResourcesClient.List
+// SharedPrivateLinkResourcesClientListOptions contains the optional parameters for the SharedPrivateLinkResourcesClient.NewListPager
 // method.
 type SharedPrivateLinkResourcesClientListOptions struct {
 	// placeholder for future optional parameters
@@ -1120,25 +1201,30 @@ type SystemData struct {
 
 // TLSSettings - TLS settings for the resource
 type TLSSettings struct {
-	// Request client certificate during TLS handshake if enabled
+	// Request client certificate during TLS handshake if enabled. Not supported for free tier. Any input will be ignored for
+	// free tier.
 	ClientCertEnabled *bool `json:"clientCertEnabled,omitempty"`
 }
 
-// TrackedResource - The resource model definition for a ARM tracked top level resource.
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
 type TrackedResource struct {
-	// The GEO location of the resource. e.g. West US | East US | North Central US | South Central US.
+	// REQUIRED; The geo-location where the resource lives
 	Location *string `json:"location,omitempty"`
 
-	// Tags of the service which is a list of key value pairs that describe the resource.
+	// Resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource Id for the resource.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource - e.g. "Microsoft.SignalRService/SignalR"
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -1151,7 +1237,7 @@ type UpstreamAuthSettings struct {
 	Type *UpstreamAuthType `json:"type,omitempty"`
 }
 
-// UsagesClientListOptions contains the optional parameters for the UsagesClient.List method.
+// UsagesClientListOptions contains the optional parameters for the UsagesClient.NewListPager method.
 type UsagesClientListOptions struct {
 	// placeholder for future optional parameters
 }
