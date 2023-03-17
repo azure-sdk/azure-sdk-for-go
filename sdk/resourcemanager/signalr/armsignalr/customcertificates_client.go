@@ -32,10 +32,9 @@ type CustomCertificatesClient struct {
 }
 
 // NewCustomCertificatesClient creates a new instance of CustomCertificatesClient with the specified values.
-// subscriptionID - Gets subscription Id which uniquely identify the Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCustomCertificatesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CustomCertificatesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,20 +57,22 @@ func NewCustomCertificatesClient(subscriptionID string, credential azcore.TokenC
 
 // BeginCreateOrUpdate - Create or update a custom certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// resourceName - The name of the resource.
-// certificateName - Custom certificate name
-// options - CustomCertificatesClientBeginCreateOrUpdateOptions contains the optional parameters for the CustomCertificatesClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the resource.
+//   - certificateName - Custom certificate name
+//   - options - CustomCertificatesClientBeginCreateOrUpdateOptions contains the optional parameters for the CustomCertificatesClient.BeginCreateOrUpdate
+//     method.
 func (client *CustomCertificatesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, certificateName string, parameters CustomCertificate, options *CustomCertificatesClientBeginCreateOrUpdateOptions) (*runtime.Poller[CustomCertificatesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, resourceName, certificateName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[CustomCertificatesClientCreateOrUpdateResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[CustomCertificatesClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[CustomCertificatesClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
 	}
@@ -79,7 +80,8 @@ func (client *CustomCertificatesClient) BeginCreateOrUpdate(ctx context.Context,
 
 // CreateOrUpdate - Create or update a custom certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
+//
+// Generated from API version 2023-03-01-preview
 func (client *CustomCertificatesClient) createOrUpdate(ctx context.Context, resourceGroupName string, resourceName string, certificateName string, parameters CustomCertificate, options *CustomCertificatesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, resourceName, certificateName, parameters, options)
 	if err != nil {
@@ -98,9 +100,6 @@ func (client *CustomCertificatesClient) createOrUpdate(ctx context.Context, reso
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
 func (client *CustomCertificatesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, certificateName string, parameters CustomCertificate, options *CustomCertificatesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/customCertificates/{certificateName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -119,7 +118,7 @@ func (client *CustomCertificatesClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -127,13 +126,13 @@ func (client *CustomCertificatesClient) createOrUpdateCreateRequest(ctx context.
 
 // Delete - Delete a custom certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// resourceName - The name of the resource.
-// certificateName - Custom certificate name
-// options - CustomCertificatesClientDeleteOptions contains the optional parameters for the CustomCertificatesClient.Delete
-// method.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the resource.
+//   - certificateName - Custom certificate name
+//   - options - CustomCertificatesClientDeleteOptions contains the optional parameters for the CustomCertificatesClient.Delete
+//     method.
 func (client *CustomCertificatesClient) Delete(ctx context.Context, resourceGroupName string, resourceName string, certificateName string, options *CustomCertificatesClientDeleteOptions) (CustomCertificatesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, resourceName, certificateName, options)
 	if err != nil {
@@ -152,9 +151,6 @@ func (client *CustomCertificatesClient) Delete(ctx context.Context, resourceGrou
 // deleteCreateRequest creates the Delete request.
 func (client *CustomCertificatesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, certificateName string, options *CustomCertificatesClientDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/customCertificates/{certificateName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -173,7 +169,7 @@ func (client *CustomCertificatesClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,12 +177,12 @@ func (client *CustomCertificatesClient) deleteCreateRequest(ctx context.Context,
 
 // Get - Get a custom certificate.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// resourceName - The name of the resource.
-// certificateName - Custom certificate name
-// options - CustomCertificatesClientGetOptions contains the optional parameters for the CustomCertificatesClient.Get method.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the resource.
+//   - certificateName - Custom certificate name
+//   - options - CustomCertificatesClientGetOptions contains the optional parameters for the CustomCertificatesClient.Get method.
 func (client *CustomCertificatesClient) Get(ctx context.Context, resourceGroupName string, resourceName string, certificateName string, options *CustomCertificatesClientGetOptions) (CustomCertificatesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, resourceName, certificateName, options)
 	if err != nil {
@@ -205,9 +201,6 @@ func (client *CustomCertificatesClient) Get(ctx context.Context, resourceGroupNa
 // getCreateRequest creates the Get request.
 func (client *CustomCertificatesClient) getCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, certificateName string, options *CustomCertificatesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/customCertificates/{certificateName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -226,7 +219,7 @@ func (client *CustomCertificatesClient) getCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -242,11 +235,12 @@ func (client *CustomCertificatesClient) getHandleResponse(resp *http.Response) (
 }
 
 // NewListPager - List all custom certificates.
-// Generated from API version 2022-08-01-preview
-// resourceGroupName - The name of the resource group that contains the resource. You can obtain this value from the Azure
-// Resource Manager API or the portal.
-// resourceName - The name of the resource.
-// options - CustomCertificatesClientListOptions contains the optional parameters for the CustomCertificatesClient.List method.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - resourceName - The name of the resource.
+//   - options - CustomCertificatesClientListOptions contains the optional parameters for the CustomCertificatesClient.NewListPager
+//     method.
 func (client *CustomCertificatesClient) NewListPager(resourceGroupName string, resourceName string, options *CustomCertificatesClientListOptions) *runtime.Pager[CustomCertificatesClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CustomCertificatesClientListResponse]{
 		More: func(page CustomCertificatesClientListResponse) bool {
@@ -278,9 +272,6 @@ func (client *CustomCertificatesClient) NewListPager(resourceGroupName string, r
 // listCreateRequest creates the List request.
 func (client *CustomCertificatesClient) listCreateRequest(ctx context.Context, resourceGroupName string, resourceName string, options *CustomCertificatesClientListOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.SignalRService/signalR/{resourceName}/customCertificates"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -295,7 +286,7 @@ func (client *CustomCertificatesClient) listCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-08-01-preview")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
