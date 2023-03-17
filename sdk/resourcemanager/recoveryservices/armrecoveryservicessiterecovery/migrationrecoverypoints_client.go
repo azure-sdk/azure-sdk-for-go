@@ -34,11 +34,11 @@ type MigrationRecoveryPointsClient struct {
 }
 
 // NewMigrationRecoveryPointsClient creates a new instance of MigrationRecoveryPointsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewMigrationRecoveryPointsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MigrationRecoveryPointsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -63,13 +63,14 @@ func NewMigrationRecoveryPointsClient(resourceName string, resourceGroupName str
 
 // Get - Gets a recovery point for a migration item.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// fabricName - Fabric unique name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// migrationRecoveryPointName - The migration recovery point name.
-// options - MigrationRecoveryPointsClientGetOptions contains the optional parameters for the MigrationRecoveryPointsClient.Get
-// method.
+//
+// Generated from API version 2023-02-01
+//   - fabricName - Fabric unique name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - migrationRecoveryPointName - The migration recovery point name.
+//   - options - MigrationRecoveryPointsClientGetOptions contains the optional parameters for the MigrationRecoveryPointsClient.Get
+//     method.
 func (client *MigrationRecoveryPointsClient) Get(ctx context.Context, fabricName string, protectionContainerName string, migrationItemName string, migrationRecoveryPointName string, options *MigrationRecoveryPointsClientGetOptions) (MigrationRecoveryPointsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, protectionContainerName, migrationItemName, migrationRecoveryPointName, options)
 	if err != nil {
@@ -121,7 +122,7 @@ func (client *MigrationRecoveryPointsClient) getCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -137,12 +138,13 @@ func (client *MigrationRecoveryPointsClient) getHandleResponse(resp *http.Respon
 }
 
 // NewListByReplicationMigrationItemsPager - Gets the recovery points for a migration item.
-// Generated from API version 2022-10-01
-// fabricName - Fabric unique name.
-// protectionContainerName - Protection container name.
-// migrationItemName - Migration item name.
-// options - MigrationRecoveryPointsClientListByReplicationMigrationItemsOptions contains the optional parameters for the
-// MigrationRecoveryPointsClient.ListByReplicationMigrationItems method.
+//
+// Generated from API version 2023-02-01
+//   - fabricName - Fabric unique name.
+//   - protectionContainerName - Protection container name.
+//   - migrationItemName - Migration item name.
+//   - options - MigrationRecoveryPointsClientListByReplicationMigrationItemsOptions contains the optional parameters for the
+//     MigrationRecoveryPointsClient.NewListByReplicationMigrationItemsPager method.
 func (client *MigrationRecoveryPointsClient) NewListByReplicationMigrationItemsPager(fabricName string, protectionContainerName string, migrationItemName string, options *MigrationRecoveryPointsClientListByReplicationMigrationItemsOptions) *runtime.Pager[MigrationRecoveryPointsClientListByReplicationMigrationItemsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[MigrationRecoveryPointsClientListByReplicationMigrationItemsResponse]{
 		More: func(page MigrationRecoveryPointsClientListByReplicationMigrationItemsResponse) bool {
@@ -203,7 +205,7 @@ func (client *MigrationRecoveryPointsClient) listByReplicationMigrationItemsCrea
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
