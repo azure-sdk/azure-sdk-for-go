@@ -32,9 +32,9 @@ type AlertProcessingRulesClient struct {
 }
 
 // NewAlertProcessingRulesClient creates a new instance of AlertProcessingRulesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAlertProcessingRulesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AlertProcessingRulesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewAlertProcessingRulesClient(subscriptionID string, credential azcore.Toke
 
 // CreateOrUpdate - Create or update an alert processing rule.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-08
-// resourceGroupName - Resource group name where the resource is created.
-// alertProcessingRuleName - The name of the alert processing rule that needs to be created/updated.
-// alertProcessingRule - Alert processing rule to be created/updated.
-// options - AlertProcessingRulesClientCreateOrUpdateOptions contains the optional parameters for the AlertProcessingRulesClient.CreateOrUpdate
-// method.
+//   - resourceGroupName - Resource group name where the resource is created.
+//   - alertProcessingRuleName - The name of the alert processing rule that needs to be created/updated.
+//   - alertProcessingRule - Alert processing rule to be created/updated.
+//   - options - AlertProcessingRulesClientCreateOrUpdateOptions contains the optional parameters for the AlertProcessingRulesClient.CreateOrUpdate
+//     method.
 func (client *AlertProcessingRulesClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, alertProcessingRuleName string, alertProcessingRule AlertProcessingRule, options *AlertProcessingRulesClientCreateOrUpdateOptions) (AlertProcessingRulesClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, alertProcessingRuleName, alertProcessingRule, options)
 	if err != nil {
@@ -118,11 +119,12 @@ func (client *AlertProcessingRulesClient) createOrUpdateHandleResponse(resp *htt
 
 // Delete - Delete an alert processing rule.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-08
-// resourceGroupName - Resource group name where the resource is created.
-// alertProcessingRuleName - The name of the alert processing rule that needs to be deleted.
-// options - AlertProcessingRulesClientDeleteOptions contains the optional parameters for the AlertProcessingRulesClient.Delete
-// method.
+//   - resourceGroupName - Resource group name where the resource is created.
+//   - alertProcessingRuleName - The name of the alert processing rule that needs to be deleted.
+//   - options - AlertProcessingRulesClientDeleteOptions contains the optional parameters for the AlertProcessingRulesClient.Delete
+//     method.
 func (client *AlertProcessingRulesClient) Delete(ctx context.Context, resourceGroupName string, alertProcessingRuleName string, options *AlertProcessingRulesClientDeleteOptions) (AlertProcessingRulesClientDeleteResponse, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, alertProcessingRuleName, options)
 	if err != nil {
@@ -175,11 +177,12 @@ func (client *AlertProcessingRulesClient) deleteHandleResponse(resp *http.Respon
 
 // GetByName - Get an alert processing rule by name.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-08
-// resourceGroupName - Resource group name where the resource is created.
-// alertProcessingRuleName - The name of the alert processing rule that needs to be fetched.
-// options - AlertProcessingRulesClientGetByNameOptions contains the optional parameters for the AlertProcessingRulesClient.GetByName
-// method.
+//   - resourceGroupName - Resource group name where the resource is created.
+//   - alertProcessingRuleName - The name of the alert processing rule that needs to be fetched.
+//   - options - AlertProcessingRulesClientGetByNameOptions contains the optional parameters for the AlertProcessingRulesClient.GetByName
+//     method.
 func (client *AlertProcessingRulesClient) GetByName(ctx context.Context, resourceGroupName string, alertProcessingRuleName string, options *AlertProcessingRulesClientGetByNameOptions) (AlertProcessingRulesClientGetByNameResponse, error) {
 	req, err := client.getByNameCreateRequest(ctx, resourceGroupName, alertProcessingRuleName, options)
 	if err != nil {
@@ -234,11 +237,11 @@ func (client *AlertProcessingRulesClient) getByNameHandleResponse(resp *http.Res
 }
 
 // NewListByResourceGroupPager - List all alert processing rules in a resource group.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-08
-// resourceGroupName - Resource group name where the resource is created.
-// options - AlertProcessingRulesClientListByResourceGroupOptions contains the optional parameters for the AlertProcessingRulesClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - Resource group name where the resource is created.
+//   - options - AlertProcessingRulesClientListByResourceGroupOptions contains the optional parameters for the AlertProcessingRulesClient.NewListByResourceGroupPager
+//     method.
 func (client *AlertProcessingRulesClient) NewListByResourceGroupPager(resourceGroupName string, options *AlertProcessingRulesClientListByResourceGroupOptions) *runtime.Pager[AlertProcessingRulesClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AlertProcessingRulesClientListByResourceGroupResponse]{
 		More: func(page AlertProcessingRulesClientListByResourceGroupResponse) bool {
@@ -302,10 +305,10 @@ func (client *AlertProcessingRulesClient) listByResourceGroupHandleResponse(resp
 }
 
 // NewListBySubscriptionPager - List all alert processing rules in a subscription.
-// If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-08
-// options - AlertProcessingRulesClientListBySubscriptionOptions contains the optional parameters for the AlertProcessingRulesClient.ListBySubscription
-// method.
+//   - options - AlertProcessingRulesClientListBySubscriptionOptions contains the optional parameters for the AlertProcessingRulesClient.NewListBySubscriptionPager
+//     method.
 func (client *AlertProcessingRulesClient) NewListBySubscriptionPager(options *AlertProcessingRulesClientListBySubscriptionOptions) *runtime.Pager[AlertProcessingRulesClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AlertProcessingRulesClientListBySubscriptionResponse]{
 		More: func(page AlertProcessingRulesClientListBySubscriptionResponse) bool {
@@ -366,12 +369,13 @@ func (client *AlertProcessingRulesClient) listBySubscriptionHandleResponse(resp 
 
 // Update - Enable, disable, or update tags for an alert processing rule.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-08-08
-// resourceGroupName - Resource group name where the resource is created.
-// alertProcessingRuleName - The name that needs to be updated.
-// alertProcessingRulePatch - Parameters supplied to the operation.
-// options - AlertProcessingRulesClientUpdateOptions contains the optional parameters for the AlertProcessingRulesClient.Update
-// method.
+//   - resourceGroupName - Resource group name where the resource is created.
+//   - alertProcessingRuleName - The name that needs to be updated.
+//   - alertProcessingRulePatch - Parameters supplied to the operation.
+//   - options - AlertProcessingRulesClientUpdateOptions contains the optional parameters for the AlertProcessingRulesClient.Update
+//     method.
 func (client *AlertProcessingRulesClient) Update(ctx context.Context, resourceGroupName string, alertProcessingRuleName string, alertProcessingRulePatch PatchObject, options *AlertProcessingRulesClientUpdateOptions) (AlertProcessingRulesClientUpdateResponse, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, alertProcessingRuleName, alertProcessingRulePatch, options)
 	if err != nil {
