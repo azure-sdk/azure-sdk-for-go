@@ -49,7 +49,7 @@ func NewKustoOperationsClient(credential azcore.TokenCredential, options *arm.Cl
 	return client, nil
 }
 
-// NewListPager - Lists available operations for the Kusto sub-resources inside Microsoft.Synapse provider.
+// NewListPager - Lists available operations for the Kusto sub-resources inside Microsoft.Synapse provider 1.
 //
 // Generated from API version 2021-06-01-preview
 //   - options - KustoOperationsClientListOptions contains the optional parameters for the KustoOperationsClient.NewListPager
