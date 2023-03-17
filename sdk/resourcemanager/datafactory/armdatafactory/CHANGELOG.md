@@ -1,5 +1,21 @@
 # Release History
 
+## 3.2.0 (2023-03-17)
+### Features Added
+
+- New type alias `AzureStorageAuthenticationType` with values `AzureStorageAuthenticationTypeAccountKey`, `AzureStorageAuthenticationTypeAnonymous`, `AzureStorageAuthenticationTypeMsi`, `AzureStorageAuthenticationTypeSasURI`, `AzureStorageAuthenticationTypeServicePrincipal`
+- New struct `CopyComputeScaleProperties`
+- New struct `IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem`
+- New struct `PipelineExternalComputeScaleProperties`
+- New field `SasToken` in struct `AzureBlobFSLinkedServiceTypeProperties`
+- New field `SasURI` in struct `AzureBlobFSLinkedServiceTypeProperties`
+- New field `AuthenticationType` in struct `AzureBlobStorageLinkedServiceTypeProperties`
+- New field `ContainerURI` in struct `AzureBlobStorageLinkedServiceTypeProperties`
+- New field `CopyComputeScaleProperties` in struct `IntegrationRuntimeComputeProperties`
+- New field `PipelineExternalComputeScaleProperties` in struct `IntegrationRuntimeComputeProperties`
+- New field `CustomProperties` in struct `IntegrationRuntimeDataFlowProperties`
+
+
 ## 3.1.0 (2023-02-24)
 ### Features Added
 
