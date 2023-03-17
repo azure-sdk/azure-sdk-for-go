@@ -1,5 +1,34 @@
 # Release History
 
+## 2.0.0 (2023-03-17)
+### Breaking Changes
+
+- Struct `CloudError` has been removed
+
+### Features Added
+
+- New type alias `CrossSubscriptionRestoreState` with values `CrossSubscriptionRestoreStateDisabled`, `CrossSubscriptionRestoreStateEnabled`, `CrossSubscriptionRestoreStatePermanentlyDisabled`
+- New type alias `ImmutabilityState` with values `ImmutabilityStateDisabled`, `ImmutabilityStateLocked`, `ImmutabilityStateUnlocked`
+- New type alias `PublicNetworkAccess` with values `PublicNetworkAccessDisabled`, `PublicNetworkAccessEnabled`
+- New type alias `VaultSubResourceType` with values `VaultSubResourceTypeAzureBackup`, `VaultSubResourceTypeAzureBackupSecondary`, `VaultSubResourceTypeAzureSiteRecovery`
+- New function `*Client.Capabilities(context.Context, string, ResourceCapabilities, *ClientCapabilitiesOptions) (ClientCapabilitiesResponse, error)`
+- New struct `CapabilitiesProperties`
+- New struct `CapabilitiesResponse`
+- New struct `CapabilitiesResponseProperties`
+- New struct `CrossSubscriptionRestoreSettings`
+- New struct `DNSZone`
+- New struct `DNSZoneResponse`
+- New struct `ImmutabilitySettings`
+- New struct `ResourceCapabilities`
+- New struct `ResourceCapabilitiesBase`
+- New struct `RestoreSettings`
+- New struct `SecuritySettings`
+- New field `GroupIDs` in struct `PrivateEndpointConnection`
+- New field `PublicNetworkAccess` in struct `VaultProperties`
+- New field `RestoreSettings` in struct `VaultProperties`
+- New field `SecuritySettings` in struct `VaultProperties`
+
+
 ## 1.2.0 (2023-02-24)
 ### Features Added
 

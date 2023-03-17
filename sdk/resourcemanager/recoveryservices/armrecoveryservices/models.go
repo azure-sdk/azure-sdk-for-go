@@ -151,6 +151,11 @@ type CmkKeyVaultProperties struct {
 	KeyURI *string `json:"keyUri,omitempty"`
 }
 
+// CrossSubscriptionRestoreSettings - Settings for Cross Subscription Restore Settings
+type CrossSubscriptionRestoreSettings struct {
+	CrossSubscriptionRestoreState *CrossSubscriptionRestoreState `json:"crossSubscriptionRestoreState,omitempty"`
+}
+
 // DNSZone information
 type DNSZone struct {
 	// Subresource type for vault AzureBackup, AzureBackup_secondary or AzureSiteRecovery
@@ -697,6 +702,12 @@ func (r *ResourceCertificateDetails) GetResourceCertificateDetails() *ResourceCe
 	return r
 }
 
+// RestoreSettings - Restore Settings of the vault
+type RestoreSettings struct {
+	// Settings for CrossSubscriptionRestore
+	CrossSubscriptionRestoreSettings *CrossSubscriptionRestoreSettings `json:"crossSubscriptionRestoreSettings,omitempty"`
+}
+
 // SKU - Identifies the unique system identifier for each Azure resource.
 type SKU struct {
 	// REQUIRED; Name of SKU is RS0 (Recovery Services 0th version) and the tier is standard tier. They do not have affect on
@@ -936,6 +947,9 @@ type VaultProperties struct {
 
 	// The redundancy Settings of a Vault
 	RedundancySettings *VaultPropertiesRedundancySettings `json:"redundancySettings,omitempty"`
+
+	// Restore Settings of the vault
+	RestoreSettings *RestoreSettings `json:"restoreSettings,omitempty"`
 
 	// Security Settings of the vault
 	SecuritySettings *SecuritySettings `json:"securitySettings,omitempty"`
