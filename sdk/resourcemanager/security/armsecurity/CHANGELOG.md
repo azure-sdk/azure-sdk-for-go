@@ -1,5 +1,111 @@
 # Release History
 
+## 0.10.0 (2023-03-19)
+### Breaking Changes
+
+- Function `NewGovernanceRulesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*GovernanceRulesClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, GovernanceRule, *GovernanceRulesClientCreateOrUpdateOptions)` to `(context.Context, string, string, GovernanceRule, *GovernanceRulesClientCreateOrUpdateOptions)`
+- Function `*GovernanceRulesClient.Get` parameter(s) have been changed from `(context.Context, string, *GovernanceRulesClientGetOptions)` to `(context.Context, string, string, *GovernanceRulesClientGetOptions)`
+- Function `NewConnectorGovernanceRuleClient` has been removed
+- Function `*ConnectorGovernanceRuleClient.NewListPager` has been removed
+- Function `NewConnectorGovernanceRulesClient` has been removed
+- Function `*ConnectorGovernanceRulesClient.CreateOrUpdate` has been removed
+- Function `*ConnectorGovernanceRulesClient.Delete` has been removed
+- Function `*ConnectorGovernanceRulesClient.Get` has been removed
+- Function `NewConnectorGovernanceRulesExecuteStatusClient` has been removed
+- Function `*ConnectorGovernanceRulesExecuteStatusClient.BeginGet` has been removed
+- Function `NewGovernanceRuleClient` has been removed
+- Function `*GovernanceRuleClient.NewListPager` has been removed
+- Function `*GovernanceRulesClient.BeginRuleIDExecuteSingleSecurityConnector` has been removed
+- Function `*GovernanceRulesClient.BeginRuleIDExecuteSingleSubscription` has been removed
+- Function `NewSubscriptionGovernanceRulesExecuteStatusClient` has been removed
+- Function `*SubscriptionGovernanceRulesExecuteStatusClient.BeginGet` has been removed
+- Operation `*GovernanceRulesClient.Delete` has been changed to LRO, use `*GovernanceRulesClient.BeginDelete` instead.
+- Struct `ConnectorGovernanceRuleClient` has been removed
+- Struct `ConnectorGovernanceRulesClient` has been removed
+- Struct `ConnectorGovernanceRulesExecuteStatusClient` has been removed
+- Struct `ExecuteRuleStatus` has been removed
+- Struct `GovernanceRuleClient` has been removed
+- Struct `SubscriptionGovernanceRulesExecuteStatusClient` has been removed
+
+### Features Added
+
+- New value `CloudNameGitLab` added to type alias `CloudName`
+- New value `EnvironmentTypeGitlabScope` added to type alias `EnvironmentType`
+- New value `OfferingTypeCspmMonitorGitLab`, `OfferingTypeDefenderForDevOpsGitLab` added to type alias `OfferingType`
+- New type alias `OperationResult` with values `OperationResultCanceled`, `OperationResultFailed`, `OperationResultSucceeded`
+- New type alias `ScopeName` with values `ScopeNameClusters`, `ScopeNameConnectors`, `ScopeNameUnknown`, `ScopeNameVirtualMachines`
+- New type alias `StatusName` with values `StatusNameHealthy`, `StatusNameNotApplicable`, `StatusNameNotHealthy`
+- New function `NewAPICollectionClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionClient, error)`
+- New function `*APICollectionClient.Get(context.Context, string, string, string, *APICollectionClientGetOptions) (APICollectionClientGetResponse, error)`
+- New function `*APICollectionClient.NewListPager(string, string, *APICollectionClientListOptions) *runtime.Pager[APICollectionClientListResponse]`
+- New function `NewAPICollectionOffboardingClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionOffboardingClient, error)`
+- New function `*APICollectionOffboardingClient.Delete(context.Context, string, string, string, *APICollectionOffboardingClientDeleteOptions) (APICollectionOffboardingClientDeleteResponse, error)`
+- New function `NewAPICollectionOnboardingClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APICollectionOnboardingClient, error)`
+- New function `*APICollectionOnboardingClient.Create(context.Context, string, string, string, *APICollectionOnboardingClientCreateOptions) (APICollectionOnboardingClientCreateResponse, error)`
+- New function `*CspmMonitorGitLab.GetCloudOffering() *CloudOffering`
+- New function `*DefenderForDevOpsGitLabOffering.GetCloudOffering() *CloudOffering`
+- New function `*GitlabScopeEnvironmentData.GetEnvironmentData() *EnvironmentData`
+- New function `*GovernanceRulesClient.BeginExecute(context.Context, string, string, *GovernanceRulesClientBeginExecuteOptions) (*runtime.Poller[GovernanceRulesClientExecuteResponse], error)`
+- New function `*GovernanceRulesClient.NewListPager(string, *GovernanceRulesClientListOptions) *runtime.Pager[GovernanceRulesClientListResponse]`
+- New function `*GovernanceRulesClient.OperationResults(context.Context, string, string, string, *GovernanceRulesClientOperationResultsOptions) (GovernanceRulesClientOperationResultsResponse, error)`
+- New function `NewHealthReportClient(azcore.TokenCredential, *arm.ClientOptions) (*HealthReportClient, error)`
+- New function `*HealthReportClient.Get(context.Context, string, string, *HealthReportClientGetOptions) (HealthReportClientGetResponse, error)`
+- New function `NewHealthReportsClient(azcore.TokenCredential, *arm.ClientOptions) (*HealthReportsClient, error)`
+- New function `*HealthReportsClient.NewListPager(string, *HealthReportsClientListOptions) *runtime.Pager[HealthReportsClientListResponse]`
+- New struct `APICollectionClient`
+- New struct `APICollectionOffboardingClient`
+- New struct `APICollectionOnboardingClient`
+- New struct `APICollectionProperties`
+- New struct `APICollectionResponse`
+- New struct `APICollectionResponseList`
+- New struct `CspmMonitorGitLab`
+- New struct `DefenderCspmAwsOfferingDataSensitivityDiscovery`
+- New struct `DefenderCspmAwsOfferingDatabasesDspm`
+- New struct `DefenderFoDatabasesAwsOfferingArcAutoProvisioningConfiguration`
+- New struct `DefenderFoDatabasesAwsOfferingDatabasesDspm`
+- New struct `DefenderForDatabasesGcpOfferingArcAutoProvisioningConfiguration`
+- New struct `DefenderForDevOpsGitLabOffering`
+- New struct `DefenderForServersAwsOfferingArcAutoProvisioningConfiguration`
+- New struct `DefenderForServersGcpOfferingArcAutoProvisioningConfiguration`
+- New struct `DefenderForServersGcpOfferingVMScanners`
+- New struct `DefenderForServersGcpOfferingVMScannersConfiguration`
+- New struct `EnvironmentDetails`
+- New struct `ErrorDetail`
+- New struct `ErrorDetailAutoGenerated`
+- New struct `ErrorResponse`
+- New struct `ErrorResponseAutoGenerated`
+- New struct `GitlabScopeEnvironmentData`
+- New struct `GovernanceRuleMetadata`
+- New struct `HealthDataClassification`
+- New struct `HealthReport`
+- New struct `HealthReportClient`
+- New struct `HealthReportProperties`
+- New struct `HealthReportsClient`
+- New struct `HealthReportsList`
+- New struct `Issue`
+- New struct `OperationResultAutoGenerated`
+- New struct `ResourceDetailsAutoGenerated`
+- New struct `StatusAutoGenerated`
+- New field `AccountName` in struct `AwsEnvironmentData`
+- New field `Regions` in struct `AwsEnvironmentData`
+- New field `DataSensitivityDiscovery` in struct `DefenderCspmAwsOffering`
+- New field `DatabasesDspm` in struct `DefenderCspmAwsOffering`
+- New field `DatabasesDspm` in struct `DefenderFoDatabasesAwsOffering`
+- New field `Configuration` in struct `DefenderFoDatabasesAwsOfferingArcAutoProvisioning`
+- New field `Configuration` in struct `DefenderForDatabasesGcpOfferingArcAutoProvisioning`
+- New field `Configuration` in struct `DefenderForServersAwsOfferingArcAutoProvisioning`
+- New field `VMScanners` in struct `DefenderForServersGcpOffering`
+- New field `Configuration` in struct `DefenderForServersGcpOfferingArcAutoProvisioning`
+- New field `OrganizationName` in struct `GcpOrganizationalDataOrganization`
+- New field `ProjectName` in struct `GcpProjectDetails`
+- New field `ExcludedScopes` in struct `GovernanceRuleProperties`
+- New field `IncludeMemberScopes` in struct `GovernanceRuleProperties`
+- New field `Metadata` in struct `GovernanceRuleProperties`
+- New field `TenantID` in struct `GovernanceRuleProperties`
+- New field `LastScanTime` in struct `ScanProperties`
+
+
 ## 0.9.0 (2022-11-15)
 ### Breaking Changes
 

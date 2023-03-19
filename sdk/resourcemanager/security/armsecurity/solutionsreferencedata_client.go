@@ -32,9 +32,9 @@ type SolutionsReferenceDataClient struct {
 }
 
 // NewSolutionsReferenceDataClient creates a new instance of SolutionsReferenceDataClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSolutionsReferenceDataClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SolutionsReferenceDataClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,9 +57,10 @@ func NewSolutionsReferenceDataClient(subscriptionID string, credential azcore.To
 
 // List - Gets a list of all supported Security Solutions for the subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// options - SolutionsReferenceDataClientListOptions contains the optional parameters for the SolutionsReferenceDataClient.List
-// method.
+//   - options - SolutionsReferenceDataClientListOptions contains the optional parameters for the SolutionsReferenceDataClient.List
+//     method.
 func (client *SolutionsReferenceDataClient) List(ctx context.Context, options *SolutionsReferenceDataClientListOptions) (SolutionsReferenceDataClientListResponse, error) {
 	req, err := client.listCreateRequest(ctx, options)
 	if err != nil {
@@ -104,10 +105,11 @@ func (client *SolutionsReferenceDataClient) listHandleResponse(resp *http.Respon
 
 // ListByHomeRegion - Gets list of all supported Security Solutions for subscription and location.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2020-01-01
-// ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
-// options - SolutionsReferenceDataClientListByHomeRegionOptions contains the optional parameters for the SolutionsReferenceDataClient.ListByHomeRegion
-// method.
+//   - ascLocation - The location where ASC stores the data of the subscription. can be retrieved from Get locations
+//   - options - SolutionsReferenceDataClientListByHomeRegionOptions contains the optional parameters for the SolutionsReferenceDataClient.ListByHomeRegion
+//     method.
 func (client *SolutionsReferenceDataClient) ListByHomeRegion(ctx context.Context, ascLocation string, options *SolutionsReferenceDataClientListByHomeRegionOptions) (SolutionsReferenceDataClientListByHomeRegionResponse, error) {
 	req, err := client.listByHomeRegionCreateRequest(ctx, ascLocation, options)
 	if err != nil {

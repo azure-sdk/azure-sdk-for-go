@@ -32,9 +32,9 @@ type AssessmentsMetadataClient struct {
 }
 
 // NewAssessmentsMetadataClient creates a new instance of AssessmentsMetadataClient with the specified values.
-// subscriptionID - Azure subscription ID
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Azure subscription ID
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAssessmentsMetadataClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AssessmentsMetadataClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,11 +57,12 @@ func NewAssessmentsMetadataClient(subscriptionID string, credential azcore.Token
 
 // CreateInSubscription - Create metadata information on an assessment type in a specific subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// assessmentMetadataName - The Assessment Key - Unique key for the assessment type
-// assessmentMetadata - AssessmentMetadata object
-// options - AssessmentsMetadataClientCreateInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.CreateInSubscription
-// method.
+//   - assessmentMetadataName - The Assessment Key - Unique key for the assessment type
+//   - assessmentMetadata - AssessmentMetadata object
+//   - options - AssessmentsMetadataClientCreateInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.CreateInSubscription
+//     method.
 func (client *AssessmentsMetadataClient) CreateInSubscription(ctx context.Context, assessmentMetadataName string, assessmentMetadata AssessmentMetadataResponse, options *AssessmentsMetadataClientCreateInSubscriptionOptions) (AssessmentsMetadataClientCreateInSubscriptionResponse, error) {
 	req, err := client.createInSubscriptionCreateRequest(ctx, assessmentMetadataName, assessmentMetadata, options)
 	if err != nil {
@@ -111,10 +112,11 @@ func (client *AssessmentsMetadataClient) createInSubscriptionHandleResponse(resp
 // DeleteInSubscription - Delete metadata information on an assessment type in a specific subscription, will cause the deletion
 // of all the assessments of that type in that subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// assessmentMetadataName - The Assessment Key - Unique key for the assessment type
-// options - AssessmentsMetadataClientDeleteInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.DeleteInSubscription
-// method.
+//   - assessmentMetadataName - The Assessment Key - Unique key for the assessment type
+//   - options - AssessmentsMetadataClientDeleteInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.DeleteInSubscription
+//     method.
 func (client *AssessmentsMetadataClient) DeleteInSubscription(ctx context.Context, assessmentMetadataName string, options *AssessmentsMetadataClientDeleteInSubscriptionOptions) (AssessmentsMetadataClientDeleteInSubscriptionResponse, error) {
 	req, err := client.deleteInSubscriptionCreateRequest(ctx, assessmentMetadataName, options)
 	if err != nil {
@@ -154,9 +156,10 @@ func (client *AssessmentsMetadataClient) deleteInSubscriptionCreateRequest(ctx c
 
 // Get - Get metadata information on an assessment type
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// assessmentMetadataName - The Assessment Key - Unique key for the assessment type
-// options - AssessmentsMetadataClientGetOptions contains the optional parameters for the AssessmentsMetadataClient.Get method.
+//   - assessmentMetadataName - The Assessment Key - Unique key for the assessment type
+//   - options - AssessmentsMetadataClientGetOptions contains the optional parameters for the AssessmentsMetadataClient.Get method.
 func (client *AssessmentsMetadataClient) Get(ctx context.Context, assessmentMetadataName string, options *AssessmentsMetadataClientGetOptions) (AssessmentsMetadataClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, assessmentMetadataName, options)
 	if err != nil {
@@ -201,10 +204,11 @@ func (client *AssessmentsMetadataClient) getHandleResponse(resp *http.Response) 
 
 // GetInSubscription - Get metadata information on an assessment type in a specific subscription
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2021-06-01
-// assessmentMetadataName - The Assessment Key - Unique key for the assessment type
-// options - AssessmentsMetadataClientGetInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.GetInSubscription
-// method.
+//   - assessmentMetadataName - The Assessment Key - Unique key for the assessment type
+//   - options - AssessmentsMetadataClientGetInSubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.GetInSubscription
+//     method.
 func (client *AssessmentsMetadataClient) GetInSubscription(ctx context.Context, assessmentMetadataName string, options *AssessmentsMetadataClientGetInSubscriptionOptions) (AssessmentsMetadataClientGetInSubscriptionResponse, error) {
 	req, err := client.getInSubscriptionCreateRequest(ctx, assessmentMetadataName, options)
 	if err != nil {
@@ -252,9 +256,10 @@ func (client *AssessmentsMetadataClient) getInSubscriptionHandleResponse(resp *h
 }
 
 // NewListPager - Get metadata information on all assessment types
+//
 // Generated from API version 2021-06-01
-// options - AssessmentsMetadataClientListOptions contains the optional parameters for the AssessmentsMetadataClient.List
-// method.
+//   - options - AssessmentsMetadataClientListOptions contains the optional parameters for the AssessmentsMetadataClient.NewListPager
+//     method.
 func (client *AssessmentsMetadataClient) NewListPager(options *AssessmentsMetadataClientListOptions) *runtime.Pager[AssessmentsMetadataClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AssessmentsMetadataClientListResponse]{
 		More: func(page AssessmentsMetadataClientListResponse) bool {
@@ -307,9 +312,10 @@ func (client *AssessmentsMetadataClient) listHandleResponse(resp *http.Response)
 }
 
 // NewListBySubscriptionPager - Get metadata information on all assessment types in a specific subscription
+//
 // Generated from API version 2021-06-01
-// options - AssessmentsMetadataClientListBySubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.ListBySubscription
-// method.
+//   - options - AssessmentsMetadataClientListBySubscriptionOptions contains the optional parameters for the AssessmentsMetadataClient.NewListBySubscriptionPager
+//     method.
 func (client *AssessmentsMetadataClient) NewListBySubscriptionPager(options *AssessmentsMetadataClientListBySubscriptionOptions) *runtime.Pager[AssessmentsMetadataClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AssessmentsMetadataClientListBySubscriptionResponse]{
 		More: func(page AssessmentsMetadataClientListBySubscriptionResponse) bool {

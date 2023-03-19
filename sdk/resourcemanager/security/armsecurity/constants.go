@@ -11,7 +11,7 @@ package armsecurity
 
 const (
 	moduleName    = "armsecurity"
-	moduleVersion = "v0.9.0"
+	moduleVersion = "v0.10.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -381,6 +381,7 @@ const (
 	CloudNameAzure       CloudName = "Azure"
 	CloudNameAzureDevOps CloudName = "AzureDevOps"
 	CloudNameGCP         CloudName = "GCP"
+	CloudNameGitLab      CloudName = "GitLab"
 	CloudNameGithub      CloudName = "Github"
 )
 
@@ -391,6 +392,7 @@ func PossibleCloudNameValues() []CloudName {
 		CloudNameAzure,
 		CloudNameAzureDevOps,
 		CloudNameGCP,
+		CloudNameGitLab,
 		CloudNameGithub,
 	}
 }
@@ -566,6 +568,7 @@ const (
 	EnvironmentTypeAzureDevOpsScope EnvironmentType = "AzureDevOpsScope"
 	EnvironmentTypeGcpProject       EnvironmentType = "GcpProject"
 	EnvironmentTypeGithubScope      EnvironmentType = "GithubScope"
+	EnvironmentTypeGitlabScope      EnvironmentType = "GitlabScope"
 )
 
 // PossibleEnvironmentTypeValues returns the possible values for the EnvironmentType const type.
@@ -575,6 +578,7 @@ func PossibleEnvironmentTypeValues() []EnvironmentType {
 		EnvironmentTypeAzureDevOpsScope,
 		EnvironmentTypeGcpProject,
 		EnvironmentTypeGithubScope,
+		EnvironmentTypeGitlabScope,
 	}
 }
 
@@ -944,6 +948,7 @@ const (
 	OfferingTypeCspmMonitorAws               OfferingType = "CspmMonitorAws"
 	OfferingTypeCspmMonitorAzureDevOps       OfferingType = "CspmMonitorAzureDevOps"
 	OfferingTypeCspmMonitorGcp               OfferingType = "CspmMonitorGcp"
+	OfferingTypeCspmMonitorGitLab            OfferingType = "CspmMonitorGitLab"
 	OfferingTypeCspmMonitorGithub            OfferingType = "CspmMonitorGithub"
 	OfferingTypeDefenderCspmAws              OfferingType = "DefenderCspmAws"
 	OfferingTypeDefenderCspmGcp              OfferingType = "DefenderCspmGcp"
@@ -952,6 +957,7 @@ const (
 	OfferingTypeDefenderForDatabasesAws      OfferingType = "DefenderForDatabasesAws"
 	OfferingTypeDefenderForDatabasesGcp      OfferingType = "DefenderForDatabasesGcp"
 	OfferingTypeDefenderForDevOpsAzureDevOps OfferingType = "DefenderForDevOpsAzureDevOps"
+	OfferingTypeDefenderForDevOpsGitLab      OfferingType = "DefenderForDevOpsGitLab"
 	OfferingTypeDefenderForDevOpsGithub      OfferingType = "DefenderForDevOpsGithub"
 	OfferingTypeDefenderForServersAws        OfferingType = "DefenderForServersAws"
 	OfferingTypeDefenderForServersGcp        OfferingType = "DefenderForServersGcp"
@@ -964,6 +970,7 @@ func PossibleOfferingTypeValues() []OfferingType {
 		OfferingTypeCspmMonitorAws,
 		OfferingTypeCspmMonitorAzureDevOps,
 		OfferingTypeCspmMonitorGcp,
+		OfferingTypeCspmMonitorGitLab,
 		OfferingTypeCspmMonitorGithub,
 		OfferingTypeDefenderCspmAws,
 		OfferingTypeDefenderCspmGcp,
@@ -972,10 +979,32 @@ func PossibleOfferingTypeValues() []OfferingType {
 		OfferingTypeDefenderForDatabasesAws,
 		OfferingTypeDefenderForDatabasesGcp,
 		OfferingTypeDefenderForDevOpsAzureDevOps,
+		OfferingTypeDefenderForDevOpsGitLab,
 		OfferingTypeDefenderForDevOpsGithub,
 		OfferingTypeDefenderForServersAws,
 		OfferingTypeDefenderForServersGcp,
 		OfferingTypeInformationProtectionAws,
+	}
+}
+
+// OperationResult - The status of the long run operation result of governance rule
+type OperationResult string
+
+const (
+	// OperationResultCanceled - The operation canceled
+	OperationResultCanceled OperationResult = "Canceled"
+	// OperationResultFailed - The operation failed
+	OperationResultFailed OperationResult = "Failed"
+	// OperationResultSucceeded - The operation succeeded
+	OperationResultSucceeded OperationResult = "Succeeded"
+)
+
+// PossibleOperationResultValues returns the possible values for the OperationResult const type.
+func PossibleOperationResultValues() []OperationResult {
+	return []OperationResult{
+		OperationResultCanceled,
+		OperationResultFailed,
+		OperationResultSucceeded,
 	}
 }
 
@@ -1500,7 +1529,7 @@ func PossibleScanTriggerTypeValues() []ScanTriggerType {
 	}
 }
 
-// ScanningMode - The scanning mode for the vm scan.
+// ScanningMode - The scanning mode for the VM scan.
 type ScanningMode string
 
 const (
@@ -1511,6 +1540,26 @@ const (
 func PossibleScanningModeValues() []ScanningMode {
 	return []ScanningMode{
 		ScanningModeDefault,
+	}
+}
+
+// ScopeName - The resource scope of the health report
+type ScopeName string
+
+const (
+	ScopeNameClusters        ScopeName = "Clusters"
+	ScopeNameConnectors      ScopeName = "Connectors"
+	ScopeNameUnknown         ScopeName = "Unknown"
+	ScopeNameVirtualMachines ScopeName = "VirtualMachines"
+)
+
+// PossibleScopeNameValues returns the possible values for the ScopeName const type.
+func PossibleScopeNameValues() []ScopeName {
+	return []ScopeName{
+		ScopeNameClusters,
+		ScopeNameConnectors,
+		ScopeNameUnknown,
+		ScopeNameVirtualMachines,
 	}
 }
 
@@ -1728,6 +1777,24 @@ func PossibleStatusValues() []Status {
 	return []Status{
 		StatusInitiated,
 		StatusRevoked,
+	}
+}
+
+// StatusName - The status of the health report
+type StatusName string
+
+const (
+	StatusNameHealthy       StatusName = "Healthy"
+	StatusNameNotApplicable StatusName = "NotApplicable"
+	StatusNameNotHealthy    StatusName = "NotHealthy"
+)
+
+// PossibleStatusNameValues returns the possible values for the StatusName const type.
+func PossibleStatusNameValues() []StatusName {
+	return []StatusName{
+		StatusNameHealthy,
+		StatusNameNotApplicable,
+		StatusNameNotHealthy,
 	}
 }
 
