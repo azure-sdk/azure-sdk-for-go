@@ -32,10 +32,10 @@ type CapacityReservationsClient struct {
 }
 
 // NewCapacityReservationsClient creates a new instance of CapacityReservationsClient with the specified values.
-// subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-// part of the URI for every service call.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
+//     part of the URI for every service call.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewCapacityReservationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*CapacityReservationsClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -60,13 +60,14 @@ func NewCapacityReservationsClient(subscriptionID string, credential azcore.Toke
 // only during capacity reservation creation. Please refer to https://aka.ms/CapacityReservation for more
 // details.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// capacityReservationGroupName - The name of the capacity reservation group.
-// capacityReservationName - The name of the capacity reservation.
-// parameters - Parameters supplied to the Create capacity reservation.
-// options - CapacityReservationsClientBeginCreateOrUpdateOptions contains the optional parameters for the CapacityReservationsClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - capacityReservationGroupName - The name of the capacity reservation group.
+//   - capacityReservationName - The name of the capacity reservation.
+//   - parameters - Parameters supplied to the Create capacity reservation.
+//   - options - CapacityReservationsClientBeginCreateOrUpdateOptions contains the optional parameters for the CapacityReservationsClient.BeginCreateOrUpdate
+//     method.
 func (client *CapacityReservationsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, capacityReservationName string, parameters CapacityReservation, options *CapacityReservationsClientBeginCreateOrUpdateOptions) (*runtime.Poller[CapacityReservationsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, capacityReservationGroupName, capacityReservationName, parameters, options)
@@ -83,7 +84,8 @@ func (client *CapacityReservationsClient) BeginCreateOrUpdate(ctx context.Contex
 // during capacity reservation creation. Please refer to https://aka.ms/CapacityReservation for more
 // details.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
+//
+// Generated from API version 2023-03-01
 func (client *CapacityReservationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, capacityReservationName string, parameters CapacityReservation, options *CapacityReservationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, capacityReservationGroupName, capacityReservationName, parameters, options)
 	if err != nil {
@@ -123,7 +125,7 @@ func (client *CapacityReservationsClient) createOrUpdateCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -133,12 +135,13 @@ func (client *CapacityReservationsClient) createOrUpdateCreateRequest(ctx contex
 // are disassociated from the capacity reservation. Please refer to
 // https://aka.ms/CapacityReservation for more details.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// capacityReservationGroupName - The name of the capacity reservation group.
-// capacityReservationName - The name of the capacity reservation.
-// options - CapacityReservationsClientBeginDeleteOptions contains the optional parameters for the CapacityReservationsClient.BeginDelete
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - capacityReservationGroupName - The name of the capacity reservation group.
+//   - capacityReservationName - The name of the capacity reservation.
+//   - options - CapacityReservationsClientBeginDeleteOptions contains the optional parameters for the CapacityReservationsClient.BeginDelete
+//     method.
 func (client *CapacityReservationsClient) BeginDelete(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, capacityReservationName string, options *CapacityReservationsClientBeginDeleteOptions) (*runtime.Poller[CapacityReservationsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, capacityReservationGroupName, capacityReservationName, options)
@@ -155,7 +158,8 @@ func (client *CapacityReservationsClient) BeginDelete(ctx context.Context, resou
 // are disassociated from the capacity reservation. Please refer to
 // https://aka.ms/CapacityReservation for more details.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
+//
+// Generated from API version 2023-03-01
 func (client *CapacityReservationsClient) deleteOperation(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, capacityReservationName string, options *CapacityReservationsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, capacityReservationGroupName, capacityReservationName, options)
 	if err != nil {
@@ -195,7 +199,7 @@ func (client *CapacityReservationsClient) deleteCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -203,12 +207,13 @@ func (client *CapacityReservationsClient) deleteCreateRequest(ctx context.Contex
 
 // Get - The operation that retrieves information about the capacity reservation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// capacityReservationGroupName - The name of the capacity reservation group.
-// capacityReservationName - The name of the capacity reservation.
-// options - CapacityReservationsClientGetOptions contains the optional parameters for the CapacityReservationsClient.Get
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - capacityReservationGroupName - The name of the capacity reservation group.
+//   - capacityReservationName - The name of the capacity reservation.
+//   - options - CapacityReservationsClientGetOptions contains the optional parameters for the CapacityReservationsClient.Get
+//     method.
 func (client *CapacityReservationsClient) Get(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, capacityReservationName string, options *CapacityReservationsClientGetOptions) (CapacityReservationsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, capacityReservationGroupName, capacityReservationName, options)
 	if err != nil {
@@ -251,7 +256,7 @@ func (client *CapacityReservationsClient) getCreateRequest(ctx context.Context, 
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", string(*options.Expand))
 	}
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -268,11 +273,12 @@ func (client *CapacityReservationsClient) getHandleResponse(resp *http.Response)
 
 // NewListByCapacityReservationGroupPager - Lists all of the capacity reservations in the specified capacity reservation group.
 // Use the nextLink property in the response to get the next page of capacity reservations.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// capacityReservationGroupName - The name of the capacity reservation group.
-// options - CapacityReservationsClientListByCapacityReservationGroupOptions contains the optional parameters for the CapacityReservationsClient.ListByCapacityReservationGroup
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - capacityReservationGroupName - The name of the capacity reservation group.
+//   - options - CapacityReservationsClientListByCapacityReservationGroupOptions contains the optional parameters for the CapacityReservationsClient.NewListByCapacityReservationGroupPager
+//     method.
 func (client *CapacityReservationsClient) NewListByCapacityReservationGroupPager(resourceGroupName string, capacityReservationGroupName string, options *CapacityReservationsClientListByCapacityReservationGroupOptions) *runtime.Pager[CapacityReservationsClientListByCapacityReservationGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[CapacityReservationsClientListByCapacityReservationGroupResponse]{
 		More: func(page CapacityReservationsClientListByCapacityReservationGroupResponse) bool {
@@ -321,7 +327,7 @@ func (client *CapacityReservationsClient) listByCapacityReservationGroupCreateRe
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -338,13 +344,14 @@ func (client *CapacityReservationsClient) listByCapacityReservationGroupHandleRe
 
 // BeginUpdate - The operation to update a capacity reservation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group.
-// capacityReservationGroupName - The name of the capacity reservation group.
-// capacityReservationName - The name of the capacity reservation.
-// parameters - Parameters supplied to the Update capacity reservation operation.
-// options - CapacityReservationsClientBeginUpdateOptions contains the optional parameters for the CapacityReservationsClient.BeginUpdate
-// method.
+//
+// Generated from API version 2023-03-01
+//   - resourceGroupName - The name of the resource group.
+//   - capacityReservationGroupName - The name of the capacity reservation group.
+//   - capacityReservationName - The name of the capacity reservation.
+//   - parameters - Parameters supplied to the Update capacity reservation operation.
+//   - options - CapacityReservationsClientBeginUpdateOptions contains the optional parameters for the CapacityReservationsClient.BeginUpdate
+//     method.
 func (client *CapacityReservationsClient) BeginUpdate(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, capacityReservationName string, parameters CapacityReservationUpdate, options *CapacityReservationsClientBeginUpdateOptions) (*runtime.Poller[CapacityReservationsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, capacityReservationGroupName, capacityReservationName, parameters, options)
@@ -359,7 +366,8 @@ func (client *CapacityReservationsClient) BeginUpdate(ctx context.Context, resou
 
 // Update - The operation to update a capacity reservation.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-11-01
+//
+// Generated from API version 2023-03-01
 func (client *CapacityReservationsClient) update(ctx context.Context, resourceGroupName string, capacityReservationGroupName string, capacityReservationName string, parameters CapacityReservationUpdate, options *CapacityReservationsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, capacityReservationGroupName, capacityReservationName, parameters, options)
 	if err != nil {
@@ -399,7 +407,7 @@ func (client *CapacityReservationsClient) updateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-11-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
