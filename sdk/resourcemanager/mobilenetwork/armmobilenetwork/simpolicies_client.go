@@ -32,9 +32,9 @@ type SimPoliciesClient struct {
 }
 
 // NewSimPoliciesClient creates a new instance of SimPoliciesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewSimPoliciesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*SimPoliciesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewSimPoliciesClient(subscriptionID string, credential azcore.TokenCredenti
 
 // BeginCreateOrUpdate - Creates or updates a SIM policy. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// simPolicyName - The name of the SIM policy.
-// parameters - Parameters supplied to the create or update SIM policy operation.
-// options - SimPoliciesClientBeginCreateOrUpdateOptions contains the optional parameters for the SimPoliciesClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - simPolicyName - The name of the SIM policy.
+//   - parameters - Parameters supplied to the create or update SIM policy operation.
+//   - options - SimPoliciesClientBeginCreateOrUpdateOptions contains the optional parameters for the SimPoliciesClient.BeginCreateOrUpdate
+//     method.
 func (client *SimPoliciesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, parameters SimPolicy, options *SimPoliciesClientBeginCreateOrUpdateOptions) (*runtime.Poller[SimPoliciesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, simPolicyName, parameters, options)
@@ -80,6 +81,7 @@ func (client *SimPoliciesClient) BeginCreateOrUpdate(ctx context.Context, resour
 
 // CreateOrUpdate - Creates or updates a SIM policy. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *SimPoliciesClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, parameters SimPolicy, options *SimPoliciesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, simPolicyName, parameters, options)
@@ -128,11 +130,12 @@ func (client *SimPoliciesClient) createOrUpdateCreateRequest(ctx context.Context
 
 // BeginDelete - Deletes the specified SIM policy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// simPolicyName - The name of the SIM policy.
-// options - SimPoliciesClientBeginDeleteOptions contains the optional parameters for the SimPoliciesClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - simPolicyName - The name of the SIM policy.
+//   - options - SimPoliciesClientBeginDeleteOptions contains the optional parameters for the SimPoliciesClient.BeginDelete method.
 func (client *SimPoliciesClient) BeginDelete(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, options *SimPoliciesClientBeginDeleteOptions) (*runtime.Poller[SimPoliciesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, mobileNetworkName, simPolicyName, options)
@@ -149,6 +152,7 @@ func (client *SimPoliciesClient) BeginDelete(ctx context.Context, resourceGroupN
 
 // Delete - Deletes the specified SIM policy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *SimPoliciesClient) deleteOperation(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, options *SimPoliciesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, mobileNetworkName, simPolicyName, options)
@@ -197,11 +201,12 @@ func (client *SimPoliciesClient) deleteCreateRequest(ctx context.Context, resour
 
 // Get - Gets information about the specified SIM policy.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// simPolicyName - The name of the SIM policy.
-// options - SimPoliciesClientGetOptions contains the optional parameters for the SimPoliciesClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - simPolicyName - The name of the SIM policy.
+//   - options - SimPoliciesClientGetOptions contains the optional parameters for the SimPoliciesClient.Get method.
 func (client *SimPoliciesClient) Get(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, options *SimPoliciesClientGetOptions) (SimPoliciesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, mobileNetworkName, simPolicyName, options)
 	if err != nil {
@@ -257,11 +262,12 @@ func (client *SimPoliciesClient) getHandleResponse(resp *http.Response) (SimPoli
 }
 
 // NewListByMobileNetworkPager - Gets all the SIM policies in a mobile network.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// options - SimPoliciesClientListByMobileNetworkOptions contains the optional parameters for the SimPoliciesClient.ListByMobileNetwork
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - options - SimPoliciesClientListByMobileNetworkOptions contains the optional parameters for the SimPoliciesClient.NewListByMobileNetworkPager
+//     method.
 func (client *SimPoliciesClient) NewListByMobileNetworkPager(resourceGroupName string, mobileNetworkName string, options *SimPoliciesClientListByMobileNetworkOptions) *runtime.Pager[SimPoliciesClientListByMobileNetworkResponse] {
 	return runtime.NewPager(runtime.PagingHandler[SimPoliciesClientListByMobileNetworkResponse]{
 		More: func(page SimPoliciesClientListByMobileNetworkResponse) bool {
@@ -327,12 +333,13 @@ func (client *SimPoliciesClient) listByMobileNetworkHandleResponse(resp *http.Re
 
 // UpdateTags - Updates SIM policy tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// simPolicyName - The name of the SIM policy.
-// parameters - Parameters supplied to update SIM policy tags.
-// options - SimPoliciesClientUpdateTagsOptions contains the optional parameters for the SimPoliciesClient.UpdateTags method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - simPolicyName - The name of the SIM policy.
+//   - parameters - Parameters supplied to update SIM policy tags.
+//   - options - SimPoliciesClientUpdateTagsOptions contains the optional parameters for the SimPoliciesClient.UpdateTags method.
 func (client *SimPoliciesClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, simPolicyName string, parameters TagsObject, options *SimPoliciesClientUpdateTagsOptions) (SimPoliciesClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, simPolicyName, parameters, options)
 	if err != nil {

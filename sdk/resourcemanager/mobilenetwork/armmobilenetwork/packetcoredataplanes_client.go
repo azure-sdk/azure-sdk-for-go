@@ -32,9 +32,9 @@ type PacketCoreDataPlanesClient struct {
 }
 
 // NewPacketCoreDataPlanesClient creates a new instance of PacketCoreDataPlanesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewPacketCoreDataPlanesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PacketCoreDataPlanesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,13 +58,14 @@ func NewPacketCoreDataPlanesClient(subscriptionID string, credential azcore.Toke
 // BeginCreateOrUpdate - Creates or updates a packet core data plane. Must be created in the same location as its parent packet
 // core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// parameters - Parameters supplied to the create or update packet core data plane operation.
-// options - PacketCoreDataPlanesClientBeginCreateOrUpdateOptions contains the optional parameters for the PacketCoreDataPlanesClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - parameters - Parameters supplied to the create or update packet core data plane operation.
+//   - options - PacketCoreDataPlanesClientBeginCreateOrUpdateOptions contains the optional parameters for the PacketCoreDataPlanesClient.BeginCreateOrUpdate
+//     method.
 func (client *PacketCoreDataPlanesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters PacketCoreDataPlane, options *PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (*runtime.Poller[PacketCoreDataPlanesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, parameters, options)
@@ -82,6 +83,7 @@ func (client *PacketCoreDataPlanesClient) BeginCreateOrUpdate(ctx context.Contex
 // CreateOrUpdate - Creates or updates a packet core data plane. Must be created in the same location as its parent packet
 // core control plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *PacketCoreDataPlanesClient) createOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters PacketCoreDataPlane, options *PacketCoreDataPlanesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, parameters, options)
@@ -130,12 +132,13 @@ func (client *PacketCoreDataPlanesClient) createOrUpdateCreateRequest(ctx contex
 
 // BeginDelete - Deletes the specified packet core data plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// options - PacketCoreDataPlanesClientBeginDeleteOptions contains the optional parameters for the PacketCoreDataPlanesClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - options - PacketCoreDataPlanesClientBeginDeleteOptions contains the optional parameters for the PacketCoreDataPlanesClient.BeginDelete
+//     method.
 func (client *PacketCoreDataPlanesClient) BeginDelete(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, options *PacketCoreDataPlanesClientBeginDeleteOptions) (*runtime.Poller[PacketCoreDataPlanesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, options)
@@ -152,6 +155,7 @@ func (client *PacketCoreDataPlanesClient) BeginDelete(ctx context.Context, resou
 
 // Delete - Deletes the specified packet core data plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *PacketCoreDataPlanesClient) deleteOperation(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, options *PacketCoreDataPlanesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, options)
@@ -200,12 +204,13 @@ func (client *PacketCoreDataPlanesClient) deleteCreateRequest(ctx context.Contex
 
 // Get - Gets information about the specified packet core data plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// options - PacketCoreDataPlanesClientGetOptions contains the optional parameters for the PacketCoreDataPlanesClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - options - PacketCoreDataPlanesClientGetOptions contains the optional parameters for the PacketCoreDataPlanesClient.Get
+//     method.
 func (client *PacketCoreDataPlanesClient) Get(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, options *PacketCoreDataPlanesClientGetOptions) (PacketCoreDataPlanesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, options)
 	if err != nil {
@@ -261,11 +266,12 @@ func (client *PacketCoreDataPlanesClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListByPacketCoreControlPlanePager - Lists all the packet core data planes associated with a packet core control plane.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// options - PacketCoreDataPlanesClientListByPacketCoreControlPlaneOptions contains the optional parameters for the PacketCoreDataPlanesClient.ListByPacketCoreControlPlane
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - options - PacketCoreDataPlanesClientListByPacketCoreControlPlaneOptions contains the optional parameters for the PacketCoreDataPlanesClient.NewListByPacketCoreControlPlanePager
+//     method.
 func (client *PacketCoreDataPlanesClient) NewListByPacketCoreControlPlanePager(resourceGroupName string, packetCoreControlPlaneName string, options *PacketCoreDataPlanesClientListByPacketCoreControlPlaneOptions) *runtime.Pager[PacketCoreDataPlanesClientListByPacketCoreControlPlaneResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PacketCoreDataPlanesClientListByPacketCoreControlPlaneResponse]{
 		More: func(page PacketCoreDataPlanesClientListByPacketCoreControlPlaneResponse) bool {
@@ -331,13 +337,14 @@ func (client *PacketCoreDataPlanesClient) listByPacketCoreControlPlaneHandleResp
 
 // UpdateTags - Updates packet core data planes tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// parameters - Parameters supplied to update packet core data plane tags.
-// options - PacketCoreDataPlanesClientUpdateTagsOptions contains the optional parameters for the PacketCoreDataPlanesClient.UpdateTags
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - parameters - Parameters supplied to update packet core data plane tags.
+//   - options - PacketCoreDataPlanesClientUpdateTagsOptions contains the optional parameters for the PacketCoreDataPlanesClient.UpdateTags
+//     method.
 func (client *PacketCoreDataPlanesClient) UpdateTags(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, parameters TagsObject, options *PacketCoreDataPlanesClientUpdateTagsOptions) (PacketCoreDataPlanesClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, parameters, options)
 	if err != nil {

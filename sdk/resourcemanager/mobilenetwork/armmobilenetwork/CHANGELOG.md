@@ -1,5 +1,11 @@
 # Release History
 
+## 3.0.0 (2023-03-20)
+### Breaking Changes
+
+- Const `BillingSKUG3`, `BillingSKUG4` from type alias `BillingSKU` has been removed
+
+
 ## 2.0.0 (2023-01-27)
 ### Breaking Changes
 

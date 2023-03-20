@@ -11,7 +11,7 @@ package armmobilenetwork
 
 const (
 	moduleName    = "armmobilenetwork"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v3.0.0"
 )
 
 // AuthenticationType - How to authenticate users who access local diagnostics APIs.
@@ -37,18 +37,14 @@ func PossibleAuthenticationTypeValues() []AuthenticationType {
 type BillingSKU string
 
 const (
-	// BillingSKUG0 - 100 Mbps, 20 active SIMs plan
+	// BillingSKUG0 - 100 Mbps, 20 active SIMs plan, 2 RANs
 	BillingSKUG0 BillingSKU = "G0"
-	// BillingSKUG1 - 1 Gbps, 100 active SIMs plan
+	// BillingSKUG1 - 1 Gbps, 100 active SIMs plan, 5 RANs
 	BillingSKUG1 BillingSKU = "G1"
 	// BillingSKUG10 - 10 Gbps, 1000 active SIMs plan
 	BillingSKUG10 BillingSKU = "G10"
-	// BillingSKUG2 - 2 Gbps, 200 active SIMs plan
+	// BillingSKUG2 - 2 Gbps, 200 active SIMs plan, 10 RANs
 	BillingSKUG2 BillingSKU = "G2"
-	// BillingSKUG3 - 3 Gbps, 300 active SIMs plan
-	BillingSKUG3 BillingSKU = "G3"
-	// BillingSKUG4 - 4 Gbps, 400 active SIMs plan
-	BillingSKUG4 BillingSKU = "G4"
 	// BillingSKUG5 - 5 Gbps, 500 active SIMs plan
 	BillingSKUG5 BillingSKU = "G5"
 )
@@ -60,8 +56,6 @@ func PossibleBillingSKUValues() []BillingSKU {
 		BillingSKUG1,
 		BillingSKUG10,
 		BillingSKUG2,
-		BillingSKUG3,
-		BillingSKUG4,
 		BillingSKUG5,
 	}
 }

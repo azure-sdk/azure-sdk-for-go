@@ -32,9 +32,9 @@ type ServicesClient struct {
 }
 
 // NewServicesClient creates a new instance of ServicesClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewServicesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServicesClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,13 +57,14 @@ func NewServicesClient(subscriptionID string, credential azcore.TokenCredential,
 
 // BeginCreateOrUpdate - Creates or updates a service. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// serviceName - The name of the service. You must not use any of the following reserved strings - default, requested or service
-// parameters - Parameters supplied to the create or update service operation.
-// options - ServicesClientBeginCreateOrUpdateOptions contains the optional parameters for the ServicesClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - serviceName - The name of the service. You must not use any of the following reserved strings - default, requested or service
+//   - parameters - Parameters supplied to the create or update service operation.
+//   - options - ServicesClientBeginCreateOrUpdateOptions contains the optional parameters for the ServicesClient.BeginCreateOrUpdate
+//     method.
 func (client *ServicesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, serviceName string, parameters Service, options *ServicesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ServicesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, serviceName, parameters, options)
@@ -80,6 +81,7 @@ func (client *ServicesClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 
 // CreateOrUpdate - Creates or updates a service. Must be created in the same location as its parent mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *ServicesClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, serviceName string, parameters Service, options *ServicesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, serviceName, parameters, options)
@@ -128,11 +130,12 @@ func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, r
 
 // BeginDelete - Deletes the specified service.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// serviceName - The name of the service. You must not use any of the following reserved strings - default, requested or service
-// options - ServicesClientBeginDeleteOptions contains the optional parameters for the ServicesClient.BeginDelete method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - serviceName - The name of the service. You must not use any of the following reserved strings - default, requested or service
+//   - options - ServicesClientBeginDeleteOptions contains the optional parameters for the ServicesClient.BeginDelete method.
 func (client *ServicesClient) BeginDelete(ctx context.Context, resourceGroupName string, mobileNetworkName string, serviceName string, options *ServicesClientBeginDeleteOptions) (*runtime.Poller[ServicesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, mobileNetworkName, serviceName, options)
@@ -149,6 +152,7 @@ func (client *ServicesClient) BeginDelete(ctx context.Context, resourceGroupName
 
 // Delete - Deletes the specified service.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *ServicesClient) deleteOperation(ctx context.Context, resourceGroupName string, mobileNetworkName string, serviceName string, options *ServicesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, mobileNetworkName, serviceName, options)
@@ -197,11 +201,12 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 
 // Get - Gets information about the specified service.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// serviceName - The name of the service. You must not use any of the following reserved strings - default, requested or service
-// options - ServicesClientGetOptions contains the optional parameters for the ServicesClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - serviceName - The name of the service. You must not use any of the following reserved strings - default, requested or service
+//   - options - ServicesClientGetOptions contains the optional parameters for the ServicesClient.Get method.
 func (client *ServicesClient) Get(ctx context.Context, resourceGroupName string, mobileNetworkName string, serviceName string, options *ServicesClientGetOptions) (ServicesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, mobileNetworkName, serviceName, options)
 	if err != nil {
@@ -257,11 +262,12 @@ func (client *ServicesClient) getHandleResponse(resp *http.Response) (ServicesCl
 }
 
 // NewListByMobileNetworkPager - Gets all the services in a mobile network.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// options - ServicesClientListByMobileNetworkOptions contains the optional parameters for the ServicesClient.ListByMobileNetwork
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - options - ServicesClientListByMobileNetworkOptions contains the optional parameters for the ServicesClient.NewListByMobileNetworkPager
+//     method.
 func (client *ServicesClient) NewListByMobileNetworkPager(resourceGroupName string, mobileNetworkName string, options *ServicesClientListByMobileNetworkOptions) *runtime.Pager[ServicesClientListByMobileNetworkResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ServicesClientListByMobileNetworkResponse]{
 		More: func(page ServicesClientListByMobileNetworkResponse) bool {
@@ -327,12 +333,13 @@ func (client *ServicesClient) listByMobileNetworkHandleResponse(resp *http.Respo
 
 // UpdateTags - Updates service tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// serviceName - The name of the service. You must not use any of the following reserved strings - default, requested or service
-// parameters - Parameters supplied to update service tags.
-// options - ServicesClientUpdateTagsOptions contains the optional parameters for the ServicesClient.UpdateTags method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - serviceName - The name of the service. You must not use any of the following reserved strings - default, requested or service
+//   - parameters - Parameters supplied to update service tags.
+//   - options - ServicesClientUpdateTagsOptions contains the optional parameters for the ServicesClient.UpdateTags method.
 func (client *ServicesClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, serviceName string, parameters TagsObject, options *ServicesClientUpdateTagsOptions) (ServicesClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, serviceName, parameters, options)
 	if err != nil {

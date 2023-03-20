@@ -32,9 +32,9 @@ type AttachedDataNetworksClient struct {
 }
 
 // NewAttachedDataNetworksClient creates a new instance of AttachedDataNetworksClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewAttachedDataNetworksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AttachedDataNetworksClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -58,14 +58,15 @@ func NewAttachedDataNetworksClient(subscriptionID string, credential azcore.Toke
 // BeginCreateOrUpdate - Creates or updates an attached data network. Must be created in the same location as its parent packet
 // core data plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// attachedDataNetworkName - The name of the attached data network.
-// parameters - Parameters supplied to the create or update attached data network operation.
-// options - AttachedDataNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the AttachedDataNetworksClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - attachedDataNetworkName - The name of the attached data network.
+//   - parameters - Parameters supplied to the create or update attached data network operation.
+//   - options - AttachedDataNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the AttachedDataNetworksClient.BeginCreateOrUpdate
+//     method.
 func (client *AttachedDataNetworksClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, attachedDataNetworkName string, parameters AttachedDataNetwork, options *AttachedDataNetworksClientBeginCreateOrUpdateOptions) (*runtime.Poller[AttachedDataNetworksClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, attachedDataNetworkName, parameters, options)
@@ -83,6 +84,7 @@ func (client *AttachedDataNetworksClient) BeginCreateOrUpdate(ctx context.Contex
 // CreateOrUpdate - Creates or updates an attached data network. Must be created in the same location as its parent packet
 // core data plane.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *AttachedDataNetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, attachedDataNetworkName string, parameters AttachedDataNetwork, options *AttachedDataNetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, attachedDataNetworkName, parameters, options)
@@ -135,13 +137,14 @@ func (client *AttachedDataNetworksClient) createOrUpdateCreateRequest(ctx contex
 
 // BeginDelete - Deletes the specified attached data network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// attachedDataNetworkName - The name of the attached data network.
-// options - AttachedDataNetworksClientBeginDeleteOptions contains the optional parameters for the AttachedDataNetworksClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - attachedDataNetworkName - The name of the attached data network.
+//   - options - AttachedDataNetworksClientBeginDeleteOptions contains the optional parameters for the AttachedDataNetworksClient.BeginDelete
+//     method.
 func (client *AttachedDataNetworksClient) BeginDelete(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, attachedDataNetworkName string, options *AttachedDataNetworksClientBeginDeleteOptions) (*runtime.Poller[AttachedDataNetworksClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, attachedDataNetworkName, options)
@@ -158,6 +161,7 @@ func (client *AttachedDataNetworksClient) BeginDelete(ctx context.Context, resou
 
 // Delete - Deletes the specified attached data network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *AttachedDataNetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, attachedDataNetworkName string, options *AttachedDataNetworksClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, attachedDataNetworkName, options)
@@ -210,13 +214,14 @@ func (client *AttachedDataNetworksClient) deleteCreateRequest(ctx context.Contex
 
 // Get - Gets information about the specified attached data network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// attachedDataNetworkName - The name of the attached data network.
-// options - AttachedDataNetworksClientGetOptions contains the optional parameters for the AttachedDataNetworksClient.Get
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - attachedDataNetworkName - The name of the attached data network.
+//   - options - AttachedDataNetworksClientGetOptions contains the optional parameters for the AttachedDataNetworksClient.Get
+//     method.
 func (client *AttachedDataNetworksClient) Get(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, attachedDataNetworkName string, options *AttachedDataNetworksClientGetOptions) (AttachedDataNetworksClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, attachedDataNetworkName, options)
 	if err != nil {
@@ -276,12 +281,13 @@ func (client *AttachedDataNetworksClient) getHandleResponse(resp *http.Response)
 }
 
 // NewListByPacketCoreDataPlanePager - Gets all the attached data networks associated with a packet core data plane.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// options - AttachedDataNetworksClientListByPacketCoreDataPlaneOptions contains the optional parameters for the AttachedDataNetworksClient.ListByPacketCoreDataPlane
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - options - AttachedDataNetworksClientListByPacketCoreDataPlaneOptions contains the optional parameters for the AttachedDataNetworksClient.NewListByPacketCoreDataPlanePager
+//     method.
 func (client *AttachedDataNetworksClient) NewListByPacketCoreDataPlanePager(resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, options *AttachedDataNetworksClientListByPacketCoreDataPlaneOptions) *runtime.Pager[AttachedDataNetworksClientListByPacketCoreDataPlaneResponse] {
 	return runtime.NewPager(runtime.PagingHandler[AttachedDataNetworksClientListByPacketCoreDataPlaneResponse]{
 		More: func(page AttachedDataNetworksClientListByPacketCoreDataPlaneResponse) bool {
@@ -351,14 +357,15 @@ func (client *AttachedDataNetworksClient) listByPacketCoreDataPlaneHandleRespons
 
 // UpdateTags - Updates an attached data network tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// packetCoreControlPlaneName - The name of the packet core control plane.
-// packetCoreDataPlaneName - The name of the packet core data plane.
-// attachedDataNetworkName - The name of the attached data network.
-// parameters - Parameters supplied to update attached data network tags.
-// options - AttachedDataNetworksClientUpdateTagsOptions contains the optional parameters for the AttachedDataNetworksClient.UpdateTags
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - packetCoreControlPlaneName - The name of the packet core control plane.
+//   - packetCoreDataPlaneName - The name of the packet core data plane.
+//   - attachedDataNetworkName - The name of the attached data network.
+//   - parameters - Parameters supplied to update attached data network tags.
+//   - options - AttachedDataNetworksClientUpdateTagsOptions contains the optional parameters for the AttachedDataNetworksClient.UpdateTags
+//     method.
 func (client *AttachedDataNetworksClient) UpdateTags(ctx context.Context, resourceGroupName string, packetCoreControlPlaneName string, packetCoreDataPlaneName string, attachedDataNetworkName string, parameters TagsObject, options *AttachedDataNetworksClientUpdateTagsOptions) (AttachedDataNetworksClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, packetCoreControlPlaneName, packetCoreDataPlaneName, attachedDataNetworkName, parameters, options)
 	if err != nil {

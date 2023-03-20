@@ -32,9 +32,9 @@ type MobileNetworksClient struct {
 }
 
 // NewMobileNetworksClient creates a new instance of MobileNetworksClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewMobileNetworksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*MobileNetworksClient, error) {
 	if options == nil {
 		options = &arm.ClientOptions{}
@@ -57,12 +57,13 @@ func NewMobileNetworksClient(subscriptionID string, credential azcore.TokenCrede
 
 // BeginCreateOrUpdate - Creates or updates a mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// parameters - Parameters supplied to the create or update mobile network operation.
-// options - MobileNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the MobileNetworksClient.BeginCreateOrUpdate
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - parameters - Parameters supplied to the create or update mobile network operation.
+//   - options - MobileNetworksClientBeginCreateOrUpdateOptions contains the optional parameters for the MobileNetworksClient.BeginCreateOrUpdate
+//     method.
 func (client *MobileNetworksClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, parameters MobileNetwork, options *MobileNetworksClientBeginCreateOrUpdateOptions) (*runtime.Poller[MobileNetworksClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, mobileNetworkName, parameters, options)
@@ -79,6 +80,7 @@ func (client *MobileNetworksClient) BeginCreateOrUpdate(ctx context.Context, res
 
 // CreateOrUpdate - Creates or updates a mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *MobileNetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, mobileNetworkName string, parameters MobileNetwork, options *MobileNetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, mobileNetworkName, parameters, options)
@@ -123,11 +125,12 @@ func (client *MobileNetworksClient) createOrUpdateCreateRequest(ctx context.Cont
 
 // BeginDelete - Deletes the specified mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// options - MobileNetworksClientBeginDeleteOptions contains the optional parameters for the MobileNetworksClient.BeginDelete
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - options - MobileNetworksClientBeginDeleteOptions contains the optional parameters for the MobileNetworksClient.BeginDelete
+//     method.
 func (client *MobileNetworksClient) BeginDelete(ctx context.Context, resourceGroupName string, mobileNetworkName string, options *MobileNetworksClientBeginDeleteOptions) (*runtime.Poller[MobileNetworksClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, mobileNetworkName, options)
@@ -144,6 +147,7 @@ func (client *MobileNetworksClient) BeginDelete(ctx context.Context, resourceGro
 
 // Delete - Deletes the specified mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
 func (client *MobileNetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, mobileNetworkName string, options *MobileNetworksClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, mobileNetworkName, options)
@@ -188,10 +192,11 @@ func (client *MobileNetworksClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Gets information about the specified mobile network.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// options - MobileNetworksClientGetOptions contains the optional parameters for the MobileNetworksClient.Get method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - options - MobileNetworksClientGetOptions contains the optional parameters for the MobileNetworksClient.Get method.
 func (client *MobileNetworksClient) Get(ctx context.Context, resourceGroupName string, mobileNetworkName string, options *MobileNetworksClientGetOptions) (MobileNetworksClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, mobileNetworkName, options)
 	if err != nil {
@@ -243,10 +248,11 @@ func (client *MobileNetworksClient) getHandleResponse(resp *http.Response) (Mobi
 }
 
 // NewListByResourceGroupPager - Lists all the mobile networks in a resource group.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// options - MobileNetworksClientListByResourceGroupOptions contains the optional parameters for the MobileNetworksClient.ListByResourceGroup
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - options - MobileNetworksClientListByResourceGroupOptions contains the optional parameters for the MobileNetworksClient.NewListByResourceGroupPager
+//     method.
 func (client *MobileNetworksClient) NewListByResourceGroupPager(resourceGroupName string, options *MobileNetworksClientListByResourceGroupOptions) *runtime.Pager[MobileNetworksClientListByResourceGroupResponse] {
 	return runtime.NewPager(runtime.PagingHandler[MobileNetworksClientListByResourceGroupResponse]{
 		More: func(page MobileNetworksClientListByResourceGroupResponse) bool {
@@ -307,9 +313,10 @@ func (client *MobileNetworksClient) listByResourceGroupHandleResponse(resp *http
 }
 
 // NewListBySubscriptionPager - Lists all the mobile networks in a subscription.
+//
 // Generated from API version 2022-11-01
-// options - MobileNetworksClientListBySubscriptionOptions contains the optional parameters for the MobileNetworksClient.ListBySubscription
-// method.
+//   - options - MobileNetworksClientListBySubscriptionOptions contains the optional parameters for the MobileNetworksClient.NewListBySubscriptionPager
+//     method.
 func (client *MobileNetworksClient) NewListBySubscriptionPager(options *MobileNetworksClientListBySubscriptionOptions) *runtime.Pager[MobileNetworksClientListBySubscriptionResponse] {
 	return runtime.NewPager(runtime.PagingHandler[MobileNetworksClientListBySubscriptionResponse]{
 		More: func(page MobileNetworksClientListBySubscriptionResponse) bool {
@@ -367,12 +374,13 @@ func (client *MobileNetworksClient) listBySubscriptionHandleResponse(resp *http.
 
 // UpdateTags - Updates mobile network tags.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
 // Generated from API version 2022-11-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// mobileNetworkName - The name of the mobile network.
-// parameters - Parameters supplied to update mobile network tags.
-// options - MobileNetworksClientUpdateTagsOptions contains the optional parameters for the MobileNetworksClient.UpdateTags
-// method.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - mobileNetworkName - The name of the mobile network.
+//   - parameters - Parameters supplied to update mobile network tags.
+//   - options - MobileNetworksClientUpdateTagsOptions contains the optional parameters for the MobileNetworksClient.UpdateTags
+//     method.
 func (client *MobileNetworksClient) UpdateTags(ctx context.Context, resourceGroupName string, mobileNetworkName string, parameters TagsObject, options *MobileNetworksClientUpdateTagsOptions) (MobileNetworksClientUpdateTagsResponse, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, mobileNetworkName, parameters, options)
 	if err != nil {
