@@ -11,13 +11,37 @@ package armelasticsan
 
 import "time"
 
-// ElasticSan - Response for ElasticSan request.
-type ElasticSan struct {
-	// REQUIRED; Properties of ElasticSan.
-	Properties *Properties `json:"properties,omitempty"`
-
+// CreateParameter - Response for ElasticSan request.
+type CreateParameter struct {
 	// The geo-location where the resource lives.
 	Location *string `json:"location,omitempty"`
+
+	// Properties of ElasticSan.
+	Properties *Properties `json:"properties,omitempty"`
+
+	// Azure resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Azure resource identifier.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource metadata required by ARM RPC
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ElasticSan - Response for ElasticSan request.
+type ElasticSan struct {
+	// The geo-location where the resource lives.
+	Location *string `json:"location,omitempty"`
+
+	// Properties of ElasticSan.
+	Properties *Properties `json:"properties,omitempty"`
 
 	// Azure resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
@@ -58,13 +82,13 @@ type ElasticSansClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ElasticSansClientListByResourceGroupOptions contains the optional parameters for the ElasticSansClient.ListByResourceGroup
+// ElasticSansClientListByResourceGroupOptions contains the optional parameters for the ElasticSansClient.NewListByResourceGroupPager
 // method.
 type ElasticSansClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ElasticSansClientListBySubscriptionOptions contains the optional parameters for the ElasticSansClient.ListBySubscription
+// ElasticSansClientListBySubscriptionOptions contains the optional parameters for the ElasticSansClient.NewListBySubscriptionPager
 // method.
 type ElasticSansClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -90,7 +114,7 @@ type IscsiTargetInfo struct {
 
 // List of Elastic Sans
 type List struct {
-	// REQUIRED; An array of Elastic San objects.
+	// An array of Elastic San objects.
 	Value []*ElasticSan `json:"value,omitempty"`
 
 	// READ-ONLY; URI to fetch the next section of the paginated response.
@@ -127,7 +151,7 @@ type OperationListResult struct {
 	NextLink *string `json:"nextLink,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -232,10 +256,118 @@ type SKULocationInfo struct {
 	Zones []*string `json:"zones,omitempty" azure:"ro"`
 }
 
-// SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
 type SKUsClientListOptions struct {
 	// Specify $filter='location eq ' to filter on location.
 	Filter *string
+}
+
+// Snapshot - Response for Volume Snapshot request.
+type Snapshot struct {
+	// Properties of Volume Snapshot.
+	Properties *SnapshotProperties `json:"properties,omitempty"`
+
+	// Azure resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Azure resource identifier.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource metadata required by ARM RPC
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SnapshotCreateParameter - Response for Volume Snapshot request.
+type SnapshotCreateParameter struct {
+	// Properties of Volume Snapshot.
+	Properties *SnapshotProperties `json:"properties,omitempty"`
+
+	// Azure resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Azure resource identifier.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource metadata required by ARM RPC
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SnapshotCreationData - Data used when creating a volume snapshot.
+type SnapshotCreationData struct {
+	// REQUIRED; If createOption is Copy, this is the ARM id of the source snapshot or disk. If createOption is Restore, this
+	// is the ARM-like id of the source disk restore point.
+	SourceURI *string `json:"sourceUri,omitempty"`
+}
+
+// SnapshotList - List of Snapshots
+type SnapshotList struct {
+	// An array of Snapshot objects.
+	Value []*Snapshot `json:"value,omitempty"`
+
+	// READ-ONLY; URI to fetch the next section of the paginated response.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// SnapshotProperties - Properties for Snapshot.
+type SnapshotProperties struct {
+	// REQUIRED; Data used when creating a volume snapshot.
+	CreationData *SnapshotCreationData `json:"creationData,omitempty"`
+
+	// READ-ONLY; State of the operation on the resource.
+	ProvisioningState *ProvisioningStates `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; Size of Source Volume
+	SourceVolumeSizeGiB *int64 `json:"sourceVolumeSizeGiB,omitempty" azure:"ro"`
+
+	// READ-ONLY; Source Volume Name of a snapshot
+	VolumeName *string `json:"volumeName,omitempty" azure:"ro"`
+}
+
+// SnapshotUpdate - Snapshot request.
+type SnapshotUpdate struct {
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// SnapshotsClientBeginCreateOptions contains the optional parameters for the SnapshotsClient.BeginCreate method.
+type SnapshotsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SnapshotsClientBeginDeleteOptions contains the optional parameters for the SnapshotsClient.BeginDelete method.
+type SnapshotsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SnapshotsClientGetOptions contains the optional parameters for the SnapshotsClient.Get method.
+type SnapshotsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SnapshotsClientListByVolumeGroupOptions contains the optional parameters for the SnapshotsClient.NewListByVolumeGroupPager
+// method.
+type SnapshotsClientListByVolumeGroupOptions struct {
+	// Specify $filter='volumeName eq ' to filter on volume.
+	Filter *string
+}
+
+// SnapshotsClientUpdateOptions contains the optional parameters for the SnapshotsClient.Update method.
+type SnapshotsClientUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // SourceCreationData - Data source used when creating the volume.
@@ -320,6 +452,27 @@ type Volume struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// VolumeCreateParameter - Response for Volume request.
+type VolumeCreateParameter struct {
+	// Properties of Volume.
+	Properties *VolumeProperties `json:"properties,omitempty"`
+
+	// Azure resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Azure resource identifier.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure resource name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource metadata required by ARM RPC
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
 // VolumeGroup - Response for Volume Group request.
 type VolumeGroup struct {
 	// Properties of VolumeGroup.
@@ -343,7 +496,7 @@ type VolumeGroup struct {
 
 // VolumeGroupList - List of Volume Groups
 type VolumeGroupList struct {
-	// REQUIRED; An array of Volume Groups objects.
+	// An array of Volume Groups objects.
 	Value []*VolumeGroup `json:"value,omitempty"`
 
 	// READ-ONLY; URI to fetch the next section of the paginated response.
@@ -409,7 +562,7 @@ type VolumeGroupsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VolumeGroupsClientListByElasticSanOptions contains the optional parameters for the VolumeGroupsClient.ListByElasticSan
+// VolumeGroupsClientListByElasticSanOptions contains the optional parameters for the VolumeGroupsClient.NewListByElasticSanPager
 // method.
 type VolumeGroupsClientListByElasticSanOptions struct {
 	// placeholder for future optional parameters
@@ -417,7 +570,7 @@ type VolumeGroupsClientListByElasticSanOptions struct {
 
 // VolumeList - List of Volumes
 type VolumeList struct {
-	// REQUIRED; An array of Volume objects.
+	// An array of Volume objects.
 	Value []*Volume `json:"value,omitempty"`
 
 	// READ-ONLY; URI to fetch the next section of the paginated response.
@@ -426,11 +579,11 @@ type VolumeList struct {
 
 // VolumeProperties - Volume response properties.
 type VolumeProperties struct {
+	// REQUIRED; Volume size.
+	SizeGiB *int64 `json:"sizeGiB,omitempty"`
+
 	// State of the operation on the resource.
 	CreationData *SourceCreationData `json:"creationData,omitempty"`
-
-	// Volume size.
-	SizeGiB *int64 `json:"sizeGiB,omitempty"`
 
 	// READ-ONLY; Storage target information
 	StorageTarget *IscsiTargetInfo `json:"storageTarget,omitempty" azure:"ro"`
@@ -477,7 +630,8 @@ type VolumesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// VolumesClientListByVolumeGroupOptions contains the optional parameters for the VolumesClient.ListByVolumeGroup method.
+// VolumesClientListByVolumeGroupOptions contains the optional parameters for the VolumesClient.NewListByVolumeGroupPager
+// method.
 type VolumesClientListByVolumeGroupOptions struct {
 	// placeholder for future optional parameters
 }
