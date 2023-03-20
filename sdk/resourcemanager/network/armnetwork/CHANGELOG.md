@@ -1,5 +1,22 @@
 # Release History
 
+## 2.2.0 (2023-03-20)
+### Features Added
+
+- New value `ApplicationGatewayCustomErrorStatusCodeHTTPStatus400`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus404`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus405`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus408`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus499`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus500`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus503`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus504` added to enum type `ApplicationGatewayCustomErrorStatusCode`
+- New enum type `AzureFirewallPacketCaptureFlagsType` with values `AzureFirewallPacketCaptureFlagsTypeAck`, `AzureFirewallPacketCaptureFlagsTypeFin`, `AzureFirewallPacketCaptureFlagsTypePush`, `AzureFirewallPacketCaptureFlagsTypeRst`, `AzureFirewallPacketCaptureFlagsTypeSyn`, `AzureFirewallPacketCaptureFlagsTypeUrg`
+- New enum type `WebApplicationFirewallState` with values `WebApplicationFirewallStateDisabled`, `WebApplicationFirewallStateEnabled`
+- New function `*AzureFirewallsClient.BeginPacketCapture(context.Context, string, string, FirewallPacketCaptureParameters, *AzureFirewallsClientBeginPacketCaptureOptions) (*runtime.Poller[AzureFirewallsClientPacketCaptureResponse], error)`
+- New struct `AzureFirewallPacketCaptureFlags`
+- New struct `AzureFirewallPacketCaptureRule`
+- New struct `FirewallPacketCaptureParameters`
+- New struct `FirewallPacketCaptureParametersFormat`
+- New field `AuthorizationStatus` in struct `ExpressRouteCircuitPropertiesFormat`
+- New field `IPConfigurationID` in struct `VPNGatewaysClientBeginResetOptions`
+- New field `FlowLogs` in struct `VirtualNetworkPropertiesFormat`
+- New field `State` in struct `WebApplicationFirewallCustomRule`
+
+
 ## 2.1.0 (2022-12-23)
 ### Features Added
 
