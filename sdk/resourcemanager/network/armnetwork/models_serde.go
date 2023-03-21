@@ -4647,6 +4647,7 @@ func (a ApplicationRule) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "description", a.Description)
 	populate(objectMap, "destinationAddresses", a.DestinationAddresses)
 	populate(objectMap, "fqdnTags", a.FqdnTags)
+	populate(objectMap, "httpHeadersToInsert", a.HTTPHeadersToInsert)
 	populate(objectMap, "name", a.Name)
 	populate(objectMap, "protocols", a.Protocols)
 	objectMap["ruleType"] = FirewallPolicyRuleTypeApplicationRule
@@ -4676,6 +4677,9 @@ func (a *ApplicationRule) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "fqdnTags":
 			err = unpopulate(val, "FqdnTags", &a.FqdnTags)
+			delete(rawMsg, key)
+		case "httpHeadersToInsert":
+			err = unpopulate(val, "HTTPHeadersToInsert", &a.HTTPHeadersToInsert)
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &a.Name)
@@ -14188,6 +14192,37 @@ func (f *FirewallPolicyFilterRuleCollectionAction) UnmarshalJSON(data []byte) er
 		switch key {
 		case "type":
 			err = unpopulate(val, "Type", &f.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type FirewallPolicyHTTPHeaderToInsert.
+func (f FirewallPolicyHTTPHeaderToInsert) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "headerName", f.HeaderName)
+	populate(objectMap, "headerValue", f.HeaderValue)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FirewallPolicyHTTPHeaderToInsert.
+func (f *FirewallPolicyHTTPHeaderToInsert) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "headerName":
+			err = unpopulate(val, "HeaderName", &f.HeaderName)
+			delete(rawMsg, key)
+		case "headerValue":
+			err = unpopulate(val, "HeaderValue", &f.HeaderValue)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -27310,7 +27345,7 @@ func (s SubnetPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "addressPrefix", s.AddressPrefix)
 	populate(objectMap, "addressPrefixes", s.AddressPrefixes)
-	populate(objectMap, "applicationGatewayIpConfigurations", s.ApplicationGatewayIPConfigurations)
+	populate(objectMap, "applicationGatewayIPConfigurations", s.ApplicationGatewayIPConfigurations)
 	populate(objectMap, "delegations", s.Delegations)
 	populate(objectMap, "ipAllocations", s.IPAllocations)
 	populate(objectMap, "ipConfigurationProfiles", s.IPConfigurationProfiles)
@@ -27345,7 +27380,7 @@ func (s *SubnetPropertiesFormat) UnmarshalJSON(data []byte) error {
 		case "addressPrefixes":
 			err = unpopulate(val, "AddressPrefixes", &s.AddressPrefixes)
 			delete(rawMsg, key)
-		case "applicationGatewayIpConfigurations":
+		case "applicationGatewayIPConfigurations":
 			err = unpopulate(val, "ApplicationGatewayIPConfigurations", &s.ApplicationGatewayIPConfigurations)
 			delete(rawMsg, key)
 		case "delegations":
