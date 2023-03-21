@@ -1,5 +1,30 @@
 # Release History
 
+## 3.0.0 (2023-03-21)
+### Breaking Changes
+
+- Const `ArmServerKeyTypeSystemAssigned` from type alias `ArmServerKeyType` has been removed
+
+### Features Added
+
+- New value `ArmServerKeyTypeSystemManaged` added to enum type `ArmServerKeyType`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewAdministratorsClient() *AdministratorsClient`
+- New function `*ClientFactory.NewBackupsClient() *BackupsClient`
+- New function `*ClientFactory.NewCheckNameAvailabilityClient() *CheckNameAvailabilityClient`
+- New function `*ClientFactory.NewCheckNameAvailabilityWithLocationClient() *CheckNameAvailabilityWithLocationClient`
+- New function `*ClientFactory.NewConfigurationsClient() *ConfigurationsClient`
+- New function `*ClientFactory.NewDatabasesClient() *DatabasesClient`
+- New function `*ClientFactory.NewFirewallRulesClient() *FirewallRulesClient`
+- New function `*ClientFactory.NewGetPrivateDNSZoneSuffixClient() *GetPrivateDNSZoneSuffixClient`
+- New function `*ClientFactory.NewLocationBasedCapabilitiesClient() *LocationBasedCapabilitiesClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewReplicasClient() *ReplicasClient`
+- New function `*ClientFactory.NewServersClient() *ServersClient`
+- New function `*ClientFactory.NewVirtualNetworkSubnetUsageClient() *VirtualNetworkSubnetUsageClient`
+- New struct `ClientFactory`
+
+
 ## 2.0.0 (2023-01-27)
 ### Breaking Changes
 
