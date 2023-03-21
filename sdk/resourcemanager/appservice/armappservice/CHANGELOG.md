@@ -1,5 +1,92 @@
 # Release History
 
+## 2.1.0 (2023-03-21)
+### Features Added
+
+- New enum type `BasicAuthName` with values `BasicAuthNameDefault`
+- New enum type `DefaultAction` with values `DefaultActionAllow`, `DefaultActionDeny`
+- New enum type `WorkflowHealthState` with values `WorkflowHealthStateHealthy`, `WorkflowHealthStateNotSpecified`, `WorkflowHealthStateUnhealthy`, `WorkflowHealthStateUnknown`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewCertificateOrdersClient() *CertificateOrdersClient`
+- New function `*ClientFactory.NewCertificateOrdersDiagnosticsClient() *CertificateOrdersDiagnosticsClient`
+- New function `*ClientFactory.NewCertificateRegistrationProviderClient() *CertificateRegistrationProviderClient`
+- New function `*ClientFactory.NewCertificatesClient() *CertificatesClient`
+- New function `*ClientFactory.NewContainerAppsClient() *ContainerAppsClient`
+- New function `*ClientFactory.NewContainerAppsRevisionsClient() *ContainerAppsRevisionsClient`
+- New function `*ClientFactory.NewDeletedWebAppsClient() *DeletedWebAppsClient`
+- New function `*ClientFactory.NewDiagnosticsClient() *DiagnosticsClient`
+- New function `*ClientFactory.NewDomainRegistrationProviderClient() *DomainRegistrationProviderClient`
+- New function `*ClientFactory.NewDomainsClient() *DomainsClient`
+- New function `*ClientFactory.NewEnvironmentsClient() *EnvironmentsClient`
+- New function `*ClientFactory.NewGlobalClient() *GlobalClient`
+- New function `*ClientFactory.NewKubeEnvironmentsClient() *KubeEnvironmentsClient`
+- New function `*ClientFactory.NewPlansClient() *PlansClient`
+- New function `*ClientFactory.NewProviderClient() *ProviderClient`
+- New function `*ClientFactory.NewRecommendationsClient() *RecommendationsClient`
+- New function `*ClientFactory.NewResourceHealthMetadataClient() *ResourceHealthMetadataClient`
+- New function `*ClientFactory.NewStaticSitesClient() *StaticSitesClient`
+- New function `*ClientFactory.NewTopLevelDomainsClient() *TopLevelDomainsClient`
+- New function `*ClientFactory.NewWebAppsClient() *WebAppsClient`
+- New function `*ClientFactory.NewWebSiteManagementClient() *WebSiteManagementClient`
+- New function `*ClientFactory.NewWorkflowRunActionRepetitionsClient() *WorkflowRunActionRepetitionsClient`
+- New function `*ClientFactory.NewWorkflowRunActionRepetitionsRequestHistoriesClient() *WorkflowRunActionRepetitionsRequestHistoriesClient`
+- New function `*ClientFactory.NewWorkflowRunActionScopeRepetitionsClient() *WorkflowRunActionScopeRepetitionsClient`
+- New function `*ClientFactory.NewWorkflowRunActionsClient() *WorkflowRunActionsClient`
+- New function `*ClientFactory.NewWorkflowRunsClient() *WorkflowRunsClient`
+- New function `*ClientFactory.NewWorkflowTriggerHistoriesClient() *WorkflowTriggerHistoriesClient`
+- New function `*ClientFactory.NewWorkflowTriggersClient() *WorkflowTriggersClient`
+- New function `*ClientFactory.NewWorkflowVersionsClient() *WorkflowVersionsClient`
+- New function `*ClientFactory.NewWorkflowsClient() *WorkflowsClient`
+- New function `*StaticSitesClient.CreateOrUpdateBasicAuth(context.Context, string, string, BasicAuthName, StaticSiteBasicAuthPropertiesARMResource, *StaticSitesClientCreateOrUpdateBasicAuthOptions) (StaticSitesClientCreateOrUpdateBasicAuthResponse, error)`
+- New function `*StaticSitesClient.CreateOrUpdateBuildDatabaseConnection(context.Context, string, string, string, string, DatabaseConnection, *StaticSitesClientCreateOrUpdateBuildDatabaseConnectionOptions) (StaticSitesClientCreateOrUpdateBuildDatabaseConnectionResponse, error)`
+- New function `*StaticSitesClient.CreateOrUpdateDatabaseConnection(context.Context, string, string, string, DatabaseConnection, *StaticSitesClientCreateOrUpdateDatabaseConnectionOptions) (StaticSitesClientCreateOrUpdateDatabaseConnectionResponse, error)`
+- New function `*StaticSitesClient.DeleteBuildDatabaseConnection(context.Context, string, string, string, string, *StaticSitesClientDeleteBuildDatabaseConnectionOptions) (StaticSitesClientDeleteBuildDatabaseConnectionResponse, error)`
+- New function `*StaticSitesClient.DeleteDatabaseConnection(context.Context, string, string, string, *StaticSitesClientDeleteDatabaseConnectionOptions) (StaticSitesClientDeleteDatabaseConnectionResponse, error)`
+- New function `*StaticSitesClient.GetBasicAuth(context.Context, string, string, BasicAuthName, *StaticSitesClientGetBasicAuthOptions) (StaticSitesClientGetBasicAuthResponse, error)`
+- New function `*StaticSitesClient.GetBuildDatabaseConnection(context.Context, string, string, string, string, *StaticSitesClientGetBuildDatabaseConnectionOptions) (StaticSitesClientGetBuildDatabaseConnectionResponse, error)`
+- New function `*StaticSitesClient.GetBuildDatabaseConnectionWithDetails(context.Context, string, string, string, string, *StaticSitesClientGetBuildDatabaseConnectionWithDetailsOptions) (StaticSitesClientGetBuildDatabaseConnectionWithDetailsResponse, error)`
+- New function `*StaticSitesClient.NewGetBuildDatabaseConnectionsPager(string, string, string, *StaticSitesClientGetBuildDatabaseConnectionsOptions) *runtime.Pager[StaticSitesClientGetBuildDatabaseConnectionsResponse]`
+- New function `*StaticSitesClient.NewGetBuildDatabaseConnectionsWithDetailsPager(string, string, string, *StaticSitesClientGetBuildDatabaseConnectionsWithDetailsOptions) *runtime.Pager[StaticSitesClientGetBuildDatabaseConnectionsWithDetailsResponse]`
+- New function `*StaticSitesClient.GetDatabaseConnection(context.Context, string, string, string, *StaticSitesClientGetDatabaseConnectionOptions) (StaticSitesClientGetDatabaseConnectionResponse, error)`
+- New function `*StaticSitesClient.GetDatabaseConnectionWithDetails(context.Context, string, string, string, *StaticSitesClientGetDatabaseConnectionWithDetailsOptions) (StaticSitesClientGetDatabaseConnectionWithDetailsResponse, error)`
+- New function `*StaticSitesClient.NewGetDatabaseConnectionsPager(string, string, *StaticSitesClientGetDatabaseConnectionsOptions) *runtime.Pager[StaticSitesClientGetDatabaseConnectionsResponse]`
+- New function `*StaticSitesClient.NewGetDatabaseConnectionsWithDetailsPager(string, string, *StaticSitesClientGetDatabaseConnectionsWithDetailsOptions) *runtime.Pager[StaticSitesClientGetDatabaseConnectionsWithDetailsResponse]`
+- New function `*StaticSitesClient.NewListBasicAuthPager(string, string, *StaticSitesClientListBasicAuthOptions) *runtime.Pager[StaticSitesClientListBasicAuthResponse]`
+- New function `*StaticSitesClient.UpdateBuildDatabaseConnection(context.Context, string, string, string, string, DatabaseConnectionPatchRequest, *StaticSitesClientUpdateBuildDatabaseConnectionOptions) (StaticSitesClientUpdateBuildDatabaseConnectionResponse, error)`
+- New function `*StaticSitesClient.UpdateDatabaseConnection(context.Context, string, string, string, DatabaseConnectionPatchRequest, *StaticSitesClientUpdateDatabaseConnectionOptions) (StaticSitesClientUpdateDatabaseConnectionResponse, error)`
+- New function `*WebAppsClient.DeployWorkflowArtifacts(context.Context, string, string, *WebAppsClientDeployWorkflowArtifactsOptions) (WebAppsClientDeployWorkflowArtifactsResponse, error)`
+- New function `*WebAppsClient.DeployWorkflowArtifactsSlot(context.Context, string, string, string, *WebAppsClientDeployWorkflowArtifactsSlotOptions) (WebAppsClientDeployWorkflowArtifactsSlotResponse, error)`
+- New function `*WebAppsClient.GetInstanceWorkflowSlot(context.Context, string, string, string, string, *WebAppsClientGetInstanceWorkflowSlotOptions) (WebAppsClientGetInstanceWorkflowSlotResponse, error)`
+- New function `*WebAppsClient.GetWorkflow(context.Context, string, string, string, *WebAppsClientGetWorkflowOptions) (WebAppsClientGetWorkflowResponse, error)`
+- New function `*WebAppsClient.NewListInstanceWorkflowsSlotPager(string, string, string, *WebAppsClientListInstanceWorkflowsSlotOptions) *runtime.Pager[WebAppsClientListInstanceWorkflowsSlotResponse]`
+- New function `*WebAppsClient.ListWorkflowsConnections(context.Context, string, string, *WebAppsClientListWorkflowsConnectionsOptions) (WebAppsClientListWorkflowsConnectionsResponse, error)`
+- New function `*WebAppsClient.ListWorkflowsConnectionsSlot(context.Context, string, string, string, *WebAppsClientListWorkflowsConnectionsSlotOptions) (WebAppsClientListWorkflowsConnectionsSlotResponse, error)`
+- New function `*WebAppsClient.NewListWorkflowsPager(string, string, *WebAppsClientListWorkflowsOptions) *runtime.Pager[WebAppsClientListWorkflowsResponse]`
+- New struct `ClientFactory`
+- New struct `DatabaseConnection`
+- New struct `DatabaseConnectionCollection`
+- New struct `DatabaseConnectionOverview`
+- New struct `DatabaseConnectionPatchRequest`
+- New struct `DatabaseConnectionPatchRequestProperties`
+- New struct `DatabaseConnectionProperties`
+- New struct `StaticSiteBasicAuthPropertiesARMResource`
+- New struct `StaticSiteBasicAuthPropertiesARMResourceProperties`
+- New struct `StaticSiteBasicAuthPropertiesCollection`
+- New struct `StaticSiteDatabaseConnectionConfigurationFileOverview`
+- New struct `WorkflowArtifacts`
+- New struct `WorkflowEnvelope`
+- New struct `WorkflowEnvelopeCollection`
+- New struct `WorkflowEnvelopeProperties`
+- New struct `WorkflowHealth`
+- New field `ElasticWebAppScaleLimit` in struct `SiteConfig`
+- New field `IPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+- New field `Metadata` in struct `SiteConfig`
+- New field `ScmIPSecurityRestrictionsDefaultAction` in struct `SiteConfig`
+- New field `ManagedEnvironmentID` in struct `SiteProperties`
+- New field `DatabaseConnections` in struct `StaticSite`
+- New field `DatabaseConnections` in struct `StaticSiteBuildARMResourceProperties`
+
+
 ## 2.0.0 (2022-07-12)
 ### Breaking Changes
 
