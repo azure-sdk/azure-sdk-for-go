@@ -5,9 +5,8 @@
 ``` yaml
 azure-arm: true
 require:
-- https://github.com/Azure/azure-rest-api-specs/blob/e7bf3adfa2d5e5cdbb804eec35279501794f461c/specification/containerservice/resource-manager/readme.md
-- https://github.com/Azure/azure-rest-api-specs/blob/e7bf3adfa2d5e5cdbb804eec35279501794f461c/specification/containerservice/resource-manager/readme.go.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/containerservice/resource-manager/Microsoft.ContainerService/aks/readme.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/containerservice/resource-manager/Microsoft.ContainerService/aks/readme.go.md
 license-header: MICROSOFT_MIT_NO_VERSION
-module-version: 2.4.0-beta.1
-tag: package-preview-2022-11
+module-version: 3.0.0
 ```
