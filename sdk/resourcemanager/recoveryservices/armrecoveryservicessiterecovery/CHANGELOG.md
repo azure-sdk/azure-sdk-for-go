@@ -1,5 +1,55 @@
 # Release History
 
+## 1.2.0 (2023-03-21)
+### Features Added
+
+- New enum type `SecurityType` with values `SecurityTypeConfidentialVM`, `SecurityTypeNone`, `SecurityTypeTrustedLaunch`
+- New function `NewClientFactory(string, string, string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewMigrationRecoveryPointsClient() *MigrationRecoveryPointsClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewRecoveryPointsClient() *RecoveryPointsClient`
+- New function `*ClientFactory.NewReplicationAlertSettingsClient() *ReplicationAlertSettingsClient`
+- New function `*ClientFactory.NewReplicationAppliancesClient() *ReplicationAppliancesClient`
+- New function `*ClientFactory.NewReplicationEligibilityResultsClient() *ReplicationEligibilityResultsClient`
+- New function `*ClientFactory.NewReplicationEventsClient() *ReplicationEventsClient`
+- New function `*ClientFactory.NewReplicationFabricsClient() *ReplicationFabricsClient`
+- New function `*ClientFactory.NewReplicationJobsClient() *ReplicationJobsClient`
+- New function `*ClientFactory.NewReplicationLogicalNetworksClient() *ReplicationLogicalNetworksClient`
+- New function `*ClientFactory.NewReplicationMigrationItemsClient() *ReplicationMigrationItemsClient`
+- New function `*ClientFactory.NewReplicationNetworkMappingsClient() *ReplicationNetworkMappingsClient`
+- New function `*ClientFactory.NewReplicationNetworksClient() *ReplicationNetworksClient`
+- New function `*ClientFactory.NewReplicationPoliciesClient() *ReplicationPoliciesClient`
+- New function `*ClientFactory.NewReplicationProtectableItemsClient() *ReplicationProtectableItemsClient`
+- New function `*ClientFactory.NewReplicationProtectedItemsClient() *ReplicationProtectedItemsClient`
+- New function `*ClientFactory.NewReplicationProtectionContainerMappingsClient() *ReplicationProtectionContainerMappingsClient`
+- New function `*ClientFactory.NewReplicationProtectionContainersClient() *ReplicationProtectionContainersClient`
+- New function `*ClientFactory.NewReplicationProtectionIntentsClient() *ReplicationProtectionIntentsClient`
+- New function `*ClientFactory.NewReplicationRecoveryPlansClient() *ReplicationRecoveryPlansClient`
+- New function `*ClientFactory.NewReplicationRecoveryServicesProvidersClient() *ReplicationRecoveryServicesProvidersClient`
+- New function `*ClientFactory.NewReplicationStorageClassificationMappingsClient() *ReplicationStorageClassificationMappingsClient`
+- New function `*ClientFactory.NewReplicationStorageClassificationsClient() *ReplicationStorageClassificationsClient`
+- New function `*ClientFactory.NewReplicationVaultHealthClient() *ReplicationVaultHealthClient`
+- New function `*ClientFactory.NewReplicationVaultSettingClient() *ReplicationVaultSettingClient`
+- New function `*ClientFactory.NewReplicationvCentersClient() *ReplicationvCentersClient`
+- New function `*ClientFactory.NewSupportedOperatingSystemsClient() *SupportedOperatingSystemsClient`
+- New function `*ClientFactory.NewTargetComputeSizesClient() *TargetComputeSizesClient`
+- New struct `A2AFabricSpecificLocationDetails`
+- New struct `ClientFactory`
+- New struct `VMwareCbtSecurityProfileProperties`
+- New field `LocationDetails` in struct `AzureFabricSpecificDetails`
+- New field `ExtendedLocationMappings` in struct `FabricQueryParameter`
+- New field `LocationDetails` in struct `FabricQueryParameter`
+- New field `ConfidentialVMKeyVaultID` in struct `VMwareCbtEnableMigrationInput`
+- New field `TargetVMSecurityProfile` in struct `VMwareCbtEnableMigrationInput`
+- New field `OSUpgradeVersion` in struct `VMwareCbtMigrateInput`
+- New field `ConfidentialVMKeyVaultID` in struct `VMwareCbtMigrationDetails`
+- New field `OSName` in struct `VMwareCbtMigrationDetails`
+- New field `SupportedOSVersions` in struct `VMwareCbtMigrationDetails`
+- New field `TargetVMSecurityProfile` in struct `VMwareCbtMigrationDetails`
+- New field `ExcludedSKUs` in struct `VMwareCbtProtectionContainerMappingDetails`
+- New field `OSUpgradeVersion` in struct `VMwareCbtTestMigrateInput`
+
+
 ## 1.1.0 (2022-12-23)
 ### Features Added
 

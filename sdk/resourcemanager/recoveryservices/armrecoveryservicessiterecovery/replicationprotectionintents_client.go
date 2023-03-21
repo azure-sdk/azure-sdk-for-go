@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,28 +24,20 @@ import (
 // ReplicationProtectionIntentsClient contains the methods for the ReplicationProtectionIntents group.
 // Don't use this type directly, use NewReplicationProtectionIntentsClient() instead.
 type ReplicationProtectionIntentsClient struct {
-	host              string
+	internal          *arm.Client
 	resourceName      string
 	resourceGroupName string
 	subscriptionID    string
-	pl                runtime.Pipeline
 }
 
 // NewReplicationProtectionIntentsClient creates a new instance of ReplicationProtectionIntentsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationProtectionIntentsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationProtectionIntentsClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".ReplicationProtectionIntentsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -55,25 +45,25 @@ func NewReplicationProtectionIntentsClient(resourceName string, resourceGroupNam
 		resourceName:      resourceName,
 		resourceGroupName: resourceGroupName,
 		subscriptionID:    subscriptionID,
-		host:              ep,
-		pl:                pl,
+		internal:          cl,
 	}
 	return client, nil
 }
 
 // Create - The operation to create an ASR replication protection intent item.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// intentObjectName - A name for the replication protection item.
-// input - Create Protection Intent Input.
-// options - ReplicationProtectionIntentsClientCreateOptions contains the optional parameters for the ReplicationProtectionIntentsClient.Create
-// method.
+//
+// Generated from API version 2023-02-01
+//   - intentObjectName - A name for the replication protection item.
+//   - input - Create Protection Intent Input.
+//   - options - ReplicationProtectionIntentsClientCreateOptions contains the optional parameters for the ReplicationProtectionIntentsClient.Create
+//     method.
 func (client *ReplicationProtectionIntentsClient) Create(ctx context.Context, intentObjectName string, input CreateProtectionIntentInput, options *ReplicationProtectionIntentsClientCreateOptions) (ReplicationProtectionIntentsClientCreateResponse, error) {
 	req, err := client.createCreateRequest(ctx, intentObjectName, input, options)
 	if err != nil {
 		return ReplicationProtectionIntentsClientCreateResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ReplicationProtectionIntentsClientCreateResponse{}, err
 	}
@@ -102,12 +92,12 @@ func (client *ReplicationProtectionIntentsClient) createCreateRequest(ctx contex
 		return nil, errors.New("parameter intentObjectName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{intentObjectName}", url.PathEscape(intentObjectName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)
@@ -124,16 +114,17 @@ func (client *ReplicationProtectionIntentsClient) createHandleResponse(resp *htt
 
 // Get - Gets the details of an ASR replication protection intent.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// intentObjectName - Replication protection intent name.
-// options - ReplicationProtectionIntentsClientGetOptions contains the optional parameters for the ReplicationProtectionIntentsClient.Get
-// method.
+//
+// Generated from API version 2023-02-01
+//   - intentObjectName - Replication protection intent name.
+//   - options - ReplicationProtectionIntentsClientGetOptions contains the optional parameters for the ReplicationProtectionIntentsClient.Get
+//     method.
 func (client *ReplicationProtectionIntentsClient) Get(ctx context.Context, intentObjectName string, options *ReplicationProtectionIntentsClientGetOptions) (ReplicationProtectionIntentsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, intentObjectName, options)
 	if err != nil {
 		return ReplicationProtectionIntentsClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ReplicationProtectionIntentsClientGetResponse{}, err
 	}
@@ -162,12 +153,12 @@ func (client *ReplicationProtectionIntentsClient) getCreateRequest(ctx context.C
 		return nil, errors.New("parameter intentObjectName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{intentObjectName}", url.PathEscape(intentObjectName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,9 +174,10 @@ func (client *ReplicationProtectionIntentsClient) getHandleResponse(resp *http.R
 }
 
 // NewListPager - Gets the list of ASR replication protection intent objects in the vault.
-// Generated from API version 2022-10-01
-// options - ReplicationProtectionIntentsClientListOptions contains the optional parameters for the ReplicationProtectionIntentsClient.List
-// method.
+//
+// Generated from API version 2023-02-01
+//   - options - ReplicationProtectionIntentsClientListOptions contains the optional parameters for the ReplicationProtectionIntentsClient.NewListPager
+//     method.
 func (client *ReplicationProtectionIntentsClient) NewListPager(options *ReplicationProtectionIntentsClientListOptions) *runtime.Pager[ReplicationProtectionIntentsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationProtectionIntentsClientListResponse]{
 		More: func(page ReplicationProtectionIntentsClientListResponse) bool {
@@ -202,7 +194,7 @@ func (client *ReplicationProtectionIntentsClient) NewListPager(options *Replicat
 			if err != nil {
 				return ReplicationProtectionIntentsClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return ReplicationProtectionIntentsClientListResponse{}, err
 			}
@@ -229,12 +221,12 @@ func (client *ReplicationProtectionIntentsClient) listCreateRequest(ctx context.
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("skipToken", *options.SkipToken)
 	}

@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,28 +24,20 @@ import (
 // ReplicationStorageClassificationsClient contains the methods for the ReplicationStorageClassifications group.
 // Don't use this type directly, use NewReplicationStorageClassificationsClient() instead.
 type ReplicationStorageClassificationsClient struct {
-	host              string
+	internal          *arm.Client
 	resourceName      string
 	resourceGroupName string
 	subscriptionID    string
-	pl                runtime.Pipeline
 }
 
 // NewReplicationStorageClassificationsClient creates a new instance of ReplicationStorageClassificationsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationStorageClassificationsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationStorageClassificationsClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".ReplicationStorageClassificationsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -55,25 +45,25 @@ func NewReplicationStorageClassificationsClient(resourceName string, resourceGro
 		resourceName:      resourceName,
 		resourceGroupName: resourceGroupName,
 		subscriptionID:    subscriptionID,
-		host:              ep,
-		pl:                pl,
+		internal:          cl,
 	}
 	return client, nil
 }
 
 // Get - Gets the details of the specified storage classification.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// storageClassificationName - Storage classification name.
-// options - ReplicationStorageClassificationsClientGetOptions contains the optional parameters for the ReplicationStorageClassificationsClient.Get
-// method.
+//
+// Generated from API version 2023-02-01
+//   - fabricName - Fabric name.
+//   - storageClassificationName - Storage classification name.
+//   - options - ReplicationStorageClassificationsClientGetOptions contains the optional parameters for the ReplicationStorageClassificationsClient.Get
+//     method.
 func (client *ReplicationStorageClassificationsClient) Get(ctx context.Context, fabricName string, storageClassificationName string, options *ReplicationStorageClassificationsClientGetOptions) (ReplicationStorageClassificationsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, fabricName, storageClassificationName, options)
 	if err != nil {
 		return ReplicationStorageClassificationsClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ReplicationStorageClassificationsClientGetResponse{}, err
 	}
@@ -106,12 +96,12 @@ func (client *ReplicationStorageClassificationsClient) getCreateRequest(ctx cont
 		return nil, errors.New("parameter storageClassificationName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{storageClassificationName}", url.PathEscape(storageClassificationName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -127,9 +117,10 @@ func (client *ReplicationStorageClassificationsClient) getHandleResponse(resp *h
 }
 
 // NewListPager - Lists the storage classifications in the vault.
-// Generated from API version 2022-10-01
-// options - ReplicationStorageClassificationsClientListOptions contains the optional parameters for the ReplicationStorageClassificationsClient.List
-// method.
+//
+// Generated from API version 2023-02-01
+//   - options - ReplicationStorageClassificationsClientListOptions contains the optional parameters for the ReplicationStorageClassificationsClient.NewListPager
+//     method.
 func (client *ReplicationStorageClassificationsClient) NewListPager(options *ReplicationStorageClassificationsClientListOptions) *runtime.Pager[ReplicationStorageClassificationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationStorageClassificationsClientListResponse]{
 		More: func(page ReplicationStorageClassificationsClientListResponse) bool {
@@ -146,7 +137,7 @@ func (client *ReplicationStorageClassificationsClient) NewListPager(options *Rep
 			if err != nil {
 				return ReplicationStorageClassificationsClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return ReplicationStorageClassificationsClientListResponse{}, err
 			}
@@ -173,12 +164,12 @@ func (client *ReplicationStorageClassificationsClient) listCreateRequest(ctx con
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,10 +185,11 @@ func (client *ReplicationStorageClassificationsClient) listHandleResponse(resp *
 }
 
 // NewListByReplicationFabricsPager - Lists the storage classifications available in the specified fabric.
-// Generated from API version 2022-10-01
-// fabricName - Site name of interest.
-// options - ReplicationStorageClassificationsClientListByReplicationFabricsOptions contains the optional parameters for the
-// ReplicationStorageClassificationsClient.ListByReplicationFabrics method.
+//
+// Generated from API version 2023-02-01
+//   - fabricName - Site name of interest.
+//   - options - ReplicationStorageClassificationsClientListByReplicationFabricsOptions contains the optional parameters for the
+//     ReplicationStorageClassificationsClient.NewListByReplicationFabricsPager method.
 func (client *ReplicationStorageClassificationsClient) NewListByReplicationFabricsPager(fabricName string, options *ReplicationStorageClassificationsClientListByReplicationFabricsOptions) *runtime.Pager[ReplicationStorageClassificationsClientListByReplicationFabricsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationStorageClassificationsClientListByReplicationFabricsResponse]{
 		More: func(page ReplicationStorageClassificationsClientListByReplicationFabricsResponse) bool {
@@ -214,7 +206,7 @@ func (client *ReplicationStorageClassificationsClient) NewListByReplicationFabri
 			if err != nil {
 				return ReplicationStorageClassificationsClientListByReplicationFabricsResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return ReplicationStorageClassificationsClientListByReplicationFabricsResponse{}, err
 			}
@@ -245,12 +237,12 @@ func (client *ReplicationStorageClassificationsClient) listByReplicationFabricsC
 		return nil, errors.New("parameter fabricName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{fabricName}", url.PathEscape(fabricName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

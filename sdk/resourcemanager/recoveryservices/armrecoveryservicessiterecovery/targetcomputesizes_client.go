@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,28 +24,20 @@ import (
 // TargetComputeSizesClient contains the methods for the TargetComputeSizes group.
 // Don't use this type directly, use NewTargetComputeSizesClient() instead.
 type TargetComputeSizesClient struct {
-	host              string
+	internal          *arm.Client
 	resourceName      string
 	resourceGroupName string
 	subscriptionID    string
-	pl                runtime.Pipeline
 }
 
 // NewTargetComputeSizesClient creates a new instance of TargetComputeSizesClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewTargetComputeSizesClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TargetComputeSizesClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".TargetComputeSizesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -55,19 +45,19 @@ func NewTargetComputeSizesClient(resourceName string, resourceGroupName string, 
 		resourceName:      resourceName,
 		resourceGroupName: resourceGroupName,
 		subscriptionID:    subscriptionID,
-		host:              ep,
-		pl:                pl,
+		internal:          cl,
 	}
 	return client, nil
 }
 
 // NewListByReplicationProtectedItemsPager - Lists the available target compute sizes for a replication protected item.
-// Generated from API version 2022-10-01
-// fabricName - Fabric name.
-// protectionContainerName - protection container name.
-// replicatedProtectedItemName - Replication protected item name.
-// options - TargetComputeSizesClientListByReplicationProtectedItemsOptions contains the optional parameters for the TargetComputeSizesClient.ListByReplicationProtectedItems
-// method.
+//
+// Generated from API version 2023-02-01
+//   - fabricName - Fabric name.
+//   - protectionContainerName - protection container name.
+//   - replicatedProtectedItemName - Replication protected item name.
+//   - options - TargetComputeSizesClientListByReplicationProtectedItemsOptions contains the optional parameters for the TargetComputeSizesClient.NewListByReplicationProtectedItemsPager
+//     method.
 func (client *TargetComputeSizesClient) NewListByReplicationProtectedItemsPager(fabricName string, protectionContainerName string, replicatedProtectedItemName string, options *TargetComputeSizesClientListByReplicationProtectedItemsOptions) *runtime.Pager[TargetComputeSizesClientListByReplicationProtectedItemsResponse] {
 	return runtime.NewPager(runtime.PagingHandler[TargetComputeSizesClientListByReplicationProtectedItemsResponse]{
 		More: func(page TargetComputeSizesClientListByReplicationProtectedItemsResponse) bool {
@@ -84,7 +74,7 @@ func (client *TargetComputeSizesClient) NewListByReplicationProtectedItemsPager(
 			if err != nil {
 				return TargetComputeSizesClientListByReplicationProtectedItemsResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return TargetComputeSizesClientListByReplicationProtectedItemsResponse{}, err
 			}
@@ -123,12 +113,12 @@ func (client *TargetComputeSizesClient) listByReplicationProtectedItemsCreateReq
 		return nil, errors.New("parameter replicatedProtectedItemName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{replicatedProtectedItemName}", url.PathEscape(replicatedProtectedItemName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
