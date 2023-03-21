@@ -1,5 +1,48 @@
 # Release History
 
+## 2.0.0-beta.2 (2023-03-21)
+### Breaking Changes
+
+- Field `InnerError` of struct `WorkbookErrorDefinition` has been removed
+
+### Features Added
+
+- New value `WebTestKindStandard` added to enum type `WebTestKind`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewAPIKeysClient() *APIKeysClient`
+- New function `*ClientFactory.NewAnalyticsItemsClient() *AnalyticsItemsClient`
+- New function `*ClientFactory.NewAnnotationsClient() *AnnotationsClient`
+- New function `*ClientFactory.NewComponentAvailableFeaturesClient() *ComponentAvailableFeaturesClient`
+- New function `*ClientFactory.NewComponentCurrentBillingFeaturesClient() *ComponentCurrentBillingFeaturesClient`
+- New function `*ClientFactory.NewComponentFeatureCapabilitiesClient() *ComponentFeatureCapabilitiesClient`
+- New function `*ClientFactory.NewComponentLinkedStorageAccountsClient() *ComponentLinkedStorageAccountsClient`
+- New function `*ClientFactory.NewComponentQuotaStatusClient() *ComponentQuotaStatusClient`
+- New function `*ClientFactory.NewComponentsClient() *ComponentsClient`
+- New function `*ClientFactory.NewExportConfigurationsClient() *ExportConfigurationsClient`
+- New function `*ClientFactory.NewFavoritesClient() *FavoritesClient`
+- New function `*ClientFactory.NewLiveTokenClient() *LiveTokenClient`
+- New function `*ClientFactory.NewMyWorkbooksClient() *MyWorkbooksClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewProactiveDetectionConfigurationsClient() *ProactiveDetectionConfigurationsClient`
+- New function `*ClientFactory.NewWebTestLocationsClient() *WebTestLocationsClient`
+- New function `*ClientFactory.NewWebTestsClient() *WebTestsClient`
+- New function `*ClientFactory.NewWorkItemConfigurationsClient() *WorkItemConfigurationsClient`
+- New function `*ClientFactory.NewWorkbookTemplatesClient() *WorkbookTemplatesClient`
+- New function `*ClientFactory.NewWorkbooksClient() *WorkbooksClient`
+- New function `NewOperationsClient(azcore.TokenCredential, *arm.ClientOptions) (*OperationsClient, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New struct `ClientFactory`
+- New struct `ErrorFieldContract`
+- New struct `HeaderField`
+- New struct `WebTestPropertiesRequest`
+- New struct `WebTestPropertiesValidationRules`
+- New struct `WebTestPropertiesValidationRulesContentValidation`
+- New field `Details` in struct `ErrorResponse`
+- New field `Request` in struct `WebTestProperties`
+- New field `ValidationRules` in struct `WebTestProperties`
+- New field `Innererror` in struct `WorkbookErrorDefinition`
+
+
 ## 2.0.0-beta.1 (2022-06-02)
 ### Breaking Changes
 
