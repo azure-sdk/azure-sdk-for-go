@@ -1,5 +1,71 @@
 # Release History
 
+## 5.0.0 (2023-03-21)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New value `StorageAccountTypeStandardSSDLRS` added to enum type `StorageAccountType`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewAvailabilitySetsClient() *AvailabilitySetsClient`
+- New function `*ClientFactory.NewCapacityReservationGroupsClient() *CapacityReservationGroupsClient`
+- New function `*ClientFactory.NewCapacityReservationsClient() *CapacityReservationsClient`
+- New function `*ClientFactory.NewCloudServiceOperatingSystemsClient() *CloudServiceOperatingSystemsClient`
+- New function `*ClientFactory.NewCloudServiceRoleInstancesClient() *CloudServiceRoleInstancesClient`
+- New function `*ClientFactory.NewCloudServiceRolesClient() *CloudServiceRolesClient`
+- New function `*ClientFactory.NewCloudServicesClient() *CloudServicesClient`
+- New function `*ClientFactory.NewCloudServicesUpdateDomainClient() *CloudServicesUpdateDomainClient`
+- New function `*ClientFactory.NewCommunityGalleriesClient() *CommunityGalleriesClient`
+- New function `*ClientFactory.NewCommunityGalleryImageVersionsClient() *CommunityGalleryImageVersionsClient`
+- New function `*ClientFactory.NewCommunityGalleryImagesClient() *CommunityGalleryImagesClient`
+- New function `*ClientFactory.NewDedicatedHostGroupsClient() *DedicatedHostGroupsClient`
+- New function `*ClientFactory.NewDedicatedHostsClient() *DedicatedHostsClient`
+- New function `*ClientFactory.NewDiskAccessesClient() *DiskAccessesClient`
+- New function `*ClientFactory.NewDiskEncryptionSetsClient() *DiskEncryptionSetsClient`
+- New function `*ClientFactory.NewDiskRestorePointClient() *DiskRestorePointClient`
+- New function `*ClientFactory.NewDisksClient() *DisksClient`
+- New function `*ClientFactory.NewGalleriesClient() *GalleriesClient`
+- New function `*ClientFactory.NewGalleryApplicationVersionsClient() *GalleryApplicationVersionsClient`
+- New function `*ClientFactory.NewGalleryApplicationsClient() *GalleryApplicationsClient`
+- New function `*ClientFactory.NewGalleryImageVersionsClient() *GalleryImageVersionsClient`
+- New function `*ClientFactory.NewGalleryImagesClient() *GalleryImagesClient`
+- New function `*ClientFactory.NewGallerySharingProfileClient() *GallerySharingProfileClient`
+- New function `*ClientFactory.NewImagesClient() *ImagesClient`
+- New function `*ClientFactory.NewLogAnalyticsClient() *LogAnalyticsClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewProximityPlacementGroupsClient() *ProximityPlacementGroupsClient`
+- New function `*ClientFactory.NewResourceSKUsClient() *ResourceSKUsClient`
+- New function `*ClientFactory.NewRestorePointCollectionsClient() *RestorePointCollectionsClient`
+- New function `*ClientFactory.NewRestorePointsClient() *RestorePointsClient`
+- New function `*ClientFactory.NewSSHPublicKeysClient() *SSHPublicKeysClient`
+- New function `*ClientFactory.NewSharedGalleriesClient() *SharedGalleriesClient`
+- New function `*ClientFactory.NewSharedGalleryImageVersionsClient() *SharedGalleryImageVersionsClient`
+- New function `*ClientFactory.NewSharedGalleryImagesClient() *SharedGalleryImagesClient`
+- New function `*ClientFactory.NewSnapshotsClient() *SnapshotsClient`
+- New function `*ClientFactory.NewUsageClient() *UsageClient`
+- New function `*ClientFactory.NewVirtualMachineExtensionImagesClient() *VirtualMachineExtensionImagesClient`
+- New function `*ClientFactory.NewVirtualMachineExtensionsClient() *VirtualMachineExtensionsClient`
+- New function `*ClientFactory.NewVirtualMachineImagesClient() *VirtualMachineImagesClient`
+- New function `*ClientFactory.NewVirtualMachineImagesEdgeZoneClient() *VirtualMachineImagesEdgeZoneClient`
+- New function `*ClientFactory.NewVirtualMachineRunCommandsClient() *VirtualMachineRunCommandsClient`
+- New function `*ClientFactory.NewVirtualMachineScaleSetExtensionsClient() *VirtualMachineScaleSetExtensionsClient`
+- New function `*ClientFactory.NewVirtualMachineScaleSetRollingUpgradesClient() *VirtualMachineScaleSetRollingUpgradesClient`
+- New function `*ClientFactory.NewVirtualMachineScaleSetVMExtensionsClient() *VirtualMachineScaleSetVMExtensionsClient`
+- New function `*ClientFactory.NewVirtualMachineScaleSetVMRunCommandsClient() *VirtualMachineScaleSetVMRunCommandsClient`
+- New function `*ClientFactory.NewVirtualMachineScaleSetVMsClient() *VirtualMachineScaleSetVMsClient`
+- New function `*ClientFactory.NewVirtualMachineScaleSetsClient() *VirtualMachineScaleSetsClient`
+- New function `*ClientFactory.NewVirtualMachineSizesClient() *VirtualMachineSizesClient`
+- New function `*ClientFactory.NewVirtualMachinesClient() *VirtualMachinesClient`
+- New struct `ClientFactory`
+- New field `ComputerName` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `HyperVGeneration` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `OSName` in struct `VirtualMachineScaleSetVMInstanceView`
+- New field `OSVersion` in struct `VirtualMachineScaleSetVMInstanceView`
+
+
 ## 4.1.0 (2023-01-27)
 ### Features Added
 
