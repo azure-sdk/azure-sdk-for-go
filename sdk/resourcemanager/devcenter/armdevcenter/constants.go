@@ -11,7 +11,7 @@ package armdevcenter
 
 const (
 	moduleName    = "armdevcenter"
-	moduleVersion = "v0.4.0"
+	moduleVersion = "v0.5.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -100,19 +100,19 @@ func PossibleDomainJoinTypeValues() []DomainJoinType {
 	}
 }
 
-// EnableStatus - Enable or disable status. Indicates whether the property applied to is either enabled or disabled.
-type EnableStatus string
+// EnvironmentTypeEnableStatus - Indicates whether the environment type is either enabled or disabled.
+type EnvironmentTypeEnableStatus string
 
 const (
-	EnableStatusDisabled EnableStatus = "Disabled"
-	EnableStatusEnabled  EnableStatus = "Enabled"
+	EnvironmentTypeEnableStatusDisabled EnvironmentTypeEnableStatus = "Disabled"
+	EnvironmentTypeEnableStatusEnabled  EnvironmentTypeEnableStatus = "Enabled"
 )
 
-// PossibleEnableStatusValues returns the possible values for the EnableStatus const type.
-func PossibleEnableStatusValues() []EnableStatus {
-	return []EnableStatus{
-		EnableStatusDisabled,
-		EnableStatusEnabled,
+// PossibleEnvironmentTypeEnableStatusValues returns the possible values for the EnvironmentTypeEnableStatus const type.
+func PossibleEnvironmentTypeEnableStatusValues() []EnvironmentTypeEnableStatus {
+	return []EnvironmentTypeEnableStatus{
+		EnvironmentTypeEnableStatusDisabled,
+		EnvironmentTypeEnableStatusEnabled,
 	}
 }
 
@@ -137,6 +137,28 @@ func PossibleHealthCheckStatusValues() []HealthCheckStatus {
 		HealthCheckStatusRunning,
 		HealthCheckStatusUnknown,
 		HealthCheckStatusWarning,
+	}
+}
+
+// HealthStatus - Health status indicating whether a pool is available to create Dev Boxes.
+type HealthStatus string
+
+const (
+	HealthStatusHealthy   HealthStatus = "Healthy"
+	HealthStatusPending   HealthStatus = "Pending"
+	HealthStatusUnhealthy HealthStatus = "Unhealthy"
+	HealthStatusUnknown   HealthStatus = "Unknown"
+	HealthStatusWarning   HealthStatus = "Warning"
+)
+
+// PossibleHealthStatusValues returns the possible values for the HealthStatus const type.
+func PossibleHealthStatusValues() []HealthStatus {
+	return []HealthStatus{
+		HealthStatusHealthy,
+		HealthStatusPending,
+		HealthStatusUnhealthy,
+		HealthStatusUnknown,
+		HealthStatusWarning,
 	}
 }
 
@@ -311,6 +333,23 @@ func PossibleSKUTierValues() []SKUTier {
 	}
 }
 
+// ScheduleEnableStatus - Schedule enable or disable status. Indicates whether the schedule applied to is either enabled or
+// disabled.
+type ScheduleEnableStatus string
+
+const (
+	ScheduleEnableStatusDisabled ScheduleEnableStatus = "Disabled"
+	ScheduleEnableStatusEnabled  ScheduleEnableStatus = "Enabled"
+)
+
+// PossibleScheduleEnableStatusValues returns the possible values for the ScheduleEnableStatus const type.
+func PossibleScheduleEnableStatusValues() []ScheduleEnableStatus {
+	return []ScheduleEnableStatus{
+		ScheduleEnableStatusDisabled,
+		ScheduleEnableStatusEnabled,
+	}
+}
+
 // ScheduledFrequency - The frequency of task execution.
 type ScheduledFrequency string
 
@@ -339,16 +378,19 @@ func PossibleScheduledTypeValues() []ScheduledType {
 	}
 }
 
-// UsageUnit - The unit details.
-type UsageUnit string
+// StopOnDisconnectEnableStatus - Stop on disconnect enable or disable status. Indicates whether stop on disconnect to is
+// either enabled or disabled.
+type StopOnDisconnectEnableStatus string
 
 const (
-	UsageUnitCount UsageUnit = "Count"
+	StopOnDisconnectEnableStatusDisabled StopOnDisconnectEnableStatus = "Disabled"
+	StopOnDisconnectEnableStatusEnabled  StopOnDisconnectEnableStatus = "Enabled"
 )
 
-// PossibleUsageUnitValues returns the possible values for the UsageUnit const type.
-func PossibleUsageUnitValues() []UsageUnit {
-	return []UsageUnit{
-		UsageUnitCount,
+// PossibleStopOnDisconnectEnableStatusValues returns the possible values for the StopOnDisconnectEnableStatus const type.
+func PossibleStopOnDisconnectEnableStatusValues() []StopOnDisconnectEnableStatus {
+	return []StopOnDisconnectEnableStatus{
+		StopOnDisconnectEnableStatusDisabled,
+		StopOnDisconnectEnableStatusEnabled,
 	}
 }
