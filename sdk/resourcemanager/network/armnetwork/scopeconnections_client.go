@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -27,9 +25,8 @@ import (
 // ScopeConnectionsClient contains the methods for the ScopeConnections group.
 // Don't use this type directly, use NewScopeConnectionsClient() instead.
 type ScopeConnectionsClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewScopeConnectionsClient creates a new instance of ScopeConnectionsClient with the specified values.
@@ -38,21 +35,13 @@ type ScopeConnectionsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewScopeConnectionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ScopeConnectionsClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".ScopeConnectionsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &ScopeConnectionsClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
@@ -60,7 +49,7 @@ func NewScopeConnectionsClient(subscriptionID string, credential azcore.TokenCre
 // CreateOrUpdate - Creates or updates scope connection from Network Manager
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - scopeConnectionName - Name for the cross-tenant connection.
@@ -72,7 +61,7 @@ func (client *ScopeConnectionsClient) CreateOrUpdate(ctx context.Context, resour
 	if err != nil {
 		return ScopeConnectionsClientCreateOrUpdateResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ScopeConnectionsClientCreateOrUpdateResponse{}, err
 	}
@@ -101,12 +90,12 @@ func (client *ScopeConnectionsClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, errors.New("parameter scopeConnectionName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{scopeConnectionName}", url.PathEscape(scopeConnectionName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -124,7 +113,7 @@ func (client *ScopeConnectionsClient) createOrUpdateHandleResponse(resp *http.Re
 // Delete - Delete the pending scope connection created by this network manager.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - scopeConnectionName - Name for the cross-tenant connection.
@@ -134,7 +123,7 @@ func (client *ScopeConnectionsClient) Delete(ctx context.Context, resourceGroupN
 	if err != nil {
 		return ScopeConnectionsClientDeleteResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ScopeConnectionsClientDeleteResponse{}, err
 	}
@@ -163,12 +152,12 @@ func (client *ScopeConnectionsClient) deleteCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter scopeConnectionName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{scopeConnectionName}", url.PathEscape(scopeConnectionName))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -177,7 +166,7 @@ func (client *ScopeConnectionsClient) deleteCreateRequest(ctx context.Context, r
 // Get - Get specified scope connection created by this Network Manager.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - scopeConnectionName - Name for the cross-tenant connection.
@@ -187,7 +176,7 @@ func (client *ScopeConnectionsClient) Get(ctx context.Context, resourceGroupName
 	if err != nil {
 		return ScopeConnectionsClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ScopeConnectionsClientGetResponse{}, err
 	}
@@ -216,12 +205,12 @@ func (client *ScopeConnectionsClient) getCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter scopeConnectionName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{scopeConnectionName}", url.PathEscape(scopeConnectionName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -238,7 +227,7 @@ func (client *ScopeConnectionsClient) getHandleResponse(resp *http.Response) (Sc
 
 // NewListPager - List all scope connections created by this network manager.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - options - ScopeConnectionsClientListOptions contains the optional parameters for the ScopeConnectionsClient.NewListPager
@@ -259,7 +248,7 @@ func (client *ScopeConnectionsClient) NewListPager(resourceGroupName string, net
 			if err != nil {
 				return ScopeConnectionsClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return ScopeConnectionsClientListResponse{}, err
 			}
@@ -286,12 +275,12 @@ func (client *ScopeConnectionsClient) listCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter networkManagerName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{networkManagerName}", url.PathEscape(networkManagerName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}

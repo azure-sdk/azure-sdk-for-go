@@ -10411,16 +10411,15 @@ type OwaspCrsExclusionEntry struct {
 	// REQUIRED; The variable to be excluded.
 	MatchVariable *OwaspCrsExclusionEntryMatchVariable `json:"matchVariable,omitempty"`
 
-	// REQUIRED; When matchVariable is a collection, operator used to specify which elements in the collection this exclusion
-	// applies to.
-	Selector *string `json:"selector,omitempty"`
-
-	// REQUIRED; When matchVariable is a collection, operate on the selector to specify which elements in the collection this
-	// exclusion applies to.
-	SelectorMatchOperator *OwaspCrsExclusionEntrySelectorMatchOperator `json:"selectorMatchOperator,omitempty"`
-
 	// The managed rule sets that are associated with the exclusion.
 	ExclusionManagedRuleSets []*ExclusionManagedRuleSet `json:"exclusionManagedRuleSets,omitempty"`
+
+	// When matchVariable is a collection, operator used to specify which elements in the collection this exclusion applies to.
+	Selector *string `json:"selector,omitempty"`
+
+	// When matchVariable is a collection, operate on the selector to specify which elements in the collection this exclusion
+	// applies to.
+	SelectorMatchOperator *OwaspCrsExclusionEntrySelectorMatchOperator `json:"selectorMatchOperator,omitempty"`
 }
 
 // P2SConnectionConfiguration Resource.
