@@ -1,5 +1,76 @@
 # Release History
 
+## 2.1.0 (2023-03-21)
+### Features Added
+
+- New enum type `TargetDiskNetworkAccessOption` with values `TargetDiskNetworkAccessOptionEnablePrivateAccessForAllDisks`, `TargetDiskNetworkAccessOptionEnablePublicAccessForAllDisks`, `TargetDiskNetworkAccessOptionSameAsOnSourceDisks`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewBMSPrepareDataMoveOperationResultClient() *BMSPrepareDataMoveOperationResultClient`
+- New function `*ClientFactory.NewBackupEnginesClient() *BackupEnginesClient`
+- New function `*ClientFactory.NewBackupJobsClient() *BackupJobsClient`
+- New function `*ClientFactory.NewBackupOperationResultsClient() *BackupOperationResultsClient`
+- New function `*ClientFactory.NewBackupOperationStatusesClient() *BackupOperationStatusesClient`
+- New function `*ClientFactory.NewBackupPoliciesClient() *BackupPoliciesClient`
+- New function `*ClientFactory.NewBackupProtectableItemsClient() *BackupProtectableItemsClient`
+- New function `*ClientFactory.NewBackupProtectedItemsClient() *BackupProtectedItemsClient`
+- New function `*ClientFactory.NewBackupProtectionContainersClient() *BackupProtectionContainersClient`
+- New function `*ClientFactory.NewBackupProtectionIntentClient() *BackupProtectionIntentClient`
+- New function `*ClientFactory.NewBackupResourceEncryptionConfigsClient() *BackupResourceEncryptionConfigsClient`
+- New function `*ClientFactory.NewBackupResourceStorageConfigsNonCRRClient() *BackupResourceStorageConfigsNonCRRClient`
+- New function `*ClientFactory.NewBackupResourceVaultConfigsClient() *BackupResourceVaultConfigsClient`
+- New function `*ClientFactory.NewBackupStatusClient() *BackupStatusClient`
+- New function `*ClientFactory.NewBackupUsageSummariesClient() *BackupUsageSummariesClient`
+- New function `*ClientFactory.NewBackupWorkloadItemsClient() *BackupWorkloadItemsClient`
+- New function `*ClientFactory.NewBackupsClient() *BackupsClient`
+- New function `*ClientFactory.NewClient() *Client`
+- New function `*ClientFactory.NewDeletedProtectionContainersClient() *DeletedProtectionContainersClient`
+- New function `*ClientFactory.NewExportJobsOperationResultsClient() *ExportJobsOperationResultsClient`
+- New function `*ClientFactory.NewFeatureSupportClient() *FeatureSupportClient`
+- New function `*ClientFactory.NewItemLevelRecoveryConnectionsClient() *ItemLevelRecoveryConnectionsClient`
+- New function `*ClientFactory.NewJobCancellationsClient() *JobCancellationsClient`
+- New function `*ClientFactory.NewJobDetailsClient() *JobDetailsClient`
+- New function `*ClientFactory.NewJobOperationResultsClient() *JobOperationResultsClient`
+- New function `*ClientFactory.NewJobsClient() *JobsClient`
+- New function `*ClientFactory.NewOperationClient() *OperationClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewPrivateEndpointClient() *PrivateEndpointClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionClient() *PrivateEndpointConnectionClient`
+- New function `*ClientFactory.NewProtectableContainersClient() *ProtectableContainersClient`
+- New function `*ClientFactory.NewProtectedItemOperationResultsClient() *ProtectedItemOperationResultsClient`
+- New function `*ClientFactory.NewProtectedItemOperationStatusesClient() *ProtectedItemOperationStatusesClient`
+- New function `*ClientFactory.NewProtectedItemsClient() *ProtectedItemsClient`
+- New function `*ClientFactory.NewProtectionContainerOperationResultsClient() *ProtectionContainerOperationResultsClient`
+- New function `*ClientFactory.NewProtectionContainerRefreshOperationResultsClient() *ProtectionContainerRefreshOperationResultsClient`
+- New function `*ClientFactory.NewProtectionContainersClient() *ProtectionContainersClient`
+- New function `*ClientFactory.NewProtectionIntentClient() *ProtectionIntentClient`
+- New function `*ClientFactory.NewProtectionPoliciesClient() *ProtectionPoliciesClient`
+- New function `*ClientFactory.NewProtectionPolicyOperationResultsClient() *ProtectionPolicyOperationResultsClient`
+- New function `*ClientFactory.NewProtectionPolicyOperationStatusesClient() *ProtectionPolicyOperationStatusesClient`
+- New function `*ClientFactory.NewRecoveryPointsClient() *RecoveryPointsClient`
+- New function `*ClientFactory.NewRecoveryPointsRecommendedForMoveClient() *RecoveryPointsRecommendedForMoveClient`
+- New function `*ClientFactory.NewResourceGuardProxiesClient() *ResourceGuardProxiesClient`
+- New function `*ClientFactory.NewResourceGuardProxyClient() *ResourceGuardProxyClient`
+- New function `*ClientFactory.NewRestoresClient() *RestoresClient`
+- New function `*ClientFactory.NewSecurityPINsClient() *SecurityPINsClient`
+- New function `*ClientFactory.NewValidateOperationClient() *ValidateOperationClient`
+- New function `*ClientFactory.NewValidateOperationResultsClient() *ValidateOperationResultsClient`
+- New function `*ClientFactory.NewValidateOperationStatusesClient() *ValidateOperationStatusesClient`
+- New struct `ClientFactory`
+- New struct `ExtendedLocation`
+- New struct `SecuredVMDetails`
+- New struct `TargetDiskNetworkAccessSettings`
+- New field `IncludeSoftDeletedRP` in struct `BMSRPQueryObject`
+- New field `IsPrivateAccessEnabledOnAnyDisk` in struct `IaasVMRecoveryPoint`
+- New field `SecurityType` in struct `IaasVMRecoveryPoint`
+- New field `ExtendedLocation` in struct `IaasVMRestoreRequest`
+- New field `SecuredVMDetails` in struct `IaasVMRestoreRequest`
+- New field `TargetDiskNetworkAccessSettings` in struct `IaasVMRestoreRequest`
+- New field `ExtendedLocation` in struct `IaasVMRestoreWithRehydrationRequest`
+- New field `SecuredVMDetails` in struct `IaasVMRestoreWithRehydrationRequest`
+- New field `TargetDiskNetworkAccessSettings` in struct `IaasVMRestoreWithRehydrationRequest`
+- New field `IsSoftDeleted` in struct `RecoveryPointProperties`
+
+
 ## 2.0.0 (2023-01-19)
 ### Breaking Changes
 
