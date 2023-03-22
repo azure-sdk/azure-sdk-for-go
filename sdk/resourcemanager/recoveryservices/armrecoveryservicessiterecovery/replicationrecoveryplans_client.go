@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,28 +24,20 @@ import (
 // ReplicationRecoveryPlansClient contains the methods for the ReplicationRecoveryPlans group.
 // Don't use this type directly, use NewReplicationRecoveryPlansClient() instead.
 type ReplicationRecoveryPlansClient struct {
-	host              string
+	internal          *arm.Client
 	resourceName      string
 	resourceGroupName string
 	subscriptionID    string
-	pl                runtime.Pipeline
 }
 
 // NewReplicationRecoveryPlansClient creates a new instance of ReplicationRecoveryPlansClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationRecoveryPlansClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationRecoveryPlansClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".ReplicationRecoveryPlansClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -55,40 +45,41 @@ func NewReplicationRecoveryPlansClient(resourceName string, resourceGroupName st
 		resourceName:      resourceName,
 		resourceGroupName: resourceGroupName,
 		subscriptionID:    subscriptionID,
-		host:              ep,
-		pl:                pl,
+		internal:          cl,
 	}
 	return client, nil
 }
 
 // BeginCreate - The operation to create a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// input - Recovery Plan creation input.
-// options - ReplicationRecoveryPlansClientBeginCreateOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginCreate
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - input - Recovery Plan creation input.
+//   - options - ReplicationRecoveryPlansClientBeginCreateOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginCreate
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginCreate(ctx context.Context, recoveryPlanName string, input CreateRecoveryPlanInput, options *ReplicationRecoveryPlansClientBeginCreateOptions) (*runtime.Poller[ReplicationRecoveryPlansClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, recoveryPlanName, input, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientCreateResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientCreateResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientCreateResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Create - The operation to create a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) create(ctx context.Context, recoveryPlanName string, input CreateRecoveryPlanInput, options *ReplicationRecoveryPlansClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, recoveryPlanName, input, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -117,12 +108,12 @@ func (client *ReplicationRecoveryPlansClient) createCreateRequest(ctx context.Co
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)
@@ -130,31 +121,33 @@ func (client *ReplicationRecoveryPlansClient) createCreateRequest(ctx context.Co
 
 // BeginDelete - Delete a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// options - ReplicationRecoveryPlansClientBeginDeleteOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginDelete
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - options - ReplicationRecoveryPlansClientBeginDeleteOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginDelete
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginDelete(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientBeginDeleteOptions) (*runtime.Poller[ReplicationRecoveryPlansClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, recoveryPlanName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientDeleteResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientDeleteResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientDeleteResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Delete - Delete a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) deleteOperation(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, recoveryPlanName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -183,43 +176,45 @@ func (client *ReplicationRecoveryPlansClient) deleteCreateRequest(ctx context.Co
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
 // BeginFailoverCancel - The operation to cancel the failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// options - ReplicationRecoveryPlansClientBeginFailoverCancelOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginFailoverCancel
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - options - ReplicationRecoveryPlansClientBeginFailoverCancelOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginFailoverCancel
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginFailoverCancel(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientBeginFailoverCancelOptions) (*runtime.Poller[ReplicationRecoveryPlansClientFailoverCancelResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.failoverCancel(ctx, recoveryPlanName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientFailoverCancelResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientFailoverCancelResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientFailoverCancelResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientFailoverCancelResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // FailoverCancel - The operation to cancel the failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) failoverCancel(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientBeginFailoverCancelOptions) (*http.Response, error) {
 	req, err := client.failoverCancelCreateRequest(ctx, recoveryPlanName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -248,12 +243,12 @@ func (client *ReplicationRecoveryPlansClient) failoverCancelCreateRequest(ctx co
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -261,31 +256,33 @@ func (client *ReplicationRecoveryPlansClient) failoverCancelCreateRequest(ctx co
 
 // BeginFailoverCommit - The operation to commit the failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// options - ReplicationRecoveryPlansClientBeginFailoverCommitOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginFailoverCommit
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - options - ReplicationRecoveryPlansClientBeginFailoverCommitOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginFailoverCommit
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginFailoverCommit(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientBeginFailoverCommitOptions) (*runtime.Poller[ReplicationRecoveryPlansClientFailoverCommitResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.failoverCommit(ctx, recoveryPlanName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientFailoverCommitResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientFailoverCommitResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientFailoverCommitResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientFailoverCommitResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // FailoverCommit - The operation to commit the failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) failoverCommit(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientBeginFailoverCommitOptions) (*http.Response, error) {
 	req, err := client.failoverCommitCreateRequest(ctx, recoveryPlanName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -314,12 +311,12 @@ func (client *ReplicationRecoveryPlansClient) failoverCommitCreateRequest(ctx co
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -327,16 +324,17 @@ func (client *ReplicationRecoveryPlansClient) failoverCommitCreateRequest(ctx co
 
 // Get - Gets the details of the recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Name of the recovery plan.
-// options - ReplicationRecoveryPlansClientGetOptions contains the optional parameters for the ReplicationRecoveryPlansClient.Get
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Name of the recovery plan.
+//   - options - ReplicationRecoveryPlansClientGetOptions contains the optional parameters for the ReplicationRecoveryPlansClient.Get
+//     method.
 func (client *ReplicationRecoveryPlansClient) Get(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientGetOptions) (ReplicationRecoveryPlansClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, recoveryPlanName, options)
 	if err != nil {
 		return ReplicationRecoveryPlansClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ReplicationRecoveryPlansClientGetResponse{}, err
 	}
@@ -365,12 +363,12 @@ func (client *ReplicationRecoveryPlansClient) getCreateRequest(ctx context.Conte
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -386,9 +384,10 @@ func (client *ReplicationRecoveryPlansClient) getHandleResponse(resp *http.Respo
 }
 
 // NewListPager - Lists the recovery plans in the vault.
-// Generated from API version 2022-10-01
-// options - ReplicationRecoveryPlansClientListOptions contains the optional parameters for the ReplicationRecoveryPlansClient.List
-// method.
+//
+// Generated from API version 2023-02-01
+//   - options - ReplicationRecoveryPlansClientListOptions contains the optional parameters for the ReplicationRecoveryPlansClient.NewListPager
+//     method.
 func (client *ReplicationRecoveryPlansClient) NewListPager(options *ReplicationRecoveryPlansClientListOptions) *runtime.Pager[ReplicationRecoveryPlansClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationRecoveryPlansClientListResponse]{
 		More: func(page ReplicationRecoveryPlansClientListResponse) bool {
@@ -405,7 +404,7 @@ func (client *ReplicationRecoveryPlansClient) NewListPager(options *ReplicationR
 			if err != nil {
 				return ReplicationRecoveryPlansClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return ReplicationRecoveryPlansClientListResponse{}, err
 			}
@@ -432,12 +431,12 @@ func (client *ReplicationRecoveryPlansClient) listCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -454,32 +453,34 @@ func (client *ReplicationRecoveryPlansClient) listHandleResponse(resp *http.Resp
 
 // BeginPlannedFailover - The operation to start the planned failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// input - Failover input.
-// options - ReplicationRecoveryPlansClientBeginPlannedFailoverOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginPlannedFailover
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - input - Failover input.
+//   - options - ReplicationRecoveryPlansClientBeginPlannedFailoverOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginPlannedFailover
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginPlannedFailover(ctx context.Context, recoveryPlanName string, input RecoveryPlanPlannedFailoverInput, options *ReplicationRecoveryPlansClientBeginPlannedFailoverOptions) (*runtime.Poller[ReplicationRecoveryPlansClientPlannedFailoverResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.plannedFailover(ctx, recoveryPlanName, input, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientPlannedFailoverResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientPlannedFailoverResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientPlannedFailoverResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientPlannedFailoverResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // PlannedFailover - The operation to start the planned failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) plannedFailover(ctx context.Context, recoveryPlanName string, input RecoveryPlanPlannedFailoverInput, options *ReplicationRecoveryPlansClientBeginPlannedFailoverOptions) (*http.Response, error) {
 	req, err := client.plannedFailoverCreateRequest(ctx, recoveryPlanName, input, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -508,12 +509,12 @@ func (client *ReplicationRecoveryPlansClient) plannedFailoverCreateRequest(ctx c
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)
@@ -521,31 +522,33 @@ func (client *ReplicationRecoveryPlansClient) plannedFailoverCreateRequest(ctx c
 
 // BeginReprotect - The operation to reprotect(reverse replicate) a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// options - ReplicationRecoveryPlansClientBeginReprotectOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginReprotect
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - options - ReplicationRecoveryPlansClientBeginReprotectOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginReprotect
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginReprotect(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientBeginReprotectOptions) (*runtime.Poller[ReplicationRecoveryPlansClientReprotectResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.reprotect(ctx, recoveryPlanName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientReprotectResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientReprotectResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientReprotectResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientReprotectResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Reprotect - The operation to reprotect(reverse replicate) a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) reprotect(ctx context.Context, recoveryPlanName string, options *ReplicationRecoveryPlansClientBeginReprotectOptions) (*http.Response, error) {
 	req, err := client.reprotectCreateRequest(ctx, recoveryPlanName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -574,12 +577,12 @@ func (client *ReplicationRecoveryPlansClient) reprotectCreateRequest(ctx context
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -587,32 +590,34 @@ func (client *ReplicationRecoveryPlansClient) reprotectCreateRequest(ctx context
 
 // BeginTestFailover - The operation to start the test failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// input - Recovery plan test failover input.
-// options - ReplicationRecoveryPlansClientBeginTestFailoverOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginTestFailover
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - input - Recovery plan test failover input.
+//   - options - ReplicationRecoveryPlansClientBeginTestFailoverOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginTestFailover
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginTestFailover(ctx context.Context, recoveryPlanName string, input RecoveryPlanTestFailoverInput, options *ReplicationRecoveryPlansClientBeginTestFailoverOptions) (*runtime.Poller[ReplicationRecoveryPlansClientTestFailoverResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.testFailover(ctx, recoveryPlanName, input, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientTestFailoverResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientTestFailoverResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientTestFailoverResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientTestFailoverResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // TestFailover - The operation to start the test failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) testFailover(ctx context.Context, recoveryPlanName string, input RecoveryPlanTestFailoverInput, options *ReplicationRecoveryPlansClientBeginTestFailoverOptions) (*http.Response, error) {
 	req, err := client.testFailoverCreateRequest(ctx, recoveryPlanName, input, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -641,12 +646,12 @@ func (client *ReplicationRecoveryPlansClient) testFailoverCreateRequest(ctx cont
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)
@@ -654,32 +659,34 @@ func (client *ReplicationRecoveryPlansClient) testFailoverCreateRequest(ctx cont
 
 // BeginTestFailoverCleanup - The operation to cleanup test failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// input - Recovery plan test failover cleanup input.
-// options - ReplicationRecoveryPlansClientBeginTestFailoverCleanupOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginTestFailoverCleanup
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - input - Recovery plan test failover cleanup input.
+//   - options - ReplicationRecoveryPlansClientBeginTestFailoverCleanupOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginTestFailoverCleanup
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginTestFailoverCleanup(ctx context.Context, recoveryPlanName string, input RecoveryPlanTestFailoverCleanupInput, options *ReplicationRecoveryPlansClientBeginTestFailoverCleanupOptions) (*runtime.Poller[ReplicationRecoveryPlansClientTestFailoverCleanupResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.testFailoverCleanup(ctx, recoveryPlanName, input, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientTestFailoverCleanupResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientTestFailoverCleanupResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientTestFailoverCleanupResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientTestFailoverCleanupResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // TestFailoverCleanup - The operation to cleanup test failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) testFailoverCleanup(ctx context.Context, recoveryPlanName string, input RecoveryPlanTestFailoverCleanupInput, options *ReplicationRecoveryPlansClientBeginTestFailoverCleanupOptions) (*http.Response, error) {
 	req, err := client.testFailoverCleanupCreateRequest(ctx, recoveryPlanName, input, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -708,12 +715,12 @@ func (client *ReplicationRecoveryPlansClient) testFailoverCleanupCreateRequest(c
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)
@@ -721,32 +728,34 @@ func (client *ReplicationRecoveryPlansClient) testFailoverCleanupCreateRequest(c
 
 // BeginUnplannedFailover - The operation to start the unplanned failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// input - Recovery plan unplanned failover input.
-// options - ReplicationRecoveryPlansClientBeginUnplannedFailoverOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginUnplannedFailover
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - input - Recovery plan unplanned failover input.
+//   - options - ReplicationRecoveryPlansClientBeginUnplannedFailoverOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginUnplannedFailover
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginUnplannedFailover(ctx context.Context, recoveryPlanName string, input RecoveryPlanUnplannedFailoverInput, options *ReplicationRecoveryPlansClientBeginUnplannedFailoverOptions) (*runtime.Poller[ReplicationRecoveryPlansClientUnplannedFailoverResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.unplannedFailover(ctx, recoveryPlanName, input, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientUnplannedFailoverResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientUnplannedFailoverResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientUnplannedFailoverResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientUnplannedFailoverResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // UnplannedFailover - The operation to start the unplanned failover of a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) unplannedFailover(ctx context.Context, recoveryPlanName string, input RecoveryPlanUnplannedFailoverInput, options *ReplicationRecoveryPlansClientBeginUnplannedFailoverOptions) (*http.Response, error) {
 	req, err := client.unplannedFailoverCreateRequest(ctx, recoveryPlanName, input, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -775,12 +784,12 @@ func (client *ReplicationRecoveryPlansClient) unplannedFailoverCreateRequest(ctx
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)
@@ -788,32 +797,34 @@ func (client *ReplicationRecoveryPlansClient) unplannedFailoverCreateRequest(ctx
 
 // BeginUpdate - The operation to update a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// recoveryPlanName - Recovery plan name.
-// input - Update recovery plan input.
-// options - ReplicationRecoveryPlansClientBeginUpdateOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginUpdate
-// method.
+//
+// Generated from API version 2023-02-01
+//   - recoveryPlanName - Recovery plan name.
+//   - input - Update recovery plan input.
+//   - options - ReplicationRecoveryPlansClientBeginUpdateOptions contains the optional parameters for the ReplicationRecoveryPlansClient.BeginUpdate
+//     method.
 func (client *ReplicationRecoveryPlansClient) BeginUpdate(ctx context.Context, recoveryPlanName string, input UpdateRecoveryPlanInput, options *ReplicationRecoveryPlansClientBeginUpdateOptions) (*runtime.Poller[ReplicationRecoveryPlansClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, recoveryPlanName, input, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ReplicationRecoveryPlansClientUpdateResponse](resp, client.pl, nil)
+		return runtime.NewPoller[ReplicationRecoveryPlansClientUpdateResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientUpdateResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ReplicationRecoveryPlansClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Update - The operation to update a recovery plan.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-02-01
 func (client *ReplicationRecoveryPlansClient) update(ctx context.Context, recoveryPlanName string, input UpdateRecoveryPlanInput, options *ReplicationRecoveryPlansClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, recoveryPlanName, input, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -842,12 +853,12 @@ func (client *ReplicationRecoveryPlansClient) updateCreateRequest(ctx context.Co
 		return nil, errors.New("parameter recoveryPlanName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{recoveryPlanName}", url.PathEscape(recoveryPlanName))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, input)

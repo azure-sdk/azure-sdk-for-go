@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,28 +24,20 @@ import (
 // ReplicationEventsClient contains the methods for the ReplicationEvents group.
 // Don't use this type directly, use NewReplicationEventsClient() instead.
 type ReplicationEventsClient struct {
-	host              string
+	internal          *arm.Client
 	resourceName      string
 	resourceGroupName string
 	subscriptionID    string
-	pl                runtime.Pipeline
 }
 
 // NewReplicationEventsClient creates a new instance of ReplicationEventsClient with the specified values.
-// resourceName - The name of the recovery services vault.
-// resourceGroupName - The name of the resource group where the recovery services vault is present.
-// subscriptionID - The subscription Id.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - resourceName - The name of the recovery services vault.
+//   - resourceGroupName - The name of the resource group where the recovery services vault is present.
+//   - subscriptionID - The subscription Id.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewReplicationEventsClient(resourceName string, resourceGroupName string, subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ReplicationEventsClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".ReplicationEventsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
@@ -55,23 +45,23 @@ func NewReplicationEventsClient(resourceName string, resourceGroupName string, s
 		resourceName:      resourceName,
 		resourceGroupName: resourceGroupName,
 		subscriptionID:    subscriptionID,
-		host:              ep,
-		pl:                pl,
+		internal:          cl,
 	}
 	return client, nil
 }
 
 // Get - The operation to get the details of an Azure Site recovery event.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// eventName - The name of the Azure Site Recovery event.
-// options - ReplicationEventsClientGetOptions contains the optional parameters for the ReplicationEventsClient.Get method.
+//
+// Generated from API version 2023-02-01
+//   - eventName - The name of the Azure Site Recovery event.
+//   - options - ReplicationEventsClientGetOptions contains the optional parameters for the ReplicationEventsClient.Get method.
 func (client *ReplicationEventsClient) Get(ctx context.Context, eventName string, options *ReplicationEventsClientGetOptions) (ReplicationEventsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, eventName, options)
 	if err != nil {
 		return ReplicationEventsClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ReplicationEventsClientGetResponse{}, err
 	}
@@ -100,12 +90,12 @@ func (client *ReplicationEventsClient) getCreateRequest(ctx context.Context, eve
 		return nil, errors.New("parameter eventName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{eventName}", url.PathEscape(eventName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,8 +111,10 @@ func (client *ReplicationEventsClient) getHandleResponse(resp *http.Response) (R
 }
 
 // NewListPager - Gets the list of Azure Site Recovery events for the vault.
-// Generated from API version 2022-10-01
-// options - ReplicationEventsClientListOptions contains the optional parameters for the ReplicationEventsClient.List method.
+//
+// Generated from API version 2023-02-01
+//   - options - ReplicationEventsClientListOptions contains the optional parameters for the ReplicationEventsClient.NewListPager
+//     method.
 func (client *ReplicationEventsClient) NewListPager(options *ReplicationEventsClientListOptions) *runtime.Pager[ReplicationEventsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ReplicationEventsClientListResponse]{
 		More: func(page ReplicationEventsClientListResponse) bool {
@@ -139,7 +131,7 @@ func (client *ReplicationEventsClient) NewListPager(options *ReplicationEventsCl
 			if err != nil {
 				return ReplicationEventsClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return ReplicationEventsClientListResponse{}, err
 			}
@@ -166,12 +158,12 @@ func (client *ReplicationEventsClient) listCreateRequest(ctx context.Context, op
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01")
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
