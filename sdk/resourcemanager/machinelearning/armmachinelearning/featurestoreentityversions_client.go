@@ -18,62 +18,79 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
-	"strconv"
 	"strings"
 )
 
-// ComponentVersionsClient contains the methods for the ComponentVersions group.
-// Don't use this type directly, use NewComponentVersionsClient() instead.
-type ComponentVersionsClient struct {
+// FeaturestoreEntityVersionsClient contains the methods for the FeaturestoreEntityVersions group.
+// Don't use this type directly, use NewFeaturestoreEntityVersionsClient() instead.
+type FeaturestoreEntityVersionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewComponentVersionsClient creates a new instance of ComponentVersionsClient with the specified values.
+// NewFeaturestoreEntityVersionsClient creates a new instance of FeaturestoreEntityVersionsClient with the specified values.
 //   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewComponentVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ComponentVersionsClient, error) {
-	cl, err := arm.NewClient(moduleName+".ComponentVersionsClient", moduleVersion, credential, options)
+func NewFeaturestoreEntityVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FeaturestoreEntityVersionsClient, error) {
+	cl, err := arm.NewClient(moduleName+".FeaturestoreEntityVersionsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &ComponentVersionsClient{
+	client := &FeaturestoreEntityVersionsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// CreateOrUpdate - Create or update version.
+// BeginCreateOrUpdate - Create or update version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
-//   - name - Container name.
-//   - version - Version identifier.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
 //   - body - Version entity to create or update.
-//   - options - ComponentVersionsClientCreateOrUpdateOptions contains the optional parameters for the ComponentVersionsClient.CreateOrUpdate
+//   - options - FeaturestoreEntityVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the FeaturestoreEntityVersionsClient.BeginCreateOrUpdate
 //     method.
-func (client *ComponentVersionsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body ComponentVersion, options *ComponentVersionsClientCreateOrUpdateOptions) (ComponentVersionsClientCreateOrUpdateResponse, error) {
+func (client *FeaturestoreEntityVersionsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturestoreEntityVersion, options *FeaturestoreEntityVersionsClientBeginCreateOrUpdateOptions) (*runtime.Poller[FeaturestoreEntityVersionsClientCreateOrUpdateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, workspaceName, name, version, body, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FeaturestoreEntityVersionsClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[FeaturestoreEntityVersionsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// CreateOrUpdate - Create or update version.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-02-01-preview
+func (client *FeaturestoreEntityVersionsClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturestoreEntityVersion, options *FeaturestoreEntityVersionsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, name, version, body, options)
 	if err != nil {
-		return ComponentVersionsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ComponentVersionsClientCreateOrUpdateResponse{}, err
+		return nil, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
-		return ComponentVersionsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.createOrUpdateHandleResponse(resp)
+	return resp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ComponentVersionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body ComponentVersion, options *ComponentVersionsClientCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/components/{name}/versions/{version}"
+func (client *FeaturestoreEntityVersionsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, body FeaturestoreEntityVersion, options *FeaturestoreEntityVersionsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featurestoreEntities/{name}/versions/{version}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -105,43 +122,52 @@ func (client *ComponentVersionsClient) createOrUpdateCreateRequest(ctx context.C
 	return req, runtime.MarshalAsJSON(req, body)
 }
 
-// createOrUpdateHandleResponse handles the CreateOrUpdate response.
-func (client *ComponentVersionsClient) createOrUpdateHandleResponse(resp *http.Response) (ComponentVersionsClientCreateOrUpdateResponse, error) {
-	result := ComponentVersionsClientCreateOrUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ComponentVersion); err != nil {
-		return ComponentVersionsClientCreateOrUpdateResponse{}, err
+// BeginDelete - Delete version.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-02-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - options - FeaturestoreEntityVersionsClientBeginDeleteOptions contains the optional parameters for the FeaturestoreEntityVersionsClient.BeginDelete
+//     method.
+func (client *FeaturestoreEntityVersionsClient) BeginDelete(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturestoreEntityVersionsClientBeginDeleteOptions) (*runtime.Poller[FeaturestoreEntityVersionsClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, workspaceName, name, version, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FeaturestoreEntityVersionsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[FeaturestoreEntityVersionsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
-	return result, nil
 }
 
 // Delete - Delete version.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-02-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - workspaceName - Name of Azure Machine Learning workspace.
-//   - name - Container name.
-//   - version - Version identifier.
-//   - options - ComponentVersionsClientDeleteOptions contains the optional parameters for the ComponentVersionsClient.Delete
-//     method.
-func (client *ComponentVersionsClient) Delete(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *ComponentVersionsClientDeleteOptions) (ComponentVersionsClientDeleteResponse, error) {
+func (client *FeaturestoreEntityVersionsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturestoreEntityVersionsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
-		return ComponentVersionsClientDeleteResponse{}, err
+		return nil, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ComponentVersionsClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
-		return ComponentVersionsClientDeleteResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return ComponentVersionsClientDeleteResponse{}, nil
+	return resp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *ComponentVersionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *ComponentVersionsClientDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/components/{name}/versions/{version}"
+func (client *FeaturestoreEntityVersionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturestoreEntityVersionsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featurestoreEntities/{name}/versions/{version}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -179,27 +205,28 @@ func (client *ComponentVersionsClient) deleteCreateRequest(ctx context.Context, 
 // Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
-//   - name - Container name.
-//   - version - Version identifier.
-//   - options - ComponentVersionsClientGetOptions contains the optional parameters for the ComponentVersionsClient.Get method.
-func (client *ComponentVersionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *ComponentVersionsClientGetOptions) (ComponentVersionsClientGetResponse, error) {
+//   - name - Container name. This is case-sensitive.
+//   - version - Version identifier. This is case-sensitive.
+//   - options - FeaturestoreEntityVersionsClientGetOptions contains the optional parameters for the FeaturestoreEntityVersionsClient.Get
+//     method.
+func (client *FeaturestoreEntityVersionsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturestoreEntityVersionsClientGetOptions) (FeaturestoreEntityVersionsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, name, version, options)
 	if err != nil {
-		return ComponentVersionsClientGetResponse{}, err
+		return FeaturestoreEntityVersionsClientGetResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return ComponentVersionsClientGetResponse{}, err
+		return FeaturestoreEntityVersionsClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ComponentVersionsClientGetResponse{}, runtime.NewResponseError(resp)
+		return FeaturestoreEntityVersionsClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *ComponentVersionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *ComponentVersionsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/components/{name}/versions/{version}"
+func (client *FeaturestoreEntityVersionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, version string, options *FeaturestoreEntityVersionsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featurestoreEntities/{name}/versions/{version}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -232,28 +259,28 @@ func (client *ComponentVersionsClient) getCreateRequest(ctx context.Context, res
 }
 
 // getHandleResponse handles the Get response.
-func (client *ComponentVersionsClient) getHandleResponse(resp *http.Response) (ComponentVersionsClientGetResponse, error) {
-	result := ComponentVersionsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ComponentVersion); err != nil {
-		return ComponentVersionsClientGetResponse{}, err
+func (client *FeaturestoreEntityVersionsClient) getHandleResponse(resp *http.Response) (FeaturestoreEntityVersionsClientGetResponse, error) {
+	result := FeaturestoreEntityVersionsClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FeaturestoreEntityVersion); err != nil {
+		return FeaturestoreEntityVersionsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListPager - List component versions.
+// NewListPager - List versions.
 //
 // Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
-//   - name - Component name.
-//   - options - ComponentVersionsClientListOptions contains the optional parameters for the ComponentVersionsClient.NewListPager
+//   - name - Feature entity name. This is case-sensitive.
+//   - options - FeaturestoreEntityVersionsClientListOptions contains the optional parameters for the FeaturestoreEntityVersionsClient.NewListPager
 //     method.
-func (client *ComponentVersionsClient) NewListPager(resourceGroupName string, workspaceName string, name string, options *ComponentVersionsClientListOptions) *runtime.Pager[ComponentVersionsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ComponentVersionsClientListResponse]{
-		More: func(page ComponentVersionsClientListResponse) bool {
+func (client *FeaturestoreEntityVersionsClient) NewListPager(resourceGroupName string, workspaceName string, name string, options *FeaturestoreEntityVersionsClientListOptions) *runtime.Pager[FeaturestoreEntityVersionsClientListResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FeaturestoreEntityVersionsClientListResponse]{
+		More: func(page FeaturestoreEntityVersionsClientListResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *ComponentVersionsClientListResponse) (ComponentVersionsClientListResponse, error) {
+		Fetcher: func(ctx context.Context, page *FeaturestoreEntityVersionsClientListResponse) (FeaturestoreEntityVersionsClientListResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -262,14 +289,14 @@ func (client *ComponentVersionsClient) NewListPager(resourceGroupName string, wo
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return ComponentVersionsClientListResponse{}, err
+				return FeaturestoreEntityVersionsClientListResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return ComponentVersionsClientListResponse{}, err
+				return FeaturestoreEntityVersionsClientListResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ComponentVersionsClientListResponse{}, runtime.NewResponseError(resp)
+				return FeaturestoreEntityVersionsClientListResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listHandleResponse(resp)
 		},
@@ -277,8 +304,8 @@ func (client *ComponentVersionsClient) NewListPager(resourceGroupName string, wo
 }
 
 // listCreateRequest creates the List request.
-func (client *ComponentVersionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *ComponentVersionsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/components/{name}/versions"
+func (client *FeaturestoreEntityVersionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, workspaceName string, name string, options *FeaturestoreEntityVersionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.MachineLearningServices/workspaces/{workspaceName}/featurestoreEntities/{name}/versions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -301,14 +328,11 @@ func (client *ComponentVersionsClient) listCreateRequest(ctx context.Context, re
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-02-01-preview")
-	if options != nil && options.OrderBy != nil {
-		reqQP.Set("$orderBy", *options.OrderBy)
-	}
-	if options != nil && options.Top != nil {
-		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
-	}
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", *options.Skip)
+	}
+	if options != nil && options.Tags != nil {
+		reqQP.Set("tags", *options.Tags)
 	}
 	if options != nil && options.ListViewType != nil {
 		reqQP.Set("listViewType", string(*options.ListViewType))
@@ -319,10 +343,10 @@ func (client *ComponentVersionsClient) listCreateRequest(ctx context.Context, re
 }
 
 // listHandleResponse handles the List response.
-func (client *ComponentVersionsClient) listHandleResponse(resp *http.Response) (ComponentVersionsClientListResponse, error) {
-	result := ComponentVersionsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ComponentVersionResourceArmPaginatedResult); err != nil {
-		return ComponentVersionsClientListResponse{}, err
+func (client *FeaturestoreEntityVersionsClient) listHandleResponse(resp *http.Response) (FeaturestoreEntityVersionsClientListResponse, error) {
+	result := FeaturestoreEntityVersionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FeaturestoreEntityVersionResourceArmPaginatedResult); err != nil {
+		return FeaturestoreEntityVersionsClientListResponse{}, err
 	}
 	return result, nil
 }
