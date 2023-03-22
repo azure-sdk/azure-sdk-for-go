@@ -1,5 +1,31 @@
 # Release History
 
+## 1.0.0 (2023-03-22)
+### Breaking Changes
+
+- Function `*AppliancesClient.ListClusterCustomerUserCredential` has been removed
+- Struct `ApplianceListClusterCustomerUserCredentialResults` has been removed
+
+### Features Added
+
+- New value `SSHKeyTypeLogsKey`, `SSHKeyTypeManagementCAKey`, `SSHKeyTypeScopedAccessKey` added to enum type `SSHKeyType`
+- New value `StatusImageDeprovisioning`, `StatusImageDownloaded`, `StatusImageDownloading`, `StatusImagePending`, `StatusImageProvisioned`, `StatusImageProvisioning`, `StatusImageUnknown`, `StatusUpgradingKVAIO`, `StatusWaitingForKVAIO` added to enum type `Status`
+- New enum type `ArtifactType` with values `ArtifactTypeLogsArtifactType`
+- New function `*AppliancesClient.GetTelemetryConfig(context.Context, *AppliancesClientGetTelemetryConfigOptions) (AppliancesClientGetTelemetryConfigResponse, error)`
+- New function `*AppliancesClient.ListKeys(context.Context, string, string, *AppliancesClientListKeysOptions) (AppliancesClientListKeysResponse, error)`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewAppliancesClient() *AppliancesClient`
+- New struct `ApplianceGetTelemetryConfigResult`
+- New struct `ApplianceListKeysResults`
+- New struct `ArtifactProfile`
+- New struct `ClientFactory`
+- New field `SystemData` in struct `Resource`
+- New field `Certificate` in struct `SSHKey`
+- New field `CreationTimeStamp` in struct `SSHKey`
+- New field `ExpirationTimeStamp` in struct `SSHKey`
+- New field `SystemData` in struct `TrackedResource`
+
+
 ## 0.2.0 (2022-06-28)
 ### Features Added
 

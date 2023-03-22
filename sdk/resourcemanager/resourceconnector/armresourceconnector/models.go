@@ -31,7 +31,7 @@ type Appliance struct {
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; Metadata pertaining to creation and last modification of the resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -47,13 +47,10 @@ type ApplianceCredentialKubeconfig struct {
 	Value *string `json:"value,omitempty" azure:"ro"`
 }
 
-// ApplianceListClusterCustomerUserCredentialResults - The List Cluster Customer User Credential Results appliance.
-type ApplianceListClusterCustomerUserCredentialResults struct {
-	// READ-ONLY; The list of appliance kubeconfigs.
-	Kubeconfigs []*ApplianceCredentialKubeconfig `json:"kubeconfigs,omitempty" azure:"ro"`
-
-	// READ-ONLY; Map of Customer User Public and Private SSH Keys
-	SSHKeys map[string]*SSHKey `json:"sshKeys,omitempty" azure:"ro"`
+// ApplianceGetTelemetryConfigResult - The Get Telemetry Config Result appliance.
+type ApplianceGetTelemetryConfigResult struct {
+	// READ-ONLY; Telemetry instrumentation key.
+	TelemetryInstrumentationKey *string `json:"telemetryInstrumentationKey,omitempty" azure:"ro"`
 }
 
 // ApplianceListCredentialResults - The List Cluster User Credential appliance.
@@ -63,6 +60,18 @@ type ApplianceListCredentialResults struct {
 
 	// READ-ONLY; The list of appliance kubeconfigs.
 	Kubeconfigs []*ApplianceCredentialKubeconfig `json:"kubeconfigs,omitempty" azure:"ro"`
+}
+
+// ApplianceListKeysResults - The List Cluster Keys Results appliance.
+type ApplianceListKeysResults struct {
+	// READ-ONLY; Map of artifacts that contains a list of ArtifactProfile used to upload artifacts such as logs.
+	ArtifactProfiles map[string]*ArtifactProfile `json:"artifactProfiles,omitempty" azure:"ro"`
+
+	// READ-ONLY; The list of appliance kubeconfigs.
+	Kubeconfigs []*ApplianceCredentialKubeconfig `json:"kubeconfigs,omitempty" azure:"ro"`
+
+	// READ-ONLY; Map of Customer User Public, Private SSH Keys and Certificate when available.
+	SSHKeys map[string]*SSHKey `json:"sshKeys,omitempty" azure:"ro"`
 }
 
 // ApplianceListResult - The List Appliances operation response.
@@ -121,7 +130,7 @@ type ApplianceProperties struct {
 	// Contains infrastructure information about the Appliance
 	InfrastructureConfig *AppliancePropertiesInfrastructureConfig `json:"infrastructureConfig,omitempty"`
 
-	// Certificates pair used to download MSI certificate from HIS
+	// Certificates pair used to download MSI certificate from HIS. Can only be set once.
 	PublicKey *string `json:"publicKey,omitempty"`
 
 	// Version of the Appliance
@@ -158,26 +167,26 @@ type AppliancesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AppliancesClientGetTelemetryConfigOptions contains the optional parameters for the AppliancesClient.GetTelemetryConfig
+// method.
+type AppliancesClientGetTelemetryConfigOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AppliancesClientGetUpgradeGraphOptions contains the optional parameters for the AppliancesClient.GetUpgradeGraph method.
 type AppliancesClientGetUpgradeGraphOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AppliancesClientListByResourceGroupOptions contains the optional parameters for the AppliancesClient.ListByResourceGroup
+// AppliancesClientListByResourceGroupOptions contains the optional parameters for the AppliancesClient.NewListByResourceGroupPager
 // method.
 type AppliancesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AppliancesClientListBySubscriptionOptions contains the optional parameters for the AppliancesClient.ListBySubscription
+// AppliancesClientListBySubscriptionOptions contains the optional parameters for the AppliancesClient.NewListBySubscriptionPager
 // method.
 type AppliancesClientListBySubscriptionOptions struct {
-	// placeholder for future optional parameters
-}
-
-// AppliancesClientListClusterCustomerUserCredentialOptions contains the optional parameters for the AppliancesClient.ListClusterCustomerUserCredential
-// method.
-type AppliancesClientListClusterCustomerUserCredentialOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -187,7 +196,13 @@ type AppliancesClientListClusterUserCredentialOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AppliancesClientListOperationsOptions contains the optional parameters for the AppliancesClient.ListOperations method.
+// AppliancesClientListKeysOptions contains the optional parameters for the AppliancesClient.ListKeys method.
+type AppliancesClientListKeysOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AppliancesClientListOperationsOptions contains the optional parameters for the AppliancesClient.NewListOperationsPager
+// method.
 type AppliancesClientListOperationsOptions struct {
 	// placeholder for future optional parameters
 }
@@ -197,10 +212,16 @@ type AppliancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// ArtifactProfile - Appliance ArtifactProfile definition.
+type ArtifactProfile struct {
+	// READ-ONLY; Endpoint is the URL to upload artifacts to.
+	Endpoint *string `json:"endpoint,omitempty" azure:"ro"`
+}
+
 // ErrorAdditionalInfo - The resource management error additional info.
 type ErrorAdditionalInfo struct {
 	// READ-ONLY; The additional info.
-	Info interface{} `json:"info,omitempty" azure:"ro"`
+	Info any `json:"info,omitempty" azure:"ro"`
 
 	// READ-ONLY; The additional info type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -272,17 +293,29 @@ type Resource struct {
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // SSHKey - Appliance SSHKey definition.
 type SSHKey struct {
-	// User Private Key.
-	PrivateKey *string `json:"privateKey,omitempty"`
+	// READ-ONLY; Certificate associated with the public key if the key is signed.
+	Certificate *string `json:"certificate,omitempty" azure:"ro"`
 
-	// User Public Key.
-	PublicKey *string `json:"publicKey,omitempty"`
+	// READ-ONLY; Certificate creation timestamp (Unix).
+	CreationTimeStamp *int64 `json:"creationTimeStamp,omitempty" azure:"ro"`
+
+	// READ-ONLY; Certificate expiration timestamp (Unix).
+	ExpirationTimeStamp *int64 `json:"expirationTimeStamp,omitempty" azure:"ro"`
+
+	// READ-ONLY; Private Key.
+	PrivateKey *string `json:"privateKey,omitempty" azure:"ro"`
+
+	// READ-ONLY; Public Key.
+	PublicKey *string `json:"publicKey,omitempty" azure:"ro"`
 }
 
 // SupportedVersion - The SupportedVersion object for appliance.
@@ -362,6 +395,9 @@ type TrackedResource struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
