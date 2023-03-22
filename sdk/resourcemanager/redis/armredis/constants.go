@@ -11,7 +11,7 @@ package armredis
 
 const (
 	moduleName    = "armredis"
-	moduleVersion = "v2.1.0"
+	moduleVersion = "v2.2.0-beta.1"
 )
 
 // DayOfWeek - Day of the week when a cache can be patched.
@@ -219,11 +219,14 @@ func PossibleReplicationRoleValues() []ReplicationRole {
 	}
 }
 
-// SKUFamily - The SKU family to use. Valid values: (C, P). (C = Basic/Standard, P = Premium).
+// SKUFamily - The SKU family to use. Valid values: (C, P). (C = Basic/Standard, P = Premium, G = General Purpose, M = Memory
+// Optimized).
 type SKUFamily string
 
 const (
 	SKUFamilyC SKUFamily = "C"
+	SKUFamilyG SKUFamily = "G"
+	SKUFamilyM SKUFamily = "M"
 	SKUFamilyP SKUFamily = "P"
 )
 
@@ -231,23 +234,29 @@ const (
 func PossibleSKUFamilyValues() []SKUFamily {
 	return []SKUFamily{
 		SKUFamilyC,
+		SKUFamilyG,
+		SKUFamilyM,
 		SKUFamilyP,
 	}
 }
 
-// SKUName - The type of Redis cache to deploy. Valid values: (Basic, Standard, Premium)
+// SKUName - The type of Redis cache to deploy. Valid values: (Basic, Standard, Premium, General Purpose, Memory Optimized)
 type SKUName string
 
 const (
-	SKUNameBasic    SKUName = "Basic"
-	SKUNamePremium  SKUName = "Premium"
-	SKUNameStandard SKUName = "Standard"
+	SKUNameBasic           SKUName = "Basic"
+	SKUNameGeneralPurpose  SKUName = "GeneralPurpose"
+	SKUNameMemoryOptimized SKUName = "MemoryOptimized"
+	SKUNamePremium         SKUName = "Premium"
+	SKUNameStandard        SKUName = "Standard"
 )
 
 // PossibleSKUNameValues returns the possible values for the SKUName const type.
 func PossibleSKUNameValues() []SKUName {
 	return []SKUName{
 		SKUNameBasic,
+		SKUNameGeneralPurpose,
+		SKUNameMemoryOptimized,
 		SKUNamePremium,
 		SKUNameStandard,
 	}
