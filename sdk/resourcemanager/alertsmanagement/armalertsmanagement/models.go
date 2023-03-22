@@ -177,13 +177,13 @@ type AlertProcessingRulesClientGetByNameOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertProcessingRulesClientListByResourceGroupOptions contains the optional parameters for the AlertProcessingRulesClient.ListByResourceGroup
+// AlertProcessingRulesClientListByResourceGroupOptions contains the optional parameters for the AlertProcessingRulesClient.NewListByResourceGroupPager
 // method.
 type AlertProcessingRulesClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AlertProcessingRulesClientListBySubscriptionOptions contains the optional parameters for the AlertProcessingRulesClient.ListBySubscription
+// AlertProcessingRulesClientListBySubscriptionOptions contains the optional parameters for the AlertProcessingRulesClient.NewListBySubscriptionPager
 // method.
 type AlertProcessingRulesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
@@ -209,19 +209,70 @@ type AlertProperties struct {
 	Essentials *Essentials `json:"essentials,omitempty"`
 
 	// READ-ONLY; Information specific to the monitor service that gives more contextual details about the alert.
-	Context interface{} `json:"context,omitempty" azure:"ro"`
+	Context any `json:"context,omitempty" azure:"ro"`
 
 	// READ-ONLY; Config which would be used for displaying the data in portal.
-	EgressConfig interface{} `json:"egressConfig,omitempty" azure:"ro"`
+	EgressConfig any `json:"egressConfig,omitempty" azure:"ro"`
+}
+
+// AlertRuleRecommendationProperties - Describes the format of Alert Rule Recommendations response.
+type AlertRuleRecommendationProperties struct {
+	// REQUIRED; The recommendation alert rule type.
+	AlertRuleType *string `json:"alertRuleType,omitempty"`
+
+	// REQUIRED; A dictionary that provides the display information for an alert rule recommendation.
+	DisplayInformation map[string]*string `json:"displayInformation,omitempty"`
+
+	// REQUIRED; A complete ARM template to deploy the alert rules.
+	RuleArmTemplate *RuleArmTemplate `json:"ruleArmTemplate,omitempty"`
+}
+
+// AlertRuleRecommendationResource - A single alert rule recommendation resource.
+type AlertRuleRecommendationResource struct {
+	// REQUIRED; recommendation properties.
+	Properties *AlertRuleRecommendationProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// AlertRuleRecommendationsClientListByResourceOptions contains the optional parameters for the AlertRuleRecommendationsClient.NewListByResourcePager
+// method.
+type AlertRuleRecommendationsClientListByResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AlertRuleRecommendationsClientListByTargetTypeOptions contains the optional parameters for the AlertRuleRecommendationsClient.NewListByTargetTypePager
+// method.
+type AlertRuleRecommendationsClientListByTargetTypeOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AlertRuleRecommendationsListResponse - List of alert rule recommendations.
+type AlertRuleRecommendationsListResponse struct {
+	// REQUIRED; the values for the alert rule recommendations.
+	Value []*AlertRuleRecommendationResource `json:"value,omitempty"`
+
+	// URL to fetch the next set of recommendations.
+	NextLink *string `json:"nextLink,omitempty"`
 }
 
 // AlertsClientChangeStateOptions contains the optional parameters for the AlertsClient.ChangeState method.
 type AlertsClientChangeStateOptions struct {
 	// reason of change alert state
-	Comment *string
+	Comment *Comments
 }
 
-// AlertsClientGetAllOptions contains the optional parameters for the AlertsClient.GetAll method.
+// AlertsClientGetAllOptions contains the optional parameters for the AlertsClient.NewGetAllPager method.
 type AlertsClientGetAllOptions struct {
 	// Filter by specific alert rule. Default value is to select all.
 	AlertRule *string
@@ -385,6 +436,11 @@ type AlertsSummaryGroupItem struct {
 	Values []*AlertsSummaryGroupItem `json:"values,omitempty"`
 }
 
+// Comments - Change alert state reason
+type Comments struct {
+	Comments *string `json:"comments,omitempty"`
+}
+
 // Condition to trigger an alert processing rule.
 type Condition struct {
 	// Field for a given condition.
@@ -418,20 +474,54 @@ func (d *DailyRecurrence) GetRecurrence() *Recurrence {
 	}
 }
 
-// ErrorResponse - An error response from the service.
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any `json:"info,omitempty" azure:"ro"`
+
+	// READ-ONLY; The additional info type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail `json:"details,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error message.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error target.
+	Target *string `json:"target,omitempty" azure:"ro"`
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
 type ErrorResponse struct {
-	// Details of error response.
-	Error *ErrorResponseBody `json:"error,omitempty"`
+	// The error object.
+	Error *ErrorDetail `json:"error,omitempty"`
 }
 
 // ErrorResponseAutoGenerated - An error response from the service.
 type ErrorResponseAutoGenerated struct {
 	// Details of error response.
-	Error *ErrorResponseBodyAutoGenerated `json:"error,omitempty"`
+	Error *ErrorResponseBody `json:"error,omitempty"`
 }
 
 // ErrorResponseAutoGenerated2 - An error response from the service.
 type ErrorResponseAutoGenerated2 struct {
+	// Details of error response.
+	Error *ErrorResponseBodyAutoGenerated `json:"error,omitempty"`
+}
+
+// ErrorResponseAutoGenerated3 - An error response from the service.
+type ErrorResponseAutoGenerated3 struct {
 	// Details of error response.
 	Error *ErrorResponseBodyAutoGenerated2 `json:"error,omitempty"`
 }
@@ -640,7 +730,7 @@ type OperationDisplay struct {
 	Resource *string `json:"resource,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -667,6 +757,176 @@ type PatchObject struct {
 type PatchProperties struct {
 	// Indicates if the given alert processing rule is enabled or disabled.
 	Enabled *bool `json:"enabled,omitempty"`
+}
+
+// PrometheusRule - An Azure Prometheus alerting or recording rule.
+type PrometheusRule struct {
+	// REQUIRED; The PromQL expression to evaluate. https://prometheus.io/docs/prometheus/latest/querying/basics/. Evaluated periodically
+	// as given by 'interval', and the result recorded as a new set of time series
+	// with the metric name as given by 'record'.
+	Expression *string `json:"expression,omitempty"`
+
+	// Actions that are performed when the alert rule becomes active, and when an alert condition is resolved.
+	Actions []*PrometheusRuleGroupAction `json:"actions,omitempty"`
+
+	// Alert rule name.
+	Alert *string `json:"alert,omitempty"`
+
+	// The annotations clause specifies a set of informational labels that can be used to store longer additional information
+	// such as alert descriptions or runbook links. The annotation values can be
+	// templated.
+	Annotations map[string]*string `json:"annotations,omitempty"`
+
+	// Enable/disable rule.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// The amount of time alert must be active before firing.
+	For *string `json:"for,omitempty"`
+
+	// Labels to add or overwrite before storing the result.
+	Labels map[string]*string `json:"labels,omitempty"`
+
+	// Recorded metrics name.
+	Record *string `json:"record,omitempty"`
+
+	// Defines the configuration for resolving fired alerts. Only relevant for alerts.
+	ResolveConfiguration *PrometheusRuleResolveConfiguration `json:"resolveConfiguration,omitempty"`
+
+	// The severity of the alerts fired by the rule. Must be between 0 and 4.
+	Severity *int32 `json:"severity,omitempty"`
+}
+
+// PrometheusRuleGroupAction - An alert action. Only relevant for alerts.
+type PrometheusRuleGroupAction struct {
+	// The resource id of the action group to use.
+	ActionGroupID *string `json:"actionGroupId,omitempty"`
+
+	// The properties of an action group object.
+	ActionProperties map[string]*string `json:"actionProperties,omitempty"`
+}
+
+// PrometheusRuleGroupProperties - An Azure Prometheus rule group.
+type PrometheusRuleGroupProperties struct {
+	// REQUIRED; Defines the rules in the Prometheus rule group.
+	Rules []*PrometheusRule `json:"rules,omitempty"`
+
+	// REQUIRED; Target Azure Monitor workspaces resource ids. This api-version is currently limited to creating with one scope.
+	// This may change in future.
+	Scopes []*string `json:"scopes,omitempty"`
+
+	// Apply rule to data from a specific cluster.
+	ClusterName *string `json:"clusterName,omitempty"`
+
+	// Rule group description.
+	Description *string `json:"description,omitempty"`
+
+	// Enable/disable rule group.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// The interval in which to run the Prometheus rule group represented in ISO 8601 duration format. Should be between 1 and
+	// 15 minutes
+	Interval *string `json:"interval,omitempty"`
+}
+
+// PrometheusRuleGroupResource - The Prometheus rule group resource.
+type PrometheusRuleGroupResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// REQUIRED; The Prometheus rule group properties of the resource.
+	Properties *PrometheusRuleGroupProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PrometheusRuleGroupResourceCollection - Represents a collection of alert rule resources.
+type PrometheusRuleGroupResourceCollection struct {
+	// the values for the alert rule resources.
+	Value []*PrometheusRuleGroupResource `json:"value,omitempty"`
+}
+
+// PrometheusRuleGroupResourcePatchParameters - The Prometheus rule group resource for patch operations.
+type PrometheusRuleGroupResourcePatchParameters struct {
+	Properties *PrometheusRuleGroupResourcePatchParametersProperties `json:"properties,omitempty"`
+
+	// Resource tags
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+type PrometheusRuleGroupResourcePatchParametersProperties struct {
+	// the flag that indicates whether the Prometheus rule group is enabled.
+	Enabled *bool `json:"enabled,omitempty"`
+}
+
+// PrometheusRuleGroupsClientCreateOrUpdateOptions contains the optional parameters for the PrometheusRuleGroupsClient.CreateOrUpdate
+// method.
+type PrometheusRuleGroupsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientDeleteOptions contains the optional parameters for the PrometheusRuleGroupsClient.Delete method.
+type PrometheusRuleGroupsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientGetOptions contains the optional parameters for the PrometheusRuleGroupsClient.Get method.
+type PrometheusRuleGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientListByResourceGroupOptions contains the optional parameters for the PrometheusRuleGroupsClient.NewListByResourceGroupPager
+// method.
+type PrometheusRuleGroupsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientListBySubscriptionOptions contains the optional parameters for the PrometheusRuleGroupsClient.NewListBySubscriptionPager
+// method.
+type PrometheusRuleGroupsClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleGroupsClientUpdateOptions contains the optional parameters for the PrometheusRuleGroupsClient.Update method.
+type PrometheusRuleGroupsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrometheusRuleResolveConfiguration - Specifies the Prometheus alert rule configuration.
+type PrometheusRuleResolveConfiguration struct {
+	// Enable alert auto-resolution.
+	AutoResolved *bool `json:"autoResolved,omitempty"`
+
+	// Alert auto-resolution timeout.
+	TimeToResolve *string `json:"timeToResolve,omitempty"`
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // RecurrenceClassification provides polymorphic access to related types.
@@ -706,8 +966,23 @@ func (r *RemoveAllActionGroups) GetAction() *Action {
 	}
 }
 
-// Resource - An azure resource object
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ResourceAutoGenerated - An azure resource object
+type ResourceAutoGenerated struct {
 	// READ-ONLY; Azure resource Id
 	ID *string `json:"id,omitempty" azure:"ro"`
 
@@ -716,6 +991,24 @@ type Resource struct {
 
 	// READ-ONLY; Azure resource type
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RuleArmTemplate - A complete ARM template to deploy the alert rules.
+type RuleArmTemplate struct {
+	// REQUIRED; A 4 number format for the version number of this template file. For example, 1.0.0.0
+	ContentVersion *string `json:"contentVersion,omitempty"`
+
+	// REQUIRED; Input parameter definitions
+	Parameters any `json:"parameters,omitempty"`
+
+	// REQUIRED; Alert rule resource definitions
+	Resources []any `json:"resources,omitempty"`
+
+	// REQUIRED; JSON schema reference
+	Schema *string `json:"$schema,omitempty"`
+
+	// REQUIRED; Variable definitions
+	Variables any `json:"variables,omitempty"`
 }
 
 // Schedule - Scheduling configuration for a given alert processing rule.
@@ -858,7 +1151,7 @@ type SmartGroupsClientChangeStateOptions struct {
 	// placeholder for future optional parameters
 }
 
-// SmartGroupsClientGetAllOptions contains the optional parameters for the SmartGroupsClient.GetAll method.
+// SmartGroupsClientGetAllOptions contains the optional parameters for the SmartGroupsClient.NewGetAllPager method.
 type SmartGroupsClientGetAllOptions struct {
 	// Filter by monitor condition which is either 'Fired' or 'Resolved'. Default value is to select all.
 	MonitorCondition *MonitorCondition
@@ -923,6 +1216,28 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
+}
+
+// TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
+// and a 'location'
+type TrackedResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // WeeklyRecurrence - Weekly recurrence object.
