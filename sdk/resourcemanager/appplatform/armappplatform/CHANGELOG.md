@@ -1,5 +1,84 @@
 # Release History
 
+## 1.1.0-beta.3 (2023-03-22)
+### Breaking Changes
+
+- Type of `BindingResourceProperties.BindingParameters` has been changed from `map[string]interface{}` to `map[string]*string`
+
+### Features Added
+
+- New enum type `ContainerRegistryProvisioningState` with values `ContainerRegistryProvisioningStateCanceled`, `ContainerRegistryProvisioningStateCreating`, `ContainerRegistryProvisioningStateFailed`, `ContainerRegistryProvisioningStateSucceeded`, `ContainerRegistryProvisioningStateUpdating`
+- New enum type `GatewayCertificateVerification` with values `GatewayCertificateVerificationDisabled`, `GatewayCertificateVerificationEnabled`
+- New function `*BuildServiceClient.BeginCreateOrUpdate(context.Context, string, string, string, BuildService, *BuildServiceClientBeginCreateOrUpdateOptions) (*runtime.Poller[BuildServiceClientCreateOrUpdateResponse], error)`
+- New function `*BuildServiceClient.BeginDeleteBuild(context.Context, string, string, string, string, *BuildServiceClientBeginDeleteBuildOptions) (*runtime.Poller[BuildServiceClientDeleteBuildResponse], error)`
+- New function `*BuildpackBindingClient.NewListForClusterPager(string, string, *BuildpackBindingClientListForClusterOptions) *runtime.Pager[BuildpackBindingClientListForClusterResponse]`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewAPIPortalCustomDomainsClient() *APIPortalCustomDomainsClient`
+- New function `*ClientFactory.NewAPIPortalsClient() *APIPortalsClient`
+- New function `*ClientFactory.NewApplicationAcceleratorsClient() *ApplicationAcceleratorsClient`
+- New function `*ClientFactory.NewApplicationLiveViewsClient() *ApplicationLiveViewsClient`
+- New function `*ClientFactory.NewAppsClient() *AppsClient`
+- New function `*ClientFactory.NewBindingsClient() *BindingsClient`
+- New function `*ClientFactory.NewBuildServiceAgentPoolClient() *BuildServiceAgentPoolClient`
+- New function `*ClientFactory.NewBuildServiceBuilderClient() *BuildServiceBuilderClient`
+- New function `*ClientFactory.NewBuildServiceClient() *BuildServiceClient`
+- New function `*ClientFactory.NewBuildpackBindingClient() *BuildpackBindingClient`
+- New function `*ClientFactory.NewCertificatesClient() *CertificatesClient`
+- New function `*ClientFactory.NewConfigServersClient() *ConfigServersClient`
+- New function `*ClientFactory.NewConfigurationServicesClient() *ConfigurationServicesClient`
+- New function `*ClientFactory.NewContainerRegistriesClient() *ContainerRegistriesClient`
+- New function `*ClientFactory.NewCustomDomainsClient() *CustomDomainsClient`
+- New function `*ClientFactory.NewCustomizedAcceleratorsClient() *CustomizedAcceleratorsClient`
+- New function `*ClientFactory.NewDeploymentsClient() *DeploymentsClient`
+- New function `*ClientFactory.NewDevToolPortalsClient() *DevToolPortalsClient`
+- New function `*ClientFactory.NewGatewayCustomDomainsClient() *GatewayCustomDomainsClient`
+- New function `*ClientFactory.NewGatewayRouteConfigsClient() *GatewayRouteConfigsClient`
+- New function `*ClientFactory.NewGatewaysClient() *GatewaysClient`
+- New function `*ClientFactory.NewMonitoringSettingsClient() *MonitoringSettingsClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewPredefinedAcceleratorsClient() *PredefinedAcceleratorsClient`
+- New function `*ClientFactory.NewRuntimeVersionsClient() *RuntimeVersionsClient`
+- New function `*ClientFactory.NewSKUsClient() *SKUsClient`
+- New function `*ClientFactory.NewServiceRegistriesClient() *ServiceRegistriesClient`
+- New function `*ClientFactory.NewServicesClient() *ServicesClient`
+- New function `*ClientFactory.NewStoragesClient() *StoragesClient`
+- New function `NewContainerRegistriesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ContainerRegistriesClient, error)`
+- New function `*ContainerRegistriesClient.BeginCreateOrUpdate(context.Context, string, string, string, ContainerRegistryResource, *ContainerRegistriesClientBeginCreateOrUpdateOptions) (*runtime.Poller[ContainerRegistriesClientCreateOrUpdateResponse], error)`
+- New function `*ContainerRegistriesClient.Get(context.Context, string, string, string, *ContainerRegistriesClientGetOptions) (ContainerRegistriesClientGetResponse, error)`
+- New function `*ContainerRegistriesClient.NewListPager(string, string, *ContainerRegistriesClientListOptions) *runtime.Pager[ContainerRegistriesClientListResponse]`
+- New function `*ContainerRegistryBasicCredentials.GetContainerRegistryCredentials() *ContainerRegistryCredentials`
+- New function `*ContainerRegistryCredentials.GetContainerRegistryCredentials() *ContainerRegistryCredentials`
+- New function `*GatewaysClient.BeginRestart(context.Context, string, string, string, *GatewaysClientBeginRestartOptions) (*runtime.Poller[GatewaysClientRestartResponse], error)`
+- New function `*GatewaysClient.BeginUpdateCapacity(context.Context, string, string, string, SKUObject, *GatewaysClientBeginUpdateCapacityOptions) (*runtime.Poller[GatewaysClientUpdateCapacityResponse], error)`
+- New struct `ClientFactory`
+- New struct `ContainerRegistryBasicCredentials`
+- New struct `ContainerRegistryProperties`
+- New struct `ContainerRegistryResource`
+- New struct `ContainerRegistryResourceCollection`
+- New struct `CustomScaleRule`
+- New struct `GatewayPropertiesClientAuth`
+- New struct `HTTPScaleRule`
+- New struct `QueueScaleRule`
+- New struct `SKUObject`
+- New struct `Scale`
+- New struct `ScaleRule`
+- New struct `ScaleRuleAuth`
+- New struct `Secret`
+- New struct `TCPScaleRule`
+- New field `CaCertResourceID` in struct `AcceleratorBasicAuthSetting`
+- New field `CaCertResourceID` in struct `AcceleratorPublicSetting`
+- New field `Secrets` in struct `AppResourceProperties`
+- New field `EnableSubPath` in struct `AzureFileVolume`
+- New field `Image` in struct `BuildResultProperties`
+- New field `ContainerRegistry` in struct `BuildServiceProperties`
+- New field `InfraResourceGroup` in struct `ClusterResourceProperties`
+- New field `ManagedEnvironmentID` in struct `ClusterResourceProperties`
+- New field `EnableSubPath` in struct `CustomPersistentDiskProperties`
+- New field `Scale` in struct `DeploymentSettings`
+- New field `ClientAuth` in struct `GatewayProperties`
+- New field `DataPlanePublicEndpoint` in struct `ServiceVNetAddons`
+
+
 ## 1.1.0-beta.2 (2022-11-09)
 ### Features Added
 

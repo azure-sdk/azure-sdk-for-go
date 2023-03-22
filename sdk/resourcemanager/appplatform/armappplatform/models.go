@@ -64,7 +64,8 @@ type APIPortalCustomDomainsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// APIPortalCustomDomainsClientListOptions contains the optional parameters for the APIPortalCustomDomainsClient.List method.
+// APIPortalCustomDomainsClientListOptions contains the optional parameters for the APIPortalCustomDomainsClient.NewListPager
+// method.
 type APIPortalCustomDomainsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -165,7 +166,7 @@ type APIPortalsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// APIPortalsClientListOptions contains the optional parameters for the APIPortalsClient.List method.
+// APIPortalsClientListOptions contains the optional parameters for the APIPortalsClient.NewListPager method.
 type APIPortalsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -200,6 +201,9 @@ type AcceleratorBasicAuthSetting struct {
 
 	// REQUIRED; Username of git repository basic auth.
 	Username *string `json:"username,omitempty"`
+
+	// Resource Id of CA certificate for https URL of Git repository.
+	CaCertResourceID *string `json:"caCertResourceId,omitempty"`
 
 	// Password of git repository basic auth.
 	Password *string `json:"password,omitempty"`
@@ -236,6 +240,9 @@ type AcceleratorGitRepository struct {
 type AcceleratorPublicSetting struct {
 	// REQUIRED; The type of the auth setting.
 	AuthType *string `json:"authType,omitempty"`
+
+	// Resource Id of CA certificate for https URL of Git repository.
+	CaCertResourceID *string `json:"caCertResourceId,omitempty"`
 }
 
 // GetAcceleratorAuthSetting implements the AcceleratorAuthSettingClassification interface for type AcceleratorPublicSetting.
@@ -309,7 +316,7 @@ type AppResourceCollection struct {
 // AppResourceProperties - App resource properties payload
 type AppResourceProperties struct {
 	// Collection of addons
-	AddonConfigs map[string]map[string]interface{} `json:"addonConfigs,omitempty"`
+	AddonConfigs map[string]any `json:"addonConfigs,omitempty"`
 
 	// List of custom persistent disks
 	CustomPersistentDisks []*CustomPersistentDiskResource `json:"customPersistentDisks,omitempty"`
@@ -331,6 +338,9 @@ type AppResourceProperties struct {
 
 	// Indicates whether the App exposes public endpoint
 	Public *bool `json:"public,omitempty"`
+
+	// Collection of auth secrets
+	Secrets []*Secret `json:"secrets,omitempty"`
 
 	// Temporary disk settings
 	TemporaryDisk *TemporaryDisk `json:"temporaryDisk,omitempty"`
@@ -445,7 +455,8 @@ type ApplicationAcceleratorsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ApplicationAcceleratorsClientListOptions contains the optional parameters for the ApplicationAcceleratorsClient.List method.
+// ApplicationAcceleratorsClientListOptions contains the optional parameters for the ApplicationAcceleratorsClient.NewListPager
+// method.
 type ApplicationAcceleratorsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -462,7 +473,7 @@ type ApplicationLiveViewComponent struct {
 	Instances []*ApplicationLiveViewInstance `json:"instances,omitempty" azure:"ro"`
 
 	// READ-ONLY; Name of the component.
-	Name interface{} `json:"name,omitempty" azure:"ro"`
+	Name any `json:"name,omitempty" azure:"ro"`
 
 	// READ-ONLY; The requested resource quantity for required CPU and Memory.
 	ResourceRequests *ApplicationLiveViewResourceRequests `json:"resourceRequests,omitempty" azure:"ro"`
@@ -546,7 +557,8 @@ type ApplicationLiveViewsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ApplicationLiveViewsClientListOptions contains the optional parameters for the ApplicationLiveViewsClient.List method.
+// ApplicationLiveViewsClientListOptions contains the optional parameters for the ApplicationLiveViewsClient.NewListPager
+// method.
 type ApplicationLiveViewsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -587,7 +599,7 @@ type AppsClientGetResourceUploadURLOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AppsClientListOptions contains the optional parameters for the AppsClient.List method.
+// AppsClientListOptions contains the optional parameters for the AppsClient.NewListPager method.
 type AppsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -616,26 +628,30 @@ type AzureFileVolume struct {
 	// REQUIRED; The mount path of the persistent disk.
 	MountPath *string `json:"mountPath,omitempty"`
 
-	// REQUIRED; The share name of the Azure File share.
-	ShareName *string `json:"shareName,omitempty"`
-
 	// REQUIRED; The type of the underlying resource to mount as a persistent disk.
 	Type *Type `json:"type,omitempty"`
+
+	// If set to true, it will create and mount a dedicated directory for every individual app instance.
+	EnableSubPath *bool `json:"enableSubPath,omitempty"`
 
 	// These are the mount options for a persistent disk.
 	MountOptions []*string `json:"mountOptions,omitempty"`
 
 	// Indicates whether the persistent disk is a readOnly one.
 	ReadOnly *bool `json:"readOnly,omitempty"`
+
+	// The share name of the Azure File share.
+	ShareName *string `json:"shareName,omitempty"`
 }
 
 // GetCustomPersistentDiskProperties implements the CustomPersistentDiskPropertiesClassification interface for type AzureFileVolume.
 func (a *AzureFileVolume) GetCustomPersistentDiskProperties() *CustomPersistentDiskProperties {
 	return &CustomPersistentDiskProperties{
-		Type:         a.Type,
-		MountPath:    a.MountPath,
-		ReadOnly:     a.ReadOnly,
-		MountOptions: a.MountOptions,
+		Type:          a.Type,
+		MountPath:     a.MountPath,
+		ReadOnly:      a.ReadOnly,
+		EnableSubPath: a.EnableSubPath,
+		MountOptions:  a.MountOptions,
 	}
 }
 
@@ -669,7 +685,7 @@ type BindingResourceCollection struct {
 // BindingResourceProperties - Binding resource properties payload
 type BindingResourceProperties struct {
 	// Binding parameters of the Binding resource
-	BindingParameters map[string]interface{} `json:"bindingParameters,omitempty"`
+	BindingParameters map[string]*string `json:"bindingParameters,omitempty"`
 
 	// The key of the bound resource
 	Key *string `json:"key,omitempty"`
@@ -716,7 +732,7 @@ type BindingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BindingsClientListOptions contains the optional parameters for the BindingsClient.List method.
+// BindingsClientListOptions contains the optional parameters for the BindingsClient.NewListPager method.
 type BindingsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -830,6 +846,9 @@ type BuildResultProperties struct {
 	// READ-ONLY; All of the build stage (init-container and container) resources in build pod.
 	BuildStages []*BuildStageProperties `json:"buildStages,omitempty" azure:"ro"`
 
+	// READ-ONLY; The container registry image of this build result.
+	Image *string `json:"image,omitempty" azure:"ro"`
+
 	// READ-ONLY; Provisioning state of the KPack build result
 	ProvisioningState *BuildResultProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
@@ -884,7 +903,8 @@ type BuildServiceAgentPoolClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceAgentPoolClientListOptions contains the optional parameters for the BuildServiceAgentPoolClient.List method.
+// BuildServiceAgentPoolClientListOptions contains the optional parameters for the BuildServiceAgentPoolClient.NewListPager
+// method.
 type BuildServiceAgentPoolClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -963,9 +983,23 @@ type BuildServiceBuilderClientListDeploymentsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceBuilderClientListOptions contains the optional parameters for the BuildServiceBuilderClient.List method.
+// BuildServiceBuilderClientListOptions contains the optional parameters for the BuildServiceBuilderClient.NewListPager method.
 type BuildServiceBuilderClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// BuildServiceClientBeginCreateOrUpdateOptions contains the optional parameters for the BuildServiceClient.BeginCreateOrUpdate
+// method.
+type BuildServiceClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// BuildServiceClientBeginDeleteBuildOptions contains the optional parameters for the BuildServiceClient.BeginDeleteBuild
+// method.
+type BuildServiceClientBeginDeleteBuildOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // BuildServiceClientCreateOrUpdateBuildOptions contains the optional parameters for the BuildServiceClient.CreateOrUpdateBuild
@@ -1013,19 +1047,19 @@ type BuildServiceClientGetSupportedStackOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceClientListBuildResultsOptions contains the optional parameters for the BuildServiceClient.ListBuildResults
+// BuildServiceClientListBuildResultsOptions contains the optional parameters for the BuildServiceClient.NewListBuildResultsPager
 // method.
 type BuildServiceClientListBuildResultsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceClientListBuildServicesOptions contains the optional parameters for the BuildServiceClient.ListBuildServices
+// BuildServiceClientListBuildServicesOptions contains the optional parameters for the BuildServiceClient.NewListBuildServicesPager
 // method.
 type BuildServiceClientListBuildServicesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildServiceClientListBuildsOptions contains the optional parameters for the BuildServiceClient.ListBuilds method.
+// BuildServiceClientListBuildsOptions contains the optional parameters for the BuildServiceClient.NewListBuildsPager method.
 type BuildServiceClientListBuildsOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1053,13 +1087,16 @@ type BuildServiceCollection struct {
 
 // BuildServiceProperties - Build service resource properties payload
 type BuildServiceProperties struct {
-	// The installed KPack version in this build service.
-	KPackVersion *string `json:"kPackVersion,omitempty"`
+	// The resource id of the container registry used in this build service.
+	ContainerRegistry *string `json:"containerRegistry,omitempty"`
 
 	// The runtime resource configuration of this build service.
 	ResourceRequests *BuildServicePropertiesResourceRequests `json:"resourceRequests,omitempty"`
 
-	// READ-ONLY; Provisioning state of the KPack build result
+	// READ-ONLY; The installed KPack version in this build service.
+	KPackVersion *string `json:"kPackVersion,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state of the KPack build service
 	ProvisioningState *BuildServiceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
@@ -1144,7 +1181,13 @@ type BuildpackBindingClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// BuildpackBindingClientListOptions contains the optional parameters for the BuildpackBindingClient.List method.
+// BuildpackBindingClientListForClusterOptions contains the optional parameters for the BuildpackBindingClient.NewListForClusterPager
+// method.
+type BuildpackBindingClientListForClusterOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BuildpackBindingClientListOptions contains the optional parameters for the BuildpackBindingClient.NewListPager method.
 type BuildpackBindingClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1300,13 +1343,19 @@ type CertificatesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CertificatesClientListOptions contains the optional parameters for the CertificatesClient.List method.
+// CertificatesClientListOptions contains the optional parameters for the CertificatesClient.NewListPager method.
 type CertificatesClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
 // ClusterResourceProperties - Service properties payload
 type ClusterResourceProperties struct {
+	// The name of the resource group that contains the infrastructure resources
+	InfraResourceGroup *string `json:"infraResourceGroup,omitempty"`
+
+	// The resource Id of the Managed Environment that the Spring Apps instance builds on
+	ManagedEnvironmentID *string `json:"managedEnvironmentId,omitempty"`
+
 	// Purchasing 3rd party product of the Service resource.
 	MarketplaceResource *MarketplaceResource `json:"marketplaceResource,omitempty"`
 
@@ -1600,7 +1649,8 @@ type ConfigurationServicesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConfigurationServicesClientListOptions contains the optional parameters for the ConfigurationServicesClient.List method.
+// ConfigurationServicesClientListOptions contains the optional parameters for the ConfigurationServicesClient.NewListPager
+// method.
 type ConfigurationServicesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1609,6 +1659,102 @@ type ConfigurationServicesClientListOptions struct {
 type ContainerProbeSettings struct {
 	// Indicates whether disable the liveness and readiness probe
 	DisableProbe *bool `json:"disableProbe,omitempty"`
+}
+
+// ContainerRegistriesClientBeginCreateOrUpdateOptions contains the optional parameters for the ContainerRegistriesClient.BeginCreateOrUpdate
+// method.
+type ContainerRegistriesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ContainerRegistriesClientGetOptions contains the optional parameters for the ContainerRegistriesClient.Get method.
+type ContainerRegistriesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerRegistriesClientListOptions contains the optional parameters for the ContainerRegistriesClient.NewListPager method.
+type ContainerRegistriesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ContainerRegistryBasicCredentials - The basic authentication properties for the container registry resource.
+type ContainerRegistryBasicCredentials struct {
+	// REQUIRED; The password of the Container Registry.
+	Password *string `json:"password,omitempty"`
+
+	// REQUIRED; The login server of the Container Registry.
+	Server *string `json:"server,omitempty"`
+
+	// REQUIRED; The credential type of the container registry credentials.
+	Type *string `json:"type,omitempty"`
+
+	// REQUIRED; The username of the Container Registry.
+	Username *string `json:"username,omitempty"`
+}
+
+// GetContainerRegistryCredentials implements the ContainerRegistryCredentialsClassification interface for type ContainerRegistryBasicCredentials.
+func (c *ContainerRegistryBasicCredentials) GetContainerRegistryCredentials() *ContainerRegistryCredentials {
+	return &ContainerRegistryCredentials{
+		Type: c.Type,
+	}
+}
+
+// ContainerRegistryCredentialsClassification provides polymorphic access to related types.
+// Call the interface's GetContainerRegistryCredentials() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ContainerRegistryBasicCredentials, *ContainerRegistryCredentials
+type ContainerRegistryCredentialsClassification interface {
+	// GetContainerRegistryCredentials returns the ContainerRegistryCredentials content of the underlying type.
+	GetContainerRegistryCredentials() *ContainerRegistryCredentials
+}
+
+// ContainerRegistryCredentials - The credential for the container registry resource.
+type ContainerRegistryCredentials struct {
+	// REQUIRED; The credential type of the container registry credentials.
+	Type *string `json:"type,omitempty"`
+}
+
+// GetContainerRegistryCredentials implements the ContainerRegistryCredentialsClassification interface for type ContainerRegistryCredentials.
+func (c *ContainerRegistryCredentials) GetContainerRegistryCredentials() *ContainerRegistryCredentials {
+	return c
+}
+
+// ContainerRegistryProperties - Container registry resource payload.
+type ContainerRegistryProperties struct {
+	// REQUIRED; The credentials of the container registry resource.
+	Credentials ContainerRegistryCredentialsClassification `json:"credentials,omitempty"`
+
+	// READ-ONLY; State of the Container Registry.
+	ProvisioningState *ContainerRegistryProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// ContainerRegistryResource - Container registry resource payload.
+type ContainerRegistryResource struct {
+	// Properties of the container registry resource payload.
+	Properties *ContainerRegistryProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource Id for the resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ContainerRegistryResourceCollection - Collection compose of container registry resources list and a possible link for next
+// page.
+type ContainerRegistryResourceCollection struct {
+	// The link to next page of storage list.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// The container registry resources list.
+	Value []*ContainerRegistryResource `json:"value,omitempty"`
 }
 
 // ContentCertificateProperties - Properties of certificate imported from key vault.
@@ -1781,7 +1927,7 @@ type CustomDomainsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomDomainsClientListOptions contains the optional parameters for the CustomDomainsClient.List method.
+// CustomDomainsClientListOptions contains the optional parameters for the CustomDomainsClient.NewListPager method.
 type CustomDomainsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1803,6 +1949,9 @@ type CustomPersistentDiskProperties struct {
 	// REQUIRED; The type of the underlying resource to mount as a persistent disk.
 	Type *Type `json:"type,omitempty"`
 
+	// If set to true, it will create and mount a dedicated directory for every individual app instance.
+	EnableSubPath *bool `json:"enableSubPath,omitempty"`
+
 	// These are the mount options for a persistent disk.
 	MountOptions []*string `json:"mountOptions,omitempty"`
 
@@ -1822,6 +1971,18 @@ type CustomPersistentDiskResource struct {
 
 	// Properties of the custom persistent disk resource payload.
 	CustomPersistentDiskProperties CustomPersistentDiskPropertiesClassification `json:"customPersistentDiskProperties,omitempty"`
+}
+
+// CustomScaleRule - Azure Spring Apps App Instance Custom scaling rule.
+type CustomScaleRule struct {
+	// Authentication secrets for the custom scale rule.
+	Auth []*ScaleRuleAuth `json:"auth,omitempty"`
+
+	// Metadata properties to describe custom scale rule.
+	Metadata map[string]*string `json:"metadata,omitempty"`
+
+	// Type of the custom scale rule eg: azure-servicebus, redis etc.
+	Type *string `json:"type,omitempty"`
 }
 
 // CustomizedAcceleratorProperties - Customized accelerator properties payload
@@ -1891,7 +2052,8 @@ type CustomizedAcceleratorsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// CustomizedAcceleratorsClientListOptions contains the optional parameters for the CustomizedAcceleratorsClient.List method.
+// CustomizedAcceleratorsClientListOptions contains the optional parameters for the CustomizedAcceleratorsClient.NewListPager
+// method.
 type CustomizedAcceleratorsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -1983,7 +2145,7 @@ type DeploymentResourceProperties struct {
 // DeploymentSettings - Deployment settings payload
 type DeploymentSettings struct {
 	// Collection of addons
-	AddonConfigs map[string]map[string]interface{} `json:"addonConfigs,omitempty"`
+	AddonConfigs map[string]any `json:"addonConfigs,omitempty"`
 
 	// Container liveness and readiness probe settings
 	ContainerProbeSettings *ContainerProbeSettings `json:"containerProbeSettings,omitempty"`
@@ -2003,6 +2165,9 @@ type DeploymentSettings struct {
 	// CPU and Memory, the old field cpu and memoryInGB will be deprecated
 	// later.
 	ResourceRequests *ResourceRequests `json:"resourceRequests,omitempty"`
+
+	// Scaling properties for the Azure Spring Apps App Instance.
+	Scale *Scale `json:"scale,omitempty"`
 
 	// StartupProbe indicates that the App Instance has successfully initialized. If specified, no other probes are executed until
 	// this completes successfully. If this probe fails, the Pod will be restarted,
@@ -2110,13 +2275,14 @@ type DeploymentsClientGetRemoteDebuggingConfigOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DeploymentsClientListForClusterOptions contains the optional parameters for the DeploymentsClient.ListForCluster method.
+// DeploymentsClientListForClusterOptions contains the optional parameters for the DeploymentsClient.NewListForClusterPager
+// method.
 type DeploymentsClientListForClusterOptions struct {
 	// Version of the deployments to be listed
 	Version []string
 }
 
-// DeploymentsClientListOptions contains the optional parameters for the DeploymentsClient.List method.
+// DeploymentsClientListOptions contains the optional parameters for the DeploymentsClient.NewListPager method.
 type DeploymentsClientListOptions struct {
 	// Version of the deployments to be listed
 	Version []string
@@ -2246,7 +2412,7 @@ type DevToolPortalsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// DevToolPortalsClientListOptions contains the optional parameters for the DevToolPortalsClient.List method.
+// DevToolPortalsClientListOptions contains the optional parameters for the DevToolPortalsClient.NewListPager method.
 type DevToolPortalsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2417,7 +2583,8 @@ type GatewayCustomDomainsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GatewayCustomDomainsClientListOptions contains the optional parameters for the GatewayCustomDomainsClient.List method.
+// GatewayCustomDomainsClientListOptions contains the optional parameters for the GatewayCustomDomainsClient.NewListPager
+// method.
 type GatewayCustomDomainsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2460,6 +2627,9 @@ type GatewayProperties struct {
 	// Collection of APM type used in Spring Cloud Gateway
 	ApmTypes []*ApmType `json:"apmTypes,omitempty"`
 
+	// Client-Certification Authentication.
+	ClientAuth *GatewayPropertiesClientAuth `json:"clientAuth,omitempty"`
+
 	// Cross-Origin Resource Sharing property
 	CorsProperties *GatewayCorsProperties `json:"corsProperties,omitempty"`
 
@@ -2489,6 +2659,15 @@ type GatewayProperties struct {
 
 	// READ-ONLY; URL of the Spring Cloud Gateway, exposed when 'public' is true.
 	URL *string `json:"url,omitempty" azure:"ro"`
+}
+
+// GatewayPropertiesClientAuth - Client-Certification Authentication.
+type GatewayPropertiesClientAuth struct {
+	// Whether to enable certificate verification or not
+	CertificateVerification *GatewayCertificateVerification `json:"certificateVerification,omitempty"`
+
+	// Collection of certificate resource Ids in Azure Spring Apps.
+	Certificates []*string `json:"certificates,omitempty"`
 }
 
 // GatewayPropertiesEnvironmentVariables - Environment variables of Spring Cloud Gateway
@@ -2621,7 +2800,7 @@ type GatewayRouteConfigsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GatewayRouteConfigsClientListOptions contains the optional parameters for the GatewayRouteConfigsClient.List method.
+// GatewayRouteConfigsClientListOptions contains the optional parameters for the GatewayRouteConfigsClient.NewListPager method.
 type GatewayRouteConfigsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2638,6 +2817,18 @@ type GatewaysClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// GatewaysClientBeginRestartOptions contains the optional parameters for the GatewaysClient.BeginRestart method.
+type GatewaysClientBeginRestartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// GatewaysClientBeginUpdateCapacityOptions contains the optional parameters for the GatewaysClient.BeginUpdateCapacity method.
+type GatewaysClientBeginUpdateCapacityOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // GatewaysClientGetOptions contains the optional parameters for the GatewaysClient.Get method.
 type GatewaysClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -2648,7 +2839,7 @@ type GatewaysClientListEnvSecretsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// GatewaysClientListOptions contains the optional parameters for the GatewaysClient.List method.
+// GatewaysClientListOptions contains the optional parameters for the GatewaysClient.NewListPager method.
 type GatewaysClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -2714,6 +2905,15 @@ func (h *HTTPGetAction) GetProbeAction() *ProbeAction {
 	return &ProbeAction{
 		Type: h.Type,
 	}
+}
+
+// HTTPScaleRule - Azure Spring Apps App Instance Http scaling rule.
+type HTTPScaleRule struct {
+	// Authentication secrets for the custom scale rule.
+	Auth []*ScaleRuleAuth `json:"auth,omitempty"`
+
+	// Metadata properties to describe http scale rule.
+	Metadata map[string]*string `json:"metadata,omitempty"`
 }
 
 // ImageRegistryCredential - Credential of the image registry
@@ -3146,7 +3346,7 @@ type OperationProperties struct {
 	ServiceSpecification *ServiceSpecification `json:"serviceSpecification,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3229,7 +3429,8 @@ type PredefinedAcceleratorsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PredefinedAcceleratorsClientListOptions contains the optional parameters for the PredefinedAcceleratorsClient.List method.
+// PredefinedAcceleratorsClientListOptions contains the optional parameters for the PredefinedAcceleratorsClient.NewListPager
+// method.
 type PredefinedAcceleratorsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3292,6 +3493,18 @@ type ProxyResource struct {
 
 	// READ-ONLY; The type of the resource.
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// QueueScaleRule - Azure Spring Apps App Instance Azure Queue based scaling rule.
+type QueueScaleRule struct {
+	// Authentication secrets for the queue scale rule.
+	Auth []*ScaleRuleAuth `json:"auth,omitempty"`
+
+	// Queue length.
+	QueueLength *int32 `json:"queueLength,omitempty"`
+
+	// Queue name.
+	QueueName *string `json:"queueName,omitempty"`
 }
 
 // RegenerateTestKeyRequestPayload - Regenerate test key request payload
@@ -3488,9 +3701,63 @@ type SKUCapacity struct {
 	ScaleType *SKUScaleType `json:"scaleType,omitempty"`
 }
 
-// SKUsClientListOptions contains the optional parameters for the SKUsClient.List method.
+// SKUObject - Resource Sku object used for scaling out and scaling in.
+type SKUObject struct {
+	// Sku of the Spring Cloud Gateway resource
+	SKU *SKU `json:"sku,omitempty"`
+}
+
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
 type SKUsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// Scale - Azure Spring Apps scaling configurations.
+type Scale struct {
+	// Optional. Maximum number of container replicas. Defaults to 10 if not set.
+	MaxReplicas *int32 `json:"maxReplicas,omitempty"`
+
+	// Optional. Minimum number of container replicas.
+	MinReplicas *int32 `json:"minReplicas,omitempty"`
+
+	// Scaling rules.
+	Rules []*ScaleRule `json:"rules,omitempty"`
+}
+
+// ScaleRule - Azure Spring Apps App Instance scaling rule.
+type ScaleRule struct {
+	// Azure Queue based scaling.
+	AzureQueue *QueueScaleRule `json:"azureQueue,omitempty"`
+
+	// Custom scale rule.
+	Custom *CustomScaleRule `json:"custom,omitempty"`
+
+	// HTTP requests based scaling.
+	HTTP *HTTPScaleRule `json:"http,omitempty"`
+
+	// Scale Rule Name
+	Name *string `json:"name,omitempty"`
+
+	// Tcp requests based scaling.
+	TCP *TCPScaleRule `json:"tcp,omitempty"`
+}
+
+// ScaleRuleAuth - Auth Secrets for Azure Spring Apps App Instance Scale Rule
+type ScaleRuleAuth struct {
+	// Name of the Azure Spring Apps App Instance secret from which to pull the auth params.
+	SecretRef *string `json:"secretRef,omitempty"`
+
+	// Trigger Parameter that uses the secret
+	TriggerParameter *string `json:"triggerParameter,omitempty"`
+}
+
+// Secret definition.
+type Secret struct {
+	// Secret Name.
+	Name *string `json:"name,omitempty"`
+
+	// Secret Value.
+	Value *string `json:"value,omitempty"`
 }
 
 // ServiceRegistriesClientBeginCreateOrUpdateOptions contains the optional parameters for the ServiceRegistriesClient.BeginCreateOrUpdate
@@ -3512,7 +3779,7 @@ type ServiceRegistriesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServiceRegistriesClientListOptions contains the optional parameters for the ServiceRegistriesClient.List method.
+// ServiceRegistriesClientListOptions contains the optional parameters for the ServiceRegistriesClient.NewListPager method.
 type ServiceRegistriesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3625,6 +3892,10 @@ type ServiceSpecification struct {
 
 // ServiceVNetAddons - Additional Service settings in vnet injection instance
 type ServiceVNetAddons struct {
+	// Indicates whether the data plane components(log stream, app connect, remote debugging) in vnet injection instance could
+	// be accessed from internet.
+	DataPlanePublicEndpoint *bool `json:"dataPlanePublicEndpoint,omitempty"`
+
 	// Indicates whether the log stream in vnet injection instance could be accessed from internet.
 	LogStreamPublicEndpoint *bool `json:"logStreamPublicEndpoint,omitempty"`
 }
@@ -3680,12 +3951,13 @@ type ServicesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.ListBySubscription method.
+// ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.NewListBySubscriptionPager
+// method.
 type ServicesClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServicesClientListOptions contains the optional parameters for the ServicesClient.List method.
+// ServicesClientListOptions contains the optional parameters for the ServicesClient.NewListPager method.
 type ServicesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3841,7 +4113,7 @@ type StoragesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// StoragesClientListOptions contains the optional parameters for the StoragesClient.List method.
+// StoragesClientListOptions contains the optional parameters for the StoragesClient.NewListPager method.
 type StoragesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -3947,6 +4219,15 @@ type SystemData struct {
 
 	// The type of identity that last modified the resource.
 	LastModifiedByType *LastModifiedByType `json:"lastModifiedByType,omitempty"`
+}
+
+// TCPScaleRule - Azure Spring Apps App Instance Tcp scaling rule.
+type TCPScaleRule struct {
+	// Authentication secrets for the tcp scale rule.
+	Auth []*ScaleRuleAuth `json:"auth,omitempty"`
+
+	// Metadata properties to describe tcp scale rule.
+	Metadata map[string]*string `json:"metadata,omitempty"`
 }
 
 // TCPSocketAction describes an action based on opening a socket

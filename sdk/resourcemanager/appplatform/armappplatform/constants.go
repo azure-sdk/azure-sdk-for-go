@@ -11,7 +11,7 @@ package armappplatform
 
 const (
 	moduleName    = "armappplatform"
-	moduleVersion = "v1.1.0-beta.2"
+	moduleVersion = "v1.1.0-beta.3"
 )
 
 // APIPortalProvisioningState - State of the API portal.
@@ -226,7 +226,7 @@ func PossibleBuildResultProvisioningStateValues() []BuildResultProvisioningState
 	}
 }
 
-// BuildServiceProvisioningState - Provisioning state of the KPack build result
+// BuildServiceProvisioningState - Provisioning state of the KPack build service
 type BuildServiceProvisioningState string
 
 const (
@@ -355,6 +355,28 @@ func PossibleConfigurationServiceProvisioningStateValues() []ConfigurationServic
 		ConfigurationServiceProvisioningStateFailed,
 		ConfigurationServiceProvisioningStateSucceeded,
 		ConfigurationServiceProvisioningStateUpdating,
+	}
+}
+
+// ContainerRegistryProvisioningState - State of the Container Registry.
+type ContainerRegistryProvisioningState string
+
+const (
+	ContainerRegistryProvisioningStateCanceled  ContainerRegistryProvisioningState = "Canceled"
+	ContainerRegistryProvisioningStateCreating  ContainerRegistryProvisioningState = "Creating"
+	ContainerRegistryProvisioningStateFailed    ContainerRegistryProvisioningState = "Failed"
+	ContainerRegistryProvisioningStateSucceeded ContainerRegistryProvisioningState = "Succeeded"
+	ContainerRegistryProvisioningStateUpdating  ContainerRegistryProvisioningState = "Updating"
+)
+
+// PossibleContainerRegistryProvisioningStateValues returns the possible values for the ContainerRegistryProvisioningState const type.
+func PossibleContainerRegistryProvisioningStateValues() []ContainerRegistryProvisioningState {
+	return []ContainerRegistryProvisioningState{
+		ContainerRegistryProvisioningStateCanceled,
+		ContainerRegistryProvisioningStateCreating,
+		ContainerRegistryProvisioningStateFailed,
+		ContainerRegistryProvisioningStateSucceeded,
+		ContainerRegistryProvisioningStateUpdating,
 	}
 }
 
@@ -515,6 +537,24 @@ func PossibleDevToolPortalProvisioningStateValues() []DevToolPortalProvisioningS
 		DevToolPortalProvisioningStateFailed,
 		DevToolPortalProvisioningStateSucceeded,
 		DevToolPortalProvisioningStateUpdating,
+	}
+}
+
+// GatewayCertificateVerification - Whether to enable certificate verification or not
+type GatewayCertificateVerification string
+
+const (
+	// GatewayCertificateVerificationDisabled - Disable certificate verification in Spring Cloud Gateway.
+	GatewayCertificateVerificationDisabled GatewayCertificateVerification = "Disabled"
+	// GatewayCertificateVerificationEnabled - Enable certificate verification in Spring Cloud Gateway.
+	GatewayCertificateVerificationEnabled GatewayCertificateVerification = "Enabled"
+)
+
+// PossibleGatewayCertificateVerificationValues returns the possible values for the GatewayCertificateVerification const type.
+func PossibleGatewayCertificateVerificationValues() []GatewayCertificateVerification {
+	return []GatewayCertificateVerification{
+		GatewayCertificateVerificationDisabled,
+		GatewayCertificateVerificationEnabled,
 	}
 }
 
