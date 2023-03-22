@@ -1,5 +1,22 @@
 # Release History
 
+## 2.2.0 (2023-03-22)
+### Features Added
+
+- New value `SKUFamilyG`, `SKUFamilyM` added to enum type `SKUFamily`
+- New value `SKUNameGeneralPurpose`, `SKUNameMemoryOptimized` added to enum type `SKUName`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewAsyncOperationStatusClient() *AsyncOperationStatusClient`
+- New function `*ClientFactory.NewClient() *Client`
+- New function `*ClientFactory.NewFirewallRulesClient() *FirewallRulesClient`
+- New function `*ClientFactory.NewLinkedServerClient() *LinkedServerClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewPatchSchedulesClient() *PatchSchedulesClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient`
+- New function `*ClientFactory.NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient`
+- New struct `ClientFactory`
+
+
 ## 2.1.0 (2022-10-14)
 
 ### Features Added
