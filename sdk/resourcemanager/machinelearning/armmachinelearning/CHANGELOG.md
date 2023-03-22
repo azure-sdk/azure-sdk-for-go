@@ -1,5 +1,47 @@
 # Release History
 
+## 4.0.0 (2023-03-22)
+### Breaking Changes
+
+- Type of `ComputeStartStopSchedule.Cron` has been changed from `*CronTrigger` to `*Cron`
+- Type of `ComputeStartStopSchedule.Recurrence` has been changed from `*RecurrenceTrigger` to `*Recurrence`
+
+### Features Added
+
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewBatchDeploymentsClient() *BatchDeploymentsClient`
+- New function `*ClientFactory.NewBatchEndpointsClient() *BatchEndpointsClient`
+- New function `*ClientFactory.NewCodeContainersClient() *CodeContainersClient`
+- New function `*ClientFactory.NewCodeVersionsClient() *CodeVersionsClient`
+- New function `*ClientFactory.NewComponentContainersClient() *ComponentContainersClient`
+- New function `*ClientFactory.NewComponentVersionsClient() *ComponentVersionsClient`
+- New function `*ClientFactory.NewComputeClient() *ComputeClient`
+- New function `*ClientFactory.NewDataContainersClient() *DataContainersClient`
+- New function `*ClientFactory.NewDataVersionsClient() *DataVersionsClient`
+- New function `*ClientFactory.NewDatastoresClient() *DatastoresClient`
+- New function `*ClientFactory.NewEnvironmentContainersClient() *EnvironmentContainersClient`
+- New function `*ClientFactory.NewEnvironmentVersionsClient() *EnvironmentVersionsClient`
+- New function `*ClientFactory.NewJobsClient() *JobsClient`
+- New function `*ClientFactory.NewModelContainersClient() *ModelContainersClient`
+- New function `*ClientFactory.NewModelVersionsClient() *ModelVersionsClient`
+- New function `*ClientFactory.NewOnlineDeploymentsClient() *OnlineDeploymentsClient`
+- New function `*ClientFactory.NewOnlineEndpointsClient() *OnlineEndpointsClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient`
+- New function `*ClientFactory.NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient`
+- New function `*ClientFactory.NewQuotasClient() *QuotasClient`
+- New function `*ClientFactory.NewSchedulesClient() *SchedulesClient`
+- New function `*ClientFactory.NewUsagesClient() *UsagesClient`
+- New function `*ClientFactory.NewVirtualMachineSizesClient() *VirtualMachineSizesClient`
+- New function `*ClientFactory.NewWorkspaceConnectionsClient() *WorkspaceConnectionsClient`
+- New function `*ClientFactory.NewWorkspaceFeaturesClient() *WorkspaceFeaturesClient`
+- New function `*ClientFactory.NewWorkspacesClient() *WorkspacesClient`
+- New struct `ClientFactory`
+- New struct `Cron`
+- New struct `IdleShutdownSetting`
+- New struct `Recurrence`
+
+
 ## 3.0.0 (2022-11-01)
 ### Breaking Changes
 
