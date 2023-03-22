@@ -27310,7 +27310,7 @@ func (s SubnetPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "addressPrefix", s.AddressPrefix)
 	populate(objectMap, "addressPrefixes", s.AddressPrefixes)
-	populate(objectMap, "applicationGatewayIpConfigurations", s.ApplicationGatewayIPConfigurations)
+	populate(objectMap, "applicationGatewayIPConfigurations", s.ApplicationGatewayIPConfigurations)
 	populate(objectMap, "delegations", s.Delegations)
 	populate(objectMap, "ipAllocations", s.IPAllocations)
 	populate(objectMap, "ipConfigurationProfiles", s.IPConfigurationProfiles)
@@ -27345,7 +27345,7 @@ func (s *SubnetPropertiesFormat) UnmarshalJSON(data []byte) error {
 		case "addressPrefixes":
 			err = unpopulate(val, "AddressPrefixes", &s.AddressPrefixes)
 			delete(rawMsg, key)
-		case "applicationGatewayIpConfigurations":
+		case "applicationGatewayIPConfigurations":
 			err = unpopulate(val, "ApplicationGatewayIPConfigurations", &s.ApplicationGatewayIPConfigurations)
 			delete(rawMsg, key)
 		case "delegations":
