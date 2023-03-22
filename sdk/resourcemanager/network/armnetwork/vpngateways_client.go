@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,9 +24,8 @@ import (
 // VPNGatewaysClient contains the methods for the VPNGateways group.
 // Don't use this type directly, use NewVPNGatewaysClient() instead.
 type VPNGatewaysClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewVPNGatewaysClient creates a new instance of VPNGatewaysClient with the specified values.
@@ -37,21 +34,13 @@ type VPNGatewaysClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewVPNGatewaysClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VPNGatewaysClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".VPNGatewaysClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &VPNGatewaysClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
@@ -59,7 +48,7 @@ func NewVPNGatewaysClient(subscriptionID string, credential azcore.TokenCredenti
 // BeginCreateOrUpdate - Creates a virtual wan vpn gateway if it doesn't exist else updates the existing gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The resource group name of the VpnGateway.
 //   - gatewayName - The name of the gateway.
 //   - vpnGatewayParameters - Parameters supplied to create or Update a virtual wan vpn gateway.
@@ -71,24 +60,24 @@ func (client *VPNGatewaysClient) BeginCreateOrUpdate(ctx context.Context, resour
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[VPNGatewaysClientCreateOrUpdateResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VPNGatewaysClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[VPNGatewaysClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[VPNGatewaysClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // CreateOrUpdate - Creates a virtual wan vpn gateway if it doesn't exist else updates the existing gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VPNGatewaysClient) createOrUpdate(ctx context.Context, resourceGroupName string, gatewayName string, vpnGatewayParameters VPNGateway, options *VPNGatewaysClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, gatewayName, vpnGatewayParameters, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -113,12 +102,12 @@ func (client *VPNGatewaysClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, errors.New("parameter gatewayName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayName}", url.PathEscape(gatewayName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, vpnGatewayParameters)
@@ -127,7 +116,7 @@ func (client *VPNGatewaysClient) createOrUpdateCreateRequest(ctx context.Context
 // BeginDelete - Deletes a virtual wan vpn gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The resource group name of the VpnGateway.
 //   - gatewayName - The name of the gateway.
 //   - options - VPNGatewaysClientBeginDeleteOptions contains the optional parameters for the VPNGatewaysClient.BeginDelete method.
@@ -137,24 +126,24 @@ func (client *VPNGatewaysClient) BeginDelete(ctx context.Context, resourceGroupN
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[VPNGatewaysClientDeleteResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VPNGatewaysClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[VPNGatewaysClientDeleteResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[VPNGatewaysClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Delete - Deletes a virtual wan vpn gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VPNGatewaysClient) deleteOperation(ctx context.Context, resourceGroupName string, gatewayName string, options *VPNGatewaysClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, gatewayName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -179,12 +168,12 @@ func (client *VPNGatewaysClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter gatewayName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayName}", url.PathEscape(gatewayName))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -193,7 +182,7 @@ func (client *VPNGatewaysClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Retrieves the details of a virtual wan vpn gateway.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The resource group name of the VpnGateway.
 //   - gatewayName - The name of the gateway.
 //   - options - VPNGatewaysClientGetOptions contains the optional parameters for the VPNGatewaysClient.Get method.
@@ -202,7 +191,7 @@ func (client *VPNGatewaysClient) Get(ctx context.Context, resourceGroupName stri
 	if err != nil {
 		return VPNGatewaysClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return VPNGatewaysClientGetResponse{}, err
 	}
@@ -227,12 +216,12 @@ func (client *VPNGatewaysClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter gatewayName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayName}", url.PathEscape(gatewayName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -249,7 +238,7 @@ func (client *VPNGatewaysClient) getHandleResponse(resp *http.Response) (VPNGate
 
 // NewListPager - Lists all the VpnGateways in a subscription.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - options - VPNGatewaysClientListOptions contains the optional parameters for the VPNGatewaysClient.NewListPager method.
 func (client *VPNGatewaysClient) NewListPager(options *VPNGatewaysClientListOptions) *runtime.Pager[VPNGatewaysClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[VPNGatewaysClientListResponse]{
@@ -267,7 +256,7 @@ func (client *VPNGatewaysClient) NewListPager(options *VPNGatewaysClientListOpti
 			if err != nil {
 				return VPNGatewaysClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return VPNGatewaysClientListResponse{}, err
 			}
@@ -286,12 +275,12 @@ func (client *VPNGatewaysClient) listCreateRequest(ctx context.Context, options 
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -308,7 +297,7 @@ func (client *VPNGatewaysClient) listHandleResponse(resp *http.Response) (VPNGat
 
 // NewListByResourceGroupPager - Lists all the VpnGateways in a resource group.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The resource group name of the VpnGateway.
 //   - options - VPNGatewaysClientListByResourceGroupOptions contains the optional parameters for the VPNGatewaysClient.NewListByResourceGroupPager
 //     method.
@@ -328,7 +317,7 @@ func (client *VPNGatewaysClient) NewListByResourceGroupPager(resourceGroupName s
 			if err != nil {
 				return VPNGatewaysClientListByResourceGroupResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return VPNGatewaysClientListByResourceGroupResponse{}, err
 			}
@@ -351,12 +340,12 @@ func (client *VPNGatewaysClient) listByResourceGroupCreateRequest(ctx context.Co
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -374,7 +363,7 @@ func (client *VPNGatewaysClient) listByResourceGroupHandleResponse(resp *http.Re
 // BeginReset - Resets the primary of the vpn gateway in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The resource group name of the VpnGateway.
 //   - gatewayName - The name of the gateway.
 //   - options - VPNGatewaysClientBeginResetOptions contains the optional parameters for the VPNGatewaysClient.BeginReset method.
@@ -384,24 +373,24 @@ func (client *VPNGatewaysClient) BeginReset(ctx context.Context, resourceGroupNa
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[VPNGatewaysClientResetResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VPNGatewaysClientResetResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[VPNGatewaysClientResetResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[VPNGatewaysClientResetResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Reset - Resets the primary of the vpn gateway in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VPNGatewaysClient) reset(ctx context.Context, resourceGroupName string, gatewayName string, options *VPNGatewaysClientBeginResetOptions) (*http.Response, error) {
 	req, err := client.resetCreateRequest(ctx, resourceGroupName, gatewayName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -426,7 +415,7 @@ func (client *VPNGatewaysClient) resetCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
@@ -434,7 +423,7 @@ func (client *VPNGatewaysClient) resetCreateRequest(ctx context.Context, resourc
 	if options != nil && options.IPConfigurationID != nil {
 		reqQP.Set("ipConfigurationId", *options.IPConfigurationID)
 	}
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -443,7 +432,7 @@ func (client *VPNGatewaysClient) resetCreateRequest(ctx context.Context, resourc
 // BeginStartPacketCapture - Starts packet capture on vpn gateway in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The resource group name of the VpnGateway.
 //   - gatewayName - The name of the gateway.
 //   - options - VPNGatewaysClientBeginStartPacketCaptureOptions contains the optional parameters for the VPNGatewaysClient.BeginStartPacketCapture
@@ -454,24 +443,24 @@ func (client *VPNGatewaysClient) BeginStartPacketCapture(ctx context.Context, re
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[VPNGatewaysClientStartPacketCaptureResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VPNGatewaysClientStartPacketCaptureResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[VPNGatewaysClientStartPacketCaptureResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[VPNGatewaysClientStartPacketCaptureResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // StartPacketCapture - Starts packet capture on vpn gateway in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VPNGatewaysClient) startPacketCapture(ctx context.Context, resourceGroupName string, gatewayName string, options *VPNGatewaysClientBeginStartPacketCaptureOptions) (*http.Response, error) {
 	req, err := client.startPacketCaptureCreateRequest(ctx, resourceGroupName, gatewayName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -496,12 +485,12 @@ func (client *VPNGatewaysClient) startPacketCaptureCreateRequest(ctx context.Con
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {
@@ -513,7 +502,7 @@ func (client *VPNGatewaysClient) startPacketCaptureCreateRequest(ctx context.Con
 // BeginStopPacketCapture - Stops packet capture on vpn gateway in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The resource group name of the VpnGateway.
 //   - gatewayName - The name of the gateway.
 //   - options - VPNGatewaysClientBeginStopPacketCaptureOptions contains the optional parameters for the VPNGatewaysClient.BeginStopPacketCapture
@@ -524,24 +513,24 @@ func (client *VPNGatewaysClient) BeginStopPacketCapture(ctx context.Context, res
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[VPNGatewaysClientStopPacketCaptureResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VPNGatewaysClientStopPacketCaptureResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[VPNGatewaysClientStopPacketCaptureResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[VPNGatewaysClientStopPacketCaptureResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // StopPacketCapture - Stops packet capture on vpn gateway in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VPNGatewaysClient) stopPacketCapture(ctx context.Context, resourceGroupName string, gatewayName string, options *VPNGatewaysClientBeginStopPacketCaptureOptions) (*http.Response, error) {
 	req, err := client.stopPacketCaptureCreateRequest(ctx, resourceGroupName, gatewayName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -566,12 +555,12 @@ func (client *VPNGatewaysClient) stopPacketCaptureCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Parameters != nil {
@@ -583,7 +572,7 @@ func (client *VPNGatewaysClient) stopPacketCaptureCreateRequest(ctx context.Cont
 // BeginUpdateTags - Updates virtual wan vpn gateway tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The resource group name of the VpnGateway.
 //   - gatewayName - The name of the gateway.
 //   - vpnGatewayParameters - Parameters supplied to update a virtual wan vpn gateway tags.
@@ -595,24 +584,24 @@ func (client *VPNGatewaysClient) BeginUpdateTags(ctx context.Context, resourceGr
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[VPNGatewaysClientUpdateTagsResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VPNGatewaysClientUpdateTagsResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[VPNGatewaysClientUpdateTagsResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[VPNGatewaysClientUpdateTagsResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // UpdateTags - Updates virtual wan vpn gateway tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VPNGatewaysClient) updateTags(ctx context.Context, resourceGroupName string, gatewayName string, vpnGatewayParameters TagsObject, options *VPNGatewaysClientBeginUpdateTagsOptions) (*http.Response, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, gatewayName, vpnGatewayParameters, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -637,12 +626,12 @@ func (client *VPNGatewaysClient) updateTagsCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter gatewayName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{gatewayName}", url.PathEscape(gatewayName))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, vpnGatewayParameters)

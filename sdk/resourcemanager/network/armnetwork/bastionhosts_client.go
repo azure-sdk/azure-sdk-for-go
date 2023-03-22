@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,9 +24,8 @@ import (
 // BastionHostsClient contains the methods for the BastionHosts group.
 // Don't use this type directly, use NewBastionHostsClient() instead.
 type BastionHostsClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewBastionHostsClient creates a new instance of BastionHostsClient with the specified values.
@@ -37,21 +34,13 @@ type BastionHostsClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewBastionHostsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BastionHostsClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".BastionHostsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &BastionHostsClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
@@ -59,7 +48,7 @@ func NewBastionHostsClient(subscriptionID string, credential azcore.TokenCredent
 // BeginCreateOrUpdate - Creates or updates the specified Bastion Host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - bastionHostName - The name of the Bastion Host.
 //   - parameters - Parameters supplied to the create or update Bastion Host operation.
@@ -71,24 +60,24 @@ func (client *BastionHostsClient) BeginCreateOrUpdate(ctx context.Context, resou
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[BastionHostsClientCreateOrUpdateResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BastionHostsClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[BastionHostsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[BastionHostsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // CreateOrUpdate - Creates or updates the specified Bastion Host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *BastionHostsClient) createOrUpdate(ctx context.Context, resourceGroupName string, bastionHostName string, parameters BastionHost, options *BastionHostsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, bastionHostName, parameters, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -113,12 +102,12 @@ func (client *BastionHostsClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -127,7 +116,7 @@ func (client *BastionHostsClient) createOrUpdateCreateRequest(ctx context.Contex
 // BeginDelete - Deletes the specified Bastion Host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - bastionHostName - The name of the Bastion Host.
 //   - options - BastionHostsClientBeginDeleteOptions contains the optional parameters for the BastionHostsClient.BeginDelete
@@ -138,24 +127,24 @@ func (client *BastionHostsClient) BeginDelete(ctx context.Context, resourceGroup
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[BastionHostsClientDeleteResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BastionHostsClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[BastionHostsClientDeleteResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[BastionHostsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Delete - Deletes the specified Bastion Host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *BastionHostsClient) deleteOperation(ctx context.Context, resourceGroupName string, bastionHostName string, options *BastionHostsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, bastionHostName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -180,12 +169,12 @@ func (client *BastionHostsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,7 +183,7 @@ func (client *BastionHostsClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Gets the specified Bastion Host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - bastionHostName - The name of the Bastion Host.
 //   - options - BastionHostsClientGetOptions contains the optional parameters for the BastionHostsClient.Get method.
@@ -203,7 +192,7 @@ func (client *BastionHostsClient) Get(ctx context.Context, resourceGroupName str
 	if err != nil {
 		return BastionHostsClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return BastionHostsClientGetResponse{}, err
 	}
@@ -228,12 +217,12 @@ func (client *BastionHostsClient) getCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,7 +239,7 @@ func (client *BastionHostsClient) getHandleResponse(resp *http.Response) (Bastio
 
 // NewListPager - Lists all Bastion Hosts in a subscription.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - options - BastionHostsClientListOptions contains the optional parameters for the BastionHostsClient.NewListPager method.
 func (client *BastionHostsClient) NewListPager(options *BastionHostsClientListOptions) *runtime.Pager[BastionHostsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BastionHostsClientListResponse]{
@@ -268,7 +257,7 @@ func (client *BastionHostsClient) NewListPager(options *BastionHostsClientListOp
 			if err != nil {
 				return BastionHostsClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return BastionHostsClientListResponse{}, err
 			}
@@ -287,12 +276,12 @@ func (client *BastionHostsClient) listCreateRequest(ctx context.Context, options
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -309,7 +298,7 @@ func (client *BastionHostsClient) listHandleResponse(resp *http.Response) (Basti
 
 // NewListByResourceGroupPager - Lists all Bastion Hosts in a resource group.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - options - BastionHostsClientListByResourceGroupOptions contains the optional parameters for the BastionHostsClient.NewListByResourceGroupPager
 //     method.
@@ -329,7 +318,7 @@ func (client *BastionHostsClient) NewListByResourceGroupPager(resourceGroupName 
 			if err != nil {
 				return BastionHostsClientListByResourceGroupResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return BastionHostsClientListByResourceGroupResponse{}, err
 			}
@@ -352,12 +341,12 @@ func (client *BastionHostsClient) listByResourceGroupCreateRequest(ctx context.C
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -375,7 +364,7 @@ func (client *BastionHostsClient) listByResourceGroupHandleResponse(resp *http.R
 // BeginUpdateTags - Updates Tags for BastionHost resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - bastionHostName - The name of the Bastion Host.
 //   - parameters - Parameters supplied to update BastionHost tags.
@@ -387,24 +376,24 @@ func (client *BastionHostsClient) BeginUpdateTags(ctx context.Context, resourceG
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[BastionHostsClientUpdateTagsResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BastionHostsClientUpdateTagsResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[BastionHostsClientUpdateTagsResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[BastionHostsClientUpdateTagsResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // UpdateTags - Updates Tags for BastionHost resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *BastionHostsClient) updateTags(ctx context.Context, resourceGroupName string, bastionHostName string, parameters TagsObject, options *BastionHostsClientBeginUpdateTagsOptions) (*http.Response, error) {
 	req, err := client.updateTagsCreateRequest(ctx, resourceGroupName, bastionHostName, parameters, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -429,12 +418,12 @@ func (client *BastionHostsClient) updateTagsCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter bastionHostName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{bastionHostName}", url.PathEscape(bastionHostName))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

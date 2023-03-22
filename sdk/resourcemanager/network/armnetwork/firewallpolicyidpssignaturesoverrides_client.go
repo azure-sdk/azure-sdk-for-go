@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,9 +24,8 @@ import (
 // FirewallPolicyIdpsSignaturesOverridesClient contains the methods for the FirewallPolicyIdpsSignaturesOverrides group.
 // Don't use this type directly, use NewFirewallPolicyIdpsSignaturesOverridesClient() instead.
 type FirewallPolicyIdpsSignaturesOverridesClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewFirewallPolicyIdpsSignaturesOverridesClient creates a new instance of FirewallPolicyIdpsSignaturesOverridesClient with the specified values.
@@ -37,21 +34,13 @@ type FirewallPolicyIdpsSignaturesOverridesClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewFirewallPolicyIdpsSignaturesOverridesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FirewallPolicyIdpsSignaturesOverridesClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".FirewallPolicyIdpsSignaturesOverridesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &FirewallPolicyIdpsSignaturesOverridesClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
@@ -59,7 +48,7 @@ func NewFirewallPolicyIdpsSignaturesOverridesClient(subscriptionID string, crede
 // Get - Returns all signatures overrides for a specific policy.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - firewallPolicyName - The name of the Firewall Policy.
 //   - options - FirewallPolicyIdpsSignaturesOverridesClientGetOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.Get
@@ -69,7 +58,7 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) Get(ctx context.Conte
 	if err != nil {
 		return FirewallPolicyIdpsSignaturesOverridesClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return FirewallPolicyIdpsSignaturesOverridesClientGetResponse{}, err
 	}
@@ -94,12 +83,12 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) getCreateRequest(ctx 
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,7 +106,7 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) getHandleResponse(res
 // List - Returns all signatures overrides objects for a specific policy as a list containing a single value.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - firewallPolicyName - The name of the Firewall Policy.
 //   - options - FirewallPolicyIdpsSignaturesOverridesClientListOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesOverridesClient.List
@@ -127,7 +116,7 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) List(ctx context.Cont
 	if err != nil {
 		return FirewallPolicyIdpsSignaturesOverridesClientListResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return FirewallPolicyIdpsSignaturesOverridesClientListResponse{}, err
 	}
@@ -152,12 +141,12 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) listCreateRequest(ctx
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -175,7 +164,7 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) listHandleResponse(re
 // Patch - Will update the status of policy's signature overrides for IDPS
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - firewallPolicyName - The name of the Firewall Policy.
 //   - parameters - Will contain all properties of the object to put
@@ -186,7 +175,7 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) Patch(ctx context.Con
 	if err != nil {
 		return FirewallPolicyIdpsSignaturesOverridesClientPatchResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return FirewallPolicyIdpsSignaturesOverridesClientPatchResponse{}, err
 	}
@@ -211,12 +200,12 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) patchCreateRequest(ct
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -234,7 +223,7 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) patchHandleResponse(r
 // Put - Will override/create a new signature overrides for the policy's IDPS
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - firewallPolicyName - The name of the Firewall Policy.
 //   - parameters - Will contain all properties of the object to put
@@ -245,7 +234,7 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) Put(ctx context.Conte
 	if err != nil {
 		return FirewallPolicyIdpsSignaturesOverridesClientPutResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return FirewallPolicyIdpsSignaturesOverridesClientPutResponse{}, err
 	}
@@ -270,12 +259,12 @@ func (client *FirewallPolicyIdpsSignaturesOverridesClient) putCreateRequest(ctx 
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

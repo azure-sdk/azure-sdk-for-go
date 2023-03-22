@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,9 +24,8 @@ import (
 // ProfilesClient contains the methods for the NetworkProfiles group.
 // Don't use this type directly, use NewProfilesClient() instead.
 type ProfilesClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewProfilesClient creates a new instance of ProfilesClient with the specified values.
@@ -37,21 +34,13 @@ type ProfilesClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewProfilesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProfilesClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".ProfilesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &ProfilesClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
@@ -59,7 +48,7 @@ func NewProfilesClient(subscriptionID string, credential azcore.TokenCredential,
 // CreateOrUpdate - Creates or updates a network profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkProfileName - The name of the network profile.
 //   - parameters - Parameters supplied to the create or update network profile operation.
@@ -69,7 +58,7 @@ func (client *ProfilesClient) CreateOrUpdate(ctx context.Context, resourceGroupN
 	if err != nil {
 		return ProfilesClientCreateOrUpdateResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ProfilesClientCreateOrUpdateResponse{}, err
 	}
@@ -94,12 +83,12 @@ func (client *ProfilesClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -117,7 +106,7 @@ func (client *ProfilesClient) createOrUpdateHandleResponse(resp *http.Response) 
 // BeginDelete - Deletes the specified network profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkProfileName - The name of the NetworkProfile.
 //   - options - ProfilesClientBeginDeleteOptions contains the optional parameters for the ProfilesClient.BeginDelete method.
@@ -127,24 +116,24 @@ func (client *ProfilesClient) BeginDelete(ctx context.Context, resourceGroupName
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[ProfilesClientDeleteResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ProfilesClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[ProfilesClientDeleteResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[ProfilesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Delete - Deletes the specified network profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *ProfilesClient) deleteOperation(ctx context.Context, resourceGroupName string, networkProfileName string, options *ProfilesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, networkProfileName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -169,12 +158,12 @@ func (client *ProfilesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,7 +172,7 @@ func (client *ProfilesClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Gets the specified network profile in a specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkProfileName - The name of the public IP prefix.
 //   - options - ProfilesClientGetOptions contains the optional parameters for the ProfilesClient.Get method.
@@ -192,7 +181,7 @@ func (client *ProfilesClient) Get(ctx context.Context, resourceGroupName string,
 	if err != nil {
 		return ProfilesClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ProfilesClientGetResponse{}, err
 	}
@@ -217,12 +206,12 @@ func (client *ProfilesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -242,7 +231,7 @@ func (client *ProfilesClient) getHandleResponse(resp *http.Response) (ProfilesCl
 
 // NewListPager - Gets all network profiles in a resource group.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - options - ProfilesClientListOptions contains the optional parameters for the ProfilesClient.NewListPager method.
 func (client *ProfilesClient) NewListPager(resourceGroupName string, options *ProfilesClientListOptions) *runtime.Pager[ProfilesClientListResponse] {
@@ -261,7 +250,7 @@ func (client *ProfilesClient) NewListPager(resourceGroupName string, options *Pr
 			if err != nil {
 				return ProfilesClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return ProfilesClientListResponse{}, err
 			}
@@ -284,12 +273,12 @@ func (client *ProfilesClient) listCreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -306,7 +295,7 @@ func (client *ProfilesClient) listHandleResponse(resp *http.Response) (ProfilesC
 
 // NewListAllPager - Gets all the network profiles in a subscription.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - options - ProfilesClientListAllOptions contains the optional parameters for the ProfilesClient.NewListAllPager method.
 func (client *ProfilesClient) NewListAllPager(options *ProfilesClientListAllOptions) *runtime.Pager[ProfilesClientListAllResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ProfilesClientListAllResponse]{
@@ -324,7 +313,7 @@ func (client *ProfilesClient) NewListAllPager(options *ProfilesClientListAllOpti
 			if err != nil {
 				return ProfilesClientListAllResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return ProfilesClientListAllResponse{}, err
 			}
@@ -343,12 +332,12 @@ func (client *ProfilesClient) listAllCreateRequest(ctx context.Context, options 
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -366,7 +355,7 @@ func (client *ProfilesClient) listAllHandleResponse(resp *http.Response) (Profil
 // UpdateTags - Updates network profile tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkProfileName - The name of the network profile.
 //   - parameters - Parameters supplied to update network profile tags.
@@ -376,7 +365,7 @@ func (client *ProfilesClient) UpdateTags(ctx context.Context, resourceGroupName 
 	if err != nil {
 		return ProfilesClientUpdateTagsResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return ProfilesClientUpdateTagsResponse{}, err
 	}
@@ -401,12 +390,12 @@ func (client *ProfilesClient) updateTagsCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

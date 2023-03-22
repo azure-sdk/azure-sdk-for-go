@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -27,9 +25,8 @@ import (
 // VirtualNetworksClient contains the methods for the VirtualNetworks group.
 // Don't use this type directly, use NewVirtualNetworksClient() instead.
 type VirtualNetworksClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewVirtualNetworksClient creates a new instance of VirtualNetworksClient with the specified values.
@@ -38,21 +35,13 @@ type VirtualNetworksClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewVirtualNetworksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VirtualNetworksClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".VirtualNetworksClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &VirtualNetworksClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
@@ -60,7 +49,7 @@ func NewVirtualNetworksClient(subscriptionID string, credential azcore.TokenCred
 // CheckIPAddressAvailability - Checks whether a private IP address is available for use.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - virtualNetworkName - The name of the virtual network.
 //   - ipAddress - The private IP address to be verified.
@@ -71,7 +60,7 @@ func (client *VirtualNetworksClient) CheckIPAddressAvailability(ctx context.Cont
 	if err != nil {
 		return VirtualNetworksClientCheckIPAddressAvailabilityResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return VirtualNetworksClientCheckIPAddressAvailabilityResponse{}, err
 	}
@@ -96,13 +85,13 @@ func (client *VirtualNetworksClient) checkIPAddressAvailabilityCreateRequest(ctx
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("ipAddress", ipAddress)
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -120,7 +109,7 @@ func (client *VirtualNetworksClient) checkIPAddressAvailabilityHandleResponse(re
 // BeginCreateOrUpdate - Creates or updates a virtual network in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - virtualNetworkName - The name of the virtual network.
 //   - parameters - Parameters supplied to the create or update virtual network operation.
@@ -132,24 +121,24 @@ func (client *VirtualNetworksClient) BeginCreateOrUpdate(ctx context.Context, re
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[VirtualNetworksClientCreateOrUpdateResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VirtualNetworksClientCreateOrUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[VirtualNetworksClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[VirtualNetworksClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // CreateOrUpdate - Creates or updates a virtual network in the specified resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VirtualNetworksClient) createOrUpdate(ctx context.Context, resourceGroupName string, virtualNetworkName string, parameters VirtualNetwork, options *VirtualNetworksClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, virtualNetworkName, parameters, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -174,12 +163,12 @@ func (client *VirtualNetworksClient) createOrUpdateCreateRequest(ctx context.Con
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -188,7 +177,7 @@ func (client *VirtualNetworksClient) createOrUpdateCreateRequest(ctx context.Con
 // BeginDelete - Deletes the specified virtual network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - virtualNetworkName - The name of the virtual network.
 //   - options - VirtualNetworksClientBeginDeleteOptions contains the optional parameters for the VirtualNetworksClient.BeginDelete
@@ -199,24 +188,24 @@ func (client *VirtualNetworksClient) BeginDelete(ctx context.Context, resourceGr
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[VirtualNetworksClientDeleteResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[VirtualNetworksClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[VirtualNetworksClientDeleteResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[VirtualNetworksClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Delete - Deletes the specified virtual network.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VirtualNetworksClient) deleteOperation(ctx context.Context, resourceGroupName string, virtualNetworkName string, options *VirtualNetworksClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, virtualNetworkName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -241,12 +230,12 @@ func (client *VirtualNetworksClient) deleteCreateRequest(ctx context.Context, re
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -255,7 +244,7 @@ func (client *VirtualNetworksClient) deleteCreateRequest(ctx context.Context, re
 // Get - Gets the specified virtual network by resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - virtualNetworkName - The name of the virtual network.
 //   - options - VirtualNetworksClientGetOptions contains the optional parameters for the VirtualNetworksClient.Get method.
@@ -264,7 +253,7 @@ func (client *VirtualNetworksClient) Get(ctx context.Context, resourceGroupName 
 	if err != nil {
 		return VirtualNetworksClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return VirtualNetworksClientGetResponse{}, err
 	}
@@ -289,12 +278,12 @@ func (client *VirtualNetworksClient) getCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -314,7 +303,7 @@ func (client *VirtualNetworksClient) getHandleResponse(resp *http.Response) (Vir
 
 // NewListPager - Gets all virtual networks in a resource group.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - options - VirtualNetworksClientListOptions contains the optional parameters for the VirtualNetworksClient.NewListPager
 //     method.
@@ -334,7 +323,7 @@ func (client *VirtualNetworksClient) NewListPager(resourceGroupName string, opti
 			if err != nil {
 				return VirtualNetworksClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return VirtualNetworksClientListResponse{}, err
 			}
@@ -357,12 +346,12 @@ func (client *VirtualNetworksClient) listCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -379,7 +368,7 @@ func (client *VirtualNetworksClient) listHandleResponse(resp *http.Response) (Vi
 
 // NewListAllPager - Gets all virtual networks in a subscription.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - options - VirtualNetworksClientListAllOptions contains the optional parameters for the VirtualNetworksClient.NewListAllPager
 //     method.
 func (client *VirtualNetworksClient) NewListAllPager(options *VirtualNetworksClientListAllOptions) *runtime.Pager[VirtualNetworksClientListAllResponse] {
@@ -398,7 +387,7 @@ func (client *VirtualNetworksClient) NewListAllPager(options *VirtualNetworksCli
 			if err != nil {
 				return VirtualNetworksClientListAllResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return VirtualNetworksClientListAllResponse{}, err
 			}
@@ -417,12 +406,12 @@ func (client *VirtualNetworksClient) listAllCreateRequest(ctx context.Context, o
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -439,7 +428,7 @@ func (client *VirtualNetworksClient) listAllHandleResponse(resp *http.Response) 
 
 // BeginListDdosProtectionStatus - Gets the Ddos Protection Status of all IP Addresses under the Virtual Network
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - virtualNetworkName - The name of the virtual network.
 //   - options - VirtualNetworksClientBeginListDdosProtectionStatusOptions contains the optional parameters for the VirtualNetworksClient.BeginListDdosProtectionStatus
@@ -454,7 +443,7 @@ func (client *VirtualNetworksClient) BeginListDdosProtectionStatus(ctx context.C
 			if err != nil {
 				return VirtualNetworksClientListDdosProtectionStatusResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return VirtualNetworksClientListDdosProtectionStatusResponse{}, err
 			}
@@ -469,12 +458,12 @@ func (client *VirtualNetworksClient) BeginListDdosProtectionStatus(ctx context.C
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.pl, &runtime.NewPollerOptions[*runtime.Pager[VirtualNetworksClientListDdosProtectionStatusResponse]]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[*runtime.Pager[VirtualNetworksClientListDdosProtectionStatusResponse]]{
 			FinalStateVia: runtime.FinalStateViaLocation,
 			Response:      &pager,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.pl, &runtime.NewPollerFromResumeTokenOptions[*runtime.Pager[VirtualNetworksClientListDdosProtectionStatusResponse]]{
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[*runtime.Pager[VirtualNetworksClientListDdosProtectionStatusResponse]]{
 			Response: &pager,
 		})
 	}
@@ -482,13 +471,13 @@ func (client *VirtualNetworksClient) BeginListDdosProtectionStatus(ctx context.C
 
 // ListDdosProtectionStatus - Gets the Ddos Protection Status of all IP Addresses under the Virtual Network
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 func (client *VirtualNetworksClient) listDdosProtectionStatus(ctx context.Context, resourceGroupName string, virtualNetworkName string, options *VirtualNetworksClientBeginListDdosProtectionStatusOptions) (*http.Response, error) {
 	req, err := client.listDdosProtectionStatusCreateRequest(ctx, resourceGroupName, virtualNetworkName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -513,7 +502,7 @@ func (client *VirtualNetworksClient) listDdosProtectionStatusCreateRequest(ctx c
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
@@ -524,7 +513,7 @@ func (client *VirtualNetworksClient) listDdosProtectionStatusCreateRequest(ctx c
 	if options != nil && options.SkipToken != nil {
 		reqQP.Set("skipToken", *options.SkipToken)
 	}
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -541,7 +530,7 @@ func (client *VirtualNetworksClient) listDdosProtectionStatusHandleResponse(resp
 
 // NewListUsagePager - Lists usage stats.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - virtualNetworkName - The name of the virtual network.
 //   - options - VirtualNetworksClientListUsageOptions contains the optional parameters for the VirtualNetworksClient.NewListUsagePager
@@ -562,7 +551,7 @@ func (client *VirtualNetworksClient) NewListUsagePager(resourceGroupName string,
 			if err != nil {
 				return VirtualNetworksClientListUsageResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return VirtualNetworksClientListUsageResponse{}, err
 			}
@@ -589,12 +578,12 @@ func (client *VirtualNetworksClient) listUsageCreateRequest(ctx context.Context,
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -612,7 +601,7 @@ func (client *VirtualNetworksClient) listUsageHandleResponse(resp *http.Response
 // UpdateTags - Updates a virtual network tags.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - virtualNetworkName - The name of the virtual network.
 //   - parameters - Parameters supplied to update virtual network tags.
@@ -623,7 +612,7 @@ func (client *VirtualNetworksClient) UpdateTags(ctx context.Context, resourceGro
 	if err != nil {
 		return VirtualNetworksClientUpdateTagsResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return VirtualNetworksClientUpdateTagsResponse{}, err
 	}
@@ -648,12 +637,12 @@ func (client *VirtualNetworksClient) updateTagsCreateRequest(ctx context.Context
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
