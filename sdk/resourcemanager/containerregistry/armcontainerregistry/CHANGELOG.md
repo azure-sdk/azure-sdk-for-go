@@ -1,5 +1,29 @@
 # Release History
 
+## 0.8.0 (2023-03-22)
+### Features Added
+
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewAgentPoolsClient() *AgentPoolsClient`
+- New function `*ClientFactory.NewCacheRulesClient() *CacheRulesClient`
+- New function `*ClientFactory.NewConnectedRegistriesClient() *ConnectedRegistriesClient`
+- New function `*ClientFactory.NewCredentialSetsClient() *CredentialSetsClient`
+- New function `*ClientFactory.NewExportPipelinesClient() *ExportPipelinesClient`
+- New function `*ClientFactory.NewImportPipelinesClient() *ImportPipelinesClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewPipelineRunsClient() *PipelineRunsClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient`
+- New function `*ClientFactory.NewRegistriesClient() *RegistriesClient`
+- New function `*ClientFactory.NewReplicationsClient() *ReplicationsClient`
+- New function `*ClientFactory.NewRunsClient() *RunsClient`
+- New function `*ClientFactory.NewScopeMapsClient() *ScopeMapsClient`
+- New function `*ClientFactory.NewTaskRunsClient() *TaskRunsClient`
+- New function `*ClientFactory.NewTasksClient() *TasksClient`
+- New function `*ClientFactory.NewTokensClient() *TokensClient`
+- New function `*ClientFactory.NewWebhooksClient() *WebhooksClient`
+- New struct `ClientFactory`
+
+
 ## 0.7.0 (2023-02-24)
 ### Features Added
 
