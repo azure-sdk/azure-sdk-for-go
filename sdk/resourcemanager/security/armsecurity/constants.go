@@ -11,7 +11,7 @@ package armsecurity
 
 const (
 	moduleName    = "armsecurity"
-	moduleVersion = "v0.9.0"
+	moduleVersion = "v0.10.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -979,6 +979,27 @@ func PossibleOfferingTypeValues() []OfferingType {
 	}
 }
 
+// OperationResult - The status of the long run operation result of governance rule
+type OperationResult string
+
+const (
+	// OperationResultCanceled - The operation canceled
+	OperationResultCanceled OperationResult = "Canceled"
+	// OperationResultFailed - The operation failed
+	OperationResultFailed OperationResult = "Failed"
+	// OperationResultSucceeded - The operation succeeded
+	OperationResultSucceeded OperationResult = "Succeeded"
+)
+
+// PossibleOperationResultValues returns the possible values for the OperationResult const type.
+func PossibleOperationResultValues() []OperationResult {
+	return []OperationResult{
+		OperationResultCanceled,
+		OperationResultFailed,
+		OperationResultSucceeded,
+	}
+}
+
 // Operator - A valid comparer operator to use. A case-insensitive comparison will be applied for String PropertyType.
 type Operator string
 
@@ -1514,6 +1535,26 @@ func PossibleScanningModeValues() []ScanningMode {
 	}
 }
 
+// ScopeName - The resource scope of the health report
+type ScopeName string
+
+const (
+	ScopeNameClusters        ScopeName = "Clusters"
+	ScopeNameConnectors      ScopeName = "Connectors"
+	ScopeNameUnknown         ScopeName = "Unknown"
+	ScopeNameVirtualMachines ScopeName = "VirtualMachines"
+)
+
+// PossibleScopeNameValues returns the possible values for the ScopeName const type.
+func PossibleScopeNameValues() []ScopeName {
+	return []ScopeName{
+		ScopeNameClusters,
+		ScopeNameConnectors,
+		ScopeNameUnknown,
+		ScopeNameVirtualMachines,
+	}
+}
+
 // SecurityFamily - The security family of the discovered solution
 type SecurityFamily string
 
@@ -1728,6 +1769,24 @@ func PossibleStatusValues() []Status {
 	return []Status{
 		StatusInitiated,
 		StatusRevoked,
+	}
+}
+
+// StatusName - The status of the health report
+type StatusName string
+
+const (
+	StatusNameHealthy       StatusName = "Healthy"
+	StatusNameNotApplicable StatusName = "NotApplicable"
+	StatusNameNotHealthy    StatusName = "NotHealthy"
+)
+
+// PossibleStatusNameValues returns the possible values for the StatusName const type.
+func PossibleStatusNameValues() []StatusName {
+	return []StatusName{
+		StatusNameHealthy,
+		StatusNameNotApplicable,
+		StatusNameNotHealthy,
 	}
 }
 
