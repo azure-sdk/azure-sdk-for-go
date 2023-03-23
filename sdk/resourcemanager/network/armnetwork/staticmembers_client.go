@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -27,9 +25,8 @@ import (
 // StaticMembersClient contains the methods for the StaticMembers group.
 // Don't use this type directly, use NewStaticMembersClient() instead.
 type StaticMembersClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewStaticMembersClient creates a new instance of StaticMembersClient with the specified values.
@@ -38,21 +35,13 @@ type StaticMembersClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewStaticMembersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*StaticMembersClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".StaticMembersClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &StaticMembersClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
@@ -60,7 +49,7 @@ func NewStaticMembersClient(subscriptionID string, credential azcore.TokenCreden
 // CreateOrUpdate - Creates or updates a static member.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - networkGroupName - The name of the network group.
@@ -73,7 +62,7 @@ func (client *StaticMembersClient) CreateOrUpdate(ctx context.Context, resourceG
 	if err != nil {
 		return StaticMembersClientCreateOrUpdateResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return StaticMembersClientCreateOrUpdateResponse{}, err
 	}
@@ -106,12 +95,12 @@ func (client *StaticMembersClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, errors.New("parameter staticMemberName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{staticMemberName}", url.PathEscape(staticMemberName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -129,7 +118,7 @@ func (client *StaticMembersClient) createOrUpdateHandleResponse(resp *http.Respo
 // Delete - Deletes a static member.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - networkGroupName - The name of the network group.
@@ -140,7 +129,7 @@ func (client *StaticMembersClient) Delete(ctx context.Context, resourceGroupName
 	if err != nil {
 		return StaticMembersClientDeleteResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return StaticMembersClientDeleteResponse{}, err
 	}
@@ -173,12 +162,12 @@ func (client *StaticMembersClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, errors.New("parameter staticMemberName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{staticMemberName}", url.PathEscape(staticMemberName))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -187,7 +176,7 @@ func (client *StaticMembersClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Gets the specified static member.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - networkGroupName - The name of the network group.
@@ -198,7 +187,7 @@ func (client *StaticMembersClient) Get(ctx context.Context, resourceGroupName st
 	if err != nil {
 		return StaticMembersClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return StaticMembersClientGetResponse{}, err
 	}
@@ -231,12 +220,12 @@ func (client *StaticMembersClient) getCreateRequest(ctx context.Context, resourc
 		return nil, errors.New("parameter staticMemberName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{staticMemberName}", url.PathEscape(staticMemberName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -253,7 +242,7 @@ func (client *StaticMembersClient) getHandleResponse(resp *http.Response) (Stati
 
 // NewListPager - Lists the specified static member.
 //
-// Generated from API version 2022-09-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group.
 //   - networkManagerName - The name of the network manager.
 //   - networkGroupName - The name of the network group.
@@ -274,7 +263,7 @@ func (client *StaticMembersClient) NewListPager(resourceGroupName string, networ
 			if err != nil {
 				return StaticMembersClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return StaticMembersClientListResponse{}, err
 			}
@@ -305,12 +294,12 @@ func (client *StaticMembersClient) listCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter networkGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{networkGroupName}", url.PathEscape(networkGroupName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-01")
+	reqQP.Set("api-version", "2022-11-01")
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
