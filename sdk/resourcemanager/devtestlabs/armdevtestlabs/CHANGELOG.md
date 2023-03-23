@@ -1,5 +1,220 @@
 # Release History
 
+## 2.0.0 (2023-03-23)
+### Breaking Changes
+
+- Function `*UsersClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, User, *UsersClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, *UsersClientBeginCreateOrUpdateOptions)`
+- Type of `LabVirtualMachineCreationParameterProperties.StorageType` has been changed from `*string` to `*StorageType`
+- Type of `LabVirtualMachineProperties.StorageType` has been changed from `*string` to `*StorageTypes`
+- Operation `*ServiceRunnersClient.CreateOrUpdate` has been changed to LRO, use `*ServiceRunnersClient.BeginCreateOrUpdate` instead.
+- Operation `*ServiceRunnersClient.Delete` has been changed to LRO, use `*ServiceRunnersClient.BeginDelete` instead.
+- Struct `ApplicableScheduleFragment` has been removed
+- Struct `CloudError` has been removed
+- Struct `CloudErrorBody` has been removed
+- Struct `ShutdownNotificationContent` has been removed
+
+### Features Added
+
+- New value `HTTPStatusCodeAlreadyReported`, `HTTPStatusCodeEarlyHints`, `HTTPStatusCodeFailedDependency`, `HTTPStatusCodeIMUsed`, `HTTPStatusCodeInsufficientStorage`, `HTTPStatusCodeLocked`, `HTTPStatusCodeLoopDetected`, `HTTPStatusCodeMisdirectedRequest`, `HTTPStatusCodeMultiStatus`, `HTTPStatusCodeNetworkAuthenticationRequired`, `HTTPStatusCodeNotExtended`, `HTTPStatusCodePermanentRedirect`, `HTTPStatusCodePreconditionRequired`, `HTTPStatusCodeProcessing`, `HTTPStatusCodeRequestHeaderFieldsTooLarge`, `HTTPStatusCodeTooManyRequests`, `HTTPStatusCodeUnavailableForLegalReasons`, `HTTPStatusCodeUnprocessableEntity`, `HTTPStatusCodeVariantAlsoNegotiates` added to enum type `HTTPStatusCode`
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `CheckNameAvailabilityReason` with values `CheckNameAvailabilityReasonAlreadyExists`, `CheckNameAvailabilityReasonInvalid`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `EnableState` with values `EnableStateDisabled`, `EnableStateEnabled`
+- New enum type `EncryptionStatus` with values `EncryptionStatusDisabled`, `EncryptionStatusEnabled`
+- New enum type `EncryptionType` with values `EncryptionTypeEncryptionAtRestWithCustomerKey`, `EncryptionTypeEncryptionAtRestWithPlatformKey`
+- New enum type `ImageType` with values `ImageTypeGeneralized`, `ImageTypeSpecialized`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New enum type `OsType` with values `OsTypeLinux`, `OsTypeWindows`
+- New enum type `SKUTier` with values `SKUTierBasic`, `SKUTierFree`, `SKUTierPremium`, `SKUTierStandard`
+- New enum type `SecurityTypes` with values `SecurityTypesConfidentialVM`, `SecurityTypesTrustedLaunch`
+- New enum type `StorageTypes` with values `StorageTypesPremium`, `StorageTypesStandard`, `StorageTypesStandardSSD`
+- New function `NewBastionHostsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BastionHostsClient, error)`
+- New function `*BastionHostsClient.BeginCreateOrUpdate(context.Context, string, string, string, string, BastionHost, *BastionHostsClientBeginCreateOrUpdateOptions) (*runtime.Poller[BastionHostsClientCreateOrUpdateResponse], error)`
+- New function `*BastionHostsClient.BeginDelete(context.Context, string, string, string, string, *BastionHostsClientBeginDeleteOptions) (*runtime.Poller[BastionHostsClientDeleteResponse], error)`
+- New function `*BastionHostsClient.Get(context.Context, string, string, string, string, *BastionHostsClientGetOptions) (BastionHostsClientGetResponse, error)`
+- New function `*BastionHostsClient.NewListPager(string, string, string, *BastionHostsClientListOptions) *runtime.Pager[BastionHostsClientListResponse]`
+- New function `*BastionHostsClient.Update(context.Context, string, string, string, string, BastionHostFragment, *BastionHostsClientUpdateOptions) (BastionHostsClientUpdateResponse, error)`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewArmTemplatesClient() *ArmTemplatesClient`
+- New function `*ClientFactory.NewArtifactSourcesClient() *ArtifactSourcesClient`
+- New function `*ClientFactory.NewArtifactsClient() *ArtifactsClient`
+- New function `*ClientFactory.NewBastionHostsClient() *BastionHostsClient`
+- New function `*ClientFactory.NewCostsClient() *CostsClient`
+- New function `*ClientFactory.NewCustomImagesClient() *CustomImagesClient`
+- New function `*ClientFactory.NewDisksClient() *DisksClient`
+- New function `*ClientFactory.NewEnvironmentsClient() *EnvironmentsClient`
+- New function `*ClientFactory.NewFormulasClient() *FormulasClient`
+- New function `*ClientFactory.NewGalleryImagesClient() *GalleryImagesClient`
+- New function `*ClientFactory.NewGlobalSchedulesClient() *GlobalSchedulesClient`
+- New function `*ClientFactory.NewLabSecretsClient() *LabSecretsClient`
+- New function `*ClientFactory.NewLabsClient() *LabsClient`
+- New function `*ClientFactory.NewNotificationChannelsClient() *NotificationChannelsClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewPoliciesClient() *PoliciesClient`
+- New function `*ClientFactory.NewPolicySetsClient() *PolicySetsClient`
+- New function `*ClientFactory.NewProviderOperationsClient() *ProviderOperationsClient`
+- New function `*ClientFactory.NewSchedulesClient() *SchedulesClient`
+- New function `*ClientFactory.NewSecretsClient() *SecretsClient`
+- New function `*ClientFactory.NewServiceFabricSchedulesClient() *ServiceFabricSchedulesClient`
+- New function `*ClientFactory.NewServiceFabricsClient() *ServiceFabricsClient`
+- New function `*ClientFactory.NewServiceRunnersClient() *ServiceRunnersClient`
+- New function `*ClientFactory.NewSharedGalleriesClient() *SharedGalleriesClient`
+- New function `*ClientFactory.NewSharedImagesClient() *SharedImagesClient`
+- New function `*ClientFactory.NewUsersClient() *UsersClient`
+- New function `*ClientFactory.NewVirtualMachineSchedulesClient() *VirtualMachineSchedulesClient`
+- New function `*ClientFactory.NewVirtualMachinesClient() *VirtualMachinesClient`
+- New function `*ClientFactory.NewVirtualNetworksClient() *VirtualNetworksClient`
+- New function `*GalleryImagesClient.Get(context.Context, string, string, string, *GalleryImagesClientGetOptions) (GalleryImagesClientGetResponse, error)`
+- New function `NewLabSecretsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LabSecretsClient, error)`
+- New function `*LabSecretsClient.BeginCreateOrUpdate(context.Context, string, string, string, LabSecret, *LabSecretsClientBeginCreateOrUpdateOptions) (*runtime.Poller[LabSecretsClientCreateOrUpdateResponse], error)`
+- New function `*LabSecretsClient.BeginDelete(context.Context, string, string, string, *LabSecretsClientBeginDeleteOptions) (*runtime.Poller[LabSecretsClientDeleteResponse], error)`
+- New function `*LabSecretsClient.Get(context.Context, string, string, string, *LabSecretsClientGetOptions) (LabSecretsClientGetResponse, error)`
+- New function `*LabSecretsClient.NewListPager(string, string, *LabSecretsClientListOptions) *runtime.Pager[LabSecretsClientListResponse]`
+- New function `*LabSecretsClient.Update(context.Context, string, string, string, SecretFragment, *LabSecretsClientUpdateOptions) (LabSecretsClientUpdateResponse, error)`
+- New function `*LabsClient.EnsureCurrentUserProfile(context.Context, string, string, *LabsClientEnsureCurrentUserProfileOptions) (LabsClientEnsureCurrentUserProfileResponse, error)`
+- New function `*PolicySetsClient.NewListPager(string, string, *PolicySetsClientListOptions) *runtime.Pager[PolicySetsClientListResponse]`
+- New function `*ServiceRunnersClient.NewListPager(string, string, *ServiceRunnersClientListOptions) *runtime.Pager[ServiceRunnersClientListResponse]`
+- New function `NewSharedGalleriesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SharedGalleriesClient, error)`
+- New function `*SharedGalleriesClient.CreateOrUpdate(context.Context, string, string, string, SharedGallery, *SharedGalleriesClientCreateOrUpdateOptions) (SharedGalleriesClientCreateOrUpdateResponse, error)`
+- New function `*SharedGalleriesClient.Delete(context.Context, string, string, string, *SharedGalleriesClientDeleteOptions) (SharedGalleriesClientDeleteResponse, error)`
+- New function `*SharedGalleriesClient.Get(context.Context, string, string, string, *SharedGalleriesClientGetOptions) (SharedGalleriesClientGetResponse, error)`
+- New function `*SharedGalleriesClient.NewListPager(string, string, *SharedGalleriesClientListOptions) *runtime.Pager[SharedGalleriesClientListResponse]`
+- New function `*SharedGalleriesClient.Update(context.Context, string, string, string, SharedGalleryFragment, *SharedGalleriesClientUpdateOptions) (SharedGalleriesClientUpdateResponse, error)`
+- New function `NewSharedImagesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SharedImagesClient, error)`
+- New function `*SharedImagesClient.CreateOrUpdate(context.Context, string, string, string, string, SharedImage, *SharedImagesClientCreateOrUpdateOptions) (SharedImagesClientCreateOrUpdateResponse, error)`
+- New function `*SharedImagesClient.Delete(context.Context, string, string, string, string, *SharedImagesClientDeleteOptions) (SharedImagesClientDeleteResponse, error)`
+- New function `*SharedImagesClient.Get(context.Context, string, string, string, string, *SharedImagesClientGetOptions) (SharedImagesClientGetResponse, error)`
+- New function `*SharedImagesClient.NewListPager(string, string, string, *SharedImagesClientListOptions) *runtime.Pager[SharedImagesClientListResponse]`
+- New function `*SharedImagesClient.Update(context.Context, string, string, string, string, SharedImageFragment, *SharedImagesClientUpdateOptions) (SharedImagesClientUpdateResponse, error)`
+- New function `*VirtualMachinesClient.ClearArtifactResults(context.Context, string, string, string, *VirtualMachinesClientClearArtifactResultsOptions) (VirtualMachinesClientClearArtifactResultsResponse, error)`
+- New struct `AzureEntityResource`
+- New struct `BastionHost`
+- New struct `BastionHostFragment`
+- New struct `BastionHostList`
+- New struct `BastionHostProperties`
+- New struct `CheckNameAvailabilityRequest`
+- New struct `CheckNameAvailabilityResponse`
+- New struct `ClientFactory`
+- New struct `Cost`
+- New struct `CustomImagePropertiesFromPlanFragment`
+- New struct `Encryption`
+- New struct `EncryptionProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `Identity`
+- New struct `ImageVersionProperties`
+- New struct `KeyVaultProperties`
+- New struct `LabCostList`
+- New struct `LabSecret`
+- New struct `LabSecretFragment`
+- New struct `LabSecretList`
+- New struct `LabSecretProperties`
+- New struct `LocationData`
+- New struct `Operation`
+- New struct `OperationDisplay`
+- New struct `OperationListResult`
+- New struct `OperationStatusResult`
+- New struct `Plan`
+- New struct `PolicySet`
+- New struct `PolicySetList`
+- New struct `PolicySetProperties`
+- New struct `ProxyResource`
+- New struct `ResourceModelWithAllowedPropertySet`
+- New struct `ResourceModelWithAllowedPropertySetIdentity`
+- New struct `ResourceModelWithAllowedPropertySetPlan`
+- New struct `ResourceModelWithAllowedPropertySetSKU`
+- New struct `SKU`
+- New struct `SecurityProfile`
+- New struct `ServiceRunnerProperties`
+- New struct `SharedGallery`
+- New struct `SharedGalleryFragment`
+- New struct `SharedGalleryList`
+- New struct `SharedGalleryProperties`
+- New struct `SharedImage`
+- New struct `SharedImageFragment`
+- New struct `SharedImageList`
+- New struct `SharedImageProperties`
+- New struct `SystemData`
+- New struct `UefiSettings`
+- New struct `WeekDetailsFragment`
+- New field `SystemData` in struct `ApplicableSchedule`
+- New field `SystemData` in struct `ArmTemplate`
+- New field `SystemData` in struct `Artifact`
+- New field `SystemData` in struct `ArtifactSource`
+- New field `Identity` in struct `ArtifactSourceFragment`
+- New field `SystemData` in struct `CustomImage`
+- New field `Identity` in struct `CustomImageFragment`
+- New field `SystemData` in struct `Disk`
+- New field `Identity` in struct `DiskFragment`
+- New field `SystemData` in struct `DtlEnvironment`
+- New field `Identity` in struct `DtlEnvironmentFragment`
+- New field `SystemData` in struct `Formula`
+- New field `Identity` in struct `FormulaFragment`
+- New field `SystemData` in struct `GalleryImage`
+- New field `UserAssignedIdentities` in struct `IdentityProperties`
+- New field `Identity` in struct `Lab`
+- New field `SystemData` in struct `Lab`
+- New field `SystemData` in struct `LabCost`
+- New field `Identity` in struct `LabFragment`
+- New field `BrowserConnect` in struct `LabProperties`
+- New field `DefaultSecretName` in struct `LabProperties`
+- New field `DisableAutoUpgradeCseMinorVersion` in struct `LabProperties`
+- New field `Encryption` in struct `LabProperties`
+- New field `IsolateLabResources` in struct `LabProperties`
+- New field `ManagementIdentities` in struct `LabProperties`
+- New field `SystemData` in struct `LabVirtualMachine`
+- New field `ApplicableSchedule` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `ArtifactDeploymentStatus` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `CanApplyArtifacts` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `ComputeID` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `ComputeVM` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `CreatedByUser` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `CreatedByUserID` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `Fqdn` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `GalleryImageVersionID` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `LastKnownPowerState` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `OSDiskSizeGb` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `OSType` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `ProvisioningState` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `SecurityProfile` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `SharedImageID` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `SharedImageVersion` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `UniqueIdentifier` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `VirtualMachineCreationSource` in struct `LabVirtualMachineCreationParameterProperties`
+- New field `Identity` in struct `LabVirtualMachineFragment`
+- New field `CanApplyArtifacts` in struct `LabVirtualMachineProperties`
+- New field `GalleryImageVersionID` in struct `LabVirtualMachineProperties`
+- New field `OSDiskSizeGb` in struct `LabVirtualMachineProperties`
+- New field `SecurityProfile` in struct `LabVirtualMachineProperties`
+- New field `SharedImageID` in struct `LabVirtualMachineProperties`
+- New field `SharedImageVersion` in struct `LabVirtualMachineProperties`
+- New field `SystemData` in struct `NotificationChannel`
+- New field `Identity` in struct `NotificationChannelFragment`
+- New field `AzureAsyncOperation` in struct `OperationsClientGetResponse`
+- New field `Location` in struct `OperationsClientGetResponse`
+- New field `SystemData` in struct `Policy`
+- New field `Identity` in struct `PolicyFragment`
+- New field `SystemData` in struct `Resource`
+- New field `SystemData` in struct `Schedule`
+- New field `CreatedDate` in struct `ScheduleCreationParameterProperties`
+- New field `ProvisioningState` in struct `ScheduleCreationParameterProperties`
+- New field `UniqueIdentifier` in struct `ScheduleCreationParameterProperties`
+- New field `Identity` in struct `ScheduleFragment`
+- New field `SystemData` in struct `Secret`
+- New field `Identity` in struct `SecretFragment`
+- New field `SystemData` in struct `ServiceFabric`
+- New field `Identity` in struct `ServiceFabricFragment`
+- New field `Properties` in struct `ServiceRunner`
+- New field `SystemData` in struct `ServiceRunner`
+- New field `Identity` in struct `UpdateResource`
+- New field `SystemData` in struct `User`
+- New field `Identity` in struct `UserFragment`
+- New field `User` in struct `UsersClientBeginCreateOrUpdateOptions`
+- New field `SystemData` in struct `VirtualNetwork`
+- New field `Identity` in struct `VirtualNetworkFragment`
+
+
 ## 1.0.0 (2022-05-18)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/devtestlabs/armdevtestlabs` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
