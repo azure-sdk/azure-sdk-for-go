@@ -1,5 +1,43 @@
 # Release History
 
+## 2.1.0 (2023-03-23)
+### Features Added
+
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewBackupInstancesClient() *BackupInstancesClient`
+- New function `*ClientFactory.NewBackupPoliciesClient() *BackupPoliciesClient`
+- New function `*ClientFactory.NewBackupVaultOperationResultsClient() *BackupVaultOperationResultsClient`
+- New function `*ClientFactory.NewBackupVaultsClient() *BackupVaultsClient`
+- New function `*ClientFactory.NewClient() *Client`
+- New function `*ClientFactory.NewDeletedBackupInstancesClient() *DeletedBackupInstancesClient`
+- New function `*ClientFactory.NewDppResourceGuardProxyClient() *DppResourceGuardProxyClient`
+- New function `*ClientFactory.NewExportJobsClient() *ExportJobsClient`
+- New function `*ClientFactory.NewExportJobsOperationResultClient() *ExportJobsOperationResultClient`
+- New function `*ClientFactory.NewJobsClient() *JobsClient`
+- New function `*ClientFactory.NewOperationResultClient() *OperationResultClient`
+- New function `*ClientFactory.NewOperationStatusBackupVaultContextClient() *OperationStatusBackupVaultContextClient`
+- New function `*ClientFactory.NewOperationStatusClient() *OperationStatusClient`
+- New function `*ClientFactory.NewOperationStatusResourceGroupContextClient() *OperationStatusResourceGroupContextClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewRecoveryPointsClient() *RecoveryPointsClient`
+- New function `*ClientFactory.NewResourceGuardsClient() *ResourceGuardsClient`
+- New function `*ClientFactory.NewRestorableTimeRangesClient() *RestorableTimeRangesClient`
+- New function `NewDppResourceGuardProxyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DppResourceGuardProxyClient, error)`
+- New function `*DppResourceGuardProxyClient.CreateOrUpdate(context.Context, string, string, string, ResourceGuardProxyBaseResource, *DppResourceGuardProxyClientCreateOrUpdateOptions) (DppResourceGuardProxyClientCreateOrUpdateResponse, error)`
+- New function `*DppResourceGuardProxyClient.Delete(context.Context, string, string, string, *DppResourceGuardProxyClientDeleteOptions) (DppResourceGuardProxyClientDeleteResponse, error)`
+- New function `*DppResourceGuardProxyClient.Get(context.Context, string, string, string, *DppResourceGuardProxyClientGetOptions) (DppResourceGuardProxyClientGetResponse, error)`
+- New function `*DppResourceGuardProxyClient.NewListPager(string, string, *DppResourceGuardProxyClientListOptions) *runtime.Pager[DppResourceGuardProxyClientListResponse]`
+- New function `*DppResourceGuardProxyClient.UnlockDelete(context.Context, string, string, string, UnlockDeleteRequest, *DppResourceGuardProxyClientUnlockDeleteOptions) (DppResourceGuardProxyClientUnlockDeleteResponse, error)`
+- New struct `ClientFactory`
+- New struct `ResourceGuardOperationDetail`
+- New struct `ResourceGuardProxyBase`
+- New struct `ResourceGuardProxyBaseResource`
+- New struct `ResourceGuardProxyBaseResourceList`
+- New struct `UnlockDeleteRequest`
+- New struct `UnlockDeleteResponse`
+- New field `RehydrationPriority` in struct `AzureBackupJob`
+
+
 ## 2.0.0 (2023-02-24)
 ### Breaking Changes
 
