@@ -11,7 +11,7 @@ package armmachinelearning
 
 const (
 	moduleName    = "armmachinelearning"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v4.0.0"
 )
 
 // AllocationState - Allocation state of the compute. Possible values are: steady - Indicates that the compute is not resizing.
@@ -49,6 +49,30 @@ func PossibleApplicationSharingPolicyValues() []ApplicationSharingPolicy {
 	return []ApplicationSharingPolicy{
 		ApplicationSharingPolicyPersonal,
 		ApplicationSharingPolicyShared,
+	}
+}
+
+// AssetProvisioningState - Provisioning state of registry asset.
+type AssetProvisioningState string
+
+const (
+	AssetProvisioningStateCanceled  AssetProvisioningState = "Canceled"
+	AssetProvisioningStateCreating  AssetProvisioningState = "Creating"
+	AssetProvisioningStateDeleting  AssetProvisioningState = "Deleting"
+	AssetProvisioningStateFailed    AssetProvisioningState = "Failed"
+	AssetProvisioningStateSucceeded AssetProvisioningState = "Succeeded"
+	AssetProvisioningStateUpdating  AssetProvisioningState = "Updating"
+)
+
+// PossibleAssetProvisioningStateValues returns the possible values for the AssetProvisioningState const type.
+func PossibleAssetProvisioningStateValues() []AssetProvisioningState {
+	return []AssetProvisioningState{
+		AssetProvisioningStateCanceled,
+		AssetProvisioningStateCreating,
+		AssetProvisioningStateDeleting,
+		AssetProvisioningStateFailed,
+		AssetProvisioningStateSucceeded,
+		AssetProvisioningStateUpdating,
 	}
 }
 
@@ -1435,6 +1459,20 @@ func PossibleNodeStateValues() []NodeState {
 	}
 }
 
+// NodesValueType - The enumerated types for the nodes value
+type NodesValueType string
+
+const (
+	NodesValueTypeAll NodesValueType = "All"
+)
+
+// PossibleNodesValueTypeValues returns the possible values for the NodesValueType const type.
+func PossibleNodesValueTypeValues() []NodesValueType {
+	return []NodesValueType{
+		NodesValueTypeAll,
+	}
+}
+
 // ObjectDetectionPrimaryMetrics - Primary metrics for Image ObjectDetection task.
 type ObjectDetectionPrimaryMetrics string
 
@@ -1585,6 +1623,36 @@ func PossibleOutputDeliveryModeValues() []OutputDeliveryMode {
 	return []OutputDeliveryMode{
 		OutputDeliveryModeReadWriteMount,
 		OutputDeliveryModeUpload,
+	}
+}
+
+// PendingUploadCredentialType - Enum to determine the PendingUpload credentials type.
+type PendingUploadCredentialType string
+
+const (
+	PendingUploadCredentialTypeSAS PendingUploadCredentialType = "SAS"
+)
+
+// PossiblePendingUploadCredentialTypeValues returns the possible values for the PendingUploadCredentialType const type.
+func PossiblePendingUploadCredentialTypeValues() []PendingUploadCredentialType {
+	return []PendingUploadCredentialType{
+		PendingUploadCredentialTypeSAS,
+	}
+}
+
+// PendingUploadType - Type of storage to use for the pending upload location
+type PendingUploadType string
+
+const (
+	PendingUploadTypeNone                   PendingUploadType = "None"
+	PendingUploadTypeTemporaryBlobReference PendingUploadType = "TemporaryBlobReference"
+)
+
+// PossiblePendingUploadTypeValues returns the possible values for the PendingUploadType const type.
+func PossiblePendingUploadTypeValues() []PendingUploadType {
+	return []PendingUploadType{
+		PendingUploadTypeNone,
+		PendingUploadTypeTemporaryBlobReference,
 	}
 }
 

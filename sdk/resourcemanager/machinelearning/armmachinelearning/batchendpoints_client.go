@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -27,65 +25,60 @@ import (
 // BatchEndpointsClient contains the methods for the BatchEndpoints group.
 // Don't use this type directly, use NewBatchEndpointsClient() instead.
 type BatchEndpointsClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewBatchEndpointsClient creates a new instance of BatchEndpointsClient with the specified values.
-// subscriptionID - The ID of the target subscription.
-// credential - used to authorize requests. Usually a credential from azidentity.
-// options - pass nil to accept the default values.
+//   - subscriptionID - The ID of the target subscription.
+//   - credential - used to authorize requests. Usually a credential from azidentity.
+//   - options - pass nil to accept the default values.
 func NewBatchEndpointsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*BatchEndpointsClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".BatchEndpointsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &BatchEndpointsClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
 
 // BeginCreateOrUpdate - Creates a batch inference endpoint (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// endpointName - Name for the Batch inference endpoint.
-// body - Batch inference endpoint definition object.
-// options - BatchEndpointsClientBeginCreateOrUpdateOptions contains the optional parameters for the BatchEndpointsClient.BeginCreateOrUpdate
-// method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - endpointName - Name for the Batch inference endpoint.
+//   - body - Batch inference endpoint definition object.
+//   - options - BatchEndpointsClientBeginCreateOrUpdateOptions contains the optional parameters for the BatchEndpointsClient.BeginCreateOrUpdate
+//     method.
 func (client *BatchEndpointsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, body BatchEndpoint, options *BatchEndpointsClientBeginCreateOrUpdateOptions) (*runtime.Poller[BatchEndpointsClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.createOrUpdate(ctx, resourceGroupName, workspaceName, endpointName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[BatchEndpointsClientCreateOrUpdateResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BatchEndpointsClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaOriginalURI,
+		})
 	} else {
-		return runtime.NewPollerFromResumeToken[BatchEndpointsClientCreateOrUpdateResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[BatchEndpointsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // CreateOrUpdate - Creates a batch inference endpoint (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-04-01
 func (client *BatchEndpointsClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, body BatchEndpoint, options *BatchEndpointsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, endpointName, body, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -114,12 +107,12 @@ func (client *BatchEndpointsClient) createOrUpdateCreateRequest(ctx context.Cont
 		return nil, errors.New("parameter endpointName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{endpointName}", url.PathEscape(endpointName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -127,33 +120,37 @@ func (client *BatchEndpointsClient) createOrUpdateCreateRequest(ctx context.Cont
 
 // BeginDelete - Delete Batch Inference Endpoint (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// endpointName - Inference Endpoint name.
-// options - BatchEndpointsClientBeginDeleteOptions contains the optional parameters for the BatchEndpointsClient.BeginDelete
-// method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - endpointName - Inference Endpoint name.
+//   - options - BatchEndpointsClientBeginDeleteOptions contains the optional parameters for the BatchEndpointsClient.BeginDelete
+//     method.
 func (client *BatchEndpointsClient) BeginDelete(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, options *BatchEndpointsClientBeginDeleteOptions) (*runtime.Poller[BatchEndpointsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, workspaceName, endpointName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[BatchEndpointsClientDeleteResponse](resp, client.pl, nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BatchEndpointsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
-		return runtime.NewPollerFromResumeToken[BatchEndpointsClientDeleteResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[BatchEndpointsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Delete - Delete Batch Inference Endpoint (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-04-01
 func (client *BatchEndpointsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, options *BatchEndpointsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, endpointName, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -182,12 +179,12 @@ func (client *BatchEndpointsClient) deleteCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter endpointName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{endpointName}", url.PathEscape(endpointName))
-	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -195,17 +192,18 @@ func (client *BatchEndpointsClient) deleteCreateRequest(ctx context.Context, res
 
 // Get - Gets a batch inference endpoint by name.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// endpointName - Name for the Batch Endpoint.
-// options - BatchEndpointsClientGetOptions contains the optional parameters for the BatchEndpointsClient.Get method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - endpointName - Name for the Batch Endpoint.
+//   - options - BatchEndpointsClientGetOptions contains the optional parameters for the BatchEndpointsClient.Get method.
 func (client *BatchEndpointsClient) Get(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, options *BatchEndpointsClientGetOptions) (BatchEndpointsClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, workspaceName, endpointName, options)
 	if err != nil {
 		return BatchEndpointsClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return BatchEndpointsClientGetResponse{}, err
 	}
@@ -234,12 +232,12 @@ func (client *BatchEndpointsClient) getCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter endpointName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{endpointName}", url.PathEscape(endpointName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -255,10 +253,11 @@ func (client *BatchEndpointsClient) getHandleResponse(resp *http.Response) (Batc
 }
 
 // NewListPager - Lists Batch inference endpoint in the workspace.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// options - BatchEndpointsClientListOptions contains the optional parameters for the BatchEndpointsClient.List method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - options - BatchEndpointsClientListOptions contains the optional parameters for the BatchEndpointsClient.NewListPager method.
 func (client *BatchEndpointsClient) NewListPager(resourceGroupName string, workspaceName string, options *BatchEndpointsClientListOptions) *runtime.Pager[BatchEndpointsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[BatchEndpointsClientListResponse]{
 		More: func(page BatchEndpointsClientListResponse) bool {
@@ -275,7 +274,7 @@ func (client *BatchEndpointsClient) NewListPager(resourceGroupName string, works
 			if err != nil {
 				return BatchEndpointsClientListResponse{}, err
 			}
-			resp, err := client.pl.Do(req)
+			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
 				return BatchEndpointsClientListResponse{}, err
 			}
@@ -302,12 +301,12 @@ func (client *BatchEndpointsClient) listCreateRequest(ctx context.Context, resou
 		return nil, errors.New("parameter workspaceName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	if options != nil && options.Count != nil {
 		reqQP.Set("count", strconv.FormatInt(int64(*options.Count), 10))
 	}
@@ -330,17 +329,18 @@ func (client *BatchEndpointsClient) listHandleResponse(resp *http.Response) (Bat
 
 // ListKeys - Lists batch Inference Endpoint keys.
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// endpointName - Inference Endpoint name.
-// options - BatchEndpointsClientListKeysOptions contains the optional parameters for the BatchEndpointsClient.ListKeys method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - endpointName - Inference Endpoint name.
+//   - options - BatchEndpointsClientListKeysOptions contains the optional parameters for the BatchEndpointsClient.ListKeys method.
 func (client *BatchEndpointsClient) ListKeys(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, options *BatchEndpointsClientListKeysOptions) (BatchEndpointsClientListKeysResponse, error) {
 	req, err := client.listKeysCreateRequest(ctx, resourceGroupName, workspaceName, endpointName, options)
 	if err != nil {
 		return BatchEndpointsClientListKeysResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return BatchEndpointsClientListKeysResponse{}, err
 	}
@@ -369,12 +369,12 @@ func (client *BatchEndpointsClient) listKeysCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter endpointName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{endpointName}", url.PathEscape(endpointName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -391,34 +391,36 @@ func (client *BatchEndpointsClient) listKeysHandleResponse(resp *http.Response) 
 
 // BeginUpdate - Update a batch inference endpoint (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
-// resourceGroupName - The name of the resource group. The name is case insensitive.
-// workspaceName - Name of Azure Machine Learning workspace.
-// endpointName - Name for the Batch inference endpoint.
-// body - Mutable batch inference endpoint definition object.
-// options - BatchEndpointsClientBeginUpdateOptions contains the optional parameters for the BatchEndpointsClient.BeginUpdate
-// method.
+//
+// Generated from API version 2023-04-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - workspaceName - Name of Azure Machine Learning workspace.
+//   - endpointName - Name for the Batch inference endpoint.
+//   - body - Mutable batch inference endpoint definition object.
+//   - options - BatchEndpointsClientBeginUpdateOptions contains the optional parameters for the BatchEndpointsClient.BeginUpdate
+//     method.
 func (client *BatchEndpointsClient) BeginUpdate(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, body PartialMinimalTrackedResourceWithIdentity, options *BatchEndpointsClientBeginUpdateOptions) (*runtime.Poller[BatchEndpointsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, workspaceName, endpointName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[BatchEndpointsClientUpdateResponse](resp, client.pl, nil)
+		return runtime.NewPoller[BatchEndpointsClientUpdateResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[BatchEndpointsClientUpdateResponse](options.ResumeToken, client.pl, nil)
+		return runtime.NewPollerFromResumeToken[BatchEndpointsClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
 // Update - Update a batch inference endpoint (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
-// Generated from API version 2022-10-01
+//
+// Generated from API version 2023-04-01
 func (client *BatchEndpointsClient) update(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, body PartialMinimalTrackedResourceWithIdentity, options *BatchEndpointsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, workspaceName, endpointName, body, options)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -447,12 +449,12 @@ func (client *BatchEndpointsClient) updateCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter endpointName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{endpointName}", url.PathEscape(endpointName))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
