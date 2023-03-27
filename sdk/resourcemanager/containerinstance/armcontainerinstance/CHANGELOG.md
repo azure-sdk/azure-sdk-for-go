@@ -1,5 +1,28 @@
 # Release History
 
+## 2.2.0-beta.2 (2023-03-27)
+### Breaking Changes
+
+- Const `ContainerGroupSKUConfidential` from type alias `ContainerGroupSKU` has been removed
+- Type alias `ContainerGroupPriority` has been removed
+- Struct `ConfidentialComputeProperties` has been removed
+- Field `ConfidentialComputeProperties` of struct `ContainerGroupPropertiesProperties` has been removed
+- Field `Priority` of struct `ContainerGroupPropertiesProperties` has been removed
+
+### Features Added
+
+- New enum type `IsCustomProvisioningTimeout` with values `IsCustomProvisioningTimeoutFalse`, `IsCustomProvisioningTimeoutTrue`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewContainerGroupsClient() *ContainerGroupsClient`
+- New function `*ClientFactory.NewContainersClient() *ContainersClient`
+- New function `*ClientFactory.NewLocationClient() *LocationClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewSubnetServiceAssociationLinkClient() *SubnetServiceAssociationLinkClient`
+- New struct `ClientFactory`
+- New field `IsCustomProvisioningTimeout` in struct `ContainerGroupPropertiesProperties`
+- New field `ProvisioningTimeoutInSeconds` in struct `ContainerGroupPropertiesProperties`
+
+
 ## 2.2.0-beta.1 (2023-01-27)
 ### Features Added
 
