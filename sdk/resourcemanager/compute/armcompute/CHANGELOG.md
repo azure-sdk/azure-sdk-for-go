@@ -1,5 +1,18 @@
 # Release History
 
+## 5.0.0 (2023-03-28)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New function `*DedicatedHostsClient.NewListAvailableSizesPager(string, string, string, *DedicatedHostsClientListAvailableSizesOptions) *runtime.Pager[DedicatedHostsClientListAvailableSizesResponse]`
+- New struct `DedicatedHostSizeListResult`
+- New field `SKU` in struct `DedicatedHostUpdate`
+
+
 ## 4.2.0 (2023-03-27)
 ### Features Added
 

@@ -1661,11 +1661,22 @@ type DedicatedHostProperties struct {
 	VirtualMachines []*SubResourceReadOnly `json:"virtualMachines,omitempty" azure:"ro"`
 }
 
+// DedicatedHostSizeListResult - The List Dedicated Host sizes operation response.
+type DedicatedHostSizeListResult struct {
+	// The list of dedicated host sizes.
+	Value []*string `json:"value,omitempty"`
+}
+
 // DedicatedHostUpdate - Specifies information about the dedicated host. Only tags, autoReplaceOnFailure and licenseType may
 // be updated.
 type DedicatedHostUpdate struct {
 	// Properties of the dedicated host.
 	Properties *DedicatedHostProperties `json:"properties,omitempty"`
+
+	// List all available dedicated host sizes for resizing [https://docs.microsoft.com/rest/api/compute/dedicated-hosts/listavailablesizes].
+	// Resizing can be only used to scale up DedicatedHost. Only name is
+	// required to be set.
+	SKU *SKU `json:"sku,omitempty"`
 
 	// Resource tags
 	Tags map[string]*string `json:"tags,omitempty"`
@@ -1701,6 +1712,12 @@ type DedicatedHostsClientGetOptions struct {
 	// The expand expression to apply on the operation. 'InstanceView' will retrieve the list of instance views of the dedicated
 	// host. 'UserData' is not supported for dedicated host.
 	Expand *InstanceViewTypes
+}
+
+// DedicatedHostsClientListAvailableSizesOptions contains the optional parameters for the DedicatedHostsClient.NewListAvailableSizesPager
+// method.
+type DedicatedHostsClientListAvailableSizesOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DedicatedHostsClientListByHostGroupOptions contains the optional parameters for the DedicatedHostsClient.NewListByHostGroupPager
@@ -8200,9 +8217,6 @@ type VirtualMachineScaleSetIPConfiguration struct {
 	// REQUIRED; The IP configuration name.
 	Name *string `json:"name,omitempty"`
 
-	// Resource Id
-	ID *string `json:"id,omitempty"`
-
 	// Describes a virtual machine scale set network profile's IP configuration properties.
 	Properties *VirtualMachineScaleSetIPConfigurationProperties `json:"properties,omitempty"`
 }
@@ -8349,9 +8363,6 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 type VirtualMachineScaleSetNetworkConfiguration struct {
 	// REQUIRED; The network configuration name.
 	Name *string `json:"name,omitempty"`
-
-	// Resource Id
-	ID *string `json:"id,omitempty"`
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties `json:"properties,omitempty"`
