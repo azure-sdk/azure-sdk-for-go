@@ -1,5 +1,253 @@
 # Release History
 
+## 2.0.0-beta.1 (2023-03-28)
+### Breaking Changes
+
+- Function `*ContentItemClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, string, *ContentItemClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, string, ContentItemContract, *ContentItemClientCreateOrUpdateOptions)`
+- Function `*ContentTypeClient.CreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, string, *ContentTypeClientCreateOrUpdateOptions)` to `(context.Context, string, string, string, ContentTypeContract, *ContentTypeClientCreateOrUpdateOptions)`
+
+### Features Added
+
+- New value `PlatformVersionStv21` added to enum type `PlatformVersion`
+- New enum type `AsyncResolverStatus` with values `AsyncResolverStatusFailed`, `AsyncResolverStatusInProgress`, `AsyncResolverStatusStarted`, `AsyncResolverStatusSucceeded`
+- New enum type `AuthorizationType` with values `AuthorizationTypeOAuth2`
+- New enum type `NatGatewayState` with values `NatGatewayStateDisabled`, `NatGatewayStateEnabled`
+- New enum type `OAuth2GrantType` with values `OAuth2GrantTypeAuthorizationCode`, `OAuth2GrantTypeClientCredentials`
+- New enum type `PolicyFragmentContentFormat` with values `PolicyFragmentContentFormatRawxml`, `PolicyFragmentContentFormatXML`
+- New enum type `PortalSettingsCspMode` with values `PortalSettingsCspModeDisabled`, `PortalSettingsCspModeEnabled`, `PortalSettingsCspModeReportOnly`
+- New enum type `TranslateRequiredQueryParametersConduct` with values `TranslateRequiredQueryParametersConductQuery`, `TranslateRequiredQueryParametersConductTemplate`
+- New function `NewAPIWikiClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APIWikiClient, error)`
+- New function `*APIWikiClient.CreateOrUpdate(context.Context, string, string, string, WikiContract, *APIWikiClientCreateOrUpdateOptions) (APIWikiClientCreateOrUpdateResponse, error)`
+- New function `*APIWikiClient.Delete(context.Context, string, string, string, string, *APIWikiClientDeleteOptions) (APIWikiClientDeleteResponse, error)`
+- New function `*APIWikiClient.Get(context.Context, string, string, string, *APIWikiClientGetOptions) (APIWikiClientGetResponse, error)`
+- New function `*APIWikiClient.GetEntityTag(context.Context, string, string, string, *APIWikiClientGetEntityTagOptions) (APIWikiClientGetEntityTagResponse, error)`
+- New function `*APIWikiClient.Update(context.Context, string, string, string, string, WikiUpdateContract, *APIWikiClientUpdateOptions) (APIWikiClientUpdateResponse, error)`
+- New function `NewAPIWikisClient(string, azcore.TokenCredential, *arm.ClientOptions) (*APIWikisClient, error)`
+- New function `*APIWikisClient.NewListPager(string, string, string, *APIWikisClientListOptions) *runtime.Pager[APIWikisClientListResponse]`
+- New function `NewAuthorizationAccessPolicyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AuthorizationAccessPolicyClient, error)`
+- New function `*AuthorizationAccessPolicyClient.CreateOrUpdate(context.Context, string, string, string, string, string, AuthorizationAccessPolicyContract, *AuthorizationAccessPolicyClientCreateOrUpdateOptions) (AuthorizationAccessPolicyClientCreateOrUpdateResponse, error)`
+- New function `*AuthorizationAccessPolicyClient.Delete(context.Context, string, string, string, string, string, string, *AuthorizationAccessPolicyClientDeleteOptions) (AuthorizationAccessPolicyClientDeleteResponse, error)`
+- New function `*AuthorizationAccessPolicyClient.Get(context.Context, string, string, string, string, string, *AuthorizationAccessPolicyClientGetOptions) (AuthorizationAccessPolicyClientGetResponse, error)`
+- New function `*AuthorizationAccessPolicyClient.NewListByAuthorizationPager(string, string, string, string, *AuthorizationAccessPolicyClientListByAuthorizationOptions) *runtime.Pager[AuthorizationAccessPolicyClientListByAuthorizationResponse]`
+- New function `NewAuthorizationClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AuthorizationClient, error)`
+- New function `*AuthorizationClient.ConfirmConsentCode(context.Context, string, string, string, string, AuthorizationConfirmConsentCodeRequestContract, *AuthorizationClientConfirmConsentCodeOptions) (AuthorizationClientConfirmConsentCodeResponse, error)`
+- New function `*AuthorizationClient.CreateOrUpdate(context.Context, string, string, string, string, AuthorizationContract, *AuthorizationClientCreateOrUpdateOptions) (AuthorizationClientCreateOrUpdateResponse, error)`
+- New function `*AuthorizationClient.Delete(context.Context, string, string, string, string, string, *AuthorizationClientDeleteOptions) (AuthorizationClientDeleteResponse, error)`
+- New function `*AuthorizationClient.Get(context.Context, string, string, string, string, *AuthorizationClientGetOptions) (AuthorizationClientGetResponse, error)`
+- New function `*AuthorizationClient.NewListByAuthorizationProviderPager(string, string, string, *AuthorizationClientListByAuthorizationProviderOptions) *runtime.Pager[AuthorizationClientListByAuthorizationProviderResponse]`
+- New function `NewAuthorizationLoginLinksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AuthorizationLoginLinksClient, error)`
+- New function `*AuthorizationLoginLinksClient.Post(context.Context, string, string, string, string, AuthorizationLoginRequestContract, *AuthorizationLoginLinksClientPostOptions) (AuthorizationLoginLinksClientPostResponse, error)`
+- New function `NewAuthorizationProviderClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AuthorizationProviderClient, error)`
+- New function `*AuthorizationProviderClient.CreateOrUpdate(context.Context, string, string, string, AuthorizationProviderContract, *AuthorizationProviderClientCreateOrUpdateOptions) (AuthorizationProviderClientCreateOrUpdateResponse, error)`
+- New function `*AuthorizationProviderClient.Delete(context.Context, string, string, string, string, *AuthorizationProviderClientDeleteOptions) (AuthorizationProviderClientDeleteResponse, error)`
+- New function `*AuthorizationProviderClient.Get(context.Context, string, string, string, *AuthorizationProviderClientGetOptions) (AuthorizationProviderClientGetResponse, error)`
+- New function `*AuthorizationProviderClient.NewListByServicePager(string, string, *AuthorizationProviderClientListByServiceOptions) *runtime.Pager[AuthorizationProviderClientListByServiceResponse]`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewAPIClient() *APIClient`
+- New function `*ClientFactory.NewAPIDiagnosticClient() *APIDiagnosticClient`
+- New function `*ClientFactory.NewAPIExportClient() *APIExportClient`
+- New function `*ClientFactory.NewAPIIssueAttachmentClient() *APIIssueAttachmentClient`
+- New function `*ClientFactory.NewAPIIssueClient() *APIIssueClient`
+- New function `*ClientFactory.NewAPIIssueCommentClient() *APIIssueCommentClient`
+- New function `*ClientFactory.NewAPIOperationClient() *APIOperationClient`
+- New function `*ClientFactory.NewAPIOperationPolicyClient() *APIOperationPolicyClient`
+- New function `*ClientFactory.NewAPIPolicyClient() *APIPolicyClient`
+- New function `*ClientFactory.NewAPIProductClient() *APIProductClient`
+- New function `*ClientFactory.NewAPIReleaseClient() *APIReleaseClient`
+- New function `*ClientFactory.NewAPIRevisionClient() *APIRevisionClient`
+- New function `*ClientFactory.NewAPISchemaClient() *APISchemaClient`
+- New function `*ClientFactory.NewAPITagDescriptionClient() *APITagDescriptionClient`
+- New function `*ClientFactory.NewAPIVersionSetClient() *APIVersionSetClient`
+- New function `*ClientFactory.NewAPIWikiClient() *APIWikiClient`
+- New function `*ClientFactory.NewAPIWikisClient() *APIWikisClient`
+- New function `*ClientFactory.NewAuthorizationAccessPolicyClient() *AuthorizationAccessPolicyClient`
+- New function `*ClientFactory.NewAuthorizationClient() *AuthorizationClient`
+- New function `*ClientFactory.NewAuthorizationLoginLinksClient() *AuthorizationLoginLinksClient`
+- New function `*ClientFactory.NewAuthorizationProviderClient() *AuthorizationProviderClient`
+- New function `*ClientFactory.NewAuthorizationServerClient() *AuthorizationServerClient`
+- New function `*ClientFactory.NewBackendClient() *BackendClient`
+- New function `*ClientFactory.NewCacheClient() *CacheClient`
+- New function `*ClientFactory.NewCertificateClient() *CertificateClient`
+- New function `*ClientFactory.NewClient() *Client`
+- New function `*ClientFactory.NewContentItemClient() *ContentItemClient`
+- New function `*ClientFactory.NewContentTypeClient() *ContentTypeClient`
+- New function `*ClientFactory.NewDelegationSettingsClient() *DelegationSettingsClient`
+- New function `*ClientFactory.NewDeletedServicesClient() *DeletedServicesClient`
+- New function `*ClientFactory.NewDiagnosticClient() *DiagnosticClient`
+- New function `*ClientFactory.NewDocumentationClient() *DocumentationClient`
+- New function `*ClientFactory.NewEmailTemplateClient() *EmailTemplateClient`
+- New function `*ClientFactory.NewGatewayAPIClient() *GatewayAPIClient`
+- New function `*ClientFactory.NewGatewayCertificateAuthorityClient() *GatewayCertificateAuthorityClient`
+- New function `*ClientFactory.NewGatewayClient() *GatewayClient`
+- New function `*ClientFactory.NewGatewayHostnameConfigurationClient() *GatewayHostnameConfigurationClient`
+- New function `*ClientFactory.NewGlobalSchemaClient() *GlobalSchemaClient`
+- New function `*ClientFactory.NewGraphQLAPIResolverClient() *GraphQLAPIResolverClient`
+- New function `*ClientFactory.NewGraphQLAPIResolverPolicyClient() *GraphQLAPIResolverPolicyClient`
+- New function `*ClientFactory.NewGroupClient() *GroupClient`
+- New function `*ClientFactory.NewGroupUserClient() *GroupUserClient`
+- New function `*ClientFactory.NewIdentityProviderClient() *IdentityProviderClient`
+- New function `*ClientFactory.NewIssueClient() *IssueClient`
+- New function `*ClientFactory.NewLoggerClient() *LoggerClient`
+- New function `*ClientFactory.NewNamedValueClient() *NamedValueClient`
+- New function `*ClientFactory.NewNetworkStatusClient() *NetworkStatusClient`
+- New function `*ClientFactory.NewNotificationClient() *NotificationClient`
+- New function `*ClientFactory.NewNotificationRecipientEmailClient() *NotificationRecipientEmailClient`
+- New function `*ClientFactory.NewNotificationRecipientUserClient() *NotificationRecipientUserClient`
+- New function `*ClientFactory.NewOpenIDConnectProviderClient() *OpenIDConnectProviderClient`
+- New function `*ClientFactory.NewOperationClient() *OperationClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewOutboundNetworkDependenciesEndpointsClient() *OutboundNetworkDependenciesEndpointsClient`
+- New function `*ClientFactory.NewPolicyClient() *PolicyClient`
+- New function `*ClientFactory.NewPolicyDescriptionClient() *PolicyDescriptionClient`
+- New function `*ClientFactory.NewPolicyFragmentClient() *PolicyFragmentClient`
+- New function `*ClientFactory.NewPortalConfigClient() *PortalConfigClient`
+- New function `*ClientFactory.NewPortalRevisionClient() *PortalRevisionClient`
+- New function `*ClientFactory.NewPortalSettingsClient() *PortalSettingsClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionClient() *PrivateEndpointConnectionClient`
+- New function `*ClientFactory.NewProductAPIClient() *ProductAPIClient`
+- New function `*ClientFactory.NewProductClient() *ProductClient`
+- New function `*ClientFactory.NewProductGroupClient() *ProductGroupClient`
+- New function `*ClientFactory.NewProductPolicyClient() *ProductPolicyClient`
+- New function `*ClientFactory.NewProductSubscriptionsClient() *ProductSubscriptionsClient`
+- New function `*ClientFactory.NewProductWikiClient() *ProductWikiClient`
+- New function `*ClientFactory.NewProductWikisClient() *ProductWikisClient`
+- New function `*ClientFactory.NewQuotaByCounterKeysClient() *QuotaByCounterKeysClient`
+- New function `*ClientFactory.NewQuotaByPeriodKeysClient() *QuotaByPeriodKeysClient`
+- New function `*ClientFactory.NewRegionClient() *RegionClient`
+- New function `*ClientFactory.NewReportsClient() *ReportsClient`
+- New function `*ClientFactory.NewSKUsClient() *SKUsClient`
+- New function `*ClientFactory.NewServiceClient() *ServiceClient`
+- New function `*ClientFactory.NewServiceSKUsClient() *ServiceSKUsClient`
+- New function `*ClientFactory.NewSignInSettingsClient() *SignInSettingsClient`
+- New function `*ClientFactory.NewSignUpSettingsClient() *SignUpSettingsClient`
+- New function `*ClientFactory.NewSubscriptionClient() *SubscriptionClient`
+- New function `*ClientFactory.NewTagClient() *TagClient`
+- New function `*ClientFactory.NewTagResourceClient() *TagResourceClient`
+- New function `*ClientFactory.NewTenantAccessClient() *TenantAccessClient`
+- New function `*ClientFactory.NewTenantAccessGitClient() *TenantAccessGitClient`
+- New function `*ClientFactory.NewTenantConfigurationClient() *TenantConfigurationClient`
+- New function `*ClientFactory.NewTenantSettingsClient() *TenantSettingsClient`
+- New function `*ClientFactory.NewUserClient() *UserClient`
+- New function `*ClientFactory.NewUserConfirmationPasswordClient() *UserConfirmationPasswordClient`
+- New function `*ClientFactory.NewUserGroupClient() *UserGroupClient`
+- New function `*ClientFactory.NewUserIdentitiesClient() *UserIdentitiesClient`
+- New function `*ClientFactory.NewUserSubscriptionClient() *UserSubscriptionClient`
+- New function `NewDocumentationClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DocumentationClient, error)`
+- New function `*DocumentationClient.CreateOrUpdate(context.Context, string, string, string, DocumentationContract, *DocumentationClientCreateOrUpdateOptions) (DocumentationClientCreateOrUpdateResponse, error)`
+- New function `*DocumentationClient.Delete(context.Context, string, string, string, string, *DocumentationClientDeleteOptions) (DocumentationClientDeleteResponse, error)`
+- New function `*DocumentationClient.Get(context.Context, string, string, string, *DocumentationClientGetOptions) (DocumentationClientGetResponse, error)`
+- New function `*DocumentationClient.GetEntityTag(context.Context, string, string, string, *DocumentationClientGetEntityTagOptions) (DocumentationClientGetEntityTagResponse, error)`
+- New function `*DocumentationClient.NewListByServicePager(string, string, *DocumentationClientListByServiceOptions) *runtime.Pager[DocumentationClientListByServiceResponse]`
+- New function `*DocumentationClient.Update(context.Context, string, string, string, string, DocumentationUpdateContract, *DocumentationClientUpdateOptions) (DocumentationClientUpdateResponse, error)`
+- New function `NewGraphQLAPIResolverClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GraphQLAPIResolverClient, error)`
+- New function `*GraphQLAPIResolverClient.CreateOrUpdate(context.Context, string, string, string, string, ResolverContract, *GraphQLAPIResolverClientCreateOrUpdateOptions) (GraphQLAPIResolverClientCreateOrUpdateResponse, error)`
+- New function `*GraphQLAPIResolverClient.Delete(context.Context, string, string, string, string, string, *GraphQLAPIResolverClientDeleteOptions) (GraphQLAPIResolverClientDeleteResponse, error)`
+- New function `*GraphQLAPIResolverClient.Get(context.Context, string, string, string, string, *GraphQLAPIResolverClientGetOptions) (GraphQLAPIResolverClientGetResponse, error)`
+- New function `*GraphQLAPIResolverClient.GetEntityTag(context.Context, string, string, string, string, *GraphQLAPIResolverClientGetEntityTagOptions) (GraphQLAPIResolverClientGetEntityTagResponse, error)`
+- New function `*GraphQLAPIResolverClient.NewListByAPIPager(string, string, string, *GraphQLAPIResolverClientListByAPIOptions) *runtime.Pager[GraphQLAPIResolverClientListByAPIResponse]`
+- New function `*GraphQLAPIResolverClient.Update(context.Context, string, string, string, string, string, ResolverUpdateContract, *GraphQLAPIResolverClientUpdateOptions) (GraphQLAPIResolverClientUpdateResponse, error)`
+- New function `NewGraphQLAPIResolverPolicyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*GraphQLAPIResolverPolicyClient, error)`
+- New function `*GraphQLAPIResolverPolicyClient.CreateOrUpdate(context.Context, string, string, string, string, PolicyIDName, PolicyContract, *GraphQLAPIResolverPolicyClientCreateOrUpdateOptions) (GraphQLAPIResolverPolicyClientCreateOrUpdateResponse, error)`
+- New function `*GraphQLAPIResolverPolicyClient.Delete(context.Context, string, string, string, string, PolicyIDName, string, *GraphQLAPIResolverPolicyClientDeleteOptions) (GraphQLAPIResolverPolicyClientDeleteResponse, error)`
+- New function `*GraphQLAPIResolverPolicyClient.Get(context.Context, string, string, string, string, PolicyIDName, *GraphQLAPIResolverPolicyClientGetOptions) (GraphQLAPIResolverPolicyClientGetResponse, error)`
+- New function `*GraphQLAPIResolverPolicyClient.GetEntityTag(context.Context, string, string, string, string, PolicyIDName, *GraphQLAPIResolverPolicyClientGetEntityTagOptions) (GraphQLAPIResolverPolicyClientGetEntityTagResponse, error)`
+- New function `*GraphQLAPIResolverPolicyClient.NewListByResolverPager(string, string, string, string, *GraphQLAPIResolverPolicyClientListByResolverOptions) *runtime.Pager[GraphQLAPIResolverPolicyClientListByResolverResponse]`
+- New function `NewPolicyFragmentClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PolicyFragmentClient, error)`
+- New function `*PolicyFragmentClient.BeginCreateOrUpdate(context.Context, string, string, string, PolicyFragmentContract, *PolicyFragmentClientBeginCreateOrUpdateOptions) (*runtime.Poller[PolicyFragmentClientCreateOrUpdateResponse], error)`
+- New function `*PolicyFragmentClient.Delete(context.Context, string, string, string, string, *PolicyFragmentClientDeleteOptions) (PolicyFragmentClientDeleteResponse, error)`
+- New function `*PolicyFragmentClient.Get(context.Context, string, string, string, *PolicyFragmentClientGetOptions) (PolicyFragmentClientGetResponse, error)`
+- New function `*PolicyFragmentClient.GetEntityTag(context.Context, string, string, string, *PolicyFragmentClientGetEntityTagOptions) (PolicyFragmentClientGetEntityTagResponse, error)`
+- New function `*PolicyFragmentClient.ListByService(context.Context, string, string, *PolicyFragmentClientListByServiceOptions) (PolicyFragmentClientListByServiceResponse, error)`
+- New function `*PolicyFragmentClient.ListReferences(context.Context, string, string, string, *PolicyFragmentClientListReferencesOptions) (PolicyFragmentClientListReferencesResponse, error)`
+- New function `NewPortalConfigClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PortalConfigClient, error)`
+- New function `*PortalConfigClient.CreateOrUpdate(context.Context, string, string, string, string, PortalConfigContract, *PortalConfigClientCreateOrUpdateOptions) (PortalConfigClientCreateOrUpdateResponse, error)`
+- New function `*PortalConfigClient.Get(context.Context, string, string, string, *PortalConfigClientGetOptions) (PortalConfigClientGetResponse, error)`
+- New function `*PortalConfigClient.GetEntityTag(context.Context, string, string, string, *PortalConfigClientGetEntityTagOptions) (PortalConfigClientGetEntityTagResponse, error)`
+- New function `*PortalConfigClient.ListByService(context.Context, string, string, *PortalConfigClientListByServiceOptions) (PortalConfigClientListByServiceResponse, error)`
+- New function `*PortalConfigClient.Update(context.Context, string, string, string, string, PortalConfigContract, *PortalConfigClientUpdateOptions) (PortalConfigClientUpdateResponse, error)`
+- New function `NewProductWikiClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductWikiClient, error)`
+- New function `*ProductWikiClient.CreateOrUpdate(context.Context, string, string, string, WikiContract, *ProductWikiClientCreateOrUpdateOptions) (ProductWikiClientCreateOrUpdateResponse, error)`
+- New function `*ProductWikiClient.Delete(context.Context, string, string, string, string, *ProductWikiClientDeleteOptions) (ProductWikiClientDeleteResponse, error)`
+- New function `*ProductWikiClient.Get(context.Context, string, string, string, *ProductWikiClientGetOptions) (ProductWikiClientGetResponse, error)`
+- New function `*ProductWikiClient.GetEntityTag(context.Context, string, string, string, *ProductWikiClientGetEntityTagOptions) (ProductWikiClientGetEntityTagResponse, error)`
+- New function `*ProductWikiClient.Update(context.Context, string, string, string, string, WikiUpdateContract, *ProductWikiClientUpdateOptions) (ProductWikiClientUpdateResponse, error)`
+- New function `NewProductWikisClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProductWikisClient, error)`
+- New function `*ProductWikisClient.NewListPager(string, string, string, *ProductWikisClientListOptions) *runtime.Pager[ProductWikisClientListResponse]`
+- New function `*ServiceClient.BeginMigrateToStv2(context.Context, string, string, *ServiceClientBeginMigrateToStv2Options) (*runtime.Poller[ServiceClientMigrateToStv2Response], error)`
+- New struct `AuthorizationAccessPolicyCollection`
+- New struct `AuthorizationAccessPolicyContract`
+- New struct `AuthorizationAccessPolicyContractProperties`
+- New struct `AuthorizationCollection`
+- New struct `AuthorizationConfirmConsentCodeRequestContract`
+- New struct `AuthorizationContract`
+- New struct `AuthorizationContractProperties`
+- New struct `AuthorizationError`
+- New struct `AuthorizationLoginRequestContract`
+- New struct `AuthorizationLoginResponseContract`
+- New struct `AuthorizationProviderCollection`
+- New struct `AuthorizationProviderContract`
+- New struct `AuthorizationProviderContractProperties`
+- New struct `AuthorizationProviderOAuth2GrantTypes`
+- New struct `AuthorizationProviderOAuth2Settings`
+- New struct `ClientFactory`
+- New struct `DocumentationCollection`
+- New struct `DocumentationContract`
+- New struct `DocumentationContractProperties`
+- New struct `DocumentationUpdateContract`
+- New struct `PolicyFragmentCollection`
+- New struct `PolicyFragmentContract`
+- New struct `PolicyFragmentContractProperties`
+- New struct `PortalConfigCollection`
+- New struct `PortalConfigContract`
+- New struct `PortalConfigCorsProperties`
+- New struct `PortalConfigCspProperties`
+- New struct `PortalConfigDelegationProperties`
+- New struct `PortalConfigProperties`
+- New struct `PortalConfigPropertiesSignin`
+- New struct `PortalConfigPropertiesSignup`
+- New struct `PortalConfigTermsOfServiceProperties`
+- New struct `ProxyResource`
+- New struct `ResolverCollection`
+- New struct `ResolverContract`
+- New struct `ResolverEntityBaseContract`
+- New struct `ResolverResultContract`
+- New struct `ResolverResultContractProperties`
+- New struct `ResolverResultLogItemContract`
+- New struct `ResolverUpdateContract`
+- New struct `ResolverUpdateContractProperties`
+- New struct `ResourceCollection`
+- New struct `ResourceCollectionValueItem`
+- New struct `WikiCollection`
+- New struct `WikiContract`
+- New struct `WikiContractProperties`
+- New struct `WikiDocumentationContract`
+- New struct `WikiUpdateContract`
+- New field `TranslateRequiredQueryParametersConduct` in struct `APICreateOrUpdateProperties`
+- New field `NatGatewayState` in struct `AdditionalLocation`
+- New field `OutboundPublicIPAddresses` in struct `AdditionalLocation`
+- New field `OAuth2AuthenticationSettings` in struct `AuthenticationSettingsContract`
+- New field `OpenidAuthenticationSettings` in struct `AuthenticationSettingsContract`
+- New field `UseInAPIDocumentation` in struct `AuthorizationServerContractProperties`
+- New field `UseInTestConsole` in struct `AuthorizationServerContractProperties`
+- New field `UseInAPIDocumentation` in struct `AuthorizationServerUpdateContractProperties`
+- New field `UseInTestConsole` in struct `AuthorizationServerUpdateContractProperties`
+- New field `Metrics` in struct `DiagnosticContractProperties`
+- New field `ClientLibrary` in struct `IdentityProviderBaseParameters`
+- New field `ClientLibrary` in struct `IdentityProviderContractProperties`
+- New field `ClientLibrary` in struct `IdentityProviderCreateContractProperties`
+- New field `ClientLibrary` in struct `IdentityProviderUpdateProperties`
+- New field `UseInAPIDocumentation` in struct `OpenidConnectProviderContractProperties`
+- New field `UseInTestConsole` in struct `OpenidConnectProviderContractProperties`
+- New field `UseInAPIDocumentation` in struct `OpenidConnectProviderUpdateContractProperties`
+- New field `UseInTestConsole` in struct `OpenidConnectProviderUpdateContractProperties`
+- New field `NatGatewayState` in struct `ServiceBaseProperties`
+- New field `OutboundPublicIPAddresses` in struct `ServiceBaseProperties`
+- New field `NatGatewayState` in struct `ServiceProperties`
+- New field `OutboundPublicIPAddresses` in struct `ServiceProperties`
+- New field `NatGatewayState` in struct `ServiceUpdateProperties`
+- New field `OutboundPublicIPAddresses` in struct `ServiceUpdateProperties`
+
+
 ## 1.0.0 (2022-05-17)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/apimanagement/armapimanagement` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html) since version 1.0.0, which contains breaking changes.
