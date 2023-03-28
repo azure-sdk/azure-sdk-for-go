@@ -1,5 +1,14 @@
 # Release History
 
+## 1.1.0 (2023-03-28)
+### Features Added
+
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewClient() *Client`
+- New function `*ClientFactory.NewTemplateSpecVersionsClient() *TemplateSpecVersionsClient`
+- New struct `ClientFactory`
+
+
 ## 1.1.0 (2023-03-27)
 ### Features Added
 
