@@ -116,6 +116,55 @@ func (client *StaticSitesClient) approveOrRejectPrivateEndpointConnectionCreateR
 	return req, runtime.MarshalAsJSON(req, privateEndpointWrapper)
 }
 
+// CreateFreeTrialStaticWebApp - Creates a free trial static web app.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-09-01
+//   - freeTrialStaticWebAppName - Name of the free trial static web app.
+//   - options - StaticSitesClientCreateFreeTrialStaticWebAppOptions contains the optional parameters for the StaticSitesClient.CreateFreeTrialStaticWebApp
+//     method.
+func (client *StaticSitesClient) CreateFreeTrialStaticWebApp(ctx context.Context, freeTrialStaticWebAppName string, freeTrialStaticWebApp FreeTrialStaticWebAppsProxyEntity, options *StaticSitesClientCreateFreeTrialStaticWebAppOptions) (StaticSitesClientCreateFreeTrialStaticWebAppResponse, error) {
+	req, err := client.createFreeTrialStaticWebAppCreateRequest(ctx, freeTrialStaticWebAppName, freeTrialStaticWebApp, options)
+	if err != nil {
+		return StaticSitesClientCreateFreeTrialStaticWebAppResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return StaticSitesClientCreateFreeTrialStaticWebAppResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return StaticSitesClientCreateFreeTrialStaticWebAppResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.createFreeTrialStaticWebAppHandleResponse(resp)
+}
+
+// createFreeTrialStaticWebAppCreateRequest creates the CreateFreeTrialStaticWebApp request.
+func (client *StaticSitesClient) createFreeTrialStaticWebAppCreateRequest(ctx context.Context, freeTrialStaticWebAppName string, freeTrialStaticWebApp FreeTrialStaticWebAppsProxyEntity, options *StaticSitesClientCreateFreeTrialStaticWebAppOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Web/freeTrialStaticWebApps/{freeTrialStaticWebAppName}"
+	if freeTrialStaticWebAppName == "" {
+		return nil, errors.New("parameter freeTrialStaticWebAppName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{freeTrialStaticWebAppName}", url.PathEscape(freeTrialStaticWebAppName))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, freeTrialStaticWebApp)
+}
+
+// createFreeTrialStaticWebAppHandleResponse handles the CreateFreeTrialStaticWebApp response.
+func (client *StaticSitesClient) createFreeTrialStaticWebAppHandleResponse(resp *http.Response) (StaticSitesClientCreateFreeTrialStaticWebAppResponse, error) {
+	result := StaticSitesClientCreateFreeTrialStaticWebAppResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FreeTrialStaticWebAppsProxyEntity); err != nil {
+		return StaticSitesClientCreateFreeTrialStaticWebAppResponse{}, err
+	}
+	return result, nil
+}
+
 // CreateOrUpdateBasicAuth - Description for Adds or updates basic auth for a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
@@ -1001,6 +1050,46 @@ func (client *StaticSitesClient) deleteDatabaseConnectionCreateRequest(ctx conte
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// DeleteFreeTrialStaticWebApp - Deletes a free trial static web app.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-09-01
+//   - freeTrialStaticWebAppName - Name of the free trial static web app.
+//   - options - StaticSitesClientDeleteFreeTrialStaticWebAppOptions contains the optional parameters for the StaticSitesClient.DeleteFreeTrialStaticWebApp
+//     method.
+func (client *StaticSitesClient) DeleteFreeTrialStaticWebApp(ctx context.Context, freeTrialStaticWebAppName string, options *StaticSitesClientDeleteFreeTrialStaticWebAppOptions) (StaticSitesClientDeleteFreeTrialStaticWebAppResponse, error) {
+	req, err := client.deleteFreeTrialStaticWebAppCreateRequest(ctx, freeTrialStaticWebAppName, options)
+	if err != nil {
+		return StaticSitesClientDeleteFreeTrialStaticWebAppResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return StaticSitesClientDeleteFreeTrialStaticWebAppResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
+		return StaticSitesClientDeleteFreeTrialStaticWebAppResponse{}, runtime.NewResponseError(resp)
+	}
+	return StaticSitesClientDeleteFreeTrialStaticWebAppResponse{}, nil
+}
+
+// deleteFreeTrialStaticWebAppCreateRequest creates the DeleteFreeTrialStaticWebApp request.
+func (client *StaticSitesClient) deleteFreeTrialStaticWebAppCreateRequest(ctx context.Context, freeTrialStaticWebAppName string, options *StaticSitesClientDeleteFreeTrialStaticWebAppOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Web/freeTrialStaticWebApps/{freeTrialStaticWebAppName}"
+	if freeTrialStaticWebAppName == "" {
+		return nil, errors.New("parameter freeTrialStaticWebAppName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{freeTrialStaticWebAppName}", url.PathEscape(freeTrialStaticWebAppName))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -2136,6 +2225,55 @@ func (client *StaticSitesClient) getDatabaseConnectionsWithDetailsHandleResponse
 	result := StaticSitesClientGetDatabaseConnectionsWithDetailsResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.DatabaseConnectionCollection); err != nil {
 		return StaticSitesClientGetDatabaseConnectionsWithDetailsResponse{}, err
+	}
+	return result, nil
+}
+
+// GetFreeTrialStaticWebApp - Gets a free trial static web app.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-09-01
+//   - freeTrialStaticWebAppName - Name of the free trial static web app.
+//   - options - StaticSitesClientGetFreeTrialStaticWebAppOptions contains the optional parameters for the StaticSitesClient.GetFreeTrialStaticWebApp
+//     method.
+func (client *StaticSitesClient) GetFreeTrialStaticWebApp(ctx context.Context, freeTrialStaticWebAppName string, options *StaticSitesClientGetFreeTrialStaticWebAppOptions) (StaticSitesClientGetFreeTrialStaticWebAppResponse, error) {
+	req, err := client.getFreeTrialStaticWebAppCreateRequest(ctx, freeTrialStaticWebAppName, options)
+	if err != nil {
+		return StaticSitesClientGetFreeTrialStaticWebAppResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return StaticSitesClientGetFreeTrialStaticWebAppResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return StaticSitesClientGetFreeTrialStaticWebAppResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getFreeTrialStaticWebAppHandleResponse(resp)
+}
+
+// getFreeTrialStaticWebAppCreateRequest creates the GetFreeTrialStaticWebApp request.
+func (client *StaticSitesClient) getFreeTrialStaticWebAppCreateRequest(ctx context.Context, freeTrialStaticWebAppName string, options *StaticSitesClientGetFreeTrialStaticWebAppOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Web/freeTrialStaticWebApps/{freeTrialStaticWebAppName}"
+	if freeTrialStaticWebAppName == "" {
+		return nil, errors.New("parameter freeTrialStaticWebAppName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{freeTrialStaticWebAppName}", url.PathEscape(freeTrialStaticWebAppName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getFreeTrialStaticWebAppHandleResponse handles the GetFreeTrialStaticWebApp response.
+func (client *StaticSitesClient) getFreeTrialStaticWebAppHandleResponse(resp *http.Response) (StaticSitesClientGetFreeTrialStaticWebAppResponse, error) {
+	result := StaticSitesClientGetFreeTrialStaticWebAppResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FreeTrialStaticWebAppsProxyEntity); err != nil {
+		return StaticSitesClientGetFreeTrialStaticWebAppResponse{}, err
 	}
 	return result, nil
 }
@@ -3483,6 +3621,50 @@ func (client *StaticSitesClient) listBasicAuthHandleResponse(resp *http.Response
 	return result, nil
 }
 
+// ListFreeTrialStaticWebApps - Lists all free trial static web apps.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-09-01
+//   - options - StaticSitesClientListFreeTrialStaticWebAppsOptions contains the optional parameters for the StaticSitesClient.ListFreeTrialStaticWebApps
+//     method.
+func (client *StaticSitesClient) ListFreeTrialStaticWebApps(ctx context.Context, options *StaticSitesClientListFreeTrialStaticWebAppsOptions) (StaticSitesClientListFreeTrialStaticWebAppsResponse, error) {
+	req, err := client.listFreeTrialStaticWebAppsCreateRequest(ctx, options)
+	if err != nil {
+		return StaticSitesClientListFreeTrialStaticWebAppsResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return StaticSitesClientListFreeTrialStaticWebAppsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return StaticSitesClientListFreeTrialStaticWebAppsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.listFreeTrialStaticWebAppsHandleResponse(resp)
+}
+
+// listFreeTrialStaticWebAppsCreateRequest creates the ListFreeTrialStaticWebApps request.
+func (client *StaticSitesClient) listFreeTrialStaticWebAppsCreateRequest(ctx context.Context, options *StaticSitesClientListFreeTrialStaticWebAppsOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Web/freeTrialStaticWebApps"
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listFreeTrialStaticWebAppsHandleResponse handles the ListFreeTrialStaticWebApps response.
+func (client *StaticSitesClient) listFreeTrialStaticWebAppsHandleResponse(resp *http.Response) (StaticSitesClientListFreeTrialStaticWebAppsResponse, error) {
+	result := StaticSitesClientListFreeTrialStaticWebAppsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.FreeTrialStaticWebAppsProxyEntityCollection); err != nil {
+		return StaticSitesClientListFreeTrialStaticWebAppsResponse{}, err
+	}
+	return result, nil
+}
+
 // ListStaticSiteAppSettings - Description for Gets the application settings of a static site.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
@@ -4769,6 +4951,46 @@ func (client *StaticSitesClient) updateStaticSiteUserHandleResponse(resp *http.R
 		return StaticSitesClientUpdateStaticSiteUserResponse{}, err
 	}
 	return result, nil
+}
+
+// UpgradeFreeTrialStaticWebApp - Upgrades a free trial static web app.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-09-01
+//   - freeTrialStaticWebAppName - Name of the free trial static web app.
+//   - options - StaticSitesClientUpgradeFreeTrialStaticWebAppOptions contains the optional parameters for the StaticSitesClient.UpgradeFreeTrialStaticWebApp
+//     method.
+func (client *StaticSitesClient) UpgradeFreeTrialStaticWebApp(ctx context.Context, freeTrialStaticWebAppName string, freeTrialStaticWebApp FreeTrialStaticWebAppsProxyEntity, options *StaticSitesClientUpgradeFreeTrialStaticWebAppOptions) (StaticSitesClientUpgradeFreeTrialStaticWebAppResponse, error) {
+	req, err := client.upgradeFreeTrialStaticWebAppCreateRequest(ctx, freeTrialStaticWebAppName, freeTrialStaticWebApp, options)
+	if err != nil {
+		return StaticSitesClientUpgradeFreeTrialStaticWebAppResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return StaticSitesClientUpgradeFreeTrialStaticWebAppResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
+		return StaticSitesClientUpgradeFreeTrialStaticWebAppResponse{}, runtime.NewResponseError(resp)
+	}
+	return StaticSitesClientUpgradeFreeTrialStaticWebAppResponse{}, nil
+}
+
+// upgradeFreeTrialStaticWebAppCreateRequest creates the UpgradeFreeTrialStaticWebApp request.
+func (client *StaticSitesClient) upgradeFreeTrialStaticWebAppCreateRequest(ctx context.Context, freeTrialStaticWebAppName string, freeTrialStaticWebApp FreeTrialStaticWebAppsProxyEntity, options *StaticSitesClientUpgradeFreeTrialStaticWebAppOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Web/freeTrialStaticWebApps/{freeTrialStaticWebAppName}/upgrade"
+	if freeTrialStaticWebAppName == "" {
+		return nil, errors.New("parameter freeTrialStaticWebAppName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{freeTrialStaticWebAppName}", url.PathEscape(freeTrialStaticWebAppName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, freeTrialStaticWebApp)
 }
 
 // BeginValidateBackend - Validates that a backend can be linked to a static site

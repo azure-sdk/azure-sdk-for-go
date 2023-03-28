@@ -4162,6 +4162,50 @@ type ForwardProxy struct {
 	CustomProtoHeaderName *string `json:"customProtoHeaderName,omitempty"`
 }
 
+type FreeTrialStaticWebAppsProxyEntity struct {
+	// REQUIRED; Resource Location.
+	Location *string `json:"location,omitempty"`
+
+	// Kind of resource.
+	Kind *string `json:"kind,omitempty"`
+
+	// FreeTrialStaticWebAppsProxyEntity resource specific properties
+	Properties *FreeTrialStaticWebAppsProxyEntityProperties `json:"properties,omitempty"`
+
+	// SKU description of the resource.
+	SKU *SKUDescription `json:"sku,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Resource Id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource Name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// FreeTrialStaticWebAppsProxyEntityCollection - Collection of free trial static web apps.
+type FreeTrialStaticWebAppsProxyEntityCollection struct {
+	// REQUIRED; Collection of resources.
+	Value []*FreeTrialStaticWebAppsProxyEntity `json:"value,omitempty"`
+
+	// READ-ONLY; Link to next page of resources.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// FreeTrialStaticWebAppsProxyEntityProperties - FreeTrialStaticWebAppsProxyEntity resource specific properties
+type FreeTrialStaticWebAppsProxyEntityProperties struct {
+	// A static site.
+	Properties *StaticSite `json:"properties,omitempty"`
+
+	// READ-ONLY
+	StaticSiteResourceID *string `json:"staticSiteResourceId,omitempty" azure:"ro"`
+}
+
 type FrontEndConfiguration struct {
 	Kind *FrontEndServiceType `json:"kind,omitempty"`
 }
@@ -10369,6 +10413,12 @@ type StaticSitesClientBeginValidateCustomDomainCanBeAddedToStaticSiteOptions str
 	ResumeToken string
 }
 
+// StaticSitesClientCreateFreeTrialStaticWebAppOptions contains the optional parameters for the StaticSitesClient.CreateFreeTrialStaticWebApp
+// method.
+type StaticSitesClientCreateFreeTrialStaticWebAppOptions struct {
+	// placeholder for future optional parameters
+}
+
 // StaticSitesClientCreateOrUpdateBasicAuthOptions contains the optional parameters for the StaticSitesClient.CreateOrUpdateBasicAuth
 // method.
 type StaticSitesClientCreateOrUpdateBasicAuthOptions struct {
@@ -10426,6 +10476,12 @@ type StaticSitesClientDeleteBuildDatabaseConnectionOptions struct {
 // StaticSitesClientDeleteDatabaseConnectionOptions contains the optional parameters for the StaticSitesClient.DeleteDatabaseConnection
 // method.
 type StaticSitesClientDeleteDatabaseConnectionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientDeleteFreeTrialStaticWebAppOptions contains the optional parameters for the StaticSitesClient.DeleteFreeTrialStaticWebApp
+// method.
+type StaticSitesClientDeleteFreeTrialStaticWebAppOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -10497,6 +10553,12 @@ type StaticSitesClientGetDatabaseConnectionsOptions struct {
 // StaticSitesClientGetDatabaseConnectionsWithDetailsOptions contains the optional parameters for the StaticSitesClient.NewGetDatabaseConnectionsWithDetailsPager
 // method.
 type StaticSitesClientGetDatabaseConnectionsWithDetailsOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientGetFreeTrialStaticWebAppOptions contains the optional parameters for the StaticSitesClient.GetFreeTrialStaticWebApp
+// method.
+type StaticSitesClientGetFreeTrialStaticWebAppOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -10597,6 +10659,12 @@ type StaticSitesClientGetUserProvidedFunctionAppsForStaticSiteOptions struct {
 // StaticSitesClientListBasicAuthOptions contains the optional parameters for the StaticSitesClient.NewListBasicAuthPager
 // method.
 type StaticSitesClientListBasicAuthOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientListFreeTrialStaticWebAppsOptions contains the optional parameters for the StaticSitesClient.ListFreeTrialStaticWebApps
+// method.
+type StaticSitesClientListFreeTrialStaticWebAppsOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -10709,6 +10777,12 @@ type StaticSitesClientUpdateStaticSiteOptions struct {
 // StaticSitesClientUpdateStaticSiteUserOptions contains the optional parameters for the StaticSitesClient.UpdateStaticSiteUser
 // method.
 type StaticSitesClientUpdateStaticSiteUserOptions struct {
+	// placeholder for future optional parameters
+}
+
+// StaticSitesClientUpgradeFreeTrialStaticWebAppOptions contains the optional parameters for the StaticSitesClient.UpgradeFreeTrialStaticWebApp
+// method.
+type StaticSitesClientUpgradeFreeTrialStaticWebAppOptions struct {
 	// placeholder for future optional parameters
 }
 

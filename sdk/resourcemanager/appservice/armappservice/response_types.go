@@ -1008,6 +1008,11 @@ type StaticSitesClientApproveOrRejectPrivateEndpointConnectionResponse struct {
 	RemotePrivateEndpointConnectionARMResource
 }
 
+// StaticSitesClientCreateFreeTrialStaticWebAppResponse contains the response from method StaticSitesClient.CreateFreeTrialStaticWebApp.
+type StaticSitesClientCreateFreeTrialStaticWebAppResponse struct {
+	FreeTrialStaticWebAppsProxyEntity
+}
+
 // StaticSitesClientCreateOrUpdateBasicAuthResponse contains the response from method StaticSitesClient.CreateOrUpdateBasicAuth.
 type StaticSitesClientCreateOrUpdateBasicAuthResponse struct {
 	StaticSiteBasicAuthPropertiesARMResource
@@ -1075,6 +1080,11 @@ type StaticSitesClientDeleteBuildDatabaseConnectionResponse struct {
 
 // StaticSitesClientDeleteDatabaseConnectionResponse contains the response from method StaticSitesClient.DeleteDatabaseConnection.
 type StaticSitesClientDeleteDatabaseConnectionResponse struct {
+	// placeholder for future response values
+}
+
+// StaticSitesClientDeleteFreeTrialStaticWebAppResponse contains the response from method StaticSitesClient.DeleteFreeTrialStaticWebApp.
+type StaticSitesClientDeleteFreeTrialStaticWebAppResponse struct {
 	// placeholder for future response values
 }
 
@@ -1167,6 +1177,11 @@ type StaticSitesClientGetDatabaseConnectionsResponse struct {
 // StaticSitesClientGetDatabaseConnectionsWithDetailsResponse contains the response from method StaticSitesClient.NewGetDatabaseConnectionsWithDetailsPager.
 type StaticSitesClientGetDatabaseConnectionsWithDetailsResponse struct {
 	DatabaseConnectionCollection
+}
+
+// StaticSitesClientGetFreeTrialStaticWebAppResponse contains the response from method StaticSitesClient.GetFreeTrialStaticWebApp.
+type StaticSitesClientGetFreeTrialStaticWebAppResponse struct {
+	FreeTrialStaticWebAppsProxyEntity
 }
 
 // StaticSitesClientGetLinkedBackendForBuildResponse contains the response from method StaticSitesClient.GetLinkedBackendForBuild.
@@ -1262,6 +1277,11 @@ type StaticSitesClientLinkBackendToBuildResponse struct {
 // StaticSitesClientListBasicAuthResponse contains the response from method StaticSitesClient.NewListBasicAuthPager.
 type StaticSitesClientListBasicAuthResponse struct {
 	StaticSiteBasicAuthPropertiesCollection
+}
+
+// StaticSitesClientListFreeTrialStaticWebAppsResponse contains the response from method StaticSitesClient.ListFreeTrialStaticWebApps.
+type StaticSitesClientListFreeTrialStaticWebAppsResponse struct {
+	FreeTrialStaticWebAppsProxyEntityCollection
 }
 
 // StaticSitesClientListResponse contains the response from method StaticSitesClient.NewListPager.
@@ -1367,6 +1387,11 @@ type StaticSitesClientUpdateStaticSiteResponse struct {
 // StaticSitesClientUpdateStaticSiteUserResponse contains the response from method StaticSitesClient.UpdateStaticSiteUser.
 type StaticSitesClientUpdateStaticSiteUserResponse struct {
 	StaticSiteUserARMResource
+}
+
+// StaticSitesClientUpgradeFreeTrialStaticWebAppResponse contains the response from method StaticSitesClient.UpgradeFreeTrialStaticWebApp.
+type StaticSitesClientUpgradeFreeTrialStaticWebAppResponse struct {
+	// placeholder for future response values
 }
 
 // StaticSitesClientValidateBackendForBuildResponse contains the response from method StaticSitesClient.BeginValidateBackendForBuild.

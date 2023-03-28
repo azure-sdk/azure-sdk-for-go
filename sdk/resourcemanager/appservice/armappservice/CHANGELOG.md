@@ -1,5 +1,18 @@
 # Release History
 
+## 2.2.0 (2023-03-28)
+### Features Added
+
+- New function `*StaticSitesClient.CreateFreeTrialStaticWebApp(context.Context, string, FreeTrialStaticWebAppsProxyEntity, *StaticSitesClientCreateFreeTrialStaticWebAppOptions) (StaticSitesClientCreateFreeTrialStaticWebAppResponse, error)`
+- New function `*StaticSitesClient.DeleteFreeTrialStaticWebApp(context.Context, string, *StaticSitesClientDeleteFreeTrialStaticWebAppOptions) (StaticSitesClientDeleteFreeTrialStaticWebAppResponse, error)`
+- New function `*StaticSitesClient.GetFreeTrialStaticWebApp(context.Context, string, *StaticSitesClientGetFreeTrialStaticWebAppOptions) (StaticSitesClientGetFreeTrialStaticWebAppResponse, error)`
+- New function `*StaticSitesClient.ListFreeTrialStaticWebApps(context.Context, *StaticSitesClientListFreeTrialStaticWebAppsOptions) (StaticSitesClientListFreeTrialStaticWebAppsResponse, error)`
+- New function `*StaticSitesClient.UpgradeFreeTrialStaticWebApp(context.Context, string, FreeTrialStaticWebAppsProxyEntity, *StaticSitesClientUpgradeFreeTrialStaticWebAppOptions) (StaticSitesClientUpgradeFreeTrialStaticWebAppResponse, error)`
+- New struct `FreeTrialStaticWebAppsProxyEntity`
+- New struct `FreeTrialStaticWebAppsProxyEntityCollection`
+- New struct `FreeTrialStaticWebAppsProxyEntityProperties`
+
+
 ## 2.1.0 (2023-03-24)
 ### Features Added
 
