@@ -7112,6 +7112,9 @@ type VirtualMachineExtensionProperties struct {
 	// The extensions protected settings that are passed by reference, and consumed from key vault
 	ProtectedSettingsFromKeyVault *KeyVaultSecretReference `json:"protectedSettingsFromKeyVault,omitempty"`
 
+	// Collection of extension names after which this extension needs to be provisioned.
+	ProvisionAfterExtensions []*string `json:"provisionAfterExtensions,omitempty"`
+
 	// The name of the extension handler publisher.
 	Publisher *string `json:"publisher,omitempty"`
 
@@ -8200,9 +8203,6 @@ type VirtualMachineScaleSetIPConfiguration struct {
 	// REQUIRED; The IP configuration name.
 	Name *string `json:"name,omitempty"`
 
-	// Resource Id
-	ID *string `json:"id,omitempty"`
-
 	// Describes a virtual machine scale set network profile's IP configuration properties.
 	Properties *VirtualMachineScaleSetIPConfigurationProperties `json:"properties,omitempty"`
 }
@@ -8349,9 +8349,6 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 type VirtualMachineScaleSetNetworkConfiguration struct {
 	// REQUIRED; The network configuration name.
 	Name *string `json:"name,omitempty"`
-
-	// Resource Id
-	ID *string `json:"id,omitempty"`
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties `json:"properties,omitempty"`
@@ -9060,6 +9057,9 @@ type VirtualMachineScaleSetVM struct {
 
 // VirtualMachineScaleSetVMExtension - Describes a VMSS VM Extension.
 type VirtualMachineScaleSetVMExtension struct {
+	// The location of the extension.
+	Location *string `json:"location,omitempty"`
+
 	// Describes the properties of a Virtual Machine Extension.
 	Properties *VirtualMachineExtensionProperties `json:"properties,omitempty"`
 
