@@ -1,5 +1,18 @@
 # Release History
 
+## 2.3.0 (2023-03-28)
+### Features Added
+
+- New value `WebApplicationFirewallRuleTypeRateLimitRule` added to enum type `WebApplicationFirewallRuleType`
+- New enum type `ApplicationGatewayFirewallRateLimitDuration` with values `ApplicationGatewayFirewallRateLimitDurationFiveMins`, `ApplicationGatewayFirewallRateLimitDurationOneMin`
+- New enum type `ApplicationGatewayFirewallUserSessionVariable` with values `ApplicationGatewayFirewallUserSessionVariableClientAddr`, `ApplicationGatewayFirewallUserSessionVariableGeoLocation`, `ApplicationGatewayFirewallUserSessionVariableNone`
+- New struct `GroupByUserSession`
+- New struct `GroupByVariable`
+- New field `GroupByUserSession` in struct `WebApplicationFirewallCustomRule`
+- New field `RateLimitDuration` in struct `WebApplicationFirewallCustomRule`
+- New field `RateLimitThreshold` in struct `WebApplicationFirewallCustomRule`
+
+
 ## 2.2.0 (2023-03-24)
 ### Features Added
 
