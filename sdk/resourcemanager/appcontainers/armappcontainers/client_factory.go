@@ -43,8 +43,48 @@ func (c *ClientFactory) NewContainerAppsAuthConfigsClient() *ContainerAppsAuthCo
 	return subClient
 }
 
+func (c *ClientFactory) NewAvailableWorkloadProfilesClient() *AvailableWorkloadProfilesClient {
+	subClient, _ := NewAvailableWorkloadProfilesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewBillingMetersClient() *BillingMetersClient {
+	subClient, _ := NewBillingMetersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedEnvironmentsClient() *ConnectedEnvironmentsClient {
+	subClient, _ := NewConnectedEnvironmentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedEnvironmentsCertificatesClient() *ConnectedEnvironmentsCertificatesClient {
+	subClient, _ := NewConnectedEnvironmentsCertificatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedEnvironmentsDaprComponentsClient() *ConnectedEnvironmentsDaprComponentsClient {
+	subClient, _ := NewConnectedEnvironmentsDaprComponentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConnectedEnvironmentsStoragesClient() *ConnectedEnvironmentsStoragesClient {
+	subClient, _ := NewConnectedEnvironmentsStoragesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewContainerAppsClient() *ContainerAppsClient {
 	subClient, _ := NewContainerAppsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobsClient() *JobsClient {
+	subClient, _ := NewJobsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobsExecutionsClient() *JobsExecutionsClient {
+	subClient, _ := NewJobsExecutionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -55,11 +95,6 @@ func (c *ClientFactory) NewContainerAppsRevisionsClient() *ContainerAppsRevision
 
 func (c *ClientFactory) NewContainerAppsRevisionReplicasClient() *ContainerAppsRevisionReplicasClient {
 	subClient, _ := NewContainerAppsRevisionReplicasClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewDaprComponentsClient() *DaprComponentsClient {
-	subClient, _ := NewDaprComponentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -93,8 +128,18 @@ func (c *ClientFactory) NewCertificatesClient() *CertificatesClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewManagedCertificatesClient() *ManagedCertificatesClient {
+	subClient, _ := NewManagedCertificatesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewNamespacesClient() *NamespacesClient {
 	subClient, _ := NewNamespacesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDaprComponentsClient() *DaprComponentsClient {
+	subClient, _ := NewDaprComponentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -105,35 +150,5 @@ func (c *ClientFactory) NewManagedEnvironmentsStoragesClient() *ManagedEnvironme
 
 func (c *ClientFactory) NewContainerAppsSourceControlsClient() *ContainerAppsSourceControlsClient {
 	subClient, _ := NewContainerAppsSourceControlsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewConnectedEnvironmentsClient() *ConnectedEnvironmentsClient {
-	subClient, _ := NewConnectedEnvironmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewConnectedEnvironmentsCertificatesClient() *ConnectedEnvironmentsCertificatesClient {
-	subClient, _ := NewConnectedEnvironmentsCertificatesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewConnectedEnvironmentsDaprComponentsClient() *ConnectedEnvironmentsDaprComponentsClient {
-	subClient, _ := NewConnectedEnvironmentsDaprComponentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewConnectedEnvironmentsStoragesClient() *ConnectedEnvironmentsStoragesClient {
-	subClient, _ := NewConnectedEnvironmentsStoragesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewAvailableWorkloadProfilesClient() *AvailableWorkloadProfilesClient {
-	subClient, _ := NewAvailableWorkloadProfilesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewBillingMetersClient() *BillingMetersClient {
-	subClient, _ := NewBillingMetersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
