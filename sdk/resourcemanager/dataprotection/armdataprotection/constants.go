@@ -11,7 +11,7 @@ package armdataprotection
 
 const (
 	moduleName    = "armdataprotection"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v3.0.0-beta.1"
 )
 
 type AbsoluteMarker string
@@ -167,6 +167,24 @@ func PossibleDayOfWeekValues() []DayOfWeek {
 	}
 }
 
+// EncryptionState - State of encryption
+type EncryptionState string
+
+const (
+	EncryptionStateDisabled     EncryptionState = "Disabled"
+	EncryptionStateEnabled      EncryptionState = "Enabled"
+	EncryptionStateInconsistent EncryptionState = "Inconsistent"
+)
+
+// PossibleEncryptionStateValues returns the possible values for the EncryptionState const type.
+func PossibleEncryptionStateValues() []EncryptionState {
+	return []EncryptionState{
+		EncryptionStateDisabled,
+		EncryptionStateEnabled,
+		EncryptionStateInconsistent,
+	}
+}
+
 // ExistingResourcePolicy - Gets or sets the Conflict Policy property. This property sets policy during conflict of resources
 // during restore.
 type ExistingResourcePolicy string
@@ -239,6 +257,43 @@ func PossibleImmutabilityStateValues() []ImmutabilityState {
 		ImmutabilityStateDisabled,
 		ImmutabilityStateLocked,
 		ImmutabilityStateUnlocked,
+	}
+}
+
+// InfrastructureEncryptionState - State of Infrastructure encryption
+type InfrastructureEncryptionState string
+
+const (
+	InfrastructureEncryptionStateDisabled InfrastructureEncryptionState = "Disabled"
+	InfrastructureEncryptionStateEnabled  InfrastructureEncryptionState = "Enabled"
+)
+
+// PossibleInfrastructureEncryptionStateValues returns the possible values for the InfrastructureEncryptionState const type.
+func PossibleInfrastructureEncryptionStateValues() []InfrastructureEncryptionState {
+	return []InfrastructureEncryptionState{
+		InfrastructureEncryptionStateDisabled,
+		InfrastructureEncryptionStateEnabled,
+	}
+}
+
+type ManagedIdentityType string
+
+const (
+	ManagedIdentityTypeNone                          ManagedIdentityType = "None"
+	ManagedIdentityTypeSystemAssigned                ManagedIdentityType = "SystemAssigned"
+	ManagedIdentityTypeSystemAssignedAndUserAssigned ManagedIdentityType = "SystemAssignedAndUserAssigned"
+	ManagedIdentityTypeUnknown                       ManagedIdentityType = "Unknown"
+	ManagedIdentityTypeUserAssigned                  ManagedIdentityType = "UserAssigned"
+)
+
+// PossibleManagedIdentityTypeValues returns the possible values for the ManagedIdentityType const type.
+func PossibleManagedIdentityTypeValues() []ManagedIdentityType {
+	return []ManagedIdentityType{
+		ManagedIdentityTypeNone,
+		ManagedIdentityTypeSystemAssigned,
+		ManagedIdentityTypeSystemAssignedAndUserAssigned,
+		ManagedIdentityTypeUnknown,
+		ManagedIdentityTypeUserAssigned,
 	}
 }
 
@@ -450,6 +505,28 @@ func PossibleSecretStoreTypeValues() []SecretStoreType {
 	return []SecretStoreType{
 		SecretStoreTypeAzureKeyVault,
 		SecretStoreTypeInvalid,
+	}
+}
+
+// SecureScoreLevel - Secure Score of Backup Vault
+type SecureScoreLevel string
+
+const (
+	SecureScoreLevelAdequate     SecureScoreLevel = "Adequate"
+	SecureScoreLevelMaximum      SecureScoreLevel = "Maximum"
+	SecureScoreLevelMinimum      SecureScoreLevel = "Minimum"
+	SecureScoreLevelNone         SecureScoreLevel = "None"
+	SecureScoreLevelNotSupported SecureScoreLevel = "NotSupported"
+)
+
+// PossibleSecureScoreLevelValues returns the possible values for the SecureScoreLevel const type.
+func PossibleSecureScoreLevelValues() []SecureScoreLevel {
+	return []SecureScoreLevel{
+		SecureScoreLevelAdequate,
+		SecureScoreLevelMaximum,
+		SecureScoreLevelMinimum,
+		SecureScoreLevelNone,
+		SecureScoreLevelNotSupported,
 	}
 }
 

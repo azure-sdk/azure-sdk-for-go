@@ -336,6 +336,9 @@ type AzureBackupRecoveryPointBasedRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType `json:"sourceDataStoreType,omitempty"`
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails `json:"identityDetails,omitempty"`
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 }
@@ -353,6 +356,7 @@ func (a *AzureBackupRecoveryPointBasedRestoreRequest) GetAzureBackupRestoreReque
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -397,6 +401,9 @@ type AzureBackupRecoveryTimeBasedRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType `json:"sourceDataStoreType,omitempty"`
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails `json:"identityDetails,omitempty"`
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 }
@@ -408,6 +415,7 @@ func (a *AzureBackupRecoveryTimeBasedRestoreRequest) GetAzureBackupRestoreReques
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -444,6 +452,9 @@ type AzureBackupRestoreRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType `json:"sourceDataStoreType,omitempty"`
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails `json:"identityDetails,omitempty"`
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 }
@@ -473,6 +484,9 @@ type AzureBackupRestoreWithRehydrationRequest struct {
 	// REQUIRED; Gets or sets the type of the source data store.
 	SourceDataStoreType *SourceDataStoreType `json:"sourceDataStoreType,omitempty"`
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails `json:"identityDetails,omitempty"`
+
 	// Fully qualified Azure Resource Manager ID of the datasource which is being recovered.
 	SourceResourceID *string `json:"sourceResourceId,omitempty"`
 }
@@ -486,6 +500,7 @@ func (a *AzureBackupRestoreWithRehydrationRequest) GetAzureBackupRecoveryPointBa
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -496,6 +511,7 @@ func (a *AzureBackupRestoreWithRehydrationRequest) GetAzureBackupRestoreRequest(
 		RestoreTargetInfo:   a.RestoreTargetInfo,
 		SourceDataStoreType: a.SourceDataStoreType,
 		SourceResourceID:    a.SourceResourceID,
+		IdentityDetails:     a.IdentityDetails,
 	}
 }
 
@@ -628,6 +644,9 @@ type BackupInstance struct {
 
 	// Gets or sets the Backup Instance friendly name.
 	FriendlyName *string `json:"friendlyName,omitempty"`
+
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails `json:"identityDetails,omitempty"`
 
 	// Specifies the type of validation. In case of DeepValidation, all validations from /validateForBackup API will run again.
 	ValidationType *ValidationType `json:"validationType,omitempty"`
@@ -867,6 +886,9 @@ type BackupVault struct {
 
 	// READ-ONLY; Resource move state for backup vault
 	ResourceMoveState *ResourceMoveState `json:"resourceMoveState,omitempty" azure:"ro"`
+
+	// READ-ONLY; Secure Score of Backup Vault
+	SecureScore *SecureScoreLevel `json:"secureScore,omitempty" azure:"ro"`
 }
 
 // BackupVaultOperationResultsClientGetOptions contains the optional parameters for the BackupVaultOperationResultsClient.Get
@@ -1133,6 +1155,25 @@ type ClientDiscoveryValueForSingleAPI struct {
 	Properties *ClientDiscoveryForProperties `json:"properties,omitempty"`
 }
 
+// ClientFetchSecondaryRPsOptions contains the optional parameters for the Client.NewFetchSecondaryRPsPager method.
+type ClientFetchSecondaryRPsOptions struct {
+	// OData filter options.
+	Filter *string
+	// skipToken Filter.
+	SkipToken *string
+}
+
+// CmkKekIdentity - Class containing Selected User identity settings of vault
+type CmkKekIdentity struct {
+	IdentityID   *string              `json:"identityId,omitempty"`
+	IdentityType *ManagedIdentityType `json:"identityType,omitempty"`
+}
+
+// CmkKeyVaultProperties - Class containing CMK settings of the backup vault
+type CmkKeyVaultProperties struct {
+	KeyURI *string `json:"keyUri,omitempty"`
+}
+
 // CopyOnExpiryOption - Copy on Expiry Option
 type CopyOnExpiryOption struct {
 	// REQUIRED; Type of the specific object - used for deserializing
@@ -1316,6 +1357,9 @@ type DeletedBackupInstance struct {
 	// Gets or sets the Backup Instance friendly name.
 	FriendlyName *string `json:"friendlyName,omitempty"`
 
+	// Contains information of the Identity Details for the BI. If it is null, default will be considered as System Assigned.
+	IdentityDetails *IdentityDetails `json:"identityDetails,omitempty"`
+
 	// Specifies the type of validation. In case of DeepValidation, all validations from /validateForBackup API will run again.
 	ValidationType *ValidationType `json:"validationType,omitempty"`
 
@@ -1441,8 +1485,11 @@ type DppBaseTrackedResource struct {
 
 // DppIdentityDetails - Identity details
 type DppIdentityDetails struct {
-	// The identityType which can be either SystemAssigned or None
+	// The identityType which can be either SystemAssigned, UserAssigned or None
 	Type *string `json:"type,omitempty"`
+
+	// Gets or sets the user assigned identities.
+	UserAssignedIdentities map[string]*UserAssignedIdentityDetails `json:"userAssignedIdentities,omitempty"`
 
 	// READ-ONLY; The object ID of the service principal object for the managed identity that is used to grant role-based access
 	// to an Azure resource.
@@ -1482,6 +1529,34 @@ type DppResource struct {
 
 	// READ-ONLY; Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// DppResourceGuardProxyClientCreateOrUpdateOptions contains the optional parameters for the DppResourceGuardProxyClient.CreateOrUpdate
+// method.
+type DppResourceGuardProxyClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientDeleteOptions contains the optional parameters for the DppResourceGuardProxyClient.Delete method.
+type DppResourceGuardProxyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientGetOptions contains the optional parameters for the DppResourceGuardProxyClient.Get method.
+type DppResourceGuardProxyClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientListOptions contains the optional parameters for the DppResourceGuardProxyClient.NewListPager
+// method.
+type DppResourceGuardProxyClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientUnlockDeleteOptions contains the optional parameters for the DppResourceGuardProxyClient.UnlockDelete
+// method.
+type DppResourceGuardProxyClientUnlockDeleteOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DppResourceList - ListResource
@@ -1533,6 +1608,21 @@ type DppWorkerRequest struct {
 	SubscriptionID         *string            `json:"subscriptionId,omitempty"`
 	SupportedGroupVersions []*string          `json:"supportedGroupVersions,omitempty"`
 	URI                    *string            `json:"uri,omitempty"`
+}
+
+// EncryptionSettings - Class containing encryption settings of vault
+type EncryptionSettings struct {
+	// State of Infrastructure encryption
+	InfrastructureEncryption *InfrastructureEncryptionState `json:"infrastructureEncryption,omitempty"`
+
+	// Identity Details
+	KekIdentity *CmkKekIdentity `json:"kekIdentity,omitempty"`
+
+	// Key Vault Details
+	KeyVaultProperties *CmkKeyVaultProperties `json:"keyVaultProperties,omitempty"`
+
+	// State of encryption
+	State *EncryptionState `json:"state,omitempty"`
 }
 
 // Error - The resource management error response.
@@ -1671,6 +1761,24 @@ type FeatureValidationResponseBase struct {
 // GetFeatureValidationResponseBase implements the FeatureValidationResponseBaseClassification interface for type FeatureValidationResponseBase.
 func (f *FeatureValidationResponseBase) GetFeatureValidationResponseBase() *FeatureValidationResponseBase {
 	return f
+}
+
+// FetchSecondaryRPsRequestParameters - Information about BI whose secondary RecoveryPoints are requested Source region and
+// BI ARM path
+type FetchSecondaryRPsRequestParameters struct {
+	// ARM Path of BackupInstance
+	SourceBackupInstanceID *string `json:"sourceBackupInstanceId,omitempty"`
+
+	// Source region in which BackupInstance is located
+	SourceRegion *string `json:"sourceRegion,omitempty"`
+}
+
+type IdentityDetails struct {
+	// Specifies if the BI is protected by System Identity.
+	UseSystemAssignedIdentity *bool `json:"useSystemAssignedIdentity,omitempty"`
+
+	// ARM URL for User Assigned Identity.
+	UserAssignedIdentityArmURL *string `json:"userAssignedIdentityArmUrl,omitempty"`
 }
 
 // ImmediateCopyOption - Immediate copy Option
@@ -1819,6 +1927,12 @@ type JobSubTask struct {
 
 	// READ-ONLY; Progress of the Sub Task
 	TaskProgress *string `json:"taskProgress,omitempty" azure:"ro"`
+}
+
+// JobsClientBeginTriggerCancelOptions contains the optional parameters for the JobsClient.BeginTriggerCancel method.
+type JobsClientBeginTriggerCancelOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // JobsClientGetOptions contains the optional parameters for the JobsClient.Get method.
@@ -2182,6 +2296,47 @@ type ResourceGuardOperation struct {
 	VaultCriticalOperation *string `json:"vaultCriticalOperation,omitempty" azure:"ro"`
 }
 
+// ResourceGuardOperationDetail - VaultCritical Operation protected by a resource guard
+type ResourceGuardOperationDetail struct {
+	DefaultResourceRequest *string `json:"defaultResourceRequest,omitempty"`
+	VaultCriticalOperation *string `json:"vaultCriticalOperation,omitempty"`
+}
+
+// ResourceGuardProxyBase object, used in ResourceGuardProxyBaseResource
+type ResourceGuardProxyBase struct {
+	Description                   *string                         `json:"description,omitempty"`
+	LastUpdatedTime               *string                         `json:"lastUpdatedTime,omitempty"`
+	ResourceGuardOperationDetails []*ResourceGuardOperationDetail `json:"resourceGuardOperationDetails,omitempty"`
+	ResourceGuardResourceID       *string                         `json:"resourceGuardResourceId,omitempty"`
+}
+
+// ResourceGuardProxyBaseResource object, used for response and request bodies for ResourceGuardProxy APIs
+type ResourceGuardProxyBaseResource struct {
+	// ResourceGuardProxyBaseResource properties
+	Properties *ResourceGuardProxyBase `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id represents the complete path to the resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name associated with the resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ResourceGuardProxyBaseResourceList - List of ResourceGuardProxyBase resources
+type ResourceGuardProxyBaseResourceList struct {
+	// The uri to fetch the next page of resources. Call ListNext() fetches next page of resources.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// List of resources.
+	Value []*ResourceGuardProxyBaseResource `json:"value,omitempty"`
+}
+
 type ResourceGuardResource struct {
 	// Optional ETag.
 	ETag *string `json:"eTag,omitempty"`
@@ -2529,6 +2684,9 @@ type SecretStoreResource struct {
 
 // SecuritySettings - Class containing security settings of vault
 type SecuritySettings struct {
+	// Class containing encryption settings of vault
+	EncryptionSettings *EncryptionSettings `json:"encryptionSettings,omitempty"`
+
 	// Immutability Settings at vault level
 	ImmutabilitySettings *ImmutabilitySettings `json:"immutabilitySettings,omitempty"`
 
@@ -2668,6 +2826,27 @@ type TriggerContext struct {
 
 // GetTriggerContext implements the TriggerContextClassification interface for type TriggerContext.
 func (t *TriggerContext) GetTriggerContext() *TriggerContext { return t }
+
+// UnlockDeleteRequest - Request body of unlock delete API.
+type UnlockDeleteRequest struct {
+	ResourceGuardOperationRequests []*string `json:"resourceGuardOperationRequests,omitempty"`
+	ResourceToBeDeleted            *string   `json:"resourceToBeDeleted,omitempty"`
+}
+
+// UnlockDeleteResponse - Response of Unlock Delete API.
+type UnlockDeleteResponse struct {
+	// This is the time when unlock delete privileges will get expired.
+	UnlockDeleteExpiryTime *string `json:"unlockDeleteExpiryTime,omitempty"`
+}
+
+// UserAssignedIdentityDetails - User Assigned Identity Details
+type UserAssignedIdentityDetails struct {
+	// READ-ONLY; The Client Id of the UAMI.
+	ClientID *string `json:"clientId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Object Id of the UAMI.
+	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
+}
 
 // UserFacingError - Error object used by layers that have access to localized content, and propagate that to user
 type UserFacingError struct {

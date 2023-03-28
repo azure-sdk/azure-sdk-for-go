@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -23,12 +21,11 @@ import (
 	"strings"
 )
 
-// Client contains the methods for the DataProtection group.
+// Client contains the methods for the DataProtectionClient group.
 // Don't use this type directly, use NewClient() instead.
 type Client struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewClient creates a new instance of Client with the specified values.
@@ -36,70 +33,86 @@ type Client struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Client, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".Client", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &Client{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
 
-// CheckFeatureSupport - Validates if a feature is supported
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewFetchSecondaryRPsPager - Returns a list of Secondary Recovery Points for a DataSource in a vault, that can be used for
+// Cross Region Restore.
 //
-// Generated from API version 2023-01-01
-//   - parameters - Feature support request object
-//   - options - ClientCheckFeatureSupportOptions contains the optional parameters for the Client.CheckFeatureSupport method.
-func (client *Client) CheckFeatureSupport(ctx context.Context, location string, parameters FeatureValidationRequestBaseClassification, options *ClientCheckFeatureSupportOptions) (ClientCheckFeatureSupportResponse, error) {
-	req, err := client.checkFeatureSupportCreateRequest(ctx, location, parameters, options)
-	if err != nil {
-		return ClientCheckFeatureSupportResponse{}, err
-	}
-	resp, err := client.pl.Do(req)
-	if err != nil {
-		return ClientCheckFeatureSupportResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ClientCheckFeatureSupportResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.checkFeatureSupportHandleResponse(resp)
+// Generated from API version 2023-04-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - parameters - Request body for operation
+//   - options - ClientFetchSecondaryRPsOptions contains the optional parameters for the Client.NewFetchSecondaryRPsPager method.
+func (client *Client) NewFetchSecondaryRPsPager(resourceGroupName string, location string, parameters FetchSecondaryRPsRequestParameters, options *ClientFetchSecondaryRPsOptions) *runtime.Pager[ClientFetchSecondaryRPsResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ClientFetchSecondaryRPsResponse]{
+		More: func(page ClientFetchSecondaryRPsResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ClientFetchSecondaryRPsResponse) (ClientFetchSecondaryRPsResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.fetchSecondaryRPsCreateRequest(ctx, resourceGroupName, location, parameters, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ClientFetchSecondaryRPsResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return ClientFetchSecondaryRPsResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ClientFetchSecondaryRPsResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.fetchSecondaryRPsHandleResponse(resp)
+		},
+	})
 }
 
-// checkFeatureSupportCreateRequest creates the CheckFeatureSupport request.
-func (client *Client) checkFeatureSupportCreateRequest(ctx context.Context, location string, parameters FeatureValidationRequestBaseClassification, options *ClientCheckFeatureSupportOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DataProtection/locations/{location}/checkFeatureSupport"
+// fetchSecondaryRPsCreateRequest creates the FetchSecondaryRPs request.
+func (client *Client) fetchSecondaryRPsCreateRequest(ctx context.Context, resourceGroupName string, location string, parameters FetchSecondaryRPsRequestParameters, options *ClientFetchSecondaryRPsOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataProtection/locations/{location}/fetchSecondaryRecoveryPoints"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
 	if location == "" {
 		return nil, errors.New("parameter location cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-01-01")
+	reqQP.Set("api-version", "2023-04-01-preview")
+	if options != nil && options.Filter != nil {
+		reqQP.Set("$filter", *options.Filter)
+	}
+	if options != nil && options.SkipToken != nil {
+		reqQP.Set("$skipToken", *options.SkipToken)
+	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
-// checkFeatureSupportHandleResponse handles the CheckFeatureSupport response.
-func (client *Client) checkFeatureSupportHandleResponse(resp *http.Response) (ClientCheckFeatureSupportResponse, error) {
-	result := ClientCheckFeatureSupportResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result); err != nil {
-		return ClientCheckFeatureSupportResponse{}, err
+// fetchSecondaryRPsHandleResponse handles the FetchSecondaryRPs response.
+func (client *Client) fetchSecondaryRPsHandleResponse(resp *http.Response) (ClientFetchSecondaryRPsResponse, error) {
+	result := ClientFetchSecondaryRPsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AzureBackupRecoveryPointResourceList); err != nil {
+		return ClientFetchSecondaryRPsResponse{}, err
 	}
 	return result, nil
 }

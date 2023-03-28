@@ -167,6 +167,11 @@ func (c *ClientCheckFeatureSupportResponse) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// ClientFetchSecondaryRPsResponse contains the response from method Client.NewFetchSecondaryRPsPager.
+type ClientFetchSecondaryRPsResponse struct {
+	AzureBackupRecoveryPointResourceList
+}
+
 // DeletedBackupInstancesClientGetResponse contains the response from method DeletedBackupInstancesClient.Get.
 type DeletedBackupInstancesClientGetResponse struct {
 	DeletedBackupInstanceResource
@@ -180,6 +185,31 @@ type DeletedBackupInstancesClientListResponse struct {
 // DeletedBackupInstancesClientUndeleteResponse contains the response from method DeletedBackupInstancesClient.BeginUndelete.
 type DeletedBackupInstancesClientUndeleteResponse struct {
 	// placeholder for future response values
+}
+
+// DppResourceGuardProxyClientCreateOrUpdateResponse contains the response from method DppResourceGuardProxyClient.CreateOrUpdate.
+type DppResourceGuardProxyClientCreateOrUpdateResponse struct {
+	ResourceGuardProxyBaseResource
+}
+
+// DppResourceGuardProxyClientDeleteResponse contains the response from method DppResourceGuardProxyClient.Delete.
+type DppResourceGuardProxyClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DppResourceGuardProxyClientGetResponse contains the response from method DppResourceGuardProxyClient.Get.
+type DppResourceGuardProxyClientGetResponse struct {
+	ResourceGuardProxyBaseResource
+}
+
+// DppResourceGuardProxyClientListResponse contains the response from method DppResourceGuardProxyClient.NewListPager.
+type DppResourceGuardProxyClientListResponse struct {
+	ResourceGuardProxyBaseResourceList
+}
+
+// DppResourceGuardProxyClientUnlockDeleteResponse contains the response from method DppResourceGuardProxyClient.UnlockDelete.
+type DppResourceGuardProxyClientUnlockDeleteResponse struct {
+	UnlockDeleteResponse
 }
 
 // ExportJobsClientTriggerResponse contains the response from method ExportJobsClient.BeginTrigger.
@@ -200,6 +230,11 @@ type JobsClientGetResponse struct {
 // JobsClientListResponse contains the response from method JobsClient.NewListPager.
 type JobsClientListResponse struct {
 	AzureBackupJobResourceList
+}
+
+// JobsClientTriggerCancelResponse contains the response from method JobsClient.BeginTriggerCancel.
+type JobsClientTriggerCancelResponse struct {
+	// placeholder for future response values
 }
 
 // OperationResultClientGetResponse contains the response from method OperationResultClient.Get.

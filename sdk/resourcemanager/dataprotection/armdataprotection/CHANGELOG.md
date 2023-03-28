@@ -1,5 +1,67 @@
 # Release History
 
+## 3.0.0-beta.1 (2023-03-28)
+### Breaking Changes
+
+- Function `*Client.CheckFeatureSupport` has been removed
+
+### Features Added
+
+- New enum type `EncryptionState` with values `EncryptionStateDisabled`, `EncryptionStateEnabled`, `EncryptionStateInconsistent`
+- New enum type `InfrastructureEncryptionState` with values `InfrastructureEncryptionStateDisabled`, `InfrastructureEncryptionStateEnabled`
+- New enum type `ManagedIdentityType` with values `ManagedIdentityTypeNone`, `ManagedIdentityTypeSystemAssigned`, `ManagedIdentityTypeSystemAssignedAndUserAssigned`, `ManagedIdentityTypeUnknown`, `ManagedIdentityTypeUserAssigned`
+- New enum type `SecureScoreLevel` with values `SecureScoreLevelAdequate`, `SecureScoreLevelMaximum`, `SecureScoreLevelMinimum`, `SecureScoreLevelNone`, `SecureScoreLevelNotSupported`
+- New function `*Client.NewFetchSecondaryRPsPager(string, string, FetchSecondaryRPsRequestParameters, *ClientFetchSecondaryRPsOptions) *runtime.Pager[ClientFetchSecondaryRPsResponse]`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewBackupInstancesClient() *BackupInstancesClient`
+- New function `*ClientFactory.NewBackupPoliciesClient() *BackupPoliciesClient`
+- New function `*ClientFactory.NewBackupVaultOperationResultsClient() *BackupVaultOperationResultsClient`
+- New function `*ClientFactory.NewBackupVaultsClient() *BackupVaultsClient`
+- New function `*ClientFactory.NewClient() *Client`
+- New function `*ClientFactory.NewDeletedBackupInstancesClient() *DeletedBackupInstancesClient`
+- New function `*ClientFactory.NewDppResourceGuardProxyClient() *DppResourceGuardProxyClient`
+- New function `*ClientFactory.NewExportJobsClient() *ExportJobsClient`
+- New function `*ClientFactory.NewExportJobsOperationResultClient() *ExportJobsOperationResultClient`
+- New function `*ClientFactory.NewJobsClient() *JobsClient`
+- New function `*ClientFactory.NewOperationResultClient() *OperationResultClient`
+- New function `*ClientFactory.NewOperationStatusBackupVaultContextClient() *OperationStatusBackupVaultContextClient`
+- New function `*ClientFactory.NewOperationStatusClient() *OperationStatusClient`
+- New function `*ClientFactory.NewOperationStatusResourceGroupContextClient() *OperationStatusResourceGroupContextClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewRecoveryPointsClient() *RecoveryPointsClient`
+- New function `*ClientFactory.NewResourceGuardsClient() *ResourceGuardsClient`
+- New function `*ClientFactory.NewRestorableTimeRangesClient() *RestorableTimeRangesClient`
+- New function `NewDppResourceGuardProxyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DppResourceGuardProxyClient, error)`
+- New function `*DppResourceGuardProxyClient.CreateOrUpdate(context.Context, string, string, string, ResourceGuardProxyBaseResource, *DppResourceGuardProxyClientCreateOrUpdateOptions) (DppResourceGuardProxyClientCreateOrUpdateResponse, error)`
+- New function `*DppResourceGuardProxyClient.Delete(context.Context, string, string, string, *DppResourceGuardProxyClientDeleteOptions) (DppResourceGuardProxyClientDeleteResponse, error)`
+- New function `*DppResourceGuardProxyClient.Get(context.Context, string, string, string, *DppResourceGuardProxyClientGetOptions) (DppResourceGuardProxyClientGetResponse, error)`
+- New function `*DppResourceGuardProxyClient.NewListPager(string, string, *DppResourceGuardProxyClientListOptions) *runtime.Pager[DppResourceGuardProxyClientListResponse]`
+- New function `*DppResourceGuardProxyClient.UnlockDelete(context.Context, string, string, string, UnlockDeleteRequest, *DppResourceGuardProxyClientUnlockDeleteOptions) (DppResourceGuardProxyClientUnlockDeleteResponse, error)`
+- New function `*JobsClient.BeginTriggerCancel(context.Context, string, string, string, *JobsClientBeginTriggerCancelOptions) (*runtime.Poller[JobsClientTriggerCancelResponse], error)`
+- New struct `ClientFactory`
+- New struct `CmkKekIdentity`
+- New struct `CmkKeyVaultProperties`
+- New struct `EncryptionSettings`
+- New struct `FetchSecondaryRPsRequestParameters`
+- New struct `IdentityDetails`
+- New struct `ResourceGuardOperationDetail`
+- New struct `ResourceGuardProxyBase`
+- New struct `ResourceGuardProxyBaseResource`
+- New struct `ResourceGuardProxyBaseResourceList`
+- New struct `UnlockDeleteRequest`
+- New struct `UnlockDeleteResponse`
+- New struct `UserAssignedIdentityDetails`
+- New field `IdentityDetails` in struct `AzureBackupRecoveryPointBasedRestoreRequest`
+- New field `IdentityDetails` in struct `AzureBackupRecoveryTimeBasedRestoreRequest`
+- New field `IdentityDetails` in struct `AzureBackupRestoreRequest`
+- New field `IdentityDetails` in struct `AzureBackupRestoreWithRehydrationRequest`
+- New field `IdentityDetails` in struct `BackupInstance`
+- New field `SecureScore` in struct `BackupVault`
+- New field `IdentityDetails` in struct `DeletedBackupInstance`
+- New field `UserAssignedIdentities` in struct `DppIdentityDetails`
+- New field `EncryptionSettings` in struct `SecuritySettings`
+
+
 ## 2.0.0 (2023-02-24)
 ### Breaking Changes
 
