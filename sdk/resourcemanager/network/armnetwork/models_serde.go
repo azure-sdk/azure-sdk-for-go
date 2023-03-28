@@ -4647,6 +4647,7 @@ func (a ApplicationRule) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "description", a.Description)
 	populate(objectMap, "destinationAddresses", a.DestinationAddresses)
 	populate(objectMap, "fqdnTags", a.FqdnTags)
+	populate(objectMap, "httpHeadersToInsert", a.HTTPHeadersToInsert)
 	populate(objectMap, "name", a.Name)
 	populate(objectMap, "protocols", a.Protocols)
 	objectMap["ruleType"] = FirewallPolicyRuleTypeApplicationRule
@@ -4676,6 +4677,9 @@ func (a *ApplicationRule) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "fqdnTags":
 			err = unpopulate(val, "FqdnTags", &a.FqdnTags)
+			delete(rawMsg, key)
+		case "httpHeadersToInsert":
+			err = unpopulate(val, "HTTPHeadersToInsert", &a.HTTPHeadersToInsert)
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &a.Name)
@@ -14197,6 +14201,37 @@ func (f *FirewallPolicyFilterRuleCollectionAction) UnmarshalJSON(data []byte) er
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type FirewallPolicyHTTPHeaderToInsert.
+func (f FirewallPolicyHTTPHeaderToInsert) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "headerName", f.HeaderName)
+	populate(objectMap, "headerValue", f.HeaderValue)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type FirewallPolicyHTTPHeaderToInsert.
+func (f *FirewallPolicyHTTPHeaderToInsert) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", f, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "headerName":
+			err = unpopulate(val, "HeaderName", &f.HeaderName)
+			delete(rawMsg, key)
+		case "headerValue":
+			err = unpopulate(val, "HeaderValue", &f.HeaderValue)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", f, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type FirewallPolicyInsights.
 func (f FirewallPolicyInsights) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -15703,6 +15738,60 @@ func (g *Group) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &g.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type GroupByUserSession.
+func (g GroupByUserSession) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "groupByVariables", g.GroupByVariables)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GroupByUserSession.
+func (g *GroupByUserSession) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "groupByVariables":
+			err = unpopulate(val, "GroupByVariables", &g.GroupByVariables)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", g, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type GroupByVariable.
+func (g GroupByVariable) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "variableName", g.VariableName)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type GroupByVariable.
+func (g *GroupByVariable) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", g, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "variableName":
+			err = unpopulate(val, "VariableName", &g.VariableName)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -27310,7 +27399,7 @@ func (s SubnetPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "addressPrefix", s.AddressPrefix)
 	populate(objectMap, "addressPrefixes", s.AddressPrefixes)
-	populate(objectMap, "applicationGatewayIpConfigurations", s.ApplicationGatewayIPConfigurations)
+	populate(objectMap, "applicationGatewayIPConfigurations", s.ApplicationGatewayIPConfigurations)
 	populate(objectMap, "delegations", s.Delegations)
 	populate(objectMap, "ipAllocations", s.IPAllocations)
 	populate(objectMap, "ipConfigurationProfiles", s.IPConfigurationProfiles)
@@ -27345,7 +27434,7 @@ func (s *SubnetPropertiesFormat) UnmarshalJSON(data []byte) error {
 		case "addressPrefixes":
 			err = unpopulate(val, "AddressPrefixes", &s.AddressPrefixes)
 			delete(rawMsg, key)
-		case "applicationGatewayIpConfigurations":
+		case "applicationGatewayIPConfigurations":
 			err = unpopulate(val, "ApplicationGatewayIPConfigurations", &s.ApplicationGatewayIPConfigurations)
 			delete(rawMsg, key)
 		case "delegations":
@@ -33454,9 +33543,12 @@ func (w WebApplicationFirewallCustomRule) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "action", w.Action)
 	populate(objectMap, "etag", w.Etag)
+	populate(objectMap, "groupByUserSession", w.GroupByUserSession)
 	populate(objectMap, "matchConditions", w.MatchConditions)
 	populate(objectMap, "name", w.Name)
 	populate(objectMap, "priority", w.Priority)
+	populate(objectMap, "rateLimitDuration", w.RateLimitDuration)
+	populate(objectMap, "rateLimitThreshold", w.RateLimitThreshold)
 	populate(objectMap, "ruleType", w.RuleType)
 	populate(objectMap, "state", w.State)
 	return json.Marshal(objectMap)
@@ -33477,6 +33569,9 @@ func (w *WebApplicationFirewallCustomRule) UnmarshalJSON(data []byte) error {
 		case "etag":
 			err = unpopulate(val, "Etag", &w.Etag)
 			delete(rawMsg, key)
+		case "groupByUserSession":
+			err = unpopulate(val, "GroupByUserSession", &w.GroupByUserSession)
+			delete(rawMsg, key)
 		case "matchConditions":
 			err = unpopulate(val, "MatchConditions", &w.MatchConditions)
 			delete(rawMsg, key)
@@ -33485,6 +33580,12 @@ func (w *WebApplicationFirewallCustomRule) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "priority":
 			err = unpopulate(val, "Priority", &w.Priority)
+			delete(rawMsg, key)
+		case "rateLimitDuration":
+			err = unpopulate(val, "RateLimitDuration", &w.RateLimitDuration)
+			delete(rawMsg, key)
+		case "rateLimitThreshold":
+			err = unpopulate(val, "RateLimitThreshold", &w.RateLimitThreshold)
 			delete(rawMsg, key)
 		case "ruleType":
 			err = unpopulate(val, "RuleType", &w.RuleType)

@@ -2212,6 +2212,9 @@ type ApplicationRule struct {
 	// List of FQDN Tags for this rule.
 	FqdnTags []*string `json:"fqdnTags,omitempty"`
 
+	// List of HTTP/S headers to insert.
+	HTTPHeadersToInsert []*FirewallPolicyHTTPHeaderToInsert `json:"httpHeadersToInsert,omitempty"`
+
 	// Name of the rule.
 	Name *string `json:"name,omitempty"`
 
@@ -6894,6 +6897,15 @@ type FirewallPolicyFilterRuleCollectionAction struct {
 	Type *FirewallPolicyFilterRuleCollectionActionType `json:"type,omitempty"`
 }
 
+// FirewallPolicyHTTPHeaderToInsert - name and value of HTTP/S header to insert
+type FirewallPolicyHTTPHeaderToInsert struct {
+	// Contains the name of the header
+	HeaderName *string `json:"headerName,omitempty"`
+
+	// Contains the value of the header
+	HeaderValue *string `json:"headerValue,omitempty"`
+}
+
 // FirewallPolicyIdpsSignaturesClientListOptions contains the optional parameters for the FirewallPolicyIdpsSignaturesClient.List
 // method.
 type FirewallPolicyIdpsSignaturesClientListOptions struct {
@@ -7573,6 +7585,18 @@ type Group struct {
 
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// GroupByUserSession - Define user session identifier group by clauses.
+type GroupByUserSession struct {
+	// REQUIRED; List of group by clause variables.
+	GroupByVariables []*GroupByVariable `json:"groupByVariables,omitempty"`
+}
+
+// GroupByVariable - Define user session group by clause variables.
+type GroupByVariable struct {
+	// REQUIRED; User Session clause variable.
+	VariableName *ApplicationGatewayFirewallUserSessionVariable `json:"variableName,omitempty"`
 }
 
 // GroupListResult - Result of the request to list NetworkGroup. It contains a list of groups and a URL link to get the next
@@ -10411,16 +10435,15 @@ type OwaspCrsExclusionEntry struct {
 	// REQUIRED; The variable to be excluded.
 	MatchVariable *OwaspCrsExclusionEntryMatchVariable `json:"matchVariable,omitempty"`
 
-	// REQUIRED; When matchVariable is a collection, operator used to specify which elements in the collection this exclusion
-	// applies to.
-	Selector *string `json:"selector,omitempty"`
-
-	// REQUIRED; When matchVariable is a collection, operate on the selector to specify which elements in the collection this
-	// exclusion applies to.
-	SelectorMatchOperator *OwaspCrsExclusionEntrySelectorMatchOperator `json:"selectorMatchOperator,omitempty"`
-
 	// The managed rule sets that are associated with the exclusion.
 	ExclusionManagedRuleSets []*ExclusionManagedRuleSet `json:"exclusionManagedRuleSets,omitempty"`
+
+	// When matchVariable is a collection, operator used to specify which elements in the collection this exclusion applies to.
+	Selector *string `json:"selector,omitempty"`
+
+	// When matchVariable is a collection, operate on the selector to specify which elements in the collection this exclusion
+	// applies to.
+	SelectorMatchOperator *OwaspCrsExclusionEntrySelectorMatchOperator `json:"selectorMatchOperator,omitempty"`
 }
 
 // P2SConnectionConfiguration Resource.
@@ -13071,6 +13094,10 @@ type SecurityRulePropertiesFormat struct {
 	// REQUIRED; The direction of the rule. The direction specifies if rule will be evaluated on incoming or outgoing traffic.
 	Direction *SecurityRuleDirection `json:"direction,omitempty"`
 
+	// REQUIRED; The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each
+	// rule in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32 `json:"priority,omitempty"`
+
 	// REQUIRED; Network protocol this rule applies to.
 	Protocol *SecurityRuleProtocol `json:"protocol,omitempty"`
 
@@ -13093,10 +13120,6 @@ type SecurityRulePropertiesFormat struct {
 
 	// The destination port ranges.
 	DestinationPortRanges []*string `json:"destinationPortRanges,omitempty"`
-
-	// The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the
-	// collection. The lower the priority number, the higher the priority of the rule.
-	Priority *int32 `json:"priority,omitempty"`
 
 	// The CIDR or source IP range. Asterisk '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork',
 	// 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress
@@ -13703,7 +13726,7 @@ type SubnetPropertiesFormat struct {
 	AddressPrefixes []*string `json:"addressPrefixes,omitempty"`
 
 	// Application gateway IP configurations of virtual network resource.
-	ApplicationGatewayIPConfigurations []*ApplicationGatewayIPConfiguration `json:"applicationGatewayIpConfigurations,omitempty"`
+	ApplicationGatewayIPConfigurations []*ApplicationGatewayIPConfiguration `json:"applicationGatewayIPConfigurations,omitempty"`
 
 	// An array of references to the delegations on the subnet.
 	Delegations []*Delegation `json:"delegations,omitempty"`
@@ -17402,8 +17425,17 @@ type WebApplicationFirewallCustomRule struct {
 	// REQUIRED; The rule type.
 	RuleType *WebApplicationFirewallRuleType `json:"ruleType,omitempty"`
 
+	// List of user session identifier group by clauses.
+	GroupByUserSession []*GroupByUserSession `json:"groupByUserSession,omitempty"`
+
 	// The name of the resource that is unique within a policy. This name can be used to access the resource.
 	Name *string `json:"name,omitempty"`
+
+	// Duration over which Rate Limit policy will be applied. Applies only when ruleType is RateLimitRule.
+	RateLimitDuration *ApplicationGatewayFirewallRateLimitDuration `json:"rateLimitDuration,omitempty"`
+
+	// Rate Limit threshold to apply in case ruleType is RateLimitRule. Must be greater than or equal to 1
+	RateLimitThreshold *int32 `json:"rateLimitThreshold,omitempty"`
 
 	// Describes if the custom rule is in enabled or disabled state. Defaults to Enabled if not specified.
 	State *WebApplicationFirewallState `json:"state,omitempty"`
