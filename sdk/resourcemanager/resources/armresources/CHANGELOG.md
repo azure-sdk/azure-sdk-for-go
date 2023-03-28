@@ -1,5 +1,27 @@
 # Release History
 
+## 2.0.0 (2023-03-28)
+### Breaking Changes
+
+- Operation `*TagsClient.CreateOrUpdateAtScope` has been changed to LRO, use `*TagsClient.BeginCreateOrUpdateAtScope` instead.
+- Operation `*TagsClient.DeleteAtScope` has been changed to LRO, use `*TagsClient.BeginDeleteAtScope` instead.
+- Operation `*TagsClient.UpdateAtScope` has been changed to LRO, use `*TagsClient.BeginUpdateAtScope` instead.
+- Struct `CloudError` has been removed
+
+### Features Added
+
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewClient() *Client`
+- New function `*ClientFactory.NewDeploymentOperationsClient() *DeploymentOperationsClient`
+- New function `*ClientFactory.NewDeploymentsClient() *DeploymentsClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewProviderResourceTypesClient() *ProviderResourceTypesClient`
+- New function `*ClientFactory.NewProvidersClient() *ProvidersClient`
+- New function `*ClientFactory.NewResourceGroupsClient() *ResourceGroupsClient`
+- New function `*ClientFactory.NewTagsClient() *TagsClient`
+- New struct `ClientFactory`
+
+
 ## 1.1.0 (2023-03-27)
 ### Features Added
 
