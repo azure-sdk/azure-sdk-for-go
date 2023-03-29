@@ -11,7 +11,7 @@ package armmachinelearning
 
 const (
 	moduleName    = "armmachinelearning"
-	moduleVersion = "v3.0.0"
+	moduleVersion = "v4.0.0"
 )
 
 // AllocationState - Allocation state of the compute. Possible values are: steady - Indicates that the compute is not resizing.
@@ -790,6 +790,20 @@ func PossibleEnvironmentTypeValues() []EnvironmentType {
 	}
 }
 
+// EnvironmentVariableType - Type of the Environment Variable. Possible values are: local - For local variable
+type EnvironmentVariableType string
+
+const (
+	EnvironmentVariableTypeLocal EnvironmentVariableType = "local"
+)
+
+// PossibleEnvironmentVariableTypeValues returns the possible values for the EnvironmentVariableType const type.
+func PossibleEnvironmentVariableTypeValues() []EnvironmentVariableType {
+	return []EnvironmentVariableType{
+		EnvironmentVariableTypeLocal,
+	}
+}
+
 // FeatureLags - Flag for generating lags for the numeric features.
 type FeatureLags string
 
@@ -1003,6 +1017,22 @@ func PossibleIdentityConfigurationTypeValues() []IdentityConfigurationType {
 		IdentityConfigurationTypeAMLToken,
 		IdentityConfigurationTypeManaged,
 		IdentityConfigurationTypeUserIdentity,
+	}
+}
+
+// ImageType - Type of the image. Possible values are: docker - For docker images. azureml - For AzureML images
+type ImageType string
+
+const (
+	ImageTypeAzureml ImageType = "azureml"
+	ImageTypeDocker  ImageType = "docker"
+)
+
+// PossibleImageTypeValues returns the possible values for the ImageType const type.
+func PossibleImageTypeValues() []ImageType {
+	return []ImageType{
+		ImageTypeAzureml,
+		ImageTypeDocker,
 	}
 }
 
@@ -1627,6 +1657,24 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 		PrivateEndpointServiceConnectionStatusPending,
 		PrivateEndpointServiceConnectionStatusRejected,
 		PrivateEndpointServiceConnectionStatusTimeout,
+	}
+}
+
+// Protocol - Protocol over which communication will happen over this endpoint
+type Protocol string
+
+const (
+	ProtocolHTTP Protocol = "http"
+	ProtocolTCP  Protocol = "tcp"
+	ProtocolUDP  Protocol = "udp"
+)
+
+// PossibleProtocolValues returns the possible values for the Protocol const type.
+func PossibleProtocolValues() []Protocol {
+	return []Protocol{
+		ProtocolHTTP,
+		ProtocolTCP,
+		ProtocolUDP,
 	}
 }
 
@@ -2576,6 +2624,26 @@ const (
 func PossibleValueFormatValues() []ValueFormat {
 	return []ValueFormat{
 		ValueFormatJSON,
+	}
+}
+
+// VolumeDefinitionType - Type of Volume Definition. Possible Values: bind,volume,tmpfs,npipe
+type VolumeDefinitionType string
+
+const (
+	VolumeDefinitionTypeBind   VolumeDefinitionType = "bind"
+	VolumeDefinitionTypeNpipe  VolumeDefinitionType = "npipe"
+	VolumeDefinitionTypeTmpfs  VolumeDefinitionType = "tmpfs"
+	VolumeDefinitionTypeVolume VolumeDefinitionType = "volume"
+)
+
+// PossibleVolumeDefinitionTypeValues returns the possible values for the VolumeDefinitionType const type.
+func PossibleVolumeDefinitionTypeValues() []VolumeDefinitionType {
+	return []VolumeDefinitionType{
+		VolumeDefinitionTypeBind,
+		VolumeDefinitionTypeNpipe,
+		VolumeDefinitionTypeTmpfs,
+		VolumeDefinitionTypeVolume,
 	}
 }
 

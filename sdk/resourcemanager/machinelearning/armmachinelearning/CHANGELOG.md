@@ -1,5 +1,63 @@
 # Release History
 
+## 4.0.0 (2023-03-29)
+### Breaking Changes
+
+- Type of `ComputeStartStopSchedule.Cron` has been changed from `*CronTrigger` to `*Cron`
+- Type of `ComputeStartStopSchedule.Recurrence` has been changed from `*RecurrenceTrigger` to `*Recurrence`
+
+### Features Added
+
+- New enum type `EnvironmentVariableType` with values `EnvironmentVariableTypeLocal`
+- New enum type `ImageType` with values `ImageTypeAzureml`, `ImageTypeDocker`
+- New enum type `Protocol` with values `ProtocolHTTP`, `ProtocolTCP`, `ProtocolUDP`
+- New enum type `VolumeDefinitionType` with values `VolumeDefinitionTypeBind`, `VolumeDefinitionTypeNpipe`, `VolumeDefinitionTypeTmpfs`, `VolumeDefinitionTypeVolume`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewBatchDeploymentsClient() *BatchDeploymentsClient`
+- New function `*ClientFactory.NewBatchEndpointsClient() *BatchEndpointsClient`
+- New function `*ClientFactory.NewCodeContainersClient() *CodeContainersClient`
+- New function `*ClientFactory.NewCodeVersionsClient() *CodeVersionsClient`
+- New function `*ClientFactory.NewComponentContainersClient() *ComponentContainersClient`
+- New function `*ClientFactory.NewComponentVersionsClient() *ComponentVersionsClient`
+- New function `*ClientFactory.NewComputeClient() *ComputeClient`
+- New function `*ClientFactory.NewDataContainersClient() *DataContainersClient`
+- New function `*ClientFactory.NewDataVersionsClient() *DataVersionsClient`
+- New function `*ClientFactory.NewDatastoresClient() *DatastoresClient`
+- New function `*ClientFactory.NewEnvironmentContainersClient() *EnvironmentContainersClient`
+- New function `*ClientFactory.NewEnvironmentVersionsClient() *EnvironmentVersionsClient`
+- New function `*ClientFactory.NewJobsClient() *JobsClient`
+- New function `*ClientFactory.NewModelContainersClient() *ModelContainersClient`
+- New function `*ClientFactory.NewModelVersionsClient() *ModelVersionsClient`
+- New function `*ClientFactory.NewOnlineDeploymentsClient() *OnlineDeploymentsClient`
+- New function `*ClientFactory.NewOnlineEndpointsClient() *OnlineEndpointsClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient`
+- New function `*ClientFactory.NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient`
+- New function `*ClientFactory.NewQuotasClient() *QuotasClient`
+- New function `*ClientFactory.NewSchedulesClient() *SchedulesClient`
+- New function `*ClientFactory.NewUsagesClient() *UsagesClient`
+- New function `*ClientFactory.NewVirtualMachineSizesClient() *VirtualMachineSizesClient`
+- New function `*ClientFactory.NewWorkspaceConnectionsClient() *WorkspaceConnectionsClient`
+- New function `*ClientFactory.NewWorkspaceFeaturesClient() *WorkspaceFeaturesClient`
+- New function `*ClientFactory.NewWorkspacesClient() *WorkspacesClient`
+- New struct `BindOptions`
+- New struct `ClientFactory`
+- New struct `Cron`
+- New struct `CustomService`
+- New struct `Docker`
+- New struct `Endpoint`
+- New struct `EnvironmentVariable`
+- New struct `IdleShutdownSetting`
+- New struct `Image`
+- New struct `ImageMetadata`
+- New struct `Recurrence`
+- New struct `TmpfsOptions`
+- New struct `VolumeDefinition`
+- New struct `VolumeOptions`
+- New field `CustomServices` in struct `ComputeInstanceProperties`
+- New field `OSImageMetadata` in struct `ComputeInstanceProperties`
+
+
 ## 3.0.0 (2022-11-01)
 ### Breaking Changes
 
