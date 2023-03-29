@@ -1,5 +1,19 @@
 # Release History
 
+## 5.0.0 (2023-03-29)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New enum type `ExpandTypeForListVMs` with values `ExpandTypeForListVMsInstanceView`
+- New enum type `ExpandTypesForListVMs` with values `ExpandTypesForListVMsInstanceView`
+- New field `Expand` in struct `VirtualMachinesClientListAllOptions`
+- New field `Expand` in struct `VirtualMachinesClientListOptions`
+
+
 ## 4.2.0 (2023-03-27)
 ### Features Added
 
