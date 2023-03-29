@@ -1,5 +1,25 @@
 # Release History
 
+## 2.3.0 (2023-03-29)
+### Features Added
+
+- New value `WebApplicationFirewallRuleTypeRateLimitRule` added to enum type `WebApplicationFirewallRuleType`
+- New enum type `ApplicationGatewayFirewallRateLimitDuration` with values `ApplicationGatewayFirewallRateLimitDurationFiveMins`, `ApplicationGatewayFirewallRateLimitDurationOneMin`
+- New enum type `ApplicationGatewayFirewallUserSessionVariable` with values `ApplicationGatewayFirewallUserSessionVariableClientAddr`, `ApplicationGatewayFirewallUserSessionVariableGeoLocation`, `ApplicationGatewayFirewallUserSessionVariableNone`
+- New enum type `ScrubbingRuleEntryMatchOperator` with values `ScrubbingRuleEntryMatchOperatorEquals`, `ScrubbingRuleEntryMatchOperatorEqualsAny`
+- New enum type `ScrubbingRuleEntryMatchVariable` with values `ScrubbingRuleEntryMatchVariableRequestArgNames`, `ScrubbingRuleEntryMatchVariableRequestCookieNames`, `ScrubbingRuleEntryMatchVariableRequestHeaderNames`, `ScrubbingRuleEntryMatchVariableRequestIPAddress`, `ScrubbingRuleEntryMatchVariableRequestJSONArgNames`, `ScrubbingRuleEntryMatchVariableRequestPostArgNames`
+- New enum type `ScrubbingRuleEntryState` with values `ScrubbingRuleEntryStateDisabled`, `ScrubbingRuleEntryStateEnabled`
+- New enum type `WebApplicationFirewallScrubbingState` with values `WebApplicationFirewallScrubbingStateDisabled`, `WebApplicationFirewallScrubbingStateEnabled`
+- New struct `GroupByUserSession`
+- New struct `GroupByVariable`
+- New struct `PolicySettingsLogScrubbing`
+- New struct `WebApplicationFirewallScrubbingRules`
+- New field `LogScrubbing` in struct `PolicySettings`
+- New field `GroupByUserSession` in struct `WebApplicationFirewallCustomRule`
+- New field `RateLimitDuration` in struct `WebApplicationFirewallCustomRule`
+- New field `RateLimitThreshold` in struct `WebApplicationFirewallCustomRule`
+
+
 ## 2.2.0 (2023-03-24)
 ### Features Added
 

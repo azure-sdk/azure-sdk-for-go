@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -181,6 +181,41 @@ func PossibleApplicationGatewayFirewallModeValues() []ApplicationGatewayFirewall
 	return []ApplicationGatewayFirewallMode{
 		ApplicationGatewayFirewallModeDetection,
 		ApplicationGatewayFirewallModePrevention,
+	}
+}
+
+// ApplicationGatewayFirewallRateLimitDuration - Duration over which Rate Limit policy will be applied. Applies only when
+// ruleType is RateLimitRule.
+type ApplicationGatewayFirewallRateLimitDuration string
+
+const (
+	ApplicationGatewayFirewallRateLimitDurationFiveMins ApplicationGatewayFirewallRateLimitDuration = "FiveMins"
+	ApplicationGatewayFirewallRateLimitDurationOneMin   ApplicationGatewayFirewallRateLimitDuration = "OneMin"
+)
+
+// PossibleApplicationGatewayFirewallRateLimitDurationValues returns the possible values for the ApplicationGatewayFirewallRateLimitDuration const type.
+func PossibleApplicationGatewayFirewallRateLimitDurationValues() []ApplicationGatewayFirewallRateLimitDuration {
+	return []ApplicationGatewayFirewallRateLimitDuration{
+		ApplicationGatewayFirewallRateLimitDurationFiveMins,
+		ApplicationGatewayFirewallRateLimitDurationOneMin,
+	}
+}
+
+// ApplicationGatewayFirewallUserSessionVariable - User Session clause variable.
+type ApplicationGatewayFirewallUserSessionVariable string
+
+const (
+	ApplicationGatewayFirewallUserSessionVariableClientAddr  ApplicationGatewayFirewallUserSessionVariable = "ClientAddr"
+	ApplicationGatewayFirewallUserSessionVariableGeoLocation ApplicationGatewayFirewallUserSessionVariable = "GeoLocation"
+	ApplicationGatewayFirewallUserSessionVariableNone        ApplicationGatewayFirewallUserSessionVariable = "None"
+)
+
+// PossibleApplicationGatewayFirewallUserSessionVariableValues returns the possible values for the ApplicationGatewayFirewallUserSessionVariable const type.
+func PossibleApplicationGatewayFirewallUserSessionVariableValues() []ApplicationGatewayFirewallUserSessionVariable {
+	return []ApplicationGatewayFirewallUserSessionVariable{
+		ApplicationGatewayFirewallUserSessionVariableClientAddr,
+		ApplicationGatewayFirewallUserSessionVariableGeoLocation,
+		ApplicationGatewayFirewallUserSessionVariableNone,
 	}
 }
 
@@ -3004,6 +3039,63 @@ func PossibleScopeConnectionStateValues() []ScopeConnectionState {
 	}
 }
 
+// ScrubbingRuleEntryMatchOperator - When matchVariable is a collection, operate on the selector to specify which elements
+// in the collection this rule applies to.
+type ScrubbingRuleEntryMatchOperator string
+
+const (
+	ScrubbingRuleEntryMatchOperatorEquals    ScrubbingRuleEntryMatchOperator = "Equals"
+	ScrubbingRuleEntryMatchOperatorEqualsAny ScrubbingRuleEntryMatchOperator = "EqualsAny"
+)
+
+// PossibleScrubbingRuleEntryMatchOperatorValues returns the possible values for the ScrubbingRuleEntryMatchOperator const type.
+func PossibleScrubbingRuleEntryMatchOperatorValues() []ScrubbingRuleEntryMatchOperator {
+	return []ScrubbingRuleEntryMatchOperator{
+		ScrubbingRuleEntryMatchOperatorEquals,
+		ScrubbingRuleEntryMatchOperatorEqualsAny,
+	}
+}
+
+// ScrubbingRuleEntryMatchVariable - The variable to be scrubbed from the logs.
+type ScrubbingRuleEntryMatchVariable string
+
+const (
+	ScrubbingRuleEntryMatchVariableRequestArgNames     ScrubbingRuleEntryMatchVariable = "RequestArgNames"
+	ScrubbingRuleEntryMatchVariableRequestCookieNames  ScrubbingRuleEntryMatchVariable = "RequestCookieNames"
+	ScrubbingRuleEntryMatchVariableRequestHeaderNames  ScrubbingRuleEntryMatchVariable = "RequestHeaderNames"
+	ScrubbingRuleEntryMatchVariableRequestIPAddress    ScrubbingRuleEntryMatchVariable = "RequestIPAddress"
+	ScrubbingRuleEntryMatchVariableRequestJSONArgNames ScrubbingRuleEntryMatchVariable = "RequestJSONArgNames"
+	ScrubbingRuleEntryMatchVariableRequestPostArgNames ScrubbingRuleEntryMatchVariable = "RequestPostArgNames"
+)
+
+// PossibleScrubbingRuleEntryMatchVariableValues returns the possible values for the ScrubbingRuleEntryMatchVariable const type.
+func PossibleScrubbingRuleEntryMatchVariableValues() []ScrubbingRuleEntryMatchVariable {
+	return []ScrubbingRuleEntryMatchVariable{
+		ScrubbingRuleEntryMatchVariableRequestArgNames,
+		ScrubbingRuleEntryMatchVariableRequestCookieNames,
+		ScrubbingRuleEntryMatchVariableRequestHeaderNames,
+		ScrubbingRuleEntryMatchVariableRequestIPAddress,
+		ScrubbingRuleEntryMatchVariableRequestJSONArgNames,
+		ScrubbingRuleEntryMatchVariableRequestPostArgNames,
+	}
+}
+
+// ScrubbingRuleEntryState - Defines the state of log scrubbing rule. Default value is Enabled.
+type ScrubbingRuleEntryState string
+
+const (
+	ScrubbingRuleEntryStateDisabled ScrubbingRuleEntryState = "Disabled"
+	ScrubbingRuleEntryStateEnabled  ScrubbingRuleEntryState = "Enabled"
+)
+
+// PossibleScrubbingRuleEntryStateValues returns the possible values for the ScrubbingRuleEntryState const type.
+func PossibleScrubbingRuleEntryStateValues() []ScrubbingRuleEntryState {
+	return []ScrubbingRuleEntryState{
+		ScrubbingRuleEntryStateDisabled,
+		ScrubbingRuleEntryStateEnabled,
+	}
+}
+
 // SecurityConfigurationRuleAccess - Whether network traffic is allowed or denied.
 type SecurityConfigurationRuleAccess string
 
@@ -3929,8 +4021,9 @@ func PossibleWebApplicationFirewallPolicyResourceStateValues() []WebApplicationF
 type WebApplicationFirewallRuleType string
 
 const (
-	WebApplicationFirewallRuleTypeInvalid   WebApplicationFirewallRuleType = "Invalid"
-	WebApplicationFirewallRuleTypeMatchRule WebApplicationFirewallRuleType = "MatchRule"
+	WebApplicationFirewallRuleTypeInvalid       WebApplicationFirewallRuleType = "Invalid"
+	WebApplicationFirewallRuleTypeMatchRule     WebApplicationFirewallRuleType = "MatchRule"
+	WebApplicationFirewallRuleTypeRateLimitRule WebApplicationFirewallRuleType = "RateLimitRule"
 )
 
 // PossibleWebApplicationFirewallRuleTypeValues returns the possible values for the WebApplicationFirewallRuleType const type.
@@ -3938,6 +4031,23 @@ func PossibleWebApplicationFirewallRuleTypeValues() []WebApplicationFirewallRule
 	return []WebApplicationFirewallRuleType{
 		WebApplicationFirewallRuleTypeInvalid,
 		WebApplicationFirewallRuleTypeMatchRule,
+		WebApplicationFirewallRuleTypeRateLimitRule,
+	}
+}
+
+// WebApplicationFirewallScrubbingState - State of the log scrubbing config. Default value is Enabled.
+type WebApplicationFirewallScrubbingState string
+
+const (
+	WebApplicationFirewallScrubbingStateDisabled WebApplicationFirewallScrubbingState = "Disabled"
+	WebApplicationFirewallScrubbingStateEnabled  WebApplicationFirewallScrubbingState = "Enabled"
+)
+
+// PossibleWebApplicationFirewallScrubbingStateValues returns the possible values for the WebApplicationFirewallScrubbingState const type.
+func PossibleWebApplicationFirewallScrubbingStateValues() []WebApplicationFirewallScrubbingState {
+	return []WebApplicationFirewallScrubbingState{
+		WebApplicationFirewallScrubbingStateDisabled,
+		WebApplicationFirewallScrubbingStateEnabled,
 	}
 }
 

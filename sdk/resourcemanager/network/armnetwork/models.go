@@ -7575,6 +7575,18 @@ type Group struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// GroupByUserSession - Define user session identifier group by clauses.
+type GroupByUserSession struct {
+	// REQUIRED; List of group by clause variables.
+	GroupByVariables []*GroupByVariable `json:"groupByVariables,omitempty"`
+}
+
+// GroupByVariable - Define user session group by clause variables.
+type GroupByVariable struct {
+	// REQUIRED; User Session clause variable.
+	VariableName *ApplicationGatewayFirewallUserSessionVariable `json:"variableName,omitempty"`
+}
+
 // GroupListResult - Result of the request to list NetworkGroup. It contains a list of groups and a URL link to get the next
 // set of results.
 type GroupListResult struct {
@@ -10971,6 +10983,9 @@ type PolicySettings struct {
 	// Maximum file upload size in Mb for WAF.
 	FileUploadLimitInMb *int32 `json:"fileUploadLimitInMb,omitempty"`
 
+	// To scrub sensitive log fields
+	LogScrubbing *PolicySettingsLogScrubbing `json:"logScrubbing,omitempty"`
+
 	// Maximum request body size in Kb for WAF.
 	MaxRequestBodySizeInKb *int32 `json:"maxRequestBodySizeInKb,omitempty"`
 
@@ -10982,6 +10997,15 @@ type PolicySettings struct {
 
 	// The state of the policy.
 	State *WebApplicationFirewallEnabledState `json:"state,omitempty"`
+}
+
+// PolicySettingsLogScrubbing - To scrub sensitive log fields
+type PolicySettingsLogScrubbing struct {
+	// The rules that are applied to the logs for scrubbing.
+	ScrubbingRules []*WebApplicationFirewallScrubbingRules `json:"scrubbingRules,omitempty"`
+
+	// State of the log scrubbing config. Default value is Enabled.
+	State *WebApplicationFirewallScrubbingState `json:"state,omitempty"`
 }
 
 // PrepareNetworkPoliciesRequest - Details of PrepareNetworkPolicies for Subnet.
@@ -13071,6 +13095,10 @@ type SecurityRulePropertiesFormat struct {
 	// REQUIRED; The direction of the rule. The direction specifies if rule will be evaluated on incoming or outgoing traffic.
 	Direction *SecurityRuleDirection `json:"direction,omitempty"`
 
+	// REQUIRED; The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each
+	// rule in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32 `json:"priority,omitempty"`
+
 	// REQUIRED; Network protocol this rule applies to.
 	Protocol *SecurityRuleProtocol `json:"protocol,omitempty"`
 
@@ -13093,10 +13121,6 @@ type SecurityRulePropertiesFormat struct {
 
 	// The destination port ranges.
 	DestinationPortRanges []*string `json:"destinationPortRanges,omitempty"`
-
-	// The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the
-	// collection. The lower the priority number, the higher the priority of the rule.
-	Priority *int32 `json:"priority,omitempty"`
 
 	// The CIDR or source IP range. Asterisk '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork',
 	// 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress
@@ -13703,7 +13727,7 @@ type SubnetPropertiesFormat struct {
 	AddressPrefixes []*string `json:"addressPrefixes,omitempty"`
 
 	// Application gateway IP configurations of virtual network resource.
-	ApplicationGatewayIPConfigurations []*ApplicationGatewayIPConfiguration `json:"applicationGatewayIpConfigurations,omitempty"`
+	ApplicationGatewayIPConfigurations []*ApplicationGatewayIPConfiguration `json:"applicationGatewayIPConfigurations,omitempty"`
 
 	// An array of references to the delegations on the subnet.
 	Delegations []*Delegation `json:"delegations,omitempty"`
@@ -17402,8 +17426,17 @@ type WebApplicationFirewallCustomRule struct {
 	// REQUIRED; The rule type.
 	RuleType *WebApplicationFirewallRuleType `json:"ruleType,omitempty"`
 
+	// List of user session identifier group by clauses.
+	GroupByUserSession []*GroupByUserSession `json:"groupByUserSession,omitempty"`
+
 	// The name of the resource that is unique within a policy. This name can be used to access the resource.
 	Name *string `json:"name,omitempty"`
+
+	// Duration over which Rate Limit policy will be applied. Applies only when ruleType is RateLimitRule.
+	RateLimitDuration *ApplicationGatewayFirewallRateLimitDuration `json:"rateLimitDuration,omitempty"`
+
+	// Rate Limit threshold to apply in case ruleType is RateLimitRule. Must be greater than or equal to 1
+	RateLimitThreshold *int32 `json:"rateLimitThreshold,omitempty"`
 
 	// Describes if the custom rule is in enabled or disabled state. Defaults to Enabled if not specified.
 	State *WebApplicationFirewallState `json:"state,omitempty"`
@@ -17502,6 +17535,22 @@ type WebApplicationFirewallPolicyPropertiesFormat struct {
 
 	// READ-ONLY; Resource status of the policy.
 	ResourceState *WebApplicationFirewallPolicyResourceState `json:"resourceState,omitempty" azure:"ro"`
+}
+
+// WebApplicationFirewallScrubbingRules - Allow certain variables to be scrubbed on WAF logs
+type WebApplicationFirewallScrubbingRules struct {
+	// REQUIRED; The variable to be scrubbed from the logs.
+	MatchVariable *ScrubbingRuleEntryMatchVariable `json:"matchVariable,omitempty"`
+
+	// REQUIRED; When matchVariable is a collection, operate on the selector to specify which elements in the collection this
+	// rule applies to.
+	SelectorMatchOperator *ScrubbingRuleEntryMatchOperator `json:"selectorMatchOperator,omitempty"`
+
+	// When matchVariable is a collection, operator used to specify which elements in the collection this rule applies to.
+	Selector *string `json:"selector,omitempty"`
+
+	// Defines the state of log scrubbing rule. Default value is Enabled.
+	State *ScrubbingRuleEntryState `json:"state,omitempty"`
 }
 
 // WebCategoriesClientGetOptions contains the optional parameters for the WebCategoriesClient.Get method.
