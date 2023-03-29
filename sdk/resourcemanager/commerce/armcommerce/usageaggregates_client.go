@@ -12,6 +12,7 @@ package armcommerce
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
@@ -114,8 +115,21 @@ func (client *UsageAggregatesClient) listCreateRequest(ctx context.Context, repo
 // listHandleResponse handles the List response.
 func (client *UsageAggregatesClient) listHandleResponse(resp *http.Response) (UsageAggregatesClientListResponse, error) {
 	result := UsageAggregatesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.UsageAggregationListResult); err != nil {
-		return UsageAggregatesClientListResponse{}, err
+	switch resp.StatusCode {
+	case http.StatusOK:
+		var val UsageAggregationListResult
+		if err := runtime.UnmarshalAsJSON(resp, &val); err != nil {
+			return UsageAggregatesClientListResponse{}, err
+		}
+		result.Value = val
+	case http.StatusAccepted:
+		var val ErrorObjectResponse
+		if err := runtime.UnmarshalAsJSON(resp, &val); err != nil {
+			return UsageAggregatesClientListResponse{}, err
+		}
+		result.Value = val
+	default:
+		return UsageAggregatesClientListResponse{}, fmt.Errorf("unhandled HTTP status code %d", resp.StatusCode)
 	}
 	return result, nil
 }

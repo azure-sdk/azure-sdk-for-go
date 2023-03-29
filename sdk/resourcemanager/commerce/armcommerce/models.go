@@ -11,6 +11,12 @@ package armcommerce
 
 import "time"
 
+// ErrorObjectResponse - Describes the format of Error response with a wrapper object
+type ErrorObjectResponse struct {
+	// Wrapper object for error information
+	Error *ErrorResponse `json:"error,omitempty"`
+}
+
 // ErrorResponse - Describes the format of Error response.
 type ErrorResponse struct {
 	// Error code
@@ -18,12 +24,6 @@ type ErrorResponse struct {
 
 	// Error message indicating why the operation failed.
 	Message *string `json:"message,omitempty"`
-}
-
-// InfoField - Key-value pairs of instance details in the legacy format.
-type InfoField struct {
-	// Identifies the name of the instance provisioned by the user.
-	Project *string `json:"project,omitempty"`
 }
 
 // MeterInfo - Detailed information about the meter.
@@ -234,7 +234,7 @@ type UsageAggregationListResult struct {
 // UsageSample - Describes a sample of the usageAggregation.
 type UsageSample struct {
 	// Key-value pairs of instance details (legacy format).
-	InfoFields *InfoField `json:"infoFields,omitempty"`
+	InfoFields any `json:"infoFields,omitempty"`
 
 	// Key-value pairs of instance details represented as a string.
 	InstanceData *string `json:"instanceData,omitempty"`
