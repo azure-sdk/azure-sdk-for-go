@@ -14,8 +14,6 @@ import (
 	"errors"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	armruntime "github.com/Azure/azure-sdk-for-go/sdk/azcore/arm/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/cloud"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
@@ -26,9 +24,8 @@ import (
 // IntegrationRuntimeNodeIPAddressClient contains the methods for the IntegrationRuntimeNodeIPAddress group.
 // Don't use this type directly, use NewIntegrationRuntimeNodeIPAddressClient() instead.
 type IntegrationRuntimeNodeIPAddressClient struct {
-	host           string
+	internal       *arm.Client
 	subscriptionID string
-	pl             runtime.Pipeline
 }
 
 // NewIntegrationRuntimeNodeIPAddressClient creates a new instance of IntegrationRuntimeNodeIPAddressClient with the specified values.
@@ -36,21 +33,13 @@ type IntegrationRuntimeNodeIPAddressClient struct {
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewIntegrationRuntimeNodeIPAddressClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IntegrationRuntimeNodeIPAddressClient, error) {
-	if options == nil {
-		options = &arm.ClientOptions{}
-	}
-	ep := cloud.AzurePublic.Services[cloud.ResourceManager].Endpoint
-	if c, ok := options.Cloud.Services[cloud.ResourceManager]; ok {
-		ep = c.Endpoint
-	}
-	pl, err := armruntime.NewPipeline(moduleName, moduleVersion, credential, runtime.PipelineOptions{}, options)
+	cl, err := arm.NewClient(moduleName+".IntegrationRuntimeNodeIPAddressClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &IntegrationRuntimeNodeIPAddressClient{
 		subscriptionID: subscriptionID,
-		host:           ep,
-		pl:             pl,
+		internal:       cl,
 	}
 	return client, nil
 }
@@ -58,7 +47,7 @@ func NewIntegrationRuntimeNodeIPAddressClient(subscriptionID string, credential 
 // Get - Get the IP address of an integration runtime node
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01-preview
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - integrationRuntimeName - Integration runtime name
@@ -70,7 +59,7 @@ func (client *IntegrationRuntimeNodeIPAddressClient) Get(ctx context.Context, re
 	if err != nil {
 		return IntegrationRuntimeNodeIPAddressClientGetResponse{}, err
 	}
-	resp, err := client.pl.Do(req)
+	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
 		return IntegrationRuntimeNodeIPAddressClientGetResponse{}, err
 	}
@@ -103,12 +92,12 @@ func (client *IntegrationRuntimeNodeIPAddressClient) getCreateRequest(ctx contex
 		return nil, errors.New("parameter nodeName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{nodeName}", url.PathEscape(nodeName))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.host, urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01-preview")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

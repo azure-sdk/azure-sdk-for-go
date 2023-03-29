@@ -26,55 +26,6 @@ type AADAdminProperties struct {
 	TenantID *string `json:"tenantId,omitempty"`
 }
 
-// AttachedDatabaseConfiguration - Class representing an attached database configuration.
-type AttachedDatabaseConfiguration struct {
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// The properties of the attached database configuration.
-	Properties *AttachedDatabaseConfigurationProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// AttachedDatabaseConfigurationListResult - The list attached database configurations operation response.
-type AttachedDatabaseConfigurationListResult struct {
-	// The list of attached database configurations.
-	Value []*AttachedDatabaseConfiguration `json:"value,omitempty"`
-}
-
-// AttachedDatabaseConfigurationProperties - Class representing the an attached database configuration properties of kind
-// specific.
-type AttachedDatabaseConfigurationProperties struct {
-	// REQUIRED; The name of the database which you would like to attach, use * if you want to follow all current and future databases.
-	DatabaseName *string `json:"databaseName,omitempty"`
-
-	// REQUIRED; The default principals modification kind
-	DefaultPrincipalsModificationKind *DefaultPrincipalsModificationKind `json:"defaultPrincipalsModificationKind,omitempty"`
-
-	// REQUIRED; The resource id of the kusto pool where the databases you would like to attach reside.
-	KustoPoolResourceID *string `json:"clusterResourceId,omitempty"`
-
-	// Table level sharing specifications
-	TableLevelSharingProperties *TableLevelSharingProperties `json:"tableLevelSharingProperties,omitempty"`
-
-	// READ-ONLY; The list of databases from the clusterResourceId which are currently attached to the kusto pool.
-	AttachedDatabaseNames []*string `json:"attachedDatabaseNames,omitempty" azure:"ro"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
 // AutoPauseProperties - Auto-pausing properties of a Big Data pool powered by Apache Spark
 type AutoPauseProperties struct {
 	// Number of minutes of idle time before the Big Data pool is automatically paused.
@@ -184,21 +135,6 @@ type AzureADOnlyAuthenticationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AzureCapacity - Azure capacity definition.
-type AzureCapacity struct {
-	// REQUIRED; The default capacity that would be used.
-	Default *int32 `json:"default,omitempty"`
-
-	// REQUIRED; Maximum allowed capacity.
-	Maximum *int32 `json:"maximum,omitempty"`
-
-	// REQUIRED; Minimum allowed capacity.
-	Minimum *int32 `json:"minimum,omitempty"`
-
-	// REQUIRED; Scale type.
-	ScaleType *AzureScaleType `json:"scaleType,omitempty"`
-}
-
 // AzureEntityResource - The resource model definition for an Azure Resource Manager resource with an etag.
 type AzureEntityResource struct {
 	// READ-ONLY; Resource Etag.
@@ -212,30 +148,6 @@ type AzureEntityResource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// AzureResourceSKU - Azure resource SKU definition.
-type AzureResourceSKU struct {
-	// The number of instances of the cluster.
-	Capacity *AzureCapacity `json:"capacity,omitempty"`
-
-	// Resource Namespace and Type.
-	ResourceType *string `json:"resourceType,omitempty"`
-
-	// The SKU details.
-	SKU *AzureSKU `json:"sku,omitempty"`
-}
-
-// AzureSKU - Azure SKU definition.
-type AzureSKU struct {
-	// REQUIRED; SKU name.
-	Name *SKUName `json:"name,omitempty"`
-
-	// REQUIRED; SKU size.
-	Size *SKUSize `json:"size,omitempty"`
-
-	// The number of instances of the cluster.
-	Capacity *int32 `json:"capacity,omitempty"`
 }
 
 // BigDataPoolPatchInfo - Properties patch for a Big Data pool
@@ -282,9 +194,6 @@ type BigDataPoolResourceProperties struct {
 	// Auto-scaling properties
 	AutoScale *AutoScaleProperties `json:"autoScale,omitempty"`
 
-	// The cache size
-	CacheSize *int32 `json:"cacheSize,omitempty"`
-
 	// List of custom libraries/packages associated with the spark pool.
 	CustomLibraries []*LibraryInfo `json:"customLibraries,omitempty"`
 
@@ -326,6 +235,9 @@ type BigDataPoolResourceProperties struct {
 
 	// The Apache Spark version.
 	SparkVersion *string `json:"sparkVersion,omitempty"`
+
+	// READ-ONLY; The cache size
+	CacheSize *int32 `json:"cacheSize,omitempty" azure:"ro"`
 
 	// READ-ONLY; The time when the Big Data pool was created.
 	CreationDate *time.Time `json:"creationDate,omitempty" azure:"ro"`
@@ -387,83 +299,6 @@ type CheckNameAvailabilityResponse struct {
 
 	// Reason the workspace name is or is not available
 	Reason *string `json:"reason,omitempty"`
-}
-
-// CheckNameResult - The result returned from a check name availability request.
-type CheckNameResult struct {
-	// Message indicating an unavailable name due to a conflict, or a description of the naming rules that are violated.
-	Message *string `json:"message,omitempty"`
-
-	// The name that was checked.
-	Name *string `json:"name,omitempty"`
-
-	// Specifies a Boolean value that indicates if the name is available.
-	NameAvailable *bool `json:"nameAvailable,omitempty"`
-
-	// Message providing the reason why the given name is invalid.
-	Reason *Reason `json:"reason,omitempty"`
-}
-
-// ClusterPrincipalAssignment - Class representing a cluster principal assignment.
-type ClusterPrincipalAssignment struct {
-	// The cluster principal.
-	Properties *ClusterPrincipalProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ClusterPrincipalAssignmentCheckNameRequest - A principal assignment check name availability request.
-type ClusterPrincipalAssignmentCheckNameRequest struct {
-	// REQUIRED; Principal Assignment resource name.
-	Name *string `json:"name,omitempty"`
-
-	// CONSTANT; The type of resource, Microsoft.Synapse/workspaces/kustoPools/principalAssignments.
-	// Field has constant value "Microsoft.Synapse/workspaces/kustoPools/principalAssignments", any specified value is ignored.
-	Type *string `json:"type,omitempty"`
-}
-
-// ClusterPrincipalAssignmentListResult - The list Kusto cluster principal assignments operation response.
-type ClusterPrincipalAssignmentListResult struct {
-	// The list of Kusto cluster principal assignments.
-	Value []*ClusterPrincipalAssignment `json:"value,omitempty"`
-}
-
-// ClusterPrincipalProperties - A class representing cluster principal property.
-type ClusterPrincipalProperties struct {
-	// REQUIRED; The principal ID assigned to the cluster principal. It can be a user email, application ID, or security group
-	// name.
-	PrincipalID *string `json:"principalId,omitempty"`
-
-	// REQUIRED; Principal type.
-	PrincipalType *PrincipalType `json:"principalType,omitempty"`
-
-	// REQUIRED; Cluster principal role.
-	Role *ClusterPrincipalRole `json:"role,omitempty"`
-
-	// The tenant id of the principal
-	TenantID *string `json:"tenantId,omitempty"`
-
-	// READ-ONLY; The service principal object id in AAD (Azure active directory)
-	AADObjectID *string `json:"aadObjectId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The principal name
-	PrincipalName *string `json:"principalName,omitempty" azure:"ro"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-
-	// READ-ONLY; The tenant name of the principal
-	TenantName *string `json:"tenantName,omitempty" azure:"ro"`
 }
 
 // CmdkeySetup - The custom setup of running cmdkey commands.
@@ -550,76 +385,6 @@ type CustomerManagedKeyDetails struct {
 
 	// READ-ONLY; The customer managed key status on the workspace
 	Status *string `json:"status,omitempty" azure:"ro"`
-}
-
-// DataConnectionClassification provides polymorphic access to related types.
-// Call the interface's GetDataConnection() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *DataConnection, *EventGridDataConnection, *EventHubDataConnection, *IotHubDataConnection
-type DataConnectionClassification interface {
-	// GetDataConnection returns the DataConnection content of the underlying type.
-	GetDataConnection() *DataConnection
-}
-
-// DataConnection - Class representing a data connection.
-type DataConnection struct {
-	// REQUIRED; Kind of the endpoint for the data connection
-	Kind *DataConnectionKind `json:"kind,omitempty"`
-
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// GetDataConnection implements the DataConnectionClassification interface for type DataConnection.
-func (d *DataConnection) GetDataConnection() *DataConnection { return d }
-
-// DataConnectionCheckNameRequest - A data connection check name availability request.
-type DataConnectionCheckNameRequest struct {
-	// REQUIRED; Data Connection name.
-	Name *string `json:"name,omitempty"`
-
-	// CONSTANT; The type of resource, Microsoft.Synapse/workspaces/kustoPools/databases/dataConnections.
-	// Field has constant value "Microsoft.Synapse/workspaces/kustoPools/databases/dataConnections", any specified value is ignored.
-	Type *string `json:"type,omitempty"`
-}
-
-// DataConnectionListResult - The list Kusto data connections operation response.
-type DataConnectionListResult struct {
-	// The list of Kusto data connections.
-	Value []DataConnectionClassification `json:"value,omitempty"`
-}
-
-// DataConnectionValidation - Class representing an data connection validation.
-type DataConnectionValidation struct {
-	// The name of the data connection.
-	DataConnectionName *string `json:"dataConnectionName,omitempty"`
-
-	// The data connection properties to validate.
-	Properties DataConnectionClassification `json:"properties,omitempty"`
-}
-
-// DataConnectionValidationListResult - The list Kusto data connection validation result.
-type DataConnectionValidationListResult struct {
-	// The list of Kusto data connection validation errors.
-	Value []*DataConnectionValidationResult `json:"value,omitempty"`
-}
-
-// DataConnectionValidationResult - The result returned from a data connection validation request.
-type DataConnectionValidationResult struct {
-	// A message which indicates a problem in data connection validation.
-	ErrorMessage *string `json:"errorMessage,omitempty"`
 }
 
 // DataLakeStorageAccountDetails - Details of the data lake storage account associated with the workspace
@@ -798,123 +563,6 @@ type DataWarehouseUserActivities struct {
 type DataWarehouseUserActivitiesProperties struct {
 	// READ-ONLY; Count of running and suspended queries.
 	ActiveQueriesCount *int32 `json:"activeQueriesCount,omitempty" azure:"ro"`
-}
-
-// DatabaseClassification provides polymorphic access to related types.
-// Call the interface's GetDatabase() method to access the common type.
-// Use a type switch to determine the concrete type.  The possible types are:
-// - *Database, *ReadOnlyFollowingDatabase, *ReadWriteDatabase
-type DatabaseClassification interface {
-	// GetDatabase returns the Database content of the underlying type.
-	GetDatabase() *Database
-}
-
-// Database - Class representing a Kusto database.
-type Database struct {
-	// REQUIRED; Kind of the database
-	Kind *Kind `json:"kind,omitempty"`
-
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// GetDatabase implements the DatabaseClassification interface for type Database.
-func (d *Database) GetDatabase() *Database { return d }
-
-// DatabaseCheckNameRequest - The result returned from a database check name availability request.
-type DatabaseCheckNameRequest struct {
-	// REQUIRED; Resource name.
-	Name *string `json:"name,omitempty"`
-
-	// REQUIRED; The type of resource, for instance Microsoft.Synapse/workspaces/kustoPools/databases.
-	Type *Type `json:"type,omitempty"`
-}
-
-// DatabaseListResult - The list Kusto databases operation response.
-type DatabaseListResult struct {
-	// The list of Kusto databases.
-	Value []DatabaseClassification `json:"value,omitempty"`
-}
-
-// DatabasePrincipalAssignment - Class representing a database principal assignment.
-type DatabasePrincipalAssignment struct {
-	// The database principal.
-	Properties *DatabasePrincipalProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// DatabasePrincipalAssignmentCheckNameRequest - A principal assignment check name availability request.
-type DatabasePrincipalAssignmentCheckNameRequest struct {
-	// REQUIRED; Principal Assignment resource name.
-	Name *string `json:"name,omitempty"`
-
-	// CONSTANT; The type of resource, Microsoft.Synapse/workspaces/kustoPools/databases/principalAssignments.
-	// Field has constant value "Microsoft.Synapse/workspaces/kustoPools/databases/principalAssignments", any specified value
-	// is ignored.
-	Type *string `json:"type,omitempty"`
-}
-
-// DatabasePrincipalAssignmentListResult - The list Kusto database principal assignments operation response.
-type DatabasePrincipalAssignmentListResult struct {
-	// The list of Kusto database principal assignments.
-	Value []*DatabasePrincipalAssignment `json:"value,omitempty"`
-}
-
-// DatabasePrincipalProperties - A class representing database principal property.
-type DatabasePrincipalProperties struct {
-	// REQUIRED; The principal ID assigned to the database principal. It can be a user email, application ID, or security group
-	// name.
-	PrincipalID *string `json:"principalId,omitempty"`
-
-	// REQUIRED; Principal type.
-	PrincipalType *PrincipalType `json:"principalType,omitempty"`
-
-	// REQUIRED; Database principal role.
-	Role *DatabasePrincipalRole `json:"role,omitempty"`
-
-	// The tenant id of the principal
-	TenantID *string `json:"tenantId,omitempty"`
-
-	// READ-ONLY; The service principal object id in AAD (Azure active directory)
-	AADObjectID *string `json:"aadObjectId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The principal name
-	PrincipalName *string `json:"principalName,omitempty" azure:"ro"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-
-	// READ-ONLY; The tenant name of the principal
-	TenantName *string `json:"tenantName,omitempty" azure:"ro"`
-}
-
-// DatabaseStatistics - A class that contains database statistics information.
-type DatabaseStatistics struct {
-	// The database size - the total size of compressed data and index in bytes.
-	Size *float32 `json:"size,omitempty"`
 }
 
 // DedicatedSQLminimalTLSSettings - Dedicated Sql Minimal Tls Settings Info
@@ -1110,138 +758,6 @@ type ErrorResponseAutoGenerated struct {
 
 	// READ-ONLY; The error target.
 	Target *string `json:"target,omitempty" azure:"ro"`
-}
-
-// EventGridConnectionProperties - Class representing the Kusto event grid connection properties.
-type EventGridConnectionProperties struct {
-	// REQUIRED; The event hub consumer group.
-	ConsumerGroup *string `json:"consumerGroup,omitempty"`
-
-	// REQUIRED; The resource ID where the event grid is configured to send events.
-	EventHubResourceID *string `json:"eventHubResourceId,omitempty"`
-
-	// REQUIRED; The resource ID of the storage account where the data resides.
-	StorageAccountResourceID *string `json:"storageAccountResourceId,omitempty"`
-
-	// The name of blob storage event type to process.
-	BlobStorageEventType *BlobStorageEventType `json:"blobStorageEventType,omitempty"`
-
-	// The data format of the message. Optionally the data format can be added to each message.
-	DataFormat *EventGridDataFormat `json:"dataFormat,omitempty"`
-
-	// A Boolean value that, if set to true, indicates that ingestion should ignore the first record of every file
-	IgnoreFirstRecord *bool `json:"ignoreFirstRecord,omitempty"`
-
-	// The mapping rule to be used to ingest the data. Optionally the mapping information can be added to each message.
-	MappingRuleName *string `json:"mappingRuleName,omitempty"`
-
-	// The table where the data should be ingested. Optionally the table information can be added to each message.
-	TableName *string `json:"tableName,omitempty"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// EventGridDataConnection - Class representing an Event Grid data connection.
-type EventGridDataConnection struct {
-	// REQUIRED; Kind of the endpoint for the data connection
-	Kind *DataConnectionKind `json:"kind,omitempty"`
-
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// The properties of the Event Grid data connection.
-	Properties *EventGridConnectionProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// GetDataConnection implements the DataConnectionClassification interface for type EventGridDataConnection.
-func (e *EventGridDataConnection) GetDataConnection() *DataConnection {
-	return &DataConnection{
-		Location:   e.Location,
-		Kind:       e.Kind,
-		SystemData: e.SystemData,
-		ID:         e.ID,
-		Name:       e.Name,
-		Type:       e.Type,
-	}
-}
-
-// EventHubConnectionProperties - Class representing the Kusto event hub connection properties.
-type EventHubConnectionProperties struct {
-	// REQUIRED; The event hub consumer group.
-	ConsumerGroup *string `json:"consumerGroup,omitempty"`
-
-	// REQUIRED; The resource ID of the event hub to be used to create a data connection.
-	EventHubResourceID *string `json:"eventHubResourceId,omitempty"`
-
-	// The event hub messages compression type
-	Compression *Compression `json:"compression,omitempty"`
-
-	// The data format of the message. Optionally the data format can be added to each message.
-	DataFormat *EventHubDataFormat `json:"dataFormat,omitempty"`
-
-	// System properties of the event hub
-	EventSystemProperties []*string `json:"eventSystemProperties,omitempty"`
-
-	// The resource ID of a managed identity (system or user assigned) to be used to authenticate with event hub.
-	ManagedIdentityResourceID *string `json:"managedIdentityResourceId,omitempty"`
-
-	// The mapping rule to be used to ingest the data. Optionally the mapping information can be added to each message.
-	MappingRuleName *string `json:"mappingRuleName,omitempty"`
-
-	// The table where the data should be ingested. Optionally the table information can be added to each message.
-	TableName *string `json:"tableName,omitempty"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// EventHubDataConnection - Class representing an event hub data connection.
-type EventHubDataConnection struct {
-	// REQUIRED; Kind of the endpoint for the data connection
-	Kind *DataConnectionKind `json:"kind,omitempty"`
-
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// The Event Hub data connection properties to validate.
-	Properties *EventHubConnectionProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// GetDataConnection implements the DataConnectionClassification interface for type EventHubDataConnection.
-func (e *EventHubDataConnection) GetDataConnection() *DataConnection {
-	return &DataConnection{
-		Location:   e.Location,
-		Kind:       e.Kind,
-		SystemData: e.SystemData,
-		ID:         e.ID,
-		Name:       e.Name,
-		Type:       e.Type,
-	}
 }
 
 // ExtendedSQLPoolBlobAuditingPoliciesClientCreateOrUpdateOptions contains the optional parameters for the ExtendedSQLPoolBlobAuditingPoliciesClient.CreateOrUpdate
@@ -1471,24 +987,6 @@ type ExtendedServerBlobAuditingPolicyProperties struct {
 	StorageEndpoint *string `json:"storageEndpoint,omitempty"`
 }
 
-// FollowerDatabaseDefinition - A class representing follower database request.
-type FollowerDatabaseDefinition struct {
-	// REQUIRED; Resource name of the attached database configuration in the follower cluster.
-	AttachedDatabaseConfigurationName *string `json:"attachedDatabaseConfigurationName,omitempty"`
-
-	// REQUIRED; Resource id of the cluster that follows a database owned by this cluster.
-	KustoPoolResourceID *string `json:"clusterResourceId,omitempty"`
-
-	// READ-ONLY; The database name owned by this cluster that was followed. * in case following all databases.
-	DatabaseName *string `json:"databaseName,omitempty" azure:"ro"`
-}
-
-// FollowerDatabaseListResult - The list Kusto database principals operation response.
-type FollowerDatabaseListResult struct {
-	// The list of follower database result.
-	Value []*FollowerDatabaseDefinition `json:"value,omitempty"`
-}
-
 // GeoBackupPolicy - A database geo backup policy.
 type GeoBackupPolicy struct {
 	// REQUIRED; The properties of the geo backup policy.
@@ -1523,22 +1021,6 @@ type GeoBackupPolicyProperties struct {
 
 	// READ-ONLY; The storage type of the geo backup policy.
 	StorageType *string `json:"storageType,omitempty" azure:"ro"`
-}
-
-// GetClientIntegrationRuntimeEnableInteractivequeryOptions contains the optional parameters for the GetClient.IntegrationRuntimeEnableInteractivequery
-// method.
-type GetClientIntegrationRuntimeEnableInteractivequeryOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GetClientIntegrationRuntimeStartOptions contains the optional parameters for the GetClient.IntegrationRuntimeStart method.
-type GetClientIntegrationRuntimeStartOptions struct {
-	// placeholder for future optional parameters
-}
-
-// GetClientIntegrationRuntimeStopOptions contains the optional parameters for the GetClient.IntegrationRuntimeStop method.
-type GetClientIntegrationRuntimeStopOptions struct {
-	// placeholder for future optional parameters
 }
 
 // GetSsisObjectMetadataRequest - The request payload of get SSIS object metadata.
@@ -1728,14 +1210,17 @@ type IntegrationRuntimeCustomSetupScriptProperties struct {
 	SasToken *SecureString `json:"sasToken,omitempty"`
 }
 
+// IntegrationRuntimeCustomerVirtualNetwork - The definition and properties of virtual network to which Azure-SSIS integration
+// runtime will join.
+type IntegrationRuntimeCustomerVirtualNetwork struct {
+	// The ID of subnet to which Azure-SSIS integration runtime will join.
+	SubnetID *string `json:"subnetId,omitempty"`
+}
+
 // IntegrationRuntimeDataFlowProperties - Data flow properties for managed integration runtime.
 type IntegrationRuntimeDataFlowProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
-
-	// Cluster will not be recycled and it will be used in next data flow activity run until TTL (time to live) is reached if
-	// this is set as false. Default is true.
-	Cleanup *bool `json:"cleanup,omitempty"`
 
 	// Compute type of the cluster which will execute data flow job.
 	ComputeType *DataFlowComputeType `json:"computeType,omitempty"`
@@ -1757,21 +1242,6 @@ type IntegrationRuntimeDataProxyProperties struct {
 
 	// The staging linked service reference.
 	StagingLinkedService *EntityReference `json:"stagingLinkedService,omitempty"`
-}
-
-// IntegrationRuntimeEnableinteractivequery - Integration Runtime Operation Status Properties
-type IntegrationRuntimeEnableinteractivequery struct {
-	// The operation error message.
-	Error *string `json:"error,omitempty"`
-
-	// The operation name.
-	Name *string `json:"name,omitempty"`
-
-	// The operation properties.
-	Properties any `json:"properties,omitempty"`
-
-	// EnableInteractivequery status of Integrationruntimes.
-	Status *WorkspaceStatus `json:"status,omitempty"`
 }
 
 // IntegrationRuntimeListResponse - A list of integration runtime resources.
@@ -1869,21 +1339,6 @@ type IntegrationRuntimeObjectMetadataClientBeginRefreshOptions struct {
 type IntegrationRuntimeObjectMetadataClientListOptions struct {
 	// The parameters for getting a SSIS object metadata.
 	GetMetadataRequest *GetSsisObjectMetadataRequest
-}
-
-// IntegrationRuntimeOperationStatus - Integration Runtime Operation Status Properties
-type IntegrationRuntimeOperationStatus struct {
-	// The operation error message.
-	Error *string `json:"error,omitempty"`
-
-	// The operation name.
-	Name *string `json:"name,omitempty"`
-
-	// The operation properties.
-	Properties any `json:"properties,omitempty"`
-
-	// status of Start Integrationruntimes.
-	Status *WorkspaceStatus `json:"status,omitempty"`
 }
 
 // IntegrationRuntimeOutboundNetworkDependenciesCategoryEndpoint - Azure-SSIS integration runtime outbound network dependency
@@ -2027,21 +1482,6 @@ type IntegrationRuntimeStatusResponse struct {
 	Name *string `json:"name,omitempty" azure:"ro"`
 }
 
-// IntegrationRuntimeStopOperationStatus - Integration Runtime Operation Status Properties
-type IntegrationRuntimeStopOperationStatus struct {
-	// The operation error message.
-	Error *string `json:"error,omitempty"`
-
-	// The operation name.
-	Name *string `json:"name,omitempty"`
-
-	// The operation properties.
-	Properties any `json:"properties,omitempty"`
-
-	// status of Start Integrationruntimes.
-	Status *WorkspaceStatus `json:"status,omitempty"`
-}
-
 // IntegrationRuntimeVNetProperties - VNet properties for managed integration runtime.
 type IntegrationRuntimeVNetProperties struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
@@ -2134,69 +1574,6 @@ type IntegrationRuntimesClientUpgradeOptions struct {
 	// placeholder for future optional parameters
 }
 
-// IotHubConnectionProperties - Class representing the Kusto Iot hub connection properties.
-type IotHubConnectionProperties struct {
-	// REQUIRED; The iot hub consumer group.
-	ConsumerGroup *string `json:"consumerGroup,omitempty"`
-
-	// REQUIRED; The resource ID of the Iot hub to be used to create a data connection.
-	IotHubResourceID *string `json:"iotHubResourceId,omitempty"`
-
-	// REQUIRED; The name of the share access policy
-	SharedAccessPolicyName *string `json:"sharedAccessPolicyName,omitempty"`
-
-	// The data format of the message. Optionally the data format can be added to each message.
-	DataFormat *IotHubDataFormat `json:"dataFormat,omitempty"`
-
-	// System properties of the iot hub
-	EventSystemProperties []*string `json:"eventSystemProperties,omitempty"`
-
-	// The mapping rule to be used to ingest the data. Optionally the mapping information can be added to each message.
-	MappingRuleName *string `json:"mappingRuleName,omitempty"`
-
-	// The table where the data should be ingested. Optionally the table information can be added to each message.
-	TableName *string `json:"tableName,omitempty"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-}
-
-// IotHubDataConnection - Class representing an iot hub data connection.
-type IotHubDataConnection struct {
-	// REQUIRED; Kind of the endpoint for the data connection
-	Kind *DataConnectionKind `json:"kind,omitempty"`
-
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// The Iot Hub data connection properties.
-	Properties *IotHubConnectionProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// GetDataConnection implements the DataConnectionClassification interface for type IotHubDataConnection.
-func (i *IotHubDataConnection) GetDataConnection() *DataConnection {
-	return &DataConnection{
-		Location:   i.Location,
-		Kind:       i.Kind,
-		SystemData: i.SystemData,
-		ID:         i.ID,
-		Name:       i.Name,
-		Type:       i.Type,
-	}
-}
-
 // KekIdentityProperties - Key encryption key properties
 type KekIdentityProperties struct {
 	// Boolean specifying whether to use system assigned identity or not
@@ -2259,420 +1636,6 @@ type KeysClientListByWorkspaceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// KustoOperationsClientListOptions contains the optional parameters for the KustoOperationsClient.NewListPager method.
-type KustoOperationsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPool - Class representing a Kusto kusto pool.
-type KustoPool struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-
-	// REQUIRED; The SKU of the kusto pool.
-	SKU *AzureSKU `json:"sku,omitempty"`
-
-	// The kusto pool properties.
-	Properties *KustoPoolProperties `json:"properties,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolAttachedDatabaseConfigurationsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolAttachedDatabaseConfigurationsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientBeginDeleteOptions contains the optional parameters for the KustoPoolAttachedDatabaseConfigurationsClient.BeginDelete
-// method.
-type KustoPoolAttachedDatabaseConfigurationsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientGetOptions contains the optional parameters for the KustoPoolAttachedDatabaseConfigurationsClient.Get
-// method.
-type KustoPoolAttachedDatabaseConfigurationsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolAttachedDatabaseConfigurationsClientListByKustoPoolOptions contains the optional parameters for the KustoPoolAttachedDatabaseConfigurationsClient.NewListByKustoPoolPager
-// method.
-type KustoPoolAttachedDatabaseConfigurationsClientListByKustoPoolOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolCheckNameRequest - The object sent for a kusto pool check name availability request.
-type KustoPoolCheckNameRequest struct {
-	// REQUIRED; Kusto Pool name.
-	Name *string `json:"name,omitempty"`
-
-	// CONSTANT; The type of resource, Microsoft.Synapse/workspaces/kustoPools.
-	// Field has constant value "Microsoft.Synapse/workspaces/kustoPools", any specified value is ignored.
-	Type *string `json:"type,omitempty"`
-}
-
-// KustoPoolChildResourceClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolChildResourceClient.CheckNameAvailability
-// method.
-type KustoPoolChildResourceClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDataConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolDataConnectionsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolDataConnectionsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDataConnectionsClientBeginDataConnectionValidationOptions contains the optional parameters for the KustoPoolDataConnectionsClient.BeginDataConnectionValidation
-// method.
-type KustoPoolDataConnectionsClientBeginDataConnectionValidationOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDataConnectionsClientBeginDeleteOptions contains the optional parameters for the KustoPoolDataConnectionsClient.BeginDelete
-// method.
-type KustoPoolDataConnectionsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDataConnectionsClientBeginUpdateOptions contains the optional parameters for the KustoPoolDataConnectionsClient.BeginUpdate
-// method.
-type KustoPoolDataConnectionsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDataConnectionsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolDataConnectionsClient.CheckNameAvailability
-// method.
-type KustoPoolDataConnectionsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDataConnectionsClientGetOptions contains the optional parameters for the KustoPoolDataConnectionsClient.Get method.
-type KustoPoolDataConnectionsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDataConnectionsClientListByDatabaseOptions contains the optional parameters for the KustoPoolDataConnectionsClient.NewListByDatabasePager
-// method.
-type KustoPoolDataConnectionsClientListByDatabaseOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientBeginDeleteOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.BeginDelete
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.CheckNameAvailability
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientGetOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.Get
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasePrincipalAssignmentsClientListOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.NewListPager
-// method.
-type KustoPoolDatabasePrincipalAssignmentsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasesClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolDatabasesClient.BeginCreateOrUpdate
-// method.
-type KustoPoolDatabasesClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasesClientBeginDeleteOptions contains the optional parameters for the KustoPoolDatabasesClient.BeginDelete
-// method.
-type KustoPoolDatabasesClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasesClientBeginUpdateOptions contains the optional parameters for the KustoPoolDatabasesClient.BeginUpdate
-// method.
-type KustoPoolDatabasesClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolDatabasesClientGetOptions contains the optional parameters for the KustoPoolDatabasesClient.Get method.
-type KustoPoolDatabasesClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolDatabasesClientListByKustoPoolOptions contains the optional parameters for the KustoPoolDatabasesClient.NewListByKustoPoolPager
-// method.
-type KustoPoolDatabasesClientListByKustoPoolOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolListResult - The list Kusto pools operation response.
-type KustoPoolListResult struct {
-	// The list of Kusto pools.
-	Value []*KustoPool `json:"value,omitempty"`
-}
-
-// KustoPoolPrincipalAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolPrincipalAssignmentsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolPrincipalAssignmentsClientBeginDeleteOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.BeginDelete
-// method.
-type KustoPoolPrincipalAssignmentsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolPrincipalAssignmentsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.CheckNameAvailability
-// method.
-type KustoPoolPrincipalAssignmentsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolPrincipalAssignmentsClientGetOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.Get
-// method.
-type KustoPoolPrincipalAssignmentsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolPrincipalAssignmentsClientListOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.NewListPager
-// method.
-type KustoPoolPrincipalAssignmentsClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolPrivateLinkResources - Class representing a Private Link Resources.
-type KustoPoolPrivateLinkResources struct {
-	// The Private Link Resources.
-	Properties *PrivateLinkResourcesProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// KustoPoolPrivateLinkResourcesClientListOptions contains the optional parameters for the KustoPoolPrivateLinkResourcesClient.NewListPager
-// method.
-type KustoPoolPrivateLinkResourcesClientListOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolProperties - Class representing the Kusto pool properties.
-type KustoPoolProperties struct {
-	// A boolean value that indicates if the purge operations are enabled.
-	EnablePurge *bool `json:"enablePurge,omitempty"`
-
-	// A boolean value that indicates if the streaming ingest is enabled.
-	EnableStreamingIngest *bool `json:"enableStreamingIngest,omitempty"`
-
-	// Optimized auto scale definition.
-	OptimizedAutoscale *OptimizedAutoscale `json:"optimizedAutoscale,omitempty"`
-
-	// The workspace unique identifier.
-	WorkspaceUID *string `json:"workspaceUID,omitempty"`
-
-	// READ-ONLY; The Kusto Pool data ingestion URI.
-	DataIngestionURI *string `json:"dataIngestionUri,omitempty" azure:"ro"`
-
-	// READ-ONLY; List of the Kusto Pool's language extensions.
-	LanguageExtensions *LanguageExtensionsList `json:"languageExtensions,omitempty" azure:"ro"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-
-	// READ-ONLY; The state of the resource.
-	State *State `json:"state,omitempty" azure:"ro"`
-
-	// READ-ONLY; The reason for the Kusto Pool's current state.
-	StateReason *string `json:"stateReason,omitempty" azure:"ro"`
-
-	// READ-ONLY; The Kusto Pool URI.
-	URI *string `json:"uri,omitempty" azure:"ro"`
-}
-
-// KustoPoolUpdate - Class representing an update to a Kusto kusto pool.
-type KustoPoolUpdate struct {
-	// The kusto pool properties.
-	Properties *KustoPoolProperties `json:"properties,omitempty"`
-
-	// The SKU of the kusto pool.
-	SKU *AzureSKU `json:"sku,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// KustoPoolsClientBeginAddLanguageExtensionsOptions contains the optional parameters for the KustoPoolsClient.BeginAddLanguageExtensions
-// method.
-type KustoPoolsClientBeginAddLanguageExtensionsOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolsClient.BeginCreateOrUpdate
-// method.
-type KustoPoolsClientBeginCreateOrUpdateOptions struct {
-	// The ETag of the Kusto Pool. Omit this value to always overwrite the current Kusto Pool. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-	// Set to '*' to allow a new Kusto Pool to be created, but to prevent updating an existing Kusto Pool. Other values will result
-	// in a 412 Pre-condition Failed response.
-	IfNoneMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginDeleteOptions contains the optional parameters for the KustoPoolsClient.BeginDelete method.
-type KustoPoolsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginDetachFollowerDatabasesOptions contains the optional parameters for the KustoPoolsClient.BeginDetachFollowerDatabases
-// method.
-type KustoPoolsClientBeginDetachFollowerDatabasesOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginRemoveLanguageExtensionsOptions contains the optional parameters for the KustoPoolsClient.BeginRemoveLanguageExtensions
-// method.
-type KustoPoolsClientBeginRemoveLanguageExtensionsOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginStartOptions contains the optional parameters for the KustoPoolsClient.BeginStart method.
-type KustoPoolsClientBeginStartOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginStopOptions contains the optional parameters for the KustoPoolsClient.BeginStop method.
-type KustoPoolsClientBeginStopOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientBeginUpdateOptions contains the optional parameters for the KustoPoolsClient.BeginUpdate method.
-type KustoPoolsClientBeginUpdateOptions struct {
-	// The ETag of the Kusto Pool. Omit this value to always overwrite the current Kusto Pool. Specify the last-seen ETag value
-	// to prevent accidentally overwriting concurrent changes.
-	IfMatch *string
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// KustoPoolsClientCheckNameAvailabilityOptions contains the optional parameters for the KustoPoolsClient.CheckNameAvailability
-// method.
-type KustoPoolsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientGetOptions contains the optional parameters for the KustoPoolsClient.Get method.
-type KustoPoolsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListByWorkspaceOptions contains the optional parameters for the KustoPoolsClient.ListByWorkspace method.
-type KustoPoolsClientListByWorkspaceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListFollowerDatabasesOptions contains the optional parameters for the KustoPoolsClient.NewListFollowerDatabasesPager
-// method.
-type KustoPoolsClientListFollowerDatabasesOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListLanguageExtensionsOptions contains the optional parameters for the KustoPoolsClient.NewListLanguageExtensionsPager
-// method.
-type KustoPoolsClientListLanguageExtensionsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListSKUsByResourceOptions contains the optional parameters for the KustoPoolsClient.NewListSKUsByResourcePager
-// method.
-type KustoPoolsClientListSKUsByResourceOptions struct {
-	// placeholder for future optional parameters
-}
-
-// KustoPoolsClientListSKUsOptions contains the optional parameters for the KustoPoolsClient.NewListSKUsPager method.
-type KustoPoolsClientListSKUsOptions struct {
-	// placeholder for future optional parameters
-}
-
-// LanguageExtension - The language extension object.
-type LanguageExtension struct {
-	// The language extension name.
-	LanguageExtensionName *LanguageExtensionName `json:"languageExtensionName,omitempty"`
-}
-
-// LanguageExtensionsList - The list of language extension objects.
-type LanguageExtensionsList struct {
-	// The list of language extensions.
-	Value []*LanguageExtension `json:"value,omitempty"`
-}
-
 // LibrariesClientListByWorkspaceOptions contains the optional parameters for the LibrariesClient.NewListByWorkspacePager
 // method.
 type LibrariesClientListByWorkspaceOptions struct {
@@ -2698,14 +1661,14 @@ type LibraryInfo struct {
 	// Type of the library.
 	Type *string `json:"type,omitempty"`
 
-	// The last update time of the library.
-	UploadedTimestamp *time.Time `json:"uploadedTimestamp,omitempty"`
-
 	// READ-ONLY; Creator Id of the library/package.
 	CreatorID *string `json:"creatorId,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning status of the library/package.
 	ProvisioningStatus *string `json:"provisioningStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; The last update time of the library.
+	UploadedTimestamp *time.Time `json:"uploadedTimestamp,omitempty" azure:"ro"`
 }
 
 // LibraryListResponse - A list of Library resources.
@@ -2824,12 +1787,6 @@ type LinkedIntegrationRuntimeType struct {
 // GetLinkedIntegrationRuntimeType implements the LinkedIntegrationRuntimeTypeClassification interface for type LinkedIntegrationRuntimeType.
 func (l *LinkedIntegrationRuntimeType) GetLinkedIntegrationRuntimeType() *LinkedIntegrationRuntimeType {
 	return l
-}
-
-// ListResourceSKUsResult - List of available SKUs for a Kusto Pool.
-type ListResourceSKUsResult struct {
-	// The collection of available SKUs for an existing resource.
-	Value []*AzureResourceSKU `json:"value,omitempty"`
 }
 
 // ListSQLPoolSecurityAlertPolicies - A list of SQL pool security alert policies.
@@ -2975,7 +1932,7 @@ type ManagedIntegrationRuntime struct {
 	ManagedVirtualNetwork *ManagedIntegrationRuntimeManagedVirtualNetworkReference `json:"managedVirtualNetwork,omitempty"`
 
 	// READ-ONLY; Integration runtime state, only valid for managed dedicated integration runtime.
-	State *IntegrationRuntimeState `json:"state,omitempty" azure:"ro"`
+	ProvisioningState *IntegrationRuntimeState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // GetIntegrationRuntime implements the IntegrationRuntimeClassification interface for type ManagedIntegrationRuntime.
@@ -3010,7 +1967,7 @@ type ManagedIntegrationRuntimeManagedVirtualNetworkReference struct {
 	// The id of the managed virtual network.
 	ID *string `json:"id,omitempty"`
 
-	// The reference name of the managed virtual network.
+	// The reference name of the managed virtual network
 	ReferenceName *string `json:"referenceName,omitempty"`
 
 	// The type of the managed virtual network.
@@ -3104,6 +2061,9 @@ type ManagedIntegrationRuntimeTypeProperties struct {
 	// The compute resource for managed integration runtime.
 	ComputeProperties *IntegrationRuntimeComputeProperties `json:"computeProperties,omitempty"`
 
+	// The name of virtual network to which Azure-SSIS integration runtime will join
+	CustomerVirtualNetwork *IntegrationRuntimeCustomerVirtualNetwork `json:"customerVirtualNetwork,omitempty"`
+
 	// SSIS properties for managed integration runtime.
 	SsisProperties *IntegrationRuntimeSsisProperties `json:"ssisProperties,omitempty"`
 }
@@ -3142,46 +2102,6 @@ type MetadataSyncConfigProperties struct {
 
 	// The Sync Interval in minutes.
 	SyncIntervalInMinutes *int32 `json:"syncIntervalInMinutes,omitempty"`
-}
-
-// Operation - A REST API operation
-type Operation struct {
-	// The object that describes the operation.
-	Display *OperationDisplay `json:"display,omitempty"`
-
-	// This is of the format {provider}/{resource}/{operation}.
-	Name *string `json:"name,omitempty"`
-
-	// The intended executor of the operation.
-	Origin *string `json:"origin,omitempty"`
-
-	// Properties of the operation.
-	Properties any `json:"properties,omitempty"`
-}
-
-// OperationDisplay - The object that describes the operation.
-type OperationDisplay struct {
-	// The friendly name of the operation.
-	Description *string `json:"description,omitempty"`
-
-	// For example: read, write, delete.
-	Operation *string `json:"operation,omitempty"`
-
-	// Friendly name of the resource provider.
-	Provider *string `json:"provider,omitempty"`
-
-	// The resource type on which the operation is performed.
-	Resource *string `json:"resource,omitempty"`
-}
-
-// OperationListResult - Result of the request to list REST API operations. It contains a list of operations and a URL nextLink
-// to get the next set of results.
-type OperationListResult struct {
-	// The list of operations supported by the resource provider.
-	Value []*Operation `json:"value,omitempty"`
-
-	// READ-ONLY; The URL to get the next set of operation list results if there are any.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
 // OperationMetaLogSpecification - What is this?
@@ -3307,21 +2227,6 @@ type OperationsClientGetLocationHeaderResultOptions struct {
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
-}
-
-// OptimizedAutoscale - A class that contains the optimized auto scale definition.
-type OptimizedAutoscale struct {
-	// REQUIRED; A boolean value that indicate if the optimized autoscale feature is enabled or not.
-	IsEnabled *bool `json:"isEnabled,omitempty"`
-
-	// REQUIRED; Maximum allowed instances count.
-	Maximum *int32 `json:"maximum,omitempty"`
-
-	// REQUIRED; Minimum allowed instances count.
-	Minimum *int32 `json:"minimum,omitempty"`
-
-	// REQUIRED; The version of the template defined, for instance 1.
-	Version *int32 `json:"version,omitempty"`
 }
 
 // PrivateEndpoint - Private endpoint details
@@ -3560,12 +2465,6 @@ type PrivateLinkResourceProperties struct {
 	RequiredZoneNames []*string `json:"requiredZoneNames,omitempty" azure:"ro"`
 }
 
-// PrivateLinkResources - The list Kusto Private Link Resources operation response.
-type PrivateLinkResources struct {
-	// The list of Kusto Private Link Resources.
-	Value []*KustoPoolPrivateLinkResources `json:"value,omitempty"`
-}
-
 // PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get method.
 type PrivateLinkResourcesClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -3575,21 +2474,6 @@ type PrivateLinkResourcesClientGetOptions struct {
 // method.
 type PrivateLinkResourcesClientListOptions struct {
 	// placeholder for future optional parameters
-}
-
-// PrivateLinkResourcesProperties - Private Link Resources Properties.
-type PrivateLinkResourcesProperties struct {
-	// READ-ONLY; The Private link resources GroupId
-	GroupID *string `json:"groupId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-
-	// READ-ONLY; The private link resource required member names.
-	RequiredMembers []*string `json:"requiredMembers,omitempty" azure:"ro"`
-
-	// READ-ONLY; The private link resource required zone names.
-	RequiredZoneNames []*string `json:"requiredZoneNames,omitempty" azure:"ro"`
 }
 
 // PrivateLinkServiceConnectionState - Connection state details of the private endpoint
@@ -3657,120 +2541,6 @@ type QueryStatistic struct {
 
 	// READ-ONLY; The id of the query
 	QueryID *string `json:"queryId,omitempty" azure:"ro"`
-}
-
-// ReadOnlyFollowingDatabase - Class representing a read only following database.
-type ReadOnlyFollowingDatabase struct {
-	// REQUIRED; Kind of the database
-	Kind *Kind `json:"kind,omitempty"`
-
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// The database properties.
-	Properties *ReadOnlyFollowingDatabaseProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// GetDatabase implements the DatabaseClassification interface for type ReadOnlyFollowingDatabase.
-func (r *ReadOnlyFollowingDatabase) GetDatabase() *Database {
-	return &Database{
-		Location:   r.Location,
-		Kind:       r.Kind,
-		SystemData: r.SystemData,
-		ID:         r.ID,
-		Name:       r.Name,
-		Type:       r.Type,
-	}
-}
-
-// ReadOnlyFollowingDatabaseProperties - Class representing the Kusto database properties.
-type ReadOnlyFollowingDatabaseProperties struct {
-	// The time the data should be kept in cache for fast queries in TimeSpan.
-	HotCachePeriod *string `json:"hotCachePeriod,omitempty"`
-
-	// READ-ONLY; The name of the attached database configuration cluster
-	AttachedDatabaseConfigurationName *string `json:"attachedDatabaseConfigurationName,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the leader cluster
-	LeaderClusterResourceID *string `json:"leaderClusterResourceId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The principals modification kind of the database
-	PrincipalsModificationKind *PrincipalsModificationKind `json:"principalsModificationKind,omitempty" azure:"ro"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-
-	// READ-ONLY; The time the data should be kept before it stops being accessible to queries in TimeSpan.
-	SoftDeletePeriod *string `json:"softDeletePeriod,omitempty" azure:"ro"`
-
-	// READ-ONLY; The statistics of the database.
-	Statistics *DatabaseStatistics `json:"statistics,omitempty" azure:"ro"`
-}
-
-// ReadWriteDatabase - Class representing a read write database.
-type ReadWriteDatabase struct {
-	// REQUIRED; Kind of the database
-	Kind *Kind `json:"kind,omitempty"`
-
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// The database properties.
-	Properties *ReadWriteDatabaseProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// GetDatabase implements the DatabaseClassification interface for type ReadWriteDatabase.
-func (r *ReadWriteDatabase) GetDatabase() *Database {
-	return &Database{
-		Location:   r.Location,
-		Kind:       r.Kind,
-		SystemData: r.SystemData,
-		ID:         r.ID,
-		Name:       r.Name,
-		Type:       r.Type,
-	}
-}
-
-// ReadWriteDatabaseProperties - Class representing the Kusto database properties.
-type ReadWriteDatabaseProperties struct {
-	// The time the data should be kept in cache for fast queries in TimeSpan.
-	HotCachePeriod *string `json:"hotCachePeriod,omitempty"`
-
-	// The time the data should be kept before it stops being accessible to queries in TimeSpan.
-	SoftDeletePeriod *string `json:"softDeletePeriod,omitempty"`
-
-	// READ-ONLY; Indicates whether the database is followed.
-	IsFollowed *bool `json:"isFollowed,omitempty" azure:"ro"`
-
-	// READ-ONLY; The provisioned state of the resource.
-	ProvisioningState *ResourceProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
-
-	// READ-ONLY; The statistics of the database.
-	Statistics *DatabaseStatistics `json:"statistics,omitempty" azure:"ro"`
 }
 
 // RecommendedSensitivityLabelUpdate - A recommended sensitivity label update operation.
@@ -4053,42 +2823,6 @@ type SKU struct {
 
 	// The service tier
 	Tier *string `json:"tier,omitempty"`
-}
-
-// SKUDescription - The Kusto SKU description of given resource type
-type SKUDescription struct {
-	// READ-ONLY; Locations and zones
-	LocationInfo []*SKULocationInfoItem `json:"locationInfo,omitempty" azure:"ro"`
-
-	// READ-ONLY; The set of locations that the SKU is available
-	Locations []*string `json:"locations,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the SKU
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The resource type
-	ResourceType *string `json:"resourceType,omitempty" azure:"ro"`
-
-	// READ-ONLY; The restrictions because of which SKU cannot be used
-	Restrictions []any `json:"restrictions,omitempty" azure:"ro"`
-
-	// READ-ONLY; The size of the SKU
-	Size *string `json:"size,omitempty" azure:"ro"`
-}
-
-// SKUDescriptionList - The list of the SKU descriptions
-type SKUDescriptionList struct {
-	// READ-ONLY; SKU descriptions
-	Value []*SKUDescription `json:"value,omitempty" azure:"ro"`
-}
-
-// SKULocationInfoItem - The locations and zones info for SKU.
-type SKULocationInfoItem struct {
-	// REQUIRED; The available location of the SKU.
-	Location *string `json:"location,omitempty"`
-
-	// The available zone of the SKU.
-	Zones []*string `json:"zones,omitempty"`
 }
 
 // SQLPool - A SQL Analytics pool
@@ -5207,14 +3941,8 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 	// The list of linked integration runtimes that are created to share with this integration runtime.
 	Links []*LinkedIntegrationRuntime `json:"links,omitempty"`
 
-	// The newer versions on download center.
-	NewerVersions []*string `json:"newerVersions,omitempty"`
-
 	// The list of nodes for this integration runtime.
 	Nodes []*SelfHostedIntegrationRuntimeNode `json:"nodes,omitempty"`
-
-	// The service region of the integration runtime
-	ServiceRegion *string `json:"serviceRegion,omitempty"`
 
 	// READ-ONLY; Whether Self-hosted integration runtime auto update has been turned on.
 	AutoUpdate *IntegrationRuntimeAutoUpdate `json:"autoUpdate,omitempty" azure:"ro"`
@@ -5587,7 +4315,7 @@ type ServerVulnerabilityAssessmentProperties struct {
 	StorageContainerPath *string `json:"storageContainerPath,omitempty"`
 
 	// The recurring scans settings
-	RecurringScans *VulnerabilityAssessmentRecurringScansProperties `json:"recurringScans,omitempty"`
+	RecurringScans *VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated `json:"recurringScans,omitempty"`
 
 	// Specifies the identifier key of the storage account for vulnerability assessment scan results. If 'StorageContainerSasKey'
 	// isn't specified, storageAccountAccessKey is required.
@@ -5612,68 +4340,6 @@ type SparkConfigProperties struct {
 
 	// READ-ONLY; The last update time of the spark config properties file.
 	Time *time.Time `json:"time,omitempty" azure:"ro"`
-}
-
-// SparkConfigurationClientGetOptions contains the optional parameters for the SparkConfigurationClient.Get method.
-type SparkConfigurationClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// SparkConfigurationInfo - SparkConfiguration Artifact information
-type SparkConfigurationInfo struct {
-	// REQUIRED; SparkConfiguration configs.
-	Configs map[string]*string `json:"configs,omitempty"`
-
-	// Annotations for SparkConfiguration.
-	Annotations []*string `json:"annotations,omitempty"`
-
-	// SparkConfiguration merge configs.
-	ConfigMergeRule map[string]*string `json:"configMergeRule,omitempty"`
-
-	// The timestamp of resource creation.
-	Created *time.Time `json:"created,omitempty"`
-
-	// The identity that created the resource.
-	CreatedBy *string `json:"createdBy,omitempty"`
-
-	// Description about the SparkConfiguration.
-	Description *string `json:"description,omitempty"`
-
-	// additional Notes.
-	Notes *string `json:"notes,omitempty"`
-}
-
-// SparkConfigurationListResponse - A list of SparkConfiguration resources.
-type SparkConfigurationListResponse struct {
-	// REQUIRED; List of SparkConfiguration.
-	Value []*SparkConfigurationResource `json:"value,omitempty"`
-
-	// The link to the next page of results, if any remaining results exist.
-	NextLink *string `json:"nextLink,omitempty"`
-}
-
-// SparkConfigurationResource - SparkConfiguration response details
-type SparkConfigurationResource struct {
-	// REQUIRED; SparkConfiguration properties.
-	Properties *SparkConfigurationInfo `json:"properties,omitempty"`
-
-	// READ-ONLY; Resource Etag.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// SparkConfigurationsClientListByWorkspaceOptions contains the optional parameters for the SparkConfigurationsClient.NewListByWorkspacePager
-// method.
-type SparkConfigurationsClientListByWorkspaceOptions struct {
-	// placeholder for future optional parameters
 }
 
 // SsisEnvironment - Ssis environment.
@@ -5950,48 +4616,6 @@ type SubResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// SystemData - Metadata pertaining to creation and last modification of the resource.
-type SystemData struct {
-	// The timestamp of resource creation (UTC).
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-
-	// The identity that created the resource.
-	CreatedBy *string `json:"createdBy,omitempty"`
-
-	// The type of identity that created the resource.
-	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
-
-	// The timestamp of resource last modification (UTC)
-	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty"`
-
-	// The identity that last modified the resource.
-	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
-
-	// The type of identity that last modified the resource.
-	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
-}
-
-// TableLevelSharingProperties - Tables that will be included and excluded in the follower database
-type TableLevelSharingProperties struct {
-	// List of external tables exclude from the follower database
-	ExternalTablesToExclude []*string `json:"externalTablesToExclude,omitempty"`
-
-	// List of external tables to include in the follower database
-	ExternalTablesToInclude []*string `json:"externalTablesToInclude,omitempty"`
-
-	// List of materialized views exclude from the follower database
-	MaterializedViewsToExclude []*string `json:"materializedViewsToExclude,omitempty"`
-
-	// List of materialized views to include in the follower database
-	MaterializedViewsToInclude []*string `json:"materializedViewsToInclude,omitempty"`
-
-	// List of tables to exclude from the follower database
-	TablesToExclude []*string `json:"tablesToExclude,omitempty"`
-
-	// List of tables to include in the follower database
-	TablesToInclude []*string `json:"tablesToInclude,omitempty"`
-}
-
 // TopQueries - A database query.
 type TopQueries struct {
 	// READ-ONLY; The function that is used to aggregate each query's metrics.
@@ -6111,6 +4735,18 @@ type VirtualNetworkProfile struct {
 
 // VulnerabilityAssessmentRecurringScansProperties - Properties of a Vulnerability Assessment recurring scans.
 type VulnerabilityAssessmentRecurringScansProperties struct {
+	// Specifies that the schedule scan notification will be is sent to the subscription administrators.
+	EmailSubscriptionAdmins *bool `json:"emailSubscriptionAdmins,omitempty"`
+
+	// Specifies an array of e-mail addresses to which the scan notification is sent.
+	Emails []*string `json:"emails,omitempty"`
+
+	// Recurring scans state.
+	IsEnabled *bool `json:"isEnabled,omitempty"`
+}
+
+// VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated - Properties of a Vulnerability Assessment recurring scans.
+type VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated struct {
 	// Specifies that the schedule scan notification will be is sent to the subscription administrators.
 	EmailSubscriptionAdmins *bool `json:"emailSubscriptionAdmins,omitempty"`
 
@@ -6547,9 +5183,6 @@ type WorkspaceProperties struct {
 	// Enable or Disable AzureADOnlyAuthentication on All Workspace subresource
 	AzureADOnlyAuthentication *bool `json:"azureADOnlyAuthentication,omitempty"`
 
-	// Connectivity endpoints
-	ConnectivityEndpoints map[string]*string `json:"connectivityEndpoints,omitempty"`
-
 	// Initial workspace AAD admin properties for a CSP subscription
 	CspWorkspaceAdminProperties *CspWorkspaceAdminProperties `json:"cspWorkspaceAdminProperties,omitempty"`
 
@@ -6599,8 +5232,11 @@ type WorkspaceProperties struct {
 	// READ-ONLY; The ADLA resource ID.
 	AdlaResourceID *string `json:"adlaResourceId,omitempty" azure:"ro"`
 
+	// READ-ONLY; Connectivity endpoints
+	ConnectivityEndpoints map[string]*string `json:"connectivityEndpoints,omitempty" azure:"ro"`
+
 	// READ-ONLY; Workspace level configs and feature flags
-	ExtraProperties map[string]any `json:"extraProperties,omitempty" azure:"ro"`
+	ExtraProperties any `json:"extraProperties,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource provisioning state
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
