@@ -86,12 +86,6 @@ type CapabilitiesListResult struct {
 	Value []*Capabilities `json:"value,omitempty"`
 }
 
-// ConfidentialComputeProperties - The properties for confidential container group
-type ConfidentialComputeProperties struct {
-	// The base64 encoded confidential compute enforcement policy
-	CcePolicy *string `json:"ccePolicy,omitempty"`
-}
-
 // Container - A container instance.
 type Container struct {
 	// REQUIRED; The user-provided name of the container instance.
@@ -230,9 +224,6 @@ type ContainerGroupPropertiesProperties struct {
 	// REQUIRED; The operating system type required by the containers in the container group.
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
-	// The properties for confidential container group
-	ConfidentialComputeProperties *ConfidentialComputeProperties `json:"confidentialComputeProperties,omitempty"`
-
 	// The DNS config information for a container group.
 	DNSConfig *DNSConfiguration `json:"dnsConfig,omitempty"`
 
@@ -254,8 +245,9 @@ type ContainerGroupPropertiesProperties struct {
 	// The init containers for a container group.
 	InitContainers []*InitContainerDefinition `json:"initContainers,omitempty"`
 
-	// The priority of the container group.
-	Priority *ContainerGroupPriority `json:"priority,omitempty"`
+	// Time in seconds in which a container group deployment would timeout and fail. The allowed maximum value is 1800 seconds.
+	// If value is not provided, property is given maximum value by default.
+	ProvisioningTimeoutInSeconds *int32 `json:"provisioningTimeoutInSeconds,omitempty"`
 
 	// Restart policy for all containers within the container group.
 	// * Always Always restart
@@ -274,6 +266,9 @@ type ContainerGroupPropertiesProperties struct {
 
 	// READ-ONLY; The instance view of the container group. Only valid in response.
 	InstanceView *ContainerGroupPropertiesInstanceView `json:"instanceView,omitempty" azure:"ro"`
+
+	// READ-ONLY; Flag indicating whether a custom value was provided for the provisioningTimeoutInSeconds property
+	IsCustomProvisioningTimeout *IsCustomProvisioningTimeout `json:"isCustomProvisioningTimeout,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of the container group. This only appears in the response.
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
@@ -324,13 +319,13 @@ type ContainerGroupsClientGetOutboundNetworkDependenciesEndpointsOptions struct 
 	// placeholder for future optional parameters
 }
 
-// ContainerGroupsClientListByResourceGroupOptions contains the optional parameters for the ContainerGroupsClient.ListByResourceGroup
+// ContainerGroupsClientListByResourceGroupOptions contains the optional parameters for the ContainerGroupsClient.NewListByResourceGroupPager
 // method.
 type ContainerGroupsClientListByResourceGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ContainerGroupsClientListOptions contains the optional parameters for the ContainerGroupsClient.List method.
+// ContainerGroupsClientListOptions contains the optional parameters for the ContainerGroupsClient.NewListPager method.
 type ContainerGroupsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -505,10 +500,10 @@ type DeploymentExtensionSpecProperties struct {
 	Version *string `json:"version,omitempty"`
 
 	// Protected settings for the extension.
-	ProtectedSettings interface{} `json:"protectedSettings,omitempty"`
+	ProtectedSettings any `json:"protectedSettings,omitempty"`
 
 	// Settings for the extension.
-	Settings interface{} `json:"settings,omitempty"`
+	Settings any `json:"settings,omitempty"`
 }
 
 // EncryptionProperties - The container group encryption properties.
@@ -678,17 +673,19 @@ type InitContainerPropertiesDefinitionInstanceView struct {
 	RestartCount *int32 `json:"restartCount,omitempty" azure:"ro"`
 }
 
-// LocationClientListCachedImagesOptions contains the optional parameters for the LocationClient.ListCachedImages method.
+// LocationClientListCachedImagesOptions contains the optional parameters for the LocationClient.NewListCachedImagesPager
+// method.
 type LocationClientListCachedImagesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LocationClientListCapabilitiesOptions contains the optional parameters for the LocationClient.ListCapabilities method.
+// LocationClientListCapabilitiesOptions contains the optional parameters for the LocationClient.NewListCapabilitiesPager
+// method.
 type LocationClientListCapabilitiesOptions struct {
 	// placeholder for future optional parameters
 }
 
-// LocationClientListUsageOptions contains the optional parameters for the LocationClient.ListUsage method.
+// LocationClientListUsageOptions contains the optional parameters for the LocationClient.NewListUsagePager method.
 type LocationClientListUsageOptions struct {
 	// placeholder for future optional parameters
 }
@@ -729,7 +726,7 @@ type Operation struct {
 	Origin *ContainerInstanceOperationsOrigin `json:"origin,omitempty"`
 
 	// The additional properties.
-	Properties interface{} `json:"properties,omitempty"`
+	Properties any `json:"properties,omitempty"`
 }
 
 // OperationDisplay - The display information of the operation.
@@ -756,7 +753,7 @@ type OperationListResult struct {
 	Value []*Operation `json:"value,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -884,7 +881,7 @@ type Volume struct {
 	AzureFile *AzureFileVolume `json:"azureFile,omitempty"`
 
 	// The empty directory volume.
-	EmptyDir interface{} `json:"emptyDir,omitempty"`
+	EmptyDir any `json:"emptyDir,omitempty"`
 
 	// The git repo volume.
 	GitRepo *GitRepoVolume `json:"gitRepo,omitempty"`
