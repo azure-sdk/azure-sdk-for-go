@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -3725,8 +3725,10 @@ func PossibleVirtualNetworkPeeringStateValues() []VirtualNetworkPeeringState {
 type VirtualNetworkPrivateEndpointNetworkPolicies string
 
 const (
-	VirtualNetworkPrivateEndpointNetworkPoliciesDisabled VirtualNetworkPrivateEndpointNetworkPolicies = "Disabled"
-	VirtualNetworkPrivateEndpointNetworkPoliciesEnabled  VirtualNetworkPrivateEndpointNetworkPolicies = "Enabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesDisabled                    VirtualNetworkPrivateEndpointNetworkPolicies = "Disabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesEnabled                     VirtualNetworkPrivateEndpointNetworkPolicies = "Enabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled VirtualNetworkPrivateEndpointNetworkPolicies = "NetworkSecurityGroupEnabled"
+	VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled           VirtualNetworkPrivateEndpointNetworkPolicies = "RouteTableEnabled"
 )
 
 // PossibleVirtualNetworkPrivateEndpointNetworkPoliciesValues returns the possible values for the VirtualNetworkPrivateEndpointNetworkPolicies const type.
@@ -3734,6 +3736,8 @@ func PossibleVirtualNetworkPrivateEndpointNetworkPoliciesValues() []VirtualNetwo
 	return []VirtualNetworkPrivateEndpointNetworkPolicies{
 		VirtualNetworkPrivateEndpointNetworkPoliciesDisabled,
 		VirtualNetworkPrivateEndpointNetworkPoliciesEnabled,
+		VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled,
+		VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled,
 	}
 }
 

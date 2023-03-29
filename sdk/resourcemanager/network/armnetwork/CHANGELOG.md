@@ -1,5 +1,11 @@
 # Release History
 
+## 2.3.0 (2023-03-29)
+### Features Added
+
+- New value `VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled`, `VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled` added to enum type `VirtualNetworkPrivateEndpointNetworkPolicies`
+
+
 ## 2.2.0 (2023-03-24)
 ### Features Added
 
