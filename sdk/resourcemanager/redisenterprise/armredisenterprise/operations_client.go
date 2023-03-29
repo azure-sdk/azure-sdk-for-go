@@ -38,7 +38,7 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 	return client, nil
 }
 
-// NewListPager - Lists all of the available REST API operations of the Microsoft.Cache provider.
+// NewListPager - List the operations for the provider
 //
 // Generated from API version 2023-03-01-preview
 //   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.

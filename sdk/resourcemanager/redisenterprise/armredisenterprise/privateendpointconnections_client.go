@@ -44,33 +44,56 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 	return client, nil
 }
 
-// Delete - Deletes the specified private endpoint connection associated with the RedisEnterprise cluster.
+// BeginCreate - Creates a private endpoint connection
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
-//   - options - PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
+//   - clusterName - Name of cluster
+//   - privateEndpointConnectionName - Name of private endpoint connection
+//   - resource - Resource create parameters.
+//   - options - PrivateEndpointConnectionsClientBeginCreateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginCreate
 //     method.
-func (client *PrivateEndpointConnectionsClient) Delete(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientDeleteOptions) (PrivateEndpointConnectionsClientDeleteResponse, error) {
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, options)
+func (client *PrivateEndpointConnectionsClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, resource PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginCreateOptions) (*runtime.Poller[PrivateEndpointConnectionsClientCreateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.create(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, resource, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PrivateEndpointConnectionsClientCreateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[PrivateEndpointConnectionsClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Create - Creates a private endpoint connection
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01-preview
+func (client *PrivateEndpointConnectionsClient) create(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, resource PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, resource, options)
 	if err != nil {
-		return PrivateEndpointConnectionsClientDeleteResponse{}, err
+		return nil, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return PrivateEndpointConnectionsClientDeleteResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusNoContent) {
-		return PrivateEndpointConnectionsClientDeleteResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return PrivateEndpointConnectionsClientDeleteResponse{}, nil
+	return resp, nil
 }
 
-// deleteCreateRequest creates the Delete request.
-func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientDeleteOptions) (*policy.Request, error) {
+// createCreateRequest creates the Create request.
+func (client *PrivateEndpointConnectionsClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, resource PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/privateEndpointConnections/{privateEndpointConnectionName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -79,10 +102,78 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if privateEndpointConnectionName == "" {
+		return nil, errors.New("parameter privateEndpointConnectionName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{privateEndpointConnectionName}", url.PathEscape(privateEndpointConnectionName))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-03-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, resource)
+}
+
+// BeginDelete - Deletes a private endpoint connection
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - Name of cluster
+//   - privateEndpointConnectionName - Name of private endpoint connection
+//   - options - PrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginDelete
+//     method.
+func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*runtime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.deleteOperation(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PrivateEndpointConnectionsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[PrivateEndpointConnectionsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Delete - Deletes a private endpoint connection
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01-preview
+func (client *PrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// deleteCreateRequest creates the Delete request.
+func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if privateEndpointConnectionName == "" {
 		return nil, errors.New("parameter privateEndpointConnectionName cannot be empty")
 	}
@@ -98,13 +189,13 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 	return req, nil
 }
 
-// Get - Gets the specified private endpoint connection associated with the RedisEnterprise cluster.
+// Get - Gets information about a private endpoint connection in a RedisEnterprise cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
+//   - clusterName - Name of cluster
+//   - privateEndpointConnectionName - Name of private endpoint connection
 //   - options - PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
 //     method.
 func (client *PrivateEndpointConnectionsClient) Get(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientGetOptions) (PrivateEndpointConnectionsClientGetResponse, error) {
@@ -125,6 +216,10 @@ func (client *PrivateEndpointConnectionsClient) Get(ctx context.Context, resourc
 // getCreateRequest creates the Get request.
 func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/privateEndpointConnections/{privateEndpointConnectionName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -137,10 +232,6 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, errors.New("parameter privateEndpointConnectionName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{privateEndpointConnectionName}", url.PathEscape(privateEndpointConnectionName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -161,38 +252,48 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 	return result, nil
 }
 
-// NewListPager - Lists all the private endpoint connections associated with the RedisEnterprise cluster.
+// NewListByClusterPager - Lists all private endpoint connections in a RedisEnterprise cluster.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - options - PrivateEndpointConnectionsClientListOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListPager
+//   - clusterName - Name of cluster
+//   - options - PrivateEndpointConnectionsClientListByClusterOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByClusterPager
 //     method.
-func (client *PrivateEndpointConnectionsClient) NewListPager(resourceGroupName string, clusterName string, options *PrivateEndpointConnectionsClientListOptions) *runtime.Pager[PrivateEndpointConnectionsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[PrivateEndpointConnectionsClientListResponse]{
-		More: func(page PrivateEndpointConnectionsClientListResponse) bool {
-			return false
+func (client *PrivateEndpointConnectionsClient) NewListByClusterPager(resourceGroupName string, clusterName string, options *PrivateEndpointConnectionsClientListByClusterOptions) *runtime.Pager[PrivateEndpointConnectionsClientListByClusterResponse] {
+	return runtime.NewPager(runtime.PagingHandler[PrivateEndpointConnectionsClientListByClusterResponse]{
+		More: func(page PrivateEndpointConnectionsClientListByClusterResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *PrivateEndpointConnectionsClientListResponse) (PrivateEndpointConnectionsClientListResponse, error) {
-			req, err := client.listCreateRequest(ctx, resourceGroupName, clusterName, options)
+		Fetcher: func(ctx context.Context, page *PrivateEndpointConnectionsClientListByClusterResponse) (PrivateEndpointConnectionsClientListByClusterResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
 			if err != nil {
-				return PrivateEndpointConnectionsClientListResponse{}, err
+				return PrivateEndpointConnectionsClientListByClusterResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return PrivateEndpointConnectionsClientListResponse{}, err
+				return PrivateEndpointConnectionsClientListByClusterResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return PrivateEndpointConnectionsClientListResponse{}, runtime.NewResponseError(resp)
+				return PrivateEndpointConnectionsClientListByClusterResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listHandleResponse(resp)
+			return client.listByClusterHandleResponse(resp)
 		},
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *PrivateEndpointConnectionsClientListOptions) (*policy.Request, error) {
+// listByClusterCreateRequest creates the ListByCluster request.
+func (client *PrivateEndpointConnectionsClient) listByClusterCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *PrivateEndpointConnectionsClientListByClusterOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/privateEndpointConnections"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -201,10 +302,6 @@ func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Co
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -216,43 +313,45 @@ func (client *PrivateEndpointConnectionsClient) listCreateRequest(ctx context.Co
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *PrivateEndpointConnectionsClient) listHandleResponse(resp *http.Response) (PrivateEndpointConnectionsClientListResponse, error) {
-	result := PrivateEndpointConnectionsClientListResponse{}
+// listByClusterHandleResponse handles the ListByCluster response.
+func (client *PrivateEndpointConnectionsClient) listByClusterHandleResponse(resp *http.Response) (PrivateEndpointConnectionsClientListByClusterResponse, error) {
+	result := PrivateEndpointConnectionsClientListByClusterResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateEndpointConnectionListResult); err != nil {
-		return PrivateEndpointConnectionsClientListResponse{}, err
+		return PrivateEndpointConnectionsClientListByClusterResponse{}, err
 	}
 	return result, nil
 }
 
-// BeginPut - Updates the state of the specified private endpoint connection associated with the RedisEnterprise cluster.
+// BeginUpdate - Updates a private endpoint connection
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - privateEndpointConnectionName - The name of the private endpoint connection associated with the Azure resource
-//   - properties - The private endpoint connection properties.
-//   - options - PrivateEndpointConnectionsClientBeginPutOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginPut
+//   - clusterName - Name of cluster
+//   - privateEndpointConnectionName - Name of private endpoint connection
+//   - properties - The resource properties to be updated.
+//   - options - PrivateEndpointConnectionsClientBeginUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginUpdate
 //     method.
-func (client *PrivateEndpointConnectionsClient) BeginPut(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginPutOptions) (*runtime.Poller[PrivateEndpointConnectionsClientPutResponse], error) {
+func (client *PrivateEndpointConnectionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, properties any, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*runtime.Poller[PrivateEndpointConnectionsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.put(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, properties, options)
+		resp, err := client.update(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, properties, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[PrivateEndpointConnectionsClientPutResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[PrivateEndpointConnectionsClientUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
-		return runtime.NewPollerFromResumeToken[PrivateEndpointConnectionsClientPutResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[PrivateEndpointConnectionsClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Put - Updates the state of the specified private endpoint connection associated with the RedisEnterprise cluster.
+// Update - Updates a private endpoint connection
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *PrivateEndpointConnectionsClient) put(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginPutOptions) (*http.Response, error) {
-	req, err := client.putCreateRequest(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, properties, options)
+func (client *PrivateEndpointConnectionsClient) update(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, properties any, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*http.Response, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, privateEndpointConnectionName, properties, options)
 	if err != nil {
 		return nil, err
 	}
@@ -260,15 +359,19 @@ func (client *PrivateEndpointConnectionsClient) put(ctx context.Context, resourc
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusCreated) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
 }
 
-// putCreateRequest creates the Put request.
-func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, properties PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginPutOptions) (*policy.Request, error) {
+// updateCreateRequest creates the Update request.
+func (client *PrivateEndpointConnectionsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, privateEndpointConnectionName string, properties any, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/privateEndpointConnections/{privateEndpointConnectionName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -277,15 +380,11 @@ func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Con
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if privateEndpointConnectionName == "" {
 		return nil, errors.New("parameter privateEndpointConnectionName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{privateEndpointConnectionName}", url.PathEscape(privateEndpointConnectionName))
-	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}

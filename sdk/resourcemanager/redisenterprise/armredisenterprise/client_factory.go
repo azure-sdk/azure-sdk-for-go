@@ -43,13 +43,13 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewOperationsStatusClient() *OperationsStatusClient {
-	subClient, _ := NewOperationsStatusClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewClient() *Client {
+	subClient, _ := NewClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewClient() *Client {
-	subClient, _ := NewClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewSKUsClient() *SKUsClient {
+	subClient, _ := NewSKUsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -68,7 +68,7 @@ func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesCli
 	return subClient
 }
 
-func (c *ClientFactory) NewSKUsClient() *SKUsClient {
-	subClient, _ := NewSKUsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewOperationsStatusClient() *OperationsStatusClient {
+	subClient, _ := NewOperationsStatusClient(c.credential, c.options)
 	return subClient
 }

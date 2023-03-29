@@ -44,34 +44,34 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 	return client, nil
 }
 
-// BeginCreate - Creates or updates an existing (overwrite/recreate, with potential downtime) cache cluster
+// BeginCreate - Creates a RedisEnterprise cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - parameters - Parameters supplied to the Create RedisEnterprise operation.
+//   - clusterName - Name of cluster
+//   - resource - Resource create parameters.
 //   - options - ClientBeginCreateOptions contains the optional parameters for the Client.BeginCreate method.
-func (client *Client) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, parameters Cluster, options *ClientBeginCreateOptions) (*runtime.Poller[ClientCreateResponse], error) {
+func (client *Client) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, resource Cluster, options *ClientBeginCreateOptions) (*runtime.Poller[ClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, clusterName, parameters, options)
+		resp, err := client.create(ctx, resourceGroupName, clusterName, resource, options)
 		if err != nil {
 			return nil, err
 		}
 		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ClientCreateResponse]{
-			FinalStateVia: runtime.FinalStateViaOriginalURI,
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
 		return runtime.NewPollerFromResumeToken[ClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Create - Creates or updates an existing (overwrite/recreate, with potential downtime) cache cluster
+// Create - Creates a RedisEnterprise cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *Client) create(ctx context.Context, resourceGroupName string, clusterName string, parameters Cluster, options *ClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, parameters, options)
+func (client *Client) create(ctx context.Context, resourceGroupName string, clusterName string, resource Cluster, options *ClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -86,8 +86,12 @@ func (client *Client) create(ctx context.Context, resourceGroupName string, clus
 }
 
 // createCreateRequest creates the Create request.
-func (client *Client) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, parameters Cluster, options *ClientBeginCreateOptions) (*policy.Request, error) {
+func (client *Client) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, resource Cluster, options *ClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -96,10 +100,6 @@ func (client *Client) createCreateRequest(ctx context.Context, resourceGroupName
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -108,15 +108,15 @@ func (client *Client) createCreateRequest(ctx context.Context, resourceGroupName
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, runtime.MarshalAsJSON(req, resource)
 }
 
-// BeginDelete - Deletes a RedisEnterprise cache cluster.
+// BeginDelete - Deletes a RedisEnterprise cluster and its databases
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
+//   - clusterName - Name of cluster
 //   - options - ClientBeginDeleteOptions contains the optional parameters for the Client.BeginDelete method.
 func (client *Client) BeginDelete(ctx context.Context, resourceGroupName string, clusterName string, options *ClientBeginDeleteOptions) (*runtime.Poller[ClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
@@ -125,14 +125,14 @@ func (client *Client) BeginDelete(ctx context.Context, resourceGroupName string,
 			return nil, err
 		}
 		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
 		return runtime.NewPollerFromResumeToken[ClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Delete - Deletes a RedisEnterprise cache cluster.
+// Delete - Deletes a RedisEnterprise cluster and its databases
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
@@ -154,6 +154,10 @@ func (client *Client) deleteOperation(ctx context.Context, resourceGroupName str
 // deleteCreateRequest creates the Delete request.
 func (client *Client) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -162,10 +166,6 @@ func (client *Client) deleteCreateRequest(ctx context.Context, resourceGroupName
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -182,7 +182,7 @@ func (client *Client) deleteCreateRequest(ctx context.Context, resourceGroupName
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
+//   - clusterName - Name of cluster
 //   - options - ClientGetOptions contains the optional parameters for the Client.Get method.
 func (client *Client) Get(ctx context.Context, resourceGroupName string, clusterName string, options *ClientGetOptions) (ClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, options)
@@ -202,6 +202,10 @@ func (client *Client) Get(ctx context.Context, resourceGroupName string, cluster
 // getCreateRequest creates the Get request.
 func (client *Client) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -210,10 +214,6 @@ func (client *Client) getCreateRequest(ctx context.Context, resourceGroupName st
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -230,65 +230,6 @@ func (client *Client) getHandleResponse(resp *http.Response) (ClientGetResponse,
 	result := ClientGetResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.Cluster); err != nil {
 		return ClientGetResponse{}, err
-	}
-	return result, nil
-}
-
-// NewListPager - Gets all RedisEnterprise clusters in the specified subscription.
-//
-// Generated from API version 2023-03-01-preview
-//   - options - ClientListOptions contains the optional parameters for the Client.NewListPager method.
-func (client *Client) NewListPager(options *ClientListOptions) *runtime.Pager[ClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ClientListResponse]{
-		More: func(page ClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *ClientListResponse) (ClientListResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listCreateRequest(ctx, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
-			}
-			if err != nil {
-				return ClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ClientListResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listHandleResponse(resp)
-		},
-	})
-}
-
-// listCreateRequest creates the List request.
-func (client *Client) listCreateRequest(ctx context.Context, options *ClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Cache/redisEnterprise"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listHandleResponse handles the List response.
-func (client *Client) listHandleResponse(resp *http.Response) (ClientListResponse, error) {
-	result := ClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterList); err != nil {
-		return ClientListResponse{}, err
 	}
 	return result, nil
 }
@@ -330,10 +271,69 @@ func (client *Client) NewListByResourceGroupPager(resourceGroupName string, opti
 // listByResourceGroupCreateRequest creates the ListByResourceGroup request.
 func (client *Client) listByResourceGroupCreateRequest(ctx context.Context, resourceGroupName string, options *ClientListByResourceGroupOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-03-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listByResourceGroupHandleResponse handles the ListByResourceGroup response.
+func (client *Client) listByResourceGroupHandleResponse(resp *http.Response) (ClientListByResourceGroupResponse, error) {
+	result := ClientListByResourceGroupResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterListResult); err != nil {
+		return ClientListByResourceGroupResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListBySubscriptionPager - Lists all RedisEnterprise clusters in a subscription.
+//
+// Generated from API version 2023-03-01-preview
+//   - options - ClientListBySubscriptionOptions contains the optional parameters for the Client.NewListBySubscriptionPager method.
+func (client *Client) NewListBySubscriptionPager(options *ClientListBySubscriptionOptions) *runtime.Pager[ClientListBySubscriptionResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ClientListBySubscriptionResponse]{
+		More: func(page ClientListBySubscriptionResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ClientListBySubscriptionResponse) (ClientListBySubscriptionResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listBySubscriptionCreateRequest(ctx, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ClientListBySubscriptionResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return ClientListBySubscriptionResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ClientListBySubscriptionResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listBySubscriptionHandleResponse(resp)
+		},
+	})
+}
+
+// listBySubscriptionCreateRequest creates the ListBySubscription request.
+func (client *Client) listBySubscriptionCreateRequest(ctx context.Context, options *ClientListBySubscriptionOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Cache/redisEnterprise"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
@@ -349,43 +349,43 @@ func (client *Client) listByResourceGroupCreateRequest(ctx context.Context, reso
 	return req, nil
 }
 
-// listByResourceGroupHandleResponse handles the ListByResourceGroup response.
-func (client *Client) listByResourceGroupHandleResponse(resp *http.Response) (ClientListByResourceGroupResponse, error) {
-	result := ClientListByResourceGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterList); err != nil {
-		return ClientListByResourceGroupResponse{}, err
+// listBySubscriptionHandleResponse handles the ListBySubscription response.
+func (client *Client) listBySubscriptionHandleResponse(resp *http.Response) (ClientListBySubscriptionResponse, error) {
+	result := ClientListBySubscriptionResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterListResult); err != nil {
+		return ClientListBySubscriptionResponse{}, err
 	}
 	return result, nil
 }
 
-// BeginUpdate - Updates an existing RedisEnterprise cluster
+// BeginUpdate - Updates a RedisEnterprise cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - parameters - Parameters supplied to the Update RedisEnterprise operation.
+//   - clusterName - Name of cluster
+//   - properties - The resource properties to be updated.
 //   - options - ClientBeginUpdateOptions contains the optional parameters for the Client.BeginUpdate method.
-func (client *Client) BeginUpdate(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterUpdate, options *ClientBeginUpdateOptions) (*runtime.Poller[ClientUpdateResponse], error) {
+func (client *Client) BeginUpdate(ctx context.Context, resourceGroupName string, clusterName string, properties ClusterUpdate, options *ClientBeginUpdateOptions) (*runtime.Poller[ClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, clusterName, parameters, options)
+		resp, err := client.update(ctx, resourceGroupName, clusterName, properties, options)
 		if err != nil {
 			return nil, err
 		}
 		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
 		return runtime.NewPollerFromResumeToken[ClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Update - Updates an existing RedisEnterprise cluster
+// Update - Updates a RedisEnterprise cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *Client) update(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterUpdate, options *ClientBeginUpdateOptions) (*http.Response, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, parameters, options)
+func (client *Client) update(ctx context.Context, resourceGroupName string, clusterName string, properties ClusterUpdate, options *ClientBeginUpdateOptions) (*http.Response, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, properties, options)
 	if err != nil {
 		return nil, err
 	}
@@ -400,8 +400,12 @@ func (client *Client) update(ctx context.Context, resourceGroupName string, clus
 }
 
 // updateCreateRequest creates the Update request.
-func (client *Client) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, parameters ClusterUpdate, options *ClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *Client) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, properties ClusterUpdate, options *ClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -410,10 +414,6 @@ func (client *Client) updateCreateRequest(ctx context.Context, resourceGroupName
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -422,5 +422,5 @@ func (client *Client) updateCreateRequest(ctx context.Context, resourceGroupName
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, runtime.MarshalAsJSON(req, properties)
 }

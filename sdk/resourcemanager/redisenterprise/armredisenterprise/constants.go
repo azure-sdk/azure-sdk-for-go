@@ -11,24 +11,8 @@ package armredisenterprise
 
 const (
 	moduleName    = "armredisenterprise"
-	moduleVersion = "v1.1.0-beta.1"
+	moduleVersion = "v1.1.0-beta.2"
 )
-
-// AccessKeyType - Which access key to regenerate.
-type AccessKeyType string
-
-const (
-	AccessKeyTypePrimary   AccessKeyType = "Primary"
-	AccessKeyTypeSecondary AccessKeyType = "Secondary"
-)
-
-// PossibleAccessKeyTypeValues returns the possible values for the AccessKeyType const type.
-func PossibleAccessKeyTypeValues() []AccessKeyType {
-	return []AccessKeyType{
-		AccessKeyTypePrimary,
-		AccessKeyTypeSecondary,
-	}
-}
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
 type ActionType string
@@ -44,51 +28,33 @@ func PossibleActionTypeValues() []ActionType {
 	}
 }
 
-// AofFrequency - Sets the frequency at which data is written to disk.
 type AofFrequency string
 
 const (
-	AofFrequencyAlways AofFrequency = "always"
-	AofFrequencyOneS   AofFrequency = "1s"
+	AofFrequencyAlways    AofFrequency = "always"
+	AofFrequencyPerSecond AofFrequency = "1s"
 )
 
 // PossibleAofFrequencyValues returns the possible values for the AofFrequency const type.
 func PossibleAofFrequencyValues() []AofFrequency {
 	return []AofFrequency{
 		AofFrequencyAlways,
-		AofFrequencyOneS,
+		AofFrequencyPerSecond,
 	}
 }
 
-// ClusteringPolicy - Clustering policy - default is OSSCluster. Specified at create time.
-type ClusteringPolicy string
+type ClientProtocol string
 
 const (
-	ClusteringPolicyEnterpriseCluster ClusteringPolicy = "EnterpriseCluster"
-	ClusteringPolicyOSSCluster        ClusteringPolicy = "OSSCluster"
+	ClientProtocolEncrypted ClientProtocol = "Encrypted"
+	ClientProtocolPlaintext ClientProtocol = "Plaintext"
 )
 
-// PossibleClusteringPolicyValues returns the possible values for the ClusteringPolicy const type.
-func PossibleClusteringPolicyValues() []ClusteringPolicy {
-	return []ClusteringPolicy{
-		ClusteringPolicyEnterpriseCluster,
-		ClusteringPolicyOSSCluster,
-	}
-}
-
-// CmkIdentityType - Only userAssignedIdentity is supported in this API version; other types may be supported in the future
-type CmkIdentityType string
-
-const (
-	CmkIdentityTypeSystemAssignedIdentity CmkIdentityType = "systemAssignedIdentity"
-	CmkIdentityTypeUserAssignedIdentity   CmkIdentityType = "userAssignedIdentity"
-)
-
-// PossibleCmkIdentityTypeValues returns the possible values for the CmkIdentityType const type.
-func PossibleCmkIdentityTypeValues() []CmkIdentityType {
-	return []CmkIdentityType{
-		CmkIdentityTypeSystemAssignedIdentity,
-		CmkIdentityTypeUserAssignedIdentity,
+// PossibleClientProtocolValues returns the possible values for the ClientProtocol const type.
+func PossibleClientProtocolValues() []ClientProtocol {
+	return []ClientProtocol{
+		ClientProtocolEncrypted,
+		ClientProtocolPlaintext,
 	}
 }
 
@@ -112,7 +78,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-// EvictionPolicy - Redis eviction policy - default is VolatileLRU
 type EvictionPolicy string
 
 const (
@@ -140,45 +105,18 @@ func PossibleEvictionPolicyValues() []EvictionPolicy {
 	}
 }
 
-// LinkState - State of the link between the database resources.
-type LinkState string
+type KeyType string
 
 const (
-	LinkStateLinkFailed   LinkState = "LinkFailed"
-	LinkStateLinked       LinkState = "Linked"
-	LinkStateLinking      LinkState = "Linking"
-	LinkStateUnlinkFailed LinkState = "UnlinkFailed"
-	LinkStateUnlinking    LinkState = "Unlinking"
+	KeyTypePrimary   KeyType = "Primary"
+	KeyTypeSecondary KeyType = "Secondary"
 )
 
-// PossibleLinkStateValues returns the possible values for the LinkState const type.
-func PossibleLinkStateValues() []LinkState {
-	return []LinkState{
-		LinkStateLinkFailed,
-		LinkStateLinked,
-		LinkStateLinking,
-		LinkStateUnlinkFailed,
-		LinkStateUnlinking,
-	}
-}
-
-// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
-type ManagedServiceIdentityType string
-
-const (
-	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
-	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
-	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned, UserAssigned"
-	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
-)
-
-// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
-func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
-	return []ManagedServiceIdentityType{
-		ManagedServiceIdentityTypeNone,
-		ManagedServiceIdentityTypeSystemAssigned,
-		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
-		ManagedServiceIdentityTypeUserAssigned,
+// PossibleKeyTypeValues returns the possible values for the KeyType const type.
+func PossibleKeyTypeValues() []KeyType {
+	return []KeyType{
+		KeyTypePrimary,
+		KeyTypeSecondary,
 	}
 }
 
@@ -205,6 +143,7 @@ func PossibleOriginValues() []Origin {
 type PrivateEndpointConnectionProvisioningState string
 
 const (
+	PrivateEndpointConnectionProvisioningStateCanceled  PrivateEndpointConnectionProvisioningState = "Canceled"
 	PrivateEndpointConnectionProvisioningStateCreating  PrivateEndpointConnectionProvisioningState = "Creating"
 	PrivateEndpointConnectionProvisioningStateDeleting  PrivateEndpointConnectionProvisioningState = "Deleting"
 	PrivateEndpointConnectionProvisioningStateFailed    PrivateEndpointConnectionProvisioningState = "Failed"
@@ -214,6 +153,7 @@ const (
 // PossiblePrivateEndpointConnectionProvisioningStateValues returns the possible values for the PrivateEndpointConnectionProvisioningState const type.
 func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpointConnectionProvisioningState {
 	return []PrivateEndpointConnectionProvisioningState{
+		PrivateEndpointConnectionProvisioningStateCanceled,
 		PrivateEndpointConnectionProvisioningStateCreating,
 		PrivateEndpointConnectionProvisioningStateDeleting,
 		PrivateEndpointConnectionProvisioningStateFailed,
@@ -239,65 +179,48 @@ func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointSer
 	}
 }
 
-// Protocol - Specifies whether redis clients can connect using TLS-encrypted or plaintext redis protocols. Default is TLS-encrypted.
-type Protocol string
-
-const (
-	ProtocolEncrypted Protocol = "Encrypted"
-	ProtocolPlaintext Protocol = "Plaintext"
-)
-
-// PossibleProtocolValues returns the possible values for the Protocol const type.
-func PossibleProtocolValues() []Protocol {
-	return []Protocol{
-		ProtocolEncrypted,
-		ProtocolPlaintext,
-	}
-}
-
-// ProvisioningState - Current provisioning status
 type ProvisioningState string
 
 const (
-	ProvisioningStateCanceled  ProvisioningState = "Canceled"
-	ProvisioningStateCreating  ProvisioningState = "Creating"
-	ProvisioningStateDeleting  ProvisioningState = "Deleting"
-	ProvisioningStateFailed    ProvisioningState = "Failed"
-	ProvisioningStateSucceeded ProvisioningState = "Succeeded"
-	ProvisioningStateUpdating  ProvisioningState = "Updating"
+	ProvisioningStateAccepted     ProvisioningState = "Accepted"
+	ProvisioningStateCanceled     ProvisioningState = "Canceled"
+	ProvisioningStateDeleting     ProvisioningState = "Deleting"
+	ProvisioningStateFailed       ProvisioningState = "Failed"
+	ProvisioningStateProvisioning ProvisioningState = "Provisioning"
+	ProvisioningStateSucceeded    ProvisioningState = "Succeeded"
+	ProvisioningStateUpdating     ProvisioningState = "Updating"
 )
 
 // PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
 func PossibleProvisioningStateValues() []ProvisioningState {
 	return []ProvisioningState{
+		ProvisioningStateAccepted,
 		ProvisioningStateCanceled,
-		ProvisioningStateCreating,
 		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
+		ProvisioningStateProvisioning,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
 	}
 }
 
-// RdbFrequency - Sets the frequency at which a snapshot of the database is created.
 type RdbFrequency string
 
 const (
-	RdbFrequencyOneH    RdbFrequency = "1h"
-	RdbFrequencySixH    RdbFrequency = "6h"
-	RdbFrequencyTwelveH RdbFrequency = "12h"
+	RdbFrequencyPer12Hours RdbFrequency = "12h"
+	RdbFrequencyPer6Hours  RdbFrequency = "6h"
+	RdbFrequencyPerHour    RdbFrequency = "1h"
 )
 
 // PossibleRdbFrequencyValues returns the possible values for the RdbFrequency const type.
 func PossibleRdbFrequencyValues() []RdbFrequency {
 	return []RdbFrequency{
-		RdbFrequencyOneH,
-		RdbFrequencySixH,
-		RdbFrequencyTwelveH,
+		RdbFrequencyPer12Hours,
+		RdbFrequencyPer6Hours,
+		RdbFrequencyPerHour,
 	}
 }
 
-// ResourceState - Current resource status
 type ResourceState string
 
 const (
@@ -358,20 +281,19 @@ func PossibleSKUNameValues() []SKUName {
 	}
 }
 
-// TLSVersion - The minimum TLS version for the cluster to support, e.g. '1.2'
 type TLSVersion string
 
 const (
-	TLSVersionOne0 TLSVersion = "1.0"
-	TLSVersionOne1 TLSVersion = "1.1"
-	TLSVersionOne2 TLSVersion = "1.2"
+	TLSVersionOnePointOne  TLSVersion = "1.1"
+	TLSVersionOnePointTwo  TLSVersion = "1.2"
+	TLSVersionOnePointZero TLSVersion = "1.0"
 )
 
 // PossibleTLSVersionValues returns the possible values for the TLSVersion const type.
 func PossibleTLSVersionValues() []TLSVersion {
 	return []TLSVersion{
-		TLSVersionOne0,
-		TLSVersionOne1,
-		TLSVersionOne2,
+		TLSVersionOnePointOne,
+		TLSVersionOnePointTwo,
+		TLSVersionOnePointZero,
 	}
 }

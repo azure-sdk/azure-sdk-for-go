@@ -49,18 +49,18 @@ func NewDatabasesClient(subscriptionID string, credential azcore.TokenCredential
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
-//   - parameters - Parameters supplied to the create or update database operation.
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
+//   - resource - Resource create parameters.
 //   - options - DatabasesClientBeginCreateOptions contains the optional parameters for the DatabasesClient.BeginCreate method.
-func (client *DatabasesClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters Database, options *DatabasesClientBeginCreateOptions) (*runtime.Poller[DatabasesClientCreateResponse], error) {
+func (client *DatabasesClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, resource DatabaseCreateOrUpdate, options *DatabasesClientBeginCreateOptions) (*runtime.Poller[DatabasesClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+		resp, err := client.create(ctx, resourceGroupName, clusterName, databaseName, resource, options)
 		if err != nil {
 			return nil, err
 		}
 		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientCreateResponse]{
-			FinalStateVia: runtime.FinalStateViaOriginalURI,
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
 		return runtime.NewPollerFromResumeToken[DatabasesClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
@@ -71,8 +71,8 @@ func (client *DatabasesClient) BeginCreate(ctx context.Context, resourceGroupNam
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *DatabasesClient) create(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters Database, options *DatabasesClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+func (client *DatabasesClient) create(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, resource DatabaseCreateOrUpdate, options *DatabasesClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, databaseName, resource, options)
 	if err != nil {
 		return nil, err
 	}
@@ -87,8 +87,12 @@ func (client *DatabasesClient) create(ctx context.Context, resourceGroupName str
 }
 
 // createCreateRequest creates the Create request.
-func (client *DatabasesClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters Database, options *DatabasesClientBeginCreateOptions) (*policy.Request, error) {
+func (client *DatabasesClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, resource DatabaseCreateOrUpdate, options *DatabasesClientBeginCreateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -101,10 +105,6 @@ func (client *DatabasesClient) createCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -113,16 +113,16 @@ func (client *DatabasesClient) createCreateRequest(ctx context.Context, resource
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, runtime.MarshalAsJSON(req, resource)
 }
 
-// BeginDelete - Deletes a single database
+// BeginDelete - Deletes a database
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
 //   - options - DatabasesClientBeginDeleteOptions contains the optional parameters for the DatabasesClient.BeginDelete method.
 func (client *DatabasesClient) BeginDelete(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, options *DatabasesClientBeginDeleteOptions) (*runtime.Poller[DatabasesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
@@ -131,14 +131,14 @@ func (client *DatabasesClient) BeginDelete(ctx context.Context, resourceGroupNam
 			return nil, err
 		}
 		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientDeleteResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
 		return runtime.NewPollerFromResumeToken[DatabasesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Delete - Deletes a single database
+// Delete - Deletes a database
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
@@ -160,6 +160,10 @@ func (client *DatabasesClient) deleteOperation(ctx context.Context, resourceGrou
 // deleteCreateRequest creates the Delete request.
 func (client *DatabasesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, options *DatabasesClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -172,10 +176,6 @@ func (client *DatabasesClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodDelete, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -187,35 +187,34 @@ func (client *DatabasesClient) deleteCreateRequest(ctx context.Context, resource
 	return req, nil
 }
 
-// BeginExport - Exports a database file from target database.
+// BeginExportRdb - Exports RDB file(s)
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
-//   - parameters - Storage information for exporting into the cluster
-//   - options - DatabasesClientBeginExportOptions contains the optional parameters for the DatabasesClient.BeginExport method.
-func (client *DatabasesClient) BeginExport(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ExportClusterParameters, options *DatabasesClientBeginExportOptions) (*runtime.Poller[DatabasesClientExportResponse], error) {
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
+//   - body - The content of the action request
+//   - options - DatabasesClientBeginExportRdbOptions contains the optional parameters for the DatabasesClient.BeginExportRdb
+//     method.
+func (client *DatabasesClient) BeginExportRdb(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ExportParameters, options *DatabasesClientBeginExportRdbOptions) (*runtime.Poller[DatabasesClientExportRdbResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.export(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+		resp, err := client.exportRdb(ctx, resourceGroupName, clusterName, databaseName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientExportResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DatabasesClientExportRdbResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[DatabasesClientExportResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[DatabasesClientExportRdbResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Export - Exports a database file from target database.
+// ExportRdb - Exports RDB file(s)
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *DatabasesClient) export(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ExportClusterParameters, options *DatabasesClientBeginExportOptions) (*http.Response, error) {
-	req, err := client.exportCreateRequest(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+func (client *DatabasesClient) exportRdb(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ExportParameters, options *DatabasesClientBeginExportRdbOptions) (*http.Response, error) {
+	req, err := client.exportRdbCreateRequest(ctx, resourceGroupName, clusterName, databaseName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -229,9 +228,13 @@ func (client *DatabasesClient) export(ctx context.Context, resourceGroupName str
 	return resp, nil
 }
 
-// exportCreateRequest creates the Export request.
-func (client *DatabasesClient) exportCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ExportClusterParameters, options *DatabasesClientBeginExportOptions) (*policy.Request, error) {
+// exportRdbCreateRequest creates the ExportRdb request.
+func (client *DatabasesClient) exportRdbCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ExportParameters, options *DatabasesClientBeginExportRdbOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}/export"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -244,10 +247,6 @@ func (client *DatabasesClient) exportCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -256,111 +255,37 @@ func (client *DatabasesClient) exportCreateRequest(ctx context.Context, resource
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, runtime.MarshalAsJSON(req, body)
 }
 
-// BeginFlush - Flushes all the keys in this database and also from its linked databases.
+// BeginForceUnlink - Forcibly unlinks one or more databases from a replication group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
-//   - parameters - Information identifying the databases to be flushed
-//   - options - DatabasesClientBeginFlushOptions contains the optional parameters for the DatabasesClient.BeginFlush method.
-func (client *DatabasesClient) BeginFlush(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters FlushParameters, options *DatabasesClientBeginFlushOptions) (*runtime.Poller[DatabasesClientFlushResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.flush(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientFlushResponse]{
-			FinalStateVia: runtime.FinalStateViaLocation,
-		})
-	} else {
-		return runtime.NewPollerFromResumeToken[DatabasesClientFlushResponse](options.ResumeToken, client.internal.Pipeline(), nil)
-	}
-}
-
-// Flush - Flushes all the keys in this database and also from its linked databases.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-03-01-preview
-func (client *DatabasesClient) flush(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters FlushParameters, options *DatabasesClientBeginFlushOptions) (*http.Response, error) {
-	req, err := client.flushCreateRequest(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return nil, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
-		return nil, runtime.NewResponseError(resp)
-	}
-	return resp, nil
-}
-
-// flushCreateRequest creates the Flush request.
-func (client *DatabasesClient) flushCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters FlushParameters, options *DatabasesClientBeginFlushOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}/flush"
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if clusterName == "" {
-		return nil, errors.New("parameter clusterName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
-	if databaseName == "" {
-		return nil, errors.New("parameter databaseName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2023-03-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
-}
-
-// BeginForceUnlink - Forcibly removes the link to the specified database resource.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2023-03-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
-//   - parameters - Information identifying the database to be unlinked.
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
+//   - body - The content of the action request
 //   - options - DatabasesClientBeginForceUnlinkOptions contains the optional parameters for the DatabasesClient.BeginForceUnlink
 //     method.
-func (client *DatabasesClient) BeginForceUnlink(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ForceUnlinkParameters, options *DatabasesClientBeginForceUnlinkOptions) (*runtime.Poller[DatabasesClientForceUnlinkResponse], error) {
+func (client *DatabasesClient) BeginForceUnlink(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ForceUnlinkParameters, options *DatabasesClientBeginForceUnlinkOptions) (*runtime.Poller[DatabasesClientForceUnlinkResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.forceUnlink(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+		resp, err := client.forceUnlink(ctx, resourceGroupName, clusterName, databaseName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientForceUnlinkResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DatabasesClientForceUnlinkResponse](resp, client.internal.Pipeline(), nil)
 	} else {
 		return runtime.NewPollerFromResumeToken[DatabasesClientForceUnlinkResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// ForceUnlink - Forcibly removes the link to the specified database resource.
+// ForceUnlink - Forcibly unlinks one or more databases from a replication group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *DatabasesClient) forceUnlink(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ForceUnlinkParameters, options *DatabasesClientBeginForceUnlinkOptions) (*http.Response, error) {
-	req, err := client.forceUnlinkCreateRequest(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+func (client *DatabasesClient) forceUnlink(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ForceUnlinkParameters, options *DatabasesClientBeginForceUnlinkOptions) (*http.Response, error) {
+	req, err := client.forceUnlinkCreateRequest(ctx, resourceGroupName, clusterName, databaseName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -375,8 +300,12 @@ func (client *DatabasesClient) forceUnlink(ctx context.Context, resourceGroupNam
 }
 
 // forceUnlinkCreateRequest creates the ForceUnlink request.
-func (client *DatabasesClient) forceUnlinkCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ForceUnlinkParameters, options *DatabasesClientBeginForceUnlinkOptions) (*policy.Request, error) {
+func (client *DatabasesClient) forceUnlinkCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ForceUnlinkParameters, options *DatabasesClientBeginForceUnlinkOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}/forceUnlink"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -389,10 +318,6 @@ func (client *DatabasesClient) forceUnlinkCreateRequest(ctx context.Context, res
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -401,16 +326,86 @@ func (client *DatabasesClient) forceUnlinkCreateRequest(ctx context.Context, res
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, runtime.MarshalAsJSON(req, body)
 }
 
-// Get - Gets information about a database in a RedisEnterprise cluster.
+// BeginFush - Forcibly flushes data from all databases in a replication group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
+//   - body - The content of the action request
+//   - options - DatabasesClientBeginFushOptions contains the optional parameters for the DatabasesClient.BeginFush method.
+func (client *DatabasesClient) BeginFush(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body FlushParameters, options *DatabasesClientBeginFushOptions) (*runtime.Poller[DatabasesClientFushResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.fush(ctx, resourceGroupName, clusterName, databaseName, body, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[DatabasesClientFushResponse](resp, client.internal.Pipeline(), nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[DatabasesClientFushResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Fush - Forcibly flushes data from all databases in a replication group
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01-preview
+func (client *DatabasesClient) fush(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body FlushParameters, options *DatabasesClientBeginFushOptions) (*http.Response, error) {
+	req, err := client.fushCreateRequest(ctx, resourceGroupName, clusterName, databaseName, body, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// fushCreateRequest creates the Fush request.
+func (client *DatabasesClient) fushCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body FlushParameters, options *DatabasesClientBeginFushOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}/fush"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if databaseName == "" {
+		return nil, errors.New("parameter databaseName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-03-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, body)
+}
+
+// Get - Gets information about a database in a RedisEnterprise cluster
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
 //   - options - DatabasesClientGetOptions contains the optional parameters for the DatabasesClient.Get method.
 func (client *DatabasesClient) Get(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, options *DatabasesClientGetOptions) (DatabasesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, databaseName, options)
@@ -430,6 +425,10 @@ func (client *DatabasesClient) Get(ctx context.Context, resourceGroupName string
 // getCreateRequest creates the Get request.
 func (client *DatabasesClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, options *DatabasesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -442,10 +441,6 @@ func (client *DatabasesClient) getCreateRequest(ctx context.Context, resourceGro
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -466,35 +461,34 @@ func (client *DatabasesClient) getHandleResponse(resp *http.Response) (Databases
 	return result, nil
 }
 
-// BeginImport - Imports database files to target database.
+// BeginImportRdb - Imports RDB file(s)
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
-//   - parameters - Storage information for importing into the cluster
-//   - options - DatabasesClientBeginImportOptions contains the optional parameters for the DatabasesClient.BeginImport method.
-func (client *DatabasesClient) BeginImport(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ImportClusterParameters, options *DatabasesClientBeginImportOptions) (*runtime.Poller[DatabasesClientImportResponse], error) {
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
+//   - body - The content of the action request
+//   - options - DatabasesClientBeginImportRdbOptions contains the optional parameters for the DatabasesClient.BeginImportRdb
+//     method.
+func (client *DatabasesClient) BeginImportRdb(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ImportParameters, options *DatabasesClientBeginImportRdbOptions) (*runtime.Poller[DatabasesClientImportRdbResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.importOperation(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+		resp, err := client.importRdb(ctx, resourceGroupName, clusterName, databaseName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientImportResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
-		})
+		return runtime.NewPoller[DatabasesClientImportRdbResponse](resp, client.internal.Pipeline(), nil)
 	} else {
-		return runtime.NewPollerFromResumeToken[DatabasesClientImportResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[DatabasesClientImportRdbResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Import - Imports database files to target database.
+// ImportRdb - Imports RDB file(s)
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *DatabasesClient) importOperation(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ImportClusterParameters, options *DatabasesClientBeginImportOptions) (*http.Response, error) {
-	req, err := client.importCreateRequest(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+func (client *DatabasesClient) importRdb(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ImportParameters, options *DatabasesClientBeginImportRdbOptions) (*http.Response, error) {
+	req, err := client.importRdbCreateRequest(ctx, resourceGroupName, clusterName, databaseName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -508,9 +502,13 @@ func (client *DatabasesClient) importOperation(ctx context.Context, resourceGrou
 	return resp, nil
 }
 
-// importCreateRequest creates the Import request.
-func (client *DatabasesClient) importCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters ImportClusterParameters, options *DatabasesClientBeginImportOptions) (*policy.Request, error) {
+// importRdbCreateRequest creates the ImportRdb request.
+func (client *DatabasesClient) importRdbCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body ImportParameters, options *DatabasesClientBeginImportRdbOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}/import"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -523,10 +521,6 @@ func (client *DatabasesClient) importCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -535,14 +529,14 @@ func (client *DatabasesClient) importCreateRequest(ctx context.Context, resource
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, runtime.MarshalAsJSON(req, body)
 }
 
-// NewListByClusterPager - Gets all databases in the specified RedisEnterprise cluster.
+// NewListByClusterPager - Lists all databases in a RedisEnterprise cluster.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
+//   - clusterName - Name of cluster
 //   - options - DatabasesClientListByClusterOptions contains the optional parameters for the DatabasesClient.NewListByClusterPager
 //     method.
 func (client *DatabasesClient) NewListByClusterPager(resourceGroupName string, clusterName string, options *DatabasesClientListByClusterOptions) *runtime.Pager[DatabasesClientListByClusterResponse] {
@@ -602,19 +596,19 @@ func (client *DatabasesClient) listByClusterCreateRequest(ctx context.Context, r
 // listByClusterHandleResponse handles the ListByCluster response.
 func (client *DatabasesClient) listByClusterHandleResponse(resp *http.Response) (DatabasesClientListByClusterResponse, error) {
 	result := DatabasesClientListByClusterResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.DatabaseList); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.DatabaseListResult); err != nil {
 		return DatabasesClientListByClusterResponse{}, err
 	}
 	return result, nil
 }
 
-// ListKeys - Retrieves the access keys for the RedisEnterprise database.
+// ListKeys - Retrieves the access keys for the RedisEnterprise database
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
 //   - options - DatabasesClientListKeysOptions contains the optional parameters for the DatabasesClient.ListKeys method.
 func (client *DatabasesClient) ListKeys(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, options *DatabasesClientListKeysOptions) (DatabasesClientListKeysResponse, error) {
 	req, err := client.listKeysCreateRequest(ctx, resourceGroupName, clusterName, databaseName, options)
@@ -634,6 +628,10 @@ func (client *DatabasesClient) ListKeys(ctx context.Context, resourceGroupName s
 // listKeysCreateRequest creates the ListKeys request.
 func (client *DatabasesClient) listKeysCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, options *DatabasesClientListKeysOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}/listKeys"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -646,10 +644,6 @@ func (client *DatabasesClient) listKeysCreateRequest(ctx context.Context, resour
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -670,19 +664,19 @@ func (client *DatabasesClient) listKeysHandleResponse(resp *http.Response) (Data
 	return result, nil
 }
 
-// BeginRegenerateKey - Regenerates the RedisEnterprise database's access keys.
+// BeginRegenerateKey - Regenerates an access key for the RedisEnterprise database
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
-//   - parameters - Specifies which key to regenerate.
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
+//   - body - The content of the action request
 //   - options - DatabasesClientBeginRegenerateKeyOptions contains the optional parameters for the DatabasesClient.BeginRegenerateKey
 //     method.
-func (client *DatabasesClient) BeginRegenerateKey(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters RegenerateKeyParameters, options *DatabasesClientBeginRegenerateKeyOptions) (*runtime.Poller[DatabasesClientRegenerateKeyResponse], error) {
+func (client *DatabasesClient) BeginRegenerateKey(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body RegenerateKeyParameters, options *DatabasesClientBeginRegenerateKeyOptions) (*runtime.Poller[DatabasesClientRegenerateKeyResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.regenerateKey(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+		resp, err := client.regenerateKey(ctx, resourceGroupName, clusterName, databaseName, body, options)
 		if err != nil {
 			return nil, err
 		}
@@ -694,12 +688,12 @@ func (client *DatabasesClient) BeginRegenerateKey(ctx context.Context, resourceG
 	}
 }
 
-// RegenerateKey - Regenerates the RedisEnterprise database's access keys.
+// RegenerateKey - Regenerates an access key for the RedisEnterprise database
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *DatabasesClient) regenerateKey(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters RegenerateKeyParameters, options *DatabasesClientBeginRegenerateKeyOptions) (*http.Response, error) {
-	req, err := client.regenerateKeyCreateRequest(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+func (client *DatabasesClient) regenerateKey(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body RegenerateKeyParameters, options *DatabasesClientBeginRegenerateKeyOptions) (*http.Response, error) {
+	req, err := client.regenerateKeyCreateRequest(ctx, resourceGroupName, clusterName, databaseName, body, options)
 	if err != nil {
 		return nil, err
 	}
@@ -714,8 +708,12 @@ func (client *DatabasesClient) regenerateKey(ctx context.Context, resourceGroupN
 }
 
 // regenerateKeyCreateRequest creates the RegenerateKey request.
-func (client *DatabasesClient) regenerateKeyCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters RegenerateKeyParameters, options *DatabasesClientBeginRegenerateKeyOptions) (*policy.Request, error) {
+func (client *DatabasesClient) regenerateKeyCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, body RegenerateKeyParameters, options *DatabasesClientBeginRegenerateKeyOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}/regenerateKey"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -728,10 +726,6 @@ func (client *DatabasesClient) regenerateKeyCreateRequest(ctx context.Context, r
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -740,7 +734,7 @@ func (client *DatabasesClient) regenerateKeyCreateRequest(ctx context.Context, r
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, runtime.MarshalAsJSON(req, body)
 }
 
 // BeginUpdate - Updates a database
@@ -748,18 +742,18 @@ func (client *DatabasesClient) regenerateKeyCreateRequest(ctx context.Context, r
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
-//   - databaseName - The name of the database.
-//   - parameters - Parameters supplied to the create or update database operation.
+//   - clusterName - Name of cluster
+//   - databaseName - Name of database
+//   - properties - The resource properties to be updated.
 //   - options - DatabasesClientBeginUpdateOptions contains the optional parameters for the DatabasesClient.BeginUpdate method.
-func (client *DatabasesClient) BeginUpdate(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters DatabaseUpdate, options *DatabasesClientBeginUpdateOptions) (*runtime.Poller[DatabasesClientUpdateResponse], error) {
+func (client *DatabasesClient) BeginUpdate(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, properties any, options *DatabasesClientBeginUpdateOptions) (*runtime.Poller[DatabasesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+		resp, err := client.update(ctx, resourceGroupName, clusterName, databaseName, properties, options)
 		if err != nil {
 			return nil, err
 		}
 		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[DatabasesClientUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+			FinalStateVia: runtime.FinalStateViaLocation,
 		})
 	} else {
 		return runtime.NewPollerFromResumeToken[DatabasesClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
@@ -770,8 +764,8 @@ func (client *DatabasesClient) BeginUpdate(ctx context.Context, resourceGroupNam
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-03-01-preview
-func (client *DatabasesClient) update(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters DatabaseUpdate, options *DatabasesClientBeginUpdateOptions) (*http.Response, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, databaseName, parameters, options)
+func (client *DatabasesClient) update(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, properties any, options *DatabasesClientBeginUpdateOptions) (*http.Response, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, clusterName, databaseName, properties, options)
 	if err != nil {
 		return nil, err
 	}
@@ -786,8 +780,12 @@ func (client *DatabasesClient) update(ctx context.Context, resourceGroupName str
 }
 
 // updateCreateRequest creates the Update request.
-func (client *DatabasesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, parameters DatabaseUpdate, options *DatabasesClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *DatabasesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, databaseName string, properties any, options *DatabasesClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/databases/{databaseName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -800,10 +798,6 @@ func (client *DatabasesClient) updateCreateRequest(ctx context.Context, resource
 		return nil, errors.New("parameter databaseName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{databaseName}", url.PathEscape(databaseName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -812,5 +806,5 @@ func (client *DatabasesClient) updateCreateRequest(ctx context.Context, resource
 	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, parameters)
+	return req, runtime.MarshalAsJSON(req, properties)
 }

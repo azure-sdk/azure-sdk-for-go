@@ -44,44 +44,46 @@ func NewSKUsClient(subscriptionID string, credential azcore.TokenCredential, opt
 	return client, nil
 }
 
-// NewListPager - Gets information about skus in specified location for the given subscription id
+// NewListBySubscriptionPager - Lists all RedisEnterprise skus in a subscription.
 //
 // Generated from API version 2023-03-01-preview
-//   - location - The name of Azure region.
-//   - options - SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
-func (client *SKUsClient) NewListPager(location string, options *SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[SKUsClientListResponse]{
-		More: func(page SKUsClientListResponse) bool {
-			return false
+//   - options - SKUsClientListBySubscriptionOptions contains the optional parameters for the SKUsClient.NewListBySubscriptionPager
+//     method.
+func (client *SKUsClient) NewListBySubscriptionPager(options *SKUsClientListBySubscriptionOptions) *runtime.Pager[SKUsClientListBySubscriptionResponse] {
+	return runtime.NewPager(runtime.PagingHandler[SKUsClientListBySubscriptionResponse]{
+		More: func(page SKUsClientListBySubscriptionResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *SKUsClientListResponse) (SKUsClientListResponse, error) {
-			req, err := client.listCreateRequest(ctx, location, options)
+		Fetcher: func(ctx context.Context, page *SKUsClientListBySubscriptionResponse) (SKUsClientListBySubscriptionResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listBySubscriptionCreateRequest(ctx, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
 			if err != nil {
-				return SKUsClientListResponse{}, err
+				return SKUsClientListBySubscriptionResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return SKUsClientListResponse{}, err
+				return SKUsClientListBySubscriptionResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return SKUsClientListResponse{}, runtime.NewResponseError(resp)
+				return SKUsClientListBySubscriptionResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listHandleResponse(resp)
+			return client.listBySubscriptionHandleResponse(resp)
 		},
 	})
 }
 
-// listCreateRequest creates the List request.
-func (client *SKUsClient) listCreateRequest(ctx context.Context, location string, options *SKUsClientListOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Cache/locations/{location}/skus"
+// listBySubscriptionCreateRequest creates the ListBySubscription request.
+func (client *SKUsClient) listBySubscriptionCreateRequest(ctx context.Context, options *SKUsClientListBySubscriptionOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Cache/skus"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if location == "" {
-		return nil, errors.New("parameter location cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{location}", url.PathEscape(location))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -93,11 +95,11 @@ func (client *SKUsClient) listCreateRequest(ctx context.Context, location string
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *SKUsClient) listHandleResponse(resp *http.Response) (SKUsClientListResponse, error) {
-	result := SKUsClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RegionSKUDetails); err != nil {
-		return SKUsClientListResponse{}, err
+// listBySubscriptionHandleResponse handles the ListBySubscription response.
+func (client *SKUsClient) listBySubscriptionHandleResponse(resp *http.Response) (SKUsClientListBySubscriptionResponse, error) {
+	result := SKUsClientListBySubscriptionResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.SKUDetailsListResult); err != nil {
+		return SKUsClientListBySubscriptionResponse{}, err
 	}
 	return result, nil
 }

@@ -26,12 +26,12 @@ type ClientGetResponse struct {
 
 // ClientListByResourceGroupResponse contains the response from method Client.NewListByResourceGroupPager.
 type ClientListByResourceGroupResponse struct {
-	ClusterList
+	ClusterListResult
 }
 
-// ClientListResponse contains the response from method Client.NewListPager.
-type ClientListResponse struct {
-	ClusterList
+// ClientListBySubscriptionResponse contains the response from method Client.NewListBySubscriptionPager.
+type ClientListBySubscriptionResponse struct {
+	ClusterListResult
 }
 
 // ClientUpdateResponse contains the response from method Client.BeginUpdate.
@@ -49,13 +49,8 @@ type DatabasesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// DatabasesClientExportResponse contains the response from method DatabasesClient.BeginExport.
-type DatabasesClientExportResponse struct {
-	// placeholder for future response values
-}
-
-// DatabasesClientFlushResponse contains the response from method DatabasesClient.BeginFlush.
-type DatabasesClientFlushResponse struct {
+// DatabasesClientExportRdbResponse contains the response from method DatabasesClient.BeginExportRdb.
+type DatabasesClientExportRdbResponse struct {
 	// placeholder for future response values
 }
 
@@ -64,19 +59,24 @@ type DatabasesClientForceUnlinkResponse struct {
 	// placeholder for future response values
 }
 
+// DatabasesClientFushResponse contains the response from method DatabasesClient.BeginFush.
+type DatabasesClientFushResponse struct {
+	// placeholder for future response values
+}
+
 // DatabasesClientGetResponse contains the response from method DatabasesClient.Get.
 type DatabasesClientGetResponse struct {
 	Database
 }
 
-// DatabasesClientImportResponse contains the response from method DatabasesClient.BeginImport.
-type DatabasesClientImportResponse struct {
+// DatabasesClientImportRdbResponse contains the response from method DatabasesClient.BeginImportRdb.
+type DatabasesClientImportRdbResponse struct {
 	// placeholder for future response values
 }
 
 // DatabasesClientListByClusterResponse contains the response from method DatabasesClient.NewListByClusterPager.
 type DatabasesClientListByClusterResponse struct {
-	DatabaseList
+	DatabaseListResult
 }
 
 // DatabasesClientListKeysResponse contains the response from method DatabasesClient.ListKeys.
@@ -101,10 +101,15 @@ type OperationsClientListResponse struct {
 
 // OperationsStatusClientGetResponse contains the response from method OperationsStatusClient.Get.
 type OperationsStatusClientGetResponse struct {
-	OperationStatus
+	OperationStatusResult
 }
 
-// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.Delete.
+// PrivateEndpointConnectionsClientCreateResponse contains the response from method PrivateEndpointConnectionsClient.BeginCreate.
+type PrivateEndpointConnectionsClientCreateResponse struct {
+	PrivateEndpointConnection
+}
+
+// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.BeginDelete.
 type PrivateEndpointConnectionsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -114,22 +119,22 @@ type PrivateEndpointConnectionsClientGetResponse struct {
 	PrivateEndpointConnection
 }
 
-// PrivateEndpointConnectionsClientListResponse contains the response from method PrivateEndpointConnectionsClient.NewListPager.
-type PrivateEndpointConnectionsClientListResponse struct {
+// PrivateEndpointConnectionsClientListByClusterResponse contains the response from method PrivateEndpointConnectionsClient.NewListByClusterPager.
+type PrivateEndpointConnectionsClientListByClusterResponse struct {
 	PrivateEndpointConnectionListResult
 }
 
-// PrivateEndpointConnectionsClientPutResponse contains the response from method PrivateEndpointConnectionsClient.BeginPut.
-type PrivateEndpointConnectionsClientPutResponse struct {
+// PrivateEndpointConnectionsClientUpdateResponse contains the response from method PrivateEndpointConnectionsClient.BeginUpdate.
+type PrivateEndpointConnectionsClientUpdateResponse struct {
 	PrivateEndpointConnection
 }
 
 // PrivateLinkResourcesClientListByClusterResponse contains the response from method PrivateLinkResourcesClient.NewListByClusterPager.
 type PrivateLinkResourcesClientListByClusterResponse struct {
-	PrivateLinkResourceListResult
+	PrivateLinkListResult
 }
 
-// SKUsClientListResponse contains the response from method SKUsClient.NewListPager.
-type SKUsClientListResponse struct {
-	RegionSKUDetails
+// SKUsClientListBySubscriptionResponse contains the response from method SKUsClient.NewListBySubscriptionPager.
+type SKUsClientListBySubscriptionResponse struct {
+	SKUDetailsListResult
 }

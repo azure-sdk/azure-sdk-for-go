@@ -44,20 +44,26 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 	return client, nil
 }
 
-// NewListByClusterPager - Gets the private link resources that need to be created for a RedisEnterprise cluster.
+// NewListByClusterPager - Lists all private link resources in a RedisEnterprise cluster.
 //
 // Generated from API version 2023-03-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - clusterName - The name of the RedisEnterprise cluster.
+//   - clusterName - Name of cluster
 //   - options - PrivateLinkResourcesClientListByClusterOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByClusterPager
 //     method.
 func (client *PrivateLinkResourcesClient) NewListByClusterPager(resourceGroupName string, clusterName string, options *PrivateLinkResourcesClientListByClusterOptions) *runtime.Pager[PrivateLinkResourcesClientListByClusterResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PrivateLinkResourcesClientListByClusterResponse]{
 		More: func(page PrivateLinkResourcesClientListByClusterResponse) bool {
-			return false
+			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
 		Fetcher: func(ctx context.Context, page *PrivateLinkResourcesClientListByClusterResponse) (PrivateLinkResourcesClientListByClusterResponse, error) {
-			req, err := client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
 			if err != nil {
 				return PrivateLinkResourcesClientListByClusterResponse{}, err
 			}
@@ -76,6 +82,10 @@ func (client *PrivateLinkResourcesClient) NewListByClusterPager(resourceGroupNam
 // listByClusterCreateRequest creates the ListByCluster request.
 func (client *PrivateLinkResourcesClient) listByClusterCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *PrivateLinkResourcesClientListByClusterOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redisEnterprise/{clusterName}/privateLinkResources"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -84,10 +94,6 @@ func (client *PrivateLinkResourcesClient) listByClusterCreateRequest(ctx context
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -102,7 +108,7 @@ func (client *PrivateLinkResourcesClient) listByClusterCreateRequest(ctx context
 // listByClusterHandleResponse handles the ListByCluster response.
 func (client *PrivateLinkResourcesClient) listByClusterHandleResponse(resp *http.Response) (PrivateLinkResourcesClientListByClusterResponse, error) {
 	result := PrivateLinkResourcesClientListByClusterResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateLinkResourceListResult); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.PrivateLinkListResult); err != nil {
 		return PrivateLinkResourcesClientListByClusterResponse{}, err
 	}
 	return result, nil
