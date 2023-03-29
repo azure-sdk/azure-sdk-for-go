@@ -11,7 +11,7 @@ package armcosmos
 
 const (
 	moduleName    = "armcosmos"
-	moduleVersion = "v2.3.0-beta.1"
+	moduleVersion = "v2.3.0"
 )
 
 // APIType - Enum to indicate the API type of the restorable database account.
@@ -56,12 +56,11 @@ func PossibleAnalyticalStorageSchemaTypeValues() []AnalyticalStorageSchemaType {
 
 // AuthenticationMethod - Which authentication method Cassandra should use to authenticate clients. 'None' turns off authentication,
 // so should not be used except in emergencies. 'Cassandra' is the default password based
-// authentication. The default is 'Cassandra'. 'Ldap' is in preview.
+// authentication. The default is 'Cassandra'.
 type AuthenticationMethod string
 
 const (
 	AuthenticationMethodCassandra AuthenticationMethod = "Cassandra"
-	AuthenticationMethodLdap      AuthenticationMethod = "Ldap"
 	AuthenticationMethodNone      AuthenticationMethod = "None"
 )
 
@@ -69,7 +68,6 @@ const (
 func PossibleAuthenticationMethodValues() []AuthenticationMethod {
 	return []AuthenticationMethod{
 		AuthenticationMethodCassandra,
-		AuthenticationMethodLdap,
 		AuthenticationMethodNone,
 	}
 }
@@ -250,23 +248,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
-type DataTransferComponent string
-
-const (
-	DataTransferComponentAzureBlobStorage  DataTransferComponent = "AzureBlobStorage"
-	DataTransferComponentCosmosDBCassandra DataTransferComponent = "CosmosDBCassandra"
-	DataTransferComponentCosmosDBSQL       DataTransferComponent = "CosmosDBSql"
-)
-
-// PossibleDataTransferComponentValues returns the possible values for the DataTransferComponent const type.
-func PossibleDataTransferComponentValues() []DataTransferComponent {
-	return []DataTransferComponent{
-		DataTransferComponentAzureBlobStorage,
-		DataTransferComponentCosmosDBCassandra,
-		DataTransferComponentCosmosDBSQL,
-	}
-}
-
 // DataType - The datatype for which the indexing behavior is applied to.
 type DataType string
 
@@ -328,24 +309,6 @@ func PossibleDefaultConsistencyLevelValues() []DefaultConsistencyLevel {
 		DefaultConsistencyLevelBoundedStaleness,
 		DefaultConsistencyLevelStrong,
 		DefaultConsistencyLevelConsistentPrefix,
-	}
-}
-
-// EnableFullTextQuery - Describe the level of detail with which queries are to be logged.
-type EnableFullTextQuery string
-
-const (
-	EnableFullTextQueryNone  EnableFullTextQuery = "None"
-	EnableFullTextQueryTrue  EnableFullTextQuery = "True"
-	EnableFullTextQueryFalse EnableFullTextQuery = "False"
-)
-
-// PossibleEnableFullTextQueryValues returns the possible values for the EnableFullTextQuery const type.
-func PossibleEnableFullTextQueryValues() []EnableFullTextQuery {
-	return []EnableFullTextQuery{
-		EnableFullTextQueryNone,
-		EnableFullTextQueryTrue,
-		EnableFullTextQueryFalse,
 	}
 }
 
@@ -553,7 +516,6 @@ type OperationType string
 const (
 	OperationTypeCreate          OperationType = "Create"
 	OperationTypeDelete          OperationType = "Delete"
-	OperationTypeRecreate        OperationType = "Recreate"
 	OperationTypeReplace         OperationType = "Replace"
 	OperationTypeSystemOperation OperationType = "SystemOperation"
 )
@@ -563,7 +525,6 @@ func PossibleOperationTypeValues() []OperationType {
 	return []OperationType{
 		OperationTypeCreate,
 		OperationTypeDelete,
-		OperationTypeRecreate,
 		OperationTypeReplace,
 		OperationTypeSystemOperation,
 	}
@@ -779,24 +740,6 @@ func PossibleSpatialTypeValues() []SpatialType {
 		SpatialTypeMultiPolygon,
 		SpatialTypePoint,
 		SpatialTypePolygon,
-	}
-}
-
-// ThroughputPolicyType - ThroughputPolicy to apply for throughput redistribution
-type ThroughputPolicyType string
-
-const (
-	ThroughputPolicyTypeCustom ThroughputPolicyType = "custom"
-	ThroughputPolicyTypeEqual  ThroughputPolicyType = "equal"
-	ThroughputPolicyTypeNone   ThroughputPolicyType = "none"
-)
-
-// PossibleThroughputPolicyTypeValues returns the possible values for the ThroughputPolicyType const type.
-func PossibleThroughputPolicyTypeValues() []ThroughputPolicyType {
-	return []ThroughputPolicyType{
-		ThroughputPolicyTypeCustom,
-		ThroughputPolicyTypeEqual,
-		ThroughputPolicyTypeNone,
 	}
 }
 
