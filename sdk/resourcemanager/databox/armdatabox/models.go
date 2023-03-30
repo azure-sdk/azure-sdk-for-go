@@ -216,6 +216,9 @@ type CommonJobDetails struct {
 	// Preferences for the order.
 	Preferences *Preferences `json:"preferences,omitempty"`
 
+	// Optional Reverse Shipping details for order.
+	ReverseShippingDetails *ReverseShippingDetails `json:"reverseShippingDetails,omitempty"`
+
 	// Shipping address of the customer.
 	ShippingAddress *ShippingAddress `json:"shippingAddress,omitempty"`
 
@@ -328,6 +331,21 @@ type ContactDetails struct {
 	PhoneExtension *string `json:"phoneExtension,omitempty"`
 }
 
+// ContactInfo - Contact Info.
+type ContactInfo struct {
+	// REQUIRED; Contact name of the person.
+	ContactName *string `json:"contactName,omitempty"`
+
+	// REQUIRED; Phone number of the contact person.
+	Phone *string `json:"phone,omitempty"`
+
+	// Mobile number of the contact person.
+	Mobile *string `json:"mobile,omitempty"`
+
+	// Phone extension number of the contact person.
+	PhoneExtension *string `json:"phoneExtension,omitempty"`
+}
+
 // CopyLogDetailsClassification provides polymorphic access to related types.
 // Call the interface's GetCopyLogDetails() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -351,6 +369,9 @@ type CopyProgress struct {
 	// READ-ONLY; Id of the account where the data needs to be uploaded.
 	AccountID *string `json:"accountId,omitempty" azure:"ro"`
 
+	// READ-ONLY; Available actions on the job.
+	Actions []*CustomerResolutionCode `json:"actions,omitempty" azure:"ro"`
+
 	// READ-ONLY; To indicate bytes transferred.
 	BytesProcessed *int64 `json:"bytesProcessed,omitempty" azure:"ro"`
 
@@ -359,6 +380,9 @@ type CopyProgress struct {
 
 	// READ-ONLY; To indicate directories errored out in the job.
 	DirectoriesErroredOut *int64 `json:"directoriesErroredOut,omitempty" azure:"ro"`
+
+	// READ-ONLY; Error, if any, in the stage
+	Error *CloudError `json:"error,omitempty" azure:"ro"`
 
 	// READ-ONLY; Number of files which could not be copied
 	FilesErroredOut *int64 `json:"filesErroredOut,omitempty" azure:"ro"`
@@ -476,6 +500,9 @@ type CustomerDiskCopyProgress struct {
 	// READ-ONLY; Id of the account where the data needs to be uploaded.
 	AccountID *string `json:"accountId,omitempty" azure:"ro"`
 
+	// READ-ONLY; Available actions on the job.
+	Actions []*CustomerResolutionCode `json:"actions,omitempty" azure:"ro"`
+
 	// READ-ONLY; To indicate bytes transferred.
 	BytesProcessed *int64 `json:"bytesProcessed,omitempty" azure:"ro"`
 
@@ -487,6 +514,9 @@ type CustomerDiskCopyProgress struct {
 
 	// READ-ONLY; To indicate directories errored out in the job.
 	DirectoriesErroredOut *int64 `json:"directoriesErroredOut,omitempty" azure:"ro"`
+
+	// READ-ONLY; Error, if any, in the stage
+	Error *CloudError `json:"error,omitempty" azure:"ro"`
 
 	// READ-ONLY; Number of files which could not be copied
 	FilesErroredOut *int64 `json:"filesErroredOut,omitempty" azure:"ro"`
@@ -557,6 +587,9 @@ type CustomerDiskJobDetails struct {
 	// Preferences for the order.
 	Preferences *Preferences `json:"preferences,omitempty"`
 
+	// Optional Reverse Shipping details for order.
+	ReverseShippingDetails *ReverseShippingDetails `json:"reverseShippingDetails,omitempty"`
+
 	// Shipping address of the customer.
 	ShippingAddress *ShippingAddress `json:"shippingAddress,omitempty"`
 
@@ -615,6 +648,7 @@ func (c *CustomerDiskJobDetails) GetCommonJobDetails() *CommonJobDetails {
 		DataExportDetails:           c.DataExportDetails,
 		JobDetailsType:              c.JobDetailsType,
 		Preferences:                 c.Preferences,
+		ReverseShippingDetails:      c.ReverseShippingDetails,
 		CopyLogDetails:              c.CopyLogDetails,
 		ReverseShipmentLabelSasKey:  c.ReverseShipmentLabelSasKey,
 		ChainOfCustodySasKey:        c.ChainOfCustodySasKey,
@@ -925,8 +959,14 @@ func (d *DiskCopyLogDetails) GetCopyLogDetails() *CopyLogDetails {
 
 // DiskCopyProgress - DataBox Disk Copy Progress
 type DiskCopyProgress struct {
+	// READ-ONLY; Available actions on the job.
+	Actions []*CustomerResolutionCode `json:"actions,omitempty" azure:"ro"`
+
 	// READ-ONLY; Bytes copied during the copy of disk.
 	BytesCopied *int64 `json:"bytesCopied,omitempty" azure:"ro"`
+
+	// READ-ONLY; Error, if any, in the stage
+	Error *CloudError `json:"error,omitempty" azure:"ro"`
 
 	// READ-ONLY; Indicates the percentage completed for the copy of the disk.
 	PercentComplete *int32 `json:"percentComplete,omitempty" azure:"ro"`
@@ -943,8 +983,8 @@ type DiskGranularCopyLogDetails struct {
 	// REQUIRED; Indicates the type of job details.
 	CopyLogDetailsType *ClassDiscriminator `json:"copyLogDetailsType,omitempty"`
 
-	// READ-ONLY; Account name.
-	AccountName *string `json:"accountName,omitempty" azure:"ro"`
+	// READ-ONLY; Account id.
+	AccountID *string `json:"accountId,omitempty" azure:"ro"`
 
 	// READ-ONLY; Link for copy error logs.
 	ErrorLogLink *string `json:"errorLogLink,omitempty" azure:"ro"`
@@ -968,6 +1008,9 @@ type DiskGranularCopyProgress struct {
 	// READ-ONLY; Id of the account where the data needs to be uploaded.
 	AccountID *string `json:"accountId,omitempty" azure:"ro"`
 
+	// READ-ONLY; Available actions on the job.
+	Actions []*CustomerResolutionCode `json:"actions,omitempty" azure:"ro"`
+
 	// READ-ONLY; To indicate bytes transferred.
 	BytesProcessed *int64 `json:"bytesProcessed,omitempty" azure:"ro"`
 
@@ -979,6 +1022,9 @@ type DiskGranularCopyProgress struct {
 
 	// READ-ONLY; To indicate directories errored out in the job.
 	DirectoriesErroredOut *int64 `json:"directoriesErroredOut,omitempty" azure:"ro"`
+
+	// READ-ONLY; Error, if any, in the stage
+	Error *CloudError `json:"error,omitempty" azure:"ro"`
 
 	// READ-ONLY; Number of files which could not be copied
 	FilesErroredOut *int64 `json:"filesErroredOut,omitempty" azure:"ro"`
@@ -1047,6 +1093,9 @@ type DiskJobDetails struct {
 	// means 5 disks of 2 TB size. Key is string but will be checked against an int.
 	PreferredDisks map[string]*int32 `json:"preferredDisks,omitempty"`
 
+	// Optional Reverse Shipping details for order.
+	ReverseShippingDetails *ReverseShippingDetails `json:"reverseShippingDetails,omitempty"`
+
 	// Shipping address of the customer.
 	ShippingAddress *ShippingAddress `json:"shippingAddress,omitempty"`
 
@@ -1079,6 +1128,9 @@ type DiskJobDetails struct {
 	DisksAndSizeDetails map[string]*int32 `json:"disksAndSizeDetails,omitempty" azure:"ro"`
 
 	// READ-ONLY; Copy progress per disk.
+	GranularCopyLogDetails []*DiskGranularCopyLogDetails `json:"granularCopyLogDetails,omitempty" azure:"ro"`
+
+	// READ-ONLY; Copy progress per disk.
 	GranularCopyProgress []*DiskGranularCopyProgress `json:"granularCopyProgress,omitempty" azure:"ro"`
 
 	// READ-ONLY; List of stages that run in the job.
@@ -1106,6 +1158,7 @@ func (d *DiskJobDetails) GetCommonJobDetails() *CommonJobDetails {
 		DataExportDetails:           d.DataExportDetails,
 		JobDetailsType:              d.JobDetailsType,
 		Preferences:                 d.Preferences,
+		ReverseShippingDetails:      d.ReverseShippingDetails,
 		CopyLogDetails:              d.CopyLogDetails,
 		ReverseShipmentLabelSasKey:  d.ReverseShipmentLabelSasKey,
 		ChainOfCustodySasKey:        d.ChainOfCustodySasKey,
@@ -1187,6 +1240,9 @@ type DiskSecret struct {
 type EncryptionPreferences struct {
 	// Defines secondary layer of software-based encryption enablement.
 	DoubleEncryption *DoubleEncryption `json:"doubleEncryption,omitempty"`
+
+	// Defines Hardware level encryption (Only for disk)
+	HardwareEncryption *HardwareEncryption `json:"hardwareEncryption,omitempty"`
 }
 
 type ErrorDetail struct {
@@ -1243,6 +1299,9 @@ type GranularCopyProgress struct {
 	// READ-ONLY; Id of the account where the data needs to be uploaded.
 	AccountID *string `json:"accountId,omitempty" azure:"ro"`
 
+	// READ-ONLY; Available actions on the job.
+	Actions []*CustomerResolutionCode `json:"actions,omitempty" azure:"ro"`
+
 	// READ-ONLY; To indicate bytes transferred.
 	BytesProcessed *int64 `json:"bytesProcessed,omitempty" azure:"ro"`
 
@@ -1251,6 +1310,9 @@ type GranularCopyProgress struct {
 
 	// READ-ONLY; To indicate directories errored out in the job.
 	DirectoriesErroredOut *int64 `json:"directoriesErroredOut,omitempty" azure:"ro"`
+
+	// READ-ONLY; Error, if any, in the stage
+	Error *CloudError `json:"error,omitempty" azure:"ro"`
 
 	// READ-ONLY; Number of files which could not be copied
 	FilesErroredOut *int64 `json:"filesErroredOut,omitempty" azure:"ro"`
@@ -1338,6 +1400,9 @@ type HeavyJobDetails struct {
 	// Preferences for the order.
 	Preferences *Preferences `json:"preferences,omitempty"`
 
+	// Optional Reverse Shipping details for order.
+	ReverseShippingDetails *ReverseShippingDetails `json:"reverseShippingDetails,omitempty"`
+
 	// Shipping address of the customer.
 	ShippingAddress *ShippingAddress `json:"shippingAddress,omitempty"`
 
@@ -1390,6 +1455,7 @@ func (h *HeavyJobDetails) GetCommonJobDetails() *CommonJobDetails {
 		DataExportDetails:           h.DataExportDetails,
 		JobDetailsType:              h.JobDetailsType,
 		Preferences:                 h.Preferences,
+		ReverseShippingDetails:      h.ReverseShippingDetails,
 		CopyLogDetails:              h.CopyLogDetails,
 		ReverseShipmentLabelSasKey:  h.ReverseShipmentLabelSasKey,
 		ChainOfCustodySasKey:        h.ChainOfCustodySasKey,
@@ -1527,6 +1593,9 @@ type JobDetails struct {
 	// Preferences for the order.
 	Preferences *Preferences `json:"preferences,omitempty"`
 
+	// Optional Reverse Shipping details for order.
+	ReverseShippingDetails *ReverseShippingDetails `json:"reverseShippingDetails,omitempty"`
+
 	// Shipping address of the customer.
 	ShippingAddress *ShippingAddress `json:"shippingAddress,omitempty"`
 
@@ -1579,6 +1648,7 @@ func (j *JobDetails) GetCommonJobDetails() *CommonJobDetails {
 		DataExportDetails:           j.DataExportDetails,
 		JobDetailsType:              j.JobDetailsType,
 		Preferences:                 j.Preferences,
+		ReverseShippingDetails:      j.ReverseShippingDetails,
 		CopyLogDetails:              j.CopyLogDetails,
 		ReverseShipmentLabelSasKey:  j.ReverseShipmentLabelSasKey,
 		ChainOfCustodySasKey:        j.ChainOfCustodySasKey,
@@ -1626,6 +1696,12 @@ type JobProperties struct {
 
 	// READ-ONLY; Describes whether the shipping address is editable or not.
 	IsShippingAddressEditable *bool `json:"isShippingAddressEditable,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Editable status for Reverse Shipping Address and Contact Info
+	ReverseShippingDetailsUpdate *ReverseShippingDetailsEditStatus `json:"reverseShippingDetailsUpdate,omitempty" azure:"ro"`
+
+	// READ-ONLY; The Editable status for Reverse Transport preferences
+	ReverseTransportPreferenceUpdate *ReverseTransportPreferenceEditStatus `json:"reverseTransportPreferenceUpdate,omitempty" azure:"ro"`
 
 	// READ-ONLY; Time at which the job was started in UTC ISO 8601 format.
 	StartTime *time.Time `json:"startTime,omitempty" azure:"ro"`
@@ -1857,8 +1933,11 @@ type MarkDevicesShippedRequest struct {
 
 // MitigateJobRequest - The Mitigate Job captured from request body for Mitigate API
 type MitigateJobRequest struct {
-	// REQUIRED; Resolution code for the job
+	// Resolution code for the job
 	CustomerResolutionCode *CustomerResolutionCode `json:"customerResolutionCode,omitempty"`
+
+	// Serial number and the customer resolution code corresponding to each serial number
+	SerialNumberCustomerResolutionMap map[string]*CustomerResolutionCode `json:"serialNumberCustomerResolutionMap,omitempty"`
 }
 
 // NotificationPreference - Notification preference for a job stage.
@@ -1957,6 +2036,9 @@ type Preferences struct {
 
 	// Preferred data center region.
 	PreferredDataCenterRegion []*string `json:"preferredDataCenterRegion,omitempty"`
+
+	// Optional Preferences related to the reverse shipment logistics of the sku.
+	ReverseTransportPreferences *TransportPreferences `json:"reverseTransportPreferences,omitempty"`
 
 	// Preferences related to the Access Tier of storage accounts.
 	StorageAccountAccessTierPreferences []*string `json:"storageAccountAccessTierPreferences,omitempty"`
@@ -2061,6 +2143,19 @@ type ResourceIdentity struct {
 	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
 }
 
+// ReverseShippingDetails - Reverse Shipping Address and contact details for a job.
+type ReverseShippingDetails struct {
+	// Contact Info.
+	ContactDetails *ContactInfo `json:"contactDetails,omitempty"`
+
+	// Shipping address where customer wishes to receive the device.
+	ShippingAddress *ShippingAddress `json:"shippingAddress,omitempty"`
+
+	// READ-ONLY; A flag to indicate whether Reverse Shipping details are updated or not after device has been prepared. Read
+	// only field
+	IsUpdated *bool `json:"isUpdated,omitempty" azure:"ro"`
+}
+
 // SKU - The Sku.
 type SKU struct {
 	// REQUIRED; The sku name.
@@ -2162,6 +2257,9 @@ type SKUProperties struct {
 
 	// READ-ONLY; Cost of the Sku.
 	Costs []*SKUCost `json:"costs,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of all the Countries in the SKU specific commerce boundary
+	CountriesWithinCommerceBoundary []*string `json:"countriesWithinCommerceBoundary,omitempty" azure:"ro"`
 
 	// READ-ONLY; The map of data location to service location.
 	DataLocationToServiceLocationMap []*DataLocationToServiceLocationMap `json:"dataLocationToServiceLocationMap,omitempty" azure:"ro"`
@@ -2314,6 +2412,9 @@ type ShippingAddress struct {
 	// Postal code.
 	PostalCode *string `json:"postalCode,omitempty"`
 
+	// Flag to indicate if customer has chosen to skip default address validation
+	SkipAddressValidation *bool `json:"skipAddressValidation,omitempty"`
+
 	// Name of the State or Province.
 	StateOrProvince *string `json:"stateOrProvince,omitempty"`
 
@@ -2322,6 +2423,9 @@ type ShippingAddress struct {
 
 	// Street Address line 3.
 	StreetAddress3 *string `json:"streetAddress3,omitempty"`
+
+	// Tax Identification Number
+	TaxIdentificationNumber *string `json:"taxIdentificationNumber,omitempty"`
 
 	// Extended Zip Code.
 	ZipExtendedCode *string `json:"zipExtendedCode,omitempty"`
@@ -2484,6 +2588,9 @@ type TransportAvailabilityResponse struct {
 type TransportPreferences struct {
 	// REQUIRED; Indicates Shipment Logistics type that the customer preferred.
 	PreferredShipmentType *TransportShipmentTypes `json:"preferredShipmentType,omitempty"`
+
+	// READ-ONLY; Read only property which indicates whether transport preferences has been updated or not after device is prepared.
+	IsUpdated *bool `json:"isUpdated,omitempty" azure:"ro"`
 }
 
 // UnencryptedCredentials - Unencrypted credentials for accessing device.
@@ -2512,8 +2619,14 @@ type UpdateJobDetails struct {
 	// Key encryption key for the job.
 	KeyEncryptionKey *KeyEncryptionKey `json:"keyEncryptionKey,omitempty"`
 
+	// Preferences related to the order
+	Preferences *Preferences `json:"preferences,omitempty"`
+
 	// Return package details of job.
 	ReturnToCustomerPackageDetails *PackageCarrierDetails `json:"returnToCustomerPackageDetails,omitempty"`
+
+	// Reverse Shipping Address and contact details for a job.
+	ReverseShippingDetails *ReverseShippingDetails `json:"reverseShippingDetails,omitempty"`
 
 	// Shipping address of the customer.
 	ShippingAddress *ShippingAddress `json:"shippingAddress,omitempty"`
