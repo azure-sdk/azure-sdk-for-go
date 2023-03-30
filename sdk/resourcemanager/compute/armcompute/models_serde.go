@@ -2911,10 +2911,38 @@ func (d *DedicatedHostProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type DedicatedHostSizeListResult.
+func (d DedicatedHostSizeListResult) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "value", d.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DedicatedHostSizeListResult.
+func (d *DedicatedHostSizeListResult) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "value":
+			err = unpopulate(val, "Value", &d.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type DedicatedHostUpdate.
 func (d DedicatedHostUpdate) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "properties", d.Properties)
+	populate(objectMap, "sku", d.SKU)
 	populate(objectMap, "tags", d.Tags)
 	return json.Marshal(objectMap)
 }
@@ -2930,6 +2958,9 @@ func (d *DedicatedHostUpdate) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "properties":
 			err = unpopulate(val, "Properties", &d.Properties)
+			delete(rawMsg, key)
+		case "sku":
+			err = unpopulate(val, "SKU", &d.SKU)
 			delete(rawMsg, key)
 		case "tags":
 			err = unpopulate(val, "Tags", &d.Tags)
@@ -7215,6 +7246,7 @@ func (l *LinuxPatchSettings) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type LinuxVMGuestPatchAutomaticByPlatformSettings.
 func (l LinuxVMGuestPatchAutomaticByPlatformSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "bypassPlatformSafetyChecksOnUserSchedule", l.BypassPlatformSafetyChecksOnUserSchedule)
 	populate(objectMap, "rebootSetting", l.RebootSetting)
 	return json.Marshal(objectMap)
 }
@@ -7228,6 +7260,9 @@ func (l *LinuxVMGuestPatchAutomaticByPlatformSettings) UnmarshalJSON(data []byte
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "bypassPlatformSafetyChecksOnUserSchedule":
+			err = unpopulate(val, "BypassPlatformSafetyChecksOnUserSchedule", &l.BypassPlatformSafetyChecksOnUserSchedule)
+			delete(rawMsg, key)
 		case "rebootSetting":
 			err = unpopulate(val, "RebootSetting", &l.RebootSetting)
 			delete(rawMsg, key)
@@ -16193,7 +16228,6 @@ func (v *VirtualMachineScaleSetHardwareProfile) UnmarshalJSON(data []byte) error
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetIPConfiguration.
 func (v VirtualMachineScaleSetIPConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "id", v.ID)
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "properties", v.Properties)
 	return json.Marshal(objectMap)
@@ -16208,9 +16242,6 @@ func (v *VirtualMachineScaleSetIPConfiguration) UnmarshalJSON(data []byte) error
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &v.ID)
-			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &v.Name)
 			delete(rawMsg, key)
@@ -16578,7 +16609,6 @@ func (v *VirtualMachineScaleSetManagedDiskParameters) UnmarshalJSON(data []byte)
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetNetworkConfiguration.
 func (v VirtualMachineScaleSetNetworkConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "id", v.ID)
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "properties", v.Properties)
 	return json.Marshal(objectMap)
@@ -16593,9 +16623,6 @@ func (v *VirtualMachineScaleSetNetworkConfiguration) UnmarshalJSON(data []byte) 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &v.ID)
-			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &v.Name)
 			delete(rawMsg, key)
@@ -18820,6 +18847,7 @@ func (w *WindowsParameters) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type WindowsVMGuestPatchAutomaticByPlatformSettings.
 func (w WindowsVMGuestPatchAutomaticByPlatformSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "bypassPlatformSafetyChecksOnUserSchedule", w.BypassPlatformSafetyChecksOnUserSchedule)
 	populate(objectMap, "rebootSetting", w.RebootSetting)
 	return json.Marshal(objectMap)
 }
@@ -18833,6 +18861,9 @@ func (w *WindowsVMGuestPatchAutomaticByPlatformSettings) UnmarshalJSON(data []by
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "bypassPlatformSafetyChecksOnUserSchedule":
+			err = unpopulate(val, "BypassPlatformSafetyChecksOnUserSchedule", &w.BypassPlatformSafetyChecksOnUserSchedule)
+			delete(rawMsg, key)
 		case "rebootSetting":
 			err = unpopulate(val, "RebootSetting", &w.RebootSetting)
 			delete(rawMsg, key)

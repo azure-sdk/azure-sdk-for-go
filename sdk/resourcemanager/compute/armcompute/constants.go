@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v4.2.0"
+	moduleVersion = "v5.0.0"
 )
 
 type AccessLevel string
@@ -693,6 +693,19 @@ func PossibleExecutionStateValues() []ExecutionState {
 	}
 }
 
+type ExpandTypeForListVMs string
+
+const (
+	ExpandTypeForListVMsInstanceView ExpandTypeForListVMs = "instanceView"
+)
+
+// PossibleExpandTypeForListVMsValues returns the possible values for the ExpandTypeForListVMs const type.
+func PossibleExpandTypeForListVMsValues() []ExpandTypeForListVMs {
+	return []ExpandTypeForListVMs{
+		ExpandTypeForListVMsInstanceView,
+	}
+}
+
 type ExpandTypesForGetCapacityReservationGroups string
 
 const (
@@ -718,6 +731,19 @@ const (
 func PossibleExpandTypesForGetVMScaleSetsValues() []ExpandTypesForGetVMScaleSets {
 	return []ExpandTypesForGetVMScaleSets{
 		ExpandTypesForGetVMScaleSetsUserData,
+	}
+}
+
+type ExpandTypesForListVMs string
+
+const (
+	ExpandTypesForListVMsInstanceView ExpandTypesForListVMs = "instanceView"
+)
+
+// PossibleExpandTypesForListVMsValues returns the possible values for the ExpandTypesForListVMs const type.
+func PossibleExpandTypesForListVMsValues() []ExpandTypesForListVMs {
+	return []ExpandTypesForListVMs{
+		ExpandTypesForListVMsInstanceView,
 	}
 }
 
