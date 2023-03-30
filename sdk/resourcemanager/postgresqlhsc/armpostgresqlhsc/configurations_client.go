@@ -29,7 +29,7 @@ type ConfigurationsClient struct {
 }
 
 // NewConfigurationsClient creates a new instance of ConfigurationsClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewConfigurationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ConfigurationsClient, error) {
@@ -44,16 +44,16 @@ func NewConfigurationsClient(subscriptionID string, credential azcore.TokenCrede
 	return client, nil
 }
 
-// Get - Gets information about single server group configuration.
+// Get - Gets information of a configuration for coordinator and nodes.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - configurationName - The name of the server group configuration.
+//   - clusterName - The name of the cluster.
+//   - configurationName - The name of the cluster configuration.
 //   - options - ConfigurationsClientGetOptions contains the optional parameters for the ConfigurationsClient.Get method.
-func (client *ConfigurationsClient) Get(ctx context.Context, resourceGroupName string, serverGroupName string, configurationName string, options *ConfigurationsClientGetOptions) (ConfigurationsClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serverGroupName, configurationName, options)
+func (client *ConfigurationsClient) Get(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, options *ConfigurationsClientGetOptions) (ConfigurationsClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, configurationName, options)
 	if err != nil {
 		return ConfigurationsClientGetResponse{}, err
 	}
@@ -68,20 +68,17 @@ func (client *ConfigurationsClient) Get(ctx context.Context, resourceGroupName s
 }
 
 // getCreateRequest creates the Get request.
-func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, configurationName string, options *ConfigurationsClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/configurations/{configurationName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, options *ConfigurationsClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/configurations/{configurationName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if configurationName == "" {
 		return nil, errors.New("parameter configurationName cannot be empty")
 	}
@@ -91,7 +88,7 @@ func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -100,21 +97,207 @@ func (client *ConfigurationsClient) getCreateRequest(ctx context.Context, resour
 // getHandleResponse handles the Get response.
 func (client *ConfigurationsClient) getHandleResponse(resp *http.Response) (ConfigurationsClientGetResponse, error) {
 	result := ConfigurationsClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServerGroupConfiguration); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.Configuration); err != nil {
 		return ConfigurationsClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByServerPager - List all the configurations of a server in server group.
+// GetCoordinator - Gets information of a configuration for coordinator.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
+//   - clusterName - The name of the cluster.
+//   - configurationName - The name of the cluster configuration.
+//   - options - ConfigurationsClientGetCoordinatorOptions contains the optional parameters for the ConfigurationsClient.GetCoordinator
+//     method.
+func (client *ConfigurationsClient) GetCoordinator(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, options *ConfigurationsClientGetCoordinatorOptions) (ConfigurationsClientGetCoordinatorResponse, error) {
+	req, err := client.getCoordinatorCreateRequest(ctx, resourceGroupName, clusterName, configurationName, options)
+	if err != nil {
+		return ConfigurationsClientGetCoordinatorResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ConfigurationsClientGetCoordinatorResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ConfigurationsClientGetCoordinatorResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getCoordinatorHandleResponse(resp)
+}
+
+// getCoordinatorCreateRequest creates the GetCoordinator request.
+func (client *ConfigurationsClient) getCoordinatorCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, options *ConfigurationsClientGetCoordinatorOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/coordinatorConfigurations/{configurationName}"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if configurationName == "" {
+		return nil, errors.New("parameter configurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-08")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getCoordinatorHandleResponse handles the GetCoordinator response.
+func (client *ConfigurationsClient) getCoordinatorHandleResponse(resp *http.Response) (ConfigurationsClientGetCoordinatorResponse, error) {
+	result := ConfigurationsClientGetCoordinatorResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ServerConfiguration); err != nil {
+		return ConfigurationsClientGetCoordinatorResponse{}, err
+	}
+	return result, nil
+}
+
+// GetNode - Gets information of a configuration for worker nodes.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-08
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the cluster.
+//   - configurationName - The name of the cluster configuration.
+//   - options - ConfigurationsClientGetNodeOptions contains the optional parameters for the ConfigurationsClient.GetNode method.
+func (client *ConfigurationsClient) GetNode(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, options *ConfigurationsClientGetNodeOptions) (ConfigurationsClientGetNodeResponse, error) {
+	req, err := client.getNodeCreateRequest(ctx, resourceGroupName, clusterName, configurationName, options)
+	if err != nil {
+		return ConfigurationsClientGetNodeResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ConfigurationsClientGetNodeResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ConfigurationsClientGetNodeResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getNodeHandleResponse(resp)
+}
+
+// getNodeCreateRequest creates the GetNode request.
+func (client *ConfigurationsClient) getNodeCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, options *ConfigurationsClientGetNodeOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/nodeConfigurations/{configurationName}"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if configurationName == "" {
+		return nil, errors.New("parameter configurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-08")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// getNodeHandleResponse handles the GetNode response.
+func (client *ConfigurationsClient) getNodeHandleResponse(resp *http.Response) (ConfigurationsClientGetNodeResponse, error) {
+	result := ConfigurationsClientGetNodeResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ServerConfiguration); err != nil {
+		return ConfigurationsClientGetNodeResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListByClusterPager - List all the configurations of a cluster.
+//
+// Generated from API version 2022-11-08
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the cluster.
+//   - options - ConfigurationsClientListByClusterOptions contains the optional parameters for the ConfigurationsClient.NewListByClusterPager
+//     method.
+func (client *ConfigurationsClient) NewListByClusterPager(resourceGroupName string, clusterName string, options *ConfigurationsClientListByClusterOptions) *runtime.Pager[ConfigurationsClientListByClusterResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ConfigurationsClientListByClusterResponse]{
+		More: func(page ConfigurationsClientListByClusterResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ConfigurationsClientListByClusterResponse) (ConfigurationsClientListByClusterResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ConfigurationsClientListByClusterResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return ConfigurationsClientListByClusterResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ConfigurationsClientListByClusterResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByClusterHandleResponse(resp)
+		},
+	})
+}
+
+// listByClusterCreateRequest creates the ListByCluster request.
+func (client *ConfigurationsClient) listByClusterCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ConfigurationsClientListByClusterOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/configurations"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-08")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listByClusterHandleResponse handles the ListByCluster response.
+func (client *ConfigurationsClient) listByClusterHandleResponse(resp *http.Response) (ConfigurationsClientListByClusterResponse, error) {
+	result := ConfigurationsClientListByClusterResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterConfigurationListResult); err != nil {
+		return ConfigurationsClientListByClusterResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListByServerPager - List all the configurations of a server in cluster.
+//
+// Generated from API version 2022-11-08
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the cluster.
 //   - serverName - The name of the server.
 //   - options - ConfigurationsClientListByServerOptions contains the optional parameters for the ConfigurationsClient.NewListByServerPager
 //     method.
-func (client *ConfigurationsClient) NewListByServerPager(resourceGroupName string, serverGroupName string, serverName string, options *ConfigurationsClientListByServerOptions) *runtime.Pager[ConfigurationsClientListByServerResponse] {
+func (client *ConfigurationsClient) NewListByServerPager(resourceGroupName string, clusterName string, serverName string, options *ConfigurationsClientListByServerOptions) *runtime.Pager[ConfigurationsClientListByServerResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ConfigurationsClientListByServerResponse]{
 		More: func(page ConfigurationsClientListByServerResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -123,7 +306,7 @@ func (client *ConfigurationsClient) NewListByServerPager(resourceGroupName strin
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, serverGroupName, serverName, options)
+				req, err = client.listByServerCreateRequest(ctx, resourceGroupName, clusterName, serverName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
@@ -143,20 +326,17 @@ func (client *ConfigurationsClient) NewListByServerPager(resourceGroupName strin
 }
 
 // listByServerCreateRequest creates the ListByServer request.
-func (client *ConfigurationsClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, serverName string, options *ConfigurationsClientListByServerOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/servers/{serverName}/configurations"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *ConfigurationsClient) listByServerCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, serverName string, options *ConfigurationsClientListByServerOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/servers/{serverName}/configurations"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if serverName == "" {
 		return nil, errors.New("parameter serverName cannot be empty")
 	}
@@ -166,7 +346,7 @@ func (client *ConfigurationsClient) listByServerCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -181,104 +361,36 @@ func (client *ConfigurationsClient) listByServerHandleResponse(resp *http.Respon
 	return result, nil
 }
 
-// NewListByServerGroupPager - List all the configurations of a server group.
-//
-// Generated from API version 2020-10-05-privatepreview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - options - ConfigurationsClientListByServerGroupOptions contains the optional parameters for the ConfigurationsClient.NewListByServerGroupPager
-//     method.
-func (client *ConfigurationsClient) NewListByServerGroupPager(resourceGroupName string, serverGroupName string, options *ConfigurationsClientListByServerGroupOptions) *runtime.Pager[ConfigurationsClientListByServerGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ConfigurationsClientListByServerGroupResponse]{
-		More: func(page ConfigurationsClientListByServerGroupResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *ConfigurationsClientListByServerGroupResponse) (ConfigurationsClientListByServerGroupResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listByServerGroupCreateRequest(ctx, resourceGroupName, serverGroupName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
-			}
-			if err != nil {
-				return ConfigurationsClientListByServerGroupResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return ConfigurationsClientListByServerGroupResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ConfigurationsClientListByServerGroupResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listByServerGroupHandleResponse(resp)
-		},
-	})
-}
-
-// listByServerGroupCreateRequest creates the ListByServerGroup request.
-func (client *ConfigurationsClient) listByServerGroupCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, options *ConfigurationsClientListByServerGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/configurations"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
-	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
-}
-
-// listByServerGroupHandleResponse handles the ListByServerGroup response.
-func (client *ConfigurationsClient) listByServerGroupHandleResponse(resp *http.Response) (ConfigurationsClientListByServerGroupResponse, error) {
-	result := ConfigurationsClientListByServerGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServerGroupConfigurationListResult); err != nil {
-		return ConfigurationsClientListByServerGroupResponse{}, err
-	}
-	return result, nil
-}
-
-// BeginUpdate - Updates configuration of server role groups in a server group
+// BeginUpdateOnCoordinator - Updates configuration of coordinator in a cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - configurationName - The name of the server group configuration.
-//   - parameters - The required parameters for updating a server group configuration.
-//   - options - ConfigurationsClientBeginUpdateOptions contains the optional parameters for the ConfigurationsClient.BeginUpdate
+//   - clusterName - The name of the cluster.
+//   - configurationName - The name of the cluster configuration.
+//   - parameters - The required parameters for updating a cluster configuration.
+//   - options - ConfigurationsClientBeginUpdateOnCoordinatorOptions contains the optional parameters for the ConfigurationsClient.BeginUpdateOnCoordinator
 //     method.
-func (client *ConfigurationsClient) BeginUpdate(ctx context.Context, resourceGroupName string, serverGroupName string, configurationName string, parameters ServerGroupConfiguration, options *ConfigurationsClientBeginUpdateOptions) (*runtime.Poller[ConfigurationsClientUpdateResponse], error) {
+func (client *ConfigurationsClient) BeginUpdateOnCoordinator(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, parameters ServerConfiguration, options *ConfigurationsClientBeginUpdateOnCoordinatorOptions) (*runtime.Poller[ConfigurationsClientUpdateOnCoordinatorResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, serverGroupName, configurationName, parameters, options)
+		resp, err := client.updateOnCoordinator(ctx, resourceGroupName, clusterName, configurationName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[ConfigurationsClientUpdateResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ConfigurationsClientUpdateOnCoordinatorResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
-		return runtime.NewPollerFromResumeToken[ConfigurationsClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[ConfigurationsClientUpdateOnCoordinatorResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Update - Updates configuration of server role groups in a server group
+// UpdateOnCoordinator - Updates configuration of coordinator in a cluster
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
-func (client *ConfigurationsClient) update(ctx context.Context, resourceGroupName string, serverGroupName string, configurationName string, parameters ServerGroupConfiguration, options *ConfigurationsClientBeginUpdateOptions) (*http.Response, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, serverGroupName, configurationName, parameters, options)
+// Generated from API version 2022-11-08
+func (client *ConfigurationsClient) updateOnCoordinator(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, parameters ServerConfiguration, options *ConfigurationsClientBeginUpdateOnCoordinatorOptions) (*http.Response, error) {
+	req, err := client.updateOnCoordinatorCreateRequest(ctx, resourceGroupName, clusterName, configurationName, parameters, options)
 	if err != nil {
 		return nil, err
 	}
@@ -286,37 +398,104 @@ func (client *ConfigurationsClient) update(ctx context.Context, resourceGroupNam
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
 }
 
-// updateCreateRequest creates the Update request.
-func (client *ConfigurationsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, configurationName string, parameters ServerGroupConfiguration, options *ConfigurationsClientBeginUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/configurations/{configurationName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+// updateOnCoordinatorCreateRequest creates the UpdateOnCoordinator request.
+func (client *ConfigurationsClient) updateOnCoordinatorCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, parameters ServerConfiguration, options *ConfigurationsClientBeginUpdateOnCoordinatorOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/coordinatorConfigurations/{configurationName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if configurationName == "" {
 		return nil, errors.New("parameter configurationName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, parameters)
+}
+
+// BeginUpdateOnNode - Updates configuration of worker nodes in a cluster
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-08
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the cluster.
+//   - configurationName - The name of the cluster configuration.
+//   - parameters - The required parameters for updating a cluster configuration.
+//   - options - ConfigurationsClientBeginUpdateOnNodeOptions contains the optional parameters for the ConfigurationsClient.BeginUpdateOnNode
+//     method.
+func (client *ConfigurationsClient) BeginUpdateOnNode(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, parameters ServerConfiguration, options *ConfigurationsClientBeginUpdateOnNodeOptions) (*runtime.Poller[ConfigurationsClientUpdateOnNodeResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.updateOnNode(ctx, resourceGroupName, clusterName, configurationName, parameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ConfigurationsClientUpdateOnNodeResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[ConfigurationsClientUpdateOnNodeResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// UpdateOnNode - Updates configuration of worker nodes in a cluster
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-08
+func (client *ConfigurationsClient) updateOnNode(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, parameters ServerConfiguration, options *ConfigurationsClientBeginUpdateOnNodeOptions) (*http.Response, error) {
+	req, err := client.updateOnNodeCreateRequest(ctx, resourceGroupName, clusterName, configurationName, parameters, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// updateOnNodeCreateRequest creates the UpdateOnNode request.
+func (client *ConfigurationsClient) updateOnNodeCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, configurationName string, parameters ServerConfiguration, options *ConfigurationsClientBeginUpdateOnNodeOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/nodeConfigurations/{configurationName}"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if configurationName == "" {
+		return nil, errors.New("parameter configurationName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{configurationName}", url.PathEscape(configurationName))
+	req, err := runtime.NewRequest(ctx, http.MethodPut, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

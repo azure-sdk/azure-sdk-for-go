@@ -11,10 +11,393 @@ package armpostgresqlhsc
 
 import "time"
 
-// ConfigurationsClientBeginUpdateOptions contains the optional parameters for the ConfigurationsClient.BeginUpdate method.
-type ConfigurationsClientBeginUpdateOptions struct {
+// Cluster - Represents a cluster.
+type Cluster struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Properties of the cluster.
+	Properties *ClusterProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ClusterConfigurationListResult - A list of cluster configurations.
+type ClusterConfigurationListResult struct {
+	// The list of cluster configurations.
+	Value []*Configuration `json:"value,omitempty"`
+
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// ClusterForUpdate - Represents a cluster for update.
+type ClusterForUpdate struct {
+	// Properties of the cluster.
+	Properties *ClusterPropertiesForUpdate `json:"properties,omitempty"`
+
+	// Application-specific metadata in the form of key-value pairs.
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// ClusterListResult - A list of clusters.
+type ClusterListResult struct {
+	// The list of clusters
+	Value []*Cluster `json:"value,omitempty"`
+
+	// READ-ONLY; The link used to get the next page of cluster list.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// ClusterProperties - Properties of the cluster.
+type ClusterProperties struct {
+	// The password of the administrator login. Required for creation.
+	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
+
+	// The Citus extension version on all cluster servers.
+	CitusVersion *string `json:"citusVersion,omitempty"`
+
+	// If public access is enabled on coordinator.
+	CoordinatorEnablePublicIPAccess *bool `json:"coordinatorEnablePublicIpAccess,omitempty"`
+
+	// The edition of a coordinator server (default: GeneralPurpose). Required for creation.
+	CoordinatorServerEdition *string `json:"coordinatorServerEdition,omitempty"`
+
+	// The storage of a server in MB. Required for creation. See https://learn.microsoft.com/azure/cosmos-db/postgresql/resources-compute
+	// for more information.
+	CoordinatorStorageQuotaInMb *int64 `json:"coordinatorStorageQuotaInMb,omitempty"`
+
+	// The vCores count of a server (max: 96). Required for creation. See https://learn.microsoft.com/azure/cosmos-db/postgresql/resources-compute
+	// for more information.
+	CoordinatorVCores *int64 `json:"coordinatorVCores,omitempty"`
+
+	// If high availability (HA) is enabled or not for the cluster.
+	EnableHa *bool `json:"enableHa,omitempty"`
+
+	// If shards on coordinator is enabled or not for the cluster.
+	EnableShardsOnCoordinator *bool `json:"enableShardsOnCoordinator,omitempty"`
+
+	// Maintenance window of a cluster.
+	MaintenanceWindow *MaintenanceWindow `json:"maintenanceWindow,omitempty"`
+
+	// Worker node count of the cluster. When node count is 0, it represents a single node configuration with the ability to create
+	// distributed tables on that node. 2 or more worker nodes represent
+	// multi-node configuration. Node count value cannot be 1. Required for creation.
+	NodeCount *int64 `json:"nodeCount,omitempty"`
+
+	// If public access is enabled on worker nodes.
+	NodeEnablePublicIPAccess *bool `json:"nodeEnablePublicIpAccess,omitempty"`
+
+	// The edition of a node server (default: MemoryOptimized).
+	NodeServerEdition *string `json:"nodeServerEdition,omitempty"`
+
+	// The storage in MB on each worker node. See https://learn.microsoft.com/azure/cosmos-db/postgresql/resources-compute for
+	// more information.
+	NodeStorageQuotaInMb *int64 `json:"nodeStorageQuotaInMb,omitempty"`
+
+	// The compute in vCores on each worker node (max: 104). See https://learn.microsoft.com/azure/cosmos-db/postgresql/resources-compute
+	// for more information.
+	NodeVCores *int64 `json:"nodeVCores,omitempty"`
+
+	// Date and time in UTC (ISO8601 format) for cluster restore.
+	PointInTimeUTC *time.Time `json:"pointInTimeUTC,omitempty"`
+
+	// The major PostgreSQL version on all cluster servers.
+	PostgresqlVersion *string `json:"postgresqlVersion,omitempty"`
+
+	// Preferred primary availability zone (AZ) for all cluster servers.
+	PreferredPrimaryZone *string `json:"preferredPrimaryZone,omitempty"`
+
+	// The Azure region of source cluster for read replica clusters.
+	SourceLocation *string `json:"sourceLocation,omitempty"`
+
+	// The resource id of source cluster for read replica clusters.
+	SourceResourceID *string `json:"sourceResourceId,omitempty"`
+
+	// READ-ONLY; The administrator's login name of the servers in the cluster.
+	AdministratorLogin *string `json:"administratorLogin,omitempty" azure:"ro"`
+
+	// READ-ONLY; The earliest restore point time (ISO8601 format) for the cluster.
+	EarliestRestoreTime *time.Time `json:"earliestRestoreTime,omitempty" azure:"ro"`
+
+	// READ-ONLY; The private endpoint connections for a cluster.
+	PrivateEndpointConnections []*SimplePrivateEndpointConnection `json:"privateEndpointConnections,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state of the cluster
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; The array of read replica clusters.
+	ReadReplicas []*string `json:"readReplicas,omitempty" azure:"ro"`
+
+	// READ-ONLY; The list of server names in the cluster
+	ServerNames []*ServerNameItem `json:"serverNames,omitempty" azure:"ro"`
+
+	// READ-ONLY; A state of a cluster/server that is visible to user.
+	State *string `json:"state,omitempty" azure:"ro"`
+}
+
+// ClusterPropertiesForUpdate - The properties used to update a cluster.
+type ClusterPropertiesForUpdate struct {
+	// The password of the administrator login. Each cluster is created with pre-defined administrative role called ‘citus’.
+	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
+
+	// The Citus extension version on all cluster servers.
+	CitusVersion *string `json:"citusVersion,omitempty"`
+
+	// If public access is enabled on coordinator.
+	CoordinatorEnablePublicIPAccess *bool `json:"coordinatorEnablePublicIpAccess,omitempty"`
+
+	// The edition of the coordinator (default: GeneralPurpose).
+	CoordinatorServerEdition *string `json:"coordinatorServerEdition,omitempty"`
+
+	// The storage of the coordinator in MB.
+	CoordinatorStorageQuotaInMb *int64 `json:"coordinatorStorageQuotaInMb,omitempty"`
+
+	// The vCores count of the coordinator (max: 96).
+	CoordinatorVCores *int64 `json:"coordinatorVCores,omitempty"`
+
+	// If high availability (HA) is enabled or not for the cluster.
+	EnableHa *bool `json:"enableHa,omitempty"`
+
+	// If shards on coordinator is enabled or not for the cluster.
+	EnableShardsOnCoordinator *bool `json:"enableShardsOnCoordinator,omitempty"`
+
+	// Maintenance window of a cluster.
+	MaintenanceWindow *MaintenanceWindow `json:"maintenanceWindow,omitempty"`
+
+	// Worker node count of the cluster. When node count is 0, it represents a single node configuration with the ability to create
+	// distributed tables on that node. 2 or more worker nodes represent
+	// multi-node configuration. Node count value cannot be 1.
+	NodeCount *int64 `json:"nodeCount,omitempty"`
+
+	// The edition of a node (default: MemoryOptimized).
+	NodeServerEdition *string `json:"nodeServerEdition,omitempty"`
+
+	// The storage in MB on each worker node.
+	NodeStorageQuotaInMb *int64 `json:"nodeStorageQuotaInMb,omitempty"`
+
+	// The compute in vCores on each worker node (max: 104).
+	NodeVCores *int64 `json:"nodeVCores,omitempty"`
+
+	// The major PostgreSQL version on all cluster servers.
+	PostgresqlVersion *string `json:"postgresqlVersion,omitempty"`
+
+	// Preferred primary availability zone (AZ) for all cluster servers.
+	PreferredPrimaryZone *string `json:"preferredPrimaryZone,omitempty"`
+
+	// READ-ONLY; If public access is enabled on worker nodes.
+	NodeEnablePublicIPAccess *bool `json:"nodeEnablePublicIpAccess,omitempty" azure:"ro"`
+}
+
+// ClusterServer - Represents a server in a cluster.
+type ClusterServer struct {
+	// The properties of a server in a cluster.
+	Properties *ClusterServerProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ClusterServerListResult - A list of servers in a cluster.
+type ClusterServerListResult struct {
+	// The list of servers in a cluster.
+	Value []*ClusterServer `json:"value,omitempty"`
+}
+
+// ClusterServerProperties - The properties of a server in cluster.
+type ClusterServerProperties struct {
+	// Availability Zone information of the server.
+	AvailabilityZone *string `json:"availabilityZone,omitempty"`
+
+	// The Citus extension version of server.
+	CitusVersion *string `json:"citusVersion,omitempty"`
+
+	// If high availability (HA) is enabled or not for the server.
+	EnableHa *bool `json:"enableHa,omitempty"`
+
+	// The major PostgreSQL version of server.
+	PostgresqlVersion *string `json:"postgresqlVersion,omitempty"`
+
+	// The role of server in the cluster.
+	Role *ServerRole `json:"role,omitempty"`
+
+	// The edition of a server.
+	ServerEdition *string `json:"serverEdition,omitempty"`
+
+	// The storage of a server in MB.
+	StorageQuotaInMb *int64 `json:"storageQuotaInMb,omitempty"`
+
+	// The vCores count of a server.
+	VCores *int64 `json:"vCores,omitempty"`
+
+	// READ-ONLY; The administrator's login name of the servers in the cluster.
+	AdministratorLogin *string `json:"administratorLogin,omitempty" azure:"ro"`
+
+	// READ-ONLY; If public access is enabled on server.
+	EnablePublicIPAccess *bool `json:"enablePublicIpAccess,omitempty" azure:"ro"`
+
+	// READ-ONLY; The fully qualified domain name of a server.
+	FullyQualifiedDomainName *string `json:"fullyQualifiedDomainName,omitempty" azure:"ro"`
+
+	// READ-ONLY; A state of HA feature for the cluster.
+	HaState *string `json:"haState,omitempty" azure:"ro"`
+
+	// READ-ONLY; If server database is set to read-only by system maintenance depending on high disk space usage.
+	IsReadOnly *bool `json:"isReadOnly,omitempty" azure:"ro"`
+
+	// READ-ONLY; A state of a cluster/server that is visible to user.
+	State *string `json:"state,omitempty" azure:"ro"`
+}
+
+// ClustersClientBeginCreateOptions contains the optional parameters for the ClustersClient.BeginCreate method.
+type ClustersClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
+type ClustersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientBeginPromoteReadReplicaOptions contains the optional parameters for the ClustersClient.BeginPromoteReadReplica
+// method.
+type ClustersClientBeginPromoteReadReplicaOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientBeginRestartOptions contains the optional parameters for the ClustersClient.BeginRestart method.
+type ClustersClientBeginRestartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientBeginStartOptions contains the optional parameters for the ClustersClient.BeginStart method.
+type ClustersClientBeginStartOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientBeginStopOptions contains the optional parameters for the ClustersClient.BeginStop method.
+type ClustersClientBeginStopOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientBeginUpdateOptions contains the optional parameters for the ClustersClient.BeginUpdate method.
+type ClustersClientBeginUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientCheckNameAvailabilityOptions contains the optional parameters for the ClustersClient.CheckNameAvailability
+// method.
+type ClustersClientCheckNameAvailabilityOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ClustersClientGetOptions contains the optional parameters for the ClustersClient.Get method.
+type ClustersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ClustersClientListByResourceGroupOptions contains the optional parameters for the ClustersClient.NewListByResourceGroupPager
+// method.
+type ClustersClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ClustersClientListOptions contains the optional parameters for the ClustersClient.NewListPager method.
+type ClustersClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Configuration - Represents configuration details for coordinator and node.
+type Configuration struct {
+	// The properties of configuration.
+	Properties *ConfigurationProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ConfigurationProperties - The properties of configuration.
+type ConfigurationProperties struct {
+	// REQUIRED; The list of server role group configuration values.
+	ServerRoleGroupConfigurations []*ServerRoleGroupConfiguration `json:"serverRoleGroupConfigurations,omitempty"`
+
+	// If configuration change requires restart.
+	RequiresRestart *bool `json:"requiresRestart,omitempty"`
+
+	// READ-ONLY; Allowed values of the configuration.
+	AllowedValues *string `json:"allowedValues,omitempty" azure:"ro"`
+
+	// READ-ONLY; Data type of the configuration.
+	DataType *ConfigurationDataType `json:"dataType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Description of the configuration.
+	Description *string `json:"description,omitempty" azure:"ro"`
+
+	// READ-ONLY; Provisioning state of the configuration
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// ConfigurationsClientBeginUpdateOnCoordinatorOptions contains the optional parameters for the ConfigurationsClient.BeginUpdateOnCoordinator
+// method.
+type ConfigurationsClientBeginUpdateOnCoordinatorOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConfigurationsClientBeginUpdateOnNodeOptions contains the optional parameters for the ConfigurationsClient.BeginUpdateOnNode
+// method.
+type ConfigurationsClientBeginUpdateOnNodeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConfigurationsClientGetCoordinatorOptions contains the optional parameters for the ConfigurationsClient.GetCoordinator
+// method.
+type ConfigurationsClientGetCoordinatorOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ConfigurationsClientGetNodeOptions contains the optional parameters for the ConfigurationsClient.GetNode method.
+type ConfigurationsClientGetNodeOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ConfigurationsClientGetOptions contains the optional parameters for the ConfigurationsClient.Get method.
@@ -22,9 +405,9 @@ type ConfigurationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ConfigurationsClientListByServerGroupOptions contains the optional parameters for the ConfigurationsClient.NewListByServerGroupPager
+// ConfigurationsClientListByClusterOptions contains the optional parameters for the ConfigurationsClient.NewListByClusterPager
 // method.
-type ConfigurationsClientListByServerGroupOptions struct {
+type ConfigurationsClientListByClusterOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -34,18 +417,52 @@ type ConfigurationsClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FirewallRule - Represents a server group firewall rule.
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any `json:"info,omitempty" azure:"ro"`
+
+	// READ-ONLY; The additional info type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo `json:"additionalInfo,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail `json:"details,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error message.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; The error target.
+	Target *string `json:"target,omitempty" azure:"ro"`
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail `json:"error,omitempty"`
+}
+
+// FirewallRule - Represents a cluster firewall rule.
 type FirewallRule struct {
 	// REQUIRED; The properties of a firewall rule.
 	Properties *FirewallRuleProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -54,17 +471,20 @@ type FirewallRule struct {
 
 // FirewallRuleListResult - A list of firewall rules.
 type FirewallRuleListResult struct {
-	// The list of firewall rules in a server group.
+	// The list of firewall rules in a cluster.
 	Value []*FirewallRule `json:"value,omitempty"`
 }
 
-// FirewallRuleProperties - The properties of a server group firewall rule.
+// FirewallRuleProperties - The properties of a cluster firewall rule.
 type FirewallRuleProperties struct {
-	// REQUIRED; The end IP address of the server group firewall rule. Must be IPv4 format.
+	// REQUIRED; The end IP address of the cluster firewall rule. Must be IPv4 format.
 	EndIPAddress *string `json:"endIpAddress,omitempty"`
 
-	// REQUIRED; The start IP address of the server group firewall rule. Must be IPv4 format.
+	// REQUIRED; The start IP address of the cluster firewall rule. Must be IPv4 format.
 	StartIPAddress *string `json:"startIpAddress,omitempty"`
+
+	// READ-ONLY; Provisioning state of the firewall rule.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // FirewallRulesClientBeginCreateOrUpdateOptions contains the optional parameters for the FirewallRulesClient.BeginCreateOrUpdate
@@ -85,45 +505,45 @@ type FirewallRulesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// FirewallRulesClientListByServerGroupOptions contains the optional parameters for the FirewallRulesClient.NewListByServerGroupPager
+// FirewallRulesClientListByClusterOptions contains the optional parameters for the FirewallRulesClient.NewListByClusterPager
 // method.
-type FirewallRulesClientListByServerGroupOptions struct {
+type FirewallRulesClientListByClusterOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MaintenanceWindow - Maintenance window of a server group.
+// MaintenanceWindow - Schedule settings for regular cluster updates.
 type MaintenanceWindow struct {
-	// indicates whether custom window is enabled or disabled
+	// Indicates whether custom maintenance window is enabled or not.
 	CustomWindow *string `json:"customWindow,omitempty"`
 
-	// day of week for maintenance window
+	// Preferred day of the week for maintenance window.
 	DayOfWeek *int32 `json:"dayOfWeek,omitempty"`
 
-	// start hour for maintenance window
+	// Start hour within preferred day of the week for maintenance window.
 	StartHour *int32 `json:"startHour,omitempty"`
 
-	// start minute for maintenance window
+	// Start minute within the start hour for maintenance window.
 	StartMinute *int32 `json:"startMinute,omitempty"`
 }
 
-// NameAvailability - Represents a resource name availability.
+// NameAvailability - Represents cluster name availability.
 type NameAvailability struct {
-	// Error Message.
+	// Error message.
 	Message *string `json:"message,omitempty"`
 
-	// name of the PostgreSQL server.
+	// Name of the cluster.
 	Name *string `json:"name,omitempty"`
 
-	// Indicates whether the resource name is available.
+	// Indicates whether the cluster name is available.
 	NameAvailable *bool `json:"nameAvailable,omitempty"`
 
-	// type of the server
+	// Type of the cluster.
 	Type *string `json:"type,omitempty"`
 }
 
-// NameAvailabilityRequest - Request from client to check resource name availability.
+// NameAvailabilityRequest - Request from client to check cluster name availability.
 type NameAvailabilityRequest struct {
-	// REQUIRED; Resource name to verify.
+	// REQUIRED; Cluster name to verify.
 	Name *string `json:"name,omitempty"`
 
 	// CONSTANT; Resource type used for verification.
@@ -133,7 +553,7 @@ type NameAvailabilityRequest struct {
 
 // Operation - REST API operation definition.
 type Operation struct {
-	// Indicates whether the operation is a data action
+	// Indicates whether the operation is a data action.
 	IsDataAction *bool `json:"isDataAction,omitempty"`
 
 	// READ-ONLY; The localized display information for this particular operation or action.
@@ -166,7 +586,7 @@ type OperationDisplay struct {
 
 // OperationListResult - A list of resource provider operations.
 type OperationListResult struct {
-	// Collection of available operation details
+	// Collection of available operation details.
 	Value []*Operation `json:"value,omitempty"`
 
 	// READ-ONLY; URL client should use to fetch the next page (per server side paging). It's null for now, added for future use.
@@ -178,14 +598,166 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
-// location
-type ProxyResource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+// PrivateEndpoint - The private endpoint resource.
+type PrivateEndpoint struct {
+	// READ-ONLY; The ARM identifier for private endpoint.
+	ID *string `json:"id,omitempty" azure:"ro"`
+}
+
+// PrivateEndpointConnection - The private endpoint connection resource.
+type PrivateEndpointConnection struct {
+	// Resource properties.
+	Properties *PrivateEndpointConnectionProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PrivateEndpointConnectionListResult - List of private endpoint connections associated with the specified resource.
+type PrivateEndpointConnectionListResult struct {
+	// Array of private endpoint connections.
+	Value []*PrivateEndpointConnection `json:"value,omitempty"`
+}
+
+// PrivateEndpointConnectionProperties - Properties of the private endpoint connection.
+type PrivateEndpointConnectionProperties struct {
+	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
+	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
+
+	// The private endpoint resource.
+	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty"`
+
+	// READ-ONLY; The group ids for the private endpoint resource.
+	GroupIDs []*string `json:"groupIds,omitempty" azure:"ro"`
+
+	// READ-ONLY; The provisioning state of the private endpoint connection resource.
+	ProvisioningState *PrivateEndpointConnectionProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// PrivateEndpointConnectionSimpleProperties - The properties in private endpoint connection
+type PrivateEndpointConnectionSimpleProperties struct {
+	// Group ids of the private endpoint connection.
+	GroupIDs []*string `json:"groupIds,omitempty"`
+
+	// Private endpoint which the connection belongs to.
+	PrivateEndpoint *PrivateEndpointProperty `json:"privateEndpoint,omitempty"`
+
+	// A collection of information about the state of the connection between service consumer and provider.
+	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState `json:"privateLinkServiceConnectionState,omitempty"`
+}
+
+// PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginCreateOrUpdate
+// method.
+type PrivateEndpointConnectionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginDelete
+// method.
+type PrivateEndpointConnectionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
+// method.
+type PrivateEndpointConnectionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateEndpointConnectionsClientListByClusterOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByClusterPager
+// method.
+type PrivateEndpointConnectionsClientListByClusterOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateEndpointProperty - Property to represent resource id of the private endpoint.
+type PrivateEndpointProperty struct {
+	// Resource id of the private endpoint.
+	ID *string `json:"id,omitempty"`
+}
+
+// PrivateLinkResource - A private link resource.
+type PrivateLinkResource struct {
+	// Resource properties.
+	Properties *PrivateLinkResourceProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PrivateLinkResourceListResult - A list of private link resources.
+type PrivateLinkResourceListResult struct {
+	// Array of private link resources
+	Value []*PrivateLinkResource `json:"value,omitempty"`
+}
+
+// PrivateLinkResourceProperties - Properties of a private link resource.
+type PrivateLinkResourceProperties struct {
+	// The private link resource private link DNS zone name.
+	RequiredZoneNames []*string `json:"requiredZoneNames,omitempty"`
+
+	// READ-ONLY; The private link resource group id.
+	GroupID *string `json:"groupId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The private link resource required member names.
+	RequiredMembers []*string `json:"requiredMembers,omitempty" azure:"ro"`
+}
+
+// PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get method.
+type PrivateLinkResourcesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateLinkResourcesClientListByClusterOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByClusterPager
+// method.
+type PrivateLinkResourcesClientListByClusterOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer
+// and provider.
+type PrivateLinkServiceConnectionState struct {
+	// A message indicating if changes on the service provider require any updates on the consumer.
+	ActionsRequired *string `json:"actionsRequired,omitempty"`
+
+	// The reason for approval/rejection of the connection.
+	Description *string `json:"description,omitempty"`
+
+	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
+	Status *PrivateEndpointServiceConnectionStatus `json:"status,omitempty"`
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -193,28 +765,31 @@ type ProxyResource struct {
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// Role - Represents a server group role.
+// Role - Represents a cluster role.
 type Role struct {
-	// The properties of a role.
+	// REQUIRED; The properties of a role.
 	Properties *RoleProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -223,14 +798,17 @@ type Role struct {
 
 // RoleListResult - A list of roles.
 type RoleListResult struct {
-	// The list of roles in a server group.
+	// The list of roles in a cluster.
 	Value []*Role `json:"value,omitempty"`
 }
 
-// RoleProperties - The properties of a server group role.
+// RoleProperties - The properties of a cluster role.
 type RoleProperties struct {
-	// REQUIRED; The password of the server group role.
+	// REQUIRED; The password of the cluster role.
 	Password *string `json:"password,omitempty"`
+
+	// READ-ONLY; Provisioning state of the role
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // RolesClientBeginCreateOptions contains the optional parameters for the RolesClient.BeginCreate method.
@@ -245,8 +823,13 @@ type RolesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// RolesClientListByServerGroupOptions contains the optional parameters for the RolesClient.NewListByServerGroupPager method.
-type RolesClientListByServerGroupOptions struct {
+// RolesClientGetOptions contains the optional parameters for the RolesClient.Get method.
+type RolesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RolesClientListByClusterOptions contains the optional parameters for the RolesClient.NewListByClusterPager method.
+type RolesClientListByClusterOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -255,13 +838,13 @@ type ServerConfiguration struct {
 	// The properties of a configuration.
 	Properties *ServerConfigurationProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The system metadata relating to this resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -294,344 +877,14 @@ type ServerConfigurationProperties struct {
 	// READ-ONLY; Description of the configuration.
 	Description *string `json:"description,omitempty" azure:"ro"`
 
+	// READ-ONLY; Provisioning state of the configuration.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+
+	// READ-ONLY; If configuration change requires restart.
+	RequiresRestart *bool `json:"requiresRestart,omitempty" azure:"ro"`
+
 	// READ-ONLY; Source of the configuration.
 	Source *string `json:"source,omitempty" azure:"ro"`
-}
-
-// ServerGroup - Represents a server group for create.
-type ServerGroup struct {
-	// REQUIRED; The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
-
-	// Properties of the server group create.
-	Properties *ServerGroupProperties `json:"properties,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The system metadata relating to this resource
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ServerGroupConfiguration - Represents the configuration list of server role groups in a server group.
-type ServerGroupConfiguration struct {
-	// The properties of server group configuration.
-	Properties *ServerGroupConfigurationProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The system metadata relating to this resource
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ServerGroupConfigurationListResult - A list of server group configurations.
-type ServerGroupConfigurationListResult struct {
-	// The list of server group configurations.
-	Value []*ServerGroupConfiguration `json:"value,omitempty"`
-
-	// READ-ONLY; Link to retrieve next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
-}
-
-// ServerGroupConfigurationProperties - The properties of server group configuration.
-type ServerGroupConfigurationProperties struct {
-	// REQUIRED; The list of server role group configuration values.
-	ServerRoleGroupConfigurations []*ServerRoleGroupConfiguration `json:"serverRoleGroupConfigurations,omitempty"`
-
-	// READ-ONLY; Allowed values of the configuration.
-	AllowedValues *string `json:"allowedValues,omitempty" azure:"ro"`
-
-	// READ-ONLY; Data type of the configuration.
-	DataType *ConfigurationDataType `json:"dataType,omitempty" azure:"ro"`
-
-	// READ-ONLY; Description of the configuration.
-	Description *string `json:"description,omitempty" azure:"ro"`
-}
-
-// ServerGroupForUpdate - Represents a server group for update.
-type ServerGroupForUpdate struct {
-	// The location the resource resides in.
-	Location *string `json:"location,omitempty"`
-
-	// Properties of the server group.
-	Properties *ServerGroupPropertiesForUpdate `json:"properties,omitempty"`
-
-	// Application-specific metadata in the form of key-value pairs.
-	Tags map[string]*string `json:"tags,omitempty"`
-}
-
-// ServerGroupListResult - A list of server groups.
-type ServerGroupListResult struct {
-	// The list of server groups
-	Value []*ServerGroup `json:"value,omitempty"`
-
-	// READ-ONLY; The link used to get the next page of operations.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
-}
-
-// ServerGroupProperties - The properties used to create a new server group.
-type ServerGroupProperties struct {
-	// The administrator's login name of servers in server group. Can only be specified when the server is being created (and
-	// is required for creation).
-	AdministratorLogin *string `json:"administratorLogin,omitempty"`
-
-	// The password of the administrator login.
-	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
-
-	// Availability Zone information of the server group.
-	AvailabilityZone *string `json:"availabilityZone,omitempty"`
-
-	// The backup retention days for server group.
-	BackupRetentionDays *int32 `json:"backupRetentionDays,omitempty"`
-
-	// The Citus version of server group.
-	CitusVersion *CitusVersion `json:"citusVersion,omitempty"`
-
-	// The mode to create a new server group.
-	CreateMode *CreateMode `json:"createMode,omitempty"`
-
-	// The delegated subnet arguments for a server group.
-	DelegatedSubnetArguments *ServerGroupPropertiesDelegatedSubnetArguments `json:"delegatedSubnetArguments,omitempty"`
-
-	// If Citus MX is enabled or not for the server group.
-	EnableMx *bool `json:"enableMx,omitempty"`
-
-	// If shards on coordinator is enabled or not for the server group.
-	EnableShardsOnCoordinator *bool `json:"enableShardsOnCoordinator,omitempty"`
-
-	// If ZFS compression is enabled or not for the server group.
-	EnableZfs *bool `json:"enableZfs,omitempty"`
-
-	// Maintenance window of a server group.
-	MaintenanceWindow *MaintenanceWindow `json:"maintenanceWindow,omitempty"`
-
-	// Restore point creation time (ISO8601 format), specifying the time to restore from. It's required when 'createMode' is 'PointInTimeRestore'
-	PointInTimeUTC *time.Time `json:"pointInTimeUTC,omitempty"`
-
-	// The PostgreSQL version of server group.
-	PostgresqlVersion *PostgreSQLVersion `json:"postgresqlVersion,omitempty"`
-
-	// The private dns zone arguments for a server group.
-	PrivateDNSZoneArguments *ServerGroupPropertiesPrivateDNSZoneArguments `json:"privateDnsZoneArguments,omitempty"`
-
-	// The list of server role groups.
-	ServerRoleGroups []*ServerRoleGroup `json:"serverRoleGroups,omitempty"`
-
-	// The source server group location to restore from. It's required when 'createMode' is 'PointInTimeRestore' or 'ReadReplica'
-	SourceLocation *string `json:"sourceLocation,omitempty"`
-
-	// The source resource group name to restore from. It's required when 'createMode' is 'PointInTimeRestore' or 'ReadReplica'
-	SourceResourceGroupName *string `json:"sourceResourceGroupName,omitempty"`
-
-	// The source server group name to restore from. It's required when 'createMode' is 'PointInTimeRestore' or 'ReadReplica'
-	SourceServerGroupName *string `json:"sourceServerGroupName,omitempty"`
-
-	// The source subscription id to restore from. It's required when 'createMode' is 'PointInTimeRestore' or 'ReadReplica'
-	SourceSubscriptionID *string `json:"sourceSubscriptionId,omitempty"`
-
-	// Standby Availability Zone information of the server group.
-	StandbyAvailabilityZone *string `json:"standbyAvailabilityZone,omitempty"`
-
-	// READ-ONLY; The earliest restore point time (ISO8601 format) for server group.
-	EarliestRestoreTime *time.Time `json:"earliestRestoreTime,omitempty" azure:"ro"`
-
-	// READ-ONLY; The array of read replica server groups.
-	ReadReplicas []*string `json:"readReplicas,omitempty" azure:"ro"`
-
-	// READ-ONLY; The resource provider type of server group.
-	ResourceProviderType *ResourceProviderType `json:"resourceProviderType,omitempty" azure:"ro"`
-
-	// READ-ONLY; The source server group id for read replica server groups.
-	SourceServerGroup *string `json:"sourceServerGroup,omitempty" azure:"ro"`
-
-	// READ-ONLY; A state of a server group that is visible to user.
-	State *ServerState `json:"state,omitempty" azure:"ro"`
-}
-
-// ServerGroupPropertiesDelegatedSubnetArguments - The delegated subnet arguments for a server group.
-type ServerGroupPropertiesDelegatedSubnetArguments struct {
-	// delegated subnet arm resource id.
-	SubnetArmResourceID *string `json:"subnetArmResourceId,omitempty"`
-}
-
-// ServerGroupPropertiesForUpdate - The properties used to update a server group.
-type ServerGroupPropertiesForUpdate struct {
-	// The password of the administrator login.
-	AdministratorLoginPassword *string `json:"administratorLoginPassword,omitempty"`
-
-	// Availability Zone information of the server group.
-	AvailabilityZone *string `json:"availabilityZone,omitempty"`
-
-	// The backup retention days for server group.
-	BackupRetentionDays *int32 `json:"backupRetentionDays,omitempty"`
-
-	// The Citus version of server group.
-	CitusVersion *CitusVersion `json:"citusVersion,omitempty"`
-
-	// If shards on coordinator is enabled or not for the server group.
-	EnableShardsOnCoordinator *bool `json:"enableShardsOnCoordinator,omitempty"`
-
-	// Maintenance window of a server group.
-	MaintenanceWindow *MaintenanceWindow `json:"maintenanceWindow,omitempty"`
-
-	// The PostgreSQL version of server group.
-	PostgresqlVersion *PostgreSQLVersion `json:"postgresqlVersion,omitempty"`
-
-	// The list of server role groups.
-	ServerRoleGroups []*ServerRoleGroup `json:"serverRoleGroups,omitempty"`
-
-	// Standby Availability Zone information of the server group.
-	StandbyAvailabilityZone *string `json:"standbyAvailabilityZone,omitempty"`
-}
-
-// ServerGroupPropertiesPrivateDNSZoneArguments - The private dns zone arguments for a server group.
-type ServerGroupPropertiesPrivateDNSZoneArguments struct {
-	// private dns zone arm resource id.
-	PrivateDNSZoneArmResourceID *string `json:"privateDnsZoneArmResourceId,omitempty"`
-}
-
-// ServerGroupServer - Represents a server in a server group.
-type ServerGroupServer struct {
-	// The properties of a server in a server group.
-	Properties *ServerGroupServerProperties `json:"properties,omitempty"`
-
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; The system metadata relating to this resource
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
-
-	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
-}
-
-// ServerGroupServerListResult - A list of servers in a server group.
-type ServerGroupServerListResult struct {
-	// The list of servers in a server group.
-	Value []*ServerGroupServer `json:"value,omitempty"`
-}
-
-// ServerGroupServerProperties - The properties of a server in server group.
-type ServerGroupServerProperties struct {
-	// The administrator's login name of a servers in server group.
-	AdministratorLogin *string `json:"administratorLogin,omitempty"`
-
-	// Availability Zone information of the server group.
-	AvailabilityZone *string `json:"availabilityZone,omitempty"`
-
-	// The Citus version of server.
-	CitusVersion *CitusVersion `json:"citusVersion,omitempty"`
-
-	// If high availability is enabled or not for the server.
-	EnableHa *bool `json:"enableHa,omitempty"`
-
-	// The PostgreSQL version of server.
-	PostgresqlVersion *PostgreSQLVersion `json:"postgresqlVersion,omitempty"`
-
-	// The role of server in the server group.
-	Role *ServerRole `json:"role,omitempty"`
-
-	// The edition of a server (default: GeneralPurpose).
-	ServerEdition *ServerEdition `json:"serverEdition,omitempty"`
-
-	// Standby Availability Zone information of the server group.
-	StandbyAvailabilityZone *string `json:"standbyAvailabilityZone,omitempty"`
-
-	// The storage of a server in MB (max: 2097152 = 2TiB).
-	StorageQuotaInMb *int64 `json:"storageQuotaInMb,omitempty"`
-
-	// The vCores count of a server (max: 64).
-	VCores *int64 `json:"vCores,omitempty"`
-
-	// READ-ONLY; If public IP is requested or not for a server.
-	EnablePublicIP *bool `json:"enablePublicIp,omitempty" azure:"ro"`
-
-	// READ-ONLY; The fully qualified domain name of a server.
-	FullyQualifiedDomainName *string `json:"fullyQualifiedDomainName,omitempty" azure:"ro"`
-
-	// READ-ONLY; A state of a server group that is visible to user for HA feature.
-	HaState *ServerHaState `json:"haState,omitempty" azure:"ro"`
-
-	// READ-ONLY; A state of a server that is visible to user.
-	State *ServerState `json:"state,omitempty" azure:"ro"`
-}
-
-// ServerGroupsClientBeginCreateOrUpdateOptions contains the optional parameters for the ServerGroupsClient.BeginCreateOrUpdate
-// method.
-type ServerGroupsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ServerGroupsClientBeginDeleteOptions contains the optional parameters for the ServerGroupsClient.BeginDelete method.
-type ServerGroupsClientBeginDeleteOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ServerGroupsClientBeginRestartOptions contains the optional parameters for the ServerGroupsClient.BeginRestart method.
-type ServerGroupsClientBeginRestartOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ServerGroupsClientBeginStartOptions contains the optional parameters for the ServerGroupsClient.BeginStart method.
-type ServerGroupsClientBeginStartOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ServerGroupsClientBeginStopOptions contains the optional parameters for the ServerGroupsClient.BeginStop method.
-type ServerGroupsClientBeginStopOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ServerGroupsClientBeginUpdateOptions contains the optional parameters for the ServerGroupsClient.BeginUpdate method.
-type ServerGroupsClientBeginUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
-}
-
-// ServerGroupsClientCheckNameAvailabilityOptions contains the optional parameters for the ServerGroupsClient.CheckNameAvailability
-// method.
-type ServerGroupsClientCheckNameAvailabilityOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerGroupsClientGetOptions contains the optional parameters for the ServerGroupsClient.Get method.
-type ServerGroupsClientGetOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerGroupsClientListByResourceGroupOptions contains the optional parameters for the ServerGroupsClient.NewListByResourceGroupPager
-// method.
-type ServerGroupsClientListByResourceGroupOptions struct {
-	// placeholder for future optional parameters
-}
-
-// ServerGroupsClientListOptions contains the optional parameters for the ServerGroupsClient.NewListPager method.
-type ServerGroupsClientListOptions struct {
-	// placeholder for future optional parameters
 }
 
 // ServerNameItem - The name object for a server.
@@ -645,50 +898,26 @@ type ServerNameItem struct {
 
 // ServerProperties - The properties of a server.
 type ServerProperties struct {
-	// If high availability is enabled or not for the server.
+	// If high availability (HA) is enabled or not for the server.
 	EnableHa *bool `json:"enableHa,omitempty"`
 
-	// The edition of a server (default: GeneralPurpose).
-	ServerEdition *ServerEdition `json:"serverEdition,omitempty"`
+	// The edition of a server.
+	ServerEdition *string `json:"serverEdition,omitempty"`
 
-	// The storage of a server in MB (max: 2097152 = 2TiB).
+	// The storage of a server in MB.
 	StorageQuotaInMb *int64 `json:"storageQuotaInMb,omitempty"`
 
-	// The vCores count of a server (max: 64).
+	// The vCores count of a server.
 	VCores *int64 `json:"vCores,omitempty"`
 
-	// READ-ONLY; If public IP is requested or not for a server.
-	EnablePublicIP *bool `json:"enablePublicIp,omitempty" azure:"ro"`
-}
+	// READ-ONLY; The administrator's login name of the servers in the cluster.
+	AdministratorLogin *string `json:"administratorLogin,omitempty" azure:"ro"`
 
-// ServerRoleGroup - Represents a server role group.
-type ServerRoleGroup struct {
-	// If high availability is enabled or not for the server.
-	EnableHa *bool `json:"enableHa,omitempty"`
+	// READ-ONLY; If public access is enabled on server.
+	EnablePublicIPAccess *bool `json:"enablePublicIpAccess,omitempty" azure:"ro"`
 
-	// The name of the server role group.
-	Name *string `json:"name,omitempty"`
-
-	// The role of servers in the server role group.
-	Role *ServerRole `json:"role,omitempty"`
-
-	// The number of servers in the server role group.
-	ServerCount *int32 `json:"serverCount,omitempty"`
-
-	// The edition of a server (default: GeneralPurpose).
-	ServerEdition *ServerEdition `json:"serverEdition,omitempty"`
-
-	// The storage of a server in MB (max: 2097152 = 2TiB).
-	StorageQuotaInMb *int64 `json:"storageQuotaInMb,omitempty"`
-
-	// The vCores count of a server (max: 64).
-	VCores *int64 `json:"vCores,omitempty"`
-
-	// READ-ONLY; If public IP is requested or not for a server.
-	EnablePublicIP *bool `json:"enablePublicIp,omitempty" azure:"ro"`
-
-	// READ-ONLY; The list of server names in the server role group.
-	ServerNames []*ServerNameItem `json:"serverNames,omitempty" azure:"ro"`
+	// READ-ONLY; If server database is set to read-only by system maintenance depending on high disk space usage.
+	IsReadOnly *bool `json:"isReadOnly,omitempty" azure:"ro"`
 }
 
 // ServerRoleGroupConfiguration - Represents server role group configuration value.
@@ -711,10 +940,27 @@ type ServersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ServersClientListByServerGroupOptions contains the optional parameters for the ServersClient.NewListByServerGroupPager
-// method.
-type ServersClientListByServerGroupOptions struct {
+// ServersClientListByClusterOptions contains the optional parameters for the ServersClient.NewListByClusterPager method.
+type ServersClientListByClusterOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SimplePrivateEndpointConnection - A private endpoint connection.
+type SimplePrivateEndpointConnection struct {
+	// Properties of the private endpoint connection.
+	Properties *PrivateEndpointConnectionSimpleProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -747,11 +993,14 @@ type TrackedResource struct {
 	// Resource tags.
 	Tags map[string]*string `json:"tags,omitempty"`
 
-	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`

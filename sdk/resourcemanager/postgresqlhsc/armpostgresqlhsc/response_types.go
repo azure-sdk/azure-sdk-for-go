@@ -9,14 +9,79 @@
 
 package armpostgresqlhsc
 
-// ConfigurationsClientGetResponse contains the response from method ConfigurationsClient.Get.
-type ConfigurationsClientGetResponse struct {
-	ServerGroupConfiguration
+// ClustersClientCheckNameAvailabilityResponse contains the response from method ClustersClient.CheckNameAvailability.
+type ClustersClientCheckNameAvailabilityResponse struct {
+	NameAvailability
 }
 
-// ConfigurationsClientListByServerGroupResponse contains the response from method ConfigurationsClient.NewListByServerGroupPager.
-type ConfigurationsClientListByServerGroupResponse struct {
-	ServerGroupConfigurationListResult
+// ClustersClientCreateResponse contains the response from method ClustersClient.BeginCreate.
+type ClustersClientCreateResponse struct {
+	Cluster
+}
+
+// ClustersClientDeleteResponse contains the response from method ClustersClient.BeginDelete.
+type ClustersClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ClustersClientGetResponse contains the response from method ClustersClient.Get.
+type ClustersClientGetResponse struct {
+	Cluster
+}
+
+// ClustersClientListByResourceGroupResponse contains the response from method ClustersClient.NewListByResourceGroupPager.
+type ClustersClientListByResourceGroupResponse struct {
+	ClusterListResult
+}
+
+// ClustersClientListResponse contains the response from method ClustersClient.NewListPager.
+type ClustersClientListResponse struct {
+	ClusterListResult
+}
+
+// ClustersClientPromoteReadReplicaResponse contains the response from method ClustersClient.BeginPromoteReadReplica.
+type ClustersClientPromoteReadReplicaResponse struct {
+	// placeholder for future response values
+}
+
+// ClustersClientRestartResponse contains the response from method ClustersClient.BeginRestart.
+type ClustersClientRestartResponse struct {
+	// placeholder for future response values
+}
+
+// ClustersClientStartResponse contains the response from method ClustersClient.BeginStart.
+type ClustersClientStartResponse struct {
+	// placeholder for future response values
+}
+
+// ClustersClientStopResponse contains the response from method ClustersClient.BeginStop.
+type ClustersClientStopResponse struct {
+	// placeholder for future response values
+}
+
+// ClustersClientUpdateResponse contains the response from method ClustersClient.BeginUpdate.
+type ClustersClientUpdateResponse struct {
+	Cluster
+}
+
+// ConfigurationsClientGetCoordinatorResponse contains the response from method ConfigurationsClient.GetCoordinator.
+type ConfigurationsClientGetCoordinatorResponse struct {
+	ServerConfiguration
+}
+
+// ConfigurationsClientGetNodeResponse contains the response from method ConfigurationsClient.GetNode.
+type ConfigurationsClientGetNodeResponse struct {
+	ServerConfiguration
+}
+
+// ConfigurationsClientGetResponse contains the response from method ConfigurationsClient.Get.
+type ConfigurationsClientGetResponse struct {
+	Configuration
+}
+
+// ConfigurationsClientListByClusterResponse contains the response from method ConfigurationsClient.NewListByClusterPager.
+type ConfigurationsClientListByClusterResponse struct {
+	ClusterConfigurationListResult
 }
 
 // ConfigurationsClientListByServerResponse contains the response from method ConfigurationsClient.NewListByServerPager.
@@ -24,9 +89,14 @@ type ConfigurationsClientListByServerResponse struct {
 	ServerConfigurationListResult
 }
 
-// ConfigurationsClientUpdateResponse contains the response from method ConfigurationsClient.BeginUpdate.
-type ConfigurationsClientUpdateResponse struct {
-	ServerGroupConfiguration
+// ConfigurationsClientUpdateOnCoordinatorResponse contains the response from method ConfigurationsClient.BeginUpdateOnCoordinator.
+type ConfigurationsClientUpdateOnCoordinatorResponse struct {
+	ServerConfiguration
+}
+
+// ConfigurationsClientUpdateOnNodeResponse contains the response from method ConfigurationsClient.BeginUpdateOnNode.
+type ConfigurationsClientUpdateOnNodeResponse struct {
+	ServerConfiguration
 }
 
 // FirewallRulesClientCreateOrUpdateResponse contains the response from method FirewallRulesClient.BeginCreateOrUpdate.
@@ -44,14 +114,44 @@ type FirewallRulesClientGetResponse struct {
 	FirewallRule
 }
 
-// FirewallRulesClientListByServerGroupResponse contains the response from method FirewallRulesClient.NewListByServerGroupPager.
-type FirewallRulesClientListByServerGroupResponse struct {
+// FirewallRulesClientListByClusterResponse contains the response from method FirewallRulesClient.NewListByClusterPager.
+type FirewallRulesClientListByClusterResponse struct {
 	FirewallRuleListResult
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationListResult
+}
+
+// PrivateEndpointConnectionsClientCreateOrUpdateResponse contains the response from method PrivateEndpointConnectionsClient.BeginCreateOrUpdate.
+type PrivateEndpointConnectionsClientCreateOrUpdateResponse struct {
+	PrivateEndpointConnection
+}
+
+// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.BeginDelete.
+type PrivateEndpointConnectionsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PrivateEndpointConnectionsClientGetResponse contains the response from method PrivateEndpointConnectionsClient.Get.
+type PrivateEndpointConnectionsClientGetResponse struct {
+	PrivateEndpointConnection
+}
+
+// PrivateEndpointConnectionsClientListByClusterResponse contains the response from method PrivateEndpointConnectionsClient.NewListByClusterPager.
+type PrivateEndpointConnectionsClientListByClusterResponse struct {
+	PrivateEndpointConnectionListResult
+}
+
+// PrivateLinkResourcesClientGetResponse contains the response from method PrivateLinkResourcesClient.Get.
+type PrivateLinkResourcesClientGetResponse struct {
+	PrivateLinkResource
+}
+
+// PrivateLinkResourcesClientListByClusterResponse contains the response from method PrivateLinkResourcesClient.NewListByClusterPager.
+type PrivateLinkResourcesClientListByClusterResponse struct {
+	PrivateLinkResourceListResult
 }
 
 // RolesClientCreateResponse contains the response from method RolesClient.BeginCreate.
@@ -64,67 +164,22 @@ type RolesClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
-// RolesClientListByServerGroupResponse contains the response from method RolesClient.NewListByServerGroupPager.
-type RolesClientListByServerGroupResponse struct {
+// RolesClientGetResponse contains the response from method RolesClient.Get.
+type RolesClientGetResponse struct {
+	Role
+}
+
+// RolesClientListByClusterResponse contains the response from method RolesClient.NewListByClusterPager.
+type RolesClientListByClusterResponse struct {
 	RoleListResult
-}
-
-// ServerGroupsClientCheckNameAvailabilityResponse contains the response from method ServerGroupsClient.CheckNameAvailability.
-type ServerGroupsClientCheckNameAvailabilityResponse struct {
-	NameAvailability
-}
-
-// ServerGroupsClientCreateOrUpdateResponse contains the response from method ServerGroupsClient.BeginCreateOrUpdate.
-type ServerGroupsClientCreateOrUpdateResponse struct {
-	ServerGroup
-}
-
-// ServerGroupsClientDeleteResponse contains the response from method ServerGroupsClient.BeginDelete.
-type ServerGroupsClientDeleteResponse struct {
-	// placeholder for future response values
-}
-
-// ServerGroupsClientGetResponse contains the response from method ServerGroupsClient.Get.
-type ServerGroupsClientGetResponse struct {
-	ServerGroup
-}
-
-// ServerGroupsClientListByResourceGroupResponse contains the response from method ServerGroupsClient.NewListByResourceGroupPager.
-type ServerGroupsClientListByResourceGroupResponse struct {
-	ServerGroupListResult
-}
-
-// ServerGroupsClientListResponse contains the response from method ServerGroupsClient.NewListPager.
-type ServerGroupsClientListResponse struct {
-	ServerGroupListResult
-}
-
-// ServerGroupsClientRestartResponse contains the response from method ServerGroupsClient.BeginRestart.
-type ServerGroupsClientRestartResponse struct {
-	// placeholder for future response values
-}
-
-// ServerGroupsClientStartResponse contains the response from method ServerGroupsClient.BeginStart.
-type ServerGroupsClientStartResponse struct {
-	// placeholder for future response values
-}
-
-// ServerGroupsClientStopResponse contains the response from method ServerGroupsClient.BeginStop.
-type ServerGroupsClientStopResponse struct {
-	// placeholder for future response values
-}
-
-// ServerGroupsClientUpdateResponse contains the response from method ServerGroupsClient.BeginUpdate.
-type ServerGroupsClientUpdateResponse struct {
-	ServerGroup
 }
 
 // ServersClientGetResponse contains the response from method ServersClient.Get.
 type ServersClientGetResponse struct {
-	ServerGroupServer
+	ClusterServer
 }
 
-// ServersClientListByServerGroupResponse contains the response from method ServersClient.NewListByServerGroupPager.
-type ServersClientListByServerGroupResponse struct {
-	ServerGroupServerListResult
+// ServersClientListByClusterResponse contains the response from method ServersClient.NewListByClusterPager.
+type ServersClientListByClusterResponse struct {
+	ClusterServerListResult
 }

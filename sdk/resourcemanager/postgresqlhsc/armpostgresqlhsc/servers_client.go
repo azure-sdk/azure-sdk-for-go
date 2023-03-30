@@ -29,7 +29,7 @@ type ServersClient struct {
 }
 
 // NewServersClient creates a new instance of ServersClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewServersClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ServersClient, error) {
@@ -44,16 +44,16 @@ func NewServersClient(subscriptionID string, credential azcore.TokenCredential, 
 	return client, nil
 }
 
-// Get - Gets information about a server in server group.
+// Get - Gets information about a server in cluster.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
+//   - clusterName - The name of the cluster.
 //   - serverName - The name of the server.
 //   - options - ServersClientGetOptions contains the optional parameters for the ServersClient.Get method.
-func (client *ServersClient) Get(ctx context.Context, resourceGroupName string, serverGroupName string, serverName string, options *ServersClientGetOptions) (ServersClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serverGroupName, serverName, options)
+func (client *ServersClient) Get(ctx context.Context, resourceGroupName string, clusterName string, serverName string, options *ServersClientGetOptions) (ServersClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, serverName, options)
 	if err != nil {
 		return ServersClientGetResponse{}, err
 	}
@@ -68,20 +68,17 @@ func (client *ServersClient) Get(ctx context.Context, resourceGroupName string, 
 }
 
 // getCreateRequest creates the Get request.
-func (client *ServersClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, serverName string, options *ServersClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/servers/{serverName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *ServersClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, serverName string, options *ServersClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/servers/{serverName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if serverName == "" {
 		return nil, errors.New("parameter serverName cannot be empty")
 	}
@@ -91,7 +88,7 @@ func (client *ServersClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -100,72 +97,69 @@ func (client *ServersClient) getCreateRequest(ctx context.Context, resourceGroup
 // getHandleResponse handles the Get response.
 func (client *ServersClient) getHandleResponse(resp *http.Response) (ServersClientGetResponse, error) {
 	result := ServersClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServerGroupServer); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterServer); err != nil {
 		return ServersClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByServerGroupPager - Lists servers of a server group.
+// NewListByClusterPager - Lists servers of a cluster.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - options - ServersClientListByServerGroupOptions contains the optional parameters for the ServersClient.NewListByServerGroupPager
+//   - clusterName - The name of the cluster.
+//   - options - ServersClientListByClusterOptions contains the optional parameters for the ServersClient.NewListByClusterPager
 //     method.
-func (client *ServersClient) NewListByServerGroupPager(resourceGroupName string, serverGroupName string, options *ServersClientListByServerGroupOptions) *runtime.Pager[ServersClientListByServerGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[ServersClientListByServerGroupResponse]{
-		More: func(page ServersClientListByServerGroupResponse) bool {
+func (client *ServersClient) NewListByClusterPager(resourceGroupName string, clusterName string, options *ServersClientListByClusterOptions) *runtime.Pager[ServersClientListByClusterResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ServersClientListByClusterResponse]{
+		More: func(page ServersClientListByClusterResponse) bool {
 			return false
 		},
-		Fetcher: func(ctx context.Context, page *ServersClientListByServerGroupResponse) (ServersClientListByServerGroupResponse, error) {
-			req, err := client.listByServerGroupCreateRequest(ctx, resourceGroupName, serverGroupName, options)
+		Fetcher: func(ctx context.Context, page *ServersClientListByClusterResponse) (ServersClientListByClusterResponse, error) {
+			req, err := client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
 			if err != nil {
-				return ServersClientListByServerGroupResponse{}, err
+				return ServersClientListByClusterResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return ServersClientListByServerGroupResponse{}, err
+				return ServersClientListByClusterResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return ServersClientListByServerGroupResponse{}, runtime.NewResponseError(resp)
+				return ServersClientListByClusterResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listByServerGroupHandleResponse(resp)
+			return client.listByClusterHandleResponse(resp)
 		},
 	})
 }
 
-// listByServerGroupCreateRequest creates the ListByServerGroup request.
-func (client *ServersClient) listByServerGroupCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, options *ServersClientListByServerGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/servers"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+// listByClusterCreateRequest creates the ListByCluster request.
+func (client *ServersClient) listByClusterCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *ServersClientListByClusterOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/servers"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listByServerGroupHandleResponse handles the ListByServerGroup response.
-func (client *ServersClient) listByServerGroupHandleResponse(resp *http.Response) (ServersClientListByServerGroupResponse, error) {
-	result := ServersClientListByServerGroupResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.ServerGroupServerListResult); err != nil {
-		return ServersClientListByServerGroupResponse{}, err
+// listByClusterHandleResponse handles the ListByCluster response.
+func (client *ServersClient) listByClusterHandleResponse(resp *http.Response) (ServersClientListByClusterResponse, error) {
+	result := ServersClientListByClusterResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ClusterServerListResult); err != nil {
+		return ServersClientListByClusterResponse{}, err
 	}
 	return result, nil
 }

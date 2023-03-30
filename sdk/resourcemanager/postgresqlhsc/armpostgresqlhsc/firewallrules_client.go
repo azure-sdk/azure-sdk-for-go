@@ -29,7 +29,7 @@ type FirewallRulesClient struct {
 }
 
 // NewFirewallRulesClient creates a new instance of FirewallRulesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewFirewallRulesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FirewallRulesClient, error) {
@@ -44,34 +44,36 @@ func NewFirewallRulesClient(subscriptionID string, credential azcore.TokenCreden
 	return client, nil
 }
 
-// BeginCreateOrUpdate - Creates a new firewall rule or updates an existing firewall rule.
+// BeginCreateOrUpdate - Creates a new cluster firewall rule or updates an existing cluster firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - firewallRuleName - The name of the server group firewall rule.
+//   - clusterName - The name of the cluster.
+//   - firewallRuleName - The name of the cluster firewall rule.
 //   - parameters - The required parameters for creating or updating a firewall rule.
 //   - options - FirewallRulesClientBeginCreateOrUpdateOptions contains the optional parameters for the FirewallRulesClient.BeginCreateOrUpdate
 //     method.
-func (client *FirewallRulesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, serverGroupName string, firewallRuleName string, parameters FirewallRule, options *FirewallRulesClientBeginCreateOrUpdateOptions) (*runtime.Poller[FirewallRulesClientCreateOrUpdateResponse], error) {
+func (client *FirewallRulesClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, firewallRuleName string, parameters FirewallRule, options *FirewallRulesClientBeginCreateOrUpdateOptions) (*runtime.Poller[FirewallRulesClientCreateOrUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, serverGroupName, firewallRuleName, parameters, options)
+		resp, err := client.createOrUpdate(ctx, resourceGroupName, clusterName, firewallRuleName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[FirewallRulesClientCreateOrUpdateResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FirewallRulesClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[FirewallRulesClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// CreateOrUpdate - Creates a new firewall rule or updates an existing firewall rule.
+// CreateOrUpdate - Creates a new cluster firewall rule or updates an existing cluster firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
-func (client *FirewallRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, serverGroupName string, firewallRuleName string, parameters FirewallRule, options *FirewallRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serverGroupName, firewallRuleName, parameters, options)
+// Generated from API version 2022-11-08
+func (client *FirewallRulesClient) createOrUpdate(ctx context.Context, resourceGroupName string, clusterName string, firewallRuleName string, parameters FirewallRule, options *FirewallRulesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, clusterName, firewallRuleName, parameters, options)
 	if err != nil {
 		return nil, err
 	}
@@ -79,27 +81,24 @@ func (client *FirewallRulesClient) createOrUpdate(ctx context.Context, resourceG
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *FirewallRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, firewallRuleName string, parameters FirewallRule, options *FirewallRulesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/firewallRules/{firewallRuleName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *FirewallRulesClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, firewallRuleName string, parameters FirewallRule, options *FirewallRulesClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/firewallRules/{firewallRuleName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if firewallRuleName == "" {
 		return nil, errors.New("parameter firewallRuleName cannot be empty")
 	}
@@ -109,39 +108,41 @@ func (client *FirewallRulesClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
-// BeginDelete - Deletes a server group firewall rule.
+// BeginDelete - Deletes a cluster firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - firewallRuleName - The name of the server group firewall rule.
+//   - clusterName - The name of the cluster.
+//   - firewallRuleName - The name of the cluster firewall rule.
 //   - options - FirewallRulesClientBeginDeleteOptions contains the optional parameters for the FirewallRulesClient.BeginDelete
 //     method.
-func (client *FirewallRulesClient) BeginDelete(ctx context.Context, resourceGroupName string, serverGroupName string, firewallRuleName string, options *FirewallRulesClientBeginDeleteOptions) (*runtime.Poller[FirewallRulesClientDeleteResponse], error) {
+func (client *FirewallRulesClient) BeginDelete(ctx context.Context, resourceGroupName string, clusterName string, firewallRuleName string, options *FirewallRulesClientBeginDeleteOptions) (*runtime.Poller[FirewallRulesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, serverGroupName, firewallRuleName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, clusterName, firewallRuleName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[FirewallRulesClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[FirewallRulesClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[FirewallRulesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Delete - Deletes a server group firewall rule.
+// Delete - Deletes a cluster firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
-func (client *FirewallRulesClient) deleteOperation(ctx context.Context, resourceGroupName string, serverGroupName string, firewallRuleName string, options *FirewallRulesClientBeginDeleteOptions) (*http.Response, error) {
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverGroupName, firewallRuleName, options)
+// Generated from API version 2022-11-08
+func (client *FirewallRulesClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, firewallRuleName string, options *FirewallRulesClientBeginDeleteOptions) (*http.Response, error) {
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, firewallRuleName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -149,27 +150,24 @@ func (client *FirewallRulesClient) deleteOperation(ctx context.Context, resource
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(resp, http.StatusAccepted, http.StatusNoContent) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *FirewallRulesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, firewallRuleName string, options *FirewallRulesClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/firewallRules/{firewallRuleName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *FirewallRulesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, firewallRuleName string, options *FirewallRulesClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/firewallRules/{firewallRuleName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if firewallRuleName == "" {
 		return nil, errors.New("parameter firewallRuleName cannot be empty")
 	}
@@ -179,22 +177,22 @@ func (client *FirewallRulesClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// Get - Gets information about a server group firewall rule.
+// Get - Gets information about a cluster firewall rule.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - firewallRuleName - The name of the server group firewall rule.
+//   - clusterName - The name of the cluster.
+//   - firewallRuleName - The name of the cluster firewall rule.
 //   - options - FirewallRulesClientGetOptions contains the optional parameters for the FirewallRulesClient.Get method.
-func (client *FirewallRulesClient) Get(ctx context.Context, resourceGroupName string, serverGroupName string, firewallRuleName string, options *FirewallRulesClientGetOptions) (FirewallRulesClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, serverGroupName, firewallRuleName, options)
+func (client *FirewallRulesClient) Get(ctx context.Context, resourceGroupName string, clusterName string, firewallRuleName string, options *FirewallRulesClientGetOptions) (FirewallRulesClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, firewallRuleName, options)
 	if err != nil {
 		return FirewallRulesClientGetResponse{}, err
 	}
@@ -209,20 +207,17 @@ func (client *FirewallRulesClient) Get(ctx context.Context, resourceGroupName st
 }
 
 // getCreateRequest creates the Get request.
-func (client *FirewallRulesClient) getCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, firewallRuleName string, options *FirewallRulesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/firewallRules/{firewallRuleName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *FirewallRulesClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, firewallRuleName string, options *FirewallRulesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/firewallRules/{firewallRuleName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if firewallRuleName == "" {
 		return nil, errors.New("parameter firewallRuleName cannot be empty")
 	}
@@ -232,7 +227,7 @@ func (client *FirewallRulesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -247,66 +242,63 @@ func (client *FirewallRulesClient) getHandleResponse(resp *http.Response) (Firew
 	return result, nil
 }
 
-// NewListByServerGroupPager - List all the firewall rules in a given server group.
+// NewListByClusterPager - Lists all the firewall rules on cluster.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - options - FirewallRulesClientListByServerGroupOptions contains the optional parameters for the FirewallRulesClient.NewListByServerGroupPager
+//   - clusterName - The name of the cluster.
+//   - options - FirewallRulesClientListByClusterOptions contains the optional parameters for the FirewallRulesClient.NewListByClusterPager
 //     method.
-func (client *FirewallRulesClient) NewListByServerGroupPager(resourceGroupName string, serverGroupName string, options *FirewallRulesClientListByServerGroupOptions) *runtime.Pager[FirewallRulesClientListByServerGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[FirewallRulesClientListByServerGroupResponse]{
-		More: func(page FirewallRulesClientListByServerGroupResponse) bool {
+func (client *FirewallRulesClient) NewListByClusterPager(resourceGroupName string, clusterName string, options *FirewallRulesClientListByClusterOptions) *runtime.Pager[FirewallRulesClientListByClusterResponse] {
+	return runtime.NewPager(runtime.PagingHandler[FirewallRulesClientListByClusterResponse]{
+		More: func(page FirewallRulesClientListByClusterResponse) bool {
 			return false
 		},
-		Fetcher: func(ctx context.Context, page *FirewallRulesClientListByServerGroupResponse) (FirewallRulesClientListByServerGroupResponse, error) {
-			req, err := client.listByServerGroupCreateRequest(ctx, resourceGroupName, serverGroupName, options)
+		Fetcher: func(ctx context.Context, page *FirewallRulesClientListByClusterResponse) (FirewallRulesClientListByClusterResponse, error) {
+			req, err := client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
 			if err != nil {
-				return FirewallRulesClientListByServerGroupResponse{}, err
+				return FirewallRulesClientListByClusterResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return FirewallRulesClientListByServerGroupResponse{}, err
+				return FirewallRulesClientListByClusterResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return FirewallRulesClientListByServerGroupResponse{}, runtime.NewResponseError(resp)
+				return FirewallRulesClientListByClusterResponse{}, runtime.NewResponseError(resp)
 			}
-			return client.listByServerGroupHandleResponse(resp)
+			return client.listByClusterHandleResponse(resp)
 		},
 	})
 }
 
-// listByServerGroupCreateRequest creates the ListByServerGroup request.
-func (client *FirewallRulesClient) listByServerGroupCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, options *FirewallRulesClientListByServerGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/firewallRules"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+// listByClusterCreateRequest creates the ListByCluster request.
+func (client *FirewallRulesClient) listByClusterCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *FirewallRulesClientListByClusterOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/firewallRules"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listByServerGroupHandleResponse handles the ListByServerGroup response.
-func (client *FirewallRulesClient) listByServerGroupHandleResponse(resp *http.Response) (FirewallRulesClientListByServerGroupResponse, error) {
-	result := FirewallRulesClientListByServerGroupResponse{}
+// listByClusterHandleResponse handles the ListByCluster response.
+func (client *FirewallRulesClient) listByClusterHandleResponse(resp *http.Response) (FirewallRulesClientListByClusterResponse, error) {
+	result := FirewallRulesClientListByClusterResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.FirewallRuleListResult); err != nil {
-		return FirewallRulesClientListByServerGroupResponse{}, err
+		return FirewallRulesClientListByClusterResponse{}, err
 	}
 	return result, nil
 }
