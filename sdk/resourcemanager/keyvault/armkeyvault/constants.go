@@ -11,7 +11,7 @@ package armkeyvault
 
 const (
 	moduleName    = "armkeyvault"
-	moduleVersion = "v1.1.0-beta.2"
+	moduleVersion = "v2.0.0"
 )
 
 type AccessPolicyUpdateKind string
@@ -42,6 +42,30 @@ const (
 func PossibleActionsRequiredValues() []ActionsRequired {
 	return []ActionsRequired{
 		ActionsRequiredNone,
+	}
+}
+
+// ActivationStatus - Activation Status
+type ActivationStatus string
+
+const (
+	// ActivationStatusActive - The managed HSM Pool is active.
+	ActivationStatusActive ActivationStatus = "Active"
+	// ActivationStatusFailed - Failed to activate managed hsm.
+	ActivationStatusFailed ActivationStatus = "Failed"
+	// ActivationStatusNotActivated - The managed HSM Pool is not yet activated.
+	ActivationStatusNotActivated ActivationStatus = "NotActivated"
+	// ActivationStatusUnknown - An unknown error occurred while activating managed hsm.
+	ActivationStatusUnknown ActivationStatus = "Unknown"
+)
+
+// PossibleActivationStatusValues returns the possible values for the ActivationStatus const type.
+func PossibleActivationStatusValues() []ActivationStatus {
+	return []ActivationStatus{
+		ActivationStatusActive,
+		ActivationStatusFailed,
+		ActivationStatusNotActivated,
+		ActivationStatusUnknown,
 	}
 }
 
@@ -125,6 +149,30 @@ func PossibleDeletionRecoveryLevelValues() []DeletionRecoveryLevel {
 		DeletionRecoveryLevelRecoverable,
 		DeletionRecoveryLevelRecoverableProtectedSubscription,
 		DeletionRecoveryLevelRecoverablePurgeable,
+	}
+}
+
+// GeoReplicationRegionProvisioningState - The current provisioning state.
+type GeoReplicationRegionProvisioningState string
+
+const (
+	GeoReplicationRegionProvisioningStateCleanup         GeoReplicationRegionProvisioningState = "Cleanup"
+	GeoReplicationRegionProvisioningStateDeleting        GeoReplicationRegionProvisioningState = "Deleting"
+	GeoReplicationRegionProvisioningStateFailed          GeoReplicationRegionProvisioningState = "Failed"
+	GeoReplicationRegionProvisioningStatePreprovisioning GeoReplicationRegionProvisioningState = "Preprovisioning"
+	GeoReplicationRegionProvisioningStateProvisioning    GeoReplicationRegionProvisioningState = "Provisioning"
+	GeoReplicationRegionProvisioningStateSucceeded       GeoReplicationRegionProvisioningState = "Succeeded"
+)
+
+// PossibleGeoReplicationRegionProvisioningStateValues returns the possible values for the GeoReplicationRegionProvisioningState const type.
+func PossibleGeoReplicationRegionProvisioningStateValues() []GeoReplicationRegionProvisioningState {
+	return []GeoReplicationRegionProvisioningState{
+		GeoReplicationRegionProvisioningStateCleanup,
+		GeoReplicationRegionProvisioningStateDeleting,
+		GeoReplicationRegionProvisioningStateFailed,
+		GeoReplicationRegionProvisioningStatePreprovisioning,
+		GeoReplicationRegionProvisioningStateProvisioning,
+		GeoReplicationRegionProvisioningStateSucceeded,
 	}
 }
 
