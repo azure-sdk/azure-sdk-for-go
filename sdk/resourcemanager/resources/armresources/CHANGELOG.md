@@ -1,5 +1,13 @@
 # Release History
 
+## 2.0.0 (2023-03-31)
+### Breaking Changes
+
+- Operation `*TagsClient.CreateOrUpdateAtScope` has been changed to LRO, use `*TagsClient.BeginCreateOrUpdateAtScope` instead.
+- Operation `*TagsClient.DeleteAtScope` has been changed to LRO, use `*TagsClient.BeginDeleteAtScope` instead.
+- Operation `*TagsClient.UpdateAtScope` has been changed to LRO, use `*TagsClient.BeginUpdateAtScope` instead.
+
+
 ## 1.1.0 (2023-03-27)
 ### Features Added
 
