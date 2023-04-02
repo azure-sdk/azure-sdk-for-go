@@ -11,7 +11,7 @@ package armmonitor
 
 const (
 	moduleName    = "armmonitor"
-	moduleVersion = "v0.9.0"
+	moduleVersion = "v0.10.0"
 )
 
 // AccessMode - Access mode types.
@@ -1066,24 +1066,6 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateDeleting,
 		ProvisioningStateFailed,
 		ProvisioningStateSucceeded,
-	}
-}
-
-// PublicNetworkAccess - This determines if traffic is allowed over public network. By default it is enabled.
-type PublicNetworkAccess string
-
-const (
-	PublicNetworkAccessDisabled           PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled            PublicNetworkAccess = "Enabled"
-	PublicNetworkAccessSecuredByPerimeter PublicNetworkAccess = "SecuredByPerimeter"
-)
-
-// PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
-func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
-	return []PublicNetworkAccess{
-		PublicNetworkAccessDisabled,
-		PublicNetworkAccessEnabled,
-		PublicNetworkAccessSecuredByPerimeter,
 	}
 }
 

@@ -465,6 +465,7 @@ func (a *ActionList) UnmarshalJSON(data []byte) error {
 func (a Actions) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "actionGroups", a.ActionGroups)
+	populate(objectMap, "actionProperties", a.ActionProperties)
 	populate(objectMap, "customProperties", a.CustomProperties)
 	return json.Marshal(objectMap)
 }
@@ -480,6 +481,9 @@ func (a *Actions) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "actionGroups":
 			err = unpopulate(val, "ActionGroups", &a.ActionGroups)
+			delete(rawMsg, key)
+		case "actionProperties":
+			err = unpopulate(val, "ActionProperties", &a.ActionProperties)
 			delete(rawMsg, key)
 		case "customProperties":
 			err = unpopulate(val, "CustomProperties", &a.CustomProperties)
@@ -9188,7 +9192,6 @@ func (s ScheduledQueryRuleProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "isWorkspaceAlertsStorageConfigured", s.IsWorkspaceAlertsStorageConfigured)
 	populate(objectMap, "muteActionsDuration", s.MuteActionsDuration)
 	populate(objectMap, "overrideQueryTimeRange", s.OverrideQueryTimeRange)
-	populate(objectMap, "publicNetworkAccess", s.PublicNetworkAccess)
 	populate(objectMap, "ruleResolveConfiguration", s.RuleResolveConfiguration)
 	populate(objectMap, "scopes", s.Scopes)
 	populate(objectMap, "severity", s.Severity)
@@ -9245,9 +9248,6 @@ func (s *ScheduledQueryRuleProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "overrideQueryTimeRange":
 			err = unpopulate(val, "OverrideQueryTimeRange", &s.OverrideQueryTimeRange)
-			delete(rawMsg, key)
-		case "publicNetworkAccess":
-			err = unpopulate(val, "PublicNetworkAccess", &s.PublicNetworkAccess)
 			delete(rawMsg, key)
 		case "ruleResolveConfiguration":
 			err = unpopulate(val, "RuleResolveConfiguration", &s.RuleResolveConfiguration)

@@ -1,5 +1,16 @@
 # Release History
 
+## 0.10.0 (2023-04-02)
+### Breaking Changes
+
+- Type alias `PublicNetworkAccess` has been removed
+- Field `PublicNetworkAccess` of struct `ScheduledQueryRuleProperties` has been removed
+
+### Features Added
+
+- New field `ActionProperties` in struct `Actions`
+
+
 ## 0.9.0 (2023-03-24)
 ### Breaking Changes
 

@@ -238,6 +238,9 @@ type Actions struct {
 	// Action Group resource Ids to invoke when the alert fires.
 	ActionGroups []*string `json:"actionGroups,omitempty"`
 
+	// The properties of an action properties.
+	ActionProperties map[string]*string `json:"actionProperties,omitempty"`
+
 	// The properties of an alert payload.
 	CustomProperties map[string]*string `json:"customProperties,omitempty"`
 }
@@ -4539,9 +4542,6 @@ type ScheduledQueryRuleProperties struct {
 	// If specified then overrides the query time range (default is WindowSize*NumberOfEvaluationPeriods). Relevant only for rules
 	// of the kind LogAlert.
 	OverrideQueryTimeRange *string `json:"overrideQueryTimeRange,omitempty"`
-
-	// This determines if traffic is allowed over public network. By default it is enabled.
-	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 
 	// Defines the configuration for resolving fired alerts. Relevant only for rules of the kind LogAlert.
 	RuleResolveConfiguration *RuleResolveConfiguration `json:"ruleResolveConfiguration,omitempty"`
