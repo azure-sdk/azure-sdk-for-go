@@ -37,6 +37,8 @@ type GrafanaClientListResponse struct {
 // GrafanaClientUpdateResponse contains the response from method GrafanaClient.Update.
 type GrafanaClientUpdateResponse struct {
 	ManagedGrafana
+	// AzureAsyncOperation contains the information returned from the Azure-AsyncOperation header response.
+	AzureAsyncOperation *string
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
