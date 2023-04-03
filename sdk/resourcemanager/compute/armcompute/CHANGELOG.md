@@ -1,5 +1,12 @@
 # Release History
 
+## 5.0.0 (2023-04-03)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+
 ## 4.2.0 (2023-03-27)
 ### Features Added
 
