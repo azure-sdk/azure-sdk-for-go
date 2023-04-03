@@ -195,6 +195,37 @@ func (c *CloudEndpoint) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type CloudEndpointAfsShareMetadataCertificatePublicKeys.
+func (c CloudEndpointAfsShareMetadataCertificatePublicKeys) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "firstKey", c.FirstKey)
+	populate(objectMap, "secondKey", c.SecondKey)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CloudEndpointAfsShareMetadataCertificatePublicKeys.
+func (c *CloudEndpointAfsShareMetadataCertificatePublicKeys) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "firstKey":
+			err = unpopulate(val, "FirstKey", &c.FirstKey)
+			delete(rawMsg, key)
+		case "secondKey":
+			err = unpopulate(val, "SecondKey", &c.SecondKey)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type CloudEndpointArray.
 func (c CloudEndpointArray) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -620,6 +651,37 @@ func (c *CloudTieringFilesNotTiering) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "totalFileCount":
 			err = unpopulate(val, "TotalFileCount", &c.TotalFileCount)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", c, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type CloudTieringLowDiskMode.
+func (c CloudTieringLowDiskMode) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateTimeRFC3339(objectMap, "lastUpdatedTimestamp", c.LastUpdatedTimestamp)
+	populate(objectMap, "state", c.State)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type CloudTieringLowDiskMode.
+func (c *CloudTieringLowDiskMode) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", c, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "lastUpdatedTimestamp":
+			err = unpopulateTimeRFC3339(val, "LastUpdatedTimestamp", &c.LastUpdatedTimestamp)
+			delete(rawMsg, key)
+		case "state":
+			err = unpopulate(val, "State", &c.State)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -2271,6 +2333,7 @@ func (s ServerEndpointCloudTieringStatus) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "lastCloudTieringResult", s.LastCloudTieringResult)
 	populateTimeRFC3339(objectMap, "lastSuccessTimestamp", s.LastSuccessTimestamp)
 	populateTimeRFC3339(objectMap, "lastUpdatedTimestamp", s.LastUpdatedTimestamp)
+	populate(objectMap, "lowDiskMode", s.LowDiskMode)
 	populate(objectMap, "spaceSavings", s.SpaceSavings)
 	populate(objectMap, "volumeFreeSpacePolicyStatus", s.VolumeFreeSpacePolicyStatus)
 	return json.Marshal(objectMap)
@@ -2308,6 +2371,9 @@ func (s *ServerEndpointCloudTieringStatus) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "lastUpdatedTimestamp":
 			err = unpopulateTimeRFC3339(val, "LastUpdatedTimestamp", &s.LastUpdatedTimestamp)
+			delete(rawMsg, key)
+		case "lowDiskMode":
+			err = unpopulate(val, "LowDiskMode", &s.LowDiskMode)
 			delete(rawMsg, key)
 		case "spaceSavings":
 			err = unpopulate(val, "SpaceSavings", &s.SpaceSavings)

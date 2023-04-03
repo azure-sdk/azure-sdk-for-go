@@ -47,7 +47,7 @@ func NewRegisteredServersClient(subscriptionID string, credential azcore.TokenCr
 // BeginCreate - Add a new registered server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageSyncServiceName - Name of Storage Sync Service resource.
 //   - serverID - GUID identifying the on-premises server.
@@ -69,7 +69,7 @@ func (client *RegisteredServersClient) BeginCreate(ctx context.Context, resource
 // Create - Add a new registered server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-06-01
 func (client *RegisteredServersClient) create(ctx context.Context, resourceGroupName string, storageSyncServiceName string, serverID string, parameters RegisteredServerCreateParameters, options *RegisteredServersClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, storageSyncServiceName, serverID, parameters, options)
 	if err != nil {
@@ -109,7 +109,7 @@ func (client *RegisteredServersClient) createCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -118,7 +118,7 @@ func (client *RegisteredServersClient) createCreateRequest(ctx context.Context, 
 // BeginDelete - Delete the given registered server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageSyncServiceName - Name of Storage Sync Service resource.
 //   - serverID - GUID identifying the on-premises server.
@@ -139,7 +139,7 @@ func (client *RegisteredServersClient) BeginDelete(ctx context.Context, resource
 // Delete - Delete the given registered server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-06-01
 func (client *RegisteredServersClient) deleteOperation(ctx context.Context, resourceGroupName string, storageSyncServiceName string, serverID string, options *RegisteredServersClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, storageSyncServiceName, serverID, options)
 	if err != nil {
@@ -179,7 +179,7 @@ func (client *RegisteredServersClient) deleteCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -188,7 +188,7 @@ func (client *RegisteredServersClient) deleteCreateRequest(ctx context.Context, 
 // Get - Get a given registered server.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageSyncServiceName - Name of Storage Sync Service resource.
 //   - serverID - GUID identifying the on-premises server.
@@ -232,7 +232,7 @@ func (client *RegisteredServersClient) getCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -255,7 +255,7 @@ func (client *RegisteredServersClient) getHandleResponse(resp *http.Response) (R
 
 // NewListByStorageSyncServicePager - Get a given registered server list.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageSyncServiceName - Name of Storage Sync Service resource.
 //   - options - RegisteredServersClientListByStorageSyncServiceOptions contains the optional parameters for the RegisteredServersClient.NewListByStorageSyncServicePager
@@ -302,7 +302,7 @@ func (client *RegisteredServersClient) listByStorageSyncServiceCreateRequest(ctx
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -326,7 +326,7 @@ func (client *RegisteredServersClient) listByStorageSyncServiceHandleResponse(re
 // BeginTriggerRollover - Triggers Server certificate rollover.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - storageSyncServiceName - Name of Storage Sync Service resource.
 //   - serverID - Server Id
@@ -348,7 +348,7 @@ func (client *RegisteredServersClient) BeginTriggerRollover(ctx context.Context,
 // TriggerRollover - Triggers Server certificate rollover.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-06-01
 func (client *RegisteredServersClient) triggerRollover(ctx context.Context, resourceGroupName string, storageSyncServiceName string, serverID string, parameters TriggerRolloverRequest, options *RegisteredServersClientBeginTriggerRolloverOptions) (*http.Response, error) {
 	req, err := client.triggerRolloverCreateRequest(ctx, resourceGroupName, storageSyncServiceName, serverID, parameters, options)
 	if err != nil {
@@ -388,7 +388,7 @@ func (client *RegisteredServersClient) triggerRolloverCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

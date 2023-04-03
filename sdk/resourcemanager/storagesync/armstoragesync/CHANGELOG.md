@@ -1,5 +1,15 @@
 # Release History
 
+## 1.2.0 (2023-04-03)
+### Features Added
+
+- New enum type `CloudTieringLowDiskModeState` with values `CloudTieringLowDiskModeStateDisabled`, `CloudTieringLowDiskModeStateEnabled`
+- New function `*CloudEndpointsClient.AfsShareMetadataCertificatePublicKeys(context.Context, string, string, string, string, *CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions) (CloudEndpointsClientAfsShareMetadataCertificatePublicKeysResponse, error)`
+- New struct `CloudEndpointAfsShareMetadataCertificatePublicKeys`
+- New struct `CloudTieringLowDiskMode`
+- New field `LowDiskMode` in struct `ServerEndpointCloudTieringStatus`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
