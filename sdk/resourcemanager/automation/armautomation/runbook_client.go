@@ -48,7 +48,7 @@ func NewRunbookClient(subscriptionID string, credential azcore.TokenCredential, 
 // CreateOrUpdate - Create the runbook identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -94,7 +94,7 @@ func (client *RunbookClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -112,7 +112,7 @@ func (client *RunbookClient) createOrUpdateHandleResponse(resp *http.Response) (
 // Delete - Delete the runbook by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -156,7 +156,7 @@ func (client *RunbookClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -165,7 +165,7 @@ func (client *RunbookClient) deleteCreateRequest(ctx context.Context, resourceGr
 // Get - Retrieve the runbook identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -209,7 +209,7 @@ func (client *RunbookClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -227,7 +227,7 @@ func (client *RunbookClient) getHandleResponse(resp *http.Response) (RunbookClie
 // GetContent - Retrieve the content of runbook identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -271,7 +271,7 @@ func (client *RunbookClient) getContentCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"text/powershell"}
 	return req, nil
@@ -279,7 +279,7 @@ func (client *RunbookClient) getContentCreateRequest(ctx context.Context, resour
 
 // NewListByAutomationAccountPager - Retrieve a list of runbooks.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - options - RunbookClientListByAutomationAccountOptions contains the optional parameters for the RunbookClient.NewListByAutomationAccountPager
@@ -332,7 +332,7 @@ func (client *RunbookClient) listByAutomationAccountCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -350,7 +350,7 @@ func (client *RunbookClient) listByAutomationAccountHandleResponse(resp *http.Re
 // BeginPublish - Publish runbook draft.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The parameters supplied to the publish runbook operation.
@@ -370,7 +370,7 @@ func (client *RunbookClient) BeginPublish(ctx context.Context, resourceGroupName
 // Publish - Publish runbook draft.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 func (client *RunbookClient) publish(ctx context.Context, resourceGroupName string, automationAccountName string, runbookName string, options *RunbookClientBeginPublishOptions) (*http.Response, error) {
 	req, err := client.publishCreateRequest(ctx, resourceGroupName, automationAccountName, runbookName, options)
 	if err != nil {
@@ -410,7 +410,7 @@ func (client *RunbookClient) publishCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -419,7 +419,7 @@ func (client *RunbookClient) publishCreateRequest(ctx context.Context, resourceG
 // Update - Update the runbook identified by runbook name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2018-06-30
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - runbookName - The runbook name.
@@ -464,7 +464,7 @@ func (client *RunbookClient) updateCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2018-06-30")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

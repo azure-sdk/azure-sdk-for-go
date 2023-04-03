@@ -11,7 +11,7 @@ package armautomation
 
 const (
 	moduleName    = "armautomation"
-	moduleVersion = "v0.8.0"
+	moduleVersion = "v0.9.0"
 )
 
 // AgentRegistrationKeyName - Gets or sets the agent registration key name - primary or secondary.
@@ -410,42 +410,42 @@ func PossibleLinuxUpdateClassesValues() []LinuxUpdateClasses {
 type ModuleProvisioningState string
 
 const (
+	ModuleProvisioningStateActivitiesStored            ModuleProvisioningState = "ActivitiesStored"
+	ModuleProvisioningStateCancelled                   ModuleProvisioningState = "Cancelled"
+	ModuleProvisioningStateConnectionTypeImported      ModuleProvisioningState = "ConnectionTypeImported"
+	ModuleProvisioningStateContentDownloaded           ModuleProvisioningState = "ContentDownloaded"
+	ModuleProvisioningStateContentRetrieved            ModuleProvisioningState = "ContentRetrieved"
+	ModuleProvisioningStateContentStored               ModuleProvisioningState = "ContentStored"
+	ModuleProvisioningStateContentValidated            ModuleProvisioningState = "ContentValidated"
 	ModuleProvisioningStateCreated                     ModuleProvisioningState = "Created"
 	ModuleProvisioningStateCreating                    ModuleProvisioningState = "Creating"
-	ModuleProvisioningStateStartingImportModuleRunbook ModuleProvisioningState = "StartingImportModuleRunbook"
-	ModuleProvisioningStateRunningImportModuleRunbook  ModuleProvisioningState = "RunningImportModuleRunbook"
-	ModuleProvisioningStateContentRetrieved            ModuleProvisioningState = "ContentRetrieved"
-	ModuleProvisioningStateContentDownloaded           ModuleProvisioningState = "ContentDownloaded"
-	ModuleProvisioningStateContentValidated            ModuleProvisioningState = "ContentValidated"
-	ModuleProvisioningStateConnectionTypeImported      ModuleProvisioningState = "ConnectionTypeImported"
-	ModuleProvisioningStateContentStored               ModuleProvisioningState = "ContentStored"
-	ModuleProvisioningStateModuleDataStored            ModuleProvisioningState = "ModuleDataStored"
-	ModuleProvisioningStateActivitiesStored            ModuleProvisioningState = "ActivitiesStored"
-	ModuleProvisioningStateModuleImportRunbookComplete ModuleProvisioningState = "ModuleImportRunbookComplete"
-	ModuleProvisioningStateSucceeded                   ModuleProvisioningState = "Succeeded"
 	ModuleProvisioningStateFailed                      ModuleProvisioningState = "Failed"
-	ModuleProvisioningStateCancelled                   ModuleProvisioningState = "Cancelled"
+	ModuleProvisioningStateModuleDataStored            ModuleProvisioningState = "ModuleDataStored"
+	ModuleProvisioningStateModuleImportRunbookComplete ModuleProvisioningState = "ModuleImportRunbookComplete"
+	ModuleProvisioningStateRunningImportModuleRunbook  ModuleProvisioningState = "RunningImportModuleRunbook"
+	ModuleProvisioningStateStartingImportModuleRunbook ModuleProvisioningState = "StartingImportModuleRunbook"
+	ModuleProvisioningStateSucceeded                   ModuleProvisioningState = "Succeeded"
 	ModuleProvisioningStateUpdating                    ModuleProvisioningState = "Updating"
 )
 
 // PossibleModuleProvisioningStateValues returns the possible values for the ModuleProvisioningState const type.
 func PossibleModuleProvisioningStateValues() []ModuleProvisioningState {
 	return []ModuleProvisioningState{
+		ModuleProvisioningStateActivitiesStored,
+		ModuleProvisioningStateCancelled,
+		ModuleProvisioningStateConnectionTypeImported,
+		ModuleProvisioningStateContentDownloaded,
+		ModuleProvisioningStateContentRetrieved,
+		ModuleProvisioningStateContentStored,
+		ModuleProvisioningStateContentValidated,
 		ModuleProvisioningStateCreated,
 		ModuleProvisioningStateCreating,
-		ModuleProvisioningStateStartingImportModuleRunbook,
-		ModuleProvisioningStateRunningImportModuleRunbook,
-		ModuleProvisioningStateContentRetrieved,
-		ModuleProvisioningStateContentDownloaded,
-		ModuleProvisioningStateContentValidated,
-		ModuleProvisioningStateConnectionTypeImported,
-		ModuleProvisioningStateContentStored,
-		ModuleProvisioningStateModuleDataStored,
-		ModuleProvisioningStateActivitiesStored,
-		ModuleProvisioningStateModuleImportRunbookComplete,
-		ModuleProvisioningStateSucceeded,
 		ModuleProvisioningStateFailed,
-		ModuleProvisioningStateCancelled,
+		ModuleProvisioningStateModuleDataStored,
+		ModuleProvisioningStateModuleImportRunbookComplete,
+		ModuleProvisioningStateRunningImportModuleRunbook,
+		ModuleProvisioningStateStartingImportModuleRunbook,
+		ModuleProvisioningStateSucceeded,
 		ModuleProvisioningStateUpdating,
 	}
 }

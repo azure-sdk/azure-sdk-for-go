@@ -489,14 +489,6 @@ type ClientConvertGraphRunbookContentOptions struct {
 	// placeholder for future optional parameters
 }
 
-type ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties struct {
-	// READ-ONLY; The client id of user assigned identity.
-	ClientID *string `json:"clientId,omitempty" azure:"ro"`
-
-	// READ-ONLY; The principal id of user assigned identity.
-	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
-}
-
 // Connection - Definition of the connection.
 type Connection struct {
 	// Gets or sets the properties of the connection.
@@ -878,6 +870,15 @@ type DeletedAutomationAccountProperties struct {
 // method.
 type DeletedAutomationAccountsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
+}
+
+// Dimension of the metric.
+type Dimension struct {
+	// The display name of the dimension.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// The name of the dimension.
+	Name *string `json:"name,omitempty"`
 }
 
 // DscCompilationJob - Definition of the Dsc Compilation job.
@@ -1805,7 +1806,7 @@ type Identity struct {
 	// The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource
 	// ids in the form:
 	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
-	UserAssignedIdentities map[string]*ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties `json:"userAssignedIdentities,omitempty"`
+	UserAssignedIdentities map[string]*UserAssignedIdentitiesProperties `json:"userAssignedIdentities,omitempty"`
 
 	// READ-ONLY; The principal ID of resource identity.
 	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
@@ -2200,6 +2201,39 @@ type LinuxProperties struct {
 	RebootSetting *string `json:"rebootSetting,omitempty"`
 }
 
+// LogSpecification - Description of logging specification.
+type LogSpecification struct {
+	// Duration of the blob.
+	BlobDuration *string `json:"blobDuration,omitempty"`
+
+	// The display name of the specification.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// The name of the specification.
+	Name *string `json:"name,omitempty"`
+}
+
+// MetricSpecification - Description of metrics specification.
+type MetricSpecification struct {
+	// The aggregation type.
+	AggregationType *string `json:"aggregationType,omitempty"`
+
+	// List of dimensions.
+	Dimensions []*Dimension `json:"dimensions,omitempty"`
+
+	// The description of the metric.
+	DisplayDescription *string `json:"displayDescription,omitempty"`
+
+	// The display name of the metric.
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// The name of the metric.
+	Name *string `json:"name,omitempty"`
+
+	// Units the metric to be displayed in.
+	Unit *string `json:"unit,omitempty"`
+}
+
 // Module - Definition of the module type.
 type Module struct {
 	// Gets or sets the etag of the resource.
@@ -2416,10 +2450,19 @@ type Operation struct {
 
 	// Operation name: {provider}/{resource}/{operation}
 	Name *string `json:"name,omitempty"`
+
+	// Origin of the operation.
+	Origin *string `json:"origin,omitempty"`
+
+	// Operation properties format.
+	Properties *OperationPropertiesFormat `json:"properties,omitempty"`
 }
 
 // OperationDisplay - Provider, Resource and Operation values
 type OperationDisplay struct {
+	// Description of the operation.
+	Description *string `json:"description,omitempty"`
+
 	// Operation type: Read, write, delete, etc.
 	Operation *string `json:"operation,omitempty"`
 
@@ -2434,6 +2477,21 @@ type OperationDisplay struct {
 type OperationListResult struct {
 	// List of Automation operations supported by the Automation resource provider.
 	Value []*Operation `json:"value,omitempty"`
+}
+
+// OperationPropertiesFormat - Description of operation properties format.
+type OperationPropertiesFormat struct {
+	// Specification of the service.
+	ServiceSpecification *OperationPropertiesFormatServiceSpecification `json:"serviceSpecification,omitempty"`
+}
+
+// OperationPropertiesFormatServiceSpecification - Specification of the service.
+type OperationPropertiesFormatServiceSpecification struct {
+	// Operation log specification.
+	LogSpecifications []*LogSpecification `json:"logSpecifications,omitempty"`
+
+	// Operation service specification.
+	MetricSpecifications []*MetricSpecification `json:"metricSpecifications,omitempty"`
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -2590,6 +2648,33 @@ type Python2PackageClientListByAutomationAccountOptions struct {
 
 // Python2PackageClientUpdateOptions contains the optional parameters for the Python2PackageClient.Update method.
 type Python2PackageClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientCreateOrUpdateOptions contains the optional parameters for the Python3PackageClient.CreateOrUpdate
+// method.
+type Python3PackageClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientDeleteOptions contains the optional parameters for the Python3PackageClient.Delete method.
+type Python3PackageClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientGetOptions contains the optional parameters for the Python3PackageClient.Get method.
+type Python3PackageClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientListByAutomationAccountOptions contains the optional parameters for the Python3PackageClient.NewListByAutomationAccountPager
+// method.
+type Python3PackageClientListByAutomationAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientUpdateOptions contains the optional parameters for the Python3PackageClient.Update method.
+type Python3PackageClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -4063,6 +4148,14 @@ type UsageListResult struct {
 // method.
 type UsagesClientListByAutomationAccountOptions struct {
 	// placeholder for future optional parameters
+}
+
+type UserAssignedIdentitiesProperties struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string `json:"clientId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
 }
 
 // Variable - Definition of the variable.
