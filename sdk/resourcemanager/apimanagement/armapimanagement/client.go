@@ -29,8 +29,7 @@ type Client struct {
 }
 
 // NewClient creates a new instance of Client with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*Client, error) {
@@ -49,8 +48,8 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 // and returns metrics for the connection, as well as errors encountered while trying to establish it.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - connectivityCheckRequestParams - Connectivity Check request parameters.
 //   - options - ClientBeginPerformConnectivityCheckAsyncOptions contains the optional parameters for the Client.BeginPerformConnectivityCheckAsync
@@ -73,7 +72,7 @@ func (client *Client) BeginPerformConnectivityCheckAsync(ctx context.Context, re
 // and returns metrics for the connection, as well as errors encountered while trying to establish it.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
+// Generated from API version 2022-08-01
 func (client *Client) performConnectivityCheckAsync(ctx context.Context, resourceGroupName string, serviceName string, connectivityCheckRequestParams ConnectivityCheckRequest, options *ClientBeginPerformConnectivityCheckAsyncOptions) (*http.Response, error) {
 	req, err := client.performConnectivityCheckAsyncCreateRequest(ctx, resourceGroupName, serviceName, connectivityCheckRequestParams, options)
 	if err != nil {
@@ -109,7 +108,7 @@ func (client *Client) performConnectivityCheckAsyncCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, connectivityCheckRequestParams)

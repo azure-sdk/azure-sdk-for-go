@@ -30,8 +30,7 @@ type LoggerClient struct {
 }
 
 // NewLoggerClient creates a new instance of LoggerClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewLoggerClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*LoggerClient, error) {
@@ -49,8 +48,8 @@ func NewLoggerClient(subscriptionID string, credential azcore.TokenCredential, o
 // CreateOrUpdate - Creates or Updates a logger.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
 //   - parameters - Create parameters.
@@ -94,7 +93,7 @@ func (client *LoggerClient) createOrUpdateCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -118,8 +117,8 @@ func (client *LoggerClient) createOrUpdateHandleResponse(resp *http.Response) (L
 // Delete - Deletes the specified logger.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
 //   - ifMatch - ETag of the Entity. ETag should match the current entity state from the header response of the GET request or
@@ -164,7 +163,7 @@ func (client *LoggerClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -174,8 +173,8 @@ func (client *LoggerClient) deleteCreateRequest(ctx context.Context, resourceGro
 // Get - Gets the details of the logger specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
 //   - options - LoggerClientGetOptions contains the optional parameters for the LoggerClient.Get method.
@@ -218,7 +217,7 @@ func (client *LoggerClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -238,8 +237,8 @@ func (client *LoggerClient) getHandleResponse(resp *http.Response) (LoggerClient
 
 // GetEntityTag - Gets the entity state (Etag) version of the logger specified by its identifier.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
 //   - options - LoggerClientGetEntityTagOptions contains the optional parameters for the LoggerClient.GetEntityTag method.
@@ -282,7 +281,7 @@ func (client *LoggerClient) getEntityTagCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -300,8 +299,8 @@ func (client *LoggerClient) getEntityTagHandleResponse(resp *http.Response) (Log
 
 // NewListByServicePager - Lists a collection of loggers in the specified service instance.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - LoggerClientListByServiceOptions contains the optional parameters for the LoggerClient.NewListByServicePager
 //     method.
@@ -362,7 +361,7 @@ func (client *LoggerClient) listByServiceCreateRequest(ctx context.Context, reso
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -380,8 +379,8 @@ func (client *LoggerClient) listByServiceHandleResponse(resp *http.Response) (Lo
 // Update - Updates an existing logger.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - loggerID - Logger identifier. Must be unique in the API Management service instance.
 //   - ifMatch - ETag of the Entity. ETag should match the current entity state from the header response of the GET request or
@@ -427,7 +426,7 @@ func (client *LoggerClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}

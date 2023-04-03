@@ -30,8 +30,7 @@ type GroupUserClient struct {
 }
 
 // NewGroupUserClient creates a new instance of GroupUserClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewGroupUserClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*GroupUserClient, error) {
@@ -48,8 +47,8 @@ func NewGroupUserClient(subscriptionID string, credential azcore.TokenCredential
 
 // CheckEntityExists - Checks that user entity specified by identifier is associated with the group entity.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - groupID - Group identifier. Must be unique in the current API Management service instance.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
@@ -98,7 +97,7 @@ func (client *GroupUserClient) checkEntityExistsCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -107,8 +106,8 @@ func (client *GroupUserClient) checkEntityExistsCreateRequest(ctx context.Contex
 // Create - Add existing user to existing group
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - groupID - Group identifier. Must be unique in the current API Management service instance.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
@@ -156,7 +155,7 @@ func (client *GroupUserClient) createCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -174,8 +173,8 @@ func (client *GroupUserClient) createHandleResponse(resp *http.Response) (GroupU
 // Delete - Remove existing user from existing group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - groupID - Group identifier. Must be unique in the current API Management service instance.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
@@ -223,7 +222,7 @@ func (client *GroupUserClient) deleteCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -231,8 +230,8 @@ func (client *GroupUserClient) deleteCreateRequest(ctx context.Context, resource
 
 // NewListPager - Lists a collection of user entities associated with the group.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - groupID - Group identifier. Must be unique in the current API Management service instance.
 //   - options - GroupUserClientListOptions contains the optional parameters for the GroupUserClient.NewListPager method.
@@ -297,7 +296,7 @@ func (client *GroupUserClient) listCreateRequest(ctx context.Context, resourceGr
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

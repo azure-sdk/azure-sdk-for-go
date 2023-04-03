@@ -463,6 +463,131 @@ type APIVersionSetClientUpdateResponse struct {
 	ETag *string
 }
 
+// APIWikiClientCreateOrUpdateResponse contains the response from method APIWikiClient.CreateOrUpdate.
+type APIWikiClientCreateOrUpdateResponse struct {
+	WikiContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APIWikiClientDeleteResponse contains the response from method APIWikiClient.Delete.
+type APIWikiClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// APIWikiClientGetEntityTagResponse contains the response from method APIWikiClient.GetEntityTag.
+type APIWikiClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// APIWikiClientGetResponse contains the response from method APIWikiClient.Get.
+type APIWikiClientGetResponse struct {
+	WikiContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APIWikiClientUpdateResponse contains the response from method APIWikiClient.Update.
+type APIWikiClientUpdateResponse struct {
+	WikiContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// APIWikisClientListResponse contains the response from method APIWikisClient.NewListPager.
+type APIWikisClientListResponse struct {
+	WikiCollection
+}
+
+// AuthorizationAccessPolicyClientCreateOrUpdateResponse contains the response from method AuthorizationAccessPolicyClient.CreateOrUpdate.
+type AuthorizationAccessPolicyClientCreateOrUpdateResponse struct {
+	AuthorizationAccessPolicyContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationAccessPolicyClientDeleteResponse contains the response from method AuthorizationAccessPolicyClient.Delete.
+type AuthorizationAccessPolicyClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AuthorizationAccessPolicyClientGetResponse contains the response from method AuthorizationAccessPolicyClient.Get.
+type AuthorizationAccessPolicyClientGetResponse struct {
+	AuthorizationAccessPolicyContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationAccessPolicyClientListByAuthorizationResponse contains the response from method AuthorizationAccessPolicyClient.NewListByAuthorizationPager.
+type AuthorizationAccessPolicyClientListByAuthorizationResponse struct {
+	AuthorizationAccessPolicyCollection
+}
+
+// AuthorizationClientConfirmConsentCodeResponse contains the response from method AuthorizationClient.ConfirmConsentCode.
+type AuthorizationClientConfirmConsentCodeResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationClientCreateOrUpdateResponse contains the response from method AuthorizationClient.CreateOrUpdate.
+type AuthorizationClientCreateOrUpdateResponse struct {
+	AuthorizationContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationClientDeleteResponse contains the response from method AuthorizationClient.Delete.
+type AuthorizationClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AuthorizationClientGetResponse contains the response from method AuthorizationClient.Get.
+type AuthorizationClientGetResponse struct {
+	AuthorizationContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationClientListByAuthorizationProviderResponse contains the response from method AuthorizationClient.NewListByAuthorizationProviderPager.
+type AuthorizationClientListByAuthorizationProviderResponse struct {
+	AuthorizationCollection
+}
+
+// AuthorizationLoginLinksClientPostResponse contains the response from method AuthorizationLoginLinksClient.Post.
+type AuthorizationLoginLinksClientPostResponse struct {
+	AuthorizationLoginResponseContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationProviderClientCreateOrUpdateResponse contains the response from method AuthorizationProviderClient.CreateOrUpdate.
+type AuthorizationProviderClientCreateOrUpdateResponse struct {
+	AuthorizationProviderContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationProviderClientDeleteResponse contains the response from method AuthorizationProviderClient.Delete.
+type AuthorizationProviderClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AuthorizationProviderClientGetResponse contains the response from method AuthorizationProviderClient.Get.
+type AuthorizationProviderClientGetResponse struct {
+	AuthorizationProviderContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// AuthorizationProviderClientListByServiceResponse contains the response from method AuthorizationProviderClient.NewListByServicePager.
+type AuthorizationProviderClientListByServiceResponse struct {
+	AuthorizationProviderCollection
+}
+
 // AuthorizationServerClientCreateOrUpdateResponse contains the response from method AuthorizationServerClient.CreateOrUpdate.
 type AuthorizationServerClientCreateOrUpdateResponse struct {
 	AuthorizationServerContract
@@ -783,6 +908,46 @@ type DiagnosticClientUpdateResponse struct {
 	ETag *string
 }
 
+// DocumentationClientCreateOrUpdateResponse contains the response from method DocumentationClient.CreateOrUpdate.
+type DocumentationClientCreateOrUpdateResponse struct {
+	DocumentationContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// DocumentationClientDeleteResponse contains the response from method DocumentationClient.Delete.
+type DocumentationClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DocumentationClientGetEntityTagResponse contains the response from method DocumentationClient.GetEntityTag.
+type DocumentationClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// DocumentationClientGetResponse contains the response from method DocumentationClient.Get.
+type DocumentationClientGetResponse struct {
+	DocumentationContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// DocumentationClientListByServiceResponse contains the response from method DocumentationClient.NewListByServicePager.
+type DocumentationClientListByServiceResponse struct {
+	DocumentationCollection
+}
+
+// DocumentationClientUpdateResponse contains the response from method DocumentationClient.Update.
+type DocumentationClientUpdateResponse struct {
+	DocumentationContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
 // EmailTemplateClientCreateOrUpdateResponse contains the response from method EmailTemplateClient.CreateOrUpdate.
 type EmailTemplateClientCreateOrUpdateResponse struct {
 	EmailTemplateContract
@@ -997,6 +1162,79 @@ type GlobalSchemaClientGetResponse struct {
 // GlobalSchemaClientListByServiceResponse contains the response from method GlobalSchemaClient.NewListByServicePager.
 type GlobalSchemaClientListByServiceResponse struct {
 	GlobalSchemaCollection
+}
+
+// GraphQLAPIResolverClientCreateOrUpdateResponse contains the response from method GraphQLAPIResolverClient.CreateOrUpdate.
+type GraphQLAPIResolverClientCreateOrUpdateResponse struct {
+	ResolverContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// GraphQLAPIResolverClientDeleteResponse contains the response from method GraphQLAPIResolverClient.Delete.
+type GraphQLAPIResolverClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// GraphQLAPIResolverClientGetEntityTagResponse contains the response from method GraphQLAPIResolverClient.GetEntityTag.
+type GraphQLAPIResolverClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// GraphQLAPIResolverClientGetResponse contains the response from method GraphQLAPIResolverClient.Get.
+type GraphQLAPIResolverClientGetResponse struct {
+	ResolverContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// GraphQLAPIResolverClientListByAPIResponse contains the response from method GraphQLAPIResolverClient.NewListByAPIPager.
+type GraphQLAPIResolverClientListByAPIResponse struct {
+	ResolverCollection
+}
+
+// GraphQLAPIResolverClientUpdateResponse contains the response from method GraphQLAPIResolverClient.Update.
+type GraphQLAPIResolverClientUpdateResponse struct {
+	ResolverContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// GraphQLAPIResolverPolicyClientCreateOrUpdateResponse contains the response from method GraphQLAPIResolverPolicyClient.CreateOrUpdate.
+type GraphQLAPIResolverPolicyClientCreateOrUpdateResponse struct {
+	PolicyContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// GraphQLAPIResolverPolicyClientDeleteResponse contains the response from method GraphQLAPIResolverPolicyClient.Delete.
+type GraphQLAPIResolverPolicyClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// GraphQLAPIResolverPolicyClientGetEntityTagResponse contains the response from method GraphQLAPIResolverPolicyClient.GetEntityTag.
+type GraphQLAPIResolverPolicyClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// GraphQLAPIResolverPolicyClientGetResponse contains the response from method GraphQLAPIResolverPolicyClient.Get.
+type GraphQLAPIResolverPolicyClientGetResponse struct {
+	PolicyContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// GraphQLAPIResolverPolicyClientListByResolverResponse contains the response from method GraphQLAPIResolverPolicyClient.NewListByResolverPager.
+type GraphQLAPIResolverPolicyClientListByResolverResponse struct {
+	PolicyCollection
 }
 
 // GroupClientCreateOrUpdateResponse contains the response from method GroupClient.CreateOrUpdate.
@@ -1375,6 +1613,73 @@ type PolicyDescriptionClientListByServiceResponse struct {
 	PolicyDescriptionCollection
 }
 
+// PolicyFragmentClientCreateOrUpdateResponse contains the response from method PolicyFragmentClient.BeginCreateOrUpdate.
+type PolicyFragmentClientCreateOrUpdateResponse struct {
+	PolicyFragmentContract
+}
+
+// PolicyFragmentClientDeleteResponse contains the response from method PolicyFragmentClient.Delete.
+type PolicyFragmentClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// PolicyFragmentClientGetEntityTagResponse contains the response from method PolicyFragmentClient.GetEntityTag.
+type PolicyFragmentClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// PolicyFragmentClientGetResponse contains the response from method PolicyFragmentClient.Get.
+type PolicyFragmentClientGetResponse struct {
+	PolicyFragmentContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// PolicyFragmentClientListByServiceResponse contains the response from method PolicyFragmentClient.ListByService.
+type PolicyFragmentClientListByServiceResponse struct {
+	PolicyFragmentCollection
+}
+
+// PolicyFragmentClientListReferencesResponse contains the response from method PolicyFragmentClient.ListReferences.
+type PolicyFragmentClientListReferencesResponse struct {
+	ResourceCollection
+}
+
+// PortalConfigClientCreateOrUpdateResponse contains the response from method PortalConfigClient.CreateOrUpdate.
+type PortalConfigClientCreateOrUpdateResponse struct {
+	PortalConfigContract
+}
+
+// PortalConfigClientGetEntityTagResponse contains the response from method PortalConfigClient.GetEntityTag.
+type PortalConfigClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// PortalConfigClientGetResponse contains the response from method PortalConfigClient.Get.
+type PortalConfigClientGetResponse struct {
+	PortalConfigContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// PortalConfigClientListByServiceResponse contains the response from method PortalConfigClient.ListByService.
+type PortalConfigClientListByServiceResponse struct {
+	PortalConfigCollection
+}
+
+// PortalConfigClientUpdateResponse contains the response from method PortalConfigClient.Update.
+type PortalConfigClientUpdateResponse struct {
+	PortalConfigContract
+}
+
 // PortalRevisionClientCreateOrUpdateResponse contains the response from method PortalRevisionClient.BeginCreateOrUpdate.
 type PortalRevisionClientCreateOrUpdateResponse struct {
 	PortalRevisionContract
@@ -1566,6 +1871,48 @@ type ProductSubscriptionsClientListResponse struct {
 	SubscriptionCollection
 }
 
+// ProductWikiClientCreateOrUpdateResponse contains the response from method ProductWikiClient.CreateOrUpdate.
+type ProductWikiClientCreateOrUpdateResponse struct {
+	WikiContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// ProductWikiClientDeleteResponse contains the response from method ProductWikiClient.Delete.
+type ProductWikiClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ProductWikiClientGetEntityTagResponse contains the response from method ProductWikiClient.GetEntityTag.
+type ProductWikiClientGetEntityTagResponse struct {
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+
+	// Success indicates if the operation succeeded or failed.
+	Success bool
+}
+
+// ProductWikiClientGetResponse contains the response from method ProductWikiClient.Get.
+type ProductWikiClientGetResponse struct {
+	WikiContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// ProductWikiClientUpdateResponse contains the response from method ProductWikiClient.Update.
+type ProductWikiClientUpdateResponse struct {
+	WikiContract
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
+// ProductWikisClientListResponse contains the response from method ProductWikisClient.NewListPager.
+type ProductWikisClientListResponse struct {
+	WikiCollection
+	// ETag contains the information returned from the ETag header response.
+	ETag *string
+}
+
 // QuotaByCounterKeysClientListByServiceResponse contains the response from method QuotaByCounterKeysClient.ListByService.
 type QuotaByCounterKeysClientListByServiceResponse struct {
 	QuotaCounterCollection
@@ -1684,6 +2031,11 @@ type ServiceClientListByResourceGroupResponse struct {
 // ServiceClientListResponse contains the response from method ServiceClient.NewListPager.
 type ServiceClientListResponse struct {
 	ServiceListResult
+}
+
+// ServiceClientMigrateToStv2Response contains the response from method ServiceClient.BeginMigrateToStv2.
+type ServiceClientMigrateToStv2Response struct {
+	ServiceResource
 }
 
 // ServiceClientRestoreResponse contains the response from method ServiceClient.BeginRestore.
