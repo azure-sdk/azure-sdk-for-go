@@ -410,6 +410,9 @@ func (client *GrafanaClient) updateCreateRequest(ctx context.Context, resourceGr
 // updateHandleResponse handles the Update response.
 func (client *GrafanaClient) updateHandleResponse(resp *http.Response) (GrafanaClientUpdateResponse, error) {
 	result := GrafanaClientUpdateResponse{}
+	if val := resp.Header.Get("Azure-AsyncOperation"); val != "" {
+		result.AzureAsyncOperation = &val
+	}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ManagedGrafana); err != nil {
 		return GrafanaClientUpdateResponse{}, err
 	}
