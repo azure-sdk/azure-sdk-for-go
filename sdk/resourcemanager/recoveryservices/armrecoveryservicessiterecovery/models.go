@@ -364,6 +364,45 @@ type A2AExtendedLocationDetails struct {
 	RecoveryExtendedLocation *ExtendedLocation `json:"recoveryExtendedLocation,omitempty"`
 }
 
+// A2AFabricSpecificLocationDetails - ExtendedLocation details data.
+type A2AFabricSpecificLocationDetails struct {
+	// The initial primary ExtendedLocation.
+	InitialPrimaryExtendedLocation *ExtendedLocation `json:"initialPrimaryExtendedLocation,omitempty"`
+
+	// Initial primary fabric location info.
+	InitialPrimaryFabricLocation *string `json:"initialPrimaryFabricLocation,omitempty"`
+
+	// The initial source zone info.
+	InitialPrimaryZone *string `json:"initialPrimaryZone,omitempty"`
+
+	// The initial recovery ExtendedLocation.
+	InitialRecoveryExtendedLocation *ExtendedLocation `json:"initialRecoveryExtendedLocation,omitempty"`
+
+	// The initial recovery fabric location info.
+	InitialRecoveryFabricLocation *string `json:"initialRecoveryFabricLocation,omitempty"`
+
+	// The initial target zone info.
+	InitialRecoveryZone *string `json:"initialRecoveryZone,omitempty"`
+
+	// The primary ExtendedLocation.
+	PrimaryExtendedLocation *ExtendedLocation `json:"primaryExtendedLocation,omitempty"`
+
+	// Primary fabric location info.
+	PrimaryFabricLocation *string `json:"primaryFabricLocation,omitempty"`
+
+	// Source zone info.
+	PrimaryZone *string `json:"primaryZone,omitempty"`
+
+	// The recovery ExtendedLocation.
+	RecoveryExtendedLocation *ExtendedLocation `json:"recoveryExtendedLocation,omitempty"`
+
+	// The recovery fabric location info.
+	RecoveryFabricLocation *string `json:"recoveryFabricLocation,omitempty"`
+
+	// The target zone info.
+	RecoveryZone *string `json:"recoveryZone,omitempty"`
+}
+
 // A2APolicyCreationInput - A2A Policy creation input.
 type A2APolicyCreationInput struct {
 	// REQUIRED; The class type.
@@ -1559,6 +1598,9 @@ type AzureFabricSpecificDetails struct {
 	// The Location for the Azure fabric.
 	Location *string `json:"location,omitempty"`
 
+	// The location details.
+	LocationDetails []*A2AFabricSpecificLocationDetails `json:"locationDetails,omitempty"`
+
 	// The zones.
 	Zones []*A2AZoneDetails `json:"zones,omitempty"`
 }
@@ -2488,11 +2530,17 @@ type FabricQueryParameter struct {
 	// The type of the discovered machine to be used for fetching agent details.
 	DiscoveryType *string `json:"discoveryType,omitempty"`
 
+	// A value indicating whether the Extended Location mappings are to be returned.
+	ExtendedLocationMappings *string `json:"extendedLocationMappings,omitempty"`
+
 	// A value indicating whether the agent details are to be fetched.
 	FetchAgentDetails *string `json:"fetchAgentDetails,omitempty"`
 
 	// The FQDN to be used for fetching agent details.
 	Fqdn *string `json:"fqdn,omitempty"`
+
+	// A value indicating whether the location details are to be returned.
+	LocationDetails *string `json:"locationDetails,omitempty"`
 
 	// The OS type to be used for fetching agent details.
 	OSType *string `json:"osType,omitempty"`
@@ -7110,7 +7158,7 @@ type MigrationRecoveryPointsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// MigrationRecoveryPointsClientListByReplicationMigrationItemsOptions contains the optional parameters for the MigrationRecoveryPointsClient.ListByReplicationMigrationItems
+// MigrationRecoveryPointsClientListByReplicationMigrationItemsOptions contains the optional parameters for the MigrationRecoveryPointsClient.NewListByReplicationMigrationItemsPager
 // method.
 type MigrationRecoveryPointsClientListByReplicationMigrationItemsOptions struct {
 	// placeholder for future optional parameters
@@ -7345,7 +7393,7 @@ type OSVersionWrapper struct {
 	Version *string `json:"version,omitempty"`
 }
 
-// OperationsClientListOptions contains the optional parameters for the OperationsClient.List method.
+// OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -7375,7 +7423,7 @@ type OperationsDiscovery struct {
 	Origin *string `json:"origin,omitempty"`
 
 	// Properties. Reserved for future use.
-	Properties interface{} `json:"properties,omitempty"`
+	Properties any `json:"properties,omitempty"`
 }
 
 // OperationsDiscoveryCollection - Collection of ClientDiscovery details.
@@ -8731,7 +8779,7 @@ type RecoveryPointsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// RecoveryPointsClientListByReplicationProtectedItemsOptions contains the optional parameters for the RecoveryPointsClient.ListByReplicationProtectedItems
+// RecoveryPointsClientListByReplicationProtectedItemsOptions contains the optional parameters for the RecoveryPointsClient.NewListByReplicationProtectedItemsPager
 // method.
 type RecoveryPointsClientListByReplicationProtectedItemsOptions struct {
 	// placeholder for future optional parameters
@@ -8989,7 +9037,7 @@ type ReplicationAlertSettingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationAlertSettingsClientListOptions contains the optional parameters for the ReplicationAlertSettingsClient.List
+// ReplicationAlertSettingsClientListOptions contains the optional parameters for the ReplicationAlertSettingsClient.NewListPager
 // method.
 type ReplicationAlertSettingsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -9007,7 +9055,8 @@ type ReplicationApplianceProperties struct {
 	ProviderSpecificDetails ApplianceSpecificDetailsClassification `json:"providerSpecificDetails,omitempty"`
 }
 
-// ReplicationAppliancesClientListOptions contains the optional parameters for the ReplicationAppliancesClient.List method.
+// ReplicationAppliancesClientListOptions contains the optional parameters for the ReplicationAppliancesClient.NewListPager
+// method.
 type ReplicationAppliancesClientListOptions struct {
 	// OData filter options.
 	Filter *string
@@ -9078,7 +9127,7 @@ type ReplicationEventsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationEventsClientListOptions contains the optional parameters for the ReplicationEventsClient.List method.
+// ReplicationEventsClientListOptions contains the optional parameters for the ReplicationEventsClient.NewListPager method.
 type ReplicationEventsClientListOptions struct {
 	// OData filter options.
 	Filter *string
@@ -9139,7 +9188,7 @@ type ReplicationFabricsClientGetOptions struct {
 	Filter *string
 }
 
-// ReplicationFabricsClientListOptions contains the optional parameters for the ReplicationFabricsClient.List method.
+// ReplicationFabricsClientListOptions contains the optional parameters for the ReplicationFabricsClient.NewListPager method.
 type ReplicationFabricsClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -9186,7 +9235,7 @@ type ReplicationJobsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationJobsClientListOptions contains the optional parameters for the ReplicationJobsClient.List method.
+// ReplicationJobsClientListOptions contains the optional parameters for the ReplicationJobsClient.NewListPager method.
 type ReplicationJobsClientListOptions struct {
 	// OData filter options.
 	Filter *string
@@ -9198,7 +9247,7 @@ type ReplicationLogicalNetworksClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationLogicalNetworksClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationLogicalNetworksClient.ListByReplicationFabrics
+// ReplicationLogicalNetworksClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationLogicalNetworksClient.NewListByReplicationFabricsPager
 // method.
 type ReplicationLogicalNetworksClientListByReplicationFabricsOptions struct {
 	// placeholder for future optional parameters
@@ -9275,7 +9324,7 @@ type ReplicationMigrationItemsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions contains the optional parameters for the ReplicationMigrationItemsClient.ListByReplicationProtectionContainers
+// ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions contains the optional parameters for the ReplicationMigrationItemsClient.NewListByReplicationProtectionContainersPager
 // method.
 type ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions struct {
 	// OData filter options.
@@ -9286,7 +9335,7 @@ type ReplicationMigrationItemsClientListByReplicationProtectionContainersOptions
 	TakeToken *string
 }
 
-// ReplicationMigrationItemsClientListOptions contains the optional parameters for the ReplicationMigrationItemsClient.List
+// ReplicationMigrationItemsClientListOptions contains the optional parameters for the ReplicationMigrationItemsClient.NewListPager
 // method.
 type ReplicationMigrationItemsClientListOptions struct {
 	// OData filter options.
@@ -9324,13 +9373,13 @@ type ReplicationNetworkMappingsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationNetworkMappingsClientListByReplicationNetworksOptions contains the optional parameters for the ReplicationNetworkMappingsClient.ListByReplicationNetworks
+// ReplicationNetworkMappingsClientListByReplicationNetworksOptions contains the optional parameters for the ReplicationNetworkMappingsClient.NewListByReplicationNetworksPager
 // method.
 type ReplicationNetworkMappingsClientListByReplicationNetworksOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationNetworkMappingsClientListOptions contains the optional parameters for the ReplicationNetworkMappingsClient.List
+// ReplicationNetworkMappingsClientListOptions contains the optional parameters for the ReplicationNetworkMappingsClient.NewListPager
 // method.
 type ReplicationNetworkMappingsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -9341,13 +9390,13 @@ type ReplicationNetworksClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationNetworksClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationNetworksClient.ListByReplicationFabrics
+// ReplicationNetworksClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationNetworksClient.NewListByReplicationFabricsPager
 // method.
 type ReplicationNetworksClientListByReplicationFabricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationNetworksClientListOptions contains the optional parameters for the ReplicationNetworksClient.List method.
+// ReplicationNetworksClientListOptions contains the optional parameters for the ReplicationNetworksClient.NewListPager method.
 type ReplicationNetworksClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -9378,7 +9427,7 @@ type ReplicationPoliciesClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationPoliciesClientListOptions contains the optional parameters for the ReplicationPoliciesClient.List method.
+// ReplicationPoliciesClientListOptions contains the optional parameters for the ReplicationPoliciesClient.NewListPager method.
 type ReplicationPoliciesClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -9390,7 +9439,7 @@ type ReplicationProtectableItemsClientGetOptions struct {
 }
 
 // ReplicationProtectableItemsClientListByReplicationProtectionContainersOptions contains the optional parameters for the
-// ReplicationProtectableItemsClient.ListByReplicationProtectionContainers method.
+// ReplicationProtectableItemsClient.NewListByReplicationProtectionContainersPager method.
 type ReplicationProtectableItemsClientListByReplicationProtectionContainersOptions struct {
 	// OData filter options.
 	Filter *string
@@ -9661,13 +9710,13 @@ type ReplicationProtectedItemsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationProtectedItemsClientListByReplicationProtectionContainersOptions contains the optional parameters for the ReplicationProtectedItemsClient.ListByReplicationProtectionContainers
+// ReplicationProtectedItemsClientListByReplicationProtectionContainersOptions contains the optional parameters for the ReplicationProtectedItemsClient.NewListByReplicationProtectionContainersPager
 // method.
 type ReplicationProtectedItemsClientListByReplicationProtectionContainersOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationProtectedItemsClientListOptions contains the optional parameters for the ReplicationProtectedItemsClient.List
+// ReplicationProtectedItemsClientListOptions contains the optional parameters for the ReplicationProtectedItemsClient.NewListPager
 // method.
 type ReplicationProtectedItemsClientListOptions struct {
 	// OData filter options.
@@ -9711,12 +9760,12 @@ type ReplicationProtectionContainerMappingsClientGetOptions struct {
 }
 
 // ReplicationProtectionContainerMappingsClientListByReplicationProtectionContainersOptions contains the optional parameters
-// for the ReplicationProtectionContainerMappingsClient.ListByReplicationProtectionContainers method.
+// for the ReplicationProtectionContainerMappingsClient.NewListByReplicationProtectionContainersPager method.
 type ReplicationProtectionContainerMappingsClientListByReplicationProtectionContainersOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationProtectionContainerMappingsClientListOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.List
+// ReplicationProtectionContainerMappingsClientListOptions contains the optional parameters for the ReplicationProtectionContainerMappingsClient.NewListPager
 // method.
 type ReplicationProtectionContainerMappingsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -9756,13 +9805,13 @@ type ReplicationProtectionContainersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationProtectionContainersClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationProtectionContainersClient.ListByReplicationFabrics
+// ReplicationProtectionContainersClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationProtectionContainersClient.NewListByReplicationFabricsPager
 // method.
 type ReplicationProtectionContainersClientListByReplicationFabricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationProtectionContainersClientListOptions contains the optional parameters for the ReplicationProtectionContainersClient.List
+// ReplicationProtectionContainersClientListOptions contains the optional parameters for the ReplicationProtectionContainersClient.NewListPager
 // method.
 type ReplicationProtectionContainersClientListOptions struct {
 	// placeholder for future optional parameters
@@ -9849,7 +9898,7 @@ type ReplicationProtectionIntentsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationProtectionIntentsClientListOptions contains the optional parameters for the ReplicationProtectionIntentsClient.List
+// ReplicationProtectionIntentsClientListOptions contains the optional parameters for the ReplicationProtectionIntentsClient.NewListPager
 // method.
 type ReplicationProtectionIntentsClientListOptions struct {
 	// The pagination token.
@@ -10026,7 +10075,7 @@ type ReplicationRecoveryPlansClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationRecoveryPlansClientListOptions contains the optional parameters for the ReplicationRecoveryPlansClient.List
+// ReplicationRecoveryPlansClientListOptions contains the optional parameters for the ReplicationRecoveryPlansClient.NewListPager
 // method.
 type ReplicationRecoveryPlansClientListOptions struct {
 	// placeholder for future optional parameters
@@ -10066,13 +10115,13 @@ type ReplicationRecoveryServicesProvidersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationRecoveryServicesProvidersClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationRecoveryServicesProvidersClient.ListByReplicationFabrics
+// ReplicationRecoveryServicesProvidersClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationRecoveryServicesProvidersClient.NewListByReplicationFabricsPager
 // method.
 type ReplicationRecoveryServicesProvidersClientListByReplicationFabricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationRecoveryServicesProvidersClientListOptions contains the optional parameters for the ReplicationRecoveryServicesProvidersClient.List
+// ReplicationRecoveryServicesProvidersClientListOptions contains the optional parameters for the ReplicationRecoveryServicesProvidersClient.NewListPager
 // method.
 type ReplicationRecoveryServicesProvidersClientListOptions struct {
 	// placeholder for future optional parameters
@@ -10099,12 +10148,12 @@ type ReplicationStorageClassificationMappingsClientGetOptions struct {
 }
 
 // ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsOptions contains the optional parameters
-// for the ReplicationStorageClassificationMappingsClient.ListByReplicationStorageClassifications method.
+// for the ReplicationStorageClassificationMappingsClient.NewListByReplicationStorageClassificationsPager method.
 type ReplicationStorageClassificationMappingsClientListByReplicationStorageClassificationsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationStorageClassificationMappingsClientListOptions contains the optional parameters for the ReplicationStorageClassificationMappingsClient.List
+// ReplicationStorageClassificationMappingsClientListOptions contains the optional parameters for the ReplicationStorageClassificationMappingsClient.NewListPager
 // method.
 type ReplicationStorageClassificationMappingsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -10116,13 +10165,13 @@ type ReplicationStorageClassificationsClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationStorageClassificationsClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationStorageClassificationsClient.ListByReplicationFabrics
+// ReplicationStorageClassificationsClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationStorageClassificationsClient.NewListByReplicationFabricsPager
 // method.
 type ReplicationStorageClassificationsClientListByReplicationFabricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationStorageClassificationsClientListOptions contains the optional parameters for the ReplicationStorageClassificationsClient.List
+// ReplicationStorageClassificationsClientListOptions contains the optional parameters for the ReplicationStorageClassificationsClient.NewListPager
 // method.
 type ReplicationStorageClassificationsClientListOptions struct {
 	// placeholder for future optional parameters
@@ -10152,7 +10201,8 @@ type ReplicationVaultSettingClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationVaultSettingClientListOptions contains the optional parameters for the ReplicationVaultSettingClient.List method.
+// ReplicationVaultSettingClientListOptions contains the optional parameters for the ReplicationVaultSettingClient.NewListPager
+// method.
 type ReplicationVaultSettingClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -10183,13 +10233,13 @@ type ReplicationvCentersClientGetOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationvCentersClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationvCentersClient.ListByReplicationFabrics
+// ReplicationvCentersClientListByReplicationFabricsOptions contains the optional parameters for the ReplicationvCentersClient.NewListByReplicationFabricsPager
 // method.
 type ReplicationvCentersClientListByReplicationFabricsOptions struct {
 	// placeholder for future optional parameters
 }
 
-// ReplicationvCentersClientListOptions contains the optional parameters for the ReplicationvCentersClient.List method.
+// ReplicationvCentersClientListOptions contains the optional parameters for the ReplicationvCentersClient.NewListPager method.
 type ReplicationvCentersClientListOptions struct {
 	// placeholder for future optional parameters
 }
@@ -10791,7 +10841,7 @@ type TargetComputeSizeProperties struct {
 	VCPUsAvailable *int32 `json:"vCPUsAvailable,omitempty" azure:"ro"`
 }
 
-// TargetComputeSizesClientListByReplicationProtectedItemsOptions contains the optional parameters for the TargetComputeSizesClient.ListByReplicationProtectedItems
+// TargetComputeSizesClientListByReplicationProtectedItemsOptions contains the optional parameters for the TargetComputeSizesClient.NewListByReplicationProtectedItemsPager
 // method.
 type TargetComputeSizesClientListByReplicationProtectedItemsOptions struct {
 	// placeholder for future optional parameters
@@ -11501,6 +11551,9 @@ type VMwareCbtEnableMigrationInput struct {
 	// REQUIRED; The ARM Id of the VM discovered in VMware.
 	VmwareMachineID *string `json:"vmwareMachineId,omitempty"`
 
+	// The confidential VM key vault Id for ADE installation.
+	ConfidentialVMKeyVaultID *string `json:"confidentialVmKeyVaultId,omitempty"`
+
 	// License type.
 	LicenseType *LicenseType `json:"licenseType,omitempty"`
 
@@ -11539,6 +11592,9 @@ type VMwareCbtEnableMigrationInput struct {
 
 	// The target VM name.
 	TargetVMName *string `json:"targetVmName,omitempty"`
+
+	// The target VM security profile.
+	TargetVMSecurityProfile *VMwareCbtSecurityProfileProperties `json:"targetVmSecurityProfile,omitempty"`
 
 	// The target VM size.
 	TargetVMSize *string `json:"targetVmSize,omitempty"`
@@ -11584,6 +11640,9 @@ type VMwareCbtMigrateInput struct {
 
 	// REQUIRED; A value indicating whether VM is to be shutdown.
 	PerformShutdown *string `json:"performShutdown,omitempty"`
+
+	// A value indicating the inplace OS Upgrade version.
+	OSUpgradeVersion *string `json:"osUpgradeVersion,omitempty"`
 }
 
 // GetMigrateProviderSpecificInput implements the MigrateProviderSpecificInputClassification interface for type VMwareCbtMigrateInput.
@@ -11597,6 +11656,9 @@ func (v *VMwareCbtMigrateInput) GetMigrateProviderSpecificInput() *MigrateProvid
 type VMwareCbtMigrationDetails struct {
 	// REQUIRED; Gets the instance type.
 	InstanceType *string `json:"instanceType,omitempty"`
+
+	// The confidential VM key vault Id for ADE installation.
+	ConfidentialVMKeyVaultID *string `json:"confidentialVmKeyVaultId,omitempty"`
 
 	// License Type of the VM to be used.
 	LicenseType *string `json:"licenseType,omitempty"`
@@ -11612,6 +11674,9 @@ type VMwareCbtMigrationDetails struct {
 
 	// The tags for the seed disks.
 	SeedDiskTags map[string]*string `json:"seedDiskTags,omitempty"`
+
+	// List of supported inplace OS Upgrade versions.
+	SupportedOSVersions []*string `json:"supportedOSVersions,omitempty"`
 
 	// The target availability set Id.
 	TargetAvailabilitySetID *string `json:"targetAvailabilitySetId,omitempty"`
@@ -11639,6 +11704,9 @@ type VMwareCbtMigrationDetails struct {
 
 	// Target VM name.
 	TargetVMName *string `json:"targetVmName,omitempty"`
+
+	// The target VM security profile.
+	TargetVMSecurityProfile *VMwareCbtSecurityProfileProperties `json:"targetVmSecurityProfile,omitempty"`
 
 	// The target VM size.
 	TargetVMSize *string `json:"targetVmSize,omitempty"`
@@ -11675,6 +11743,9 @@ type VMwareCbtMigrationDetails struct {
 
 	// READ-ONLY; The recovery point Id to which the VM was migrated.
 	MigrationRecoveryPointID *string `json:"migrationRecoveryPointId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the OS on the VM.
+	OSName *string `json:"osName,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the OS on the VM.
 	OSType *string `json:"osType,omitempty" azure:"ro"`
@@ -11865,6 +11936,9 @@ type VMwareCbtProtectionContainerMappingDetails struct {
 	// REQUIRED; Gets the class type. Overridden in derived classes.
 	InstanceType *string `json:"instanceType,omitempty"`
 
+	// The SKUs to be excluded.
+	ExcludedSKUs []*string `json:"excludedSkus,omitempty"`
+
 	// READ-ONLY; The target key vault ARM Id.
 	KeyVaultID *string `json:"keyVaultId,omitempty" azure:"ro"`
 
@@ -11928,6 +12002,24 @@ func (v *VMwareCbtResyncInput) GetResyncProviderSpecificInput() *ResyncProviderS
 	}
 }
 
+// VMwareCbtSecurityProfileProperties - VMwareCbt security profile input.
+type VMwareCbtSecurityProfileProperties struct {
+	// A value indicating whether confidential compute encryption to be enabled.
+	IsTargetVMConfidentialEncryptionEnabled *string `json:"isTargetVmConfidentialEncryptionEnabled,omitempty"`
+
+	// A value indicating whether integrity monitoring to be enabled.
+	IsTargetVMIntegrityMonitoringEnabled *string `json:"isTargetVmIntegrityMonitoringEnabled,omitempty"`
+
+	// A value indicating whether secure boot to be enabled.
+	IsTargetVMSecureBootEnabled *string `json:"isTargetVmSecureBootEnabled,omitempty"`
+
+	// A value indicating whether trusted platform module to be enabled.
+	IsTargetVMTpmEnabled *string `json:"isTargetVmTpmEnabled,omitempty"`
+
+	// The target VM security type.
+	TargetVMSecurityType *SecurityType `json:"targetVmSecurityType,omitempty"`
+}
+
 // VMwareCbtTestMigrateInput - VMwareCbt specific test migrate input.
 type VMwareCbtTestMigrateInput struct {
 	// REQUIRED; The class type.
@@ -11938,6 +12030,9 @@ type VMwareCbtTestMigrateInput struct {
 
 	// REQUIRED; The recovery point Id.
 	RecoveryPointID *string `json:"recoveryPointId,omitempty"`
+
+	// A value indicating the inplace OS Upgrade version.
+	OSUpgradeVersion *string `json:"osUpgradeVersion,omitempty"`
 
 	// The list of NIC details.
 	VMNics []*VMwareCbtNicInput `json:"vmNics,omitempty"`
