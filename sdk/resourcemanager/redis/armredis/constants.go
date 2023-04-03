@@ -11,8 +11,72 @@ package armredis
 
 const (
 	moduleName    = "armredis"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v2.3.0"
 )
+
+// AccessPolicyAssignmentProvisioningState - Provisioning state of an access policy assignment set
+type AccessPolicyAssignmentProvisioningState string
+
+const (
+	AccessPolicyAssignmentProvisioningStateCanceled  AccessPolicyAssignmentProvisioningState = "Canceled"
+	AccessPolicyAssignmentProvisioningStateDeleted   AccessPolicyAssignmentProvisioningState = "Deleted"
+	AccessPolicyAssignmentProvisioningStateDeleting  AccessPolicyAssignmentProvisioningState = "Deleting"
+	AccessPolicyAssignmentProvisioningStateFailed    AccessPolicyAssignmentProvisioningState = "Failed"
+	AccessPolicyAssignmentProvisioningStateSucceeded AccessPolicyAssignmentProvisioningState = "Succeeded"
+	AccessPolicyAssignmentProvisioningStateUpdating  AccessPolicyAssignmentProvisioningState = "Updating"
+)
+
+// PossibleAccessPolicyAssignmentProvisioningStateValues returns the possible values for the AccessPolicyAssignmentProvisioningState const type.
+func PossibleAccessPolicyAssignmentProvisioningStateValues() []AccessPolicyAssignmentProvisioningState {
+	return []AccessPolicyAssignmentProvisioningState{
+		AccessPolicyAssignmentProvisioningStateCanceled,
+		AccessPolicyAssignmentProvisioningStateDeleted,
+		AccessPolicyAssignmentProvisioningStateDeleting,
+		AccessPolicyAssignmentProvisioningStateFailed,
+		AccessPolicyAssignmentProvisioningStateSucceeded,
+		AccessPolicyAssignmentProvisioningStateUpdating,
+	}
+}
+
+// AccessPolicyProvisioningState - Provisioning state of access policy
+type AccessPolicyProvisioningState string
+
+const (
+	AccessPolicyProvisioningStateCanceled  AccessPolicyProvisioningState = "Canceled"
+	AccessPolicyProvisioningStateDeleted   AccessPolicyProvisioningState = "Deleted"
+	AccessPolicyProvisioningStateDeleting  AccessPolicyProvisioningState = "Deleting"
+	AccessPolicyProvisioningStateFailed    AccessPolicyProvisioningState = "Failed"
+	AccessPolicyProvisioningStateSucceeded AccessPolicyProvisioningState = "Succeeded"
+	AccessPolicyProvisioningStateUpdating  AccessPolicyProvisioningState = "Updating"
+)
+
+// PossibleAccessPolicyProvisioningStateValues returns the possible values for the AccessPolicyProvisioningState const type.
+func PossibleAccessPolicyProvisioningStateValues() []AccessPolicyProvisioningState {
+	return []AccessPolicyProvisioningState{
+		AccessPolicyProvisioningStateCanceled,
+		AccessPolicyProvisioningStateDeleted,
+		AccessPolicyProvisioningStateDeleting,
+		AccessPolicyProvisioningStateFailed,
+		AccessPolicyProvisioningStateSucceeded,
+		AccessPolicyProvisioningStateUpdating,
+	}
+}
+
+// AccessPolicyType - Built-In or Custom access policy
+type AccessPolicyType string
+
+const (
+	AccessPolicyTypeBuiltIn AccessPolicyType = "BuiltIn"
+	AccessPolicyTypeCustom  AccessPolicyType = "Custom"
+)
+
+// PossibleAccessPolicyTypeValues returns the possible values for the AccessPolicyType const type.
+func PossibleAccessPolicyTypeValues() []AccessPolicyType {
+	return []AccessPolicyType{
+		AccessPolicyTypeBuiltIn,
+		AccessPolicyTypeCustom,
+	}
+}
 
 // DayOfWeek - Day of the week when a cache can be patched.
 type DayOfWeek string
