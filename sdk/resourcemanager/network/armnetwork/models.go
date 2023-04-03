@@ -13071,6 +13071,10 @@ type SecurityRulePropertiesFormat struct {
 	// REQUIRED; The direction of the rule. The direction specifies if rule will be evaluated on incoming or outgoing traffic.
 	Direction *SecurityRuleDirection `json:"direction,omitempty"`
 
+	// REQUIRED; The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each
+	// rule in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32 `json:"priority,omitempty"`
+
 	// REQUIRED; Network protocol this rule applies to.
 	Protocol *SecurityRuleProtocol `json:"protocol,omitempty"`
 
@@ -13093,10 +13097,6 @@ type SecurityRulePropertiesFormat struct {
 
 	// The destination port ranges.
 	DestinationPortRanges []*string `json:"destinationPortRanges,omitempty"`
-
-	// The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the
-	// collection. The lower the priority number, the higher the priority of the rule.
-	Priority *int32 `json:"priority,omitempty"`
 
 	// The CIDR or source IP range. Asterisk '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork',
 	// 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress
@@ -13703,7 +13703,7 @@ type SubnetPropertiesFormat struct {
 	AddressPrefixes []*string `json:"addressPrefixes,omitempty"`
 
 	// Application gateway IP configurations of virtual network resource.
-	ApplicationGatewayIPConfigurations []*ApplicationGatewayIPConfiguration `json:"applicationGatewayIpConfigurations,omitempty"`
+	ApplicationGatewayIPConfigurations []*ApplicationGatewayIPConfiguration `json:"applicationGatewayIPConfigurations,omitempty"`
 
 	// An array of references to the delegations on the subnet.
 	Delegations []*Delegation `json:"delegations,omitempty"`
@@ -16733,7 +16733,8 @@ type VirtualNetworkPropertiesFormat struct {
 	// plan associated with the resource.
 	EnableDdosProtection *bool `json:"enableDdosProtection,omitempty"`
 
-	// Indicates if VM protection is enabled for all the subnets in the virtual network.
+	// Indicates if VM protection is enabled for all the subnets in the virtual network. The enableVmProtection property is deprecated.
+	// You can leverage the enableDdoSProtection property.
 	EnableVMProtection *bool `json:"enableVmProtection,omitempty"`
 
 	// Indicates if encryption is enabled on virtual network and if VM without encryption is allowed in encrypted VNet.
