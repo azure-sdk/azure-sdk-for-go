@@ -48,7 +48,7 @@ func NewBatchDeploymentsClient(subscriptionID string, credential azcore.TokenCre
 // BeginCreateOrUpdate - Creates/updates a batch inference deployment (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - endpointName - Inference endpoint name
@@ -62,7 +62,9 @@ func (client *BatchDeploymentsClient) BeginCreateOrUpdate(ctx context.Context, r
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[BatchDeploymentsClientCreateOrUpdateResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BatchDeploymentsClientCreateOrUpdateResponse]{
+			FinalStateVia: runtime.FinalStateViaOriginalURI,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[BatchDeploymentsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
@@ -71,7 +73,7 @@ func (client *BatchDeploymentsClient) BeginCreateOrUpdate(ctx context.Context, r
 // CreateOrUpdate - Creates/updates a batch inference deployment (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01-preview
 func (client *BatchDeploymentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, deploymentName string, body BatchDeployment, options *BatchDeploymentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, workspaceName, endpointName, deploymentName, body, options)
 	if err != nil {
@@ -115,7 +117,7 @@ func (client *BatchDeploymentsClient) createOrUpdateCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
@@ -124,7 +126,7 @@ func (client *BatchDeploymentsClient) createOrUpdateCreateRequest(ctx context.Co
 // BeginDelete - Delete Batch Inference deployment (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - endpointName - Endpoint name
@@ -137,7 +139,9 @@ func (client *BatchDeploymentsClient) BeginDelete(ctx context.Context, resourceG
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[BatchDeploymentsClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[BatchDeploymentsClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[BatchDeploymentsClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
@@ -146,7 +150,7 @@ func (client *BatchDeploymentsClient) BeginDelete(ctx context.Context, resourceG
 // Delete - Delete Batch Inference deployment (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01-preview
 func (client *BatchDeploymentsClient) deleteOperation(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, deploymentName string, options *BatchDeploymentsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, workspaceName, endpointName, deploymentName, options)
 	if err != nil {
@@ -190,7 +194,7 @@ func (client *BatchDeploymentsClient) deleteCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -199,7 +203,7 @@ func (client *BatchDeploymentsClient) deleteCreateRequest(ctx context.Context, r
 // Get - Gets a batch inference deployment by id.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - endpointName - Endpoint name
@@ -248,7 +252,7 @@ func (client *BatchDeploymentsClient) getCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -265,7 +269,7 @@ func (client *BatchDeploymentsClient) getHandleResponse(resp *http.Response) (Ba
 
 // NewListPager - Lists Batch inference deployments in the workspace.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - endpointName - Endpoint name
@@ -323,7 +327,7 @@ func (client *BatchDeploymentsClient) listCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	if options != nil && options.OrderBy != nil {
 		reqQP.Set("$orderBy", *options.OrderBy)
 	}
@@ -350,7 +354,7 @@ func (client *BatchDeploymentsClient) listHandleResponse(resp *http.Response) (B
 // BeginUpdate - Update a batch inference deployment (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - Name of Azure Machine Learning workspace.
 //   - endpointName - Inference endpoint name
@@ -373,7 +377,7 @@ func (client *BatchDeploymentsClient) BeginUpdate(ctx context.Context, resourceG
 // Update - Update a batch inference deployment (asynchronous).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-02-01-preview
 func (client *BatchDeploymentsClient) update(ctx context.Context, resourceGroupName string, workspaceName string, endpointName string, deploymentName string, body PartialBatchDeploymentPartialMinimalTrackedResourceWithProperties, options *BatchDeploymentsClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, workspaceName, endpointName, deploymentName, body, options)
 	if err != nil {
@@ -417,7 +421,7 @@ func (client *BatchDeploymentsClient) updateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, body)
