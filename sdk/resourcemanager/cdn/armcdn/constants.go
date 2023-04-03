@@ -11,7 +11,7 @@ package armcdn
 
 const (
 	moduleName    = "armcdn"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // AFDEndpointProtocols - Supported protocols for the customer's endpoint.
@@ -217,6 +217,22 @@ const (
 func PossibleCacheTypeValues() []CacheType {
 	return []CacheType{
 		CacheTypeAll,
+	}
+}
+
+// CanMigrateDefaultSKU - Recommended sku for the migration
+type CanMigrateDefaultSKU string
+
+const (
+	CanMigrateDefaultSKUPremiumAzureFrontDoor  CanMigrateDefaultSKU = "Premium_AzureFrontDoor"
+	CanMigrateDefaultSKUStandardAzureFrontDoor CanMigrateDefaultSKU = "Standard_AzureFrontDoor"
+)
+
+// PossibleCanMigrateDefaultSKUValues returns the possible values for the CanMigrateDefaultSKU const type.
+func PossibleCanMigrateDefaultSKUValues() []CanMigrateDefaultSKU {
+	return []CanMigrateDefaultSKU{
+		CanMigrateDefaultSKUPremiumAzureFrontDoor,
+		CanMigrateDefaultSKUStandardAzureFrontDoor,
 	}
 }
 
@@ -464,9 +480,11 @@ type DeliveryRuleAction string
 const (
 	DeliveryRuleActionCacheExpiration            DeliveryRuleAction = "CacheExpiration"
 	DeliveryRuleActionCacheKeyQueryString        DeliveryRuleAction = "CacheKeyQueryString"
+	DeliveryRuleActionCustomErrorPageURL         DeliveryRuleAction = "CustomErrorPageUrl"
 	DeliveryRuleActionModifyRequestHeader        DeliveryRuleAction = "ModifyRequestHeader"
 	DeliveryRuleActionModifyResponseHeader       DeliveryRuleAction = "ModifyResponseHeader"
 	DeliveryRuleActionOriginGroupOverride        DeliveryRuleAction = "OriginGroupOverride"
+	DeliveryRuleActionOverrideResponseStatusCode DeliveryRuleAction = "OverrideResponseStatusCode"
 	DeliveryRuleActionRouteConfigurationOverride DeliveryRuleAction = "RouteConfigurationOverride"
 	DeliveryRuleActionURLRedirect                DeliveryRuleAction = "UrlRedirect"
 	DeliveryRuleActionURLRewrite                 DeliveryRuleAction = "UrlRewrite"
@@ -478,13 +496,54 @@ func PossibleDeliveryRuleActionValues() []DeliveryRuleAction {
 	return []DeliveryRuleAction{
 		DeliveryRuleActionCacheExpiration,
 		DeliveryRuleActionCacheKeyQueryString,
+		DeliveryRuleActionCustomErrorPageURL,
 		DeliveryRuleActionModifyRequestHeader,
 		DeliveryRuleActionModifyResponseHeader,
 		DeliveryRuleActionOriginGroupOverride,
+		DeliveryRuleActionOverrideResponseStatusCode,
 		DeliveryRuleActionRouteConfigurationOverride,
 		DeliveryRuleActionURLRedirect,
 		DeliveryRuleActionURLRewrite,
 		DeliveryRuleActionURLSigning,
+	}
+}
+
+type DeliveryRuleCustomErrorPageActionParameters string
+
+const (
+	DeliveryRuleCustomErrorPageActionParametersDeliveryRuleCustomErrorPageActionParameters DeliveryRuleCustomErrorPageActionParameters = "DeliveryRuleCustomErrorPageActionParameters"
+)
+
+// PossibleDeliveryRuleCustomErrorPageActionParametersValues returns the possible values for the DeliveryRuleCustomErrorPageActionParameters const type.
+func PossibleDeliveryRuleCustomErrorPageActionParametersValues() []DeliveryRuleCustomErrorPageActionParameters {
+	return []DeliveryRuleCustomErrorPageActionParameters{
+		DeliveryRuleCustomErrorPageActionParametersDeliveryRuleCustomErrorPageActionParameters,
+	}
+}
+
+type DeliveryRuleOverrideResponseStatusCodeActionParameters string
+
+const (
+	DeliveryRuleOverrideResponseStatusCodeActionParametersDeliveryRuleOverrideResponseStatusCodeActionParameters DeliveryRuleOverrideResponseStatusCodeActionParameters = "DeliveryRuleOverrideResponseStatusCodeActionParameters"
+)
+
+// PossibleDeliveryRuleOverrideResponseStatusCodeActionParametersValues returns the possible values for the DeliveryRuleOverrideResponseStatusCodeActionParameters const type.
+func PossibleDeliveryRuleOverrideResponseStatusCodeActionParametersValues() []DeliveryRuleOverrideResponseStatusCodeActionParameters {
+	return []DeliveryRuleOverrideResponseStatusCodeActionParameters{
+		DeliveryRuleOverrideResponseStatusCodeActionParametersDeliveryRuleOverrideResponseStatusCodeActionParameters,
+	}
+}
+
+type DeliveryRuleResponseStatusCodeConditionParameters string
+
+const (
+	DeliveryRuleResponseStatusCodeConditionParametersDeliveryRuleResponseStatusCodeConditionParameters DeliveryRuleResponseStatusCodeConditionParameters = "DeliveryRuleResponseStatusCodeConditionParameters"
+)
+
+// PossibleDeliveryRuleResponseStatusCodeConditionParametersValues returns the possible values for the DeliveryRuleResponseStatusCodeConditionParameters const type.
+func PossibleDeliveryRuleResponseStatusCodeConditionParametersValues() []DeliveryRuleResponseStatusCodeConditionParameters {
+	return []DeliveryRuleResponseStatusCodeConditionParameters{
+		DeliveryRuleResponseStatusCodeConditionParametersDeliveryRuleResponseStatusCodeConditionParameters,
 	}
 }
 
@@ -1015,6 +1074,26 @@ func PossibleManagedRuleEnabledStateValues() []ManagedRuleEnabledState {
 	}
 }
 
+// ManagedServiceIdentityType - Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+type ManagedServiceIdentityType string
+
+const (
+	ManagedServiceIdentityTypeNone                       ManagedServiceIdentityType = "None"
+	ManagedServiceIdentityTypeSystemAssigned             ManagedServiceIdentityType = "SystemAssigned"
+	ManagedServiceIdentityTypeSystemAssignedUserAssigned ManagedServiceIdentityType = "SystemAssigned, UserAssigned"
+	ManagedServiceIdentityTypeUserAssigned               ManagedServiceIdentityType = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeValues returns the possible values for the ManagedServiceIdentityType const type.
+func PossibleManagedServiceIdentityTypeValues() []ManagedServiceIdentityType {
+	return []ManagedServiceIdentityType{
+		ManagedServiceIdentityTypeNone,
+		ManagedServiceIdentityTypeSystemAssigned,
+		ManagedServiceIdentityTypeSystemAssignedUserAssigned,
+		ManagedServiceIdentityTypeUserAssigned,
+	}
+}
+
 // MatchProcessingBehavior - If this rule is a match should the rules engine continue running the remaining rules or stop.
 // If not present, defaults to Continue.
 type MatchProcessingBehavior string
@@ -1036,25 +1115,26 @@ func PossibleMatchProcessingBehaviorValues() []MatchProcessingBehavior {
 type MatchVariable string
 
 const (
-	MatchVariableClientPort       MatchVariable = "ClientPort"
-	MatchVariableCookies          MatchVariable = "Cookies"
-	MatchVariableHTTPVersion      MatchVariable = "HttpVersion"
-	MatchVariableHostName         MatchVariable = "HostName"
-	MatchVariableIsDevice         MatchVariable = "IsDevice"
-	MatchVariablePostArgs         MatchVariable = "PostArgs"
-	MatchVariableQueryString      MatchVariable = "QueryString"
-	MatchVariableRemoteAddress    MatchVariable = "RemoteAddress"
-	MatchVariableRequestBody      MatchVariable = "RequestBody"
-	MatchVariableRequestHeader    MatchVariable = "RequestHeader"
-	MatchVariableRequestMethod    MatchVariable = "RequestMethod"
-	MatchVariableRequestScheme    MatchVariable = "RequestScheme"
-	MatchVariableRequestURI       MatchVariable = "RequestUri"
-	MatchVariableSSLProtocol      MatchVariable = "SslProtocol"
-	MatchVariableServerPort       MatchVariable = "ServerPort"
-	MatchVariableSocketAddr       MatchVariable = "SocketAddr"
-	MatchVariableURLFileExtension MatchVariable = "UrlFileExtension"
-	MatchVariableURLFileName      MatchVariable = "UrlFileName"
-	MatchVariableURLPath          MatchVariable = "UrlPath"
+	MatchVariableClientPort         MatchVariable = "ClientPort"
+	MatchVariableCookies            MatchVariable = "Cookies"
+	MatchVariableHTTPVersion        MatchVariable = "HttpVersion"
+	MatchVariableHostName           MatchVariable = "HostName"
+	MatchVariableIsDevice           MatchVariable = "IsDevice"
+	MatchVariablePostArgs           MatchVariable = "PostArgs"
+	MatchVariableQueryString        MatchVariable = "QueryString"
+	MatchVariableRemoteAddress      MatchVariable = "RemoteAddress"
+	MatchVariableRequestBody        MatchVariable = "RequestBody"
+	MatchVariableRequestHeader      MatchVariable = "RequestHeader"
+	MatchVariableRequestMethod      MatchVariable = "RequestMethod"
+	MatchVariableRequestScheme      MatchVariable = "RequestScheme"
+	MatchVariableRequestURI         MatchVariable = "RequestUri"
+	MatchVariableResponseStatusCode MatchVariable = "ResponseStatusCode"
+	MatchVariableSSLProtocol        MatchVariable = "SslProtocol"
+	MatchVariableServerPort         MatchVariable = "ServerPort"
+	MatchVariableSocketAddr         MatchVariable = "SocketAddr"
+	MatchVariableURLFileExtension   MatchVariable = "UrlFileExtension"
+	MatchVariableURLFileName        MatchVariable = "UrlFileName"
+	MatchVariableURLPath            MatchVariable = "UrlPath"
 )
 
 // PossibleMatchVariableValues returns the possible values for the MatchVariable const type.
@@ -1073,6 +1153,7 @@ func PossibleMatchVariableValues() []MatchVariable {
 		MatchVariableRequestMethod,
 		MatchVariableRequestScheme,
 		MatchVariableRequestURI,
+		MatchVariableResponseStatusCode,
 		MatchVariableSSLProtocol,
 		MatchVariableServerPort,
 		MatchVariableSocketAddr,
@@ -1082,39 +1163,39 @@ func PossibleMatchVariableValues() []MatchVariable {
 	}
 }
 
-type MetricsResponseGranularity string
+type MetricsGranularity string
 
 const (
-	MetricsResponseGranularityP1D  MetricsResponseGranularity = "P1D"
-	MetricsResponseGranularityPT1H MetricsResponseGranularity = "PT1H"
-	MetricsResponseGranularityPT5M MetricsResponseGranularity = "PT5M"
+	MetricsGranularityP1D  MetricsGranularity = "P1D"
+	MetricsGranularityPT1H MetricsGranularity = "PT1H"
+	MetricsGranularityPT5M MetricsGranularity = "PT5M"
 )
 
-// PossibleMetricsResponseGranularityValues returns the possible values for the MetricsResponseGranularity const type.
-func PossibleMetricsResponseGranularityValues() []MetricsResponseGranularity {
-	return []MetricsResponseGranularity{
-		MetricsResponseGranularityP1D,
-		MetricsResponseGranularityPT1H,
-		MetricsResponseGranularityPT5M,
+// PossibleMetricsGranularityValues returns the possible values for the MetricsGranularity const type.
+func PossibleMetricsGranularityValues() []MetricsGranularity {
+	return []MetricsGranularity{
+		MetricsGranularityP1D,
+		MetricsGranularityPT1H,
+		MetricsGranularityPT5M,
 	}
 }
 
-type MetricsResponseSeriesItemUnit string
+type MetricsSeriesUnit string
 
 const (
-	MetricsResponseSeriesItemUnitBitsPerSecond MetricsResponseSeriesItemUnit = "bitsPerSecond"
-	MetricsResponseSeriesItemUnitBytes         MetricsResponseSeriesItemUnit = "bytes"
-	MetricsResponseSeriesItemUnitCount         MetricsResponseSeriesItemUnit = "count"
-	MetricsResponseSeriesItemUnitMilliSeconds  MetricsResponseSeriesItemUnit = "milliSeconds"
+	MetricsSeriesUnitBitsPerSecond MetricsSeriesUnit = "bitsPerSecond"
+	MetricsSeriesUnitBytes         MetricsSeriesUnit = "bytes"
+	MetricsSeriesUnitCount         MetricsSeriesUnit = "count"
+	MetricsSeriesUnitMilliSeconds  MetricsSeriesUnit = "milliSeconds"
 )
 
-// PossibleMetricsResponseSeriesItemUnitValues returns the possible values for the MetricsResponseSeriesItemUnit const type.
-func PossibleMetricsResponseSeriesItemUnitValues() []MetricsResponseSeriesItemUnit {
-	return []MetricsResponseSeriesItemUnit{
-		MetricsResponseSeriesItemUnitBitsPerSecond,
-		MetricsResponseSeriesItemUnitBytes,
-		MetricsResponseSeriesItemUnitCount,
-		MetricsResponseSeriesItemUnitMilliSeconds,
+// PossibleMetricsSeriesUnitValues returns the possible values for the MetricsSeriesUnit const type.
+func PossibleMetricsSeriesUnitValues() []MetricsSeriesUnit {
+	return []MetricsSeriesUnit{
+		MetricsSeriesUnitBitsPerSecond,
+		MetricsSeriesUnitBytes,
+		MetricsSeriesUnitCount,
+		MetricsSeriesUnitMilliSeconds,
 	}
 }
 
@@ -1496,19 +1577,29 @@ func PossibleProfileProvisioningStateValues() []ProfileProvisioningState {
 type ProfileResourceState string
 
 const (
-	ProfileResourceStateActive   ProfileResourceState = "Active"
-	ProfileResourceStateCreating ProfileResourceState = "Creating"
-	ProfileResourceStateDeleting ProfileResourceState = "Deleting"
-	ProfileResourceStateDisabled ProfileResourceState = "Disabled"
+	ProfileResourceStateAbortingMigration      ProfileResourceState = "AbortingMigration"
+	ProfileResourceStateActive                 ProfileResourceState = "Active"
+	ProfileResourceStateCommittingMigration    ProfileResourceState = "CommittingMigration"
+	ProfileResourceStateCreating               ProfileResourceState = "Creating"
+	ProfileResourceStateDeleting               ProfileResourceState = "Deleting"
+	ProfileResourceStateDisabled               ProfileResourceState = "Disabled"
+	ProfileResourceStateMigrated               ProfileResourceState = "Migrated"
+	ProfileResourceStateMigrating              ProfileResourceState = "Migrating"
+	ProfileResourceStatePendingMigrationCommit ProfileResourceState = "PendingMigrationCommit"
 )
 
 // PossibleProfileResourceStateValues returns the possible values for the ProfileResourceState const type.
 func PossibleProfileResourceStateValues() []ProfileResourceState {
 	return []ProfileResourceState{
+		ProfileResourceStateAbortingMigration,
 		ProfileResourceStateActive,
+		ProfileResourceStateCommittingMigration,
 		ProfileResourceStateCreating,
 		ProfileResourceStateDeleting,
 		ProfileResourceStateDisabled,
+		ProfileResourceStateMigrated,
+		ProfileResourceStateMigrating,
+		ProfileResourceStatePendingMigrationCommit,
 	}
 }
 
@@ -2007,6 +2098,22 @@ func PossibleRuleIsCompressionEnabledValues() []RuleIsCompressionEnabled {
 	return []RuleIsCompressionEnabled{
 		RuleIsCompressionEnabledDisabled,
 		RuleIsCompressionEnabledEnabled,
+	}
+}
+
+// RuleIsNegativeCachingEnabled - Indicates whether negative caching is enabled.
+type RuleIsNegativeCachingEnabled string
+
+const (
+	RuleIsNegativeCachingEnabledDisabled RuleIsNegativeCachingEnabled = "Disabled"
+	RuleIsNegativeCachingEnabledEnabled  RuleIsNegativeCachingEnabled = "Enabled"
+)
+
+// PossibleRuleIsNegativeCachingEnabledValues returns the possible values for the RuleIsNegativeCachingEnabled const type.
+func PossibleRuleIsNegativeCachingEnabledValues() []RuleIsNegativeCachingEnabled {
+	return []RuleIsNegativeCachingEnabled{
+		RuleIsNegativeCachingEnabledDisabled,
+		RuleIsNegativeCachingEnabledEnabled,
 	}
 }
 
@@ -2597,33 +2704,33 @@ func PossibleWafMetricValues() []WafMetric {
 	}
 }
 
-type WafMetricsResponseGranularity string
+type WafMetricsGranularity string
 
 const (
-	WafMetricsResponseGranularityP1D  WafMetricsResponseGranularity = "P1D"
-	WafMetricsResponseGranularityPT1H WafMetricsResponseGranularity = "PT1H"
-	WafMetricsResponseGranularityPT5M WafMetricsResponseGranularity = "PT5M"
+	WafMetricsGranularityP1D  WafMetricsGranularity = "P1D"
+	WafMetricsGranularityPT1H WafMetricsGranularity = "PT1H"
+	WafMetricsGranularityPT5M WafMetricsGranularity = "PT5M"
 )
 
-// PossibleWafMetricsResponseGranularityValues returns the possible values for the WafMetricsResponseGranularity const type.
-func PossibleWafMetricsResponseGranularityValues() []WafMetricsResponseGranularity {
-	return []WafMetricsResponseGranularity{
-		WafMetricsResponseGranularityP1D,
-		WafMetricsResponseGranularityPT1H,
-		WafMetricsResponseGranularityPT5M,
+// PossibleWafMetricsGranularityValues returns the possible values for the WafMetricsGranularity const type.
+func PossibleWafMetricsGranularityValues() []WafMetricsGranularity {
+	return []WafMetricsGranularity{
+		WafMetricsGranularityP1D,
+		WafMetricsGranularityPT1H,
+		WafMetricsGranularityPT5M,
 	}
 }
 
-type WafMetricsResponseSeriesItemUnit string
+type WafMetricsSeriesUnit string
 
 const (
-	WafMetricsResponseSeriesItemUnitCount WafMetricsResponseSeriesItemUnit = "count"
+	WafMetricsSeriesUnitCount WafMetricsSeriesUnit = "count"
 )
 
-// PossibleWafMetricsResponseSeriesItemUnitValues returns the possible values for the WafMetricsResponseSeriesItemUnit const type.
-func PossibleWafMetricsResponseSeriesItemUnitValues() []WafMetricsResponseSeriesItemUnit {
-	return []WafMetricsResponseSeriesItemUnit{
-		WafMetricsResponseSeriesItemUnitCount,
+// PossibleWafMetricsSeriesUnitValues returns the possible values for the WafMetricsSeriesUnit const type.
+func PossibleWafMetricsSeriesUnitValues() []WafMetricsSeriesUnit {
+	return []WafMetricsSeriesUnit{
+		WafMetricsSeriesUnitCount,
 	}
 }
 

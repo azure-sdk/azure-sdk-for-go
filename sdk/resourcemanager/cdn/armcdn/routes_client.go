@@ -48,7 +48,7 @@ func NewRoutesClient(subscriptionID string, credential azcore.TokenCredential, o
 // and AzureFrontDoor endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -74,7 +74,7 @@ func (client *RoutesClient) BeginCreate(ctx context.Context, resourceGroupName s
 // AzureFrontDoor endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-02-01-preview
 func (client *RoutesClient) create(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, route Route, options *RoutesClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, profileName, endpointName, routeName, route, options)
 	if err != nil {
@@ -118,7 +118,7 @@ func (client *RoutesClient) createCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, route)
@@ -128,7 +128,7 @@ func (client *RoutesClient) createCreateRequest(ctx context.Context, resourceGro
 // profile, and AzureFrontDoor endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -153,7 +153,7 @@ func (client *RoutesClient) BeginDelete(ctx context.Context, resourceGroupName s
 // and AzureFrontDoor endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-02-01-preview
 func (client *RoutesClient) deleteOperation(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *RoutesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, profileName, endpointName, routeName, options)
 	if err != nil {
@@ -197,7 +197,7 @@ func (client *RoutesClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -207,7 +207,7 @@ func (client *RoutesClient) deleteCreateRequest(ctx context.Context, resourceGro
 // AzureFrontDoor endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -257,7 +257,7 @@ func (client *RoutesClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -274,7 +274,7 @@ func (client *RoutesClient) getHandleResponse(resp *http.Response) (RoutesClient
 
 // NewListByEndpointPager - Lists all of the existing origins within a profile.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -333,7 +333,7 @@ func (client *RoutesClient) listByEndpointCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -352,7 +352,7 @@ func (client *RoutesClient) listByEndpointHandleResponse(resp *http.Response) (R
 // profile, and AzureFrontDoor endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-02-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
@@ -378,7 +378,7 @@ func (client *RoutesClient) BeginUpdate(ctx context.Context, resourceGroupName s
 // and AzureFrontDoor endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-02-01-preview
 func (client *RoutesClient) update(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, routeUpdateProperties RouteUpdateParameters, options *RoutesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, profileName, endpointName, routeName, routeUpdateProperties, options)
 	if err != nil {
@@ -422,7 +422,7 @@ func (client *RoutesClient) updateCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-02-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, routeUpdateProperties)
