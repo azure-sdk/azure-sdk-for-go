@@ -1,5 +1,14 @@
 # Release History
 
+## 4.0.0 (2023-04-03)
+### Features Added
+
+- Type of `AzureBlobFSReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- Type of `AzureDataLakeStoreReadSettings.EnablePartitionDiscovery` has been changed from `*bool` to `any`
+- New struct `IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem`
+- New field `CustomProperties` in struct `IntegrationRuntimeDataFlowProperties`
+
+
 ## 3.2.0 (2023-03-24)
 ### Features Added
 

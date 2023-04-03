@@ -3448,7 +3448,7 @@ func (a AzureBlobFSReadSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "deleteFilesAfterCompletion", &a.DeleteFilesAfterCompletion)
 	populate(objectMap, "disableMetricsCollection", &a.DisableMetricsCollection)
-	populate(objectMap, "enablePartitionDiscovery", a.EnablePartitionDiscovery)
+	populate(objectMap, "enablePartitionDiscovery", &a.EnablePartitionDiscovery)
 	populate(objectMap, "fileListPath", &a.FileListPath)
 	populate(objectMap, "maxConcurrentConnections", &a.MaxConcurrentConnections)
 	populate(objectMap, "modifiedDatetimeEnd", &a.ModifiedDatetimeEnd)
@@ -4947,7 +4947,7 @@ func (a AzureDataLakeStoreReadSettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "deleteFilesAfterCompletion", &a.DeleteFilesAfterCompletion)
 	populate(objectMap, "disableMetricsCollection", &a.DisableMetricsCollection)
-	populate(objectMap, "enablePartitionDiscovery", a.EnablePartitionDiscovery)
+	populate(objectMap, "enablePartitionDiscovery", &a.EnablePartitionDiscovery)
 	populate(objectMap, "fileListPath", &a.FileListPath)
 	populate(objectMap, "listAfter", &a.ListAfter)
 	populate(objectMap, "listBefore", &a.ListBefore)
@@ -26208,6 +26208,7 @@ func (i IntegrationRuntimeDataFlowProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "cleanup", i.Cleanup)
 	populate(objectMap, "computeType", i.ComputeType)
 	populate(objectMap, "coreCount", i.CoreCount)
+	populate(objectMap, "customProperties", i.CustomProperties)
 	populate(objectMap, "timeToLive", i.TimeToLive)
 	if i.AdditionalProperties != nil {
 		for key, val := range i.AdditionalProperties {
@@ -26235,6 +26236,9 @@ func (i *IntegrationRuntimeDataFlowProperties) UnmarshalJSON(data []byte) error 
 		case "coreCount":
 			err = unpopulate(val, "CoreCount", &i.CoreCount)
 			delete(rawMsg, key)
+		case "customProperties":
+			err = unpopulate(val, "CustomProperties", &i.CustomProperties)
+			delete(rawMsg, key)
 		case "timeToLive":
 			err = unpopulate(val, "TimeToLive", &i.TimeToLive)
 			delete(rawMsg, key)
@@ -26247,6 +26251,37 @@ func (i *IntegrationRuntimeDataFlowProperties) UnmarshalJSON(data []byte) error 
 				err = json.Unmarshal(val, &aux)
 				i.AdditionalProperties[key] = aux
 			}
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", i, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem.
+func (i IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "name", i.Name)
+	populate(objectMap, "value", i.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem.
+func (i *IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", i, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "name":
+			err = unpopulate(val, "Name", &i.Name)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &i.Value)
 			delete(rawMsg, key)
 		}
 		if err != nil {

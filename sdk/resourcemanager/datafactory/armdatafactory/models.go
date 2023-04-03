@@ -1966,8 +1966,8 @@ type AzureBlobFSReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any `json:"disableMetricsCollection,omitempty"`
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool `json:"enablePartitionDiscovery,omitempty"`
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any `json:"enablePartitionDiscovery,omitempty"`
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -2014,7 +2014,7 @@ type AzureBlobFSSink struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
 
-	// The type of copy behavior for copy sink.
+	// The type of copy behavior for copy sink. Type: string (or Expression with resultType string).
 	CopyBehavior any `json:"copyBehavior,omitempty"`
 
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
@@ -2859,8 +2859,8 @@ type AzureDataLakeStoreReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any `json:"disableMetricsCollection,omitempty"`
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool `json:"enablePartitionDiscovery,omitempty"`
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any `json:"enablePartitionDiscovery,omitempty"`
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -2917,7 +2917,7 @@ type AzureDataLakeStoreSink struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
 
-	// The type of copy behavior for copy sink.
+	// The type of copy behavior for copy sink. Type: string (or Expression with resultType string).
 	CopyBehavior any `json:"copyBehavior,omitempty"`
 
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
@@ -3008,8 +3008,8 @@ type AzureDataLakeStoreWriteSettings struct {
 	DisableMetricsCollection any `json:"disableMetricsCollection,omitempty"`
 
 	// Specifies the expiry time of the written files. The time is applied to the UTC time zone in the format of "2018-12-01T05:00:00Z".
-	// Default value is NULL. Type: integer (or Expression with resultType
-	// integer).
+	// Default value is NULL. Type: string (or Expression with resultType
+	// string).
 	ExpiryDateTime any `json:"expiryDateTime,omitempty"`
 
 	// The maximum concurrent connection count for the source data store. Type: integer (or Expression with resultType integer).
@@ -15533,8 +15533,19 @@ type IntegrationRuntimeDataFlowProperties struct {
 	// Core count of the cluster which will execute data flow job. Supported values are: 8, 16, 32, 48, 80, 144 and 272.
 	CoreCount *int32 `json:"coreCount,omitempty"`
 
+	// Custom properties are used to tune the data flow runtime performance.
+	CustomProperties []*IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem `json:"customProperties,omitempty"`
+
 	// Time to live (in minutes) setting of the cluster which will execute data flow job.
 	TimeToLive *int32 `json:"timeToLive,omitempty"`
+}
+
+type IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem struct {
+	// Name of custom property.
+	Name *string `json:"name,omitempty"`
+
+	// Value of custom property.
+	Value *string `json:"value,omitempty"`
 }
 
 // IntegrationRuntimeDataProxyProperties - Data proxy properties for a managed dedicated integration runtime.
