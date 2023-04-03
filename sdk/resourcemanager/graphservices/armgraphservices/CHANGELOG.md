@@ -1,5 +1,9 @@
 # Release History
 
+## 1.0.0 (2023-04-03)
+### Other Changes
+
+
 ## 0.1.0 (2023-03-24)
 
 The package of `github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/graphservices/armgraphservices` is using our [next generation design principles](https://azure.github.io/azure-sdk/general_introduction.html).
