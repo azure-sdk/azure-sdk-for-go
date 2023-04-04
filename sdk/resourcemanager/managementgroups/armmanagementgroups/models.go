@@ -474,7 +474,7 @@ type HierarchySettingsList struct {
 	Value []*HierarchySettingsInfo `json:"value,omitempty"`
 
 	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string `json:"@nextLink,omitempty" azure:"ro"`
 }
 
 // HierarchySettingsProperties - The generic properties of hierarchy settings.
@@ -588,7 +588,7 @@ type ManagementGroupListResult struct {
 	Value []*ManagementGroupInfo `json:"value,omitempty"`
 
 	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string `json:"@nextLink,omitempty" azure:"ro"`
 }
 
 // ManagementGroupPathElement - A path element of a management group ancestors.
