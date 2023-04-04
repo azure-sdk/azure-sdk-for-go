@@ -193,6 +193,8 @@ func unmarshalCloudOfferingClassification(rawMsg json.RawMessage) (CloudOffering
 		b = &CspmMonitorAzureDevOpsOffering{}
 	case string(OfferingTypeCspmMonitorGcp):
 		b = &CspmMonitorGcpOffering{}
+	case string(OfferingTypeCspmMonitorGitLab):
+		b = &CspmMonitorGitLabOffering{}
 	case string(OfferingTypeCspmMonitorGithub):
 		b = &CspmMonitorGithubOffering{}
 	case string(OfferingTypeDefenderCspmAws):
@@ -209,6 +211,8 @@ func unmarshalCloudOfferingClassification(rawMsg json.RawMessage) (CloudOffering
 		b = &DefenderForDatabasesGcpOffering{}
 	case string(OfferingTypeDefenderForDevOpsAzureDevOps):
 		b = &DefenderForDevOpsAzureDevOpsOffering{}
+	case string(OfferingTypeDefenderForDevOpsGitLab):
+		b = &DefenderForDevOpsGitLabOffering{}
 	case string(OfferingTypeDefenderForDevOpsGithub):
 		b = &DefenderForDevOpsGithubOffering{}
 	case string(OfferingTypeDefenderForServersAws):
@@ -260,6 +264,8 @@ func unmarshalEnvironmentDataClassification(rawMsg json.RawMessage) (Environment
 		b = &GcpProjectEnvironmentData{}
 	case string(EnvironmentTypeGithubScope):
 		b = &GithubScopeEnvironmentData{}
+	case string(EnvironmentTypeGitlabScope):
+		b = &GitlabScopeEnvironmentData{}
 	default:
 		b = &EnvironmentData{}
 	}
@@ -339,6 +345,43 @@ func unmarshalResourceIdentifierClassificationArray(rawMsg json.RawMessage) ([]R
 	fArray := make([]ResourceIdentifierClassification, len(rawMessages))
 	for index, rawMessage := range rawMessages {
 		f, err := unmarshalResourceIdentifierClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
+func unmarshalServerVulnerabilityAssessmentsSettingClassification(rawMsg json.RawMessage) (ServerVulnerabilityAssessmentsSettingClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ServerVulnerabilityAssessmentsSettingClassification
+	switch m["kind"] {
+	case string(ServerVulnerabilityAssessmentsSettingKindAzureServersSetting):
+		b = &AzureServersSetting{}
+	default:
+		b = &ServerVulnerabilityAssessmentsSetting{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalServerVulnerabilityAssessmentsSettingClassificationArray(rawMsg json.RawMessage) ([]ServerVulnerabilityAssessmentsSettingClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]ServerVulnerabilityAssessmentsSettingClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalServerVulnerabilityAssessmentsSettingClassification(rawMessage)
 		if err != nil {
 			return nil, err
 		}
