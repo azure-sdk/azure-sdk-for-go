@@ -1,5 +1,41 @@
 # Release History
 
+## 1.2.0-beta.1 (2023-04-04)
+### Features Added
+
+- New enum type `AdministratorName` with values `AdministratorNameActiveDirectory`
+- New enum type `AdministratorType` with values `AdministratorTypeActiveDirectory`
+- New enum type `ResetAllToDefault` with values `ResetAllToDefaultFalse`, `ResetAllToDefaultTrue`
+- New function `NewAzureADAdministratorsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AzureADAdministratorsClient, error)`
+- New function `*AzureADAdministratorsClient.BeginCreateOrUpdate(context.Context, string, string, AdministratorName, AzureADAdministrator, *AzureADAdministratorsClientBeginCreateOrUpdateOptions) (*runtime.Poller[AzureADAdministratorsClientCreateOrUpdateResponse], error)`
+- New function `*AzureADAdministratorsClient.BeginDelete(context.Context, string, string, AdministratorName, *AzureADAdministratorsClientBeginDeleteOptions) (*runtime.Poller[AzureADAdministratorsClientDeleteResponse], error)`
+- New function `*AzureADAdministratorsClient.Get(context.Context, string, string, AdministratorName, *AzureADAdministratorsClientGetOptions) (AzureADAdministratorsClientGetResponse, error)`
+- New function `*AzureADAdministratorsClient.NewListByServerPager(string, string, *AzureADAdministratorsClientListByServerOptions) *runtime.Pager[AzureADAdministratorsClientListByServerResponse]`
+- New function `*BackupsClient.Put(context.Context, string, string, string, *BackupsClientPutOptions) (BackupsClientPutResponse, error)`
+- New function `NewCheckNameAvailabilityWithoutLocationClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CheckNameAvailabilityWithoutLocationClient, error)`
+- New function `*CheckNameAvailabilityWithoutLocationClient.Execute(context.Context, NameAvailabilityRequest, *CheckNameAvailabilityWithoutLocationClientExecuteOptions) (CheckNameAvailabilityWithoutLocationClientExecuteResponse, error)`
+- New function `*ClientFactory.NewAzureADAdministratorsClient() *AzureADAdministratorsClient`
+- New function `*ClientFactory.NewCheckNameAvailabilityWithoutLocationClient() *CheckNameAvailabilityWithoutLocationClient`
+- New function `*ClientFactory.NewLogFilesClient() *LogFilesClient`
+- New function `NewLogFilesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*LogFilesClient, error)`
+- New function `*LogFilesClient.NewListByServerPager(string, string, *LogFilesClientListByServerOptions) *runtime.Pager[LogFilesClientListByServerResponse]`
+- New struct `AdministratorListResult`
+- New struct `AdministratorProperties`
+- New struct `AzureADAdministrator`
+- New struct `LogFile`
+- New struct `LogFileListResult`
+- New struct `LogFileProperties`
+- New field `ResetAllToDefault` in struct `ConfigurationListForBatchUpdate`
+- New field `Keyword` in struct `ConfigurationsClientListByServerOptions`
+- New field `Page` in struct `ConfigurationsClientListByServerOptions`
+- New field `PageSize` in struct `ConfigurationsClientListByServerOptions`
+- New field `Tags` in struct `ConfigurationsClientListByServerOptions`
+- New field `Version` in struct `ServerPropertiesForUpdate`
+- New field `AutoIoScaling` in struct `Storage`
+- New field `Location` in struct `VirtualNetworkSubnetUsageResult`
+- New field `SubscriptionID` in struct `VirtualNetworkSubnetUsageResult`
+
+
 ## 1.1.0 (2023-03-31)
 ### Features Added
 
