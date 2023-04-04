@@ -18,6 +18,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -707,10 +708,10 @@ func (client *MonitorsClient) SwitchBilling(ctx context.Context, resourceGroupNa
 	if err != nil {
 		return MonitorsClientSwitchBillingResponse{}, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusNoContent) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
 		return MonitorsClientSwitchBillingResponse{}, runtime.NewResponseError(resp)
 	}
-	return MonitorsClientSwitchBillingResponse{}, nil
+	return client.switchBillingHandleResponse(resp)
 }
 
 // switchBillingCreateRequest creates the SwitchBilling request.
@@ -737,6 +738,23 @@ func (client *MonitorsClient) switchBillingCreateRequest(ctx context.Context, re
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, request)
+}
+
+// switchBillingHandleResponse handles the SwitchBilling response.
+func (client *MonitorsClient) switchBillingHandleResponse(resp *http.Response) (MonitorsClientSwitchBillingResponse, error) {
+	result := MonitorsClientSwitchBillingResponse{}
+	if val := resp.Header.Get("Retry-After"); val != "" {
+		retryAfter32, err := strconv.ParseInt(val, 10, 32)
+		retryAfter := int32(retryAfter32)
+		if err != nil {
+			return MonitorsClientSwitchBillingResponse{}, err
+		}
+		result.RetryAfter = &retryAfter
+	}
+	if err := runtime.UnmarshalAsJSON(resp, &result.NewRelicMonitorResource); err != nil {
+		return MonitorsClientSwitchBillingResponse{}, err
+	}
+	return result, nil
 }
 
 // Update - Update a NewRelicMonitorResource
