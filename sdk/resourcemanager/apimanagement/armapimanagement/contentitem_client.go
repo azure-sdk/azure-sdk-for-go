@@ -29,8 +29,7 @@ type ContentItemClient struct {
 }
 
 // NewContentItemClient creates a new instance of ContentItemClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewContentItemClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ContentItemClient, error) {
@@ -48,15 +47,16 @@ func NewContentItemClient(subscriptionID string, credential azcore.TokenCredenti
 // CreateOrUpdate - Creates a new developer portal's content item specified by the provided content type.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - contentTypeID - Content type identifier.
 //   - contentItemID - Content item identifier.
+//   - parameters - Create or update parameters.
 //   - options - ContentItemClientCreateOrUpdateOptions contains the optional parameters for the ContentItemClient.CreateOrUpdate
 //     method.
-func (client *ContentItemClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, contentTypeID string, contentItemID string, options *ContentItemClientCreateOrUpdateOptions) (ContentItemClientCreateOrUpdateResponse, error) {
-	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, contentTypeID, contentItemID, options)
+func (client *ContentItemClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, contentTypeID string, contentItemID string, parameters ContentItemContract, options *ContentItemClientCreateOrUpdateOptions) (ContentItemClientCreateOrUpdateResponse, error) {
+	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, contentTypeID, contentItemID, parameters, options)
 	if err != nil {
 		return ContentItemClientCreateOrUpdateResponse{}, err
 	}
@@ -71,7 +71,7 @@ func (client *ContentItemClient) CreateOrUpdate(ctx context.Context, resourceGro
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ContentItemClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, contentTypeID string, contentItemID string, options *ContentItemClientCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *ContentItemClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, serviceName string, contentTypeID string, contentItemID string, parameters ContentItemContract, options *ContentItemClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/contentTypes/{contentTypeId}/contentItems/{contentItemId}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -98,13 +98,13 @@ func (client *ContentItemClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, nil
+	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
@@ -122,8 +122,8 @@ func (client *ContentItemClient) createOrUpdateHandleResponse(resp *http.Respons
 // Delete - Removes the specified developer portal's content item.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - contentTypeID - Content type identifier.
 //   - contentItemID - Content item identifier.
@@ -173,7 +173,7 @@ func (client *ContentItemClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -183,8 +183,8 @@ func (client *ContentItemClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Returns the developer portal's content item specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - contentTypeID - Content type identifier.
 //   - contentItemID - Content item identifier.
@@ -232,7 +232,7 @@ func (client *ContentItemClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -252,8 +252,8 @@ func (client *ContentItemClient) getHandleResponse(resp *http.Response) (Content
 
 // GetEntityTag - Returns the entity state (ETag) version of the developer portal's content item specified by its identifier.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - contentTypeID - Content type identifier.
 //   - contentItemID - Content item identifier.
@@ -302,7 +302,7 @@ func (client *ContentItemClient) getEntityTagCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -320,8 +320,8 @@ func (client *ContentItemClient) getEntityTagHandleResponse(resp *http.Response)
 
 // NewListByServicePager - Lists developer portal's content items specified by the provided content type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - contentTypeID - Content type identifier.
 //   - options - ContentItemClientListByServiceOptions contains the optional parameters for the ContentItemClient.NewListByServicePager
@@ -378,7 +378,7 @@ func (client *ContentItemClient) listByServiceCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
