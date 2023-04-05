@@ -1,5 +1,11 @@
 # Release History
 
+## 1.1.0-beta.2 (2023-04-05)
+### Breaking Changes
+
+- Operation `*PrivateEndpointConnectionsClient.Delete` has been changed to LRO, use `*PrivateEndpointConnectionsClient.BeginDelete` instead.
+
+
 ## 1.1.0-beta.1 (2023-03-24)
 ### Features Added
 
