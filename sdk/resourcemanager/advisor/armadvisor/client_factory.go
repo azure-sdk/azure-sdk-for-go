@@ -62,3 +62,13 @@ func (c *ClientFactory) NewSuppressionsClient() *SuppressionsClient {
 	subClient, _ := NewSuppressionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
+
+func (c *ClientFactory) NewManagementClient() *ManagementClient {
+	subClient, _ := NewManagementClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewScoresClient() *ScoresClient {
+	subClient, _ := NewScoresClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}

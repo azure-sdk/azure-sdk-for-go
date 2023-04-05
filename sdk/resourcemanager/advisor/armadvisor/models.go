@@ -30,13 +30,16 @@ type ConfigData struct {
 	// The Advisor configuration data structure.
 	Properties *ConfigDataProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; The resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -44,6 +47,10 @@ type ConfigData struct {
 type ConfigDataProperties struct {
 	// Advisor digest configuration. Valid only for subscriptions
 	Digests []*DigestConfig `json:"digests,omitempty"`
+
+	// Minimum duration for Advisor low CPU utilization evaluation. Valid only for subscriptions. Valid values: 7 (default), 14,
+	// 21, 30, 60 or 90.
+	Duration *Duration `json:"duration,omitempty"`
 
 	// Exclude the resource from Advisor evaluations. Valid values: False (default) or True.
 	Exclude *bool `json:"exclude,omitempty"`
@@ -106,6 +113,11 @@ type DigestConfig struct {
 
 	// State of digest configuration.
 	State *DigestConfigState `json:"state,omitempty"`
+}
+
+// ManagementClientPredictOptions contains the optional parameters for the ManagementClient.Predict method.
+type ManagementClientPredictOptions struct {
+	// placeholder for future optional parameters
 }
 
 // MetadataEntity - The metadata entity contract.
@@ -192,6 +204,67 @@ type OperationEntityListResult struct {
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// PredictionRequest - Parameters for predict recommendation.
+type PredictionRequest struct {
+	// Request properties for prediction recommendation.
+	Properties *PredictionRequestProperties `json:"properties,omitempty"`
+}
+
+// PredictionRequestProperties - Properties given for the predictor.
+type PredictionRequestProperties struct {
+	// Extended properties are arguments specific for each prediction type.
+	ExtendedProperties any `json:"extendedProperties,omitempty"`
+
+	// Type of the prediction.
+	PredictionType *PredictionType `json:"predictionType,omitempty"`
+}
+
+// PredictionResponse - Response used by predictions.
+type PredictionResponse struct {
+	// The properties of the prediction.
+	Properties *PredictionResponseProperties `json:"properties,omitempty"`
+}
+
+// PredictionResponseProperties - Properties of the prediction
+type PredictionResponseProperties struct {
+	// The category of the recommendation.
+	Category *Category `json:"category,omitempty"`
+
+	// Extended properties
+	ExtendedProperties any `json:"extendedProperties,omitempty"`
+
+	// The business impact of the recommendation.
+	Impact *Impact `json:"impact,omitempty"`
+
+	// The resource type identified by Advisor.
+	ImpactedField *string `json:"impactedField,omitempty"`
+
+	// The most recent time that Advisor checked the validity of the recommendation.
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+
+	// Type of the prediction.
+	PredictionType *PredictionType `json:"predictionType,omitempty"`
+
+	// A summary of the recommendation.
+	ShortDescription *ShortDescription `json:"shortDescription,omitempty"`
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // RecommendationMetadataClientGetOptions contains the optional parameters for the RecommendationMetadataClient.Get method.
@@ -295,15 +368,18 @@ type RecommendationsClientListOptions struct {
 	Top *int32
 }
 
-// Resource - An Azure resource.
+// Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
-	// READ-ONLY; The resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -330,13 +406,16 @@ type ResourceRecommendationBase struct {
 	// The properties of the recommendation.
 	Properties *RecommendationProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; The resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -349,12 +428,75 @@ type ResourceRecommendationBaseListResult struct {
 	Value []*ResourceRecommendationBase `json:"value,omitempty"`
 }
 
+// ScoreEntity - The details of Advisor Score
+type ScoreEntity struct {
+	// The consumption units for the score.
+	ConsumptionUnits *float32 `json:"consumptionUnits,omitempty"`
+
+	// The date score was calculated.
+	Date *string `json:"date,omitempty"`
+
+	// The number of impacted resources.
+	ImpactedResourceCount *float32 `json:"impactedResourceCount,omitempty"`
+
+	// The potential percentage increase in overall score at subscription level once all recommendations in this scope are implemented.
+	PotentialScoreIncrease *float32 `json:"potentialScoreIncrease,omitempty"`
+
+	// The percentage score.
+	Score *float32 `json:"score,omitempty"`
+
+	// READ-ONLY; The count of impacted categories.
+	CategoryCount *float32 `json:"categoryCount,omitempty" azure:"ro"`
+}
+
+// ScoreEntityForAdvisor - The details of Advisor score for a single category.
+type ScoreEntityForAdvisor struct {
+	// The Advisor score data.
+	Properties *ScoreEntityForAdvisorProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ScoreEntityForAdvisorProperties - The Advisor score data.
+type ScoreEntityForAdvisorProperties struct {
+	// The details of latest available score.
+	LastRefreshedScore *ScoreEntity `json:"lastRefreshedScore,omitempty"`
+
+	// The historic Advisor score data.
+	TimeSeries []*TimeSeriesEntityItem `json:"timeSeries,omitempty"`
+}
+
+type ScoreResponse struct {
+	// The list of operations.
+	Value []*ScoreEntityForAdvisor `json:"value,omitempty"`
+}
+
+// ScoresClientGetOptions contains the optional parameters for the ScoresClient.Get method.
+type ScoresClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScoresClientListOptions contains the optional parameters for the ScoresClient.List method.
+type ScoresClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // ShortDescription - A summary of the recommendation.
 type ShortDescription struct {
-	// The issue or opportunity identified by the recommendation.
+	// The issue or opportunity identified by the recommendation and proposed solution.
 	Problem *string `json:"problem,omitempty"`
 
-	// The remediation action suggested by the recommendation.
+	// The issue or opportunity identified by the recommendation and proposed solution.
 	Solution *string `json:"solution,omitempty"`
 }
 
@@ -364,13 +506,16 @@ type SuppressionContract struct {
 	// The properties of the suppression.
 	Properties *SuppressionProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; The resource ID.
+	// READ-ONLY; Fully qualified resource ID for the resource. E.g. "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The name of the resource.
+	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
@@ -416,4 +561,34 @@ type SuppressionsClientListOptions struct {
 	SkipToken *string
 	// The number of suppressions per page if a paged version of this API is being used.
 	Top *int32
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+
+	// The identity that created the resource.
+	CreatedBy *string `json:"createdBy,omitempty"`
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty"`
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
+}
+
+// TimeSeriesEntityItem - The data from different aggregation levels.
+type TimeSeriesEntityItem struct {
+	// The aggregation level of the score.
+	AggregationLevel *Aggregated `json:"aggregationLevel,omitempty"`
+
+	// The past score data
+	ScoreHistory []*ScoreEntity `json:"scoreHistory,omitempty"`
 }
