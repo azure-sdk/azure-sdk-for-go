@@ -88,6 +88,11 @@ func (c *ClientFactory) NewTenantActionGroupsClient() *TenantActionGroupsClient 
 	return subClient
 }
 
+func (c *ClientFactory) NewClient() *Client {
+	subClient, _ := NewClient(c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewActivityLogsClient() *ActivityLogsClient {
 	subClient, _ := NewActivityLogsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
