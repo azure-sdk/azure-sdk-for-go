@@ -1,19 +1,24 @@
 # Release History
 
-## 2.2.0-beta.2 (2023-03-28)
+## 2.2.0 (2023-04-06)
 ### Features Added
 
-- New struct `ClientFactory` which is a client factory used to create any client in this module
-
-
-## 2.2.0-beta.1 (2023-01-27)
-### Features Added
-
-- New value `ContainerGroupSKUConfidential` added to type alias `ContainerGroupSKU`
-- New type alias `ContainerGroupPriority` with values `ContainerGroupPriorityRegular`, `ContainerGroupPrioritySpot`
+- New value `ContainerGroupSKUConfidential` added to enum type `ContainerGroupSKU`
+- New enum type `ContainerGroupPriority` with values `ContainerGroupPriorityRegular`, `ContainerGroupPrioritySpot`
+- New function `NewClientFactory(string, azcore.TokenCredential, *arm.ClientOptions) (*ClientFactory, error)`
+- New function `*ClientFactory.NewContainerGroupsClient() *ContainerGroupsClient`
+- New function `*ClientFactory.NewContainersClient() *ContainersClient`
+- New function `*ClientFactory.NewLocationClient() *LocationClient`
+- New function `*ClientFactory.NewOperationsClient() *OperationsClient`
+- New function `*ClientFactory.NewSubnetServiceAssociationLinkClient() *SubnetServiceAssociationLinkClient`
+- New struct `ClientFactory`
 - New struct `ConfidentialComputeProperties`
+- New struct `SecurityContextCapabilitiesDefinition`
+- New struct `SecurityContextDefinition`
 - New field `ConfidentialComputeProperties` in struct `ContainerGroupPropertiesProperties`
 - New field `Priority` in struct `ContainerGroupPropertiesProperties`
+- New field `SecurityContext` in struct `ContainerProperties`
+- New field `SecurityContext` in struct `InitContainerPropertiesDefinition`
 
 
 ## 2.1.0 (2022-11-08)

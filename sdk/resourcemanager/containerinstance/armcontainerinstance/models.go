@@ -416,6 +416,9 @@ type ContainerProperties struct {
 	// The readiness probe.
 	ReadinessProbe *ContainerProbe `json:"readinessProbe,omitempty"`
 
+	// The container security properties.
+	SecurityContext *SecurityContextDefinition `json:"securityContext,omitempty"`
+
 	// The volume mounts available to the container instance.
 	VolumeMounts []*VolumeMount `json:"volumeMounts,omitempty"`
 
@@ -656,6 +659,9 @@ type InitContainerPropertiesDefinition struct {
 	// The image of the init container.
 	Image *string `json:"image,omitempty"`
 
+	// The container security properties.
+	SecurityContext *SecurityContextDefinition `json:"securityContext,omitempty"`
+
 	// The volume mounts available to the init container.
 	VolumeMounts []*VolumeMount `json:"volumeMounts,omitempty"`
 
@@ -824,6 +830,36 @@ type ResourceRequirements struct {
 
 	// The resource limits of this container instance.
 	Limits *ResourceLimits `json:"limits,omitempty"`
+}
+
+// SecurityContextCapabilitiesDefinition - The capabilities to add or drop from a container.
+type SecurityContextCapabilitiesDefinition struct {
+	// The capabilities to add to the container.
+	Add []*string `json:"add,omitempty"`
+
+	// The capabilities to drop from the container.
+	Drop []*string `json:"drop,omitempty"`
+}
+
+// SecurityContextDefinition - The security context for the container.
+type SecurityContextDefinition struct {
+	// A boolean value indicating whether the init process can elevate its privileges
+	AllowPrivilegeEscalation *bool `json:"allowPrivilegeEscalation,omitempty"`
+
+	// The capabilities to add or drop from a container.
+	Capabilities *SecurityContextCapabilitiesDefinition `json:"capabilities,omitempty"`
+
+	// The flag to determine if the container permissions is elevated to Privileged.
+	Privileged *bool `json:"privileged,omitempty"`
+
+	// Sets the User GID for the container.
+	RunAsGroup *int32 `json:"runAsGroup,omitempty"`
+
+	// Sets the User UID for the container.
+	RunAsUser *int32 `json:"runAsUser,omitempty"`
+
+	// a base64 encoded string containing the contents of the JSON in the seccomp profile
+	SeccompProfile *string `json:"seccompProfile,omitempty"`
 }
 
 // SubnetServiceAssociationLinkClientBeginDeleteOptions contains the optional parameters for the SubnetServiceAssociationLinkClient.BeginDelete
