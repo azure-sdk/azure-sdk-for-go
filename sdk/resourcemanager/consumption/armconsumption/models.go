@@ -103,6 +103,9 @@ type BalanceProperties struct {
 	// READ-ONLY; List of new purchases.
 	NewPurchasesDetails []*BalancePropertiesNewPurchasesDetailsItem `json:"newPurchasesDetails,omitempty" azure:"ro"`
 
+	// READ-ONLY; Overage Refunds
+	OverageRefund *float64 `json:"overageRefund,omitempty" azure:"ro"`
+
 	// READ-ONLY; Price is hidden or not.
 	PriceHidden *bool `json:"priceHidden,omitempty" azure:"ro"`
 
@@ -334,20 +337,18 @@ type CreditBalanceSummary struct {
 
 // CreditSummary - A credit summary resource.
 type CreditSummary struct {
+	// eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating
+	// the latest version or not.
+	ETag *string `json:"eTag,omitempty"`
+
 	// The properties of the credit summary.
 	Properties *CreditSummaryProperties `json:"properties,omitempty"`
 
-	// READ-ONLY; The etag for the resource.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
-
-	// READ-ONLY; The full qualified ARM ID of an event.
+	// READ-ONLY; Resource Id.
 	ID *string `json:"id,omitempty" azure:"ro"`
 
-	// READ-ONLY; The ID that uniquely identifies an event.
+	// READ-ONLY; Resource name.
 	Name *string `json:"name,omitempty" azure:"ro"`
-
-	// READ-ONLY; Resource tags.
-	Tags map[string]*string `json:"tags,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource type.
 	Type *string `json:"type,omitempty" azure:"ro"`
@@ -369,6 +370,9 @@ type CreditSummaryProperties struct {
 
 	// READ-ONLY; Expired credit.
 	ExpiredCredit *Amount `json:"expiredCredit,omitempty" azure:"ro"`
+
+	// READ-ONLY; If true, the listed details are based on an estimation and it will be subjected to change.
+	IsEstimatedBalance *bool `json:"isEstimatedBalance,omitempty" azure:"ro"`
 
 	// READ-ONLY; Pending credit adjustments.
 	PendingCreditAdjustments *Amount `json:"pendingCreditAdjustments,omitempty" azure:"ro"`
@@ -480,6 +484,9 @@ type EventProperties struct {
 	// READ-ONLY; The number which uniquely identifies the invoice on which the event was billed. This will be empty for unbilled
 	// events.
 	InvoiceNumber *string `json:"invoiceNumber,omitempty" azure:"ro"`
+
+	// READ-ONLY; If true, the listed details are based on an estimation and it will be subjected to change.
+	IsEstimatedBalance *bool `json:"isEstimatedBalance,omitempty" azure:"ro"`
 
 	// READ-ONLY; The ID that uniquely identifies the lot for which the event happened.
 	LotID *string `json:"lotId,omitempty" azure:"ro"`
@@ -613,6 +620,9 @@ type LegacyChargeSummaryProperties struct {
 	// READ-ONLY; Azure Charges.
 	AzureCharges *float64 `json:"azureCharges,omitempty" azure:"ro"`
 
+	// READ-ONLY; Marketplace Charges.
+	AzureMarketplaceCharges *float64 `json:"azureMarketplaceCharges,omitempty" azure:"ro"`
+
 	// READ-ONLY; The id of the billing period resource that the charge belongs to.
 	BillingPeriodID *string `json:"billingPeriodId,omitempty" azure:"ro"`
 
@@ -621,9 +631,6 @@ type LegacyChargeSummaryProperties struct {
 
 	// READ-ONLY; Currency Code
 	Currency *string `json:"currency,omitempty" azure:"ro"`
-
-	// READ-ONLY; Marketplace Charges.
-	MarketplaceCharges *float64 `json:"marketplaceCharges,omitempty" azure:"ro"`
 
 	// READ-ONLY; Usage end date.
 	UsageEnd *string `json:"usageEnd,omitempty" azure:"ro"`
@@ -795,7 +802,7 @@ type LegacyReservationTransactionProperties struct {
 	// READ-ONLY; The date of the transaction
 	EventDate *time.Time `json:"eventDate,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the transaction (Purchase, Cancel, etc.)
+	// READ-ONLY; The type of the transaction (Purchase, Cancel or Refund).
 	EventType *string `json:"eventType,omitempty" azure:"ro"`
 
 	// READ-ONLY; The monetary commitment amount at the enrollment scope.
@@ -1181,6 +1188,9 @@ type LotProperties struct {
 	// READ-ONLY; The expiration date of a lot.
 	ExpirationDate *time.Time `json:"expirationDate,omitempty" azure:"ro"`
 
+	// READ-ONLY; If true, the listed details are based on an estimation and it will be subjected to change.
+	IsEstimatedBalance *bool `json:"isEstimatedBalance,omitempty" azure:"ro"`
+
 	// READ-ONLY; The original amount of a lot.
 	OriginalAmount *Amount `json:"originalAmount,omitempty" azure:"ro"`
 
@@ -1548,6 +1558,9 @@ type ModernChargeSummaryProperties struct {
 	// READ-ONLY; Marketplace Charges.
 	MarketplaceCharges *Amount `json:"marketplaceCharges,omitempty" azure:"ro"`
 
+	// READ-ONLY; Subscription guid.
+	SubscriptionID *string `json:"subscriptionId,omitempty" azure:"ro"`
+
 	// READ-ONLY; Usage end date.
 	UsageEnd *string `json:"usageEnd,omitempty" azure:"ro"`
 
@@ -1561,7 +1574,7 @@ type ModernReservationRecommendation struct {
 	Kind *ReservationRecommendationKind `json:"kind,omitempty"`
 
 	// REQUIRED; Properties for modern reservation recommendation
-	Properties *ModernReservationRecommendationProperties `json:"properties,omitempty"`
+	Properties ModernReservationRecommendationPropertiesClassification `json:"properties,omitempty"`
 
 	// READ-ONLY; The etag for the resource.
 	Etag *string `json:"etag,omitempty" azure:"ro"`
@@ -1599,8 +1612,20 @@ func (m *ModernReservationRecommendation) GetReservationRecommendation() *Reserv
 	}
 }
 
+// ModernReservationRecommendationPropertiesClassification provides polymorphic access to related types.
+// Call the interface's GetModernReservationRecommendationProperties() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *ModernReservationRecommendationProperties, *ModernSharedScopeReservationRecommendationProperties, *ModernSingleScopeReservationRecommendationProperties
+type ModernReservationRecommendationPropertiesClassification interface {
+	// GetModernReservationRecommendationProperties returns the ModernReservationRecommendationProperties content of the underlying type.
+	GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties
+}
+
 // ModernReservationRecommendationProperties - The properties of the reservation recommendation.
 type ModernReservationRecommendationProperties struct {
+	// REQUIRED; Shared or single recommendation.
+	Scope *string `json:"scope,omitempty"`
+
 	// READ-ONLY; The total amount of cost without reserved instances.
 	CostWithNoReservedInstances *Amount `json:"costWithNoReservedInstances,omitempty" azure:"ro"`
 
@@ -1634,20 +1659,26 @@ type ModernReservationRecommendationProperties struct {
 	// READ-ONLY; The recommended Quantity Normalized.
 	RecommendedQuantityNormalized *float32 `json:"recommendedQuantityNormalized,omitempty" azure:"ro"`
 
+	// READ-ONLY; Resource type.
+	ResourceType *string `json:"resourceType,omitempty" azure:"ro"`
+
 	// READ-ONLY; This is the ARM Sku name.
 	SKUName *string `json:"skuName,omitempty" azure:"ro"`
 
 	// READ-ONLY; List of sku properties
 	SKUProperties []*SKUProperty `json:"skuProperties,omitempty" azure:"ro"`
 
-	// READ-ONLY; Shared or single recommendation.
-	Scope *string `json:"scope,omitempty" azure:"ro"`
-
 	// READ-ONLY; RI recommendations in one or three year terms.
 	Term *string `json:"term,omitempty" azure:"ro"`
 
 	// READ-ONLY; The total amount of cost with reserved instances.
 	TotalCostWithReservedInstances *Amount `json:"totalCostWithReservedInstances,omitempty" azure:"ro"`
+}
+
+// GetModernReservationRecommendationProperties implements the ModernReservationRecommendationPropertiesClassification interface
+// for type ModernReservationRecommendationProperties.
+func (m *ModernReservationRecommendationProperties) GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties {
+	return m
 }
 
 // ModernReservationTransaction - Modern Reservation transaction resource.
@@ -1694,7 +1725,7 @@ type ModernReservationTransactionProperties struct {
 	// READ-ONLY; The date of the transaction
 	EventDate *time.Time `json:"eventDate,omitempty" azure:"ro"`
 
-	// READ-ONLY; The type of the transaction (Purchase, Cancel, etc.)
+	// READ-ONLY; The type of the transaction (Purchase, Cancel or Refund).
 	EventType *string `json:"eventType,omitempty" azure:"ro"`
 
 	// READ-ONLY; Invoice Number
@@ -1740,6 +1771,167 @@ type ModernReservationTransactionsListResult struct {
 
 	// READ-ONLY; The list of reservation recommendations.
 	Value []*ModernReservationTransaction `json:"value,omitempty" azure:"ro"`
+}
+
+// ModernSharedScopeReservationRecommendationProperties - The properties of the modern reservation recommendation for shared
+// scope.
+type ModernSharedScopeReservationRecommendationProperties struct {
+	// REQUIRED; Shared or single recommendation.
+	Scope *string `json:"scope,omitempty"`
+
+	// READ-ONLY; The total amount of cost without reserved instances.
+	CostWithNoReservedInstances *Amount `json:"costWithNoReservedInstances,omitempty" azure:"ro"`
+
+	// READ-ONLY; The usage date for looking back.
+	FirstUsageDate *time.Time `json:"firstUsageDate,omitempty" azure:"ro"`
+
+	// READ-ONLY; The instance Flexibility Group.
+	InstanceFlexibilityGroup *string `json:"instanceFlexibilityGroup,omitempty" azure:"ro"`
+
+	// READ-ONLY; The instance Flexibility Ratio.
+	InstanceFlexibilityRatio *float32 `json:"instanceFlexibilityRatio,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource Location.
+	Location *string `json:"location,omitempty" azure:"ro"`
+
+	// READ-ONLY; The number of days of usage to look back for recommendation.
+	LookBackPeriod *int32 `json:"lookBackPeriod,omitempty" azure:"ro"`
+
+	// READ-ONLY; The meter id (GUID)
+	MeterID *string `json:"meterId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Total estimated savings with reserved instances.
+	NetSavings *Amount `json:"netSavings,omitempty" azure:"ro"`
+
+	// READ-ONLY; The normalized Size.
+	NormalizedSize *string `json:"normalizedSize,omitempty" azure:"ro"`
+
+	// READ-ONLY; Recommended quality for reserved instances.
+	RecommendedQuantity *float64 `json:"recommendedQuantity,omitempty" azure:"ro"`
+
+	// READ-ONLY; The recommended Quantity Normalized.
+	RecommendedQuantityNormalized *float32 `json:"recommendedQuantityNormalized,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	ResourceType *string `json:"resourceType,omitempty" azure:"ro"`
+
+	// READ-ONLY; This is the ARM Sku name.
+	SKUName *string `json:"skuName,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of sku properties
+	SKUProperties []*SKUProperty `json:"skuProperties,omitempty" azure:"ro"`
+
+	// READ-ONLY; RI recommendations in one or three year terms.
+	Term *string `json:"term,omitempty" azure:"ro"`
+
+	// READ-ONLY; The total amount of cost with reserved instances.
+	TotalCostWithReservedInstances *Amount `json:"totalCostWithReservedInstances,omitempty" azure:"ro"`
+}
+
+// GetModernReservationRecommendationProperties implements the ModernReservationRecommendationPropertiesClassification interface
+// for type ModernSharedScopeReservationRecommendationProperties.
+func (m *ModernSharedScopeReservationRecommendationProperties) GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties {
+	return &ModernReservationRecommendationProperties{
+		Location:                       m.Location,
+		LookBackPeriod:                 m.LookBackPeriod,
+		InstanceFlexibilityRatio:       m.InstanceFlexibilityRatio,
+		InstanceFlexibilityGroup:       m.InstanceFlexibilityGroup,
+		NormalizedSize:                 m.NormalizedSize,
+		RecommendedQuantityNormalized:  m.RecommendedQuantityNormalized,
+		MeterID:                        m.MeterID,
+		Term:                           m.Term,
+		CostWithNoReservedInstances:    m.CostWithNoReservedInstances,
+		RecommendedQuantity:            m.RecommendedQuantity,
+		ResourceType:                   m.ResourceType,
+		TotalCostWithReservedInstances: m.TotalCostWithReservedInstances,
+		NetSavings:                     m.NetSavings,
+		FirstUsageDate:                 m.FirstUsageDate,
+		Scope:                          m.Scope,
+		SKUProperties:                  m.SKUProperties,
+		SKUName:                        m.SKUName,
+	}
+}
+
+// ModernSingleScopeReservationRecommendationProperties - The properties of the modern reservation recommendation for single
+// scope.
+type ModernSingleScopeReservationRecommendationProperties struct {
+	// REQUIRED; Shared or single recommendation.
+	Scope *string `json:"scope,omitempty"`
+
+	// READ-ONLY; The total amount of cost without reserved instances.
+	CostWithNoReservedInstances *Amount `json:"costWithNoReservedInstances,omitempty" azure:"ro"`
+
+	// READ-ONLY; The usage date for looking back.
+	FirstUsageDate *time.Time `json:"firstUsageDate,omitempty" azure:"ro"`
+
+	// READ-ONLY; The instance Flexibility Group.
+	InstanceFlexibilityGroup *string `json:"instanceFlexibilityGroup,omitempty" azure:"ro"`
+
+	// READ-ONLY; The instance Flexibility Ratio.
+	InstanceFlexibilityRatio *float32 `json:"instanceFlexibilityRatio,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource Location.
+	Location *string `json:"location,omitempty" azure:"ro"`
+
+	// READ-ONLY; The number of days of usage to look back for recommendation.
+	LookBackPeriod *int32 `json:"lookBackPeriod,omitempty" azure:"ro"`
+
+	// READ-ONLY; The meter id (GUID)
+	MeterID *string `json:"meterId,omitempty" azure:"ro"`
+
+	// READ-ONLY; Total estimated savings with reserved instances.
+	NetSavings *Amount `json:"netSavings,omitempty" azure:"ro"`
+
+	// READ-ONLY; The normalized Size.
+	NormalizedSize *string `json:"normalizedSize,omitempty" azure:"ro"`
+
+	// READ-ONLY; Recommended quality for reserved instances.
+	RecommendedQuantity *float64 `json:"recommendedQuantity,omitempty" azure:"ro"`
+
+	// READ-ONLY; The recommended Quantity Normalized.
+	RecommendedQuantityNormalized *float32 `json:"recommendedQuantityNormalized,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	ResourceType *string `json:"resourceType,omitempty" azure:"ro"`
+
+	// READ-ONLY; This is the ARM Sku name.
+	SKUName *string `json:"skuName,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of sku properties
+	SKUProperties []*SKUProperty `json:"skuProperties,omitempty" azure:"ro"`
+
+	// READ-ONLY; Subscription ID associated with single scoped recommendation.
+	SubscriptionID *string `json:"subscriptionId,omitempty" azure:"ro"`
+
+	// READ-ONLY; RI recommendations in one or three year terms.
+	Term *string `json:"term,omitempty" azure:"ro"`
+
+	// READ-ONLY; The total amount of cost with reserved instances.
+	TotalCostWithReservedInstances *Amount `json:"totalCostWithReservedInstances,omitempty" azure:"ro"`
+}
+
+// GetModernReservationRecommendationProperties implements the ModernReservationRecommendationPropertiesClassification interface
+// for type ModernSingleScopeReservationRecommendationProperties.
+func (m *ModernSingleScopeReservationRecommendationProperties) GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties {
+	return &ModernReservationRecommendationProperties{
+		Location:                       m.Location,
+		LookBackPeriod:                 m.LookBackPeriod,
+		InstanceFlexibilityRatio:       m.InstanceFlexibilityRatio,
+		InstanceFlexibilityGroup:       m.InstanceFlexibilityGroup,
+		NormalizedSize:                 m.NormalizedSize,
+		RecommendedQuantityNormalized:  m.RecommendedQuantityNormalized,
+		MeterID:                        m.MeterID,
+		Term:                           m.Term,
+		CostWithNoReservedInstances:    m.CostWithNoReservedInstances,
+		RecommendedQuantity:            m.RecommendedQuantity,
+		ResourceType:                   m.ResourceType,
+		TotalCostWithReservedInstances: m.TotalCostWithReservedInstances,
+		NetSavings:                     m.NetSavings,
+		FirstUsageDate:                 m.FirstUsageDate,
+		Scope:                          m.Scope,
+		SKUProperties:                  m.SKUProperties,
+		SKUName:                        m.SKUName,
+	}
 }
 
 // ModernUsageDetail - Modern usage detail.
@@ -2316,27 +2508,28 @@ func (r *ReservationRecommendation) GetReservationRecommendation() *ReservationR
 	return r
 }
 
-// ReservationRecommendationDetailsCalculatedSavingsProperties - Details of estimated savings.
+// ReservationRecommendationDetailsCalculatedSavingsProperties - Details of estimated savings. The costs and savings are estimated
+// for the term.
 type ReservationRecommendationDetailsCalculatedSavingsProperties struct {
 	// The number of reserved units used to calculate savings. Always 1 for virtual machines.
 	ReservedUnitCount *float32 `json:"reservedUnitCount,omitempty"`
 
-	// READ-ONLY; The cost without reservation.
+	// READ-ONLY; The cost without reservation. Includes hardware and software cost.
 	OnDemandCost *float32 `json:"onDemandCost,omitempty" azure:"ro"`
 
-	// READ-ONLY; The difference between total reservation cost and reservation cost.
+	// READ-ONLY; Hardware and software cost of the resources not covered by the reservation.
 	OverageCost *float32 `json:"overageCost,omitempty" azure:"ro"`
 
 	// READ-ONLY; The quantity for calculated savings.
 	Quantity *float32 `json:"quantity,omitempty" azure:"ro"`
 
-	// READ-ONLY; The exact cost of the estimated usage using reservation.
+	// READ-ONLY; Hardware cost of the resources covered by the reservation.
 	ReservationCost *float32 `json:"reservationCost,omitempty" azure:"ro"`
 
-	// READ-ONLY; The amount saved by purchasing the recommended quantity of reservation.
+	// READ-ONLY; The amount saved by purchasing the recommended quantity of reservation. This is equal to onDemandCost - totalReservationCost.
 	Savings *float32 `json:"savings,omitempty" azure:"ro"`
 
-	// READ-ONLY; The cost of the suggested quantity.
+	// READ-ONLY; Reservation cost + software cost of the resources covered by the reservation + overage cost.
 	TotalReservationCost *float32 `json:"totalReservationCost,omitempty" azure:"ro"`
 }
 
@@ -2399,7 +2592,7 @@ type ReservationRecommendationDetailsResourceProperties struct {
 	// READ-ONLY; List of subscriptions for which the reservation is applied.
 	AppliedScopes []*string `json:"appliedScopes,omitempty" azure:"ro"`
 
-	// READ-ONLY; On demand rate of the resource.
+	// READ-ONLY; Hourly on-demand rate of the resource. Includes only hardware rate i.e, software rate is not included.
 	OnDemandRate *float32 `json:"onDemandRate,omitempty" azure:"ro"`
 
 	// READ-ONLY; Azure product ex: StandardE8sv3 etc.
@@ -2408,7 +2601,7 @@ type ReservationRecommendationDetailsResourceProperties struct {
 	// READ-ONLY; Azure resource region ex:EastUS, WestUS etc.
 	Region *string `json:"region,omitempty" azure:"ro"`
 
-	// READ-ONLY; Reservation rate of the resource.
+	// READ-ONLY; Hourly reservation rate of the resource. Varies based on the term.
 	ReservationRate *float32 `json:"reservationRate,omitempty" azure:"ro"`
 
 	// READ-ONLY; The azure resource type.
@@ -2605,7 +2798,10 @@ type ReservationTransactionResource struct {
 // method.
 type ReservationTransactionsClientListByBillingProfileOptions struct {
 	// Filter reservation transactions by date range. The properties/EventDate for start date and end date. The filter supports
-	// 'le' and 'ge'
+	// 'le' and 'ge'. Note: API returns data for the entire start date's and end
+	// date's billing month. For example, filter properties/eventDate+ge+2020-01-01+AND+properties/eventDate+le+2020-12-29 will
+	// include data for entire December 2020 month (i.e. will contain records for
+	// dates December 30 and 31)
 	Filter *string
 }
 
@@ -2613,8 +2809,15 @@ type ReservationTransactionsClientListByBillingProfileOptions struct {
 // method.
 type ReservationTransactionsClientListOptions struct {
 	// Filter reservation transactions by date range. The properties/EventDate for start date and end date. The filter supports
-	// 'le' and 'ge'
+	// 'le' and 'ge'. Note: API returns data for the entire start date's and end
+	// date's billing month. For example, filter properties/eventDate+ge+2020-01-01+AND+properties/eventDate+le+2020-12-29 will
+	// include data for the entire December 2020 month (i.e. will contain records for
+	// dates December 30 and 31)
 	Filter *string
+	// Preview markup percentage to be applied.
+	PreviewMarkupPercentage *float64
+	// Applies mark up to the transactions if the caller is a partner.
+	UseMarkupIfPartner *bool
 }
 
 // ReservationTransactionsListResult - Result of listing reservation recommendations.
