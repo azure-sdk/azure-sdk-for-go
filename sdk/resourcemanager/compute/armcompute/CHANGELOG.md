@@ -1,5 +1,27 @@
 # Release History
 
+## 5.0.0 (2023-04-06)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New enum type `ExpandTypeForListVMs` with values `ExpandTypeForListVMsInstanceView`
+- New enum type `ExpandTypesForListVMs` with values `ExpandTypesForListVMsInstanceView`
+- New function `*DedicatedHostsClient.NewListAvailableSizesPager(string, string, string, *DedicatedHostsClientListAvailableSizesOptions) *runtime.Pager[DedicatedHostsClientListAvailableSizesResponse]`
+- New struct `DedicatedHostSizeListResult`
+- New field `SKU` in struct `DedicatedHostUpdate`
+- New field `BypassPlatformSafetyChecksOnUserSchedule` in struct `LinuxVMGuestPatchAutomaticByPlatformSettings`
+- New field `HyperVGeneration` in struct `RestorePointSourceMetadata`
+- New field `WriteAcceleratorEnabled` in struct `RestorePointSourceVMDataDisk`
+- New field `WriteAcceleratorEnabled` in struct `RestorePointSourceVMOSDisk`
+- New field `Expand` in struct `VirtualMachinesClientListAllOptions`
+- New field `Expand` in struct `VirtualMachinesClientListOptions`
+- New field `BypassPlatformSafetyChecksOnUserSchedule` in struct `WindowsVMGuestPatchAutomaticByPlatformSettings`
+
+
 ## 4.2.0 (2023-03-27)
 ### Features Added
 

@@ -1661,11 +1661,22 @@ type DedicatedHostProperties struct {
 	VirtualMachines []*SubResourceReadOnly `json:"virtualMachines,omitempty" azure:"ro"`
 }
 
+// DedicatedHostSizeListResult - The List Dedicated Host sizes operation response.
+type DedicatedHostSizeListResult struct {
+	// The list of dedicated host sizes.
+	Value []*string `json:"value,omitempty"`
+}
+
 // DedicatedHostUpdate - Specifies information about the dedicated host. Only tags, autoReplaceOnFailure and licenseType may
 // be updated.
 type DedicatedHostUpdate struct {
 	// Properties of the dedicated host.
 	Properties *DedicatedHostProperties `json:"properties,omitempty"`
+
+	// List all available dedicated host sizes for resizing [https://docs.microsoft.com/rest/api/compute/dedicated-hosts/listavailablesizes].
+	// Resizing can be only used to scale up DedicatedHost. Only name is
+	// required to be set.
+	SKU *SKU `json:"sku,omitempty"`
 
 	// Resource tags
 	Tags map[string]*string `json:"tags,omitempty"`
@@ -1701,6 +1712,12 @@ type DedicatedHostsClientGetOptions struct {
 	// The expand expression to apply on the operation. 'InstanceView' will retrieve the list of instance views of the dedicated
 	// host. 'UserData' is not supported for dedicated host.
 	Expand *InstanceViewTypes
+}
+
+// DedicatedHostsClientListAvailableSizesOptions contains the optional parameters for the DedicatedHostsClient.NewListAvailableSizesPager
+// method.
+type DedicatedHostsClientListAvailableSizesOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DedicatedHostsClientListByHostGroupOptions contains the optional parameters for the DedicatedHostsClient.NewListByHostGroupPager
@@ -3957,6 +3974,9 @@ type LinuxPatchSettings struct {
 // LinuxVMGuestPatchAutomaticByPlatformSettings - Specifies additional settings to be applied when patch mode AutomaticByPlatform
 // is selected in Linux patch settings.
 type LinuxVMGuestPatchAutomaticByPlatformSettings struct {
+	// Enables customer to schedule patching without accidental upgrades
+	BypassPlatformSafetyChecksOnUserSchedule *bool `json:"bypassPlatformSafetyChecksOnUserSchedule,omitempty"`
+
 	// Specifies the reboot setting for all AutomaticByPlatform patch installation operations.
 	RebootSetting *LinuxVMGuestPatchAutomaticByPlatformRebootSetting `json:"rebootSetting,omitempty"`
 }
@@ -5342,6 +5362,9 @@ type RestorePointSourceMetadata struct {
 	// Gets the hardware profile.
 	HardwareProfile *HardwareProfile `json:"hardwareProfile,omitempty"`
 
+	// HyperVGeneration of the source VM for which restore point is captured.
+	HyperVGeneration *HyperVGenerationType `json:"hyperVGeneration,omitempty"`
+
 	// Gets the license type, which is for bring your own license scenario.
 	LicenseType *string `json:"licenseType,omitempty"`
 
@@ -5383,6 +5406,9 @@ type RestorePointSourceVMDataDisk struct {
 
 	// Gets the disk name.
 	Name *string `json:"name,omitempty"`
+
+	// Shows true if the disk is write-accelerator enabled.
+	WriteAcceleratorEnabled *bool `json:"writeAcceleratorEnabled,omitempty"`
 }
 
 // RestorePointSourceVMOSDisk - Describes an Operating System disk.
@@ -5407,6 +5433,9 @@ type RestorePointSourceVMOSDisk struct {
 
 	// Gets the Operating System type.
 	OSType *OperatingSystemType `json:"osType,omitempty"`
+
+	// Shows true if the disk is write-accelerator enabled.
+	WriteAcceleratorEnabled *bool `json:"writeAcceleratorEnabled,omitempty"`
 }
 
 // RestorePointSourceVMStorageProfile - Describes the storage profile.
@@ -8200,9 +8229,6 @@ type VirtualMachineScaleSetIPConfiguration struct {
 	// REQUIRED; The IP configuration name.
 	Name *string `json:"name,omitempty"`
 
-	// Resource Id
-	ID *string `json:"id,omitempty"`
-
 	// Describes a virtual machine scale set network profile's IP configuration properties.
 	Properties *VirtualMachineScaleSetIPConfigurationProperties `json:"properties,omitempty"`
 }
@@ -8349,9 +8375,6 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 type VirtualMachineScaleSetNetworkConfiguration struct {
 	// REQUIRED; The network configuration name.
 	Name *string `json:"name,omitempty"`
-
-	// Resource Id
-	ID *string `json:"id,omitempty"`
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties `json:"properties,omitempty"`
@@ -9968,6 +9991,9 @@ type VirtualMachinesClientInstanceViewOptions struct {
 
 // VirtualMachinesClientListAllOptions contains the optional parameters for the VirtualMachinesClient.NewListAllPager method.
 type VirtualMachinesClientListAllOptions struct {
+	// The expand expression to apply on operation. 'instanceView' enables fetching run time status of all Virtual Machines, this
+	// can only be specified if a valid $filter option is specified
+	Expand *ExpandTypesForListVMs
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
 	Filter *string
@@ -9989,6 +10015,9 @@ type VirtualMachinesClientListByLocationOptions struct {
 
 // VirtualMachinesClientListOptions contains the optional parameters for the VirtualMachinesClient.NewListPager method.
 type VirtualMachinesClientListOptions struct {
+	// The expand expression to apply on operation. 'instanceView' enables fetching run time status of all Virtual Machines, this
+	// can only be specified if a valid $filter option is specified
+	Expand *ExpandTypeForListVMs
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
 	Filter *string
@@ -10091,6 +10120,9 @@ type WindowsParameters struct {
 // WindowsVMGuestPatchAutomaticByPlatformSettings - Specifies additional settings to be applied when patch mode AutomaticByPlatform
 // is selected in Windows patch settings.
 type WindowsVMGuestPatchAutomaticByPlatformSettings struct {
+	// Enables customer to schedule patching without accidental upgrades
+	BypassPlatformSafetyChecksOnUserSchedule *bool `json:"bypassPlatformSafetyChecksOnUserSchedule,omitempty"`
+
 	// Specifies the reboot setting for all AutomaticByPlatform patch installation operations.
 	RebootSetting *WindowsVMGuestPatchAutomaticByPlatformRebootSetting `json:"rebootSetting,omitempty"`
 }
