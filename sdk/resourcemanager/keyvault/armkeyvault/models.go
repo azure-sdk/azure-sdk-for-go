@@ -51,6 +51,26 @@ type Attributes struct {
 	Updated *time.Time `json:"updated,omitempty" azure:"ro"`
 }
 
+// CheckMhsmNameAvailabilityParameters - The parameters used to check the availability of the managed hsm name.
+type CheckMhsmNameAvailabilityParameters struct {
+	// REQUIRED; The managed hsm name.
+	Name *string `json:"name,omitempty"`
+}
+
+// CheckMhsmNameAvailabilityResult - The CheckMhsmNameAvailability operation response.
+type CheckMhsmNameAvailabilityResult struct {
+	// READ-ONLY; An error message explaining the Reason value in more detail.
+	Message *string `json:"message,omitempty" azure:"ro"`
+
+	// READ-ONLY; A boolean value that indicates whether the name is available for you to use. If true, the name is available.
+	// If false, the name has already been taken or is invalid and cannot be used.
+	NameAvailable *bool `json:"nameAvailable,omitempty" azure:"ro"`
+
+	// READ-ONLY; The reason that a managed hsm name could not be used. The reason element is only returned if NameAvailable is
+	// false.
+	Reason *Reason `json:"reason,omitempty" azure:"ro"`
+}
+
 // CheckNameAvailabilityResult - The CheckNameAvailability operation response.
 type CheckNameAvailabilityResult struct {
 	// READ-ONLY; An error message explaining the Reason value in more detail.
@@ -341,7 +361,19 @@ type LogSpecification struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// MHSMIPRule - A rule governing the accessibility of a managed hsm pool from a specific ip address or ip range.
+// MHSMGeoReplicatedRegion - A region that this managed HSM Pool has been extended to.
+type MHSMGeoReplicatedRegion struct {
+	// A boolean value that indicates whether the region is the primary region or a secondary region.
+	IsPrimary *bool `json:"isPrimary,omitempty"`
+
+	// Name of the geo replicated region.
+	Name *string `json:"name,omitempty"`
+
+	// READ-ONLY; Provisioning state of the geo replicated region.
+	ProvisioningState *GeoReplicationRegionProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// MHSMIPRule - A rule governing the accessibility of a managed HSM pool from a specific IP address or IP range.
 type MHSMIPRule struct {
 	// REQUIRED; An IPv4 address range in CIDR notation, such as '124.56.78.91' (simple IP address) or '124.56.78.0/24' (all addresses
 	// that start with 124.56.78).
@@ -402,6 +434,12 @@ type MHSMPrivateEndpointConnection struct {
 
 // MHSMPrivateEndpointConnectionItem - Private endpoint connection item.
 type MHSMPrivateEndpointConnectionItem struct {
+	// Modified whenever there is a change in the state of private endpoint connection.
+	Etag *string `json:"etag,omitempty"`
+
+	// Id of private endpoint connection.
+	ID *string `json:"id,omitempty"`
+
 	// Private endpoint connection properties.
 	Properties *MHSMPrivateEndpointConnectionProperties `json:"properties,omitempty"`
 }
@@ -515,10 +553,34 @@ type MHSMPrivateLinkServiceConnectionState struct {
 	Status *PrivateEndpointServiceConnectionStatus `json:"status,omitempty"`
 }
 
+// MHSMRegionsClientListByResourceOptions contains the optional parameters for the MHSMRegionsClient.NewListByResourcePager
+// method.
+type MHSMRegionsClientListByResourceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// MHSMRegionsListResult - List of regions associated with a managed HSM Pools
+type MHSMRegionsListResult struct {
+	// The URL to get the next set of managed HSM Pools.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// The region associated with a managed HSM Pools.
+	Value []*MHSMGeoReplicatedRegion `json:"value,omitempty"`
+}
+
 // MHSMVirtualNetworkRule - A rule governing the accessibility of a managed hsm pool from a specific virtual network.
 type MHSMVirtualNetworkRule struct {
 	// REQUIRED; Full resource id of a vnet subnet, such as '/subscriptions/subid/resourceGroups/rg1/providers/Microsoft.Network/virtualNetworks/test-vnet/subnets/subnet1'.
 	ID *string `json:"id,omitempty"`
+}
+
+// ManagedHSMSecurityDomainProperties - The security domain properties of the managed hsm.
+type ManagedHSMSecurityDomainProperties struct {
+	// READ-ONLY; Activation Status
+	ActivationStatus *ActivationStatus `json:"activationStatus,omitempty" azure:"ro"`
+
+	// READ-ONLY; Activation Status Message.
+	ActivationStatusMessage *string `json:"activationStatusMessage,omitempty" azure:"ro"`
 }
 
 // ManagedHsm - Resource information with extended details.
@@ -548,10 +610,159 @@ type ManagedHsm struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+type ManagedHsmAction struct {
+	// The type of action.
+	Type *KeyRotationPolicyActionType `json:"type,omitempty"`
+}
+
 // ManagedHsmError - The error exception.
 type ManagedHsmError struct {
 	// READ-ONLY; The server error.
 	Error *Error `json:"error,omitempty" azure:"ro"`
+}
+
+// ManagedHsmKey - The key resource.
+type ManagedHsmKey struct {
+	// REQUIRED; The properties of the key.
+	Properties *ManagedHsmKeyProperties `json:"properties,omitempty"`
+
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ManagedHsmKeyAttributes - The object attributes managed by the Azure Key Vault service.
+type ManagedHsmKeyAttributes struct {
+	// Determines whether or not the object is enabled.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// Expiry date in seconds since 1970-01-01T00:00:00Z.
+	Expires *int64 `json:"exp,omitempty"`
+
+	// Indicates if the private key can be exported.
+	Exportable *bool `json:"exportable,omitempty"`
+
+	// Not before date in seconds since 1970-01-01T00:00:00Z.
+	NotBefore *int64 `json:"nbf,omitempty"`
+
+	// READ-ONLY; Creation time in seconds since 1970-01-01T00:00:00Z.
+	Created *int64 `json:"created,omitempty" azure:"ro"`
+
+	// READ-ONLY; The deletion recovery level currently in effect for the object. If it contains 'Purgeable', then the object
+	// can be permanently deleted by a privileged user; otherwise, only the system can purge the
+	// object at the end of the retention interval.
+	RecoveryLevel *DeletionRecoveryLevel `json:"recoveryLevel,omitempty" azure:"ro"`
+
+	// READ-ONLY; Last updated time in seconds since 1970-01-01T00:00:00Z.
+	Updated *int64 `json:"updated,omitempty" azure:"ro"`
+}
+
+// ManagedHsmKeyCreateParameters - The parameters used to create a key.
+type ManagedHsmKeyCreateParameters struct {
+	// REQUIRED; The properties of the key to be created.
+	Properties *ManagedHsmKeyProperties `json:"properties,omitempty"`
+
+	// The tags that will be assigned to the key.
+	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// ManagedHsmKeyListResult - The page of keys.
+type ManagedHsmKeyListResult struct {
+	// The URL to get the next page of keys.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// The key resources.
+	Value []*ManagedHsmKey `json:"value,omitempty"`
+}
+
+// ManagedHsmKeyProperties - The properties of the key.
+type ManagedHsmKeyProperties struct {
+	// The attributes of the key.
+	Attributes *ManagedHsmKeyAttributes `json:"attributes,omitempty"`
+
+	// The elliptic curve name. For valid values, see JsonWebKeyCurveName.
+	CurveName *JSONWebKeyCurveName   `json:"curveName,omitempty"`
+	KeyOps    []*JSONWebKeyOperation `json:"keyOps,omitempty"`
+
+	// The key size in bits. For example: 2048, 3072, or 4096 for RSA.
+	KeySize *int32 `json:"keySize,omitempty"`
+
+	// The type of the key. For valid values, see JsonWebKeyType.
+	Kty *JSONWebKeyType `json:"kty,omitempty"`
+
+	// Key release policy in response. It will be used for both output and input. Omitted if empty
+	ReleasePolicy *ManagedHsmKeyReleasePolicy `json:"release_policy,omitempty"`
+
+	// Key rotation policy in response. It will be used for both output and input. Omitted if empty
+	RotationPolicy *ManagedHsmRotationPolicy `json:"rotationPolicy,omitempty"`
+
+	// READ-ONLY; The URI to retrieve the current version of the key.
+	KeyURI *string `json:"keyUri,omitempty" azure:"ro"`
+
+	// READ-ONLY; The URI to retrieve the specific version of the key.
+	KeyURIWithVersion *string `json:"keyUriWithVersion,omitempty" azure:"ro"`
+}
+
+type ManagedHsmKeyReleasePolicy struct {
+	// Content type and version of key release policy
+	ContentType *string `json:"contentType,omitempty"`
+
+	// Blob encoding the policy rules under which the key can be released.
+	Data []byte `json:"data,omitempty"`
+}
+
+type ManagedHsmKeyRotationPolicyAttributes struct {
+	// The expiration time for the new key version. It should be in ISO8601 format. Eg: 'P90D', 'P1Y'.
+	ExpiryTime *string `json:"expiryTime,omitempty"`
+
+	// READ-ONLY; Creation time in seconds since 1970-01-01T00:00:00Z.
+	Created *int64 `json:"created,omitempty" azure:"ro"`
+
+	// READ-ONLY; Last updated time in seconds since 1970-01-01T00:00:00Z.
+	Updated *int64 `json:"updated,omitempty" azure:"ro"`
+}
+
+// ManagedHsmKeysClientCreateIfNotExistOptions contains the optional parameters for the ManagedHsmKeysClient.CreateIfNotExist
+// method.
+type ManagedHsmKeysClientCreateIfNotExistOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedHsmKeysClientGetOptions contains the optional parameters for the ManagedHsmKeysClient.Get method.
+type ManagedHsmKeysClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedHsmKeysClientGetVersionOptions contains the optional parameters for the ManagedHsmKeysClient.GetVersion method.
+type ManagedHsmKeysClientGetVersionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedHsmKeysClientListOptions contains the optional parameters for the ManagedHsmKeysClient.NewListPager method.
+type ManagedHsmKeysClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ManagedHsmKeysClientListVersionsOptions contains the optional parameters for the ManagedHsmKeysClient.NewListVersionsPager
+// method.
+type ManagedHsmKeysClientListVersionsOptions struct {
+	// placeholder for future optional parameters
+}
+
+type ManagedHsmLifetimeAction struct {
+	// The action of key rotation policy lifetimeAction.
+	Action *ManagedHsmAction `json:"action,omitempty"`
+
+	// The trigger of key rotation policy lifetimeAction.
+	Trigger *ManagedHsmTrigger `json:"trigger,omitempty"`
 }
 
 // ManagedHsmListResult - List of managed HSM Pools
@@ -570,13 +781,11 @@ type ManagedHsmProperties struct {
 
 	// Property specifying whether protection against purge is enabled for this managed HSM pool. Setting this property to true
 	// activates protection against purge for this managed HSM pool and its content -
-	// only the Managed HSM service may initiate a hard, irrecoverable deletion. The setting is effective only if soft delete
-	// is also enabled. Enabling this functionality is irreversible.
+	// only the Managed HSM service may initiate a hard, irrecoverable deletion. Enabling this functionality is irreversible.
 	EnablePurgeProtection *bool `json:"enablePurgeProtection,omitempty"`
 
-	// Property to specify whether the 'soft delete' functionality is enabled for this managed HSM pool. If it's not set to any
-	// value(true or false) when creating new managed HSM pool, it will be set to true
-	// by default. Once set to true, it cannot be reverted to false.
+	// Property to specify whether the 'soft delete' functionality is enabled for this managed HSM pool. Soft delete is enabled
+	// by default for all managed HSMs and is immutable.
 	EnableSoftDelete *bool `json:"enableSoftDelete,omitempty"`
 
 	// Array of initial administrators object ids for this managed hsm pool.
@@ -585,10 +794,15 @@ type ManagedHsmProperties struct {
 	// Rules governing the accessibility of the key vault from specific network locations.
 	NetworkACLs *MHSMNetworkRuleSet `json:"networkAcls,omitempty"`
 
-	// Control permission for data plane traffic coming from public networks while private endpoint is enabled.
+	// Control permission to the managed HSM from public networks.
 	PublicNetworkAccess *PublicNetworkAccess `json:"publicNetworkAccess,omitempty"`
 
-	// softDelete data retention days. It accepts >=7 and <=90.
+	// List of all regions associated with the managed hsm pool.
+	Regions []*MHSMGeoReplicatedRegion `json:"regions,omitempty"`
+
+	// Soft deleted data retention days. When you delete an HSM or a key, it will remain recoverable for the configured retention
+	// period or for a default period of 90 days. It accepts values between 7 and
+	// 90.
 	SoftDeleteRetentionInDays *int32 `json:"softDeleteRetentionInDays,omitempty"`
 
 	// The Azure Active Directory tenant ID that should be used for authenticating requests to the managed HSM pool.
@@ -605,6 +819,9 @@ type ManagedHsmProperties struct {
 
 	// READ-ONLY; The scheduled purge date in UTC.
 	ScheduledPurgeDate *time.Time `json:"scheduledPurgeDate,omitempty" azure:"ro"`
+
+	// READ-ONLY; Managed HSM security domain properties.
+	SecurityDomainProperties *ManagedHSMSecurityDomainProperties `json:"securityDomainProperties,omitempty" azure:"ro"`
 
 	// READ-ONLY; Resource Status Message.
 	StatusMessage *string `json:"statusMessage,omitempty" azure:"ro"`
@@ -634,6 +851,14 @@ type ManagedHsmResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+type ManagedHsmRotationPolicy struct {
+	// The attributes of key rotation policy.
+	Attributes *ManagedHsmKeyRotationPolicyAttributes `json:"attributes,omitempty"`
+
+	// The lifetimeActions for key rotation action.
+	LifetimeActions []*ManagedHsmLifetimeAction `json:"lifetimeActions,omitempty"`
+}
+
 // ManagedHsmSKU - SKU details
 type ManagedHsmSKU struct {
 	// REQUIRED; SKU Family of the managed HSM Pool
@@ -641,6 +866,15 @@ type ManagedHsmSKU struct {
 
 	// REQUIRED; SKU of the managed HSM Pool
 	Name *ManagedHsmSKUName `json:"name,omitempty"`
+}
+
+type ManagedHsmTrigger struct {
+	// The time duration after key creation to rotate the key. It only applies to rotate. It will be in ISO 8601 duration format.
+	// Eg: 'P90D', 'P1Y'.
+	TimeAfterCreate *string `json:"timeAfterCreate,omitempty"`
+
+	// The time duration before key expiring to rotate or notify. It will be in ISO 8601 duration format. Eg: 'P90D', 'P1Y'.
+	TimeBeforeExpiry *string `json:"timeBeforeExpiry,omitempty"`
 }
 
 // ManagedHsmsClientBeginCreateOrUpdateOptions contains the optional parameters for the ManagedHsmsClient.BeginCreateOrUpdate
@@ -667,6 +901,12 @@ type ManagedHsmsClientBeginPurgeDeletedOptions struct {
 type ManagedHsmsClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ManagedHsmsClientCheckMhsmNameAvailabilityOptions contains the optional parameters for the ManagedHsmsClient.CheckMhsmNameAvailability
+// method.
+type ManagedHsmsClientCheckMhsmNameAvailabilityOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ManagedHsmsClientGetDeletedOptions contains the optional parameters for the ManagedHsmsClient.GetDeleted method.
@@ -962,6 +1202,21 @@ type PrivateLinkServiceConnectionState struct {
 
 	// Indicates whether the connection has been approved, rejected or removed by the key vault owner.
 	Status *PrivateEndpointServiceConnectionStatus `json:"status,omitempty"`
+}
+
+// ProxyResourceWithoutSystemData - Common fields that are returned in the response for all Azure Resource Manager resources
+type ProxyResourceWithoutSystemData struct {
+	// Resource tags.
+	Tags map[string]*string `json:"tags,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
 // Resource - Key Vault resource
@@ -1273,9 +1528,9 @@ type VaultPatchProperties struct {
 
 	// Property that controls how data actions are authorized. When true, the key vault will use Role Based Access Control (RBAC)
 	// for authorization of data actions, and the access policies specified in vault
-	// properties will be ignored (warning: this is a preview feature). When false, the key vault will use the access policies
-	// specified in vault properties, and any policy stored on Azure Resource Manager
-	// will be ignored. If null or not specified, the value of this property will not change.
+	// properties will be ignored. When false, the key vault will use the access policies specified in vault properties, and any
+	// policy stored on Azure Resource Manager will be ignored. If null or not
+	// specified, the value of this property will not change.
 	EnableRbacAuthorization *bool `json:"enableRbacAuthorization,omitempty"`
 
 	// Property to specify whether the 'soft delete' functionality is enabled for this key vault. Once set to true, it cannot
@@ -1336,10 +1591,10 @@ type VaultProperties struct {
 
 	// Property that controls how data actions are authorized. When true, the key vault will use Role Based Access Control (RBAC)
 	// for authorization of data actions, and the access policies specified in vault
-	// properties will be ignored (warning: this is a preview feature). When false, the key vault will use the access policies
-	// specified in vault properties, and any policy stored on Azure Resource Manager
-	// will be ignored. If null or not specified, the vault is created with the default value of false. Note that management actions
-	// are always authorized with RBAC.
+	// properties will be ignored. When false, the key vault will use the access policies specified in vault properties, and any
+	// policy stored on Azure Resource Manager will be ignored. If null or not
+	// specified, the vault is created with the default value of false. Note that management actions are always authorized with
+	// RBAC.
 	EnableRbacAuthorization *bool `json:"enableRbacAuthorization,omitempty"`
 
 	// Property to specify whether the 'soft delete' functionality is enabled for this key vault. If it's not set to any value(true
