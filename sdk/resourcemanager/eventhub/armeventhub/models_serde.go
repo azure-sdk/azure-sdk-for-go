@@ -1758,10 +1758,8 @@ func (n *NetworkSecurityPerimeter) UnmarshalJSON(data []byte) error {
 func (n NetworkSecurityPerimeterConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "id", n.ID)
-	populate(objectMap, "location", n.Location)
 	populate(objectMap, "name", n.Name)
 	populate(objectMap, "properties", n.Properties)
-	populate(objectMap, "tags", n.Tags)
 	populate(objectMap, "type", n.Type)
 	return json.Marshal(objectMap)
 }
@@ -1778,17 +1776,11 @@ func (n *NetworkSecurityPerimeterConfiguration) UnmarshalJSON(data []byte) error
 		case "id":
 			err = unpopulate(val, "ID", &n.ID)
 			delete(rawMsg, key)
-		case "location":
-			err = unpopulate(val, "Location", &n.Location)
-			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &n.Name)
 			delete(rawMsg, key)
 		case "properties":
 			err = unpopulate(val, "Properties", &n.Properties)
-			delete(rawMsg, key)
-		case "tags":
-			err = unpopulate(val, "Tags", &n.Tags)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &n.Type)
@@ -2412,6 +2404,7 @@ func (p Properties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "messageRetentionInDays", p.MessageRetentionInDays)
 	populate(objectMap, "partitionCount", p.PartitionCount)
 	populate(objectMap, "partitionIds", p.PartitionIDs)
+	populate(objectMap, "retentionDescription", p.RetentionDescription)
 	populate(objectMap, "status", p.Status)
 	populateTimeRFC3339(objectMap, "updatedAt", p.UpdatedAt)
 	return json.Marshal(objectMap)
@@ -2440,6 +2433,9 @@ func (p *Properties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "partitionIds":
 			err = unpopulate(val, "PartitionIDs", &p.PartitionIDs)
+			delete(rawMsg, key)
+		case "retentionDescription":
+			err = unpopulate(val, "RetentionDescription", &p.RetentionDescription)
 			delete(rawMsg, key)
 		case "status":
 			err = unpopulate(val, "Status", &p.Status)
@@ -2613,6 +2609,41 @@ func (r *Resource) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &r.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", r, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type RetentionDescription.
+func (r RetentionDescription) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "cleanupPolicy", r.CleanupPolicy)
+	populate(objectMap, "retentionTimeInHours", r.RetentionTimeInHours)
+	populate(objectMap, "tombstoneRetentionTimeInHours", r.TombstoneRetentionTimeInHours)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type RetentionDescription.
+func (r *RetentionDescription) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", r, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "cleanupPolicy":
+			err = unpopulate(val, "CleanupPolicy", &r.CleanupPolicy)
+			delete(rawMsg, key)
+		case "retentionTimeInHours":
+			err = unpopulate(val, "RetentionTimeInHours", &r.RetentionTimeInHours)
+			delete(rawMsg, key)
+		case "tombstoneRetentionTimeInHours":
+			err = unpopulate(val, "TombstoneRetentionTimeInHours", &r.TombstoneRetentionTimeInHours)
 			delete(rawMsg, key)
 		}
 		if err != nil {

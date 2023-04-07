@@ -1001,12 +1001,6 @@ type NetworkSecurityPerimeter struct {
 
 // NetworkSecurityPerimeterConfiguration - Network Security Perimeter related configurations of a given namespace
 type NetworkSecurityPerimeterConfiguration struct {
-	// Resource location.
-	Location *string `json:"location,omitempty"`
-
-	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
-
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string `json:"id,omitempty" azure:"ro"`
 
@@ -1290,6 +1284,9 @@ type Properties struct {
 	// Number of partitions created for the Event Hub, allowed values are from 1 to 32 partitions.
 	PartitionCount *int64 `json:"partitionCount,omitempty"`
 
+	// Event Hub retention settings
+	RetentionDescription *RetentionDescription `json:"retentionDescription,omitempty"`
+
 	// Enumerates the possible values for the status of the Event Hub.
 	Status *EntityStatus `json:"status,omitempty"`
 
@@ -1356,6 +1353,22 @@ type Resource struct {
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// RetentionDescription - Properties to configure retention settings for the eventhub
+type RetentionDescription struct {
+	// Enumerates the possible values for cleanup policy
+	CleanupPolicy *CleanupPolicyRetentionDescription `json:"cleanupPolicy,omitempty"`
+
+	// Number of hours to retain the events for this Event Hub. This value is only used when cleanupPolicy is Delete. If cleanupPolicy
+	// is Compaction the returned value of this property is Long.MaxValue
+	RetentionTimeInHours *int64 `json:"retentionTimeInHours,omitempty"`
+
+	// Number of hours to retain the tombstone markers of a compacted Event Hub. This value is only used when cleanupPolicy is
+	// Compaction. Consumer must complete reading the tombstone marker within this
+	// specified amount of time if consumer begins from starting offset to ensure they get a valid snapshot for the specific key
+	// described by the tombstone marker within the compacted Event Hub
+	TombstoneRetentionTimeInHours *int32 `json:"tombstoneRetentionTimeInHours,omitempty"`
 }
 
 // SKU parameters supplied to the create namespace operation

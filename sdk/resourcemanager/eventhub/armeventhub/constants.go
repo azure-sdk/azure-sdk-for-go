@@ -11,7 +11,7 @@ package armeventhub
 
 const (
 	moduleName    = "armeventhub"
-	moduleVersion = "v1.1.0-beta.2"
+	moduleVersion = "v1.1.0-beta.3"
 )
 
 type AccessRights string
@@ -42,6 +42,22 @@ const (
 func PossibleApplicationGroupPolicyTypeValues() []ApplicationGroupPolicyType {
 	return []ApplicationGroupPolicyType{
 		ApplicationGroupPolicyTypeThrottlingPolicy,
+	}
+}
+
+// CleanupPolicyRetentionDescription - Enumerates the possible values for cleanup policy
+type CleanupPolicyRetentionDescription string
+
+const (
+	CleanupPolicyRetentionDescriptionCompaction CleanupPolicyRetentionDescription = "Compaction"
+	CleanupPolicyRetentionDescriptionDelete     CleanupPolicyRetentionDescription = "Delete"
+)
+
+// PossibleCleanupPolicyRetentionDescriptionValues returns the possible values for the CleanupPolicyRetentionDescription const type.
+func PossibleCleanupPolicyRetentionDescriptionValues() []CleanupPolicyRetentionDescription {
+	return []CleanupPolicyRetentionDescription{
+		CleanupPolicyRetentionDescriptionCompaction,
+		CleanupPolicyRetentionDescriptionDelete,
 	}
 }
 
