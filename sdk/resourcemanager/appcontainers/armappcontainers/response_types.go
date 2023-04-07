@@ -211,7 +211,7 @@ type ContainerAppsClientListSecretsResponse struct {
 
 // ContainerAppsClientUpdateResponse contains the response from method ContainerAppsClient.BeginUpdate.
 type ContainerAppsClientUpdateResponse struct {
-	// placeholder for future response values
+	ContainerApp
 }
 
 // ContainerAppsDiagnosticsClientGetDetectorResponse contains the response from method ContainerAppsDiagnosticsClient.GetDetector.
@@ -319,6 +319,86 @@ type DaprComponentsClientListSecretsResponse struct {
 	DaprSecretsCollection
 }
 
+// JobsClientCreateOrUpdateResponse contains the response from method JobsClient.BeginCreateOrUpdate.
+type JobsClientCreateOrUpdateResponse struct {
+	Job
+}
+
+// JobsClientDeleteResponse contains the response from method JobsClient.BeginDelete.
+type JobsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// JobsClientGetResponse contains the response from method JobsClient.Get.
+type JobsClientGetResponse struct {
+	Job
+}
+
+// JobsClientListByResourceGroupResponse contains the response from method JobsClient.NewListByResourceGroupPager.
+type JobsClientListByResourceGroupResponse struct {
+	JobsCollection
+}
+
+// JobsClientListBySubscriptionResponse contains the response from method JobsClient.NewListBySubscriptionPager.
+type JobsClientListBySubscriptionResponse struct {
+	JobsCollection
+}
+
+// JobsClientListSecretsResponse contains the response from method JobsClient.ListSecrets.
+type JobsClientListSecretsResponse struct {
+	JobSecretsCollection
+}
+
+// JobsClientStartResponse contains the response from method JobsClient.BeginStart.
+type JobsClientStartResponse struct {
+	JobExecutionBase
+}
+
+// JobsClientStopExecutionResponse contains the response from method JobsClient.BeginStopExecution.
+type JobsClientStopExecutionResponse struct {
+	// placeholder for future response values
+}
+
+// JobsClientStopMultipleExecutionsResponse contains the response from method JobsClient.BeginStopMultipleExecutions.
+type JobsClientStopMultipleExecutionsResponse struct {
+	ContainerAppJobExecutions
+}
+
+// JobsClientUpdateResponse contains the response from method JobsClient.BeginUpdate.
+type JobsClientUpdateResponse struct {
+	Job
+}
+
+// JobsExecutionsClientListResponse contains the response from method JobsExecutionsClient.NewListPager.
+type JobsExecutionsClientListResponse struct {
+	ContainerAppJobExecutions
+}
+
+// ManagedCertificatesClientCreateOrUpdateResponse contains the response from method ManagedCertificatesClient.BeginCreateOrUpdate.
+type ManagedCertificatesClientCreateOrUpdateResponse struct {
+	ManagedCertificate
+}
+
+// ManagedCertificatesClientDeleteResponse contains the response from method ManagedCertificatesClient.Delete.
+type ManagedCertificatesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ManagedCertificatesClientGetResponse contains the response from method ManagedCertificatesClient.Get.
+type ManagedCertificatesClientGetResponse struct {
+	ManagedCertificate
+}
+
+// ManagedCertificatesClientListResponse contains the response from method ManagedCertificatesClient.NewListPager.
+type ManagedCertificatesClientListResponse struct {
+	ManagedCertificateCollection
+}
+
+// ManagedCertificatesClientUpdateResponse contains the response from method ManagedCertificatesClient.Update.
+type ManagedCertificatesClientUpdateResponse struct {
+	ManagedCertificate
+}
+
 // ManagedEnvironmentDiagnosticsClientGetDetectorResponse contains the response from method ManagedEnvironmentDiagnosticsClient.GetDetector.
 type ManagedEnvironmentDiagnosticsClientGetDetectorResponse struct {
 	Diagnostics
@@ -366,7 +446,7 @@ type ManagedEnvironmentsClientListWorkloadProfileStatesResponse struct {
 
 // ManagedEnvironmentsClientUpdateResponse contains the response from method ManagedEnvironmentsClient.BeginUpdate.
 type ManagedEnvironmentsClientUpdateResponse struct {
-	// placeholder for future response values
+	ManagedEnvironment
 }
 
 // ManagedEnvironmentsDiagnosticsClientGetRootResponse contains the response from method ManagedEnvironmentsDiagnosticsClient.GetRoot.

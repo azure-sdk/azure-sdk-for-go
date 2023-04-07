@@ -46,7 +46,7 @@ func NewAvailableWorkloadProfilesClient(subscriptionID string, credential azcore
 
 // NewGetPager - Get all available workload profiles for a location.
 //
-// Generated from API version 2022-06-01-preview
+// Generated from API version 2023-04-01-preview
 //   - location - The name of Azure region.
 //   - options - AvailableWorkloadProfilesClientGetOptions contains the optional parameters for the AvailableWorkloadProfilesClient.NewGetPager
 //     method.
@@ -94,7 +94,7 @@ func (client *AvailableWorkloadProfilesClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
