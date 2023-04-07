@@ -11897,6 +11897,13 @@ type WebAppsClientBeginCreateMSDeployOperationSlotOptions struct {
 	ResumeToken string
 }
 
+// WebAppsClientBeginCreateOrUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.BeginCreateOrUpdateConfiguration
+// method.
+type WebAppsClientBeginCreateOrUpdateConfigurationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // WebAppsClientBeginCreateOrUpdateOptions contains the optional parameters for the WebAppsClient.BeginCreateOrUpdate method.
 type WebAppsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -12110,6 +12117,13 @@ type WebAppsClientBeginSwapSlotWithProductionOptions struct {
 	ResumeToken string
 }
 
+// WebAppsClientBeginUpdateApplicationSettingsOptions contains the optional parameters for the WebAppsClient.BeginUpdateApplicationSettings
+// method.
+type WebAppsClientBeginUpdateApplicationSettingsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // WebAppsClientCreateDeploymentOptions contains the optional parameters for the WebAppsClient.CreateDeployment method.
 type WebAppsClientCreateDeploymentOptions struct {
 	// placeholder for future optional parameters
@@ -12123,12 +12137,6 @@ type WebAppsClientCreateDeploymentSlotOptions struct {
 // WebAppsClientCreateOneDeployOperationOptions contains the optional parameters for the WebAppsClient.CreateOneDeployOperation
 // method.
 type WebAppsClientCreateOneDeployOperationOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WebAppsClientCreateOrUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.CreateOrUpdateConfiguration
-// method.
-type WebAppsClientCreateOrUpdateConfigurationOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -13951,12 +13959,6 @@ type WebAppsClientSyncRepositoryOptions struct {
 
 // WebAppsClientSyncRepositorySlotOptions contains the optional parameters for the WebAppsClient.SyncRepositorySlot method.
 type WebAppsClientSyncRepositorySlotOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WebAppsClientUpdateApplicationSettingsOptions contains the optional parameters for the WebAppsClient.UpdateApplicationSettings
-// method.
-type WebAppsClientUpdateApplicationSettingsOptions struct {
 	// placeholder for future optional parameters
 }
 

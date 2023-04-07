@@ -1495,7 +1495,7 @@ type WebAppsClientCreateOneDeployOperationResponse struct {
 	Interface any
 }
 
-// WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.CreateOrUpdateConfiguration.
+// WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.BeginCreateOrUpdateConfiguration.
 type WebAppsClientCreateOrUpdateConfigurationResponse struct {
 	SiteConfigResource
 }
@@ -3277,7 +3277,7 @@ type WebAppsClientSyncRepositorySlotResponse struct {
 	// placeholder for future response values
 }
 
-// WebAppsClientUpdateApplicationSettingsResponse contains the response from method WebAppsClient.UpdateApplicationSettings.
+// WebAppsClientUpdateApplicationSettingsResponse contains the response from method WebAppsClient.BeginUpdateApplicationSettings.
 type WebAppsClientUpdateApplicationSettingsResponse struct {
 	StringDictionary
 }

@@ -1364,32 +1364,48 @@ func (client *WebAppsClient) createOrUpdateCreateRequest(ctx context.Context, re
 	return req, runtime.MarshalAsJSON(req, siteEnvelope)
 }
 
-// CreateOrUpdateConfiguration - Description for Updates the configuration of an app.
+// BeginCreateOrUpdateConfiguration - Description for Updates the configuration of an app.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-09-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - name - Name of the app.
 //   - siteConfig - JSON representation of a SiteConfig object. See example.
-//   - options - WebAppsClientCreateOrUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.CreateOrUpdateConfiguration
+//   - options - WebAppsClientBeginCreateOrUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.BeginCreateOrUpdateConfiguration
 //     method.
-func (client *WebAppsClient) CreateOrUpdateConfiguration(ctx context.Context, resourceGroupName string, name string, siteConfig SiteConfigResource, options *WebAppsClientCreateOrUpdateConfigurationOptions) (WebAppsClientCreateOrUpdateConfigurationResponse, error) {
+func (client *WebAppsClient) BeginCreateOrUpdateConfiguration(ctx context.Context, resourceGroupName string, name string, siteConfig SiteConfigResource, options *WebAppsClientBeginCreateOrUpdateConfigurationOptions) (*runtime.Poller[WebAppsClientCreateOrUpdateConfigurationResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.createOrUpdateConfiguration(ctx, resourceGroupName, name, siteConfig, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[WebAppsClientCreateOrUpdateConfigurationResponse](resp, client.internal.Pipeline(), nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[WebAppsClientCreateOrUpdateConfigurationResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// CreateOrUpdateConfiguration - Description for Updates the configuration of an app.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-09-01
+func (client *WebAppsClient) createOrUpdateConfiguration(ctx context.Context, resourceGroupName string, name string, siteConfig SiteConfigResource, options *WebAppsClientBeginCreateOrUpdateConfigurationOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateConfigurationCreateRequest(ctx, resourceGroupName, name, siteConfig, options)
 	if err != nil {
-		return WebAppsClientCreateOrUpdateConfigurationResponse{}, err
+		return nil, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return WebAppsClientCreateOrUpdateConfigurationResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return WebAppsClientCreateOrUpdateConfigurationResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.createOrUpdateConfigurationHandleResponse(resp)
+	return resp, nil
 }
 
 // createOrUpdateConfigurationCreateRequest creates the CreateOrUpdateConfiguration request.
-func (client *WebAppsClient) createOrUpdateConfigurationCreateRequest(ctx context.Context, resourceGroupName string, name string, siteConfig SiteConfigResource, options *WebAppsClientCreateOrUpdateConfigurationOptions) (*policy.Request, error) {
+func (client *WebAppsClient) createOrUpdateConfigurationCreateRequest(ctx context.Context, resourceGroupName string, name string, siteConfig SiteConfigResource, options *WebAppsClientBeginCreateOrUpdateConfigurationOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -1412,15 +1428,6 @@ func (client *WebAppsClient) createOrUpdateConfigurationCreateRequest(ctx contex
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, siteConfig)
-}
-
-// createOrUpdateConfigurationHandleResponse handles the CreateOrUpdateConfiguration response.
-func (client *WebAppsClient) createOrUpdateConfigurationHandleResponse(resp *http.Response) (WebAppsClientCreateOrUpdateConfigurationResponse, error) {
-	result := WebAppsClientCreateOrUpdateConfigurationResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.SiteConfigResource); err != nil {
-		return WebAppsClientCreateOrUpdateConfigurationResponse{}, err
-	}
-	return result, nil
 }
 
 // CreateOrUpdateConfigurationSlot - Description for Updates the configuration of an app.
@@ -23651,32 +23658,48 @@ func (client *WebAppsClient) updateHandleResponse(resp *http.Response) (WebAppsC
 	return result, nil
 }
 
-// UpdateApplicationSettings - Description for Replaces the application settings of an app.
+// BeginUpdateApplicationSettings - Description for Replaces the application settings of an app.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-09-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - name - Name of the app.
 //   - appSettings - Application settings of the app.
-//   - options - WebAppsClientUpdateApplicationSettingsOptions contains the optional parameters for the WebAppsClient.UpdateApplicationSettings
+//   - options - WebAppsClientBeginUpdateApplicationSettingsOptions contains the optional parameters for the WebAppsClient.BeginUpdateApplicationSettings
 //     method.
-func (client *WebAppsClient) UpdateApplicationSettings(ctx context.Context, resourceGroupName string, name string, appSettings StringDictionary, options *WebAppsClientUpdateApplicationSettingsOptions) (WebAppsClientUpdateApplicationSettingsResponse, error) {
+func (client *WebAppsClient) BeginUpdateApplicationSettings(ctx context.Context, resourceGroupName string, name string, appSettings StringDictionary, options *WebAppsClientBeginUpdateApplicationSettingsOptions) (*runtime.Poller[WebAppsClientUpdateApplicationSettingsResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.updateApplicationSettings(ctx, resourceGroupName, name, appSettings, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[WebAppsClientUpdateApplicationSettingsResponse](resp, client.internal.Pipeline(), nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[WebAppsClientUpdateApplicationSettingsResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// UpdateApplicationSettings - Description for Replaces the application settings of an app.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-09-01
+func (client *WebAppsClient) updateApplicationSettings(ctx context.Context, resourceGroupName string, name string, appSettings StringDictionary, options *WebAppsClientBeginUpdateApplicationSettingsOptions) (*http.Response, error) {
 	req, err := client.updateApplicationSettingsCreateRequest(ctx, resourceGroupName, name, appSettings, options)
 	if err != nil {
-		return WebAppsClientUpdateApplicationSettingsResponse{}, err
+		return nil, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return WebAppsClientUpdateApplicationSettingsResponse{}, err
+		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return WebAppsClientUpdateApplicationSettingsResponse{}, runtime.NewResponseError(resp)
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
 	}
-	return client.updateApplicationSettingsHandleResponse(resp)
+	return resp, nil
 }
 
 // updateApplicationSettingsCreateRequest creates the UpdateApplicationSettings request.
-func (client *WebAppsClient) updateApplicationSettingsCreateRequest(ctx context.Context, resourceGroupName string, name string, appSettings StringDictionary, options *WebAppsClientUpdateApplicationSettingsOptions) (*policy.Request, error) {
+func (client *WebAppsClient) updateApplicationSettingsCreateRequest(ctx context.Context, resourceGroupName string, name string, appSettings StringDictionary, options *WebAppsClientBeginUpdateApplicationSettingsOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -23699,15 +23722,6 @@ func (client *WebAppsClient) updateApplicationSettingsCreateRequest(ctx context.
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, appSettings)
-}
-
-// updateApplicationSettingsHandleResponse handles the UpdateApplicationSettings response.
-func (client *WebAppsClient) updateApplicationSettingsHandleResponse(resp *http.Response) (WebAppsClientUpdateApplicationSettingsResponse, error) {
-	result := WebAppsClientUpdateApplicationSettingsResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.StringDictionary); err != nil {
-		return WebAppsClientUpdateApplicationSettingsResponse{}, err
-	}
-	return result, nil
 }
 
 // UpdateApplicationSettingsSlot - Description for Replaces the application settings of an app.

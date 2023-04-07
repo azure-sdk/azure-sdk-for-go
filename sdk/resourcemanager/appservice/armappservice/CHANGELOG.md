@@ -1,5 +1,12 @@
 # Release History
 
+## 3.0.0 (2023-04-07)
+### Breaking Changes
+
+- Operation `*WebAppsClient.CreateOrUpdateConfiguration` has been changed to LRO, use `*WebAppsClient.BeginCreateOrUpdateConfiguration` instead.
+- Operation `*WebAppsClient.UpdateApplicationSettings` has been changed to LRO, use `*WebAppsClient.BeginUpdateApplicationSettings` instead.
+
+
 ## 2.1.0 (2023-03-24)
 ### Features Added
 
