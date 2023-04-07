@@ -44,42 +44,30 @@ func NewLocationBasedCapabilitiesClient(subscriptionID string, credential azcore
 	return client, nil
 }
 
-// NewListPager - Get capabilities at specified location in a given subscription.
+// Get - Get capabilities at specified location in a given subscription.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-05-01
+// Generated from API version 2022-09-30-preview
 //   - locationName - The name of the location.
-//   - options - LocationBasedCapabilitiesClientListOptions contains the optional parameters for the LocationBasedCapabilitiesClient.NewListPager
+//   - options - LocationBasedCapabilitiesClientGetOptions contains the optional parameters for the LocationBasedCapabilitiesClient.Get
 //     method.
-func (client *LocationBasedCapabilitiesClient) NewListPager(locationName string, options *LocationBasedCapabilitiesClientListOptions) *runtime.Pager[LocationBasedCapabilitiesClientListResponse] {
-	return runtime.NewPager(runtime.PagingHandler[LocationBasedCapabilitiesClientListResponse]{
-		More: func(page LocationBasedCapabilitiesClientListResponse) bool {
-			return page.NextLink != nil && len(*page.NextLink) > 0
-		},
-		Fetcher: func(ctx context.Context, page *LocationBasedCapabilitiesClientListResponse) (LocationBasedCapabilitiesClientListResponse, error) {
-			var req *policy.Request
-			var err error
-			if page == nil {
-				req, err = client.listCreateRequest(ctx, locationName, options)
-			} else {
-				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
-			}
-			if err != nil {
-				return LocationBasedCapabilitiesClientListResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return LocationBasedCapabilitiesClientListResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return LocationBasedCapabilitiesClientListResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listHandleResponse(resp)
-		},
-	})
+func (client *LocationBasedCapabilitiesClient) Get(ctx context.Context, locationName string, options *LocationBasedCapabilitiesClientGetOptions) (LocationBasedCapabilitiesClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, locationName, options)
+	if err != nil {
+		return LocationBasedCapabilitiesClientGetResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return LocationBasedCapabilitiesClientGetResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return LocationBasedCapabilitiesClientGetResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getHandleResponse(resp)
 }
 
-// listCreateRequest creates the List request.
-func (client *LocationBasedCapabilitiesClient) listCreateRequest(ctx context.Context, locationName string, options *LocationBasedCapabilitiesClientListOptions) (*policy.Request, error) {
+// getCreateRequest creates the Get request.
+func (client *LocationBasedCapabilitiesClient) getCreateRequest(ctx context.Context, locationName string, options *LocationBasedCapabilitiesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.DBforMySQL/locations/{locationName}/capabilities"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -94,17 +82,17 @@ func (client *LocationBasedCapabilitiesClient) listCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-05-01")
+	reqQP.Set("api-version", "2022-09-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listHandleResponse handles the List response.
-func (client *LocationBasedCapabilitiesClient) listHandleResponse(resp *http.Response) (LocationBasedCapabilitiesClientListResponse, error) {
-	result := LocationBasedCapabilitiesClientListResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.CapabilitiesListResult); err != nil {
-		return LocationBasedCapabilitiesClientListResponse{}, err
+// getHandleResponse handles the Get response.
+func (client *LocationBasedCapabilitiesClient) getHandleResponse(resp *http.Response) (LocationBasedCapabilitiesClientGetResponse, error) {
+	result := LocationBasedCapabilitiesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.CapabilityProperties); err != nil {
+		return LocationBasedCapabilitiesClientGetResponse{}, err
 	}
 	return result, nil
 }
