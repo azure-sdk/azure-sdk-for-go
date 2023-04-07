@@ -509,20 +509,20 @@ type OrganizationProperties struct {
 	// The Id of the Enterprise App used for Single sign on.
 	EnterpriseAppID *string `json:"enterpriseAppId,omitempty"`
 
+	// Id of the Datadog organization.
+	ID *string `json:"id,omitempty"`
+
 	// The auth code used to linking to an existing datadog organization.
 	LinkingAuthCode *string `json:"linkingAuthCode,omitempty"`
 
 	// The client_id from an existing in exchange for an auth token to link organization.
 	LinkingClientID *string `json:"linkingClientId,omitempty"`
 
+	// Name of the Datadog organization.
+	Name *string `json:"name,omitempty"`
+
 	// The redirect uri for linking.
 	RedirectURI *string `json:"redirectUri,omitempty"`
-
-	// READ-ONLY; Id of the Datadog organization.
-	ID *string `json:"id,omitempty" azure:"ro"`
-
-	// READ-ONLY; Name of the Datadog organization.
-	Name *string `json:"name,omitempty" azure:"ro"`
 }
 
 type ResourceSKU struct {
