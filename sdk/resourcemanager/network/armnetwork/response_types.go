@@ -1106,12 +1106,12 @@ type InterfaceLoadBalancersClientListResponse struct {
 	InterfaceLoadBalancerListResult
 }
 
-// InterfaceTapConfigurationsClientCreateOrUpdateResponse contains the response from method InterfaceTapConfigurationsClient.BeginCreateOrUpdate.
+// InterfaceTapConfigurationsClientCreateOrUpdateResponse contains the response from method InterfaceTapConfigurationsClient.CreateOrUpdate.
 type InterfaceTapConfigurationsClientCreateOrUpdateResponse struct {
 	InterfaceTapConfiguration
 }
 
-// InterfaceTapConfigurationsClientDeleteResponse contains the response from method InterfaceTapConfigurationsClient.BeginDelete.
+// InterfaceTapConfigurationsClientDeleteResponse contains the response from method InterfaceTapConfigurationsClient.Delete.
 type InterfaceTapConfigurationsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -1126,12 +1126,12 @@ type InterfaceTapConfigurationsClientListResponse struct {
 	InterfaceTapConfigurationListResult
 }
 
-// InterfacesClientCreateOrUpdateResponse contains the response from method InterfacesClient.BeginCreateOrUpdate.
+// InterfacesClientCreateOrUpdateResponse contains the response from method InterfacesClient.CreateOrUpdate.
 type InterfacesClientCreateOrUpdateResponse struct {
 	Interface
 }
 
-// InterfacesClientDeleteResponse contains the response from method InterfacesClient.BeginDelete.
+// InterfacesClientDeleteResponse contains the response from method InterfacesClient.Delete.
 type InterfacesClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -1141,7 +1141,7 @@ type InterfacesClientGetCloudServiceNetworkInterfaceResponse struct {
 	Interface
 }
 
-// InterfacesClientGetEffectiveRouteTableResponse contains the response from method InterfacesClient.BeginGetEffectiveRouteTable.
+// InterfacesClientGetEffectiveRouteTableResponse contains the response from method InterfacesClient.GetEffectiveRouteTable.
 type InterfacesClientGetEffectiveRouteTableResponse struct {
 	EffectiveRouteListResult
 }
@@ -1176,7 +1176,7 @@ type InterfacesClientListCloudServiceRoleInstanceNetworkInterfacesResponse struc
 	InterfaceListResult
 }
 
-// InterfacesClientListEffectiveNetworkSecurityGroupsResponse contains the response from method InterfacesClient.BeginListEffectiveNetworkSecurityGroups.
+// InterfacesClientListEffectiveNetworkSecurityGroupsResponse contains the response from method InterfacesClient.ListEffectiveNetworkSecurityGroups.
 type InterfacesClientListEffectiveNetworkSecurityGroupsResponse struct {
 	EffectiveNetworkSecurityGroupListResult
 }
@@ -2543,12 +2543,24 @@ type VirtualHubBgpConnectionClientGetResponse struct {
 
 // VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse contains the response from method VirtualHubBgpConnectionsClient.BeginListAdvertisedRoutes.
 type VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse struct {
-	PeerRouteList
+	// Map from virtual router instance to list of peer routes.
+	Value map[string][]*PeerRoute
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse.
+func (v *VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &v.Value)
 }
 
 // VirtualHubBgpConnectionsClientListLearnedRoutesResponse contains the response from method VirtualHubBgpConnectionsClient.BeginListLearnedRoutes.
 type VirtualHubBgpConnectionsClientListLearnedRoutesResponse struct {
-	PeerRouteList
+	// Map from virtual router instance to list of peer routes.
+	Value map[string][]*PeerRoute
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualHubBgpConnectionsClientListLearnedRoutesResponse.
+func (v *VirtualHubBgpConnectionsClientListLearnedRoutesResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &v.Value)
 }
 
 // VirtualHubBgpConnectionsClientListResponse contains the response from method VirtualHubBgpConnectionsClient.NewListPager.

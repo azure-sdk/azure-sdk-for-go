@@ -1,5 +1,33 @@
 # Release History
 
+## 3.0.0 (2023-04-08)
+### Breaking Changes
+
+- Const `ApplicationGatewayCustomErrorStatusCodeHTTPStatus400`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus404`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus405`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus408`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus499`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus500`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus503`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus504` from type alias `ApplicationGatewayCustomErrorStatusCode` has been removed
+- Type alias `WebApplicationFirewallState` has been removed
+- Operation `*InterfaceTapConfigurationsClient.BeginCreateOrUpdate` has been changed to non-LRO, use `*InterfaceTapConfigurationsClient.CreateOrUpdate` instead.
+- Operation `*InterfaceTapConfigurationsClient.BeginDelete` has been changed to non-LRO, use `*InterfaceTapConfigurationsClient.Delete` instead.
+- Operation `*InterfacesClient.BeginCreateOrUpdate` has been changed to non-LRO, use `*InterfacesClient.CreateOrUpdate` instead.
+- Operation `*InterfacesClient.BeginDelete` has been changed to non-LRO, use `*InterfacesClient.Delete` instead.
+- Operation `*InterfacesClient.BeginGetEffectiveRouteTable` has been changed to non-LRO, use `*InterfacesClient.GetEffectiveRouteTable` instead.
+- Operation `*InterfacesClient.BeginListEffectiveNetworkSecurityGroups` has been changed to non-LRO, use `*InterfacesClient.ListEffectiveNetworkSecurityGroups` instead.
+- Struct `PeerRouteList` has been removed
+- Field `IPConfigurationID` of struct `VPNGatewaysClientBeginResetOptions` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse` has been removed
+- Field `FlowLogs` of struct `VirtualNetworkPropertiesFormat` has been removed
+- Field `State` of struct `WebApplicationFirewallCustomRule` has been removed
+
+### Features Added
+
+- New field `FileUploadEnforcement` in struct `PolicySettings`
+- New field `RequestBodyEnforcement` in struct `PolicySettings`
+- New field `RequestBodyInspectLimitInKB` in struct `PolicySettings`
+- New field `PrivateEndpointLocation` in struct `PrivateEndpointConnectionProperties`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse`
+
+
 ## 2.2.0 (2023-03-24)
 ### Features Added
 
