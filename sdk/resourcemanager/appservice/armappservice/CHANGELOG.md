@@ -1,5 +1,17 @@
 # Release History
 
+## 3.0.0 (2023-04-09)
+### Breaking Changes
+
+- Field `Name` of struct `KeyInfo` has been removed
+- Field `Value` of struct `KeyInfo` has been removed
+
+### Features Added
+
+- New struct `KeyInfoProperties`
+- New field `Properties` in struct `KeyInfo`
+
+
 ## 2.1.0 (2023-03-24)
 ### Features Added
 

@@ -5057,6 +5057,12 @@ type JwtClaimChecks struct {
 
 // KeyInfo - Function key info.
 type KeyInfo struct {
+	// The properties of function key info.
+	Properties *KeyInfoProperties `json:"properties,omitempty"`
+}
+
+// KeyInfoProperties - The properties of function key info.
+type KeyInfoProperties struct {
 	// Key name
 	Name *string `json:"name,omitempty"`
 
