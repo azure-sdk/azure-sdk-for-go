@@ -782,6 +782,8 @@ func (c ConnectionSettingProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "clientId", c.ClientID)
 	populate(objectMap, "clientSecret", c.ClientSecret)
+	populate(objectMap, "id", c.ID)
+	populate(objectMap, "name", c.Name)
 	populate(objectMap, "parameters", c.Parameters)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
 	populate(objectMap, "scopes", c.Scopes)
@@ -805,6 +807,12 @@ func (c *ConnectionSettingProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "clientSecret":
 			err = unpopulate(val, "ClientSecret", &c.ClientSecret)
+			delete(rawMsg, key)
+		case "id":
+			err = unpopulate(val, "ID", &c.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &c.Name)
 			delete(rawMsg, key)
 		case "parameters":
 			err = unpopulate(val, "Parameters", &c.Parameters)
