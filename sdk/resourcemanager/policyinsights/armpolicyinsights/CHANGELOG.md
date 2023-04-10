@@ -1,5 +1,35 @@
 # Release History
 
+## 0.8.0 (2023-04-10)
+### Breaking Changes
+
+- Type of `PolicyEvaluationResult.EvaluationDetails` has been changed from `*PolicyEvaluationDetails` to `*CheckRestrictionEvaluationDetails`
+
+### Features Added
+
+- New value `FieldRestrictionResultAudit` added to enum type `FieldRestrictionResult`
+- New enum type `ComponentPolicyStatesResource` with values `ComponentPolicyStatesResourceLatest`
+- New function `*ClientFactory.NewComponentPolicyStatesClient() *ComponentPolicyStatesClient`
+- New function `NewComponentPolicyStatesClient(azcore.TokenCredential, *arm.ClientOptions) (*ComponentPolicyStatesClient, error)`
+- New function `*ComponentPolicyStatesClient.ListQueryResultsForPolicyDefinition(context.Context, string, string, ComponentPolicyStatesResource, *ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionOptions) (ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionResponse, error)`
+- New function `*ComponentPolicyStatesClient.ListQueryResultsForResource(context.Context, string, ComponentPolicyStatesResource, *ComponentPolicyStatesClientListQueryResultsForResourceOptions) (ComponentPolicyStatesClientListQueryResultsForResourceResponse, error)`
+- New function `*ComponentPolicyStatesClient.ListQueryResultsForResourceGroup(context.Context, string, string, ComponentPolicyStatesResource, *ComponentPolicyStatesClientListQueryResultsForResourceGroupOptions) (ComponentPolicyStatesClientListQueryResultsForResourceGroupResponse, error)`
+- New function `*ComponentPolicyStatesClient.ListQueryResultsForResourceGroupLevelPolicyAssignment(context.Context, string, string, string, ComponentPolicyStatesResource, *ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentOptions) (ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentResponse, error)`
+- New function `*ComponentPolicyStatesClient.ListQueryResultsForSubscription(context.Context, string, ComponentPolicyStatesResource, *ComponentPolicyStatesClientListQueryResultsForSubscriptionOptions) (ComponentPolicyStatesClientListQueryResultsForSubscriptionResponse, error)`
+- New function `*ComponentPolicyStatesClient.ListQueryResultsForSubscriptionLevelPolicyAssignment(context.Context, string, string, ComponentPolicyStatesResource, *ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentOptions) (ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentResponse, error)`
+- New struct `CheckRestrictionEvaluationDetails`
+- New struct `ComponentExpressionEvaluationDetails`
+- New struct `ComponentPolicyEvaluationDetails`
+- New struct `ComponentPolicyState`
+- New struct `ComponentPolicyStatesQueryResults`
+- New struct `PolicyEffectDetails`
+- New field `IncludeAuditEffect` in struct `CheckRestrictionsRequest`
+- New field `PolicyEffect` in struct `FieldRestriction`
+- New field `Reason` in struct `FieldRestriction`
+- New field `IsDataAction` in struct `Operation`
+- New field `EffectDetails` in struct `PolicyEvaluationResult`
+
+
 ## 0.7.0 (2023-03-31)
 ### Features Added
 

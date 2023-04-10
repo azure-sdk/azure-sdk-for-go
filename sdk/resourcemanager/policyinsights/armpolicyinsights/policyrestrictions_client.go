@@ -47,7 +47,7 @@ func NewPolicyRestrictionsClient(subscriptionID string, credential azcore.TokenC
 // CheckAtManagementGroupScope - Checks what restrictions Azure Policy will place on resources within a management group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-03-01
 //   - managementGroupID - Management group ID.
 //   - parameters - The check policy restrictions parameters.
 //   - options - PolicyRestrictionsClientCheckAtManagementGroupScopeOptions contains the optional parameters for the PolicyRestrictionsClient.CheckAtManagementGroupScope
@@ -80,7 +80,7 @@ func (client *PolicyRestrictionsClient) checkAtManagementGroupScopeCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -99,7 +99,7 @@ func (client *PolicyRestrictionsClient) checkAtManagementGroupScopeHandleRespons
 // this when the resource group the resource will be created in is already known.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-03-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - parameters - The check policy restrictions parameters.
 //   - options - PolicyRestrictionsClientCheckAtResourceGroupScopeOptions contains the optional parameters for the PolicyRestrictionsClient.CheckAtResourceGroupScope
@@ -135,7 +135,7 @@ func (client *PolicyRestrictionsClient) checkAtResourceGroupScopeCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -153,7 +153,7 @@ func (client *PolicyRestrictionsClient) checkAtResourceGroupScopeHandleResponse(
 // CheckAtSubscriptionScope - Checks what restrictions Azure Policy will place on a resource within a subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2023-03-01
 //   - parameters - The check policy restrictions parameters.
 //   - options - PolicyRestrictionsClientCheckAtSubscriptionScopeOptions contains the optional parameters for the PolicyRestrictionsClient.CheckAtSubscriptionScope
 //     method.
@@ -184,7 +184,7 @@ func (client *PolicyRestrictionsClient) checkAtSubscriptionScopeCreateRequest(ct
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2023-03-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

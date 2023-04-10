@@ -69,6 +69,38 @@ type AttestationsClientListForSubscriptionResponse struct {
 	AttestationListResult
 }
 
+// ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionResponse contains the response from method ComponentPolicyStatesClient.ListQueryResultsForPolicyDefinition.
+type ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionResponse struct {
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentResponse contains the response from method
+// ComponentPolicyStatesClient.ListQueryResultsForResourceGroupLevelPolicyAssignment.
+type ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentResponse struct {
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceGroupResponse contains the response from method ComponentPolicyStatesClient.ListQueryResultsForResourceGroup.
+type ComponentPolicyStatesClientListQueryResultsForResourceGroupResponse struct {
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceResponse contains the response from method ComponentPolicyStatesClient.ListQueryResultsForResource.
+type ComponentPolicyStatesClientListQueryResultsForResourceResponse struct {
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentResponse contains the response from method
+// ComponentPolicyStatesClient.ListQueryResultsForSubscriptionLevelPolicyAssignment.
+type ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentResponse struct {
+	ComponentPolicyStatesQueryResults
+}
+
+// ComponentPolicyStatesClientListQueryResultsForSubscriptionResponse contains the response from method ComponentPolicyStatesClient.ListQueryResultsForSubscription.
+type ComponentPolicyStatesClientListQueryResultsForSubscriptionResponse struct {
+	ComponentPolicyStatesQueryResults
+}
+
 // OperationsClientListResponse contains the response from method OperationsClient.List.
 type OperationsClientListResponse struct {
 	OperationsListResults
