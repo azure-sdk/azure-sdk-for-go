@@ -41,7 +41,7 @@ type ArcSetting struct {
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; System data of ArcSetting resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -80,6 +80,9 @@ type ArcSettingProperties struct {
 	// READ-ONLY; Aggregate state of Arc agent across the nodes in this HCI cluster.
 	AggregateState *ArcSettingAggregateState `json:"aggregateState,omitempty" azure:"ro"`
 
+	// READ-ONLY; Properties for each of the default extensions category
+	DefaultExtensions []*DefaultExtensionDetails `json:"defaultExtensions,omitempty" azure:"ro"`
+
 	// READ-ONLY; State of Arc agent in each of the nodes.
 	PerNodeDetails []*PerNodeState `json:"perNodeDetails,omitempty" azure:"ro"`
 
@@ -98,6 +101,19 @@ type ArcSettingsClientBeginCreateIdentityOptions struct {
 type ArcSettingsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ArcSettingsClientBeginInitializeDisableProcessOptions contains the optional parameters for the ArcSettingsClient.BeginInitializeDisableProcess
+// method.
+type ArcSettingsClientBeginInitializeDisableProcessOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArcSettingsClientConsentAndInstallDefaultExtensionsOptions contains the optional parameters for the ArcSettingsClient.ConsentAndInstallDefaultExtensions
+// method.
+type ArcSettingsClientConsentAndInstallDefaultExtensionsOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ArcSettingsClientCreateOptions contains the optional parameters for the ArcSettingsClient.Create method.
@@ -146,6 +162,9 @@ type Cluster struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string `json:"location,omitempty"`
 
+	// Identity of Cluster resource
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// Cluster properties.
 	Properties *ClusterProperties `json:"properties,omitempty"`
 
@@ -158,7 +177,7 @@ type Cluster struct {
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; System data of Cluster resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -201,8 +220,14 @@ type ClusterNode struct {
 	// READ-ONLY; Number of physical cores on the cluster node.
 	CoreCount *float32 `json:"coreCount,omitempty" azure:"ro"`
 
+	// READ-ONLY; Edge Hardware Center Resource Id
+	EhcResourceID *string `json:"ehcResourceId,omitempty" azure:"ro"`
+
 	// READ-ONLY; Id of the node in the cluster.
 	ID *float32 `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Most recent licensing timestamp.
+	LastLicensingTimestamp *time.Time `json:"lastLicensingTimestamp,omitempty" azure:"ro"`
 
 	// READ-ONLY; Manufacturer of the cluster node hardware.
 	Manufacturer *string `json:"manufacturer,omitempty" azure:"ro"`
@@ -215,6 +240,12 @@ type ClusterNode struct {
 
 	// READ-ONLY; Name of the cluster node.
 	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Type of the cluster node hardware.
+	NodeType *ClusterNodeType `json:"nodeType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Display version of the operating system running on the cluster node.
+	OSDisplayVersion *string `json:"osDisplayVersion,omitempty" azure:"ro"`
 
 	// READ-ONLY; Operating system running on the cluster node.
 	OSName *string `json:"osName,omitempty" azure:"ro"`
@@ -231,6 +262,9 @@ type ClusterNode struct {
 
 // ClusterPatch - Cluster details to update.
 type ClusterPatch struct {
+	// Identity of Cluster resource
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// Cluster properties.
 	Properties *ClusterPatchProperties `json:"properties,omitempty"`
 
@@ -273,6 +307,9 @@ type ClusterProperties struct {
 	// Desired properties of the cluster.
 	DesiredProperties *ClusterDesiredProperties `json:"desiredProperties,omitempty"`
 
+	// Software Assurance properties of the cluster.
+	SoftwareAssuranceProperties *SoftwareAssuranceProperties `json:"softwareAssuranceProperties,omitempty"`
+
 	// READ-ONLY; Type of billing applied to the resource.
 	BillingModel *string `json:"billingModel,omitempty" azure:"ro"`
 
@@ -293,6 +330,9 @@ type ClusterProperties struct {
 
 	// READ-ONLY; Properties reported by cluster agent.
 	ReportedProperties *ClusterReportedProperties `json:"reportedProperties,omitempty" azure:"ro"`
+
+	// READ-ONLY; Object id of RP Service Principal
+	ResourceProviderObjectID *string `json:"resourceProviderObjectId,omitempty" azure:"ro"`
 
 	// READ-ONLY; Region specific DataPath Endpoint of the cluster.
 	ServiceEndpoint *string `json:"serviceEndpoint,omitempty" azure:"ro"`
@@ -315,6 +355,9 @@ type ClusterReportedProperties struct {
 	// READ-ONLY; Name of the on-prem cluster connected to this resource.
 	ClusterName *string `json:"clusterName,omitempty" azure:"ro"`
 
+	// READ-ONLY; The node type of all the nodes of the cluster.
+	ClusterType *ClusterNodeType `json:"clusterType,omitempty" azure:"ro"`
+
 	// READ-ONLY; Version of the cluster software.
 	ClusterVersion *string `json:"clusterVersion,omitempty" azure:"ro"`
 
@@ -324,8 +367,14 @@ type ClusterReportedProperties struct {
 	// READ-ONLY; Last time the cluster reported the data.
 	LastUpdated *time.Time `json:"lastUpdated,omitempty" azure:"ro"`
 
+	// READ-ONLY; The manufacturer of all the nodes of the cluster.
+	Manufacturer *string `json:"manufacturer,omitempty" azure:"ro"`
+
 	// READ-ONLY; List of nodes reported by the cluster.
 	Nodes []*ClusterNode `json:"nodes,omitempty" azure:"ro"`
+
+	// READ-ONLY; Capabilities supported by the cluster.
+	SupportedCapabilities []*string `json:"supportedCapabilities,omitempty" azure:"ro"`
 }
 
 // ClustersClientBeginCreateIdentityOptions contains the optional parameters for the ClustersClient.BeginCreateIdentity method.
@@ -336,6 +385,13 @@ type ClustersClientBeginCreateIdentityOptions struct {
 
 // ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
 type ClustersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientBeginExtendSoftwareAssuranceBenefitOptions contains the optional parameters for the ClustersClient.BeginExtendSoftwareAssuranceBenefit
+// method.
+type ClustersClientBeginExtendSoftwareAssuranceBenefitOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -372,6 +428,15 @@ type ClustersClientListBySubscriptionOptions struct {
 // ClustersClientUpdateOptions contains the optional parameters for the ClustersClient.Update method.
 type ClustersClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// DefaultExtensionDetails - Properties for a particular default extension category.
+type DefaultExtensionDetails struct {
+	// READ-ONLY; Default extension category
+	Category *string `json:"category,omitempty" azure:"ro"`
+
+	// READ-ONLY; Consent time for extension category
+	ConsentTime *time.Time `json:"consentTime,omitempty" azure:"ro"`
 }
 
 // ErrorAdditionalInfo - The resource management error additional info.
@@ -419,11 +484,44 @@ type Extension struct {
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
-	// READ-ONLY; System data of Extension resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ExtensionInstanceView - Describes the Extension Instance View.
+type ExtensionInstanceView struct {
+	// The extension name.
+	Name *string `json:"name,omitempty"`
+
+	// Instance view status.
+	Status *ExtensionInstanceViewStatus `json:"status,omitempty"`
+
+	// Specifies the type of the extension; an example is "MicrosoftMonitoringAgent".
+	Type *string `json:"type,omitempty"`
+
+	// Specifies the version of the script handler.
+	TypeHandlerVersion *string `json:"typeHandlerVersion,omitempty"`
+}
+
+// ExtensionInstanceViewStatus - Instance view status.
+type ExtensionInstanceViewStatus struct {
+	// The status code.
+	Code *string `json:"code,omitempty"`
+
+	// The short localizable label for the status.
+	DisplayStatus *string `json:"displayStatus,omitempty"`
+
+	// The level code.
+	Level *StatusLevelTypes `json:"level,omitempty"`
+
+	// The detailed status message, including for alerts and error messages.
+	Message *string `json:"message,omitempty"`
+
+	// The time of the status.
+	Time *time.Time `json:"time,omitempty"`
 }
 
 // ExtensionList - List of Extensions in HCI cluster.
@@ -442,6 +540,9 @@ type ExtensionParameters struct {
 	// with this property set to true.
 	AutoUpgradeMinorVersion *bool `json:"autoUpgradeMinorVersion,omitempty"`
 
+	// Indicates whether the extension should be automatically upgraded by the platform if there is a newer version available.
+	EnableAutomaticUpgrade *bool `json:"enableAutomaticUpgrade,omitempty"`
+
 	// How the extension handler should be forced to update even if the extension configuration has not changed.
 	ForceUpdateTag *string `json:"forceUpdateTag,omitempty"`
 
@@ -457,7 +558,7 @@ type ExtensionParameters struct {
 	// Specifies the type of the extension; an example is "CustomScriptExtension".
 	Type *string `json:"type,omitempty"`
 
-	// Specifies the version of the script handler.
+	// Specifies the version of the script handler. Latest version would be used if not specified.
 	TypeHandlerVersion *string `json:"typeHandlerVersion,omitempty"`
 }
 
@@ -469,11 +570,20 @@ type ExtensionProperties struct {
 	// READ-ONLY; Aggregate state of Arc Extensions across the nodes in this HCI cluster.
 	AggregateState *ExtensionAggregateState `json:"aggregateState,omitempty" azure:"ro"`
 
+	// READ-ONLY; Indicates if the extension is managed by azure or the user.
+	ManagedBy *ExtensionManagedBy `json:"managedBy,omitempty" azure:"ro"`
+
 	// READ-ONLY; State of Arc Extension in each of the nodes.
 	PerNodeExtensionDetails []*PerNodeExtensionState `json:"perNodeExtensionDetails,omitempty" azure:"ro"`
 
 	// READ-ONLY; Provisioning state of the Extension proxy resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// ExtensionUpgradeParameters - Describes the parameters for Extension upgrade.
+type ExtensionUpgradeParameters struct {
+	// Extension Upgrade Target Version.
+	TargetVersion *string `json:"targetVersion,omitempty"`
 }
 
 // ExtensionsClientBeginCreateOptions contains the optional parameters for the ExtensionsClient.BeginCreate method.
@@ -494,6 +604,12 @@ type ExtensionsClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
+// ExtensionsClientBeginUpgradeOptions contains the optional parameters for the ExtensionsClient.BeginUpgrade method.
+type ExtensionsClientBeginUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ExtensionsClientGetOptions contains the optional parameters for the ExtensionsClient.Get method.
 type ExtensionsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -503,6 +619,89 @@ type ExtensionsClientGetOptions struct {
 // method.
 type ExtensionsClientListByArcSettingOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType `json:"type,omitempty"`
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity `json:"userAssignedIdentities,omitempty"`
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+}
+
+// Offer details.
+type Offer struct {
+	// Offer properties.
+	Properties *OfferProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// OfferList - List of Offer proxy resources for the HCI cluster.
+type OfferList struct {
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of Offer proxy resources.
+	Value []*Offer `json:"value,omitempty" azure:"ro"`
+}
+
+// OfferProperties - Publisher properties.
+type OfferProperties struct {
+	// JSON serialized catalog content of the offer
+	Content *string `json:"content,omitempty"`
+
+	// The API version of the catalog service used to serve the catalog content
+	ContentVersion *string `json:"contentVersion,omitempty"`
+
+	// Identifier of the Publisher for the offer
+	PublisherID *string `json:"publisherId,omitempty"`
+
+	// Array of SKU mappings
+	SKUMappings []*SKUMappings `json:"skuMappings,omitempty"`
+
+	// READ-ONLY; Provisioning State
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// OffersClientGetOptions contains the optional parameters for the OffersClient.Get method.
+type OffersClientGetOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
+}
+
+// OffersClientListByClusterOptions contains the optional parameters for the OffersClient.NewListByClusterPager method.
+type OffersClientListByClusterOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
+}
+
+// OffersClientListByPublisherOptions contains the optional parameters for the OffersClient.NewListByPublisherPager method.
+type OffersClientListByPublisherOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -559,6 +758,18 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PackageVersionInfo - Current version of each updatable component.
+type PackageVersionInfo struct {
+	// Last time this component was updated.
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+
+	// Package type
+	PackageType *string `json:"packageType,omitempty"`
+
+	// Package version
+	Version *string `json:"version,omitempty"`
+}
+
 type PasswordCredential struct {
 	EndDateTime   *time.Time `json:"endDateTime,omitempty"`
 	KeyID         *string    `json:"keyId,omitempty"`
@@ -571,11 +782,17 @@ type PerNodeExtensionState struct {
 	// READ-ONLY; Fully qualified resource ID for the particular Arc Extension on this node.
 	Extension *string `json:"extension,omitempty" azure:"ro"`
 
+	// READ-ONLY; The extension instance view.
+	InstanceView *ExtensionInstanceView `json:"instanceView,omitempty" azure:"ro"`
+
 	// READ-ONLY; Name of the node in HCI Cluster.
 	Name *string `json:"name,omitempty" azure:"ro"`
 
 	// READ-ONLY; State of Arc Extension in this node.
 	State *NodeExtensionState `json:"state,omitempty" azure:"ro"`
+
+	// READ-ONLY; Specifies the version of the script handler.
+	TypeHandlerVersion *string `json:"typeHandlerVersion,omitempty" azure:"ro"`
 }
 
 // PerNodeState - Status of Arc agent for a particular node in HCI Cluster.
@@ -590,6 +807,55 @@ type PerNodeState struct {
 	State *NodeArcState `json:"state,omitempty" azure:"ro"`
 }
 
+type PrecheckResult struct {
+	// Property bag of key value pairs for additional information.
+	AdditionalData *string `json:"additionalData,omitempty"`
+
+	// Detailed overview of the issue and what impact the issue has on the stamp.
+	Description *string `json:"description,omitempty"`
+
+	// The name of the services called for the HealthCheck (I.E. Test-AzureStack, Test-Cluster).
+	HealthCheckSource *string `json:"healthCheckSource,omitempty"`
+
+	// Name of the individual test/rule/alert that was executed. Unique, not exposed to the customer.
+	Name *string `json:"name,omitempty"`
+
+	// Set of steps that can be taken to resolve the issue found.
+	Remediation *string `json:"remediation,omitempty"`
+
+	// Severity of the result (Critical, Warning, Informational, Hidden). This answers how important the result is. Critical is
+	// the only update-blocking severity.
+	Severity *Severity `json:"severity,omitempty"`
+
+	// The status of the check running (i.e. Failed, Succeeded, In Progress). This answers whether the check ran, and passed or
+	// failed.
+	Status *Status `json:"status,omitempty"`
+
+	// Key-value pairs that allow grouping/filtering individual tests.
+	Tags *PrecheckResultTags `json:"tags,omitempty"`
+
+	// The unique identifier for the affected resource (such as a node or drive).
+	TargetResourceID *string `json:"targetResourceID,omitempty"`
+
+	// The name of the affected resource.
+	TargetResourceName *string `json:"targetResourceName,omitempty"`
+
+	// The Time in which the HealthCheck was called.
+	Timestamp *time.Time `json:"timestamp,omitempty"`
+
+	// User-facing name; one or more sentences indicating the direct issue.
+	Title *string `json:"title,omitempty"`
+}
+
+// PrecheckResultTags - Key-value pairs that allow grouping/filtering individual tests.
+type PrecheckResultTags struct {
+	// Key that allow grouping/filtering individual tests.
+	Key *string `json:"key,omitempty"`
+
+	// Value of the key that allow grouping/filtering individual tests.
+	Value *string `json:"value,omitempty"`
+}
+
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -599,8 +865,54 @@ type ProxyResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// Publisher details.
+type Publisher struct {
+	// Publisher properties.
+	Properties *PublisherProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// PublisherList - List of Publisher proxy resources for the HCI cluster.
+type PublisherList struct {
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of Publisher proxy resources.
+	Value []*Publisher `json:"value,omitempty" azure:"ro"`
+}
+
+// PublisherProperties - Publisher properties.
+type PublisherProperties struct {
+	// READ-ONLY; Provisioning State
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// PublishersClientGetOptions contains the optional parameters for the PublishersClient.Get method.
+type PublishersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PublishersClientListByClusterOptions contains the optional parameters for the PublishersClient.NewListByClusterPager method.
+type PublishersClientListByClusterOptions struct {
+	// placeholder for future optional parameters
 }
 
 type RawCertificateData struct {
@@ -615,8 +927,132 @@ type Resource struct {
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SKU - Sku details.
+type SKU struct {
+	// SKU properties.
+	Properties *SKUProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// SKUList - List of SKU proxy resources for the HCI cluster.
+type SKUList struct {
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+
+	// READ-ONLY; List of SKU proxy resources.
+	Value []*SKU `json:"value,omitempty" azure:"ro"`
+}
+
+// SKUMappings - SKU Mapping details.
+type SKUMappings struct {
+	// Identifier of the CatalogPlan for the sku
+	CatalogPlanID *string `json:"catalogPlanId,omitempty"`
+
+	// Identifier for the sku
+	MarketplaceSKUID *string `json:"marketplaceSkuId,omitempty"`
+
+	// Array of SKU versions available
+	MarketplaceSKUVersions []*string `json:"marketplaceSkuVersions,omitempty"`
+}
+
+// SKUProperties - SKU properties.
+type SKUProperties struct {
+	// JSON serialized catalog content of the sku offer
+	Content *string `json:"content,omitempty"`
+
+	// The API version of the catalog service used to serve the catalog content
+	ContentVersion *string `json:"contentVersion,omitempty"`
+
+	// Identifier of the Offer for the sku
+	OfferID *string `json:"offerId,omitempty"`
+
+	// Identifier of the Publisher for the offer
+	PublisherID *string `json:"publisherId,omitempty"`
+
+	// Array of SKU mappings
+	SKUMappings []*SKUMappings `json:"skuMappings,omitempty"`
+
+	// READ-ONLY; Provisioning State
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// SKUsClientGetOptions contains the optional parameters for the SKUsClient.Get method.
+type SKUsClientGetOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
+}
+
+// SKUsClientListByOfferOptions contains the optional parameters for the SKUsClient.NewListByOfferPager method.
+type SKUsClientListByOfferOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
+}
+
+type SoftwareAssuranceChangeRequest struct {
+	Properties *SoftwareAssuranceChangeRequestProperties `json:"properties,omitempty"`
+}
+
+type SoftwareAssuranceChangeRequestProperties struct {
+	// Customer Intent for Software Assurance Benefit.
+	SoftwareAssuranceIntent *SoftwareAssuranceIntent `json:"softwareAssuranceIntent,omitempty"`
+}
+
+// SoftwareAssuranceProperties - Software Assurance properties of the cluster.
+type SoftwareAssuranceProperties struct {
+	// Customer Intent for Software Assurance Benefit.
+	SoftwareAssuranceIntent *SoftwareAssuranceIntent `json:"softwareAssuranceIntent,omitempty"`
+
+	// Status of the Software Assurance for the cluster.
+	SoftwareAssuranceStatus *SoftwareAssuranceStatus `json:"softwareAssuranceStatus,omitempty"`
+
+	// READ-ONLY; TimeStamp denoting the latest SA benefit applicability is validated.
+	LastUpdated *time.Time `json:"lastUpdated,omitempty" azure:"ro"`
+}
+
+// Step - Progress representation of the update run steps.
+type Step struct {
+	// More detailed description of the step.
+	Description *string `json:"description,omitempty"`
+
+	// When the step reached a terminal state.
+	EndTimeUTC *time.Time `json:"endTimeUtc,omitempty"`
+
+	// Error message, specified if the step is in a failed state.
+	ErrorMessage *string `json:"errorMessage,omitempty"`
+
+	// Completion time of this step or the last completed sub-step.
+	LastUpdatedTimeUTC *time.Time `json:"lastUpdatedTimeUtc,omitempty"`
+
+	// Name of the step.
+	Name *string `json:"name,omitempty"`
+
+	// When the step started, or empty if it has not started executing.
+	StartTimeUTC *time.Time `json:"startTimeUtc,omitempty"`
+
+	// Status of the step, bubbled up from the ECE action plan for installation attempts. Values are: 'Success', 'Error', 'InProgress',
+	// and 'Unknown status'.
+	Status *string `json:"status,omitempty"`
+
+	// Recursive model for child steps of this step.
+	Steps []*Step `json:"steps,omitempty"`
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -655,10 +1091,327 @@ type TrackedResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string `json:"name,omitempty" azure:"ro"`
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// Update details
+type Update struct {
+	// The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Update properties
+	Properties *UpdateProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// UpdateList - List of Updates
+type UpdateList struct {
+	// List of Updates
+	Value []*Update `json:"value,omitempty"`
+
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// UpdatePrerequisite - If update State is HasPrerequisite, this property contains an array of objects describing prerequisite
+// updates before installing this update. Otherwise, it is empty.
+type UpdatePrerequisite struct {
+	// Friendly name of the prerequisite.
+	PackageName *string `json:"packageName,omitempty"`
+
+	// Updatable component type.
+	UpdateType *string `json:"updateType,omitempty"`
+
+	// Version of the prerequisite.
+	Version *string `json:"version,omitempty"`
+}
+
+// UpdateProperties - Details of a singular Update in HCI Cluster
+type UpdateProperties struct {
+	// Extensible KV pairs serialized as a string. This is currently used to report the stamp OEM family and hardware model information
+	// when an update is flagged as Invalid for the stamp based on OEM type.
+	AdditionalProperties *string `json:"additionalProperties,omitempty"`
+
+	// Indicates the way the update content can be downloaded.
+	AvailabilityType *AvailabilityType `json:"availabilityType,omitempty"`
+
+	// An array of component versions for a Solution Bundle update, and an empty array otherwise.
+	ComponentVersions []*PackageVersionInfo `json:"componentVersions,omitempty"`
+
+	// Description of the update.
+	Description *string `json:"description,omitempty"`
+
+	// Display name of the Update
+	DisplayName *string `json:"displayName,omitempty"`
+
+	// Last time the package-specific checks were run.
+	HealthCheckDate *time.Time `json:"healthCheckDate,omitempty"`
+
+	// An array of PrecheckResult objects.
+	HealthCheckResult []*PrecheckResult `json:"healthCheckResult,omitempty"`
+
+	// Overall health state for update-specific health checks.
+	HealthState *HealthState `json:"healthState,omitempty"`
+
+	// Date that the update was installed.
+	InstalledDate *time.Time `json:"installedDate,omitempty"`
+
+	// Path where the update package is available.
+	PackagePath *string `json:"packagePath,omitempty"`
+
+	// Size of the package. This value is a combination of the size from update metadata and size of the payload that results
+	// from the live scan operation for OS update content.
+	PackageSizeInMb *float32 `json:"packageSizeInMb,omitempty"`
+
+	// Customer-visible type of the update.
+	PackageType *string `json:"packageType,omitempty"`
+
+	// If update State is HasPrerequisite, this property contains an array of objects describing prerequisite updates before installing
+	// this update. Otherwise, it is empty.
+	Prerequisites []*UpdatePrerequisite `json:"prerequisites,omitempty"`
+
+	// Publisher of the update package.
+	Publisher      *string            `json:"publisher,omitempty"`
+	RebootRequired *RebootRequirement `json:"rebootRequired,omitempty"`
+
+	// Link to release notes for the update.
+	ReleaseLink *string `json:"releaseLink,omitempty"`
+
+	// State of the update as it relates to this stamp.
+	State *State `json:"state,omitempty"`
+
+	// Additional information regarding the state of the update. See definition of UpdateStateProperties type below for more details
+	// on this property.
+	UpdateStateProperties *UpdateStateProperties `json:"updateStateProperties,omitempty"`
+
+	// Version of the update.
+	Version *string `json:"version,omitempty"`
+
+	// READ-ONLY; Provisioning state of the Updates proxy resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// UpdateRun - Details of an Update run
+type UpdateRun struct {
+	// The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Describes Update Run Properties.
+	Properties *UpdateRunProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// UpdateRunList - List of Update runs
+type UpdateRunList struct {
+	// List of Update runs
+	Value []*UpdateRun `json:"value,omitempty"`
+
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// UpdateRunProperties - Details of an Update run
+type UpdateRunProperties struct {
+	// Duration of the update run.
+	Duration *string `json:"duration,omitempty"`
+
+	// Timestamp of the most recently completed step in the update run.
+	LastUpdatedTime *time.Time `json:"lastUpdatedTime,omitempty"`
+
+	// Progress representation of the update run steps.
+	Progress *Step `json:"progress,omitempty"`
+
+	// State of the update run.
+	State *UpdateRunPropertiesState `json:"state,omitempty"`
+
+	// Timestamp of the update run was started.
+	TimeStarted *time.Time `json:"timeStarted,omitempty"`
+
+	// READ-ONLY; Provisioning state of the UpdateRuns proxy resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// UpdateRunsClientBeginDeleteOptions contains the optional parameters for the UpdateRunsClient.BeginDelete method.
+type UpdateRunsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UpdateRunsClientGetOptions contains the optional parameters for the UpdateRunsClient.Get method.
+type UpdateRunsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateRunsClientListOptions contains the optional parameters for the UpdateRunsClient.NewListPager method.
+type UpdateRunsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateRunsClientPutOptions contains the optional parameters for the UpdateRunsClient.Put method.
+type UpdateRunsClientPutOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateStateProperties - Additional information regarding the state of the update. See definition of UpdateStateProperties
+// type below for more details on this property.
+type UpdateStateProperties struct {
+	// Brief message with instructions for updates of AvailabilityType Notify.
+	NotifyMessage *string `json:"notifyMessage,omitempty"`
+
+	// Progress percentage of ongoing operation. Currently this property is only valid when the update is in the Downloading state,
+	// where it maps to how much of the update content has been downloaded.
+	ProgressPercentage *float32 `json:"progressPercentage,omitempty"`
+}
+
+// UpdateSummaries - Get the update summaries for the cluster
+type UpdateSummaries struct {
+	// The geo-location where the resource lives
+	Location *string `json:"location,omitempty"`
+
+	// Update summaries properties
+	Properties *UpdateSummariesProperties `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// UpdateSummariesClientBeginDeleteOptions contains the optional parameters for the UpdateSummariesClient.BeginDelete method.
+type UpdateSummariesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UpdateSummariesClientGetOptions contains the optional parameters for the UpdateSummariesClient.Get method.
+type UpdateSummariesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateSummariesClientListOptions contains the optional parameters for the UpdateSummariesClient.NewListPager method.
+type UpdateSummariesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateSummariesClientPutOptions contains the optional parameters for the UpdateSummariesClient.Put method.
+type UpdateSummariesClientPutOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateSummariesList - List of Update Summaries
+type UpdateSummariesList struct {
+	// List of Update Summaries
+	Value []*UpdateSummaries `json:"value,omitempty"`
+
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+}
+
+// UpdateSummariesProperties - Properties of Update summaries
+type UpdateSummariesProperties struct {
+	// Current Solution Bundle version of the stamp.
+	CurrentVersion *string `json:"currentVersion,omitempty"`
+
+	// Name of the hardware model.
+	HardwareModel *string `json:"hardwareModel,omitempty"`
+
+	// Last time the package-specific checks were run.
+	HealthCheckDate *time.Time `json:"healthCheckDate,omitempty"`
+
+	// An array of pre-check result objects.
+	HealthCheckResult []*PrecheckResult `json:"healthCheckResult,omitempty"`
+
+	// Overall health state for update-specific health checks.
+	HealthState *HealthState `json:"healthState,omitempty"`
+
+	// Last time the update service successfully checked for updates
+	LastChecked *time.Time `json:"lastChecked,omitempty"`
+
+	// Last time an update installation completed successfully.
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+
+	// OEM family name.
+	OemFamily *string `json:"oemFamily,omitempty"`
+
+	// Current version of each updatable component.
+	PackageVersions []*PackageVersionInfo `json:"packageVersions,omitempty"`
+
+	// Overall update state of the stamp.
+	State *UpdateSummariesPropertiesState `json:"state,omitempty"`
+
+	// READ-ONLY; Provisioning state of the UpdateSummaries proxy resource.
+	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
+}
+
+// UpdatesClientBeginDeleteOptions contains the optional parameters for the UpdatesClient.BeginDelete method.
+type UpdatesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UpdatesClientBeginPostOptions contains the optional parameters for the UpdatesClient.BeginPost method.
+type UpdatesClientBeginPostOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UpdatesClientGetOptions contains the optional parameters for the UpdatesClient.Get method.
+type UpdatesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdatesClientListOptions contains the optional parameters for the UpdatesClient.NewListPager method.
+type UpdatesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdatesClientPutOptions contains the optional parameters for the UpdatesClient.Put method.
+type UpdatesClientPutOptions struct {
+	// placeholder for future optional parameters
+}
+
 type UploadCertificateRequest struct {
 	Properties *RawCertificateData `json:"properties,omitempty"`
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string `json:"clientId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
 }
