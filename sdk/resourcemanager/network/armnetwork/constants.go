@@ -11,7 +11,7 @@ package armnetwork
 
 const (
 	moduleName    = "armnetwork"
-	moduleVersion = "v2.2.0"
+	moduleVersion = "v3.0.0"
 )
 
 // Access - Access to be allowed or denied.
@@ -34,7 +34,6 @@ func PossibleAccessValues() []Access {
 type ActionType string
 
 const (
-	ActionTypeAllow          ActionType = "Allow"
 	ActionTypeAnomalyScoring ActionType = "AnomalyScoring"
 	ActionTypeBlock          ActionType = "Block"
 	ActionTypeLog            ActionType = "Log"
@@ -43,7 +42,6 @@ const (
 // PossibleActionTypeValues returns the possible values for the ActionType const type.
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
-		ActionTypeAllow,
 		ActionTypeAnomalyScoring,
 		ActionTypeBlock,
 		ActionTypeLog,

@@ -1,5 +1,11 @@
 # Release History
 
+## 3.0.0 (2023-04-10)
+### Breaking Changes
+
+- Const `ActionTypeAllow` from type alias `ActionType` has been removed
+
+
 ## 2.2.0 (2023-03-24)
 ### Features Added
 
