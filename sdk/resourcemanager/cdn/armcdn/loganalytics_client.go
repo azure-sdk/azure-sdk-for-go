@@ -49,7 +49,7 @@ func NewLogAnalyticsClient(subscriptionID string, credential azcore.TokenCredent
 // GetLogAnalyticsLocations - Get all available location names for AFD log analytics report.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group. which is unique within the resource group.
@@ -90,7 +90,7 @@ func (client *LogAnalyticsClient) getLogAnalyticsLocationsCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -108,7 +108,7 @@ func (client *LogAnalyticsClient) getLogAnalyticsLocationsHandleResponse(resp *h
 // GetLogAnalyticsMetrics - Get log report for AFD profile
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group. which is unique within the resource group.
@@ -149,7 +149,7 @@ func (client *LogAnalyticsClient) getLogAnalyticsMetricsCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	for _, qv := range metrics {
 		reqQP.Add("metrics", string(qv))
 	}
@@ -194,7 +194,7 @@ func (client *LogAnalyticsClient) getLogAnalyticsMetricsHandleResponse(resp *htt
 // GetLogAnalyticsRankings - Get log analytics ranking report for AFD profile
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group. which is unique within the resource group.
@@ -235,7 +235,7 @@ func (client *LogAnalyticsClient) getLogAnalyticsRankingsCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	for _, qv := range rankings {
 		reqQP.Add("rankings", string(qv))
 	}
@@ -267,7 +267,7 @@ func (client *LogAnalyticsClient) getLogAnalyticsRankingsHandleResponse(resp *ht
 // GetLogAnalyticsResources - Get all endpoints and custom domains available for AFD log report
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group. which is unique within the resource group.
@@ -308,7 +308,7 @@ func (client *LogAnalyticsClient) getLogAnalyticsResourcesCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -326,7 +326,7 @@ func (client *LogAnalyticsClient) getLogAnalyticsResourcesHandleResponse(resp *h
 // GetWafLogAnalyticsMetrics - Get Waf related log analytics report for AFD profile.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group. which is unique within the resource group.
@@ -367,7 +367,7 @@ func (client *LogAnalyticsClient) getWafLogAnalyticsMetricsCreateRequest(ctx con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	for _, qv := range metrics {
 		reqQP.Add("metrics", string(qv))
 	}
@@ -406,7 +406,7 @@ func (client *LogAnalyticsClient) getWafLogAnalyticsMetricsHandleResponse(resp *
 // GetWafLogAnalyticsRankings - Get WAF log analytics charts for AFD profile
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group. which is unique within the resource group.
@@ -447,7 +447,7 @@ func (client *LogAnalyticsClient) getWafLogAnalyticsRankingsCreateRequest(ctx co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	for _, qv := range metrics {
 		reqQP.Add("metrics", string(qv))
 	}
