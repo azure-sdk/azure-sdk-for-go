@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v4.2.0"
+	moduleVersion = "v5.0.0"
 )
 
 type AccessLevel string
@@ -693,6 +693,19 @@ func PossibleExecutionStateValues() []ExecutionState {
 	}
 }
 
+type ExpandTypeForListVMs string
+
+const (
+	ExpandTypeForListVMsInstanceView ExpandTypeForListVMs = "instanceView"
+)
+
+// PossibleExpandTypeForListVMsValues returns the possible values for the ExpandTypeForListVMs const type.
+func PossibleExpandTypeForListVMsValues() []ExpandTypeForListVMs {
+	return []ExpandTypeForListVMs{
+		ExpandTypeForListVMsInstanceView,
+	}
+}
+
 type ExpandTypesForGetCapacityReservationGroups string
 
 const (
@@ -718,6 +731,19 @@ const (
 func PossibleExpandTypesForGetVMScaleSetsValues() []ExpandTypesForGetVMScaleSets {
 	return []ExpandTypesForGetVMScaleSets{
 		ExpandTypesForGetVMScaleSetsUserData,
+	}
+}
+
+type ExpandTypesForListVMs string
+
+const (
+	ExpandTypesForListVMsInstanceView ExpandTypesForListVMs = "instanceView"
+)
+
+// PossibleExpandTypesForListVMsValues returns the possible values for the ExpandTypesForListVMs const type.
+func PossibleExpandTypesForListVMsValues() []ExpandTypesForListVMs {
+	return []ExpandTypesForListVMs{
+		ExpandTypesForListVMsInstanceView,
 	}
 }
 
@@ -1609,6 +1635,30 @@ const (
 func PossibleRestorePointCollectionExpandOptionsValues() []RestorePointCollectionExpandOptions {
 	return []RestorePointCollectionExpandOptions{
 		RestorePointCollectionExpandOptionsRestorePoints,
+	}
+}
+
+// RestorePointEncryptionType - The type of key used to encrypt the data of the disk restore point.
+type RestorePointEncryptionType string
+
+const (
+	// RestorePointEncryptionTypeEncryptionAtRestWithCustomerKey - Disk Restore Point is encrypted at rest with Customer managed
+	// key that can be changed and revoked by a customer.
+	RestorePointEncryptionTypeEncryptionAtRestWithCustomerKey RestorePointEncryptionType = "EncryptionAtRestWithCustomerKey"
+	// RestorePointEncryptionTypeEncryptionAtRestWithPlatformAndCustomerKeys - Disk Restore Point is encrypted at rest with 2
+	// layers of encryption. One of the keys is Customer managed and the other key is Platform managed.
+	RestorePointEncryptionTypeEncryptionAtRestWithPlatformAndCustomerKeys RestorePointEncryptionType = "EncryptionAtRestWithPlatformAndCustomerKeys"
+	// RestorePointEncryptionTypeEncryptionAtRestWithPlatformKey - Disk Restore Point is encrypted at rest with Platform managed
+	// key.
+	RestorePointEncryptionTypeEncryptionAtRestWithPlatformKey RestorePointEncryptionType = "EncryptionAtRestWithPlatformKey"
+)
+
+// PossibleRestorePointEncryptionTypeValues returns the possible values for the RestorePointEncryptionType const type.
+func PossibleRestorePointEncryptionTypeValues() []RestorePointEncryptionType {
+	return []RestorePointEncryptionType{
+		RestorePointEncryptionTypeEncryptionAtRestWithCustomerKey,
+		RestorePointEncryptionTypeEncryptionAtRestWithPlatformAndCustomerKeys,
+		RestorePointEncryptionTypeEncryptionAtRestWithPlatformKey,
 	}
 }
 

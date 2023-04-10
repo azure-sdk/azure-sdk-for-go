@@ -1661,11 +1661,22 @@ type DedicatedHostProperties struct {
 	VirtualMachines []*SubResourceReadOnly `json:"virtualMachines,omitempty" azure:"ro"`
 }
 
+// DedicatedHostSizeListResult - The List Dedicated Host sizes operation response.
+type DedicatedHostSizeListResult struct {
+	// The list of dedicated host sizes.
+	Value []*string `json:"value,omitempty"`
+}
+
 // DedicatedHostUpdate - Specifies information about the dedicated host. Only tags, autoReplaceOnFailure and licenseType may
 // be updated.
 type DedicatedHostUpdate struct {
 	// Properties of the dedicated host.
 	Properties *DedicatedHostProperties `json:"properties,omitempty"`
+
+	// List all available dedicated host sizes for resizing [https://docs.microsoft.com/rest/api/compute/dedicated-hosts/listavailablesizes].
+	// Resizing can be only used to scale up DedicatedHost. Only name is
+	// required to be set.
+	SKU *SKU `json:"sku,omitempty"`
 
 	// Resource tags
 	Tags map[string]*string `json:"tags,omitempty"`
@@ -1701,6 +1712,12 @@ type DedicatedHostsClientGetOptions struct {
 	// The expand expression to apply on the operation. 'InstanceView' will retrieve the list of instance views of the dedicated
 	// host. 'UserData' is not supported for dedicated host.
 	Expand *InstanceViewTypes
+}
+
+// DedicatedHostsClientListAvailableSizesOptions contains the optional parameters for the DedicatedHostsClient.NewListAvailableSizesPager
+// method.
+type DedicatedHostsClientListAvailableSizesOptions struct {
+	// placeholder for future optional parameters
 }
 
 // DedicatedHostsClientListByHostGroupOptions contains the optional parameters for the DedicatedHostsClient.NewListByHostGroupPager
@@ -2196,6 +2213,19 @@ type DiskRestorePoint struct {
 
 	// READ-ONLY; Resource type
 	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// DiskRestorePointAttributes - Disk Restore Point details.
+type DiskRestorePointAttributes struct {
+	// Encryption at rest settings for disk restore point. It is an optional property that can be specified in the input while
+	// creating a restore point.
+	Encryption *RestorePointEncryption `json:"encryption,omitempty"`
+
+	// Resource Id of the source disk restore point.
+	SourceDiskRestorePoint *APIEntityReference `json:"sourceDiskRestorePoint,omitempty"`
+
+	// READ-ONLY; Resource Id
+	ID *string `json:"id,omitempty" azure:"ro"`
 }
 
 // DiskRestorePointClientBeginGrantAccessOptions contains the optional parameters for the DiskRestorePointClient.BeginGrantAccess
@@ -3957,6 +3987,9 @@ type LinuxPatchSettings struct {
 // LinuxVMGuestPatchAutomaticByPlatformSettings - Specifies additional settings to be applied when patch mode AutomaticByPlatform
 // is selected in Linux patch settings.
 type LinuxVMGuestPatchAutomaticByPlatformSettings struct {
+	// Enables customer to schedule patching without accidental upgrades
+	BypassPlatformSafetyChecksOnUserSchedule *bool `json:"bypassPlatformSafetyChecksOnUserSchedule,omitempty"`
+
 	// Specifies the reboot setting for all AutomaticByPlatform patch installation operations.
 	RebootSetting *LinuxVMGuestPatchAutomaticByPlatformRebootSetting `json:"rebootSetting,omitempty"`
 }
@@ -5296,6 +5329,18 @@ type RestorePointCollectionsClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// RestorePointEncryption - Encryption at rest settings for disk restore point. It is an optional property that can be specified
+// in the input while creating a restore point.
+type RestorePointEncryption struct {
+	// Describes the parameter of customer managed disk encryption set resource id that can be specified for disk.
+	// NOTE: The disk encryption set resource id can only be specified for managed disk. Please refer https://aka.ms/mdssewithcmkoverview
+	// for more details.
+	DiskEncryptionSet *DiskEncryptionSetParameters `json:"diskEncryptionSet,omitempty"`
+
+	// The type of key used to encrypt the data of the disk restore point.
+	Type *RestorePointEncryptionType `json:"type,omitempty"`
+}
+
 // RestorePointInstanceView - The instance view of a restore point.
 type RestorePointInstanceView struct {
 	// The disk restore points information.
@@ -5316,6 +5361,9 @@ type RestorePointProperties struct {
 	// will be included.
 	ExcludeDisks []*APIEntityReference `json:"excludeDisks,omitempty"`
 
+	// Gets the details of the VM captured at the time of the restore point creation.
+	SourceMetadata *RestorePointSourceMetadata `json:"sourceMetadata,omitempty"`
+
 	// Resource Id of the source restore point from which a copy needs to be created.
 	SourceRestorePoint *APIEntityReference `json:"sourceRestorePoint,omitempty"`
 
@@ -5327,86 +5375,92 @@ type RestorePointProperties struct {
 
 	// READ-ONLY; Gets the provisioning state of the restore point.
 	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
-
-	// READ-ONLY; Gets the details of the VM captured at the time of the restore point creation.
-	SourceMetadata *RestorePointSourceMetadata `json:"sourceMetadata,omitempty" azure:"ro"`
 }
 
 // RestorePointSourceMetadata - Describes the properties of the Virtual Machine for which the restore point was created. The
 // properties provided are a subset and the snapshot of the overall Virtual Machine properties captured at the
 // time of the restore point creation.
 type RestorePointSourceMetadata struct {
-	// Gets the diagnostics profile.
-	DiagnosticsProfile *DiagnosticsProfile `json:"diagnosticsProfile,omitempty"`
-
-	// Gets the hardware profile.
-	HardwareProfile *HardwareProfile `json:"hardwareProfile,omitempty"`
-
-	// Gets the license type, which is for bring your own license scenario.
-	LicenseType *string `json:"licenseType,omitempty"`
-
-	// Location of the VM from which the restore point was created.
-	Location *string `json:"location,omitempty"`
-
-	// Gets the OS profile.
-	OSProfile *OSProfile `json:"osProfile,omitempty"`
-
-	// Gets the security profile.
-	SecurityProfile *SecurityProfile `json:"securityProfile,omitempty"`
-
 	// Gets the storage profile.
 	StorageProfile *RestorePointSourceVMStorageProfile `json:"storageProfile,omitempty"`
 
-	// UserData associated with the source VM for which restore point is captured, which is a base-64 encoded value.
-	UserData *string `json:"userData,omitempty"`
+	// READ-ONLY; Gets the diagnostics profile.
+	DiagnosticsProfile *DiagnosticsProfile `json:"diagnosticsProfile,omitempty" azure:"ro"`
 
-	// Gets the virtual machine unique id.
-	VMID *string `json:"vmId,omitempty"`
+	// READ-ONLY; Gets the hardware profile.
+	HardwareProfile *HardwareProfile `json:"hardwareProfile,omitempty" azure:"ro"`
+
+	// READ-ONLY; HyperVGeneration of the source VM for which restore point is captured.
+	HyperVGeneration *HyperVGenerationTypes `json:"hyperVGeneration,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the license type, which is for bring your own license scenario.
+	LicenseType *string `json:"licenseType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Location of the VM from which the restore point was created.
+	Location *string `json:"location,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the OS profile.
+	OSProfile *OSProfile `json:"osProfile,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the security profile.
+	SecurityProfile *SecurityProfile `json:"securityProfile,omitempty" azure:"ro"`
+
+	// READ-ONLY; UserData associated with the source VM for which restore point is captured, which is a base-64 encoded value.
+	UserData *string `json:"userData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the virtual machine unique id.
+	VMID *string `json:"vmId,omitempty" azure:"ro"`
 }
 
 // RestorePointSourceVMDataDisk - Describes a data disk.
 type RestorePointSourceVMDataDisk struct {
-	// Gets the caching type.
-	Caching *CachingTypes `json:"caching,omitempty"`
+	// Contains Disk Restore Point properties.
+	DiskRestorePoint *DiskRestorePointAttributes `json:"diskRestorePoint,omitempty"`
 
-	// Gets the disk restore point Id.
-	DiskRestorePoint *APIEntityReference `json:"diskRestorePoint,omitempty"`
-
-	// Gets the initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks.
-	DiskSizeGB *int32 `json:"diskSizeGB,omitempty"`
-
-	// Gets the logical unit number.
-	Lun *int32 `json:"lun,omitempty"`
-
-	// Gets the managed disk details
+	// Contains the managed disk details.
 	ManagedDisk *ManagedDiskParameters `json:"managedDisk,omitempty"`
 
-	// Gets the disk name.
-	Name *string `json:"name,omitempty"`
+	// READ-ONLY; Gets the caching type.
+	Caching *CachingTypes `json:"caching,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks.
+	DiskSizeGB *int32 `json:"diskSizeGB,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the logical unit number.
+	Lun *int32 `json:"lun,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the disk name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Shows true if the disk is write-accelerator enabled.
+	WriteAcceleratorEnabled *bool `json:"writeAcceleratorEnabled,omitempty" azure:"ro"`
 }
 
 // RestorePointSourceVMOSDisk - Describes an Operating System disk.
 type RestorePointSourceVMOSDisk struct {
-	// Gets the caching type.
-	Caching *CachingTypes `json:"caching,omitempty"`
-
-	// Gets the disk restore point Id.
-	DiskRestorePoint *APIEntityReference `json:"diskRestorePoint,omitempty"`
-
-	// Gets the disk size in GB.
-	DiskSizeGB *int32 `json:"diskSizeGB,omitempty"`
-
-	// Gets the disk encryption settings.
-	EncryptionSettings *DiskEncryptionSettings `json:"encryptionSettings,omitempty"`
+	// Contains Disk Restore Point properties.
+	DiskRestorePoint *DiskRestorePointAttributes `json:"diskRestorePoint,omitempty"`
 
 	// Gets the managed disk details
 	ManagedDisk *ManagedDiskParameters `json:"managedDisk,omitempty"`
 
-	// Gets the disk name.
-	Name *string `json:"name,omitempty"`
+	// READ-ONLY; Gets the caching type.
+	Caching *CachingTypes `json:"caching,omitempty" azure:"ro"`
 
-	// Gets the Operating System type.
-	OSType *OperatingSystemType `json:"osType,omitempty"`
+	// READ-ONLY; Gets the disk size in GB.
+	DiskSizeGB *int32 `json:"diskSizeGB,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the disk encryption settings.
+	EncryptionSettings *DiskEncryptionSettings `json:"encryptionSettings,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the disk name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Gets the Operating System type.
+	OSType *OperatingSystemType `json:"osType,omitempty" azure:"ro"`
+
+	// READ-ONLY; Shows true if the disk is write-accelerator enabled.
+	WriteAcceleratorEnabled *bool `json:"writeAcceleratorEnabled,omitempty" azure:"ro"`
 }
 
 // RestorePointSourceVMStorageProfile - Describes the storage profile.
@@ -8200,9 +8254,6 @@ type VirtualMachineScaleSetIPConfiguration struct {
 	// REQUIRED; The IP configuration name.
 	Name *string `json:"name,omitempty"`
 
-	// Resource Id
-	ID *string `json:"id,omitempty"`
-
 	// Describes a virtual machine scale set network profile's IP configuration properties.
 	Properties *VirtualMachineScaleSetIPConfigurationProperties `json:"properties,omitempty"`
 }
@@ -8349,9 +8400,6 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 type VirtualMachineScaleSetNetworkConfiguration struct {
 	// REQUIRED; The network configuration name.
 	Name *string `json:"name,omitempty"`
-
-	// Resource Id
-	ID *string `json:"id,omitempty"`
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties `json:"properties,omitempty"`
@@ -9968,6 +10016,9 @@ type VirtualMachinesClientInstanceViewOptions struct {
 
 // VirtualMachinesClientListAllOptions contains the optional parameters for the VirtualMachinesClient.NewListAllPager method.
 type VirtualMachinesClientListAllOptions struct {
+	// The expand expression to apply on operation. 'instanceView' enables fetching run time status of all Virtual Machines, this
+	// can only be specified if a valid $filter option is specified
+	Expand *ExpandTypesForListVMs
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
 	Filter *string
@@ -9989,6 +10040,9 @@ type VirtualMachinesClientListByLocationOptions struct {
 
 // VirtualMachinesClientListOptions contains the optional parameters for the VirtualMachinesClient.NewListPager method.
 type VirtualMachinesClientListOptions struct {
+	// The expand expression to apply on operation. 'instanceView' enables fetching run time status of all Virtual Machines, this
+	// can only be specified if a valid $filter option is specified
+	Expand *ExpandTypeForListVMs
 	// The system query option to filter VMs returned in the response. Allowed value is 'virtualMachineScaleSet/id' eq
 	// /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}'
 	Filter *string
@@ -10091,6 +10145,9 @@ type WindowsParameters struct {
 // WindowsVMGuestPatchAutomaticByPlatformSettings - Specifies additional settings to be applied when patch mode AutomaticByPlatform
 // is selected in Windows patch settings.
 type WindowsVMGuestPatchAutomaticByPlatformSettings struct {
+	// Enables customer to schedule patching without accidental upgrades
+	BypassPlatformSafetyChecksOnUserSchedule *bool `json:"bypassPlatformSafetyChecksOnUserSchedule,omitempty"`
+
 	// Specifies the reboot setting for all AutomaticByPlatform patch installation operations.
 	RebootSetting *WindowsVMGuestPatchAutomaticByPlatformRebootSetting `json:"rebootSetting,omitempty"`
 }

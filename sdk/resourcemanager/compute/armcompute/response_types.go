@@ -322,6 +322,11 @@ type DedicatedHostsClientGetResponse struct {
 	DedicatedHost
 }
 
+// DedicatedHostsClientListAvailableSizesResponse contains the response from method DedicatedHostsClient.NewListAvailableSizesPager.
+type DedicatedHostsClientListAvailableSizesResponse struct {
+	DedicatedHostSizeListResult
+}
+
 // DedicatedHostsClientListByHostGroupResponse contains the response from method DedicatedHostsClient.NewListByHostGroupPager.
 type DedicatedHostsClientListByHostGroupResponse struct {
 	DedicatedHostListResult

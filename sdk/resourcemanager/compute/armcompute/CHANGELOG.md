@@ -1,5 +1,32 @@
 # Release History
 
+## 5.0.0 (2023-04-10)
+### Breaking Changes
+
+- Type of `RestorePointSourceVMDataDisk.DiskRestorePoint` has been changed from `*APIEntityReference` to `*DiskRestorePointAttributes`
+- Type of `RestorePointSourceVMOSDisk.DiskRestorePoint` has been changed from `*APIEntityReference` to `*DiskRestorePointAttributes`
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New enum type `ExpandTypeForListVMs` with values `ExpandTypeForListVMsInstanceView`
+- New enum type `ExpandTypesForListVMs` with values `ExpandTypesForListVMsInstanceView`
+- New enum type `RestorePointEncryptionType` with values `RestorePointEncryptionTypeEncryptionAtRestWithCustomerKey`, `RestorePointEncryptionTypeEncryptionAtRestWithPlatformAndCustomerKeys`, `RestorePointEncryptionTypeEncryptionAtRestWithPlatformKey`
+- New function `*DedicatedHostsClient.NewListAvailableSizesPager(string, string, string, *DedicatedHostsClientListAvailableSizesOptions) *runtime.Pager[DedicatedHostsClientListAvailableSizesResponse]`
+- New struct `DedicatedHostSizeListResult`
+- New struct `DiskRestorePointAttributes`
+- New struct `RestorePointEncryption`
+- New field `SKU` in struct `DedicatedHostUpdate`
+- New field `BypassPlatformSafetyChecksOnUserSchedule` in struct `LinuxVMGuestPatchAutomaticByPlatformSettings`
+- New field `HyperVGeneration` in struct `RestorePointSourceMetadata`
+- New field `WriteAcceleratorEnabled` in struct `RestorePointSourceVMDataDisk`
+- New field `WriteAcceleratorEnabled` in struct `RestorePointSourceVMOSDisk`
+- New field `Expand` in struct `VirtualMachinesClientListAllOptions`
+- New field `Expand` in struct `VirtualMachinesClientListOptions`
+- New field `BypassPlatformSafetyChecksOnUserSchedule` in struct `WindowsVMGuestPatchAutomaticByPlatformSettings`
+
+
 ## 4.2.0 (2023-03-27)
 ### Features Added
 
