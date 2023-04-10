@@ -11,7 +11,7 @@ package armcompute
 
 const (
 	moduleName    = "armcompute"
-	moduleVersion = "v4.2.0"
+	moduleVersion = "v5.0.0"
 )
 
 type AccessLevel string
@@ -69,7 +69,7 @@ func PossibleAlternativeTypeValues() []AlternativeType {
 	}
 }
 
-// Architecture - The architecture of the image. Applicable to OS disks only.
+// Architecture - CPU architecture supported by an OS disk.
 type Architecture string
 
 const (
@@ -1146,10 +1146,7 @@ func PossibleOperatingSystemTypeValues() []OperatingSystemType {
 	}
 }
 
-// OperatingSystemTypes - This property allows you to specify the supported type of the OS that application is built for.
-// Possible values are:
-// Windows
-// Linux
+// OperatingSystemTypes - The Operating System type.
 type OperatingSystemTypes string
 
 const (
@@ -1518,12 +1515,14 @@ type ReplicationStatusTypes string
 
 const (
 	ReplicationStatusTypesReplicationStatus ReplicationStatusTypes = "ReplicationStatus"
+	ReplicationStatusTypesValidationProfile ReplicationStatusTypes = "ValidationProfile"
 )
 
 // PossibleReplicationStatusTypesValues returns the possible values for the ReplicationStatusTypes const type.
 func PossibleReplicationStatusTypesValues() []ReplicationStatusTypes {
 	return []ReplicationStatusTypes{
 		ReplicationStatusTypesReplicationStatus,
+		ReplicationStatusTypesValidationProfile,
 	}
 }
 

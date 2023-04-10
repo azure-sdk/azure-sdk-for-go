@@ -1,5 +1,19 @@
 # Release History
 
+## 5.0.0 (2023-04-10)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New value `ReplicationStatusTypesValidationProfile` added to enum type `ReplicationStatusTypes`
+- New struct `ExecutedValidation`
+- New struct `ValidationsProfile`
+- New field `ValidationsProfile` in struct `GalleryImageVersionProperties`
+
+
 ## 4.2.0 (2023-03-27)
 ### Features Added
 

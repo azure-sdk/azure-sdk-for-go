@@ -1151,7 +1151,7 @@ type CommunityGalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture `json:"architecture,omitempty"`
 
 	// Describes the disallowed disk types.
@@ -2554,6 +2554,21 @@ type EncryptionSettingsElement struct {
 	KeyEncryptionKey *KeyVaultAndKeyReference `json:"keyEncryptionKey,omitempty"`
 }
 
+// ExecutedValidation - This is the data disk image.
+type ExecutedValidation struct {
+	// This property specifies the starting timestamp.
+	ExecutionTime *time.Time `json:"executionTime,omitempty"`
+
+	// This property specifies the status of the validationProfile of the image version.
+	Status *string `json:"status,omitempty"`
+
+	// This property specifies the type of image version validation.
+	Type *string `json:"type,omitempty"`
+
+	// This property specifies the valid version of the validation.
+	Version *string `json:"version,omitempty"`
+}
+
 // ExtendedLocation - The complex type of the extended location.
 type ExtendedLocation struct {
 	// The name of the extended location.
@@ -3103,7 +3118,7 @@ type GalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture `json:"architecture,omitempty"`
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -3200,6 +3215,9 @@ type GalleryImageVersionProperties struct {
 
 	// This is the safety profile of the Gallery Image Version.
 	SafetyProfile *GalleryImageVersionSafetyProfile `json:"safetyProfile,omitempty"`
+
+	// This is the validations profile of a Gallery Image Version.
+	ValidationsProfile *ValidationsProfile `json:"validationsProfile,omitempty"`
 
 	// READ-ONLY; The provisioning state, which only appears in the response.
 	ProvisioningState *GalleryProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -6017,7 +6035,7 @@ type SharedGalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture `json:"architecture,omitempty"`
 
 	// Describes the disallowed disk types.
@@ -6819,6 +6837,18 @@ type VMSizeProperties struct {
 	// a region [https://docs.microsoft.com/en-us/rest/api/compute/resource-skus/list]
 	// Setting this property to 1 also means that hyper-threading is disabled.
 	VCPUsPerCore *int32 `json:"vCPUsPerCore,omitempty"`
+}
+
+// ValidationsProfile - This is the validations profile of a Gallery Image Version.
+type ValidationsProfile struct {
+	// A list of executedValidation.
+	ExecutedValidations []*ExecutedValidation `json:"executedValidations,omitempty"`
+
+	// This specifies the pub, offer, sku and version of the image version metadata
+	PlatformAttributes map[string]*string `json:"platformAttributes,omitempty"`
+
+	// The published time of the image version
+	ValidationEtag *string `json:"validationEtag,omitempty"`
 }
 
 // VaultCertificate - Describes a single certificate reference in a Key Vault, and where the certificate should reside on
@@ -8200,9 +8230,6 @@ type VirtualMachineScaleSetIPConfiguration struct {
 	// REQUIRED; The IP configuration name.
 	Name *string `json:"name,omitempty"`
 
-	// Resource Id
-	ID *string `json:"id,omitempty"`
-
 	// Describes a virtual machine scale set network profile's IP configuration properties.
 	Properties *VirtualMachineScaleSetIPConfigurationProperties `json:"properties,omitempty"`
 }
@@ -8349,9 +8376,6 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 type VirtualMachineScaleSetNetworkConfiguration struct {
 	// REQUIRED; The network configuration name.
 	Name *string `json:"name,omitempty"`
-
-	// Resource Id
-	ID *string `json:"id,omitempty"`
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties `json:"properties,omitempty"`
