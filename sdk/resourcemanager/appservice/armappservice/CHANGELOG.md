@@ -1,5 +1,21 @@
 # Release History
 
+## 3.0.0 (2023-04-11)
+### Breaking Changes
+
+- Operation `*WebAppsClient.GetConfiguration` has been changed to LRO, use `*WebAppsClient.BeginGetConfiguration` instead.
+- Operation `*WebAppsClient.UpdateApplicationSettings` has been changed to LRO, use `*WebAppsClient.BeginUpdateApplicationSettings` instead.
+- Field `Interface` of struct `WebAppsClientCreateOneDeployOperationResponse` has been removed
+- Field `Interface` of struct `WebAppsClientGetOneDeployStatusResponse` has been removed
+
+### Features Added
+
+- New struct `OneDeployRequest`
+- New field `Request` in struct `WebAppsClientCreateOneDeployOperationOptions`
+- New anonymous field `Deployment` in struct `WebAppsClientCreateOneDeployOperationResponse`
+- New anonymous field `Deployment` in struct `WebAppsClientGetOneDeployStatusResponse`
+
+
 ## 2.1.0 (2023-03-24)
 ### Features Added
 

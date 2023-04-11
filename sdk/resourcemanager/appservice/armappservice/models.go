@@ -5632,6 +5632,45 @@ type Nonce struct {
 	ValidateNonce *bool `json:"validateNonce,omitempty"`
 }
 
+// OneDeployRequest - OneDeploy settings defined by user
+type OneDeployRequest struct {
+	// Specifies whether the deployment should be performed asynchronously
+	Async *bool `json:"async,omitempty"`
+
+	// Specifies whether to clean the target deployment directory
+	Clean *bool `json:"clean,omitempty"`
+
+	// Disables any language-specific defaults
+	IgnoreStack *bool `json:"ignoreStack,omitempty"`
+
+	// Kind of resource.
+	Kind *string `json:"kind,omitempty"`
+
+	// The Uri where the source artifact can be pulled from
+	PackageURI *string `json:"packageUri,omitempty"`
+
+	// The absolute path to deploy the artifact to
+	Path *string `json:"path,omitempty"`
+
+	// Resets Java apps to the default parking page if set to true with no type specified
+	Reset *bool `json:"reset,omitempty"`
+
+	// Specifies whether to restart the app following the deployment
+	Restart *bool `json:"restart,omitempty"`
+
+	// The type of the artifact being deployed
+	TrackDeploymentProgress *bool `json:"trackDeploymentProgress,omitempty"`
+
+	// READ-ONLY; Resource Id.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource Name.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type.
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
 // OpenAuthenticationAccessPolicies - AuthenticationPolicy of type Open.
 type OpenAuthenticationAccessPolicies struct {
 	// Open authentication policies.
@@ -11938,6 +11977,13 @@ type WebAppsClientBeginDeletePrivateEndpointConnectionSlotOptions struct {
 	ResumeToken string
 }
 
+// WebAppsClientBeginGetConfigurationOptions contains the optional parameters for the WebAppsClient.BeginGetConfiguration
+// method.
+type WebAppsClientBeginGetConfigurationOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // WebAppsClientBeginGetProductionSiteDeploymentStatusOptions contains the optional parameters for the WebAppsClient.BeginGetProductionSiteDeploymentStatus
 // method.
 type WebAppsClientBeginGetProductionSiteDeploymentStatusOptions struct {
@@ -12110,6 +12156,13 @@ type WebAppsClientBeginSwapSlotWithProductionOptions struct {
 	ResumeToken string
 }
 
+// WebAppsClientBeginUpdateApplicationSettingsOptions contains the optional parameters for the WebAppsClient.BeginUpdateApplicationSettings
+// method.
+type WebAppsClientBeginUpdateApplicationSettingsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // WebAppsClientCreateDeploymentOptions contains the optional parameters for the WebAppsClient.CreateDeployment method.
 type WebAppsClientCreateDeploymentOptions struct {
 	// placeholder for future optional parameters
@@ -12123,7 +12176,8 @@ type WebAppsClientCreateDeploymentSlotOptions struct {
 // WebAppsClientCreateOneDeployOperationOptions contains the optional parameters for the WebAppsClient.CreateOneDeployOperation
 // method.
 type WebAppsClientCreateOneDeployOperationOptions struct {
-	// placeholder for future optional parameters
+	// Information on OneDeploy request
+	Request *OneDeployRequest
 }
 
 // WebAppsClientCreateOrUpdateConfigurationOptions contains the optional parameters for the WebAppsClient.CreateOrUpdateConfiguration
@@ -12612,11 +12666,6 @@ type WebAppsClientGetBackupStatusOptions struct {
 
 // WebAppsClientGetBackupStatusSlotOptions contains the optional parameters for the WebAppsClient.GetBackupStatusSlot method.
 type WebAppsClientGetBackupStatusSlotOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WebAppsClientGetConfigurationOptions contains the optional parameters for the WebAppsClient.GetConfiguration method.
-type WebAppsClientGetConfigurationOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -13951,12 +14000,6 @@ type WebAppsClientSyncRepositoryOptions struct {
 
 // WebAppsClientSyncRepositorySlotOptions contains the optional parameters for the WebAppsClient.SyncRepositorySlot method.
 type WebAppsClientSyncRepositorySlotOptions struct {
-	// placeholder for future optional parameters
-}
-
-// WebAppsClientUpdateApplicationSettingsOptions contains the optional parameters for the WebAppsClient.UpdateApplicationSettings
-// method.
-type WebAppsClientUpdateApplicationSettingsOptions struct {
 	// placeholder for future optional parameters
 }
 

@@ -1491,8 +1491,7 @@ type WebAppsClientCreateMSDeployOperationSlotResponse struct {
 
 // WebAppsClientCreateOneDeployOperationResponse contains the response from method WebAppsClient.CreateOneDeployOperation.
 type WebAppsClientCreateOneDeployOperationResponse struct {
-	// Anything
-	Interface any
+	Deployment
 }
 
 // WebAppsClientCreateOrUpdateConfigurationResponse contains the response from method WebAppsClient.CreateOrUpdateConfiguration.
@@ -1957,7 +1956,7 @@ type WebAppsClientGetBackupStatusSlotResponse struct {
 	BackupItem
 }
 
-// WebAppsClientGetConfigurationResponse contains the response from method WebAppsClient.GetConfiguration.
+// WebAppsClientGetConfigurationResponse contains the response from method WebAppsClient.BeginGetConfiguration.
 type WebAppsClientGetConfigurationResponse struct {
 	SiteConfigResource
 }
@@ -2226,8 +2225,7 @@ type WebAppsClientGetNetworkTracesV2Response struct {
 
 // WebAppsClientGetOneDeployStatusResponse contains the response from method WebAppsClient.GetOneDeployStatus.
 type WebAppsClientGetOneDeployStatusResponse struct {
-	// Anything
-	Interface any
+	Deployment
 }
 
 // WebAppsClientGetPremierAddOnResponse contains the response from method WebAppsClient.GetPremierAddOn.
@@ -3277,7 +3275,7 @@ type WebAppsClientSyncRepositorySlotResponse struct {
 	// placeholder for future response values
 }
 
-// WebAppsClientUpdateApplicationSettingsResponse contains the response from method WebAppsClient.UpdateApplicationSettings.
+// WebAppsClientUpdateApplicationSettingsResponse contains the response from method WebAppsClient.BeginUpdateApplicationSettings.
 type WebAppsClientUpdateApplicationSettingsResponse struct {
 	StringDictionary
 }
