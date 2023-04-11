@@ -22126,42 +22126,18 @@ func (p *PeerRoute) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type PeerRouteList.
-func (p PeerRouteList) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "value", p.Value)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type PeerRouteList.
-func (p *PeerRouteList) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", p, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "value":
-			err = unpopulate(val, "Value", &p.Value)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", p, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type PolicySettings.
 func (p PolicySettings) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "customBlockResponseBody", p.CustomBlockResponseBody)
 	populate(objectMap, "customBlockResponseStatusCode", p.CustomBlockResponseStatusCode)
+	populate(objectMap, "fileUploadEnforcement", p.FileUploadEnforcement)
 	populate(objectMap, "fileUploadLimitInMb", p.FileUploadLimitInMb)
 	populate(objectMap, "maxRequestBodySizeInKb", p.MaxRequestBodySizeInKb)
 	populate(objectMap, "mode", p.Mode)
 	populate(objectMap, "requestBodyCheck", p.RequestBodyCheck)
+	populate(objectMap, "requestBodyEnforcement", p.RequestBodyEnforcement)
+	populate(objectMap, "requestBodyInspectLimitInKB", p.RequestBodyInspectLimitInKB)
 	populate(objectMap, "state", p.State)
 	return json.Marshal(objectMap)
 }
@@ -22181,6 +22157,9 @@ func (p *PolicySettings) UnmarshalJSON(data []byte) error {
 		case "customBlockResponseStatusCode":
 			err = unpopulate(val, "CustomBlockResponseStatusCode", &p.CustomBlockResponseStatusCode)
 			delete(rawMsg, key)
+		case "fileUploadEnforcement":
+			err = unpopulate(val, "FileUploadEnforcement", &p.FileUploadEnforcement)
+			delete(rawMsg, key)
 		case "fileUploadLimitInMb":
 			err = unpopulate(val, "FileUploadLimitInMb", &p.FileUploadLimitInMb)
 			delete(rawMsg, key)
@@ -22192,6 +22171,12 @@ func (p *PolicySettings) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "requestBodyCheck":
 			err = unpopulate(val, "RequestBodyCheck", &p.RequestBodyCheck)
+			delete(rawMsg, key)
+		case "requestBodyEnforcement":
+			err = unpopulate(val, "RequestBodyEnforcement", &p.RequestBodyEnforcement)
+			delete(rawMsg, key)
+		case "requestBodyInspectLimitInKB":
+			err = unpopulate(val, "RequestBodyInspectLimitInKB", &p.RequestBodyInspectLimitInKB)
 			delete(rawMsg, key)
 		case "state":
 			err = unpopulate(val, "State", &p.State)
@@ -22532,6 +22517,7 @@ func (p PrivateEndpointConnectionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "linkIdentifier", p.LinkIdentifier)
 	populate(objectMap, "privateEndpoint", p.PrivateEndpoint)
+	populate(objectMap, "privateEndpointLocation", p.PrivateEndpointLocation)
 	populate(objectMap, "privateLinkServiceConnectionState", p.PrivateLinkServiceConnectionState)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
 	return json.Marshal(objectMap)
@@ -22551,6 +22537,9 @@ func (p *PrivateEndpointConnectionProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "privateEndpoint":
 			err = unpopulate(val, "PrivateEndpoint", &p.PrivateEndpoint)
+			delete(rawMsg, key)
+		case "privateEndpointLocation":
+			err = unpopulate(val, "PrivateEndpointLocation", &p.PrivateEndpointLocation)
 			delete(rawMsg, key)
 		case "privateLinkServiceConnectionState":
 			err = unpopulate(val, "PrivateLinkServiceConnectionState", &p.PrivateLinkServiceConnectionState)
@@ -32499,7 +32488,6 @@ func (v VirtualNetworkPropertiesFormat) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "enableDdosProtection", v.EnableDdosProtection)
 	populate(objectMap, "enableVmProtection", v.EnableVMProtection)
 	populate(objectMap, "encryption", v.Encryption)
-	populate(objectMap, "flowLogs", v.FlowLogs)
 	populate(objectMap, "flowTimeoutInMinutes", v.FlowTimeoutInMinutes)
 	populate(objectMap, "ipAllocations", v.IPAllocations)
 	populate(objectMap, "provisioningState", v.ProvisioningState)
@@ -32538,9 +32526,6 @@ func (v *VirtualNetworkPropertiesFormat) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "encryption":
 			err = unpopulate(val, "Encryption", &v.Encryption)
-			delete(rawMsg, key)
-		case "flowLogs":
-			err = unpopulate(val, "FlowLogs", &v.FlowLogs)
 			delete(rawMsg, key)
 		case "flowTimeoutInMinutes":
 			err = unpopulate(val, "FlowTimeoutInMinutes", &v.FlowTimeoutInMinutes)
@@ -33458,7 +33443,6 @@ func (w WebApplicationFirewallCustomRule) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "name", w.Name)
 	populate(objectMap, "priority", w.Priority)
 	populate(objectMap, "ruleType", w.RuleType)
-	populate(objectMap, "state", w.State)
 	return json.Marshal(objectMap)
 }
 
@@ -33488,9 +33472,6 @@ func (w *WebApplicationFirewallCustomRule) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "ruleType":
 			err = unpopulate(val, "RuleType", &w.RuleType)
-			delete(rawMsg, key)
-		case "state":
-			err = unpopulate(val, "State", &w.State)
 			delete(rawMsg, key)
 		}
 		if err != nil {

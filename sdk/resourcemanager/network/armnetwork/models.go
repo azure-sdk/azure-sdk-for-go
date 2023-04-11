@@ -743,12 +743,12 @@ type ApplicationGatewayConnectionDraining struct {
 	Enabled *bool `json:"enabled,omitempty"`
 }
 
-// ApplicationGatewayCustomError - Custom error of an application gateway.
+// ApplicationGatewayCustomError - Customer error of an application gateway.
 type ApplicationGatewayCustomError struct {
-	// Error page URL of the application gateway custom error.
+	// Error page URL of the application gateway customer error.
 	CustomErrorPageURL *string `json:"customErrorPageUrl,omitempty"`
 
-	// Status code of the application gateway custom error.
+	// Status code of the application gateway customer error.
 	StatusCode *ApplicationGatewayCustomErrorStatusCode `json:"statusCode,omitempty"`
 }
 
@@ -5677,6 +5677,9 @@ type ExpressRouteCircuitPropertiesFormat struct {
 	// The authorizationKey.
 	AuthorizationKey *string `json:"authorizationKey,omitempty"`
 
+	// The authorization status of the Circuit.
+	AuthorizationStatus *string `json:"authorizationStatus,omitempty"`
+
 	// The list of authorizations.
 	Authorizations []*ExpressRouteCircuitAuthorization `json:"authorizations,omitempty"`
 
@@ -5709,9 +5712,6 @@ type ExpressRouteCircuitPropertiesFormat struct {
 
 	// The ServiceProviderProvisioningState state of the resource.
 	ServiceProviderProvisioningState *ServiceProviderProvisioningState `json:"serviceProviderProvisioningState,omitempty"`
-
-	// READ-ONLY; The authorization status of the Circuit.
-	AuthorizationStatus *string `json:"authorizationStatus,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of the express route circuit resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -10954,12 +10954,6 @@ type PeerRoute struct {
 	Weight *int32 `json:"weight,omitempty" azure:"ro"`
 }
 
-// PeerRouteList - List of virtual router peer routes.
-type PeerRouteList struct {
-	// List of peer routes.
-	Value []*PeerRoute `json:"value,omitempty"`
-}
-
 // PolicySettings - Defines contents of a web application firewall global configuration.
 type PolicySettings struct {
 	// If the action type is block, customer can override the response body. The body must be specified in base64 encoding.
@@ -10967,6 +10961,9 @@ type PolicySettings struct {
 
 	// If the action type is block, customer can override the response status code.
 	CustomBlockResponseStatusCode *int32 `json:"customBlockResponseStatusCode,omitempty"`
+
+	// Whether allow WAF to enforce file upload limits.
+	FileUploadEnforcement *bool `json:"fileUploadEnforcement,omitempty"`
 
 	// Maximum file upload size in Mb for WAF.
 	FileUploadLimitInMb *int32 `json:"fileUploadLimitInMb,omitempty"`
@@ -10979,6 +10976,12 @@ type PolicySettings struct {
 
 	// Whether to allow WAF to check request Body.
 	RequestBodyCheck *bool `json:"requestBodyCheck,omitempty"`
+
+	// Whether allow WAF to enforce request body limits.
+	RequestBodyEnforcement *bool `json:"requestBodyEnforcement,omitempty"`
+
+	// Max inspection limit in KB for request body inspection for WAF.
+	RequestBodyInspectLimitInKB *int32 `json:"requestBodyInspectLimitInKB,omitempty"`
 
 	// The state of the policy.
 	State *WebApplicationFirewallEnabledState `json:"state,omitempty"`
@@ -11133,6 +11136,9 @@ type PrivateEndpointConnectionProperties struct {
 
 	// READ-ONLY; The resource of private end point.
 	PrivateEndpoint *PrivateEndpoint `json:"privateEndpoint,omitempty" azure:"ro"`
+
+	// READ-ONLY; The location of the private endpoint.
+	PrivateEndpointLocation *string `json:"privateEndpointLocation,omitempty" azure:"ro"`
 
 	// READ-ONLY; The provisioning state of the private endpoint connection resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
@@ -14592,8 +14598,6 @@ type VPNGatewaysClientBeginDeleteOptions struct {
 
 // VPNGatewaysClientBeginResetOptions contains the optional parameters for the VPNGatewaysClient.BeginReset method.
 type VPNGatewaysClientBeginResetOptions struct {
-	// VpnGateway ipConfigurationId to specify the gateway instance.
-	IPConfigurationID *string
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -16751,9 +16755,6 @@ type VirtualNetworkPropertiesFormat struct {
 	// A list of peerings in a Virtual Network.
 	VirtualNetworkPeerings []*VirtualNetworkPeering `json:"virtualNetworkPeerings,omitempty"`
 
-	// READ-ONLY; A collection of references to flow log resources.
-	FlowLogs []*FlowLog `json:"flowLogs,omitempty" azure:"ro"`
-
 	// READ-ONLY; The provisioning state of the virtual network resource.
 	ProvisioningState *ProvisioningState `json:"provisioningState,omitempty" azure:"ro"`
 
@@ -17404,9 +17405,6 @@ type WebApplicationFirewallCustomRule struct {
 
 	// The name of the resource that is unique within a policy. This name can be used to access the resource.
 	Name *string `json:"name,omitempty"`
-
-	// Describes if the custom rule is in enabled or disabled state. Defaults to Enabled if not specified.
-	State *WebApplicationFirewallState `json:"state,omitempty"`
 
 	// READ-ONLY; A unique read-only string that changes whenever the resource is updated.
 	Etag *string `json:"etag,omitempty" azure:"ro"`
