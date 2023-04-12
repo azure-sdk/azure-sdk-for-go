@@ -1,5 +1,29 @@
 # Release History
 
+## 0.8.0 (2023-04-12)
+### Breaking Changes
+
+- Field `Interface` of struct `ClientResourcesHistoryResponse` has been removed
+
+### Features Added
+
+- New enum type `ChangeCategory` with values `ChangeCategorySystem`, `ChangeCategoryUser`
+- New enum type `ChangeType` with values `ChangeTypeCreate`, `ChangeTypeDelete`, `ChangeTypeUpdate`
+- New enum type `PropertyChangeType` with values `PropertyChangeTypeInsert`, `PropertyChangeTypeRemove`, `PropertyChangeTypeUpdate`
+- New function `*Client.ResourceChangeDetails(context.Context, ResourceChangeDetailsRequestParameters, *ClientResourceChangeDetailsOptions) (ClientResourceChangeDetailsResponse, error)`
+- New function `*Client.ResourceChanges(context.Context, ResourceChangesRequestParameters, *ClientResourceChangesOptions) (ClientResourceChangesResponse, error)`
+- New struct `ResourceChangeData`
+- New struct `ResourceChangeDataAfterSnapshot`
+- New struct `ResourceChangeDataBeforeSnapshot`
+- New struct `ResourceChangeDetailsRequestParameters`
+- New struct `ResourceChangeList`
+- New struct `ResourceChangesRequestParameters`
+- New struct `ResourceChangesRequestParametersInterval`
+- New struct `ResourcePropertyChange`
+- New struct `ResourceSnapshotData`
+- New field `Value` in struct `ClientResourcesHistoryResponse`
+
+
 ## 0.7.0 (2023-03-31)
 ### Features Added
 
