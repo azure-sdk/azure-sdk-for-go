@@ -9,6 +9,11 @@
 
 package armredisenterprise
 
+// ClientCheckNameAvailabilityResponse contains the response from method Client.CheckNameAvailability.
+type ClientCheckNameAvailabilityResponse struct {
+	// placeholder for future response values
+}
+
 // ClientCreateResponse contains the response from method Client.BeginCreate.
 type ClientCreateResponse struct {
 	Cluster
@@ -51,6 +56,11 @@ type DatabasesClientDeleteResponse struct {
 
 // DatabasesClientExportResponse contains the response from method DatabasesClient.BeginExport.
 type DatabasesClientExportResponse struct {
+	// placeholder for future response values
+}
+
+// DatabasesClientFlushResponse contains the response from method DatabasesClient.BeginFlush.
+type DatabasesClientFlushResponse struct {
 	// placeholder for future response values
 }
 
@@ -99,7 +109,7 @@ type OperationsStatusClientGetResponse struct {
 	OperationStatus
 }
 
-// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.Delete.
+// PrivateEndpointConnectionsClientDeleteResponse contains the response from method PrivateEndpointConnectionsClient.BeginDelete.
 type PrivateEndpointConnectionsClientDeleteResponse struct {
 	// placeholder for future response values
 }
@@ -122,4 +132,9 @@ type PrivateEndpointConnectionsClientPutResponse struct {
 // PrivateLinkResourcesClientListByClusterResponse contains the response from method PrivateLinkResourcesClient.NewListByClusterPager.
 type PrivateLinkResourcesClientListByClusterResponse struct {
 	PrivateLinkResourceListResult
+}
+
+// SKUsClientListResponse contains the response from method SKUsClient.NewListPager.
+type SKUsClientListResponse struct {
+	RegionSKUDetails
 }
