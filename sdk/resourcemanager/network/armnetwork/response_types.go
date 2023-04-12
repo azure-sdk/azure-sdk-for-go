@@ -2543,12 +2543,24 @@ type VirtualHubBgpConnectionClientGetResponse struct {
 
 // VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse contains the response from method VirtualHubBgpConnectionsClient.BeginListAdvertisedRoutes.
 type VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse struct {
-	PeerRouteList
+	// Map from virtual router instance to list of peer routes.
+	Value map[string][]*PeerRoute
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse.
+func (v *VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &v.Value)
 }
 
 // VirtualHubBgpConnectionsClientListLearnedRoutesResponse contains the response from method VirtualHubBgpConnectionsClient.BeginListLearnedRoutes.
 type VirtualHubBgpConnectionsClientListLearnedRoutesResponse struct {
-	PeerRouteList
+	// Map from virtual router instance to list of peer routes.
+	Value map[string][]*PeerRoute
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type VirtualHubBgpConnectionsClientListLearnedRoutesResponse.
+func (v *VirtualHubBgpConnectionsClientListLearnedRoutesResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &v.Value)
 }
 
 // VirtualHubBgpConnectionsClientListResponse contains the response from method VirtualHubBgpConnectionsClient.NewListPager.

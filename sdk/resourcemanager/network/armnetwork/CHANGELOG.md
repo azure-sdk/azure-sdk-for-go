@@ -1,5 +1,28 @@
 # Release History
 
+## 3.0.0 (2023-04-12)
+### Breaking Changes
+
+- Const `ApplicationGatewayCustomErrorStatusCodeHTTPStatus400`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus404`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus405`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus408`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus499`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus500`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus503`, `ApplicationGatewayCustomErrorStatusCodeHTTPStatus504` from type alias `ApplicationGatewayCustomErrorStatusCode` has been removed
+- Type alias `WebApplicationFirewallState` has been removed
+- Struct `PeerRouteList` has been removed
+- Field `IPConfigurationID` of struct `VPNGatewaysClientBeginResetOptions` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse` has been removed
+- Field `FlowLogs` of struct `VirtualNetworkPropertiesFormat` has been removed
+- Field `State` of struct `WebApplicationFirewallCustomRule` has been removed
+
+### Features Added
+
+- New value `VirtualNetworkPrivateEndpointNetworkPoliciesNetworkSecurityGroupEnabled`, `VirtualNetworkPrivateEndpointNetworkPoliciesRouteTableEnabled` added to enum type `VirtualNetworkPrivateEndpointNetworkPolicies`
+- New field `FileUploadEnforcement` in struct `PolicySettings`
+- New field `RequestBodyEnforcement` in struct `PolicySettings`
+- New field `RequestBodyInspectLimitInKB` in struct `PolicySettings`
+- New field `PrivateEndpointLocation` in struct `PrivateEndpointConnectionProperties`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse`
+
+
 ## 2.2.0 (2023-03-24)
 ### Features Added
 
