@@ -1151,7 +1151,7 @@ type CommunityGalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture `json:"architecture,omitempty"`
 
 	// Describes the disallowed disk types.
@@ -3103,7 +3103,7 @@ type GalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture `json:"architecture,omitempty"`
 
 	// The description of this gallery image definition resource. This property is updatable.
@@ -6017,7 +6017,7 @@ type SharedGalleryImageProperties struct {
 	// Linux
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
-	// The architecture of the image. Applicable to OS disks only.
+	// CPU architecture supported by an OS disk.
 	Architecture *Architecture `json:"architecture,omitempty"`
 
 	// Describes the disallowed disk types.
@@ -8200,9 +8200,6 @@ type VirtualMachineScaleSetIPConfiguration struct {
 	// REQUIRED; The IP configuration name.
 	Name *string `json:"name,omitempty"`
 
-	// Resource Id
-	ID *string `json:"id,omitempty"`
-
 	// Describes a virtual machine scale set network profile's IP configuration properties.
 	Properties *VirtualMachineScaleSetIPConfigurationProperties `json:"properties,omitempty"`
 }
@@ -8349,9 +8346,6 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 type VirtualMachineScaleSetNetworkConfiguration struct {
 	// REQUIRED; The network configuration name.
 	Name *string `json:"name,omitempty"`
-
-	// Resource Id
-	ID *string `json:"id,omitempty"`
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties `json:"properties,omitempty"`
