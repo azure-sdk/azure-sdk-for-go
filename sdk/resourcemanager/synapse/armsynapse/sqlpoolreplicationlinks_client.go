@@ -47,7 +47,7 @@ func NewSQLPoolReplicationLinksClient(subscriptionID string, credential azcore.T
 // GetByName - Get SQL pool replication link by name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -97,7 +97,7 @@ func (client *SQLPoolReplicationLinksClient) getByNameCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *SQLPoolReplicationLinksClient) getByNameHandleResponse(resp *http.
 
 // NewListPager - Lists a Sql pool's replication links.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -172,7 +172,7 @@ func (client *SQLPoolReplicationLinksClient) listCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

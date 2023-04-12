@@ -11,7 +11,7 @@ package armsynapse
 
 const (
 	moduleName    = "armsynapse"
-	moduleVersion = "v0.7.0"
+	moduleVersion = "v1.0.0"
 )
 
 // ActualState - Actual state
@@ -49,24 +49,6 @@ func PossibleAzureADOnlyAuthenticationNameValues() []AzureADOnlyAuthenticationNa
 	}
 }
 
-// AzureScaleType - Scale type.
-type AzureScaleType string
-
-const (
-	AzureScaleTypeAutomatic AzureScaleType = "automatic"
-	AzureScaleTypeManual    AzureScaleType = "manual"
-	AzureScaleTypeNone      AzureScaleType = "none"
-)
-
-// PossibleAzureScaleTypeValues returns the possible values for the AzureScaleType const type.
-func PossibleAzureScaleTypeValues() []AzureScaleType {
-	return []AzureScaleType{
-		AzureScaleTypeAutomatic,
-		AzureScaleTypeManual,
-		AzureScaleTypeNone,
-	}
-}
-
 type BlobAuditingPolicyName string
 
 const (
@@ -94,38 +76,6 @@ func PossibleBlobAuditingPolicyStateValues() []BlobAuditingPolicyState {
 	return []BlobAuditingPolicyState{
 		BlobAuditingPolicyStateEnabled,
 		BlobAuditingPolicyStateDisabled,
-	}
-}
-
-// BlobStorageEventType - The name of blob storage event type to process.
-type BlobStorageEventType string
-
-const (
-	BlobStorageEventTypeMicrosoftStorageBlobCreated BlobStorageEventType = "Microsoft.Storage.BlobCreated"
-	BlobStorageEventTypeMicrosoftStorageBlobRenamed BlobStorageEventType = "Microsoft.Storage.BlobRenamed"
-)
-
-// PossibleBlobStorageEventTypeValues returns the possible values for the BlobStorageEventType const type.
-func PossibleBlobStorageEventTypeValues() []BlobStorageEventType {
-	return []BlobStorageEventType{
-		BlobStorageEventTypeMicrosoftStorageBlobCreated,
-		BlobStorageEventTypeMicrosoftStorageBlobRenamed,
-	}
-}
-
-// ClusterPrincipalRole - Cluster principal role.
-type ClusterPrincipalRole string
-
-const (
-	ClusterPrincipalRoleAllDatabasesAdmin  ClusterPrincipalRole = "AllDatabasesAdmin"
-	ClusterPrincipalRoleAllDatabasesViewer ClusterPrincipalRole = "AllDatabasesViewer"
-)
-
-// PossibleClusterPrincipalRoleValues returns the possible values for the ClusterPrincipalRole const type.
-func PossibleClusterPrincipalRoleValues() []ClusterPrincipalRole {
-	return []ClusterPrincipalRole{
-		ClusterPrincipalRoleAllDatabasesAdmin,
-		ClusterPrincipalRoleAllDatabasesViewer,
 	}
 }
 
@@ -209,22 +159,6 @@ func PossibleColumnDataTypeValues() []ColumnDataType {
 	}
 }
 
-// Compression - The compression type
-type Compression string
-
-const (
-	CompressionGZip Compression = "GZip"
-	CompressionNone Compression = "None"
-)
-
-// PossibleCompressionValues returns the possible values for the Compression const type.
-func PossibleCompressionValues() []Compression {
-	return []Compression{
-		CompressionGZip,
-		CompressionNone,
-	}
-}
-
 // ConfigurationType - The type of the spark config properties file.
 type ConfigurationType string
 
@@ -280,44 +214,6 @@ func PossibleCreateModeValues() []CreateMode {
 		CreateModePointInTimeRestore,
 		CreateModeRecovery,
 		CreateModeRestore,
-	}
-}
-
-// CreatedByType - The type of identity that created the resource.
-type CreatedByType string
-
-const (
-	CreatedByTypeApplication     CreatedByType = "Application"
-	CreatedByTypeKey             CreatedByType = "Key"
-	CreatedByTypeManagedIdentity CreatedByType = "ManagedIdentity"
-	CreatedByTypeUser            CreatedByType = "User"
-)
-
-// PossibleCreatedByTypeValues returns the possible values for the CreatedByType const type.
-func PossibleCreatedByTypeValues() []CreatedByType {
-	return []CreatedByType{
-		CreatedByTypeApplication,
-		CreatedByTypeKey,
-		CreatedByTypeManagedIdentity,
-		CreatedByTypeUser,
-	}
-}
-
-// DataConnectionKind - Kind of the endpoint for the data connection
-type DataConnectionKind string
-
-const (
-	DataConnectionKindEventGrid DataConnectionKind = "EventGrid"
-	DataConnectionKindEventHub  DataConnectionKind = "EventHub"
-	DataConnectionKindIotHub    DataConnectionKind = "IotHub"
-)
-
-// PossibleDataConnectionKindValues returns the possible values for the DataConnectionKind const type.
-func PossibleDataConnectionKindValues() []DataConnectionKind {
-	return []DataConnectionKind{
-		DataConnectionKindEventGrid,
-		DataConnectionKindEventHub,
-		DataConnectionKindIotHub,
 	}
 }
 
@@ -410,30 +306,6 @@ func PossibleDataWarehouseUserActivityNameValues() []DataWarehouseUserActivityNa
 	}
 }
 
-// DatabasePrincipalRole - Database principal role.
-type DatabasePrincipalRole string
-
-const (
-	DatabasePrincipalRoleAdmin              DatabasePrincipalRole = "Admin"
-	DatabasePrincipalRoleIngestor           DatabasePrincipalRole = "Ingestor"
-	DatabasePrincipalRoleMonitor            DatabasePrincipalRole = "Monitor"
-	DatabasePrincipalRoleUnrestrictedViewer DatabasePrincipalRole = "UnrestrictedViewer"
-	DatabasePrincipalRoleUser               DatabasePrincipalRole = "User"
-	DatabasePrincipalRoleViewer             DatabasePrincipalRole = "Viewer"
-)
-
-// PossibleDatabasePrincipalRoleValues returns the possible values for the DatabasePrincipalRole const type.
-func PossibleDatabasePrincipalRoleValues() []DatabasePrincipalRole {
-	return []DatabasePrincipalRole{
-		DatabasePrincipalRoleAdmin,
-		DatabasePrincipalRoleIngestor,
-		DatabasePrincipalRoleMonitor,
-		DatabasePrincipalRoleUnrestrictedViewer,
-		DatabasePrincipalRoleUser,
-		DatabasePrincipalRoleViewer,
-	}
-}
-
 // DayOfWeek - Day of maintenance window.
 type DayOfWeek string
 
@@ -473,24 +345,6 @@ func PossibleDedicatedSQLMinimalTLSSettingsNameValues() []DedicatedSQLMinimalTLS
 	}
 }
 
-// DefaultPrincipalsModificationKind - The default principals modification kind
-type DefaultPrincipalsModificationKind string
-
-const (
-	DefaultPrincipalsModificationKindNone    DefaultPrincipalsModificationKind = "None"
-	DefaultPrincipalsModificationKindReplace DefaultPrincipalsModificationKind = "Replace"
-	DefaultPrincipalsModificationKindUnion   DefaultPrincipalsModificationKind = "Union"
-)
-
-// PossibleDefaultPrincipalsModificationKindValues returns the possible values for the DefaultPrincipalsModificationKind const type.
-func PossibleDefaultPrincipalsModificationKindValues() []DefaultPrincipalsModificationKind {
-	return []DefaultPrincipalsModificationKind{
-		DefaultPrincipalsModificationKindNone,
-		DefaultPrincipalsModificationKindReplace,
-		DefaultPrincipalsModificationKindUnion,
-	}
-}
-
 // DesiredState - Desired state
 type DesiredState string
 
@@ -517,94 +371,6 @@ const (
 func PossibleEncryptionProtectorNameValues() []EncryptionProtectorName {
 	return []EncryptionProtectorName{
 		EncryptionProtectorNameCurrent,
-	}
-}
-
-// EventGridDataFormat - The data format of the message. Optionally the data format can be added to each message.
-type EventGridDataFormat string
-
-const (
-	EventGridDataFormatAPACHEAVRO EventGridDataFormat = "APACHEAVRO"
-	EventGridDataFormatAVRO       EventGridDataFormat = "AVRO"
-	EventGridDataFormatCSV        EventGridDataFormat = "CSV"
-	EventGridDataFormatJSON       EventGridDataFormat = "JSON"
-	EventGridDataFormatMULTIJSON  EventGridDataFormat = "MULTIJSON"
-	EventGridDataFormatORC        EventGridDataFormat = "ORC"
-	EventGridDataFormatPARQUET    EventGridDataFormat = "PARQUET"
-	EventGridDataFormatPSV        EventGridDataFormat = "PSV"
-	EventGridDataFormatRAW        EventGridDataFormat = "RAW"
-	EventGridDataFormatSCSV       EventGridDataFormat = "SCSV"
-	EventGridDataFormatSINGLEJSON EventGridDataFormat = "SINGLEJSON"
-	EventGridDataFormatSOHSV      EventGridDataFormat = "SOHSV"
-	EventGridDataFormatTSV        EventGridDataFormat = "TSV"
-	EventGridDataFormatTSVE       EventGridDataFormat = "TSVE"
-	EventGridDataFormatTXT        EventGridDataFormat = "TXT"
-	EventGridDataFormatW3CLOGFILE EventGridDataFormat = "W3CLOGFILE"
-)
-
-// PossibleEventGridDataFormatValues returns the possible values for the EventGridDataFormat const type.
-func PossibleEventGridDataFormatValues() []EventGridDataFormat {
-	return []EventGridDataFormat{
-		EventGridDataFormatAPACHEAVRO,
-		EventGridDataFormatAVRO,
-		EventGridDataFormatCSV,
-		EventGridDataFormatJSON,
-		EventGridDataFormatMULTIJSON,
-		EventGridDataFormatORC,
-		EventGridDataFormatPARQUET,
-		EventGridDataFormatPSV,
-		EventGridDataFormatRAW,
-		EventGridDataFormatSCSV,
-		EventGridDataFormatSINGLEJSON,
-		EventGridDataFormatSOHSV,
-		EventGridDataFormatTSV,
-		EventGridDataFormatTSVE,
-		EventGridDataFormatTXT,
-		EventGridDataFormatW3CLOGFILE,
-	}
-}
-
-// EventHubDataFormat - The data format of the message. Optionally the data format can be added to each message.
-type EventHubDataFormat string
-
-const (
-	EventHubDataFormatAPACHEAVRO EventHubDataFormat = "APACHEAVRO"
-	EventHubDataFormatAVRO       EventHubDataFormat = "AVRO"
-	EventHubDataFormatCSV        EventHubDataFormat = "CSV"
-	EventHubDataFormatJSON       EventHubDataFormat = "JSON"
-	EventHubDataFormatMULTIJSON  EventHubDataFormat = "MULTIJSON"
-	EventHubDataFormatORC        EventHubDataFormat = "ORC"
-	EventHubDataFormatPARQUET    EventHubDataFormat = "PARQUET"
-	EventHubDataFormatPSV        EventHubDataFormat = "PSV"
-	EventHubDataFormatRAW        EventHubDataFormat = "RAW"
-	EventHubDataFormatSCSV       EventHubDataFormat = "SCSV"
-	EventHubDataFormatSINGLEJSON EventHubDataFormat = "SINGLEJSON"
-	EventHubDataFormatSOHSV      EventHubDataFormat = "SOHSV"
-	EventHubDataFormatTSV        EventHubDataFormat = "TSV"
-	EventHubDataFormatTSVE       EventHubDataFormat = "TSVE"
-	EventHubDataFormatTXT        EventHubDataFormat = "TXT"
-	EventHubDataFormatW3CLOGFILE EventHubDataFormat = "W3CLOGFILE"
-)
-
-// PossibleEventHubDataFormatValues returns the possible values for the EventHubDataFormat const type.
-func PossibleEventHubDataFormatValues() []EventHubDataFormat {
-	return []EventHubDataFormat{
-		EventHubDataFormatAPACHEAVRO,
-		EventHubDataFormatAVRO,
-		EventHubDataFormatCSV,
-		EventHubDataFormatJSON,
-		EventHubDataFormatMULTIJSON,
-		EventHubDataFormatORC,
-		EventHubDataFormatPARQUET,
-		EventHubDataFormatPSV,
-		EventHubDataFormatRAW,
-		EventHubDataFormatSCSV,
-		EventHubDataFormatSINGLEJSON,
-		EventHubDataFormatSOHSV,
-		EventHubDataFormatTSV,
-		EventHubDataFormatTSVE,
-		EventHubDataFormatTXT,
-		EventHubDataFormatW3CLOGFILE,
 	}
 }
 
@@ -823,82 +589,6 @@ func PossibleIntegrationRuntimeUpdateResultValues() []IntegrationRuntimeUpdateRe
 	}
 }
 
-// IotHubDataFormat - The data format of the message. Optionally the data format can be added to each message.
-type IotHubDataFormat string
-
-const (
-	IotHubDataFormatAPACHEAVRO IotHubDataFormat = "APACHEAVRO"
-	IotHubDataFormatAVRO       IotHubDataFormat = "AVRO"
-	IotHubDataFormatCSV        IotHubDataFormat = "CSV"
-	IotHubDataFormatJSON       IotHubDataFormat = "JSON"
-	IotHubDataFormatMULTIJSON  IotHubDataFormat = "MULTIJSON"
-	IotHubDataFormatORC        IotHubDataFormat = "ORC"
-	IotHubDataFormatPARQUET    IotHubDataFormat = "PARQUET"
-	IotHubDataFormatPSV        IotHubDataFormat = "PSV"
-	IotHubDataFormatRAW        IotHubDataFormat = "RAW"
-	IotHubDataFormatSCSV       IotHubDataFormat = "SCSV"
-	IotHubDataFormatSINGLEJSON IotHubDataFormat = "SINGLEJSON"
-	IotHubDataFormatSOHSV      IotHubDataFormat = "SOHSV"
-	IotHubDataFormatTSV        IotHubDataFormat = "TSV"
-	IotHubDataFormatTSVE       IotHubDataFormat = "TSVE"
-	IotHubDataFormatTXT        IotHubDataFormat = "TXT"
-	IotHubDataFormatW3CLOGFILE IotHubDataFormat = "W3CLOGFILE"
-)
-
-// PossibleIotHubDataFormatValues returns the possible values for the IotHubDataFormat const type.
-func PossibleIotHubDataFormatValues() []IotHubDataFormat {
-	return []IotHubDataFormat{
-		IotHubDataFormatAPACHEAVRO,
-		IotHubDataFormatAVRO,
-		IotHubDataFormatCSV,
-		IotHubDataFormatJSON,
-		IotHubDataFormatMULTIJSON,
-		IotHubDataFormatORC,
-		IotHubDataFormatPARQUET,
-		IotHubDataFormatPSV,
-		IotHubDataFormatRAW,
-		IotHubDataFormatSCSV,
-		IotHubDataFormatSINGLEJSON,
-		IotHubDataFormatSOHSV,
-		IotHubDataFormatTSV,
-		IotHubDataFormatTSVE,
-		IotHubDataFormatTXT,
-		IotHubDataFormatW3CLOGFILE,
-	}
-}
-
-// Kind - Kind of the database
-type Kind string
-
-const (
-	KindReadOnlyFollowing Kind = "ReadOnlyFollowing"
-	KindReadWrite         Kind = "ReadWrite"
-)
-
-// PossibleKindValues returns the possible values for the Kind const type.
-func PossibleKindValues() []Kind {
-	return []Kind{
-		KindReadOnlyFollowing,
-		KindReadWrite,
-	}
-}
-
-// LanguageExtensionName - Language extension that can run within KQL query.
-type LanguageExtensionName string
-
-const (
-	LanguageExtensionNamePYTHON LanguageExtensionName = "PYTHON"
-	LanguageExtensionNameR      LanguageExtensionName = "R"
-)
-
-// PossibleLanguageExtensionNameValues returns the possible values for the LanguageExtensionName const type.
-func PossibleLanguageExtensionNameValues() []LanguageExtensionName {
-	return []LanguageExtensionName{
-		LanguageExtensionNamePYTHON,
-		LanguageExtensionNameR,
-	}
-}
-
 // ManagedIntegrationRuntimeNodeStatus - The managed integration runtime node status.
 type ManagedIntegrationRuntimeNodeStatus string
 
@@ -1009,42 +699,6 @@ func PossibleOperationStatusValues() []OperationStatus {
 	}
 }
 
-// PrincipalType - Principal type.
-type PrincipalType string
-
-const (
-	PrincipalTypeApp   PrincipalType = "App"
-	PrincipalTypeGroup PrincipalType = "Group"
-	PrincipalTypeUser  PrincipalType = "User"
-)
-
-// PossiblePrincipalTypeValues returns the possible values for the PrincipalType const type.
-func PossiblePrincipalTypeValues() []PrincipalType {
-	return []PrincipalType{
-		PrincipalTypeApp,
-		PrincipalTypeGroup,
-		PrincipalTypeUser,
-	}
-}
-
-// PrincipalsModificationKind - The principals modification kind of the database
-type PrincipalsModificationKind string
-
-const (
-	PrincipalsModificationKindNone    PrincipalsModificationKind = "None"
-	PrincipalsModificationKindReplace PrincipalsModificationKind = "Replace"
-	PrincipalsModificationKindUnion   PrincipalsModificationKind = "Union"
-)
-
-// PossiblePrincipalsModificationKindValues returns the possible values for the PrincipalsModificationKind const type.
-func PossiblePrincipalsModificationKindValues() []PrincipalsModificationKind {
-	return []PrincipalsModificationKind{
-		PrincipalsModificationKindNone,
-		PrincipalsModificationKindReplace,
-		PrincipalsModificationKindUnion,
-	}
-}
-
 // ProvisioningState - Resource provisioning state
 type ProvisioningState string
 
@@ -1149,22 +803,6 @@ func PossibleQueryObservedMetricTypeValues() []QueryObservedMetricType {
 	}
 }
 
-// Reason - Message providing the reason why the given name is invalid.
-type Reason string
-
-const (
-	ReasonAlreadyExists Reason = "AlreadyExists"
-	ReasonInvalid       Reason = "Invalid"
-)
-
-// PossibleReasonValues returns the possible values for the Reason const type.
-func PossibleReasonValues() []Reason {
-	return []Reason{
-		ReasonAlreadyExists,
-		ReasonInvalid,
-	}
-}
-
 type RecommendedSensitivityLabelUpdateKind string
 
 const (
@@ -1240,32 +878,6 @@ func PossibleResourceIdentityTypeValues() []ResourceIdentityType {
 	}
 }
 
-// ResourceProvisioningState - The provisioned state of the resource.
-type ResourceProvisioningState string
-
-const (
-	ResourceProvisioningStateCanceled  ResourceProvisioningState = "Canceled"
-	ResourceProvisioningStateCreating  ResourceProvisioningState = "Creating"
-	ResourceProvisioningStateDeleting  ResourceProvisioningState = "Deleting"
-	ResourceProvisioningStateFailed    ResourceProvisioningState = "Failed"
-	ResourceProvisioningStateMoving    ResourceProvisioningState = "Moving"
-	ResourceProvisioningStateRunning   ResourceProvisioningState = "Running"
-	ResourceProvisioningStateSucceeded ResourceProvisioningState = "Succeeded"
-)
-
-// PossibleResourceProvisioningStateValues returns the possible values for the ResourceProvisioningState const type.
-func PossibleResourceProvisioningStateValues() []ResourceProvisioningState {
-	return []ResourceProvisioningState{
-		ResourceProvisioningStateCanceled,
-		ResourceProvisioningStateCreating,
-		ResourceProvisioningStateDeleting,
-		ResourceProvisioningStateFailed,
-		ResourceProvisioningStateMoving,
-		ResourceProvisioningStateRunning,
-		ResourceProvisioningStateSucceeded,
-	}
-}
-
 // RestorePointType - The type of restore point
 type RestorePointType string
 
@@ -1279,42 +891,6 @@ func PossibleRestorePointTypeValues() []RestorePointType {
 	return []RestorePointType{
 		RestorePointTypeCONTINUOUS,
 		RestorePointTypeDISCRETE,
-	}
-}
-
-// SKUName - SKU name.
-type SKUName string
-
-const (
-	SKUNameComputeOptimized SKUName = "Compute optimized"
-	SKUNameStorageOptimized SKUName = "Storage optimized"
-)
-
-// PossibleSKUNameValues returns the possible values for the SKUName const type.
-func PossibleSKUNameValues() []SKUName {
-	return []SKUName{
-		SKUNameComputeOptimized,
-		SKUNameStorageOptimized,
-	}
-}
-
-// SKUSize - SKU size.
-type SKUSize string
-
-const (
-	SKUSizeExtraSmall SKUSize = "Extra small"
-	SKUSizeLarge      SKUSize = "Large"
-	SKUSizeMedium     SKUSize = "Medium"
-	SKUSizeSmall      SKUSize = "Small"
-)
-
-// PossibleSKUSizeValues returns the possible values for the SKUSize const type.
-func PossibleSKUSizeValues() []SKUSize {
-	return []SKUSize{
-		SKUSizeExtraSmall,
-		SKUSizeLarge,
-		SKUSizeMedium,
-		SKUSizeSmall,
 	}
 }
 
@@ -1476,36 +1052,6 @@ func PossibleSsisObjectMetadataTypeValues() []SsisObjectMetadataType {
 	}
 }
 
-// State - The state of the resource.
-type State string
-
-const (
-	StateCreating    State = "Creating"
-	StateDeleted     State = "Deleted"
-	StateDeleting    State = "Deleting"
-	StateRunning     State = "Running"
-	StateStarting    State = "Starting"
-	StateStopped     State = "Stopped"
-	StateStopping    State = "Stopping"
-	StateUnavailable State = "Unavailable"
-	StateUpdating    State = "Updating"
-)
-
-// PossibleStateValues returns the possible values for the State const type.
-func PossibleStateValues() []State {
-	return []State{
-		StateCreating,
-		StateDeleted,
-		StateDeleting,
-		StateRunning,
-		StateStarting,
-		StateStopped,
-		StateStopping,
-		StateUnavailable,
-		StateUpdating,
-	}
-}
-
 // StateValue - property configuration state
 type StateValue string
 
@@ -1566,22 +1112,6 @@ func PossibleTransparentDataEncryptionStatusValues() []TransparentDataEncryption
 	return []TransparentDataEncryptionStatus{
 		TransparentDataEncryptionStatusEnabled,
 		TransparentDataEncryptionStatusDisabled,
-	}
-}
-
-// Type - The type of resource, for instance Microsoft.Synapse/workspaces/kustoPools/databases.
-type Type string
-
-const (
-	TypeMicrosoftSynapseWorkspacesKustoPoolsDatabases                      Type = "Microsoft.Synapse/workspaces/kustoPools/databases"
-	TypeMicrosoftSynapseWorkspacesKustoPoolsAttachedDatabaseConfigurations Type = "Microsoft.Synapse/workspaces/kustoPools/attachedDatabaseConfigurations"
-)
-
-// PossibleTypeValues returns the possible values for the Type const type.
-func PossibleTypeValues() []Type {
-	return []Type{
-		TypeMicrosoftSynapseWorkspacesKustoPoolsDatabases,
-		TypeMicrosoftSynapseWorkspacesKustoPoolsAttachedDatabaseConfigurations,
 	}
 }
 
@@ -1662,23 +1192,5 @@ func PossibleWorkspacePublicNetworkAccessValues() []WorkspacePublicNetworkAccess
 	return []WorkspacePublicNetworkAccess{
 		WorkspacePublicNetworkAccessDisabled,
 		WorkspacePublicNetworkAccessEnabled,
-	}
-}
-
-// WorkspaceStatus - status of Start Integrationruntimes.
-type WorkspaceStatus string
-
-const (
-	WorkspaceStatusFailed     WorkspaceStatus = "Failed"
-	WorkspaceStatusInProgress WorkspaceStatus = "InProgress"
-	WorkspaceStatusSucceeded  WorkspaceStatus = "Succeeded"
-)
-
-// PossibleWorkspaceStatusValues returns the possible values for the WorkspaceStatus const type.
-func PossibleWorkspaceStatusValues() []WorkspaceStatus {
-	return []WorkspaceStatus{
-		WorkspaceStatusFailed,
-		WorkspaceStatusInProgress,
-		WorkspaceStatusSucceeded,
 	}
 }

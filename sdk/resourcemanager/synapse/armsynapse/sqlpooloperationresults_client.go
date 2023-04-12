@@ -47,7 +47,7 @@ func NewSQLPoolOperationResultsClient(subscriptionID string, credential azcore.T
 // BeginGetLocationHeaderResult - Get the status of a SQL pool operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace.
 //   - sqlPoolName - SQL pool name
@@ -69,7 +69,7 @@ func (client *SQLPoolOperationResultsClient) BeginGetLocationHeaderResult(ctx co
 // GetLocationHeaderResult - Get the status of a SQL pool operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2023-05-01
 func (client *SQLPoolOperationResultsClient) getLocationHeaderResult(ctx context.Context, resourceGroupName string, workspaceName string, sqlPoolName string, operationID string, options *SQLPoolOperationResultsClientBeginGetLocationHeaderResultOptions) (*http.Response, error) {
 	req, err := client.getLocationHeaderResultCreateRequest(ctx, resourceGroupName, workspaceName, sqlPoolName, operationID, options)
 	if err != nil {
@@ -79,7 +79,7 @@ func (client *SQLPoolOperationResultsClient) getLocationHeaderResult(ctx context
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
@@ -113,7 +113,7 @@ func (client *SQLPoolOperationResultsClient) getLocationHeaderResultCreateReques
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
