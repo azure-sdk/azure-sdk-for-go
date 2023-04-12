@@ -86,6 +86,12 @@ type CapabilitiesListResult struct {
 	Value []*Capabilities `json:"value,omitempty"`
 }
 
+// ConfidentialComputeProperties - The properties for confidential container group
+type ConfidentialComputeProperties struct {
+	// The base64 encoded confidential compute enforcement policy
+	CcePolicy *string `json:"ccePolicy,omitempty"`
+}
+
 // Container - A container instance.
 type Container struct {
 	// REQUIRED; The user-provided name of the container instance.
@@ -224,6 +230,9 @@ type ContainerGroupPropertiesProperties struct {
 	// REQUIRED; The operating system type required by the containers in the container group.
 	OSType *OperatingSystemTypes `json:"osType,omitempty"`
 
+	// The properties for confidential container group
+	ConfidentialComputeProperties *ConfidentialComputeProperties `json:"confidentialComputeProperties,omitempty"`
+
 	// The DNS config information for a container group.
 	DNSConfig *DNSConfiguration `json:"dnsConfig,omitempty"`
 
@@ -244,6 +253,9 @@ type ContainerGroupPropertiesProperties struct {
 
 	// The init containers for a container group.
 	InitContainers []*InitContainerDefinition `json:"initContainers,omitempty"`
+
+	// The priority of the container group.
+	Priority *ContainerGroupPriority `json:"priority,omitempty"`
 
 	// Restart policy for all containers within the container group.
 	// * Always Always restart
@@ -403,6 +415,9 @@ type ContainerProperties struct {
 
 	// The readiness probe.
 	ReadinessProbe *ContainerProbe `json:"readinessProbe,omitempty"`
+
+	// The container security properties.
+	SecurityContext *SecurityContextDefinition `json:"securityContext,omitempty"`
 
 	// The volume mounts available to the container instance.
 	VolumeMounts []*VolumeMount `json:"volumeMounts,omitempty"`
@@ -644,6 +659,9 @@ type InitContainerPropertiesDefinition struct {
 	// The image of the init container.
 	Image *string `json:"image,omitempty"`
 
+	// The container security properties.
+	SecurityContext *SecurityContextDefinition `json:"securityContext,omitempty"`
+
 	// The volume mounts available to the init container.
 	VolumeMounts []*VolumeMount `json:"volumeMounts,omitempty"`
 
@@ -812,6 +830,36 @@ type ResourceRequirements struct {
 
 	// The resource limits of this container instance.
 	Limits *ResourceLimits `json:"limits,omitempty"`
+}
+
+// SecurityContextCapabilitiesDefinition - The capabilities to add or drop from a container.
+type SecurityContextCapabilitiesDefinition struct {
+	// The capabilities to add to the container.
+	Add []*string `json:"add,omitempty"`
+
+	// The capabilities to drop from the container.
+	Drop []*string `json:"drop,omitempty"`
+}
+
+// SecurityContextDefinition - The security context for the container.
+type SecurityContextDefinition struct {
+	// A boolean value indicating whether the init process can elevate its privileges
+	AllowPrivilegeEscalation *bool `json:"allowPrivilegeEscalation,omitempty"`
+
+	// The capabilities to add or drop from a container.
+	Capabilities *SecurityContextCapabilitiesDefinition `json:"capabilities,omitempty"`
+
+	// The flag to determine if the container permissions is elevated to Privileged.
+	Privileged *bool `json:"privileged,omitempty"`
+
+	// Sets the User GID for the container.
+	RunAsGroup *int32 `json:"runAsGroup,omitempty"`
+
+	// Sets the User UID for the container.
+	RunAsUser *int32 `json:"runAsUser,omitempty"`
+
+	// a base64 encoded string containing the contents of the JSON in the seccomp profile
+	SeccompProfile *string `json:"seccompProfile,omitempty"`
 }
 
 // SubnetServiceAssociationLinkClientBeginDeleteOptions contains the optional parameters for the SubnetServiceAssociationLinkClient.BeginDelete
