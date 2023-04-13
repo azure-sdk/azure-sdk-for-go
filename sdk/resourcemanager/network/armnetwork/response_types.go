@@ -294,6 +294,11 @@ type AzureFirewallsClientListResponse struct {
 	AzureFirewallListResult
 }
 
+// AzureFirewallsClientPacketCaptureResponse contains the response from method AzureFirewallsClient.BeginPacketCapture.
+type AzureFirewallsClientPacketCaptureResponse struct {
+	// placeholder for future response values
+}
+
 // AzureFirewallsClientUpdateTagsResponse contains the response from method AzureFirewallsClient.BeginUpdateTags.
 type AzureFirewallsClientUpdateTagsResponse struct {
 	AzureFirewall
