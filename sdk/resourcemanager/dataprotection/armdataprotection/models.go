@@ -1484,6 +1484,34 @@ type DppResource struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// DppResourceGuardProxyClientCreateOrUpdateOptions contains the optional parameters for the DppResourceGuardProxyClient.CreateOrUpdate
+// method.
+type DppResourceGuardProxyClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientDeleteOptions contains the optional parameters for the DppResourceGuardProxyClient.Delete method.
+type DppResourceGuardProxyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientGetOptions contains the optional parameters for the DppResourceGuardProxyClient.Get method.
+type DppResourceGuardProxyClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientListOptions contains the optional parameters for the DppResourceGuardProxyClient.NewListPager
+// method.
+type DppResourceGuardProxyClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DppResourceGuardProxyClientUnlockDeleteOptions contains the optional parameters for the DppResourceGuardProxyClient.UnlockDelete
+// method.
+type DppResourceGuardProxyClientUnlockDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
 // DppResourceList - ListResource
 type DppResourceList struct {
 	// The uri to fetch the next page of resources. Call ListNext() fetches next page of resources.
@@ -1834,29 +1862,32 @@ type JobsClientListOptions struct {
 // KubernetesClusterBackupDatasourceParameters - Parameters for Kubernetes Cluster Backup Datasource
 type KubernetesClusterBackupDatasourceParameters struct {
 	// REQUIRED; Gets or sets the include cluster resources property. This property if enabled will include cluster scope resources
-	// during restore.
+	// during backup.
 	IncludeClusterScopeResources *bool `json:"includeClusterScopeResources,omitempty"`
 
 	// REQUIRED; Type of the specific object - used for deserializing
 	ObjectType *string `json:"objectType,omitempty"`
 
-	// REQUIRED; Gets or sets the volume snapshot property. This property if enabled will take volume snapshots during restore.
+	// REQUIRED; Gets or sets the volume snapshot property. This property if enabled will take volume snapshots during backup.
 	SnapshotVolumes *bool `json:"snapshotVolumes,omitempty"`
 
-	// Gets or sets the exclude namespaces property. This property sets the namespaces to be excluded during restore.
+	// Gets or sets the backup hook references. This property sets the hook reference to be executed during backup.
+	BackupHookReferences []*NamespacedNameResource `json:"backupHookReferences,omitempty"`
+
+	// Gets or sets the exclude namespaces property. This property sets the namespaces to be excluded during backup.
 	ExcludedNamespaces []*string `json:"excludedNamespaces,omitempty"`
 
-	// Gets or sets the exclude resource types property. This property sets the resource types to be excluded during restore.
+	// Gets or sets the exclude resource types property. This property sets the resource types to be excluded during backup.
 	ExcludedResourceTypes []*string `json:"excludedResourceTypes,omitempty"`
 
-	// Gets or sets the include namespaces property. This property sets the namespaces to be included during restore.
+	// Gets or sets the include namespaces property. This property sets the namespaces to be included during backup.
 	IncludedNamespaces []*string `json:"includedNamespaces,omitempty"`
 
-	// Gets or sets the include resource types property. This property sets the resource types to be included during restore.
+	// Gets or sets the include resource types property. This property sets the resource types to be included during backup.
 	IncludedResourceTypes []*string `json:"includedResourceTypes,omitempty"`
 
 	// Gets or sets the LabelSelectors property. This property sets the resource with such label selectors to be included during
-	// restore.
+	// backup.
 	LabelSelectors []*string `json:"labelSelectors,omitempty"`
 }
 
@@ -1900,6 +1931,9 @@ type KubernetesClusterRestoreCriteria struct {
 
 	// Gets or sets the PV (Persistent Volume) Restore Mode property. This property sets whether volumes needs to be restored.
 	PersistentVolumeRestoreMode *PersistentVolumeRestoreMode `json:"persistentVolumeRestoreMode,omitempty"`
+
+	// Gets or sets the restore hook references. This property sets the hook reference to be executed during restore.
+	RestoreHookReferences []*NamespacedNameResource `json:"restoreHookReferences,omitempty"`
 }
 
 // GetItemLevelRestoreCriteria implements the ItemLevelRestoreCriteriaClassification interface for type KubernetesClusterRestoreCriteria.
@@ -1951,6 +1985,15 @@ func (k *KubernetesStorageClassRestoreCriteria) GetItemLevelRestoreCriteria() *I
 type MonitoringSettings struct {
 	// Settings for Azure Monitor based alerts
 	AzureMonitorAlertSettings *AzureMonitorAlertSettings `json:"azureMonitorAlertSettings,omitempty"`
+}
+
+// NamespacedNameResource - Class to refer resources which contains namespace and name
+type NamespacedNameResource struct {
+	// Name of the resource
+	Name *string `json:"name,omitempty"`
+
+	// Namespace in which the resource exists
+	Namespace *string `json:"namespace,omitempty"`
 }
 
 // OperationExtendedInfoClassification provides polymorphic access to related types.
@@ -2180,6 +2223,47 @@ type ResourceGuardOperation struct {
 
 	// READ-ONLY; Name of the critical operation.
 	VaultCriticalOperation *string `json:"vaultCriticalOperation,omitempty" azure:"ro"`
+}
+
+// ResourceGuardOperationDetail - VaultCritical Operation protected by a resource guard
+type ResourceGuardOperationDetail struct {
+	DefaultResourceRequest *string `json:"defaultResourceRequest,omitempty"`
+	VaultCriticalOperation *string `json:"vaultCriticalOperation,omitempty"`
+}
+
+// ResourceGuardProxyBase object, used in ResourceGuardProxyBaseResource
+type ResourceGuardProxyBase struct {
+	Description                   *string                         `json:"description,omitempty"`
+	LastUpdatedTime               *string                         `json:"lastUpdatedTime,omitempty"`
+	ResourceGuardOperationDetails []*ResourceGuardOperationDetail `json:"resourceGuardOperationDetails,omitempty"`
+	ResourceGuardResourceID       *string                         `json:"resourceGuardResourceId,omitempty"`
+}
+
+// ResourceGuardProxyBaseResource object, used for response and request bodies for ResourceGuardProxy APIs
+type ResourceGuardProxyBaseResource struct {
+	// ResourceGuardProxyBaseResource properties
+	Properties *ResourceGuardProxyBase `json:"properties,omitempty"`
+
+	// READ-ONLY; Resource Id represents the complete path to the resource.
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource name associated with the resource.
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource type represents the complete path of the form Namespace/ResourceType/ResourceType/…
+	Type *string `json:"type,omitempty" azure:"ro"`
+}
+
+// ResourceGuardProxyBaseResourceList - List of ResourceGuardProxyBase resources
+type ResourceGuardProxyBaseResourceList struct {
+	// The uri to fetch the next page of resources. Call ListNext() fetches next page of resources.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// List of resources.
+	Value []*ResourceGuardProxyBaseResource `json:"value,omitempty"`
 }
 
 type ResourceGuardResource struct {
@@ -2668,6 +2752,18 @@ type TriggerContext struct {
 
 // GetTriggerContext implements the TriggerContextClassification interface for type TriggerContext.
 func (t *TriggerContext) GetTriggerContext() *TriggerContext { return t }
+
+// UnlockDeleteRequest - Request body of unlock delete API.
+type UnlockDeleteRequest struct {
+	ResourceGuardOperationRequests []*string `json:"resourceGuardOperationRequests,omitempty"`
+	ResourceToBeDeleted            *string   `json:"resourceToBeDeleted,omitempty"`
+}
+
+// UnlockDeleteResponse - Response of Unlock Delete API.
+type UnlockDeleteResponse struct {
+	// This is the time when unlock delete privileges will get expired.
+	UnlockDeleteExpiryTime *string `json:"unlockDeleteExpiryTime,omitempty"`
+}
 
 // UserFacingError - Error object used by layers that have access to localized content, and propagate that to user
 type UserFacingError struct {
