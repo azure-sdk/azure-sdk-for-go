@@ -47,7 +47,7 @@ func NewFluxConfigOperationStatusClient(subscriptionID string, credential azcore
 // Get - Get Async Operation status
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01
+// Generated from API version 2022-11-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - clusterRp - The Kubernetes cluster RP - i.e. Microsoft.ContainerService, Microsoft.Kubernetes, Microsoft.HybridContainerService.
 //   - clusterResourceName - The Kubernetes cluster resource name - i.e. managedClusters, connectedClusters, provisionedClusters.
@@ -56,7 +56,7 @@ func NewFluxConfigOperationStatusClient(subscriptionID string, credential azcore
 //   - operationID - operation Id
 //   - options - FluxConfigOperationStatusClientGetOptions contains the optional parameters for the FluxConfigOperationStatusClient.Get
 //     method.
-func (client *FluxConfigOperationStatusClient) Get(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, operationID string, options *FluxConfigOperationStatusClientGetOptions) (FluxConfigOperationStatusClientGetResponse, error) {
+func (client *FluxConfigOperationStatusClient) Get(ctx context.Context, resourceGroupName string, clusterRp KubernetesClusterResourceProviderName, clusterResourceName KubernetesClusterResourceName, clusterName string, fluxConfigurationName string, operationID string, options *FluxConfigOperationStatusClientGetOptions) (FluxConfigOperationStatusClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterRp, clusterResourceName, clusterName, fluxConfigurationName, operationID, options)
 	if err != nil {
 		return FluxConfigOperationStatusClientGetResponse{}, err
@@ -72,7 +72,7 @@ func (client *FluxConfigOperationStatusClient) Get(ctx context.Context, resource
 }
 
 // getCreateRequest creates the Get request.
-func (client *FluxConfigOperationStatusClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterRp string, clusterResourceName string, clusterName string, fluxConfigurationName string, operationID string, options *FluxConfigOperationStatusClientGetOptions) (*policy.Request, error) {
+func (client *FluxConfigOperationStatusClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterRp KubernetesClusterResourceProviderName, clusterResourceName KubernetesClusterResourceName, clusterName string, fluxConfigurationName string, operationID string, options *FluxConfigOperationStatusClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{clusterRp}/{clusterResourceName}/{clusterName}/providers/Microsoft.KubernetesConfiguration/fluxConfigurations/{fluxConfigurationName}/operations/{operationId}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -85,11 +85,11 @@ func (client *FluxConfigOperationStatusClient) getCreateRequest(ctx context.Cont
 	if clusterRp == "" {
 		return nil, errors.New("parameter clusterRp cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{clusterRp}", url.PathEscape(clusterRp))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterRp}", url.PathEscape(string(clusterRp)))
 	if clusterResourceName == "" {
 		return nil, errors.New("parameter clusterResourceName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{clusterResourceName}", url.PathEscape(clusterResourceName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterResourceName}", url.PathEscape(string(clusterResourceName)))
 	if clusterName == "" {
 		return nil, errors.New("parameter clusterName cannot be empty")
 	}
@@ -107,7 +107,7 @@ func (client *FluxConfigOperationStatusClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01")
+	reqQP.Set("api-version", "2022-11-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

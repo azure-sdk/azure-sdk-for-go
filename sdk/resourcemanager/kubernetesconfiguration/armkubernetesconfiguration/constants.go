@@ -11,7 +11,7 @@ package armkubernetesconfiguration
 
 const (
 	moduleName    = "armkubernetesconfiguration"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 // AKSIdentityType - The identity type.
@@ -91,6 +91,40 @@ func PossibleFluxComplianceStateValues() []FluxComplianceState {
 		FluxComplianceStatePending,
 		FluxComplianceStateSuspended,
 		FluxComplianceStateUnknown,
+	}
+}
+
+type KubernetesClusterResourceName string
+
+const (
+	KubernetesClusterResourceNameConnectedClusters   KubernetesClusterResourceName = "connectedClusters"
+	KubernetesClusterResourceNameManagedClusters     KubernetesClusterResourceName = "managedClusters"
+	KubernetesClusterResourceNameProvisionedClusters KubernetesClusterResourceName = "provisionedClusters"
+)
+
+// PossibleKubernetesClusterResourceNameValues returns the possible values for the KubernetesClusterResourceName const type.
+func PossibleKubernetesClusterResourceNameValues() []KubernetesClusterResourceName {
+	return []KubernetesClusterResourceName{
+		KubernetesClusterResourceNameConnectedClusters,
+		KubernetesClusterResourceNameManagedClusters,
+		KubernetesClusterResourceNameProvisionedClusters,
+	}
+}
+
+type KubernetesClusterResourceProviderName string
+
+const (
+	KubernetesClusterResourceProviderNameMicrosoftContainerService       KubernetesClusterResourceProviderName = "Microsoft.ContainerService"
+	KubernetesClusterResourceProviderNameMicrosoftHybridContainerService KubernetesClusterResourceProviderName = "Microsoft.HybridContainerService"
+	KubernetesClusterResourceProviderNameMicrosoftKubernetes             KubernetesClusterResourceProviderName = "Microsoft.Kubernetes"
+)
+
+// PossibleKubernetesClusterResourceProviderNameValues returns the possible values for the KubernetesClusterResourceProviderName const type.
+func PossibleKubernetesClusterResourceProviderNameValues() []KubernetesClusterResourceProviderName {
+	return []KubernetesClusterResourceProviderName{
+		KubernetesClusterResourceProviderNameMicrosoftContainerService,
+		KubernetesClusterResourceProviderNameMicrosoftHybridContainerService,
+		KubernetesClusterResourceProviderNameMicrosoftKubernetes,
 	}
 }
 
@@ -245,6 +279,7 @@ func PossibleScopeTypeValues() []ScopeType {
 type SourceKindType string
 
 const (
+	SourceKindTypeAzureBlob     SourceKindType = "AzureBlob"
 	SourceKindTypeBucket        SourceKindType = "Bucket"
 	SourceKindTypeGitRepository SourceKindType = "GitRepository"
 )
@@ -252,6 +287,7 @@ const (
 // PossibleSourceKindTypeValues returns the possible values for the SourceKindType const type.
 func PossibleSourceKindTypeValues() []SourceKindType {
 	return []SourceKindType{
+		SourceKindTypeAzureBlob,
 		SourceKindTypeBucket,
 		SourceKindTypeGitRepository,
 	}
