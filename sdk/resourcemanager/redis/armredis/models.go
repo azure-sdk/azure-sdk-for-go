@@ -627,15 +627,35 @@ type PatchScheduleListResult struct {
 	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
 }
 
-// PatchSchedulesClientCreateOrUpdateOptions contains the optional parameters for the PatchSchedulesClient.CreateOrUpdate
-// method.
-type PatchSchedulesClientCreateOrUpdateOptions struct {
-	// placeholder for future optional parameters
+// PatchScheduleWithProvisioningState - Response to put/get patch schedules for Redis cache.
+type PatchScheduleWithProvisioningState struct {
+	// REQUIRED; List of patch schedules for a Redis cache.
+	Properties *ScheduleEntriesWithProvisioningState `json:"properties,omitempty"`
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string `json:"id,omitempty" azure:"ro"`
+
+	// READ-ONLY; The geo-location where the resource lives
+	Location *string `json:"location,omitempty" azure:"ro"`
+
+	// READ-ONLY; The name of the resource
+	Name *string `json:"name,omitempty" azure:"ro"`
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
-// PatchSchedulesClientDeleteOptions contains the optional parameters for the PatchSchedulesClient.Delete method.
-type PatchSchedulesClientDeleteOptions struct {
-	// placeholder for future optional parameters
+// PatchSchedulesClientBeginCreateOrUpdateOptions contains the optional parameters for the PatchSchedulesClient.BeginCreateOrUpdate
+// method.
+type PatchSchedulesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PatchSchedulesClientBeginDeleteOptions contains the optional parameters for the PatchSchedulesClient.BeginDelete method.
+type PatchSchedulesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // PatchSchedulesClientGetOptions contains the optional parameters for the PatchSchedulesClient.Get method.
@@ -898,6 +918,15 @@ type SKU struct {
 type ScheduleEntries struct {
 	// REQUIRED; List of patch schedules for a Redis cache.
 	ScheduleEntries []*ScheduleEntry `json:"scheduleEntries,omitempty"`
+}
+
+// ScheduleEntriesWithProvisioningState - List of patch schedules for a Redis cache.
+type ScheduleEntriesWithProvisioningState struct {
+	// REQUIRED; List of patch schedules for a Redis cache.
+	ScheduleEntries []*ScheduleEntry `json:"scheduleEntries,omitempty"`
+
+	// READ-ONLY; Non-terminal state of the status of the schedule entry creation/updation.
+	ProvisioningState *string `json:"provisioningState,omitempty" azure:"ro"`
 }
 
 // ScheduleEntry - Patch schedule entry for a Premium Redis Cache.

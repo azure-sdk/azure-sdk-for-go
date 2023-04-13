@@ -1,5 +1,17 @@
 # Release History
 
+## 3.0.0 (2023-04-13)
+### Breaking Changes
+
+- Operation `*PatchSchedulesClient.CreateOrUpdate` has been changed to LRO, use `*PatchSchedulesClient.BeginCreateOrUpdate` instead.
+- Operation `*PatchSchedulesClient.Delete` has been changed to LRO, use `*PatchSchedulesClient.BeginDelete` instead.
+
+### Features Added
+
+- New struct `PatchScheduleWithProvisioningState`
+- New struct `ScheduleEntriesWithProvisioningState`
+
+
 ## 2.2.0 (2023-03-27)
 ### Features Added
 

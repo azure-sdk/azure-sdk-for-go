@@ -124,12 +124,12 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
-// PatchSchedulesClientCreateOrUpdateResponse contains the response from method PatchSchedulesClient.CreateOrUpdate.
+// PatchSchedulesClientCreateOrUpdateResponse contains the response from method PatchSchedulesClient.BeginCreateOrUpdate.
 type PatchSchedulesClientCreateOrUpdateResponse struct {
 	PatchSchedule
 }
 
-// PatchSchedulesClientDeleteResponse contains the response from method PatchSchedulesClient.Delete.
+// PatchSchedulesClientDeleteResponse contains the response from method PatchSchedulesClient.BeginDelete.
 type PatchSchedulesClientDeleteResponse struct {
 	// placeholder for future response values
 }
