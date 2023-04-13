@@ -9,6 +9,26 @@
 
 package armmysqlflexibleservers
 
+// AzureADAdministratorsClientCreateOrUpdateResponse contains the response from method AzureADAdministratorsClient.BeginCreateOrUpdate.
+type AzureADAdministratorsClientCreateOrUpdateResponse struct {
+	AzureADAdministrator
+}
+
+// AzureADAdministratorsClientDeleteResponse contains the response from method AzureADAdministratorsClient.BeginDelete.
+type AzureADAdministratorsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// AzureADAdministratorsClientGetResponse contains the response from method AzureADAdministratorsClient.Get.
+type AzureADAdministratorsClientGetResponse struct {
+	AzureADAdministrator
+}
+
+// AzureADAdministratorsClientListByServerResponse contains the response from method AzureADAdministratorsClient.NewListByServerPager.
+type AzureADAdministratorsClientListByServerResponse struct {
+	AdministratorListResult
+}
+
 // BackupsClientGetResponse contains the response from method BackupsClient.Get.
 type BackupsClientGetResponse struct {
 	ServerBackup
@@ -19,8 +39,18 @@ type BackupsClientListByServerResponse struct {
 	ServerBackupListResult
 }
 
+// BackupsClientPutResponse contains the response from method BackupsClient.Put.
+type BackupsClientPutResponse struct {
+	ServerBackup
+}
+
 // CheckNameAvailabilityClientExecuteResponse contains the response from method CheckNameAvailabilityClient.Execute.
 type CheckNameAvailabilityClientExecuteResponse struct {
+	NameAvailability
+}
+
+// CheckNameAvailabilityWithoutLocationClientExecuteResponse contains the response from method CheckNameAvailabilityWithoutLocationClient.Execute.
+type CheckNameAvailabilityWithoutLocationClientExecuteResponse struct {
 	NameAvailability
 }
 
@@ -32,6 +62,11 @@ type CheckVirtualNetworkSubnetUsageClientExecuteResponse struct {
 // ConfigurationsClientBatchUpdateResponse contains the response from method ConfigurationsClient.BeginBatchUpdate.
 type ConfigurationsClientBatchUpdateResponse struct {
 	ConfigurationListResult
+}
+
+// ConfigurationsClientCreateOrUpdateResponse contains the response from method ConfigurationsClient.BeginCreateOrUpdate.
+type ConfigurationsClientCreateOrUpdateResponse struct {
+	Configuration
 }
 
 // ConfigurationsClientGetResponse contains the response from method ConfigurationsClient.Get.
@@ -97,6 +132,11 @@ type GetPrivateDNSZoneSuffixClientExecuteResponse struct {
 // LocationBasedCapabilitiesClientListResponse contains the response from method LocationBasedCapabilitiesClient.NewListPager.
 type LocationBasedCapabilitiesClientListResponse struct {
 	CapabilitiesListResult
+}
+
+// LogFilesClientListByServerResponse contains the response from method LogFilesClient.NewListByServerPager.
+type LogFilesClientListByServerResponse struct {
+	LogFileListResult
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.

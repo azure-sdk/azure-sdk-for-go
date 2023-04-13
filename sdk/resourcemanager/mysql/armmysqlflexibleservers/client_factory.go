@@ -38,6 +38,26 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+func (c *ClientFactory) NewBackupsClient() *BackupsClient {
+	subClient, _ := NewBackupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewConfigurationsClient() *ConfigurationsClient {
+	subClient, _ := NewConfigurationsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDatabasesClient() *DatabasesClient {
+	subClient, _ := NewDatabasesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewFirewallRulesClient() *FirewallRulesClient {
+	subClient, _ := NewFirewallRulesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewServersClient() *ServersClient {
 	subClient, _ := NewServersClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -48,23 +68,8 @@ func (c *ClientFactory) NewReplicasClient() *ReplicasClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewBackupsClient() *BackupsClient {
-	subClient, _ := NewBackupsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewFirewallRulesClient() *FirewallRulesClient {
-	subClient, _ := NewFirewallRulesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewDatabasesClient() *DatabasesClient {
-	subClient, _ := NewDatabasesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewConfigurationsClient() *ConfigurationsClient {
-	subClient, _ := NewConfigurationsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewLogFilesClient() *LogFilesClient {
+	subClient, _ := NewLogFilesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -83,6 +88,11 @@ func (c *ClientFactory) NewCheckNameAvailabilityClient() *CheckNameAvailabilityC
 	return subClient
 }
 
+func (c *ClientFactory) NewCheckNameAvailabilityWithoutLocationClient() *CheckNameAvailabilityWithoutLocationClient {
+	subClient, _ := NewCheckNameAvailabilityWithoutLocationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewGetPrivateDNSZoneSuffixClient() *GetPrivateDNSZoneSuffixClient {
 	subClient, _ := NewGetPrivateDNSZoneSuffixClient(c.credential, c.options)
 	return subClient
@@ -90,5 +100,10 @@ func (c *ClientFactory) NewGetPrivateDNSZoneSuffixClient() *GetPrivateDNSZoneSuf
 
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAzureADAdministratorsClient() *AzureADAdministratorsClient {
+	subClient, _ := NewAzureADAdministratorsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
