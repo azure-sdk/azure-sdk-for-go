@@ -11,6 +11,76 @@ package armmysqlflexibleservers
 
 import "time"
 
+// AdministratorListResult - A List of azure ad administrators.
+type AdministratorListResult struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of azure ad administrator of a server
+	Value []*AzureADAdministrator
+}
+
+// AdministratorProperties - The properties of an administrator.
+type AdministratorProperties struct {
+	// Type of the sever administrator.
+	AdministratorType *AdministratorType
+
+	// The resource id of the identity used for AAD Authentication.
+	IdentityResourceID *string
+
+	// Login name of the server administrator.
+	Login *string
+
+	// SID (object ID) of the server administrator.
+	Sid *string
+
+	// Tenant ID of the administrator.
+	TenantID *string
+}
+
+// AzureADAdministrator - Represents a Administrator.
+type AzureADAdministrator struct {
+	// The properties of an administrator.
+	Properties *AdministratorProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AzureADAdministratorsClientBeginCreateOrUpdateOptions contains the optional parameters for the AzureADAdministratorsClient.BeginCreateOrUpdate
+// method.
+type AzureADAdministratorsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AzureADAdministratorsClientBeginDeleteOptions contains the optional parameters for the AzureADAdministratorsClient.BeginDelete
+// method.
+type AzureADAdministratorsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AzureADAdministratorsClientGetOptions contains the optional parameters for the AzureADAdministratorsClient.Get method.
+type AzureADAdministratorsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AzureADAdministratorsClientListByServerOptions contains the optional parameters for the AzureADAdministratorsClient.NewListByServerPager
+// method.
+type AzureADAdministratorsClientListByServerOptions struct {
+	// placeholder for future optional parameters
+}
+
 // Backup - Storage Profile properties of a server
 type Backup struct {
 	// Backup retention days for the server.
@@ -30,6 +100,11 @@ type BackupsClientGetOptions struct {
 
 // BackupsClientListByServerOptions contains the optional parameters for the BackupsClient.NewListByServerPager method.
 type BackupsClientListByServerOptions struct {
+	// placeholder for future optional parameters
+}
+
+// BackupsClientPutOptions contains the optional parameters for the BackupsClient.Put method.
+type BackupsClientPutOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -60,6 +135,12 @@ type CapabilityProperties struct {
 // CheckNameAvailabilityClientExecuteOptions contains the optional parameters for the CheckNameAvailabilityClient.Execute
 // method.
 type CheckNameAvailabilityClientExecuteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// CheckNameAvailabilityWithoutLocationClientExecuteOptions contains the optional parameters for the CheckNameAvailabilityWithoutLocationClient.Execute
+// method.
+type CheckNameAvailabilityWithoutLocationClientExecuteOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -107,6 +188,9 @@ type ConfigurationForBatchUpdateProperties struct {
 
 // ConfigurationListForBatchUpdate - A list of server configurations to update.
 type ConfigurationListForBatchUpdate struct {
+	// Whether to reset all server parameters to default.
+	ResetAllToDefault *ResetAllToDefault
+
 	// The list of server configurations.
 	Value []*ConfigurationForBatchUpdate
 }
@@ -122,6 +206,9 @@ type ConfigurationListResult struct {
 
 // ConfigurationProperties - The properties of a configuration.
 type ConfigurationProperties struct {
+	// Current value of the configuration.
+	CurrentValue *string
+
 	// Source of the configuration.
 	Source *ConfigurationSource
 
@@ -140,6 +227,9 @@ type ConfigurationProperties struct {
 	// READ-ONLY; Description of the configuration.
 	Description *string
 
+	// READ-ONLY; The link used to get the document from community or Azure site.
+	DocumentationLink *string
+
 	// READ-ONLY; If is the configuration pending restart or not.
 	IsConfigPendingRestart *IsConfigPendingRestart
 
@@ -153,6 +243,13 @@ type ConfigurationProperties struct {
 // ConfigurationsClientBeginBatchUpdateOptions contains the optional parameters for the ConfigurationsClient.BeginBatchUpdate
 // method.
 type ConfigurationsClientBeginBatchUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ConfigurationsClientBeginCreateOrUpdateOptions contains the optional parameters for the ConfigurationsClient.BeginCreateOrUpdate
+// method.
+type ConfigurationsClientBeginCreateOrUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -171,7 +268,14 @@ type ConfigurationsClientGetOptions struct {
 // ConfigurationsClientListByServerOptions contains the optional parameters for the ConfigurationsClient.NewListByServerPager
 // method.
 type ConfigurationsClientListByServerOptions struct {
-	// placeholder for future optional parameters
+	// The keyword of the server configuration.
+	Keyword *string
+	// The page of the server configuration.
+	Page *int32
+	// The pageSize of the server configuration.
+	PageSize *int32
+	// The tags of the server configuration.
+	Tags *string
 }
 
 // DataEncryption - The date encryption for cmk.
@@ -390,6 +494,56 @@ type Identity struct {
 // LocationBasedCapabilitiesClientListOptions contains the optional parameters for the LocationBasedCapabilitiesClient.NewListPager
 // method.
 type LocationBasedCapabilitiesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// LogFile - Represents a logFile.
+type LogFile struct {
+	// The properties of a logFile.
+	Properties *LogFileProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The system metadata relating to this resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// LogFileListResult - A List of logFiles.
+type LogFileListResult struct {
+	// The link used to get the next page of operations.
+	NextLink *string
+
+	// The list of logFiles in a server
+	Value []*LogFile
+}
+
+// LogFileProperties - The properties of a logFile.
+type LogFileProperties struct {
+	// Creation timestamp of the log file.
+	CreatedTime *time.Time
+
+	// Last modified timestamp of the log file.
+	LastModifiedTime *time.Time
+
+	// The size in kb of the logFile.
+	SizeInKB *int64
+
+	// Type of the log file.
+	Type *string
+
+	// The url to download the log file from.
+	URL *string
+}
+
+// LogFilesClientListByServerOptions contains the optional parameters for the LogFilesClient.NewListByServerPager method.
+type LogFilesClientListByServerOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -721,6 +875,9 @@ type ServerPropertiesForUpdate struct {
 
 	// Storage related properties of a server.
 	Storage *Storage
+
+	// Server version.
+	Version *ServerVersion
 }
 
 // ServerRestartParameter - Server restart parameters.
@@ -803,6 +960,9 @@ type ServersClientListOptions struct {
 type Storage struct {
 	// Enable Storage Auto Grow or not.
 	AutoGrow *EnableStatusEnum
+
+	// Enable IO Auto Scaling or not.
+	AutoIoScaling *EnableStatusEnum
 
 	// Storage IOPS for a server.
 	Iops *int32
@@ -891,4 +1051,10 @@ type VirtualNetworkSubnetUsageParameter struct {
 type VirtualNetworkSubnetUsageResult struct {
 	// READ-ONLY; A list of delegated subnet usage
 	DelegatedSubnetsUsage []*DelegatedSubnetUsage
+
+	// READ-ONLY; The location name.
+	Location *string
+
+	// READ-ONLY; The subscription id.
+	SubscriptionID *string
 }
