@@ -96,6 +96,9 @@ type AFDDomainProperties struct {
 	// Resource reference to the Azure DNS zone
 	AzureDNSZone *ResourceReference `json:"azureDnsZone,omitempty"`
 
+	// Key-Value pair representing migration properties for domains.
+	ExtendedProperties map[string]*string `json:"extendedProperties,omitempty"`
+
 	// Resource reference to the Azure resource where custom domain ownership was prevalidated
 	PreValidatedCustomDomainResourceID *ResourceReference `json:"preValidatedCustomDomainResourceId,omitempty"`
 
@@ -144,9 +147,9 @@ type AFDDomainUpdatePropertiesParameters struct {
 	ProfileName *string `json:"profileName,omitempty" azure:"ro"`
 }
 
-// AFDEndpoint - CDN endpoint is the entity within a CDN profile containing configuration information such as origin, protocol,
-// content caching and delivery behavior. The AzureFrontDoor endpoint uses the URL format
-// .azureedge.net.
+// AFDEndpoint - Azure Front Door endpoint is the entity within a Azure Front Door profile containing configuration information
+// such as origin, protocol, content caching and delivery behavior. The AzureFrontDoor
+// endpoint uses the URL format .azureedge.net.
 type AFDEndpoint struct {
 	// REQUIRED; Resource location.
 	Location *string `json:"location,omitempty"`
@@ -267,9 +270,9 @@ type AFDEndpointsClientValidateCustomDomainOptions struct {
 	// placeholder for future optional parameters
 }
 
-// AFDOrigin - CDN origin is the source of the content being delivered via CDN. When the edge nodes represented by an endpoint
-// do not have the requested content cached, they attempt to fetch it from one or more of
-// the configured origins.
+// AFDOrigin - Azure Front Door origin is the source of the content being delivered via Azure Front Door. When the edge nodes
+// represented by an endpoint do not have the requested content cached, they attempt to
+// fetch it from one or more of the configured origins.
 type AFDOrigin struct {
 	// The JSON object that contains the properties of the origin.
 	Properties *AFDOriginProperties `json:"properties,omitempty"`
@@ -288,7 +291,7 @@ type AFDOrigin struct {
 }
 
 // AFDOriginGroup - AFDOrigin group comprising of origins is used for load balancing to origins when the content cannot be
-// served from CDN.
+// served from Azure Front Door.
 type AFDOriginGroup struct {
 	// The JSON object that contains the properties of the origin group.
 	Properties *AFDOriginGroupProperties `json:"properties,omitempty"`
@@ -312,7 +315,7 @@ type AFDOriginGroupListResult struct {
 	// URL to get the next set of origin objects if there are any.
 	NextLink *string `json:"nextLink,omitempty"`
 
-	// READ-ONLY; List of CDN origin groups within an endpoint
+	// READ-ONLY; List of Azure Front Door origin groups within an Azure Front Door endpoint
 	Value []*AFDOriginGroup `json:"value,omitempty" azure:"ro"`
 }
 
@@ -407,7 +410,7 @@ type AFDOriginListResult struct {
 	// URL to get the next set of origin objects if there are any.
 	NextLink *string `json:"nextLink,omitempty"`
 
-	// READ-ONLY; List of CDN origins within an endpoint
+	// READ-ONLY; List of Azure Front Door origins within an Azure Front Door endpoint
 	Value []*AFDOrigin `json:"value,omitempty" azure:"ro"`
 }
 
@@ -434,8 +437,9 @@ type AFDOriginProperties struct {
 	HostName *string `json:"hostName,omitempty"`
 
 	// The host header value sent to the origin with each request. If you leave this blank, the request hostname determines this
-	// value. Azure CDN origins, such as Web Apps, Blob Storage, and Cloud Services
-	// require this host header value to match the origin hostname by default. This overrides the host header defined at Endpoint
+	// value. Azure Front Door origins, such as Web Apps, Blob Storage, and Cloud
+	// Services require this host header value to match the origin hostname by default. This overrides the host header defined
+	// at Endpoint
 	OriginHostHeader *string `json:"originHostHeader,omitempty"`
 
 	// Priority of origin in given origin group for load balancing. Higher priorities will not be used for load balancing if any
@@ -487,8 +491,9 @@ type AFDOriginUpdatePropertiesParameters struct {
 	HostName *string `json:"hostName,omitempty"`
 
 	// The host header value sent to the origin with each request. If you leave this blank, the request hostname determines this
-	// value. Azure CDN origins, such as Web Apps, Blob Storage, and Cloud Services
-	// require this host header value to match the origin hostname by default. This overrides the host header defined at Endpoint
+	// value. Azure Front Door origins, such as Web Apps, Blob Storage, and Cloud
+	// Services require this host header value to match the origin hostname by default. This overrides the host header defined
+	// at Endpoint
 	OriginHostHeader *string `json:"originHostHeader,omitempty"`
 
 	// Priority of origin in given origin group for load balancing. Higher priorities will not be used for load balancing if any
@@ -534,6 +539,18 @@ type AFDOriginsClientListByOriginGroupOptions struct {
 	// placeholder for future optional parameters
 }
 
+// AFDProfilesClientBeginUpgradeOptions contains the optional parameters for the AFDProfilesClient.BeginUpgrade method.
+type AFDProfilesClientBeginUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AFDProfilesClientCheckEndpointNameAvailabilityOptions contains the optional parameters for the AFDProfilesClient.CheckEndpointNameAvailability
+// method.
+type AFDProfilesClientCheckEndpointNameAvailabilityOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AFDProfilesClientCheckHostNameAvailabilityOptions contains the optional parameters for the AFDProfilesClient.CheckHostNameAvailability
 // method.
 type AFDProfilesClientCheckHostNameAvailabilityOptions struct {
@@ -543,6 +560,11 @@ type AFDProfilesClientCheckHostNameAvailabilityOptions struct {
 // AFDProfilesClientListResourceUsageOptions contains the optional parameters for the AFDProfilesClient.NewListResourceUsagePager
 // method.
 type AFDProfilesClientListResourceUsageOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AFDProfilesClientValidateSecretOptions contains the optional parameters for the AFDProfilesClient.ValidateSecret method.
+type AFDProfilesClientValidateSecretOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -613,6 +635,25 @@ type AzureFirstPartyManagedCertificate struct {
 type AzureFirstPartyManagedCertificateParameters struct {
 	// REQUIRED; The type of the secret resource.
 	Type *SecretType `json:"type,omitempty"`
+
+	// The list of SANs.
+	SubjectAlternativeNames []*string `json:"subjectAlternativeNames,omitempty"`
+
+	// READ-ONLY; Certificate issuing authority.
+	CertificateAuthority *string `json:"certificateAuthority,omitempty" azure:"ro"`
+
+	// READ-ONLY; Certificate expiration date.
+	ExpirationDate *string `json:"expirationDate,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource reference to the Azure Key Vault certificate. Expected to be in format of
+	// /subscriptions/{​​​​​​​​​subscriptionId}​​​​​​​​​/resourceGroups/{​​​​​​​​​resourceGroupName}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/providers/Microsoft.KeyVault/vaults/{vaultName}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​/secrets/{certificateName}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+	SecretSource *ResourceReference `json:"secretSource,omitempty" azure:"ro"`
+
+	// READ-ONLY; Subject name in the certificate.
+	Subject *string `json:"subject,omitempty" azure:"ro"`
+
+	// READ-ONLY; Certificate thumbprint.
+	Thumbprint *string `json:"thumbprint,omitempty" azure:"ro"`
 }
 
 // GetSecretParameters implements the SecretParametersClassification interface for type AzureFirstPartyManagedCertificateParameters.
@@ -670,6 +711,23 @@ type CacheKeyQueryStringActionParameters struct {
 
 	// query parameters to include or exclude (comma separated).
 	QueryParameters *string `json:"queryParameters,omitempty"`
+}
+
+// CanMigrateParameters - Request body for CanMigrate operation.
+type CanMigrateParameters struct {
+	// REQUIRED; Resource reference of the classic cdn profile or classic frontdoor that need to be migrated.
+	ClassicResourceReference *ResourceReference `json:"classicResourceReference,omitempty"`
+}
+
+// CanMigrateResult - Result for canMigrate operation.
+type CanMigrateResult struct {
+	Errors []*MigrationErrorType `json:"errors,omitempty"`
+
+	// READ-ONLY; Flag that says if the profile can be migrated
+	CanMigrate *bool `json:"canMigrate,omitempty" azure:"ro"`
+
+	// READ-ONLY; Recommended sku for the migration
+	DefaultSKU *CanMigrateDefaultSKU `json:"defaultSku,omitempty" azure:"ro"`
 }
 
 // Certificate used for https
@@ -942,19 +1000,22 @@ type CustomDomainsClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
-// CustomDomainsClientDisableCustomHTTPSOptions contains the optional parameters for the CustomDomainsClient.DisableCustomHTTPS
+// CustomDomainsClientBeginDisableCustomHTTPSOptions contains the optional parameters for the CustomDomainsClient.BeginDisableCustomHTTPS
 // method.
-type CustomDomainsClientDisableCustomHTTPSOptions struct {
-	// placeholder for future optional parameters
+type CustomDomainsClientBeginDisableCustomHTTPSOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
-// CustomDomainsClientEnableCustomHTTPSOptions contains the optional parameters for the CustomDomainsClient.EnableCustomHTTPS
+// CustomDomainsClientBeginEnableCustomHTTPSOptions contains the optional parameters for the CustomDomainsClient.BeginEnableCustomHTTPS
 // method.
-type CustomDomainsClientEnableCustomHTTPSOptions struct {
+type CustomDomainsClientBeginEnableCustomHTTPSOptions struct {
 	// The configuration specifying how to enable HTTPS for the custom domain - using CDN managed certificate or user's own certificate.
 	// If not specified, enabling ssl uses CDN managed certificate by
 	// default.
 	CustomDomainHTTPSParameters CustomDomainHTTPSParametersClassification
+	// Resumes the LRO from the provided token.
+	ResumeToken string
 }
 
 // CustomDomainsClientGetOptions contains the optional parameters for the CustomDomainsClient.Get method.
@@ -1059,6 +1120,25 @@ func (c *CustomerCertificateParameters) GetSecretParameters() *SecretParameters 
 	return &SecretParameters{
 		Type: c.Type,
 	}
+}
+
+// DeepCreatedCustomDomain - Custom domains created on the CDN endpoint.
+type DeepCreatedCustomDomain struct {
+	// REQUIRED; Custom domain name.
+	Name *string `json:"name,omitempty"`
+
+	// Properties of the custom domain created on the CDN endpoint.
+	Properties *DeepCreatedCustomDomainProperties `json:"properties,omitempty"`
+}
+
+// DeepCreatedCustomDomainProperties - Properties of the custom domain created on the CDN endpoint.
+type DeepCreatedCustomDomainProperties struct {
+	// REQUIRED; The host name of the custom domain. Must be a domain name.
+	HostName *string `json:"hostName,omitempty"`
+
+	// Special validation or data may be required when delivering CDN to some regions due to local compliance reasons. E.g. ICP
+	// license number of a custom domain is required to deliver content in China.
+	ValidationData *string `json:"validationData,omitempty"`
 }
 
 // DeepCreatedOrigin - The main origin of CDN content which is added when creating a CDN endpoint.
@@ -1747,7 +1827,7 @@ type EndpointProperties struct {
 	WebApplicationFirewallPolicyLink *EndpointPropertiesUpdateParametersWebApplicationFirewallPolicyLink `json:"webApplicationFirewallPolicyLink,omitempty"`
 
 	// READ-ONLY; The custom domains under the endpoint.
-	CustomDomains []*CustomDomain `json:"customDomains,omitempty" azure:"ro"`
+	CustomDomains []*DeepCreatedCustomDomain `json:"customDomains,omitempty" azure:"ro"`
 
 	// READ-ONLY; The host name of the endpoint structured as {endpointName}.{DNSZone}, e.g. contoso.azureedge.net
 	HostName *string `json:"hostName,omitempty" azure:"ro"`
@@ -2268,7 +2348,7 @@ type ManagedRuleGroupOverride struct {
 	// REQUIRED; Describes the managed rule group within the rule set to override
 	RuleGroupName *string `json:"ruleGroupName,omitempty"`
 
-	// List of rules that will be disabled. If none specified, all rules in the group will be disabled.
+	// List of rules that will be enabled. If none specified, all rules in the group will be disabled.
 	Rules []*ManagedRuleOverride `json:"rules,omitempty"`
 }
 
@@ -2353,6 +2433,26 @@ type ManagedRuleSetList struct {
 // ManagedRuleSetsClientListOptions contains the optional parameters for the ManagedRuleSetsClient.NewListPager method.
 type ManagedRuleSetsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType `json:"type,omitempty"`
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity `json:"userAssignedIdentities,omitempty"`
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
 }
 
 // ManagementClientCheckEndpointNameAvailabilityOptions contains the optional parameters for the ManagementClient.CheckEndpointNameAvailability
@@ -2445,7 +2545,7 @@ type MetricSpecification struct {
 type MetricsResponse struct {
 	DateTimeBegin *time.Time                   `json:"dateTimeBegin,omitempty"`
 	DateTimeEnd   *time.Time                   `json:"dateTimeEnd,omitempty"`
-	Granularity   *MetricsResponseGranularity  `json:"granularity,omitempty"`
+	Granularity   *MetricsGranularity          `json:"granularity,omitempty"`
 	Series        []*MetricsResponseSeriesItem `json:"series,omitempty"`
 }
 
@@ -2453,12 +2553,60 @@ type MetricsResponseSeriesItem struct {
 	Data   []*Components1Gs0LlpSchemasMetricsresponsePropertiesSeriesItemsPropertiesDataItems `json:"data,omitempty"`
 	Groups []*MetricsResponseSeriesPropertiesItemsItem                                        `json:"groups,omitempty"`
 	Metric *string                                                                            `json:"metric,omitempty"`
-	Unit   *MetricsResponseSeriesItemUnit                                                     `json:"unit,omitempty"`
+	Unit   *MetricsSeriesUnit                                                                 `json:"unit,omitempty"`
 }
 
 type MetricsResponseSeriesPropertiesItemsItem struct {
 	Name  *string `json:"name,omitempty"`
 	Value *string `json:"value,omitempty"`
+}
+
+// MigrateResult - Result for migrate operation.
+type MigrateResult struct {
+	Errors []*MigrationErrorType `json:"errors,omitempty"`
+
+	// READ-ONLY; Arm resource id of the migrated profile
+	MigratedProfileResourceID *ResourceReference `json:"migratedProfileResourceId,omitempty" azure:"ro"`
+}
+
+// MigrationErrorType - Error response indicates CDN service is not able to process the incoming request. The reason is provided
+// in the error message.
+type MigrationErrorType struct {
+	// READ-ONLY; Error code.
+	Code *string `json:"code,omitempty" azure:"ro"`
+
+	// READ-ONLY; Error message indicating why the operation failed.
+	ErrorMessage *string `json:"errorMessage,omitempty" azure:"ro"`
+
+	// READ-ONLY; Describes what needs to be done to fix the problem
+	NextSteps *string `json:"nextSteps,omitempty" azure:"ro"`
+
+	// READ-ONLY; Resource which has the problem.
+	ResourceName *string `json:"resourceName,omitempty" azure:"ro"`
+}
+
+// MigrationParameters - Request body for Migrate operation.
+type MigrationParameters struct {
+	// REQUIRED; Resource reference of the classic cdn profile or classic frontdoor that need to be migrated.
+	ClassicResourceReference *ResourceReference `json:"classicResourceReference,omitempty"`
+
+	// REQUIRED; Name of the new profile that need to be created.
+	ProfileName *string `json:"profileName,omitempty"`
+
+	// REQUIRED; Sku for the migration
+	SKU *SKU `json:"sku,omitempty"`
+
+	// Waf mapping for the migrated profile
+	MigrationWebApplicationFirewallMappings []*MigrationWebApplicationFirewallMapping `json:"migrationWebApplicationFirewallMappings,omitempty"`
+}
+
+// MigrationWebApplicationFirewallMapping - Web Application Firewall Mapping
+type MigrationWebApplicationFirewallMapping struct {
+	// Migration From Waf policy
+	MigratedFrom *ResourceReference `json:"migratedFrom,omitempty"`
+
+	// Migration to Waf policy
+	MigratedTo *ResourceReference `json:"migratedTo,omitempty"`
 }
 
 // Operation - CDN REST API operation
@@ -2881,6 +3029,9 @@ type Profile struct {
 	// profile.
 	SKU *SKU `json:"sku,omitempty"`
 
+	// Managed service identity (system assigned and/or user assigned identities).
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The JSON object that contains the properties required to create a profile.
 	Properties *ProfileProperties `json:"properties,omitempty"`
 
@@ -2903,6 +3054,15 @@ type Profile struct {
 	Type *string `json:"type,omitempty" azure:"ro"`
 }
 
+// ProfileChangeSKUWafMapping - Parameters required for profile upgrade.
+type ProfileChangeSKUWafMapping struct {
+	// REQUIRED; The new waf resource for the security policy to use.
+	ChangeToWafPolicy *ResourceReference `json:"changeToWafPolicy,omitempty"`
+
+	// REQUIRED; The security policy name.
+	SecurityPolicyName *string `json:"securityPolicyName,omitempty"`
+}
+
 // ProfileListResult - Result of the request to list profiles. It contains a list of profile objects and a URL link to get
 // the next set of results.
 type ProfileListResult struct {
@@ -2917,6 +3077,9 @@ type ProfileListResult struct {
 type ProfileProperties struct {
 	// Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns.
 	OriginResponseTimeoutSeconds *int32 `json:"originResponseTimeoutSeconds,omitempty"`
+
+	// READ-ONLY; Key-Value pair representing additional properties for profiles.
+	ExtendedProperties map[string]*string `json:"extendedProperties,omitempty" azure:"ro"`
 
 	// READ-ONLY; The Id of the frontdoor.
 	FrontDoorID *string `json:"frontDoorId,omitempty" azure:"ro"`
@@ -2936,11 +3099,20 @@ type ProfilePropertiesUpdateParameters struct {
 
 // ProfileUpdateParameters - Properties required to update a profile.
 type ProfileUpdateParameters struct {
+	// Managed service identity (system assigned and/or user assigned identities).
+	Identity *ManagedServiceIdentity `json:"identity,omitempty"`
+
 	// The JSON object containing profile update parameters.
 	Properties *ProfilePropertiesUpdateParameters `json:"properties,omitempty"`
 
 	// Profile tags
 	Tags map[string]*string `json:"tags,omitempty"`
+}
+
+// ProfileUpgradeParameters - Parameters required for profile upgrade.
+type ProfileUpgradeParameters struct {
+	// REQUIRED; Web Application Firewall (WAF) and security policy mapping for the profile upgrade
+	WafMappingList []*ProfileChangeSKUWafMapping `json:"wafMappingList,omitempty"`
 }
 
 // ProfilesClientBeginCreateOptions contains the optional parameters for the ProfilesClient.BeginCreate method.
@@ -2955,10 +3127,28 @@ type ProfilesClientBeginDeleteOptions struct {
 	ResumeToken string
 }
 
+// ProfilesClientBeginMigrateOptions contains the optional parameters for the ProfilesClient.BeginMigrate method.
+type ProfilesClientBeginMigrateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ProfilesClientBeginMigrationCommitOptions contains the optional parameters for the ProfilesClient.BeginMigrationCommit
+// method.
+type ProfilesClientBeginMigrationCommitOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ProfilesClientBeginUpdateOptions contains the optional parameters for the ProfilesClient.BeginUpdate method.
 type ProfilesClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ProfilesClientCanMigrateOptions contains the optional parameters for the ProfilesClient.CanMigrate method.
+type ProfilesClientCanMigrateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ProfilesClientGenerateSsoURIOptions contains the optional parameters for the ProfilesClient.GenerateSsoURI method.
@@ -4234,6 +4424,15 @@ type UsagesListResult struct {
 	Value []*Usage `json:"value,omitempty"`
 }
 
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string `json:"clientId,omitempty" azure:"ro"`
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
+}
+
 // UserManagedHTTPSParameters - Defines the certificate source parameters using user's keyvault certificate for enabling SSL.
 type UserManagedHTTPSParameters struct {
 	// REQUIRED; Defines the source of the SSL certificate.
@@ -4256,11 +4455,6 @@ func (u *UserManagedHTTPSParameters) GetCustomDomainHTTPSParameters() *CustomDom
 		ProtocolType:      u.ProtocolType,
 		MinimumTLSVersion: u.MinimumTLSVersion,
 	}
-}
-
-// ValidateClientSecretOptions contains the optional parameters for the ValidateClient.Secret method.
-type ValidateClientSecretOptions struct {
-	// placeholder for future optional parameters
 }
 
 // ValidateCustomDomainInput - Input of the custom domain to be validated for DNS mapping.
@@ -4331,7 +4525,7 @@ type ValidationToken struct {
 type WafMetricsResponse struct {
 	DateTimeBegin *time.Time                      `json:"dateTimeBegin,omitempty"`
 	DateTimeEnd   *time.Time                      `json:"dateTimeEnd,omitempty"`
-	Granularity   *WafMetricsResponseGranularity  `json:"granularity,omitempty"`
+	Granularity   *WafMetricsGranularity          `json:"granularity,omitempty"`
 	Series        []*WafMetricsResponseSeriesItem `json:"series,omitempty"`
 }
 
@@ -4339,7 +4533,7 @@ type WafMetricsResponseSeriesItem struct {
 	Data   []*Components18OrqelSchemasWafmetricsresponsePropertiesSeriesItemsPropertiesDataItems `json:"data,omitempty"`
 	Groups []*WafMetricsResponseSeriesPropertiesItemsItem                                        `json:"groups,omitempty"`
 	Metric *string                                                                               `json:"metric,omitempty"`
-	Unit   *WafMetricsResponseSeriesItemUnit                                                     `json:"unit,omitempty"`
+	Unit   *WafMetricsSeriesUnit                                                                 `json:"unit,omitempty"`
 }
 
 type WafMetricsResponseSeriesPropertiesItemsItem struct {
@@ -4410,6 +4604,9 @@ type WebApplicationFirewallPolicyPatchParameters struct {
 type WebApplicationFirewallPolicyProperties struct {
 	// Describes custom rules inside the policy.
 	CustomRules *CustomRuleList `json:"customRules,omitempty"`
+
+	// Key-Value pair representing additional properties for Web Application Firewall policy.
+	ExtendedProperties map[string]*string `json:"extendedProperties,omitempty"`
 
 	// Describes managed rules inside the policy.
 	ManagedRules *ManagedRuleSetList `json:"managedRules,omitempty"`

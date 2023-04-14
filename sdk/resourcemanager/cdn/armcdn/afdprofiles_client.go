@@ -44,13 +44,74 @@ func NewAFDProfilesClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// CheckHostNameAvailability - Check the name availability of a host name.
+// CheckEndpointNameAvailability - Check the availability of an afdx endpoint name, and return the globally unique endpoint
+// host name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
-//   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium or CDN profile which is unique within the
-//     resource group.
+//   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium which is unique within the resource group.
+//   - checkEndpointNameAvailabilityInput - Input to check.
+//   - options - AFDProfilesClientCheckEndpointNameAvailabilityOptions contains the optional parameters for the AFDProfilesClient.CheckEndpointNameAvailability
+//     method.
+func (client *AFDProfilesClient) CheckEndpointNameAvailability(ctx context.Context, resourceGroupName string, profileName string, checkEndpointNameAvailabilityInput CheckEndpointNameAvailabilityInput, options *AFDProfilesClientCheckEndpointNameAvailabilityOptions) (AFDProfilesClientCheckEndpointNameAvailabilityResponse, error) {
+	req, err := client.checkEndpointNameAvailabilityCreateRequest(ctx, resourceGroupName, profileName, checkEndpointNameAvailabilityInput, options)
+	if err != nil {
+		return AFDProfilesClientCheckEndpointNameAvailabilityResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AFDProfilesClientCheckEndpointNameAvailabilityResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return AFDProfilesClientCheckEndpointNameAvailabilityResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.checkEndpointNameAvailabilityHandleResponse(resp)
+}
+
+// checkEndpointNameAvailabilityCreateRequest creates the CheckEndpointNameAvailability request.
+func (client *AFDProfilesClient) checkEndpointNameAvailabilityCreateRequest(ctx context.Context, resourceGroupName string, profileName string, checkEndpointNameAvailabilityInput CheckEndpointNameAvailabilityInput, options *AFDProfilesClientCheckEndpointNameAvailabilityOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/checkEndpointNameAvailability"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if profileName == "" {
+		return nil, errors.New("parameter profileName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{profileName}", url.PathEscape(profileName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, checkEndpointNameAvailabilityInput)
+}
+
+// checkEndpointNameAvailabilityHandleResponse handles the CheckEndpointNameAvailability response.
+func (client *AFDProfilesClient) checkEndpointNameAvailabilityHandleResponse(resp *http.Response) (AFDProfilesClientCheckEndpointNameAvailabilityResponse, error) {
+	result := AFDProfilesClientCheckEndpointNameAvailabilityResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.CheckEndpointNameAvailabilityOutput); err != nil {
+		return AFDProfilesClientCheckEndpointNameAvailabilityResponse{}, err
+	}
+	return result, nil
+}
+
+// CheckHostNameAvailability - Validates the custom domain mapping to ensure it maps to the correct Azure Front Door endpoint
+// in DNS.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - Name of the Resource group within the Azure subscription.
+//   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
+//     group.
 //   - checkHostNameAvailabilityInput - Custom domain to be validated.
 //   - options - AFDProfilesClientCheckHostNameAvailabilityOptions contains the optional parameters for the AFDProfilesClient.CheckHostNameAvailability
 //     method.
@@ -89,7 +150,7 @@ func (client *AFDProfilesClient) checkHostNameAvailabilityCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, checkHostNameAvailabilityInput)
@@ -104,12 +165,12 @@ func (client *AFDProfilesClient) checkHostNameAvailabilityHandleResponse(resp *h
 	return result, nil
 }
 
-// NewListResourceUsagePager - Checks the quota and actual usage of AzureFrontDoor endpoints under the given CDN profile.
+// NewListResourceUsagePager - Checks the quota and actual usage of endpoints under the given Azure Front Door profile.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
-//   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium or CDN profile which is unique within the
-//     resource group.
+//   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
+//     group.
 //   - options - AFDProfilesClientListResourceUsageOptions contains the optional parameters for the AFDProfilesClient.NewListResourceUsagePager
 //     method.
 func (client *AFDProfilesClient) NewListResourceUsagePager(resourceGroupName string, profileName string, options *AFDProfilesClientListResourceUsageOptions) *runtime.Pager[AFDProfilesClientListResourceUsageResponse] {
@@ -160,7 +221,7 @@ func (client *AFDProfilesClient) listResourceUsageCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -171,6 +232,133 @@ func (client *AFDProfilesClient) listResourceUsageHandleResponse(resp *http.Resp
 	result := AFDProfilesClientListResourceUsageResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.UsagesListResult); err != nil {
 		return AFDProfilesClientListResourceUsageResponse{}, err
+	}
+	return result, nil
+}
+
+// BeginUpgrade - Upgrade a profile from StandardAzureFrontDoor to PremiumAzureFrontDoor.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - Name of the Resource group within the Azure subscription.
+//   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium which is unique within the resource group.
+//   - profileUpgradeParameters - Profile upgrade input parameter.
+//   - options - AFDProfilesClientBeginUpgradeOptions contains the optional parameters for the AFDProfilesClient.BeginUpgrade
+//     method.
+func (client *AFDProfilesClient) BeginUpgrade(ctx context.Context, resourceGroupName string, profileName string, profileUpgradeParameters ProfileUpgradeParameters, options *AFDProfilesClientBeginUpgradeOptions) (*runtime.Poller[AFDProfilesClientUpgradeResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.upgrade(ctx, resourceGroupName, profileName, profileUpgradeParameters, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[AFDProfilesClientUpgradeResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
+	} else {
+		return runtime.NewPollerFromResumeToken[AFDProfilesClientUpgradeResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Upgrade - Upgrade a profile from StandardAzureFrontDoor to PremiumAzureFrontDoor.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-01-preview
+func (client *AFDProfilesClient) upgrade(ctx context.Context, resourceGroupName string, profileName string, profileUpgradeParameters ProfileUpgradeParameters, options *AFDProfilesClientBeginUpgradeOptions) (*http.Response, error) {
+	req, err := client.upgradeCreateRequest(ctx, resourceGroupName, profileName, profileUpgradeParameters, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// upgradeCreateRequest creates the Upgrade request.
+func (client *AFDProfilesClient) upgradeCreateRequest(ctx context.Context, resourceGroupName string, profileName string, profileUpgradeParameters ProfileUpgradeParameters, options *AFDProfilesClientBeginUpgradeOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/upgrade"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if profileName == "" {
+		return nil, errors.New("parameter profileName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{profileName}", url.PathEscape(profileName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, profileUpgradeParameters)
+}
+
+// ValidateSecret - Validate a Secret in the profile.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2022-11-01-preview
+//   - resourceGroupName - Name of the Resource group within the Azure subscription.
+//   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium which is unique within the resource group.
+//   - validateSecretInput - The Secret source.
+//   - options - AFDProfilesClientValidateSecretOptions contains the optional parameters for the AFDProfilesClient.ValidateSecret
+//     method.
+func (client *AFDProfilesClient) ValidateSecret(ctx context.Context, resourceGroupName string, profileName string, validateSecretInput ValidateSecretInput, options *AFDProfilesClientValidateSecretOptions) (AFDProfilesClientValidateSecretResponse, error) {
+	req, err := client.validateSecretCreateRequest(ctx, resourceGroupName, profileName, validateSecretInput, options)
+	if err != nil {
+		return AFDProfilesClientValidateSecretResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return AFDProfilesClientValidateSecretResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return AFDProfilesClientValidateSecretResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.validateSecretHandleResponse(resp)
+}
+
+// validateSecretCreateRequest creates the ValidateSecret request.
+func (client *AFDProfilesClient) validateSecretCreateRequest(ctx context.Context, resourceGroupName string, profileName string, validateSecretInput ValidateSecretInput, options *AFDProfilesClientValidateSecretOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/validateSecret"
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if profileName == "" {
+		return nil, errors.New("parameter profileName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{profileName}", url.PathEscape(profileName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, validateSecretInput)
+}
+
+// validateSecretHandleResponse handles the ValidateSecret response.
+func (client *AFDProfilesClient) validateSecretHandleResponse(resp *http.Response) (AFDProfilesClientValidateSecretResponse, error) {
+	result := AFDProfilesClientValidateSecretResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ValidateSecretOutput); err != nil {
+		return AFDProfilesClientValidateSecretResponse{}, err
 	}
 	return result, nil
 }
