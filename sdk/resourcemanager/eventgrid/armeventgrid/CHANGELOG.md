@@ -1,5 +1,19 @@
 # Release History
 
+## 3.0.0 (2023-04-14)
+### Breaking Changes
+
+- Function `NewClientFactory` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, PrivateEndpointConnectionsParentType, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `NewPrivateEndpointConnectionsClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, PrivateEndpointConnectionsParentType, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*PrivateEndpointConnectionsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, PrivateEndpointConnectionsParentType, string, string, *PrivateEndpointConnectionsClientBeginDeleteOptions)` to `(context.Context, string, string, string, *PrivateEndpointConnectionsClientBeginDeleteOptions)`
+- Function `*PrivateEndpointConnectionsClient.BeginUpdate` parameter(s) have been changed from `(context.Context, string, PrivateEndpointConnectionsParentType, string, string, PrivateEndpointConnection, *PrivateEndpointConnectionsClientBeginUpdateOptions)` to `(context.Context, string, string, string, PrivateEndpointConnection, *PrivateEndpointConnectionsClientBeginUpdateOptions)`
+- Function `*PrivateEndpointConnectionsClient.Get` parameter(s) have been changed from `(context.Context, string, PrivateEndpointConnectionsParentType, string, string, *PrivateEndpointConnectionsClientGetOptions)` to `(context.Context, string, string, string, *PrivateEndpointConnectionsClientGetOptions)`
+- Function `*PrivateEndpointConnectionsClient.NewListByResourcePager` parameter(s) have been changed from `(string, PrivateEndpointConnectionsParentType, string, *PrivateEndpointConnectionsClientListByResourceOptions)` to `(string, string, *PrivateEndpointConnectionsClientListByResourceOptions)`
+- Function `NewPrivateLinkResourcesClient` parameter(s) have been changed from `(string, azcore.TokenCredential, *arm.ClientOptions)` to `(string, PrivateEndpointConnectionsParentType, azcore.TokenCredential, *arm.ClientOptions)`
+- Function `*PrivateLinkResourcesClient.Get` parameter(s) have been changed from `(context.Context, string, string, string, string, *PrivateLinkResourcesClientGetOptions)` to `(context.Context, string, string, string, *PrivateLinkResourcesClientGetOptions)`
+- Function `*PrivateLinkResourcesClient.NewListByResourcePager` parameter(s) have been changed from `(string, string, string, *PrivateLinkResourcesClientListByResourceOptions)` to `(string, string, *PrivateLinkResourcesClientListByResourceOptions)`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 

@@ -27,20 +27,23 @@ import (
 type PrivateEndpointConnectionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
+	parentType     PrivateEndpointConnectionsParentType
 }
 
 // NewPrivateEndpointConnectionsClient creates a new instance of PrivateEndpointConnectionsClient with the specified values.
 //   - subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
+//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateEndpointConnectionsClient, error) {
+func NewPrivateEndpointConnectionsClient(subscriptionID string, parentType PrivateEndpointConnectionsParentType, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateEndpointConnectionsClient, error) {
 	cl, err := arm.NewClient(moduleName+".PrivateEndpointConnectionsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &PrivateEndpointConnectionsClient{
 		subscriptionID: subscriptionID,
+		parentType:     parentType,
 		internal:       cl,
 	}
 	return client, nil
@@ -51,14 +54,13 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 //
 // Generated from API version 2022-06-15
 //   - resourceGroupName - The name of the resource group within the user's subscription.
-//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - parentName - The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name).
 //   - privateEndpointConnectionName - The name of the private endpoint connection connection.
 //   - options - PrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginDelete
 //     method.
-func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*runtime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error) {
+func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context, resourceGroupName string, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*runtime.Poller[PrivateEndpointConnectionsClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, parentType, parentName, privateEndpointConnectionName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, parentName, privateEndpointConnectionName, options)
 		if err != nil {
 			return nil, err
 		}
@@ -72,8 +74,8 @@ func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context,
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-06-15
-func (client *PrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, parentType, parentName, privateEndpointConnectionName, options)
+func (client *PrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, parentName, privateEndpointConnectionName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +90,7 @@ func (client *PrivateEndpointConnectionsClient) deleteOperation(ctx context.Cont
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*policy.Request, error) {
+func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -98,10 +100,10 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if parentType == "" {
-		return nil, errors.New("parameter parentType cannot be empty")
+	if client.parentType == "" {
+		return nil, errors.New("parameter client.parentType cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(parentType)))
+	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(client.parentType)))
 	if parentName == "" {
 		return nil, errors.New("parameter parentName cannot be empty")
 	}
@@ -125,13 +127,12 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 //
 // Generated from API version 2022-06-15
 //   - resourceGroupName - The name of the resource group within the user's subscription.
-//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - parentName - The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name).
 //   - privateEndpointConnectionName - The name of the private endpoint connection connection.
 //   - options - PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
 //     method.
-func (client *PrivateEndpointConnectionsClient) Get(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientGetOptions) (PrivateEndpointConnectionsClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, parentType, parentName, privateEndpointConnectionName, options)
+func (client *PrivateEndpointConnectionsClient) Get(ctx context.Context, resourceGroupName string, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientGetOptions) (PrivateEndpointConnectionsClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, parentName, privateEndpointConnectionName, options)
 	if err != nil {
 		return PrivateEndpointConnectionsClientGetResponse{}, err
 	}
@@ -146,7 +147,7 @@ func (client *PrivateEndpointConnectionsClient) Get(ctx context.Context, resourc
 }
 
 // getCreateRequest creates the Get request.
-func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientGetOptions) (*policy.Request, error) {
+func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Context, resourceGroupName string, parentName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -156,10 +157,10 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if parentType == "" {
-		return nil, errors.New("parameter parentType cannot be empty")
+	if client.parentType == "" {
+		return nil, errors.New("parameter client.parentType cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(parentType)))
+	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(client.parentType)))
 	if parentName == "" {
 		return nil, errors.New("parameter parentName cannot be empty")
 	}
@@ -192,11 +193,10 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 //
 // Generated from API version 2022-06-15
 //   - resourceGroupName - The name of the resource group within the user's subscription.
-//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - parentName - The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name).
 //   - options - PrivateEndpointConnectionsClientListByResourceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByResourcePager
 //     method.
-func (client *PrivateEndpointConnectionsClient) NewListByResourcePager(resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, options *PrivateEndpointConnectionsClientListByResourceOptions) *runtime.Pager[PrivateEndpointConnectionsClientListByResourceResponse] {
+func (client *PrivateEndpointConnectionsClient) NewListByResourcePager(resourceGroupName string, parentName string, options *PrivateEndpointConnectionsClientListByResourceOptions) *runtime.Pager[PrivateEndpointConnectionsClientListByResourceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PrivateEndpointConnectionsClientListByResourceResponse]{
 		More: func(page PrivateEndpointConnectionsClientListByResourceResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -205,7 +205,7 @@ func (client *PrivateEndpointConnectionsClient) NewListByResourcePager(resourceG
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listByResourceCreateRequest(ctx, resourceGroupName, parentType, parentName, options)
+				req, err = client.listByResourceCreateRequest(ctx, resourceGroupName, parentName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
@@ -225,7 +225,7 @@ func (client *PrivateEndpointConnectionsClient) NewListByResourcePager(resourceG
 }
 
 // listByResourceCreateRequest creates the ListByResource request.
-func (client *PrivateEndpointConnectionsClient) listByResourceCreateRequest(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, options *PrivateEndpointConnectionsClientListByResourceOptions) (*policy.Request, error) {
+func (client *PrivateEndpointConnectionsClient) listByResourceCreateRequest(ctx context.Context, resourceGroupName string, parentName string, options *PrivateEndpointConnectionsClientListByResourceOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -235,10 +235,10 @@ func (client *PrivateEndpointConnectionsClient) listByResourceCreateRequest(ctx 
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if parentType == "" {
-		return nil, errors.New("parameter parentType cannot be empty")
+	if client.parentType == "" {
+		return nil, errors.New("parameter client.parentType cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(parentType)))
+	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(client.parentType)))
 	if parentName == "" {
 		return nil, errors.New("parameter parentName cannot be empty")
 	}
@@ -274,15 +274,14 @@ func (client *PrivateEndpointConnectionsClient) listByResourceHandleResponse(res
 //
 // Generated from API version 2022-06-15
 //   - resourceGroupName - The name of the resource group within the user's subscription.
-//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - parentName - The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name).
 //   - privateEndpointConnectionName - The name of the private endpoint connection connection.
 //   - privateEndpointConnection - The private endpoint connection object to update.
 //   - options - PrivateEndpointConnectionsClientBeginUpdateOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginUpdate
 //     method.
-func (client *PrivateEndpointConnectionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*runtime.Poller[PrivateEndpointConnectionsClientUpdateResponse], error) {
+func (client *PrivateEndpointConnectionsClient) BeginUpdate(ctx context.Context, resourceGroupName string, parentName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*runtime.Poller[PrivateEndpointConnectionsClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.update(ctx, resourceGroupName, parentType, parentName, privateEndpointConnectionName, privateEndpointConnection, options)
+		resp, err := client.update(ctx, resourceGroupName, parentName, privateEndpointConnectionName, privateEndpointConnection, options)
 		if err != nil {
 			return nil, err
 		}
@@ -296,8 +295,8 @@ func (client *PrivateEndpointConnectionsClient) BeginUpdate(ctx context.Context,
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2022-06-15
-func (client *PrivateEndpointConnectionsClient) update(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*http.Response, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, parentType, parentName, privateEndpointConnectionName, privateEndpointConnection, options)
+func (client *PrivateEndpointConnectionsClient) update(ctx context.Context, resourceGroupName string, parentName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*http.Response, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, parentName, privateEndpointConnectionName, privateEndpointConnection, options)
 	if err != nil {
 		return nil, err
 	}
@@ -312,7 +311,7 @@ func (client *PrivateEndpointConnectionsClient) update(ctx context.Context, reso
 }
 
 // updateCreateRequest creates the Update request.
-func (client *PrivateEndpointConnectionsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, parentType PrivateEndpointConnectionsParentType, parentName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*policy.Request, error) {
+func (client *PrivateEndpointConnectionsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, parentName string, privateEndpointConnectionName string, privateEndpointConnection PrivateEndpointConnection, options *PrivateEndpointConnectionsClientBeginUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateEndpointConnections/{privateEndpointConnectionName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -322,10 +321,10 @@ func (client *PrivateEndpointConnectionsClient) updateCreateRequest(ctx context.
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if parentType == "" {
-		return nil, errors.New("parameter parentType cannot be empty")
+	if client.parentType == "" {
+		return nil, errors.New("parameter client.parentType cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(parentType)))
+	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(client.parentType)))
 	if parentName == "" {
 		return nil, errors.New("parameter parentName cannot be empty")
 	}

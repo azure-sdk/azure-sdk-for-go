@@ -18,6 +18,7 @@ import (
 // Don't use this type directly, use NewClientFactory instead.
 type ClientFactory struct {
 	subscriptionID string
+	parentType     PrivateEndpointConnectionsParentType
 	credential     azcore.TokenCredential
 	options        *arm.ClientOptions
 }
@@ -26,15 +27,16 @@ type ClientFactory struct {
 // The parameter values will be propagated to any client created from this factory.
 //   - subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
+//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
+func NewClientFactory(subscriptionID string, parentType PrivateEndpointConnectionsParentType, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
 	_, err := arm.NewClient(moduleName+".ClientFactory", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	return &ClientFactory{
-		subscriptionID: subscriptionID, credential: credential,
+		subscriptionID: subscriptionID, parentType: parentType, credential: credential,
 		options: options.Clone(),
 	}, nil
 }
@@ -115,12 +117,12 @@ func (c *ClientFactory) NewPartnerTopicsClient() *PartnerTopicsClient {
 }
 
 func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient {
-	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
+	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.parentType, c.credential, c.options)
 	return subClient
 }
 
 func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
-	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.parentType, c.credential, c.options)
 	return subClient
 }
 

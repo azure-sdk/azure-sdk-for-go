@@ -27,20 +27,23 @@ import (
 type PrivateLinkResourcesClient struct {
 	internal       *arm.Client
 	subscriptionID string
+	parentType     PrivateEndpointConnectionsParentType
 }
 
 // NewPrivateLinkResourcesClient creates a new instance of PrivateLinkResourcesClient with the specified values.
 //   - subscriptionID - Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms
 //     part of the URI for every service call.
+//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateLinkResourcesClient, error) {
+func NewPrivateLinkResourcesClient(subscriptionID string, parentType PrivateEndpointConnectionsParentType, credential azcore.TokenCredential, options *arm.ClientOptions) (*PrivateLinkResourcesClient, error) {
 	cl, err := arm.NewClient(moduleName+".PrivateLinkResourcesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
 	client := &PrivateLinkResourcesClient{
 		subscriptionID: subscriptionID,
+		parentType:     parentType,
 		internal:       cl,
 	}
 	return client, nil
@@ -51,13 +54,12 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 //
 // Generated from API version 2022-06-15
 //   - resourceGroupName - The name of the resource group within the user's subscription.
-//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - parentName - The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name).
 //   - privateLinkResourceName - The name of private link resource.
 //   - options - PrivateLinkResourcesClientGetOptions contains the optional parameters for the PrivateLinkResourcesClient.Get
 //     method.
-func (client *PrivateLinkResourcesClient) Get(ctx context.Context, resourceGroupName string, parentType string, parentName string, privateLinkResourceName string, options *PrivateLinkResourcesClientGetOptions) (PrivateLinkResourcesClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceGroupName, parentType, parentName, privateLinkResourceName, options)
+func (client *PrivateLinkResourcesClient) Get(ctx context.Context, resourceGroupName string, parentName string, privateLinkResourceName string, options *PrivateLinkResourcesClientGetOptions) (PrivateLinkResourcesClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, parentName, privateLinkResourceName, options)
 	if err != nil {
 		return PrivateLinkResourcesClientGetResponse{}, err
 	}
@@ -72,7 +74,7 @@ func (client *PrivateLinkResourcesClient) Get(ctx context.Context, resourceGroup
 }
 
 // getCreateRequest creates the Get request.
-func (client *PrivateLinkResourcesClient) getCreateRequest(ctx context.Context, resourceGroupName string, parentType string, parentName string, privateLinkResourceName string, options *PrivateLinkResourcesClientGetOptions) (*policy.Request, error) {
+func (client *PrivateLinkResourcesClient) getCreateRequest(ctx context.Context, resourceGroupName string, parentName string, privateLinkResourceName string, options *PrivateLinkResourcesClientGetOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateLinkResources/{privateLinkResourceName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -82,10 +84,10 @@ func (client *PrivateLinkResourcesClient) getCreateRequest(ctx context.Context, 
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if parentType == "" {
-		return nil, errors.New("parameter parentType cannot be empty")
+	if client.parentType == "" {
+		return nil, errors.New("parameter client.parentType cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(parentType))
+	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(client.parentType)))
 	if parentName == "" {
 		return nil, errors.New("parameter parentName cannot be empty")
 	}
@@ -118,11 +120,10 @@ func (client *PrivateLinkResourcesClient) getHandleResponse(resp *http.Response)
 //
 // Generated from API version 2022-06-15
 //   - resourceGroupName - The name of the resource group within the user's subscription.
-//   - parentType - The type of the parent resource. This can be either \'topics\', \'domains\', or \'partnerNamespaces\'.
 //   - parentName - The name of the parent resource (namely, either, the topic name, domain name, or partner namespace name).
 //   - options - PrivateLinkResourcesClientListByResourceOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByResourcePager
 //     method.
-func (client *PrivateLinkResourcesClient) NewListByResourcePager(resourceGroupName string, parentType string, parentName string, options *PrivateLinkResourcesClientListByResourceOptions) *runtime.Pager[PrivateLinkResourcesClientListByResourceResponse] {
+func (client *PrivateLinkResourcesClient) NewListByResourcePager(resourceGroupName string, parentName string, options *PrivateLinkResourcesClientListByResourceOptions) *runtime.Pager[PrivateLinkResourcesClientListByResourceResponse] {
 	return runtime.NewPager(runtime.PagingHandler[PrivateLinkResourcesClientListByResourceResponse]{
 		More: func(page PrivateLinkResourcesClientListByResourceResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
@@ -131,7 +132,7 @@ func (client *PrivateLinkResourcesClient) NewListByResourcePager(resourceGroupNa
 			var req *policy.Request
 			var err error
 			if page == nil {
-				req, err = client.listByResourceCreateRequest(ctx, resourceGroupName, parentType, parentName, options)
+				req, err = client.listByResourceCreateRequest(ctx, resourceGroupName, parentName, options)
 			} else {
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
@@ -151,7 +152,7 @@ func (client *PrivateLinkResourcesClient) NewListByResourcePager(resourceGroupNa
 }
 
 // listByResourceCreateRequest creates the ListByResource request.
-func (client *PrivateLinkResourcesClient) listByResourceCreateRequest(ctx context.Context, resourceGroupName string, parentType string, parentName string, options *PrivateLinkResourcesClientListByResourceOptions) (*policy.Request, error) {
+func (client *PrivateLinkResourcesClient) listByResourceCreateRequest(ctx context.Context, resourceGroupName string, parentName string, options *PrivateLinkResourcesClientListByResourceOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.EventGrid/{parentType}/{parentName}/privateLinkResources"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -161,10 +162,10 @@ func (client *PrivateLinkResourcesClient) listByResourceCreateRequest(ctx contex
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if parentType == "" {
-		return nil, errors.New("parameter parentType cannot be empty")
+	if client.parentType == "" {
+		return nil, errors.New("parameter client.parentType cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(parentType))
+	urlPath = strings.ReplaceAll(urlPath, "{parentType}", url.PathEscape(string(client.parentType)))
 	if parentName == "" {
 		return nil, errors.New("parameter parentName cannot be empty")
 	}
