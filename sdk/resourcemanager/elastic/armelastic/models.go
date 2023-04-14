@@ -118,8 +118,14 @@ type DeploymentInfoClientListOptions struct {
 
 // DeploymentInfoResponse - The properties of deployment in Elastic cloud corresponding to the Elastic monitor resource.
 type DeploymentInfoResponse struct {
+	// READ-ONLY; Deployment URL of the elasticsearch in Elastic cloud deployment.
+	DeploymentURL *string `json:"deploymentUrl,omitempty" azure:"ro"`
+
 	// READ-ONLY; Disk capacity of the elasticsearch in Elastic cloud deployment.
 	DiskCapacity *string `json:"diskCapacity,omitempty" azure:"ro"`
+
+	// READ-ONLY; Marketplace SaaS Info of the resource.
+	MarketplaceSaasInfo *MarketplaceSaaSInfo `json:"marketplaceSaasInfo,omitempty" azure:"ro"`
 
 	// READ-ONLY; RAM capacity of the elasticsearch in Elastic cloud deployment.
 	MemoryCapacity *string `json:"memoryCapacity,omitempty" azure:"ro"`
@@ -226,6 +232,24 @@ type LogRules struct {
 	SendSubscriptionLogs *bool `json:"sendSubscriptionLogs,omitempty"`
 }
 
+// MarketplaceSaaSInfo - Marketplace SAAS Info of the resource.
+type MarketplaceSaaSInfo struct {
+	// Marketplace Subscription Details: SAAS Name
+	MarketplaceName *string `json:"marketplaceName,omitempty"`
+
+	// Marketplace Subscription Details: Resource URI
+	MarketplaceResourceID *string `json:"marketplaceResourceId,omitempty"`
+
+	// Marketplace Subscription
+	MarketplaceSubscription *MarketplaceSaaSInfoMarketplaceSubscription `json:"marketplaceSubscription,omitempty"`
+}
+
+// MarketplaceSaaSInfoMarketplaceSubscription - Marketplace Subscription
+type MarketplaceSaaSInfoMarketplaceSubscription struct {
+	// Marketplace Subscription Id. This is a GUID-formatted string.
+	ID *string `json:"id,omitempty"`
+}
+
 // MonitorClientBeginUpgradeOptions contains the optional parameters for the MonitorClient.BeginUpgrade method.
 type MonitorClientBeginUpgradeOptions struct {
 	// Elastic Monitor Upgrade Parameters
@@ -238,6 +262,9 @@ type MonitorClientBeginUpgradeOptions struct {
 type MonitorProperties struct {
 	// Elastic cloud properties.
 	ElasticProperties *Properties `json:"elasticProperties,omitempty"`
+
+	// Flag to determine if User API Key has to be generated and shared.
+	GenerateAPIKey *bool `json:"generateApiKey,omitempty"`
 
 	// Flag specifying if the resource monitoring is enabled or disabled.
 	MonitoringStatus *MonitoringStatus `json:"monitoringStatus,omitempty"`
@@ -451,6 +478,12 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// OrganizationsClientGetAPIKeyOptions contains the optional parameters for the OrganizationsClient.GetAPIKey method.
+type OrganizationsClientGetAPIKeyOptions struct {
+	// Email Id parameter of the User Organization, of which the API Key must be returned
+	Body *UserEmailID
+}
+
 // Properties - Elastic Resource Properties.
 type Properties struct {
 	// Details of the elastic cloud deployment.
@@ -577,6 +610,19 @@ type UpgradableVersionsList struct {
 	UpgradableVersions []*string `json:"upgradableVersions,omitempty"`
 }
 
+// UserAPIKeyResponse - The User Api Key created for the Organization associated with the User Email Id that was passed in
+// the request
+type UserAPIKeyResponse struct {
+	// The User Api Key Generated based on ReturnApiKey flag. This is applicable for non-Portal clients only.
+	APIKey *string `json:"apiKey,omitempty"`
+}
+
+// UserEmailID - Email Id of the User Organization, of which the API Key must be returned
+type UserEmailID struct {
+	// The User email Id
+	EmailID *string `json:"emailId,omitempty"`
+}
+
 // UserInfo - User Information to be passed to partners.
 type UserInfo struct {
 	// Company information of the user to be passed to partners.
@@ -642,4 +688,18 @@ type VMIngestionDetailsResponse struct {
 type VMResources struct {
 	// The ARM id of the VM resource.
 	VMResourceID *string `json:"vmResourceId,omitempty"`
+}
+
+// VersionsClientListOptions contains the optional parameters for the VersionsClient.List method.
+type VersionsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// VersionsListResponse - List of elastic versions available in a region.
+type VersionsListResponse struct {
+	// Link to the next set of results, if any.
+	NextLink *string `json:"nextLink,omitempty"`
+
+	// Results of a list operation.
+	Value []*string `json:"value,omitempty"`
 }
