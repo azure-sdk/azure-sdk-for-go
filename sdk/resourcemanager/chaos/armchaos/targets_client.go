@@ -47,7 +47,7 @@ func NewTargetsClient(subscriptionID string, credential azcore.TokenCredential, 
 // CreateOrUpdate - Create or update a Target resource that extends a tracked regional resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-15-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - parentProviderNamespace - String that represents a resource provider namespace.
 //   - parentResourceType - String that represents a resource type.
@@ -102,7 +102,7 @@ func (client *TargetsClient) createOrUpdateCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, target)
@@ -120,7 +120,7 @@ func (client *TargetsClient) createOrUpdateHandleResponse(resp *http.Response) (
 // Delete - Delete a Target resource that extends a tracked regional resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-15-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - parentProviderNamespace - String that represents a resource provider namespace.
 //   - parentResourceType - String that represents a resource type.
@@ -174,7 +174,7 @@ func (client *TargetsClient) deleteCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -183,7 +183,7 @@ func (client *TargetsClient) deleteCreateRequest(ctx context.Context, resourceGr
 // Get - Get a Target resource that extends a tracked regional resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-15-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - parentProviderNamespace - String that represents a resource provider namespace.
 //   - parentResourceType - String that represents a resource type.
@@ -237,7 +237,7 @@ func (client *TargetsClient) getCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -254,7 +254,7 @@ func (client *TargetsClient) getHandleResponse(resp *http.Response) (TargetsClie
 
 // NewListPager - Get a list of Target resources that extend a tracked regional resource.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-15-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - parentProviderNamespace - String that represents a resource provider namespace.
 //   - parentResourceType - String that represents a resource type.
@@ -316,7 +316,7 @@ func (client *TargetsClient) listCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-15-preview")
 	if options != nil && options.ContinuationToken != nil {
 		reqQP.Set("continuationToken", *options.ContinuationToken)
 	}

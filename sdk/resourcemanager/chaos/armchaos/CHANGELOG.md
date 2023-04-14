@@ -1,5 +1,41 @@
 # Release History
 
+## 0.7.0 (2023-04-14)
+### Breaking Changes
+
+- Type of `ExperimentProperties.Selectors` has been changed from `[]*Selector` to `[]SelectorClassification`
+- Type of `TargetReference.Type` has been changed from `*string` to `*TargetReferenceType`
+- Const `SelectorTypePercent`, `SelectorTypeRandom`, `SelectorTypeTag` from type alias `SelectorType` has been removed
+- Operation `*ExperimentsClient.BeginCancel` has been changed to non-LRO, use `*ExperimentsClient.Cancel` instead.
+- Operation `*ExperimentsClient.BeginCreateOrUpdate` has been changed to non-LRO, use `*ExperimentsClient.CreateOrUpdate` instead.
+- Field `Targets` of struct `Selector` has been removed
+
+### Features Added
+
+- New value `ResourceIdentityTypeUserAssigned` added to enum type `ResourceIdentityType`
+- New value `SelectorTypeQuery` added to enum type `SelectorType`
+- New enum type `FilterType` with values `FilterTypeSimple`
+- New enum type `TargetReferenceType` with values `TargetReferenceTypeChaosTarget`
+- New function `*ExperimentsClient.Update(context.Context, string, string, ExperimentUpdate, *ExperimentsClientUpdateOptions) (ExperimentsClientUpdateResponse, error)`
+- New function `*Filter.GetFilter() *Filter`
+- New function `*ListSelector.GetSelector() *Selector`
+- New function `*QuerySelector.GetSelector() *Selector`
+- New function `*Selector.GetSelector() *Selector`
+- New function `*SimpleFilter.GetFilter() *Filter`
+- New struct `CapabilityTypePropertiesPermissionsNecessary`
+- New struct `CapabilityTypePropertiesRuntimeProperties`
+- New struct `ComponentsEwb5TmSchemasUserassignedidentitiesAdditionalproperties`
+- New struct `ExperimentUpdate`
+- New struct `ListSelector`
+- New struct `QuerySelector`
+- New struct `SimpleFilter`
+- New struct `SimpleFilterParameters`
+- New field `Kind` in struct `CapabilityTypeProperties`
+- New field `PermissionsNecessary` in struct `CapabilityTypeProperties`
+- New field `RuntimeProperties` in struct `CapabilityTypeProperties`
+- New field `UserAssignedIdentities` in struct `ResourceIdentity`
+
+
 ## 0.6.1 (2023-04-14)
 ### Bug Fixes
 
