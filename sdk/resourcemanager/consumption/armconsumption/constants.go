@@ -11,7 +11,7 @@ package armconsumption
 
 const (
 	moduleName    = "armconsumption"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0"
 )
 
 // BillingFrequency - The billing frequency.
@@ -151,6 +151,7 @@ func PossibleDatagrainValues() []Datagrain {
 type EventType string
 
 const (
+	EventTypeCreditExpired        EventType = "CreditExpired"
 	EventTypeNewCredit            EventType = "NewCredit"
 	EventTypePendingAdjustments   EventType = "PendingAdjustments"
 	EventTypePendingCharges       EventType = "PendingCharges"
@@ -163,6 +164,7 @@ const (
 // PossibleEventTypeValues returns the possible values for the EventType const type.
 func PossibleEventTypeValues() []EventType {
 	return []EventType{
+		EventTypeCreditExpired,
 		EventTypeNewCredit,
 		EventTypePendingAdjustments,
 		EventTypePendingCharges,
@@ -235,8 +237,15 @@ func PossibleMetrictypeValues() []Metrictype {
 type OperatorType string
 
 const (
-	OperatorTypeEqualTo              OperatorType = "EqualTo"
-	OperatorTypeGreaterThan          OperatorType = "GreaterThan"
+	// OperatorTypeEqualTo - Alert will be triggered if the evaluated cost is the same as threshold value. Note: It’s not recommended
+	// to use this OperatorType as there’s low chance of cost being exactly the same as threshold value, leading to missing of
+	// your alert. This OperatorType will be deprecated in future.
+	OperatorTypeEqualTo OperatorType = "EqualTo"
+	// OperatorTypeGreaterThan - Alert will be triggered if the evaluated cost is greater than the threshold value. Note: This
+	// is the recommended OperatorType while configuring Budget Alert.
+	OperatorTypeGreaterThan OperatorType = "GreaterThan"
+	// OperatorTypeGreaterThanOrEqualTo - Alert will be triggered if the evaluated cost is greater than or equal to the threshold
+	// value.
 	OperatorTypeGreaterThanOrEqualTo OperatorType = "GreaterThanOrEqualTo"
 )
 
@@ -343,7 +352,10 @@ func PossibleTermValues() []Term {
 type ThresholdType string
 
 const (
-	ThresholdTypeActual     ThresholdType = "Actual"
+	// ThresholdTypeActual - Actual costs budget alerts notify when the actual accrued cost exceeds the allocated budget .
+	ThresholdTypeActual ThresholdType = "Actual"
+	// ThresholdTypeForecasted - Forecasted costs budget alerts provide advanced notification that your spending trends are likely
+	// to exceed your allocated budget, as it relies on forecasted cost predictions.
 	ThresholdTypeForecasted ThresholdType = "Forecasted"
 )
 
