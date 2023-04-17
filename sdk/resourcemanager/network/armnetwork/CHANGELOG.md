@@ -1,5 +1,52 @@
 # Release History
 
+## 3.0.0 (2023-04-17)
+### Breaking Changes
+
+- Const `LoadBalancerBackendAddressAdminStateDrain` from type alias `LoadBalancerBackendAddressAdminState` has been removed
+- Struct `PeerRouteList` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse` has been removed
+- Field `PeerRouteList` of struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse` has been removed
+
+### Features Added
+
+- New value `NetworkInterfaceAuxiliaryModeAcceleratedConnections` added to enum type `NetworkInterfaceAuxiliaryMode`
+- New value `WebApplicationFirewallRuleTypeRateLimitRule` added to enum type `WebApplicationFirewallRuleType`
+- New enum type `ApplicationGatewayFirewallRateLimitDuration` with values `ApplicationGatewayFirewallRateLimitDurationFiveMins`, `ApplicationGatewayFirewallRateLimitDurationOneMin`
+- New enum type `ApplicationGatewayFirewallUserSessionVariable` with values `ApplicationGatewayFirewallUserSessionVariableClientAddr`, `ApplicationGatewayFirewallUserSessionVariableGeoLocation`, `ApplicationGatewayFirewallUserSessionVariableNone`
+- New enum type `AzureFirewallPacketCaptureFlagsType` with values `AzureFirewallPacketCaptureFlagsTypeAck`, `AzureFirewallPacketCaptureFlagsTypeFin`, `AzureFirewallPacketCaptureFlagsTypePush`, `AzureFirewallPacketCaptureFlagsTypeRst`, `AzureFirewallPacketCaptureFlagsTypeSyn`, `AzureFirewallPacketCaptureFlagsTypeUrg`
+- New enum type `NetworkInterfaceAuxiliarySKU` with values `NetworkInterfaceAuxiliarySKUA1`, `NetworkInterfaceAuxiliarySKUA2`, `NetworkInterfaceAuxiliarySKUA4`, `NetworkInterfaceAuxiliarySKUA8`, `NetworkInterfaceAuxiliarySKUNone`
+- New enum type `ScrubbingRuleEntryMatchOperator` with values `ScrubbingRuleEntryMatchOperatorEquals`, `ScrubbingRuleEntryMatchOperatorEqualsAny`
+- New enum type `ScrubbingRuleEntryMatchVariable` with values `ScrubbingRuleEntryMatchVariableRequestArgNames`, `ScrubbingRuleEntryMatchVariableRequestCookieNames`, `ScrubbingRuleEntryMatchVariableRequestHeaderNames`, `ScrubbingRuleEntryMatchVariableRequestIPAddress`, `ScrubbingRuleEntryMatchVariableRequestJSONArgNames`, `ScrubbingRuleEntryMatchVariableRequestPostArgNames`
+- New enum type `ScrubbingRuleEntryState` with values `ScrubbingRuleEntryStateDisabled`, `ScrubbingRuleEntryStateEnabled`
+- New enum type `WebApplicationFirewallScrubbingState` with values `WebApplicationFirewallScrubbingStateDisabled`, `WebApplicationFirewallScrubbingStateEnabled`
+- New function `*AzureFirewallsClient.BeginPacketCapture(context.Context, string, string, FirewallPacketCaptureParameters, *AzureFirewallsClientBeginPacketCaptureOptions) (*runtime.Poller[AzureFirewallsClientPacketCaptureResponse], error)`
+- New struct `AzureFirewallPacketCaptureFlags`
+- New struct `AzureFirewallPacketCaptureRule`
+- New struct `FirewallPacketCaptureParameters`
+- New struct `FirewallPacketCaptureParametersFormat`
+- New struct `FirewallPolicyHTTPHeaderToInsert`
+- New struct `GroupByUserSession`
+- New struct `GroupByVariable`
+- New struct `PolicySettingsLogScrubbing`
+- New struct `VirtualApplianceAdditionalNicProperties`
+- New struct `WebApplicationFirewallScrubbingRules`
+- New field `HTTPHeadersToInsert` in struct `ApplicationRule`
+- New field `EnableKerberos` in struct `BastionHostPropertiesFormat`
+- New field `AuxiliarySKU` in struct `InterfacePropertiesFormat`
+- New field `FileUploadEnforcement` in struct `PolicySettings`
+- New field `LogScrubbing` in struct `PolicySettings`
+- New field `RequestBodyEnforcement` in struct `PolicySettings`
+- New field `RequestBodyInspectLimitInKB` in struct `PolicySettings`
+- New field `InstanceName` in struct `VirtualApplianceNicProperties`
+- New field `AdditionalNics` in struct `VirtualAppliancePropertiesFormat`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListAdvertisedRoutesResponse`
+- New field `Value` in struct `VirtualHubBgpConnectionsClientListLearnedRoutesResponse`
+- New field `GroupByUserSession` in struct `WebApplicationFirewallCustomRule`
+- New field `RateLimitDuration` in struct `WebApplicationFirewallCustomRule`
+- New field `RateLimitThreshold` in struct `WebApplicationFirewallCustomRule`
+
+
 ## 2.2.1 (2023-04-14)
 ### Bug Fixes
 
