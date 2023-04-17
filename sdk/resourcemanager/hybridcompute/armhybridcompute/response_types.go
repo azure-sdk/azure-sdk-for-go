@@ -9,6 +9,36 @@
 
 package armhybridcompute
 
+// AgentVersionClientGetResponse contains the response from method AgentVersionClient.Get.
+type AgentVersionClientGetResponse struct {
+	AgentVersion
+}
+
+// AgentVersionClientListResponse contains the response from method AgentVersionClient.List.
+type AgentVersionClientListResponse struct {
+	AgentVersionsList
+}
+
+// ExtensionMetadataClientGetResponse contains the response from method ExtensionMetadataClient.Get.
+type ExtensionMetadataClientGetResponse struct {
+	ExtensionValue
+}
+
+// ExtensionMetadataClientListResponse contains the response from method ExtensionMetadataClient.NewListPager.
+type ExtensionMetadataClientListResponse struct {
+	ExtensionValueListResult
+}
+
+// HybridIdentityMetadataClientGetResponse contains the response from method HybridIdentityMetadataClient.Get.
+type HybridIdentityMetadataClientGetResponse struct {
+	HybridIdentityMetadata
+}
+
+// HybridIdentityMetadataClientListByMachinesResponse contains the response from method HybridIdentityMetadataClient.NewListByMachinesPager.
+type HybridIdentityMetadataClientListByMachinesResponse struct {
+	HybridIdentityMetadataList
+}
+
 // MachineExtensionsClientCreateOrUpdateResponse contains the response from method MachineExtensionsClient.BeginCreateOrUpdate.
 type MachineExtensionsClientCreateOrUpdateResponse struct {
 	MachineExtension
@@ -67,6 +97,11 @@ type MachinesClientUpdateResponse struct {
 // ManagementClientUpgradeExtensionsResponse contains the response from method ManagementClient.BeginUpgradeExtensions.
 type ManagementClientUpgradeExtensionsResponse struct {
 	// placeholder for future response values
+}
+
+// NetworkProfileClientGetResponse contains the response from method NetworkProfileClient.Get.
+type NetworkProfileClientGetResponse struct {
+	NetworkProfile
 }
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
