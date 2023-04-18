@@ -29,8 +29,7 @@ type UserConfirmationPasswordClient struct {
 }
 
 // NewUserConfirmationPasswordClient creates a new instance of UserConfirmationPasswordClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewUserConfirmationPasswordClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UserConfirmationPasswordClient, error) {
@@ -48,8 +47,8 @@ func NewUserConfirmationPasswordClient(subscriptionID string, credential azcore.
 // Send - Sends confirmation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - options - UserConfirmationPasswordClientSendOptions contains the optional parameters for the UserConfirmationPasswordClient.Send
@@ -93,7 +92,7 @@ func (client *UserConfirmationPasswordClient) sendCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	if options != nil && options.AppType != nil {
 		reqQP.Set("appType", string(*options.AppType))
 	}

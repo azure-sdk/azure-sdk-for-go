@@ -30,8 +30,7 @@ type UserGroupClient struct {
 }
 
 // NewUserGroupClient creates a new instance of UserGroupClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewUserGroupClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*UserGroupClient, error) {
@@ -48,8 +47,8 @@ func NewUserGroupClient(subscriptionID string, credential azcore.TokenCredential
 
 // NewListPager - Lists all user groups.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - userID - User identifier. Must be unique in the current API Management service instance.
 //   - options - UserGroupClientListOptions contains the optional parameters for the UserGroupClient.NewListPager method.
@@ -114,7 +113,7 @@ func (client *UserGroupClient) listCreateRequest(ctx context.Context, resourceGr
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

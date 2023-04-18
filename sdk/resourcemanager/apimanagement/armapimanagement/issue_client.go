@@ -30,8 +30,7 @@ type IssueClient struct {
 }
 
 // NewIssueClient creates a new instance of IssueClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewIssueClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*IssueClient, error) {
@@ -49,8 +48,8 @@ func NewIssueClient(subscriptionID string, credential azcore.TokenCredential, op
 // Get - Gets API Management issue details
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - issueID - Issue identifier. Must be unique in the current API Management service instance.
 //   - options - IssueClientGetOptions contains the optional parameters for the IssueClient.Get method.
@@ -93,7 +92,7 @@ func (client *IssueClient) getCreateRequest(ctx context.Context, resourceGroupNa
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -113,8 +112,8 @@ func (client *IssueClient) getHandleResponse(resp *http.Response) (IssueClientGe
 
 // NewListByServicePager - Lists a collection of issues in the specified service instance.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - IssueClientListByServiceOptions contains the optional parameters for the IssueClient.NewListByServicePager method.
 func (client *IssueClient) NewListByServicePager(resourceGroupName string, serviceName string, options *IssueClientListByServiceOptions) *runtime.Pager[IssueClientListByServiceResponse] {
@@ -174,7 +173,7 @@ func (client *IssueClient) listByServiceCreateRequest(ctx context.Context, resou
 	if options != nil && options.Skip != nil {
 		reqQP.Set("$skip", strconv.FormatInt(int64(*options.Skip), 10))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

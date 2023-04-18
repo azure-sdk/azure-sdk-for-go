@@ -330,6 +330,10 @@ type APICreateOrUpdateProperties struct {
 	// A URL to the Terms of Service for the API. MUST be in the format of a URL.
 	TermsOfServiceURL *string
 
+	// Strategy of translating required query parameters to template ones. By default has value 'template'. Possible values: 'template',
+	// 'query'
+	TranslateRequiredQueryParametersConduct *TranslateRequiredQueryParametersConduct
+
 	// Content value when Importing an API.
 	Value *string
 
@@ -1138,6 +1142,44 @@ type APIVersionSetUpdateParametersProperties struct {
 	VersioningScheme *VersioningScheme
 }
 
+// APIWikiClientCreateOrUpdateOptions contains the optional parameters for the APIWikiClient.CreateOrUpdate method.
+type APIWikiClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// APIWikiClientDeleteOptions contains the optional parameters for the APIWikiClient.Delete method.
+type APIWikiClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APIWikiClientGetEntityTagOptions contains the optional parameters for the APIWikiClient.GetEntityTag method.
+type APIWikiClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APIWikiClientGetOptions contains the optional parameters for the APIWikiClient.Get method.
+type APIWikiClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APIWikiClientUpdateOptions contains the optional parameters for the APIWikiClient.Update method.
+type APIWikiClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// APIWikisClientListOptions contains the optional parameters for the APIWikisClient.NewListPager method.
+type APIWikisClientListOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | eq | contains |
+	Filter *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
 // AccessInformationCollection - Paged AccessInformation list representation.
 type AccessInformationCollection struct {
 	// Total record count number across all pages.
@@ -1242,6 +1284,9 @@ type AdditionalLocation struct {
 	// in this additional location.
 	DisableGateway *bool
 
+	// Property can be used to enable NAT Gateway for this API Management service.
+	NatGatewayState *NatGatewayState
+
 	// Public Standard SKU IP V4 based IP address to be associated with Virtual Network deployed service in the location. Supported
 	// only for Premium SKU being deployed in Virtual Network.
 	PublicIPAddressID *string
@@ -1254,6 +1299,10 @@ type AdditionalLocation struct {
 
 	// READ-ONLY; Gateway URL of the API Management service in the Region.
 	GatewayRegionalURL *string
+
+	// READ-ONLY; Outbound public IPV4 address prefixes associated with NAT Gateway deployed service. Available only for Premium
+	// SKU on stv2 platform.
+	OutboundPublicIPAddresses []*string
 
 	// READ-ONLY; Compute Platform Version running the service.
 	PlatformVersion *PlatformVersion
@@ -1315,8 +1364,281 @@ type AuthenticationSettingsContract struct {
 	// OAuth2 Authentication settings
 	OAuth2 *OAuth2AuthenticationSettingsContract
 
+	// Collection of OAuth2 authentication settings included into this API.
+	OAuth2AuthenticationSettings []*OAuth2AuthenticationSettingsContract
+
 	// OpenID Connect Authentication Settings
 	Openid *OpenIDAuthenticationSettingsContract
+
+	// Collection of Open ID Connect authentication settings included into this API.
+	OpenidAuthenticationSettings []*OpenIDAuthenticationSettingsContract
+}
+
+// AuthorizationAccessPolicyClientCreateOrUpdateOptions contains the optional parameters for the AuthorizationAccessPolicyClient.CreateOrUpdate
+// method.
+type AuthorizationAccessPolicyClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// AuthorizationAccessPolicyClientDeleteOptions contains the optional parameters for the AuthorizationAccessPolicyClient.Delete
+// method.
+type AuthorizationAccessPolicyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AuthorizationAccessPolicyClientGetOptions contains the optional parameters for the AuthorizationAccessPolicyClient.Get
+// method.
+type AuthorizationAccessPolicyClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AuthorizationAccessPolicyClientListByAuthorizationOptions contains the optional parameters for the AuthorizationAccessPolicyClient.NewListByAuthorizationPager
+// method.
+type AuthorizationAccessPolicyClientListByAuthorizationOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// AuthorizationAccessPolicyCollection - Paged Authorization Access Policy list representation.
+type AuthorizationAccessPolicyCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*AuthorizationAccessPolicyContract
+}
+
+// AuthorizationAccessPolicyContract - Authorization access policy contract.
+type AuthorizationAccessPolicyContract struct {
+	// Properties of the Authorization Contract.
+	Properties *AuthorizationAccessPolicyContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AuthorizationAccessPolicyContractProperties - Authorization Access Policy details.
+type AuthorizationAccessPolicyContractProperties struct {
+	// The Object Id
+	ObjectID *string
+
+	// The Tenant Id
+	TenantID *string
+}
+
+// AuthorizationClientConfirmConsentCodeOptions contains the optional parameters for the AuthorizationClient.ConfirmConsentCode
+// method.
+type AuthorizationClientConfirmConsentCodeOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AuthorizationClientCreateOrUpdateOptions contains the optional parameters for the AuthorizationClient.CreateOrUpdate method.
+type AuthorizationClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// AuthorizationClientDeleteOptions contains the optional parameters for the AuthorizationClient.Delete method.
+type AuthorizationClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AuthorizationClientGetOptions contains the optional parameters for the AuthorizationClient.Get method.
+type AuthorizationClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AuthorizationClientListByAuthorizationProviderOptions contains the optional parameters for the AuthorizationClient.NewListByAuthorizationProviderPager
+// method.
+type AuthorizationClientListByAuthorizationProviderOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// AuthorizationCollection - Paged Authorization list representation.
+type AuthorizationCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*AuthorizationContract
+}
+
+// AuthorizationConfirmConsentCodeRequestContract - Authorization confirm consent code request contract.
+type AuthorizationConfirmConsentCodeRequestContract struct {
+	// The consent code from the authorization server after authorizing and consenting.
+	ConsentCode *string
+}
+
+// AuthorizationContract - Authorization contract.
+type AuthorizationContract struct {
+	// Properties of the Authorization Contract.
+	Properties *AuthorizationContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AuthorizationContractProperties - Authorization details.
+type AuthorizationContractProperties struct {
+	// Authorization type options
+	AuthorizationType *AuthorizationType
+
+	// Authorization error details.
+	Error *AuthorizationError
+
+	// OAuth2 grant type options
+	OAuth2GrantType *OAuth2GrantType
+
+	// Authorization parameters
+	Parameters map[string]*string
+
+	// Status of the Authorization
+	Status *string
+}
+
+// AuthorizationError - Authorization error details.
+type AuthorizationError struct {
+	// Error code
+	Code *string
+
+	// Error message
+	Message *string
+}
+
+// AuthorizationLoginLinksClientPostOptions contains the optional parameters for the AuthorizationLoginLinksClient.Post method.
+type AuthorizationLoginLinksClientPostOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AuthorizationLoginRequestContract - Authorization login request contract.
+type AuthorizationLoginRequestContract struct {
+	// The redirect URL after login has completed.
+	PostLoginRedirectURL *string
+}
+
+// AuthorizationLoginResponseContract - Authorization login response contract.
+type AuthorizationLoginResponseContract struct {
+	// The login link
+	LoginLink *string
+}
+
+// AuthorizationProviderClientCreateOrUpdateOptions contains the optional parameters for the AuthorizationProviderClient.CreateOrUpdate
+// method.
+type AuthorizationProviderClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// AuthorizationProviderClientDeleteOptions contains the optional parameters for the AuthorizationProviderClient.Delete method.
+type AuthorizationProviderClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AuthorizationProviderClientGetOptions contains the optional parameters for the AuthorizationProviderClient.Get method.
+type AuthorizationProviderClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AuthorizationProviderClientListByServiceOptions contains the optional parameters for the AuthorizationProviderClient.NewListByServicePager
+// method.
+type AuthorizationProviderClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// AuthorizationProviderCollection - Paged Authorization Provider list representation.
+type AuthorizationProviderCollection struct {
+	// Next page link if any.
+	NextLink *string
+
+	// Page values.
+	Value []*AuthorizationProviderContract
+}
+
+// AuthorizationProviderContract - Authorization Provider contract.
+type AuthorizationProviderContract struct {
+	// Properties of the Authorization Provider Contract.
+	Properties *AuthorizationProviderContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AuthorizationProviderContractProperties - Authorization Provider details.
+type AuthorizationProviderContractProperties struct {
+	// Authorization Provider name. Must be 1 to 300 characters long.
+	DisplayName *string
+
+	// Identity provider name. Must be 1 to 300 characters long.
+	IdentityProvider *string
+
+	// OAuth2 settings
+	Oauth2 *AuthorizationProviderOAuth2Settings
+}
+
+// AuthorizationProviderOAuth2GrantTypes - Authorization Provider oauth2 grant types settings
+type AuthorizationProviderOAuth2GrantTypes struct {
+	// OAuth2 authorization code grant parameters
+	AuthorizationCode map[string]*string
+
+	// OAuth2 client credential grant parameters
+	ClientCredentials map[string]*string
+}
+
+// AuthorizationProviderOAuth2Settings - OAuth2 settings details
+type AuthorizationProviderOAuth2Settings struct {
+	// OAuth2 settings
+	GrantTypes *AuthorizationProviderOAuth2GrantTypes
+
+	// Redirect URL to be set in the OAuth application.
+	RedirectURL *string
 }
 
 // AuthorizationServerClientCreateOrUpdateOptions contains the optional parameters for the AuthorizationServerClient.CreateOrUpdate
@@ -1494,6 +1816,13 @@ type AuthorizationServerContractProperties struct {
 
 	// OAuth token endpoint. Contains absolute URI to entity being referenced.
 	TokenEndpoint *string
+
+	// If true, the authorization server will be used in the API documentation in the developer portal. False by default if no
+	// value is provided.
+	UseInAPIDocumentation *bool
+
+	// If true, the authorization server may be used in the developer portal test console. True by default if no value is provided.
+	UseInTestConsole *bool
 }
 
 // AuthorizationServerSecretsContract - OAuth Server Secrets Contract.
@@ -1584,6 +1913,13 @@ type AuthorizationServerUpdateContractProperties struct {
 
 	// OAuth token endpoint. Contains absolute URI to entity being referenced.
 	TokenEndpoint *string
+
+	// If true, the authorization server will be used in the API documentation in the developer portal. False by default if no
+	// value is provided.
+	UseInAPIDocumentation *bool
+
+	// If true, the authorization server may be used in the developer portal test console. True by default if no value is provided.
+	UseInTestConsole *bool
 }
 
 // BackendAuthorizationHeaderCredentials - Authorization header information.
@@ -1606,10 +1942,10 @@ type BackendBaseParameters struct {
 	// Backend Properties contract
 	Properties *BackendProperties
 
-	// Backend Proxy Contract Properties
+	// Backend gateway Contract Properties
 	Proxy *BackendProxyContract
 
-	// Management Uri of the Resource in External System. This url can be the Arm Resource Id of Logic Apps, Function Apps or
+	// Management Uri of the Resource in External System. This URL can be the Arm Resource Id of Logic Apps, Function Apps or
 	// API Apps.
 	ResourceID *string
 
@@ -1710,10 +2046,10 @@ type BackendContractProperties struct {
 	// Backend Properties contract
 	Properties *BackendProperties
 
-	// Backend Proxy Contract Properties
+	// Backend gateway Contract Properties
 	Proxy *BackendProxyContract
 
-	// Management Uri of the Resource in External System. This url can be the Arm Resource Id of Logic Apps, Function Apps or
+	// Management Uri of the Resource in External System. This URL can be the Arm Resource Id of Logic Apps, Function Apps or
 	// API Apps.
 	ResourceID *string
 
@@ -1828,10 +2164,10 @@ type BackendUpdateParameterProperties struct {
 	// Backend communication protocol.
 	Protocol *BackendProtocol
 
-	// Backend Proxy Contract Properties
+	// Backend gateway Contract Properties
 	Proxy *BackendProxyContract
 
-	// Management Uri of the Resource in External System. This url can be the Arm Resource Id of Logic Apps, Function Apps or
+	// Management Uri of the Resource in External System. This URL can be the Arm Resource Id of Logic Apps, Function Apps or
 	// API Apps.
 	ResourceID *string
 
@@ -2562,6 +2898,9 @@ type DiagnosticContractProperties struct {
 	// Log the ClientIP. Default is false.
 	LogClientIP *bool
 
+	// Emit custom metrics via emit-metric policy. Applicable only to Application Insights diagnostic settings.
+	Metrics *bool
+
 	// The format of the Operation Name for Application Insights telemetries. Default is Name.
 	OperationNameFormat *OperationNameFormat
 
@@ -2570,6 +2909,84 @@ type DiagnosticContractProperties struct {
 
 	// The verbosity level applied to traces emitted by trace policies.
 	Verbosity *Verbosity
+}
+
+// DocumentationClientCreateOrUpdateOptions contains the optional parameters for the DocumentationClient.CreateOrUpdate method.
+type DocumentationClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// DocumentationClientDeleteOptions contains the optional parameters for the DocumentationClient.Delete method.
+type DocumentationClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DocumentationClientGetEntityTagOptions contains the optional parameters for the DocumentationClient.GetEntityTag method.
+type DocumentationClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DocumentationClientGetOptions contains the optional parameters for the DocumentationClient.Get method.
+type DocumentationClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DocumentationClientListByServiceOptions contains the optional parameters for the DocumentationClient.NewListByServicePager
+// method.
+type DocumentationClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | eq | contains |
+	Filter *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// DocumentationClientUpdateOptions contains the optional parameters for the DocumentationClient.Update method.
+type DocumentationClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// DocumentationCollection - Paged Documentation list representation.
+type DocumentationCollection struct {
+	// READ-ONLY; Next page link if any.
+	NextLink *string
+
+	// READ-ONLY; Page values.
+	Value []*DocumentationContract
+}
+
+// DocumentationContract - Markdown documentation details.
+type DocumentationContract struct {
+	// Markdown Documentation details.
+	Properties *DocumentationContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DocumentationContractProperties - Markdown documentation details.
+type DocumentationContractProperties struct {
+	// Markdown documentation content.
+	Content *string
+
+	// documentation title.
+	Title *string
+}
+
+// DocumentationUpdateContract - Documentation update contract details.
+type DocumentationUpdateContract struct {
+	// Markdown Documentation details.
+	Properties *DocumentationContractProperties
 }
 
 // EmailTemplateClientCreateOrUpdateOptions contains the optional parameters for the EmailTemplateClient.CreateOrUpdate method.
@@ -3129,6 +3546,81 @@ type GlobalSchemaContractProperties struct {
 	Value any
 }
 
+// GraphQLAPIResolverClientCreateOrUpdateOptions contains the optional parameters for the GraphQLAPIResolverClient.CreateOrUpdate
+// method.
+type GraphQLAPIResolverClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// GraphQLAPIResolverClientDeleteOptions contains the optional parameters for the GraphQLAPIResolverClient.Delete method.
+type GraphQLAPIResolverClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GraphQLAPIResolverClientGetEntityTagOptions contains the optional parameters for the GraphQLAPIResolverClient.GetEntityTag
+// method.
+type GraphQLAPIResolverClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GraphQLAPIResolverClientGetOptions contains the optional parameters for the GraphQLAPIResolverClient.Get method.
+type GraphQLAPIResolverClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GraphQLAPIResolverClientListByAPIOptions contains the optional parameters for the GraphQLAPIResolverClient.NewListByAPIPager
+// method.
+type GraphQLAPIResolverClientListByAPIOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | path | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// GraphQLAPIResolverClientUpdateOptions contains the optional parameters for the GraphQLAPIResolverClient.Update method.
+type GraphQLAPIResolverClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GraphQLAPIResolverPolicyClientCreateOrUpdateOptions contains the optional parameters for the GraphQLAPIResolverPolicyClient.CreateOrUpdate
+// method.
+type GraphQLAPIResolverPolicyClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// GraphQLAPIResolverPolicyClientDeleteOptions contains the optional parameters for the GraphQLAPIResolverPolicyClient.Delete
+// method.
+type GraphQLAPIResolverPolicyClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GraphQLAPIResolverPolicyClientGetEntityTagOptions contains the optional parameters for the GraphQLAPIResolverPolicyClient.GetEntityTag
+// method.
+type GraphQLAPIResolverPolicyClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// GraphQLAPIResolverPolicyClientGetOptions contains the optional parameters for the GraphQLAPIResolverPolicyClient.Get method.
+type GraphQLAPIResolverPolicyClientGetOptions struct {
+	// Policy Export Format.
+	Format *PolicyExportFormat
+}
+
+// GraphQLAPIResolverPolicyClientListByResolverOptions contains the optional parameters for the GraphQLAPIResolverPolicyClient.NewListByResolverPager
+// method.
+type GraphQLAPIResolverPolicyClientListByResolverOptions struct {
+	// placeholder for future optional parameters
+}
+
 // GroupClientCreateOrUpdateOptions contains the optional parameters for the GroupClient.CreateOrUpdate method.
 type GroupClientCreateOrUpdateOptions struct {
 	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
@@ -3339,7 +3831,7 @@ type HostnameConfiguration struct {
 	// Specify true to setup the certificate associated with this Hostname as the Default SSL Certificate. If a client does not
 	// send the SNI header, then this will be the certificate that will be challenged.
 	// The property is useful if a service has multiple custom hostname enabled and it needs to decide on the default ssl certificate.
-	// The setting only applied to Proxy Hostname Type.
+	// The setting only applied to gateway Hostname Type.
 	DefaultSSLBinding *bool
 
 	// Base64 Encoded certificate.
@@ -3365,6 +3857,9 @@ type IdentityProviderBaseParameters struct {
 
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string
+
+	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
+	ClientLibrary *string
 
 	// Password Reset Policy Name. Only applies to AAD B2C Identity Provider.
 	PasswordResetPolicyName *string
@@ -3452,6 +3947,9 @@ type IdentityProviderContractProperties struct {
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string
 
+	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
+	ClientLibrary *string
+
 	// Client secret of the Application in external Identity Provider, used to authenticate login request. For example, it is
 	// App Secret for Facebook login, API Key for Google login, Public Key for
 	// Microsoft. This property will not be filled on 'GET' operations! Use '/listSecrets' POST request to get the value.
@@ -3509,6 +4007,9 @@ type IdentityProviderCreateContractProperties struct {
 	// OpenID Connect discovery endpoint hostname for AAD or AAD B2C.
 	Authority *string
 
+	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
+	ClientLibrary *string
+
 	// Password Reset Policy Name. Only applies to AAD B2C Identity Provider.
 	PasswordResetPolicyName *string
 
@@ -3557,6 +4058,9 @@ type IdentityProviderUpdateProperties struct {
 	// Client Id of the Application in the external Identity Provider. It is App ID for Facebook login, Client ID for Google login,
 	// App ID for Microsoft.
 	ClientID *string
+
+	// The client library to be used in the developer portal. Only applies to AAD and AAD B2C Identity Provider.
+	ClientLibrary *string
 
 	// Client secret of the Application in external Identity Provider, used to authenticate login request. For example, it is
 	// App Secret for Facebook login, API Key for Google login, Public Key for
@@ -4337,6 +4841,14 @@ type OpenidConnectProviderContractProperties struct {
 
 	// User-friendly description of OpenID Connect Provider.
 	Description *string
+
+	// If true, the Open ID Connect provider will be used in the API documentation in the developer portal. False by default if
+	// no value is provided.
+	UseInAPIDocumentation *bool
+
+	// If true, the Open ID Connect provider may be used in the developer portal test console. True by default if no value is
+	// provided.
+	UseInTestConsole *bool
 }
 
 // OpenidConnectProviderUpdateContract - Parameters supplied to the Update OpenID Connect Provider operation.
@@ -4361,6 +4873,14 @@ type OpenidConnectProviderUpdateContractProperties struct {
 
 	// Metadata endpoint URI.
 	MetadataEndpoint *string
+
+	// If true, the Open ID Connect provider will be used in the API documentation in the developer portal. False by default if
+	// no value is provided.
+	UseInAPIDocumentation *bool
+
+	// If true, the Open ID Connect provider may be used in the developer portal test console. True by default if no value is
+	// provided.
+	UseInTestConsole *bool
 }
 
 // Operation - REST API operation
@@ -4763,12 +5283,12 @@ type PolicyDescriptionClientListByServiceOptions struct {
 	Scope *PolicyScopeContract
 }
 
-// PolicyDescriptionCollection - Descriptions of APIM policies.
+// PolicyDescriptionCollection - Descriptions of API Management policies.
 type PolicyDescriptionCollection struct {
 	// Total record count number.
 	Count *int64
 
-	// Descriptions of APIM policies.
+	// Descriptions of API Management policies.
 	Value []*PolicyDescriptionContract
 }
 
@@ -4794,6 +5314,212 @@ type PolicyDescriptionContractProperties struct {
 
 	// READ-ONLY; Binary OR value of the Snippet scope.
 	Scope *int64
+}
+
+// PolicyFragmentClientBeginCreateOrUpdateOptions contains the optional parameters for the PolicyFragmentClient.BeginCreateOrUpdate
+// method.
+type PolicyFragmentClientBeginCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// PolicyFragmentClientDeleteOptions contains the optional parameters for the PolicyFragmentClient.Delete method.
+type PolicyFragmentClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyFragmentClientGetEntityTagOptions contains the optional parameters for the PolicyFragmentClient.GetEntityTag method.
+type PolicyFragmentClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PolicyFragmentClientGetOptions contains the optional parameters for the PolicyFragmentClient.Get method.
+type PolicyFragmentClientGetOptions struct {
+	// Policy fragment content format.
+	Format *PolicyFragmentContentFormat
+}
+
+// PolicyFragmentClientListByServiceOptions contains the optional parameters for the PolicyFragmentClient.ListByService method.
+type PolicyFragmentClientListByServiceOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter, orderBy | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	// | value | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |
+	Filter *string
+	// OData order by query option.
+	Orderby *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// PolicyFragmentClientListReferencesOptions contains the optional parameters for the PolicyFragmentClient.ListReferences
+// method.
+type PolicyFragmentClientListReferencesOptions struct {
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// PolicyFragmentCollection - The response of the get policy fragments operation.
+type PolicyFragmentCollection struct {
+	// Total record count number.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// Policy fragment contract value.
+	Value []*PolicyFragmentContract
+}
+
+// PolicyFragmentContract - Policy fragment contract details.
+type PolicyFragmentContract struct {
+	// Properties of the Policy Fragment.
+	Properties *PolicyFragmentContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PolicyFragmentContractProperties - Policy fragment contract properties.
+type PolicyFragmentContractProperties struct {
+	// REQUIRED; Contents of the policy fragment.
+	Value *string
+
+	// Policy fragment description.
+	Description *string
+
+	// Format of the policy fragment content.
+	Format *PolicyFragmentContentFormat
+}
+
+// PortalConfigClientCreateOrUpdateOptions contains the optional parameters for the PortalConfigClient.CreateOrUpdate method.
+type PortalConfigClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigClientGetEntityTagOptions contains the optional parameters for the PortalConfigClient.GetEntityTag method.
+type PortalConfigClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigClientGetOptions contains the optional parameters for the PortalConfigClient.Get method.
+type PortalConfigClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigClientListByServiceOptions contains the optional parameters for the PortalConfigClient.ListByService method.
+type PortalConfigClientListByServiceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigClientUpdateOptions contains the optional parameters for the PortalConfigClient.Update method.
+type PortalConfigClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PortalConfigCollection - The collection of the developer portal configurations.
+type PortalConfigCollection struct {
+	// The developer portal configurations.
+	Value []*PortalConfigContract
+
+	// READ-ONLY; Next page link if any.
+	NextLink *string
+}
+
+// PortalConfigContract - The developer portal configuration contract.
+type PortalConfigContract struct {
+	// The developer portal configuration contract properties.
+	Properties *PortalConfigProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PortalConfigCorsProperties - The developer portal Cross-Origin Resource Sharing (CORS) settings.
+type PortalConfigCorsProperties struct {
+	// Allowed origins, e.g. https://trusted.com.
+	AllowedOrigins []*string
+}
+
+// PortalConfigCspProperties - The developer portal Content Security Policy (CSP) settings.
+type PortalConfigCspProperties struct {
+	// Allowed sources, e.g. *.trusted.com, trusted.com, https://.
+	AllowedSources []*string
+
+	// The mode of the developer portal Content Security Policy (CSP).
+	Mode *PortalSettingsCspMode
+
+	// The URLs used by the browser to report CSP violations.
+	ReportURI []*string
+}
+
+type PortalConfigDelegationProperties struct {
+	// Enable or disable delegation for user registration.
+	DelegateRegistration *bool
+
+	// Enable or disable delegation for product subscriptions.
+	DelegateSubscription *bool
+
+	// A delegation endpoint URL.
+	DelegationURL *string
+
+	// A base64-encoded validation key to ensure requests originate from Azure API Management service.
+	ValidationKey *string
+}
+
+// PortalConfigProperties - The developer portal configuration contract properties.
+type PortalConfigProperties struct {
+	// The developer portal Cross-Origin Resource Sharing (CORS) settings.
+	Cors *PortalConfigCorsProperties
+
+	// The developer portal Content Security Policy (CSP) settings.
+	Csp *PortalConfigCspProperties
+
+	// The developer portal delegation settings.
+	Delegation *PortalConfigDelegationProperties
+
+	// Enable or disable Basic authentication method.
+	EnableBasicAuth *bool
+	Signin          *PortalConfigPropertiesSignin
+	Signup          *PortalConfigPropertiesSignup
+}
+
+type PortalConfigPropertiesSignin struct {
+	// Redirect anonymous users to the sign-in page.
+	Require *bool
+}
+
+type PortalConfigPropertiesSignup struct {
+	// Terms of service settings.
+	TermsOfService *PortalConfigTermsOfServiceProperties
+}
+
+// PortalConfigTermsOfServiceProperties - Terms of service contract properties.
+type PortalConfigTermsOfServiceProperties struct {
+	// Ask user for consent to the terms of service.
+	RequireConsent *bool
+
+	// A terms of service text.
+	Text *string
 }
 
 // PortalDelegationSettings - Delegation settings for a developer portal.
@@ -4917,12 +5643,12 @@ type PortalSettingsClientListByServiceOptions struct {
 	// placeholder for future optional parameters
 }
 
-// PortalSettingsCollection - Descriptions of APIM policies.
+// PortalSettingsCollection - Descriptions of API Management policies.
 type PortalSettingsCollection struct {
 	// Total record count number.
 	Count *int64
 
-	// Descriptions of APIM policies.
+	// Descriptions of API Management policies.
 	Value []*PortalSettingsContract
 }
 
@@ -5513,6 +6239,57 @@ type ProductUpdateProperties struct {
 	Terms *string
 }
 
+// ProductWikiClientCreateOrUpdateOptions contains the optional parameters for the ProductWikiClient.CreateOrUpdate method.
+type ProductWikiClientCreateOrUpdateOptions struct {
+	// ETag of the Entity. Not required when creating an entity, but required when updating an entity.
+	IfMatch *string
+}
+
+// ProductWikiClientDeleteOptions contains the optional parameters for the ProductWikiClient.Delete method.
+type ProductWikiClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductWikiClientGetEntityTagOptions contains the optional parameters for the ProductWikiClient.GetEntityTag method.
+type ProductWikiClientGetEntityTagOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductWikiClientGetOptions contains the optional parameters for the ProductWikiClient.Get method.
+type ProductWikiClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductWikiClientUpdateOptions contains the optional parameters for the ProductWikiClient.Update method.
+type ProductWikiClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ProductWikisClientListOptions contains the optional parameters for the ProductWikisClient.NewListPager method.
+type ProductWikisClientListOptions struct {
+	// | Field | Usage | Supported operators | Supported functions |
+	// |-------------|-------------|-------------|-------------|
+	// | name | filter | eq | contains |
+	Filter *string
+	// Number of records to skip.
+	Skip *int32
+	// Number of records to return.
+	Top *int32
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
 // QuotaByCounterKeysClientListByServiceOptions contains the optional parameters for the QuotaByCounterKeysClient.ListByService
 // method.
 type QuotaByCounterKeysClientListByServiceOptions struct {
@@ -5754,7 +6531,7 @@ type ReportRecordContract struct {
 	// and HttpStatusCode.TooManyRequests
 	CallCountBlocked *int32
 
-	// Number of calls failed due to proxy or backend errors. This includes calls returning HttpStatusCode.BadRequest(400) and
+	// Number of calls failed due to gateway or backend errors. This includes calls returning HttpStatusCode.BadRequest(400) and
 	// any Code between HttpStatusCode.InternalServerError (500) and 600
 	CallCountFailed *int32
 
@@ -5988,8 +6765,143 @@ type RequestReportRecordContract struct {
 	UserID *string
 }
 
+// ResolverCollection - Paged Resolver list representation.
+type ResolverCollection struct {
+	// Total record count number across all pages.
+	Count *int64
+
+	// READ-ONLY; Next page link if any.
+	NextLink *string
+
+	// READ-ONLY; Page values.
+	Value []*ResolverContract
+}
+
+// ResolverContract - GraphQL API Resolver details.
+type ResolverContract struct {
+	// Properties of the Resolver Contract.
+	Properties *ResolverEntityBaseContract
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ResolverEntityBaseContract - GraphQL API Resolver Entity Base Contract details.
+type ResolverEntityBaseContract struct {
+	// Description of the resolver. May include HTML formatting tags.
+	Description *string
+
+	// Resolver Name.
+	DisplayName *string
+
+	// Path is type/field being resolved.
+	Path *string
+}
+
+// ResolverResultContract - Long Running Git Resolver Results.
+type ResolverResultContract struct {
+	// Properties of the Resolver Contract.
+	Properties *ResolverResultContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ResolverResultContractProperties - Resolver Result.
+type ResolverResultContractProperties struct {
+	// Error Body Contract
+	Error *ErrorResponseBody
+
+	// Resolver result identifier.
+	ID *string
+
+	// Optional result info.
+	ResultInfo *string
+
+	// Start time of an async resolver. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as specified by the ISO
+	// 8601 standard.
+	Started *time.Time
+
+	// Status of an async resolver.
+	Status *AsyncResolverStatus
+
+	// Last update time of an async resolver. The date conforms to the following format: yyyy-MM-ddTHH:mm:ssZ as specified by
+	// the ISO 8601 standard.
+	Updated *time.Time
+
+	// READ-ONLY; This property if only provided as part of the TenantConfigurationValidate resolver. It contains the log the
+	// entities which will be updated/created/deleted as part of the TenantConfigurationDeploy
+	// resolver.
+	ActionLog []*ResolverResultLogItemContract
+}
+
+// ResolverResultLogItemContract - Log of the entity being created, updated or deleted.
+type ResolverResultLogItemContract struct {
+	// Action like create/update/delete.
+	Action *string
+
+	// Identifier of the entity being created/updated/deleted.
+	ObjectKey *string
+
+	// The type of entity contract.
+	ObjectType *string
+}
+
+// ResolverUpdateContract - GraphQL API Resolver Update Contract details.
+type ResolverUpdateContract struct {
+	// Properties of the GraphQL API Resolver entity that can be updated.
+	Properties *ResolverUpdateContractProperties
+}
+
+// ResolverUpdateContractProperties - Resolver Update Contract Properties.
+type ResolverUpdateContractProperties struct {
+	// Description of the resolver. May include HTML formatting tags.
+	Description *string
+
+	// Resolver Name.
+	DisplayName *string
+
+	// Path is type/field being resolved.
+	Path *string
+}
+
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ResourceCollection - A collection of resources.
+type ResourceCollection struct {
+	// Total record count number.
+	Count *int64
+
+	// Next page link if any.
+	NextLink *string
+
+	// A collection of resources.
+	Value []*ResourceCollectionValueItem
+}
+
+type ResourceCollectionValueItem struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
 
@@ -6274,7 +7186,7 @@ type SchemaContractProperties struct {
 	// - WADL Schema use application/vnd.ms-azure-apim.wadl.grammars+xml.
 	ContentType *string
 
-	// Create or update Properties of the API Schema Document.
+	// REQUIRED; Create or update Properties of the API Schema Document.
 	Document *SchemaDocumentProperties
 }
 
@@ -6344,15 +7256,15 @@ type ServiceBaseProperties struct {
 	// API Management service.
 	// Not specifying any of these properties on PATCH operation will reset omitted properties' values to their defaults. For
 	// all the settings except Http2 the default value is True if the service was
-	// created on or before April 1st 2018 and False otherwise. Http2 setting's default value is False.
-	// You can disable any of next ciphers by using settings Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.[cipher_name]:
-	// TLSECDHEECDSAWITHAES256CBCSHA, TLSECDHEECDSAWITHAES128CBCSHA, TLS
-	// ECDHERSAWITHAES256CBCSHA, TLSECDHERSAWITHAES128CBCSHA, TLSRSAWITHAES128GCMSHA256, TLSRSAWITHAES256CBCSHA256, TLSRSAWITHAES128CBCSHA256,
-	// TLSRSAWITHAES256CBCSHA, TLSRSAWITHAES128CBCSHA. For example,
-	// Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TLS_RSA_WITH_AES_128_CBC_SHA256:false. The default value
-	// is true for them. Note: next ciphers can't be disabled since they are required by
-	// Azure CloudService internal components: TLSECDHEECDSAWITHAES256GCMSHA384,TLSECDHEECDSAWITHAES128GCMSHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBC
-	// SHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256,TLSRSAWITHAES256GCMSHA384
+	// created on or before April 1, 2018 and False otherwise. Http2 setting's default value is False.
+	// You can disable any of the following ciphers by using settings Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.[cipher_name]:
+	// TLSECDHEECDSAWITHAES256CBCSHA, TLSECDHEECDSAWITHAES128CBC
+	// SHA, TLSECDHERSAWITHAES256CBCSHA, TLSECDHERSAWITHAES128CBCSHA, TLSRSAWITHAES128GCMSHA256, TLSRSAWITHAES256CBCSHA256, TLSRSAWITHAES128CBCSHA256,
+	// TLSRSAWITHAES256CBCSHA, TLSRSAWITHAES128CBCSHA. For
+	// example, Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TLS_RSA_WITH_AES_128_CBC_SHA256:false. The default
+	// value is true for them.
+	// Note: The following ciphers can't be disabled since they are required by internal platform components: TLSAES256GCMSHA384,TLSAES128GCMSHA256,TLSECDHEECDSAWITHAES256GCMSHA384,TLSECDHEECDSAWITHAES128GCM
+	// SHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBCSHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256
 	CustomProperties map[string]*string
 
 	// Property only valid for an Api Management service deployed in multiple locations. This can be used to disable the gateway
@@ -6366,6 +7278,9 @@ type ServiceBaseProperties struct {
 
 	// Custom hostname configuration of the API Management service.
 	HostnameConfigurations []*HostnameConfiguration
+
+	// Property can be used to enable NAT Gateway for this API Management service.
+	NatGatewayState *NatGatewayState
 
 	// Email address from which the notification will be sent.
 	NotificationSenderEmail *string
@@ -6411,6 +7326,10 @@ type ServiceBaseProperties struct {
 
 	// READ-ONLY; Management API endpoint URL of the API Management service.
 	ManagementAPIURL *string
+
+	// READ-ONLY; Outbound public IPV4 address prefixes associated with NAT Gateway deployed service. Available only for Premium
+	// SKU on stv2 platform.
+	OutboundPublicIPAddresses []*string
 
 	// READ-ONLY; Compute Platform Version running the service in this location.
 	PlatformVersion *PlatformVersion
@@ -6469,6 +7388,12 @@ type ServiceClientBeginCreateOrUpdateOptions struct {
 
 // ServiceClientBeginDeleteOptions contains the optional parameters for the ServiceClient.BeginDelete method.
 type ServiceClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ServiceClientBeginMigrateToStv2Options contains the optional parameters for the ServiceClient.BeginMigrateToStv2 method.
+type ServiceClientBeginMigrateToStv2Options struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -6606,15 +7531,15 @@ type ServiceProperties struct {
 	// API Management service.
 	// Not specifying any of these properties on PATCH operation will reset omitted properties' values to their defaults. For
 	// all the settings except Http2 the default value is True if the service was
-	// created on or before April 1st 2018 and False otherwise. Http2 setting's default value is False.
-	// You can disable any of next ciphers by using settings Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.[cipher_name]:
-	// TLSECDHEECDSAWITHAES256CBCSHA, TLSECDHEECDSAWITHAES128CBCSHA, TLS
-	// ECDHERSAWITHAES256CBCSHA, TLSECDHERSAWITHAES128CBCSHA, TLSRSAWITHAES128GCMSHA256, TLSRSAWITHAES256CBCSHA256, TLSRSAWITHAES128CBCSHA256,
-	// TLSRSAWITHAES256CBCSHA, TLSRSAWITHAES128CBCSHA. For example,
-	// Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TLS_RSA_WITH_AES_128_CBC_SHA256:false. The default value
-	// is true for them. Note: next ciphers can't be disabled since they are required by
-	// Azure CloudService internal components: TLSECDHEECDSAWITHAES256GCMSHA384,TLSECDHEECDSAWITHAES128GCMSHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBC
-	// SHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256,TLSRSAWITHAES256GCMSHA384
+	// created on or before April 1, 2018 and False otherwise. Http2 setting's default value is False.
+	// You can disable any of the following ciphers by using settings Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.[cipher_name]:
+	// TLSECDHEECDSAWITHAES256CBCSHA, TLSECDHEECDSAWITHAES128CBC
+	// SHA, TLSECDHERSAWITHAES256CBCSHA, TLSECDHERSAWITHAES128CBCSHA, TLSRSAWITHAES128GCMSHA256, TLSRSAWITHAES256CBCSHA256, TLSRSAWITHAES128CBCSHA256,
+	// TLSRSAWITHAES256CBCSHA, TLSRSAWITHAES128CBCSHA. For
+	// example, Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TLS_RSA_WITH_AES_128_CBC_SHA256:false. The default
+	// value is true for them.
+	// Note: The following ciphers can't be disabled since they are required by internal platform components: TLSAES256GCMSHA384,TLSAES128GCMSHA256,TLSECDHEECDSAWITHAES256GCMSHA384,TLSECDHEECDSAWITHAES128GCM
+	// SHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBCSHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256
 	CustomProperties map[string]*string
 
 	// Property only valid for an Api Management service deployed in multiple locations. This can be used to disable the gateway
@@ -6628,6 +7553,9 @@ type ServiceProperties struct {
 
 	// Custom hostname configuration of the API Management service.
 	HostnameConfigurations []*HostnameConfiguration
+
+	// Property can be used to enable NAT Gateway for this API Management service.
+	NatGatewayState *NatGatewayState
 
 	// Email address from which the notification will be sent.
 	NotificationSenderEmail *string
@@ -6673,6 +7601,10 @@ type ServiceProperties struct {
 
 	// READ-ONLY; Management API endpoint URL of the API Management service.
 	ManagementAPIURL *string
+
+	// READ-ONLY; Outbound public IPV4 address prefixes associated with NAT Gateway deployed service. Available only for Premium
+	// SKU on stv2 platform.
+	OutboundPublicIPAddresses []*string
 
 	// READ-ONLY; Compute Platform Version running the service in this location.
 	PlatformVersion *PlatformVersion
@@ -6808,15 +7740,15 @@ type ServiceUpdateProperties struct {
 	// API Management service.
 	// Not specifying any of these properties on PATCH operation will reset omitted properties' values to their defaults. For
 	// all the settings except Http2 the default value is True if the service was
-	// created on or before April 1st 2018 and False otherwise. Http2 setting's default value is False.
-	// You can disable any of next ciphers by using settings Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.[cipher_name]:
-	// TLSECDHEECDSAWITHAES256CBCSHA, TLSECDHEECDSAWITHAES128CBCSHA, TLS
-	// ECDHERSAWITHAES256CBCSHA, TLSECDHERSAWITHAES128CBCSHA, TLSRSAWITHAES128GCMSHA256, TLSRSAWITHAES256CBCSHA256, TLSRSAWITHAES128CBCSHA256,
-	// TLSRSAWITHAES256CBCSHA, TLSRSAWITHAES128CBCSHA. For example,
-	// Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TLS_RSA_WITH_AES_128_CBC_SHA256:false. The default value
-	// is true for them. Note: next ciphers can't be disabled since they are required by
-	// Azure CloudService internal components: TLSECDHEECDSAWITHAES256GCMSHA384,TLSECDHEECDSAWITHAES128GCMSHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBC
-	// SHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256,TLSRSAWITHAES256GCMSHA384
+	// created on or before April 1, 2018 and False otherwise. Http2 setting's default value is False.
+	// You can disable any of the following ciphers by using settings Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.[cipher_name]:
+	// TLSECDHEECDSAWITHAES256CBCSHA, TLSECDHEECDSAWITHAES128CBC
+	// SHA, TLSECDHERSAWITHAES256CBCSHA, TLSECDHERSAWITHAES128CBCSHA, TLSRSAWITHAES128GCMSHA256, TLSRSAWITHAES256CBCSHA256, TLSRSAWITHAES128CBCSHA256,
+	// TLSRSAWITHAES256CBCSHA, TLSRSAWITHAES128CBCSHA. For
+	// example, Microsoft.WindowsAzure.ApiManagement.Gateway.Security.Ciphers.TLS_RSA_WITH_AES_128_CBC_SHA256:false. The default
+	// value is true for them.
+	// Note: The following ciphers can't be disabled since they are required by internal platform components: TLSAES256GCMSHA384,TLSAES128GCMSHA256,TLSECDHEECDSAWITHAES256GCMSHA384,TLSECDHEECDSAWITHAES128GCM
+	// SHA256,TLSECDHERSAWITHAES256GCMSHA384,TLSECDHERSAWITHAES128GCMSHA256,TLSECDHEECDSAWITHAES256CBCSHA384,TLSECDHEECDSAWITHAES128CBCSHA256,TLSECDHERSAWITHAES256CBCSHA384,TLSECDHERSAWITHAES128CBCSHA256
 	CustomProperties map[string]*string
 
 	// Property only valid for an Api Management service deployed in multiple locations. This can be used to disable the gateway
@@ -6830,6 +7762,9 @@ type ServiceUpdateProperties struct {
 
 	// Custom hostname configuration of the API Management service.
 	HostnameConfigurations []*HostnameConfiguration
+
+	// Property can be used to enable NAT Gateway for this API Management service.
+	NatGatewayState *NatGatewayState
 
 	// Email address from which the notification will be sent.
 	NotificationSenderEmail *string
@@ -6881,6 +7816,10 @@ type ServiceUpdateProperties struct {
 
 	// READ-ONLY; Management API endpoint URL of the API Management service.
 	ManagementAPIURL *string
+
+	// READ-ONLY; Outbound public IPV4 address prefixes associated with NAT Gateway deployed service. Available only for Premium
+	// SKU on stv2 platform.
+	OutboundPublicIPAddresses []*string
 
 	// READ-ONLY; Compute Platform Version running the service in this location.
 	PlatformVersion *PlatformVersion
@@ -8040,6 +8979,48 @@ type VirtualNetworkConfiguration struct {
 
 	// READ-ONLY; The virtual network ID. This is typically a GUID. Expect a null GUID by default.
 	Vnetid *string
+}
+
+// WikiCollection - Paged Wiki list representation.
+type WikiCollection struct {
+	// READ-ONLY; Next page link if any.
+	NextLink *string
+
+	// READ-ONLY; Page values.
+	Value []*WikiContract
+}
+
+// WikiContract - Wiki properties
+type WikiContract struct {
+	// Wiki details.
+	Properties *WikiContractProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// WikiContractProperties - Wiki contract details
+type WikiContractProperties struct {
+	// Collection wiki documents included into this wiki.
+	Documents []*WikiDocumentationContract
+}
+
+// WikiDocumentationContract - Wiki documentation details.
+type WikiDocumentationContract struct {
+	// Documentation Identifier
+	DocumentationID *string
+}
+
+// WikiUpdateContract - Wiki update contract details.
+type WikiUpdateContract struct {
+	// Wiki details.
+	Properties *WikiContractProperties
 }
 
 // X509CertificateName - Properties of server X509Names.

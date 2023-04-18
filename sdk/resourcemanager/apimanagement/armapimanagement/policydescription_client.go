@@ -29,8 +29,7 @@ type PolicyDescriptionClient struct {
 }
 
 // NewPolicyDescriptionClient creates a new instance of PolicyDescriptionClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewPolicyDescriptionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*PolicyDescriptionClient, error) {
@@ -48,8 +47,8 @@ func NewPolicyDescriptionClient(subscriptionID string, credential azcore.TokenCr
 // ListByService - Lists all policy descriptions.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-08-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - PolicyDescriptionClientListByServiceOptions contains the optional parameters for the PolicyDescriptionClient.ListByService
 //     method.
@@ -91,7 +90,7 @@ func (client *PolicyDescriptionClient) listByServiceCreateRequest(ctx context.Co
 	if options != nil && options.Scope != nil {
 		reqQP.Set("scope", string(*options.Scope))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-08-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

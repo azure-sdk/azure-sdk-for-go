@@ -24,8 +24,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -66,6 +65,16 @@ func (c *ClientFactory) NewAPIOperationPolicyClient() *APIOperationPolicyClient 
 
 func (c *ClientFactory) NewTagClient() *TagClient {
 	subClient, _ := NewTagClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGraphQLAPIResolverClient() *GraphQLAPIResolverClient {
+	subClient, _ := NewGraphQLAPIResolverClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewGraphQLAPIResolverPolicyClient() *GraphQLAPIResolverPolicyClient {
+	subClient, _ := NewGraphQLAPIResolverPolicyClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -114,6 +123,16 @@ func (c *ClientFactory) NewOperationClient() *OperationClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewAPIWikiClient() *APIWikiClient {
+	subClient, _ := NewAPIWikiClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAPIWikisClient() *APIWikisClient {
+	subClient, _ := NewAPIWikisClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewAPIExportClient() *APIExportClient {
 	subClient, _ := NewAPIExportClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -126,6 +145,26 @@ func (c *ClientFactory) NewAPIVersionSetClient() *APIVersionSetClient {
 
 func (c *ClientFactory) NewAuthorizationServerClient() *AuthorizationServerClient {
 	subClient, _ := NewAuthorizationServerClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAuthorizationProviderClient() *AuthorizationProviderClient {
+	subClient, _ := NewAuthorizationProviderClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAuthorizationClient() *AuthorizationClient {
+	subClient, _ := NewAuthorizationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAuthorizationLoginLinksClient() *AuthorizationLoginLinksClient {
+	subClient, _ := NewAuthorizationLoginLinksClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewAuthorizationAccessPolicyClient() *AuthorizationAccessPolicyClient {
+	subClient, _ := NewAuthorizationAccessPolicyClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -279,6 +318,16 @@ func (c *ClientFactory) NewPolicyDescriptionClient() *PolicyDescriptionClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewPolicyFragmentClient() *PolicyFragmentClient {
+	subClient, _ := NewPolicyFragmentClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewPortalConfigClient() *PortalConfigClient {
+	subClient, _ := NewPortalConfigClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewPortalRevisionClient() *PortalRevisionClient {
 	subClient, _ := NewPortalRevisionClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -331,6 +380,16 @@ func (c *ClientFactory) NewProductSubscriptionsClient() *ProductSubscriptionsCli
 
 func (c *ClientFactory) NewProductPolicyClient() *ProductPolicyClient {
 	subClient, _ := NewProductPolicyClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewProductWikiClient() *ProductWikiClient {
+	subClient, _ := NewProductWikiClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewProductWikisClient() *ProductWikisClient {
+	subClient, _ := NewProductWikisClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -416,5 +475,10 @@ func (c *ClientFactory) NewUserIdentitiesClient() *UserIdentitiesClient {
 
 func (c *ClientFactory) NewUserConfirmationPasswordClient() *UserConfirmationPasswordClient {
 	subClient, _ := NewUserConfirmationPasswordClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDocumentationClient() *DocumentationClient {
+	subClient, _ := NewDocumentationClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
