@@ -1,5 +1,24 @@
 # Release History
 
+## 0.8.0 (2023-04-18)
+### Features Added
+
+- New function `*ClientFactory.NewOrganizationsClient() *OrganizationsClient`
+- New function `*ClientFactory.NewVersionsClient() *VersionsClient`
+- New function `NewOrganizationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OrganizationsClient, error)`
+- New function `*OrganizationsClient.GetAPIKey(context.Context, *OrganizationsClientGetAPIKeyOptions) (OrganizationsClientGetAPIKeyResponse, error)`
+- New function `NewVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VersionsClient, error)`
+- New function `*VersionsClient.List(context.Context, string, *VersionsClientListOptions) (VersionsClientListResponse, error)`
+- New struct `MarketplaceSaaSInfo`
+- New struct `MarketplaceSaaSInfoMarketplaceSubscription`
+- New struct `UserAPIKeyResponse`
+- New struct `UserEmailID`
+- New struct `VersionsListResponse`
+- New field `DeploymentURL` in struct `DeploymentInfoResponse`
+- New field `MarketplaceSaasInfo` in struct `DeploymentInfoResponse`
+- New field `GenerateAPIKey` in struct `MonitorProperties`
+
+
 ## 0.7.0 (2023-03-28)
 ### Features Added
 
