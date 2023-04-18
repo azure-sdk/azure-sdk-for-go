@@ -11,7 +11,7 @@ package armcommerce
 
 const (
 	moduleName    = "armcommerce"
-	moduleVersion = "v0.2.0"
+	moduleVersion = "v0.3.0"
 )
 
 type AggregationGranularity string
