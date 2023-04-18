@@ -81,7 +81,7 @@ type AlexaChannelProperties struct {
 
 // Bot resource definition
 type Bot struct {
-	// Entity Tag
+	// Entity Tag.
 	Etag *string
 
 	// Required. Gets or sets the Kind of the resource.
@@ -114,7 +114,7 @@ type Bot struct {
 
 // BotChannel - Bot channel resource definition
 type BotChannel struct {
-	// Entity Tag
+	// Entity Tag.
 	Etag *string
 
 	// Required. Gets or sets the Kind of the resource.
@@ -469,7 +469,7 @@ type ConnectionItemName struct {
 
 // ConnectionSetting - Bot channel resource definition
 type ConnectionSetting struct {
-	// Entity Tag
+	// Entity Tag.
 	Etag *string
 
 	// Required. Gets or sets the Kind of the resource.
@@ -516,6 +516,12 @@ type ConnectionSettingProperties struct {
 
 	// Client Secret associated with the Connection Setting
 	ClientSecret *string
+
+	// Id of the Connection Setting.
+	ID *string
+
+	// Name of the Connection Setting.
+	Name *string
 
 	// Service Provider Parameters associated with the Connection Setting
 	Parameters []*ConnectionSettingParameter
@@ -982,7 +988,7 @@ type ListChannelWithKeysResponse struct {
 	// Entity tag of the resource
 	EntityTag *string
 
-	// Entity Tag
+	// Entity Tag.
 	Etag *string
 
 	// Required. Gets or sets the Kind of the resource.
@@ -1372,7 +1378,7 @@ type QnAMakerEndpointKeysResponse struct {
 
 // Resource - Azure resource
 type Resource struct {
-	// Entity Tag
+	// Entity Tag.
 	Etag *string
 
 	// Required. Gets or sets the Kind of the resource.

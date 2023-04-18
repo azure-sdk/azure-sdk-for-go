@@ -1,5 +1,12 @@
 # Release History
 
+## 1.2.0 (2023-04-18)
+### Features Added
+
+- New field `ID` in struct `ConnectionSettingProperties`
+- New field `Name` in struct `ConnectionSettingProperties`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
