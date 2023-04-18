@@ -1,5 +1,36 @@
 # Release History
 
+## 2.4.0 (2023-04-18)
+### Features Added
+
+- New value `AuthenticationMethodLdap` added to enum type `AuthenticationMethod`
+- New value `PublicNetworkAccessSecuredByPerimeter` added to enum type `PublicNetworkAccess`
+- New enum type `ContinuousTier` with values `ContinuousTierContinuous30Days`, `ContinuousTierContinuous7Days`
+- New enum type `Kind` with values `KindPrimary`, `KindPrimaryReadonly`, `KindSecondary`, `KindSecondaryReadonly`
+- New enum type `Status` with values `StatusDeleting`, `StatusInitializing`, `StatusInternallyReady`, `StatusOnline`, `StatusUninitialized`
+- New enum type `Type` with values `TypeCassandra`, `TypeCassandraConnectorMetadata`, `TypeGremlin`, `TypeGremlinV2`, `TypeMongoDB`, `TypeSQL`, `TypeSQLDedicatedGateway`, `TypeTable`, `TypeUndefined`
+- New struct `AuthenticationMethodLdapProperties`
+- New struct `CassandraError`
+- New struct `ContinuousModeProperties`
+- New field `Errors` in struct `CassandraClusterPublicStatus`
+- New field `ProvisionError` in struct `ClusterResourceProperties`
+- New field `CassandraProcessStatus` in struct `ComponentsM9L909SchemasCassandraclusterpublicstatusPropertiesDatacentersItemsPropertiesNodesItems`
+- New field `ContinuousModeProperties` in struct `ContinuousModeBackupPolicy`
+- New field `AuthenticationMethodLdapProperties` in struct `DataCenterResourceProperties`
+- New field `Deallocated` in struct `DataCenterResourceProperties`
+- New field `ProvisionError` in struct `DataCenterResourceProperties`
+- New field `KeyKind` in struct `DatabaseAccountConnectionString`
+- New field `Type` in struct `DatabaseAccountConnectionString`
+- New field `IsSubscriptionRegionAccessAllowedForAz` in struct `LocationProperties`
+- New field `IsSubscriptionRegionAccessAllowedForRegular` in struct `LocationProperties`
+- New field `Status` in struct `LocationProperties`
+- New field `OldestRestorableTime` in struct `RestorableDatabaseAccountProperties`
+- New field `InstantMaximumThroughput` in struct `ThroughputSettingsGetPropertiesResource`
+- New field `SoftAllowedMaximumThroughput` in struct `ThroughputSettingsGetPropertiesResource`
+- New field `InstantMaximumThroughput` in struct `ThroughputSettingsResource`
+- New field `SoftAllowedMaximumThroughput` in struct `ThroughputSettingsResource`
+
+
 ## 2.3.0 (2023-04-07)
 ### Features Added
 
