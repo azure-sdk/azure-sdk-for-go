@@ -46,7 +46,7 @@ func NewQuotasClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // NewListPager - Gets the currently assigned Workspace Quotas based on VMFamily.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - location - The location for which resource usage is queried.
 //   - options - QuotasClientListOptions contains the optional parameters for the QuotasClient.NewListPager method.
 func (client *QuotasClient) NewListPager(location string, options *QuotasClientListOptions) *runtime.Pager[QuotasClientListResponse] {
@@ -93,7 +93,7 @@ func (client *QuotasClient) listCreateRequest(ctx context.Context, location stri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -111,7 +111,7 @@ func (client *QuotasClient) listHandleResponse(resp *http.Response) (QuotasClien
 // Update - Update quota for each VM family in workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-10-01
+// Generated from API version 2023-04-01
 //   - location - The location for update quota is queried.
 //   - parameters - Quota update parameters.
 //   - options - QuotasClientUpdateOptions contains the optional parameters for the QuotasClient.Update method.
@@ -146,7 +146,7 @@ func (client *QuotasClient) updateCreateRequest(ctx context.Context, location st
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-10-01")
+	reqQP.Set("api-version", "2023-04-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
