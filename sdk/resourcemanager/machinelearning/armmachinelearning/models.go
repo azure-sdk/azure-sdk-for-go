@@ -131,6 +131,15 @@ func (a *AccountKeyDatastoreSecrets) GetDatastoreSecrets() *DatastoreSecrets {
 	}
 }
 
+// AcrDetails - Details of ACR account to be used for the Registry
+type AcrDetails struct {
+	// Details of system created ACR account to be used for the Registry
+	SystemCreatedAcrAccount *SystemCreatedAcrAccount
+
+	// Details of user created ACR account to be used for the Registry
+	UserCreatedAcrAccount *UserCreatedAcrAccount
+}
+
 // AksComputeSecrets - Secrets related to a Machine Learning compute based on AKS.
 type AksComputeSecrets struct {
 	// REQUIRED; The type of compute
@@ -180,6 +189,19 @@ type AksNetworkingConfiguration struct {
 
 	// Virtual network subnet resource ID the compute nodes belong to
 	SubnetID *string
+}
+
+// AllNodes - All nodes means the service will be running on all of the nodes of the job
+type AllNodes struct {
+	// REQUIRED; [Required] Type of the Nodes value
+	NodesValueType *NodesValueType
+}
+
+// GetNodes implements the NodesClassification interface for type AllNodes.
+func (a *AllNodes) GetNodes() *Nodes {
+	return &Nodes{
+		NodesValueType: a.NodesValueType,
+	}
 }
 
 // AmlCompute - An Azure Machine Learning compute.
@@ -393,6 +415,14 @@ type AmlUserFeature struct {
 
 	// Specifies the feature ID
 	ID *string
+}
+
+// ArmResourceID - ARM ResourceId of a resource
+type ArmResourceID struct {
+	// Arm ResourceId is in the format "/subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Storage/storageAccounts/{StorageAccountName}"
+	// or
+	// "/subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.ContainerRegistry/registries/{AcrName}"
+	ResourceID *string
 }
 
 type AssetBase struct {
@@ -1133,6 +1163,29 @@ func (b *BayesianSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	}
 }
 
+// BindOptions - Describes the bind options for the container
+type BindOptions struct {
+	// Indicate whether to create host path.
+	CreateHostPath *bool
+
+	// Type of Bind Option
+	Propagation *string
+
+	// Mention the selinux options.
+	Selinux *string
+}
+
+type BlobReferenceForConsumptionDto struct {
+	// Blob URI path for client to upload data. Example: https://blob.windows.core.net/Container/Path
+	BlobURI *string
+
+	// Credential info to access storage account
+	Credential PendingUploadCredentialDtoClassification
+
+	// Arm ID of the storage account to use
+	StorageAccountArmID *string
+}
+
 // BuildContext - Configuration settings for Docker build context
 type BuildContext struct {
 	// REQUIRED; [Required] URI of the Docker build context used to build the image. Supports blob URIs on environment creation
@@ -1344,6 +1397,9 @@ type CodeContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the code container.
+	ProvisioningState *AssetProvisioningState
 }
 
 // CodeContainerResourceArmPaginatedResult - A paginated list of CodeContainer entities.
@@ -1414,6 +1470,9 @@ type CodeVersionProperties struct {
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
+
+	// READ-ONLY; Provisioning state for the code version.
+	ProvisioningState *AssetProvisioningState
 }
 
 // CodeVersionResourceArmPaginatedResult - A paginated list of CodeVersion entities.
@@ -1423,6 +1482,12 @@ type CodeVersionResourceArmPaginatedResult struct {
 
 	// An array of objects of type CodeVersion.
 	Value []*CodeVersion
+}
+
+// CodeVersionsClientCreateOrGetStartPendingUploadOptions contains the optional parameters for the CodeVersionsClient.CreateOrGetStartPendingUpload
+// method.
+type CodeVersionsClientCreateOrGetStartPendingUploadOptions struct {
+	// placeholder for future optional parameters
 }
 
 // CodeVersionsClientCreateOrUpdateOptions contains the optional parameters for the CodeVersionsClient.CreateOrUpdate method.
@@ -1442,6 +1507,10 @@ type CodeVersionsClientGetOptions struct {
 
 // CodeVersionsClientListOptions contains the optional parameters for the CodeVersionsClient.NewListPager method.
 type CodeVersionsClientListOptions struct {
+	// If specified, return CodeVersion assets with specified content hash value, regardless of name
+	Hash *string
+	// Hash algorithm version when listing by hash
+	HashVersion *string
 	// Ordering of list.
 	OrderBy *string
 	// Continuation token for pagination.
@@ -1602,6 +1671,9 @@ type ComponentContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the component container.
+	ProvisioningState *AssetProvisioningState
 }
 
 // ComponentContainerResourceArmPaginatedResult - A paginated list of ComponentContainer entities.
@@ -1674,6 +1746,9 @@ type ComponentVersionProperties struct {
 
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
+
+	// READ-ONLY; Provisioning state for the component version.
+	ProvisioningState *AssetProvisioningState
 }
 
 // ComponentVersionResourceArmPaginatedResult - A paginated list of ComponentVersion entities.
@@ -2000,6 +2075,9 @@ type ComputeInstanceProperties struct {
 	// The Compute Instance Authorization type. Available values are personal (default).
 	ComputeInstanceAuthorizationType *ComputeInstanceAuthorizationType
 
+	// List of Custom Services added to the compute.
+	CustomServices []*CustomService
+
 	// Enable or disable node public IP address provisioning. Possible values are: Possible values are: true - Indicates that
 	// the compute nodes will have public IPs provisioned. false - Indicates that the
 	// compute nodes will have a private endpoint and no public IPs.
@@ -2010,6 +2088,9 @@ type ComputeInstanceProperties struct {
 
 	// Specifies policy and settings for SSH access.
 	SSHSettings *ComputeInstanceSSHSettings
+
+	// The list of schedules to be applied on the computes.
+	Schedules *ComputeSchedules
 
 	// Details of customized scripts to execute for setting up the cluster.
 	SetupScripts *SetupScripts
@@ -2044,8 +2125,8 @@ type ComputeInstanceProperties struct {
 	// READ-ONLY; The last operation on ComputeInstance.
 	LastOperation *ComputeInstanceLastOperation
 
-	// READ-ONLY; The list of schedules to be applied on the computes.
-	Schedules *ComputeSchedules
+	// READ-ONLY; Returns metadata about the operating system image for this compute instance.
+	OSImageMetadata *ImageMetadata
 
 	// READ-ONLY; The current state of this ComputeInstance.
 	State *ComputeInstanceState
@@ -2148,10 +2229,10 @@ type ComputeStartStopSchedule struct {
 	Action *ComputePowerAction
 
 	// Required if triggerType is Cron.
-	Cron *CronTrigger
+	Cron *Cron
 
 	// Required if triggerType is Recurrence.
-	Recurrence *RecurrenceTrigger
+	Recurrence *Recurrence
 
 	// [Deprecated] Not used any more.
 	Schedule *ScheduleBase
@@ -2192,6 +2273,19 @@ type ContainerResourceSettings struct {
 type CosmosDbSettings struct {
 	// The throughput of the collections in cosmosdb database
 	CollectionsThroughput *int32
+}
+
+// Cron - The workflow trigger cron for ComputeStartStop schedule type.
+type Cron struct {
+	// [Required] Specifies cron expression of schedule. The expression should follow NCronTab format.
+	Expression *string
+
+	// The start time in yyyy-MM-ddTHH:mm:ss format.
+	StartTime *string
+
+	// Specifies time zone in which the schedule runs. TimeZone should follow Windows time zone format. Refer:
+	// https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11
+	TimeZone *string
 }
 
 type CronTrigger struct {
@@ -2313,6 +2407,30 @@ func (c *CustomSeasonality) GetSeasonality() *Seasonality {
 	return &Seasonality{
 		Mode: c.Mode,
 	}
+}
+
+// CustomService - Specifies the custom service configuration
+type CustomService struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Describes the docker settings for the image
+	Docker *Docker
+
+	// Configuring the endpoints for the container
+	Endpoints []*Endpoint
+
+	// Environment Variable for the container
+	EnvironmentVariables map[string]*EnvironmentVariable
+
+	// Describes the Image Specifications
+	Image *Image
+
+	// Name of the Custom Service
+	Name *string
+
+	// Configuring the volumes for the container
+	Volumes []*VolumeDefinition
 }
 
 type CustomTargetLags struct {
@@ -2581,7 +2699,7 @@ type DataVersionBaseProperties struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string
 
 	// The asset description text.
@@ -2989,6 +3107,15 @@ func (d *DistributionConfiguration) GetDistributionConfiguration() *Distribution
 	return d
 }
 
+// Docker container configuration
+type Docker struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Indicate whether container shall run in privileged or non-privileged mode.
+	Privileged *bool
+}
+
 // EarlyTerminationPolicyClassification provides polymorphic access to related types.
 // Call the interface's GetEarlyTerminationPolicy() method to access the common type.
 // Use a type switch to determine the concrete type.  The possible types are:
@@ -3033,6 +3160,24 @@ type EncryptionProperty struct {
 
 	// The identity that will be used to access the key vault for encryption at rest.
 	Identity *IdentityForCmk
+}
+
+// Endpoint - Describes the endpoint configuration for the container
+type Endpoint struct {
+	// Host IP over which the application is exposed from the container
+	HostIP *string
+
+	// Name of the Endpoint
+	Name *string
+
+	// Protocol over which communication will happen over this endpoint
+	Protocol *Protocol
+
+	// Port over which the application is exposed from container.
+	Published *int32
+
+	// Application port inside the container.
+	Target *int32
 }
 
 // EndpointAuthKeys - Keys for endpoint authentication.
@@ -3152,6 +3297,9 @@ type EnvironmentContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the environment container.
+	ProvisioningState *AssetProvisioningState
 }
 
 // EnvironmentContainerResourceArmPaginatedResult - A paginated list of EnvironmentContainer entities.
@@ -3186,6 +3334,18 @@ type EnvironmentContainersClientListOptions struct {
 	ListViewType *ListViewType
 	// Continuation token for pagination.
 	Skip *string
+}
+
+// EnvironmentVariable - Environment Variables for the container
+type EnvironmentVariable struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Type of the Environment Variable. Possible values are: local - For local variable
+	Type *EnvironmentVariableType
+
+	// Value of the Environment variable
+	Value *string
 }
 
 // EnvironmentVersion - Azure Resource Manager resource envelope.
@@ -3238,11 +3398,17 @@ type EnvironmentVersionProperties struct {
 	// The asset property dictionary.
 	Properties map[string]*string
 
+	// Stage in the environment lifecycle assigned to this environment
+	Stage *string
+
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
 
 	// READ-ONLY; Environment type is either user managed or curated by the Azure ML service
 	EnvironmentType *EnvironmentType
+
+	// READ-ONLY; Provisioning state for the environment version.
+	ProvisioningState *AssetProvisioningState
 }
 
 // EnvironmentVersionResourceArmPaginatedResult - A paginated list of EnvironmentVersion entities.
@@ -3661,6 +3827,24 @@ type IdentityForCmk struct {
 	UserAssignedIdentity *string
 }
 
+// IdleShutdownSetting - Stops compute instance after user defined period of inactivity.
+type IdleShutdownSetting struct {
+	// Time is defined in ISO8601 format. Minimum is 15 min, maximum is 3 days.
+	IdleTimeBeforeShutdown *string
+}
+
+// Image - Describes the Image Specifications
+type Image struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Image reference
+	Reference *string
+
+	// Type of the image. Possible values are: docker - For docker images. azureml - For AzureML images
+	Type *ImageType
+}
+
 // ImageClassification - Image Classification. Multi-class image classification is used when an image is classified with only
 // a single label from a set of classes - e.g. each image is classified as either an image of a 'cat'
 // or a 'dog' or a 'duck'.
@@ -3839,13 +4023,27 @@ type ImageLimitSettings struct {
 	Timeout *string
 }
 
-// ImageModelDistributionSettings - Distribution expressions to sweep over values of model settings.Some examples are:ModelName
-// = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";All distributions can be specified as distribution_name(min, max) or choice(val1, val2, …, valn) where distribution
-// name can be: uniform, quniform, loguniform, etc For more details on how to
-// compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information on the available settings
-// please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// ImageMetadata - Returns metadata about the operating system image for this compute instance.
+type ImageMetadata struct {
+	// Specifies the current operating system image version this compute instance is running on.
+	CurrentImageVersion *string
+
+	// Specifies whether this compute instance is running on the latest operating system image.
+	IsLatestOsImageVersion *bool
+
+	// Specifies the latest available operating system image version.
+	LatestImageVersion *string
+}
+
+// ImageModelDistributionSettings - Distribution expressions to sweep over values of model settings.Some examples are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// All distributions can be specified as distribution_name(min, max) or choice(val1, val2, …, valn) where distribution name
+// can be: uniform, quniform, loguniform, etc For more details on how to compose
+// distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on the available settings please visit
+// the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettings struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string
@@ -3940,10 +4138,13 @@ type ImageModelDistributionSettings struct {
 }
 
 // ImageModelDistributionSettingsClassification - Distribution expressions to sweep over values of model settings.Some examples
-// are:ModelName = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information
-// on the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on
+// the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettingsClassification struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string
@@ -4051,10 +4252,13 @@ type ImageModelDistributionSettingsClassification struct {
 }
 
 // ImageModelDistributionSettingsObjectDetection - Distribution expressions to sweep over values of model settings.Some examples
-// are:ModelName = "choice('seresnext', 'resnest50')"; LearningRate = "uniform(0.001, 0.01)"; LayersToFreeze = "choice(0,
-// 2)";For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
-// For more information
-// on the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
+// are:
+// ModelName = "choice('seresnext', 'resnest50')";
+// LearningRate = "uniform(0.001, 0.01)";
+// LayersToFreeze = "choice(0, 2)";
+// For more details on how to compose distribution expressions please check the documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters
+// For more information on
+// the available settings please visit the official documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-auto-train-image-models.
 type ImageModelDistributionSettingsObjectDetection struct {
 	// Enable AMSGrad when optimizer is 'adam' or 'adamw'.
 	AmsGradient *string
@@ -4904,6 +5108,10 @@ type JobService struct {
 	// Endpoint type.
 	JobServiceType *string
 
+	// Nodes that user would like to start the service on. If Nodes is not set or set to null, the service will only be started
+	// on leader node.
+	Nodes NodesClassification
+
 	// Port for endpoint.
 	Port *int32
 
@@ -5244,7 +5452,7 @@ type MLTableData struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string
 
 	// The asset description text.
@@ -5524,6 +5732,9 @@ type ModelContainerProperties struct {
 
 	// READ-ONLY; The next auto incremental version
 	NextVersion *string
+
+	// READ-ONLY; Provisioning state for the model container.
+	ProvisioningState *AssetProvisioningState
 }
 
 // ModelContainerResourceArmPaginatedResult - A paginated list of ModelContainer entities.
@@ -5605,8 +5816,14 @@ type ModelVersionProperties struct {
 	// The asset property dictionary.
 	Properties map[string]*string
 
+	// Stage in the model lifecycle assigned to this model
+	Stage *string
+
 	// Tag dictionary. Tags can be added, removed, and updated.
 	Tags map[string]*string
+
+	// READ-ONLY; Provisioning state for the model version.
+	ProvisioningState *AssetProvisioningState
 }
 
 // ModelVersionResourceArmPaginatedResult - A paginated list of ModelVersion entities.
@@ -5740,6 +5957,24 @@ type NodeStateCounts struct {
 	// READ-ONLY; Number of compute nodes which are in unusable state.
 	UnusableNodeCount *int32
 }
+
+// NodesClassification provides polymorphic access to related types.
+// Call the interface's GetNodes() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *AllNodes, *Nodes
+type NodesClassification interface {
+	// GetNodes returns the Nodes content of the underlying type.
+	GetNodes() *Nodes
+}
+
+// Nodes - Abstract Nodes definition
+type Nodes struct {
+	// REQUIRED; [Required] Type of the Nodes value
+	NodesValueType *NodesValueType
+}
+
+// GetNodes implements the NodesClassification interface for type Nodes.
+func (n *Nodes) GetNodes() *Nodes { return n }
 
 type NoneAuthTypeWorkspaceConnectionProperties struct {
 	// REQUIRED; Authentication type of the connection target
@@ -6035,6 +6270,10 @@ type OnlineEndpointProperties struct {
 	// retrieved using the ListKeys API.
 	Keys *EndpointAuthKeys
 
+	// Percentage of traffic to be mirrored to each deployment without using returned scoring. Traffic values need to sum to utmost
+	// 50.
+	MirrorTraffic map[string]*int32
+
 	// Property dictionary. Properties can be added, but not removed or altered.
 	Properties map[string]*string
 
@@ -6266,6 +6505,18 @@ type PartialMinimalTrackedResourceWithSKU struct {
 	Tags map[string]*string
 }
 
+// PartialRegistryPartialTrackedResource - Strictly used in update requests.
+type PartialRegistryPartialTrackedResource struct {
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *RegistryPartialManagedServiceIdentity
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *PartialSKU
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
 // PartialSKU - Common SKU definition.
 type PartialSKU struct {
 	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
@@ -6292,6 +6543,44 @@ type Password struct {
 
 	// READ-ONLY
 	Value *string
+}
+
+// PendingUploadCredentialDtoClassification provides polymorphic access to related types.
+// Call the interface's GetPendingUploadCredentialDto() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *PendingUploadCredentialDto, *SASCredentialDto
+type PendingUploadCredentialDtoClassification interface {
+	// GetPendingUploadCredentialDto returns the PendingUploadCredentialDto content of the underlying type.
+	GetPendingUploadCredentialDto() *PendingUploadCredentialDto
+}
+
+type PendingUploadCredentialDto struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *PendingUploadCredentialType
+}
+
+// GetPendingUploadCredentialDto implements the PendingUploadCredentialDtoClassification interface for type PendingUploadCredentialDto.
+func (p *PendingUploadCredentialDto) GetPendingUploadCredentialDto() *PendingUploadCredentialDto {
+	return p
+}
+
+type PendingUploadRequestDto struct {
+	// If PendingUploadId = null then random guid will be used.
+	PendingUploadID *string
+
+	// TemporaryBlobReference is the only supported type
+	PendingUploadType *PendingUploadType
+}
+
+type PendingUploadResponseDto struct {
+	// Container level read, write, list SAS
+	BlobReferenceForConsumption *BlobReferenceForConsumptionDto
+
+	// ID for this upload request
+	PendingUploadID *string
+
+	// TemporaryBlobReference is the only supported type
+	PendingUploadType *PendingUploadType
 }
 
 // PersonalComputeInstanceSettings - Settings for a personal compute instance.
@@ -6377,9 +6666,6 @@ func (p *PipelineJob) GetJobBaseProperties() *JobBaseProperties {
 type PrivateEndpoint struct {
 	// READ-ONLY; The ARM identifier for Private Endpoint
 	ID *string
-
-	// READ-ONLY; The ARM identifier for Subnet resource that private endpoint links to
-	SubnetArmID *string
 }
 
 // PrivateEndpointConnection - The Private Endpoint Connection resource.
@@ -6452,6 +6738,15 @@ type PrivateEndpointConnectionsClientGetOptions struct {
 // method.
 type PrivateEndpointConnectionsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// PrivateEndpointResource - The PE network resource that is linked to this PE connection.
+type PrivateEndpointResource struct {
+	// The subnetId that the private endpoint is connected to.
+	SubnetArmID *string
+
+	// READ-ONLY; The ARM identifier for Private Endpoint
+	ID *string
 }
 
 // PrivateLinkResource - A private link resource
@@ -6607,6 +6902,25 @@ func (r *RandomSamplingAlgorithm) GetSamplingAlgorithm() *SamplingAlgorithm {
 	}
 }
 
+// Recurrence - The workflow trigger recurrence for ComputeStartStop schedule type.
+type Recurrence struct {
+	// [Required] The frequency to trigger schedule.
+	Frequency *RecurrenceFrequency
+
+	// [Required] Specifies schedule interval in conjunction with frequency
+	Interval *int32
+
+	// [Required] The recurrence schedule.
+	Schedule *RecurrenceSchedule
+
+	// The start time in yyyy-MM-ddTHH:mm:ss format.
+	StartTime *string
+
+	// Specifies time zone in which the schedule runs. TimeZone should follow Windows time zone format. Refer:
+	// https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-time-zones?view=windows-11
+	TimeZone *string
+}
+
 type RecurrenceSchedule struct {
 	// REQUIRED; [Required] List of hours for the schedule.
 	Hours []*int32
@@ -6665,6 +6979,331 @@ type RegenerateEndpointKeysRequest struct {
 	KeyValue *string
 }
 
+// RegistriesClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistriesClient.BeginCreateOrUpdate
+// method.
+type RegistriesClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistriesClientBeginDeleteOptions contains the optional parameters for the RegistriesClient.BeginDelete method.
+type RegistriesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistriesClientBeginRemoveRegionsOptions contains the optional parameters for the RegistriesClient.BeginRemoveRegions
+// method.
+type RegistriesClientBeginRemoveRegionsOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistriesClientGetOptions contains the optional parameters for the RegistriesClient.Get method.
+type RegistriesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistriesClientListBySubscriptionOptions contains the optional parameters for the RegistriesClient.NewListBySubscriptionPager
+// method.
+type RegistriesClientListBySubscriptionOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistriesClientListOptions contains the optional parameters for the RegistriesClient.NewListPager method.
+type RegistriesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistriesClientUpdateOptions contains the optional parameters for the RegistriesClient.Update method.
+type RegistriesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+type Registry struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; [Required] Additional attributes of the entity.
+	Properties *RegistryProperties
+
+	// Managed service identity (system assigned and/or user assigned identities)
+	Identity *ManagedServiceIdentity
+
+	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type.
+	Kind *string
+
+	// Sku details required for ARM contract for Autoscaling.
+	SKU *SKU
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RegistryCodeContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryCodeContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryCodeContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryCodeContainersClientBeginDeleteOptions contains the optional parameters for the RegistryCodeContainersClient.BeginDelete
+// method.
+type RegistryCodeContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryCodeContainersClientGetOptions contains the optional parameters for the RegistryCodeContainersClient.Get method.
+type RegistryCodeContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryCodeContainersClientListOptions contains the optional parameters for the RegistryCodeContainersClient.NewListPager
+// method.
+type RegistryCodeContainersClientListOptions struct {
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryCodeVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryCodeVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryCodeVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryCodeVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryCodeVersionsClient.BeginDelete
+// method.
+type RegistryCodeVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryCodeVersionsClientCreateOrGetStartPendingUploadOptions contains the optional parameters for the RegistryCodeVersionsClient.CreateOrGetStartPendingUpload
+// method.
+type RegistryCodeVersionsClientCreateOrGetStartPendingUploadOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryCodeVersionsClientGetOptions contains the optional parameters for the RegistryCodeVersionsClient.Get method.
+type RegistryCodeVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryCodeVersionsClientListOptions contains the optional parameters for the RegistryCodeVersionsClient.NewListPager
+// method.
+type RegistryCodeVersionsClientListOptions struct {
+	// Ordering of list.
+	OrderBy *string
+	// Continuation token for pagination.
+	Skip *string
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// RegistryComponentContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryComponentContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryComponentContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryComponentContainersClientBeginDeleteOptions contains the optional parameters for the RegistryComponentContainersClient.BeginDelete
+// method.
+type RegistryComponentContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryComponentContainersClientGetOptions contains the optional parameters for the RegistryComponentContainersClient.Get
+// method.
+type RegistryComponentContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryComponentContainersClientListOptions contains the optional parameters for the RegistryComponentContainersClient.NewListPager
+// method.
+type RegistryComponentContainersClientListOptions struct {
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryComponentVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryComponentVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryComponentVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryComponentVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryComponentVersionsClient.BeginDelete
+// method.
+type RegistryComponentVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryComponentVersionsClientGetOptions contains the optional parameters for the RegistryComponentVersionsClient.Get
+// method.
+type RegistryComponentVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryComponentVersionsClientListOptions contains the optional parameters for the RegistryComponentVersionsClient.NewListPager
+// method.
+type RegistryComponentVersionsClientListOptions struct {
+	// Ordering of list.
+	OrderBy *string
+	// Continuation token for pagination.
+	Skip *string
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// RegistryDataContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryDataContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryDataContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryDataContainersClientBeginDeleteOptions contains the optional parameters for the RegistryDataContainersClient.BeginDelete
+// method.
+type RegistryDataContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryDataContainersClientGetOptions contains the optional parameters for the RegistryDataContainersClient.Get method.
+type RegistryDataContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryDataContainersClientListOptions contains the optional parameters for the RegistryDataContainersClient.NewListPager
+// method.
+type RegistryDataContainersClientListOptions struct {
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryDataVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryDataVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryDataVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryDataVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryDataVersionsClient.BeginDelete
+// method.
+type RegistryDataVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryDataVersionsClientCreateOrGetStartPendingUploadOptions contains the optional parameters for the RegistryDataVersionsClient.CreateOrGetStartPendingUpload
+// method.
+type RegistryDataVersionsClientCreateOrGetStartPendingUploadOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryDataVersionsClientGetOptions contains the optional parameters for the RegistryDataVersionsClient.Get method.
+type RegistryDataVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryDataVersionsClientListOptions contains the optional parameters for the RegistryDataVersionsClient.NewListPager
+// method.
+type RegistryDataVersionsClientListOptions struct {
+	// [ListViewType.ActiveOnly, ListViewType.ArchivedOnly, ListViewType.All]View type for including/excluding (for example) archived
+	// entities.
+	ListViewType *ListViewType
+	// Please choose OrderBy value from ['createdtime', 'modifiedtime']
+	OrderBy *string
+	// Continuation token for pagination.
+	Skip *string
+	// Comma-separated list of tag names (and optionally values). Example: tag1,tag2=value2
+	Tags *string
+	// Top count of results, top count cannot be greater than the page size. If topCount > page size, results with be default
+	// page size count will be returned
+	Top *int32
+}
+
+// RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryEnvironmentContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryEnvironmentContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryEnvironmentContainersClientBeginDeleteOptions contains the optional parameters for the RegistryEnvironmentContainersClient.BeginDelete
+// method.
+type RegistryEnvironmentContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryEnvironmentContainersClientGetOptions contains the optional parameters for the RegistryEnvironmentContainersClient.Get
+// method.
+type RegistryEnvironmentContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryEnvironmentContainersClientListOptions contains the optional parameters for the RegistryEnvironmentContainersClient.NewListPager
+// method.
+type RegistryEnvironmentContainersClientListOptions struct {
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryEnvironmentVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryEnvironmentVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryEnvironmentVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryEnvironmentVersionsClient.BeginDelete
+// method.
+type RegistryEnvironmentVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryEnvironmentVersionsClientGetOptions contains the optional parameters for the RegistryEnvironmentVersionsClient.Get
+// method.
+type RegistryEnvironmentVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryEnvironmentVersionsClientListOptions contains the optional parameters for the RegistryEnvironmentVersionsClient.NewListPager
+// method.
+type RegistryEnvironmentVersionsClientListOptions struct {
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Ordering of list.
+	OrderBy *string
+	// Continuation token for pagination.
+	Skip *string
+	// Maximum number of records to return.
+	Top *int32
+}
+
 type RegistryListCredentialsResult struct {
 	Passwords []*Password
 
@@ -6673,6 +7312,185 @@ type RegistryListCredentialsResult struct {
 
 	// READ-ONLY
 	Username *string
+}
+
+// RegistryModelContainersClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryModelContainersClient.BeginCreateOrUpdate
+// method.
+type RegistryModelContainersClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryModelContainersClientBeginDeleteOptions contains the optional parameters for the RegistryModelContainersClient.BeginDelete
+// method.
+type RegistryModelContainersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryModelContainersClientGetOptions contains the optional parameters for the RegistryModelContainersClient.Get method.
+type RegistryModelContainersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryModelContainersClientListOptions contains the optional parameters for the RegistryModelContainersClient.NewListPager
+// method.
+type RegistryModelContainersClientListOptions struct {
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Continuation token for pagination.
+	Skip *string
+}
+
+// RegistryModelVersionsClientBeginCreateOrUpdateOptions contains the optional parameters for the RegistryModelVersionsClient.BeginCreateOrUpdate
+// method.
+type RegistryModelVersionsClientBeginCreateOrUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryModelVersionsClientBeginDeleteOptions contains the optional parameters for the RegistryModelVersionsClient.BeginDelete
+// method.
+type RegistryModelVersionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegistryModelVersionsClientCreateOrGetStartPendingUploadOptions contains the optional parameters for the RegistryModelVersionsClient.CreateOrGetStartPendingUpload
+// method.
+type RegistryModelVersionsClientCreateOrGetStartPendingUploadOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryModelVersionsClientGetOptions contains the optional parameters for the RegistryModelVersionsClient.Get method.
+type RegistryModelVersionsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// RegistryModelVersionsClientListOptions contains the optional parameters for the RegistryModelVersionsClient.NewListPager
+// method.
+type RegistryModelVersionsClientListOptions struct {
+	// Model description.
+	Description *string
+	// View type for including/excluding (for example) archived entities.
+	ListViewType *ListViewType
+	// Ordering of list.
+	OrderBy *string
+	// Comma-separated list of property names (and optionally values). Example: prop1,prop2=value2
+	Properties *string
+	// Continuation token for pagination.
+	Skip *string
+	// Comma-separated list of tag names (and optionally values). Example: tag1,tag2=value2
+	Tags *string
+	// Maximum number of records to return.
+	Top *int32
+	// Version identifier.
+	Version *string
+}
+
+// RegistryPartialManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type RegistryPartialManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
+}
+
+// RegistryPrivateEndpointConnection - Private endpoint connection definition.
+type RegistryPrivateEndpointConnection struct {
+	// This is the private endpoint connection name created on SRP Full resource id:
+	// /subscriptions/{subId}/resourceGroups/{rgName}/providers/Microsoft.MachineLearningServices/{resourceType}/{resourceName}/registryPrivateEndpointConnections/{peConnectionName}
+	ID *string
+
+	// Same as workspace location.
+	Location *string
+
+	// Properties of the Private Endpoint Connection
+	Properties *RegistryPrivateEndpointConnectionProperties
+}
+
+// RegistryPrivateEndpointConnectionProperties - Properties of the Private Endpoint Connection
+type RegistryPrivateEndpointConnectionProperties struct {
+	// The group ids
+	GroupIDs []*string
+
+	// The PE network resource that is linked to this PE connection.
+	PrivateEndpoint *PrivateEndpointResource
+
+	// One of null, "Succeeded", "Provisioning", "Failed". While not approved, it's null.
+	ProvisioningState *string
+
+	// The connection state.
+	RegistryPrivateLinkServiceConnectionState *RegistryPrivateLinkServiceConnectionState
+}
+
+// RegistryPrivateLinkServiceConnectionState - The connection state.
+type RegistryPrivateLinkServiceConnectionState struct {
+	// Some RP chose "None". Other RPs use this for region expansion.
+	ActionsRequired *string
+
+	// User-defined message that, per NRP doc, may be used for approval-related message.
+	Description *string
+
+	// Connection status of the service consumer with the service provider
+	Status *EndpointServiceConnectionStatus
+}
+
+// RegistryProperties - Details of the Registry
+type RegistryProperties struct {
+	// Discovery URL for the Registry
+	DiscoveryURL *string
+
+	// IntellectualPropertyPublisher for the registry
+	IntellectualPropertyPublisher *string
+
+	// ResourceId of the managed RG if the registry has system created resources
+	ManagedResourceGroup *ArmResourceID
+
+	// MLFlow Registry URI for the Registry
+	MlFlowRegistryURI *string
+
+	// Is the Registry accessible from the internet? Possible values: "Enabled" or "Disabled"
+	PublicNetworkAccess *string
+
+	// Details of each region the registry is in
+	RegionDetails []*RegistryRegionArmDetails
+
+	// Private endpoint connections info used for pending connections in private link portal
+	RegistryPrivateEndpointConnections []*RegistryPrivateEndpointConnection
+}
+
+// RegistryRegionArmDetails - Details for each region the registry is in
+type RegistryRegionArmDetails struct {
+	// List of ACR accounts
+	AcrDetails []*AcrDetails
+
+	// The location where the registry exists
+	Location *string
+
+	// List of storage accounts
+	StorageAccountDetails []*StorageAccountDetails
+}
+
+// RegistryTrackedResourceArmPaginatedResult - A paginated list of Registry entities.
+type RegistryTrackedResourceArmPaginatedResult struct {
+	// The link to the next page of Registry objects. If null, there are no additional pages.
+	NextLink *string
+
+	// An array of objects of type Registry.
+	Value []*Registry
 }
 
 // Regression task in AutoML Table vertical.
@@ -6873,6 +7691,21 @@ func (s *SASAuthTypeWorkspaceConnectionProperties) GetWorkspaceConnectionPropert
 		Target:      s.Target,
 		Value:       s.Value,
 		ValueFormat: s.ValueFormat,
+	}
+}
+
+type SASCredentialDto struct {
+	// REQUIRED; [Required] Credential type used to authentication with storage.
+	CredentialType *PendingUploadCredentialType
+
+	// Full SAS Uri, including the storage, container/blob path and SAS token
+	SasURI *string
+}
+
+// GetPendingUploadCredentialDto implements the PendingUploadCredentialDtoClassification interface for type SASCredentialDto.
+func (s *SASCredentialDto) GetPendingUploadCredentialDto() *PendingUploadCredentialDto {
+	return &PendingUploadCredentialDto{
+		CredentialType: s.CredentialType,
 	}
 }
 
@@ -7273,6 +8106,15 @@ type StackEnsembleSettings struct {
 	StackMetaLearnerType *StackMetaLearnerType
 }
 
+// StorageAccountDetails - Details of storage account to be used for the Registry
+type StorageAccountDetails struct {
+	// Details of system created storage account to be used for the registry
+	SystemCreatedStorageAccount *SystemCreatedStorageAccount
+
+	// Details of user created storage account to be used for the registry
+	UserCreatedStorageAccount *UserCreatedStorageAccount
+}
+
 // SweepJob - Sweep job definition.
 type SweepJob struct {
 	// REQUIRED; [Required] Specifies the type of job.
@@ -7464,6 +8306,35 @@ type SynapseSparkProperties struct {
 
 	// Name of Azure Machine Learning workspace.
 	WorkspaceName *string
+}
+
+type SystemCreatedAcrAccount struct {
+	// Name of the ACR account
+	AcrAccountName *string
+
+	// SKU of the ACR account
+	AcrAccountSKU *string
+
+	// This is populated once the ACR account is created.
+	ArmResourceID *ArmResourceID
+}
+
+type SystemCreatedStorageAccount struct {
+	// Public blob access allowed
+	AllowBlobPublicAccess *bool
+
+	// This is populated once the storage account is created.
+	ArmResourceID *ArmResourceID
+
+	// HNS enabled for storage account
+	StorageAccountHnsEnabled *bool
+
+	// Name of the storage account
+	StorageAccountName *string
+
+	// Allowed values: "StandardLRS", "StandardGRS", "StandardRAGRS", "StandardZRS", "StandardGZRS", "StandardRAGZRS", "PremiumLRS",
+	// "PremiumZRS"
+	StorageAccountType *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -7772,6 +8643,12 @@ func (t *TextNer) GetAutoMLVertical() *AutoMLVertical {
 	}
 }
 
+// TmpfsOptions - Describes the tmpfs options for the container
+type TmpfsOptions struct {
+	// Mention the Tmpfs size
+	Size *int32
+}
+
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
 // and a 'location'
 type TrackedResource struct {
@@ -7944,7 +8821,7 @@ type URIFileDataVersion struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string
 
 	// The asset description text.
@@ -8025,7 +8902,7 @@ type URIFolderDataVersion struct {
 	// REQUIRED; [Required] Specifies the type of data.
 	DataType *DataType
 
-	// REQUIRED; [Required] Uri of the data. Usage/meaning depends on Microsoft.MachineLearning.ManagementFrontEnd.Contracts.V20221001.Assets.DataVersionBase.DataType
+	// REQUIRED; [Required] Uri of the data. Example: https://go.microsoft.com/fwlink/?linkid=2202330
 	DataURI *string
 
 	// The asset description text.
@@ -8186,6 +9063,16 @@ type UserAssignedIdentity struct {
 
 	// READ-ONLY; The principal ID of the assigned identity.
 	PrincipalID *string
+}
+
+type UserCreatedAcrAccount struct {
+	// ARM ResourceId of a resource
+	ArmResourceID *ArmResourceID
+}
+
+type UserCreatedStorageAccount struct {
+	// ARM ResourceId of a resource
+	ArmResourceID *ArmResourceID
 }
 
 // UserIdentity - User identity configuration.
@@ -8390,6 +9277,39 @@ type VirtualMachineSizeListResult struct {
 // VirtualMachineSizesClientListOptions contains the optional parameters for the VirtualMachineSizesClient.List method.
 type VirtualMachineSizesClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// VolumeDefinition - Describes the volume configuration for the container
+type VolumeDefinition struct {
+	// Bind Options of the mount
+	Bind *BindOptions
+
+	// Consistency of the volume
+	Consistency *string
+
+	// Indicate whether to mount volume as readOnly. Default value for this is false.
+	ReadOnly *bool
+
+	// Source of the mount. For bind mounts this is the host path.
+	Source *string
+
+	// Target of the mount. For bind mounts this is the path in the container.
+	Target *string
+
+	// tmpfs option of the mount
+	Tmpfs *TmpfsOptions
+
+	// Type of Volume Definition. Possible Values: bind,volume,tmpfs,npipe
+	Type *VolumeDefinitionType
+
+	// Volume Options of the mount
+	Volume *VolumeOptions
+}
+
+// VolumeOptions - Describes the volume options for the container
+type VolumeOptions struct {
+	// Indicate whether volume is nocopy
+	Nocopy *bool
 }
 
 // Workspace - An object that represents a machine learning workspace.
