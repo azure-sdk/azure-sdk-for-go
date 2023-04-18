@@ -1,5 +1,32 @@
 # Release History
 
+## 2.0.0 (2023-04-18)
+### Breaking Changes
+
+- Type of `ModernReservationRecommendation.Properties` has been changed from `*ModernReservationRecommendationProperties` to `ModernReservationRecommendationPropertiesClassification`
+- Field `Etag` of struct `CreditSummary` has been removed
+- Field `Tags` of struct `CreditSummary` has been removed
+- Field `MarketplaceCharges` of struct `LegacyChargeSummaryProperties` has been removed
+
+### Features Added
+
+- New value `EventTypeCreditExpired` added to enum type `EventType`
+- New function `*ModernReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New function `*ModernSharedScopeReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New function `*ModernSingleScopeReservationRecommendationProperties.GetModernReservationRecommendationProperties() *ModernReservationRecommendationProperties`
+- New struct `ModernSharedScopeReservationRecommendationProperties`
+- New struct `ModernSingleScopeReservationRecommendationProperties`
+- New field `OverageRefund` in struct `BalanceProperties`
+- New field `ETag` in struct `CreditSummary`
+- New field `IsEstimatedBalance` in struct `CreditSummaryProperties`
+- New field `IsEstimatedBalance` in struct `EventProperties`
+- New field `AzureMarketplaceCharges` in struct `LegacyChargeSummaryProperties`
+- New field `IsEstimatedBalance` in struct `LotProperties`
+- New field `SubscriptionID` in struct `ModernChargeSummaryProperties`
+- New field `PreviewMarkupPercentage` in struct `ReservationTransactionsClientListOptions`
+- New field `UseMarkupIfPartner` in struct `ReservationTransactionsClientListOptions`
+
+
 ## 1.1.0 (2023-03-28)
 ### Features Added
 
