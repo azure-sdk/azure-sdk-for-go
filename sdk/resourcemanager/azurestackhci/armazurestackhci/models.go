@@ -41,7 +41,7 @@ type ArcSetting struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; System data of ArcSetting resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -80,6 +80,9 @@ type ArcSettingProperties struct {
 	// READ-ONLY; Aggregate state of Arc agent across the nodes in this HCI cluster.
 	AggregateState *ArcSettingAggregateState
 
+	// READ-ONLY; Properties for each of the default extensions category
+	DefaultExtensions []*DefaultExtensionDetails
+
 	// READ-ONLY; State of Arc agent in each of the nodes.
 	PerNodeDetails []*PerNodeState
 
@@ -98,6 +101,19 @@ type ArcSettingsClientBeginCreateIdentityOptions struct {
 type ArcSettingsClientBeginDeleteOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ArcSettingsClientBeginInitializeDisableProcessOptions contains the optional parameters for the ArcSettingsClient.BeginInitializeDisableProcess
+// method.
+type ArcSettingsClientBeginInitializeDisableProcessOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ArcSettingsClientConsentAndInstallDefaultExtensionsOptions contains the optional parameters for the ArcSettingsClient.ConsentAndInstallDefaultExtensions
+// method.
+type ArcSettingsClientConsentAndInstallDefaultExtensionsOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ArcSettingsClientCreateOptions contains the optional parameters for the ArcSettingsClient.Create method.
@@ -146,6 +162,9 @@ type Cluster struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// Identity of Cluster resource
+	Identity *ManagedServiceIdentity
+
 	// Cluster properties.
 	Properties *ClusterProperties
 
@@ -158,7 +177,7 @@ type Cluster struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; System data of Cluster resource
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
@@ -201,8 +220,14 @@ type ClusterNode struct {
 	// READ-ONLY; Number of physical cores on the cluster node.
 	CoreCount *float32
 
+	// READ-ONLY; Edge Hardware Center Resource Id
+	EhcResourceID *string
+
 	// READ-ONLY; Id of the node in the cluster.
 	ID *float32
+
+	// READ-ONLY; Most recent licensing timestamp.
+	LastLicensingTimestamp *time.Time
 
 	// READ-ONLY; Manufacturer of the cluster node hardware.
 	Manufacturer *string
@@ -215,6 +240,12 @@ type ClusterNode struct {
 
 	// READ-ONLY; Name of the cluster node.
 	Name *string
+
+	// READ-ONLY; Type of the cluster node hardware.
+	NodeType *ClusterNodeType
+
+	// READ-ONLY; Display version of the operating system running on the cluster node.
+	OSDisplayVersion *string
 
 	// READ-ONLY; Operating system running on the cluster node.
 	OSName *string
@@ -231,6 +262,9 @@ type ClusterNode struct {
 
 // ClusterPatch - Cluster details to update.
 type ClusterPatch struct {
+	// Identity of Cluster resource
+	Identity *ManagedServiceIdentity
+
 	// Cluster properties.
 	Properties *ClusterPatchProperties
 
@@ -273,6 +307,9 @@ type ClusterProperties struct {
 	// Desired properties of the cluster.
 	DesiredProperties *ClusterDesiredProperties
 
+	// Software Assurance properties of the cluster.
+	SoftwareAssuranceProperties *SoftwareAssuranceProperties
+
 	// READ-ONLY; Type of billing applied to the resource.
 	BillingModel *string
 
@@ -293,6 +330,9 @@ type ClusterProperties struct {
 
 	// READ-ONLY; Properties reported by cluster agent.
 	ReportedProperties *ClusterReportedProperties
+
+	// READ-ONLY; Object id of RP Service Principal
+	ResourceProviderObjectID *string
 
 	// READ-ONLY; Region specific DataPath Endpoint of the cluster.
 	ServiceEndpoint *string
@@ -315,6 +355,9 @@ type ClusterReportedProperties struct {
 	// READ-ONLY; Name of the on-prem cluster connected to this resource.
 	ClusterName *string
 
+	// READ-ONLY; The node type of all the nodes of the cluster.
+	ClusterType *ClusterNodeType
+
 	// READ-ONLY; Version of the cluster software.
 	ClusterVersion *string
 
@@ -324,8 +367,14 @@ type ClusterReportedProperties struct {
 	// READ-ONLY; Last time the cluster reported the data.
 	LastUpdated *time.Time
 
+	// READ-ONLY; The manufacturer of all the nodes of the cluster.
+	Manufacturer *string
+
 	// READ-ONLY; List of nodes reported by the cluster.
 	Nodes []*ClusterNode
+
+	// READ-ONLY; Capabilities supported by the cluster.
+	SupportedCapabilities []*string
 }
 
 // ClustersClientBeginCreateIdentityOptions contains the optional parameters for the ClustersClient.BeginCreateIdentity method.
@@ -336,6 +385,13 @@ type ClustersClientBeginCreateIdentityOptions struct {
 
 // ClustersClientBeginDeleteOptions contains the optional parameters for the ClustersClient.BeginDelete method.
 type ClustersClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// ClustersClientBeginExtendSoftwareAssuranceBenefitOptions contains the optional parameters for the ClustersClient.BeginExtendSoftwareAssuranceBenefit
+// method.
+type ClustersClientBeginExtendSoftwareAssuranceBenefitOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -372,6 +428,15 @@ type ClustersClientListBySubscriptionOptions struct {
 // ClustersClientUpdateOptions contains the optional parameters for the ClustersClient.Update method.
 type ClustersClientUpdateOptions struct {
 	// placeholder for future optional parameters
+}
+
+// DefaultExtensionDetails - Properties for a particular default extension category.
+type DefaultExtensionDetails struct {
+	// READ-ONLY; Default extension category
+	Category *string
+
+	// READ-ONLY; Consent time for extension category
+	ConsentTime *time.Time
 }
 
 // ErrorAdditionalInfo - The resource management error additional info.
@@ -419,11 +484,44 @@ type Extension struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
-	// READ-ONLY; System data of Extension resource.
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
 	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// ExtensionInstanceView - Describes the Extension Instance View.
+type ExtensionInstanceView struct {
+	// The extension name.
+	Name *string
+
+	// Instance view status.
+	Status *ExtensionInstanceViewStatus
+
+	// Specifies the type of the extension; an example is "MicrosoftMonitoringAgent".
+	Type *string
+
+	// Specifies the version of the script handler.
+	TypeHandlerVersion *string
+}
+
+// ExtensionInstanceViewStatus - Instance view status.
+type ExtensionInstanceViewStatus struct {
+	// The status code.
+	Code *string
+
+	// The short localizable label for the status.
+	DisplayStatus *string
+
+	// The level code.
+	Level *StatusLevelTypes
+
+	// The detailed status message, including for alerts and error messages.
+	Message *string
+
+	// The time of the status.
+	Time *time.Time
 }
 
 // ExtensionList - List of Extensions in HCI cluster.
@@ -442,6 +540,9 @@ type ExtensionParameters struct {
 	// with this property set to true.
 	AutoUpgradeMinorVersion *bool
 
+	// Indicates whether the extension should be automatically upgraded by the platform if there is a newer version available.
+	EnableAutomaticUpgrade *bool
+
 	// How the extension handler should be forced to update even if the extension configuration has not changed.
 	ForceUpdateTag *string
 
@@ -457,7 +558,7 @@ type ExtensionParameters struct {
 	// Specifies the type of the extension; an example is "CustomScriptExtension".
 	Type *string
 
-	// Specifies the version of the script handler.
+	// Specifies the version of the script handler. Latest version would be used if not specified.
 	TypeHandlerVersion *string
 }
 
@@ -469,11 +570,20 @@ type ExtensionProperties struct {
 	// READ-ONLY; Aggregate state of Arc Extensions across the nodes in this HCI cluster.
 	AggregateState *ExtensionAggregateState
 
+	// READ-ONLY; Indicates if the extension is managed by azure or the user.
+	ManagedBy *ExtensionManagedBy
+
 	// READ-ONLY; State of Arc Extension in each of the nodes.
 	PerNodeExtensionDetails []*PerNodeExtensionState
 
 	// READ-ONLY; Provisioning state of the Extension proxy resource.
 	ProvisioningState *ProvisioningState
+}
+
+// ExtensionUpgradeParameters - Describes the parameters for Extension upgrade.
+type ExtensionUpgradeParameters struct {
+	// Extension Upgrade Target Version.
+	TargetVersion *string
 }
 
 // ExtensionsClientBeginCreateOptions contains the optional parameters for the ExtensionsClient.BeginCreate method.
@@ -494,6 +604,12 @@ type ExtensionsClientBeginUpdateOptions struct {
 	ResumeToken string
 }
 
+// ExtensionsClientBeginUpgradeOptions contains the optional parameters for the ExtensionsClient.BeginUpgrade method.
+type ExtensionsClientBeginUpgradeOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // ExtensionsClientGetOptions contains the optional parameters for the ExtensionsClient.Get method.
 type ExtensionsClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -503,6 +619,89 @@ type ExtensionsClientGetOptions struct {
 // method.
 type ExtensionsClientListByArcSettingOptions struct {
 	// placeholder for future optional parameters
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
+}
+
+// Offer details.
+type Offer struct {
+	// Offer properties.
+	Properties *OfferProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// OfferList - List of Offer proxy resources for the HCI cluster.
+type OfferList struct {
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string
+
+	// READ-ONLY; List of Offer proxy resources.
+	Value []*Offer
+}
+
+// OfferProperties - Publisher properties.
+type OfferProperties struct {
+	// JSON serialized catalog content of the offer
+	Content *string
+
+	// The API version of the catalog service used to serve the catalog content
+	ContentVersion *string
+
+	// Identifier of the Publisher for the offer
+	PublisherID *string
+
+	// Array of SKU mappings
+	SKUMappings []*SKUMappings
+
+	// READ-ONLY; Provisioning State
+	ProvisioningState *string
+}
+
+// OffersClientGetOptions contains the optional parameters for the OffersClient.Get method.
+type OffersClientGetOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
+}
+
+// OffersClientListByClusterOptions contains the optional parameters for the OffersClient.NewListByClusterPager method.
+type OffersClientListByClusterOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
+}
+
+// OffersClientListByPublisherOptions contains the optional parameters for the OffersClient.NewListByPublisherPager method.
+type OffersClientListByPublisherOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
 }
 
 // Operation - Details of a REST API operation, returned from the Resource Provider Operations API
@@ -559,6 +758,18 @@ type OperationsClientListOptions struct {
 	// placeholder for future optional parameters
 }
 
+// PackageVersionInfo - Current version of each updatable component.
+type PackageVersionInfo struct {
+	// Last time this component was updated.
+	LastUpdated *time.Time
+
+	// Package type
+	PackageType *string
+
+	// Package version
+	Version *string
+}
+
 type PasswordCredential struct {
 	EndDateTime   *time.Time
 	KeyID         *string
@@ -571,11 +782,17 @@ type PerNodeExtensionState struct {
 	// READ-ONLY; Fully qualified resource ID for the particular Arc Extension on this node.
 	Extension *string
 
+	// READ-ONLY; The extension instance view.
+	InstanceView *ExtensionInstanceView
+
 	// READ-ONLY; Name of the node in HCI Cluster.
 	Name *string
 
 	// READ-ONLY; State of Arc Extension in this node.
 	State *NodeExtensionState
+
+	// READ-ONLY; Specifies the version of the script handler.
+	TypeHandlerVersion *string
 }
 
 // PerNodeState - Status of Arc agent for a particular node in HCI Cluster.
@@ -590,6 +807,55 @@ type PerNodeState struct {
 	State *NodeArcState
 }
 
+type PrecheckResult struct {
+	// Property bag of key value pairs for additional information.
+	AdditionalData *string
+
+	// Detailed overview of the issue and what impact the issue has on the stamp.
+	Description *string
+
+	// The name of the services called for the HealthCheck (I.E. Test-AzureStack, Test-Cluster).
+	HealthCheckSource *string
+
+	// Name of the individual test/rule/alert that was executed. Unique, not exposed to the customer.
+	Name *string
+
+	// Set of steps that can be taken to resolve the issue found.
+	Remediation *string
+
+	// Severity of the result (Critical, Warning, Informational, Hidden). This answers how important the result is. Critical is
+	// the only update-blocking severity.
+	Severity *Severity
+
+	// The status of the check running (i.e. Failed, Succeeded, In Progress). This answers whether the check ran, and passed or
+	// failed.
+	Status *Status
+
+	// Key-value pairs that allow grouping/filtering individual tests.
+	Tags *PrecheckResultTags
+
+	// The unique identifier for the affected resource (such as a node or drive).
+	TargetResourceID *string
+
+	// The name of the affected resource.
+	TargetResourceName *string
+
+	// The Time in which the HealthCheck was called.
+	Timestamp *time.Time
+
+	// User-facing name; one or more sentences indicating the direct issue.
+	Title *string
+}
+
+// PrecheckResultTags - Key-value pairs that allow grouping/filtering individual tests.
+type PrecheckResultTags struct {
+	// Key that allow grouping/filtering individual tests.
+	Key *string
+
+	// Value of the key that allow grouping/filtering individual tests.
+	Value *string
+}
+
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -599,8 +865,54 @@ type ProxyResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// Publisher details.
+type Publisher struct {
+	// Publisher properties.
+	Properties *PublisherProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PublisherList - List of Publisher proxy resources for the HCI cluster.
+type PublisherList struct {
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string
+
+	// READ-ONLY; List of Publisher proxy resources.
+	Value []*Publisher
+}
+
+// PublisherProperties - Publisher properties.
+type PublisherProperties struct {
+	// READ-ONLY; Provisioning State
+	ProvisioningState *string
+}
+
+// PublishersClientGetOptions contains the optional parameters for the PublishersClient.Get method.
+type PublishersClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PublishersClientListByClusterOptions contains the optional parameters for the PublishersClient.NewListByClusterPager method.
+type PublishersClientListByClusterOptions struct {
+	// placeholder for future optional parameters
 }
 
 type RawCertificateData struct {
@@ -615,8 +927,132 @@ type Resource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// SKU - Sku details.
+type SKU struct {
+	// SKU properties.
+	Properties *SKUProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SKUList - List of SKU proxy resources for the HCI cluster.
+type SKUList struct {
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string
+
+	// READ-ONLY; List of SKU proxy resources.
+	Value []*SKU
+}
+
+// SKUMappings - SKU Mapping details.
+type SKUMappings struct {
+	// Identifier of the CatalogPlan for the sku
+	CatalogPlanID *string
+
+	// Identifier for the sku
+	MarketplaceSKUID *string
+
+	// Array of SKU versions available
+	MarketplaceSKUVersions []*string
+}
+
+// SKUProperties - SKU properties.
+type SKUProperties struct {
+	// JSON serialized catalog content of the sku offer
+	Content *string
+
+	// The API version of the catalog service used to serve the catalog content
+	ContentVersion *string
+
+	// Identifier of the Offer for the sku
+	OfferID *string
+
+	// Identifier of the Publisher for the offer
+	PublisherID *string
+
+	// Array of SKU mappings
+	SKUMappings []*SKUMappings
+
+	// READ-ONLY; Provisioning State
+	ProvisioningState *string
+}
+
+// SKUsClientGetOptions contains the optional parameters for the SKUsClient.Get method.
+type SKUsClientGetOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
+}
+
+// SKUsClientListByOfferOptions contains the optional parameters for the SKUsClient.NewListByOfferPager method.
+type SKUsClientListByOfferOptions struct {
+	// Specify $expand=content,contentVersion to populate additional fields related to the marketplace offer.
+	Expand *string
+}
+
+type SoftwareAssuranceChangeRequest struct {
+	Properties *SoftwareAssuranceChangeRequestProperties
+}
+
+type SoftwareAssuranceChangeRequestProperties struct {
+	// Customer Intent for Software Assurance Benefit.
+	SoftwareAssuranceIntent *SoftwareAssuranceIntent
+}
+
+// SoftwareAssuranceProperties - Software Assurance properties of the cluster.
+type SoftwareAssuranceProperties struct {
+	// Customer Intent for Software Assurance Benefit.
+	SoftwareAssuranceIntent *SoftwareAssuranceIntent
+
+	// Status of the Software Assurance for the cluster.
+	SoftwareAssuranceStatus *SoftwareAssuranceStatus
+
+	// READ-ONLY; TimeStamp denoting the latest SA benefit applicability is validated.
+	LastUpdated *time.Time
+}
+
+// Step - Progress representation of the update run steps.
+type Step struct {
+	// More detailed description of the step.
+	Description *string
+
+	// When the step reached a terminal state.
+	EndTimeUTC *time.Time
+
+	// Error message, specified if the step is in a failed state.
+	ErrorMessage *string
+
+	// Completion time of this step or the last completed sub-step.
+	LastUpdatedTimeUTC *time.Time
+
+	// Name of the step.
+	Name *string
+
+	// When the step started, or empty if it has not started executing.
+	StartTimeUTC *time.Time
+
+	// Status of the step, bubbled up from the ECE action plan for installation attempts. Values are: 'Success', 'Error', 'InProgress',
+	// and 'Unknown status'.
+	Status *string
+
+	// Recursive model for child steps of this step.
+	Steps []*Step
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
@@ -655,10 +1091,327 @@ type TrackedResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
 
+// Update details
+type Update struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// Update properties
+	Properties *UpdateProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// UpdateList - List of Updates
+type UpdateList struct {
+	// List of Updates
+	Value []*Update
+
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string
+}
+
+// UpdatePrerequisite - If update State is HasPrerequisite, this property contains an array of objects describing prerequisite
+// updates before installing this update. Otherwise, it is empty.
+type UpdatePrerequisite struct {
+	// Friendly name of the prerequisite.
+	PackageName *string
+
+	// Updatable component type.
+	UpdateType *string
+
+	// Version of the prerequisite.
+	Version *string
+}
+
+// UpdateProperties - Details of a singular Update in HCI Cluster
+type UpdateProperties struct {
+	// Extensible KV pairs serialized as a string. This is currently used to report the stamp OEM family and hardware model information
+	// when an update is flagged as Invalid for the stamp based on OEM type.
+	AdditionalProperties *string
+
+	// Indicates the way the update content can be downloaded.
+	AvailabilityType *AvailabilityType
+
+	// An array of component versions for a Solution Bundle update, and an empty array otherwise.
+	ComponentVersions []*PackageVersionInfo
+
+	// Description of the update.
+	Description *string
+
+	// Display name of the Update
+	DisplayName *string
+
+	// Last time the package-specific checks were run.
+	HealthCheckDate *time.Time
+
+	// An array of PrecheckResult objects.
+	HealthCheckResult []*PrecheckResult
+
+	// Overall health state for update-specific health checks.
+	HealthState *HealthState
+
+	// Date that the update was installed.
+	InstalledDate *time.Time
+
+	// Path where the update package is available.
+	PackagePath *string
+
+	// Size of the package. This value is a combination of the size from update metadata and size of the payload that results
+	// from the live scan operation for OS update content.
+	PackageSizeInMb *float32
+
+	// Customer-visible type of the update.
+	PackageType *string
+
+	// If update State is HasPrerequisite, this property contains an array of objects describing prerequisite updates before installing
+	// this update. Otherwise, it is empty.
+	Prerequisites []*UpdatePrerequisite
+
+	// Publisher of the update package.
+	Publisher      *string
+	RebootRequired *RebootRequirement
+
+	// Link to release notes for the update.
+	ReleaseLink *string
+
+	// State of the update as it relates to this stamp.
+	State *State
+
+	// Additional information regarding the state of the update. See definition of UpdateStateProperties type below for more details
+	// on this property.
+	UpdateStateProperties *UpdateStateProperties
+
+	// Version of the update.
+	Version *string
+
+	// READ-ONLY; Provisioning state of the Updates proxy resource.
+	ProvisioningState *ProvisioningState
+}
+
+// UpdateRun - Details of an Update run
+type UpdateRun struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// Describes Update Run Properties.
+	Properties *UpdateRunProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// UpdateRunList - List of Update runs
+type UpdateRunList struct {
+	// List of Update runs
+	Value []*UpdateRun
+
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string
+}
+
+// UpdateRunProperties - Details of an Update run
+type UpdateRunProperties struct {
+	// Duration of the update run.
+	Duration *string
+
+	// Timestamp of the most recently completed step in the update run.
+	LastUpdatedTime *time.Time
+
+	// Progress representation of the update run steps.
+	Progress *Step
+
+	// State of the update run.
+	State *UpdateRunPropertiesState
+
+	// Timestamp of the update run was started.
+	TimeStarted *time.Time
+
+	// READ-ONLY; Provisioning state of the UpdateRuns proxy resource.
+	ProvisioningState *ProvisioningState
+}
+
+// UpdateRunsClientBeginDeleteOptions contains the optional parameters for the UpdateRunsClient.BeginDelete method.
+type UpdateRunsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UpdateRunsClientGetOptions contains the optional parameters for the UpdateRunsClient.Get method.
+type UpdateRunsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateRunsClientListOptions contains the optional parameters for the UpdateRunsClient.NewListPager method.
+type UpdateRunsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateRunsClientPutOptions contains the optional parameters for the UpdateRunsClient.Put method.
+type UpdateRunsClientPutOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateStateProperties - Additional information regarding the state of the update. See definition of UpdateStateProperties
+// type below for more details on this property.
+type UpdateStateProperties struct {
+	// Brief message with instructions for updates of AvailabilityType Notify.
+	NotifyMessage *string
+
+	// Progress percentage of ongoing operation. Currently this property is only valid when the update is in the Downloading state,
+	// where it maps to how much of the update content has been downloaded.
+	ProgressPercentage *float32
+}
+
+// UpdateSummaries - Get the update summaries for the cluster
+type UpdateSummaries struct {
+	// The geo-location where the resource lives
+	Location *string
+
+	// Update summaries properties
+	Properties *UpdateSummariesProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// UpdateSummariesClientBeginDeleteOptions contains the optional parameters for the UpdateSummariesClient.BeginDelete method.
+type UpdateSummariesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UpdateSummariesClientGetOptions contains the optional parameters for the UpdateSummariesClient.Get method.
+type UpdateSummariesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateSummariesClientListOptions contains the optional parameters for the UpdateSummariesClient.NewListPager method.
+type UpdateSummariesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateSummariesClientPutOptions contains the optional parameters for the UpdateSummariesClient.Put method.
+type UpdateSummariesClientPutOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdateSummariesList - List of Update Summaries
+type UpdateSummariesList struct {
+	// List of Update Summaries
+	Value []*UpdateSummaries
+
+	// READ-ONLY; Link to the next set of results.
+	NextLink *string
+}
+
+// UpdateSummariesProperties - Properties of Update summaries
+type UpdateSummariesProperties struct {
+	// Current Solution Bundle version of the stamp.
+	CurrentVersion *string
+
+	// Name of the hardware model.
+	HardwareModel *string
+
+	// Last time the package-specific checks were run.
+	HealthCheckDate *time.Time
+
+	// An array of pre-check result objects.
+	HealthCheckResult []*PrecheckResult
+
+	// Overall health state for update-specific health checks.
+	HealthState *HealthState
+
+	// Last time the update service successfully checked for updates
+	LastChecked *time.Time
+
+	// Last time an update installation completed successfully.
+	LastUpdated *time.Time
+
+	// OEM family name.
+	OemFamily *string
+
+	// Current version of each updatable component.
+	PackageVersions []*PackageVersionInfo
+
+	// Overall update state of the stamp.
+	State *UpdateSummariesPropertiesState
+
+	// READ-ONLY; Provisioning state of the UpdateSummaries proxy resource.
+	ProvisioningState *ProvisioningState
+}
+
+// UpdatesClientBeginDeleteOptions contains the optional parameters for the UpdatesClient.BeginDelete method.
+type UpdatesClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UpdatesClientBeginPostOptions contains the optional parameters for the UpdatesClient.BeginPost method.
+type UpdatesClientBeginPostOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// UpdatesClientGetOptions contains the optional parameters for the UpdatesClient.Get method.
+type UpdatesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdatesClientListOptions contains the optional parameters for the UpdatesClient.NewListPager method.
+type UpdatesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UpdatesClientPutOptions contains the optional parameters for the UpdatesClient.Put method.
+type UpdatesClientPutOptions struct {
+	// placeholder for future optional parameters
+}
+
 type UploadCertificateRequest struct {
 	Properties *RawCertificateData
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
 }
