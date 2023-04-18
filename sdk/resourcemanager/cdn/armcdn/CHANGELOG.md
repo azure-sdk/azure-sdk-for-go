@@ -1,5 +1,63 @@
 # Release History
 
+## 2.0.0-beta.1 (2023-04-18)
+### Breaking Changes
+
+- Type of `EndpointProperties.CustomDomains` has been changed from `[]*CustomDomain` to `[]*DeepCreatedCustomDomain`
+- Type of `MetricsResponse.Granularity` has been changed from `*MetricsResponseGranularity` to `*MetricsGranularity`
+- Type of `MetricsResponseSeriesItem.Unit` has been changed from `*MetricsResponseSeriesItemUnit` to `*MetricsSeriesUnit`
+- Type of `WafMetricsResponse.Granularity` has been changed from `*WafMetricsResponseGranularity` to `*WafMetricsGranularity`
+- Type of `WafMetricsResponseSeriesItem.Unit` has been changed from `*WafMetricsResponseSeriesItemUnit` to `*WafMetricsSeriesUnit`
+- Type alias `MetricsResponseGranularity` has been removed
+- Type alias `MetricsResponseSeriesItemUnit` has been removed
+- Type alias `WafMetricsResponseGranularity` has been removed
+- Type alias `WafMetricsResponseSeriesItemUnit` has been removed
+- Function `*ClientFactory.NewValidateClient` has been removed
+- Function `NewValidateClient` has been removed
+- Function `*ValidateClient.Secret` has been removed
+- Operation `*CustomDomainsClient.DisableCustomHTTPS` has been changed to LRO, use `*CustomDomainsClient.BeginDisableCustomHTTPS` instead.
+- Operation `*CustomDomainsClient.EnableCustomHTTPS` has been changed to LRO, use `*CustomDomainsClient.BeginEnableCustomHTTPS` instead.
+
+### Features Added
+
+- New value `ProfileResourceStateAbortingMigration`, `ProfileResourceStateCommittingMigration`, `ProfileResourceStateMigrated`, `ProfileResourceStateMigrating`, `ProfileResourceStatePendingMigrationCommit` added to enum type `ProfileResourceState`
+- New enum type `CanMigrateDefaultSKU` with values `CanMigrateDefaultSKUPremiumAzureFrontDoor`, `CanMigrateDefaultSKUStandardAzureFrontDoor`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New enum type `MetricsGranularity` with values `MetricsGranularityP1D`, `MetricsGranularityPT1H`, `MetricsGranularityPT5M`
+- New enum type `MetricsSeriesUnit` with values `MetricsSeriesUnitBitsPerSecond`, `MetricsSeriesUnitBytes`, `MetricsSeriesUnitCount`, `MetricsSeriesUnitMilliSeconds`
+- New enum type `WafMetricsGranularity` with values `WafMetricsGranularityP1D`, `WafMetricsGranularityPT1H`, `WafMetricsGranularityPT5M`
+- New enum type `WafMetricsSeriesUnit` with values `WafMetricsSeriesUnitCount`
+- New function `*AFDProfilesClient.CheckEndpointNameAvailability(context.Context, string, string, CheckEndpointNameAvailabilityInput, *AFDProfilesClientCheckEndpointNameAvailabilityOptions) (AFDProfilesClientCheckEndpointNameAvailabilityResponse, error)`
+- New function `*AFDProfilesClient.BeginUpgrade(context.Context, string, string, ProfileUpgradeParameters, *AFDProfilesClientBeginUpgradeOptions) (*runtime.Poller[AFDProfilesClientUpgradeResponse], error)`
+- New function `*AFDProfilesClient.ValidateSecret(context.Context, string, string, ValidateSecretInput, *AFDProfilesClientValidateSecretOptions) (AFDProfilesClientValidateSecretResponse, error)`
+- New function `*ProfilesClient.CanMigrate(context.Context, string, CanMigrateParameters, *ProfilesClientCanMigrateOptions) (ProfilesClientCanMigrateResponse, error)`
+- New function `*ProfilesClient.BeginMigrate(context.Context, string, MigrationParameters, *ProfilesClientBeginMigrateOptions) (*runtime.Poller[ProfilesClientMigrateResponse], error)`
+- New function `*ProfilesClient.BeginMigrationCommit(context.Context, string, string, *ProfilesClientBeginMigrationCommitOptions) (*runtime.Poller[ProfilesClientMigrationCommitResponse], error)`
+- New struct `CanMigrateParameters`
+- New struct `CanMigrateResult`
+- New struct `DeepCreatedCustomDomain`
+- New struct `DeepCreatedCustomDomainProperties`
+- New struct `ManagedServiceIdentity`
+- New struct `MigrateResult`
+- New struct `MigrationErrorType`
+- New struct `MigrationParameters`
+- New struct `MigrationWebApplicationFirewallMapping`
+- New struct `ProfileChangeSKUWafMapping`
+- New struct `ProfileUpgradeParameters`
+- New struct `UserAssignedIdentity`
+- New field `ExtendedProperties` in struct `AFDDomainProperties`
+- New field `CertificateAuthority` in struct `AzureFirstPartyManagedCertificateParameters`
+- New field `ExpirationDate` in struct `AzureFirstPartyManagedCertificateParameters`
+- New field `SecretSource` in struct `AzureFirstPartyManagedCertificateParameters`
+- New field `Subject` in struct `AzureFirstPartyManagedCertificateParameters`
+- New field `SubjectAlternativeNames` in struct `AzureFirstPartyManagedCertificateParameters`
+- New field `Thumbprint` in struct `AzureFirstPartyManagedCertificateParameters`
+- New field `Identity` in struct `Profile`
+- New field `ExtendedProperties` in struct `ProfileProperties`
+- New field `Identity` in struct `ProfileUpdateParameters`
+- New field `ExtendedProperties` in struct `WebApplicationFirewallPolicyProperties`
+
+
 ## 1.1.1 (2023-04-14)
 ### Bug Fixes
 
