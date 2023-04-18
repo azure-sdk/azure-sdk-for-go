@@ -11,7 +11,7 @@ package armcontainerregistry
 
 const (
 	moduleName    = "armcontainerregistry"
-	moduleVersion = "v1.1.0-beta.1"
+	moduleVersion = "v1.1.0-beta.2"
 )
 
 // Action - The action of IP ACL rule.
