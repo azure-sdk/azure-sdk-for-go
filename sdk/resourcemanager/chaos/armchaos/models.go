@@ -175,14 +175,23 @@ type CapabilityTypeListResult struct {
 
 // CapabilityTypeProperties - Model that represents the Capability Type properties model.
 type CapabilityTypeProperties struct {
+	// Runtime properties of this Capability Type.
+	RuntimeProperties *CapabilityTypePropertiesRuntimeProperties
+
 	// READ-ONLY; Localized string of the description.
 	Description *string
 
 	// READ-ONLY; Localized string of the display name.
 	DisplayName *string
 
+	// READ-ONLY; String of the kind of this Capability Type.
+	Kind *string
+
 	// READ-ONLY; URL to retrieve JSON schema of the Capability Type parameters.
 	ParametersSchema *string
+
+	// READ-ONLY; Array of control and data plane actions necessary to execute capability type.
+	PermissionsNecessary *CapabilityTypePropertiesPermissionsNecessary
 
 	// READ-ONLY; String of the Publisher that this Capability Type extends.
 	Publisher *string
@@ -194,6 +203,22 @@ type CapabilityTypeProperties struct {
 	Urn *string
 }
 
+// CapabilityTypePropertiesPermissionsNecessary - Array of control and data plane actions necessary to execute capability
+// type.
+type CapabilityTypePropertiesPermissionsNecessary struct {
+	// Control plane actions necessary to execute capability type.
+	Actions []*string
+
+	// Control plane actions necessary to execute capability type.
+	DataActions []*string
+}
+
+// CapabilityTypePropertiesRuntimeProperties - Runtime properties of this Capability Type.
+type CapabilityTypePropertiesRuntimeProperties struct {
+	// READ-ONLY; String of the kind of the resource's action type (continuous or discrete).
+	Kind *string
+}
+
 // CapabilityTypesClientGetOptions contains the optional parameters for the CapabilityTypesClient.Get method.
 type CapabilityTypesClientGetOptions struct {
 	// placeholder for future optional parameters
@@ -203,6 +228,15 @@ type CapabilityTypesClientGetOptions struct {
 type CapabilityTypesClientListOptions struct {
 	// String that sets the continuation token.
 	ContinuationToken *string
+}
+
+// ComponentsEwb5TmSchemasUserassignedidentitiesAdditionalproperties - The list of user identities associated with the experiment.
+type ComponentsEwb5TmSchemasUserassignedidentitiesAdditionalproperties struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string
 }
 
 // ContinuousAction - Model that represents a continuous action.
@@ -495,17 +529,20 @@ type ExperimentStatusProperties struct {
 	Status *string
 }
 
-// ExperimentsClientBeginCancelOptions contains the optional parameters for the ExperimentsClient.BeginCancel method.
-type ExperimentsClientBeginCancelOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+// ExperimentUpdate - Describes an experiment update.
+type ExperimentUpdate struct {
+	// The identity of the experiment resource.
+	Identity *ResourceIdentity
 }
 
-// ExperimentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.BeginCreateOrUpdate
-// method.
-type ExperimentsClientBeginCreateOrUpdateOptions struct {
-	// Resumes the LRO from the provided token.
-	ResumeToken string
+// ExperimentsClientCancelOptions contains the optional parameters for the ExperimentsClient.Cancel method.
+type ExperimentsClientCancelOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ExperimentsClientCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.CreateOrUpdate method.
+type ExperimentsClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ExperimentsClientDeleteOptions contains the optional parameters for the ExperimentsClient.Delete method.
@@ -563,6 +600,29 @@ type ExperimentsClientListOptions struct {
 type ExperimentsClientStartOptions struct {
 	// placeholder for future optional parameters
 }
+
+// ExperimentsClientUpdateOptions contains the optional parameters for the ExperimentsClient.Update method.
+type ExperimentsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FilterClassification provides polymorphic access to related types.
+// Call the interface's GetFilter() method to access the common type.
+// Use a type switch to determine the concrete type.  The possible types are:
+// - *Filter, *SimpleFilter
+type FilterClassification interface {
+	// GetFilter returns the Filter content of the underlying type.
+	GetFilter() *Filter
+}
+
+// Filter - Model that represents available filter types that can be applied to a targets list.
+type Filter struct {
+	// REQUIRED; Enum that discriminates between filter types. Currently only Simple type is supported.
+	Type *FilterType
+}
+
+// GetFilter implements the FilterClassification interface for type Filter.
+func (f *Filter) GetFilter() *Filter { return f }
 
 // KeyValuePair - A map to describe the settings of an action.
 type KeyValuePair struct {
@@ -639,10 +699,15 @@ type Resource struct {
 	Type *string
 }
 
-// ResourceIdentity - The managed identity of a resource.
+// ResourceIdentity - The identity of a resource.
 type ResourceIdentity struct {
 	// REQUIRED; String of the resource identity type.
 	Type *ResourceIdentityType
+
+	// The list of user identities associated with the experiment. The user identity dictionary key references will be ARM resource
+	// ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
+	UserAssignedIdentities map[string]*ComponentsEwb5TmSchemasUserassignedidentitiesAdditionalproperties
 
 	// READ-ONLY; GUID that represents the principal ID of this resource identity.
 	PrincipalID *string
@@ -661,6 +726,31 @@ type Selector struct {
 
 	// REQUIRED; Enum of the selector type.
 	Type *SelectorType
+
+	// Model that represents available filter types that can be applied to a targets list.
+	Filter FilterClassification
+}
+
+// SimpleFilter - Model that represents a simple target filter.
+type SimpleFilter struct {
+	// REQUIRED; Enum that discriminates between filter types. Currently only Simple type is supported.
+	Type *FilterType
+
+	// Model that represents the Simple filter parameters.
+	Parameters *SimpleFilterParameters
+}
+
+// GetFilter implements the FilterClassification interface for type SimpleFilter.
+func (s *SimpleFilter) GetFilter() *Filter {
+	return &Filter{
+		Type: s.Type,
+	}
+}
+
+// SimpleFilterParameters - Model that represents the Simple filter parameters.
+type SimpleFilterParameters struct {
+	// List of Azure availability zones to filter targets by.
+	Zones []*string
 }
 
 // Step - Model that represents a step in the Experiment resource.

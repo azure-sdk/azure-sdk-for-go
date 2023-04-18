@@ -1,5 +1,31 @@
 # Release History
 
+## 0.7.0 (2023-04-18)
+### Breaking Changes
+
+- Operation `*ExperimentsClient.BeginCancel` has been changed to non-LRO, use `*ExperimentsClient.Cancel` instead.
+- Operation `*ExperimentsClient.BeginCreateOrUpdate` has been changed to non-LRO, use `*ExperimentsClient.CreateOrUpdate` instead.
+
+### Features Added
+
+- New value `ResourceIdentityTypeUserAssigned` added to enum type `ResourceIdentityType`
+- New enum type `FilterType` with values `FilterTypeSimple`
+- New function `*ExperimentsClient.Update(context.Context, string, string, ExperimentUpdate, *ExperimentsClientUpdateOptions) (ExperimentsClientUpdateResponse, error)`
+- New function `*Filter.GetFilter() *Filter`
+- New function `*SimpleFilter.GetFilter() *Filter`
+- New struct `CapabilityTypePropertiesPermissionsNecessary`
+- New struct `CapabilityTypePropertiesRuntimeProperties`
+- New struct `ComponentsEwb5TmSchemasUserassignedidentitiesAdditionalproperties`
+- New struct `ExperimentUpdate`
+- New struct `SimpleFilter`
+- New struct `SimpleFilterParameters`
+- New field `Kind` in struct `CapabilityTypeProperties`
+- New field `PermissionsNecessary` in struct `CapabilityTypeProperties`
+- New field `RuntimeProperties` in struct `CapabilityTypeProperties`
+- New field `UserAssignedIdentities` in struct `ResourceIdentity`
+- New field `Filter` in struct `Selector`
+
+
 ## 0.6.1 (2023-04-14)
 ### Bug Fixes
 

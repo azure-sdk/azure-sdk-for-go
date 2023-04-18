@@ -45,48 +45,30 @@ func NewExperimentsClient(subscriptionID string, credential azcore.TokenCredenti
 	return client, nil
 }
 
-// BeginCancel - Cancel a running Experiment resource.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2021-09-15-preview
-//   - resourceGroupName - String that represents an Azure resource group.
-//   - experimentName - String that represents a Experiment resource name.
-//   - options - ExperimentsClientBeginCancelOptions contains the optional parameters for the ExperimentsClient.BeginCancel method.
-func (client *ExperimentsClient) BeginCancel(ctx context.Context, resourceGroupName string, experimentName string, options *ExperimentsClientBeginCancelOptions) (*runtime.Poller[ExperimentsClientCancelResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.cancel(ctx, resourceGroupName, experimentName, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ExperimentsClientCancelResponse]{
-			FinalStateVia: runtime.FinalStateViaOriginalURI,
-		})
-	} else {
-		return runtime.NewPollerFromResumeToken[ExperimentsClientCancelResponse](options.ResumeToken, client.internal.Pipeline(), nil)
-	}
-}
-
 // Cancel - Cancel a running Experiment resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
-func (client *ExperimentsClient) cancel(ctx context.Context, resourceGroupName string, experimentName string, options *ExperimentsClientBeginCancelOptions) (*http.Response, error) {
+// Generated from API version 2023-04-01-preview
+//   - resourceGroupName - String that represents an Azure resource group.
+//   - experimentName - String that represents a Experiment resource name.
+//   - options - ExperimentsClientCancelOptions contains the optional parameters for the ExperimentsClient.Cancel method.
+func (client *ExperimentsClient) Cancel(ctx context.Context, resourceGroupName string, experimentName string, options *ExperimentsClientCancelOptions) (ExperimentsClientCancelResponse, error) {
 	req, err := client.cancelCreateRequest(ctx, resourceGroupName, experimentName, options)
 	if err != nil {
-		return nil, err
+		return ExperimentsClientCancelResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return ExperimentsClientCancelResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusAccepted) {
-		return nil, runtime.NewResponseError(resp)
+		return ExperimentsClientCancelResponse{}, runtime.NewResponseError(resp)
 	}
-	return resp, nil
+	return client.cancelHandleResponse(resp)
 }
 
 // cancelCreateRequest creates the Cancel request.
-func (client *ExperimentsClient) cancelCreateRequest(ctx context.Context, resourceGroupName string, experimentName string, options *ExperimentsClientBeginCancelOptions) (*policy.Request, error) {
+func (client *ExperimentsClient) cancelCreateRequest(ctx context.Context, resourceGroupName string, experimentName string, options *ExperimentsClientCancelOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Chaos/experiments/{experimentName}/cancel"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -105,56 +87,47 @@ func (client *ExperimentsClient) cancelCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// BeginCreateOrUpdate - Create or update a Experiment resource.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2021-09-15-preview
-//   - resourceGroupName - String that represents an Azure resource group.
-//   - experimentName - String that represents a Experiment resource name.
-//   - experiment - Experiment resource to be created or updated.
-//   - options - ExperimentsClientBeginCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.BeginCreateOrUpdate
-//     method.
-func (client *ExperimentsClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupName string, experimentName string, experiment Experiment, options *ExperimentsClientBeginCreateOrUpdateOptions) (*runtime.Poller[ExperimentsClientCreateOrUpdateResponse], error) {
-	if options == nil || options.ResumeToken == "" {
-		resp, err := client.createOrUpdate(ctx, resourceGroupName, experimentName, experiment, options)
-		if err != nil {
-			return nil, err
-		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[ExperimentsClientCreateOrUpdateResponse]{
-			FinalStateVia: runtime.FinalStateViaOriginalURI,
-		})
-	} else {
-		return runtime.NewPollerFromResumeToken[ExperimentsClientCreateOrUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+// cancelHandleResponse handles the Cancel response.
+func (client *ExperimentsClient) cancelHandleResponse(resp *http.Response) (ExperimentsClientCancelResponse, error) {
+	result := ExperimentsClientCancelResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.ExperimentCancelOperationResult); err != nil {
+		return ExperimentsClientCancelResponse{}, err
 	}
+	return result, nil
 }
 
 // CreateOrUpdate - Create or update a Experiment resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
-func (client *ExperimentsClient) createOrUpdate(ctx context.Context, resourceGroupName string, experimentName string, experiment Experiment, options *ExperimentsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
+// Generated from API version 2023-04-01-preview
+//   - resourceGroupName - String that represents an Azure resource group.
+//   - experimentName - String that represents a Experiment resource name.
+//   - experiment - Experiment resource to be created or updated.
+//   - options - ExperimentsClientCreateOrUpdateOptions contains the optional parameters for the ExperimentsClient.CreateOrUpdate
+//     method.
+func (client *ExperimentsClient) CreateOrUpdate(ctx context.Context, resourceGroupName string, experimentName string, experiment Experiment, options *ExperimentsClientCreateOrUpdateOptions) (ExperimentsClientCreateOrUpdateResponse, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, experimentName, experiment, options)
 	if err != nil {
-		return nil, err
+		return ExperimentsClientCreateOrUpdateResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return nil, err
+		return ExperimentsClientCreateOrUpdateResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return nil, runtime.NewResponseError(resp)
+		return ExperimentsClientCreateOrUpdateResponse{}, runtime.NewResponseError(resp)
 	}
-	return resp, nil
+	return client.createOrUpdateHandleResponse(resp)
 }
 
 // createOrUpdateCreateRequest creates the CreateOrUpdate request.
-func (client *ExperimentsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, experimentName string, experiment Experiment, options *ExperimentsClientBeginCreateOrUpdateOptions) (*policy.Request, error) {
+func (client *ExperimentsClient) createOrUpdateCreateRequest(ctx context.Context, resourceGroupName string, experimentName string, experiment Experiment, options *ExperimentsClientCreateOrUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Chaos/experiments/{experimentName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -173,16 +146,25 @@ func (client *ExperimentsClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, experiment)
 }
 
+// createOrUpdateHandleResponse handles the CreateOrUpdate response.
+func (client *ExperimentsClient) createOrUpdateHandleResponse(resp *http.Response) (ExperimentsClientCreateOrUpdateResponse, error) {
+	result := ExperimentsClientCreateOrUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Experiment); err != nil {
+		return ExperimentsClientCreateOrUpdateResponse{}, err
+	}
+	return result, nil
+}
+
 // Delete - Delete a Experiment resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - experimentName - String that represents a Experiment resource name.
 //   - options - ExperimentsClientDeleteOptions contains the optional parameters for the ExperimentsClient.Delete method.
@@ -221,7 +203,7 @@ func (client *ExperimentsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -230,7 +212,7 @@ func (client *ExperimentsClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Get a Experiment resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - experimentName - String that represents a Experiment resource name.
 //   - options - ExperimentsClientGetOptions contains the optional parameters for the ExperimentsClient.Get method.
@@ -269,7 +251,7 @@ func (client *ExperimentsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -287,7 +269,7 @@ func (client *ExperimentsClient) getHandleResponse(resp *http.Response) (Experim
 // GetExecutionDetails - Get an execution detail of a Experiment resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - experimentName - String that represents a Experiment resource name.
 //   - executionDetailsID - GUID that represents a Experiment execution detail.
@@ -332,7 +314,7 @@ func (client *ExperimentsClient) getExecutionDetailsCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -350,7 +332,7 @@ func (client *ExperimentsClient) getExecutionDetailsHandleResponse(resp *http.Re
 // GetStatus - Get a status of a Experiment resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - experimentName - String that represents a Experiment resource name.
 //   - statusID - GUID that represents a Experiment status.
@@ -394,7 +376,7 @@ func (client *ExperimentsClient) getStatusCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -411,7 +393,7 @@ func (client *ExperimentsClient) getStatusHandleResponse(resp *http.Response) (E
 
 // NewListPager - Get a list of Experiment resources in a resource group.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - options - ExperimentsClientListOptions contains the optional parameters for the ExperimentsClient.NewListPager method.
 func (client *ExperimentsClient) NewListPager(resourceGroupName string, options *ExperimentsClientListOptions) *runtime.Pager[ExperimentsClientListResponse] {
@@ -458,7 +440,7 @@ func (client *ExperimentsClient) listCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	if options != nil && options.Running != nil {
 		reqQP.Set("running", strconv.FormatBool(*options.Running))
 	}
@@ -481,7 +463,7 @@ func (client *ExperimentsClient) listHandleResponse(resp *http.Response) (Experi
 
 // NewListAllPager - Get a list of Experiment resources in a subscription.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - options - ExperimentsClientListAllOptions contains the optional parameters for the ExperimentsClient.NewListAllPager method.
 func (client *ExperimentsClient) NewListAllPager(options *ExperimentsClientListAllOptions) *runtime.Pager[ExperimentsClientListAllResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ExperimentsClientListAllResponse]{
@@ -523,7 +505,7 @@ func (client *ExperimentsClient) listAllCreateRequest(ctx context.Context, optio
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	if options != nil && options.Running != nil {
 		reqQP.Set("running", strconv.FormatBool(*options.Running))
 	}
@@ -546,7 +528,7 @@ func (client *ExperimentsClient) listAllHandleResponse(resp *http.Response) (Exp
 
 // NewListAllStatusesPager - Get a list of statuses of a Experiment resource.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - experimentName - String that represents a Experiment resource name.
 //   - options - ExperimentsClientListAllStatusesOptions contains the optional parameters for the ExperimentsClient.NewListAllStatusesPager
@@ -599,7 +581,7 @@ func (client *ExperimentsClient) listAllStatusesCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -616,7 +598,7 @@ func (client *ExperimentsClient) listAllStatusesHandleResponse(resp *http.Respon
 
 // NewListExecutionDetailsPager - Get a list of execution details of a Experiment resource.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - experimentName - String that represents a Experiment resource name.
 //   - options - ExperimentsClientListExecutionDetailsOptions contains the optional parameters for the ExperimentsClient.NewListExecutionDetailsPager
@@ -669,7 +651,7 @@ func (client *ExperimentsClient) listExecutionDetailsCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -687,7 +669,7 @@ func (client *ExperimentsClient) listExecutionDetailsHandleResponse(resp *http.R
 // Start - Start a Experiment resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-01-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - experimentName - String that represents a Experiment resource name.
 //   - options - ExperimentsClientStartOptions contains the optional parameters for the ExperimentsClient.Start method.
@@ -726,7 +708,7 @@ func (client *ExperimentsClient) startCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -737,6 +719,64 @@ func (client *ExperimentsClient) startHandleResponse(resp *http.Response) (Exper
 	result := ExperimentsClientStartResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.ExperimentStartOperationResult); err != nil {
 		return ExperimentsClientStartResponse{}, err
+	}
+	return result, nil
+}
+
+// Update - The operation to update an experiment.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-04-01-preview
+//   - resourceGroupName - String that represents an Azure resource group.
+//   - experimentName - String that represents a Experiment resource name.
+//   - experiment - Parameters supplied to the Update experiment operation.
+//   - options - ExperimentsClientUpdateOptions contains the optional parameters for the ExperimentsClient.Update method.
+func (client *ExperimentsClient) Update(ctx context.Context, resourceGroupName string, experimentName string, experiment ExperimentUpdate, options *ExperimentsClientUpdateOptions) (ExperimentsClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, experimentName, experiment, options)
+	if err != nil {
+		return ExperimentsClientUpdateResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return ExperimentsClientUpdateResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return ExperimentsClientUpdateResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.updateHandleResponse(resp)
+}
+
+// updateCreateRequest creates the Update request.
+func (client *ExperimentsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, experimentName string, experiment ExperimentUpdate, options *ExperimentsClientUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Chaos/experiments/{experimentName}"
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if experimentName == "" {
+		return nil, errors.New("parameter experimentName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{experimentName}", url.PathEscape(experimentName))
+	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-04-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, experiment)
+}
+
+// updateHandleResponse handles the Update response.
+func (client *ExperimentsClient) updateHandleResponse(resp *http.Response) (ExperimentsClientUpdateResponse, error) {
+	result := ExperimentsClientUpdateResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Experiment); err != nil {
+		return ExperimentsClientUpdateResponse{}, err
 	}
 	return result, nil
 }

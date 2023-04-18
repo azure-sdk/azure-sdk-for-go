@@ -51,3 +51,21 @@ func unmarshalActionClassificationArray(rawMsg json.RawMessage) ([]ActionClassif
 	}
 	return fArray, nil
 }
+
+func unmarshalFilterClassification(rawMsg json.RawMessage) (FilterClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b FilterClassification
+	switch m["type"] {
+	case string(FilterTypeSimple):
+		b = &SimpleFilter{}
+	default:
+		b = &Filter{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
