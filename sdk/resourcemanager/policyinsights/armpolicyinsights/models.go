@@ -170,10 +170,25 @@ type CheckManagementGroupRestrictionsRequest struct {
 	ResourceDetails *CheckRestrictionsResourceDetails
 }
 
+// CheckRestrictionEvaluationDetails - Policy evaluation details.
+type CheckRestrictionEvaluationDetails struct {
+	// Details of the evaluated expressions.
+	EvaluatedExpressions []*ExpressionEvaluationDetails
+
+	// Evaluation details of IfNotExists effect.
+	IfNotExistsDetails *IfNotExistsEvaluationDetails
+
+	// READ-ONLY; The reason for the evaluation result.
+	Reason *string
+}
+
 // CheckRestrictionsRequest - The check policy restrictions parameters describing the resource that is being evaluated.
 type CheckRestrictionsRequest struct {
 	// REQUIRED; The information about the resource that will be evaluated.
 	ResourceDetails *CheckRestrictionsResourceDetails
+
+	// Whether to include policies with the 'audit' effect in the results. Defaults to false.
+	IncludeAuditEffect *bool
 
 	// The list of fields and values that should be evaluated for potential restrictions.
 	PendingFields []*PendingField
@@ -243,6 +258,293 @@ type ComponentEventDetails struct {
 
 	// Component type.
 	Type *string
+}
+
+// ComponentExpressionEvaluationDetails - Evaluation details of policy language expressions.
+type ComponentExpressionEvaluationDetails struct {
+	// Evaluation result.
+	Result *string
+
+	// READ-ONLY; Expression evaluated.
+	Expression *string
+
+	// READ-ONLY; The kind of expression that was evaluated.
+	ExpressionKind *string
+
+	// READ-ONLY; Value of the expression.
+	ExpressionValue any
+
+	// READ-ONLY; Operator to compare the expression value and the target value.
+	Operator *string
+
+	// READ-ONLY; Property path if the expression is a field or an alias.
+	Path *string
+
+	// READ-ONLY; Target value to be compared with the expression value.
+	TargetValue any
+}
+
+// ComponentPolicyEvaluationDetails - Policy evaluation details.
+type ComponentPolicyEvaluationDetails struct {
+	// Additional textual reason for the evaluation outcome.
+	Reason *string
+
+	// READ-ONLY; Details of the evaluated expressions.
+	EvaluatedExpressions []*ComponentExpressionEvaluationDetails
+}
+
+// ComponentPolicyState - Component Policy State record.
+type ComponentPolicyState struct {
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// Policy evaluation details. This is only included in the response if the request contains $expand=PolicyEvaluationDetails.
+	PolicyEvaluationDetails *ComponentPolicyEvaluationDetails
+
+	// READ-ONLY; Compliance state of the resource.
+	ComplianceState *string
+
+	// READ-ONLY; Component Id.
+	ComponentID *string
+
+	// READ-ONLY; Component name.
+	ComponentName *string
+
+	// READ-ONLY; Component type.
+	ComponentType *string
+
+	// READ-ONLY; OData context string; used by OData clients to resolve type information based on metadata.
+	ODataContext *string
+
+	// READ-ONLY; OData entity ID; always set to null since component policy state records do not have an entity ID.
+	ODataID *string
+
+	// READ-ONLY; Policy assignment ID.
+	PolicyAssignmentID *string
+
+	// READ-ONLY; Policy assignment name.
+	PolicyAssignmentName *string
+
+	// READ-ONLY; Policy assignment owner.
+	PolicyAssignmentOwner *string
+
+	// READ-ONLY; Policy assignment parameters.
+	PolicyAssignmentParameters *string
+
+	// READ-ONLY; Policy assignment scope.
+	PolicyAssignmentScope *string
+
+	// READ-ONLY; Evaluated policy assignment version.
+	PolicyAssignmentVersion *string
+
+	// READ-ONLY; Policy definition action, i.e. effect.
+	PolicyDefinitionAction *string
+
+	// READ-ONLY; Policy definition category.
+	PolicyDefinitionCategory *string
+
+	// READ-ONLY; Policy definition group names.
+	PolicyDefinitionGroupNames []*string
+
+	// READ-ONLY; Policy definition ID.
+	PolicyDefinitionID *string
+
+	// READ-ONLY; Policy definition name.
+	PolicyDefinitionName *string
+
+	// READ-ONLY; Reference ID for the policy definition inside the policy set, if the policy assignment is for a policy set.
+	PolicyDefinitionReferenceID *string
+
+	// READ-ONLY; Evaluated policy definition version.
+	PolicyDefinitionVersion *string
+
+	// READ-ONLY; Policy set definition category, if the policy assignment is for a policy set.
+	PolicySetDefinitionCategory *string
+
+	// READ-ONLY; Policy set definition ID, if the policy assignment is for a policy set.
+	PolicySetDefinitionID *string
+
+	// READ-ONLY; Policy set definition name, if the policy assignment is for a policy set.
+	PolicySetDefinitionName *string
+
+	// READ-ONLY; Policy set definition owner, if the policy assignment is for a policy set.
+	PolicySetDefinitionOwner *string
+
+	// READ-ONLY; Policy set definition parameters, if the policy assignment is for a policy set.
+	PolicySetDefinitionParameters *string
+
+	// READ-ONLY; Evaluated policy set definition version.
+	PolicySetDefinitionVersion *string
+
+	// READ-ONLY; Resource group name.
+	ResourceGroup *string
+
+	// READ-ONLY; Resource ID.
+	ResourceID *string
+
+	// READ-ONLY; Resource location.
+	ResourceLocation *string
+
+	// READ-ONLY; Resource type.
+	ResourceType *string
+
+	// READ-ONLY; Subscription ID.
+	SubscriptionID *string
+
+	// READ-ONLY; Timestamp for the component policy state record.
+	Timestamp *time.Time
+}
+
+// ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionOptions contains the optional parameters for the ComponentPolicyStatesClient.ListQueryResultsForPolicyDefinition
+// method.
+type ComponentPolicyStatesClientListQueryResultsForPolicyDefinitionOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+	// OData filter expression.
+	Filter *string
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentOptions contains the optional parameters
+// for the ComponentPolicyStatesClient.ListQueryResultsForResourceGroupLevelPolicyAssignment method.
+type ComponentPolicyStatesClientListQueryResultsForResourceGroupLevelPolicyAssignmentOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+	// OData filter expression.
+	Filter *string
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceGroupOptions contains the optional parameters for the ComponentPolicyStatesClient.ListQueryResultsForResourceGroup
+// method.
+type ComponentPolicyStatesClientListQueryResultsForResourceGroupOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+	// OData filter expression.
+	Filter *string
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForResourceOptions contains the optional parameters for the ComponentPolicyStatesClient.ListQueryResultsForResource
+// method.
+type ComponentPolicyStatesClientListQueryResultsForResourceOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+	// The $expand query parameter.
+	Expand *string
+	// OData filter expression.
+	Filter *string
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentOptions contains the optional parameters
+// for the ComponentPolicyStatesClient.ListQueryResultsForSubscriptionLevelPolicyAssignment method.
+type ComponentPolicyStatesClientListQueryResultsForSubscriptionLevelPolicyAssignmentOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+	// OData filter expression.
+	Filter *string
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesClientListQueryResultsForSubscriptionOptions contains the optional parameters for the ComponentPolicyStatesClient.ListQueryResultsForSubscription
+// method.
+type ComponentPolicyStatesClientListQueryResultsForSubscriptionOptions struct {
+	// OData apply expression for aggregations.
+	Apply *string
+	// OData filter expression.
+	Filter *string
+	// ISO 8601 formatted timestamp specifying the start time of the interval to query. When not specified, the service uses ($to
+	// - 1-day).
+	From *time.Time
+	// Ordering expression using OData notation. One or more comma-separated column names with an optional "desc" (the default)
+	// or "asc", e.g. "$orderby=PolicyAssignmentId, ResourceId asc".
+	OrderBy *string
+	// Select expression using OData notation. Limits the columns on each record to just those requested, e.g. "$select=PolicyAssignmentId,
+	// ResourceId".
+	Select *string
+	// ISO 8601 formatted timestamp specifying the end time of the interval to query. When not specified, the service uses request
+	// time.
+	To *time.Time
+	// Maximum number of records to return.
+	Top *int32
+}
+
+// ComponentPolicyStatesQueryResults - Query results.
+type ComponentPolicyStatesQueryResults struct {
+	// OData context string; used by OData clients to resolve type information based on metadata.
+	ODataContext *string
+
+	// OData entity count; represents the number of policy state records returned.
+	ODataCount *int32
+
+	// Query results.
+	Value []*ComponentPolicyState
 }
 
 // ComponentStateDetails - Component state details.
@@ -370,6 +672,12 @@ type FieldRestriction struct {
 	// READ-ONLY; The details of the policy that is causing the field restriction.
 	Policy *PolicyReference
 
+	// READ-ONLY; The effect of the policy that is causing the field restriction. http://aka.ms/policyeffects
+	PolicyEffect *string
+
+	// READ-ONLY; The reason for the restriction.
+	Reason *string
+
 	// READ-ONLY; The type of restriction that is imposed on the field.
 	Result *FieldRestrictionResult
 
@@ -399,6 +707,9 @@ type IfNotExistsEvaluationDetails struct {
 type Operation struct {
 	// Display metadata associated with the operation.
 	Display *OperationDisplay
+
+	// Indicates whether the operation is a data action
+	IsDataAction *bool
 
 	// Operation name.
 	Name *string
@@ -499,6 +810,12 @@ type PolicyDetails struct {
 	PolicySetDefinitionID *string
 }
 
+// PolicyEffectDetails - The details of the effect that was applied to the resource.
+type PolicyEffectDetails struct {
+	// READ-ONLY; The effect that was applied to the resource. http://aka.ms/policyeffects
+	PolicyEffect *string
+}
+
 // PolicyEvaluationDetails - Policy evaluation details.
 type PolicyEvaluationDetails struct {
 	// Details of the evaluated expressions.
@@ -510,8 +827,11 @@ type PolicyEvaluationDetails struct {
 
 // PolicyEvaluationResult - The result of a non-compliant policy evaluation against the given resource content.
 type PolicyEvaluationResult struct {
+	// READ-ONLY; The details of the effect that was applied to the resource.
+	EffectDetails *PolicyEffectDetails
+
 	// READ-ONLY; The detailed results of the policy expressions and values that were evaluated.
-	EvaluationDetails *PolicyEvaluationDetails
+	EvaluationDetails *CheckRestrictionEvaluationDetails
 
 	// READ-ONLY; The result of the policy evaluation against the resource. This will typically be 'NonCompliant' but may contain
 	// other values if errors were encountered.
@@ -1249,7 +1569,8 @@ type RemediationProperties struct {
 	// READ-ONLY; The time at which the remediation was last updated.
 	LastUpdatedOn *time.Time
 
-	// READ-ONLY; The status of the remediation.
+	// READ-ONLY; The status of the remediation. This refers to the entire remediation task, not individual deployments. Allowed
+	// values are Evaluating, Canceled, Cancelling, Failed, Complete, or Succeeded.
 	ProvisioningState *string
 
 	// READ-ONLY; The remediation status message. Provides additional details regarding the state of the remediation.

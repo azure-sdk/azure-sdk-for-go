@@ -58,11 +58,6 @@ func (c *ClientFactory) NewPolicyStatesClient() *PolicyStatesClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewPolicyMetadataClient() *PolicyMetadataClient {
 	subClient, _ := NewPolicyMetadataClient(c.credential, c.options)
 	return subClient
@@ -70,6 +65,16 @@ func (c *ClientFactory) NewPolicyMetadataClient() *PolicyMetadataClient {
 
 func (c *ClientFactory) NewPolicyRestrictionsClient() *PolicyRestrictionsClient {
 	subClient, _ := NewPolicyRestrictionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewComponentPolicyStatesClient() *ComponentPolicyStatesClient {
+	subClient, _ := NewComponentPolicyStatesClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOperationsClient() *OperationsClient {
+	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
 }
 
