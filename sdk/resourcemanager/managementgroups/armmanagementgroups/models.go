@@ -29,28 +29,28 @@ type APIClientTenantBackfillStatusOptions struct {
 // AzureAsyncOperationResults - The results of Azure-AsyncOperation.
 type AzureAsyncOperationResults struct {
 	// The generic properties of a management group.
-	Properties *ManagementGroupInfoProperties `json:"properties,omitempty"`
+	Properties *ManagementGroupInfoProperties
 
 	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The current status of the asynchronous operation performed . For example, Running, Succeeded, Failed
-	Status *string `json:"status,omitempty" azure:"ro"`
+	Status *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // CheckNameAvailabilityRequest - Management group name availability check parameters.
 type CheckNameAvailabilityRequest struct {
 	// the name to check for availability
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// fully qualified resource type which includes provider namespace
-	Type *string `json:"type,omitempty"`
+	Type *string
 }
 
 // CheckNameAvailabilityResult - Describes the result of the request to check management group name availability.
@@ -59,15 +59,15 @@ type CheckNameAvailabilityResult struct {
 	// given name is invalid, and provide the resource naming requirements so that the user can
 	// select a valid name. If reason == AlreadyExists, explain that is already in use, and direct them to select a different
 	// name.
-	Message *string `json:"message,omitempty" azure:"ro"`
+	Message *string
 
 	// READ-ONLY; Required. True indicates name is valid and available. False indicates the name is invalid, unavailable, or both.
-	NameAvailable *bool `json:"nameAvailable,omitempty" azure:"ro"`
+	NameAvailable *bool
 
 	// READ-ONLY; Required if nameAvailable == false. Invalid indicates the name provided does not match the resource provider's
 	// naming requirements (incorrect length, unsupported characters, etc.) AlreadyExists
 	// indicates that the name is already in use and is therefore unavailable.
-	Reason *Reason `json:"reason,omitempty" azure:"ro"`
+	Reason *Reason
 }
 
 // ClientBeginCreateOrUpdateOptions contains the optional parameters for the Client.BeginCreateOrUpdate method.
@@ -130,134 +130,134 @@ type ClientUpdateOptions struct {
 // CreateManagementGroupChildInfo - The child information of a management group used during creation.
 type CreateManagementGroupChildInfo struct {
 	// READ-ONLY; The list of children.
-	Children []*CreateManagementGroupChildInfo `json:"children,omitempty" azure:"ro"`
+	Children []*CreateManagementGroupChildInfo
 
 	// READ-ONLY; The friendly name of the child resource.
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
+	DisplayName *string
 
 	// READ-ONLY; The fully qualified ID for the child resource (management group or subscription). For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the child entity.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups)
-	Type *ManagementGroupChildType `json:"type,omitempty" azure:"ro"`
+	Type *ManagementGroupChildType
 }
 
 // CreateManagementGroupDetails - The details of a management group used during creation.
 type CreateManagementGroupDetails struct {
 	// (Optional) The ID of the parent management group used during creation.
-	Parent *CreateParentGroupInfo `json:"parent,omitempty"`
+	Parent *CreateParentGroupInfo
 
 	// READ-ONLY; The identity of the principal or process that updated the object.
-	UpdatedBy *string `json:"updatedBy,omitempty" azure:"ro"`
+	UpdatedBy *string
 
 	// READ-ONLY; The date and time when this object was last updated.
-	UpdatedTime *time.Time `json:"updatedTime,omitempty" azure:"ro"`
+	UpdatedTime *time.Time
 
 	// READ-ONLY; The version number of the object.
-	Version *int32 `json:"version,omitempty" azure:"ro"`
+	Version *int32
 }
 
 // CreateManagementGroupProperties - The generic properties of a management group used during creation.
 type CreateManagementGroupProperties struct {
 	// The details of a management group used during creation.
-	Details *CreateManagementGroupDetails `json:"details,omitempty"`
+	Details *CreateManagementGroupDetails
 
 	// The friendly name of the management group. If no value is passed then this field will be set to the groupId.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// READ-ONLY; The list of children.
-	Children []*CreateManagementGroupChildInfo `json:"children,omitempty" azure:"ro"`
+	Children []*CreateManagementGroupChildInfo
 
 	// READ-ONLY; The AAD Tenant ID associated with the management group. For example, 00000000-0000-0000-0000-000000000000
-	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+	TenantID *string
 }
 
 // CreateManagementGroupRequest - Management group creation parameters.
 type CreateManagementGroupRequest struct {
 	// The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The generic properties of a management group used during creation.
-	Properties *CreateManagementGroupProperties `json:"properties,omitempty"`
+	Properties *CreateManagementGroupProperties
 
 	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // CreateOrUpdateSettingsProperties - The properties of the request to create or update Management Group settings
 type CreateOrUpdateSettingsProperties struct {
 	// Settings that sets the default Management Group under which new subscriptions get added in this tenant. For example, /providers/Microsoft.Management/managementGroups/defaultGroup
-	DefaultManagementGroup *string `json:"defaultManagementGroup,omitempty"`
+	DefaultManagementGroup *string
 
 	// Indicates whether RBAC access is required upon group creation under the root Management Group. If set to true, user will
 	// require Microsoft.Management/managementGroups/write action on the root
 	// Management Group scope in order to create new Groups directly under the root. This will prevent new users from creating
 	// new Management Groups, unless they are given access.
-	RequireAuthorizationForGroupCreation *bool `json:"requireAuthorizationForGroupCreation,omitempty"`
+	RequireAuthorizationForGroupCreation *bool
 }
 
 // CreateOrUpdateSettingsRequest - Parameters for creating or updating Management Group settings
 type CreateOrUpdateSettingsRequest struct {
 	// The properties of the request to create or update Management Group settings
-	Properties *CreateOrUpdateSettingsProperties `json:"properties,omitempty"`
+	Properties *CreateOrUpdateSettingsProperties
 }
 
 // CreateParentGroupInfo - (Optional) The ID of the parent management group used during creation.
 type CreateParentGroupInfo struct {
 	// The fully qualified ID for the parent management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty"`
+	ID *string
 
 	// READ-ONLY; The friendly name of the parent management group.
-	DisplayName *string `json:"displayName,omitempty" azure:"ro"`
+	DisplayName *string
 
 	// READ-ONLY; The name of the parent management group
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 }
 
 // DescendantInfo - The descendant.
 type DescendantInfo struct {
 	// The generic properties of an descendant.
-	Properties *DescendantInfoProperties `json:"properties,omitempty"`
+	Properties *DescendantInfoProperties
 
 	// READ-ONLY; The fully qualified ID for the descendant. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
 	// or /subscriptions/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the descendant. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups or /subscriptions
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // DescendantInfoProperties - The generic properties of an descendant.
 type DescendantInfoProperties struct {
 	// The friendly name of the management group.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The ID of the parent management group.
-	Parent *DescendantParentGroupInfo `json:"parent,omitempty"`
+	Parent *DescendantParentGroupInfo
 }
 
 // DescendantListResult - Describes the result of the request to view descendants.
 type DescendantListResult struct {
 	// The list of descendants.
-	Value []*DescendantInfo `json:"value,omitempty"`
+	Value []*DescendantInfo
 
 	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // DescendantParentGroupInfo - The ID of the parent management group.
 type DescendantParentGroupInfo struct {
 	// The fully qualified ID for the parent management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty"`
+	ID *string
 }
 
 // EntitiesClientListOptions contains the optional parameters for the EntitiesClient.NewListPager method.
@@ -304,127 +304,127 @@ type EntitiesClientListOptions struct {
 // EntityHierarchyItem - The management group details for the hierarchy view.
 type EntityHierarchyItem struct {
 	// The generic properties of a management group.
-	Properties *EntityHierarchyItemProperties `json:"properties,omitempty"`
+	Properties *EntityHierarchyItemProperties
 
 	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // EntityHierarchyItemProperties - The generic properties of a management group.
 type EntityHierarchyItemProperties struct {
 	// The list of children.
-	Children []*EntityHierarchyItem `json:"children,omitempty"`
+	Children []*EntityHierarchyItem
 
 	// The friendly name of the management group.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The users specific permissions to this item.
-	Permissions *Permissions `json:"permissions,omitempty"`
+	Permissions *Permissions
 }
 
 // EntityInfo - The entity.
 type EntityInfo struct {
 	// The generic properties of an entity.
-	Properties *EntityInfoProperties `json:"properties,omitempty"`
+	Properties *EntityInfoProperties
 
 	// READ-ONLY; The fully qualified ID for the entity. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the entity. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // EntityInfoProperties - The generic properties of an entity.
 type EntityInfoProperties struct {
 	// The friendly name of the management group.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The users specific permissions to this item.
-	InheritedPermissions *Permissions `json:"inheritedPermissions,omitempty"`
+	InheritedPermissions *Permissions
 
 	// Number of children is the number of Groups that are exactly one level underneath the current Group.
-	NumberOfChildGroups *int32 `json:"numberOfChildGroups,omitempty"`
+	NumberOfChildGroups *int32
 
 	// Number of children is the number of Groups and Subscriptions that are exactly one level underneath the current Group.
-	NumberOfChildren *int32 `json:"numberOfChildren,omitempty"`
+	NumberOfChildren *int32
 
 	// Number of Descendants
-	NumberOfDescendants *int32 `json:"numberOfDescendants,omitempty"`
+	NumberOfDescendants *int32
 
 	// (Optional) The ID of the parent management group.
-	Parent *EntityParentGroupInfo `json:"parent,omitempty"`
+	Parent *EntityParentGroupInfo
 
 	// The parent display name chain from the root group to the immediate parent
-	ParentDisplayNameChain []*string `json:"parentDisplayNameChain,omitempty"`
+	ParentDisplayNameChain []*string
 
 	// The parent name chain from the root group to the immediate parent
-	ParentNameChain []*string `json:"parentNameChain,omitempty"`
+	ParentNameChain []*string
 
 	// The users specific permissions to this item.
-	Permissions *Permissions `json:"permissions,omitempty"`
+	Permissions *Permissions
 
 	// The AAD Tenant ID associated with the entity. For example, 00000000-0000-0000-0000-000000000000
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string
 }
 
 // EntityListResult - Describes the result of the request to view entities.
 type EntityListResult struct {
 	// The list of entities.
-	Value []*EntityInfo `json:"value,omitempty"`
+	Value []*EntityInfo
 
 	// READ-ONLY; Total count of records that match the filter
-	Count *int32 `json:"count,omitempty" azure:"ro"`
+	Count *int32
 
 	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // EntityParentGroupInfo - (Optional) The ID of the parent management group.
 type EntityParentGroupInfo struct {
 	// The fully qualified ID for the parent management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty"`
+	ID *string
 }
 
 // ErrorDetails - The details of the error.
 type ErrorDetails struct {
 	// One of a server-defined set of error codes.
-	Code *string `json:"code,omitempty"`
+	Code *string
 
 	// A human-readable representation of the error's details.
-	Details *string `json:"details,omitempty"`
+	Details *string
 
 	// A human-readable representation of the error.
-	Message *string `json:"message,omitempty"`
+	Message *string
 }
 
 // ErrorResponse - The error object.
 type ErrorResponse struct {
 	// The details of the error.
-	Error *ErrorDetails `json:"error,omitempty"`
+	Error *ErrorDetails
 }
 
 // HierarchySettings - Settings defined at the Management Group scope.
 type HierarchySettings struct {
 	// The generic properties of hierarchy settings.
-	Properties *HierarchySettingsProperties `json:"properties,omitempty"`
+	Properties *HierarchySettingsProperties
 
 	// READ-ONLY; The fully qualified ID for the settings object. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000/settings/default.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the object. In this case, default.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups/settings.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // HierarchySettingsClientCreateOrUpdateOptions contains the optional parameters for the HierarchySettingsClient.CreateOrUpdate
@@ -456,163 +456,163 @@ type HierarchySettingsClientUpdateOptions struct {
 // HierarchySettingsInfo - The hierarchy settings resource.
 type HierarchySettingsInfo struct {
 	// The generic properties of hierarchy settings.
-	Properties *HierarchySettingsProperties `json:"properties,omitempty"`
+	Properties *HierarchySettingsProperties
 
 	// READ-ONLY; The fully qualified ID for the settings object. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000/settings/default.
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the object. In this case, default.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups/settings.
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // HierarchySettingsList - Lists all hierarchy settings.
 type HierarchySettingsList struct {
 	// The list of hierarchy settings.
-	Value []*HierarchySettingsInfo `json:"value,omitempty"`
+	Value []*HierarchySettingsInfo
 
 	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // HierarchySettingsProperties - The generic properties of hierarchy settings.
 type HierarchySettingsProperties struct {
 	// Settings that sets the default Management Group under which new subscriptions get added in this tenant. For example, /providers/Microsoft.Management/managementGroups/defaultGroup
-	DefaultManagementGroup *string `json:"defaultManagementGroup,omitempty"`
+	DefaultManagementGroup *string
 
 	// Indicates whether RBAC access is required upon group creation under the root Management Group. If set to true, user will
 	// require Microsoft.Management/managementGroups/write action on the root
 	// Management Group scope in order to create new Groups directly under the root. This will prevent new users from creating
 	// new Management Groups, unless they are given access.
-	RequireAuthorizationForGroupCreation *bool `json:"requireAuthorizationForGroupCreation,omitempty"`
+	RequireAuthorizationForGroupCreation *bool
 
 	// The AAD Tenant ID associated with the hierarchy settings. For example, 00000000-0000-0000-0000-000000000000
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string
 }
 
 // ListSubscriptionUnderManagementGroup - The details of all subscriptions under management group.
 type ListSubscriptionUnderManagementGroup struct {
 	// The list of subscriptions.
-	Value []*SubscriptionUnderManagementGroup `json:"value,omitempty"`
+	Value []*SubscriptionUnderManagementGroup
 
 	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // ManagementGroup - The management group details.
 type ManagementGroup struct {
 	// The generic properties of a management group.
-	Properties *ManagementGroupProperties `json:"properties,omitempty"`
+	Properties *ManagementGroupProperties
 
 	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ManagementGroupChildInfo - The child information of a management group.
 type ManagementGroupChildInfo struct {
 	// The list of children.
-	Children []*ManagementGroupChildInfo `json:"children,omitempty"`
+	Children []*ManagementGroupChildInfo
 
 	// The friendly name of the child resource.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The fully qualified ID for the child resource (management group or subscription). For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty"`
+	ID *string
 
 	// The name of the child entity.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The fully qualified resource type which includes provider namespace (e.g. Microsoft.Management/managementGroups)
-	Type *ManagementGroupChildType `json:"type,omitempty"`
+	Type *ManagementGroupChildType
 }
 
 // ManagementGroupDetails - The details of a management group.
 type ManagementGroupDetails struct {
 	// The ancestors of the management group.
-	ManagementGroupAncestors []*string `json:"managementGroupAncestors,omitempty"`
+	ManagementGroupAncestors []*string
 
 	// The ancestors of the management group displayed in reversed order, from immediate parent to the root.
-	ManagementGroupAncestorsChain []*ManagementGroupPathElement `json:"managementGroupAncestorsChain,omitempty"`
+	ManagementGroupAncestorsChain []*ManagementGroupPathElement
 
 	// (Optional) The ID of the parent management group.
-	Parent *ParentGroupInfo `json:"parent,omitempty"`
+	Parent *ParentGroupInfo
 
 	// The path from the root to the current group.
-	Path []*ManagementGroupPathElement `json:"path,omitempty"`
+	Path []*ManagementGroupPathElement
 
 	// The identity of the principal or process that updated the object.
-	UpdatedBy *string `json:"updatedBy,omitempty"`
+	UpdatedBy *string
 
 	// The date and time when this object was last updated.
-	UpdatedTime *time.Time `json:"updatedTime,omitempty"`
+	UpdatedTime *time.Time
 
 	// The version number of the object.
-	Version *int32 `json:"version,omitempty"`
+	Version *int32
 }
 
 // ManagementGroupInfo - The management group resource.
 type ManagementGroupInfo struct {
 	// The generic properties of a management group.
-	Properties *ManagementGroupInfoProperties `json:"properties,omitempty"`
+	Properties *ManagementGroupInfoProperties
 
 	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ManagementGroupInfoProperties - The generic properties of a management group.
 type ManagementGroupInfoProperties struct {
 	// The friendly name of the management group.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The AAD Tenant ID associated with the management group. For example, 00000000-0000-0000-0000-000000000000
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string
 }
 
 // ManagementGroupListResult - Describes the result of the request to list management groups.
 type ManagementGroupListResult struct {
 	// The list of management groups.
-	Value []*ManagementGroupInfo `json:"value,omitempty"`
+	Value []*ManagementGroupInfo
 
 	// READ-ONLY; The URL to use for getting the next set of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // ManagementGroupPathElement - A path element of a management group ancestors.
 type ManagementGroupPathElement struct {
 	// The friendly name of the group.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The name of the group.
-	Name *string `json:"name,omitempty"`
+	Name *string
 }
 
 // ManagementGroupProperties - The generic properties of a management group.
 type ManagementGroupProperties struct {
 	// The list of children.
-	Children []*ManagementGroupChildInfo `json:"children,omitempty"`
+	Children []*ManagementGroupChildInfo
 
 	// The details of a management group.
-	Details *ManagementGroupDetails `json:"details,omitempty"`
+	Details *ManagementGroupDetails
 
 	// The friendly name of the management group.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The AAD Tenant ID associated with the management group. For example, 00000000-0000-0000-0000-000000000000
-	TenantID *string `json:"tenantId,omitempty"`
+	TenantID *string
 }
 
 // ManagementGroupSubscriptionsClientCreateOptions contains the optional parameters for the ManagementGroupSubscriptionsClient.Create
@@ -648,49 +648,49 @@ type ManagementGroupSubscriptionsClientGetSubscriptionsUnderManagementGroupOptio
 // Operation supported by the Microsoft.Management resource provider.
 type Operation struct {
 	// The object that represents the operation.
-	Display *OperationDisplayProperties `json:"display,omitempty"`
+	Display *OperationDisplayProperties
 
 	// READ-ONLY; Operation name: {provider}/{resource}/{operation}.
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 }
 
 // OperationDisplayProperties - The object that represents the operation.
 type OperationDisplayProperties struct {
 	// READ-ONLY; Operation description.
-	Description *string `json:"description,omitempty" azure:"ro"`
+	Description *string
 
 	// READ-ONLY; The operation that can be performed.
-	Operation *string `json:"operation,omitempty" azure:"ro"`
+	Operation *string
 
 	// READ-ONLY; The name of the provider.
-	Provider *string `json:"provider,omitempty" azure:"ro"`
+	Provider *string
 
 	// READ-ONLY; The resource on which the operation is performed.
-	Resource *string `json:"resource,omitempty" azure:"ro"`
+	Resource *string
 }
 
 // OperationListResult - Describes the result of the request to list Microsoft.Management operations.
 type OperationListResult struct {
 	// READ-ONLY; URL to get the next set of operation list results if there are any.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 
 	// READ-ONLY; List of operations supported by the Microsoft.Management resource provider.
-	Value []*Operation `json:"value,omitempty" azure:"ro"`
+	Value []*Operation
 }
 
 // OperationResults - The results of an asynchronous operation.
 type OperationResults struct {
 	// The generic properties of a management group.
-	Properties *ManagementGroupInfoProperties `json:"properties,omitempty"`
+	Properties *ManagementGroupInfoProperties
 
 	// READ-ONLY; The fully qualified ID for the management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the management group. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -701,59 +701,59 @@ type OperationsClientListOptions struct {
 // ParentGroupInfo - (Optional) The ID of the parent management group.
 type ParentGroupInfo struct {
 	// The friendly name of the parent management group.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The fully qualified ID for the parent management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ID *string `json:"id,omitempty"`
+	ID *string
 
 	// The name of the parent management group
-	Name *string `json:"name,omitempty"`
+	Name *string
 }
 
 // PatchManagementGroupRequest - Management group patch parameters.
 type PatchManagementGroupRequest struct {
 	// The friendly name of the management group.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// (Optional) The fully qualified ID for the parent management group. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000
-	ParentGroupID *string `json:"parentGroupId,omitempty"`
+	ParentGroupID *string
 }
 
 // SubscriptionUnderManagementGroup - The details of subscription under management group.
 type SubscriptionUnderManagementGroup struct {
 	// The generic properties of subscription under a management group.
-	Properties *SubscriptionUnderManagementGroupProperties `json:"properties,omitempty"`
+	Properties *SubscriptionUnderManagementGroupProperties
 
 	// READ-ONLY; The fully qualified ID for the subscription. For example, /providers/Microsoft.Management/managementGroups/0000000-0000-0000-0000-000000000000/subscriptions/0000000-0000-0000-0000-000000000001
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The stringified id of the subscription. For example, 00000000-0000-0000-0000-000000000000
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. For example, Microsoft.Management/managementGroups/subscriptions
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // SubscriptionUnderManagementGroupProperties - The generic properties of subscription under a management group.
 type SubscriptionUnderManagementGroupProperties struct {
 	// The friendly name of the subscription.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// The ID of the parent management group.
-	Parent *DescendantParentGroupInfo `json:"parent,omitempty"`
+	Parent *DescendantParentGroupInfo
 
 	// The state of the subscription.
-	State *string `json:"state,omitempty"`
+	State *string
 
 	// The AAD Tenant ID associated with the subscription. For example, 00000000-0000-0000-0000-000000000000
-	Tenant *string `json:"tenant,omitempty"`
+	Tenant *string
 }
 
 // TenantBackfillStatusResult - The tenant backfill status
 type TenantBackfillStatusResult struct {
 	// READ-ONLY; The status of the Tenant Backfill
-	Status *Status `json:"status,omitempty" azure:"ro"`
+	Status *Status
 
 	// READ-ONLY; The AAD Tenant ID associated with the management group. For example, 00000000-0000-0000-0000-000000000000
-	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+	TenantID *string
 }

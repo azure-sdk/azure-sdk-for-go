@@ -11,7 +11,7 @@ package armmanagementgroups
 
 const (
 	moduleName    = "armmanagementgroups"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v1.1.1"
 )
 
 type EntitySearchType string
@@ -91,19 +91,19 @@ func PossibleManagementGroupExpandTypeValues() []ManagementGroupExpandType {
 type Permissions string
 
 const (
-	PermissionsDelete   Permissions = "delete"
-	PermissionsEdit     Permissions = "edit"
 	PermissionsNoaccess Permissions = "noaccess"
 	PermissionsView     Permissions = "view"
+	PermissionsEdit     Permissions = "edit"
+	PermissionsDelete   Permissions = "delete"
 )
 
 // PossiblePermissionsValues returns the possible values for the Permissions const type.
 func PossiblePermissionsValues() []Permissions {
 	return []Permissions{
-		PermissionsDelete,
-		PermissionsEdit,
 		PermissionsNoaccess,
 		PermissionsView,
+		PermissionsEdit,
+		PermissionsDelete,
 	}
 }
 
