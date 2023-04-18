@@ -48,8 +48,18 @@ func (c *ClientFactory) NewSQLManagedInstancesClient() *SQLManagedInstancesClien
 	return subClient
 }
 
+func (c *ClientFactory) NewFailoverGroupsClient() *FailoverGroupsClient {
+	subClient, _ := NewFailoverGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewSQLServerInstancesClient() *SQLServerInstancesClient {
 	subClient, _ := NewSQLServerInstancesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSQLAvailabilityGroupsClient() *SQLAvailabilityGroupsClient {
+	subClient, _ := NewSQLAvailabilityGroupsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -65,5 +75,25 @@ func (c *ClientFactory) NewActiveDirectoryConnectorsClient() *ActiveDirectoryCon
 
 func (c *ClientFactory) NewPostgresInstancesClient() *PostgresInstancesClient {
 	subClient, _ := NewPostgresInstancesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSQLServerDatabasesClient() *SQLServerDatabasesClient {
+	subClient, _ := NewSQLServerDatabasesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSQLServerAvailabilityGroupsClient() *SQLServerAvailabilityGroupsClient {
+	subClient, _ := NewSQLServerAvailabilityGroupsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSQLAvailabilityGroupReplicasClient() *SQLAvailabilityGroupReplicasClient {
+	subClient, _ := NewSQLAvailabilityGroupReplicasClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSQLAvailabilityGroupDatabasesClient() *SQLAvailabilityGroupDatabasesClient {
+	subClient, _ := NewSQLAvailabilityGroupDatabasesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
