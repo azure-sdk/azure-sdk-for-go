@@ -47,7 +47,7 @@ func NewSingleSignOnConfigurationsClient(subscriptionID string, credential azcor
 // BeginCreateOrUpdate - Configures single-sign-on for this resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-01
+// Generated from API version 2022-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - configurationName - Configuration name
@@ -70,7 +70,7 @@ func (client *SingleSignOnConfigurationsClient) BeginCreateOrUpdate(ctx context.
 // CreateOrUpdate - Configures single-sign-on for this resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-01
+// Generated from API version 2022-06-01
 func (client *SingleSignOnConfigurationsClient) createOrUpdate(ctx context.Context, resourceGroupName string, monitorName string, configurationName string, options *SingleSignOnConfigurationsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, monitorName, configurationName, options)
 	if err != nil {
@@ -110,7 +110,7 @@ func (client *SingleSignOnConfigurationsClient) createOrUpdateCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Body != nil {
@@ -122,7 +122,7 @@ func (client *SingleSignOnConfigurationsClient) createOrUpdateCreateRequest(ctx 
 // Get - Gets the datadog single sign-on resource for the given Monitor.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-03-01
+// Generated from API version 2022-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - configurationName - Configuration name
@@ -167,7 +167,7 @@ func (client *SingleSignOnConfigurationsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -184,7 +184,7 @@ func (client *SingleSignOnConfigurationsClient) getHandleResponse(resp *http.Res
 
 // NewListPager - List the single sign-on configurations for a given monitor resource.
 //
-// Generated from API version 2021-03-01
+// Generated from API version 2022-06-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - monitorName - Monitor resource name
 //   - options - SingleSignOnConfigurationsClientListOptions contains the optional parameters for the SingleSignOnConfigurationsClient.NewListPager
@@ -237,7 +237,7 @@ func (client *SingleSignOnConfigurationsClient) listCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-03-01")
+	reqQP.Set("api-version", "2022-06-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
