@@ -29,66 +29,57 @@ import (
 	"strings"
 )
 
-// VMCollectionClient contains the methods for the VMCollection group.
-// Don't use this type directly, use NewVMCollectionClient() instead.
-type VMCollectionClient struct {
+// OrganizationsClient contains the methods for the Organizations group.
+// Don't use this type directly, use NewOrganizationsClient() instead.
+type OrganizationsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewVMCollectionClient creates a new instance of VMCollectionClient with the specified values.
+// NewOrganizationsClient creates a new instance of OrganizationsClient with the specified values.
 //   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewVMCollectionClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VMCollectionClient, error) {
-	cl, err := arm.NewClient(moduleName+".VMCollectionClient", moduleVersion, credential, options)
+func NewOrganizationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OrganizationsClient, error) {
+	cl, err := arm.NewClient(moduleName+".OrganizationsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &VMCollectionClient{
+	client := &OrganizationsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// Update - Update the vm details that will be monitored by the Elastic monitor resource.
+// GetAPIKey - Fetch User API Key from internal database, if it was generated and stored while creating the Elasticsearch
+// Organization.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-02-01-preview
-//   - resourceGroupName - The name of the resource group to which the Elastic resource belongs.
-//   - monitorName - Monitor resource name
-//   - options - VMCollectionClientUpdateOptions contains the optional parameters for the VMCollectionClient.Update method.
-func (client *VMCollectionClient) Update(ctx context.Context, resourceGroupName string, monitorName string, options *VMCollectionClientUpdateOptions) (VMCollectionClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, monitorName, options)
+//   - options - OrganizationsClientGetAPIKeyOptions contains the optional parameters for the OrganizationsClient.GetAPIKey method.
+func (client *OrganizationsClient) GetAPIKey(ctx context.Context, options *OrganizationsClientGetAPIKeyOptions) (OrganizationsClientGetAPIKeyResponse, error) {
+	req, err := client.getAPIKeyCreateRequest(ctx, options)
 	if err != nil {
-		return VMCollectionClientUpdateResponse{}, err
+		return OrganizationsClientGetAPIKeyResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return VMCollectionClientUpdateResponse{}, err
+		return OrganizationsClientGetAPIKeyResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return VMCollectionClientUpdateResponse{}, runtime.NewResponseError(resp)
+		return OrganizationsClientGetAPIKeyResponse{}, runtime.NewResponseError(resp)
 	}
-	return VMCollectionClientUpdateResponse{}, nil
+	return client.getAPIKeyHandleResponse(resp)
 }
 
-// updateCreateRequest creates the Update request.
-func (client *VMCollectionClient) updateCreateRequest(ctx context.Context, resourceGroupName string, monitorName string, options *VMCollectionClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Elastic/monitors/{monitorName}/vmCollectionUpdate"
+// getAPIKeyCreateRequest creates the GetAPIKey request.
+func (client *OrganizationsClient) getAPIKeyCreateRequest(ctx context.Context, options *OrganizationsClientGetAPIKeyOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Elastic/getOrganizationApiKey"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if monitorName == "" {
-		return nil, errors.New("parameter monitorName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{monitorName}", url.PathEscape(monitorName))
 	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
@@ -101,4 +92,13 @@ func (client *VMCollectionClient) updateCreateRequest(ctx context.Context, resou
 		return req, runtime.MarshalAsJSON(req, *options.Body)
 	}
 	return req, nil
+}
+
+// getAPIKeyHandleResponse handles the GetAPIKey response.
+func (client *OrganizationsClient) getAPIKeyHandleResponse(resp *http.Response) (OrganizationsClientGetAPIKeyResponse, error) {
+	result := OrganizationsClientGetAPIKeyResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.UserAPIKeyResponse); err != nil {
+		return OrganizationsClientGetAPIKeyResponse{}, err
+	}
+	return result, nil
 }
