@@ -489,14 +489,6 @@ type ClientConvertGraphRunbookContentOptions struct {
 	// placeholder for future optional parameters
 }
 
-type ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties struct {
-	// READ-ONLY; The client id of user assigned identity.
-	ClientID *string
-
-	// READ-ONLY; The principal id of user assigned identity.
-	PrincipalID *string
-}
-
 // Connection - Definition of the connection.
 type Connection struct {
 	// Gets or sets the properties of the connection.
@@ -878,6 +870,15 @@ type DeletedAutomationAccountProperties struct {
 // method.
 type DeletedAutomationAccountsClientListBySubscriptionOptions struct {
 	// placeholder for future optional parameters
+}
+
+// Dimension of the metric.
+type Dimension struct {
+	// The display name of the dimension.
+	DisplayName *string
+
+	// The name of the dimension.
+	Name *string
 }
 
 // DscCompilationJob - Definition of the Dsc Compilation job.
@@ -1805,7 +1806,7 @@ type Identity struct {
 	// The list of user identities associated with the resource. The user identity dictionary key references will be ARM resource
 	// ids in the form:
 	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.
-	UserAssignedIdentities map[string]*ComponentsSgqdofSchemasIdentityPropertiesUserassignedidentitiesAdditionalproperties
+	UserAssignedIdentities map[string]*UserAssignedIdentitiesProperties
 
 	// READ-ONLY; The principal ID of resource identity.
 	PrincipalID *string
@@ -2200,6 +2201,39 @@ type LinuxProperties struct {
 	RebootSetting *string
 }
 
+// LogSpecification - Description of logging specification.
+type LogSpecification struct {
+	// Duration of the blob.
+	BlobDuration *string
+
+	// The display name of the specification.
+	DisplayName *string
+
+	// The name of the specification.
+	Name *string
+}
+
+// MetricSpecification - Description of metrics specification.
+type MetricSpecification struct {
+	// The aggregation type.
+	AggregationType *string
+
+	// List of dimensions.
+	Dimensions []*Dimension
+
+	// The description of the metric.
+	DisplayDescription *string
+
+	// The display name of the metric.
+	DisplayName *string
+
+	// The name of the metric.
+	Name *string
+
+	// Units the metric to be displayed in.
+	Unit *string
+}
+
 // Module - Definition of the module type.
 type Module struct {
 	// Gets or sets the etag of the resource.
@@ -2416,10 +2450,19 @@ type Operation struct {
 
 	// Operation name: {provider}/{resource}/{operation}
 	Name *string
+
+	// Origin of the operation.
+	Origin *string
+
+	// Operation properties format.
+	Properties *OperationPropertiesFormat
 }
 
 // OperationDisplay - Provider, Resource and Operation values
 type OperationDisplay struct {
+	// Description of the operation.
+	Description *string
+
 	// Operation type: Read, write, delete, etc.
 	Operation *string
 
@@ -2434,6 +2477,21 @@ type OperationDisplay struct {
 type OperationListResult struct {
 	// List of Automation operations supported by the Automation resource provider.
 	Value []*Operation
+}
+
+// OperationPropertiesFormat - Description of operation properties format.
+type OperationPropertiesFormat struct {
+	// Specification of the service.
+	ServiceSpecification *OperationPropertiesFormatServiceSpecification
+}
+
+// OperationPropertiesFormatServiceSpecification - Specification of the service.
+type OperationPropertiesFormatServiceSpecification struct {
+	// Operation log specification.
+	LogSpecifications []*LogSpecification
+
+	// Operation service specification.
+	MetricSpecifications []*MetricSpecification
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -2590,6 +2648,33 @@ type Python2PackageClientListByAutomationAccountOptions struct {
 
 // Python2PackageClientUpdateOptions contains the optional parameters for the Python2PackageClient.Update method.
 type Python2PackageClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientCreateOrUpdateOptions contains the optional parameters for the Python3PackageClient.CreateOrUpdate
+// method.
+type Python3PackageClientCreateOrUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientDeleteOptions contains the optional parameters for the Python3PackageClient.Delete method.
+type Python3PackageClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientGetOptions contains the optional parameters for the Python3PackageClient.Get method.
+type Python3PackageClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientListByAutomationAccountOptions contains the optional parameters for the Python3PackageClient.NewListByAutomationAccountPager
+// method.
+type Python3PackageClientListByAutomationAccountOptions struct {
+	// placeholder for future optional parameters
+}
+
+// Python3PackageClientUpdateOptions contains the optional parameters for the Python3PackageClient.Update method.
+type Python3PackageClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
@@ -4063,6 +4148,14 @@ type UsageListResult struct {
 // method.
 type UsagesClientListByAutomationAccountOptions struct {
 	// placeholder for future optional parameters
+}
+
+type UserAssignedIdentitiesProperties struct {
+	// READ-ONLY; The client id of user assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal id of user assigned identity.
+	PrincipalID *string
 }
 
 // Variable - Definition of the variable.

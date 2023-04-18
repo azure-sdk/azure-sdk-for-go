@@ -211,7 +211,7 @@ type DscConfigurationClientDeleteResponse struct {
 
 // DscConfigurationClientGetContentResponse contains the response from method DscConfigurationClient.GetContent.
 type DscConfigurationClientGetContentResponse struct {
-	Value *string
+	// placeholder for future response values
 }
 
 // DscConfigurationClientGetResponse contains the response from method DscConfigurationClient.Get.
@@ -517,6 +517,31 @@ type Python2PackageClientListByAutomationAccountResponse struct {
 
 // Python2PackageClientUpdateResponse contains the response from method Python2PackageClient.Update.
 type Python2PackageClientUpdateResponse struct {
+	Module
+}
+
+// Python3PackageClientCreateOrUpdateResponse contains the response from method Python3PackageClient.CreateOrUpdate.
+type Python3PackageClientCreateOrUpdateResponse struct {
+	Module
+}
+
+// Python3PackageClientDeleteResponse contains the response from method Python3PackageClient.Delete.
+type Python3PackageClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// Python3PackageClientGetResponse contains the response from method Python3PackageClient.Get.
+type Python3PackageClientGetResponse struct {
+	Module
+}
+
+// Python3PackageClientListByAutomationAccountResponse contains the response from method Python3PackageClient.NewListByAutomationAccountPager.
+type Python3PackageClientListByAutomationAccountResponse struct {
+	ModuleListResult
+}
+
+// Python3PackageClientUpdateResponse contains the response from method Python3PackageClient.Update.
+type Python3PackageClientUpdateResponse struct {
 	Module
 }
 

@@ -49,11 +49,6 @@ func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesCli
 	return subClient
 }
 
-func (c *ClientFactory) NewPython2PackageClient() *Python2PackageClient {
-	subClient, _ := NewPython2PackageClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewAgentRegistrationInformationClient() *AgentRegistrationInformationClient {
 	subClient, _ := NewAgentRegistrationInformationClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -66,11 +61,6 @@ func (c *ClientFactory) NewDscNodeClient() *DscNodeClient {
 
 func (c *ClientFactory) NewNodeReportsClient() *NodeReportsClient {
 	subClient, _ := NewNodeReportsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewDscNodeConfigurationClient() *DscNodeConfigurationClient {
-	subClient, _ := NewDscNodeConfigurationClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -89,18 +79,23 @@ func (c *ClientFactory) NewNodeCountInformationClient() *NodeCountInformationCli
 	return subClient
 }
 
-func (c *ClientFactory) NewSourceControlClient() *SourceControlClient {
-	subClient, _ := NewSourceControlClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewWatcherClient() *WatcherClient {
+	subClient, _ := NewWatcherClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewSourceControlSyncJobClient() *SourceControlSyncJobClient {
-	subClient, _ := NewSourceControlSyncJobClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewSoftwareUpdateConfigurationsClient() *SoftwareUpdateConfigurationsClient {
+	subClient, _ := NewSoftwareUpdateConfigurationsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewSourceControlSyncJobStreamsClient() *SourceControlSyncJobStreamsClient {
-	subClient, _ := NewSourceControlSyncJobStreamsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewWebhookClient() *WebhookClient {
+	subClient, _ := NewWebhookClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDeletedAutomationAccountsClient() *DeletedAutomationAccountsClient {
+	subClient, _ := NewDeletedAutomationAccountsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -144,6 +139,36 @@ func (c *ClientFactory) NewCredentialClient() *CredentialClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewDscConfigurationClient() *DscConfigurationClient {
+	subClient, _ := NewDscConfigurationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDscNodeConfigurationClient() *DscNodeConfigurationClient {
+	subClient, _ := NewDscNodeConfigurationClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHybridRunbookWorkersClient() *HybridRunbookWorkersClient {
+	subClient, _ := NewHybridRunbookWorkersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewHybridRunbookWorkerGroupClient() *HybridRunbookWorkerGroupClient {
+	subClient, _ := NewHybridRunbookWorkerGroupClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobClient() *JobClient {
+	subClient, _ := NewJobClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewJobStreamClient() *JobStreamClient {
+	subClient, _ := NewJobStreamClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewJobScheduleClient() *JobScheduleClient {
 	subClient, _ := NewJobScheduleClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -174,36 +199,6 @@ func (c *ClientFactory) NewFieldsClient() *FieldsClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewScheduleClient() *ScheduleClient {
-	subClient, _ := NewScheduleClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewVariableClient() *VariableClient {
-	subClient, _ := NewVariableClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewWatcherClient() *WatcherClient {
-	subClient, _ := NewWatcherClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewDscConfigurationClient() *DscConfigurationClient {
-	subClient, _ := NewDscConfigurationClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewJobClient() *JobClient {
-	subClient, _ := NewJobClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewJobStreamClient() *JobStreamClient {
-	subClient, _ := NewJobStreamClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
@@ -214,18 +209,13 @@ func (c *ClientFactory) NewClient() *Client {
 	return subClient
 }
 
-func (c *ClientFactory) NewSoftwareUpdateConfigurationsClient() *SoftwareUpdateConfigurationsClient {
-	subClient, _ := NewSoftwareUpdateConfigurationsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewPython2PackageClient() *Python2PackageClient {
+	subClient, _ := NewPython2PackageClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewSoftwareUpdateConfigurationRunsClient() *SoftwareUpdateConfigurationRunsClient {
-	subClient, _ := NewSoftwareUpdateConfigurationRunsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewSoftwareUpdateConfigurationMachineRunsClient() *SoftwareUpdateConfigurationMachineRunsClient {
-	subClient, _ := NewSoftwareUpdateConfigurationMachineRunsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewPython3PackageClient() *Python3PackageClient {
+	subClient, _ := NewPython3PackageClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
@@ -249,22 +239,37 @@ func (c *ClientFactory) NewTestJobClient() *TestJobClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewWebhookClient() *WebhookClient {
-	subClient, _ := NewWebhookClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewScheduleClient() *ScheduleClient {
+	subClient, _ := NewScheduleClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewHybridRunbookWorkersClient() *HybridRunbookWorkersClient {
-	subClient, _ := NewHybridRunbookWorkersClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewSoftwareUpdateConfigurationMachineRunsClient() *SoftwareUpdateConfigurationMachineRunsClient {
+	subClient, _ := NewSoftwareUpdateConfigurationMachineRunsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewDeletedAutomationAccountsClient() *DeletedAutomationAccountsClient {
-	subClient, _ := NewDeletedAutomationAccountsClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewSoftwareUpdateConfigurationRunsClient() *SoftwareUpdateConfigurationRunsClient {
+	subClient, _ := NewSoftwareUpdateConfigurationRunsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 
-func (c *ClientFactory) NewHybridRunbookWorkerGroupClient() *HybridRunbookWorkerGroupClient {
-	subClient, _ := NewHybridRunbookWorkerGroupClient(c.subscriptionID, c.credential, c.options)
+func (c *ClientFactory) NewSourceControlClient() *SourceControlClient {
+	subClient, _ := NewSourceControlClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSourceControlSyncJobClient() *SourceControlSyncJobClient {
+	subClient, _ := NewSourceControlSyncJobClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSourceControlSyncJobStreamsClient() *SourceControlSyncJobStreamsClient {
+	subClient, _ := NewSourceControlSyncJobStreamsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewVariableClient() *VariableClient {
+	subClient, _ := NewVariableClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }

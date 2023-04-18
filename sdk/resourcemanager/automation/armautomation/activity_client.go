@@ -48,7 +48,7 @@ func NewActivityClient(subscriptionID string, credential azcore.TokenCredential,
 // Get - Retrieve the activity in the module identified by module name and activity name.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - moduleName - The name of module.
@@ -97,7 +97,7 @@ func (client *ActivityClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,7 +114,7 @@ func (client *ActivityClient) getHandleResponse(resp *http.Response) (ActivityCl
 
 // NewListByModulePager - Retrieve a list of activities in the module identified by module name.
 //
-// Generated from API version 2020-01-13-preview
+// Generated from API version 2022-08-08
 //   - resourceGroupName - Name of an Azure Resource group.
 //   - automationAccountName - The name of the automation account.
 //   - moduleName - The name of module.
@@ -172,7 +172,7 @@ func (client *ActivityClient) listByModuleCreateRequest(ctx context.Context, res
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-13-preview")
+	reqQP.Set("api-version", "2022-08-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
