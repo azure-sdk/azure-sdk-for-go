@@ -1,5 +1,23 @@
 # Release History
 
+## 3.0.0 (2023-04-19)
+### Breaking Changes
+
+- Function `*AzureVMWorkloadSAPHanaHSR.GetAzureVMWorkloadProtectableItem` has been removed
+- Function `*AzureVMWorkloadSAPHanaHSR.GetWorkloadProtectableItem` has been removed
+- Struct `AzureVMWorkloadSAPHanaHSR` has been removed
+- Field `ActionRequired` of struct `PrivateLinkServiceConnectionState` has been removed
+
+### Features Added
+
+- New enum type `VaultSubResourceType` with values `VaultSubResourceTypeAzureBackup`, `VaultSubResourceTypeAzureBackupSecondary`, `VaultSubResourceTypeAzureSiteRecovery`
+- New function `*AzureVMWorkloadSAPHanaHSRProtectableItem.GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem`
+- New function `*AzureVMWorkloadSAPHanaHSRProtectableItem.GetWorkloadProtectableItem() *WorkloadProtectableItem`
+- New struct `AzureVMWorkloadSAPHanaHSRProtectableItem`
+- New field `GroupIDs` in struct `PrivateEndpointConnection`
+- New field `ActionsRequired` in struct `PrivateLinkServiceConnectionState`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 

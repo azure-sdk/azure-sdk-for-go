@@ -3844,8 +3844,8 @@ func (a *AzureVMWorkloadSAPHanaDatabaseWorkloadItem) UnmarshalJSON(data []byte) 
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadSAPHanaHSR.
-func (a AzureVMWorkloadSAPHanaHSR) MarshalJSON() ([]byte, error) {
+// MarshalJSON implements the json.Marshaller interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
+func (a AzureVMWorkloadSAPHanaHSRProtectableItem) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "backupManagementType", a.BackupManagementType)
 	populate(objectMap, "friendlyName", a.FriendlyName)
@@ -3854,7 +3854,7 @@ func (a AzureVMWorkloadSAPHanaHSR) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "parentName", a.ParentName)
 	populate(objectMap, "parentUniqueName", a.ParentUniqueName)
 	populate(objectMap, "prebackupvalidation", a.Prebackupvalidation)
-	objectMap["protectableItemType"] = "SAPHanaHSR"
+	objectMap["protectableItemType"] = "HanaHSRContainer"
 	populate(objectMap, "protectionState", a.ProtectionState)
 	populate(objectMap, "serverName", a.ServerName)
 	populate(objectMap, "subinquireditemcount", a.Subinquireditemcount)
@@ -3863,8 +3863,8 @@ func (a AzureVMWorkloadSAPHanaHSR) MarshalJSON() ([]byte, error) {
 	return json.Marshal(objectMap)
 }
 
-// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadSAPHanaHSR.
-func (a *AzureVMWorkloadSAPHanaHSR) UnmarshalJSON(data []byte) error {
+// UnmarshalJSON implements the json.Unmarshaller interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
+func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) UnmarshalJSON(data []byte) error {
 	var rawMsg map[string]json.RawMessage
 	if err := json.Unmarshal(data, &rawMsg); err != nil {
 		return fmt.Errorf("unmarshalling type %T: %v", a, err)
@@ -11422,6 +11422,7 @@ func (p *PrivateEndpoint) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type PrivateEndpointConnection.
 func (p PrivateEndpointConnection) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "groupIds", p.GroupIDs)
 	populate(objectMap, "privateEndpoint", p.PrivateEndpoint)
 	populate(objectMap, "privateLinkServiceConnectionState", p.PrivateLinkServiceConnectionState)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
@@ -11437,6 +11438,9 @@ func (p *PrivateEndpointConnection) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "groupIds":
+			err = unpopulate(val, "GroupIDs", &p.GroupIDs)
+			delete(rawMsg, key)
 		case "privateEndpoint":
 			err = unpopulate(val, "PrivateEndpoint", &p.PrivateEndpoint)
 			delete(rawMsg, key)
@@ -11508,7 +11512,7 @@ func (p *PrivateEndpointConnectionResource) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type PrivateLinkServiceConnectionState.
 func (p PrivateLinkServiceConnectionState) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "actionRequired", p.ActionRequired)
+	populate(objectMap, "actionsRequired", p.ActionsRequired)
 	populate(objectMap, "description", p.Description)
 	populate(objectMap, "status", p.Status)
 	return json.Marshal(objectMap)
@@ -11523,8 +11527,8 @@ func (p *PrivateLinkServiceConnectionState) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "actionRequired":
-			err = unpopulate(val, "ActionRequired", &p.ActionRequired)
+		case "actionsRequired":
+			err = unpopulate(val, "ActionsRequired", &p.ActionsRequired)
 			delete(rawMsg, key)
 		case "description":
 			err = unpopulate(val, "Description", &p.Description)
