@@ -8477,6 +8477,7 @@ func (c ConnectionMonitorResultProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "notes", c.Notes)
 	populate(objectMap, "outputs", c.Outputs)
 	populate(objectMap, "provisioningState", c.ProvisioningState)
+	populate(objectMap, "resourceGuid", c.ResourceGUID)
 	populate(objectMap, "source", c.Source)
 	populateTimeRFC3339(objectMap, "startTime", c.StartTime)
 	populate(objectMap, "testConfigurations", c.TestConfigurations)
@@ -8519,6 +8520,9 @@ func (c *ConnectionMonitorResultProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &c.ProvisioningState)
+			delete(rawMsg, key)
+		case "resourceGuid":
+			err = unpopulate(val, "ResourceGUID", &c.ResourceGUID)
 			delete(rawMsg, key)
 		case "source":
 			err = unpopulate(val, "Source", &c.Source)
@@ -21537,6 +21541,7 @@ func (p PacketCaptureParameters) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "bytesToCapturePerPacket", p.BytesToCapturePerPacket)
 	populate(objectMap, "filters", p.Filters)
+	populate(objectMap, "queryPacketCaptureLastOperationId", p.QueryPacketCaptureLastOperationID)
 	populate(objectMap, "scope", p.Scope)
 	populate(objectMap, "storageLocation", p.StorageLocation)
 	populate(objectMap, "target", p.Target)
@@ -21560,6 +21565,9 @@ func (p *PacketCaptureParameters) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "filters":
 			err = unpopulate(val, "Filters", &p.Filters)
+			delete(rawMsg, key)
+		case "queryPacketCaptureLastOperationId":
+			err = unpopulate(val, "QueryPacketCaptureLastOperationID", &p.QueryPacketCaptureLastOperationID)
 			delete(rawMsg, key)
 		case "scope":
 			err = unpopulate(val, "Scope", &p.Scope)
@@ -21679,6 +21687,7 @@ func (p PacketCaptureResultProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "bytesToCapturePerPacket", p.BytesToCapturePerPacket)
 	populate(objectMap, "filters", p.Filters)
 	populate(objectMap, "provisioningState", p.ProvisioningState)
+	populate(objectMap, "queryPacketCaptureLastOperationId", p.QueryPacketCaptureLastOperationID)
 	populate(objectMap, "scope", p.Scope)
 	populate(objectMap, "storageLocation", p.StorageLocation)
 	populate(objectMap, "target", p.Target)
@@ -21705,6 +21714,9 @@ func (p *PacketCaptureResultProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &p.ProvisioningState)
+			delete(rawMsg, key)
+		case "queryPacketCaptureLastOperationId":
+			err = unpopulate(val, "QueryPacketCaptureLastOperationID", &p.QueryPacketCaptureLastOperationID)
 			delete(rawMsg, key)
 		case "scope":
 			err = unpopulate(val, "Scope", &p.Scope)
@@ -27310,7 +27322,7 @@ func (s SubnetPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "addressPrefix", s.AddressPrefix)
 	populate(objectMap, "addressPrefixes", s.AddressPrefixes)
-	populate(objectMap, "applicationGatewayIpConfigurations", s.ApplicationGatewayIPConfigurations)
+	populate(objectMap, "applicationGatewayIPConfigurations", s.ApplicationGatewayIPConfigurations)
 	populate(objectMap, "delegations", s.Delegations)
 	populate(objectMap, "ipAllocations", s.IPAllocations)
 	populate(objectMap, "ipConfigurationProfiles", s.IPConfigurationProfiles)
@@ -27345,7 +27357,7 @@ func (s *SubnetPropertiesFormat) UnmarshalJSON(data []byte) error {
 		case "addressPrefixes":
 			err = unpopulate(val, "AddressPrefixes", &s.AddressPrefixes)
 			delete(rawMsg, key)
-		case "applicationGatewayIpConfigurations":
+		case "applicationGatewayIPConfigurations":
 			err = unpopulate(val, "ApplicationGatewayIPConfigurations", &s.ApplicationGatewayIPConfigurations)
 			delete(rawMsg, key)
 		case "delegations":
@@ -33426,6 +33438,7 @@ func (w *WatcherListResult) UnmarshalJSON(data []byte) error {
 func (w WatcherPropertiesFormat) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "provisioningState", w.ProvisioningState)
+	populate(objectMap, "runningOperationIds", w.RunningOperationIDs)
 	return json.Marshal(objectMap)
 }
 
@@ -33440,6 +33453,9 @@ func (w *WatcherPropertiesFormat) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "provisioningState":
 			err = unpopulate(val, "ProvisioningState", &w.ProvisioningState)
+			delete(rawMsg, key)
+		case "runningOperationIds":
+			err = unpopulate(val, "RunningOperationIDs", &w.RunningOperationIDs)
 			delete(rawMsg, key)
 		}
 		if err != nil {

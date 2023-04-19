@@ -1,5 +1,14 @@
 # Release History
 
+## 2.3.0 (2023-04-19)
+### Features Added
+
+- New field `ResourceGUID` in struct `ConnectionMonitorResultProperties`
+- New field `QueryPacketCaptureLastOperationID` in struct `PacketCaptureParameters`
+- New field `QueryPacketCaptureLastOperationID` in struct `PacketCaptureResultProperties`
+- New field `RunningOperationIDs` in struct `WatcherPropertiesFormat`
+
+
 ## 2.2.1 (2023-04-14)
 ### Bug Fixes
 

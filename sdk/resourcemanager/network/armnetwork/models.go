@@ -3887,6 +3887,9 @@ type ConnectionMonitorResultProperties struct {
 	// List of connection monitor outputs.
 	Outputs []*ConnectionMonitorOutput
 
+	// This is unique guid mapping to a resource.
+	ResourceGUID *string
+
 	// Describes the source of connection monitor.
 	Source *ConnectionMonitorSource
 
@@ -10669,6 +10672,9 @@ type PacketCaptureParameters struct {
 	// A list of packet capture filters.
 	Filters []*PacketCaptureFilter
 
+	// The last operation Id of querying packet capture.
+	QueryPacketCaptureLastOperationID *string
+
 	// A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are
 	// empty, then the packet capture will run on all instances of AzureVMSS.
 	Scope *PacketCaptureMachineScope
@@ -10732,6 +10738,9 @@ type PacketCaptureResultProperties struct {
 
 	// A list of packet capture filters.
 	Filters []*PacketCaptureFilter
+
+	// The last operation Id of querying packet capture.
+	QueryPacketCaptureLastOperationID *string
 
 	// A list of AzureVMSS instances which can be included or excluded to run packet capture. If both included and excluded are
 	// empty, then the packet capture will run on all instances of AzureVMSS.
@@ -13071,6 +13080,10 @@ type SecurityRulePropertiesFormat struct {
 	// REQUIRED; The direction of the rule. The direction specifies if rule will be evaluated on incoming or outgoing traffic.
 	Direction *SecurityRuleDirection
 
+	// REQUIRED; The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each
+	// rule in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32
+
 	// REQUIRED; Network protocol this rule applies to.
 	Protocol *SecurityRuleProtocol
 
@@ -13093,10 +13106,6 @@ type SecurityRulePropertiesFormat struct {
 
 	// The destination port ranges.
 	DestinationPortRanges []*string
-
-	// The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the
-	// collection. The lower the priority number, the higher the priority of the rule.
-	Priority *int32
 
 	// The CIDR or source IP range. Asterisk '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork',
 	// 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress
@@ -17273,6 +17282,9 @@ type WatcherListResult struct {
 
 // WatcherPropertiesFormat - The network watcher properties.
 type WatcherPropertiesFormat struct {
+	// List of running operation GUIDs.
+	RunningOperationIDs []*string
+
 	// READ-ONLY; The provisioning state of the network watcher resource.
 	ProvisioningState *ProvisioningState
 }
