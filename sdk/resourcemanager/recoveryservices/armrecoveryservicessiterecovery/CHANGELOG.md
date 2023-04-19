@@ -1,5 +1,58 @@
 # Release History
 
+## 2.1.0 (2023-04-19)
+### Features Added
+
+- New enum type `SecurityType` with values `SecurityTypeConfidentialVM`, `SecurityTypeNone`, `SecurityTypeTrustedLaunch`
+- New function `*A2AClusterUnplannedFailoverInput.GetClusterUnplannedFailoverProviderSpecificInput() *ClusterUnplannedFailoverProviderSpecificInput`
+- New function `*A2AReplicationProtectionClusterDetails.GetReplicationClusterProviderSpecificSettings() *ReplicationClusterProviderSpecificSettings`
+- New function `*A2ASharedDiskReplicationDetails.GetSharedDiskReplicationProviderSpecificSettings() *SharedDiskReplicationProviderSpecificSettings`
+- New function `*ClientFactory.NewReplicationProtectionClustersClient() *ReplicationProtectionClustersClient`
+- New function `*ClusterUnplannedFailoverProviderSpecificInput.GetClusterUnplannedFailoverProviderSpecificInput() *ClusterUnplannedFailoverProviderSpecificInput`
+- New function `*ReplicationClusterProviderSpecificSettings.GetReplicationClusterProviderSpecificSettings() *ReplicationClusterProviderSpecificSettings`
+- New function `NewReplicationProtectionClustersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ReplicationProtectionClustersClient, error)`
+- New function `*ReplicationProtectionClustersClient.BeginCreate(context.Context, string, string, string, string, string, ReplicationProtectionCluster, *ReplicationProtectionClustersClientBeginCreateOptions) (*runtime.Poller[ReplicationProtectionClustersClientCreateResponse], error)`
+- New function `*ReplicationProtectionClustersClient.Get(context.Context, string, string, string, string, string, *ReplicationProtectionClustersClientGetOptions) (ReplicationProtectionClustersClientGetResponse, error)`
+- New function `*ReplicationProtectionClustersClient.GetOperationResults(context.Context, string, string, string, string, string, string, *ReplicationProtectionClustersClientGetOperationResultsOptions) (ReplicationProtectionClustersClientGetOperationResultsResponse, error)`
+- New function `*ReplicationProtectionClustersClient.NewListByReplicationProtectionContainersPager(string, string, string, string, *ReplicationProtectionClustersClientListByReplicationProtectionContainersOptions) *runtime.Pager[ReplicationProtectionClustersClientListByReplicationProtectionContainersResponse]`
+- New function `*ReplicationProtectionClustersClient.NewListPager(string, string, *ReplicationProtectionClustersClientListOptions) *runtime.Pager[ReplicationProtectionClustersClientListResponse]`
+- New function `*ReplicationProtectionClustersClient.BeginPurge(context.Context, string, string, string, string, string, *ReplicationProtectionClustersClientBeginPurgeOptions) (*runtime.Poller[ReplicationProtectionClustersClientPurgeResponse], error)`
+- New function `*ReplicationProtectionClustersClient.BeginRepairReplication(context.Context, string, string, string, string, string, *ReplicationProtectionClustersClientBeginRepairReplicationOptions) (*runtime.Poller[ReplicationProtectionClustersClientRepairReplicationResponse], error)`
+- New function `*ReplicationProtectionClustersClient.BeginUnplannedFailover(context.Context, string, string, string, string, string, ClusterUnplannedFailoverInput, *ReplicationProtectionClustersClientBeginUnplannedFailoverOptions) (*runtime.Poller[ReplicationProtectionClustersClientUnplannedFailoverResponse], error)`
+- New function `*SharedDiskReplicationProviderSpecificSettings.GetSharedDiskReplicationProviderSpecificSettings() *SharedDiskReplicationProviderSpecificSettings`
+- New struct `A2AClusterUnplannedFailoverInput`
+- New struct `A2AFabricSpecificLocationDetails`
+- New struct `A2AReplicationProtectionClusterDetails`
+- New struct `A2ASharedDiskIRErrorDetails`
+- New struct `A2ASharedDiskReplicationDetails`
+- New struct `ClusterUnplannedFailoverInput`
+- New struct `ClusterUnplannedFailoverInputProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `RegisteredClusterNodes`
+- New struct `ReplicationProtectionCluster`
+- New struct `ReplicationProtectionClusterCollection`
+- New struct `ReplicationProtectionClusterProperties`
+- New struct `ServiceDefaultError`
+- New struct `ServiceDefaultErrorError`
+- New struct `SharedDiskReplicationItemProperties`
+- New struct `VMwareCbtSecurityProfileProperties`
+- New field `ProtectionClusterID` in struct `A2AEnableProtectionInput`
+- New field `IsClusterInfraReady` in struct `A2AReplicationDetails`
+- New field `ProtectionClusterID` in struct `A2AReplicationDetails`
+- New field `LocationDetails` in struct `AzureFabricSpecificDetails`
+- New field `ExtendedLocationMappings` in struct `FabricQueryParameter`
+- New field `LocationDetails` in struct `FabricQueryParameter`
+- New field `ConfidentialVMKeyVaultID` in struct `VMwareCbtEnableMigrationInput`
+- New field `TargetVMSecurityProfile` in struct `VMwareCbtEnableMigrationInput`
+- New field `OSUpgradeVersion` in struct `VMwareCbtMigrateInput`
+- New field `ConfidentialVMKeyVaultID` in struct `VMwareCbtMigrationDetails`
+- New field `OSName` in struct `VMwareCbtMigrationDetails`
+- New field `SupportedOSVersions` in struct `VMwareCbtMigrationDetails`
+- New field `TargetVMSecurityProfile` in struct `VMwareCbtMigrationDetails`
+- New field `ExcludedSKUs` in struct `VMwareCbtProtectionContainerMappingDetails`
+- New field `OSUpgradeVersion` in struct `VMwareCbtTestMigrateInput`
+
+
 ## 2.0.1 (2023-04-14)
 ### Bug Fixes
 

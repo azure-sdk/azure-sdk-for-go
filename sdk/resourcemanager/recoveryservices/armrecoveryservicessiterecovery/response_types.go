@@ -409,6 +409,46 @@ type ReplicationProtectedItemsClientUpdateResponse struct {
 	ReplicationProtectedItem
 }
 
+// ReplicationProtectionClustersClientCreateResponse contains the response from method ReplicationProtectionClustersClient.BeginCreate.
+type ReplicationProtectionClustersClientCreateResponse struct {
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientGetOperationResultsResponse contains the response from method ReplicationProtectionClustersClient.GetOperationResults.
+type ReplicationProtectionClustersClientGetOperationResultsResponse struct {
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientGetResponse contains the response from method ReplicationProtectionClustersClient.Get.
+type ReplicationProtectionClustersClientGetResponse struct {
+	ReplicationProtectionCluster
+}
+
+// ReplicationProtectionClustersClientListByReplicationProtectionContainersResponse contains the response from method ReplicationProtectionClustersClient.NewListByReplicationProtectionContainersPager.
+type ReplicationProtectionClustersClientListByReplicationProtectionContainersResponse struct {
+	ReplicationProtectionClusterCollection
+}
+
+// ReplicationProtectionClustersClientListResponse contains the response from method ReplicationProtectionClustersClient.NewListPager.
+type ReplicationProtectionClustersClientListResponse struct {
+	ReplicationProtectionClusterCollection
+}
+
+// ReplicationProtectionClustersClientPurgeResponse contains the response from method ReplicationProtectionClustersClient.BeginPurge.
+type ReplicationProtectionClustersClientPurgeResponse struct {
+	// placeholder for future response values
+}
+
+// ReplicationProtectionClustersClientRepairReplicationResponse contains the response from method ReplicationProtectionClustersClient.BeginRepairReplication.
+type ReplicationProtectionClustersClientRepairReplicationResponse struct {
+	// placeholder for future response values
+}
+
+// ReplicationProtectionClustersClientUnplannedFailoverResponse contains the response from method ReplicationProtectionClustersClient.BeginUnplannedFailover.
+type ReplicationProtectionClustersClientUnplannedFailoverResponse struct {
+	// placeholder for future response values
+}
+
 // ReplicationProtectionContainerMappingsClientCreateResponse contains the response from method ReplicationProtectionContainerMappingsClient.BeginCreate.
 type ReplicationProtectionContainerMappingsClientCreateResponse struct {
 	ProtectionContainerMapping

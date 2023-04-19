@@ -73,6 +73,24 @@ func unmarshalApplyRecoveryPointProviderSpecificInputClassification(rawMsg json.
 	return b, json.Unmarshal(rawMsg, b)
 }
 
+func unmarshalClusterUnplannedFailoverProviderSpecificInputClassification(rawMsg json.RawMessage) (ClusterUnplannedFailoverProviderSpecificInputClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ClusterUnplannedFailoverProviderSpecificInputClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2AClusterUnplannedFailoverInput{}
+	default:
+		b = &ClusterUnplannedFailoverProviderSpecificInput{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
 func unmarshalConfigurationSettingsClassification(rawMsg json.RawMessage) (ConfigurationSettingsClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
@@ -828,6 +846,24 @@ func unmarshalRemoveDisksProviderSpecificInputClassification(rawMsg json.RawMess
 	return b, json.Unmarshal(rawMsg, b)
 }
 
+func unmarshalReplicationClusterProviderSpecificSettingsClassification(rawMsg json.RawMessage) (ReplicationClusterProviderSpecificSettingsClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b ReplicationClusterProviderSpecificSettingsClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2AReplicationProtectionClusterDetails{}
+	default:
+		b = &ReplicationClusterProviderSpecificSettings{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
 func unmarshalReplicationProtectionIntentProviderSpecificSettingsClassification(rawMsg json.RawMessage) (ReplicationProtectionIntentProviderSpecificSettingsClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
@@ -1023,6 +1059,24 @@ func unmarshalReverseReplicationProviderSpecificInputClassification(rawMsg json.
 		b = &InMageRcmFailbackReprotectInput{}
 	default:
 		b = &ReverseReplicationProviderSpecificInput{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalSharedDiskReplicationProviderSpecificSettingsClassification(rawMsg json.RawMessage) (SharedDiskReplicationProviderSpecificSettingsClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b SharedDiskReplicationProviderSpecificSettingsClassification
+	switch m["instanceType"] {
+	case "A2A":
+		b = &A2ASharedDiskReplicationDetails{}
+	default:
+		b = &SharedDiskReplicationProviderSpecificSettings{}
 	}
 	return b, json.Unmarshal(rawMsg, b)
 }

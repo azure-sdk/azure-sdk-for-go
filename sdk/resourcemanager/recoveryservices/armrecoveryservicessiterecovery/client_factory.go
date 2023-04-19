@@ -118,6 +118,11 @@ func (c *ClientFactory) NewTargetComputeSizesClient() *TargetComputeSizesClient 
 	return subClient
 }
 
+func (c *ClientFactory) NewReplicationProtectionClustersClient() *ReplicationProtectionClustersClient {
+	subClient, _ := NewReplicationProtectionClustersClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewReplicationProtectionContainerMappingsClient() *ReplicationProtectionContainerMappingsClient {
 	subClient, _ := NewReplicationProtectionContainerMappingsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
