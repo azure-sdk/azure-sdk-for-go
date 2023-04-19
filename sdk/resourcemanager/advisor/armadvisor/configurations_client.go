@@ -47,7 +47,7 @@ func NewConfigurationsClient(subscriptionID string, credential azcore.TokenCrede
 // CreateInResourceGroup - Create/Overwrite Azure Advisor configuration.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - configurationName - Advisor configuration name. Value must be 'default'
 //   - resourceGroup - The name of the Azure resource group.
 //   - configContract - The Azure Advisor configuration data structure.
@@ -88,7 +88,7 @@ func (client *ConfigurationsClient) createInResourceGroupCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, configContract)
@@ -107,7 +107,7 @@ func (client *ConfigurationsClient) createInResourceGroupHandleResponse(resp *ht
 // groups.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - configurationName - Advisor configuration name. Value must be 'default'
 //   - configContract - The Azure Advisor configuration data structure.
 //   - options - ConfigurationsClientCreateInSubscriptionOptions contains the optional parameters for the ConfigurationsClient.CreateInSubscription
@@ -143,7 +143,7 @@ func (client *ConfigurationsClient) createInSubscriptionCreateRequest(ctx contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, configContract)
@@ -160,7 +160,7 @@ func (client *ConfigurationsClient) createInSubscriptionHandleResponse(resp *htt
 
 // NewListByResourceGroupPager - Retrieve Azure Advisor configurations.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - resourceGroup - The name of the Azure resource group.
 //   - options - ConfigurationsClientListByResourceGroupOptions contains the optional parameters for the ConfigurationsClient.NewListByResourceGroupPager
 //     method.
@@ -202,7 +202,7 @@ func (client *ConfigurationsClient) listByResourceGroupCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -220,7 +220,7 @@ func (client *ConfigurationsClient) listByResourceGroupHandleResponse(resp *http
 // NewListBySubscriptionPager - Retrieve Azure Advisor configurations and also retrieve configurations of contained resource
 // groups.
 //
-// Generated from API version 2020-01-01
+// Generated from API version 2023-01-01
 //   - options - ConfigurationsClientListBySubscriptionOptions contains the optional parameters for the ConfigurationsClient.NewListBySubscriptionPager
 //     method.
 func (client *ConfigurationsClient) NewListBySubscriptionPager(options *ConfigurationsClientListBySubscriptionOptions) *runtime.Pager[ConfigurationsClientListBySubscriptionResponse] {
@@ -263,7 +263,7 @@ func (client *ConfigurationsClient) listBySubscriptionCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-01-01")
+	reqQP.Set("api-version", "2023-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
