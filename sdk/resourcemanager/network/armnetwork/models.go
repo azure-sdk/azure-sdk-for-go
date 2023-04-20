@@ -259,6 +259,9 @@ type AdminPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // AdminRule - Network admin rule.
@@ -337,6 +340,9 @@ type AdminRuleCollectionPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // AdminRuleCollectionsClientBeginDeleteOptions contains the optional parameters for the AdminRuleCollectionsClient.BeginDelete
@@ -4144,6 +4150,9 @@ type ConnectivityConfigurationProperties struct {
 
 	// READ-ONLY; The provisioning state of the connectivity configuration resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // ConnectivityConfigurationsClientBeginDeleteOptions contains the optional parameters for the ConnectivityConfigurationsClient.BeginDelete
@@ -4749,6 +4758,9 @@ type DefaultAdminPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 
 	// READ-ONLY; The source port ranges.
 	SourcePortRanges []*string
@@ -7592,6 +7604,9 @@ type GroupProperties struct {
 
 	// READ-ONLY; The provisioning state of the scope assignment resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // GroupsClientBeginDeleteOptions contains the optional parameters for the GroupsClient.BeginDelete method.
@@ -9913,6 +9928,9 @@ type ManagerProperties struct {
 
 	// READ-ONLY; The provisioning state of the network manager resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // ManagerPropertiesNetworkManagerScopes - Scope of Network Manager.
@@ -12775,6 +12793,9 @@ type SecurityAdminConfigurationPropertiesFormat struct {
 
 	// READ-ONLY; The provisioning state of the resource.
 	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Unique identifier for this resource.
+	ResourceGUID *string
 }
 
 // SecurityAdminConfigurationsClientBeginDeleteOptions contains the optional parameters for the SecurityAdminConfigurationsClient.BeginDelete
@@ -13071,6 +13092,10 @@ type SecurityRulePropertiesFormat struct {
 	// REQUIRED; The direction of the rule. The direction specifies if rule will be evaluated on incoming or outgoing traffic.
 	Direction *SecurityRuleDirection
 
+	// REQUIRED; The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each
+	// rule in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32
+
 	// REQUIRED; Network protocol this rule applies to.
 	Protocol *SecurityRuleProtocol
 
@@ -13093,10 +13118,6 @@ type SecurityRulePropertiesFormat struct {
 
 	// The destination port ranges.
 	DestinationPortRanges []*string
-
-	// The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the
-	// collection. The lower the priority number, the higher the priority of the rule.
-	Priority *int32
 
 	// The CIDR or source IP range. Asterisk '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork',
 	// 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress

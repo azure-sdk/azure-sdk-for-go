@@ -1,5 +1,17 @@
 # Release History
 
+## 2.3.0 (2023-04-20)
+### Features Added
+
+- New field `ResourceGUID` in struct `AdminPropertiesFormat`
+- New field `ResourceGUID` in struct `AdminRuleCollectionPropertiesFormat`
+- New field `ResourceGUID` in struct `ConnectivityConfigurationProperties`
+- New field `ResourceGUID` in struct `DefaultAdminPropertiesFormat`
+- New field `ResourceGUID` in struct `GroupProperties`
+- New field `ResourceGUID` in struct `ManagerProperties`
+- New field `ResourceGUID` in struct `SecurityAdminConfigurationPropertiesFormat`
+
+
 ## 2.2.1 (2023-04-14)
 ### Bug Fixes
 
