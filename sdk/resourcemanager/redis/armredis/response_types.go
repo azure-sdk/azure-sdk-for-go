@@ -9,6 +9,46 @@
 
 package armredis
 
+// AccessPolicyAssignmentClientCreateUpdateResponse contains the response from method AccessPolicyAssignmentClient.BeginCreateUpdate.
+type AccessPolicyAssignmentClientCreateUpdateResponse struct {
+	CacheAccessPolicyAssignmentSet
+}
+
+// AccessPolicyAssignmentClientDeleteResponse contains the response from method AccessPolicyAssignmentClient.BeginDelete.
+type AccessPolicyAssignmentClientDeleteResponse struct {
+	CacheAccessPolicyAssignmentSet
+}
+
+// AccessPolicyAssignmentClientGetResponse contains the response from method AccessPolicyAssignmentClient.Get.
+type AccessPolicyAssignmentClientGetResponse struct {
+	CacheAccessPolicyAssignmentSet
+}
+
+// AccessPolicyAssignmentClientListResponse contains the response from method AccessPolicyAssignmentClient.NewListPager.
+type AccessPolicyAssignmentClientListResponse struct {
+	CacheAccessPolicyAssignmentList
+}
+
+// AccessPolicyClientCreateUpdateResponse contains the response from method AccessPolicyClient.BeginCreateUpdate.
+type AccessPolicyClientCreateUpdateResponse struct {
+	CacheAccessPolicy
+}
+
+// AccessPolicyClientDeleteResponse contains the response from method AccessPolicyClient.BeginDelete.
+type AccessPolicyClientDeleteResponse struct {
+	CacheAccessPolicy
+}
+
+// AccessPolicyClientGetResponse contains the response from method AccessPolicyClient.Get.
+type AccessPolicyClientGetResponse struct {
+	CacheAccessPolicy
+}
+
+// AccessPolicyClientListResponse contains the response from method AccessPolicyClient.NewListPager.
+type AccessPolicyClientListResponse struct {
+	CacheAccessPolicyList
+}
+
 // AsyncOperationStatusClientGetResponse contains the response from method AsyncOperationStatusClient.Get.
 type AsyncOperationStatusClientGetResponse struct {
 	OperationStatus
