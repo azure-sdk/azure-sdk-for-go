@@ -1,5 +1,9 @@
 # Release History
 
+## 2.2.2 (2023-04-20)
+### Other Changes
+
+
 ## 2.2.1 (2023-04-14)
 ### Bug Fixes
 
