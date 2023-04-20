@@ -20,9 +20,134 @@ type AccessKeys struct {
 	SecondaryKey *string
 }
 
+// AccessPolicyAssignmentClientBeginCreateUpdateOptions contains the optional parameters for the AccessPolicyAssignmentClient.BeginCreateUpdate
+// method.
+type AccessPolicyAssignmentClientBeginCreateUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AccessPolicyAssignmentClientBeginDeleteOptions contains the optional parameters for the AccessPolicyAssignmentClient.BeginDelete
+// method.
+type AccessPolicyAssignmentClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AccessPolicyAssignmentClientGetOptions contains the optional parameters for the AccessPolicyAssignmentClient.Get method.
+type AccessPolicyAssignmentClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AccessPolicyAssignmentClientListOptions contains the optional parameters for the AccessPolicyAssignmentClient.NewListPager
+// method.
+type AccessPolicyAssignmentClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AccessPolicyClientBeginCreateUpdateOptions contains the optional parameters for the AccessPolicyClient.BeginCreateUpdate
+// method.
+type AccessPolicyClientBeginCreateUpdateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AccessPolicyClientBeginDeleteOptions contains the optional parameters for the AccessPolicyClient.BeginDelete method.
+type AccessPolicyClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// AccessPolicyClientGetOptions contains the optional parameters for the AccessPolicyClient.Get method.
+type AccessPolicyClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// AccessPolicyClientListOptions contains the optional parameters for the AccessPolicyClient.NewListPager method.
+type AccessPolicyClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
 // AsyncOperationStatusClientGetOptions contains the optional parameters for the AsyncOperationStatusClient.Get method.
 type AsyncOperationStatusClientGetOptions struct {
 	// placeholder for future optional parameters
+}
+
+// CacheAccessPolicy - Response to get/put access policy.
+type CacheAccessPolicy struct {
+	// Properties of an access policy.
+	Properties *CacheAccessPolicyProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// CacheAccessPolicyAssignment - Properties for an access policy assignment
+type CacheAccessPolicyAssignment struct {
+	// REQUIRED; Object Id to assign access policy to
+	ObjectID *string
+
+	// REQUIRED; User friendly name for object id. Also represents username for token based authentication
+	ObjectIDAlias *string
+}
+
+// CacheAccessPolicyAssignmentList - List of access policies assignments (with properties) of a Redis cache.
+type CacheAccessPolicyAssignmentList struct {
+	// List of access policies assignments (with properties) of a Redis cache.
+	Value []*CacheAccessPolicyAssignmentSet
+
+	// READ-ONLY; Link for next set.
+	NextLink *string
+}
+
+// CacheAccessPolicyAssignmentSet - Response to an operation on access policy assignment
+type CacheAccessPolicyAssignmentSet struct {
+	// Properties of an access policy assignment
+	Properties *CacheAccessPolicyAssignmentSetProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// CacheAccessPolicyAssignmentSetProperties - Properties of an access policy assignment set
+type CacheAccessPolicyAssignmentSetProperties struct {
+	Assignments []*CacheAccessPolicyAssignment
+
+	// READ-ONLY; Provisioning state of an access policy assignment set
+	ProvisioningState *AccessPolicyAssignmentProvisioningState
+}
+
+// CacheAccessPolicyList - List of access policies (with properties) of a Redis cache.
+type CacheAccessPolicyList struct {
+	// List of access policies (with properties) of a Redis cache.
+	Value []*CacheAccessPolicy
+
+	// READ-ONLY; Link for next set.
+	NextLink *string
+}
+
+// CacheAccessPolicyProperties - All properties of an access policy.
+type CacheAccessPolicyProperties struct {
+	// REQUIRED; Permissions for the access policy. Learn how to configure permissions at https://aka.ms/redis/AADPreRequisites
+	Permissions *string
+
+	// READ-ONLY; Provisioning state of access policy
+	ProvisioningState *AccessPolicyProvisioningState
+
+	// READ-ONLY; Built-In or Custom access policy
+	Type *AccessPolicyType
 }
 
 // CheckNameAvailabilityParameters - Parameters body to pass for resource name availability check.
@@ -109,6 +234,9 @@ type ClientRegenerateKeyOptions struct {
 // rdb-backup-enabled,rdb-storage-connection-string,rdb-backup-frequency,maxmemory-delta,maxmemory-policy,notify-keyspace-events,maxmemory-samples,slowlog-log-slower-than,slowlog-max-len,list-max-ziplist-entries,list-max-ziplist-value,hash-max-ziplist-entries,hash-max-ziplist-value,set-max-intset-entries,zset-max-ziplist-entries,zset-max-ziplist-value
 // etc.
 type CommonPropertiesRedisConfiguration struct {
+	// Specifies whether AAD based authentication has been enabled or disabled for the cache
+	AADEnabled *string
+
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
 
