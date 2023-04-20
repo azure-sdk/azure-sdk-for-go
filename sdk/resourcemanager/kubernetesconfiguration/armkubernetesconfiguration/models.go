@@ -11,7 +11,69 @@ package armkubernetesconfiguration
 
 import "time"
 
-// BucketDefinition - Parameters to reconcile to the GitRepository source kind type.
+// AzureBlobDefinition - Parameters to reconcile to the AzureBlob source kind type.
+type AzureBlobDefinition struct {
+	// The account key (shared key) to access the storage account
+	AccountKey *string
+
+	// The Azure Blob container name to sync from the url endpoint for the flux configuration.
+	ContainerName *string
+
+	// Name of a local secret on the Kubernetes cluster to use as the authentication secret rather than the managed or user-provided
+	// configuration secrets.
+	LocalAuthRef *string
+
+	// Parameters to authenticate using a Managed Identity.
+	ManagedIdentity *ManagedIdentityDefinition
+
+	// The Shared Access token to access the storage container
+	SasToken *string
+
+	// Parameters to authenticate using Service Principal.
+	ServicePrincipal *ServicePrincipalDefinition
+
+	// The interval at which to re-reconcile the cluster Azure Blob source with the remote.
+	SyncIntervalInSeconds *int64
+
+	// The maximum time to attempt to reconcile the cluster Azure Blob source with the remote.
+	TimeoutInSeconds *int64
+
+	// The URL to sync for the flux configuration Azure Blob storage account.
+	URL *string
+}
+
+// AzureBlobPatchDefinition - Parameters to reconcile to the AzureBlob source kind type.
+type AzureBlobPatchDefinition struct {
+	// The account key (shared key) to access the storage account
+	AccountKey *string
+
+	// The Azure Blob container name to sync from the url endpoint for the flux configuration.
+	ContainerName *string
+
+	// Name of a local secret on the Kubernetes cluster to use as the authentication secret rather than the managed or user-provided
+	// configuration secrets.
+	LocalAuthRef *string
+
+	// Parameters to authenticate using a Managed Identity.
+	ManagedIdentity *ManagedIdentityPatchDefinition
+
+	// The Shared Access token to access the storage container
+	SasToken *string
+
+	// Parameters to authenticate using Service Principal.
+	ServicePrincipal *ServicePrincipalPatchDefinition
+
+	// The interval at which to re-reconcile the cluster Azure Blob source with the remote.
+	SyncIntervalInSeconds *int64
+
+	// The maximum time to attempt to reconcile the cluster Azure Blob source with the remote.
+	TimeoutInSeconds *int64
+
+	// The URL to sync for the flux configuration Azure Blob storage account.
+	URL *string
+}
+
+// BucketDefinition - Parameters to reconcile to the Bucket source kind type.
 type BucketDefinition struct {
 	// Plaintext access key used to securely access the S3 bucket
 	AccessKey *string
@@ -26,17 +88,17 @@ type BucketDefinition struct {
 	// configuration secrets.
 	LocalAuthRef *string
 
-	// The interval at which to re-reconcile the cluster git repository source with the remote.
+	// The interval at which to re-reconcile the cluster bucket source with the remote.
 	SyncIntervalInSeconds *int64
 
-	// The maximum time to attempt to reconcile the cluster git repository source with the remote.
+	// The maximum time to attempt to reconcile the cluster bucket source with the remote.
 	TimeoutInSeconds *int64
 
 	// The URL to sync for the flux configuration S3 bucket.
 	URL *string
 }
 
-// BucketPatchDefinition - Parameters to reconcile to the GitRepository source kind type.
+// BucketPatchDefinition - Parameters to reconcile to the Bucket source kind type.
 type BucketPatchDefinition struct {
 	// Plaintext access key used to securely access the S3 bucket
 	AccessKey *string
@@ -51,10 +113,10 @@ type BucketPatchDefinition struct {
 	// configuration secrets.
 	LocalAuthRef *string
 
-	// The interval at which to re-reconcile the cluster git repository source with the remote.
+	// The interval at which to re-reconcile the cluster bucket source with the remote.
 	SyncIntervalInSeconds *int64
 
-	// The maximum time to attempt to reconcile the cluster git repository source with the remote.
+	// The maximum time to attempt to reconcile the cluster bucket source with the remote.
 	TimeoutInSeconds *int64
 
 	// The URL to sync for the flux configuration S3 bucket.
@@ -115,6 +177,9 @@ type Extension struct {
 	// Identity of the Extension resource
 	Identity *Identity
 
+	// The plan information.
+	Plan *Plan
+
 	// Properties of an Extension resource
 	Properties *ExtensionProperties
 
@@ -163,14 +228,17 @@ type ExtensionProperties struct {
 	// 'false'.
 	Version *string
 
+	// READ-ONLY; Currently installed version of the extension.
+	CurrentVersion *string
+
 	// READ-ONLY; Custom Location settings properties.
 	CustomLocationSettings map[string]*string
 
 	// READ-ONLY; Error information from the Agent - e.g. errors during installation.
 	ErrorInfo *ErrorDetail
 
-	// READ-ONLY; Installed version of the extension.
-	InstalledVersion *string
+	// READ-ONLY; Flag to note if this extension is a system extension
+	IsSystemExtension *bool
 
 	// READ-ONLY; Uri of the Helm package
 	PackageURI *string
@@ -281,6 +349,9 @@ type FluxConfigurationPatch struct {
 
 // FluxConfigurationPatchProperties - Updatable properties of an Flux Configuration Patch Request
 type FluxConfigurationPatchProperties struct {
+	// Parameters to reconcile to the AzureBlob source kind type.
+	AzureBlob *AzureBlobPatchDefinition
+
 	// Parameters to reconcile to the Bucket source kind type.
 	Bucket *BucketPatchDefinition
 
@@ -302,6 +373,9 @@ type FluxConfigurationPatchProperties struct {
 
 // FluxConfigurationProperties - Properties to create a Flux Configuration resource
 type FluxConfigurationProperties struct {
+	// Parameters to reconcile to the AzureBlob source kind type.
+	AzureBlob *AzureBlobDefinition
+
 	// Parameters to reconcile to the Bucket source kind type.
 	Bucket *BucketDefinition
 
@@ -318,6 +392,9 @@ type FluxConfigurationProperties struct {
 	// period only.
 	Namespace *string
 
+	// Maximum duration to wait for flux configuration reconciliation. E.g PT1H, PT5M, P1D
+	ReconciliationWaitDuration *string
+
 	// Scope at which the operator will be installed.
 	Scope *ScopeType
 
@@ -326,6 +403,9 @@ type FluxConfigurationProperties struct {
 
 	// Whether this configuration should suspend its reconciliation of its kustomizations and sources.
 	Suspend *bool
+
+	// Whether flux configuration deployment should wait for cluster to reconcile the kustomizations.
+	WaitForReconciliation *bool
 
 	// READ-ONLY; Combined status of the Flux Kubernetes resources created by the fluxConfiguration or created by the managed
 	// objects.
@@ -504,6 +584,9 @@ type KustomizationDefinition struct {
 	// The path in the source reference to reconcile on the cluster.
 	Path *string
 
+	// Used for variable substitution for this Kustomization after kustomize build.
+	PostBuild map[string]*PostBuildDefinition
+
 	// Enable/disable garbage collections of Kubernetes objects created by this Kustomization.
 	Prune *bool
 
@@ -515,6 +598,9 @@ type KustomizationDefinition struct {
 
 	// The maximum time to attempt to reconcile the Kustomization on the cluster.
 	TimeoutInSeconds *int64
+
+	// Enable/disable health check for all Kubernetes objects created by this Kustomization.
+	Wait *bool
 
 	// READ-ONLY; Name of the Kustomization, matching the key in the Kustomizations object map.
 	Name *string
@@ -544,6 +630,18 @@ type KustomizationPatchDefinition struct {
 
 	// The maximum time to attempt to reconcile the Kustomization on the cluster.
 	TimeoutInSeconds *int64
+}
+
+// ManagedIdentityDefinition - Parameters to authenticate using a Managed Identity.
+type ManagedIdentityDefinition struct {
+	// The client Id for authenticating a Managed Identity.
+	ClientID *string
+}
+
+// ManagedIdentityPatchDefinition - Parameters to authenticate using a Managed Identity.
+type ManagedIdentityPatchDefinition struct {
+	// The client Id for authenticating a Managed Identity.
+	ClientID *string
 }
 
 // ObjectReferenceDefinition - Object reference to a Kubernetes object on a cluster
@@ -664,6 +762,35 @@ type PatchExtensionProperties struct {
 	Version *string
 }
 
+// Plan for the resource.
+type Plan struct {
+	// REQUIRED; A user defined name of the 3rd Party Artifact that is being procured.
+	Name *string
+
+	// REQUIRED; The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact
+	// at the time of Data Market onboarding.
+	Product *string
+
+	// REQUIRED; The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
+	Publisher *string
+
+	// A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
+	PromotionCode *string
+
+	// The version of the desired product/artifact.
+	Version *string
+}
+
+// PostBuildDefinition - The postBuild definitions defining variable substitutions for this Kustomization after kustomize
+// build.
+type PostBuildDefinition struct {
+	// Key/value pairs holding the variables to be substituted in this Kustomization.
+	Substitute map[string]*string
+
+	// Array of ConfigMaps/Secrets from which the variables are substituted for this Kustomization.
+	SubstituteFrom []*SubstituteFromDefinition
+}
+
 // ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
 // location
 type ProxyResource struct {
@@ -766,6 +893,50 @@ type ScopeNamespace struct {
 	TargetNamespace *string
 }
 
+// ServicePrincipalDefinition - Parameters to authenticate using Service Principal.
+type ServicePrincipalDefinition struct {
+	// Base64-encoded certificate used to authenticate a Service Principal
+	ClientCertificate *string
+
+	// The password for the certificate used to authenticate a Service Principal
+	ClientCertificatePassword *string
+
+	// Specifies whether to include x5c header in client claims when acquiring a token to enable subject name / issuer based authentication
+	// for the Client Certificate
+	ClientCertificateSendChain *bool
+
+	// The client Id for authenticating a Service Principal.
+	ClientID *string
+
+	// The client secret for authenticating a Service Principal
+	ClientSecret *string
+
+	// The tenant Id for authenticating a Service Principal
+	TenantID *string
+}
+
+// ServicePrincipalPatchDefinition - Parameters to authenticate using Service Principal.
+type ServicePrincipalPatchDefinition struct {
+	// Base64-encoded certificate used to authenticate a Service Principal
+	ClientCertificate *string
+
+	// The password for the certificate used to authenticate a Service Principal
+	ClientCertificatePassword *string
+
+	// Specifies whether to include x5c header in client claims when acquiring a token to enable subject name / issuer based authentication
+	// for the Client Certificate
+	ClientCertificateSendChain *bool
+
+	// The client Id for authenticating a Service Principal.
+	ClientID *string
+
+	// The client secret for authenticating a Service Principal
+	ClientSecret *string
+
+	// The tenant Id for authenticating a Service Principal
+	TenantID *string
+}
+
 // SourceControlConfiguration - The SourceControl Configuration object returned in Get & Put response.
 type SourceControlConfiguration struct {
 	// Properties to create a Source Control Configuration resource
@@ -861,6 +1032,18 @@ type SourceControlConfigurationsClientGetOptions struct {
 // method.
 type SourceControlConfigurationsClientListOptions struct {
 	// placeholder for future optional parameters
+}
+
+// SubstituteFromDefinition - Array of ConfigMaps/Secrets from which the variables are substituted for this Kustomization.
+type SubstituteFromDefinition struct {
+	// Define whether it is ConfigMap or Secret that holds the variables to be used in substitution.
+	Kind *string
+
+	// Name of the ConfigMap/Secret that holds the variables to be used in substitution.
+	Name *string
+
+	// Set to True to proceed without ConfigMap/Secret, if it is not present.
+	Optional *bool
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
