@@ -43,11 +43,6 @@ func (c *ClientFactory) NewDataPolicyManifestsClient() *DataPolicyManifestsClien
 	return subClient
 }
 
-func (c *ClientFactory) NewAssignmentsClient() *AssignmentsClient {
-	subClient, _ := NewAssignmentsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewDefinitionsClient() *DefinitionsClient {
 	subClient, _ := NewDefinitionsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -58,7 +53,22 @@ func (c *ClientFactory) NewSetDefinitionsClient() *SetDefinitionsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewAssignmentsClient() *AssignmentsClient {
+	subClient, _ := NewAssignmentsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewExemptionsClient() *ExemptionsClient {
 	subClient, _ := NewExemptionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewVariablesClient() *VariablesClient {
+	subClient, _ := NewVariablesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewVariableValuesClient() *VariableValuesClient {
+	subClient, _ := NewVariableValuesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
