@@ -29,8 +29,7 @@ type FirewallRulesClient struct {
 }
 
 // NewFirewallRulesClient creates a new instance of FirewallRulesClient with the specified values.
-//   - subscriptionID - Gets subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-//     ID forms part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewFirewallRulesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*FirewallRulesClient, error) {
@@ -48,8 +47,8 @@ func NewFirewallRulesClient(subscriptionID string, credential azcore.TokenCreden
 // CreateOrUpdate - Create or update a redis cache firewall rule
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-06-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cacheName - The name of the Redis cache.
 //   - ruleName - The name of the firewall rule.
 //   - parameters - Parameters supplied to the create or update redis firewall rule operation.
@@ -94,7 +93,7 @@ func (client *FirewallRulesClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -112,8 +111,8 @@ func (client *FirewallRulesClient) createOrUpdateHandleResponse(resp *http.Respo
 // Delete - Deletes a single firewall rule in a specified redis cache.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-06-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cacheName - The name of the Redis cache.
 //   - ruleName - The name of the firewall rule.
 //   - options - FirewallRulesClientDeleteOptions contains the optional parameters for the FirewallRulesClient.Delete method.
@@ -156,7 +155,7 @@ func (client *FirewallRulesClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -165,8 +164,8 @@ func (client *FirewallRulesClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Gets a single firewall rule in a specified redis cache.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-06-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cacheName - The name of the Redis cache.
 //   - ruleName - The name of the firewall rule.
 //   - options - FirewallRulesClientGetOptions contains the optional parameters for the FirewallRulesClient.Get method.
@@ -209,7 +208,7 @@ func (client *FirewallRulesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -226,8 +225,8 @@ func (client *FirewallRulesClient) getHandleResponse(resp *http.Response) (Firew
 
 // NewListPager - Gets all firewall rules in the specified redis cache.
 //
-// Generated from API version 2022-06-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-05-01
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - cacheName - The name of the Redis cache.
 //   - options - FirewallRulesClientListOptions contains the optional parameters for the FirewallRulesClient.NewListPager method.
 func (client *FirewallRulesClient) NewListPager(resourceGroupName string, cacheName string, options *FirewallRulesClientListOptions) *runtime.Pager[FirewallRulesClientListResponse] {
@@ -278,7 +277,7 @@ func (client *FirewallRulesClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

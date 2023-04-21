@@ -29,8 +29,7 @@ type AsyncOperationStatusClient struct {
 }
 
 // NewAsyncOperationStatusClient creates a new instance of AsyncOperationStatusClient with the specified values.
-//   - subscriptionID - Gets subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription
-//     ID forms part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAsyncOperationStatusClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*AsyncOperationStatusClient, error) {
@@ -48,7 +47,7 @@ func NewAsyncOperationStatusClient(subscriptionID string, credential azcore.Toke
 // Get - For checking the ongoing status of an operation
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-06-01
+// Generated from API version 2023-05-01
 //   - location - The location at which operation was triggered
 //   - operationID - The ID of asynchronous operation
 //   - options - AsyncOperationStatusClientGetOptions contains the optional parameters for the AsyncOperationStatusClient.Get
@@ -88,7 +87,7 @@ func (client *AsyncOperationStatusClient) getCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-06-01")
+	reqQP.Set("api-version", "2023-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
