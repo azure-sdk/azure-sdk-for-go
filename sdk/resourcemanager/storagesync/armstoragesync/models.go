@@ -77,6 +77,16 @@ type CloudEndpoint struct {
 	Type *string
 }
 
+// CloudEndpointAfsShareMetadataCertificatePublicKeys - Cloud endpoint AFS file share metadata signing certificate public
+// keys.
+type CloudEndpointAfsShareMetadataCertificatePublicKeys struct {
+	// READ-ONLY; The first public key.
+	FirstKey *string
+
+	// READ-ONLY; The second public key.
+	SecondKey *string
+}
+
 // CloudEndpointArray - Array of CloudEndpoint
 type CloudEndpointArray struct {
 	// Collection of CloudEndpoint.
@@ -224,6 +234,12 @@ type CloudEndpointProperties struct {
 	ChangeEnumerationStatus *CloudEndpointChangeEnumerationStatus
 }
 
+// CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions contains the optional parameters for the CloudEndpointsClient.AfsShareMetadataCertificatePublicKeys
+// method.
+type CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CloudEndpointsClientBeginCreateOptions contains the optional parameters for the CloudEndpointsClient.BeginCreate method.
 type CloudEndpointsClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -322,6 +338,15 @@ type CloudTieringFilesNotTiering struct {
 
 	// READ-ONLY; Last cloud tiering result (HResult)
 	TotalFileCount *int64
+}
+
+// CloudTieringLowDiskMode - Information regarding the low disk mode state
+type CloudTieringLowDiskMode struct {
+	// READ-ONLY; Last updated timestamp
+	LastUpdatedTimestamp *time.Time
+
+	// READ-ONLY; Low disk mode state
+	State *CloudTieringLowDiskModeState
 }
 
 // CloudTieringSpaceSavings - Server endpoint cloud tiering status object.
@@ -441,6 +466,26 @@ type LocationOperationStatus struct {
 	Status *string
 }
 
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
+}
+
 // MicrosoftStorageSyncClientLocationOperationStatusOptions contains the optional parameters for the MicrosoftStorageSyncClient.LocationOperationStatus
 // method.
 type MicrosoftStorageSyncClientLocationOperationStatusOptions struct {
@@ -523,6 +568,9 @@ type OperationResourceMetricSpecification struct {
 
 	// Fill gaps in the metric with zero.
 	FillGapWithZero *bool
+
+	// Lock Aggregation type for the metric.
+	LockAggregationType *string
 
 	// Name of the metric.
 	Name *string
@@ -844,6 +892,9 @@ type RegisteredServerCreateParametersProperties struct {
 	// Registered Server Agent Version
 	AgentVersion *string
 
+	// Server ServicePrincipal Id
+	ApplicationID *string
+
 	// Registered Server clusterId
 	ClusterID *string
 
@@ -873,6 +924,9 @@ type RegisteredServerCreateParametersProperties struct {
 type RegisteredServerProperties struct {
 	// Registered Server Agent Version
 	AgentVersion *string
+
+	// Server ServicePrincipal Id
+	ApplicationID *string
 
 	// Registered Server clusterId
 	ClusterID *string
@@ -941,6 +995,30 @@ type RegisteredServerProperties struct {
 	ServerName *string
 }
 
+// RegisteredServerUpdateParameters - The parameters used when updating a registered server.
+type RegisteredServerUpdateParameters struct {
+	// The parameters used to update the registered server.
+	Properties *RegisteredServerUpdateParametersProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RegisteredServerUpdateParametersProperties - RegisteredServer Update Properties object.
+type RegisteredServerUpdateParametersProperties struct {
+	// Server ServicePrincipal Id
+	ApplicationID *string
+}
+
 // RegisteredServersClientBeginCreateOptions contains the optional parameters for the RegisteredServersClient.BeginCreate
 // method.
 type RegisteredServersClientBeginCreateOptions struct {
@@ -958,6 +1036,13 @@ type RegisteredServersClientBeginDeleteOptions struct {
 // RegisteredServersClientBeginTriggerRolloverOptions contains the optional parameters for the RegisteredServersClient.BeginTriggerRollover
 // method.
 type RegisteredServersClientBeginTriggerRolloverOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// RegisteredServersClientBeginUpdateOptions contains the optional parameters for the RegisteredServersClient.BeginUpdate
+// method.
+type RegisteredServersClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -1070,6 +1155,9 @@ type ServerEndpointCloudTieringStatus struct {
 
 	// READ-ONLY; Last updated timestamp
 	LastUpdatedTimestamp *time.Time
+
+	// READ-ONLY; Information regarding the low disk mode state
+	LowDiskMode *CloudTieringLowDiskMode
 
 	// READ-ONLY; Information regarding how much local space cloud tiering is saving.
 	SpaceSavings *CloudTieringSpaceSavings
@@ -1391,6 +1479,10 @@ type Service struct {
 	// REQUIRED; The geo-location where the resource lives
 	Location *string
 
+	// managed identities for the Container App to interact with other Azure services without maintaining any secrets or credentials
+	// in code.
+	Identity *ManagedServiceIdentity
+
 	// Storage Sync Service properties.
 	Properties *ServiceProperties
 
@@ -1422,6 +1514,10 @@ type ServiceCreateParameters struct {
 	// Regions (e.g. West US, East US, Southeast Asia, etc.). The geo region of a resource
 	// cannot be changed once it is created, but if an identical geo region is specified on update, the request will succeed.
 	Location *string
+
+	// managed identities for the Container App to interact with other Azure services without maintaining any secrets or credentials
+	// in code.
+	Identity *ManagedServiceIdentity
 
 	// The parameters used to create the storage sync service.
 	Properties *ServiceCreateParametersProperties
@@ -1461,10 +1557,17 @@ type ServiceProperties struct {
 
 	// READ-ONLY; Storage Sync service Uid
 	StorageSyncServiceUID *string
+
+	// READ-ONLY; Use Identity authorization when customer have finished setup RBAC permissions.
+	UseIdentity *bool
 }
 
 // ServiceUpdateParameters - Parameters for updating an Storage sync service.
 type ServiceUpdateParameters struct {
+	// managed identities for the Container App to interact with other Azure services without maintaining any secrets or credentials
+	// in code.
+	Identity *ManagedServiceIdentity
+
 	// The properties of the server endpoint.
 	Properties *ServiceUpdateProperties
 
@@ -1476,6 +1579,9 @@ type ServiceUpdateParameters struct {
 type ServiceUpdateProperties struct {
 	// Incoming Traffic Policy
 	IncomingTrafficPolicy *IncomingTrafficPolicy
+
+	// Use Identity authorization when customer have finished setup RBAC permissions.
+	UseIdentity *bool
 }
 
 // ServicesClientBeginCreateOptions contains the optional parameters for the ServicesClient.BeginCreate method.
@@ -1664,6 +1770,15 @@ type TriggerChangeDetectionParameters struct {
 type TriggerRolloverRequest struct {
 	// Certificate Data
 	ServerCertificate *string
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
 }
 
 // Workflow resource.

@@ -47,7 +47,7 @@ func NewMicrosoftStorageSyncClient(subscriptionID string, credential azcore.Toke
 // LocationOperationStatus - Get Operation status
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-09-01
+// Generated from API version 2022-09-01
 //   - locationName - The desired region to obtain information from.
 //   - operationID - operation Id
 //   - options - MicrosoftStorageSyncClientLocationOperationStatusOptions contains the optional parameters for the MicrosoftStorageSyncClient.LocationOperationStatus
@@ -87,7 +87,7 @@ func (client *MicrosoftStorageSyncClient) locationOperationStatusCreateRequest(c
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-09-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
