@@ -11,7 +11,7 @@ package armresourcegraph
 
 const (
 	moduleName    = "armresourcegraph"
-	moduleVersion = "v0.7.1"
+	moduleVersion = "v0.8.0"
 )
 
 // AuthorizationScopeFilter - Defines what level of authorization resources should be returned based on the which subscriptions
@@ -32,6 +32,40 @@ func PossibleAuthorizationScopeFilterValues() []AuthorizationScopeFilter {
 		AuthorizationScopeFilterAtScopeAndAbove,
 		AuthorizationScopeFilterAtScopeExact,
 		AuthorizationScopeFilterAtScopeAboveAndBelow,
+	}
+}
+
+// ChangeCategory - The change category.
+type ChangeCategory string
+
+const (
+	ChangeCategoryUser   ChangeCategory = "User"
+	ChangeCategorySystem ChangeCategory = "System"
+)
+
+// PossibleChangeCategoryValues returns the possible values for the ChangeCategory const type.
+func PossibleChangeCategoryValues() []ChangeCategory {
+	return []ChangeCategory{
+		ChangeCategoryUser,
+		ChangeCategorySystem,
+	}
+}
+
+// ChangeType - The change type for snapshot. PropertyChanges will be provided in case of Update change type
+type ChangeType string
+
+const (
+	ChangeTypeCreate ChangeType = "Create"
+	ChangeTypeUpdate ChangeType = "Update"
+	ChangeTypeDelete ChangeType = "Delete"
+)
+
+// PossibleChangeTypeValues returns the possible values for the ChangeType const type.
+func PossibleChangeTypeValues() []ChangeType {
+	return []ChangeType{
+		ChangeTypeCreate,
+		ChangeTypeUpdate,
+		ChangeTypeDelete,
 	}
 }
 
@@ -72,6 +106,24 @@ func PossibleFacetSortOrderValues() []FacetSortOrder {
 	return []FacetSortOrder{
 		FacetSortOrderAsc,
 		FacetSortOrderDesc,
+	}
+}
+
+// PropertyChangeType - The property change Type
+type PropertyChangeType string
+
+const (
+	PropertyChangeTypeInsert PropertyChangeType = "Insert"
+	PropertyChangeTypeUpdate PropertyChangeType = "Update"
+	PropertyChangeTypeRemove PropertyChangeType = "Remove"
+)
+
+// PossiblePropertyChangeTypeValues returns the possible values for the PropertyChangeType const type.
+func PossiblePropertyChangeTypeValues() []PropertyChangeType {
+	return []PropertyChangeType{
+		PropertyChangeTypeInsert,
+		PropertyChangeTypeUpdate,
+		PropertyChangeTypeRemove,
 	}
 }
 

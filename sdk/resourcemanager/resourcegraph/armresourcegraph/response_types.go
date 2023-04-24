@@ -9,10 +9,21 @@
 
 package armresourcegraph
 
+// ClientResourceChangeDetailsResponse contains the response from method Client.ResourceChangeDetails.
+type ClientResourceChangeDetailsResponse struct {
+	// A list of change details associated with a resource over a specific time interval.
+	ResourceChangeDataArray []*ResourceChangeData
+}
+
+// ClientResourceChangesResponse contains the response from method Client.ResourceChanges.
+type ClientResourceChangesResponse struct {
+	ResourceChangeList
+}
+
 // ClientResourcesHistoryResponse contains the response from method Client.ResourcesHistory.
 type ClientResourcesHistoryResponse struct {
-	// Anything
-	Interface any
+	// Dictionary of <any>
+	Value map[string]any
 }
 
 // ClientResourcesResponse contains the response from method Client.Resources.
