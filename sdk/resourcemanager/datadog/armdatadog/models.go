@@ -509,20 +509,20 @@ type OrganizationProperties struct {
 	// The Id of the Enterprise App used for Single sign on.
 	EnterpriseAppID *string
 
+	// Id of the Datadog organization.
+	ID *string
+
 	// The auth code used to linking to an existing datadog organization.
 	LinkingAuthCode *string
 
 	// The client_id from an existing in exchange for an auth token to link organization.
 	LinkingClientID *string
 
+	// Name of the Datadog organization.
+	Name *string
+
 	// The redirect uri for linking.
 	RedirectURI *string
-
-	// READ-ONLY; Id of the Datadog organization.
-	ID *string
-
-	// READ-ONLY; Name of the Datadog organization.
-	Name *string
 }
 
 type ResourceSKU struct {
