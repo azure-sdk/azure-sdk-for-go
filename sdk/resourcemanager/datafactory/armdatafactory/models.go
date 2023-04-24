@@ -215,8 +215,8 @@ type AmazonMWSLinkedServiceTypeProperties struct {
 	SellerID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Amazon MWS authentication token.
 	MwsAuthToken SecretBaseClassification
@@ -347,8 +347,8 @@ type AmazonRdsForLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password SecretBaseClassification
@@ -561,8 +561,8 @@ type AmazonRdsForSQLServerLinkedServiceTypeProperties struct {
 	AlwaysEncryptedSettings *SQLAlwaysEncryptedProperties
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The on-premises Windows authentication password.
 	Password SecretBaseClassification
@@ -748,8 +748,8 @@ type AmazonRedshiftLinkedServiceTypeProperties struct {
 	Server any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password of the Amazon Redshift source.
 	Password SecretBaseClassification
@@ -928,8 +928,8 @@ type AmazonS3CompatibleLinkedServiceTypeProperties struct {
 	AccessKeyID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// If true, use S3 path-style access instead of virtual hosted-style access. Default value is false. Type: boolean (or Expression
 	// with resultType boolean).
@@ -990,8 +990,8 @@ type AmazonS3CompatibleReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -1156,8 +1156,8 @@ type AmazonS3LinkedServiceTypeProperties struct {
 	AuthenticationType any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The secret access key of the Amazon S3 Identity and Access Management (IAM) user.
 	SecretAccessKey SecretBaseClassification
@@ -1217,8 +1217,8 @@ type AmazonS3ReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -1304,7 +1304,7 @@ type AppFiguresLinkedServiceTypeProperties struct {
 	// REQUIRED; The password of the AppFigures source.
 	Password SecretBaseClassification
 
-	// REQUIRED; The username of the Appfigures source.
+	// REQUIRED; The username of the Appfigures source. Type: string (or Expression with resultType string).
 	UserName any
 }
 
@@ -1358,7 +1358,8 @@ func (a *AppendVariableActivity) GetControlActivity() *ControlActivity {
 
 // AppendVariableActivityTypeProperties - AppendVariable activity properties.
 type AppendVariableActivityTypeProperties struct {
-	// Value to be appended. Could be a static value or Expression
+	// Value to be appended. Type: could be a static value matching type of the variable item or Expression with resultType matching
+	// type of the variable item
 	Value any
 
 	// Name of the variable whose value needs to be appended to.
@@ -1413,8 +1414,8 @@ type AsanaLinkedServiceTypeProperties struct {
 	APIToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // AvroDataset - Avro dataset.
@@ -1698,8 +1699,8 @@ type AzureBatchLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // AzureBlobDataset - The Azure Blob storage.
@@ -1889,8 +1890,8 @@ type AzureBlobFSLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of sasToken in sas uri.
 	SasToken SecretBaseClassification
@@ -1966,8 +1967,8 @@ type AzureBlobFSReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -2014,7 +2015,7 @@ type AzureBlobFSSink struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
 
-	// The type of copy behavior for copy sink.
+	// The type of copy behavior for copy sink. Type: string (or Expression with resultType string).
 	CopyBehavior any
 
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
@@ -2172,7 +2173,7 @@ type AzureBlobStorageLinkedServiceTypeProperties struct {
 	// Specify the kind of your storage account. Allowed values are: Storage (general purpose v1), StorageV2 (general purpose
 	// v2), BlobStorage, or BlockBlobStorage. Type: string (or Expression with
 	// resultType string).
-	AccountKind *string
+	AccountKind any
 
 	// The type used for authentication. Type: string.
 	AuthenticationType *AzureStorageAuthenticationType
@@ -2193,7 +2194,7 @@ type AzureBlobStorageLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
+	// Type: string.
 	EncryptedCredential *string
 
 	// The Azure key vault secret reference of sasToken in sas uri.
@@ -2204,7 +2205,7 @@ type AzureBlobStorageLinkedServiceTypeProperties struct {
 	SasURI any
 
 	// Blob service endpoint of the Azure Blob Storage resource. It is mutually exclusive with connectionString, sasUri property.
-	ServiceEndpoint *string
+	ServiceEndpoint any
 
 	// The ID of the service principal used to authenticate against Azure SQL Data Warehouse. Type: string (or Expression with
 	// resultType string).
@@ -2260,8 +2261,8 @@ type AzureBlobStorageReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -2661,8 +2662,8 @@ type AzureDataLakeAnalyticsLinkedServiceTypeProperties struct {
 	DataLakeAnalyticsURI any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Data Lake Analytics account resource group name (if different from Data Factory account). Type: string (or Expression with
 	// resultType string).
@@ -2797,8 +2798,8 @@ type AzureDataLakeStoreLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Data Lake Store account resource group name (if different from Data Factory account). Type: string (or Expression with
 	// resultType string).
@@ -2859,8 +2860,8 @@ type AzureDataLakeStoreReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -2917,7 +2918,7 @@ type AzureDataLakeStoreSink struct {
 	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
 	AdditionalProperties map[string]any
 
-	// The type of copy behavior for copy sink.
+	// The type of copy behavior for copy sink. Type: string (or Expression with resultType string).
 	CopyBehavior any
 
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
@@ -3008,8 +3009,8 @@ type AzureDataLakeStoreWriteSettings struct {
 	DisableMetricsCollection any
 
 	// Specifies the expiry time of the written files. The time is applied to the UTC time zone in the format of "2018-12-01T05:00:00Z".
-	// Default value is NULL. Type: integer (or Expression with resultType
-	// integer).
+	// Default value is NULL. Type: string (or Expression with resultType
+	// string).
 	ExpiryDateTime any
 
 	// The maximum concurrent connection count for the source data store. Type: integer (or Expression with resultType integer).
@@ -3272,8 +3273,8 @@ type AzureDatabricksDetltaLakeLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Workspace resource id for databricks REST API. Type: string (or Expression with resultType string).
 	WorkspaceResourceID any
@@ -3333,8 +3334,8 @@ type AzureDatabricksLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The id of an existing interactive cluster that will be used for all runs of this activity. Type: string (or Expression
 	// with resultType string).
@@ -3439,8 +3440,8 @@ type AzureFileStorageLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The azure file share name. It is required when auth with accountKey/sasToken. Type: string (or Expression with resultType
 	// string).
@@ -3506,8 +3507,8 @@ type AzureFileStorageReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -3702,8 +3703,8 @@ type AzureFunctionLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Function or Host key for Azure Function App.
 	FunctionKey SecretBaseClassification
@@ -3999,8 +4000,8 @@ type AzureMLLinkedServiceTypeProperties struct {
 	Authentication any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The ID of the service principal used to authenticate against the ARM-based updateResourceEndpoint of an Azure ML Studio
 	// web service. Type: string (or Expression with resultType string).
@@ -4065,8 +4066,8 @@ type AzureMLServiceLinkedServiceTypeProperties struct {
 	SubscriptionID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The ID of the service principal used to authenticate against the endpoint of a published Azure ML Service pipeline. Type:
 	// string (or Expression with resultType string).
@@ -4201,8 +4202,8 @@ type AzureMariaDBLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Pwd *AzureKeyVaultSecretReference
@@ -4356,8 +4357,8 @@ type AzureMySQLLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -4564,8 +4565,8 @@ type AzurePostgreSQLLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -4826,8 +4827,8 @@ type AzureSQLDWLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -4957,8 +4958,8 @@ type AzureSQLDatabaseLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -5027,8 +5028,8 @@ type AzureSQLMILinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -5450,8 +5451,8 @@ type AzureSearchLinkedServiceTypeProperties struct {
 	URL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Admin Key for Azure Search service
 	Key SecretBaseClassification
@@ -5502,7 +5503,7 @@ type AzureStorageLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
+	// Type: string.
 	EncryptedCredential *string
 
 	// The Azure key vault secret reference of sasToken in sas uri.
@@ -6217,8 +6218,8 @@ type CassandraLinkedServiceTypeProperties struct {
 	AuthenticationType any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for authentication.
 	Password SecretBaseClassification
@@ -6531,8 +6532,8 @@ type CommonDataServiceForAppsLinkedServiceTypeProperties struct {
 	DeploymentType any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The host name of the on-premises Common Data Service for Apps server. The property is required for on-prem and not allowed
 	// for online. Type: string (or Expression with resultType string).
@@ -6752,8 +6753,8 @@ type ConcurLinkedServiceTypeProperties struct {
 	ConnectionProperties any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password corresponding to the user name that you provided in the username field.
 	Password SecretBaseClassification
@@ -7207,7 +7208,7 @@ type CosmosDbLinkedServiceTypeProperties struct {
 	// string (or Expression with resultType string).
 	AzureCloudType any
 
-	// The connection mode used to access CosmosDB account. Type: string (or Expression with resultType string).
+	// The connection mode used to access CosmosDB account. Type: string.
 	ConnectionMode *CosmosDbConnectionMode
 
 	// The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
@@ -7220,8 +7221,8 @@ type CosmosDbLinkedServiceTypeProperties struct {
 	Database any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The credential of the service principal object in Azure Active Directory. If servicePrincipalCredentialType is 'ServicePrincipalKey',
 	// servicePrincipalCredential can be SecureString or
@@ -7230,9 +7231,8 @@ type CosmosDbLinkedServiceTypeProperties struct {
 	ServicePrincipalCredential SecretBaseClassification
 
 	// The service principal credential type to use in Server-To-Server authentication. 'ServicePrincipalKey' for key/secret,
-	// 'ServicePrincipalCert' for certificate. Type: string (or Expression with
-	// resultType string).
-	ServicePrincipalCredentialType *CosmosDbServicePrincipalCredentialType
+	// 'ServicePrincipalCert' for certificate. Type: string.
+	ServicePrincipalCredentialType any
 
 	// The client ID of the application in Azure Active Directory used for Server-To-Server authentication. Type: string (or Expression
 	// with resultType string).
@@ -7640,8 +7640,8 @@ type CouchbaseLinkedServiceTypeProperties struct {
 	CredString *AzureKeyVaultSecretReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // CouchbaseSource - A copy activity Couchbase server source.
@@ -9007,8 +9007,8 @@ type DataworldLinkedServiceTypeProperties struct {
 	APIToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // Db2LinkedService - Linked service for DB2 data source.
@@ -9066,9 +9066,8 @@ type Db2LinkedServiceTypeProperties struct {
 	Database any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// It is mutually exclusive with connectionString property. Type: string (or
-	// Expression with resultType string).
-	EncryptedCredential any
+	// It is mutually exclusive with connectionString property. Type: string.
+	EncryptedCredential *string
 
 	// Under where packages are created when querying database. It is mutually exclusive with connectionString property. Type:
 	// string (or Expression with resultType string).
@@ -9756,8 +9755,8 @@ type DrillLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Pwd *AzureKeyVaultSecretReference
@@ -9927,8 +9926,8 @@ type DynamicsAXLinkedServiceTypeProperties struct {
 	URL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // DynamicsAXResourceDataset - The path of the Dynamics AX OData entity.
@@ -10151,8 +10150,8 @@ type DynamicsCrmLinkedServiceTypeProperties struct {
 	DeploymentType any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The host name of the on-premises Dynamics CRM server. The property is required for on-prem and not allowed for online.
 	// Type: string (or Expression with resultType string).
@@ -10392,8 +10391,8 @@ type DynamicsLinkedServiceTypeProperties struct {
 	Credential *CredentialReference
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The host name of the on-premises Dynamics server. The property is required for on-prem and not allowed for online. Type:
 	// string (or Expression with resultType string).
@@ -10572,8 +10571,8 @@ type EloquaLinkedServiceTypeProperties struct {
 	Username any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password corresponding to the user name.
 	Password SecretBaseClassification
@@ -11725,8 +11724,8 @@ type FileServerLinkedServiceTypeProperties struct {
 	Host any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password to logon the server.
 	Password SecretBaseClassification
@@ -11775,8 +11774,8 @@ type FileServerReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Specify a filter to be used to select a subset of files in the folderPath rather than all files. Type: string (or Expression
 	// with resultType string).
@@ -12233,8 +12232,8 @@ type FtpReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -12250,8 +12249,8 @@ type FtpReadSettings struct {
 	// boolean).
 	Recursive any
 
-	// Specify whether to use binary transfer mode for FTP stores.
-	UseBinaryTransfer *bool
+	// Specify whether to use binary transfer mode for FTP stores. Type: boolean (or Expression with resultType boolean).
+	UseBinaryTransfer any
 
 	// Ftp wildcardFileName. Type: string (or Expression with resultType string).
 	WildcardFileName any
@@ -12323,8 +12322,8 @@ type FtpServerLinkedServiceTypeProperties struct {
 	EnableServerCertificateValidation any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password to logon the FTP server.
 	Password SecretBaseClassification
@@ -12574,7 +12573,8 @@ type GoogleAdWordsLinkedServiceTypeProperties struct {
 	// The OAuth 2.0 authentication mechanism used for authentication. ServiceAuthentication can only be used on self-hosted IR.
 	AuthenticationType *GoogleAdWordsAuthenticationType
 
-	// The Client customer ID of the AdWords account that you want to fetch report data for.
+	// The Client customer ID of the AdWords account that you want to fetch report data for. Type: string (or Expression with
+	// resultType string).
 	ClientCustomerID any
 
 	// The client id of the google application used to acquire the refresh token. Type: string (or Expression with resultType
@@ -12591,15 +12591,16 @@ type GoogleAdWordsLinkedServiceTypeProperties struct {
 	// The developer token associated with the manager account that you use to grant access to the AdWords API.
 	DeveloperToken SecretBaseClassification
 
-	// The service account email ID that is used for ServiceAuthentication and can only be used on self-hosted IR.
+	// The service account email ID that is used for ServiceAuthentication and can only be used on self-hosted IR. Type: string
+	// (or Expression with resultType string).
 	Email any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The full path to the .p12 key file that is used to authenticate the service account email address and can only be used
-	// on self-hosted IR.
+	// on self-hosted IR. Type: string (or Expression with resultType string).
 	KeyFilePath any
 
 	// The refresh token obtained from Google for authorizing access to AdWords for UserAuthentication.
@@ -12607,11 +12608,11 @@ type GoogleAdWordsLinkedServiceTypeProperties struct {
 
 	// The full path of the .pem file containing trusted CA certificates for verifying the server when connecting over SSL. This
 	// property can only be set when using SSL on self-hosted IR. The default value
-	// is the cacerts.pem file installed with the IR.
+	// is the cacerts.pem file installed with the IR. Type: string (or Expression with resultType string).
 	TrustedCertPath any
 
 	// Specifies whether to use a CA certificate from the system trust store or from a specified PEM file. The default value is
-	// false.
+	// false. Type: boolean (or Expression with resultType boolean).
 	UseSystemTrustStore any
 }
 
@@ -12775,10 +12776,10 @@ type GoogleBigQueryLinkedServiceTypeProperties struct {
 	// IR.
 	AuthenticationType *GoogleBigQueryAuthenticationType
 
-	// REQUIRED; The default BigQuery project to query against.
+	// REQUIRED; The default BigQuery project to query against. Type: string (or Expression with resultType string).
 	Project any
 
-	// A comma-separated list of public BigQuery projects to access.
+	// A comma-separated list of public BigQuery projects to access. Type: string (or Expression with resultType string).
 	AdditionalProjects any
 
 	// The client id of the google application used to acquire the refresh token. Type: string (or Expression with resultType
@@ -12788,31 +12789,33 @@ type GoogleBigQueryLinkedServiceTypeProperties struct {
 	// The client secret of the google application used to acquire the refresh token.
 	ClientSecret SecretBaseClassification
 
-	// The service account email ID that is used for ServiceAuthentication and can only be used on self-hosted IR.
+	// The service account email ID that is used for ServiceAuthentication and can only be used on self-hosted IR. Type: string
+	// (or Expression with resultType string).
 	Email any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The full path to the .p12 key file that is used to authenticate the service account email address and can only be used
-	// on self-hosted IR.
+	// on self-hosted IR. Type: string (or Expression with resultType string).
 	KeyFilePath any
 
 	// The refresh token obtained from Google for authorizing access to BigQuery for UserAuthentication.
 	RefreshToken SecretBaseClassification
 
 	// Whether to request access to Google Drive. Allowing Google Drive access enables support for federated tables that combine
-	// BigQuery data with data from Google Drive. The default value is false.
+	// BigQuery data with data from Google Drive. The default value is false. Type:
+	// string (or Expression with resultType string).
 	RequestGoogleDriveScope any
 
 	// The full path of the .pem file containing trusted CA certificates for verifying the server when connecting over SSL. This
 	// property can only be set when using SSL on self-hosted IR. The default value
-	// is the cacerts.pem file installed with the IR.
+	// is the cacerts.pem file installed with the IR. Type: string (or Expression with resultType string).
 	TrustedCertPath any
 
 	// Specifies whether to use a CA certificate from the system trust store or from a specified PEM file. The default value is
-	// false.
+	// false.Type: boolean (or Expression with resultType boolean).
 	UseSystemTrustStore any
 }
 
@@ -12965,8 +12968,8 @@ type GoogleCloudStorageLinkedServiceTypeProperties struct {
 	AccessKeyID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The secret access key of the Google Cloud Storage Identity and Access Management (IAM) user.
 	SecretAccessKey SecretBaseClassification
@@ -13023,8 +13026,8 @@ type GoogleCloudStorageReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -13108,8 +13111,8 @@ type GoogleSheetsLinkedServiceTypeProperties struct {
 	APIToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // GreenplumDatasetTypeProperties - Greenplum Dataset Properties
@@ -13166,8 +13169,8 @@ type GreenplumLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Pwd *AzureKeyVaultSecretReference
@@ -13334,8 +13337,8 @@ type HBaseLinkedServiceTypeProperties struct {
 	EnableSSL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The partial URL corresponding to the HBase server. (i.e. /gateway/sandbox/hbase/version)
 	HTTPPath any
@@ -13541,7 +13544,7 @@ type HDInsightHiveActivityTypeProperties struct {
 	StorageLinkedServices []*LinkedServiceReference
 
 	// User specified arguments under hivevar namespace.
-	Variables []any
+	Variables map[string]any
 }
 
 // HDInsightLinkedService - HDInsight linked service.
@@ -13586,8 +13589,8 @@ type HDInsightLinkedServiceTypeProperties struct {
 	ClusterURI any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specify the FileSystem if the main storage for the HDInsight is ADLS Gen2. Type: string (or Expression with resultType
 	// string).
@@ -13786,8 +13789,8 @@ type HDInsightOnDemandLinkedServiceTypeProperties struct {
 	DataNodeSize any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specifies the HBase configuration parameters (hbase-site.xml) for the HDInsight cluster.
 	HBaseConfiguration any
@@ -14235,8 +14238,8 @@ type HTTPLinkedServiceTypeProperties struct {
 	EnableServerCertificateValidation any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for Basic, Digest, Windows, or ClientCertificate with EmbeddedCertData authentication.
 	Password SecretBaseClassification
@@ -14245,10 +14248,14 @@ type HTTPLinkedServiceTypeProperties struct {
 	UserName any
 }
 
-// HTTPReadSettings - Sftp read settings.
+// HTTPReadSettings - Http read settings.
 type HTTPReadSettings struct {
 	// REQUIRED; The read setting type.
 	Type *string
+
+	// Specifies the additional columns to be added to source data. Type: array of objects(AdditionalColumns) (or Expression with
+	// resultType array of objects).
+	AdditionalColumns any
 
 	// The additional HTTP headers in the request to the RESTful API. Type: string (or Expression with resultType string).
 	AdditionalHeaders any
@@ -14259,14 +14266,8 @@ type HTTPReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
-
 	// The maximum concurrent connection count for the source data store. Type: integer (or Expression with resultType integer).
 	MaxConcurrentConnections any
-
-	// Specify the root path where partition discovery starts from. Type: string (or Expression with resultType string).
-	PartitionRootPath any
 
 	// The HTTP request body to the RESTful API if requestMethod is POST. Type: string (or Expression with resultType string).
 	RequestBody any
@@ -14274,7 +14275,8 @@ type HTTPReadSettings struct {
 	// The HTTP method used to call the RESTful API. The default is GET. Type: string (or Expression with resultType string).
 	RequestMethod any
 
-	// Specifies the timeout for a HTTP client to get HTTP response from HTTP server.
+	// Specifies the timeout for a HTTP client to get HTTP response from HTTP server. Type: string (or Expression with resultType
+	// string).
 	RequestTimeout any
 }
 
@@ -14401,8 +14403,8 @@ type HdfsLinkedServiceTypeProperties struct {
 	AuthenticationType any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for Windows authentication.
 	Password SecretBaseClassification
@@ -14454,8 +14456,8 @@ type HdfsReadSettings struct {
 	// Specifies Distcp-related settings.
 	DistcpSettings *DistcpSettings
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -14602,8 +14604,8 @@ type HiveLinkedServiceTypeProperties struct {
 	EnableSSL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The partial URL corresponding to the Hive server.
 	HTTPPath any
@@ -14796,8 +14798,8 @@ type HubspotLinkedServiceTypeProperties struct {
 	ClientSecret SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The refresh token obtained when initially authenticating your OAuth integration.
 	RefreshToken SecretBaseClassification
@@ -15050,8 +15052,8 @@ type ImpalaLinkedServiceTypeProperties struct {
 	EnableSSL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password corresponding to the user name when using UsernameAndPassword.
 	Password SecretBaseClassification
@@ -15238,7 +15240,8 @@ func (i *InformixLinkedService) GetLinkedService() *LinkedService {
 // InformixLinkedServiceTypeProperties - Informix linked service properties.
 type InformixLinkedServiceTypeProperties struct {
 	// REQUIRED; The non-access credential portion of the connection string as well as an optional encrypted credential. Type:
-	// string, SecureString or AzureKeyVaultSecretReference.
+	// string, or SecureString, or AzureKeyVaultSecretReference, or Expression with resultType
+	// string.
 	ConnectionString any
 
 	// Type of authentication used to connect to the Informix as ODBC data store. Possible values are: Anonymous and Basic. Type:
@@ -15249,8 +15252,8 @@ type InformixLinkedServiceTypeProperties struct {
 	Credential SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for Basic authentication.
 	Password SecretBaseClassification
@@ -15533,8 +15536,19 @@ type IntegrationRuntimeDataFlowProperties struct {
 	// Core count of the cluster which will execute data flow job. Supported values are: 8, 16, 32, 48, 80, 144 and 272.
 	CoreCount *int32
 
+	// Custom properties are used to tune the data flow runtime performance.
+	CustomProperties []*IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem
+
 	// Time to live (in minutes) setting of the cluster which will execute data flow job.
 	TimeToLive *int32
+}
+
+type IntegrationRuntimeDataFlowPropertiesCustomPropertiesItem struct {
+	// Name of custom property.
+	Name *string
+
+	// Value of custom property.
+	Value *string
 }
 
 // IntegrationRuntimeDataProxyProperties - Data proxy properties for a managed dedicated integration runtime.
@@ -16217,8 +16231,8 @@ type JiraLinkedServiceTypeProperties struct {
 	Username any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password corresponding to the user name that you provided in the username field.
 	Password SecretBaseClassification
@@ -16715,8 +16729,8 @@ type MagentoLinkedServiceTypeProperties struct {
 	AccessToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specifies whether the data source endpoints are encrypted using HTTPS. The default value is true.
 	UseEncryptedEndpoints any
@@ -17264,8 +17278,8 @@ type MariaDBLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Pwd *AzureKeyVaultSecretReference
@@ -17425,8 +17439,8 @@ type MarketoLinkedServiceTypeProperties struct {
 	ClientSecret SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specifies whether the data source endpoints are encrypted using HTTPS. The default value is true.
 	UseEncryptedEndpoints any
@@ -17593,7 +17607,8 @@ func (m *MicrosoftAccessLinkedService) GetLinkedService() *LinkedService {
 // MicrosoftAccessLinkedServiceTypeProperties - Microsoft Access linked service properties.
 type MicrosoftAccessLinkedServiceTypeProperties struct {
 	// REQUIRED; The non-access credential portion of the connection string as well as an optional encrypted credential. Type:
-	// string, SecureString or AzureKeyVaultSecretReference.
+	// string, or SecureString, or AzureKeyVaultSecretReference, or Expression with resultType
+	// string.
 	ConnectionString any
 
 	// Type of authentication used to connect to the Microsoft Access as ODBC data store. Possible values are: Anonymous and Basic.
@@ -17604,8 +17619,8 @@ type MicrosoftAccessLinkedServiceTypeProperties struct {
 	Credential SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for Basic authentication.
 	Password SecretBaseClassification
@@ -18089,8 +18104,8 @@ type MongoDbLinkedServiceTypeProperties struct {
 	EnableSSL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for authentication.
 	Password SecretBaseClassification
@@ -18425,12 +18440,12 @@ func (m *MySQLLinkedService) GetLinkedService() *LinkedService {
 
 // MySQLLinkedServiceTypeProperties - MySQL linked service properties.
 type MySQLLinkedServiceTypeProperties struct {
-	// REQUIRED; The connection string.
+	// REQUIRED; The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -18590,8 +18605,8 @@ type NetezzaLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Pwd *AzureKeyVaultSecretReference
@@ -18805,8 +18820,8 @@ type ODataLinkedServiceTypeProperties struct {
 	AzureCloudType any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password of the OData service.
 	Password SecretBaseClassification
@@ -18974,7 +18989,8 @@ func (o *OdbcLinkedService) GetLinkedService() *LinkedService {
 // OdbcLinkedServiceTypeProperties - ODBC linked service properties.
 type OdbcLinkedServiceTypeProperties struct {
 	// REQUIRED; The non-access credential portion of the connection string as well as an optional encrypted credential. Type:
-	// string, SecureString or AzureKeyVaultSecretReference.
+	// string, or SecureString, or AzureKeyVaultSecretReference, or Expression with resultType
+	// string.
 	ConnectionString any
 
 	// Type of authentication used to connect to the ODBC data store. Possible values are: Anonymous and Basic. Type: string (or
@@ -18985,8 +19001,8 @@ type OdbcLinkedServiceTypeProperties struct {
 	Credential SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for Basic authentication.
 	Password SecretBaseClassification
@@ -19262,8 +19278,8 @@ type Office365LinkedServiceTypeProperties struct {
 	ServicePrincipalTenantID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // Office365Source - A copy activity source for an Office 365 service.
@@ -19486,8 +19502,8 @@ type OracleCloudStorageLinkedServiceTypeProperties struct {
 	AccessKeyID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The secret access key of the Oracle Cloud Storage Identity and Access Management (IAM) user.
 	SecretAccessKey SecretBaseClassification
@@ -19544,8 +19560,8 @@ type OracleCloudStorageReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -19629,8 +19645,8 @@ type OracleLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -19702,8 +19718,8 @@ type OracleServiceCloudLinkedServiceTypeProperties struct {
 	Username any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specifies whether the data source endpoints are encrypted using HTTPS. The default value is true. Type: boolean (or Expression
 	// with resultType boolean).
@@ -20436,8 +20452,8 @@ type PaypalLinkedServiceTypeProperties struct {
 	ClientSecret SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specifies whether the data source endpoints are encrypted using HTTPS. The default value is true.
 	UseEncryptedEndpoints any
@@ -20623,8 +20639,8 @@ type PhoenixLinkedServiceTypeProperties struct {
 	EnableSSL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The partial URL corresponding to the Phoenix server. (i.e. /gateway/sandbox/phoenix/version). The default value is hbasephoenix
 	// if using WindowsAzureHDInsightService.
@@ -21041,12 +21057,12 @@ func (p *PostgreSQLLinkedService) GetLinkedService() *LinkedService {
 
 // PostgreSQLLinkedServiceTypeProperties - PostgreSQL linked service properties.
 type PostgreSQLLinkedServiceTypeProperties struct {
-	// REQUIRED; The connection string.
+	// REQUIRED; The connection string. Type: string, SecureString or AzureKeyVaultSecretReference.
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -21315,8 +21331,8 @@ type PrestoLinkedServiceTypeProperties struct {
 	EnableSSL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password corresponding to the user name.
 	Password SecretBaseClassification
@@ -21661,8 +21677,8 @@ type QuickBooksLinkedServiceTypeProperties struct {
 	ConsumerSecret SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The endpoint of the QuickBooks server. (i.e. quickbooks.api.intuit.com)
 	Endpoint any
@@ -21822,8 +21838,8 @@ type QuickbaseLinkedServiceTypeProperties struct {
 	UserToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // RecurrenceSchedule - The recurrence schedule.
@@ -22090,8 +22106,8 @@ type ResponsysLinkedServiceTypeProperties struct {
 	ClientSecret SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specifies whether the data source endpoints are encrypted using HTTPS. The default value is true. Type: boolean (or Expression
 	// with resultType boolean).
@@ -22264,11 +22280,11 @@ func (r *RestResourceDataset) GetDataset() *Dataset {
 
 // RestResourceDatasetTypeProperties - Properties specific to this dataset type.
 type RestResourceDatasetTypeProperties struct {
-	// The additional HTTP headers in the request to the RESTful API. Type: string (or Expression with resultType string).
-	AdditionalHeaders any
+	// The additional HTTP headers in the request to the RESTful API.
+	AdditionalHeaders map[string]any
 
-	// The pagination rules to compose next page requests. Type: string (or Expression with resultType string).
-	PaginationRules any
+	// The pagination rules to compose next page requests.
+	PaginationRules map[string]any
 
 	// The relative URL to the resource that the RESTful API provides. Type: string (or Expression with resultType string).
 	RelativeURL any
@@ -22321,10 +22337,10 @@ type RestServiceLinkedServiceTypeProperties struct {
 	// REQUIRED; Type of authentication used to connect to the REST service.
 	AuthenticationType *RestServiceAuthenticationType
 
-	// REQUIRED; The base URL of the REST service.
+	// REQUIRED; The base URL of the REST service. Type: string (or Expression with resultType string).
 	URL any
 
-	// The resource you are requesting authorization to use.
+	// The resource you are requesting authorization to use. Type: string (or Expression with resultType string).
 	AADResourceID any
 
 	// The additional HTTP headers in the request to RESTful API used for authorization. Type: object (or Expression with resultType
@@ -22350,8 +22366,8 @@ type RestServiceLinkedServiceTypeProperties struct {
 	EnableServerCertificateValidation any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password used in Basic authentication type.
 	Password SecretBaseClassification
@@ -22363,20 +22379,21 @@ type RestServiceLinkedServiceTypeProperties struct {
 	// resultType string).
 	Scope any
 
-	// The application's client ID used in AadServicePrincipal authentication type.
+	// The application's client ID used in AadServicePrincipal authentication type. Type: string (or Expression with resultType
+	// string).
 	ServicePrincipalID any
 
 	// The application's key used in AadServicePrincipal authentication type.
 	ServicePrincipalKey SecretBaseClassification
 
 	// The tenant information (domain name or tenant ID) used in AadServicePrincipal authentication type under which your application
-	// resides.
+	// resides. Type: string (or Expression with resultType string).
 	Tenant any
 
 	// The token endpoint of the authorization server to acquire access token. Type: string (or Expression with resultType string).
 	TokenEndpoint any
 
-	// The user name used in Basic authentication type.
+	// The user name used in Basic authentication type. Type: string (or Expression with resultType string).
 	UserName any
 }
 
@@ -22550,7 +22567,7 @@ type RunQueryOrderBy struct {
 
 // SQLAlwaysEncryptedProperties - Sql always encrypted properties.
 type SQLAlwaysEncryptedProperties struct {
-	// REQUIRED; Sql always encrypted AKV authentication type. Type: string (or Expression with resultType string).
+	// REQUIRED; Sql always encrypted AKV authentication type. Type: string.
 	AlwaysEncryptedAkvAuthType *SQLAlwaysEncryptedAkvAuthType
 
 	// The credential reference containing authentication information.
@@ -22921,8 +22938,8 @@ type SQLServerLinkedServiceTypeProperties struct {
 	AlwaysEncryptedSettings *SQLAlwaysEncryptedProperties
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The on-premises Windows authentication password.
 	Password SecretBaseClassification
@@ -23359,13 +23376,13 @@ type SQLUpsertSettings struct {
 
 // SSISAccessCredential - SSIS access credential.
 type SSISAccessCredential struct {
-	// REQUIRED; Domain for windows authentication.
+	// REQUIRED; Domain for windows authentication. Type: string (or Expression with resultType string).
 	Domain any
 
 	// REQUIRED; Password for windows authentication.
 	Password SecretBaseClassification
 
-	// REQUIRED; UseName for windows authentication.
+	// REQUIRED; UseName for windows authentication. Type: string (or Expression with resultType string).
 	UserName any
 }
 
@@ -23386,13 +23403,13 @@ type SSISChildPackage struct {
 
 // SSISExecutionCredential - SSIS package execution credential.
 type SSISExecutionCredential struct {
-	// REQUIRED; Domain for windows authentication.
+	// REQUIRED; Domain for windows authentication. Type: string (or Expression with resultType string).
 	Domain any
 
 	// REQUIRED; Password for windows authentication.
 	Password *SecureString
 
-	// REQUIRED; UseName for windows authentication.
+	// REQUIRED; UseName for windows authentication. Type: string (or Expression with resultType string).
 	UserName any
 }
 
@@ -23514,8 +23531,8 @@ type SalesforceLinkedServiceTypeProperties struct {
 	APIVersion any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The URL of Salesforce instance. Default is 'https://login.salesforce.com'. To copy data from sandbox, specify 'https://test.salesforce.com'.
 	// To copy data from custom domain, specify, for example,
@@ -23582,8 +23599,8 @@ type SalesforceMarketingCloudLinkedServiceTypeProperties struct {
 	ConnectionProperties any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specifies whether the data source endpoints are encrypted using HTTPS. The default value is true. Type: boolean (or Expression
 	// with resultType boolean).
@@ -23802,8 +23819,8 @@ type SalesforceServiceCloudLinkedServiceTypeProperties struct {
 	APIVersion any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The URL of Salesforce Service Cloud instance. Default is 'https://login.salesforce.com'. To copy data from sandbox, specify
 	// 'https://test.salesforce.com'. To copy data from custom domain, specify, for
@@ -24143,8 +24160,8 @@ type SapBWLinkedServiceTypeProperties struct {
 	SystemNumber any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password to access the SAP BW server.
 	Password SecretBaseClassification
@@ -24300,8 +24317,8 @@ type SapCloudForCustomerLinkedServiceTypeProperties struct {
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Either encryptedCredential or username/password must be provided. Type:
-	// string (or Expression with resultType string).
-	EncryptedCredential any
+	// string.
+	EncryptedCredential *string
 
 	// The password for Basic authentication.
 	Password SecretBaseClassification
@@ -24516,18 +24533,18 @@ func (s *SapEccLinkedService) GetLinkedService() *LinkedService {
 type SapEccLinkedServiceTypeProperties struct {
 	// REQUIRED; The URL of SAP ECC OData API. For example, '[https://hostname:port/sap/opu/odata/sap/servicename/]'. Type: string
 	// (or Expression with resultType string).
-	URL *string
+	URL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
 	// Either encryptedCredential or username/password must be provided. Type:
-	// string (or Expression with resultType string).
+	// string.
 	EncryptedCredential *string
 
 	// The password for Basic authentication.
 	Password SecretBaseClassification
 
 	// The username for Basic authentication. Type: string (or Expression with resultType string).
-	Username *string
+	Username any
 }
 
 // SapEccResourceDataset - The path of the SAP ECC OData entity.
@@ -24692,8 +24709,8 @@ type SapHanaLinkedServiceProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password to access the SAP HANA server.
 	Password SecretBaseClassification
@@ -24880,8 +24897,8 @@ type SapOdpLinkedServiceTypeProperties struct {
 	ClientID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Language of the SAP system where the table is located. The default value is EN. Type: string (or Expression with resultType
 	// string).
@@ -25108,8 +25125,8 @@ type SapOpenHubLinkedServiceTypeProperties struct {
 	ClientID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Language of the BW system where the open hub destination is located. The default value is EN. Type: string (or Expression
 	// with resultType string).
@@ -25322,8 +25339,8 @@ type SapTableLinkedServiceTypeProperties struct {
 	ClientID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Language of the SAP system where the table is located. The default value is EN. Type: string (or Expression with resultType
 	// string).
@@ -25696,7 +25713,7 @@ type ScriptActivityParameter struct {
 	// The type of the parameter.
 	Type *ScriptActivityParameterType
 
-	// The value of the parameter.
+	// The value of the parameter. Type: string (or Expression with resultType string).
 	Value any
 }
 
@@ -26009,8 +26026,8 @@ type ServiceNowLinkedServiceTypeProperties struct {
 	ClientSecret SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password corresponding to the user name for Basic and OAuth2 authentication.
 	Password SecretBaseClassification
@@ -26225,7 +26242,10 @@ func (s *SetVariableActivity) GetControlActivity() *ControlActivity {
 
 // SetVariableActivityTypeProperties - SetVariable activity properties.
 type SetVariableActivityTypeProperties struct {
-	// Value to be set. Could be a static value or Expression
+	// If set to true, it sets the pipeline run return value.
+	SetSystemVariable *bool
+
+	// Value to be set. Could be a static value or Expression.
 	Value any
 
 	// Name of the variable whose value needs to be set.
@@ -26275,8 +26295,8 @@ type SftpReadSettings struct {
 	// If true, disable data store metrics collection. Default is false. Type: boolean (or Expression with resultType boolean).
 	DisableMetricsCollection any
 
-	// Indicates whether to enable partition discovery.
-	EnablePartitionDiscovery *bool
+	// Indicates whether to enable partition discovery. Type: boolean (or Expression with resultType boolean).
+	EnablePartitionDiscovery any
 
 	// Point to a text file that lists each file (relative path to the path configured in the dataset) that you want to copy.
 	// Type: string (or Expression with resultType string).
@@ -26360,8 +26380,8 @@ type SftpServerLinkedServiceTypeProperties struct {
 	AuthenticationType *SftpAuthenticationType
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The host key finger-print of the SFTP server. When SkipHostKeyValidation is false, HostKeyFingerprint should be specified.
 	// Type: string (or Expression with resultType string).
@@ -26493,8 +26513,8 @@ type SharePointOnlineListLinkedServiceTypeProperties struct {
 	TenantID any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // SharePointOnlineListResourceDataset - The sharepoint online list resource dataset.
@@ -26633,8 +26653,8 @@ type ShopifyLinkedServiceTypeProperties struct {
 	AccessToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Specifies whether the data source endpoints are encrypted using HTTPS. The default value is true.
 	UseEncryptedEndpoints any
@@ -26805,8 +26825,8 @@ type SmartsheetLinkedServiceTypeProperties struct {
 	APIToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 }
 
 // SnowflakeDataset - The snowflake dataset.
@@ -26963,8 +26983,8 @@ type SnowflakeLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Password *AzureKeyVaultSecretReference
@@ -27135,8 +27155,8 @@ type SparkLinkedServiceTypeProperties struct {
 	EnableSSL any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The partial URL corresponding to the Spark server.
 	HTTPPath any
@@ -27317,8 +27337,8 @@ type SquareLinkedServiceTypeProperties struct {
 	ConnectionProperties any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The URL of the Square instance. (i.e. mystore.mysquare.com)
 	Host any
@@ -27899,8 +27919,8 @@ type SybaseLinkedServiceTypeProperties struct {
 	AuthenticationType *SybaseAuthenticationType
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for authentication.
 	Password SecretBaseClassification
@@ -28098,8 +28118,9 @@ type SynapseNotebookActivityTypeProperties struct {
 	// provide. Type: string (or Expression with resultType string).
 	ExecutorSize any
 
-	// Number of executors to launch for this session, which will override the 'numExecutors' of the notebook you provide.
-	NumExecutors *int32
+	// Number of executors to launch for this session, which will override the 'numExecutors' of the notebook you provide. Type:
+	// integer (or Expression with resultType integer).
+	NumExecutors any
 
 	// Notebook parameters.
 	Parameters map[string]*NotebookParameter
@@ -28396,8 +28417,8 @@ type TeamDeskLinkedServiceTypeProperties struct {
 	APIToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password of the TeamDesk source.
 	Password SecretBaseClassification
@@ -28451,8 +28472,8 @@ type TeradataLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// Password for authentication.
 	Password SecretBaseClassification
@@ -29070,7 +29091,7 @@ type TwilioLinkedServiceTypeProperties struct {
 	// REQUIRED; The auth token of Twilio service.
 	Password SecretBaseClassification
 
-	// REQUIRED; The Account SID of Twilio service.
+	// REQUIRED; The Account SID of Twilio service. Type: string (or Expression with resultType string).
 	UserName any
 }
 
@@ -29133,8 +29154,7 @@ type UntilActivityTypeProperties struct {
 
 	// Specifies the timeout for the activity to run. If there is no value specified, it takes the value of TimeSpan.FromDays(7)
 	// which is 1 week as default. Type: string (or Expression with resultType
-	// string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])). Type: string (or Expression with resultType string),
-	// pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
+	// string), pattern: ((\d+).)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])).
 	Timeout any
 }
 
@@ -29318,8 +29338,8 @@ type VerticaLinkedServiceTypeProperties struct {
 	ConnectionString any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The Azure key vault secret reference of password in connection string.
 	Pwd *AzureKeyVaultSecretReference
@@ -29481,7 +29501,7 @@ func (w *WaitActivity) GetControlActivity() *ControlActivity {
 
 // WaitActivityTypeProperties - Wait activity properties.
 type WaitActivityTypeProperties struct {
-	// REQUIRED; Duration in seconds.
+	// REQUIRED; Duration in seconds. Type: integer (or Expression with resultType integer).
 	WaitTimeInSeconds any
 }
 
@@ -30123,8 +30143,8 @@ type XeroLinkedServiceTypeProperties struct {
 	ConsumerKey SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The endpoint of the Xero server. (i.e. api.xero.com)
 	Host any
@@ -30298,8 +30318,8 @@ type ZendeskLinkedServiceTypeProperties struct {
 	APIToken SecretBaseClassification
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The password of the Zendesk source.
 	Password SecretBaseClassification
@@ -30373,8 +30393,8 @@ type ZohoLinkedServiceTypeProperties struct {
 	ConnectionProperties any
 
 	// The encrypted credential used for authentication. Credentials are encrypted using the integration runtime credential manager.
-	// Type: string (or Expression with resultType string).
-	EncryptedCredential any
+	// Type: string.
+	EncryptedCredential *string
 
 	// The endpoint of the Zoho server. (i.e. crm.zoho.com/crm/private)
 	Endpoint any

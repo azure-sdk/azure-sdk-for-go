@@ -11,7 +11,7 @@ package armdatafactory
 
 const (
 	moduleName    = "armdatafactory"
-	moduleVersion = "v3.2.1"
+	moduleVersion = "v4.0.0"
 )
 
 // AzureFunctionActivityMethod - The list of HTTP methods supported by a AzureFunctionActivity.
@@ -160,8 +160,7 @@ func PossibleConfigurationTypeValues() []ConfigurationType {
 	}
 }
 
-// CosmosDbConnectionMode - The connection mode used to access CosmosDB account. Type: string (or Expression with resultType
-// string).
+// CosmosDbConnectionMode - The connection mode used to access CosmosDB account. Type: string.
 type CosmosDbConnectionMode string
 
 const (
@@ -174,24 +173,6 @@ func PossibleCosmosDbConnectionModeValues() []CosmosDbConnectionMode {
 	return []CosmosDbConnectionMode{
 		CosmosDbConnectionModeDirect,
 		CosmosDbConnectionModeGateway,
-	}
-}
-
-// CosmosDbServicePrincipalCredentialType - The service principal credential type to use in Server-To-Server authentication.
-// 'ServicePrincipalKey' for key/secret, 'ServicePrincipalCert' for certificate. Type: string (or Expression with
-// resultType string).
-type CosmosDbServicePrincipalCredentialType string
-
-const (
-	CosmosDbServicePrincipalCredentialTypeServicePrincipalCert CosmosDbServicePrincipalCredentialType = "ServicePrincipalCert"
-	CosmosDbServicePrincipalCredentialTypeServicePrincipalKey  CosmosDbServicePrincipalCredentialType = "ServicePrincipalKey"
-)
-
-// PossibleCosmosDbServicePrincipalCredentialTypeValues returns the possible values for the CosmosDbServicePrincipalCredentialType const type.
-func PossibleCosmosDbServicePrincipalCredentialTypeValues() []CosmosDbServicePrincipalCredentialType {
-	return []CosmosDbServicePrincipalCredentialType{
-		CosmosDbServicePrincipalCredentialTypeServicePrincipalCert,
-		CosmosDbServicePrincipalCredentialTypeServicePrincipalKey,
 	}
 }
 
@@ -1225,8 +1206,7 @@ func PossibleRunQueryOrderByFieldValues() []RunQueryOrderByField {
 	}
 }
 
-// SQLAlwaysEncryptedAkvAuthType - Sql always encrypted AKV authentication type. Type: string (or Expression with resultType
-// string).
+// SQLAlwaysEncryptedAkvAuthType - Sql always encrypted AKV authentication type. Type: string.
 type SQLAlwaysEncryptedAkvAuthType string
 
 const (
