@@ -93,11 +93,6 @@ func (c *ClientFactory) NewSecretsClient() *SecretsClient {
 	return subClient
 }
 
-func (c *ClientFactory) NewValidateClient() *ValidateClient {
-	subClient, _ := NewValidateClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
 func (c *ClientFactory) NewLogAnalyticsClient() *LogAnalyticsClient {
 	subClient, _ := NewLogAnalyticsClient(c.subscriptionID, c.credential, c.options)
 	return subClient

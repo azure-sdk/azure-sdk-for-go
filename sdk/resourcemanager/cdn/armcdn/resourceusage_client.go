@@ -46,7 +46,7 @@ func NewResourceUsageClient(subscriptionID string, credential azcore.TokenCreden
 
 // NewListPager - Check the quota and actual usage of the CDN profiles under the given subscription.
 //
-// Generated from API version 2021-06-01
+// Generated from API version 2022-11-01-preview
 //   - options - ResourceUsageClientListOptions contains the optional parameters for the ResourceUsageClient.NewListPager method.
 func (client *ResourceUsageClient) NewListPager(options *ResourceUsageClientListOptions) *runtime.Pager[ResourceUsageClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[ResourceUsageClientListResponse]{
@@ -88,7 +88,7 @@ func (client *ResourceUsageClient) listCreateRequest(ctx context.Context, option
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-01")
+	reqQP.Set("api-version", "2022-11-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
