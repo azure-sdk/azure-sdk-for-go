@@ -1,5 +1,37 @@
 # Release History
 
+## 0.9.0 (2023-04-24)
+### Breaking Changes
+
+- `CommitASYNCHRONOUSCOMMIT`, `CommitSYNCHRONOUSCOMMIT` from enum `Commit` has been removed
+- `FailoverAUTOMATIC`, `FailoverMANUAL` from enum `Failover` has been removed
+- `ReadableSecondaryALL`, `ReadableSecondaryNO`, `ReadableSecondaryREADONLY` from enum `ReadableSecondary` has been removed
+- `RolePRIMARY`, `RoleSECONDARY` from enum `Role` has been removed
+
+### Features Added
+
+- New value `CommitAsynchronousCommit`, `CommitSynchronousCommit` added to enum type `Commit`
+- New value `FailoverAutomatic`, `FailoverManual` added to enum type `Failover`
+- New value `LeastPrivilegeModeNotSet` added to enum type `LeastPrivilegeMode`
+- New value `ReadableSecondaryAll`, `ReadableSecondaryNo`, `ReadableSecondaryReadOnly` added to enum type `ReadableSecondary`
+- New value `RolePrimary`, `RoleSecondary` added to enum type `Role`
+- New enum type `TroubleshootingScenario` with values `TroubleshootingScenarioUnhealthyReplica`
+- New function `*ClientFactory.NewTroubleshootClient() *TroubleshootClient`
+- New function `NewTroubleshootClient(string, azcore.TokenCredential, *arm.ClientOptions) (*TroubleshootClient, error)`
+- New function `*TroubleshootClient.BeginTroubleshoot(context.Context, string, string, SQLVMTroubleshooting, *TroubleshootClientBeginTroubleshootOptions) (*runtime.Poller[TroubleshootClientTroubleshootResponse], error)`
+- New struct `AADAuthenticationSettings`
+- New struct `SQLVMTroubleshooting`
+- New struct `TroubleshootingAdditionalProperties`
+- New struct `TroubleshootingStatus`
+- New struct `UnhealthyReplicaInfo`
+- New field `TroubleshootingStatus` in struct `Properties`
+- New field `UseStoragePool` in struct `SQLStorageSettings`
+- New field `UseStoragePool` in struct `SQLTempDbSettings`
+- New field `AzureAdAuthenticationSettings` in struct `ServerConfigurationsManagementSettings`
+- New field `EnableStorageConfigBlade` in struct `StorageConfigurationSettings`
+- New field `IsSQLServiceAccountGmsa` in struct `WsfcDomainProfile`
+
+
 ## 0.8.0 (2023-03-31)
 ### Features Added
 
