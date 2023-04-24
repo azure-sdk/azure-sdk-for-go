@@ -9,6 +9,16 @@
 
 package armstoragesync
 
+// CloudEndpointsClientAfsShareMetadataCertificatePublicKeysResponse contains the response from method CloudEndpointsClient.AfsShareMetadataCertificatePublicKeys.
+type CloudEndpointsClientAfsShareMetadataCertificatePublicKeysResponse struct {
+	CloudEndpointAfsShareMetadataCertificatePublicKeys
+	// XMSCorrelationRequestID contains the information returned from the x-ms-correlation-request-id header response.
+	XMSCorrelationRequestID *string
+
+	// XMSRequestID contains the information returned from the x-ms-request-id header response.
+	XMSRequestID *string
+}
+
 // CloudEndpointsClientCreateResponse contains the response from method CloudEndpointsClient.BeginCreate.
 type CloudEndpointsClientCreateResponse struct {
 	CloudEndpoint

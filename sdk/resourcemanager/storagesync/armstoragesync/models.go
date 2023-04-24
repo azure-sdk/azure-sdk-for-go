@@ -77,6 +77,16 @@ type CloudEndpoint struct {
 	Type *string
 }
 
+// CloudEndpointAfsShareMetadataCertificatePublicKeys - Cloud endpoint AFS file share metadata signing certificate public
+// keys.
+type CloudEndpointAfsShareMetadataCertificatePublicKeys struct {
+	// READ-ONLY; The first public key.
+	FirstKey *string
+
+	// READ-ONLY; The second public key.
+	SecondKey *string
+}
+
 // CloudEndpointArray - Array of CloudEndpoint
 type CloudEndpointArray struct {
 	// Collection of CloudEndpoint.
@@ -224,6 +234,12 @@ type CloudEndpointProperties struct {
 	ChangeEnumerationStatus *CloudEndpointChangeEnumerationStatus
 }
 
+// CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions contains the optional parameters for the CloudEndpointsClient.AfsShareMetadataCertificatePublicKeys
+// method.
+type CloudEndpointsClientAfsShareMetadataCertificatePublicKeysOptions struct {
+	// placeholder for future optional parameters
+}
+
 // CloudEndpointsClientBeginCreateOptions contains the optional parameters for the CloudEndpointsClient.BeginCreate method.
 type CloudEndpointsClientBeginCreateOptions struct {
 	// Resumes the LRO from the provided token.
@@ -322,6 +338,15 @@ type CloudTieringFilesNotTiering struct {
 
 	// READ-ONLY; Last cloud tiering result (HResult)
 	TotalFileCount *int64
+}
+
+// CloudTieringLowDiskMode - Information regarding the low disk mode state
+type CloudTieringLowDiskMode struct {
+	// READ-ONLY; Last updated timestamp
+	LastUpdatedTimestamp *time.Time
+
+	// READ-ONLY; Low disk mode state
+	State *CloudTieringLowDiskModeState
 }
 
 // CloudTieringSpaceSavings - Server endpoint cloud tiering status object.
@@ -1070,6 +1095,9 @@ type ServerEndpointCloudTieringStatus struct {
 
 	// READ-ONLY; Last updated timestamp
 	LastUpdatedTimestamp *time.Time
+
+	// READ-ONLY; Information regarding the low disk mode state
+	LowDiskMode *CloudTieringLowDiskMode
 
 	// READ-ONLY; Information regarding how much local space cloud tiering is saving.
 	SpaceSavings *CloudTieringSpaceSavings

@@ -11,7 +11,7 @@ package armstoragesync
 
 const (
 	moduleName    = "armstoragesync"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v1.2.0"
 )
 
 // ChangeDetectionMode - Change Detection Mode. Applies to a directory specified in directoryPath parameter.
@@ -59,6 +59,22 @@ func PossibleCloudEndpointChangeEnumerationTotalCountsStateValues() []CloudEndpo
 	return []CloudEndpointChangeEnumerationTotalCountsState{
 		CloudEndpointChangeEnumerationTotalCountsStateCalculating,
 		CloudEndpointChangeEnumerationTotalCountsStateFinal,
+	}
+}
+
+// CloudTieringLowDiskModeState - Type of the cloud tiering low disk mode state
+type CloudTieringLowDiskModeState string
+
+const (
+	CloudTieringLowDiskModeStateDisabled CloudTieringLowDiskModeState = "Disabled"
+	CloudTieringLowDiskModeStateEnabled  CloudTieringLowDiskModeState = "Enabled"
+)
+
+// PossibleCloudTieringLowDiskModeStateValues returns the possible values for the CloudTieringLowDiskModeState const type.
+func PossibleCloudTieringLowDiskModeStateValues() []CloudTieringLowDiskModeState {
+	return []CloudTieringLowDiskModeState{
+		CloudTieringLowDiskModeStateDisabled,
+		CloudTieringLowDiskModeStateEnabled,
 	}
 }
 
