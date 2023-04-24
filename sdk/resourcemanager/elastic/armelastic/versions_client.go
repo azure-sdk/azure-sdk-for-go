@@ -29,76 +29,74 @@ import (
 	"strings"
 )
 
-// OrganizationsClient contains the methods for the Organizations group.
-// Don't use this type directly, use NewOrganizationsClient() instead.
-type OrganizationsClient struct {
+// VersionsClient contains the methods for the ElasticVersions group.
+// Don't use this type directly, use NewVersionsClient() instead.
+type VersionsClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewOrganizationsClient creates a new instance of OrganizationsClient with the specified values.
+// NewVersionsClient creates a new instance of VersionsClient with the specified values.
 //   - subscriptionID - The Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000)
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewOrganizationsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*OrganizationsClient, error) {
-	cl, err := arm.NewClient(moduleName+".OrganizationsClient", moduleVersion, credential, options)
+func NewVersionsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*VersionsClient, error) {
+	cl, err := arm.NewClient(moduleName+".VersionsClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &OrganizationsClient{
+	client := &VersionsClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
 	return client, nil
 }
 
-// GetAPIKey - Fetch User API Key from internal database, if it was generated and stored while creating the Elasticsearch
-// Organization.
+// List - Get a list of available versions for a region.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-02-01-preview
-//   - options - OrganizationsClientGetAPIKeyOptions contains the optional parameters for the OrganizationsClient.GetAPIKey method.
-func (client *OrganizationsClient) GetAPIKey(ctx context.Context, options *OrganizationsClientGetAPIKeyOptions) (OrganizationsClientGetAPIKeyResponse, error) {
-	req, err := client.getAPIKeyCreateRequest(ctx, options)
+//   - region - Region where elastic deployment will take place.
+//   - options - VersionsClientListOptions contains the optional parameters for the VersionsClient.List method.
+func (client *VersionsClient) List(ctx context.Context, region string, options *VersionsClientListOptions) (VersionsClientListResponse, error) {
+	req, err := client.listCreateRequest(ctx, region, options)
 	if err != nil {
-		return OrganizationsClientGetAPIKeyResponse{}, err
+		return VersionsClientListResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return OrganizationsClientGetAPIKeyResponse{}, err
+		return VersionsClientListResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return OrganizationsClientGetAPIKeyResponse{}, runtime.NewResponseError(resp)
+		return VersionsClientListResponse{}, runtime.NewResponseError(resp)
 	}
-	return client.getAPIKeyHandleResponse(resp)
+	return client.listHandleResponse(resp)
 }
 
-// getAPIKeyCreateRequest creates the GetAPIKey request.
-func (client *OrganizationsClient) getAPIKeyCreateRequest(ctx context.Context, options *OrganizationsClientGetAPIKeyOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Elastic/getOrganizationApiKey"
+// listCreateRequest creates the List request.
+func (client *VersionsClient) listCreateRequest(ctx context.Context, region string, options *VersionsClientListOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Elastic/elasticVersions"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2023-02-01-preview")
+	reqQP.Set("region", region)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	if options != nil && options.Body != nil {
-		return req, runtime.MarshalAsJSON(req, *options.Body)
-	}
 	return req, nil
 }
 
-// getAPIKeyHandleResponse handles the GetAPIKey response.
-func (client *OrganizationsClient) getAPIKeyHandleResponse(resp *http.Response) (OrganizationsClientGetAPIKeyResponse, error) {
-	result := OrganizationsClientGetAPIKeyResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.UserAPIKeyResponse); err != nil {
-		return OrganizationsClientGetAPIKeyResponse{}, err
+// listHandleResponse handles the List response.
+func (client *VersionsClient) listHandleResponse(resp *http.Response) (VersionsClientListResponse, error) {
+	result := VersionsClientListResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.VersionsListResponse); err != nil {
+		return VersionsClientListResponse{}, err
 	}
 	return result, nil
 }

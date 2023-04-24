@@ -1,5 +1,20 @@
 # Release History
 
+## 0.9.0 (2023-04-24)
+### Breaking Changes
+
+- Function `*OrganizationsClient.GetAPIKey` parameter(s) have been changed from `(context.Context, string, *OrganizationsClientGetAPIKeyOptions)` to `(context.Context, *OrganizationsClientGetAPIKeyOptions)`
+- Field `GenerateAPIKey` of struct `MonitorResource` has been removed
+
+### Features Added
+
+- New function `*ClientFactory.NewVersionsClient() *VersionsClient`
+- New function `NewVersionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*VersionsClient, error)`
+- New function `*VersionsClient.List(context.Context, string, *VersionsClientListOptions) (VersionsClientListResponse, error)`
+- New struct `VersionsListResponse`
+- New field `GenerateAPIKey` in struct `MonitorProperties`
+
+
 ## 0.8.0 (2023-04-28)
 ### Features Added
 
