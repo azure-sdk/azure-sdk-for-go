@@ -47,7 +47,7 @@ func NewPrivateLinkResourcesClient(subscriptionID string, credential azcore.Toke
 
 // NewListSupportedPager - Gets a list of all supported private link resource types for the given service.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -97,7 +97,7 @@ func (client *PrivateLinkResourcesClient) listSupportedCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}

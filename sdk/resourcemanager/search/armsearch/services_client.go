@@ -49,7 +49,7 @@ func NewServicesClient(subscriptionID string, credential azcore.TokenCredential,
 // must be globally unique since they are part of the service URI (https://.search.windows.net).
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 //   - checkNameAvailabilityInput - The resource name and type to check.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
@@ -82,7 +82,7 @@ func (client *ServicesClient) checkNameAvailabilityCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -104,7 +104,7 @@ func (client *ServicesClient) checkNameAvailabilityHandleResponse(resp *http.Res
 // all properties will be updated with the given values.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service to create or update. Search service names must only
@@ -133,7 +133,7 @@ func (client *ServicesClient) BeginCreateOrUpdate(ctx context.Context, resourceG
 // all properties will be updated with the given values.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 func (client *ServicesClient) createOrUpdate(ctx context.Context, resourceGroupName string, searchServiceName string, service Service, searchManagementRequestOptions *SearchManagementRequestOptions, options *ServicesClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, searchServiceName, service, searchManagementRequestOptions, options)
 	if err != nil {
@@ -169,7 +169,7 @@ func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -181,7 +181,7 @@ func (client *ServicesClient) createOrUpdateCreateRequest(ctx context.Context, r
 // Delete - Deletes a search service in the given resource group, along with its associated resources.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -223,7 +223,7 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -235,7 +235,7 @@ func (client *ServicesClient) deleteCreateRequest(ctx context.Context, resourceG
 // Get - Gets the search service with the given name in the given resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service associated with the specified resource group.
@@ -277,7 +277,7 @@ func (client *ServicesClient) getCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -295,9 +295,9 @@ func (client *ServicesClient) getHandleResponse(resp *http.Response) (ServicesCl
 	return result, nil
 }
 
-// NewListByResourceGroupPager - Gets a list of all search services in the given resource group.
+// NewListByResourceGroupPager - Gets a list of all Search services in the given resource group.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
@@ -348,7 +348,7 @@ func (client *ServicesClient) listByResourceGroupCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -366,9 +366,9 @@ func (client *ServicesClient) listByResourceGroupHandleResponse(resp *http.Respo
 	return result, nil
 }
 
-// NewListBySubscriptionPager - Gets a list of all search services in the given subscription.
+// NewListBySubscriptionPager - Gets a list of all Search services in the given subscription.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 //   - SearchManagementRequestOptions - SearchManagementRequestOptions contains a group of parameters for the AdminKeysClient.Get
 //     method.
 //   - options - ServicesClientListBySubscriptionOptions contains the optional parameters for the ServicesClient.NewListBySubscriptionPager
@@ -413,7 +413,7 @@ func (client *ServicesClient) listBySubscriptionCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}
@@ -434,7 +434,7 @@ func (client *ServicesClient) listBySubscriptionHandleResponse(resp *http.Respon
 // Update - Updates an existing search service in the given resource group.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-08-01
+// Generated from API version 2022-09-01
 //   - resourceGroupName - The name of the resource group within the current subscription. You can obtain this value from the
 //     Azure Resource Manager API or the portal.
 //   - searchServiceName - The name of the Azure Cognitive Search service to update.
@@ -477,7 +477,7 @@ func (client *ServicesClient) updateCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-08-01")
+	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if searchManagementRequestOptions != nil && searchManagementRequestOptions.ClientRequestID != nil {
 		req.Raw().Header["x-ms-client-request-id"] = []string{*searchManagementRequestOptions.ClientRequestID}

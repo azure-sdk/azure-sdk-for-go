@@ -140,6 +140,95 @@ func (c *CheckNameAvailabilityOutput) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type DataPlaneAADOrAPIKeyAuthOption.
+func (d DataPlaneAADOrAPIKeyAuthOption) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "aadAuthFailureMode", d.AADAuthFailureMode)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DataPlaneAADOrAPIKeyAuthOption.
+func (d *DataPlaneAADOrAPIKeyAuthOption) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "aadAuthFailureMode":
+			err = unpopulate(val, "AADAuthFailureMode", &d.AADAuthFailureMode)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type DataPlaneAuthOptions.
+func (d DataPlaneAuthOptions) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "aadOrApiKey", d.AADOrAPIKey)
+	populateAny(objectMap, "apiKeyOnly", d.APIKeyOnly)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type DataPlaneAuthOptions.
+func (d *DataPlaneAuthOptions) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", d, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "aadOrApiKey":
+			err = unpopulate(val, "AADOrAPIKey", &d.AADOrAPIKey)
+			delete(rawMsg, key)
+		case "apiKeyOnly":
+			err = unpopulate(val, "APIKeyOnly", &d.APIKeyOnly)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", d, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type EncryptionWithCmk.
+func (e EncryptionWithCmk) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "encryptionComplianceStatus", e.EncryptionComplianceStatus)
+	populate(objectMap, "enforcement", e.Enforcement)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type EncryptionWithCmk.
+func (e *EncryptionWithCmk) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", e, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "encryptionComplianceStatus":
+			err = unpopulate(val, "EncryptionComplianceStatus", &e.EncryptionComplianceStatus)
+			delete(rawMsg, key)
+		case "enforcement":
+			err = unpopulate(val, "Enforcement", &e.Enforcement)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", e, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type IPRule.
 func (i IPRule) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -434,8 +523,10 @@ func (p *PrivateEndpointConnectionListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type PrivateEndpointConnectionProperties.
 func (p PrivateEndpointConnectionProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "groupId", p.GroupID)
 	populate(objectMap, "privateEndpoint", p.PrivateEndpoint)
 	populate(objectMap, "privateLinkServiceConnectionState", p.PrivateLinkServiceConnectionState)
+	populate(objectMap, "provisioningState", p.ProvisioningState)
 	return json.Marshal(objectMap)
 }
 
@@ -448,11 +539,17 @@ func (p *PrivateEndpointConnectionProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "groupId":
+			err = unpopulate(val, "GroupID", &p.GroupID)
+			delete(rawMsg, key)
 		case "privateEndpoint":
 			err = unpopulate(val, "PrivateEndpoint", &p.PrivateEndpoint)
 			delete(rawMsg, key)
 		case "privateLinkServiceConnectionState":
 			err = unpopulate(val, "PrivateLinkServiceConnectionState", &p.PrivateLinkServiceConnectionState)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &p.ProvisioningState)
 			delete(rawMsg, key)
 		}
 		if err != nil {
@@ -811,6 +908,9 @@ func (s *ServiceListResult) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ServiceProperties.
 func (s ServiceProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	populate(objectMap, "authOptions", s.AuthOptions)
+	populate(objectMap, "disableLocalAuth", s.DisableLocalAuth)
+	populate(objectMap, "encryptionWithCmk", s.EncryptionWithCmk)
 	populate(objectMap, "hostingMode", s.HostingMode)
 	populate(objectMap, "networkRuleSet", s.NetworkRuleSet)
 	populate(objectMap, "partitionCount", s.PartitionCount)
@@ -833,6 +933,15 @@ func (s *ServiceProperties) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
+		case "authOptions":
+			err = unpopulate(val, "AuthOptions", &s.AuthOptions)
+			delete(rawMsg, key)
+		case "disableLocalAuth":
+			err = unpopulate(val, "DisableLocalAuth", &s.DisableLocalAuth)
+			delete(rawMsg, key)
+		case "encryptionWithCmk":
+			err = unpopulate(val, "EncryptionWithCmk", &s.EncryptionWithCmk)
+			delete(rawMsg, key)
 		case "hostingMode":
 			err = unpopulate(val, "HostingMode", &s.HostingMode)
 			delete(rawMsg, key)
@@ -1158,6 +1267,16 @@ func populate(m map[string]any, k string, v any) {
 	} else if azcore.IsNullValue(v) {
 		m[k] = nil
 	} else if !reflect.ValueOf(v).IsNil() {
+		m[k] = v
+	}
+}
+
+func populateAny(m map[string]any, k string, v any) {
+	if v == nil {
+		return
+	} else if azcore.IsNullValue(v) {
+		m[k] = nil
+	} else {
 		m[k] = v
 	}
 }
