@@ -5286,7 +5286,7 @@ type ErrorDetails struct {
 // ErrorResponse - The error object.
 type ErrorResponse struct {
 	// The error details object.
-	Error *ErrorDetails
+	Error *Error
 }
 
 // EvaluatedNetworkSecurityGroup - Results of network security group evaluation.
@@ -13071,6 +13071,10 @@ type SecurityRulePropertiesFormat struct {
 	// REQUIRED; The direction of the rule. The direction specifies if rule will be evaluated on incoming or outgoing traffic.
 	Direction *SecurityRuleDirection
 
+	// REQUIRED; The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each
+	// rule in the collection. The lower the priority number, the higher the priority of the rule.
+	Priority *int32
+
 	// REQUIRED; Network protocol this rule applies to.
 	Protocol *SecurityRuleProtocol
 
@@ -13093,10 +13097,6 @@ type SecurityRulePropertiesFormat struct {
 
 	// The destination port ranges.
 	DestinationPortRanges []*string
-
-	// The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the
-	// collection. The lower the priority number, the higher the priority of the rule.
-	Priority *int32
 
 	// The CIDR or source IP range. Asterisk '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork',
 	// 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress

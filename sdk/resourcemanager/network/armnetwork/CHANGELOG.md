@@ -1,5 +1,11 @@
 # Release History
 
+## 3.0.0 (2023-04-24)
+### Breaking Changes
+
+- Type of `ErrorResponse.Error` has been changed from `*ErrorDetails` to `*Error`
+
+
 ## 2.2.1 (2023-04-14)
 ### Bug Fixes
 
