@@ -47,7 +47,7 @@ func NewActiveDirectoryConnectorsClient(subscriptionID string, credential azcore
 // BeginCreate - Creates or replaces an Active Directory connector resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-03-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - dataControllerName - The name of the data controller
 //   - activeDirectoryConnectorName - The name of the Active Directory connector instance
@@ -71,7 +71,7 @@ func (client *ActiveDirectoryConnectorsClient) BeginCreate(ctx context.Context, 
 // Create - Creates or replaces an Active Directory connector resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-03-15-preview
 func (client *ActiveDirectoryConnectorsClient) create(ctx context.Context, resourceGroupName string, dataControllerName string, activeDirectoryConnectorName string, activeDirectoryConnectorResource ActiveDirectoryConnectorResource, options *ActiveDirectoryConnectorsClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, dataControllerName, activeDirectoryConnectorName, activeDirectoryConnectorResource, options)
 	if err != nil {
@@ -111,7 +111,7 @@ func (client *ActiveDirectoryConnectorsClient) createCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, activeDirectoryConnectorResource)
@@ -120,7 +120,7 @@ func (client *ActiveDirectoryConnectorsClient) createCreateRequest(ctx context.C
 // BeginDelete - Deletes an Active Directory connector resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-03-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - dataControllerName - The name of the data controller
 //   - activeDirectoryConnectorName - The name of the Active Directory connector instance
@@ -141,7 +141,7 @@ func (client *ActiveDirectoryConnectorsClient) BeginDelete(ctx context.Context, 
 // Delete - Deletes an Active Directory connector resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-03-15-preview
 func (client *ActiveDirectoryConnectorsClient) deleteOperation(ctx context.Context, resourceGroupName string, dataControllerName string, activeDirectoryConnectorName string, options *ActiveDirectoryConnectorsClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, dataControllerName, activeDirectoryConnectorName, options)
 	if err != nil {
@@ -181,7 +181,7 @@ func (client *ActiveDirectoryConnectorsClient) deleteCreateRequest(ctx context.C
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -190,7 +190,7 @@ func (client *ActiveDirectoryConnectorsClient) deleteCreateRequest(ctx context.C
 // Get - Retrieves an Active Directory connector resource
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-03-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - dataControllerName - The name of the data controller
 //   - activeDirectoryConnectorName - The name of the Active Directory connector instance
@@ -235,7 +235,7 @@ func (client *ActiveDirectoryConnectorsClient) getCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -252,7 +252,7 @@ func (client *ActiveDirectoryConnectorsClient) getHandleResponse(resp *http.Resp
 
 // NewListPager - List the active directory connectors associated with the given data controller.
 //
-// Generated from API version 2022-03-01-preview
+// Generated from API version 2023-03-15-preview
 //   - resourceGroupName - The name of the Azure resource group
 //   - dataControllerName - The name of the data controller
 //   - options - ActiveDirectoryConnectorsClientListOptions contains the optional parameters for the ActiveDirectoryConnectorsClient.NewListPager
@@ -305,7 +305,7 @@ func (client *ActiveDirectoryConnectorsClient) listCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-03-01-preview")
+	reqQP.Set("api-version", "2023-03-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

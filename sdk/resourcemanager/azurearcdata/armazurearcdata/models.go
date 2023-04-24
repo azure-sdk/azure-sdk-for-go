@@ -28,11 +28,11 @@ type ActiveDirectoryConnectorDNSDetails struct {
 
 // ActiveDirectoryConnectorDomainDetails - Active Directory domain details
 type ActiveDirectoryConnectorDomainDetails struct {
-	// REQUIRED; null
-	DomainControllers *ActiveDirectoryDomainControllers
-
 	// REQUIRED; Name (uppercase) of the Active Directory domain that this AD connector will be associated with.
 	Realm *string
+
+	// null
+	DomainControllers *ActiveDirectoryDomainControllers
 
 	// NETBIOS name of the Active Directory domain.
 	NetbiosDomainName *string
@@ -156,6 +156,106 @@ type ActiveDirectoryDomainControllers struct {
 type ActiveDirectoryInformation struct {
 	// Keytab information that is used for the Sql Managed Instance when Active Directory authentication is used.
 	KeytabInformation *KeytabInformation
+}
+
+// ArcSQLAvailabilityGroupDatabasesListResult - A list of Arc Sql Availability Group Databases.
+type ArcSQLAvailabilityGroupDatabasesListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of Arc Sql Availability Group Database.
+	Value []*SQLAvailabilityGroupDatabaseResource
+}
+
+// ArcSQLAvailabilityGroupReplicaListResult - A list of Arc Sql Availability Group Replica.
+type ArcSQLAvailabilityGroupReplicaListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of Arc Sql Availability Group Replica.
+	Value []*SQLAvailabilityGroupReplicaResource
+}
+
+// ArcSQLServerAvailabilityGroupListResult - A list of Arc Sql Server Availability Group.
+type ArcSQLServerAvailabilityGroupListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of Arc Sql Server Availability Group.
+	Value []*SQLServerAvailabilityGroupResource
+}
+
+// ArcSQLServerDatabaseListResult - A list of Arc Sql Server database.
+type ArcSQLServerDatabaseListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of Arc Sql Server database.
+	Value []*SQLServerDatabaseResource
+}
+
+// AvailabilityGroupConfigure - The specifications of the availability group replica configuration
+type AvailabilityGroupConfigure struct {
+	// Availability Synchronization mode description of availability group replica.
+	AvailabilityModeDesc *string
+
+	// Represents the user-specified priority for performing backups on this replica relative to the other replicas in the same
+	// availability group.
+	BackupPriority *int32
+
+	// Date that the replica was created.
+	CreateDate *time.Time
+
+	// Mirroring endpoint URL of availability group replica
+	EndpointURL *string
+
+	// failover mode description of the availability group replica.
+	FailoverModeDesc *string
+
+	// Date that the replica was modified.
+	ModifyDate *time.Time
+
+	// Allowed the connections for primary role of the availability group replica.
+	PrimaryRoleAllowConnectionsDesc *string
+
+	// Connectivity endpoint (URL) of the read only availability replica.
+	ReadOnlyRoutingURL *string
+
+	// Connectivity endpoint (URL) of the read write availability replica.
+	ReadWriteRoutingURL *string
+
+	// Allowed the connections for secondary role of availability group replica.
+	SecondaryRoleAllowConnectionsDesc *string
+
+	// Describes seeding mode.
+	SeedingModeDesc *string
+
+	// The time-out period of availability group session replica, in seconds.
+	SessionTimeout *int32
+}
+
+// AvailabilityGroupState - The specifications of the availability group state
+type AvailabilityGroupState struct {
+	// Role description of the availability group replica.
+	AvailabilityGroupReplicaRole *string
+
+	// Connected state description of the availability group replica.
+	ConnectedStateDesc *string
+
+	// Last connect error description of the availability group replica.
+	LastConnectErrorDescription *string
+
+	// Last connect error time stamp of the availability group replica.
+	LastConnectErrorTimestamp *time.Time
+
+	// Operation state description of the availability group replica
+	OperationalStateDesc *string
+
+	// Recovery health description of the availability group replica.
+	RecoveryHealthDesc *string
+
+	// Synchronization health description of the availability group replica.
+	SynchronizationHealthDesc *string
 }
 
 // BasicLoginInformation - Username and password for basic login authentication.
@@ -332,6 +432,101 @@ type ExtendedLocation struct {
 
 	// The type of the extended location.
 	Type *ExtendedLocationTypes
+}
+
+// FailoverGroupListResult - A list of failover groups.
+type FailoverGroupListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of failover group results.
+	Value []*FailoverGroupResource
+}
+
+// FailoverGroupProperties - The properties of a failover group resource.
+type FailoverGroupProperties struct {
+	// REQUIRED; The resource ID of the partner SQL managed instance.
+	PartnerManagedInstanceID *string
+
+	// REQUIRED; The specifications of the failover group resource.
+	Spec *FailoverGroupSpec
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// The status of the failover group custom resource.
+	Status any
+
+	// READ-ONLY; The provisioning state of the failover group resource.
+	ProvisioningState *ProvisioningState
+}
+
+// FailoverGroupResource - A failover group resource.
+type FailoverGroupResource struct {
+	// REQUIRED; null
+	Properties *FailoverGroupProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// FailoverGroupSpec - The specifications of the failover group resource.
+type FailoverGroupSpec struct {
+	// REQUIRED; The role of the SQL managed instance in this failover group.
+	Role *InstanceFailoverGroupRole
+
+	// OPTIONAL; Contains additional key/value pairs not defined in the schema.
+	AdditionalProperties map[string]any
+
+	// The name of the partner SQL managed instance.
+	PartnerMI *string
+
+	// The mirroring endpoint public certificate for the partner SQL managed instance. Only PEM format is supported.
+	PartnerMirroringCert *string
+
+	// The mirroring endpoint URL of the partner SQL managed instance.
+	PartnerMirroringURL *string
+
+	// The partner sync mode of the SQL managed instance.
+	PartnerSyncMode *FailoverGroupPartnerSyncMode
+
+	// The shared name of the failover group for this SQL managed instance. Both SQL managed instance and its partner have to
+	// use the same shared name.
+	SharedName *string
+
+	// The name of the SQL managed instance with this failover group role.
+	SourceMI *string
+}
+
+// FailoverGroupsClientBeginCreateOptions contains the optional parameters for the FailoverGroupsClient.BeginCreate method.
+type FailoverGroupsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FailoverGroupsClientBeginDeleteOptions contains the optional parameters for the FailoverGroupsClient.BeginDelete method.
+type FailoverGroupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// FailoverGroupsClientGetOptions contains the optional parameters for the FailoverGroupsClient.Get method.
+type FailoverGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// FailoverGroupsClientListOptions contains the optional parameters for the FailoverGroupsClient.NewListPager method.
+type FailoverGroupsClientListOptions struct {
+	// placeholder for future optional parameters
 }
 
 // K8SResourceRequirements - The kubernetes resource limits and requests used to restrict or reserve resource usage.
@@ -610,6 +805,310 @@ type Resource struct {
 	Type *string
 }
 
+// SQLAvailabilityGroup - A SqlAvailabilityGroup.
+type SQLAvailabilityGroup struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// null
+	Properties *SQLAvailabilityGroupProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLAvailabilityGroupDatabaseReplicaResourceProperties - The properties of Arc Sql availability group database replica resource
+type SQLAvailabilityGroupDatabaseReplicaResourceProperties struct {
+	// Description of the database state of the availability replica.
+	DatabaseStateDesc *string
+
+	// Whether this replica is transaction committer.
+	IsCommitParticipant *bool
+
+	// Whether the availability database is local.
+	IsLocal *bool
+
+	// Returns 1 if the replica is primary, or 0 if it is a secondary replica.
+	IsPrimaryReplica *bool
+
+	// Whether this data movement is suspended.
+	IsSuspended *bool
+
+	// the database replica name.
+	ReplicaName *string
+
+	// Description of the database suspended state reason.
+	SuspendReasonDesc *string
+
+	// Description of the health of database.
+	SynchronizationHealthDesc *string
+
+	// Description of the data-movement state.
+	SynchronizationStateDesc *string
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server availability group resource.
+	ProvisioningState *string
+}
+
+// SQLAvailabilityGroupDatabaseResource - Arc Sql Server Availability Group Database
+type SQLAvailabilityGroupDatabaseResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; Properties of Arc Sql Availability Group Multiple Database Replica
+	Properties *SQLAvailabilityGroupMultiDatabaseReplicaResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLAvailabilityGroupDatabaseUpdate - An update to Availability Group Database Replica resource.
+type SQLAvailabilityGroupDatabaseUpdate struct {
+	// The Availability Group Replica's properties
+	Properties *SQLAvailabilityGroupMultiDatabaseReplicaResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLAvailabilityGroupDatabasesClientCreateOptions contains the optional parameters for the SQLAvailabilityGroupDatabasesClient.Create
+// method.
+type SQLAvailabilityGroupDatabasesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupDatabasesClientDeleteOptions contains the optional parameters for the SQLAvailabilityGroupDatabasesClient.Delete
+// method.
+type SQLAvailabilityGroupDatabasesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupDatabasesClientGetOptions contains the optional parameters for the SQLAvailabilityGroupDatabasesClient.Get
+// method.
+type SQLAvailabilityGroupDatabasesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupDatabasesClientListOptions contains the optional parameters for the SQLAvailabilityGroupDatabasesClient.NewListPager
+// method.
+type SQLAvailabilityGroupDatabasesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupDatabasesClientUpdateOptions contains the optional parameters for the SQLAvailabilityGroupDatabasesClient.Update
+// method.
+type SQLAvailabilityGroupDatabasesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupListResult - A list of SqlAvailabilityGroup.
+type SQLAvailabilityGroupListResult struct {
+	// READ-ONLY; Link to retrieve next page of results.
+	NextLink *string
+
+	// READ-ONLY; Array of results.
+	Value []*SQLAvailabilityGroup
+}
+
+// SQLAvailabilityGroupMultiDatabaseReplicaResourceProperties - The properties of Arc Sql availability group multiple database
+// replica resource
+type SQLAvailabilityGroupMultiDatabaseReplicaResourceProperties struct {
+	// ID GUID of the database for availability group.
+	GroupDatabaseID *string
+
+	// Array of Arc Sql Availability Group Database Replicas.
+	Value []*SQLAvailabilityGroupDatabaseReplicaResourceProperties
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server availability group resource.
+	ProvisioningState *string
+}
+
+// SQLAvailabilityGroupProperties - Properties of SqlAvailabilityGroup.
+type SQLAvailabilityGroupProperties struct {
+	// REQUIRED; Id GUID of the availability group.
+	AvailabilityGroupID *string
+
+	// REQUIRED; The name of the availability group.
+	AvailabilityGroupName *string
+
+	// SQL Server basic availability group.
+	BasicFeatures *bool
+
+	// SQL Server availability group cluster type description
+	ClusterTypeDesc *string
+
+	// Timestamp for when the data was collected from the client machine.
+	CollectionTimestamp *time.Time
+
+	// SQL Server availability group failover for database health conditions.
+	DbFailover *bool
+
+	// SQL Server availability group DTC support enabled.
+	DtcSupport *bool
+
+	// The name of the instance name which availability group primary is on.
+	InstanceName *string
+
+	// SQL Server availability group contained system databases.
+	IsContained *bool
+
+	// SQL Server distributed availability group.
+	IsDistributed *bool
+
+	// Availability group required the number of synchronized secondary to commit.
+	RequiredSynchronizedSecondariesCommit *int32
+
+	// SQL Server availability group current version.
+	Version *int32
+}
+
+// SQLAvailabilityGroupReplicaResource - Arc Sql Server Availability Group
+type SQLAvailabilityGroupReplicaResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; Properties of Arc Sql Availability Group Replica
+	Properties *SQLAvailabilityGroupReplicaResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLAvailabilityGroupReplicaResourceProperties - The properties of Arc Sql availability group replica resource
+type SQLAvailabilityGroupReplicaResourceProperties struct {
+	// null
+	Configure *AvailabilityGroupConfigure
+
+	// ID GUID of the availability group.
+	ReplicaID *string
+
+	// the replica name.
+	ReplicaName *string
+
+	// null
+	State *AvailabilityGroupState
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server availability group resource.
+	ProvisioningState *string
+}
+
+// SQLAvailabilityGroupReplicaUpdate - An update to Availability Group Replica resource.
+type SQLAvailabilityGroupReplicaUpdate struct {
+	// The Availability Group Replica's properties
+	Properties *SQLAvailabilityGroupReplicaResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLAvailabilityGroupReplicasClientCreateOptions contains the optional parameters for the SQLAvailabilityGroupReplicasClient.Create
+// method.
+type SQLAvailabilityGroupReplicasClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupReplicasClientDeleteOptions contains the optional parameters for the SQLAvailabilityGroupReplicasClient.Delete
+// method.
+type SQLAvailabilityGroupReplicasClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupReplicasClientGetOptions contains the optional parameters for the SQLAvailabilityGroupReplicasClient.Get
+// method.
+type SQLAvailabilityGroupReplicasClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupReplicasClientListOptions contains the optional parameters for the SQLAvailabilityGroupReplicasClient.NewListPager
+// method.
+type SQLAvailabilityGroupReplicasClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupReplicasClientUpdateOptions contains the optional parameters for the SQLAvailabilityGroupReplicasClient.Update
+// method.
+type SQLAvailabilityGroupReplicasClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupUpdate - An update to a SQL Availability Group.
+type SQLAvailabilityGroupUpdate struct {
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLAvailabilityGroupsClientBeginCreateOptions contains the optional parameters for the SQLAvailabilityGroupsClient.BeginCreate
+// method.
+type SQLAvailabilityGroupsClientBeginCreateOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLAvailabilityGroupsClientBeginDeleteOptions contains the optional parameters for the SQLAvailabilityGroupsClient.BeginDelete
+// method.
+type SQLAvailabilityGroupsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// SQLAvailabilityGroupsClientGetOptions contains the optional parameters for the SQLAvailabilityGroupsClient.Get method.
+type SQLAvailabilityGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupsClientListByResourceGroupOptions contains the optional parameters for the SQLAvailabilityGroupsClient.NewListByResourceGroupPager
+// method.
+type SQLAvailabilityGroupsClientListByResourceGroupOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupsClientListOptions contains the optional parameters for the SQLAvailabilityGroupsClient.NewListPager
+// method.
+type SQLAvailabilityGroupsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLAvailabilityGroupsClientUpdateOptions contains the optional parameters for the SQLAvailabilityGroupsClient.Update method.
+type SQLAvailabilityGroupsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // SQLManagedInstance - A SqlManagedInstance.
 type SQLManagedInstance struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -774,6 +1273,200 @@ type SQLManagedInstancesClientUpdateOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SQLServerAvailabilityGroupResource - Arc Sql Server Availability Group
+type SQLServerAvailabilityGroupResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; Properties of Arc Sql Server availability group
+	Properties *SQLServerAvailabilityGroupResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLServerAvailabilityGroupResourceProperties - The properties of Arc Sql Server availability group resource
+type SQLServerAvailabilityGroupResourceProperties struct {
+	// REQUIRED; ID GUID of the availability group.
+	AvailabilityGroupID *string
+
+	// the availability group name.
+	AvailabilityGroupName *string
+
+	// null
+	Configure *AvailabilityGroupConfigure
+
+	// null
+	State *AvailabilityGroupState
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server availability group resource.
+	ProvisioningState *string
+}
+
+// SQLServerAvailabilityGroupUpdate - An update to availability group resource.
+type SQLServerAvailabilityGroupUpdate struct {
+	// The Server Availability Group's properties
+	Properties *SQLServerAvailabilityGroupResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLServerAvailabilityGroupsClientCreateOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.Create
+// method.
+type SQLServerAvailabilityGroupsClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientDeleteOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.Delete
+// method.
+type SQLServerAvailabilityGroupsClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientGetOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.Get
+// method.
+type SQLServerAvailabilityGroupsClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientListOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.NewListPager
+// method.
+type SQLServerAvailabilityGroupsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerAvailabilityGroupsClientUpdateOptions contains the optional parameters for the SQLServerAvailabilityGroupsClient.Update
+// method.
+type SQLServerAvailabilityGroupsClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabaseResource - Arc Sql Server database
+type SQLServerDatabaseResource struct {
+	// REQUIRED; The geo-location where the resource lives
+	Location *string
+
+	// REQUIRED; Properties of Arc Sql Server database
+	Properties *SQLServerDatabaseResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// SQLServerDatabaseResourceProperties - The properties of Arc Sql Server database resource
+type SQLServerDatabaseResourceProperties struct {
+	BackupInformation *SQLServerDatabaseResourcePropertiesBackupInformation
+
+	// Collation of the database.
+	CollationName *string
+
+	// Compatibility level of the database
+	CompatibilityLevel *int32
+
+	// Creation date of the database.
+	DatabaseCreationDate *time.Time
+
+	// List of features that are enabled for the database
+	DatabaseOptions *SQLServerDatabaseResourcePropertiesDatabaseOptions
+
+	// Whether the database is read only or not.
+	IsReadOnly *bool
+
+	// Status of the database.
+	RecoveryMode *RecoveryMode
+
+	// Size of the database.
+	SizeMB *float32
+
+	// Space left of the database.
+	SpaceAvailableMB *float32
+
+	// State of the database.
+	State *DatabaseState
+
+	// READ-ONLY; The provisioning state of the Arc-enabled SQL Server database resource.
+	ProvisioningState *string
+}
+
+type SQLServerDatabaseResourcePropertiesBackupInformation struct {
+	// Date time of last full backup.
+	LastFullBackup *time.Time
+
+	// Date time of last log backup.
+	LastLogBackup *time.Time
+}
+
+// SQLServerDatabaseResourcePropertiesDatabaseOptions - List of features that are enabled for the database
+type SQLServerDatabaseResourcePropertiesDatabaseOptions struct {
+	IsAutoCloseOn               *bool
+	IsAutoCreateStatsOn         *bool
+	IsAutoShrinkOn              *bool
+	IsAutoUpdateStatsOn         *bool
+	IsEncrypted                 *bool
+	IsMemoryOptimizationEnabled *bool
+	IsRemoteDataArchiveEnabled  *bool
+	IsTrustworthyOn             *bool
+}
+
+// SQLServerDatabaseUpdate - An update to database resource.
+type SQLServerDatabaseUpdate struct {
+	// The data controller's properties
+	Properties *SQLServerDatabaseResourceProperties
+
+	// Resource tags.
+	Tags map[string]*string
+}
+
+// SQLServerDatabasesClientCreateOptions contains the optional parameters for the SQLServerDatabasesClient.Create method.
+type SQLServerDatabasesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientDeleteOptions contains the optional parameters for the SQLServerDatabasesClient.Delete method.
+type SQLServerDatabasesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientGetOptions contains the optional parameters for the SQLServerDatabasesClient.Get method.
+type SQLServerDatabasesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientListOptions contains the optional parameters for the SQLServerDatabasesClient.NewListPager method.
+type SQLServerDatabasesClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SQLServerDatabasesClientUpdateOptions contains the optional parameters for the SQLServerDatabasesClient.Update method.
+type SQLServerDatabasesClientUpdateOptions struct {
+	// placeholder for future optional parameters
+}
+
 // SQLServerInstance - A SqlServerInstance.
 type SQLServerInstance struct {
 	// REQUIRED; The geo-location where the resource lives
@@ -823,6 +1516,9 @@ type SQLServerInstanceProperties struct {
 
 	// SQL Server collation.
 	Collation *string
+
+	// The number of total cores of the Operating System Environment (OSE) hosting the SQL Server instance.
+	Cores *string
 
 	// SQL Server current version.
 	CurrentVersion *string
