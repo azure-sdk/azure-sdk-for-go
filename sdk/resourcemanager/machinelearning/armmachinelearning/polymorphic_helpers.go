@@ -449,6 +449,24 @@ func unmarshalNCrossValidationsClassification(rawMsg json.RawMessage) (NCrossVal
 	return b, json.Unmarshal(rawMsg, b)
 }
 
+func unmarshalNodesClassification(rawMsg json.RawMessage) (NodesClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b NodesClassification
+	switch m["nodesValueType"] {
+	case string(NodesValueTypeAll):
+		b = &AllNodes{}
+	default:
+		b = &Nodes{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
 func unmarshalOnlineDeploymentPropertiesClassification(rawMsg json.RawMessage) (OnlineDeploymentPropertiesClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
@@ -485,6 +503,24 @@ func unmarshalOnlineScaleSettingsClassification(rawMsg json.RawMessage) (OnlineS
 		b = &TargetUtilizationScaleSettings{}
 	default:
 		b = &OnlineScaleSettings{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalPendingUploadCredentialDtoClassification(rawMsg json.RawMessage) (PendingUploadCredentialDtoClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b PendingUploadCredentialDtoClassification
+	switch m["credentialType"] {
+	case string(PendingUploadCredentialTypeSAS):
+		b = &SASCredentialDto{}
+	default:
+		b = &PendingUploadCredentialDto{}
 	}
 	return b, json.Unmarshal(rawMsg, b)
 }
