@@ -887,7 +887,7 @@ func (h *HierarchySettingsInfo) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type HierarchySettingsList.
 func (h HierarchySettingsList) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "nextLink", h.NextLink)
+	populate(objectMap, "@nextLink", h.NextLink)
 	populate(objectMap, "value", h.Value)
 	return json.Marshal(objectMap)
 }
@@ -901,7 +901,7 @@ func (h *HierarchySettingsList) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "nextLink":
+		case "@nextLink":
 			err = unpopulate(val, "NextLink", &h.NextLink)
 			delete(rawMsg, key)
 		case "value":
@@ -1187,7 +1187,7 @@ func (m *ManagementGroupInfoProperties) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ManagementGroupListResult.
 func (m ManagementGroupListResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "nextLink", m.NextLink)
+	populate(objectMap, "@nextLink", m.NextLink)
 	populate(objectMap, "value", m.Value)
 	return json.Marshal(objectMap)
 }
@@ -1201,7 +1201,7 @@ func (m *ManagementGroupListResult) UnmarshalJSON(data []byte) error {
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "nextLink":
+		case "@nextLink":
 			err = unpopulate(val, "NextLink", &m.NextLink)
 			delete(rawMsg, key)
 		case "value":
