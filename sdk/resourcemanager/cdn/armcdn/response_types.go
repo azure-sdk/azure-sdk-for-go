@@ -134,6 +134,11 @@ type AFDOriginsClientUpdateResponse struct {
 	AFDOrigin
 }
 
+// AFDProfilesClientCheckEndpointNameAvailabilityResponse contains the response from method AFDProfilesClient.CheckEndpointNameAvailability.
+type AFDProfilesClientCheckEndpointNameAvailabilityResponse struct {
+	CheckEndpointNameAvailabilityOutput
+}
+
 // AFDProfilesClientCheckHostNameAvailabilityResponse contains the response from method AFDProfilesClient.CheckHostNameAvailability.
 type AFDProfilesClientCheckHostNameAvailabilityResponse struct {
 	CheckNameAvailabilityOutput
@@ -142,6 +147,16 @@ type AFDProfilesClientCheckHostNameAvailabilityResponse struct {
 // AFDProfilesClientListResourceUsageResponse contains the response from method AFDProfilesClient.NewListResourceUsagePager.
 type AFDProfilesClientListResourceUsageResponse struct {
 	UsagesListResult
+}
+
+// AFDProfilesClientUpgradeResponse contains the response from method AFDProfilesClient.BeginUpgrade.
+type AFDProfilesClientUpgradeResponse struct {
+	Profile
+}
+
+// AFDProfilesClientValidateSecretResponse contains the response from method AFDProfilesClient.ValidateSecret.
+type AFDProfilesClientValidateSecretResponse struct {
+	ValidateSecretOutput
 }
 
 // CustomDomainsClientCreateResponse contains the response from method CustomDomainsClient.BeginCreate.
@@ -154,12 +169,12 @@ type CustomDomainsClientDeleteResponse struct {
 	CustomDomain
 }
 
-// CustomDomainsClientDisableCustomHTTPSResponse contains the response from method CustomDomainsClient.DisableCustomHTTPS.
+// CustomDomainsClientDisableCustomHTTPSResponse contains the response from method CustomDomainsClient.BeginDisableCustomHTTPS.
 type CustomDomainsClientDisableCustomHTTPSResponse struct {
 	CustomDomain
 }
 
-// CustomDomainsClientEnableCustomHTTPSResponse contains the response from method CustomDomainsClient.EnableCustomHTTPS.
+// CustomDomainsClientEnableCustomHTTPSResponse contains the response from method CustomDomainsClient.BeginEnableCustomHTTPS.
 type CustomDomainsClientEnableCustomHTTPSResponse struct {
 	CustomDomain
 }
@@ -232,6 +247,31 @@ type EndpointsClientUpdateResponse struct {
 // EndpointsClientValidateCustomDomainResponse contains the response from method EndpointsClient.ValidateCustomDomain.
 type EndpointsClientValidateCustomDomainResponse struct {
 	ValidateCustomDomainOutput
+}
+
+// L4RoutesClientCreateResponse contains the response from method L4RoutesClient.BeginCreate.
+type L4RoutesClientCreateResponse struct {
+	L4Route
+}
+
+// L4RoutesClientDeleteResponse contains the response from method L4RoutesClient.BeginDelete.
+type L4RoutesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// L4RoutesClientGetResponse contains the response from method L4RoutesClient.Get.
+type L4RoutesClientGetResponse struct {
+	L4Route
+}
+
+// L4RoutesClientListByEndpointResponse contains the response from method L4RoutesClient.NewListByEndpointPager.
+type L4RoutesClientListByEndpointResponse struct {
+	L4RouteListResult
+}
+
+// L4RoutesClientUpdateResponse contains the response from method L4RoutesClient.BeginUpdate.
+type L4RoutesClientUpdateResponse struct {
+	L4Route
 }
 
 // LogAnalyticsClientGetLogAnalyticsLocationsResponse contains the response from method LogAnalyticsClient.GetLogAnalyticsLocations.
@@ -369,6 +409,11 @@ type PoliciesClientUpdateResponse struct {
 	WebApplicationFirewallPolicy
 }
 
+// ProfilesClientCanMigrateResponse contains the response from method ProfilesClient.CanMigrate.
+type ProfilesClientCanMigrateResponse struct {
+	CanMigrateResult
+}
+
 // ProfilesClientCreateResponse contains the response from method ProfilesClient.BeginCreate.
 type ProfilesClientCreateResponse struct {
 	Profile
@@ -407,6 +452,16 @@ type ProfilesClientListResponse struct {
 // ProfilesClientListSupportedOptimizationTypesResponse contains the response from method ProfilesClient.ListSupportedOptimizationTypes.
 type ProfilesClientListSupportedOptimizationTypesResponse struct {
 	SupportedOptimizationTypesListResult
+}
+
+// ProfilesClientMigrateResponse contains the response from method ProfilesClient.BeginMigrate.
+type ProfilesClientMigrateResponse struct {
+	MigrateResult
+}
+
+// ProfilesClientMigrationCommitResponse contains the response from method ProfilesClient.BeginMigrationCommit.
+type ProfilesClientMigrationCommitResponse struct {
+	// placeholder for future response values
 }
 
 // ProfilesClientUpdateResponse contains the response from method ProfilesClient.BeginUpdate.
@@ -537,9 +592,4 @@ type SecurityPoliciesClientListByProfileResponse struct {
 // SecurityPoliciesClientPatchResponse contains the response from method SecurityPoliciesClient.BeginPatch.
 type SecurityPoliciesClientPatchResponse struct {
 	SecurityPolicy
-}
-
-// ValidateClientSecretResponse contains the response from method ValidateClient.Secret.
-type ValidateClientSecretResponse struct {
-	ValidateSecretOutput
 }

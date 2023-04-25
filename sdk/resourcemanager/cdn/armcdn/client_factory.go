@@ -68,6 +68,11 @@ func (c *ClientFactory) NewAFDOriginsClient() *AFDOriginsClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewL4RoutesClient() *L4RoutesClient {
+	subClient, _ := NewL4RoutesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewRoutesClient() *RoutesClient {
 	subClient, _ := NewRoutesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -90,11 +95,6 @@ func (c *ClientFactory) NewSecurityPoliciesClient() *SecurityPoliciesClient {
 
 func (c *ClientFactory) NewSecretsClient() *SecretsClient {
 	subClient, _ := NewSecretsClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewValidateClient() *ValidateClient {
-	subClient, _ := NewValidateClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

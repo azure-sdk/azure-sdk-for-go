@@ -21,23 +21,23 @@ import (
 	"strings"
 )
 
-// RoutesClient contains the methods for the Routes group.
-// Don't use this type directly, use NewRoutesClient() instead.
-type RoutesClient struct {
+// L4RoutesClient contains the methods for the L4Routes group.
+// Don't use this type directly, use NewL4RoutesClient() instead.
+type L4RoutesClient struct {
 	internal       *arm.Client
 	subscriptionID string
 }
 
-// NewRoutesClient creates a new instance of RoutesClient with the specified values.
+// NewL4RoutesClient creates a new instance of L4RoutesClient with the specified values.
 //   - subscriptionID - Azure Subscription ID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
-func NewRoutesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RoutesClient, error) {
-	cl, err := arm.NewClient(moduleName+".RoutesClient", moduleVersion, credential, options)
+func NewL4RoutesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*L4RoutesClient, error) {
+	cl, err := arm.NewClient(moduleName+".L4RoutesClient", moduleVersion, credential, options)
 	if err != nil {
 		return nil, err
 	}
-	client := &RoutesClient{
+	client := &L4RoutesClient{
 		subscriptionID: subscriptionID,
 		internal:       cl,
 	}
@@ -55,18 +55,18 @@ func NewRoutesClient(subscriptionID string, credential azcore.TokenCredential, o
 //   - endpointName - Name of the endpoint under the profile which is unique globally.
 //   - routeName - Name of the routing rule.
 //   - route - Route properties
-//   - options - RoutesClientBeginCreateOptions contains the optional parameters for the RoutesClient.BeginCreate method.
-func (client *RoutesClient) BeginCreate(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, route Route, options *RoutesClientBeginCreateOptions) (*runtime.Poller[RoutesClientCreateResponse], error) {
+//   - options - L4RoutesClientBeginCreateOptions contains the optional parameters for the L4RoutesClient.BeginCreate method.
+func (client *L4RoutesClient) BeginCreate(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, route L4Route, options *L4RoutesClientBeginCreateOptions) (*runtime.Poller[L4RoutesClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.create(ctx, resourceGroupName, profileName, endpointName, routeName, route, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[RoutesClientCreateResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[L4RoutesClientCreateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[RoutesClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[L4RoutesClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
@@ -75,7 +75,7 @@ func (client *RoutesClient) BeginCreate(ctx context.Context, resourceGroupName s
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-04-11-preview
-func (client *RoutesClient) create(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, route Route, options *RoutesClientBeginCreateOptions) (*http.Response, error) {
+func (client *L4RoutesClient) create(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, route L4Route, options *L4RoutesClientBeginCreateOptions) (*http.Response, error) {
 	req, err := client.createCreateRequest(ctx, resourceGroupName, profileName, endpointName, routeName, route, options)
 	if err != nil {
 		return nil, err
@@ -91,8 +91,8 @@ func (client *RoutesClient) create(ctx context.Context, resourceGroupName string
 }
 
 // createCreateRequest creates the Create request.
-func (client *RoutesClient) createCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, route Route, options *RoutesClientBeginCreateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/routes/{routeName}"
+func (client *L4RoutesClient) createCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, route L4Route, options *L4RoutesClientBeginCreateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/l4routes/{routeName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -134,18 +134,18 @@ func (client *RoutesClient) createCreateRequest(ctx context.Context, resourceGro
 //     group.
 //   - endpointName - Name of the endpoint under the profile which is unique globally.
 //   - routeName - Name of the routing rule.
-//   - options - RoutesClientBeginDeleteOptions contains the optional parameters for the RoutesClient.BeginDelete method.
-func (client *RoutesClient) BeginDelete(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *RoutesClientBeginDeleteOptions) (*runtime.Poller[RoutesClientDeleteResponse], error) {
+//   - options - L4RoutesClientBeginDeleteOptions contains the optional parameters for the L4RoutesClient.BeginDelete method.
+func (client *L4RoutesClient) BeginDelete(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *L4RoutesClientBeginDeleteOptions) (*runtime.Poller[L4RoutesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.deleteOperation(ctx, resourceGroupName, profileName, endpointName, routeName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[RoutesClientDeleteResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[L4RoutesClientDeleteResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[RoutesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[L4RoutesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
@@ -154,7 +154,7 @@ func (client *RoutesClient) BeginDelete(ctx context.Context, resourceGroupName s
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-04-11-preview
-func (client *RoutesClient) deleteOperation(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *RoutesClientBeginDeleteOptions) (*http.Response, error) {
+func (client *L4RoutesClient) deleteOperation(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *L4RoutesClientBeginDeleteOptions) (*http.Response, error) {
 	req, err := client.deleteCreateRequest(ctx, resourceGroupName, profileName, endpointName, routeName, options)
 	if err != nil {
 		return nil, err
@@ -170,8 +170,8 @@ func (client *RoutesClient) deleteOperation(ctx context.Context, resourceGroupNa
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *RoutesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *RoutesClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/routes/{routeName}"
+func (client *L4RoutesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *L4RoutesClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/l4routes/{routeName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -203,8 +203,8 @@ func (client *RoutesClient) deleteCreateRequest(ctx context.Context, resourceGro
 	return req, nil
 }
 
-// Get - Gets an existing route with the specified route name under the specified subscription, resource group, profile, and
-// AzureFrontDoor endpoint.
+// Get - Gets an existing route with the specified route name for L4 under the specified subscription, resource group, profile,
+// and AzureFrontDoor endpoint.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-04-11-preview
@@ -212,26 +212,26 @@ func (client *RoutesClient) deleteCreateRequest(ctx context.Context, resourceGro
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
 //   - endpointName - Name of the endpoint under the profile which is unique globally.
-//   - routeName - Name of the routing rule.
-//   - options - RoutesClientGetOptions contains the optional parameters for the RoutesClient.Get method.
-func (client *RoutesClient) Get(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *RoutesClientGetOptions) (RoutesClientGetResponse, error) {
+//   - routeName - Name of the L4 route.
+//   - options - L4RoutesClientGetOptions contains the optional parameters for the L4RoutesClient.Get method.
+func (client *L4RoutesClient) Get(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *L4RoutesClientGetOptions) (L4RoutesClientGetResponse, error) {
 	req, err := client.getCreateRequest(ctx, resourceGroupName, profileName, endpointName, routeName, options)
 	if err != nil {
-		return RoutesClientGetResponse{}, err
+		return L4RoutesClientGetResponse{}, err
 	}
 	resp, err := client.internal.Pipeline().Do(req)
 	if err != nil {
-		return RoutesClientGetResponse{}, err
+		return L4RoutesClientGetResponse{}, err
 	}
 	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return RoutesClientGetResponse{}, runtime.NewResponseError(resp)
+		return L4RoutesClientGetResponse{}, runtime.NewResponseError(resp)
 	}
 	return client.getHandleResponse(resp)
 }
 
 // getCreateRequest creates the Get request.
-func (client *RoutesClient) getCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *RoutesClientGetOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/routes/{routeName}"
+func (client *L4RoutesClient) getCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, options *L4RoutesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/l4routes/{routeName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -264,29 +264,29 @@ func (client *RoutesClient) getCreateRequest(ctx context.Context, resourceGroupN
 }
 
 // getHandleResponse handles the Get response.
-func (client *RoutesClient) getHandleResponse(resp *http.Response) (RoutesClientGetResponse, error) {
-	result := RoutesClientGetResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.Route); err != nil {
-		return RoutesClientGetResponse{}, err
+func (client *L4RoutesClient) getHandleResponse(resp *http.Response) (L4RoutesClientGetResponse, error) {
+	result := L4RoutesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.L4Route); err != nil {
+		return L4RoutesClientGetResponse{}, err
 	}
 	return result, nil
 }
 
-// NewListByEndpointPager - Lists all of the existing origins within a profile.
+// NewListByEndpointPager - Lists all of the L4 routes within a profile.
 //
 // Generated from API version 2023-04-11-preview
 //   - resourceGroupName - Name of the Resource group within the Azure subscription.
 //   - profileName - Name of the Azure Front Door Standard or Azure Front Door Premium profile which is unique within the resource
 //     group.
 //   - endpointName - Name of the endpoint under the profile which is unique globally.
-//   - options - RoutesClientListByEndpointOptions contains the optional parameters for the RoutesClient.NewListByEndpointPager
+//   - options - L4RoutesClientListByEndpointOptions contains the optional parameters for the L4RoutesClient.NewListByEndpointPager
 //     method.
-func (client *RoutesClient) NewListByEndpointPager(resourceGroupName string, profileName string, endpointName string, options *RoutesClientListByEndpointOptions) *runtime.Pager[RoutesClientListByEndpointResponse] {
-	return runtime.NewPager(runtime.PagingHandler[RoutesClientListByEndpointResponse]{
-		More: func(page RoutesClientListByEndpointResponse) bool {
+func (client *L4RoutesClient) NewListByEndpointPager(resourceGroupName string, profileName string, endpointName string, options *L4RoutesClientListByEndpointOptions) *runtime.Pager[L4RoutesClientListByEndpointResponse] {
+	return runtime.NewPager(runtime.PagingHandler[L4RoutesClientListByEndpointResponse]{
+		More: func(page L4RoutesClientListByEndpointResponse) bool {
 			return page.NextLink != nil && len(*page.NextLink) > 0
 		},
-		Fetcher: func(ctx context.Context, page *RoutesClientListByEndpointResponse) (RoutesClientListByEndpointResponse, error) {
+		Fetcher: func(ctx context.Context, page *L4RoutesClientListByEndpointResponse) (L4RoutesClientListByEndpointResponse, error) {
 			var req *policy.Request
 			var err error
 			if page == nil {
@@ -295,14 +295,14 @@ func (client *RoutesClient) NewListByEndpointPager(resourceGroupName string, pro
 				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
 			}
 			if err != nil {
-				return RoutesClientListByEndpointResponse{}, err
+				return L4RoutesClientListByEndpointResponse{}, err
 			}
 			resp, err := client.internal.Pipeline().Do(req)
 			if err != nil {
-				return RoutesClientListByEndpointResponse{}, err
+				return L4RoutesClientListByEndpointResponse{}, err
 			}
 			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return RoutesClientListByEndpointResponse{}, runtime.NewResponseError(resp)
+				return L4RoutesClientListByEndpointResponse{}, runtime.NewResponseError(resp)
 			}
 			return client.listByEndpointHandleResponse(resp)
 		},
@@ -310,8 +310,8 @@ func (client *RoutesClient) NewListByEndpointPager(resourceGroupName string, pro
 }
 
 // listByEndpointCreateRequest creates the ListByEndpoint request.
-func (client *RoutesClient) listByEndpointCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, options *RoutesClientListByEndpointOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/routes"
+func (client *L4RoutesClient) listByEndpointCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, options *L4RoutesClientListByEndpointOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/l4routes"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
@@ -340,10 +340,10 @@ func (client *RoutesClient) listByEndpointCreateRequest(ctx context.Context, res
 }
 
 // listByEndpointHandleResponse handles the ListByEndpoint response.
-func (client *RoutesClient) listByEndpointHandleResponse(resp *http.Response) (RoutesClientListByEndpointResponse, error) {
-	result := RoutesClientListByEndpointResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RouteListResult); err != nil {
-		return RoutesClientListByEndpointResponse{}, err
+func (client *L4RoutesClient) listByEndpointHandleResponse(resp *http.Response) (L4RoutesClientListByEndpointResponse, error) {
+	result := L4RoutesClientListByEndpointResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.L4RouteListResult); err != nil {
+		return L4RoutesClientListByEndpointResponse{}, err
 	}
 	return result, nil
 }
@@ -359,18 +359,18 @@ func (client *RoutesClient) listByEndpointHandleResponse(resp *http.Response) (R
 //   - endpointName - Name of the endpoint under the profile which is unique globally.
 //   - routeName - Name of the routing rule.
 //   - routeUpdateProperties - Route update properties
-//   - options - RoutesClientBeginUpdateOptions contains the optional parameters for the RoutesClient.BeginUpdate method.
-func (client *RoutesClient) BeginUpdate(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, routeUpdateProperties RouteUpdateParameters, options *RoutesClientBeginUpdateOptions) (*runtime.Poller[RoutesClientUpdateResponse], error) {
+//   - options - L4RoutesClientBeginUpdateOptions contains the optional parameters for the L4RoutesClient.BeginUpdate method.
+func (client *L4RoutesClient) BeginUpdate(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, routeUpdateProperties L4RouteUpdatePropertiesParameters, options *L4RoutesClientBeginUpdateOptions) (*runtime.Poller[L4RoutesClientUpdateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.update(ctx, resourceGroupName, profileName, endpointName, routeName, routeUpdateProperties, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[RoutesClientUpdateResponse]{
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[L4RoutesClientUpdateResponse]{
 			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
 		})
 	} else {
-		return runtime.NewPollerFromResumeToken[RoutesClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+		return runtime.NewPollerFromResumeToken[L4RoutesClientUpdateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
@@ -379,7 +379,7 @@ func (client *RoutesClient) BeginUpdate(ctx context.Context, resourceGroupName s
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2023-04-11-preview
-func (client *RoutesClient) update(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, routeUpdateProperties RouteUpdateParameters, options *RoutesClientBeginUpdateOptions) (*http.Response, error) {
+func (client *L4RoutesClient) update(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, routeUpdateProperties L4RouteUpdatePropertiesParameters, options *L4RoutesClientBeginUpdateOptions) (*http.Response, error) {
 	req, err := client.updateCreateRequest(ctx, resourceGroupName, profileName, endpointName, routeName, routeUpdateProperties, options)
 	if err != nil {
 		return nil, err
@@ -395,8 +395,8 @@ func (client *RoutesClient) update(ctx context.Context, resourceGroupName string
 }
 
 // updateCreateRequest creates the Update request.
-func (client *RoutesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, routeUpdateProperties RouteUpdateParameters, options *RoutesClientBeginUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/routes/{routeName}"
+func (client *L4RoutesClient) updateCreateRequest(ctx context.Context, resourceGroupName string, profileName string, endpointName string, routeName string, routeUpdateProperties L4RouteUpdatePropertiesParameters, options *L4RoutesClientBeginUpdateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/afdEndpoints/{endpointName}/l4routes/{routeName}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
