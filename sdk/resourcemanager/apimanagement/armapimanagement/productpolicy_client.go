@@ -29,8 +29,7 @@ type ProductPolicyClient struct {
 }
 
 // NewProductPolicyClient creates a new instance of ProductPolicyClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewProductPolicyClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ProductPolicyClient, error) {
@@ -48,8 +47,8 @@ func NewProductPolicyClient(subscriptionID string, credential azcore.TokenCreden
 // CreateOrUpdate - Creates or updates policy configuration for the Product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
 //   - policyID - The identifier of the Policy.
@@ -99,7 +98,7 @@ func (client *ProductPolicyClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -123,8 +122,8 @@ func (client *ProductPolicyClient) createOrUpdateHandleResponse(resp *http.Respo
 // Delete - Deletes the policy configuration at the Product.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
 //   - policyID - The identifier of the Policy.
@@ -174,7 +173,7 @@ func (client *ProductPolicyClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -184,8 +183,8 @@ func (client *ProductPolicyClient) deleteCreateRequest(ctx context.Context, reso
 // Get - Get the policy configuration at the Product level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
 //   - policyID - The identifier of the Policy.
@@ -236,7 +235,7 @@ func (client *ProductPolicyClient) getCreateRequest(ctx context.Context, resourc
 	if options != nil && options.Format != nil {
 		reqQP.Set("format", string(*options.Format))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -256,8 +255,8 @@ func (client *ProductPolicyClient) getHandleResponse(resp *http.Response) (Produ
 
 // GetEntityTag - Get the ETag of the policy configuration at the Product level.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
 //   - policyID - The identifier of the Policy.
@@ -306,7 +305,7 @@ func (client *ProductPolicyClient) getEntityTagCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -322,28 +321,40 @@ func (client *ProductPolicyClient) getEntityTagHandleResponse(resp *http.Respons
 	return result, nil
 }
 
-// ListByProduct - Get the policy configuration at the Product level.
-// If the operation fails it returns an *azcore.ResponseError type.
+// NewListByProductPager - Get the policy configuration at the Product level.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - productID - Product identifier. Must be unique in the current API Management service instance.
-//   - options - ProductPolicyClientListByProductOptions contains the optional parameters for the ProductPolicyClient.ListByProduct
+//   - options - ProductPolicyClientListByProductOptions contains the optional parameters for the ProductPolicyClient.NewListByProductPager
 //     method.
-func (client *ProductPolicyClient) ListByProduct(ctx context.Context, resourceGroupName string, serviceName string, productID string, options *ProductPolicyClientListByProductOptions) (ProductPolicyClientListByProductResponse, error) {
-	req, err := client.listByProductCreateRequest(ctx, resourceGroupName, serviceName, productID, options)
-	if err != nil {
-		return ProductPolicyClientListByProductResponse{}, err
-	}
-	resp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return ProductPolicyClientListByProductResponse{}, err
-	}
-	if !runtime.HasStatusCode(resp, http.StatusOK) {
-		return ProductPolicyClientListByProductResponse{}, runtime.NewResponseError(resp)
-	}
-	return client.listByProductHandleResponse(resp)
+func (client *ProductPolicyClient) NewListByProductPager(resourceGroupName string, serviceName string, productID string, options *ProductPolicyClientListByProductOptions) *runtime.Pager[ProductPolicyClientListByProductResponse] {
+	return runtime.NewPager(runtime.PagingHandler[ProductPolicyClientListByProductResponse]{
+		More: func(page ProductPolicyClientListByProductResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *ProductPolicyClientListByProductResponse) (ProductPolicyClientListByProductResponse, error) {
+			var req *policy.Request
+			var err error
+			if page == nil {
+				req, err = client.listByProductCreateRequest(ctx, resourceGroupName, serviceName, productID, options)
+			} else {
+				req, err = runtime.NewRequest(ctx, http.MethodGet, *page.NextLink)
+			}
+			if err != nil {
+				return ProductPolicyClientListByProductResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return ProductPolicyClientListByProductResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return ProductPolicyClientListByProductResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByProductHandleResponse(resp)
+		},
+	})
 }
 
 // listByProductCreateRequest creates the ListByProduct request.
@@ -370,7 +381,7 @@ func (client *ProductPolicyClient) listByProductCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
