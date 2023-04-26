@@ -1567,10 +1567,10 @@ func (client *PlansClient) restartWebAppsCreateRequest(ctx context.Context, reso
 // Generated from API version 2022-09-01
 //   - resourceGroupName - Name of the resource group to which the resource belongs.
 //   - name - Name of the App Service plan.
-//   - appServicePlan - Details of the App Service plan.
+//   - appServicePlanPatch - Details of the App Service plan.
 //   - options - PlansClientUpdateOptions contains the optional parameters for the PlansClient.Update method.
-func (client *PlansClient) Update(ctx context.Context, resourceGroupName string, name string, appServicePlan PlanPatchResource, options *PlansClientUpdateOptions) (PlansClientUpdateResponse, error) {
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, name, appServicePlan, options)
+func (client *PlansClient) Update(ctx context.Context, resourceGroupName string, name string, appServicePlanPatch PlanPatchResource, options *PlansClientUpdateOptions) (PlansClientUpdateResponse, error) {
+	req, err := client.updateCreateRequest(ctx, resourceGroupName, name, appServicePlanPatch, options)
 	if err != nil {
 		return PlansClientUpdateResponse{}, err
 	}
@@ -1585,7 +1585,7 @@ func (client *PlansClient) Update(ctx context.Context, resourceGroupName string,
 }
 
 // updateCreateRequest creates the Update request.
-func (client *PlansClient) updateCreateRequest(ctx context.Context, resourceGroupName string, name string, appServicePlan PlanPatchResource, options *PlansClientUpdateOptions) (*policy.Request, error) {
+func (client *PlansClient) updateCreateRequest(ctx context.Context, resourceGroupName string, name string, appServicePlanPatch PlanPatchResource, options *PlansClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}"
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
@@ -1607,7 +1607,7 @@ func (client *PlansClient) updateCreateRequest(ctx context.Context, resourceGrou
 	reqQP.Set("api-version", "2022-09-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
-	return req, runtime.MarshalAsJSON(req, appServicePlan)
+	return req, runtime.MarshalAsJSON(req, appServicePlanPatch)
 }
 
 // updateHandleResponse handles the Update response.
