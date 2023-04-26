@@ -1,5 +1,17 @@
 # Release History
 
+## 3.0.0 (2023-04-26)
+### Breaking Changes
+
+- `ArmServerKeyTypeSystemAssigned` from enum `ArmServerKeyType` has been removed
+- `IdentityTypeSystemAssigned` from enum `IdentityType` has been removed
+- `ReplicationRoleGeoSyncReplica`, `ReplicationRoleSecondary`, `ReplicationRoleSyncReplica`, `ReplicationRoleWalReplica` from enum `ReplicationRole` has been removed
+
+### Features Added
+
+- New value `ArmServerKeyTypeSystemManaged` added to enum type `ArmServerKeyType`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 
