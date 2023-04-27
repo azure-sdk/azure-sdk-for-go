@@ -1113,10 +1113,10 @@ type RouteProperties struct {
 	Condition *string
 }
 
-// RoutingCosmosDBSQLAPIProperties - The properties related to a cosmos DB sql collection endpoint.
+// RoutingCosmosDBSQLAPIProperties - The properties related to a cosmos DB sql container endpoint.
 type RoutingCosmosDBSQLAPIProperties struct {
-	// REQUIRED; The name of the cosmos DB sql collection in the cosmos DB database.
-	CollectionName *string
+	// REQUIRED; The name of the cosmos DB sql container in the cosmos DB database.
+	ContainerName *string
 
 	// REQUIRED; The name of the cosmos DB database in the cosmos DB account.
 	DatabaseName *string
@@ -1129,22 +1129,22 @@ type RoutingCosmosDBSQLAPIProperties struct {
 	// events, fileNotifications, $default. Endpoint names must be unique across endpoint types.
 	Name *string
 
-	// Method used to authenticate against the cosmos DB sql collection endpoint
+	// Method used to authenticate against the cosmos DB sql container endpoint
 	AuthenticationType *AuthenticationType
 
-	// Id of the cosmos DB sql collection endpoint
+	// Id of the cosmos DB sql container endpoint
 	ID *string
 
-	// Managed identity properties of routing cosmos DB collection endpoint.
+	// Managed identity properties of routing cosmos DB container endpoint.
 	Identity *ManagedIdentity
 
-	// The name of the partition key associated with this cosmos DB sql collection if one exists. This is an optional parameter.
+	// The name of the partition key associated with this cosmos DB sql container if one exists. This is an optional parameter.
 	PartitionKeyName *string
 
-	// The template for generating a synthetic partition key value for use with this cosmos DB sql collection. The template must
-	// include at least one of the following placeholders: {iothub}, {deviceid},
-	// {DD}, {MM}, and {YYYY}. Any one placeholder may be specified at most once, but order and non-placeholder components are
-	// arbitrary. This parameter is only required if PartitionKeyName is specified.
+	// The template for generating a synthetic partition key value for use with this cosmos DB sql container. The template must
+	// include at least one of the following placeholders: {iothub}, {deviceid}, {DD},
+	// {MM}, and {YYYY}. Any one placeholder may be specified at most once, but order and non-placeholder components are arbitrary.
+	// This parameter is only required if PartitionKeyName is specified.
 	PartitionKeyTemplate *string
 
 	// The primary key of the cosmos DB account.
@@ -1164,8 +1164,8 @@ type RoutingCosmosDBSQLAPIProperties struct {
 // rules. A maximum of 10 custom endpoints are allowed across all endpoint types for paid hubs
 // and only 1 custom endpoint is allowed across all endpoint types for free hubs.
 type RoutingEndpoints struct {
-	// The list of Cosmos DB collection endpoints that IoT hub routes messages to, based on the routing rules.
-	CosmosDBSQLCollections []*RoutingCosmosDBSQLAPIProperties
+	// The list of Cosmos DB container endpoints that IoT hub routes messages to, based on the routing rules.
+	CosmosDBSQLContainers []*RoutingCosmosDBSQLAPIProperties
 
 	// The list of Event Hubs endpoints that IoT hub routes messages to, based on the routing rules. This list does not include
 	// the built-in Event Hubs endpoint.
