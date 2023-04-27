@@ -1,5 +1,24 @@
 # Release History
 
+## 5.0.0 (2023-04-27)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New struct `CommunityGalleryMetadata`
+- New struct `CommunityGalleryProperties`
+- New struct `SharedGalleryProperties`
+- New field `Properties` in struct `CommunityGallery`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageProperties`
+- New field `ArtifactTags`, `Disclaimer` in struct `CommunityGalleryImageVersionProperties`
+- New field `Properties` in struct `SharedGallery`
+- New field `ArtifactTags` in struct `SharedGalleryImageProperties`
+- New field `ArtifactTags` in struct `SharedGalleryImageVersionProperties`
+
+
 ## 4.2.1 (2023-04-14)
 ### Bug Fixes
 
