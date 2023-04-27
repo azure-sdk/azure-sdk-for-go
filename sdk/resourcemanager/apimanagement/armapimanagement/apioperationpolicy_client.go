@@ -29,8 +29,7 @@ type APIOperationPolicyClient struct {
 }
 
 // NewAPIOperationPolicyClient creates a new instance of APIOperationPolicyClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAPIOperationPolicyClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APIOperationPolicyClient, error) {
@@ -48,8 +47,8 @@ func NewAPIOperationPolicyClient(subscriptionID string, credential azcore.TokenC
 // CreateOrUpdate - Creates or updates policy configuration for the API Operation level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -105,7 +104,7 @@ func (client *APIOperationPolicyClient) createOrUpdateCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -129,8 +128,8 @@ func (client *APIOperationPolicyClient) createOrUpdateHandleResponse(resp *http.
 // Delete - Deletes the policy configuration at the Api Operation.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -187,7 +186,7 @@ func (client *APIOperationPolicyClient) deleteCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -197,8 +196,8 @@ func (client *APIOperationPolicyClient) deleteCreateRequest(ctx context.Context,
 // Get - Get the policy configuration at the API Operation level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -255,7 +254,7 @@ func (client *APIOperationPolicyClient) getCreateRequest(ctx context.Context, re
 	if options != nil && options.Format != nil {
 		reqQP.Set("format", string(*options.Format))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -275,8 +274,8 @@ func (client *APIOperationPolicyClient) getHandleResponse(resp *http.Response) (
 
 // GetEntityTag - Gets the entity state (Etag) version of the API operation policy specified by its identifier.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -331,7 +330,7 @@ func (client *APIOperationPolicyClient) getEntityTagCreateRequest(ctx context.Co
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -350,8 +349,8 @@ func (client *APIOperationPolicyClient) getEntityTagHandleResponse(resp *http.Re
 // ListByOperation - Get the list of policy configuration at the API Operation level.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2022-09-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -401,7 +400,7 @@ func (client *APIOperationPolicyClient) listByOperationCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2022-09-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
