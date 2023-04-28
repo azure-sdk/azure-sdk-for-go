@@ -166,6 +166,7 @@ func (d DedicatedHsmOperation) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "display", d.Display)
 	populate(objectMap, "isDataAction", d.IsDataAction)
 	populate(objectMap, "name", d.Name)
+	populate(objectMap, "origin", d.Origin)
 	return json.Marshal(objectMap)
 }
 
@@ -186,6 +187,9 @@ func (d *DedicatedHsmOperation) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &d.Name)
+			delete(rawMsg, key)
+		case "origin":
+			err = unpopulate(val, "Origin", &d.Origin)
 			delete(rawMsg, key)
 		}
 		if err != nil {
