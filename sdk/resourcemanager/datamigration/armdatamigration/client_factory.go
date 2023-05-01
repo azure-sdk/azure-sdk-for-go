@@ -24,7 +24,7 @@ type ClientFactory struct {
 
 // NewClientFactory creates a new instance of ClientFactory with the specified values.
 // The parameter values will be propagated to any client created from this factory.
-//   - subscriptionID - Identifier of the subscription
+//   - subscriptionID - Subscription ID that identifies an Azure subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*ClientFactory, error) {
@@ -36,6 +36,31 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 		subscriptionID: subscriptionID, credential: credential,
 		options: options.Clone(),
 	}, nil
+}
+
+func (c *ClientFactory) NewDatabaseMigrationsSQLDbClient() *DatabaseMigrationsSQLDbClient {
+	subClient, _ := NewDatabaseMigrationsSQLDbClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDatabaseMigrationsSQLMiClient() *DatabaseMigrationsSQLMiClient {
+	subClient, _ := NewDatabaseMigrationsSQLMiClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewDatabaseMigrationsSQLVMClient() *DatabaseMigrationsSQLVMClient {
+	subClient, _ := NewDatabaseMigrationsSQLVMClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOperationsClient() *OperationsClient {
+	subClient, _ := NewOperationsClient(c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewSQLMigrationServicesClient() *SQLMigrationServicesClient {
+	subClient, _ := NewSQLMigrationServicesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
 }
 
 func (c *ClientFactory) NewResourceSKUsClient() *ResourceSKUsClient {
@@ -65,11 +90,6 @@ func (c *ClientFactory) NewProjectsClient() *ProjectsClient {
 
 func (c *ClientFactory) NewUsagesClient() *UsagesClient {
 	subClient, _ := NewUsagesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewOperationsClient() *OperationsClient {
-	subClient, _ := NewOperationsClient(c.credential, c.options)
 	return subClient
 }
 

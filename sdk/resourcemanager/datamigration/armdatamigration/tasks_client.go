@@ -30,7 +30,7 @@ type TasksClient struct {
 }
 
 // NewTasksClient creates a new instance of TasksClient with the specified values.
-//   - subscriptionID - Identifier of the subscription
+//   - subscriptionID - Subscription ID that identifies an Azure subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTasksClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TasksClient, error) {
@@ -49,7 +49,7 @@ func NewTasksClient(subscriptionID string, credential azcore.TokenCredential, op
 // cancels a task if it's currently queued or running.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-30
+// Generated from API version 2022-11-30-preview
 //   - groupName - Name of the resource group
 //   - serviceName - Name of the service
 //   - projectName - Name of the project
@@ -98,7 +98,7 @@ func (client *TasksClient) cancelCreateRequest(ctx context.Context, groupName st
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-30")
+	reqQP.Set("api-version", "2022-11-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -117,7 +117,7 @@ func (client *TasksClient) cancelHandleResponse(resp *http.Response) (TasksClien
 // executes a command on a running task.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-30
+// Generated from API version 2022-11-30-preview
 //   - groupName - Name of the resource group
 //   - serviceName - Name of the service
 //   - projectName - Name of the project
@@ -167,7 +167,7 @@ func (client *TasksClient) commandCreateRequest(ctx context.Context, groupName s
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-30")
+	reqQP.Set("api-version", "2022-11-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -187,7 +187,7 @@ func (client *TasksClient) commandHandleResponse(resp *http.Response) (TasksClie
 // custom properties, there is little reason to update an existing one.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-30
+// Generated from API version 2022-11-30-preview
 //   - groupName - Name of the resource group
 //   - serviceName - Name of the service
 //   - projectName - Name of the project
@@ -237,7 +237,7 @@ func (client *TasksClient) createOrUpdateCreateRequest(ctx context.Context, grou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-30")
+	reqQP.Set("api-version", "2022-11-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
@@ -256,7 +256,7 @@ func (client *TasksClient) createOrUpdateHandleResponse(resp *http.Response) (Ta
 // method deletes a task, canceling it first if it's running.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-30
+// Generated from API version 2022-11-30-preview
 //   - groupName - Name of the resource group
 //   - serviceName - Name of the service
 //   - projectName - Name of the project
@@ -305,7 +305,7 @@ func (client *TasksClient) deleteCreateRequest(ctx context.Context, groupName st
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-30")
+	reqQP.Set("api-version", "2022-11-30-preview")
 	if options != nil && options.DeleteRunningTasks != nil {
 		reqQP.Set("deleteRunningTasks", strconv.FormatBool(*options.DeleteRunningTasks))
 	}
@@ -318,7 +318,7 @@ func (client *TasksClient) deleteCreateRequest(ctx context.Context, groupName st
 // retrieves information about a task.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-30
+// Generated from API version 2022-11-30-preview
 //   - groupName - Name of the resource group
 //   - serviceName - Name of the service
 //   - projectName - Name of the project
@@ -367,7 +367,7 @@ func (client *TasksClient) getCreateRequest(ctx context.Context, groupName strin
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-30")
+	reqQP.Set("api-version", "2022-11-30-preview")
 	if options != nil && options.Expand != nil {
 		reqQP.Set("$expand", *options.Expand)
 	}
@@ -389,7 +389,7 @@ func (client *TasksClient) getHandleResponse(resp *http.Response) (TasksClientGe
 // returns a list of tasks owned by a service resource. Some tasks may have a status of
 // Unknown, which indicates that an error occurred while querying the status of that task.
 //
-// Generated from API version 2021-06-30
+// Generated from API version 2022-11-30-preview
 //   - groupName - Name of the resource group
 //   - serviceName - Name of the service
 //   - projectName - Name of the project
@@ -446,7 +446,7 @@ func (client *TasksClient) listCreateRequest(ctx context.Context, groupName stri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-30")
+	reqQP.Set("api-version", "2022-11-30-preview")
 	if options != nil && options.TaskType != nil {
 		reqQP.Set("taskType", *options.TaskType)
 	}
@@ -469,7 +469,7 @@ func (client *TasksClient) listHandleResponse(resp *http.Response) (TasksClientL
 // is little reason to do so.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-06-30
+// Generated from API version 2022-11-30-preview
 //   - groupName - Name of the resource group
 //   - serviceName - Name of the service
 //   - projectName - Name of the project
@@ -519,7 +519,7 @@ func (client *TasksClient) updateCreateRequest(ctx context.Context, groupName st
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-06-30")
+	reqQP.Set("api-version", "2022-11-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)

@@ -9,6 +9,66 @@
 
 package armdatamigration
 
+// DatabaseMigrationsSQLDbClientCancelResponse contains the response from method DatabaseMigrationsSQLDbClient.BeginCancel.
+type DatabaseMigrationsSQLDbClientCancelResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLDbClientCreateOrUpdateResponse contains the response from method DatabaseMigrationsSQLDbClient.BeginCreateOrUpdate.
+type DatabaseMigrationsSQLDbClientCreateOrUpdateResponse struct {
+	DatabaseMigrationSQLDb
+}
+
+// DatabaseMigrationsSQLDbClientDeleteResponse contains the response from method DatabaseMigrationsSQLDbClient.BeginDelete.
+type DatabaseMigrationsSQLDbClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLDbClientGetResponse contains the response from method DatabaseMigrationsSQLDbClient.Get.
+type DatabaseMigrationsSQLDbClientGetResponse struct {
+	DatabaseMigrationSQLDb
+}
+
+// DatabaseMigrationsSQLMiClientCancelResponse contains the response from method DatabaseMigrationsSQLMiClient.BeginCancel.
+type DatabaseMigrationsSQLMiClientCancelResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLMiClientCreateOrUpdateResponse contains the response from method DatabaseMigrationsSQLMiClient.BeginCreateOrUpdate.
+type DatabaseMigrationsSQLMiClientCreateOrUpdateResponse struct {
+	DatabaseMigrationSQLMi
+}
+
+// DatabaseMigrationsSQLMiClientCutoverResponse contains the response from method DatabaseMigrationsSQLMiClient.BeginCutover.
+type DatabaseMigrationsSQLMiClientCutoverResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLMiClientGetResponse contains the response from method DatabaseMigrationsSQLMiClient.Get.
+type DatabaseMigrationsSQLMiClientGetResponse struct {
+	DatabaseMigrationSQLMi
+}
+
+// DatabaseMigrationsSQLVMClientCancelResponse contains the response from method DatabaseMigrationsSQLVMClient.BeginCancel.
+type DatabaseMigrationsSQLVMClientCancelResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLVMClientCreateOrUpdateResponse contains the response from method DatabaseMigrationsSQLVMClient.BeginCreateOrUpdate.
+type DatabaseMigrationsSQLVMClientCreateOrUpdateResponse struct {
+	DatabaseMigrationSQLVM
+}
+
+// DatabaseMigrationsSQLVMClientCutoverResponse contains the response from method DatabaseMigrationsSQLVMClient.BeginCutover.
+type DatabaseMigrationsSQLVMClientCutoverResponse struct {
+	// placeholder for future response values
+}
+
+// DatabaseMigrationsSQLVMClientGetResponse contains the response from method DatabaseMigrationsSQLVMClient.Get.
+type DatabaseMigrationsSQLVMClientGetResponse struct {
+	DatabaseMigrationSQLVM
+}
+
 // FilesClientCreateOrUpdateResponse contains the response from method FilesClient.CreateOrUpdate.
 type FilesClientCreateOrUpdateResponse struct {
 	ProjectFile
@@ -46,7 +106,7 @@ type FilesClientUpdateResponse struct {
 
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
-	ServiceOperationList
+	OperationListResult
 }
 
 // ProjectsClientCreateOrUpdateResponse contains the response from method ProjectsClient.CreateOrUpdate.
@@ -77,6 +137,61 @@ type ProjectsClientUpdateResponse struct {
 // ResourceSKUsClientListSKUsResponse contains the response from method ResourceSKUsClient.NewListSKUsPager.
 type ResourceSKUsClientListSKUsResponse struct {
 	ResourceSKUsResult
+}
+
+// SQLMigrationServicesClientCreateOrUpdateResponse contains the response from method SQLMigrationServicesClient.BeginCreateOrUpdate.
+type SQLMigrationServicesClientCreateOrUpdateResponse struct {
+	SQLMigrationService
+}
+
+// SQLMigrationServicesClientDeleteNodeResponse contains the response from method SQLMigrationServicesClient.DeleteNode.
+type SQLMigrationServicesClientDeleteNodeResponse struct {
+	DeleteNode
+}
+
+// SQLMigrationServicesClientDeleteResponse contains the response from method SQLMigrationServicesClient.BeginDelete.
+type SQLMigrationServicesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// SQLMigrationServicesClientGetResponse contains the response from method SQLMigrationServicesClient.Get.
+type SQLMigrationServicesClientGetResponse struct {
+	SQLMigrationService
+}
+
+// SQLMigrationServicesClientListAuthKeysResponse contains the response from method SQLMigrationServicesClient.ListAuthKeys.
+type SQLMigrationServicesClientListAuthKeysResponse struct {
+	AuthenticationKeys
+}
+
+// SQLMigrationServicesClientListByResourceGroupResponse contains the response from method SQLMigrationServicesClient.NewListByResourceGroupPager.
+type SQLMigrationServicesClientListByResourceGroupResponse struct {
+	SQLMigrationListResult
+}
+
+// SQLMigrationServicesClientListBySubscriptionResponse contains the response from method SQLMigrationServicesClient.NewListBySubscriptionPager.
+type SQLMigrationServicesClientListBySubscriptionResponse struct {
+	SQLMigrationListResult
+}
+
+// SQLMigrationServicesClientListMigrationsResponse contains the response from method SQLMigrationServicesClient.NewListMigrationsPager.
+type SQLMigrationServicesClientListMigrationsResponse struct {
+	DatabaseMigrationListResult
+}
+
+// SQLMigrationServicesClientListMonitoringDataResponse contains the response from method SQLMigrationServicesClient.ListMonitoringData.
+type SQLMigrationServicesClientListMonitoringDataResponse struct {
+	IntegrationRuntimeMonitoringData
+}
+
+// SQLMigrationServicesClientRegenerateAuthKeysResponse contains the response from method SQLMigrationServicesClient.RegenerateAuthKeys.
+type SQLMigrationServicesClientRegenerateAuthKeysResponse struct {
+	RegenAuthKeys
+}
+
+// SQLMigrationServicesClientUpdateResponse contains the response from method SQLMigrationServicesClient.BeginUpdate.
+type SQLMigrationServicesClientUpdateResponse struct {
+	SQLMigrationService
 }
 
 // ServiceTasksClientCancelResponse contains the response from method ServiceTasksClient.Cancel.

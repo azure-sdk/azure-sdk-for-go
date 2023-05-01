@@ -11,7 +11,7 @@ package armdatamigration
 
 const (
 	moduleName    = "armdatamigration"
-	moduleVersion = "v1.1.0"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // AuthenticationType - An enumeration of possible authentication types when connecting
@@ -126,7 +126,28 @@ func PossibleCommandStateValues() []CommandState {
 	}
 }
 
-// CreatedByType - The type of identity that created the resource.
+// CommandType - Command type.
+type CommandType string
+
+const (
+	CommandTypeCancel                               CommandType = "cancel"
+	CommandTypeFinish                               CommandType = "finish"
+	CommandTypeMigrateSQLServerAzureDbSQLMiComplete CommandType = "Migrate.SqlServer.AzureDbSqlMi.Complete"
+	CommandTypeMigrateSyncCompleteDatabase          CommandType = "Migrate.Sync.Complete.Database"
+	CommandTypeRestart                              CommandType = "restart"
+)
+
+// PossibleCommandTypeValues returns the possible values for the CommandType const type.
+func PossibleCommandTypeValues() []CommandType {
+	return []CommandType{
+		CommandTypeCancel,
+		CommandTypeFinish,
+		CommandTypeMigrateSQLServerAzureDbSQLMiComplete,
+		CommandTypeMigrateSyncCompleteDatabase,
+		CommandTypeRestart,
+	}
+}
+
 type CreatedByType string
 
 const (
@@ -143,30 +164,6 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
-	}
-}
-
-// DataMigrationResultCode - Result code of the data migration
-type DataMigrationResultCode string
-
-const (
-	DataMigrationResultCodeCompleted                  DataMigrationResultCode = "Completed"
-	DataMigrationResultCodeFatalError                 DataMigrationResultCode = "FatalError"
-	DataMigrationResultCodeInitial                    DataMigrationResultCode = "Initial"
-	DataMigrationResultCodeObjectNotExistsInSource    DataMigrationResultCode = "ObjectNotExistsInSource"
-	DataMigrationResultCodeObjectNotExistsInTarget    DataMigrationResultCode = "ObjectNotExistsInTarget"
-	DataMigrationResultCodeTargetObjectIsInaccessible DataMigrationResultCode = "TargetObjectIsInaccessible"
-)
-
-// PossibleDataMigrationResultCodeValues returns the possible values for the DataMigrationResultCode const type.
-func PossibleDataMigrationResultCodeValues() []DataMigrationResultCode {
-	return []DataMigrationResultCode{
-		DataMigrationResultCodeCompleted,
-		DataMigrationResultCodeFatalError,
-		DataMigrationResultCodeInitial,
-		DataMigrationResultCodeObjectNotExistsInSource,
-		DataMigrationResultCodeObjectNotExistsInTarget,
-		DataMigrationResultCodeTargetObjectIsInaccessible,
 	}
 }
 
@@ -304,24 +301,6 @@ func PossibleDatabaseStateValues() []DatabaseState {
 	}
 }
 
-// ErrorType - Error type
-type ErrorType string
-
-const (
-	ErrorTypeDefault ErrorType = "Default"
-	ErrorTypeError   ErrorType = "Error"
-	ErrorTypeWarning ErrorType = "Warning"
-)
-
-// PossibleErrorTypeValues returns the possible values for the ErrorType const type.
-func PossibleErrorTypeValues() []ErrorType {
-	return []ErrorType{
-		ErrorTypeDefault,
-		ErrorTypeError,
-		ErrorTypeWarning,
-	}
-}
-
 // LoginMigrationStage - Enum of the different stage of login migration.
 type LoginMigrationStage string
 
@@ -375,6 +354,45 @@ func PossibleLoginTypeValues() []LoginType {
 		LoginTypeSQLLogin,
 		LoginTypeWindowsGroup,
 		LoginTypeWindowsUser,
+	}
+}
+
+type MigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationType string
+
+const (
+	MigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationTypeInitialLoad MigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationType = "InitialLoad"
+)
+
+// PossibleMigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationTypeValues returns the possible values for the MigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationType const type.
+func PossibleMigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationTypeValues() []MigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationType {
+	return []MigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationType{
+		MigrateMySQLAzureDbForMySQLOfflineTaskOutputMigrationLevelMigrationTypeInitialLoad,
+	}
+}
+
+type MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationType string
+
+const (
+	MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationTypeCdc MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationType = "Cdc"
+)
+
+// PossibleMigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationTypeValues returns the possible values for the MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationType const type.
+func PossibleMigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationTypeValues() []MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationType {
+	return []MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationType{
+		MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputMigrationLevelMigrationTypeCdc,
+	}
+}
+
+type MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationType string
+
+const (
+	MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationTypeInitialLoad MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationType = "InitialLoad"
+)
+
+// PossibleMigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationTypeValues returns the possible values for the MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationType const type.
+func PossibleMigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationTypeValues() []MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationType {
+	return []MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationType{
+		MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelMigrationTypeInitialLoad,
 	}
 }
 
@@ -613,6 +631,21 @@ func PossibleObjectTypeValues() []ObjectType {
 	}
 }
 
+type OperationOrigin string
+
+const (
+	OperationOriginSystem OperationOrigin = "system"
+	OperationOriginUser   OperationOrigin = "user"
+)
+
+// PossibleOperationOriginValues returns the possible values for the OperationOrigin const type.
+func PossibleOperationOriginValues() []OperationOrigin {
+	return []OperationOrigin{
+		OperationOriginSystem,
+		OperationOriginUser,
+	}
+}
+
 // ProjectProvisioningState - The project's provisioning state
 type ProjectProvisioningState string
 
@@ -744,6 +777,23 @@ const (
 func PossibleResourceSKURestrictionsTypeValues() []ResourceSKURestrictionsType {
 	return []ResourceSKURestrictionsType{
 		ResourceSKURestrictionsTypeLocation,
+	}
+}
+
+type ResourceType string
+
+const (
+	ResourceTypeSQLDb ResourceType = "SqlDb"
+	ResourceTypeSQLMi ResourceType = "SqlMi"
+	ResourceTypeSQLVM ResourceType = "SqlVm"
+)
+
+// PossibleResourceTypeValues returns the possible values for the ResourceType const type.
+func PossibleResourceTypeValues() []ResourceType {
+	return []ResourceType{
+		ResourceTypeSQLDb,
+		ResourceTypeSQLMi,
+		ResourceTypeSQLVM,
 	}
 }
 
@@ -880,6 +930,7 @@ const (
 	ServerLevelPermissionsGroupMigrationFromSQLServerToAzureDB     ServerLevelPermissionsGroup = "MigrationFromSqlServerToAzureDB"
 	ServerLevelPermissionsGroupMigrationFromSQLServerToAzureMI     ServerLevelPermissionsGroup = "MigrationFromSqlServerToAzureMI"
 	ServerLevelPermissionsGroupMigrationFromMySQLToAzureDBForMySQL ServerLevelPermissionsGroup = "MigrationFromMySQLToAzureDBForMySQL"
+	ServerLevelPermissionsGroupMigrationFromSQLServerToAzureVM     ServerLevelPermissionsGroup = "MigrationFromSqlServerToAzureVM"
 )
 
 // PossibleServerLevelPermissionsGroupValues returns the possible values for the ServerLevelPermissionsGroup const type.
@@ -889,6 +940,7 @@ func PossibleServerLevelPermissionsGroupValues() []ServerLevelPermissionsGroup {
 		ServerLevelPermissionsGroupMigrationFromSQLServerToAzureDB,
 		ServerLevelPermissionsGroupMigrationFromSQLServerToAzureMI,
 		ServerLevelPermissionsGroupMigrationFromMySQLToAzureDBForMySQL,
+		ServerLevelPermissionsGroupMigrationFromSQLServerToAzureVM,
 	}
 }
 
@@ -1108,6 +1160,96 @@ func PossibleTaskStateValues() []TaskState {
 		TaskStateRunning,
 		TaskStateSucceeded,
 		TaskStateUnknown,
+	}
+}
+
+// TaskType - Task type.
+type TaskType string
+
+const (
+	TaskTypeConnectMongoDb                                     TaskType = "Connect.MongoDb"
+	TaskTypeConnectToSourceMySQL                               TaskType = "ConnectToSource.MySql"
+	TaskTypeConnectToSourceOracleSync                          TaskType = "ConnectToSource.Oracle.Sync"
+	TaskTypeConnectToSourcePostgreSQLSync                      TaskType = "ConnectToSource.PostgreSql.Sync"
+	TaskTypeConnectToSourceSQLServer                           TaskType = "ConnectToSource.SqlServer"
+	TaskTypeConnectToSourceSQLServerSync                       TaskType = "ConnectToSource.SqlServer.Sync"
+	TaskTypeConnectToTargetAzureDbForMySQL                     TaskType = "ConnectToTarget.AzureDbForMySql"
+	TaskTypeConnectToTargetAzureDbForPostgreSQLSync            TaskType = "ConnectToTarget.AzureDbForPostgreSql.Sync"
+	TaskTypeConnectToTargetAzureSQLDbMI                        TaskType = "ConnectToTarget.AzureSqlDbMI"
+	TaskTypeConnectToTargetAzureSQLDbMISyncLRS                 TaskType = "ConnectToTarget.AzureSqlDbMI.Sync.LRS"
+	TaskTypeConnectToTargetOracleAzureDbForPostgreSQLSync      TaskType = "ConnectToTarget.Oracle.AzureDbForPostgreSql.Sync"
+	TaskTypeConnectToTargetSQLDb                               TaskType = "ConnectToTarget.SqlDb"
+	TaskTypeConnectToTargetSQLDbSync                           TaskType = "ConnectToTarget.SqlDb.Sync"
+	TaskTypeGetTDECertificatesSQL                              TaskType = "GetTDECertificates.Sql"
+	TaskTypeGetUserTablesAzureSQLDbSync                        TaskType = "GetUserTables.AzureSqlDb.Sync"
+	TaskTypeGetUserTablesMySQL                                 TaskType = "GetUserTablesMySql"
+	TaskTypeGetUserTablesOracle                                TaskType = "GetUserTablesOracle"
+	TaskTypeGetUserTablesPostgreSQL                            TaskType = "GetUserTablesPostgreSql"
+	TaskTypeGetUserTablesSQL                                   TaskType = "GetUserTables.Sql"
+	TaskTypeMigrateMongoDb                                     TaskType = "Migrate.MongoDb"
+	TaskTypeMigrateMySQLAzureDbForMySQL                        TaskType = "Migrate.MySql.AzureDbForMySql"
+	TaskTypeMigrateMySQLAzureDbForMySQLReplicateChanges        TaskType = "Migrate.MySql.AzureDbForMySql.ReplicateChanges"
+	TaskTypeMigrateMySQLAzureDbForMySQLSync                    TaskType = "Migrate.MySql.AzureDbForMySql.Sync"
+	TaskTypeMigrateOracleAzureDbForPostgreSQLSync              TaskType = "Migrate.Oracle.AzureDbForPostgreSql.Sync"
+	TaskTypeMigratePostgreSQLAzureDbForPostgreSQLSyncV2        TaskType = "Migrate.PostgreSql.AzureDbForPostgreSql.SyncV2"
+	TaskTypeMigrateSQLServerAzureSQLDbMI                       TaskType = "Migrate.SqlServer.AzureSqlDbMI"
+	TaskTypeMigrateSQLServerAzureSQLDbMISyncLRS                TaskType = "Migrate.SqlServer.AzureSqlDbMI.Sync.LRS"
+	TaskTypeMigrateSQLServerAzureSQLDbSync                     TaskType = "Migrate.SqlServer.AzureSqlDb.Sync"
+	TaskTypeMigrateSQLServerSQLDb                              TaskType = "Migrate.SqlServer.SqlDb"
+	TaskTypeMigrateSchemaSQLServerSQLDb                        TaskType = "MigrateSchemaSqlServerSqlDb"
+	TaskTypeMigrateSsis                                        TaskType = "Migrate.Ssis"
+	TaskTypeServiceCheckOCI                                    TaskType = "Service.Check.OCI"
+	TaskTypeServiceInstallOCI                                  TaskType = "Service.Install.OCI"
+	TaskTypeServiceUploadOCI                                   TaskType = "Service.Upload.OCI"
+	TaskTypeValidateMigrationInputSQLServerAzureSQLDbMI        TaskType = "ValidateMigrationInput.SqlServer.AzureSqlDbMI"
+	TaskTypeValidateMigrationInputSQLServerAzureSQLDbMISyncLRS TaskType = "ValidateMigrationInput.SqlServer.AzureSqlDbMI.Sync.LRS"
+	TaskTypeValidateMigrationInputSQLServerSQLDbSync           TaskType = "ValidateMigrationInput.SqlServer.SqlDb.Sync"
+	TaskTypeValidateMongoDb                                    TaskType = "Validate.MongoDb"
+	TaskTypeValidateOracleAzureDbPostgreSQLSync                TaskType = "Validate.Oracle.AzureDbPostgreSql.Sync"
+)
+
+// PossibleTaskTypeValues returns the possible values for the TaskType const type.
+func PossibleTaskTypeValues() []TaskType {
+	return []TaskType{
+		TaskTypeConnectMongoDb,
+		TaskTypeConnectToSourceMySQL,
+		TaskTypeConnectToSourceOracleSync,
+		TaskTypeConnectToSourcePostgreSQLSync,
+		TaskTypeConnectToSourceSQLServer,
+		TaskTypeConnectToSourceSQLServerSync,
+		TaskTypeConnectToTargetAzureDbForMySQL,
+		TaskTypeConnectToTargetAzureDbForPostgreSQLSync,
+		TaskTypeConnectToTargetAzureSQLDbMI,
+		TaskTypeConnectToTargetAzureSQLDbMISyncLRS,
+		TaskTypeConnectToTargetOracleAzureDbForPostgreSQLSync,
+		TaskTypeConnectToTargetSQLDb,
+		TaskTypeConnectToTargetSQLDbSync,
+		TaskTypeGetTDECertificatesSQL,
+		TaskTypeGetUserTablesAzureSQLDbSync,
+		TaskTypeGetUserTablesMySQL,
+		TaskTypeGetUserTablesOracle,
+		TaskTypeGetUserTablesPostgreSQL,
+		TaskTypeGetUserTablesSQL,
+		TaskTypeMigrateMongoDb,
+		TaskTypeMigrateMySQLAzureDbForMySQL,
+		TaskTypeMigrateMySQLAzureDbForMySQLReplicateChanges,
+		TaskTypeMigrateMySQLAzureDbForMySQLSync,
+		TaskTypeMigrateOracleAzureDbForPostgreSQLSync,
+		TaskTypeMigratePostgreSQLAzureDbForPostgreSQLSyncV2,
+		TaskTypeMigrateSQLServerAzureSQLDbMI,
+		TaskTypeMigrateSQLServerAzureSQLDbMISyncLRS,
+		TaskTypeMigrateSQLServerAzureSQLDbSync,
+		TaskTypeMigrateSQLServerSQLDb,
+		TaskTypeMigrateSchemaSQLServerSQLDb,
+		TaskTypeMigrateSsis,
+		TaskTypeServiceCheckOCI,
+		TaskTypeServiceInstallOCI,
+		TaskTypeServiceUploadOCI,
+		TaskTypeValidateMigrationInputSQLServerAzureSQLDbMI,
+		TaskTypeValidateMigrationInputSQLServerAzureSQLDbMISyncLRS,
+		TaskTypeValidateMigrationInputSQLServerSQLDbSync,
+		TaskTypeValidateMongoDb,
+		TaskTypeValidateOracleAzureDbPostgreSQLSync,
 	}
 }
 

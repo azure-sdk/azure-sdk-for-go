@@ -21,15 +21,15 @@ func unmarshalCommandPropertiesClassification(rawMsg json.RawMessage) (CommandPr
 	}
 	var b CommandPropertiesClassification
 	switch m["commandType"] {
-	case "Migrate.SqlServer.AzureDbSqlMi.Complete":
+	case string(CommandTypeMigrateSQLServerAzureDbSQLMiComplete):
 		b = &MigrateMISyncCompleteCommandProperties{}
-	case "Migrate.Sync.Complete.Database":
+	case string(CommandTypeMigrateSyncCompleteDatabase):
 		b = &MigrateSyncCompleteCommandProperties{}
-	case "cancel":
+	case string(CommandTypeCancel):
 		b = &MongoDbCancelCommand{}
-	case "finish":
+	case string(CommandTypeFinish):
 		b = &MongoDbFinishCommand{}
-	case "restart":
+	case string(CommandTypeRestart):
 		b = &MongoDbRestartCommand{}
 	default:
 		b = &CommandProperties{}
@@ -127,6 +127,28 @@ func unmarshalConnectionInfoClassification(rawMsg json.RawMessage) (ConnectionIn
 	return b, json.Unmarshal(rawMsg, b)
 }
 
+func unmarshalDatabaseMigrationPropertiesClassification(rawMsg json.RawMessage) (DatabaseMigrationPropertiesClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b DatabaseMigrationPropertiesClassification
+	switch m["kind"] {
+	case string(ResourceTypeSQLDb):
+		b = &DatabaseMigrationPropertiesSQLDb{}
+	case string(ResourceTypeSQLMi):
+		b = &DatabaseMigrationPropertiesSQLMi{}
+	case string(ResourceTypeSQLVM):
+		b = &DatabaseMigrationPropertiesSQLVM{}
+	default:
+		b = &DatabaseMigrationProperties{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
 func unmarshalMigrateMySQLAzureDbForMySQLOfflineTaskOutputClassification(rawMsg json.RawMessage) (MigrateMySQLAzureDbForMySQLOfflineTaskOutputClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
@@ -170,6 +192,43 @@ func unmarshalMigrateMySQLAzureDbForMySQLOfflineTaskOutputClassificationArray(ra
 	return fArray, nil
 }
 
+func unmarshalMigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputClassification(rawMsg json.RawMessage) (MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputClassification
+	switch m["resultType"] {
+	case "MigrationLevelOutput":
+		b = &MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelV2{}
+	default:
+		b = &MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutput{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalMigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputClassificationArray(rawMsg json.RawMessage) ([]MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]MigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalMigrateMySQLAzureDbForMySQLReplicateChangesTaskOutputClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
+
 func unmarshalMigrateMySQLAzureDbForMySQLSyncTaskOutputClassification(rawMsg json.RawMessage) (MigrateMySQLAzureDbForMySQLSyncTaskOutputClassification, error) {
 	if rawMsg == nil {
 		return nil, nil
@@ -187,7 +246,7 @@ func unmarshalMigrateMySQLAzureDbForMySQLSyncTaskOutputClassification(rawMsg jso
 	case "ErrorOutput":
 		b = &MigrateMySQLAzureDbForMySQLSyncTaskOutputError{}
 	case "MigrationLevelOutput":
-		b = &MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevel{}
+		b = &MigrateMySQLAzureDbForMySQLSyncTaskOutputMigrationLevelV2{}
 	case "TableLevelOutput":
 		b = &MigrateMySQLAzureDbForMySQLSyncTaskOutputTableLevel{}
 	default:
@@ -616,81 +675,83 @@ func unmarshalProjectTaskPropertiesClassification(rawMsg json.RawMessage) (Proje
 	}
 	var b ProjectTaskPropertiesClassification
 	switch m["taskType"] {
-	case "Connect.MongoDb":
+	case string(TaskTypeConnectMongoDb):
 		b = &ConnectToMongoDbTaskProperties{}
-	case "ConnectToSource.MySql":
+	case string(TaskTypeConnectToSourceMySQL):
 		b = &ConnectToSourceMySQLTaskProperties{}
-	case "ConnectToSource.Oracle.Sync":
+	case string(TaskTypeConnectToSourceOracleSync):
 		b = &ConnectToSourceOracleSyncTaskProperties{}
-	case "ConnectToSource.PostgreSql.Sync":
+	case string(TaskTypeConnectToSourcePostgreSQLSync):
 		b = &ConnectToSourcePostgreSQLSyncTaskProperties{}
-	case "ConnectToSource.SqlServer":
+	case string(TaskTypeConnectToSourceSQLServer):
 		b = &ConnectToSourceSQLServerTaskProperties{}
-	case "ConnectToSource.SqlServer.Sync":
+	case string(TaskTypeConnectToSourceSQLServerSync):
 		b = &ConnectToSourceSQLServerSyncTaskProperties{}
-	case "ConnectToTarget.AzureDbForMySql":
+	case string(TaskTypeConnectToTargetAzureDbForMySQL):
 		b = &ConnectToTargetAzureDbForMySQLTaskProperties{}
-	case "ConnectToTarget.AzureDbForPostgreSql.Sync":
+	case string(TaskTypeConnectToTargetAzureDbForPostgreSQLSync):
 		b = &ConnectToTargetAzureDbForPostgreSQLSyncTaskProperties{}
-	case "ConnectToTarget.AzureSqlDbMI":
+	case string(TaskTypeConnectToTargetAzureSQLDbMI):
 		b = &ConnectToTargetSQLMITaskProperties{}
-	case "ConnectToTarget.AzureSqlDbMI.Sync.LRS":
+	case string(TaskTypeConnectToTargetAzureSQLDbMISyncLRS):
 		b = &ConnectToTargetSQLMISyncTaskProperties{}
-	case "ConnectToTarget.Oracle.AzureDbForPostgreSql.Sync":
+	case string(TaskTypeConnectToTargetOracleAzureDbForPostgreSQLSync):
 		b = &ConnectToTargetOracleAzureDbForPostgreSQLSyncTaskProperties{}
-	case "ConnectToTarget.SqlDb":
+	case string(TaskTypeConnectToTargetSQLDb):
 		b = &ConnectToTargetSQLDbTaskProperties{}
-	case "ConnectToTarget.SqlDb.Sync":
+	case string(TaskTypeConnectToTargetSQLDbSync):
 		b = &ConnectToTargetSQLDbSyncTaskProperties{}
-	case "GetTDECertificates.Sql":
+	case string(TaskTypeGetTDECertificatesSQL):
 		b = &GetTdeCertificatesSQLTaskProperties{}
-	case "GetUserTables.AzureSqlDb.Sync":
+	case string(TaskTypeGetUserTablesAzureSQLDbSync):
 		b = &GetUserTablesSQLSyncTaskProperties{}
-	case "GetUserTables.Sql":
+	case string(TaskTypeGetUserTablesSQL):
 		b = &GetUserTablesSQLTaskProperties{}
-	case "GetUserTablesMySql":
+	case string(TaskTypeGetUserTablesMySQL):
 		b = &GetUserTablesMySQLTaskProperties{}
-	case "GetUserTablesOracle":
+	case string(TaskTypeGetUserTablesOracle):
 		b = &GetUserTablesOracleTaskProperties{}
-	case "GetUserTablesPostgreSql":
+	case string(TaskTypeGetUserTablesPostgreSQL):
 		b = &GetUserTablesPostgreSQLTaskProperties{}
-	case "Migrate.MongoDb":
+	case string(TaskTypeMigrateMongoDb):
 		b = &MigrateMongoDbTaskProperties{}
-	case "Migrate.MySql.AzureDbForMySql":
+	case string(TaskTypeMigrateMySQLAzureDbForMySQL):
 		b = &MigrateMySQLAzureDbForMySQLOfflineTaskProperties{}
-	case "Migrate.MySql.AzureDbForMySql.Sync":
+	case string(TaskTypeMigrateMySQLAzureDbForMySQLReplicateChanges):
+		b = &MigrateMySQLAzureDbForMySQLReplicateChangesTaskProperties{}
+	case string(TaskTypeMigrateMySQLAzureDbForMySQLSync):
 		b = &MigrateMySQLAzureDbForMySQLSyncTaskProperties{}
-	case "Migrate.Oracle.AzureDbForPostgreSql.Sync":
+	case string(TaskTypeMigrateOracleAzureDbForPostgreSQLSync):
 		b = &MigrateOracleAzureDbForPostgreSQLSyncTaskProperties{}
-	case "Migrate.PostgreSql.AzureDbForPostgreSql.SyncV2":
+	case string(TaskTypeMigratePostgreSQLAzureDbForPostgreSQLSyncV2):
 		b = &MigratePostgreSQLAzureDbForPostgreSQLSyncTaskProperties{}
-	case "Migrate.SqlServer.AzureSqlDb.Sync":
+	case string(TaskTypeMigrateSQLServerAzureSQLDbSync):
 		b = &MigrateSQLServerSQLDbSyncTaskProperties{}
-	case "Migrate.SqlServer.AzureSqlDbMI":
+	case string(TaskTypeMigrateSQLServerAzureSQLDbMI):
 		b = &MigrateSQLServerSQLMITaskProperties{}
-	case "Migrate.SqlServer.AzureSqlDbMI.Sync.LRS":
+	case string(TaskTypeMigrateSQLServerAzureSQLDbMISyncLRS):
 		b = &MigrateSQLServerSQLMISyncTaskProperties{}
-	case "Migrate.SqlServer.SqlDb":
+	case string(TaskTypeMigrateSQLServerSQLDb):
 		b = &MigrateSQLServerSQLDbTaskProperties{}
-	case "Migrate.Ssis":
+	case string(TaskTypeMigrateSsis):
 		b = &MigrateSsisTaskProperties{}
-	case "MigrateSchemaSqlServerSqlDb":
+	case string(TaskTypeMigrateSchemaSQLServerSQLDb):
 		b = &MigrateSchemaSQLServerSQLDbTaskProperties{}
-	case "Service.Check.OCI":
+	case string(TaskTypeServiceCheckOCI):
 		b = &CheckOCIDriverTaskProperties{}
-	case "Service.Install.OCI":
+	case string(TaskTypeServiceInstallOCI):
 		b = &InstallOCIDriverTaskProperties{}
-	case "Service.Upload.OCI":
+	case string(TaskTypeServiceUploadOCI):
 		b = &UploadOCIDriverTaskProperties{}
-	case "Validate.MongoDb":
+	case string(TaskTypeValidateMongoDb):
 		b = &ValidateMongoDbTaskProperties{}
-	case "Validate.Oracle.AzureDbPostgreSql.Sync":
+	case string(TaskTypeValidateOracleAzureDbPostgreSQLSync):
 		b = &ValidateOracleAzureDbForPostgreSQLSyncTaskProperties{}
-	case "ValidateMigrationInput.SqlServer.AzureSqlDbMI":
+	case string(TaskTypeValidateMigrationInputSQLServerAzureSQLDbMI):
 		b = &ValidateMigrationInputSQLServerSQLMITaskProperties{}
-	case "ValidateMigrationInput.SqlServer.AzureSqlDbMI.Sync.LRS":
+	case string(TaskTypeValidateMigrationInputSQLServerAzureSQLDbMISyncLRS):
 		b = &ValidateMigrationInputSQLServerSQLMISyncTaskProperties{}
-	case "ValidateMigrationInput.SqlServer.SqlDb.Sync":
+	case string(TaskTypeValidateMigrationInputSQLServerSQLDbSync):
 		b = &ValidateMigrationInputSQLServerSQLDbSyncTaskProperties{}
 	default:
 		b = &ProjectTaskProperties{}
