@@ -64,6 +64,11 @@ type IotDpsResourceClientDeleteResponse struct {
 	// placeholder for future response values
 }
 
+// IotDpsResourceClientFailoverResponse contains the response from method IotDpsResourceClient.Failover.
+type IotDpsResourceClientFailoverResponse struct {
+	// placeholder for future response values
+}
+
 // IotDpsResourceClientGetOperationResultResponse contains the response from method IotDpsResourceClient.GetOperationResult.
 type IotDpsResourceClientGetOperationResultResponse struct {
 	AsyncOperationResult
