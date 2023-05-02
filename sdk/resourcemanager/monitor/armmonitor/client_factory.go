@@ -38,6 +38,16 @@ func NewClientFactory(subscriptionID string, credential azcore.TokenCredential, 
 	}, nil
 }
 
+func (c *ClientFactory) NewAzureMonitorWorkspacesClient() *AzureMonitorWorkspacesClient {
+	subClient, _ := NewAzureMonitorWorkspacesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewOperationsForMonitorClient() *OperationsForMonitorClient {
+	subClient, _ := NewOperationsForMonitorClient(c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewAutoscaleSettingsClient() *AutoscaleSettingsClient {
 	subClient, _ := NewAutoscaleSettingsClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -185,15 +195,5 @@ func (c *ClientFactory) NewDataCollectionRuleAssociationsClient() *DataCollectio
 
 func (c *ClientFactory) NewDataCollectionRulesClient() *DataCollectionRulesClient {
 	subClient, _ := NewDataCollectionRulesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewAzureMonitorWorkspacesClient() *AzureMonitorWorkspacesClient {
-	subClient, _ := NewAzureMonitorWorkspacesClient(c.subscriptionID, c.credential, c.options)
-	return subClient
-}
-
-func (c *ClientFactory) NewOperationsForMonitorClient() *OperationsForMonitorClient {
-	subClient, _ := NewOperationsForMonitorClient(c.credential, c.options)
 	return subClient
 }
