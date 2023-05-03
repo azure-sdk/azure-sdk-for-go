@@ -29,8 +29,7 @@ type NetworkStatusClient struct {
 }
 
 // NewNetworkStatusClient creates a new instance of NetworkStatusClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewNetworkStatusClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*NetworkStatusClient, error) {
@@ -49,8 +48,8 @@ func NewNetworkStatusClient(subscriptionID string, credential azcore.TokenCreden
 // inside the Cloud Service. This also returns the DNS Servers as visible to the CloudService.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - locationName - Location in which the API Management service is deployed. This is one of the Azure Regions like West US,
 //     East US, South Central US.
@@ -95,7 +94,7 @@ func (client *NetworkStatusClient) listByLocationCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -114,8 +113,8 @@ func (client *NetworkStatusClient) listByLocationHandleResponse(resp *http.Respo
 // inside the Cloud Service. This also returns the DNS Servers as visible to the CloudService.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - NetworkStatusClientListByServiceOptions contains the optional parameters for the NetworkStatusClient.ListByService
 //     method.
@@ -154,7 +153,7 @@ func (client *NetworkStatusClient) listByServiceCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

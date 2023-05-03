@@ -29,8 +29,7 @@ type TenantSettingsClient struct {
 }
 
 // NewTenantSettingsClient creates a new instance of TenantSettingsClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewTenantSettingsClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*TenantSettingsClient, error) {
@@ -48,8 +47,8 @@ func NewTenantSettingsClient(subscriptionID string, credential azcore.TokenCrede
 // Get - Get tenant settings.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - settingsType - The identifier of the settings.
 //   - options - TenantSettingsClientGetOptions contains the optional parameters for the TenantSettingsClient.Get method.
@@ -92,7 +91,7 @@ func (client *TenantSettingsClient) getCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -112,8 +111,8 @@ func (client *TenantSettingsClient) getHandleResponse(resp *http.Response) (Tena
 
 // NewListByServicePager - Public settings.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - TenantSettingsClientListByServiceOptions contains the optional parameters for the TenantSettingsClient.NewListByServicePager
 //     method.
@@ -168,7 +167,7 @@ func (client *TenantSettingsClient) listByServiceCreateRequest(ctx context.Conte
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
