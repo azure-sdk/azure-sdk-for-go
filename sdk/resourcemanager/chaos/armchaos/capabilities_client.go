@@ -47,7 +47,7 @@ func NewCapabilitiesClient(subscriptionID string, credential azcore.TokenCredent
 // CreateOrUpdate - Create or update a Capability resource that extends a Target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-15-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - parentProviderNamespace - String that represents a resource provider namespace.
 //   - parentResourceType - String that represents a resource type.
@@ -108,7 +108,7 @@ func (client *CapabilitiesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, capability)
@@ -126,7 +126,7 @@ func (client *CapabilitiesClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Delete a Capability that extends a Target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-15-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - parentProviderNamespace - String that represents a resource provider namespace.
 //   - parentResourceType - String that represents a resource type.
@@ -185,7 +185,7 @@ func (client *CapabilitiesClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -194,7 +194,7 @@ func (client *CapabilitiesClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get a Capability resource that extends a Target resource.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-15-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - parentProviderNamespace - String that represents a resource provider namespace.
 //   - parentResourceType - String that represents a resource type.
@@ -253,7 +253,7 @@ func (client *CapabilitiesClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-15-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -270,7 +270,7 @@ func (client *CapabilitiesClient) getHandleResponse(resp *http.Response) (Capabi
 
 // NewListPager - Get a list of Capability resources that extend a Target resource..
 //
-// Generated from API version 2021-09-15-preview
+// Generated from API version 2023-04-15-preview
 //   - resourceGroupName - String that represents an Azure resource group.
 //   - parentProviderNamespace - String that represents a resource provider namespace.
 //   - parentResourceType - String that represents a resource type.
@@ -337,7 +337,7 @@ func (client *CapabilitiesClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-09-15-preview")
+	reqQP.Set("api-version", "2023-04-15-preview")
 	if options != nil && options.ContinuationToken != nil {
 		reqQP.Set("continuationToken", *options.ContinuationToken)
 	}
