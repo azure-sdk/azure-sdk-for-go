@@ -1,5 +1,17 @@
 # Release History
 
+## 0.7.0 (2023-05-04)
+### Features Added
+
+- New struct `AvailableOperationDescriptionProperties`
+- New struct `Dimension`
+- New struct `LogSpecification`
+- New struct `MetricAvailability`
+- New struct `MetricSpecification`
+- New struct `ServiceSpecification`
+- New field `Properties` in struct `OperationResult`
+
+
 ## 0.6.1 (2023-04-14)
 ### Bug Fixes
 

@@ -305,6 +305,12 @@ type AutoScalingTrigger struct {
 // GetAutoScalingTrigger implements the AutoScalingTriggerClassification interface for type AutoScalingTrigger.
 func (a *AutoScalingTrigger) GetAutoScalingTrigger() *AutoScalingTrigger { return a }
 
+// AvailableOperationDescriptionProperties - Properties available for a Microsoft.Web resource provider operation.
+type AvailableOperationDescriptionProperties struct {
+	// Resource metrics service provided by Microsoft.Insights resource provider.
+	ServiceSpecification *ServiceSpecification
+}
+
 // AvailableOperationDisplay - An operation available at the listed Azure resource provider.
 type AvailableOperationDisplay struct {
 	// Description of the available operation.
@@ -552,6 +558,15 @@ type DiagnosticsSinkProperties struct {
 // GetDiagnosticsSinkProperties implements the DiagnosticsSinkPropertiesClassification interface for type DiagnosticsSinkProperties.
 func (d *DiagnosticsSinkProperties) GetDiagnosticsSinkProperties() *DiagnosticsSinkProperties {
 	return d
+}
+
+// Dimension of a resource metric. For e.g. instance specific HTTP requests for a web app, where instance name is dimension
+// of the metric HTTP request
+type Dimension struct {
+	DisplayName            *string
+	InternalName           *string
+	Name                   *string
+	ToBeExportedForShoebox *bool
 }
 
 // EndpointProperties - Describes a container endpoint.
@@ -897,6 +912,14 @@ func (l *LocalNetworkResourceProperties) GetNetworkResourcePropertiesBase() *Net
 	}
 }
 
+// LogSpecification - Log Definition of a single resource metric.
+type LogSpecification struct {
+	BlobDuration     *string
+	DisplayName      *string
+	LogFilterPattern *string
+	Name             *string
+}
+
 // ManagedProxyResource - The resource model definition for Azure Resource Manager proxy resource. It will have everything
 // other than required location and tags. This proxy resource is explicitly created or updated by
 // including it in the parent resource.
@@ -909,6 +932,34 @@ type ManagedProxyResource struct {
 
 	// READ-ONLY; The type of the resource. Ex- Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
 	Type *string
+}
+
+// MetricAvailability - Retention policy of a resource metric.
+type MetricAvailability struct {
+	BlobDuration *string
+	TimeGrain    *string
+}
+
+// MetricSpecification - Definition of a single resource metric.
+type MetricSpecification struct {
+	AggregationType                  *string
+	Availabilities                   []*MetricAvailability
+	Category                         *string
+	Dimensions                       []*Dimension
+	DisplayDescription               *string
+	DisplayName                      *string
+	EnableRegionalMdmAccount         *bool
+	FillGapWithZero                  *bool
+	IsInternal                       *bool
+	LockAggregationType              *string
+	MetricFilterPattern              *string
+	Name                             *string
+	SourceMdmAccount                 *string
+	SourceMdmNamespace               *string
+	SupportedAggregationTypes        []*string
+	SupportedTimeGrainTypes          []*string
+	SupportsInstanceLevelAggregation *bool
+	Unit                             *string
 }
 
 // NetworkClientCreateOptions contains the optional parameters for the NetworkClient.Create method.
@@ -1063,6 +1114,9 @@ type OperationResult struct {
 
 	// Origin result
 	Origin *string
+
+	// Properties of the operation
+	Properties *AvailableOperationDescriptionProperties
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -1498,6 +1552,12 @@ type ServiceResourceProperties struct {
 	// READ-ONLY; When the service's health state is not 'Ok', this additional details from service fabric Health Manager for
 	// the user to know why the service is marked unhealthy.
 	UnhealthyEvaluation *string
+}
+
+// ServiceSpecification - Resource metrics service provided by Microsoft.Insights resource provider.
+type ServiceSpecification struct {
+	LogSpecifications    []*LogSpecification
+	MetricSpecifications []*MetricSpecification
 }
 
 // Setting - Describes a setting for the container. The setting file path can be fetched from environment variable "Fabric_SettingPath".
