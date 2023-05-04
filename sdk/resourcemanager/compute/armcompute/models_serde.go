@@ -6133,6 +6133,7 @@ func (g GrantAccessData) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "access", g.Access)
 	populate(objectMap, "durationInSeconds", g.DurationInSeconds)
+	populate(objectMap, "fileFormat", g.FileFormat)
 	populate(objectMap, "getSecureVMGuestStateSAS", g.GetSecureVMGuestStateSAS)
 	return json.Marshal(objectMap)
 }
@@ -6151,6 +6152,9 @@ func (g *GrantAccessData) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "durationInSeconds":
 			err = unpopulate(val, "DurationInSeconds", &g.DurationInSeconds)
+			delete(rawMsg, key)
+		case "fileFormat":
+			err = unpopulate(val, "FileFormat", &g.FileFormat)
 			delete(rawMsg, key)
 		case "getSecureVMGuestStateSAS":
 			err = unpopulate(val, "GetSecureVMGuestStateSAS", &g.GetSecureVMGuestStateSAS)
@@ -16193,7 +16197,6 @@ func (v *VirtualMachineScaleSetHardwareProfile) UnmarshalJSON(data []byte) error
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetIPConfiguration.
 func (v VirtualMachineScaleSetIPConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "id", v.ID)
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "properties", v.Properties)
 	return json.Marshal(objectMap)
@@ -16208,9 +16211,6 @@ func (v *VirtualMachineScaleSetIPConfiguration) UnmarshalJSON(data []byte) error
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &v.ID)
-			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &v.Name)
 			delete(rawMsg, key)
@@ -16578,7 +16578,6 @@ func (v *VirtualMachineScaleSetManagedDiskParameters) UnmarshalJSON(data []byte)
 // MarshalJSON implements the json.Marshaller interface for type VirtualMachineScaleSetNetworkConfiguration.
 func (v VirtualMachineScaleSetNetworkConfiguration) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
-	populate(objectMap, "id", v.ID)
 	populate(objectMap, "name", v.Name)
 	populate(objectMap, "properties", v.Properties)
 	return json.Marshal(objectMap)
@@ -16593,9 +16592,6 @@ func (v *VirtualMachineScaleSetNetworkConfiguration) UnmarshalJSON(data []byte) 
 	for key, val := range rawMsg {
 		var err error
 		switch key {
-		case "id":
-			err = unpopulate(val, "ID", &v.ID)
-			delete(rawMsg, key)
 		case "name":
 			err = unpopulate(val, "Name", &v.Name)
 			delete(rawMsg, key)

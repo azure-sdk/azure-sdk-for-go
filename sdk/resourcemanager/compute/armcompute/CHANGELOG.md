@@ -1,5 +1,17 @@
 # Release History
 
+## 5.0.0 (2023-05-04)
+### Breaking Changes
+
+- Field `ID` of struct `VirtualMachineScaleSetIPConfiguration` has been removed
+- Field `ID` of struct `VirtualMachineScaleSetNetworkConfiguration` has been removed
+
+### Features Added
+
+- New enum type `FileFormat` with values `FileFormatVHD`, `FileFormatVHDX`
+- New field `FileFormat` in struct `GrantAccessData`
+
+
 ## 4.2.1 (2023-04-14)
 ### Bug Fixes
 

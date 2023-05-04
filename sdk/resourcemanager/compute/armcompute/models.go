@@ -3434,6 +3434,9 @@ type GrantAccessData struct {
 	// REQUIRED; Time duration in seconds until the SAS access expires.
 	DurationInSeconds *int32
 
+	// Used to specify the file format when making request for SAS on a VHDX file format snapshot
+	FileFormat *FileFormat
+
 	// Set this flag to true to get additional SAS for VM guest state
 	GetSecureVMGuestStateSAS *bool
 }
@@ -8200,9 +8203,6 @@ type VirtualMachineScaleSetIPConfiguration struct {
 	// REQUIRED; The IP configuration name.
 	Name *string
 
-	// Resource Id
-	ID *string
-
 	// Describes a virtual machine scale set network profile's IP configuration properties.
 	Properties *VirtualMachineScaleSetIPConfigurationProperties
 }
@@ -8349,9 +8349,6 @@ type VirtualMachineScaleSetManagedDiskParameters struct {
 type VirtualMachineScaleSetNetworkConfiguration struct {
 	// REQUIRED; The network configuration name.
 	Name *string
-
-	// Resource Id
-	ID *string
 
 	// Describes a virtual machine scale set network profile's IP configuration.
 	Properties *VirtualMachineScaleSetNetworkConfigurationProperties
