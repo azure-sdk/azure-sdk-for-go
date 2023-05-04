@@ -9,6 +9,8 @@
 
 package armredisenterprise
 
+import "time"
+
 // AccessKeys - The secret access keys used for authenticating connections to redis
 type AccessKeys struct {
 	// READ-ONLY; The current primary key that clients can use to authenticate
@@ -16,6 +18,25 @@ type AccessKeys struct {
 
 	// READ-ONLY; The current secondary key that clients can use to authenticate
 	SecondaryKey *string
+}
+
+// Capability - Information about the features the location supports
+type Capability struct {
+	// Feature name
+	Name *string
+
+	// Indicates whether feature is supported or not
+	Value *bool
+}
+
+// CheckNameAvailabilityParameters - Parameters body to pass for resource name availability check.
+type CheckNameAvailabilityParameters struct {
+	// REQUIRED; Resource name.
+	Name *string
+
+	// REQUIRED; Resource type. The only legal value of this property for checking redis enterprise cache name availability is
+	// 'Microsoft.Cache/redisenterprise'.
+	Type *string
 }
 
 // ClientBeginCreateOptions contains the optional parameters for the Client.BeginCreate method.
@@ -34,6 +55,11 @@ type ClientBeginDeleteOptions struct {
 type ClientBeginUpdateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
+}
+
+// ClientCheckNameAvailabilityOptions contains the optional parameters for the Client.CheckNameAvailability method.
+type ClientCheckNameAvailabilityOptions struct {
+	// placeholder for future optional parameters
 }
 
 // ClientGetOptions contains the optional parameters for the Client.Get method.
@@ -59,6 +85,9 @@ type Cluster struct {
 	// REQUIRED; The SKU to create, which affects price, performance, and features.
 	SKU *SKU
 
+	// The identity of the resource.
+	Identity *ManagedServiceIdentity
+
 	// Other properties of the cluster.
 	Properties *ClusterProperties
 
@@ -73,6 +102,9 @@ type Cluster struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -89,6 +121,9 @@ type ClusterList struct {
 
 // ClusterProperties - Properties of RedisEnterprise clusters, as opposed to general resource properties like location, tags
 type ClusterProperties struct {
+	// Encryption-at-rest configuration for the cluster.
+	Encryption *ClusterPropertiesEncryption
+
 	// The minimum TLS version for the cluster to support, e.g. '1.2'
 	MinimumTLSVersion *TLSVersion
 
@@ -108,8 +143,38 @@ type ClusterProperties struct {
 	ResourceState *ResourceState
 }
 
+// ClusterPropertiesEncryption - Encryption-at-rest configuration for the cluster.
+type ClusterPropertiesEncryption struct {
+	// All Customer-managed key encryption properties for the resource. Set this to an empty object to use Microsoft-managed key
+	// encryption.
+	CustomerManagedKeyEncryption *ClusterPropertiesEncryptionCustomerManagedKeyEncryption
+}
+
+// ClusterPropertiesEncryptionCustomerManagedKeyEncryption - All Customer-managed key encryption properties for the resource.
+// Set this to an empty object to use Microsoft-managed key encryption.
+type ClusterPropertiesEncryptionCustomerManagedKeyEncryption struct {
+	// All identity configuration for Customer-managed key settings defining which identity should be used to auth to Key Vault.
+	KeyEncryptionKeyIdentity *ClusterPropertiesEncryptionCustomerManagedKeyEncryptionKeyIdentity
+
+	// Key encryption key Url, versioned only. Ex: https://contosovault.vault.azure.net/keys/contosokek/562a4bb76b524a1493a6afe8e536ee78
+	KeyEncryptionKeyURL *string
+}
+
+// ClusterPropertiesEncryptionCustomerManagedKeyEncryptionKeyIdentity - All identity configuration for Customer-managed key
+// settings defining which identity should be used to auth to Key Vault.
+type ClusterPropertiesEncryptionCustomerManagedKeyEncryptionKeyIdentity struct {
+	// Only userAssignedIdentity is supported in this API version; other types may be supported in the future
+	IdentityType *CmkIdentityType
+
+	// User assigned identity to use for accessing key encryption key Url. Ex: /subscriptions//resourceGroups//providers/Microsoft.ManagedIdentity/userAssignedIdentities/myId.
+	UserAssignedIdentityResourceID *string
+}
+
 // ClusterUpdate - A partial update to the RedisEnterprise cluster
 type ClusterUpdate struct {
+	// The identity of the resource.
+	Identity *ManagedServiceIdentity
+
 	// Other properties of the cluster.
 	Properties *ClusterProperties
 
@@ -130,6 +195,9 @@ type Database struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -204,6 +272,12 @@ type DatabasesClientBeginDeleteOptions struct {
 
 // DatabasesClientBeginExportOptions contains the optional parameters for the DatabasesClient.BeginExport method.
 type DatabasesClientBeginExportOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// DatabasesClientBeginFlushOptions contains the optional parameters for the DatabasesClient.BeginFlush method.
+type DatabasesClientBeginFlushOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -287,6 +361,12 @@ type ExportClusterParameters struct {
 	SasURI *string
 }
 
+// FlushParameters - Parameters for a Redis Enterprise active geo-replication flush operation.
+type FlushParameters struct {
+	// The resource identifiers of all the other database resources in the georeplication group to be flushed
+	IDs []*string
+}
+
 // ForceUnlinkParameters - Parameters for a Redis Enterprise Active Geo Replication Force Unlink operation.
 type ForceUnlinkParameters struct {
 	// REQUIRED; The resource IDs of the database resources to be unlinked.
@@ -306,6 +386,35 @@ type LinkedDatabase struct {
 
 	// READ-ONLY; State of the link between the database resources.
 	State *LinkState
+}
+
+// LocationInfo - Information about location (for example: features that it supports)
+type LocationInfo struct {
+	// List of capabilities
+	Capabilities []*Capability
+
+	// Location name
+	Location *string
+}
+
+// ManagedServiceIdentity - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentity struct {
+	// REQUIRED; Type of managed service identity (where both SystemAssigned and UserAssigned types are allowed).
+	Type *ManagedServiceIdentityType
+
+	// The set of user assigned identities associated with the resource. The userAssignedIdentities dictionary keys will be ARM
+	// resource ids in the form:
+	// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}.
+	// The dictionary values can be empty objects ({}) in
+	// requests.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
+
+	// READ-ONLY; The service principal ID of the system assigned identity. This property will only be provided for a system assigned
+	// identity.
+	PrincipalID *string
+
+	// READ-ONLY; The tenant ID of the system assigned identity. This property will only be provided for a system assigned identity.
+	TenantID *string
 }
 
 // Module - Specifies configuration of a redis module
@@ -432,6 +541,9 @@ type PrivateEndpointConnection struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
@@ -454,17 +566,18 @@ type PrivateEndpointConnectionProperties struct {
 	ProvisioningState *PrivateEndpointConnectionProvisioningState
 }
 
+// PrivateEndpointConnectionsClientBeginDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginDelete
+// method.
+type PrivateEndpointConnectionsClientBeginDeleteOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
 // PrivateEndpointConnectionsClientBeginPutOptions contains the optional parameters for the PrivateEndpointConnectionsClient.BeginPut
 // method.
 type PrivateEndpointConnectionsClientBeginPutOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
-}
-
-// PrivateEndpointConnectionsClientDeleteOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Delete
-// method.
-type PrivateEndpointConnectionsClientDeleteOptions struct {
-	// placeholder for future optional parameters
 }
 
 // PrivateEndpointConnectionsClientGetOptions contains the optional parameters for the PrivateEndpointConnectionsClient.Get
@@ -489,6 +602,9 @@ type PrivateLinkResource struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -540,6 +656,9 @@ type ProxyResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
 }
@@ -550,6 +669,24 @@ type RegenerateKeyParameters struct {
 	KeyType *AccessKeyType
 }
 
+// RegionSKUDetail - Details about the location requested and the available skus in the location
+type RegionSKUDetail struct {
+	// Details about location and its capabilities
+	LocationInfo *LocationInfo
+
+	// Resource type which has the SKU, such as Microsoft.Cache/redisEnterprise
+	ResourceType *string
+
+	// Details about available skus
+	SKUDetails *SKUDetail
+}
+
+// RegionSKUDetails - List of details about all the available SKUs
+type RegionSKUDetails struct {
+	// List of Sku Detail
+	Value []*RegionSKUDetail
+}
+
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -557,6 +694,9 @@ type Resource struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
@@ -570,6 +710,38 @@ type SKU struct {
 	// The size of the RedisEnterprise cluster. Defaults to 2 or 3 depending on SKU. Valid values are (2, 4, 6, …) for Enterprise
 	// SKUs and (3, 9, 15, …) for Flash SKUs.
 	Capacity *int32
+}
+
+// SKUDetail - Information about Sku
+type SKUDetail struct {
+	// The type of RedisEnterprise cluster to deploy. Possible values: (EnterpriseE10, EnterpriseFlashF300 etc.)
+	Name *SKUName
+}
+
+// SKUsClientListOptions contains the optional parameters for the SKUsClient.NewListPager method.
+type SKUsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SystemData - Metadata pertaining to creation and last modification of the resource.
+type SystemData struct {
+	// The timestamp of resource creation (UTC).
+	CreatedAt *time.Time
+
+	// The identity that created the resource.
+	CreatedBy *string
+
+	// The type of identity that created the resource.
+	CreatedByType *CreatedByType
+
+	// The timestamp of resource last modification (UTC)
+	LastModifiedAt *time.Time
+
+	// The identity that last modified the resource.
+	LastModifiedBy *string
+
+	// The type of identity that last modified the resource.
+	LastModifiedByType *CreatedByType
 }
 
 // TrackedResource - The resource model definition for an Azure Resource Manager tracked top level resource which has 'tags'
@@ -587,6 +759,18 @@ type TrackedResource struct {
 	// READ-ONLY; The name of the resource
 	Name *string
 
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
 }
