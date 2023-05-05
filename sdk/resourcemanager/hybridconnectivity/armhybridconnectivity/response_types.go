@@ -29,6 +29,11 @@ type EndpointsClientListCredentialsResponse struct {
 	EndpointAccessResource
 }
 
+// EndpointsClientListIngressGatewayCredentialsResponse contains the response from method EndpointsClient.ListIngressGatewayCredentials.
+type EndpointsClientListIngressGatewayCredentialsResponse struct {
+	IngressGatewayResource
+}
+
 // EndpointsClientListManagedProxyDetailsResponse contains the response from method EndpointsClient.ListManagedProxyDetails.
 type EndpointsClientListManagedProxyDetailsResponse struct {
 	ManagedProxyResource
@@ -47,4 +52,29 @@ type EndpointsClientUpdateResponse struct {
 // OperationsClientListResponse contains the response from method OperationsClient.NewListPager.
 type OperationsClientListResponse struct {
 	OperationListResult
+}
+
+// ServiceConfigurationsClientCreateOrupdateResponse contains the response from method ServiceConfigurationsClient.CreateOrupdate.
+type ServiceConfigurationsClientCreateOrupdateResponse struct {
+	ServiceConfigurationResource
+}
+
+// ServiceConfigurationsClientDeleteResponse contains the response from method ServiceConfigurationsClient.Delete.
+type ServiceConfigurationsClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ServiceConfigurationsClientGetResponse contains the response from method ServiceConfigurationsClient.Get.
+type ServiceConfigurationsClientGetResponse struct {
+	ServiceConfigurationResource
+}
+
+// ServiceConfigurationsClientListByEndpointResourceResponse contains the response from method ServiceConfigurationsClient.NewListByEndpointResourcePager.
+type ServiceConfigurationsClientListByEndpointResourceResponse struct {
+	ServiceConfigurationList
+}
+
+// ServiceConfigurationsClientUpdateResponse contains the response from method ServiceConfigurationsClient.Update.
+type ServiceConfigurationsClientUpdateResponse struct {
+	ServiceConfigurationResource
 }
