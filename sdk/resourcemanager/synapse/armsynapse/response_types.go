@@ -359,6 +359,11 @@ func (k *KustoPoolDataConnectionsClientUpdateResponse) UnmarshalJSON(data []byte
 	return nil
 }
 
+// KustoPoolDatabaseClientInviteFollowerResponse contains the response from method KustoPoolDatabaseClient.InviteFollower.
+type KustoPoolDatabaseClientInviteFollowerResponse struct {
+	DatabaseInviteFollowerResult
+}
+
 // KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityResponse contains the response from method KustoPoolDatabasePrincipalAssignmentsClient.CheckNameAvailability.
 type KustoPoolDatabasePrincipalAssignmentsClientCheckNameAvailabilityResponse struct {
 	CheckNameResult
@@ -522,6 +527,11 @@ type KustoPoolsClientListSKUsByResourceResponse struct {
 // KustoPoolsClientListSKUsResponse contains the response from method KustoPoolsClient.NewListSKUsPager.
 type KustoPoolsClientListSKUsResponse struct {
 	SKUDescriptionList
+}
+
+// KustoPoolsClientMigrateResponse contains the response from method KustoPoolsClient.BeginMigrate.
+type KustoPoolsClientMigrateResponse struct {
+	// placeholder for future response values
 }
 
 // KustoPoolsClientRemoveLanguageExtensionsResponse contains the response from method KustoPoolsClient.BeginRemoveLanguageExtensions.

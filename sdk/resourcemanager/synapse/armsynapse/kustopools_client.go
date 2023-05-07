@@ -767,6 +767,76 @@ func (client *KustoPoolsClient) listSKUsByResourceHandleResponse(resp *http.Resp
 	return result, nil
 }
 
+// BeginMigrate - Migrate data from a Kusto pool to another cluster.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-06-01-preview
+//   - workspaceName - The name of the workspace.
+//   - kustoPoolName - The name of the Kusto pool.
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - kustoPoolMigrateRequest - The kusto pool migrate request parameters.
+//   - options - KustoPoolsClientBeginMigrateOptions contains the optional parameters for the KustoPoolsClient.BeginMigrate method.
+func (client *KustoPoolsClient) BeginMigrate(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, kustoPoolMigrateRequest KustoPoolMigrateRequest, options *KustoPoolsClientBeginMigrateOptions) (*runtime.Poller[KustoPoolsClientMigrateResponse], error) {
+	if options == nil || options.ResumeToken == "" {
+		resp, err := client.migrate(ctx, workspaceName, kustoPoolName, resourceGroupName, kustoPoolMigrateRequest, options)
+		if err != nil {
+			return nil, err
+		}
+		return runtime.NewPoller[KustoPoolsClientMigrateResponse](resp, client.internal.Pipeline(), nil)
+	} else {
+		return runtime.NewPollerFromResumeToken[KustoPoolsClientMigrateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
+	}
+}
+
+// Migrate - Migrate data from a Kusto pool to another cluster.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2021-06-01-preview
+func (client *KustoPoolsClient) migrate(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, kustoPoolMigrateRequest KustoPoolMigrateRequest, options *KustoPoolsClientBeginMigrateOptions) (*http.Response, error) {
+	req, err := client.migrateCreateRequest(ctx, workspaceName, kustoPoolName, resourceGroupName, kustoPoolMigrateRequest, options)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return nil, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted) {
+		return nil, runtime.NewResponseError(resp)
+	}
+	return resp, nil
+}
+
+// migrateCreateRequest creates the Migrate request.
+func (client *KustoPoolsClient) migrateCreateRequest(ctx context.Context, workspaceName string, kustoPoolName string, resourceGroupName string, kustoPoolMigrateRequest KustoPoolMigrateRequest, options *KustoPoolsClientBeginMigrateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/kustoPools/{kustoPoolName}/migrate"
+	if workspaceName == "" {
+		return nil, errors.New("parameter workspaceName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{workspaceName}", url.PathEscape(workspaceName))
+	if kustoPoolName == "" {
+		return nil, errors.New("parameter kustoPoolName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{kustoPoolName}", url.PathEscape(kustoPoolName))
+	if client.subscriptionID == "" {
+		return nil, errors.New("parameter client.subscriptionID cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2021-06-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, kustoPoolMigrateRequest)
+}
+
 // BeginRemoveLanguageExtensions - Remove a list of language extensions that can run within KQL queries.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
