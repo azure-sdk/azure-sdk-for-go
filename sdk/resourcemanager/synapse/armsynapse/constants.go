@@ -11,7 +11,7 @@ package armsynapse
 
 const (
 	moduleName    = "armsynapse"
-	moduleVersion = "v0.7.1"
+	moduleVersion = "v0.8.0"
 )
 
 // ActualState - Actual state
@@ -943,6 +943,22 @@ func PossibleManagementOperationStateValues() []ManagementOperationState {
 	}
 }
 
+// MigrationClusterRole - The role of the cluster in the migration process.
+type MigrationClusterRole string
+
+const (
+	MigrationClusterRoleDestination MigrationClusterRole = "Destination"
+	MigrationClusterRoleSource      MigrationClusterRole = "Source"
+)
+
+// PossibleMigrationClusterRoleValues returns the possible values for the MigrationClusterRole const type.
+func PossibleMigrationClusterRoleValues() []MigrationClusterRole {
+	return []MigrationClusterRole{
+		MigrationClusterRoleDestination,
+		MigrationClusterRoleSource,
+	}
+}
+
 // NodeSize - The level of compute power that each node in the Big Data pool has.
 type NodeSize string
 
@@ -1483,6 +1499,7 @@ const (
 	StateCreating    State = "Creating"
 	StateDeleted     State = "Deleted"
 	StateDeleting    State = "Deleting"
+	StateMigrated    State = "Migrated"
 	StateRunning     State = "Running"
 	StateStarting    State = "Starting"
 	StateStopped     State = "Stopped"
@@ -1497,6 +1514,7 @@ func PossibleStateValues() []State {
 		StateCreating,
 		StateDeleted,
 		StateDeleting,
+		StateMigrated,
 		StateRunning,
 		StateStarting,
 		StateStopped,

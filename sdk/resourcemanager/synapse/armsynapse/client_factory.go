@@ -403,6 +403,11 @@ func (c *ClientFactory) NewKustoPoolPrincipalAssignmentsClient() *KustoPoolPrinc
 	return subClient
 }
 
+func (c *ClientFactory) NewKustoPoolDatabaseClient() *KustoPoolDatabaseClient {
+	subClient, _ := NewKustoPoolDatabaseClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewKustoPoolDatabasePrincipalAssignmentsClient() *KustoPoolDatabasePrincipalAssignmentsClient {
 	subClient, _ := NewKustoPoolDatabasePrincipalAssignmentsClient(c.subscriptionID, c.credential, c.options)
 	return subClient

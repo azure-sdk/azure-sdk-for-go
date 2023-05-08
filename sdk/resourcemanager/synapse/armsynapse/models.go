@@ -282,9 +282,6 @@ type BigDataPoolResourceProperties struct {
 	// Auto-scaling properties
 	AutoScale *AutoScaleProperties
 
-	// The cache size
-	CacheSize *int32
-
 	// List of custom libraries/packages associated with the spark pool.
 	CustomLibraries []*LibraryInfo
 
@@ -326,6 +323,9 @@ type BigDataPoolResourceProperties struct {
 
 	// The Apache Spark version.
 	SparkVersion *string
+
+	// READ-ONLY; The cache size
+	CacheSize *int32
 
 	// READ-ONLY; The time when the Big Data pool was created.
 	CreationDate *time.Time
@@ -840,6 +840,21 @@ type DatabaseCheckNameRequest struct {
 
 	// REQUIRED; The type of resource, for instance Microsoft.Synapse/workspaces/kustoPools/databases.
 	Type *Type
+}
+
+// DatabaseInviteFollowerRequest - The request to invite a follower to a database.
+type DatabaseInviteFollowerRequest struct {
+	// REQUIRED; The email of the invited user for which the follower invitation is generated.
+	InviteeEmail *string
+
+	// Table level sharing specifications
+	TableLevelSharingProperties *TableLevelSharingProperties
+}
+
+// DatabaseInviteFollowerResult - The result returned from a follower invitation generation request.
+type DatabaseInviteFollowerResult struct {
+	// The generated invitation token.
+	GeneratedInvitation *string
 }
 
 // DatabaseListResult - The list Kusto databases operation response.
@@ -2381,6 +2396,12 @@ type KustoPoolDataConnectionsClientListByDatabaseOptions struct {
 	// placeholder for future optional parameters
 }
 
+// KustoPoolDatabaseClientInviteFollowerOptions contains the optional parameters for the KustoPoolDatabaseClient.InviteFollower
+// method.
+type KustoPoolDatabaseClientInviteFollowerOptions struct {
+	// placeholder for future optional parameters
+}
+
 // KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolDatabasePrincipalAssignmentsClient.BeginCreateOrUpdate
 // method.
 type KustoPoolDatabasePrincipalAssignmentsClientBeginCreateOrUpdateOptions struct {
@@ -2449,6 +2470,12 @@ type KustoPoolDatabasesClientListByKustoPoolOptions struct {
 type KustoPoolListResult struct {
 	// The list of Kusto pools.
 	Value []*KustoPool
+}
+
+// KustoPoolMigrateRequest - A kusto pool migrate request.
+type KustoPoolMigrateRequest struct {
+	// REQUIRED; Resource ID of the destination cluster or kusto pool.
+	ClusterResourceID *string
 }
 
 // KustoPoolPrincipalAssignmentsClientBeginCreateOrUpdateOptions contains the optional parameters for the KustoPoolPrincipalAssignmentsClient.BeginCreateOrUpdate
@@ -2527,6 +2554,9 @@ type KustoPoolProperties struct {
 	// READ-ONLY; List of the Kusto Pool's language extensions.
 	LanguageExtensions *LanguageExtensionsList
 
+	// READ-ONLY; Properties of the peer cluster involved in a migration to/from this cluster.
+	MigrationCluster *MigrationClusterProperties
+
 	// READ-ONLY; The provisioned state of the resource.
 	ProvisioningState *ResourceProvisioningState
 
@@ -2590,6 +2620,12 @@ type KustoPoolsClientBeginDeleteOptions struct {
 // KustoPoolsClientBeginDetachFollowerDatabasesOptions contains the optional parameters for the KustoPoolsClient.BeginDetachFollowerDatabases
 // method.
 type KustoPoolsClientBeginDetachFollowerDatabasesOptions struct {
+	// Resumes the LRO from the provided token.
+	ResumeToken string
+}
+
+// KustoPoolsClientBeginMigrateOptions contains the optional parameters for the KustoPoolsClient.BeginMigrate method.
+type KustoPoolsClientBeginMigrateOptions struct {
 	// Resumes the LRO from the provided token.
 	ResumeToken string
 }
@@ -2698,14 +2734,14 @@ type LibraryInfo struct {
 	// Type of the library.
 	Type *string
 
-	// The last update time of the library.
-	UploadedTimestamp *time.Time
-
 	// READ-ONLY; Creator Id of the library/package.
 	CreatorID *string
 
 	// READ-ONLY; Provisioning status of the library/package.
 	ProvisioningStatus *string
+
+	// READ-ONLY; The last update time of the library.
+	UploadedTimestamp *time.Time
 }
 
 // LibraryListResponse - A list of Library resources.
@@ -3142,6 +3178,21 @@ type MetadataSyncConfigProperties struct {
 
 	// The Sync Interval in minutes.
 	SyncIntervalInMinutes *int32
+}
+
+// MigrationClusterProperties - Represents a properties of a cluster that is part of a migration.
+type MigrationClusterProperties struct {
+	// READ-ONLY; The public data ingestion URL of the cluster.
+	DataIngestionURI *string
+
+	// READ-ONLY; The resource ID of the cluster.
+	ID *string
+
+	// READ-ONLY; The role of the cluster in the migration process.
+	Role *MigrationClusterRole
+
+	// READ-ONLY; The public URL of the cluster.
+	URI *string
 }
 
 // Operation - A REST API operation
@@ -5241,6 +5292,9 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 	// READ-ONLY; The node communication Channel encryption mode
 	NodeCommunicationChannelEncryptionMode *string
 
+	// READ-ONLY
+	OSType *int32
+
 	// READ-ONLY; The version that the integration runtime is going to update to.
 	PushedVersion *string
 
@@ -5249,6 +5303,9 @@ type SelfHostedIntegrationRuntimeStatusTypeProperties struct {
 
 	// READ-ONLY; The URLs for the services used in integration runtime backend service.
 	ServiceUrls []*string
+
+	// READ-ONLY
+	TargetFramework *int32
 
 	// READ-ONLY; The task queue id of the integration runtime.
 	TaskQueueID *string
@@ -5587,7 +5644,7 @@ type ServerVulnerabilityAssessmentProperties struct {
 	StorageContainerPath *string
 
 	// The recurring scans settings
-	RecurringScans *VulnerabilityAssessmentRecurringScansProperties
+	RecurringScans *VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated
 
 	// Specifies the identifier key of the storage account for vulnerability assessment scan results. If 'StorageContainerSasKey'
 	// isn't specified, storageAccountAccessKey is required.
@@ -5979,6 +6036,12 @@ type TableLevelSharingProperties struct {
 	// List of external tables to include in the follower database
 	ExternalTablesToInclude []*string
 
+	// List of functions to exclude from the follower database
+	FunctionsToExclude []*string
+
+	// List of functions to include in the follower database
+	FunctionsToInclude []*string
+
 	// List of materialized views exclude from the follower database
 	MaterializedViewsToExclude []*string
 
@@ -6111,6 +6174,18 @@ type VirtualNetworkProfile struct {
 
 // VulnerabilityAssessmentRecurringScansProperties - Properties of a Vulnerability Assessment recurring scans.
 type VulnerabilityAssessmentRecurringScansProperties struct {
+	// Specifies that the schedule scan notification will be is sent to the subscription administrators.
+	EmailSubscriptionAdmins *bool
+
+	// Specifies an array of e-mail addresses to which the scan notification is sent.
+	Emails []*string
+
+	// Recurring scans state.
+	IsEnabled *bool
+}
+
+// VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated - Properties of a Vulnerability Assessment recurring scans.
+type VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated struct {
 	// Specifies that the schedule scan notification will be is sent to the subscription administrators.
 	EmailSubscriptionAdmins *bool
 
@@ -6547,9 +6622,6 @@ type WorkspaceProperties struct {
 	// Enable or Disable AzureADOnlyAuthentication on All Workspace subresource
 	AzureADOnlyAuthentication *bool
 
-	// Connectivity endpoints
-	ConnectivityEndpoints map[string]*string
-
 	// Initial workspace AAD admin properties for a CSP subscription
 	CspWorkspaceAdminProperties *CspWorkspaceAdminProperties
 
@@ -6599,8 +6671,11 @@ type WorkspaceProperties struct {
 	// READ-ONLY; The ADLA resource ID.
 	AdlaResourceID *string
 
+	// READ-ONLY; Connectivity endpoints
+	ConnectivityEndpoints map[string]*string
+
 	// READ-ONLY; Workspace level configs and feature flags
-	ExtraProperties map[string]any
+	ExtraProperties any
 
 	// READ-ONLY; Resource provisioning state
 	ProvisioningState *string
