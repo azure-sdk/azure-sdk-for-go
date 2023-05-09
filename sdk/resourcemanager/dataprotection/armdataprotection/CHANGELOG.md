@@ -1,5 +1,57 @@
 # Release History
 
+## 2.2.0-beta.1 (2023-05-09)
+### Features Added
+
+- New enum type `CrossRegionRestoreState` with values `CrossRegionRestoreStateDisabled`, `CrossRegionRestoreStateEnabled`
+- New enum type `SecureScoreLevel` with values `SecureScoreLevelAdequate`, `SecureScoreLevelMaximum`, `SecureScoreLevelMinimum`, `SecureScoreLevelNone`, `SecureScoreLevelNotSupported`
+- New function `*BackupInstancesClient.BeginTriggerCrossRegionRestore(context.Context, string, string, CrossRegionRestoreRequestObject, *BackupInstancesClientBeginTriggerCrossRegionRestoreOptions) (*runtime.Poller[BackupInstancesClientTriggerCrossRegionRestoreResponse], error)`
+- New function `*BackupInstancesClient.BeginValidateCrossRegionRestore(context.Context, string, string, ValidateCrossRegionRestoreRequestObject, *BackupInstancesClientBeginValidateCrossRegionRestoreOptions) (*runtime.Poller[BackupInstancesClientValidateCrossRegionRestoreResponse], error)`
+- New function `NewBackupInstancesExtensionRoutingClient(azcore.TokenCredential, *arm.ClientOptions) (*BackupInstancesExtensionRoutingClient, error)`
+- New function `*BackupInstancesExtensionRoutingClient.NewListPager(string, *BackupInstancesExtensionRoutingClientListOptions) *runtime.Pager[BackupInstancesExtensionRoutingClientListResponse]`
+- New function `*ClientFactory.NewBackupInstancesExtensionRoutingClient() *BackupInstancesExtensionRoutingClient`
+- New function `*ClientFactory.NewCrossRegionRestoreJobClient() *CrossRegionRestoreJobClient`
+- New function `*ClientFactory.NewCrossRegionRestoreJobsClient() *CrossRegionRestoreJobsClient`
+- New function `*ClientFactory.NewDppResourceGuardProxyClient() *DppResourceGuardProxyClient`
+- New function `*ClientFactory.NewSecondaryRPsClient() *SecondaryRPsClient`
+- New function `NewCrossRegionRestoreJobClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CrossRegionRestoreJobClient, error)`
+- New function `*CrossRegionRestoreJobClient.Get(context.Context, string, string, CrossRegionRestoreJobRequest, *CrossRegionRestoreJobClientGetOptions) (CrossRegionRestoreJobClientGetResponse, error)`
+- New function `NewCrossRegionRestoreJobsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*CrossRegionRestoreJobsClient, error)`
+- New function `*CrossRegionRestoreJobsClient.NewListPager(string, string, CrossRegionRestoreJobsRequest, *CrossRegionRestoreJobsClientListOptions) *runtime.Pager[CrossRegionRestoreJobsClientListResponse]`
+- New function `NewDppResourceGuardProxyClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DppResourceGuardProxyClient, error)`
+- New function `*DppResourceGuardProxyClient.CreateOrUpdate(context.Context, string, string, string, ResourceGuardProxyBaseResource, *DppResourceGuardProxyClientCreateOrUpdateOptions) (DppResourceGuardProxyClientCreateOrUpdateResponse, error)`
+- New function `*DppResourceGuardProxyClient.Delete(context.Context, string, string, string, *DppResourceGuardProxyClientDeleteOptions) (DppResourceGuardProxyClientDeleteResponse, error)`
+- New function `*DppResourceGuardProxyClient.Get(context.Context, string, string, string, *DppResourceGuardProxyClientGetOptions) (DppResourceGuardProxyClientGetResponse, error)`
+- New function `*DppResourceGuardProxyClient.NewListPager(string, string, *DppResourceGuardProxyClientListOptions) *runtime.Pager[DppResourceGuardProxyClientListResponse]`
+- New function `*DppResourceGuardProxyClient.UnlockDelete(context.Context, string, string, string, UnlockDeleteRequest, *DppResourceGuardProxyClientUnlockDeleteOptions) (DppResourceGuardProxyClientUnlockDeleteResponse, error)`
+- New function `NewSecondaryRPsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SecondaryRPsClient, error)`
+- New function `*SecondaryRPsClient.NewFetchPager(string, string, FetchSecondaryRPsRequestParameters, *SecondaryRPsClientFetchOptions) *runtime.Pager[SecondaryRPsClientFetchResponse]`
+- New struct `CrossRegionRestoreDetails`
+- New struct `CrossRegionRestoreJobRequest`
+- New struct `CrossRegionRestoreJobsRequest`
+- New struct `CrossRegionRestoreRequestObject`
+- New struct `CrossRegionRestoreSettings`
+- New struct `FetchSecondaryRPsRequestParameters`
+- New struct `IdentityDetails`
+- New struct `ResourceGuardOperationDetail`
+- New struct `ResourceGuardProxyBase`
+- New struct `ResourceGuardProxyBaseResource`
+- New struct `ResourceGuardProxyBaseResourceList`
+- New struct `UnlockDeleteRequest`
+- New struct `UnlockDeleteResponse`
+- New struct `UserAssignedIdentityDetails`
+- New struct `ValidateCrossRegionRestoreRequestObject`
+- New field `IdentityDetails` in struct `AzureBackupRecoveryPointBasedRestoreRequest`
+- New field `IdentityDetails` in struct `AzureBackupRecoveryTimeBasedRestoreRequest`
+- New field `IdentityDetails` in struct `AzureBackupRestoreRequest`
+- New field `IdentityDetails` in struct `AzureBackupRestoreWithRehydrationRequest`
+- New field `IdentityDetails` in struct `BackupInstance`
+- New field `SecureScore` in struct `BackupVault`
+- New field `IdentityDetails` in struct `DeletedBackupInstance`
+- New field `UserAssignedIdentities` in struct `DppIdentityDetails`
+- New field `CrossRegionRestoreSettings` in struct `FeatureSettings`
+
+
 ## 2.1.1 (2023-04-14)
 ### Bug Fixes
 
