@@ -21,7 +21,6 @@ import (
 func (a AgentUpdatePatchProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "maintenanceWindowTimeZone", a.MaintenanceWindowTimeZone)
-	populate(objectMap, "maintenanceWindows", a.MaintenanceWindows)
 	populate(objectMap, "type", a.Type)
 	populate(objectMap, "useSessionHostLocalTime", a.UseSessionHostLocalTime)
 	return json.Marshal(objectMap)
@@ -38,9 +37,6 @@ func (a *AgentUpdatePatchProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "maintenanceWindowTimeZone":
 			err = unpopulate(val, "MaintenanceWindowTimeZone", &a.MaintenanceWindowTimeZone)
-			delete(rawMsg, key)
-		case "maintenanceWindows":
-			err = unpopulate(val, "MaintenanceWindows", &a.MaintenanceWindows)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &a.Type)
@@ -60,7 +56,6 @@ func (a *AgentUpdatePatchProperties) UnmarshalJSON(data []byte) error {
 func (a AgentUpdateProperties) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "maintenanceWindowTimeZone", a.MaintenanceWindowTimeZone)
-	populate(objectMap, "maintenanceWindows", a.MaintenanceWindows)
 	populate(objectMap, "type", a.Type)
 	populate(objectMap, "useSessionHostLocalTime", a.UseSessionHostLocalTime)
 	return json.Marshal(objectMap)
@@ -77,9 +72,6 @@ func (a *AgentUpdateProperties) UnmarshalJSON(data []byte) error {
 		switch key {
 		case "maintenanceWindowTimeZone":
 			err = unpopulate(val, "MaintenanceWindowTimeZone", &a.MaintenanceWindowTimeZone)
-			delete(rawMsg, key)
-		case "maintenanceWindows":
-			err = unpopulate(val, "MaintenanceWindows", &a.MaintenanceWindows)
 			delete(rawMsg, key)
 		case "type":
 			err = unpopulate(val, "Type", &a.Type)
@@ -1809,6 +1801,41 @@ func (p *Plan) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type ProxyResource.
+func (p ProxyResource) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", p.ID)
+	populate(objectMap, "name", p.Name)
+	populate(objectMap, "type", p.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ProxyResource.
+func (p *ProxyResource) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", p, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &p.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &p.Name)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &p.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", p, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type RegistrationInfo.
 func (r RegistrationInfo) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -2456,6 +2483,234 @@ func (s *ScalingPlanPatchProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "timeZone":
 			err = unpopulate(val, "TimeZone", &s.TimeZone)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ScalingPlanPersonalSchedule.
+func (s ScalingPlanPersonalSchedule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "id", s.ID)
+	populate(objectMap, "name", s.Name)
+	populate(objectMap, "properties", s.Properties)
+	populate(objectMap, "systemData", s.SystemData)
+	populate(objectMap, "type", s.Type)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ScalingPlanPersonalSchedule.
+func (s *ScalingPlanPersonalSchedule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "id":
+			err = unpopulate(val, "ID", &s.ID)
+			delete(rawMsg, key)
+		case "name":
+			err = unpopulate(val, "Name", &s.Name)
+			delete(rawMsg, key)
+		case "properties":
+			err = unpopulate(val, "Properties", &s.Properties)
+			delete(rawMsg, key)
+		case "systemData":
+			err = unpopulate(val, "SystemData", &s.SystemData)
+			delete(rawMsg, key)
+		case "type":
+			err = unpopulate(val, "Type", &s.Type)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ScalingPlanPersonalScheduleList.
+func (s ScalingPlanPersonalScheduleList) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "nextLink", s.NextLink)
+	populate(objectMap, "value", s.Value)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ScalingPlanPersonalScheduleList.
+func (s *ScalingPlanPersonalScheduleList) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "nextLink":
+			err = unpopulate(val, "NextLink", &s.NextLink)
+			delete(rawMsg, key)
+		case "value":
+			err = unpopulate(val, "Value", &s.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ScalingPlanPersonalSchedulePatch.
+func (s ScalingPlanPersonalSchedulePatch) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "properties", s.Properties)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ScalingPlanPersonalSchedulePatch.
+func (s *ScalingPlanPersonalSchedulePatch) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "properties":
+			err = unpopulate(val, "Properties", &s.Properties)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type ScalingPlanPersonalScheduleProperties.
+func (s ScalingPlanPersonalScheduleProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "daysOfWeek", s.DaysOfWeek)
+	populate(objectMap, "offPeakActionOnDisconnect", s.OffPeakActionOnDisconnect)
+	populate(objectMap, "offPeakActionOnLogoff", s.OffPeakActionOnLogoff)
+	populate(objectMap, "offPeakMinutesToWaitOnDisconnect", s.OffPeakMinutesToWaitOnDisconnect)
+	populate(objectMap, "offPeakMinutesToWaitOnLogoff", s.OffPeakMinutesToWaitOnLogoff)
+	populate(objectMap, "offPeakStartTime", s.OffPeakStartTime)
+	populate(objectMap, "offPeakStartVMOnConnect", s.OffPeakStartVMOnConnect)
+	populate(objectMap, "peakActionOnDisconnect", s.PeakActionOnDisconnect)
+	populate(objectMap, "peakActionOnLogoff", s.PeakActionOnLogoff)
+	populate(objectMap, "peakMinutesToWaitOnDisconnect", s.PeakMinutesToWaitOnDisconnect)
+	populate(objectMap, "peakMinutesToWaitOnLogoff", s.PeakMinutesToWaitOnLogoff)
+	populate(objectMap, "peakStartTime", s.PeakStartTime)
+	populate(objectMap, "peakStartVMOnConnect", s.PeakStartVMOnConnect)
+	populate(objectMap, "rampDownActionOnDisconnect", s.RampDownActionOnDisconnect)
+	populate(objectMap, "rampDownActionOnLogoff", s.RampDownActionOnLogoff)
+	populate(objectMap, "rampDownMinutesToWaitOnDisconnect", s.RampDownMinutesToWaitOnDisconnect)
+	populate(objectMap, "rampDownMinutesToWaitOnLogoff", s.RampDownMinutesToWaitOnLogoff)
+	populate(objectMap, "rampDownStartTime", s.RampDownStartTime)
+	populate(objectMap, "rampDownStartVMOnConnect", s.RampDownStartVMOnConnect)
+	populate(objectMap, "rampUpActionOnDisconnect", s.RampUpActionOnDisconnect)
+	populate(objectMap, "rampUpActionOnLogoff", s.RampUpActionOnLogoff)
+	populate(objectMap, "rampUpAutoStartHosts", s.RampUpAutoStartHosts)
+	populate(objectMap, "rampUpMinutesToWaitOnDisconnect", s.RampUpMinutesToWaitOnDisconnect)
+	populate(objectMap, "rampUpMinutesToWaitOnLogoff", s.RampUpMinutesToWaitOnLogoff)
+	populate(objectMap, "rampUpStartTime", s.RampUpStartTime)
+	populate(objectMap, "rampUpStartVMOnConnect", s.RampUpStartVMOnConnect)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type ScalingPlanPersonalScheduleProperties.
+func (s *ScalingPlanPersonalScheduleProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "daysOfWeek":
+			err = unpopulate(val, "DaysOfWeek", &s.DaysOfWeek)
+			delete(rawMsg, key)
+		case "offPeakActionOnDisconnect":
+			err = unpopulate(val, "OffPeakActionOnDisconnect", &s.OffPeakActionOnDisconnect)
+			delete(rawMsg, key)
+		case "offPeakActionOnLogoff":
+			err = unpopulate(val, "OffPeakActionOnLogoff", &s.OffPeakActionOnLogoff)
+			delete(rawMsg, key)
+		case "offPeakMinutesToWaitOnDisconnect":
+			err = unpopulate(val, "OffPeakMinutesToWaitOnDisconnect", &s.OffPeakMinutesToWaitOnDisconnect)
+			delete(rawMsg, key)
+		case "offPeakMinutesToWaitOnLogoff":
+			err = unpopulate(val, "OffPeakMinutesToWaitOnLogoff", &s.OffPeakMinutesToWaitOnLogoff)
+			delete(rawMsg, key)
+		case "offPeakStartTime":
+			err = unpopulate(val, "OffPeakStartTime", &s.OffPeakStartTime)
+			delete(rawMsg, key)
+		case "offPeakStartVMOnConnect":
+			err = unpopulate(val, "OffPeakStartVMOnConnect", &s.OffPeakStartVMOnConnect)
+			delete(rawMsg, key)
+		case "peakActionOnDisconnect":
+			err = unpopulate(val, "PeakActionOnDisconnect", &s.PeakActionOnDisconnect)
+			delete(rawMsg, key)
+		case "peakActionOnLogoff":
+			err = unpopulate(val, "PeakActionOnLogoff", &s.PeakActionOnLogoff)
+			delete(rawMsg, key)
+		case "peakMinutesToWaitOnDisconnect":
+			err = unpopulate(val, "PeakMinutesToWaitOnDisconnect", &s.PeakMinutesToWaitOnDisconnect)
+			delete(rawMsg, key)
+		case "peakMinutesToWaitOnLogoff":
+			err = unpopulate(val, "PeakMinutesToWaitOnLogoff", &s.PeakMinutesToWaitOnLogoff)
+			delete(rawMsg, key)
+		case "peakStartTime":
+			err = unpopulate(val, "PeakStartTime", &s.PeakStartTime)
+			delete(rawMsg, key)
+		case "peakStartVMOnConnect":
+			err = unpopulate(val, "PeakStartVMOnConnect", &s.PeakStartVMOnConnect)
+			delete(rawMsg, key)
+		case "rampDownActionOnDisconnect":
+			err = unpopulate(val, "RampDownActionOnDisconnect", &s.RampDownActionOnDisconnect)
+			delete(rawMsg, key)
+		case "rampDownActionOnLogoff":
+			err = unpopulate(val, "RampDownActionOnLogoff", &s.RampDownActionOnLogoff)
+			delete(rawMsg, key)
+		case "rampDownMinutesToWaitOnDisconnect":
+			err = unpopulate(val, "RampDownMinutesToWaitOnDisconnect", &s.RampDownMinutesToWaitOnDisconnect)
+			delete(rawMsg, key)
+		case "rampDownMinutesToWaitOnLogoff":
+			err = unpopulate(val, "RampDownMinutesToWaitOnLogoff", &s.RampDownMinutesToWaitOnLogoff)
+			delete(rawMsg, key)
+		case "rampDownStartTime":
+			err = unpopulate(val, "RampDownStartTime", &s.RampDownStartTime)
+			delete(rawMsg, key)
+		case "rampDownStartVMOnConnect":
+			err = unpopulate(val, "RampDownStartVMOnConnect", &s.RampDownStartVMOnConnect)
+			delete(rawMsg, key)
+		case "rampUpActionOnDisconnect":
+			err = unpopulate(val, "RampUpActionOnDisconnect", &s.RampUpActionOnDisconnect)
+			delete(rawMsg, key)
+		case "rampUpActionOnLogoff":
+			err = unpopulate(val, "RampUpActionOnLogoff", &s.RampUpActionOnLogoff)
+			delete(rawMsg, key)
+		case "rampUpAutoStartHosts":
+			err = unpopulate(val, "RampUpAutoStartHosts", &s.RampUpAutoStartHosts)
+			delete(rawMsg, key)
+		case "rampUpMinutesToWaitOnDisconnect":
+			err = unpopulate(val, "RampUpMinutesToWaitOnDisconnect", &s.RampUpMinutesToWaitOnDisconnect)
+			delete(rawMsg, key)
+		case "rampUpMinutesToWaitOnLogoff":
+			err = unpopulate(val, "RampUpMinutesToWaitOnLogoff", &s.RampUpMinutesToWaitOnLogoff)
+			delete(rawMsg, key)
+		case "rampUpStartTime":
+			err = unpopulate(val, "RampUpStartTime", &s.RampUpStartTime)
+			delete(rawMsg, key)
+		case "rampUpStartVMOnConnect":
+			err = unpopulate(val, "RampUpStartVMOnConnect", &s.RampUpStartVMOnConnect)
 			delete(rawMsg, key)
 		}
 		if err != nil {

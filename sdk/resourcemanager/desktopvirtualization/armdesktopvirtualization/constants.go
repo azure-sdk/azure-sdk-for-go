@@ -11,7 +11,7 @@ package armdesktopvirtualization
 
 const (
 	moduleName    = "armdesktopvirtualization"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v3.0.0-beta.1"
 )
 
 // ApplicationGroupType - Resource Type of ApplicationGroup.
@@ -357,6 +357,10 @@ func PossibleSSOSecretTypeValues() []SSOSecretType {
 type ScalingHostPoolType string
 
 const (
+	// ScalingHostPoolTypePersonal - Users will be assigned a SessionHost either by administrators (PersonalDesktopAssignmentType
+	// = Direct) or upon connecting to the pool (PersonalDesktopAssignmentType = Automatic). They will always be redirected to
+	// their assigned SessionHost.
+	ScalingHostPoolTypePersonal ScalingHostPoolType = "Personal"
 	// ScalingHostPoolTypePooled - Users get a new (random) SessionHost every time it connects to the HostPool.
 	ScalingHostPoolTypePooled ScalingHostPoolType = "Pooled"
 )
@@ -364,6 +368,7 @@ const (
 // PossibleScalingHostPoolTypeValues returns the possible values for the ScalingHostPoolType const type.
 func PossibleScalingHostPoolTypeValues() []ScalingHostPoolType {
 	return []ScalingHostPoolType{
+		ScalingHostPoolTypePersonal,
 		ScalingHostPoolTypePooled,
 	}
 }
@@ -390,6 +395,24 @@ func PossibleScalingScheduleDaysOfWeekItemValues() []ScalingScheduleDaysOfWeekIt
 		ScalingScheduleDaysOfWeekItemThursday,
 		ScalingScheduleDaysOfWeekItemTuesday,
 		ScalingScheduleDaysOfWeekItemWednesday,
+	}
+}
+
+// SessionHandlingOperation - Action to be taken after a user disconnect during the ramp up period.
+type SessionHandlingOperation string
+
+const (
+	SessionHandlingOperationDeallocate SessionHandlingOperation = "Deallocate"
+	SessionHandlingOperationHibernate  SessionHandlingOperation = "Hibernate"
+	SessionHandlingOperationNone       SessionHandlingOperation = "None"
+)
+
+// PossibleSessionHandlingOperationValues returns the possible values for the SessionHandlingOperation const type.
+func PossibleSessionHandlingOperationValues() []SessionHandlingOperation {
+	return []SessionHandlingOperation{
+		SessionHandlingOperationDeallocate,
+		SessionHandlingOperationHibernate,
+		SessionHandlingOperationNone,
 	}
 }
 
@@ -449,6 +472,46 @@ func PossibleSessionStateValues() []SessionState {
 		SessionStatePending,
 		SessionStateUnknown,
 		SessionStateUserProfileDiskMounted,
+	}
+}
+
+// SetStartVMOnConnect - The desired configuration of Start VM On Connect for the hostpool during the ramp up phase. If this
+// is disabled, session hosts must be turned on using rampUpAutoStartHosts or by turning them on
+// manually.
+type SetStartVMOnConnect string
+
+const (
+	SetStartVMOnConnectDisable SetStartVMOnConnect = "Disable"
+	SetStartVMOnConnectEnable  SetStartVMOnConnect = "Enable"
+)
+
+// PossibleSetStartVMOnConnectValues returns the possible values for the SetStartVMOnConnect const type.
+func PossibleSetStartVMOnConnectValues() []SetStartVMOnConnect {
+	return []SetStartVMOnConnect{
+		SetStartVMOnConnectDisable,
+		SetStartVMOnConnectEnable,
+	}
+}
+
+// StartupBehavior - The desired startup behavior during the ramp up period for personal vms in the hostpool.
+type StartupBehavior string
+
+const (
+	// StartupBehaviorAll - All personal session hosts in the hostpool will be started during ramp up.
+	StartupBehaviorAll StartupBehavior = "All"
+	// StartupBehaviorNone - Session hosts will not be started by the service. This setting depends on Start VM on Connect to
+	// be enabled to start the session hosts.
+	StartupBehaviorNone StartupBehavior = "None"
+	// StartupBehaviorWithAssignedUser - Session hosts with an assigned user will be started during Ramp Up
+	StartupBehaviorWithAssignedUser StartupBehavior = "WithAssignedUser"
+)
+
+// PossibleStartupBehaviorValues returns the possible values for the StartupBehavior const type.
+func PossibleStartupBehaviorValues() []StartupBehavior {
+	return []StartupBehavior{
+		StartupBehaviorAll,
+		StartupBehaviorNone,
+		StartupBehaviorWithAssignedUser,
 	}
 }
 

@@ -1,5 +1,31 @@
 # Release History
 
+## 3.0.0-beta.1 (2023-05-09)
+### Breaking Changes
+
+- Field `MaintenanceWindows` of struct `AgentUpdatePatchProperties` has been removed
+- Field `MaintenanceWindows` of struct `AgentUpdateProperties` has been removed
+
+### Features Added
+
+- New value `ScalingHostPoolTypePersonal` added to enum type `ScalingHostPoolType`
+- New enum type `SessionHandlingOperation` with values `SessionHandlingOperationDeallocate`, `SessionHandlingOperationHibernate`, `SessionHandlingOperationNone`
+- New enum type `SetStartVMOnConnect` with values `SetStartVMOnConnectDisable`, `SetStartVMOnConnectEnable`
+- New enum type `StartupBehavior` with values `StartupBehaviorAll`, `StartupBehaviorNone`, `StartupBehaviorWithAssignedUser`
+- New function `*ClientFactory.NewScalingPlanPersonalSchedulesClient() *ScalingPlanPersonalSchedulesClient`
+- New function `NewScalingPlanPersonalSchedulesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ScalingPlanPersonalSchedulesClient, error)`
+- New function `*ScalingPlanPersonalSchedulesClient.Create(context.Context, string, string, string, ScalingPlanPersonalSchedule, *ScalingPlanPersonalSchedulesClientCreateOptions) (ScalingPlanPersonalSchedulesClientCreateResponse, error)`
+- New function `*ScalingPlanPersonalSchedulesClient.Delete(context.Context, string, string, string, *ScalingPlanPersonalSchedulesClientDeleteOptions) (ScalingPlanPersonalSchedulesClientDeleteResponse, error)`
+- New function `*ScalingPlanPersonalSchedulesClient.Get(context.Context, string, string, string, *ScalingPlanPersonalSchedulesClientGetOptions) (ScalingPlanPersonalSchedulesClientGetResponse, error)`
+- New function `*ScalingPlanPersonalSchedulesClient.NewListPager(string, string, *ScalingPlanPersonalSchedulesClientListOptions) *runtime.Pager[ScalingPlanPersonalSchedulesClientListResponse]`
+- New function `*ScalingPlanPersonalSchedulesClient.Update(context.Context, string, string, string, *ScalingPlanPersonalSchedulesClientUpdateOptions) (ScalingPlanPersonalSchedulesClientUpdateResponse, error)`
+- New struct `ProxyResource`
+- New struct `ScalingPlanPersonalSchedule`
+- New struct `ScalingPlanPersonalScheduleList`
+- New struct `ScalingPlanPersonalSchedulePatch`
+- New struct `ScalingPlanPersonalScheduleProperties`
+
+
 ## 2.0.0 (2023-03-24)
 ### Breaking Changes
 

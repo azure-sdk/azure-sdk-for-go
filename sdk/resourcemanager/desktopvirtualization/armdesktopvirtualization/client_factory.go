@@ -58,6 +58,11 @@ func (c *ClientFactory) NewScalingPlanPooledSchedulesClient() *ScalingPlanPooled
 	return subClient
 }
 
+func (c *ClientFactory) NewScalingPlanPersonalSchedulesClient() *ScalingPlanPersonalSchedulesClient {
+	subClient, _ := NewScalingPlanPersonalSchedulesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewApplicationGroupsClient() *ApplicationGroupsClient {
 	subClient, _ := NewApplicationGroupsClient(c.subscriptionID, c.credential, c.options)
 	return subClient

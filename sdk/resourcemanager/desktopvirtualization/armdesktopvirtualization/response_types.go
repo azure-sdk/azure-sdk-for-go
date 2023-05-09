@@ -149,6 +149,31 @@ type OperationsClientListResponse struct {
 	ResourceProviderOperationList
 }
 
+// ScalingPlanPersonalSchedulesClientCreateResponse contains the response from method ScalingPlanPersonalSchedulesClient.Create.
+type ScalingPlanPersonalSchedulesClientCreateResponse struct {
+	ScalingPlanPersonalSchedule
+}
+
+// ScalingPlanPersonalSchedulesClientDeleteResponse contains the response from method ScalingPlanPersonalSchedulesClient.Delete.
+type ScalingPlanPersonalSchedulesClientDeleteResponse struct {
+	// placeholder for future response values
+}
+
+// ScalingPlanPersonalSchedulesClientGetResponse contains the response from method ScalingPlanPersonalSchedulesClient.Get.
+type ScalingPlanPersonalSchedulesClientGetResponse struct {
+	ScalingPlanPersonalSchedule
+}
+
+// ScalingPlanPersonalSchedulesClientListResponse contains the response from method ScalingPlanPersonalSchedulesClient.NewListPager.
+type ScalingPlanPersonalSchedulesClientListResponse struct {
+	ScalingPlanPersonalScheduleList
+}
+
+// ScalingPlanPersonalSchedulesClientUpdateResponse contains the response from method ScalingPlanPersonalSchedulesClient.Update.
+type ScalingPlanPersonalSchedulesClientUpdateResponse struct {
+	ScalingPlanPersonalSchedule
+}
+
 // ScalingPlanPooledSchedulesClientCreateResponse contains the response from method ScalingPlanPooledSchedulesClient.Create.
 type ScalingPlanPooledSchedulesClientCreateResponse struct {
 	ScalingPlanPooledSchedule
