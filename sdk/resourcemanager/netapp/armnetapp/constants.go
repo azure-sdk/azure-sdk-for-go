@@ -11,7 +11,7 @@ package armnetapp
 
 const (
 	moduleName    = "armnetapp"
-	moduleVersion = "v4.0.0"
+	moduleVersion = "v4.0.1"
 )
 
 // ActiveDirectoryStatus - Status of the Active Directory
