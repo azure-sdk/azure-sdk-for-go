@@ -48,7 +48,7 @@ func NewMSIXPackagesClient(subscriptionID string, credential azcore.TokenCredent
 // CreateOrUpdate - Create or update a MSIX package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixPackageFullName - The version specific package full name of the MSIX package within specified hostpool
@@ -94,7 +94,7 @@ func (client *MSIXPackagesClient) createOrUpdateCreateRequest(ctx context.Contex
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, msixPackage)
@@ -112,7 +112,7 @@ func (client *MSIXPackagesClient) createOrUpdateHandleResponse(resp *http.Respon
 // Delete - Remove an MSIX Package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixPackageFullName - The version specific package full name of the MSIX package within specified hostpool
@@ -156,7 +156,7 @@ func (client *MSIXPackagesClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -165,7 +165,7 @@ func (client *MSIXPackagesClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get a msixpackage.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixPackageFullName - The version specific package full name of the MSIX package within specified hostpool
@@ -209,7 +209,7 @@ func (client *MSIXPackagesClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -226,7 +226,7 @@ func (client *MSIXPackagesClient) getHandleResponse(resp *http.Response) (MSIXPa
 
 // NewListPager - List MSIX packages in hostpool.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - options - MSIXPackagesClientListOptions contains the optional parameters for the MSIXPackagesClient.NewListPager method.
@@ -278,7 +278,7 @@ func (client *MSIXPackagesClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	if options != nil && options.PageSize != nil {
 		reqQP.Set("pageSize", strconv.FormatInt(int64(*options.PageSize), 10))
 	}
@@ -305,7 +305,7 @@ func (client *MSIXPackagesClient) listHandleResponse(resp *http.Response) (MSIXP
 // Update - Update an MSIX Package.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - msixPackageFullName - The version specific package full name of the MSIX package within specified hostpool
@@ -349,7 +349,7 @@ func (client *MSIXPackagesClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.MsixPackage != nil {

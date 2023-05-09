@@ -40,7 +40,7 @@ func NewOperationsClient(credential azcore.TokenCredential, options *arm.ClientO
 
 // NewListPager - List all of the available operations the Desktop Virtualization resource provider supports.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - options - OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 func (client *OperationsClient) NewListPager(options *OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse] {
 	return runtime.NewPager(runtime.PagingHandler[OperationsClientListResponse]{
@@ -78,7 +78,7 @@ func (client *OperationsClient) listCreateRequest(ctx context.Context, options *
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

@@ -48,7 +48,7 @@ func NewWorkspacesClient(subscriptionID string, credential azcore.TokenCredentia
 // CreateOrUpdate - Create or update a workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace
 //   - workspace - Object containing Workspace definitions.
@@ -89,7 +89,7 @@ func (client *WorkspacesClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, workspace)
@@ -107,7 +107,7 @@ func (client *WorkspacesClient) createOrUpdateHandleResponse(resp *http.Response
 // Delete - Remove a workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace
 //   - options - WorkspacesClientDeleteOptions contains the optional parameters for the WorkspacesClient.Delete method.
@@ -146,7 +146,7 @@ func (client *WorkspacesClient) deleteCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -155,7 +155,7 @@ func (client *WorkspacesClient) deleteCreateRequest(ctx context.Context, resourc
 // Get - Get a workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace
 //   - options - WorkspacesClientGetOptions contains the optional parameters for the WorkspacesClient.Get method.
@@ -194,7 +194,7 @@ func (client *WorkspacesClient) getCreateRequest(ctx context.Context, resourceGr
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -211,7 +211,7 @@ func (client *WorkspacesClient) getHandleResponse(resp *http.Response) (Workspac
 
 // NewListByResourceGroupPager - List workspaces.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - WorkspacesClientListByResourceGroupOptions contains the optional parameters for the WorkspacesClient.NewListByResourceGroupPager
 //     method.
@@ -259,7 +259,7 @@ func (client *WorkspacesClient) listByResourceGroupCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	if options != nil && options.PageSize != nil {
 		reqQP.Set("pageSize", strconv.FormatInt(int64(*options.PageSize), 10))
 	}
@@ -285,7 +285,7 @@ func (client *WorkspacesClient) listByResourceGroupHandleResponse(resp *http.Res
 
 // NewListBySubscriptionPager - List workspaces in subscription.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - options - WorkspacesClientListBySubscriptionOptions contains the optional parameters for the WorkspacesClient.NewListBySubscriptionPager
 //     method.
 func (client *WorkspacesClient) NewListBySubscriptionPager(options *WorkspacesClientListBySubscriptionOptions) *runtime.Pager[WorkspacesClientListBySubscriptionResponse] {
@@ -328,7 +328,7 @@ func (client *WorkspacesClient) listBySubscriptionCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -346,7 +346,7 @@ func (client *WorkspacesClient) listBySubscriptionHandleResponse(resp *http.Resp
 // Update - Update a workspace.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - workspaceName - The name of the workspace
 //   - options - WorkspacesClientUpdateOptions contains the optional parameters for the WorkspacesClient.Update method.
@@ -385,7 +385,7 @@ func (client *WorkspacesClient) updateCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.Workspace != nil {

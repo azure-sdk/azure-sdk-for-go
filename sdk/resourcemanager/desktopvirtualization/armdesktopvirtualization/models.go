@@ -15,153 +15,153 @@ import "time"
 type AgentUpdatePatchProperties struct {
 	// Time zone for maintenance as defined in https://docs.microsoft.com/en-us/dotnet/api/system.timezoneinfo.findsystemtimezonebyid?view=net-5.0.
 	// Must be set if useLocalTime is true.
-	MaintenanceWindowTimeZone *string `json:"maintenanceWindowTimeZone,omitempty"`
+	MaintenanceWindowTimeZone *string
 
 	// List of maintenance windows. Maintenance windows are 2 hours long.
-	MaintenanceWindows []*MaintenanceWindowPatchProperties `json:"maintenanceWindows,omitempty"`
+	MaintenanceWindows []*MaintenanceWindowPatchProperties
 
 	// The type of maintenance for session host components.
-	Type *SessionHostComponentUpdateType `json:"type,omitempty"`
+	Type *SessionHostComponentUpdateType
 
 	// Whether to use localTime of the virtual machine.
-	UseSessionHostLocalTime *bool `json:"useSessionHostLocalTime,omitempty"`
+	UseSessionHostLocalTime *bool
 }
 
 // AgentUpdateProperties - The session host configuration for updating agent, monitoring agent, and stack component.
 type AgentUpdateProperties struct {
 	// Time zone for maintenance as defined in https://docs.microsoft.com/en-us/dotnet/api/system.timezoneinfo.findsystemtimezonebyid?view=net-5.0.
 	// Must be set if useLocalTime is true.
-	MaintenanceWindowTimeZone *string `json:"maintenanceWindowTimeZone,omitempty"`
+	MaintenanceWindowTimeZone *string
 
 	// List of maintenance windows. Maintenance windows are 2 hours long.
-	MaintenanceWindows []*MaintenanceWindowProperties `json:"maintenanceWindows,omitempty"`
+	MaintenanceWindows []*MaintenanceWindowProperties
 
 	// The type of maintenance for session host components.
-	Type *SessionHostComponentUpdateType `json:"type,omitempty"`
+	Type *SessionHostComponentUpdateType
 
 	// Whether to use localTime of the virtual machine.
-	UseSessionHostLocalTime *bool `json:"useSessionHostLocalTime,omitempty"`
+	UseSessionHostLocalTime *bool
 }
 
 // Application - Schema for Application properties.
 type Application struct {
 	// REQUIRED; Detailed properties for Application
-	Properties *ApplicationProperties `json:"properties,omitempty"`
+	Properties *ApplicationProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ApplicationGroup - Represents a ApplicationGroup definition.
 type ApplicationGroup struct {
 	// REQUIRED; Detailed properties for ApplicationGroup
-	Properties *ApplicationGroupProperties                  `json:"properties,omitempty"`
-	Identity   *ResourceModelWithAllowedPropertySetIdentity `json:"identity,omitempty"`
+	Properties *ApplicationGroupProperties
+	Identity   *ResourceModelWithAllowedPropertySetIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
 	// validate and persist this value.
-	Kind *string `json:"kind,omitempty"`
+	Kind *string
 
 	// The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
+	Location *string
 
 	// The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
-	ManagedBy *string                                  `json:"managedBy,omitempty"`
-	Plan      *ResourceModelWithAllowedPropertySetPlan `json:"plan,omitempty"`
-	SKU       *ResourceModelWithAllowedPropertySetSKU  `json:"sku,omitempty"`
+	ManagedBy *string
+	Plan      *ResourceModelWithAllowedPropertySetPlan
+	SKU       *ResourceModelWithAllowedPropertySetSKU
 
 	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; The etag field is not required. If it is provided in the response body, it must also be provided as a header
 	// per the normal etag convention. Entity tags are used for comparing two or more entities
 	// from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match
 	// (section 14.26), and If-Range (section 14.27) header fields.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
+	Etag *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ApplicationGroupList - List of ApplicationGroup definitions.
 type ApplicationGroupList struct {
 	// List of ApplicationGroup definitions.
-	Value []*ApplicationGroup `json:"value,omitempty"`
+	Value []*ApplicationGroup
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // ApplicationGroupPatch - ApplicationGroup properties that can be patched.
 type ApplicationGroupPatch struct {
 	// ApplicationGroup properties that can be patched.
-	Properties *ApplicationGroupPatchProperties `json:"properties,omitempty"`
+	Properties *ApplicationGroupPatchProperties
 
 	// tags to be updated
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ApplicationGroupPatchProperties - ApplicationGroup properties that can be patched.
 type ApplicationGroupPatchProperties struct {
 	// Description of ApplicationGroup.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Friendly name of ApplicationGroup.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 }
 
 // ApplicationGroupProperties - Schema for ApplicationGroup properties.
 type ApplicationGroupProperties struct {
 	// REQUIRED; Resource Type of ApplicationGroup.
-	ApplicationGroupType *ApplicationGroupType `json:"applicationGroupType,omitempty"`
+	ApplicationGroupType *ApplicationGroupType
 
 	// REQUIRED; HostPool arm path of ApplicationGroup.
-	HostPoolArmPath *string `json:"hostPoolArmPath,omitempty"`
+	HostPoolArmPath *string
 
 	// Description of ApplicationGroup.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Friendly name of ApplicationGroup.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// READ-ONLY; Is cloud pc resource.
-	CloudPcResource *bool `json:"cloudPcResource,omitempty" azure:"ro"`
+	CloudPcResource *bool
 
 	// READ-ONLY; ObjectId of ApplicationGroup. (internal use)
-	ObjectID *string `json:"objectId,omitempty" azure:"ro"`
+	ObjectID *string
 
 	// READ-ONLY; Workspace arm path of ApplicationGroup.
-	WorkspaceArmPath *string `json:"workspaceArmPath,omitempty" azure:"ro"`
+	WorkspaceArmPath *string
 }
 
 // ApplicationGroupsClientCreateOrUpdateOptions contains the optional parameters for the ApplicationGroupsClient.CreateOrUpdate
@@ -209,102 +209,102 @@ type ApplicationGroupsClientUpdateOptions struct {
 // ApplicationList - List of Application definitions.
 type ApplicationList struct {
 	// List of Application definitions.
-	Value []*Application `json:"value,omitempty"`
+	Value []*Application
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // ApplicationPatch - Application properties that can be patched.
 type ApplicationPatch struct {
 	// Detailed properties for Application
-	Properties *ApplicationPatchProperties `json:"properties,omitempty"`
+	Properties *ApplicationPatchProperties
 
 	// tags to be updated
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 }
 
 // ApplicationPatchProperties - Application properties that can be patched.
 type ApplicationPatchProperties struct {
 	// Resource Type of Application.
-	ApplicationType *RemoteApplicationType `json:"applicationType,omitempty"`
+	ApplicationType *RemoteApplicationType
 
 	// Command Line Arguments for Application.
-	CommandLineArguments *string `json:"commandLineArguments,omitempty"`
+	CommandLineArguments *string
 
 	// Specifies whether this published application can be launched with command line arguments provided by the client, command
 	// line arguments specified at publish time, or no command line arguments at all.
-	CommandLineSetting *CommandLineSetting `json:"commandLineSetting,omitempty"`
+	CommandLineSetting *CommandLineSetting
 
 	// Description of Application.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Specifies a path for the executable file for the application.
-	FilePath *string `json:"filePath,omitempty"`
+	FilePath *string
 
 	// Friendly name of Application.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// Index of the icon.
-	IconIndex *int32 `json:"iconIndex,omitempty"`
+	IconIndex *int32
 
 	// Path to icon.
-	IconPath *string `json:"iconPath,omitempty"`
+	IconPath *string
 
 	// Specifies the package application Id for MSIX applications
-	MsixPackageApplicationID *string `json:"msixPackageApplicationId,omitempty"`
+	MsixPackageApplicationID *string
 
 	// Specifies the package family name for MSIX applications
-	MsixPackageFamilyName *string `json:"msixPackageFamilyName,omitempty"`
+	MsixPackageFamilyName *string
 
 	// Specifies whether to show the RemoteApp program in the RD Web Access server.
-	ShowInPortal *bool `json:"showInPortal,omitempty"`
+	ShowInPortal *bool
 }
 
 // ApplicationProperties - Schema for Application properties.
 type ApplicationProperties struct {
 	// REQUIRED; Specifies whether this published application can be launched with command line arguments provided by the client,
 	// command line arguments specified at publish time, or no command line arguments at all.
-	CommandLineSetting *CommandLineSetting `json:"commandLineSetting,omitempty"`
+	CommandLineSetting *CommandLineSetting
 
 	// Resource Type of Application.
-	ApplicationType *RemoteApplicationType `json:"applicationType,omitempty"`
+	ApplicationType *RemoteApplicationType
 
 	// Command Line Arguments for Application.
-	CommandLineArguments *string `json:"commandLineArguments,omitempty"`
+	CommandLineArguments *string
 
 	// Description of Application.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Specifies a path for the executable file for the application.
-	FilePath *string `json:"filePath,omitempty"`
+	FilePath *string
 
 	// Friendly name of Application.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// Index of the icon.
-	IconIndex *int32 `json:"iconIndex,omitempty"`
+	IconIndex *int32
 
 	// Path to icon.
-	IconPath *string `json:"iconPath,omitempty"`
+	IconPath *string
 
 	// Specifies the package application Id for MSIX applications
-	MsixPackageApplicationID *string `json:"msixPackageApplicationId,omitempty"`
+	MsixPackageApplicationID *string
 
 	// Specifies the package family name for MSIX applications
-	MsixPackageFamilyName *string `json:"msixPackageFamilyName,omitempty"`
+	MsixPackageFamilyName *string
 
 	// Specifies whether to show the RemoteApp program in the RD Web Access server.
-	ShowInPortal *bool `json:"showInPortal,omitempty"`
+	ShowInPortal *bool
 
 	// READ-ONLY; the icon a 64 bit string as a byte array.
-	IconContent []byte `json:"iconContent,omitempty" azure:"ro"`
+	IconContent []byte
 
 	// READ-ONLY; Hash of the icon.
-	IconHash *string `json:"iconHash,omitempty" azure:"ro"`
+	IconHash *string
 
 	// READ-ONLY; ObjectId of Application. (internal use)
-	ObjectID *string `json:"objectId,omitempty" azure:"ro"`
+	ObjectID *string
 }
 
 // ApplicationsClientCreateOrUpdateOptions contains the optional parameters for the ApplicationsClient.CreateOrUpdate method.
@@ -341,73 +341,73 @@ type ApplicationsClientUpdateOptions struct {
 // CloudErrorProperties - Cloud error object properties.
 type CloudErrorProperties struct {
 	// Error code
-	Code *string `json:"code,omitempty"`
+	Code *string
 
 	// Error message indicating why the operation failed.
-	Message *string `json:"message,omitempty"`
+	Message *string
 }
 
 // Desktop - Schema for Desktop properties.
 type Desktop struct {
 	// Detailed properties for Desktop
-	Properties *DesktopProperties `json:"properties,omitempty"`
+	Properties *DesktopProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // DesktopList - List of Desktop definitions.
 type DesktopList struct {
 	// List of Desktop definitions.
-	Value []*Desktop `json:"value,omitempty"`
+	Value []*Desktop
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // DesktopPatch - Desktop properties that can be patched.
 type DesktopPatch struct {
 	// Detailed properties for Desktop
-	Properties *DesktopPatchProperties `json:"properties,omitempty"`
+	Properties *DesktopPatchProperties
 
 	// tags to be updated
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 }
 
 // DesktopPatchProperties - Desktop properties that can be patched.
 type DesktopPatchProperties struct {
 	// Description of Desktop.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Friendly name of Desktop.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 }
 
 // DesktopProperties - Schema for Desktop properties.
 type DesktopProperties struct {
 	// Description of Desktop.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Friendly name of Desktop.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// READ-ONLY; The icon a 64 bit string as a byte array.
-	IconContent []byte `json:"iconContent,omitempty" azure:"ro"`
+	IconContent []byte
 
 	// READ-ONLY; Hash of the icon.
-	IconHash *string `json:"iconHash,omitempty" azure:"ro"`
+	IconHash *string
 
 	// READ-ONLY; ObjectId of Desktop. (internal use)
-	ObjectID *string `json:"objectId,omitempty" azure:"ro"`
+	ObjectID *string
 }
 
 // DesktopsClientGetOptions contains the optional parameters for the DesktopsClient.Get method.
@@ -434,257 +434,267 @@ type DesktopsClientUpdateOptions struct {
 // ExpandMsixImage - Represents the definition of contents retrieved after expanding the MSIX Image.
 type ExpandMsixImage struct {
 	// Detailed properties for ExpandMsixImage
-	Properties *ExpandMsixImageProperties `json:"properties,omitempty"`
+	Properties *ExpandMsixImageProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ExpandMsixImageList - List of MSIX package properties retrieved from MSIX Image expansion.
 type ExpandMsixImageList struct {
 	// List of MSIX package properties from give MSIX Image.
-	Value []*ExpandMsixImage `json:"value,omitempty"`
+	Value []*ExpandMsixImage
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // ExpandMsixImageProperties - Schema for Expand MSIX Image properties.
 type ExpandMsixImageProperties struct {
 	// User friendly Name to be displayed in the portal.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// VHD/CIM image path on Network Share.
-	ImagePath *string `json:"imagePath,omitempty"`
+	ImagePath *string
 
 	// Make this version of the package the active one across the hostpool.
-	IsActive *bool `json:"isActive,omitempty"`
+	IsActive *bool
 
 	// Specifies how to register Package in feed.
-	IsRegularRegistration *bool `json:"isRegularRegistration,omitempty"`
+	IsRegularRegistration *bool
 
 	// Date Package was last updated, found in the appxmanifest.xml.
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	LastUpdated *time.Time
 
 	// Alias of MSIX Package.
-	PackageAlias *string `json:"packageAlias,omitempty"`
+	PackageAlias *string
 
 	// List of package applications.
-	PackageApplications []*MsixPackageApplications `json:"packageApplications,omitempty"`
+	PackageApplications []*MsixPackageApplications
 
 	// List of package dependencies.
-	PackageDependencies []*MsixPackageDependencies `json:"packageDependencies,omitempty"`
+	PackageDependencies []*MsixPackageDependencies
 
 	// Package Family Name from appxmanifest.xml. Contains Package Name and Publisher name.
-	PackageFamilyName *string `json:"packageFamilyName,omitempty"`
+	PackageFamilyName *string
 
 	// Package Full Name from appxmanifest.xml.
-	PackageFullName *string `json:"packageFullName,omitempty"`
+	PackageFullName *string
 
 	// Package Name from appxmanifest.xml.
-	PackageName *string `json:"packageName,omitempty"`
+	PackageName *string
 
 	// Relative Path to the package inside the image.
-	PackageRelativePath *string `json:"packageRelativePath,omitempty"`
+	PackageRelativePath *string
 
 	// Package Version found in the appxmanifest.xml.
-	Version *string `json:"version,omitempty"`
+	Version *string
 }
 
 // HostPool - Represents a HostPool definition.
 type HostPool struct {
 	// REQUIRED; Detailed properties for HostPool
-	Properties *HostPoolProperties                          `json:"properties,omitempty"`
-	Identity   *ResourceModelWithAllowedPropertySetIdentity `json:"identity,omitempty"`
+	Properties *HostPoolProperties
+	Identity   *ResourceModelWithAllowedPropertySetIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
 	// validate and persist this value.
-	Kind *string `json:"kind,omitempty"`
+	Kind *string
 
 	// The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
+	Location *string
 
 	// The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
-	ManagedBy *string                                  `json:"managedBy,omitempty"`
-	Plan      *ResourceModelWithAllowedPropertySetPlan `json:"plan,omitempty"`
-	SKU       *ResourceModelWithAllowedPropertySetSKU  `json:"sku,omitempty"`
+	ManagedBy *string
+	Plan      *ResourceModelWithAllowedPropertySetPlan
+	SKU       *ResourceModelWithAllowedPropertySetSKU
 
 	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; The etag field is not required. If it is provided in the response body, it must also be provided as a header
 	// per the normal etag convention. Entity tags are used for comparing two or more entities
 	// from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match
 	// (section 14.26), and If-Range (section 14.27) header fields.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
+	Etag *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // HostPoolList - List of HostPool definitions.
 type HostPoolList struct {
 	// List of HostPool definitions.
-	Value []*HostPool `json:"value,omitempty"`
+	Value []*HostPool
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // HostPoolPatch - HostPool properties that can be patched.
 type HostPoolPatch struct {
 	// HostPool properties that can be patched.
-	Properties *HostPoolPatchProperties `json:"properties,omitempty"`
+	Properties *HostPoolPatchProperties
 
 	// tags to be updated
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // HostPoolPatchProperties - Properties of HostPool.
 type HostPoolPatchProperties struct {
 	// The session host configuration for updating agent, monitoring agent, and stack component.
-	AgentUpdate *AgentUpdatePatchProperties `json:"agentUpdate,omitempty"`
+	AgentUpdate *AgentUpdatePatchProperties
 
 	// Custom rdp property of HostPool.
-	CustomRdpProperty *string `json:"customRdpProperty,omitempty"`
+	CustomRdpProperty *string
 
 	// Description of HostPool.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Friendly name of HostPool.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// The type of the load balancer.
-	LoadBalancerType *LoadBalancerType `json:"loadBalancerType,omitempty"`
+	LoadBalancerType *LoadBalancerType
 
 	// The max session limit of HostPool.
-	MaxSessionLimit *int32 `json:"maxSessionLimit,omitempty"`
+	MaxSessionLimit *int32
 
 	// PersonalDesktopAssignment type for HostPool.
-	PersonalDesktopAssignmentType *PersonalDesktopAssignmentType `json:"personalDesktopAssignmentType,omitempty"`
+	PersonalDesktopAssignmentType *PersonalDesktopAssignmentType
 
 	// The type of preferred application group type, default to Desktop Application Group
-	PreferredAppGroupType *PreferredAppGroupType `json:"preferredAppGroupType,omitempty"`
+	PreferredAppGroupType *PreferredAppGroupType
+
+	// Enabled to allow this resource to be access from the public network
+	PublicNetworkAccess *HostpoolPublicNetworkAccess
 
 	// The registration info of HostPool.
-	RegistrationInfo *RegistrationInfoPatch `json:"registrationInfo,omitempty"`
+	RegistrationInfo *RegistrationInfoPatch
 
 	// The ring number of HostPool.
-	Ring *int32 `json:"ring,omitempty"`
+	Ring *int32
 
 	// ClientId for the registered Relying Party used to issue WVD SSO certificates.
-	SsoClientID *string `json:"ssoClientId,omitempty"`
+	SsoClientID *string
 
 	// Path to Azure KeyVault storing the secret used for communication to ADFS.
-	SsoClientSecretKeyVaultPath *string `json:"ssoClientSecretKeyVaultPath,omitempty"`
+	SsoClientSecretKeyVaultPath *string
 
 	// The type of single sign on Secret Type.
-	SsoSecretType *SSOSecretType `json:"ssoSecretType,omitempty"`
+	SsoSecretType *SSOSecretType
 
 	// URL to customer ADFS server for signing WVD SSO certificates.
-	SsoadfsAuthority *string `json:"ssoadfsAuthority,omitempty"`
+	SsoadfsAuthority *string
 
 	// The flag to turn on/off StartVMOnConnect feature.
-	StartVMOnConnect *bool `json:"startVMOnConnect,omitempty"`
+	StartVMOnConnect *bool
 
 	// VM template for sessionhosts configuration within hostpool.
-	VMTemplate *string `json:"vmTemplate,omitempty"`
+	VMTemplate *string
 
 	// Is validation environment.
-	ValidationEnvironment *bool `json:"validationEnvironment,omitempty"`
+	ValidationEnvironment *bool
 }
 
 // HostPoolProperties - Properties of HostPool.
 type HostPoolProperties struct {
 	// REQUIRED; HostPool type for desktop.
-	HostPoolType *HostPoolType `json:"hostPoolType,omitempty"`
+	HostPoolType *HostPoolType
 
 	// REQUIRED; The type of the load balancer.
-	LoadBalancerType *LoadBalancerType `json:"loadBalancerType,omitempty"`
+	LoadBalancerType *LoadBalancerType
 
 	// REQUIRED; The type of preferred application group type, default to Desktop Application Group
-	PreferredAppGroupType *PreferredAppGroupType `json:"preferredAppGroupType,omitempty"`
+	PreferredAppGroupType *PreferredAppGroupType
 
 	// The session host configuration for updating agent, monitoring agent, and stack component.
-	AgentUpdate *AgentUpdateProperties `json:"agentUpdate,omitempty"`
+	AgentUpdate *AgentUpdateProperties
 
 	// Custom rdp property of HostPool.
-	CustomRdpProperty *string `json:"customRdpProperty,omitempty"`
+	CustomRdpProperty *string
 
 	// Description of HostPool.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Friendly name of HostPool.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// The max session limit of HostPool.
-	MaxSessionLimit *int32 `json:"maxSessionLimit,omitempty"`
+	MaxSessionLimit *int32
 
 	// PersonalDesktopAssignment type for HostPool.
-	PersonalDesktopAssignmentType *PersonalDesktopAssignmentType `json:"personalDesktopAssignmentType,omitempty"`
+	PersonalDesktopAssignmentType *PersonalDesktopAssignmentType
+
+	// Enabled allows this resource to be accessed from both public and private networks, Disabled allows this resource to only
+	// be accessed via private endpoints
+	PublicNetworkAccess *HostpoolPublicNetworkAccess
 
 	// The registration info of HostPool.
-	RegistrationInfo *RegistrationInfo `json:"registrationInfo,omitempty"`
+	RegistrationInfo *RegistrationInfo
 
 	// The ring number of HostPool.
-	Ring *int32 `json:"ring,omitempty"`
+	Ring *int32
 
 	// ClientId for the registered Relying Party used to issue WVD SSO certificates.
-	SsoClientID *string `json:"ssoClientId,omitempty"`
+	SsoClientID *string
 
 	// Path to Azure KeyVault storing the secret used for communication to ADFS.
-	SsoClientSecretKeyVaultPath *string `json:"ssoClientSecretKeyVaultPath,omitempty"`
+	SsoClientSecretKeyVaultPath *string
 
 	// The type of single sign on Secret Type.
-	SsoSecretType *SSOSecretType `json:"ssoSecretType,omitempty"`
+	SsoSecretType *SSOSecretType
 
 	// URL to customer ADFS server for signing WVD SSO certificates.
-	SsoadfsAuthority *string `json:"ssoadfsAuthority,omitempty"`
+	SsoadfsAuthority *string
 
 	// The flag to turn on/off StartVMOnConnect feature.
-	StartVMOnConnect *bool `json:"startVMOnConnect,omitempty"`
+	StartVMOnConnect *bool
 
 	// VM template for sessionhosts configuration within hostpool.
-	VMTemplate *string `json:"vmTemplate,omitempty"`
+	VMTemplate *string
 
 	// Is validation environment.
-	ValidationEnvironment *bool `json:"validationEnvironment,omitempty"`
+	ValidationEnvironment *bool
 
 	// READ-ONLY; List of applicationGroup links.
-	ApplicationGroupReferences []*string `json:"applicationGroupReferences,omitempty" azure:"ro"`
+	ApplicationGroupReferences []*string
 
 	// READ-ONLY; Is cloud pc resource.
-	CloudPcResource *bool `json:"cloudPcResource,omitempty" azure:"ro"`
+	CloudPcResource *bool
 
 	// READ-ONLY; ObjectId of HostPool. (internal use)
-	ObjectID *string `json:"objectId,omitempty" azure:"ro"`
+	ObjectID *string
+
+	// READ-ONLY; List of private endpoint connection associated with the specified resource
+	PrivateEndpointConnections []*PrivateEndpointConnection
 }
 
 // HostPoolsClientCreateOrUpdateOptions contains the optional parameters for the HostPoolsClient.CreateOrUpdate method.
@@ -739,121 +749,121 @@ type HostPoolsClientUpdateOptions struct {
 // Identity for the resource.
 type Identity struct {
 	// The identity type.
-	Type *string `json:"type,omitempty"`
+	Type *string
 
 	// READ-ONLY; The principal ID of resource identity.
-	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
+	PrincipalID *string
 
 	// READ-ONLY; The tenant ID of resource.
-	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+	TenantID *string
 }
 
 // LogSpecification - Specifications of the Log for Azure Monitoring
 type LogSpecification struct {
 	// Blob duration of the log
-	BlobDuration *string `json:"blobDuration,omitempty"`
+	BlobDuration *string
 
 	// Localized friendly display name of the log
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// Name of the log
-	Name *string `json:"name,omitempty"`
+	Name *string
 }
 
 // MSIXImageURI - Represents URI referring to MSIX Image
 type MSIXImageURI struct {
 	// URI to Image
-	URI *string `json:"uri,omitempty"`
+	URI *string
 }
 
 // MSIXPackage - Schema for MSIX Package properties.
 type MSIXPackage struct {
 	// REQUIRED; Detailed properties for MSIX Package
-	Properties *MSIXPackageProperties `json:"properties,omitempty"`
+	Properties *MSIXPackageProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // MSIXPackageList - List of MSIX Package definitions.
 type MSIXPackageList struct {
 	// List of MSIX Package definitions.
-	Value []*MSIXPackage `json:"value,omitempty"`
+	Value []*MSIXPackage
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // MSIXPackagePatch - MSIX Package properties that can be patched.
 type MSIXPackagePatch struct {
 	// Detailed properties for MSIX Package
-	Properties *MSIXPackagePatchProperties `json:"properties,omitempty"`
+	Properties *MSIXPackagePatchProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // MSIXPackagePatchProperties - MSIX Package properties that can be patched.
 type MSIXPackagePatchProperties struct {
 	// Display name for MSIX Package.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// Set a version of the package to be active across hostpool.
-	IsActive *bool `json:"isActive,omitempty"`
+	IsActive *bool
 
 	// Set Registration mode. Regular or Delayed.
-	IsRegularRegistration *bool `json:"isRegularRegistration,omitempty"`
+	IsRegularRegistration *bool
 }
 
 // MSIXPackageProperties - Schema for MSIX Package properties.
 type MSIXPackageProperties struct {
 	// User friendly Name to be displayed in the portal.
-	DisplayName *string `json:"displayName,omitempty"`
+	DisplayName *string
 
 	// VHD/CIM image path on Network Share.
-	ImagePath *string `json:"imagePath,omitempty"`
+	ImagePath *string
 
 	// Make this version of the package the active one across the hostpool.
-	IsActive *bool `json:"isActive,omitempty"`
+	IsActive *bool
 
 	// Specifies how to register Package in feed.
-	IsRegularRegistration *bool `json:"isRegularRegistration,omitempty"`
+	IsRegularRegistration *bool
 
 	// Date Package was last updated, found in the appxmanifest.xml.
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	LastUpdated *time.Time
 
 	// List of package applications.
-	PackageApplications []*MsixPackageApplications `json:"packageApplications,omitempty"`
+	PackageApplications []*MsixPackageApplications
 
 	// List of package dependencies.
-	PackageDependencies []*MsixPackageDependencies `json:"packageDependencies,omitempty"`
+	PackageDependencies []*MsixPackageDependencies
 
 	// Package Family Name from appxmanifest.xml. Contains Package Name and Publisher name.
-	PackageFamilyName *string `json:"packageFamilyName,omitempty"`
+	PackageFamilyName *string
 
 	// Package Name from appxmanifest.xml.
-	PackageName *string `json:"packageName,omitempty"`
+	PackageName *string
 
 	// Relative Path to the package inside the image.
-	PackageRelativePath *string `json:"packageRelativePath,omitempty"`
+	PackageRelativePath *string
 
 	// Package Version found in the appxmanifest.xml.
-	Version *string `json:"version,omitempty"`
+	Version *string
 }
 
 // MSIXPackagesClientCreateOrUpdateOptions contains the optional parameters for the MSIXPackagesClient.CreateOrUpdate method.
@@ -890,19 +900,19 @@ type MSIXPackagesClientUpdateOptions struct {
 // MaintenanceWindowPatchProperties - Maintenance window starting hour and day of week.
 type MaintenanceWindowPatchProperties struct {
 	// Day of the week.
-	DayOfWeek *DayOfWeek `json:"dayOfWeek,omitempty"`
+	DayOfWeek *DayOfWeek
 
 	// The update start hour of the day. (0 - 23)
-	Hour *int32 `json:"hour,omitempty"`
+	Hour *int32
 }
 
 // MaintenanceWindowProperties - Maintenance window starting hour and day of week.
 type MaintenanceWindowProperties struct {
 	// Day of the week.
-	DayOfWeek *DayOfWeek `json:"dayOfWeek,omitempty"`
+	DayOfWeek *DayOfWeek
 
 	// The update start hour of the day. (0 - 23)
-	Hour *int32 `json:"hour,omitempty"`
+	Hour *int32
 }
 
 // MsixImagesClientExpandOptions contains the optional parameters for the MsixImagesClient.NewExpandPager method.
@@ -913,43 +923,43 @@ type MsixImagesClientExpandOptions struct {
 // MsixPackageApplications - Schema for MSIX Package Application properties.
 type MsixPackageApplications struct {
 	// Package Application Id, found in appxmanifest.xml.
-	AppID *string `json:"appId,omitempty"`
+	AppID *string
 
 	// Used to activate Package Application. Consists of Package Name and ApplicationID. Found in appxmanifest.xml.
-	AppUserModelID *string `json:"appUserModelID,omitempty"`
+	AppUserModelID *string
 
 	// Description of Package Application.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// User friendly name.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// User friendly name.
-	IconImageName *string `json:"iconImageName,omitempty"`
+	IconImageName *string
 
 	// the icon a 64 bit string as a byte array.
-	RawIcon []byte `json:"rawIcon,omitempty"`
+	RawIcon []byte
 
 	// the icon a 64 bit string as a byte array.
-	RawPNG []byte `json:"rawPng,omitempty"`
+	RawPNG []byte
 }
 
 // MsixPackageDependencies - Schema for MSIX Package Dependencies properties.
 type MsixPackageDependencies struct {
 	// Name of package dependency.
-	DependencyName *string `json:"dependencyName,omitempty"`
+	DependencyName *string
 
 	// Dependency version required.
-	MinVersion *string `json:"minVersion,omitempty"`
+	MinVersion *string
 
 	// Name of dependency publisher.
-	Publisher *string `json:"publisher,omitempty"`
+	Publisher *string
 }
 
 // OperationProperties - Properties of the operation
 type OperationProperties struct {
 	// Service specification payload
-	ServiceSpecification *ServiceSpecification `json:"serviceSpecification,omitempty"`
+	ServiceSpecification *ServiceSpecification
 }
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
@@ -960,386 +970,744 @@ type OperationsClientListOptions struct {
 // Plan for the resource.
 type Plan struct {
 	// REQUIRED; A user defined name of the 3rd Party Artifact that is being procured.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// REQUIRED; The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact
 	// at the time of Data Market onboarding.
-	Product *string `json:"product,omitempty"`
+	Product *string
 
 	// REQUIRED; The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
-	Publisher *string `json:"publisher,omitempty"`
+	Publisher *string
 
 	// A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
-	PromotionCode *string `json:"promotionCode,omitempty"`
+	PromotionCode *string
 
 	// The version of the desired product/artifact.
-	Version *string `json:"version,omitempty"`
+	Version *string
+}
+
+// PrivateEndpoint - The Private Endpoint resource.
+type PrivateEndpoint struct {
+	// READ-ONLY; The ARM identifier for Private Endpoint
+	ID *string
+}
+
+// PrivateEndpointConnection - The Private Endpoint Connection resource.
+type PrivateEndpointConnection struct {
+	// Resource properties.
+	Properties *PrivateEndpointConnectionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PrivateEndpointConnectionListResultWithSystemData - List of private endpoint connection associated with the specified storage
+// account
+type PrivateEndpointConnectionListResultWithSystemData struct {
+	// Array of private endpoint connections
+	Value []*PrivateEndpointConnectionWithSystemData
+
+	// READ-ONLY; Link to the next page of results.
+	NextLink *string
+}
+
+// PrivateEndpointConnectionProperties - Properties of the PrivateEndpointConnectProperties.
+type PrivateEndpointConnectionProperties struct {
+	// REQUIRED; A collection of information about the state of the connection between service consumer and provider.
+	PrivateLinkServiceConnectionState *PrivateLinkServiceConnectionState
+
+	// The resource of private end point.
+	PrivateEndpoint *PrivateEndpoint
+
+	// READ-ONLY; The provisioning state of the private endpoint connection resource.
+	ProvisioningState *PrivateEndpointConnectionProvisioningState
+}
+
+// PrivateEndpointConnectionWithSystemData - The Private Endpoint Connection resource.
+type PrivateEndpointConnectionWithSystemData struct {
+	// Resource properties.
+	Properties *PrivateEndpointConnectionProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PrivateEndpointConnectionsClientDeleteByHostPoolOptions contains the optional parameters for the PrivateEndpointConnectionsClient.DeleteByHostPool
+// method.
+type PrivateEndpointConnectionsClientDeleteByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateEndpointConnectionsClientDeleteByWorkspaceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.DeleteByWorkspace
+// method.
+type PrivateEndpointConnectionsClientDeleteByWorkspaceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateEndpointConnectionsClientGetByHostPoolOptions contains the optional parameters for the PrivateEndpointConnectionsClient.GetByHostPool
+// method.
+type PrivateEndpointConnectionsClientGetByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateEndpointConnectionsClientGetByWorkspaceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.GetByWorkspace
+// method.
+type PrivateEndpointConnectionsClientGetByWorkspaceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateEndpointConnectionsClientListByHostPoolOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByHostPoolPager
+// method.
+type PrivateEndpointConnectionsClientListByHostPoolOptions struct {
+	// Initial number of items to skip.
+	InitialSkip *int32
+	// Indicates whether the collection is descending.
+	IsDescending *bool
+	// Number of items per page.
+	PageSize *int32
+}
+
+// PrivateEndpointConnectionsClientListByWorkspaceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByWorkspacePager
+// method.
+type PrivateEndpointConnectionsClientListByWorkspaceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateEndpointConnectionsClientUpdateByHostPoolOptions contains the optional parameters for the PrivateEndpointConnectionsClient.UpdateByHostPool
+// method.
+type PrivateEndpointConnectionsClientUpdateByHostPoolOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateEndpointConnectionsClientUpdateByWorkspaceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.UpdateByWorkspace
+// method.
+type PrivateEndpointConnectionsClientUpdateByWorkspaceOptions struct {
+	// placeholder for future optional parameters
+}
+
+// PrivateLinkResource - A private link resource
+type PrivateLinkResource struct {
+	// Resource properties.
+	Properties *PrivateLinkResourceProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// PrivateLinkResourceListResult - A list of private link resources
+type PrivateLinkResourceListResult struct {
+	// Array of private link resources
+	Value []*PrivateLinkResource
+
+	// READ-ONLY; Link to the next page of results.
+	NextLink *string
+}
+
+// PrivateLinkResourceProperties - Properties of a private link resource.
+type PrivateLinkResourceProperties struct {
+	// The private link resource Private link DNS zone name.
+	RequiredZoneNames []*string
+
+	// READ-ONLY; The private link resource group id.
+	GroupID *string
+
+	// READ-ONLY; The private link resource required member names.
+	RequiredMembers []*string
+}
+
+// PrivateLinkResourcesClientListByHostPoolOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByHostPoolPager
+// method.
+type PrivateLinkResourcesClientListByHostPoolOptions struct {
+	// Initial number of items to skip.
+	InitialSkip *int32
+	// Indicates whether the collection is descending.
+	IsDescending *bool
+	// Number of items per page.
+	PageSize *int32
+}
+
+// PrivateLinkResourcesClientListByWorkspaceOptions contains the optional parameters for the PrivateLinkResourcesClient.NewListByWorkspacePager
+// method.
+type PrivateLinkResourcesClientListByWorkspaceOptions struct {
+	// Initial number of items to skip.
+	InitialSkip *int32
+	// Indicates whether the collection is descending.
+	IsDescending *bool
+	// Number of items per page.
+	PageSize *int32
+}
+
+// PrivateLinkServiceConnectionState - A collection of information about the state of the connection between service consumer
+// and provider.
+type PrivateLinkServiceConnectionState struct {
+	// A message indicating if changes on the service provider require any updates on the consumer.
+	ActionsRequired *string
+
+	// The reason for approval/rejection of the connection.
+	Description *string
+
+	// Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service.
+	Status *PrivateEndpointServiceConnectionStatus
+}
+
+// ProxyResource - The resource model definition for a Azure Resource Manager proxy resource. It will not have tags and a
+// location
+type ProxyResource struct {
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
 }
 
 // RegistrationInfo - Represents a RegistrationInfo definition.
 type RegistrationInfo struct {
 	// Expiration time of registration token.
-	ExpirationTime *time.Time `json:"expirationTime,omitempty"`
+	ExpirationTime *time.Time
 
 	// The type of resetting the token.
-	RegistrationTokenOperation *RegistrationTokenOperation `json:"registrationTokenOperation,omitempty"`
+	RegistrationTokenOperation *RegistrationTokenOperation
 
 	// The registration token base64 encoded string.
-	Token *string `json:"token,omitempty"`
+	Token *string
 }
 
 // RegistrationInfoPatch - Represents a RegistrationInfo definition.
 type RegistrationInfoPatch struct {
 	// Expiration time of registration token.
-	ExpirationTime *time.Time `json:"expirationTime,omitempty"`
+	ExpirationTime *time.Time
 
 	// The type of resetting the token.
-	RegistrationTokenOperation *RegistrationTokenOperation `json:"registrationTokenOperation,omitempty"`
+	RegistrationTokenOperation *RegistrationTokenOperation
 }
 
 // Resource - Common fields that are returned in the response for all Azure Resource Manager resources
 type Resource struct {
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ResourceModelWithAllowedPropertySet - The resource model definition containing the full set of allowed properties for a
 // resource. Except properties bag, there cannot be a top level property outside of this set.
 type ResourceModelWithAllowedPropertySet struct {
-	Identity *ResourceModelWithAllowedPropertySetIdentity `json:"identity,omitempty"`
+	Identity *ResourceModelWithAllowedPropertySetIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
 	// validate and persist this value.
-	Kind *string `json:"kind,omitempty"`
+	Kind *string
 
 	// The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
+	Location *string
 
 	// The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
-	ManagedBy *string                                  `json:"managedBy,omitempty"`
-	Plan      *ResourceModelWithAllowedPropertySetPlan `json:"plan,omitempty"`
-	SKU       *ResourceModelWithAllowedPropertySetSKU  `json:"sku,omitempty"`
+	ManagedBy *string
+	Plan      *ResourceModelWithAllowedPropertySetPlan
+	SKU       *ResourceModelWithAllowedPropertySetSKU
 
 	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; The etag field is not required. If it is provided in the response body, it must also be provided as a header
 	// per the normal etag convention. Entity tags are used for comparing two or more entities
 	// from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match
 	// (section 14.26), and If-Range (section 14.27) header fields.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
+	Etag *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 type ResourceModelWithAllowedPropertySetIdentity struct {
 	// The identity type.
-	Type *string `json:"type,omitempty"`
+	Type *string
 
 	// READ-ONLY; The principal ID of resource identity.
-	PrincipalID *string `json:"principalId,omitempty" azure:"ro"`
+	PrincipalID *string
 
 	// READ-ONLY; The tenant ID of resource.
-	TenantID *string `json:"tenantId,omitempty" azure:"ro"`
+	TenantID *string
 }
 
 type ResourceModelWithAllowedPropertySetPlan struct {
 	// REQUIRED; A user defined name of the 3rd Party Artifact that is being procured.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// REQUIRED; The 3rd Party artifact that is being procured. E.g. NewRelic. Product maps to the OfferID specified for the artifact
 	// at the time of Data Market onboarding.
-	Product *string `json:"product,omitempty"`
+	Product *string
 
 	// REQUIRED; The publisher of the 3rd Party Artifact that is being bought. E.g. NewRelic
-	Publisher *string `json:"publisher,omitempty"`
+	Publisher *string
 
 	// A publisher provided promotion code as provisioned in Data Market for the said product/artifact.
-	PromotionCode *string `json:"promotionCode,omitempty"`
+	PromotionCode *string
 
 	// The version of the desired product/artifact.
-	Version *string `json:"version,omitempty"`
+	Version *string
 }
 
 type ResourceModelWithAllowedPropertySetSKU struct {
 	// REQUIRED; The name of the SKU. Ex - P3. It is typically a letter+number code
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
 	// resource this may be omitted.
-	Capacity *int32 `json:"capacity,omitempty"`
+	Capacity *int32
 
 	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
-	Family *string `json:"family,omitempty"`
+	Family *string
 
 	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
-	Size *string `json:"size,omitempty"`
+	Size *string
 
 	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
 	// on a PUT.
-	Tier *SKUTier `json:"tier,omitempty"`
+	Tier *SKUTier
 }
 
 // ResourceProviderOperation - Supported operation of this resource provider.
 type ResourceProviderOperation struct {
 	// Display metadata associated with the operation.
-	Display *ResourceProviderOperationDisplay `json:"display,omitempty"`
+	Display *ResourceProviderOperationDisplay
 
 	// Is a data action.
-	IsDataAction *bool `json:"isDataAction,omitempty"`
+	IsDataAction *bool
 
 	// Operation name, in format of {provider}/{resource}/{operation}
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// Properties of the operation
-	Properties *OperationProperties `json:"properties,omitempty"`
+	Properties *OperationProperties
 }
 
 // ResourceProviderOperationDisplay - Display metadata associated with the operation.
 type ResourceProviderOperationDisplay struct {
 	// Description of this operation.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Type of operation: get, read, delete, etc.
-	Operation *string `json:"operation,omitempty"`
+	Operation *string
 
 	// Resource provider: Microsoft Desktop Virtualization.
-	Provider *string `json:"provider,omitempty"`
+	Provider *string
 
 	// Resource on which the operation is performed.
-	Resource *string `json:"resource,omitempty"`
+	Resource *string
 }
 
 // ResourceProviderOperationList - Result of the request to list operations.
 type ResourceProviderOperationList struct {
 	// List of operations supported by this resource provider.
-	Value []*ResourceProviderOperation `json:"value,omitempty"`
+	Value []*ResourceProviderOperation
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // SKU - The resource model definition representing SKU
 type SKU struct {
 	// REQUIRED; The name of the SKU. Ex - P3. It is typically a letter+number code
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the
 	// resource this may be omitted.
-	Capacity *int32 `json:"capacity,omitempty"`
+	Capacity *int32
 
 	// If the service has different generations of hardware, for the same SKU, then that can be captured here.
-	Family *string `json:"family,omitempty"`
+	Family *string
 
 	// The SKU size. When the name field is the combination of tier and some other value, this would be the standalone code.
-	Size *string `json:"size,omitempty"`
+	Size *string
 
 	// This field is required to be implemented by the Resource Provider if the service has more than one tier, but is not required
 	// on a PUT.
-	Tier *SKUTier `json:"tier,omitempty"`
+	Tier *SKUTier
 }
 
 // ScalingHostPoolReference - Scaling plan reference to hostpool.
 type ScalingHostPoolReference struct {
 	// Arm path of referenced hostpool.
-	HostPoolArmPath *string `json:"hostPoolArmPath,omitempty"`
+	HostPoolArmPath *string
 
 	// Is the scaling plan enabled for this hostpool.
-	ScalingPlanEnabled *bool `json:"scalingPlanEnabled,omitempty"`
+	ScalingPlanEnabled *bool
 }
 
 // ScalingPlan - Represents a scaling plan definition.
 type ScalingPlan struct {
 	// REQUIRED; Detailed properties for scaling plan.
-	Properties *ScalingPlanProperties                       `json:"properties,omitempty"`
-	Identity   *ResourceModelWithAllowedPropertySetIdentity `json:"identity,omitempty"`
+	Properties *ScalingPlanProperties
+	Identity   *ResourceModelWithAllowedPropertySetIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
 	// validate and persist this value.
-	Kind *string `json:"kind,omitempty"`
+	Kind *string
 
 	// The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
+	Location *string
 
 	// The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
-	ManagedBy *string                                  `json:"managedBy,omitempty"`
-	Plan      *ResourceModelWithAllowedPropertySetPlan `json:"plan,omitempty"`
-	SKU       *ResourceModelWithAllowedPropertySetSKU  `json:"sku,omitempty"`
+	ManagedBy *string
+	Plan      *ResourceModelWithAllowedPropertySetPlan
+	SKU       *ResourceModelWithAllowedPropertySetSKU
 
 	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; The etag field is not required. If it is provided in the response body, it must also be provided as a header
 	// per the normal etag convention. Entity tags are used for comparing two or more entities
 	// from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match
 	// (section 14.26), and If-Range (section 14.27) header fields.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
+	Etag *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ScalingPlanList - List of scaling plan definitions.
 type ScalingPlanList struct {
 	// List of scaling plan definitions.
-	Value []*ScalingPlan `json:"value,omitempty"`
+	Value []*ScalingPlan
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // ScalingPlanPatch - Scaling plan properties that can be patched.
 type ScalingPlanPatch struct {
 	// Detailed properties for scaling plan
-	Properties *ScalingPlanPatchProperties `json:"properties,omitempty"`
+	Properties *ScalingPlanPatchProperties
 
 	// tags to be updated
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 }
 
 // ScalingPlanPatchProperties - Scaling plan properties.
 type ScalingPlanPatchProperties struct {
 	// Description of scaling plan.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Exclusion tag for scaling plan.
-	ExclusionTag *string `json:"exclusionTag,omitempty"`
+	ExclusionTag *string
 
 	// User friendly name of scaling plan.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// List of ScalingHostPoolReference definitions.
-	HostPoolReferences []*ScalingHostPoolReference `json:"hostPoolReferences,omitempty"`
+	HostPoolReferences []*ScalingHostPoolReference
 
 	// List of ScalingSchedule definitions.
-	Schedules []*ScalingSchedule `json:"schedules,omitempty"`
+	Schedules []*ScalingSchedule
 
 	// Timezone of the scaling plan.
-	TimeZone *string `json:"timeZone,omitempty"`
+	TimeZone *string
+}
+
+// ScalingPlanPersonalSchedule - Represents a ScalingPlanPersonalSchedule definition.
+type ScalingPlanPersonalSchedule struct {
+	// REQUIRED; Detailed properties for ScalingPlanPersonalSchedule
+	Properties *ScalingPlanPersonalScheduleProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; The name of the resource
+	Name *string
+
+	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// ScalingPlanPersonalScheduleList - List of ScalingPlanPersonalSchedule definitions.
+type ScalingPlanPersonalScheduleList struct {
+	// List of ScalingPlanPersonalSchedule definitions.
+	Value []*ScalingPlanPersonalSchedule
+
+	// READ-ONLY; Link to the next page of results.
+	NextLink *string
+}
+
+// ScalingPlanPersonalSchedulePatch - ScalingPlanPersonalSchedule properties that can be patched.
+type ScalingPlanPersonalSchedulePatch struct {
+	// Detailed properties for ScalingPlanPersonalSchedule
+	Properties *ScalingPlanPersonalScheduleProperties
+}
+
+// ScalingPlanPersonalScheduleProperties - A ScalingPlanPersonalSchedule.
+type ScalingPlanPersonalScheduleProperties struct {
+	// Set of days of the week on which this schedule is active.
+	DaysOfWeek []*DayOfWeek
+
+	// Action to be taken after a user disconnect during the off-peak period.
+	OffPeakActionOnDisconnect *SessionHandlingOperation
+
+	// Action to be taken after a logoff during the off-peak period.
+	OffPeakActionOnLogoff *SessionHandlingOperation
+
+	// The time in minutes to wait before performing the desired session handling action when a user disconnects during the off-peak
+	// period.
+	OffPeakMinutesToWaitOnDisconnect *int32
+
+	// The time in minutes to wait before performing the desired session handling action when a user logs off during the off-peak
+	// period.
+	OffPeakMinutesToWaitOnLogoff *int32
+
+	// Starting time for off-peak period.
+	OffPeakStartTime *Time
+
+	// The desired configuration of Start VM On Connect for the hostpool during the off-peak phase.
+	OffPeakStartVMOnConnect *SetStartVMOnConnect
+
+	// Action to be taken after a user disconnect during the peak period.
+	PeakActionOnDisconnect *SessionHandlingOperation
+
+	// Action to be taken after a logoff during the peak period.
+	PeakActionOnLogoff *SessionHandlingOperation
+
+	// The time in minutes to wait before performing the desired session handling action when a user disconnects during the peak
+	// period.
+	PeakMinutesToWaitOnDisconnect *int32
+
+	// The time in minutes to wait before performing the desired session handling action when a user logs off during the peak
+	// period.
+	PeakMinutesToWaitOnLogoff *int32
+
+	// Starting time for peak period.
+	PeakStartTime *Time
+
+	// The desired configuration of Start VM On Connect for the hostpool during the peak phase.
+	PeakStartVMOnConnect *SetStartVMOnConnect
+
+	// Action to be taken after a user disconnect during the ramp down period.
+	RampDownActionOnDisconnect *SessionHandlingOperation
+
+	// Action to be taken after a logoff during the ramp down period.
+	RampDownActionOnLogoff *SessionHandlingOperation
+
+	// The time in minutes to wait before performing the desired session handling action when a user disconnects during the ramp
+	// down period.
+	RampDownMinutesToWaitOnDisconnect *int32
+
+	// The time in minutes to wait before performing the desired session handling action when a user logs off during the ramp
+	// down period.
+	RampDownMinutesToWaitOnLogoff *int32
+
+	// Starting time for ramp down period.
+	RampDownStartTime *Time
+
+	// The desired configuration of Start VM On Connect for the hostpool during the ramp down phase.
+	RampDownStartVMOnConnect *SetStartVMOnConnect
+
+	// Action to be taken after a user disconnect during the ramp up period.
+	RampUpActionOnDisconnect *SessionHandlingOperation
+
+	// Action to be taken after a logoff during the ramp up period.
+	RampUpActionOnLogoff *SessionHandlingOperation
+
+	// The desired startup behavior during the ramp up period for personal vms in the hostpool.
+	RampUpAutoStartHosts *StartupBehavior
+
+	// The time in minutes to wait before performing the desired session handling action when a user disconnects during the ramp
+	// up period.
+	RampUpMinutesToWaitOnDisconnect *int32
+
+	// The time in minutes to wait before performing the desired session handling action when a user logs off during the ramp
+	// up period.
+	RampUpMinutesToWaitOnLogoff *int32
+
+	// Starting time for ramp up period.
+	RampUpStartTime *Time
+
+	// The desired configuration of Start VM On Connect for the hostpool during the ramp up phase. If this is disabled, session
+	// hosts must be turned on using rampUpAutoStartHosts or by turning them on
+	// manually.
+	RampUpStartVMOnConnect *SetStartVMOnConnect
+}
+
+// ScalingPlanPersonalSchedulesClientCreateOptions contains the optional parameters for the ScalingPlanPersonalSchedulesClient.Create
+// method.
+type ScalingPlanPersonalSchedulesClientCreateOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScalingPlanPersonalSchedulesClientDeleteOptions contains the optional parameters for the ScalingPlanPersonalSchedulesClient.Delete
+// method.
+type ScalingPlanPersonalSchedulesClientDeleteOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScalingPlanPersonalSchedulesClientGetOptions contains the optional parameters for the ScalingPlanPersonalSchedulesClient.Get
+// method.
+type ScalingPlanPersonalSchedulesClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// ScalingPlanPersonalSchedulesClientListOptions contains the optional parameters for the ScalingPlanPersonalSchedulesClient.NewListPager
+// method.
+type ScalingPlanPersonalSchedulesClientListOptions struct {
+	// Initial number of items to skip.
+	InitialSkip *int32
+	// Indicates whether the collection is descending.
+	IsDescending *bool
+	// Number of items per page.
+	PageSize *int32
+}
+
+// ScalingPlanPersonalSchedulesClientUpdateOptions contains the optional parameters for the ScalingPlanPersonalSchedulesClient.Update
+// method.
+type ScalingPlanPersonalSchedulesClientUpdateOptions struct {
+	// Object containing ScalingPlanPersonalSchedule definitions.
+	ScalingPlanSchedule *ScalingPlanPersonalSchedulePatch
 }
 
 // ScalingPlanPooledSchedule - Represents a ScalingPlanPooledSchedule definition.
 type ScalingPlanPooledSchedule struct {
 	// REQUIRED; Detailed properties for ScalingPlanPooledSchedule
-	Properties *ScalingPlanPooledScheduleProperties `json:"properties,omitempty"`
+	Properties *ScalingPlanPooledScheduleProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ScalingPlanPooledScheduleList - List of ScalingPlanPooledSchedule definitions.
 type ScalingPlanPooledScheduleList struct {
 	// List of ScalingPlanPooledSchedule definitions.
-	Value []*ScalingPlanPooledSchedule `json:"value,omitempty"`
+	Value []*ScalingPlanPooledSchedule
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // ScalingPlanPooledSchedulePatch - ScalingPlanPooledSchedule properties that can be patched.
 type ScalingPlanPooledSchedulePatch struct {
 	// Detailed properties for ScalingPlanPooledSchedule
-	Properties *ScalingPlanPooledScheduleProperties `json:"properties,omitempty"`
+	Properties *ScalingPlanPooledScheduleProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // ScalingPlanPooledScheduleProperties - A ScalingPlanPooledSchedule.
 type ScalingPlanPooledScheduleProperties struct {
 	// Set of days of the week on which this schedule is active.
-	DaysOfWeek []*DayOfWeek `json:"daysOfWeek,omitempty"`
+	DaysOfWeek []*DayOfWeek
 
 	// Load balancing algorithm for off-peak period.
-	OffPeakLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm `json:"offPeakLoadBalancingAlgorithm,omitempty"`
+	OffPeakLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm
 
 	// Starting time for off-peak period.
-	OffPeakStartTime *Time `json:"offPeakStartTime,omitempty"`
+	OffPeakStartTime *Time
 
 	// Load balancing algorithm for peak period.
-	PeakLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm `json:"peakLoadBalancingAlgorithm,omitempty"`
+	PeakLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm
 
 	// Starting time for peak period.
-	PeakStartTime *Time `json:"peakStartTime,omitempty"`
+	PeakStartTime *Time
 
 	// Capacity threshold for ramp down period.
-	RampDownCapacityThresholdPct *int32 `json:"rampDownCapacityThresholdPct,omitempty"`
+	RampDownCapacityThresholdPct *int32
 
 	// Should users be logged off forcefully from hosts.
-	RampDownForceLogoffUsers *bool `json:"rampDownForceLogoffUsers,omitempty"`
+	RampDownForceLogoffUsers *bool
 
 	// Load balancing algorithm for ramp down period.
-	RampDownLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm `json:"rampDownLoadBalancingAlgorithm,omitempty"`
+	RampDownLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm
 
 	// Minimum host percentage for ramp down period.
-	RampDownMinimumHostsPct *int32 `json:"rampDownMinimumHostsPct,omitempty"`
+	RampDownMinimumHostsPct *int32
 
 	// Notification message for users during ramp down period.
-	RampDownNotificationMessage *string `json:"rampDownNotificationMessage,omitempty"`
+	RampDownNotificationMessage *string
 
 	// Starting time for ramp down period.
-	RampDownStartTime *Time `json:"rampDownStartTime,omitempty"`
+	RampDownStartTime *Time
 
 	// Specifies when to stop hosts during ramp down period.
-	RampDownStopHostsWhen *StopHostsWhen `json:"rampDownStopHostsWhen,omitempty"`
+	RampDownStopHostsWhen *StopHostsWhen
 
 	// Number of minutes to wait to stop hosts during ramp down period.
-	RampDownWaitTimeMinutes *int32 `json:"rampDownWaitTimeMinutes,omitempty"`
+	RampDownWaitTimeMinutes *int32
 
 	// Capacity threshold for ramp up period.
-	RampUpCapacityThresholdPct *int32 `json:"rampUpCapacityThresholdPct,omitempty"`
+	RampUpCapacityThresholdPct *int32
 
 	// Load balancing algorithm for ramp up period.
-	RampUpLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm `json:"rampUpLoadBalancingAlgorithm,omitempty"`
+	RampUpLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm
 
 	// Minimum host percentage for ramp up period.
-	RampUpMinimumHostsPct *int32 `json:"rampUpMinimumHostsPct,omitempty"`
+	RampUpMinimumHostsPct *int32
 
 	// Starting time for ramp up period.
-	RampUpStartTime *Time `json:"rampUpStartTime,omitempty"`
+	RampUpStartTime *Time
 }
 
 // ScalingPlanPooledSchedulesClientCreateOptions contains the optional parameters for the ScalingPlanPooledSchedulesClient.Create
@@ -1381,28 +1749,28 @@ type ScalingPlanPooledSchedulesClientUpdateOptions struct {
 // ScalingPlanProperties - Scaling plan properties.
 type ScalingPlanProperties struct {
 	// REQUIRED; Timezone of the scaling plan.
-	TimeZone *string `json:"timeZone,omitempty"`
+	TimeZone *string
 
 	// Description of scaling plan.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Exclusion tag for scaling plan.
-	ExclusionTag *string `json:"exclusionTag,omitempty"`
+	ExclusionTag *string
 
 	// User friendly name of scaling plan.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// List of ScalingHostPoolReference definitions.
-	HostPoolReferences []*ScalingHostPoolReference `json:"hostPoolReferences,omitempty"`
+	HostPoolReferences []*ScalingHostPoolReference
 
 	// HostPool type for desktop.
-	HostPoolType *ScalingHostPoolType `json:"hostPoolType,omitempty"`
+	HostPoolType *ScalingHostPoolType
 
 	// List of ScalingPlanPooledSchedule definitions.
-	Schedules []*ScalingSchedule `json:"schedules,omitempty"`
+	Schedules []*ScalingSchedule
 
 	// READ-ONLY; ObjectId of scaling plan. (internal use)
-	ObjectID *string `json:"objectId,omitempty" azure:"ro"`
+	ObjectID *string
 }
 
 // ScalingPlansClientCreateOptions contains the optional parameters for the ScalingPlansClient.Create method.
@@ -1462,205 +1830,205 @@ type ScalingPlansClientUpdateOptions struct {
 // ScalingSchedule - A ScalingPlanPooledSchedule.
 type ScalingSchedule struct {
 	// Set of days of the week on which this schedule is active.
-	DaysOfWeek []*ScalingScheduleDaysOfWeekItem `json:"daysOfWeek,omitempty"`
+	DaysOfWeek []*ScalingScheduleDaysOfWeekItem
 
 	// Name of the ScalingPlanPooledSchedule.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// Load balancing algorithm for off-peak period.
-	OffPeakLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm `json:"offPeakLoadBalancingAlgorithm,omitempty"`
+	OffPeakLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm
 
 	// Starting time for off-peak period.
-	OffPeakStartTime *Time `json:"offPeakStartTime,omitempty"`
+	OffPeakStartTime *Time
 
 	// Load balancing algorithm for peak period.
-	PeakLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm `json:"peakLoadBalancingAlgorithm,omitempty"`
+	PeakLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm
 
 	// Starting time for peak period.
-	PeakStartTime *Time `json:"peakStartTime,omitempty"`
+	PeakStartTime *Time
 
 	// Capacity threshold for ramp down period.
-	RampDownCapacityThresholdPct *int32 `json:"rampDownCapacityThresholdPct,omitempty"`
+	RampDownCapacityThresholdPct *int32
 
 	// Should users be logged off forcefully from hosts.
-	RampDownForceLogoffUsers *bool `json:"rampDownForceLogoffUsers,omitempty"`
+	RampDownForceLogoffUsers *bool
 
 	// Load balancing algorithm for ramp down period.
-	RampDownLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm `json:"rampDownLoadBalancingAlgorithm,omitempty"`
+	RampDownLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm
 
 	// Minimum host percentage for ramp down period.
-	RampDownMinimumHostsPct *int32 `json:"rampDownMinimumHostsPct,omitempty"`
+	RampDownMinimumHostsPct *int32
 
 	// Notification message for users during ramp down period.
-	RampDownNotificationMessage *string `json:"rampDownNotificationMessage,omitempty"`
+	RampDownNotificationMessage *string
 
 	// Starting time for ramp down period.
-	RampDownStartTime *Time `json:"rampDownStartTime,omitempty"`
+	RampDownStartTime *Time
 
 	// Specifies when to stop hosts during ramp down period.
-	RampDownStopHostsWhen *StopHostsWhen `json:"rampDownStopHostsWhen,omitempty"`
+	RampDownStopHostsWhen *StopHostsWhen
 
 	// Number of minutes to wait to stop hosts during ramp down period.
-	RampDownWaitTimeMinutes *int32 `json:"rampDownWaitTimeMinutes,omitempty"`
+	RampDownWaitTimeMinutes *int32
 
 	// Capacity threshold for ramp up period.
-	RampUpCapacityThresholdPct *int32 `json:"rampUpCapacityThresholdPct,omitempty"`
+	RampUpCapacityThresholdPct *int32
 
 	// Load balancing algorithm for ramp up period.
-	RampUpLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm `json:"rampUpLoadBalancingAlgorithm,omitempty"`
+	RampUpLoadBalancingAlgorithm *SessionHostLoadBalancingAlgorithm
 
 	// Minimum host percentage for ramp up period.
-	RampUpMinimumHostsPct *int32 `json:"rampUpMinimumHostsPct,omitempty"`
+	RampUpMinimumHostsPct *int32
 
 	// Starting time for ramp up period.
-	RampUpStartTime *Time `json:"rampUpStartTime,omitempty"`
+	RampUpStartTime *Time
 }
 
 // SendMessage - Represents message sent to a UserSession.
 type SendMessage struct {
 	// Body of message.
-	MessageBody *string `json:"messageBody,omitempty"`
+	MessageBody *string
 
 	// Title of message.
-	MessageTitle *string `json:"messageTitle,omitempty"`
+	MessageTitle *string
 }
 
 // ServiceSpecification - Service specification payload
 type ServiceSpecification struct {
 	// Specifications of the Log for Azure Monitoring
-	LogSpecifications []*LogSpecification `json:"logSpecifications,omitempty"`
+	LogSpecifications []*LogSpecification
 }
 
 // SessionHost - Represents a SessionHost definition.
 type SessionHost struct {
 	// Detailed properties for SessionHost
-	Properties *SessionHostProperties `json:"properties,omitempty"`
+	Properties *SessionHostProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // SessionHostHealthCheckFailureDetails - Contains details on the failure.
 type SessionHostHealthCheckFailureDetails struct {
 	// READ-ONLY; Error code corresponding for the failure.
-	ErrorCode *int32 `json:"errorCode,omitempty" azure:"ro"`
+	ErrorCode *int32
 
 	// READ-ONLY; The timestamp of the last update.
-	LastHealthCheckDateTime *time.Time `json:"lastHealthCheckDateTime,omitempty" azure:"ro"`
+	LastHealthCheckDateTime *time.Time
 
 	// READ-ONLY; Failure message: hints on what is wrong and how to recover.
-	Message *string `json:"message,omitempty" azure:"ro"`
+	Message *string
 }
 
 // SessionHostHealthCheckReport - The report for session host information.
 type SessionHostHealthCheckReport struct {
 	// READ-ONLY; Additional detailed information on the failure.
-	AdditionalFailureDetails *SessionHostHealthCheckFailureDetails `json:"additionalFailureDetails,omitempty" azure:"ro"`
+	AdditionalFailureDetails *SessionHostHealthCheckFailureDetails
 
 	// READ-ONLY; Represents the name of the health check operation performed.
-	HealthCheckName *HealthCheckName `json:"healthCheckName,omitempty" azure:"ro"`
+	HealthCheckName *HealthCheckName
 
 	// READ-ONLY; Represents the Health state of the health check we performed.
-	HealthCheckResult *HealthCheckResult `json:"healthCheckResult,omitempty" azure:"ro"`
+	HealthCheckResult *HealthCheckResult
 }
 
 // SessionHostList - List of SessionHost definitions.
 type SessionHostList struct {
 	// List of SessionHost definitions.
-	Value []*SessionHost `json:"value,omitempty"`
+	Value []*SessionHost
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // SessionHostPatch - SessionHost properties that can be patched.
 type SessionHostPatch struct {
 	// Detailed properties for SessionHost
-	Properties *SessionHostPatchProperties `json:"properties,omitempty"`
+	Properties *SessionHostPatchProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // SessionHostPatchProperties - SessionHost properties that can be patched.
 type SessionHostPatchProperties struct {
 	// Allow a new session.
-	AllowNewSession *bool `json:"allowNewSession,omitempty"`
+	AllowNewSession *bool
 
 	// User assigned to SessionHost.
-	AssignedUser *string `json:"assignedUser,omitempty"`
+	AssignedUser *string
 
 	// Friendly name of SessionHost
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 }
 
 // SessionHostProperties - Schema for SessionHost properties.
 type SessionHostProperties struct {
 	// Version of agent on SessionHost.
-	AgentVersion *string `json:"agentVersion,omitempty"`
+	AgentVersion *string
 
 	// Allow a new session.
-	AllowNewSession *bool `json:"allowNewSession,omitempty"`
+	AllowNewSession *bool
 
 	// User assigned to SessionHost.
-	AssignedUser *string `json:"assignedUser,omitempty"`
+	AssignedUser *string
 
 	// Friendly name of SessionHost
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
 
 	// Last heart beat from SessionHost.
-	LastHeartBeat *time.Time `json:"lastHeartBeat,omitempty"`
+	LastHeartBeat *time.Time
 
 	// The version of the OS on the session host.
-	OSVersion *string `json:"osVersion,omitempty"`
+	OSVersion *string
 
 	// Number of sessions on SessionHost.
-	Sessions *int32 `json:"sessions,omitempty"`
+	Sessions *int32
 
 	// Status for a SessionHost.
-	Status *Status `json:"status,omitempty"`
+	Status *Status
 
 	// The version of the side by side stack on the session host.
-	SxSStackVersion *string `json:"sxSStackVersion,omitempty"`
+	SxSStackVersion *string
 
 	// The error message.
-	UpdateErrorMessage *string `json:"updateErrorMessage,omitempty"`
+	UpdateErrorMessage *string
 
 	// Update state of a SessionHost.
-	UpdateState *UpdateState `json:"updateState,omitempty"`
+	UpdateState *UpdateState
 
 	// READ-ONLY; The timestamp of the last update.
-	LastUpdateTime *time.Time `json:"lastUpdateTime,omitempty" azure:"ro"`
+	LastUpdateTime *time.Time
 
 	// READ-ONLY; ObjectId of SessionHost. (internal use)
-	ObjectID *string `json:"objectId,omitempty" azure:"ro"`
+	ObjectID *string
 
 	// READ-ONLY; Resource Id of SessionHost's underlying virtual machine.
-	ResourceID *string `json:"resourceId,omitempty" azure:"ro"`
+	ResourceID *string
 
 	// READ-ONLY; List of SessionHostHealthCheckReports
-	SessionHostHealthCheckResults []*SessionHostHealthCheckReport `json:"sessionHostHealthCheckResults,omitempty" azure:"ro"`
+	SessionHostHealthCheckResults []*SessionHostHealthCheckReport
 
 	// READ-ONLY; The timestamp of the status.
-	StatusTimestamp *time.Time `json:"statusTimestamp,omitempty" azure:"ro"`
+	StatusTimestamp *time.Time
 
 	// READ-ONLY; Virtual Machine Id of SessionHost's underlying virtual machine.
-	VirtualMachineID *string `json:"virtualMachineId,omitempty" azure:"ro"`
+	VirtualMachineID *string
 }
 
 // SessionHostsClientDeleteOptions contains the optional parameters for the SessionHostsClient.Delete method.
@@ -1695,43 +2063,43 @@ type SessionHostsClientUpdateOptions struct {
 // StartMenuItem - Represents a StartMenuItem definition.
 type StartMenuItem struct {
 	// Detailed properties for StartMenuItem
-	Properties *StartMenuItemProperties `json:"properties,omitempty"`
+	Properties *StartMenuItemProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // StartMenuItemList - List of StartMenuItem definitions.
 type StartMenuItemList struct {
 	// List of StartMenuItem definitions.
-	Value []*StartMenuItem `json:"value,omitempty"`
+	Value []*StartMenuItem
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // StartMenuItemProperties - Schema for StartMenuItem properties.
 type StartMenuItemProperties struct {
 	// Alias of StartMenuItem.
-	AppAlias *string `json:"appAlias,omitempty"`
+	AppAlias *string
 
 	// Command line arguments for StartMenuItem.
-	CommandLineArguments *string `json:"commandLineArguments,omitempty"`
+	CommandLineArguments *string
 
 	// Path to the file of StartMenuItem.
-	FilePath *string `json:"filePath,omitempty"`
+	FilePath *string
 
 	// Index of the icon.
-	IconIndex *int32 `json:"iconIndex,omitempty"`
+	IconIndex *int32
 
 	// Path to the icon.
-	IconPath *string `json:"iconPath,omitempty"`
+	IconPath *string
 }
 
 // StartMenuItemsClientListOptions contains the optional parameters for the StartMenuItemsClient.NewListPager method.
@@ -1747,79 +2115,79 @@ type StartMenuItemsClientListOptions struct {
 // SystemData - Metadata pertaining to creation and last modification of the resource.
 type SystemData struct {
 	// The timestamp of resource creation (UTC).
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
+	CreatedAt *time.Time
 
 	// The identity that created the resource.
-	CreatedBy *string `json:"createdBy,omitempty"`
+	CreatedBy *string
 
 	// The type of identity that created the resource.
-	CreatedByType *CreatedByType `json:"createdByType,omitempty"`
+	CreatedByType *CreatedByType
 
 	// The timestamp of resource last modification (UTC)
-	LastModifiedAt *time.Time `json:"lastModifiedAt,omitempty"`
+	LastModifiedAt *time.Time
 
 	// The identity that last modified the resource.
-	LastModifiedBy *string `json:"lastModifiedBy,omitempty"`
+	LastModifiedBy *string
 
 	// The type of identity that last modified the resource.
-	LastModifiedByType *CreatedByType `json:"lastModifiedByType,omitempty"`
+	LastModifiedByType *CreatedByType
 }
 
 // Time - The time for a scaling action to occur.
 type Time struct {
 	// REQUIRED; The hour.
-	Hour *int32 `json:"hour,omitempty"`
+	Hour *int32
 
 	// REQUIRED; The minute.
-	Minute *int32 `json:"minute,omitempty"`
+	Minute *int32
 }
 
 // UserSession - Represents a UserSession definition.
 type UserSession struct {
 	// Detailed properties for UserSession
-	Properties *UserSessionProperties `json:"properties,omitempty"`
+	Properties *UserSessionProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // UserSessionList - List of UserSession definitions.
 type UserSessionList struct {
 	// List of UserSession definitions.
-	Value []*UserSession `json:"value,omitempty"`
+	Value []*UserSession
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // UserSessionProperties - Schema for UserSession properties.
 type UserSessionProperties struct {
 	// The active directory user name.
-	ActiveDirectoryUserName *string `json:"activeDirectoryUserName,omitempty"`
+	ActiveDirectoryUserName *string
 
 	// Application type of application.
-	ApplicationType *ApplicationType `json:"applicationType,omitempty"`
+	ApplicationType *ApplicationType
 
 	// The timestamp of the user session create.
-	CreateTime *time.Time `json:"createTime,omitempty"`
+	CreateTime *time.Time
 
 	// State of user session.
-	SessionState *SessionState `json:"sessionState,omitempty"`
+	SessionState *SessionState
 
 	// The user principal name.
-	UserPrincipalName *string `json:"userPrincipalName,omitempty"`
+	UserPrincipalName *string
 
 	// READ-ONLY; ObjectId of user session. (internal use)
-	ObjectID *string `json:"objectId,omitempty" azure:"ro"`
+	ObjectID *string
 }
 
 // UserSessionsClientDeleteOptions contains the optional parameters for the UserSessionsClient.Delete method.
@@ -1869,94 +2237,104 @@ type UserSessionsClientSendMessageOptions struct {
 
 // Workspace - Represents a Workspace definition.
 type Workspace struct {
-	Identity *ResourceModelWithAllowedPropertySetIdentity `json:"identity,omitempty"`
+	Identity *ResourceModelWithAllowedPropertySetIdentity
 
 	// Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are
 	// a kind of Microsoft.Web/sites type. If supported, the resource provider must
 	// validate and persist this value.
-	Kind *string `json:"kind,omitempty"`
+	Kind *string
 
 	// The geo-location where the resource lives
-	Location *string `json:"location,omitempty"`
+	Location *string
 
 	// The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another
 	// Azure resource. If this is present, complete mode deployment will not
 	// delete the resource if it is removed from the template since it is managed by another resource.
-	ManagedBy *string                                  `json:"managedBy,omitempty"`
-	Plan      *ResourceModelWithAllowedPropertySetPlan `json:"plan,omitempty"`
+	ManagedBy *string
+	Plan      *ResourceModelWithAllowedPropertySetPlan
 
 	// Detailed properties for Workspace
-	Properties *WorkspaceProperties                    `json:"properties,omitempty"`
-	SKU        *ResourceModelWithAllowedPropertySetSKU `json:"sku,omitempty"`
+	Properties *WorkspaceProperties
+	SKU        *ResourceModelWithAllowedPropertySetSKU
 
 	// Resource tags.
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 
 	// READ-ONLY; The etag field is not required. If it is provided in the response body, it must also be provided as a header
 	// per the normal etag convention. Entity tags are used for comparing two or more entities
 	// from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match
 	// (section 14.26), and If-Range (section 14.27) header fields.
-	Etag *string `json:"etag,omitempty" azure:"ro"`
+	Etag *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
-	ID *string `json:"id,omitempty" azure:"ro"`
+	ID *string
 
 	// READ-ONLY; The name of the resource
-	Name *string `json:"name,omitempty" azure:"ro"`
+	Name *string
 
 	// READ-ONLY; Metadata pertaining to creation and last modification of the resource.
-	SystemData *SystemData `json:"systemData,omitempty" azure:"ro"`
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
-	Type *string `json:"type,omitempty" azure:"ro"`
+	Type *string
 }
 
 // WorkspaceList - List of Workspace definitions.
 type WorkspaceList struct {
 	// List of Workspace definitions.
-	Value []*Workspace `json:"value,omitempty"`
+	Value []*Workspace
 
 	// READ-ONLY; Link to the next page of results.
-	NextLink *string `json:"nextLink,omitempty" azure:"ro"`
+	NextLink *string
 }
 
 // WorkspacePatch - Workspace properties that can be patched.
 type WorkspacePatch struct {
 	// Detailed properties for Workspace
-	Properties *WorkspacePatchProperties `json:"properties,omitempty"`
+	Properties *WorkspacePatchProperties
 
 	// tags to be updated
-	Tags map[string]*string `json:"tags,omitempty"`
+	Tags map[string]*string
 }
 
 // WorkspacePatchProperties - Workspace properties that can be patched.
 type WorkspacePatchProperties struct {
 	// List of applicationGroup links.
-	ApplicationGroupReferences []*string `json:"applicationGroupReferences,omitempty"`
+	ApplicationGroupReferences []*string
 
 	// Description of Workspace.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Friendly name of Workspace.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
+
+	// Enabled to allow this resource to be access from the public network
+	PublicNetworkAccess *PublicNetworkAccess
 }
 
 // WorkspaceProperties - Schema for Workspace properties.
 type WorkspaceProperties struct {
 	// List of applicationGroup resource Ids.
-	ApplicationGroupReferences []*string `json:"applicationGroupReferences,omitempty"`
+	ApplicationGroupReferences []*string
 
 	// Description of Workspace.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Friendly name of Workspace.
-	FriendlyName *string `json:"friendlyName,omitempty"`
+	FriendlyName *string
+
+	// Enabled allows this resource to be accessed from both public and private networks, Disabled allows this resource to only
+	// be accessed via private endpoints
+	PublicNetworkAccess *PublicNetworkAccess
 
 	// READ-ONLY; Is cloud pc resource.
-	CloudPcResource *bool `json:"cloudPcResource,omitempty" azure:"ro"`
+	CloudPcResource *bool
 
 	// READ-ONLY; ObjectId of Workspace. (internal use)
-	ObjectID *string `json:"objectId,omitempty" azure:"ro"`
+	ObjectID *string
+
+	// READ-ONLY; List of private endpoint connection associated with the specified resource
+	PrivateEndpointConnections []*PrivateEndpointConnection
 }
 
 // WorkspacesClientCreateOrUpdateOptions contains the optional parameters for the WorkspacesClient.CreateOrUpdate method.

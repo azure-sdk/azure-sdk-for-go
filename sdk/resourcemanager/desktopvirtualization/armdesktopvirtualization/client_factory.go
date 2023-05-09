@@ -48,6 +48,16 @@ func (c *ClientFactory) NewWorkspacesClient() *WorkspacesClient {
 	return subClient
 }
 
+func (c *ClientFactory) NewPrivateEndpointConnectionsClient() *PrivateEndpointConnectionsClient {
+	subClient, _ := NewPrivateEndpointConnectionsClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient {
+	subClient, _ := NewPrivateLinkResourcesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
 func (c *ClientFactory) NewScalingPlansClient() *ScalingPlansClient {
 	subClient, _ := NewScalingPlansClient(c.subscriptionID, c.credential, c.options)
 	return subClient
@@ -55,6 +65,11 @@ func (c *ClientFactory) NewScalingPlansClient() *ScalingPlansClient {
 
 func (c *ClientFactory) NewScalingPlanPooledSchedulesClient() *ScalingPlanPooledSchedulesClient {
 	subClient, _ := NewScalingPlanPooledSchedulesClient(c.subscriptionID, c.credential, c.options)
+	return subClient
+}
+
+func (c *ClientFactory) NewScalingPlanPersonalSchedulesClient() *ScalingPlanPersonalSchedulesClient {
+	subClient, _ := NewScalingPlanPersonalSchedulesClient(c.subscriptionID, c.credential, c.options)
 	return subClient
 }
 

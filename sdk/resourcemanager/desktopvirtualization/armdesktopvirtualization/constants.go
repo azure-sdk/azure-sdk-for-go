@@ -11,7 +11,7 @@ package armdesktopvirtualization
 
 const (
 	moduleName    = "armdesktopvirtualization"
-	moduleVersion = "v2.0.0"
+	moduleVersion = "v2.1.0-beta.1"
 )
 
 // ApplicationGroupType - Resource Type of ApplicationGroup.
@@ -119,45 +119,47 @@ const (
 	// staging). The AppAttachService is used to enable the staging/registration (and eventual deregistration/destaging) of MSIX
 	// apps that have been set up by the tenant admin. This checks whether the component had any failures during package staging.
 	// Failures in staging will prevent some MSIX apps from working properly for the end user. If this check fails, it is non
-	// fatal and the machine still can service connections, main issue may be certain apps will not work for end-users.
+	// fatal and the machine still can service connections, main issue may be certain apps will not work for end-users. (Currently
+	// Enabled)
 	HealthCheckNameAppAttachHealthCheck HealthCheckName = "AppAttachHealthCheck"
 	// HealthCheckNameDomainJoinedCheck - Verifies the SessionHost is joined to a domain. If this check fails is classified as
-	// fatal as no connection can succeed if the SessionHost is not joined to the domain.
+	// fatal as no connection can succeed if the SessionHost is not joined to the domain. (Currently Enabled)
 	HealthCheckNameDomainJoinedCheck HealthCheckName = "DomainJoinedCheck"
 	// HealthCheckNameDomainReachable - Verifies the domain the SessionHost is joined to is still reachable. If this check fails
 	// is classified as fatal as no connection can succeed if the domain the SessionHost is joined is not reachable at the time
-	// of connection.
+	// of connection. (Currently Disabled)
 	HealthCheckNameDomainReachable HealthCheckName = "DomainReachable"
 	// HealthCheckNameDomainTrustCheck - Verifies the SessionHost is not experiencing domain trust issues that will prevent authentication
 	// on SessionHost at connection time when session is created. If this check fails is classified as fatal as no connection
-	// can succeed if we cannot reach the domain for authentication on the SessionHost.
+	// can succeed if we cannot reach the domain for authentication on the SessionHost. (Currently Enabled)
 	HealthCheckNameDomainTrustCheck HealthCheckName = "DomainTrustCheck"
 	// HealthCheckNameFSLogixHealthCheck - Verifies the FSLogix service is up and running to make sure users' profiles are loaded
 	// in the session. If this check fails is classified as fatal as even if the connection can succeed, user experience is bad
-	// as the user profile cannot be loaded and user will get a temporary profile in the session.
+	// as the user profile cannot be loaded and user will get a temporary profile in the session. (Currently Disabled)
 	HealthCheckNameFSLogixHealthCheck HealthCheckName = "FSLogixHealthCheck"
-	// HealthCheckNameMetaDataServiceCheck - Verifies the metadata service is accessible and return compute properties.
+	// HealthCheckNameMetaDataServiceCheck - Verifies the metadata service is accessible and return compute properties. (Currently
+	// Enabled)
 	HealthCheckNameMetaDataServiceCheck HealthCheckName = "MetaDataServiceCheck"
 	// HealthCheckNameMonitoringAgentCheck - Verifies that the required Geneva agent is running. If this check fails, it is non
 	// fatal and the machine still can service connections, main issue may be that monitoring agent is missing or running (possibly)
-	// older version.
+	// older version. (Currently Enabled)
 	HealthCheckNameMonitoringAgentCheck HealthCheckName = "MonitoringAgentCheck"
 	// HealthCheckNameSupportedEncryptionCheck - Verifies the value of SecurityLayer registration key. If the value is 0 (SecurityLayer.RDP)
 	// this check fails with Error code = NativeMethodErrorCode.E_FAIL and is fatal. If the value is 1 (SecurityLayer.Negotiate)
-	// this check fails with Error code = NativeMethodErrorCode.ERROR_SUCCESS and is non fatal.
+	// this check fails with Error code = NativeMethodErrorCode.ERROR_SUCCESS and is non fatal. (Currently Disabled)
 	HealthCheckNameSupportedEncryptionCheck HealthCheckName = "SupportedEncryptionCheck"
 	// HealthCheckNameSxSStackListenerCheck - Verifies that the SxS stack is up and running so connections can succeed. If this
-	// check fails is classified as fatal as no connection can succeed if the SxS stack is not ready.
+	// check fails is classified as fatal as no connection can succeed if the SxS stack is not ready. (Currently Enabled)
 	HealthCheckNameSxSStackListenerCheck HealthCheckName = "SxSStackListenerCheck"
 	// HealthCheckNameUrlsAccessibleCheck - Verifies that the required WVD service and Geneva URLs are reachable from the SessionHost.
 	// These URLs are: RdTokenUri, RdBrokerURI, RdDiagnosticsUri and storage blob URLs for agent monitoring (geneva). If this
 	// check fails, it is non fatal and the machine still can service connections, main issue may be that monitoring agent is
-	// unable to store warm path data (logs, operations ...).
+	// unable to store warm path data (logs, operations ...). (Currently Disabled)
 	HealthCheckNameUrlsAccessibleCheck HealthCheckName = "UrlsAccessibleCheck"
 	// HealthCheckNameWebRTCRedirectorCheck - Verifies whether the WebRTCRedirector component is healthy. The WebRTCRedirector
 	// component is used to optimize video and audio performance in Microsoft Teams. This checks whether the component is still
 	// running, and whether there is a higher version available. If this check fails, it is non fatal and the machine still can
-	// service connections, main issue may be the WebRTCRedirector component has to be restarted or updated.
+	// service connections, main issue may be the WebRTCRedirector component has to be restarted or updated. (Currently Disabled)
 	HealthCheckNameWebRTCRedirectorCheck HealthCheckName = "WebRTCRedirectorCheck"
 )
 
@@ -226,6 +228,27 @@ func PossibleHostPoolTypeValues() []HostPoolType {
 	}
 }
 
+// HostpoolPublicNetworkAccess - Enabled allows this resource to be accessed from both public and private networks, Disabled
+// allows this resource to only be accessed via private endpoints
+type HostpoolPublicNetworkAccess string
+
+const (
+	HostpoolPublicNetworkAccessDisabled                   HostpoolPublicNetworkAccess = "Disabled"
+	HostpoolPublicNetworkAccessEnabled                    HostpoolPublicNetworkAccess = "Enabled"
+	HostpoolPublicNetworkAccessEnabledForClientsOnly      HostpoolPublicNetworkAccess = "EnabledForClientsOnly"
+	HostpoolPublicNetworkAccessEnabledForSessionHostsOnly HostpoolPublicNetworkAccess = "EnabledForSessionHostsOnly"
+)
+
+// PossibleHostpoolPublicNetworkAccessValues returns the possible values for the HostpoolPublicNetworkAccess const type.
+func PossibleHostpoolPublicNetworkAccessValues() []HostpoolPublicNetworkAccess {
+	return []HostpoolPublicNetworkAccess{
+		HostpoolPublicNetworkAccessDisabled,
+		HostpoolPublicNetworkAccessEnabled,
+		HostpoolPublicNetworkAccessEnabledForClientsOnly,
+		HostpoolPublicNetworkAccessEnabledForSessionHostsOnly,
+	}
+}
+
 // LoadBalancerType - The type of the load balancer.
 type LoadBalancerType string
 
@@ -275,6 +298,61 @@ func PossiblePreferredAppGroupTypeValues() []PreferredAppGroupType {
 		PreferredAppGroupTypeDesktop,
 		PreferredAppGroupTypeNone,
 		PreferredAppGroupTypeRailApplications,
+	}
+}
+
+// PrivateEndpointConnectionProvisioningState - The current provisioning state.
+type PrivateEndpointConnectionProvisioningState string
+
+const (
+	PrivateEndpointConnectionProvisioningStateCreating  PrivateEndpointConnectionProvisioningState = "Creating"
+	PrivateEndpointConnectionProvisioningStateDeleting  PrivateEndpointConnectionProvisioningState = "Deleting"
+	PrivateEndpointConnectionProvisioningStateFailed    PrivateEndpointConnectionProvisioningState = "Failed"
+	PrivateEndpointConnectionProvisioningStateSucceeded PrivateEndpointConnectionProvisioningState = "Succeeded"
+)
+
+// PossiblePrivateEndpointConnectionProvisioningStateValues returns the possible values for the PrivateEndpointConnectionProvisioningState const type.
+func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpointConnectionProvisioningState {
+	return []PrivateEndpointConnectionProvisioningState{
+		PrivateEndpointConnectionProvisioningStateCreating,
+		PrivateEndpointConnectionProvisioningStateDeleting,
+		PrivateEndpointConnectionProvisioningStateFailed,
+		PrivateEndpointConnectionProvisioningStateSucceeded,
+	}
+}
+
+// PrivateEndpointServiceConnectionStatus - The private endpoint connection status.
+type PrivateEndpointServiceConnectionStatus string
+
+const (
+	PrivateEndpointServiceConnectionStatusApproved PrivateEndpointServiceConnectionStatus = "Approved"
+	PrivateEndpointServiceConnectionStatusPending  PrivateEndpointServiceConnectionStatus = "Pending"
+	PrivateEndpointServiceConnectionStatusRejected PrivateEndpointServiceConnectionStatus = "Rejected"
+)
+
+// PossiblePrivateEndpointServiceConnectionStatusValues returns the possible values for the PrivateEndpointServiceConnectionStatus const type.
+func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointServiceConnectionStatus {
+	return []PrivateEndpointServiceConnectionStatus{
+		PrivateEndpointServiceConnectionStatusApproved,
+		PrivateEndpointServiceConnectionStatusPending,
+		PrivateEndpointServiceConnectionStatusRejected,
+	}
+}
+
+// PublicNetworkAccess - Enabled allows this resource to be accessed from both public and private networks, Disabled allows
+// this resource to only be accessed via private endpoints
+type PublicNetworkAccess string
+
+const (
+	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
+	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
+)
+
+// PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.
+func PossiblePublicNetworkAccessValues() []PublicNetworkAccess {
+	return []PublicNetworkAccess{
+		PublicNetworkAccessDisabled,
+		PublicNetworkAccessEnabled,
 	}
 }
 
@@ -357,6 +435,10 @@ func PossibleSSOSecretTypeValues() []SSOSecretType {
 type ScalingHostPoolType string
 
 const (
+	// ScalingHostPoolTypePersonal - Users will be assigned a SessionHost either by administrators (PersonalDesktopAssignmentType
+	// = Direct) or upon connecting to the pool (PersonalDesktopAssignmentType = Automatic). They will always be redirected to
+	// their assigned SessionHost.
+	ScalingHostPoolTypePersonal ScalingHostPoolType = "Personal"
 	// ScalingHostPoolTypePooled - Users get a new (random) SessionHost every time it connects to the HostPool.
 	ScalingHostPoolTypePooled ScalingHostPoolType = "Pooled"
 )
@@ -364,6 +446,7 @@ const (
 // PossibleScalingHostPoolTypeValues returns the possible values for the ScalingHostPoolType const type.
 func PossibleScalingHostPoolTypeValues() []ScalingHostPoolType {
 	return []ScalingHostPoolType{
+		ScalingHostPoolTypePersonal,
 		ScalingHostPoolTypePooled,
 	}
 }
@@ -390,6 +473,24 @@ func PossibleScalingScheduleDaysOfWeekItemValues() []ScalingScheduleDaysOfWeekIt
 		ScalingScheduleDaysOfWeekItemThursday,
 		ScalingScheduleDaysOfWeekItemTuesday,
 		ScalingScheduleDaysOfWeekItemWednesday,
+	}
+}
+
+// SessionHandlingOperation - Action to be taken after a user disconnect during the ramp up period.
+type SessionHandlingOperation string
+
+const (
+	SessionHandlingOperationDeallocate SessionHandlingOperation = "Deallocate"
+	SessionHandlingOperationHibernate  SessionHandlingOperation = "Hibernate"
+	SessionHandlingOperationNone       SessionHandlingOperation = "None"
+)
+
+// PossibleSessionHandlingOperationValues returns the possible values for the SessionHandlingOperation const type.
+func PossibleSessionHandlingOperationValues() []SessionHandlingOperation {
+	return []SessionHandlingOperation{
+		SessionHandlingOperationDeallocate,
+		SessionHandlingOperationHibernate,
+		SessionHandlingOperationNone,
 	}
 }
 
@@ -449,6 +550,46 @@ func PossibleSessionStateValues() []SessionState {
 		SessionStatePending,
 		SessionStateUnknown,
 		SessionStateUserProfileDiskMounted,
+	}
+}
+
+// SetStartVMOnConnect - The desired configuration of Start VM On Connect for the hostpool during the ramp up phase. If this
+// is disabled, session hosts must be turned on using rampUpAutoStartHosts or by turning them on
+// manually.
+type SetStartVMOnConnect string
+
+const (
+	SetStartVMOnConnectDisable SetStartVMOnConnect = "Disable"
+	SetStartVMOnConnectEnable  SetStartVMOnConnect = "Enable"
+)
+
+// PossibleSetStartVMOnConnectValues returns the possible values for the SetStartVMOnConnect const type.
+func PossibleSetStartVMOnConnectValues() []SetStartVMOnConnect {
+	return []SetStartVMOnConnect{
+		SetStartVMOnConnectDisable,
+		SetStartVMOnConnectEnable,
+	}
+}
+
+// StartupBehavior - The desired startup behavior during the ramp up period for personal vms in the hostpool.
+type StartupBehavior string
+
+const (
+	// StartupBehaviorAll - All personal session hosts in the hostpool will be started during ramp up.
+	StartupBehaviorAll StartupBehavior = "All"
+	// StartupBehaviorNone - Session hosts will not be started by the service. This setting depends on Start VM on Connect to
+	// be enabled to start the session hosts.
+	StartupBehaviorNone StartupBehavior = "None"
+	// StartupBehaviorWithAssignedUser - Session hosts with an assigned user will be started during Ramp Up
+	StartupBehaviorWithAssignedUser StartupBehavior = "WithAssignedUser"
+)
+
+// PossibleStartupBehaviorValues returns the possible values for the StartupBehavior const type.
+func PossibleStartupBehaviorValues() []StartupBehavior {
+	return []StartupBehavior{
+		StartupBehaviorAll,
+		StartupBehaviorNone,
+		StartupBehaviorWithAssignedUser,
 	}
 }
 

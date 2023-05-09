@@ -48,7 +48,7 @@ func NewSessionHostsClient(subscriptionID string, credential azcore.TokenCredent
 // Delete - Remove a SessionHost.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -92,7 +92,7 @@ func (client *SessionHostsClient) deleteCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
@@ -104,7 +104,7 @@ func (client *SessionHostsClient) deleteCreateRequest(ctx context.Context, resou
 // Get - Get a session host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -148,7 +148,7 @@ func (client *SessionHostsClient) getCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -165,7 +165,7 @@ func (client *SessionHostsClient) getHandleResponse(resp *http.Response) (Sessio
 
 // NewListPager - List sessionHosts.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - options - SessionHostsClientListOptions contains the optional parameters for the SessionHostsClient.NewListPager method.
@@ -217,7 +217,7 @@ func (client *SessionHostsClient) listCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	if options != nil && options.PageSize != nil {
 		reqQP.Set("pageSize", strconv.FormatInt(int64(*options.PageSize), 10))
 	}
@@ -244,7 +244,7 @@ func (client *SessionHostsClient) listHandleResponse(resp *http.Response) (Sessi
 // Update - Update a session host.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2022-09-09
+// Generated from API version 2023-01-30-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - hostPoolName - The name of the host pool within the specified resource group
 //   - sessionHostName - The name of the session host within the specified host pool
@@ -288,7 +288,7 @@ func (client *SessionHostsClient) updateCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2022-09-09")
+	reqQP.Set("api-version", "2023-01-30-preview")
 	if options != nil && options.Force != nil {
 		reqQP.Set("force", strconv.FormatBool(*options.Force))
 	}
