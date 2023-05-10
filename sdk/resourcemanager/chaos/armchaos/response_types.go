@@ -39,12 +39,12 @@ type CapabilityTypesClientListResponse struct {
 	CapabilityTypeListResult
 }
 
-// ExperimentsClientCancelResponse contains the response from method ExperimentsClient.BeginCancel.
+// ExperimentsClientCancelResponse contains the response from method ExperimentsClient.Cancel.
 type ExperimentsClientCancelResponse struct {
 	ExperimentCancelOperationResult
 }
 
-// ExperimentsClientCreateOrUpdateResponse contains the response from method ExperimentsClient.BeginCreateOrUpdate.
+// ExperimentsClientCreateOrUpdateResponse contains the response from method ExperimentsClient.CreateOrUpdate.
 type ExperimentsClientCreateOrUpdateResponse struct {
 	Experiment
 }
@@ -92,6 +92,11 @@ type ExperimentsClientListResponse struct {
 // ExperimentsClientStartResponse contains the response from method ExperimentsClient.Start.
 type ExperimentsClientStartResponse struct {
 	ExperimentStartOperationResult
+}
+
+// ExperimentsClientUpdateResponse contains the response from method ExperimentsClient.Update.
+type ExperimentsClientUpdateResponse struct {
+	Experiment
 }
 
 // OperationsClientListAllResponse contains the response from method OperationsClient.NewListAllPager.
