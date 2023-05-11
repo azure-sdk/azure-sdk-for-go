@@ -30,8 +30,7 @@ type APIClient struct {
 }
 
 // NewAPIClient creates a new instance of APIClient with the specified values.
-//   - subscriptionID - Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms
-//     part of the URI for every service call.
+//   - subscriptionID - The ID of the target subscription.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewAPIClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*APIClient, error) {
@@ -49,8 +48,8 @@ func NewAPIClient(subscriptionID string, credential azcore.TokenCredential, opti
 // BeginCreateOrUpdate - Creates new or updates existing specified API of the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -73,7 +72,7 @@ func (client *APIClient) BeginCreateOrUpdate(ctx context.Context, resourceGroupN
 // CreateOrUpdate - Creates new or updates existing specified API of the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
+// Generated from API version 2023-03-01-preview
 func (client *APIClient) createOrUpdate(ctx context.Context, resourceGroupName string, serviceName string, apiID string, parameters APICreateOrUpdateParameter, options *APIClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	req, err := client.createOrUpdateCreateRequest(ctx, resourceGroupName, serviceName, apiID, parameters, options)
 	if err != nil {
@@ -113,7 +112,7 @@ func (client *APIClient) createOrUpdateCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	if options != nil && options.IfMatch != nil {
 		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
@@ -125,8 +124,8 @@ func (client *APIClient) createOrUpdateCreateRequest(ctx context.Context, resour
 // Delete - Deletes the specified API of the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -175,7 +174,7 @@ func (client *APIClient) deleteCreateRequest(ctx context.Context, resourceGroupN
 	if options != nil && options.DeleteRevisions != nil {
 		reqQP.Set("deleteRevisions", strconv.FormatBool(*options.DeleteRevisions))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
@@ -185,8 +184,8 @@ func (client *APIClient) deleteCreateRequest(ctx context.Context, resourceGroupN
 // Get - Gets the details of the API specified by its identifier.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -230,7 +229,7 @@ func (client *APIClient) getCreateRequest(ctx context.Context, resourceGroupName
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -250,8 +249,8 @@ func (client *APIClient) getHandleResponse(resp *http.Response) (APIClientGetRes
 
 // GetEntityTag - Gets the entity state (Etag) version of the API specified by its identifier.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -295,7 +294,7 @@ func (client *APIClient) getEntityTagCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -313,8 +312,8 @@ func (client *APIClient) getEntityTagHandleResponse(resp *http.Response) (APICli
 
 // NewListByServicePager - Lists all APIs of the API Management service instance.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - APIClientListByServiceOptions contains the optional parameters for the APIClient.NewListByServicePager method.
 func (client *APIClient) NewListByServicePager(resourceGroupName string, serviceName string, options *APIClientListByServiceOptions) *runtime.Pager[APIClientListByServiceResponse] {
@@ -380,7 +379,7 @@ func (client *APIClient) listByServiceCreateRequest(ctx context.Context, resourc
 	if options != nil && options.ExpandAPIVersionSet != nil {
 		reqQP.Set("expandApiVersionSet", strconv.FormatBool(*options.ExpandAPIVersionSet))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -397,8 +396,8 @@ func (client *APIClient) listByServiceHandleResponse(resp *http.Response) (APICl
 
 // NewListByTagsPager - Lists a collection of apis associated with tags.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - options - APIClientListByTagsOptions contains the optional parameters for the APIClient.NewListByTagsPager method.
 func (client *APIClient) NewListByTagsPager(resourceGroupName string, serviceName string, options *APIClientListByTagsOptions) *runtime.Pager[APIClientListByTagsResponse] {
@@ -461,7 +460,7 @@ func (client *APIClient) listByTagsCreateRequest(ctx context.Context, resourceGr
 	if options != nil && options.IncludeNotTaggedApis != nil {
 		reqQP.Set("includeNotTaggedApis", strconv.FormatBool(*options.IncludeNotTaggedApis))
 	}
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -479,8 +478,8 @@ func (client *APIClient) listByTagsHandleResponse(resp *http.Response) (APIClien
 // Update - Updates the specified API of the API Management service instance.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-08-01
-//   - resourceGroupName - The name of the resource group.
+// Generated from API version 2023-03-01-preview
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - serviceName - The name of the API Management service.
 //   - apiID - API revision identifier. Must be unique in the current API Management service instance. Non-current revision has
 //     ;rev=n as a suffix where n is the revision number.
@@ -527,7 +526,7 @@ func (client *APIClient) updateCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-08-01")
+	reqQP.Set("api-version", "2023-03-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["If-Match"] = []string{ifMatch}
 	req.Raw().Header["Accept"] = []string{"application/json"}
