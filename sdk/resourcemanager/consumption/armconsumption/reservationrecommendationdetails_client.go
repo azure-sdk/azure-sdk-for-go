@@ -42,23 +42,22 @@ func NewReservationRecommendationDetailsClient(credential azcore.TokenCredential
 // Get - Details of a reservation recommendation for what-if analysis of reserved instances.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2021-10-01
+// Generated from API version 2023-05-01
 //   - resourceScope - The scope associated with reservation recommendation details operations. This includes '/subscriptions/{subscriptionId}/'
 //     for subscription scope,
 //     '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resource group scope, /providers/Microsoft.Billing/billingAccounts/{billingAccountId}'
 //     for BillingAccount scope, and
 //     '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for billingProfile
 //     scope
-//   - scope - Scope of the reservation.
-//   - region - Used to select the region the recommendation should be generated for.
-//   - term - Specify length of reservation recommendation term.
-//   - lookBackPeriod - Filter the time period on which reservation recommendation results are based.
-//   - product - Filter the products for which reservation recommendation results are generated. Examples: StandardDS1v2 (for
-//     VM), PremiumSSDManagedDisksP30 (for Managed Disks)
+//   - filter - Used to filter reservation recommendation details by: properties/scope with allowed values ['Single', 'Shared'];
+//     properties/savings/lookBackPeriod with allowed values [7, 30, 60];
+//     properties/savings/reservationOrderTerm with allowed values ['P1Y', 'P3Y']; properties/resource/region; properties/resource/product;
+//     and optional filter properties/subscriptionId can be specified for
+//     billing account and billing profile paths.
 //   - options - ReservationRecommendationDetailsClientGetOptions contains the optional parameters for the ReservationRecommendationDetailsClient.Get
 //     method.
-func (client *ReservationRecommendationDetailsClient) Get(ctx context.Context, resourceScope string, scope Scope, region string, term Term, lookBackPeriod LookBackPeriod, product string, options *ReservationRecommendationDetailsClientGetOptions) (ReservationRecommendationDetailsClientGetResponse, error) {
-	req, err := client.getCreateRequest(ctx, resourceScope, scope, region, term, lookBackPeriod, product, options)
+func (client *ReservationRecommendationDetailsClient) Get(ctx context.Context, resourceScope string, filter string, options *ReservationRecommendationDetailsClientGetOptions) (ReservationRecommendationDetailsClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceScope, filter, options)
 	if err != nil {
 		return ReservationRecommendationDetailsClientGetResponse{}, err
 	}
@@ -73,7 +72,7 @@ func (client *ReservationRecommendationDetailsClient) Get(ctx context.Context, r
 }
 
 // getCreateRequest creates the Get request.
-func (client *ReservationRecommendationDetailsClient) getCreateRequest(ctx context.Context, resourceScope string, scope Scope, region string, term Term, lookBackPeriod LookBackPeriod, product string, options *ReservationRecommendationDetailsClientGetOptions) (*policy.Request, error) {
+func (client *ReservationRecommendationDetailsClient) getCreateRequest(ctx context.Context, resourceScope string, filter string, options *ReservationRecommendationDetailsClientGetOptions) (*policy.Request, error) {
 	urlPath := "/{resourceScope}/providers/Microsoft.Consumption/reservationRecommendationDetails"
 	urlPath = strings.ReplaceAll(urlPath, "{resourceScope}", resourceScope)
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
@@ -81,12 +80,8 @@ func (client *ReservationRecommendationDetailsClient) getCreateRequest(ctx conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2021-10-01")
-	reqQP.Set("scope", string(scope))
-	reqQP.Set("region", region)
-	reqQP.Set("term", string(term))
-	reqQP.Set("lookBackPeriod", string(lookBackPeriod))
-	reqQP.Set("product", product)
+	reqQP.Set("api-version", "2023-05-01")
+	reqQP.Set("$filter", filter)
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
