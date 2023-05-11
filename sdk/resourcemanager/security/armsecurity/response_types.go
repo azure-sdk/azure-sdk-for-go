@@ -319,6 +319,11 @@ type AutomationsClientValidateResponse struct {
 	AutomationValidationStatus
 }
 
+// CenterClientAggregationsResponse contains the response from method CenterClient.Aggregations.
+type CenterClientAggregationsResponse struct {
+	AggregationResponse
+}
+
 // CenterClientGetSensitivitySettingsResponse contains the response from method CenterClient.GetSensitivitySettings.
 type CenterClientGetSensitivitySettingsResponse struct {
 	GetSensitivitySettingsResponse

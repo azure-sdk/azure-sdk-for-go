@@ -38,6 +38,50 @@ func NewCenterClient(credential azcore.TokenCredential, options *arm.ClientOptio
 	return client, nil
 }
 
+// Aggregations - Run pre-defined aggregation query against Microsoft.Security data types for scopes specified in the request.
+// If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2023-06-01-preview
+//   - aggregations - Request specifying Aggregation type and scopes.
+//   - options - CenterClientAggregationsOptions contains the optional parameters for the CenterClient.Aggregations method.
+func (client *CenterClient) Aggregations(ctx context.Context, aggregations AggregationRequest, options *CenterClientAggregationsOptions) (CenterClientAggregationsResponse, error) {
+	req, err := client.aggregationsCreateRequest(ctx, aggregations, options)
+	if err != nil {
+		return CenterClientAggregationsResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return CenterClientAggregationsResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return CenterClientAggregationsResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.aggregationsHandleResponse(resp)
+}
+
+// aggregationsCreateRequest creates the Aggregations request.
+func (client *CenterClient) aggregationsCreateRequest(ctx context.Context, aggregations AggregationRequest, options *CenterClientAggregationsOptions) (*policy.Request, error) {
+	urlPath := "/providers/Microsoft.Security/aggregations"
+	req, err := runtime.NewRequest(ctx, http.MethodPost, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2023-06-01-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, runtime.MarshalAsJSON(req, aggregations)
+}
+
+// aggregationsHandleResponse handles the Aggregations response.
+func (client *CenterClient) aggregationsHandleResponse(resp *http.Response) (CenterClientAggregationsResponse, error) {
+	result := CenterClientAggregationsResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.AggregationResponse); err != nil {
+		return CenterClientAggregationsResponse{}, err
+	}
+	return result, nil
+}
+
 // GetSensitivitySettings - Gets data sensitivity settings for sensitive data discovery
 // If the operation fails it returns an *azcore.ResponseError type.
 //

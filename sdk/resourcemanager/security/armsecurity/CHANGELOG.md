@@ -1,5 +1,14 @@
 # Release History
 
+## 0.12.0 (2023-05-11)
+### Features Added
+
+- New enum type `AggregationType` with values `AggregationTypeAlerts`, `AggregationTypeAllDataResources`, `AggregationTypeAttackPaths`, `AggregationTypeScopeDetails`, `AggregationTypeUsefulQueries`
+- New function `*CenterClient.Aggregations(context.Context, AggregationRequest, *CenterClientAggregationsOptions) (CenterClientAggregationsResponse, error)`
+- New struct `AggregationRequest`
+- New struct `AggregationResponse`
+
+
 ## 0.11.0 (2023-04-28)
 ### Breaking Changes
 

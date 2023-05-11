@@ -11,7 +11,7 @@ package armsecurity
 
 const (
 	moduleName    = "armsecurity"
-	moduleVersion = "v0.11.0"
+	moduleVersion = "v0.12.0"
 )
 
 // AADConnectivityState - The connectivity state of the external AAD solution
@@ -101,6 +101,28 @@ const (
 func PossibleAdditionalWorkspaceTypeValues() []AdditionalWorkspaceType {
 	return []AdditionalWorkspaceType{
 		AdditionalWorkspaceTypeSentinel,
+	}
+}
+
+// AggregationType - The aggregation type of query to run
+type AggregationType string
+
+const (
+	AggregationTypeAlerts           AggregationType = "Alerts"
+	AggregationTypeAllDataResources AggregationType = "AllDataResources"
+	AggregationTypeAttackPaths      AggregationType = "AttackPaths"
+	AggregationTypeScopeDetails     AggregationType = "ScopeDetails"
+	AggregationTypeUsefulQueries    AggregationType = "UsefulQueries"
+)
+
+// PossibleAggregationTypeValues returns the possible values for the AggregationType const type.
+func PossibleAggregationTypeValues() []AggregationType {
+	return []AggregationType{
+		AggregationTypeAlerts,
+		AggregationTypeAllDataResources,
+		AggregationTypeAttackPaths,
+		AggregationTypeScopeDetails,
+		AggregationTypeUsefulQueries,
 	}
 }
 

@@ -718,6 +718,72 @@ func (a *AdvancedThreatProtectionSetting) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type AggregationRequest.
+func (a AggregationRequest) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "aggregationType", a.AggregationType)
+	populate(objectMap, "awsScopes", a.AwsScopes)
+	populate(objectMap, "azureScopes", a.AzureScopes)
+	populate(objectMap, "gcpScopes", a.GcpScopes)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AggregationRequest.
+func (a *AggregationRequest) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "aggregationType":
+			err = unpopulate(val, "AggregationType", &a.AggregationType)
+			delete(rawMsg, key)
+		case "awsScopes":
+			err = unpopulate(val, "AwsScopes", &a.AwsScopes)
+			delete(rawMsg, key)
+		case "azureScopes":
+			err = unpopulate(val, "AzureScopes", &a.AzureScopes)
+			delete(rawMsg, key)
+		case "gcpScopes":
+			err = unpopulate(val, "GcpScopes", &a.GcpScopes)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type AggregationResponse.
+func (a AggregationResponse) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populateAny(objectMap, "data", a.Data)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type AggregationResponse.
+func (a *AggregationResponse) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", a, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "data":
+			err = unpopulate(val, "Data", &a.Data)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", a, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type Alert.
 func (a Alert) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)

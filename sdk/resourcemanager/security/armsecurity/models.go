@@ -396,6 +396,27 @@ type AdvancedThreatProtectionSetting struct {
 	Type *string
 }
 
+// AggregationRequest - Aggregation query type and scopes.
+type AggregationRequest struct {
+	// REQUIRED; The aggregation query type
+	AggregationType *AggregationType
+
+	// The aws scopes in which the query will be executed - list of cloud connector IDs.
+	AwsScopes []*string
+
+	// The azure scopes in which the query will be executed - List of subscription IDs.
+	AzureScopes []*string
+
+	// The GCP scopes in which the query will be executed - list of GCP connector IDs.
+	GcpScopes []*string
+}
+
+// AggregationResponse - Aggregation query result.
+type AggregationResponse struct {
+	// REQUIRED; Query output in JObject array.
+	Data any
+}
+
 // Alert - Security alert
 type Alert struct {
 	// describes security alert properties.
@@ -2115,6 +2136,11 @@ type CefSolutionProperties struct {
 
 	// Represents an OMS workspace to which the solution is connected
 	Workspace *ConnectedWorkspace
+}
+
+// CenterClientAggregationsOptions contains the optional parameters for the CenterClient.Aggregations method.
+type CenterClientAggregationsOptions struct {
+	// placeholder for future optional parameters
 }
 
 // CenterClientGetSensitivitySettingsOptions contains the optional parameters for the CenterClient.GetSensitivitySettings
