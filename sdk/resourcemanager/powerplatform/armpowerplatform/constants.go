@@ -11,7 +11,7 @@ package armpowerplatform
 
 const (
 	moduleName    = "armpowerplatform"
-	moduleVersion = "v0.2.1"
+	moduleVersion = "v0.3.0"
 )
 
 // ActionType - Enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -53,6 +53,7 @@ type EnterprisePolicyKind string
 
 const (
 	EnterprisePolicyKindEncryption       EnterprisePolicyKind = "Encryption"
+	EnterprisePolicyKindIdentity         EnterprisePolicyKind = "Identity"
 	EnterprisePolicyKindLockbox          EnterprisePolicyKind = "Lockbox"
 	EnterprisePolicyKindNetworkInjection EnterprisePolicyKind = "NetworkInjection"
 	EnterprisePolicyKindPrivateEndpoint  EnterprisePolicyKind = "PrivateEndpoint"
@@ -62,9 +63,30 @@ const (
 func PossibleEnterprisePolicyKindValues() []EnterprisePolicyKind {
 	return []EnterprisePolicyKind{
 		EnterprisePolicyKindEncryption,
+		EnterprisePolicyKindIdentity,
 		EnterprisePolicyKindLockbox,
 		EnterprisePolicyKindNetworkInjection,
 		EnterprisePolicyKindPrivateEndpoint,
+	}
+}
+
+// HealthStatus - The health status of the resource.
+type HealthStatus string
+
+const (
+	HealthStatusHealthy      HealthStatus = "Healthy"
+	HealthStatusUndetermined HealthStatus = "Undetermined"
+	HealthStatusUnhealthy    HealthStatus = "Unhealthy"
+	HealthStatusWarning      HealthStatus = "Warning"
+)
+
+// PossibleHealthStatusValues returns the possible values for the HealthStatus const type.
+func PossibleHealthStatusValues() []HealthStatus {
+	return []HealthStatus{
+		HealthStatusHealthy,
+		HealthStatusUndetermined,
+		HealthStatusUnhealthy,
+		HealthStatusWarning,
 	}
 }
 

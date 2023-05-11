@@ -1,5 +1,19 @@
 # Release History
 
+## 0.3.0 (2023-05-11)
+### Breaking Changes
+
+- Operation `*PrivateEndpointConnectionsClient.BeginCreateOrUpdate` has been changed to non-LRO, use `*PrivateEndpointConnectionsClient.CreateOrUpdate` instead.
+- Operation `*PrivateEndpointConnectionsClient.BeginDelete` has been changed to non-LRO, use `*PrivateEndpointConnectionsClient.Delete` instead.
+
+### Features Added
+
+- New value `EnterprisePolicyKindIdentity` added to enum type `EnterprisePolicyKind`
+- New enum type `HealthStatus` with values `HealthStatusHealthy`, `HealthStatusUndetermined`, `HealthStatusUnhealthy`, `HealthStatusWarning`
+- New field `SystemID` in struct `AccountProperties`
+- New field `HealthStatus`, `SystemID` in struct `Properties`
+
+
 ## 0.2.1 (2023-04-14)
 ### Bug Fixes
 
