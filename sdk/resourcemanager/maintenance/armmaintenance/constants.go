@@ -11,7 +11,7 @@ package armmaintenance
 
 const (
 	moduleName    = "armmaintenance"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v1.2.0-beta.1"
 )
 
 // CreatedByType - The type of identity that created the resource.
@@ -71,6 +71,8 @@ const (
 	MaintenanceScopeInGuestPatch MaintenanceScope = "InGuestPatch"
 	// MaintenanceScopeOSImage - This maintenance scope controls os image installation on VM/VMSS
 	MaintenanceScopeOSImage MaintenanceScope = "OSImage"
+	// MaintenanceScopeResource - This maintenance scope controls the default update maintenance of the Azure Resource
+	MaintenanceScopeResource MaintenanceScope = "Resource"
 	// MaintenanceScopeSQLDB - This maintenance scope controls installation of SQL server platform updates.
 	MaintenanceScopeSQLDB MaintenanceScope = "SQLDB"
 	// MaintenanceScopeSQLManagedInstance - This maintenance scope controls installation of SQL managed instance platform update.
@@ -84,8 +86,44 @@ func PossibleMaintenanceScopeValues() []MaintenanceScope {
 		MaintenanceScopeHost,
 		MaintenanceScopeInGuestPatch,
 		MaintenanceScopeOSImage,
+		MaintenanceScopeResource,
 		MaintenanceScopeSQLDB,
 		MaintenanceScopeSQLManagedInstance,
+	}
+}
+
+// RebootOptions - Possible reboot preference as defined by the user based on which it would be decided to reboot the machine
+// or not after the patch operation is completed.
+type RebootOptions string
+
+const (
+	RebootOptionsAlways     RebootOptions = "Always"
+	RebootOptionsIfRequired RebootOptions = "IfRequired"
+	RebootOptionsNever      RebootOptions = "Never"
+)
+
+// PossibleRebootOptionsValues returns the possible values for the RebootOptions const type.
+func PossibleRebootOptionsValues() []RebootOptions {
+	return []RebootOptions{
+		RebootOptionsAlways,
+		RebootOptionsIfRequired,
+		RebootOptionsNever,
+	}
+}
+
+// TaskScope - Global Task execute once when schedule trigger. Resource task execute for each VM.
+type TaskScope string
+
+const (
+	TaskScopeGlobal   TaskScope = "Global"
+	TaskScopeResource TaskScope = "Resource"
+)
+
+// PossibleTaskScopeValues returns the possible values for the TaskScope const type.
+func PossibleTaskScopeValues() []TaskScope {
+	return []TaskScope{
+		TaskScopeGlobal,
+		TaskScopeResource,
 	}
 }
 
