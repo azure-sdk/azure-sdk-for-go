@@ -11,34 +11,8 @@ package armpostgresqlhsc
 
 const (
 	moduleName    = "armpostgresqlhsc"
-	moduleVersion = "v0.6.0"
+	moduleVersion = "v1.0.0"
 )
-
-// CitusVersion - The Citus version.
-type CitusVersion string
-
-const (
-	CitusVersionEight3 CitusVersion = "8.3"
-	CitusVersionNine0  CitusVersion = "9.0"
-	CitusVersionNine1  CitusVersion = "9.1"
-	CitusVersionNine2  CitusVersion = "9.2"
-	CitusVersionNine3  CitusVersion = "9.3"
-	CitusVersionNine4  CitusVersion = "9.4"
-	CitusVersionNine5  CitusVersion = "9.5"
-)
-
-// PossibleCitusVersionValues returns the possible values for the CitusVersion const type.
-func PossibleCitusVersionValues() []CitusVersion {
-	return []CitusVersion{
-		CitusVersionEight3,
-		CitusVersionNine0,
-		CitusVersionNine1,
-		CitusVersionNine2,
-		CitusVersionNine3,
-		CitusVersionNine4,
-		CitusVersionNine5,
-	}
-}
 
 // ConfigurationDataType - Data type of the configuration.
 type ConfigurationDataType string
@@ -57,24 +31,6 @@ func PossibleConfigurationDataTypeValues() []ConfigurationDataType {
 		ConfigurationDataTypeEnumeration,
 		ConfigurationDataTypeInteger,
 		ConfigurationDataTypeNumeric,
-	}
-}
-
-// CreateMode - The mode to create a new server group.
-type CreateMode string
-
-const (
-	CreateModeDefault            CreateMode = "Default"
-	CreateModePointInTimeRestore CreateMode = "PointInTimeRestore"
-	CreateModeReadReplica        CreateMode = "ReadReplica"
-)
-
-// PossibleCreateModeValues returns the possible values for the CreateMode const type.
-func PossibleCreateModeValues() []CreateMode {
-	return []CreateMode{
-		CreateModeDefault,
-		CreateModePointInTimeRestore,
-		CreateModeReadReplica,
 	}
 }
 
@@ -116,77 +72,61 @@ func PossibleOperationOriginValues() []OperationOrigin {
 	}
 }
 
-// PostgreSQLVersion - The PostgreSQL version.
-type PostgreSQLVersion string
+// PrivateEndpointConnectionProvisioningState - The current provisioning state.
+type PrivateEndpointConnectionProvisioningState string
 
 const (
-	PostgreSQLVersionEleven PostgreSQLVersion = "11"
-	PostgreSQLVersionTwelve PostgreSQLVersion = "12"
+	PrivateEndpointConnectionProvisioningStateCreating  PrivateEndpointConnectionProvisioningState = "Creating"
+	PrivateEndpointConnectionProvisioningStateDeleting  PrivateEndpointConnectionProvisioningState = "Deleting"
+	PrivateEndpointConnectionProvisioningStateFailed    PrivateEndpointConnectionProvisioningState = "Failed"
+	PrivateEndpointConnectionProvisioningStateSucceeded PrivateEndpointConnectionProvisioningState = "Succeeded"
 )
 
-// PossiblePostgreSQLVersionValues returns the possible values for the PostgreSQLVersion const type.
-func PossiblePostgreSQLVersionValues() []PostgreSQLVersion {
-	return []PostgreSQLVersion{
-		PostgreSQLVersionEleven,
-		PostgreSQLVersionTwelve,
+// PossiblePrivateEndpointConnectionProvisioningStateValues returns the possible values for the PrivateEndpointConnectionProvisioningState const type.
+func PossiblePrivateEndpointConnectionProvisioningStateValues() []PrivateEndpointConnectionProvisioningState {
+	return []PrivateEndpointConnectionProvisioningState{
+		PrivateEndpointConnectionProvisioningStateCreating,
+		PrivateEndpointConnectionProvisioningStateDeleting,
+		PrivateEndpointConnectionProvisioningStateFailed,
+		PrivateEndpointConnectionProvisioningStateSucceeded,
 	}
 }
 
-// ResourceProviderType - The resource provider type of server group.
-type ResourceProviderType string
+// PrivateEndpointServiceConnectionStatus - The private endpoint connection status.
+type PrivateEndpointServiceConnectionStatus string
 
 const (
-	ResourceProviderTypeMarlin ResourceProviderType = "Marlin"
-	ResourceProviderTypeMeru   ResourceProviderType = "Meru"
+	PrivateEndpointServiceConnectionStatusApproved PrivateEndpointServiceConnectionStatus = "Approved"
+	PrivateEndpointServiceConnectionStatusPending  PrivateEndpointServiceConnectionStatus = "Pending"
+	PrivateEndpointServiceConnectionStatusRejected PrivateEndpointServiceConnectionStatus = "Rejected"
 )
 
-// PossibleResourceProviderTypeValues returns the possible values for the ResourceProviderType const type.
-func PossibleResourceProviderTypeValues() []ResourceProviderType {
-	return []ResourceProviderType{
-		ResourceProviderTypeMarlin,
-		ResourceProviderTypeMeru,
+// PossiblePrivateEndpointServiceConnectionStatusValues returns the possible values for the PrivateEndpointServiceConnectionStatus const type.
+func PossiblePrivateEndpointServiceConnectionStatusValues() []PrivateEndpointServiceConnectionStatus {
+	return []PrivateEndpointServiceConnectionStatus{
+		PrivateEndpointServiceConnectionStatusApproved,
+		PrivateEndpointServiceConnectionStatusPending,
+		PrivateEndpointServiceConnectionStatusRejected,
 	}
 }
 
-// ServerEdition - The edition of a server (default: GeneralPurpose).
-type ServerEdition string
+// ProvisioningState - The current provisioning state.
+type ProvisioningState string
 
 const (
-	ServerEditionGeneralPurpose  ServerEdition = "GeneralPurpose"
-	ServerEditionMemoryOptimized ServerEdition = "MemoryOptimized"
+	ProvisioningStateCanceled   ProvisioningState = "Canceled"
+	ProvisioningStateFailed     ProvisioningState = "Failed"
+	ProvisioningStateInProgress ProvisioningState = "InProgress"
+	ProvisioningStateSucceeded  ProvisioningState = "Succeeded"
 )
 
-// PossibleServerEditionValues returns the possible values for the ServerEdition const type.
-func PossibleServerEditionValues() []ServerEdition {
-	return []ServerEdition{
-		ServerEditionGeneralPurpose,
-		ServerEditionMemoryOptimized,
-	}
-}
-
-// ServerHaState - A state of a server role group/server that is visible to user for HA feature.
-type ServerHaState string
-
-const (
-	ServerHaStateCreatingStandby ServerHaState = "CreatingStandby"
-	ServerHaStateFailingOver     ServerHaState = "FailingOver"
-	ServerHaStateHealthy         ServerHaState = "Healthy"
-	ServerHaStateNotEnabled      ServerHaState = "NotEnabled"
-	ServerHaStateNotSync         ServerHaState = "NotSync"
-	ServerHaStateRemovingStandby ServerHaState = "RemovingStandby"
-	ServerHaStateReplicatingData ServerHaState = "ReplicatingData"
-)
-
-// PossibleServerHaStateValues returns the possible values for the ServerHaState const type.
-func PossibleServerHaStateValues() []ServerHaState {
-	return []ServerHaState{
-		ServerHaStateCreatingStandby,
-		ServerHaStateFailingOver,
-		ServerHaStateHealthy,
-		ServerHaStateNotEnabled,
-		ServerHaStateNotSync,
-		ServerHaStateRemovingStandby,
-		ServerHaStateReplicatingData,
+// PossibleProvisioningStateValues returns the possible values for the ProvisioningState const type.
+func PossibleProvisioningStateValues() []ProvisioningState {
+	return []ProvisioningState{
+		ProvisioningStateCanceled,
+		ProvisioningStateFailed,
+		ProvisioningStateInProgress,
+		ProvisioningStateSucceeded,
 	}
 }
 
@@ -203,33 +143,5 @@ func PossibleServerRoleValues() []ServerRole {
 	return []ServerRole{
 		ServerRoleCoordinator,
 		ServerRoleWorker,
-	}
-}
-
-// ServerState - A state of a server group/server that is visible to user.
-type ServerState string
-
-const (
-	ServerStateDisabled     ServerState = "Disabled"
-	ServerStateDropping     ServerState = "Dropping"
-	ServerStateProvisioning ServerState = "Provisioning"
-	ServerStateReady        ServerState = "Ready"
-	ServerStateStarting     ServerState = "Starting"
-	ServerStateStopped      ServerState = "Stopped"
-	ServerStateStopping     ServerState = "Stopping"
-	ServerStateUpdating     ServerState = "Updating"
-)
-
-// PossibleServerStateValues returns the possible values for the ServerState const type.
-func PossibleServerStateValues() []ServerState {
-	return []ServerState{
-		ServerStateDisabled,
-		ServerStateDropping,
-		ServerStateProvisioning,
-		ServerStateReady,
-		ServerStateStarting,
-		ServerStateStopped,
-		ServerStateStopping,
-		ServerStateUpdating,
 	}
 }

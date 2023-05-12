@@ -29,7 +29,7 @@ type RolesClient struct {
 }
 
 // NewRolesClient creates a new instance of RolesClient with the specified values.
-//   - subscriptionID - The ID of the target subscription.
+//   - subscriptionID - The ID of the target subscription. The value must be an UUID.
 //   - credential - used to authorize requests. Usually a credential from azidentity.
 //   - options - pass nil to accept the default values.
 func NewRolesClient(subscriptionID string, credential azcore.TokenCredential, options *arm.ClientOptions) (*RolesClient, error) {
@@ -47,19 +47,21 @@ func NewRolesClient(subscriptionID string, credential azcore.TokenCredential, op
 // BeginCreate - Creates a new role or updates an existing role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - roleName - The name of the server group role name.
+//   - clusterName - The name of the cluster.
+//   - roleName - The name of the cluster role.
 //   - parameters - The required parameters for creating or updating a role.
 //   - options - RolesClientBeginCreateOptions contains the optional parameters for the RolesClient.BeginCreate method.
-func (client *RolesClient) BeginCreate(ctx context.Context, resourceGroupName string, serverGroupName string, roleName string, parameters Role, options *RolesClientBeginCreateOptions) (*runtime.Poller[RolesClientCreateResponse], error) {
+func (client *RolesClient) BeginCreate(ctx context.Context, resourceGroupName string, clusterName string, roleName string, parameters Role, options *RolesClientBeginCreateOptions) (*runtime.Poller[RolesClientCreateResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.create(ctx, resourceGroupName, serverGroupName, roleName, parameters, options)
+		resp, err := client.create(ctx, resourceGroupName, clusterName, roleName, parameters, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[RolesClientCreateResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[RolesClientCreateResponse]{
+			FinalStateVia: runtime.FinalStateViaAzureAsyncOp,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[RolesClientCreateResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
@@ -68,9 +70,9 @@ func (client *RolesClient) BeginCreate(ctx context.Context, resourceGroupName st
 // Create - Creates a new role or updates an existing role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
-func (client *RolesClient) create(ctx context.Context, resourceGroupName string, serverGroupName string, roleName string, parameters Role, options *RolesClientBeginCreateOptions) (*http.Response, error) {
-	req, err := client.createCreateRequest(ctx, resourceGroupName, serverGroupName, roleName, parameters, options)
+// Generated from API version 2022-11-08
+func (client *RolesClient) create(ctx context.Context, resourceGroupName string, clusterName string, roleName string, parameters Role, options *RolesClientBeginCreateOptions) (*http.Response, error) {
+	req, err := client.createCreateRequest(ctx, resourceGroupName, clusterName, roleName, parameters, options)
 	if err != nil {
 		return nil, err
 	}
@@ -78,27 +80,24 @@ func (client *RolesClient) create(ctx context.Context, resourceGroupName string,
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated, http.StatusAccepted) {
+	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusCreated) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
 }
 
 // createCreateRequest creates the Create request.
-func (client *RolesClient) createCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, roleName string, parameters Role, options *RolesClientBeginCreateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/roles/{roleName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *RolesClient) createCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, roleName string, parameters Role, options *RolesClientBeginCreateOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/roles/{roleName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if roleName == "" {
 		return nil, errors.New("parameter roleName cannot be empty")
 	}
@@ -108,38 +107,40 @@ func (client *RolesClient) createCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, runtime.MarshalAsJSON(req, parameters)
 }
 
-// BeginDelete - Deletes a server group role.
+// BeginDelete - Deletes a cluster role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - roleName - The name of the server group role name.
+//   - clusterName - The name of the cluster.
+//   - roleName - The name of the cluster role.
 //   - options - RolesClientBeginDeleteOptions contains the optional parameters for the RolesClient.BeginDelete method.
-func (client *RolesClient) BeginDelete(ctx context.Context, resourceGroupName string, serverGroupName string, roleName string, options *RolesClientBeginDeleteOptions) (*runtime.Poller[RolesClientDeleteResponse], error) {
+func (client *RolesClient) BeginDelete(ctx context.Context, resourceGroupName string, clusterName string, roleName string, options *RolesClientBeginDeleteOptions) (*runtime.Poller[RolesClientDeleteResponse], error) {
 	if options == nil || options.ResumeToken == "" {
-		resp, err := client.deleteOperation(ctx, resourceGroupName, serverGroupName, roleName, options)
+		resp, err := client.deleteOperation(ctx, resourceGroupName, clusterName, roleName, options)
 		if err != nil {
 			return nil, err
 		}
-		return runtime.NewPoller[RolesClientDeleteResponse](resp, client.internal.Pipeline(), nil)
+		return runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[RolesClientDeleteResponse]{
+			FinalStateVia: runtime.FinalStateViaLocation,
+		})
 	} else {
 		return runtime.NewPollerFromResumeToken[RolesClientDeleteResponse](options.ResumeToken, client.internal.Pipeline(), nil)
 	}
 }
 
-// Delete - Deletes a server group role.
+// Delete - Deletes a cluster role.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
-func (client *RolesClient) deleteOperation(ctx context.Context, resourceGroupName string, serverGroupName string, roleName string, options *RolesClientBeginDeleteOptions) (*http.Response, error) {
-	req, err := client.deleteCreateRequest(ctx, resourceGroupName, serverGroupName, roleName, options)
+// Generated from API version 2022-11-08
+func (client *RolesClient) deleteOperation(ctx context.Context, resourceGroupName string, clusterName string, roleName string, options *RolesClientBeginDeleteOptions) (*http.Response, error) {
+	req, err := client.deleteCreateRequest(ctx, resourceGroupName, clusterName, roleName, options)
 	if err != nil {
 		return nil, err
 	}
@@ -147,27 +148,24 @@ func (client *RolesClient) deleteOperation(ctx context.Context, resourceGroupNam
 	if err != nil {
 		return nil, err
 	}
-	if !runtime.HasStatusCode(resp, http.StatusOK, http.StatusAccepted, http.StatusNoContent) {
+	if !runtime.HasStatusCode(resp, http.StatusAccepted, http.StatusNoContent) {
 		return nil, runtime.NewResponseError(resp)
 	}
 	return resp, nil
 }
 
 // deleteCreateRequest creates the Delete request.
-func (client *RolesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, roleName string, options *RolesClientBeginDeleteOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/roles/{roleName}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+func (client *RolesClient) deleteCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, roleName string, options *RolesClientBeginDeleteOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/roles/{roleName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
 	if roleName == "" {
 		return nil, errors.New("parameter roleName cannot be empty")
 	}
@@ -177,72 +175,127 @@ func (client *RolesClient) deleteCreateRequest(ctx context.Context, resourceGrou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// NewListByServerGroupPager - List all the roles in a given server group.
+// Get - Gets information about a cluster role.
+// If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2020-10-05-privatepreview
+// Generated from API version 2022-11-08
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - serverGroupName - The name of the server group.
-//   - options - RolesClientListByServerGroupOptions contains the optional parameters for the RolesClient.NewListByServerGroupPager
-//     method.
-func (client *RolesClient) NewListByServerGroupPager(resourceGroupName string, serverGroupName string, options *RolesClientListByServerGroupOptions) *runtime.Pager[RolesClientListByServerGroupResponse] {
-	return runtime.NewPager(runtime.PagingHandler[RolesClientListByServerGroupResponse]{
-		More: func(page RolesClientListByServerGroupResponse) bool {
-			return false
-		},
-		Fetcher: func(ctx context.Context, page *RolesClientListByServerGroupResponse) (RolesClientListByServerGroupResponse, error) {
-			req, err := client.listByServerGroupCreateRequest(ctx, resourceGroupName, serverGroupName, options)
-			if err != nil {
-				return RolesClientListByServerGroupResponse{}, err
-			}
-			resp, err := client.internal.Pipeline().Do(req)
-			if err != nil {
-				return RolesClientListByServerGroupResponse{}, err
-			}
-			if !runtime.HasStatusCode(resp, http.StatusOK) {
-				return RolesClientListByServerGroupResponse{}, runtime.NewResponseError(resp)
-			}
-			return client.listByServerGroupHandleResponse(resp)
-		},
-	})
+//   - clusterName - The name of the cluster.
+//   - roleName - The name of the cluster role.
+//   - options - RolesClientGetOptions contains the optional parameters for the RolesClient.Get method.
+func (client *RolesClient) Get(ctx context.Context, resourceGroupName string, clusterName string, roleName string, options *RolesClientGetOptions) (RolesClientGetResponse, error) {
+	req, err := client.getCreateRequest(ctx, resourceGroupName, clusterName, roleName, options)
+	if err != nil {
+		return RolesClientGetResponse{}, err
+	}
+	resp, err := client.internal.Pipeline().Do(req)
+	if err != nil {
+		return RolesClientGetResponse{}, err
+	}
+	if !runtime.HasStatusCode(resp, http.StatusOK) {
+		return RolesClientGetResponse{}, runtime.NewResponseError(resp)
+	}
+	return client.getHandleResponse(resp)
 }
 
-// listByServerGroupCreateRequest creates the ListByServerGroup request.
-func (client *RolesClient) listByServerGroupCreateRequest(ctx context.Context, resourceGroupName string, serverGroupName string, options *RolesClientListByServerGroupOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBForPostgreSql/serverGroupsv2/{serverGroupName}/roles"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
+// getCreateRequest creates the Get request.
+func (client *RolesClient) getCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, roleName string, options *RolesClientGetOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/roles/{roleName}"
 	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
 	if resourceGroupName == "" {
 		return nil, errors.New("parameter resourceGroupName cannot be empty")
 	}
 	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if serverGroupName == "" {
-		return nil, errors.New("parameter serverGroupName cannot be empty")
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
 	}
-	urlPath = strings.ReplaceAll(urlPath, "{serverGroupName}", url.PathEscape(serverGroupName))
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	if roleName == "" {
+		return nil, errors.New("parameter roleName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{roleName}", url.PathEscape(roleName))
 	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
 	if err != nil {
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2020-10-05-privatepreview")
+	reqQP.Set("api-version", "2022-11-08")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
 
-// listByServerGroupHandleResponse handles the ListByServerGroup response.
-func (client *RolesClient) listByServerGroupHandleResponse(resp *http.Response) (RolesClientListByServerGroupResponse, error) {
-	result := RolesClientListByServerGroupResponse{}
+// getHandleResponse handles the Get response.
+func (client *RolesClient) getHandleResponse(resp *http.Response) (RolesClientGetResponse, error) {
+	result := RolesClientGetResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.Role); err != nil {
+		return RolesClientGetResponse{}, err
+	}
+	return result, nil
+}
+
+// NewListByClusterPager - List all the roles in a given cluster.
+//
+// Generated from API version 2022-11-08
+//   - resourceGroupName - The name of the resource group. The name is case insensitive.
+//   - clusterName - The name of the cluster.
+//   - options - RolesClientListByClusterOptions contains the optional parameters for the RolesClient.NewListByClusterPager method.
+func (client *RolesClient) NewListByClusterPager(resourceGroupName string, clusterName string, options *RolesClientListByClusterOptions) *runtime.Pager[RolesClientListByClusterResponse] {
+	return runtime.NewPager(runtime.PagingHandler[RolesClientListByClusterResponse]{
+		More: func(page RolesClientListByClusterResponse) bool {
+			return false
+		},
+		Fetcher: func(ctx context.Context, page *RolesClientListByClusterResponse) (RolesClientListByClusterResponse, error) {
+			req, err := client.listByClusterCreateRequest(ctx, resourceGroupName, clusterName, options)
+			if err != nil {
+				return RolesClientListByClusterResponse{}, err
+			}
+			resp, err := client.internal.Pipeline().Do(req)
+			if err != nil {
+				return RolesClientListByClusterResponse{}, err
+			}
+			if !runtime.HasStatusCode(resp, http.StatusOK) {
+				return RolesClientListByClusterResponse{}, runtime.NewResponseError(resp)
+			}
+			return client.listByClusterHandleResponse(resp)
+		},
+	})
+}
+
+// listByClusterCreateRequest creates the ListByCluster request.
+func (client *RolesClient) listByClusterCreateRequest(ctx context.Context, resourceGroupName string, clusterName string, options *RolesClientListByClusterOptions) (*policy.Request, error) {
+	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/serverGroupsv2/{clusterName}/roles"
+	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
+	if resourceGroupName == "" {
+		return nil, errors.New("parameter resourceGroupName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
+	if clusterName == "" {
+		return nil, errors.New("parameter clusterName cannot be empty")
+	}
+	urlPath = strings.ReplaceAll(urlPath, "{clusterName}", url.PathEscape(clusterName))
+	req, err := runtime.NewRequest(ctx, http.MethodGet, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
+	if err != nil {
+		return nil, err
+	}
+	reqQP := req.Raw().URL.Query()
+	reqQP.Set("api-version", "2022-11-08")
+	req.Raw().URL.RawQuery = reqQP.Encode()
+	req.Raw().Header["Accept"] = []string{"application/json"}
+	return req, nil
+}
+
+// listByClusterHandleResponse handles the ListByCluster response.
+func (client *RolesClient) listByClusterHandleResponse(resp *http.Response) (RolesClientListByClusterResponse, error) {
+	result := RolesClientListByClusterResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.RoleListResult); err != nil {
-		return RolesClientListByServerGroupResponse{}, err
+		return RolesClientListByClusterResponse{}, err
 	}
 	return result, nil
 }
