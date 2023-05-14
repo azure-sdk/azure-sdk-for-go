@@ -11,7 +11,7 @@ package armapimanagement
 
 const (
 	moduleName    = "armapimanagement"
-	moduleVersion = "v1.1.1"
+	moduleVersion = "v2.0.0-beta.1"
 )
 
 // APIManagementSKUCapacityScaleType - The scale type applicable to the sku.
@@ -70,6 +70,7 @@ type APIType string
 const (
 	APITypeGraphql   APIType = "graphql"
 	APITypeHTTP      APIType = "http"
+	APITypeOData     APIType = "odata"
 	APITypeSoap      APIType = "soap"
 	APITypeWebsocket APIType = "websocket"
 )
@@ -79,6 +80,7 @@ func PossibleAPITypeValues() []APIType {
 	return []APIType{
 		APITypeGraphql,
 		APITypeHTTP,
+		APITypeOData,
 		APITypeSoap,
 		APITypeWebsocket,
 	}
@@ -89,8 +91,11 @@ func PossibleAPITypeValues() []APIType {
 type APIVersionSetContractDetailsVersioningScheme string
 
 const (
-	APIVersionSetContractDetailsVersioningSchemeHeader  APIVersionSetContractDetailsVersioningScheme = "Header"
-	APIVersionSetContractDetailsVersioningSchemeQuery   APIVersionSetContractDetailsVersioningScheme = "Query"
+	// APIVersionSetContractDetailsVersioningSchemeHeader - The API Version is passed in a HTTP header.
+	APIVersionSetContractDetailsVersioningSchemeHeader APIVersionSetContractDetailsVersioningScheme = "Header"
+	// APIVersionSetContractDetailsVersioningSchemeQuery - The API Version is passed in a query parameter.
+	APIVersionSetContractDetailsVersioningSchemeQuery APIVersionSetContractDetailsVersioningScheme = "Query"
+	// APIVersionSetContractDetailsVersioningSchemeSegment - The API Version is passed in a path segment.
 	APIVersionSetContractDetailsVersioningSchemeSegment APIVersionSetContractDetailsVersioningScheme = "Segment"
 )
 
@@ -213,6 +218,26 @@ func PossibleAsyncOperationStatusValues() []AsyncOperationStatus {
 	}
 }
 
+// AsyncResolverStatus - Status of an async resolver.
+type AsyncResolverStatus string
+
+const (
+	AsyncResolverStatusStarted    AsyncResolverStatus = "Started"
+	AsyncResolverStatusInProgress AsyncResolverStatus = "InProgress"
+	AsyncResolverStatusSucceeded  AsyncResolverStatus = "Succeeded"
+	AsyncResolverStatusFailed     AsyncResolverStatus = "Failed"
+)
+
+// PossibleAsyncResolverStatusValues returns the possible values for the AsyncResolverStatus const type.
+func PossibleAsyncResolverStatusValues() []AsyncResolverStatus {
+	return []AsyncResolverStatus{
+		AsyncResolverStatusStarted,
+		AsyncResolverStatusInProgress,
+		AsyncResolverStatusSucceeded,
+		AsyncResolverStatusFailed,
+	}
+}
+
 type AuthorizationMethod string
 
 const (
@@ -237,6 +262,21 @@ func PossibleAuthorizationMethodValues() []AuthorizationMethod {
 		AuthorizationMethodPUT,
 		AuthorizationMethodPATCH,
 		AuthorizationMethodDELETE,
+	}
+}
+
+// AuthorizationType - Authorization type options
+type AuthorizationType string
+
+const (
+	// AuthorizationTypeOAuth2 - OAuth2 authorization type
+	AuthorizationTypeOAuth2 AuthorizationType = "OAuth2"
+)
+
+// PossibleAuthorizationTypeValues returns the possible values for the AuthorizationType const type.
+func PossibleAuthorizationTypeValues() []AuthorizationType {
+	return []AuthorizationType{
+		AuthorizationTypeOAuth2,
 	}
 }
 
@@ -452,12 +492,16 @@ func PossibleConnectivityStatusTypeValues() []ConnectivityStatusType {
 	}
 }
 
-// ContentFormat - Format of the Content in which the API is getting imported.
+// ContentFormat - Format of the Content in which the API is getting imported. New formats can be added in the future
 type ContentFormat string
 
 const (
 	// ContentFormatGraphqlLink - The GraphQL API endpoint hosted on a publicly accessible internet address.
 	ContentFormatGraphqlLink ContentFormat = "graphql-link"
+	// ContentFormatOData - The contents are inline and Content Type is a OData XML Document.
+	ContentFormatOData ContentFormat = "odata"
+	// ContentFormatODataLink - The OData metadata document hosted on a publicly accessible internet address.
+	ContentFormatODataLink ContentFormat = "odata-link"
 	// ContentFormatOpenapi - The contents are inline and Content Type is a OpenAPI 3.0 YAML Document.
 	ContentFormatOpenapi ContentFormat = "openapi"
 	// ContentFormatOpenapiJSON - The contents are inline and Content Type is a OpenAPI 3.0 JSON Document.
@@ -484,6 +528,8 @@ const (
 func PossibleContentFormatValues() []ContentFormat {
 	return []ContentFormat{
 		ContentFormatGraphqlLink,
+		ContentFormatOData,
+		ContentFormatODataLink,
 		ContentFormatOpenapi,
 		ContentFormatOpenapiJSON,
 		ContentFormatOpenapiJSONLink,
@@ -665,16 +711,18 @@ func PossibleHTTPCorrelationProtocolValues() []HTTPCorrelationProtocol {
 type HostnameType string
 
 const (
-	HostnameTypeDeveloperPortal HostnameType = "DeveloperPortal"
-	HostnameTypeManagement      HostnameType = "Management"
-	HostnameTypePortal          HostnameType = "Portal"
-	HostnameTypeProxy           HostnameType = "Proxy"
-	HostnameTypeScm             HostnameType = "Scm"
+	HostnameTypeConfigurationAPI HostnameType = "ConfigurationApi"
+	HostnameTypeDeveloperPortal  HostnameType = "DeveloperPortal"
+	HostnameTypeManagement       HostnameType = "Management"
+	HostnameTypePortal           HostnameType = "Portal"
+	HostnameTypeProxy            HostnameType = "Proxy"
+	HostnameTypeScm              HostnameType = "Scm"
 )
 
 // PossibleHostnameTypeValues returns the possible values for the HostnameType const type.
 func PossibleHostnameTypeValues() []HostnameType {
 	return []HostnameType{
+		HostnameTypeConfigurationAPI,
 		HostnameTypeDeveloperPortal,
 		HostnameTypeManagement,
 		HostnameTypePortal,
@@ -758,6 +806,45 @@ func PossibleKeyTypeValues() []KeyType {
 	}
 }
 
+type KeyVaultRefreshState string
+
+const (
+	// KeyVaultRefreshStateFalse - Entities for which KeyVault refresh succeeded
+	KeyVaultRefreshStateFalse KeyVaultRefreshState = "false"
+	// KeyVaultRefreshStateTrue - Entities for which KeyVault refresh failed.
+	KeyVaultRefreshStateTrue KeyVaultRefreshState = "true"
+)
+
+// PossibleKeyVaultRefreshStateValues returns the possible values for the KeyVaultRefreshState const type.
+func PossibleKeyVaultRefreshStateValues() []KeyVaultRefreshState {
+	return []KeyVaultRefreshState{
+		KeyVaultRefreshStateFalse,
+		KeyVaultRefreshStateTrue,
+	}
+}
+
+// LegacyAPIState - Indication whether or not the legacy Configuration API (v1) should be exposed on the API Management service.
+// Value is optional but must be 'Enabled' or 'Disabled'. If 'Disabled', legacy Configuration
+// API (v1) will not be available for self-hosted gateways. Default value is 'Enabled'
+type LegacyAPIState string
+
+const (
+	// LegacyAPIStateDisabled - Legacy Configuration API (v1) is disabled for the service and self-hosted gateways can not connect
+	// to it.
+	LegacyAPIStateDisabled LegacyAPIState = "Disabled"
+	// LegacyAPIStateEnabled - Legacy Configuration API (v1) is enabled for the service and self-hosted gateways can connect to
+	// it.
+	LegacyAPIStateEnabled LegacyAPIState = "Enabled"
+)
+
+// PossibleLegacyAPIStateValues returns the possible values for the LegacyAPIState const type.
+func PossibleLegacyAPIStateValues() []LegacyAPIState {
+	return []LegacyAPIState{
+		LegacyAPIStateDisabled,
+		LegacyAPIStateEnabled,
+	}
+}
+
 // LoggerType - Logger type.
 type LoggerType string
 
@@ -815,6 +902,24 @@ func PossibleNameAvailabilityReasonValues() []NameAvailabilityReason {
 	}
 }
 
+// NatGatewayState - Property can be used to enable NAT Gateway for this API Management service.
+type NatGatewayState string
+
+const (
+	// NatGatewayStateDisabled - Nat Gateway is disabled for the service.
+	NatGatewayStateDisabled NatGatewayState = "Disabled"
+	// NatGatewayStateEnabled - Nat Gateway is enabled for the service.
+	NatGatewayStateEnabled NatGatewayState = "Enabled"
+)
+
+// PossibleNatGatewayStateValues returns the possible values for the NatGatewayState const type.
+func PossibleNatGatewayStateValues() []NatGatewayState {
+	return []NatGatewayState{
+		NatGatewayStateDisabled,
+		NatGatewayStateEnabled,
+	}
+}
+
 type NotificationName string
 
 const (
@@ -850,6 +955,24 @@ func PossibleNotificationNameValues() []NotificationName {
 		NotificationNamePurchasePublisherNotificationMessage,
 		NotificationNameQuotaLimitApproachingPublisherNotificationMessage,
 		NotificationNameRequestPublisherNotificationMessage,
+	}
+}
+
+// OAuth2GrantType - OAuth2 grant type options
+type OAuth2GrantType string
+
+const (
+	// OAuth2GrantTypeAuthorizationCode - Authorization Code grant
+	OAuth2GrantTypeAuthorizationCode OAuth2GrantType = "AuthorizationCode"
+	// OAuth2GrantTypeClientCredentials - Client Credential grant
+	OAuth2GrantTypeClientCredentials OAuth2GrantType = "ClientCredentials"
+)
+
+// PossibleOAuth2GrantTypeValues returns the possible values for the OAuth2GrantType const type.
+func PossibleOAuth2GrantTypeValues() []OAuth2GrantType {
+	return []OAuth2GrantType{
+		OAuth2GrantTypeAuthorizationCode,
+		OAuth2GrantTypeClientCredentials,
 	}
 }
 
@@ -899,6 +1022,8 @@ const (
 	PlatformVersionStv1 PlatformVersion = "stv1"
 	// PlatformVersionStv2 - Platform running the service on Single Tenant V2 platform.
 	PlatformVersionStv2 PlatformVersion = "stv2"
+	// PlatformVersionStv21 - Platform running the service on Single Tenant V2 platform on newer Hardware.
+	PlatformVersionStv21 PlatformVersion = "stv2.1"
 	// PlatformVersionUndetermined - Platform version cannot be determined, as compute platform is not deployed.
 	PlatformVersionUndetermined PlatformVersion = "undetermined"
 )
@@ -909,6 +1034,7 @@ func PossiblePlatformVersionValues() []PlatformVersion {
 		PlatformVersionMtv1,
 		PlatformVersionStv1,
 		PlatformVersionStv2,
+		PlatformVersionStv21,
 		PlatformVersionUndetermined,
 	}
 }
@@ -919,12 +1045,12 @@ type PolicyContentFormat string
 const (
 	// PolicyContentFormatRawxml - The contents are inline and Content type is a non XML encoded policy document.
 	PolicyContentFormatRawxml PolicyContentFormat = "rawxml"
-	// PolicyContentFormatRawxmlLink - The policy document is not Xml encoded and is hosted on a http endpoint accessible from
+	// PolicyContentFormatRawxmlLink - The policy document is not XML encoded and is hosted on a HTTP endpoint accessible from
 	// the API Management service.
 	PolicyContentFormatRawxmlLink PolicyContentFormat = "rawxml-link"
 	// PolicyContentFormatXML - The contents are inline and Content type is an XML document.
 	PolicyContentFormatXML PolicyContentFormat = "xml"
-	// PolicyContentFormatXMLLink - The policy XML document is hosted on a http endpoint accessible from the API Management service.
+	// PolicyContentFormatXMLLink - The policy XML document is hosted on a HTTP endpoint accessible from the API Management service.
 	PolicyContentFormatXMLLink PolicyContentFormat = "xml-link"
 )
 
@@ -952,6 +1078,23 @@ func PossiblePolicyExportFormatValues() []PolicyExportFormat {
 	return []PolicyExportFormat{
 		PolicyExportFormatRawxml,
 		PolicyExportFormatXML,
+	}
+}
+
+type PolicyFragmentContentFormat string
+
+const (
+	// PolicyFragmentContentFormatRawxml - The contents are inline and Content type is a non XML encoded policy document.
+	PolicyFragmentContentFormatRawxml PolicyFragmentContentFormat = "rawxml"
+	// PolicyFragmentContentFormatXML - The contents are inline and Content type is an XML document.
+	PolicyFragmentContentFormatXML PolicyFragmentContentFormat = "xml"
+)
+
+// PossiblePolicyFragmentContentFormatValues returns the possible values for the PolicyFragmentContentFormat const type.
+func PossiblePolicyFragmentContentFormatValues() []PolicyFragmentContentFormat {
+	return []PolicyFragmentContentFormat{
+		PolicyFragmentContentFormatRawxml,
+		PolicyFragmentContentFormatXML,
 	}
 }
 
@@ -1010,6 +1153,27 @@ func PossiblePortalRevisionStatusValues() []PortalRevisionStatus {
 		PortalRevisionStatusFailed,
 		PortalRevisionStatusPending,
 		PortalRevisionStatusPublishing,
+	}
+}
+
+// PortalSettingsCspMode - The mode of the developer portal Content Security Policy (CSP).
+type PortalSettingsCspMode string
+
+const (
+	// PortalSettingsCspModeDisabled - The browser will not apply the origin restrictions.
+	PortalSettingsCspModeDisabled PortalSettingsCspMode = "disabled"
+	// PortalSettingsCspModeEnabled - The browser will block requests not matching allowed origins.
+	PortalSettingsCspModeEnabled PortalSettingsCspMode = "enabled"
+	// PortalSettingsCspModeReportOnly - The browser will report requests not matching allowed origins without blocking them.
+	PortalSettingsCspModeReportOnly PortalSettingsCspMode = "reportOnly"
+)
+
+// PossiblePortalSettingsCspModeValues returns the possible values for the PortalSettingsCspMode const type.
+func PossiblePortalSettingsCspModeValues() []PortalSettingsCspMode {
+	return []PortalSettingsCspMode{
+		PortalSettingsCspModeDisabled,
+		PortalSettingsCspModeEnabled,
+		PortalSettingsCspModeReportOnly,
 	}
 }
 
@@ -1192,7 +1356,7 @@ type SchemaType string
 const (
 	// SchemaTypeJSON - Json schema type.
 	SchemaTypeJSON SchemaType = "json"
-	// SchemaTypeXML - Xml schema type.
+	// SchemaTypeXML - XML schema type.
 	SchemaTypeXML SchemaType = "xml"
 )
 
@@ -1237,12 +1401,14 @@ func PossibleSeverityValues() []Severity {
 // * http creates a REST API
 // * soap creates a SOAP pass-through API
 // * websocket creates websocket API
-// * graphql creates GraphQL API.
+// * graphql creates GraphQL API. New types can be added in the future.
 type SoapAPIType string
 
 const (
 	// SoapAPITypeGraphQL - Imports the API having a GraphQL front end.
 	SoapAPITypeGraphQL SoapAPIType = "graphql"
+	// SoapAPITypeOData - Imports the API having a OData front end.
+	SoapAPITypeOData SoapAPIType = "odata"
 	// SoapAPITypeSoapPassThrough - Imports the SOAP API having a SOAP front end.
 	SoapAPITypeSoapPassThrough SoapAPIType = "soap"
 	// SoapAPITypeSoapToRest - Imports a SOAP API having a RESTful front end.
@@ -1255,6 +1421,7 @@ const (
 func PossibleSoapAPITypeValues() []SoapAPIType {
 	return []SoapAPIType{
 		SoapAPITypeGraphQL,
+		SoapAPITypeOData,
 		SoapAPITypeSoapPassThrough,
 		SoapAPITypeSoapToRest,
 		SoapAPITypeWebSocket,
@@ -1353,6 +1520,25 @@ func PossibleTemplateNameValues() []TemplateName {
 		TemplateNameQuotaLimitApproachingDeveloperNotificationMessage,
 		TemplateNameRejectDeveloperNotificationMessage,
 		TemplateNameRequestDeveloperNotificationMessage,
+	}
+}
+
+// TranslateRequiredQueryParametersConduct - Strategy of translating required query parameters to template ones. By default
+// has value 'template'. Possible values: 'template', 'query'
+type TranslateRequiredQueryParametersConduct string
+
+const (
+	// TranslateRequiredQueryParametersConductQuery - Leaves required query parameters as they are (no translation done).
+	TranslateRequiredQueryParametersConductQuery TranslateRequiredQueryParametersConduct = "query"
+	// TranslateRequiredQueryParametersConductTemplate - Translates required query parameters to template ones. Is a default value
+	TranslateRequiredQueryParametersConductTemplate TranslateRequiredQueryParametersConduct = "template"
+)
+
+// PossibleTranslateRequiredQueryParametersConductValues returns the possible values for the TranslateRequiredQueryParametersConduct const type.
+func PossibleTranslateRequiredQueryParametersConductValues() []TranslateRequiredQueryParametersConduct {
+	return []TranslateRequiredQueryParametersConduct{
+		TranslateRequiredQueryParametersConductQuery,
+		TranslateRequiredQueryParametersConductTemplate,
 	}
 }
 
