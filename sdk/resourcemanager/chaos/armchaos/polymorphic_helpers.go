@@ -51,3 +51,60 @@ func unmarshalActionClassificationArray(rawMsg json.RawMessage) ([]ActionClassif
 	}
 	return fArray, nil
 }
+
+func unmarshalFilterClassification(rawMsg json.RawMessage) (FilterClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b FilterClassification
+	switch m["type"] {
+	case string(FilterTypeSimple):
+		b = &SimpleFilter{}
+	default:
+		b = &Filter{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalSelectorClassification(rawMsg json.RawMessage) (SelectorClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var m map[string]any
+	if err := json.Unmarshal(rawMsg, &m); err != nil {
+		return nil, err
+	}
+	var b SelectorClassification
+	switch m["type"] {
+	case string(SelectorTypeList):
+		b = &ListSelector{}
+	case string(SelectorTypeQuery):
+		b = &QuerySelector{}
+	default:
+		b = &Selector{}
+	}
+	return b, json.Unmarshal(rawMsg, b)
+}
+
+func unmarshalSelectorClassificationArray(rawMsg json.RawMessage) ([]SelectorClassification, error) {
+	if rawMsg == nil {
+		return nil, nil
+	}
+	var rawMessages []json.RawMessage
+	if err := json.Unmarshal(rawMsg, &rawMessages); err != nil {
+		return nil, err
+	}
+	fArray := make([]SelectorClassification, len(rawMessages))
+	for index, rawMessage := range rawMessages {
+		f, err := unmarshalSelectorClassification(rawMessage)
+		if err != nil {
+			return nil, err
+		}
+		fArray[index] = f
+	}
+	return fArray, nil
+}
